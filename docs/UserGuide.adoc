@@ -39,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[User Interface Walkthrough]]
 == User Interface Walkthrough
-
+image::Ui.PNG[width="1200"]
 
 [[Features]]
 == Features

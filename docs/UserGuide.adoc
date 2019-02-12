@@ -1,4 +1,4 @@
- = ClubManager - User Guide
+= ClubManager - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:

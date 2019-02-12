@@ -534,14 +534,3 @@ completed payments;
 Attendance Rate (sign up for events and actually go)
 Statistics (members per year etc, members age range)
 Display Calendar (v2.0 or something)
-
-Add any features you think should be in our addressbook
-Or if anything looks weird please sound off
-
-Members List: Joel
-Activity List: Minern
-Payment: Melissa 
-Statistics: Yiqing
-Calendar/ Import Export: Kevin
-
-

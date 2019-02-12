@@ -37,8 +37,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-[[User Interface Walkthrough]]
-== User Interface Walkthrough
 image::Ui.PNG[width="1200"]
 
 [[Features]]

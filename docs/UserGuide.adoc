@@ -146,7 +146,7 @@ Deletes the 2nd member in ClubManager.
 `deletemember 1` +
 Deletes the 1st member in the results of the `find` command.
 
-=== Sort members’ list : ‘sortmembers’
+=== Sort members’ list : `sortmembers`
 
 Sort the members list by a member’s attribute in ascending order
 Format: n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR`
@@ -163,7 +163,7 @@ Example:
 ‘sortmembers NAME’
 Sorts the list by name. 
 
-=== Clearing all entries : ‘clear’
+=== Clearing all entries : `clear`
 
 You can clears all entries from the members’ list.
 Format: ‘clear’

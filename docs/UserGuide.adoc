@@ -59,10 +59,12 @@ As a CCA leader, you would be able to:
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
-==*Members Management*
+
+*Members Management*
 ClubManager, at its core, is a member management system that allows you to manage your CCA members’ record more effectively and efficiently.
 The following are the list of commands:
+====
+
 === Adding a member: `addmember`
 
 You can add members to ClubManager. +
@@ -295,14 +297,14 @@ Format: `exportVcf FILE_PATH`
 * Export listed members data from spreadsheet file at location `FILE_PATH` which refers to the path of the spreadsheet file including the filename.
 * The path *must be a valid file path to the programme location* as defined in the user’s Operating System.
 * Each member entry is stored in seperate rows in the file.
-****
- 
+**** 
+
 Examples:
  
 * `exportVcf ./members.vcard` +
 Exports listed member data to members.vcard
 
-===Creating payment request : `payments request`
+=== Creating payment request : `payments request`
 
 Makes a new payment request. +
 Format: `payments request d/DATE a/AMOUNT t/TAG [t/MORE_TAGS]...`
@@ -409,8 +411,7 @@ Examples:
 `list` +
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
-`list` +
+* `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -459,8 +460,6 @@ to the number of signups
 * `makeup` of the members gives a chart of membership percentage of students from +
 different academic year.
 ****
-
-
 
 === Exiting the program : `exit`
 

@@ -13,10 +13,15 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
+== Introduction to MediTabs
 * *MediTabs* is for those who prefer to use a desktop app for managing medicine stock taking.
 * This is especially useful for clinics such as family clinics or private clinics to track the amount of medicine they have left available.
 
-=== Benefits of MediTabs
+== Some of the Key Features of MediTabs
+* It can check the medicine inventory for medicine which are _low stock_ or _expiring_ and *display warnings* to notify that action is required. The warnings are organised in a warning panel for easier access and are automatically removed when the required actions have been taken. With *MediTabs*, you can be at ease knowing that all medicine stocks are accounted for and are not expired.
+* Sorting the medicines is easy using *MediTabs* such as by _quantity_, _expiry date_ or by _name_. Sorting by _ascending_ or _descending_ orders are also possible.
+
+== Benefits of MediTabs
 1. It is _optimized_ for those who prefer to work with a Command Line Interface (CLI) while still being able to enjoy the benefits of a Graphical User Interface (GUI).
 2. If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps.
 
@@ -33,7 +38,7 @@ Interested? What are you waiting for? Start using *MediTabs* to increase the pro
 
 * Original source code: https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AddressBook-Level4 project] by https://github.com/se-edu/[SE-EDU initiative]
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+* Some parts of this application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 

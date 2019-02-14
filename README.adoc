@@ -13,10 +13,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
+== Introduction to MediTabs
 * *MediTabs* is for those who prefer to use a desktop app for managing medicine stock taking.
 * This is especially useful for clinics such as family clinics or private clinics to track the amount of medicine they have left available.
 
-=== Benefits of MediTabs
+== Benefits of MediTabs
 1. It is _optimized_ for those who prefer to work with a Command Line Interface (CLI) while still being able to enjoy the benefits of a Graphical User Interface (GUI).
 2. If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps.
 

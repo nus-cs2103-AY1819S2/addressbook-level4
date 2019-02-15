@@ -1,5 +1,6 @@
 = MediTabs - Your preferred Medicine Stock Taking Application
 ifdef::env-github,env-browser[:relfileprefix: docs/]
+:no-site-header: true
 
 https://travis-ci.org/cs2103-ay1819s2-t12-3/main[image:https://travis-ci.org/cs2103-ay1819s2-t12-3/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/JonathanLeeWH/main/branch/master[image:https://ci.appveyor.com/api/projects/status/voaxxqyrc7lauskt/branch/master?svg=true[Build status]]

@@ -817,7 +817,16 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+. Allow users to manage club members faster and more effectively than a typical mouse/ GUI-driven app. 
+
+. Allow users to plan activities better based on members’ interest. 
+
+. Avoid errors that stem from inaccurate members record (e.g. not keying in CCA points for the member due to inaccurate attendance data). 
+
+. Improve the data collection accuracy and efficiency in the member management process.
+
 
 [appendix]
 == User Stories
@@ -906,9 +915,12 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on any mainstream OS as long as it has Java 9 or higher installed.
+.  Should be able to hold up to 1000 members without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  User can use command line for all write queries.
+.  Should have a short but concise user tutorial section to speed up new users’ assimilation of the system.
+.  Available offline to ensure system can be used at all times.
 
 _{More to be added}_
 
@@ -932,13 +944,13 @@ Basic functions of a database
 [[GUI]] GUI::
 Graphical User Interface
 
-[[Main Committee Member]] Main Committee Member::
+[[Main-Committee-Member]] Main Committee Member::
 A person who is in the core team of organisers for the CCA.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[Sub-Committee Member]] Sub-Committee Member::
+[[Sub-Committee-Member]] Sub-Committee Member::
 A person who is an active member of the CCA, but do not play any organiser role. 
 
 [appendix]

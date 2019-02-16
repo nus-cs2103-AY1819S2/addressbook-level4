@@ -876,14 +876,14 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete Member
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Admin requests to list persons
+2.  Club Manager shows a list of members
+3.  User requests to delete a specific member in the list
+4.  Club Manager deletes the member
 +
 Use case ends.
 
@@ -897,7 +897,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Club Manager shows an error message.
 +
 Use case resumes at step 2.
 
@@ -915,28 +915,52 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+This section is designed to provide you with definitions for
+terms that are used in this document below.
+
+[horizontal]
+
+[[CLI]] CLI::
+Command Line Interface
+
+[[CCA]] CCA::
+Co-Curricular Activities
+
+[[crud]] Create, Read, Update and Delete (CRUD)::
+Basic functions of a database
+
+[[GUI]] GUI::
+Graphical User Interface
+
+[[Main Committee Member]] Main Committee Member::
+A person who is in the core team of organisers for the CCA.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[Sub-Committee Member]] Sub-Committee Member::
+A person who is an active member of the CCA, but do not play any organiser role. 
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Product Name:* EventBank
 
-Author: ...
+Author: Joel Ng
 
 Pros:
 
-* ...
-* ...
+* Has necessary relevant features to a member management system
+* Available in Desktop and Mobile Platforms. 
+* Easy to use and set up activities for members.
 
 Cons:
 
-* ...
-* ...
+* Does not clearly differentiate the Users application and the managers application well. This caused managers to download the users application.
+
+* Interface could be more intuitive e.g. allowing preview of corporate members.
+
+* No training document provided. Users have to contact the support manager for “how to” questions.
 
 [appendix]
 == Instructions for Manual Testing

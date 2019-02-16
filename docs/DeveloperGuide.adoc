@@ -827,17 +827,45 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |CCA main committee member |see who are the members in my CCA |track the CCA’s current membership level
 
-|`* * *` |user |add a new person |
+|`* * *` |CCA main committee member |see which members are attending an activity |plan the activity according to the participation rate.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |CCA main committee member |see which members are interested in attending a future event |decide whether to execute the activity or to cancel it based on the level of  interests.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |CCA main committee member |view the activities that a member has participated. |better select applicants for the main committee positions.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |CCA main committee member |see the payments of each member |track the payments of each member.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |CCA main committee member |sort members into categories (e.g. race, nationality, religion, gender, year of study).  |target specific groups of members based on the type of activities offered by the CCA (e.g. interfaith CCA, Sports Club). 
+
+|`* *` |CCA main committee member |add new members to the CCA |see the new members in the list
+
+|`* *` |CCA main committee member |delete members from the CCA |see the new members in the list
+
+|`* *` |CCA main committee member |see who are in this CCA |see the new members in the list
+
+|`* *` |CCA main committee member |see what are the ongoing and upcoming activities of the CCA |sign up for activities I am interested in.
+
+|`* *` |CCA main committee member |view the list of people who have not made payment based on activity |request payment from these members
+
+|`* *` |CCA main committee member |conduct surveys |gather feedback from users
+
+|`* *` |CCA main committee member |Import and export members data |easily enter new members’ information from the annual CCA fair.
+
+|`* *` |CCA main committee member |to have a calendar that shows the activities |plan my schedule
+
+|`* *` |CCA main committee member |Record the attendance of members |see the new members in the list.
+
+|`* *` |CCA main committee member |send a quick SMS/email to members |inform them of any upcoming activities
+
+|`* *` |CCA main committee member |track the attendance of members |Identify members who are inactive
+
+|`* *` |CCA main committee member |add event tags to members |record which members are going for which events
+
+|`* *` |CCA main committee member |remove tags from members |keep the address book neat after an event has concluded
+
+|`* *` |CCA main committee member |create an activity list |see the upcoming events
 |=======================================================================
 
 _{More to be added}_

@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+Equipment Manager was developed by the https://github.com/orgs/CS2103-AY1819S2-W10-3/teams/developers[W10-3] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. +
+
+This Java application is developed for CS2103T Software Engineering.
 
 == Project Team
 
-=== John Doe
+=== Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Rachel Tan Xue Qi
+image::rachel_dp.png[width="150", align="left"]
+{empty}[https://github.com/e0191632[github]]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: In-progress
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Tan Mei Yen
+image::meiyen_dp.png[width="150", align="left"]
+{empty}[https://github.com/bendymochi[github]]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: In-progress
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Liu Xuan
+image::liuxuan_dp.png[width="150", align="left"]
+{empty}[https://github.com/liuxuanian[github]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: In-progress
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Sun Yiqun
+image::yiqun_dp.png[width="150", align="left"]
+{empty}[https://github.com/dukesun99[github]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: In-progress
 
 '''

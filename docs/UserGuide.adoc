@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Quickdocs - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,243 +18,244 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Quickdocs is a program that is catered for doctors practicing in small family clinics in Singapore. It integrates the patient, appointment and stock management into a single application. Doctors can better manage their clinics while still maintaining a small manpower size. 
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the jar file and put it into a directory you desire.
+.  Launch the application and set a password 
+.  Type command into command box and press enter to execute it
+.  Click on the buttons if you want to use the GUI to perform the actions instead.
 
 [[Features]]
 == Features
 
 ====
-*Command Format*
+*Quickdocs features command sequences to perform actions, in the following format:*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+command VALUE prefix/VALUE [OPTIONAL_VALUE]...
+
+* Commands are in lowercase, you can view all of them using the help command
+* Values are the user input, which the user intend to store or manipulate data with
+* Prefix are used to complement certain commands such as adding or editing of records
+* Optional values can be placed after the command, and can be added multiple times after the command, value and prefix
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Patient Management - adding patient: `padd`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add a patient into quickdocs’ patient records. Tags can be added to a patient record to ease searching. +
 
-[TIP]
-A person can have any number of tags (including 0)
+Format: `padd n/NAME d/DOB g/GENDER a/ADDRESS c/CONTACT e/EMAIL [tag]...`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `padd n/Gary Goh g/Male d/01-04-1965 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com [High blood pressure] [Diabetes]`
+* `padd n/Chan Mei Hua d/09-05-1960 g/Female c/92341221 a/2 Simei Street e/cmh@gmail.com`
 
-=== Listing all persons : `list`
+=== Patient Management - deleting patient `pdelete`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Delete a patient record into quickdocs. A confirmation have to be made before record is deleted.
 
-=== Editing a person : `edit`
+Format: `pdelete INDEX` +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Example: `pdelete 1` +
+(Are you sure you want to delete record for Gary Goh?) `YES`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
 
-Examples:
+=== Patient Management - editing patient `pedit`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Edit patient detail +
+Format: `pedit INDEX [n/NAME] [a/Address] …`
 
-=== Locating persons by name: `find`
+Example: +
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+* `pedit 21 [n/Tan Ah Kow] [p/92256711] [e/tanahkow@gmail.com]` +
+* `pedit 4 [p/90691717] [g/Female]` +
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+
+=== Patient Management - list patient details : `plist`
+
+List patient details, can be filtered using name and tags +
+Format: `plist [KEYWORD] …`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `plist`
+   List all the patient detail entries
+* `plist a`
+   List all the patient detail entries whose name starts with a
+* `plist [diabetes]`
+   List all diabetic patients
 
-=== Deleting a person : `delete`
+=== Patient Management - consultation: `select`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Select the patient for the consultation session, the doctor can then add the symptoms as the patient is listing to him or her. The doctor can enter “end” to stop recording symptoms. +
+Format: select INDEX
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Example:
 
-Examples:
+* `select 3` +
+  `Coughing` +
+  `Runny nose` +
+  `end`
+* `Dextromethorphan d/for coughing f/3 times a day` +
+  `Phenylephrine spray d/for runny nose f/3 times a day` +
+  `end`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+=== Patient Management - view records: `phistory`
 
-=== Selecting a person : `select`
+Show the previous consultation details of a particular patient. The individual consultation entries will be displayed in a list and can be viewed by entering the index while prompted. Entering “end” will move back to the previous menu +
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Format: `phistory INDEX`
 
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+Example:
 
-Examples:
+* `phistory 17` +
+viewing Alice Tan's medical history: `3` +
+viewing Alice Tan's medical history: `5` +
+`end`
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+=== Patient Management - generate invoice: [coming in v2.0]
 
-=== Listing entered commands : `history`
+Generates the invoice for a given prescription. After selecting the patient, select the consultation to view in detail and then select the desired prescription.
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+=== Appointment and reminders - adding appointments: `appadd`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+Create an appointment with a patient to add to your schedule. You will be prompted for the start and end time of the appointment.
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+Format: appadd INDEX DATE
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+Example: +
+*`appadd 145 230719` +
+* (shows free slots for the specified DATE) +
+* (Enter Start Time) `1600` +
+* (Enter End Time) `1700`
 
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+=== Appointment and reminders - listing appointments: `applist`
+Displays a list of appointments made, ordered by time and date. Can be filtered using dates and tags. Keyword can be either day, week, month or patient.
 
-Examples:
+Format: applist KEYWORD [DATE/INDEX]
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+Example: +
+* 	`applist` Lists all appointments on the current day (by default with no tags). +
+* 	`applist day 230719` Lists all appointments on 23rd July 2019. +
+* 	`applist month 230719` Lists all appointments in the month of the given date, July 2019. +
+*	`applist patient 145` Lists all appointments made with patient index 145. +
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+=== Appointment and reminders - deleting appointments: `appdelete`
+Delete an appointment previously created. A confirmation have to be made before appointment is deleted.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+Format: appdelete DATE TIME
 
-=== Redoing the previously undone command : `redo`
+Example:
+* `appdelete 230719 1600` +
+(Are you sure you want to delete appointment with Gary Goh on 230719 from 1600 to 1700?) `YES`
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+=== Appointment and reminders - list free appointment slots: `appfree`
 
-Examples:
+Displays a list of free slots, ordered by time and date. Can be filtered using dates and tags. Keyword can be either day, week or month.
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+Format: appfree KEYWORD DATE
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+Example: +
+*   `appfree` Lists all free slots in the current day. (By default without any tags) +
+* 	`appfree day 230719` Lists all free slots on 23rd July 2019. +
+*	`appfree month 230719` Lists all free slots in the month of the given date, July 2019.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+=== Appointment and reminders - timing of reminders: `remtime`
 
-=== Clearing all entries : `clear`
+Adjust how long before the actual appointment time to receive the reminder.
 
-Clears all entries from the address book. +
-Format: `clear`
+Format: remtime TIME
 
-=== Exiting the program : `exit`
+Example: +
+*   `remtime 30` Receives reminders 30 minutes before the actual appointment time.
 
-Exits the program. +
-Format: `exit`
+=== Appointment and reminders - sending email reminders to patients: [coming in v2.0]
 
-=== Saving the data
+Sends an auto-email reminder to patients regarding an approaching appointment date.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Administration - viewing statistics: `stats`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Views the statistics of the clinic.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: stats [TOPIC] [FROM_MONTH] [TO_MONTH] [FROM_YEAR] [TO_YEAR] [GRAPHICS]
 
-== FAQ
+[TOPIC]: select the statistic of the topic desired. Allowed arguments: patients, expenditures, profits, medicines, all. Default value: all +
+[FROM_MONTH]: View the stats of the numerical month inputted. Default value: current month +
+[TO_MONTH]: If inputted, view the stats from FROM_MONTH to TO_MONTH. Default value: current month +
+[FROM_YEAR]: If inputted, view the stats of the month FROM_MONTH in the specified year, or the range of months FROM_MONTH to TO_MONTH in the specified year. Default value: current year. +
+[TO_YEAR]: If inputted, view the stats of the range of month FROM_MONTH to TO_MONTH from FROM_YEAR to TO_YEAR. Default value: current year. +
+[GRAPHICS]: if true, output graphical charts Default value: false
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Examples: +
+	`stats all` : view all the stats of the current month, current year +
+ 	`stats 1`: view all the stats of Jan, current year +
+	`stats 1 3` : view all the stats from Jan to March of current year +
+	`stats medicines 2018 true`: view  graphical statistics of medicines for the year 2018 +
+	`stats expenditures 1 2018 2019`: view statistics of expenditures for Jan 2018. +
+	`stats profits 1 6 2017 2018`: view statistics of profit from Jan 2017 to June 2018 +
 
-== Command Summary
+=== Administration - locking the application: `lock`
+Locks the application, requires the user to login again with the password +
+Format: `lock`
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+=== Administration - resetting password: `resetpass`
+Resets the password, either from within the application, or lock screen. Authenticated with security question. +
+Format: `RESETPASS` (case sensitive)
+
+=== Administration - viewing medical license duration: `license`
+Views the medical license duration +
+Format: `license`
+
+=== Administration - generate medical certificate: [coming in V2.0]
+
+Generates a custom MC
+
+=== Inventory - view medicine storage: `medstorage`
+
+Show the amount of medicine storage in the clinic. The storage amount for individual medicine could also be viewed.
+Format: `medstorage`
+
+Example: +
+* `medstorage` Shows a list of all medicine and their storage amount +
+* `medstorage panadol` Shows the storage amount of panadol in the clinic
+
+=== Inventory - setting notification for low stock: `setalert`
+
+An automatic notification will pop up when the storage of any medicine fall below the specific alert value set by the user
+
+Format: `setalert [MEDICINE] [AMOUNT]`
+
+Example: +
+* `setalert panadol 50` the alert level of panadol storage is set to 50. A notification will appear when panadol storage falls below 50.
+
+=== Inventory - recording purchases of medicine: `purchase`
+
+Purchase of medicine can be recorded and the storage amount will be consequently updated +
+Format: `purchase [MEDICINE] [AMOUNT] [EXPENDITURE]` +
+
+Example: `purchase panadol 10 400`
+
+=== Inventory - view past record of medicine purchase: `purchaserecord`
+View the past record of medicine purchase +
+Format: purchaseRecord +
+
+Example: `purchaseRecord panadol`
+
+=== Inventory - View the detailed information about any medicine: [coming in V2.0]
+Using external APIs, the users could view more detailed information about any medicine.
+
+=== Inventory - Automatic information of medicine supply after prescription: [coming in V2.0]
+
+After each prescription, if the medicine in storage is insufficient for the prescription, a warning will appear and the prescription will not be record.
+
+After each successful prescription, the updated storage amount of affected medicine will automatically be reflected.

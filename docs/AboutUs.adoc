@@ -38,8 +38,8 @@ Responsibilities: Appointment and Reminder Features
 '''
 
 === Xue Chenyang
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::xue-chenyang.jpg[width="150", align="left"]
+{empty}[http://github.com/Xue-Chenyang[github]] [<<johndoe#, portfolio>>]
 
 Role: Scheduling and Tracking +
 Responsibilities: Inventory Management

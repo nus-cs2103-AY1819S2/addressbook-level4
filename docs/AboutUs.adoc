@@ -19,9 +19,9 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Chen Wen
+image::chenwencuhk.png[width="150", align="left"]
+{empty}[https://github.com/ChenWenCUHK[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -46,9 +46,9 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tan LongBin
+image::tanlongbin.png[width="150", align="left"]
+{empty}[https://github.com/tanlongbin[github]]
 
 Role: Developer +
 Responsibilities: UI

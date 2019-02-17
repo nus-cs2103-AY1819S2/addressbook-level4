@@ -38,8 +38,7 @@ Responsibilities: Data
 '''
 
 === Sharad Kochhar
-image::
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading

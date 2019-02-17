@@ -19,9 +19,9 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
+=== Chen Wen
 image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ChenWenCUHK[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI

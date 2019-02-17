@@ -187,22 +187,30 @@ Sends an auto-email reminder to patients regarding an approaching appointment da
 
 Views the statistics of the clinic.
 
-Format: stats [TOPIC] [FROM_MONTH] [TO_MONTH] [FROM_YEAR] [TO_YEAR] [GRAPHICS]
+Format: `stats [TOPIC] [FROM_MONTH] [TO_MONTH] [FROM_YEAR] [TO_YEAR] [GRAPHICAL]`
 
-[TOPIC]: select the statistic of the topic desired. Allowed arguments: patients, expenditures, profits, medicines, all. Default value: all +
-[FROM_MONTH]: View the stats of the numerical month inputted. Default value: current month +
-[TO_MONTH]: If inputted, view the stats from FROM_MONTH to TO_MONTH. Default value: current month +
-[FROM_YEAR]: If inputted, view the stats of the month FROM_MONTH in the specified year, or the range of months FROM_MONTH to TO_MONTH in the specified year. Default value: current year. +
-[TO_YEAR]: If inputted, view the stats of the range of month FROM_MONTH to TO_MONTH from FROM_YEAR to TO_YEAR. Default value: current year. +
-[GRAPHICS]: if true, output graphical charts Default value: false
+* If there are no optional arguments, the application will prompt the user for each of them. +
+* Views the statistics of the topic specified at `TOPIC`. Allowed arguments: `patients`, `revenue`, `expenditures`, `profits`, `medicines`.  +
+* If `FROM_MONTH` or `TO_MONTH` are not specified, it will be defaulted to current month. +
+* If `FROM_YEAR` or `TO_YEAR` are not specified, it will be defaulted to current year. +
+* Options to view the statistics in graphical form if `GRAPHICAL` is specified true. Else, the output will be in text form. +
 
-Examples: +
-	`stats all` : view all the stats of the current month, current year +
- 	`stats 1`: view all the stats of Jan, current year +
-	`stats 1 3` : view all the stats from Jan to March of current year +
-	`stats medicines 2018 true`: view  graphical statistics of medicines for the year 2018 +
-	`stats expenditures 1 2018 2019`: view statistics of expenditures for Jan 2018. +
-	`stats profits 1 6 2017 2018`: view statistics of profit from Jan 2017 to June 2018 +
+Examples:
+
+* `stats` +
+View the prompts for topic, range of date, and display preference. +
+* `stats all` +
+View all the stats of the current month, current year. +
+* `stats 1` +
+View all the stats of Jan, current year. +
+* `stats 1 3` +
+View all the stats from Jan to March of current year. +
+* `stats medicines 2018 true` +
+View graphical statistics of medicines for the year 2018. +
+* `stats expenditures Jan 2018 2019` +
+View statistics of expenditures for Jan 2018. +
+* `stats profits 1 6 2017 2018` +
+View statistics of profit from Jan 2017 to June 2018. +
 
 === Administration - locking the application: `lock`
 Locks the application, requires the user to login again with the password +
@@ -210,7 +218,7 @@ Format: `lock`
 
 === Administration - resetting password: `resetpass`
 Resets the password, either from within the application, or lock screen. Authenticated with security question. +
-Format: `RESETPASS` (case sensitive)
+Format: `RESETPASS`
 
 === Administration - viewing medical license duration: `license`
 Views the medical license duration +

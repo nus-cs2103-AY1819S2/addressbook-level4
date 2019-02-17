@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.util.FileName;
+import seedu.address.commons.util.FileName;
 
 /**
  * Parses input arguments and creates a new ExportCommand object

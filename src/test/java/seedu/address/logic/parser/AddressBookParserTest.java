@@ -31,7 +31,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.util.FileName;
+import seedu.address.commons.util.FileName;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.ExportUtil;
 import seedu.address.testutil.PersonBuilder;

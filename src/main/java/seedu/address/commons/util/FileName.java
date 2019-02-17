@@ -1,4 +1,4 @@
-package seedu.address.model.util;
+package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -10,20 +10,22 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class FileName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "File Names should only contain alphanumeric characters and it should not be blank";
+            "File Names (without including file format) should only start with alphanumeric characters following "
+                    + "which can contain alphanumeric characters "
+                    + "or \"_\" or \"-\" (without quotation marks) and it should not be blank";
 
     /*
      * The characters of the file name must not contain any whitespace
-     * and does not contain certain symbols like \/:*?"<>|, otherwise " " (a blank string) becomes a valid input.
+     * and does not contain certain symbols like \/:*?"<>|.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}_]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}_-]*";
 
     public final String fullFileName;
 
     /**
      * Constructs a {@code FileName}.
      *
-     * @param fileName A valid name.
+     * @param fileName A valid file name.
      */
     public FileName(String fileName) {
         requireNonNull(fileName);
@@ -32,9 +34,12 @@ public class FileName {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid file name.
      */
     public static boolean isValidFileName(String test) {
+        if (test.isEmpty()) {
+            return false;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

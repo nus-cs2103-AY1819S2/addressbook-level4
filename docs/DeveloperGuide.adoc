@@ -854,35 +854,97 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Quickdocs` and the *Actor* is the `doctor`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Consultation
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User enter select command followed by index
+2. Quickdocs show prompt that indicates to user that he or she is currently editing a consultation report
+3. User enter symptoms
+4. Quickdocs indicate to user that the symptom is recorded
+5. User enters “end”
+6. Quickdocs shows prompt to indicate user that he or she is now editing the prescription for this session.
+7. User enter medicine administered followed by frequency of use
+8. Quickdocs indicate to user medicine is added
+9. User enters end
+10. Quickdocs indicate to user that the consultation has ended.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. User enter invalid index
+[none]
+** 1a1. Quickdocs alert user that the index is invalid
+** 1a2. User have to reenter command
++
+Use case resumes from step 1.
+[none]
+* 1b. No patient records created yet
+[none]
+** 1b1. Quickdocs alert user that no patient is created yet, suggest to create a new patient record first
+** 1b2. User have to reenter command
++
+Use case resumes from step 1.
+[none]
+* 3a. User enter “undo”
++
+[none]
+** 3a1. Quickdocs display message to user that last symptom added is undone.
+** 3a2. Quickdocs prompts user to reenter symptom.
+** 3a3. User re-enter symptom
++
+Use case resumes at step 3.
+[none]
+* 7a. User enters “undo”
+[none]
+** 7a1. Quickdocs display message to user that last prescribed medicine is removed.
+** 7a2. Quickdocs prompts user to reenter medicine.
+** 7a3. User re-enter medicine
++
+Use case resumes at step 7.
+
+[discrete]
+=== Use case: View patient medical record
+
+*MSS*
+
+1. User enter command to view patient history with index
+2. Quickdocs show list of patient’s consultation records
+3. Quickdocs prompt user to enter index
+4. User enter index of record he or she wants to see
+5. Quickdocs show selected patient record
+6. User enters end to stop looking at record
+7. Use case repeat from case 2 until user enters “end” again after step 6
+8. Quickdocs shows message to inform user he or she is no longer looking at patient records
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+[none]
+* 1a. User enter invalid index
+[none]
+** 1a1. Quickdocs alert user that the index is invalid
+** 1a2. Quickdocs exit view patients record
++
+Use case ends.
+[none]
+* 4a. User enter invalid medical record index
+[none]
+** 4a1. Quickdocs alert user that index entered was invalid
++
+Use case resumes from step 3.
+[none]
+* 6a. User enter command apart from “end”
+[none]
+** Quickdocs prompt user that command was invalid and inform them that “end” will exit view
++
+Use case resumes from 5.
 
 [appendix]
 == Non Functional Requirements

@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Chen Wen
-image::lejolly.jpg[width="150", align="left"]
+image::chenwencuhk.jpg[width="150", align="left"]
 {empty}[https://github.com/ChenWenCUHK[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +

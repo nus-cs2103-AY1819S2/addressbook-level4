@@ -4,9 +4,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.FileName;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.commons.util.FileName;
 
 /**
  * Parses input arguments and creates a new ExportCommand object

@@ -17,6 +17,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
+    public static final String TOTAL_PERSONS = "Total person stored: %d";
 
     /**
      * Used to generate time stamps.
@@ -30,17 +31,23 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private static final String FXML = "StatusBarFooter.fxml";
 
+    private static ReadOnlyAddressBook addressBook;
+
     @FXML
     private Label syncStatus;
     @FXML
     private Label saveLocationStatus;
+    @FXML
+    private Label totalPersons;
 
 
     public StatusBarFooter(Path saveLocation, ReadOnlyAddressBook addressBook) {
         super(FXML);
+        this.addressBook = addressBook;
         addressBook.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+        totalPersons.setText(String.format(TOTAL_PERSONS, addressBook.getPersonList().size()));
     }
 
     /**
@@ -64,6 +71,7 @@ public class StatusBarFooter extends UiPart<Region> {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        totalPersons.setText(String.format(TOTAL_PERSONS, addressBook.getPersonList().size()));
     }
 
 }

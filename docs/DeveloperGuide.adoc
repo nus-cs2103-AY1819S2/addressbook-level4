@@ -861,7 +861,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1. User enter select command followed by index
+1. User enter select command followed by search criteria
 2. Quickdocs show prompt that indicates to user that he or she is currently editing a consultation report
 3. User enter symptoms
 4. Quickdocs indicate to user that the symptom is recorded
@@ -880,17 +880,27 @@ Use case ends.
 * 1a. User enter invalid index
 [none]
 ** 1a1. Quickdocs alert user that the index is invalid
-** 1a2. User have to reenter command
 +
-Use case resumes from step 1.
+Use case ends here.
 [none]
 * 1b. No patient records created yet
 [none]
 ** 1b1. Quickdocs alert user that no patient is created yet, suggest to create a new patient record first
-** 1b2. User have to reenter command
++
+Use case ends here.
+[none]
+* 1c. User enter a patient’s name that is unique in the storage
 +
 Use case resumes from step 1.
 [none]
+* 1d. User enter a non unique patient’s name
+[none]
+** 1d1.  Quickdocs show list of patients with the same name, and prompt index
+** 1d2.  User refine search criteria, either by entering index or full name of the patient
++
+Use case resumes from step 1.
+[none]
+
 * 3a. User enter “undo”
 +
 [none]
@@ -913,7 +923,7 @@ Use case resumes at step 7.
 
 *MSS*
 
-1. User enter command to view patient history with index
+1. User enter command to view patient history with search criteria
 2. Quickdocs show list of patient’s consultation records
 3. Quickdocs prompt user to enter index
 4. User enter index of record he or she wants to see
@@ -932,7 +942,24 @@ Use case ends.
 ** 1a1. Quickdocs alert user that the index is invalid
 ** 1a2. Quickdocs exit view patients record
 +
-Use case ends.
+Use case ends here.
+[none]
+* 1b. No patient record created yet
+[none]
+** 1b2. Quickdocs alert user that no patient is created yet, suggest to create a new patient record first
++
+Use case ends here.
+[none]
+* 1c. User enter a patient’s name that is unique in the storage
++
+Use case resumes from step 1.
+[none]
+* 1d. User enter a non unique patient’s name
+[none]
+** 1d1.  Quickdocs show list of patients with the same name, and prompt index
+** 1d2. User refine search criteria, either by entering index or full name of the patient
++
+Use case resumes from step 1.
 [none]
 * 4a. User enter invalid medical record index
 [none]

@@ -28,8 +28,8 @@ public class FileNameTest {
         // invalid file name
         assertFalse(FileName.isValidFileName("")); // empty string
         assertFalse(FileName.isValidFileName(" ")); // spaces only
-        assertFalse(FileName.isValidFileName("^")); // only non-alphanumeric characters
-        assertFalse(FileName.isValidFileName("example*")); // contains non-alphanumeric characters
+        assertFalse(FileName.isValidFileName("^")); // only not supported non-alphanumeric characters
+        assertFalse(FileName.isValidFileName("example*")); // contains not supported non-alphanumeric characters
         assertFalse(FileName.isValidFileName("example record")); // alphabets with a space only
         assertFalse(FileName.isValidFileName("exampleRecord.csv")); // alphabets with file format
         assertFalse(FileName.isValidFileName(".csv")); // file format

@@ -17,7 +17,7 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports the current list to a .csv file. "
             + "Parameters: "
-            + "FILENAME\n"
+            + "[FILE_NAME]\n"
             + "Example: " + COMMAND_WORD + " "
             + "example";
 

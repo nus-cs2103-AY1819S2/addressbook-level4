@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.ExportCommand;
 import seedu.address.commons.util.FileName;
+import seedu.address.logic.commands.ExportCommand;
 
 /**
  * A utility class for Export.

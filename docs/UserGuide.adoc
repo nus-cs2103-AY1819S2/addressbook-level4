@@ -1,6 +1,7 @@
-= AddressBook Level 4 - User Guide
+﻿= AddressBook Level 4 - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -42,6 +43,35 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+
+=== Management Mode
+
+=== Quiz Mode
+
+==== Quit Session: `\quit`
+
+Quits a quiz session +
+Format: `\quit`
+
+==== View help: `\help`
+
+Lists out all the commands and inputs the program will accept. +
+Format: `\help`
+
+==== View hint: `\hint`
+
+Reveals additional information to help user solve the question. +
+Format: `\hint`
+
+==== View status: `\status`
+
+Lists current status and lesson progression of user. +
+Format: `\status`
+
+==== Answer : `[*]`
+
+Enters any character without escape character \ is treated as an answer., and will be deemed correct/wrong depending on the question.
+Format: `[*]`
 
 ====
 *Command Format*
@@ -229,6 +259,14 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Importing user profile : `import user`
+
+App is able to import files
+
+=== Exporting user profile : 'export user'
+
+App is able to export the files
+
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
@@ -258,3 +296,5 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Import* : 'import'
+* *Export* : 'export'

@@ -233,6 +233,16 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::import/exportuser
+=== import/export feature
+The import/export feature allows user to import CSV files into object and export objects to CSV files.
+
+==== Current Implementation
+The import/export feature currently contains 2 commands to xxxxxxxxx
+
+* 'importuser' - Imports the selected CSV file and load the current progress of the user.
+* *exportuser' - Exports the current progress of the user into a CSV file.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -312,6 +322,27 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::quiz[]
+=== Quiz feature
+The Quiz feature allows users to enter quiz related commands and answer.
+
+==== Current Implementation
+The Quiz feature currently contains 4 commands to xxxxxxxxxxxxxx and answer input.
+
+* `\quit` - Quits a quiz session.
+* `\help` - Lists all commands in quiz and inputs the program will accept.
+* `\hint` - Reveals additional information to help user to solve the question.
+* `\status` - Lists current status and lesson progress of user.
+* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+
+==== Design Considerations
+
+
+===== Aspect: How Quiz executes
+
+
+// end::quiz[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

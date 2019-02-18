@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Eugene Foo TODO - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

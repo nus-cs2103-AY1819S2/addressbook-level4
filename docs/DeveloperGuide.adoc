@@ -811,41 +811,66 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Engineers who need to keep track of their preventive maintenance schedule
+* Wants to plan the most efficient route to multiple locations
+* Prefers desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information effectively
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+*CRUD*
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user | delete an equipment or its specific details | remove equipment that is obsolete
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user | delete worklist | remove worklist which indicates work completed and no longer need it for tracking progress
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user | have a worklist where I can store the equipments I am working on | Keep tack of all the equipments that I'm 
 |=======================================================================
 
+*Filter*
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |user |delete an equipment or its specific details | remove equipment that is obsolete
+|=======================================================================
+
+*Sort*
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |user |sort the list based on some fields | view the list in a more clear way
+|=======================================================================
+
+*Google Map and Route Planning*
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |user |know how to get to the location which the equipment is at | navigate to the equipment address easily
+|`*` |user |plan efficient route between multiple locations | increase productivity, cut transportation costs, improve maintenance services
+|`*` |user |have a visual representation of areas I am visiting | have quick overview on information
+|=======================================================================
+
+*Other commands*
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |user | receive notifications on the equipment that is due for preventive maintenance | know which equipment requires preventive maintenance as soon as possible
 _{More to be added}_
+
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Equipment Manager` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person

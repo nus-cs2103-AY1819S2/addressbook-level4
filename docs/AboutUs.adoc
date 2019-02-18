@@ -47,7 +47,7 @@ Responsibilities: Management System and Documentation
 '''
 
 === Chang Lei
-image::Lei.png[width="150", align="left"]
+image::lallanachang.png[width="150", align="left"]
 {empty}[https://github.com/lallanachang[github]] [<<ChangLei#, portfolio>>]
 
 Role: Developer +

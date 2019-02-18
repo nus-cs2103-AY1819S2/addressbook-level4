@@ -901,7 +901,7 @@ Entry::
 A listed item/activity tracked by the application. It usually consists of the amount, along with a category tag (if specified)
 
 Records::
-the list of all entries stored in the application
+The list of all entries stored in the application
 
 [appendix]
 == Product Survey
@@ -955,6 +955,7 @@ Pros:
 * Search function present
 
 Cons:
+
 * Sync feature takes a long time
 * Crash every now and then
 * Categories are hard to identify in pie charts

@@ -879,8 +879,12 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on both 32-bit and 64-bit environments.
+.  Should be able to hold up to 1000 expenditure records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The user interface should be intuitive and easy to use for people who are not IT-savvy.
+.  Responses by the system should be fast (~5 seconds).
+
 
 _{More to be added}_
 

@@ -39,7 +39,7 @@ Responsibilities: Data
 
 === Teng Yun
 image::caesarty.png[width="150", align="left"]
-{empty}[http://github.com/caesarty[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/caesarty[github]] [<<caesarty#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading

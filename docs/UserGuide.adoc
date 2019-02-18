@@ -259,6 +259,14 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Importing user profile : `import user`
+
+App is able to import files
+
+=== Exporting user profile : 'export user'
+
+App is able to export the files
+
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
@@ -288,3 +296,5 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Import* : 'import'
+* *Export* : 'export'

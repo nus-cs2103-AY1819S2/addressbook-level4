@@ -233,6 +233,16 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::import/exportuser
+=== import/export feature
+The import/export feature allows user to import CSV files into object and export objects to CSV files.
+
+==== Current Implementation
+The import/export feature currently contains 2 commands to xxxxxxxxx
+
+* 'importuser' - Imports the selected CSV file and load the current progress of the user.
+* *exportuser' - Exports the current progress of the user into a CSV file.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

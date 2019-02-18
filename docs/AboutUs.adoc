@@ -19,7 +19,7 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
+=== Daniel Sim
 image::danieldssim.png[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 

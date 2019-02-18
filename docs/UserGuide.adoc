@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/orgs/CS2103-AY1819S2-W15-3/teams/developers
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -59,15 +59,16 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS m/MAJOR c/COMPANY [mo/MOUDLE] [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
+A person can have any number of moudules (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, m/CS c/Amazon #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal m/ME c/Facebook mo/CS2103 mo/CS2105`
 
 === Listing all persons : `list`
 
@@ -77,7 +78,7 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/COMPANY] [mo/MOUDLE] [a/ADDRESS] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -85,6 +86,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* You can remove all the person's moudles by typing `mo/` without specifying any moudles after it.
 ****
 
 Examples:
@@ -113,6 +115,43 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+
+=== Searching persons by personal information: `search`
+
+Searchs persons whose personal information exactly is the given keywords in specific field. +
+Format: `search [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE] [t/TAG]`
+
+****
+* The search is case insensitive. e.g `cs` will match `CS`
+* Any personal information is searched.
+* Only full information will be matched e.g. `computer` will not match `Computer Science`
+* Persons matching all keywords will be returned (i.e. `AND` search). 
+****
+
+Examples:
+
+* `search m/CS` +
+Returns people whose major is `CS`
+* `search m/CS c/Facebook` +
+Returns any person whose major is `CS` and company is `Facebook`
+
+=== Adding tags base on personal information : `addtag`
+
+Adds tag for people by their personal information. +
+Format: `addtag TAGNAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE]`
+
+****
+* Adds tag for people at the specified field.
+* The TAGNAME refers to the tag name you want to add to people.
+* Persons matching all keywords will be add tag (i.e. `AND` search). 
+****
+
+Examples:
+
+* `addtag CS m/CS`
+Add CS tag for all people whose major is `CS`.
+* `addtag Assignment t/friend m/CS`
+Add `Assignment` tag for all people whose major is `CS` and have tag `friend`.
 
 === Deleting a person : `delete`
 

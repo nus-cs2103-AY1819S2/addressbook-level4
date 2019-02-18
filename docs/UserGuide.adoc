@@ -70,7 +70,7 @@ Example:
 === Adding a request/health worker/patient: `add`
 
 Adds a request, health worker or patient to the application based on the `<type>` parameter accepted +
-Format: `add <type> <additional_parameters>...`
+Format: `add <type> <additional_parameters>...` +
 Types:
 * 1: Adding a request `add 1 n/<patient_name> c/<condition> d/<date> t/time`
 * 2: Adding a health worker `add 2 n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
@@ -84,8 +84,8 @@ Examples:
 === Editing a request/health worker/patient : `edit`
 
 Edits a request, health worker or patient to the application based on the `<type>` parameter accepted. +
-Format: `edit <type> <index> <additional_parameters>...`
-Types:
+Format: `edit <type> <index> <additional_parameters>...` +
+Types: + 
 * 1: Edit a request `edit 1 <index> n/<patient_name> c/<condition> d/<date> t/time`
 * 2: Edit a health worker `edit 2 <index> n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
 * 3: Edit a patient `edit 3 <index> n/<patient_name> i/<NRIC> n/<phone_number>`
@@ -101,9 +101,9 @@ Types:
 Examples:
 
 * `edit 2 1 p/91234567 n/John Doe` +
-Edits the phone number and name of the 1st health worker to be `91234567` and `John Doe` respectively.
+Edits the phone number and name of the 1st health worker to be `91234567` and `John Doe` respectively. +
 * `edit 3 2 n/Betsy Crower` +
-Edits the name of the 2nd patient to be `Betsy Crower`.
+Edits the name of the 2nd patient to be `Betsy Crower`. +
 
 === Locating request/health worker/patient by name: `find`
 
@@ -131,11 +131,11 @@ Returns requests that involved patients whose names are `Betsy`, `Tim`, or `John
 === Deleting a request/health worker/patient : `delete`
 
 Deletes a request, health worker or patient to the application based on the `<type>` parameter accepted. +
-Format: `delete <type> <index>`
-Types:
+Format: `delete <type> <index>` +
+Types: +
 * 1: Edit a request `edit 1 <index>`
 * 2: Edit a health worker `edit 2`
-* 3: Edit a patient `edit 3 <index>``
+* 3: Edit a patient `edit 3 <index>`
 
 ****
 * Deletes the corresponding request/health worker/patient at the specified `<index>`.

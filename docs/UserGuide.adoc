@@ -93,6 +93,8 @@ Types:
 * 2: Edit a health worker `edit 2 <index> n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
 * 3: Edit a patient `edit 3 <index> n/<patient_name> i/<NRIC> n/<phone_number>`
 
+Notes:
+
 ****
 * Edits the corresponding request/health worker/patient at the specified `<index>`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * Each of the additional parameters must be filled up unless optional.
@@ -117,6 +119,8 @@ Types:
 * 1: Find a request `find 1 <keyword> [<more_keywords>]`
 * 2: Find a health worker `find 2 <keyword> [<more_keywords>]`
 * 3: Find a patient `find 3 <keyword> [<more_keywords>]`
+
+Notes:
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -143,6 +147,8 @@ Types:
 * 2: Edit a health worker `edit 2`
 * 3: Edit a patient `edit 3 <index>`
 
+Notes:
+
 ****
 * Deletes the corresponding request/health worker/patient at the specified `<index>`.
 * The index refers to the index number shown in the displayed person list.
@@ -154,6 +160,7 @@ Examples:
 * `list` +
 `delete 1 2` +
 Deletes the 2nd request in the application.
+
 *`delete 3 1` +
 Deletes the 1st patient in the results of the `find` command.
 

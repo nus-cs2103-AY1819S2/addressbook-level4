@@ -906,19 +906,61 @@ the list of all entries stored in the application
 [appendix]
 == Product Survey
 
-*Product Name*
+*Monefy - Money Manager*
 
-Author: ...
+Author: Aimbity AS
 
 Pros:
 
-* ...
-* ...
+* Interface is easy to use
+* Able to track expenses and income over various periods of time
+* Free
 
 Cons:
 
-* ...
-* ...
+* Unable to synchronise and restore or backup data between devices
+* Do not have an auto-income function
+* Do not have an option for reminder
+* Do not have a feature for recurrent spending
+
+
+*Money Lover: Expense Tracker & Budget Planner*
+
+Author: Finsify
+
+Pros:
+
+* Allows setting of recurring payments
+* Able to see what expenses add up to in the forthcoming months
+* Able to sync across phone and computer
+* Able to download to own excel worksheet
+
+Cons:
+
+* Need to make a budget for every wallet
+* Unable to choose multiple categories for a budget
+* Unable to edit a transaction
+* Budgets are based per account
+
+
+*Seedly - Personal Finance App*
+
+Author: Seedly Pte Ltd
+
+Pros:
+
+* Visually appealing
+* Able to import transactions from ibanking accounts and allow manual inputs for cash transactions
+* Pie charts give a visual illustration on expenditure
+* Search function present
+
+Cons:
+* Sync feature takes a long time
+* Crash every now and then
+* Categories are hard to identify in pie charts
+* Not smart enough to recognise similar entries
+* Summary presented is confusing
+* Unable to add in sub-categories to further pinpoint area of spending
 
 [appendix]
 == Instructions for Manual Testing

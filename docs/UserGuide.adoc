@@ -24,22 +24,7 @@ Head over to <<Quick Start>> to get started!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here]. [coming in v2.0]
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+[Coming in v2.0]
 
 [[Features]]
 == Features
@@ -49,7 +34,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `create f/FOLDER`, `FOLDER` is a parameter which can be used as `add f/Human Anatomy`.
 * Items in square brackets are optional e.g `i/INDEX [q/QUESTION] [a/ANSWER]` can be used as `i/1 q/Powerhouse of the cell a/Mitochondria` or as `i/1 q/Powerhouse of the cell`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
@@ -139,11 +123,11 @@ Format: `ans ANSWER`
 Examples:
 
 * (Card question: What is the powerhouse of the cell?) +
-`ans` Mitochondria
+`ans Mitochondria`
 
 ==== End the current session : `end`
 
-Quits the current test session. =
+Quits the current test session. +
 Format: `end`
 
 === Sort cards by level within a folder : sort

@@ -22,6 +22,15 @@ public class ResultDisplay extends UiPart<Region> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
+        resultDisplay.getStyleClass().remove("result-display-error");
+        resultDisplay.getStyleClass().add("result-display");
+        resultDisplay.setText(feedbackToUser);
+    }
+
+    public void setFeedbackErrorToUser(String feedbackToUser) {
+        requireNonNull(feedbackToUser);
+        resultDisplay.getStyleClass().remove("result-display");
+        resultDisplay.getStyleClass().add("result-display-error");
         resultDisplay.setText(feedbackToUser);
     }
 

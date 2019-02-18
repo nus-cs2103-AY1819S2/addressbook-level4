@@ -161,7 +161,7 @@ Examples:
 `delete 1 2` +
 Deletes the 2nd request in the application.
 
-*`delete 3 1` +
+* `delete 3 1` +
 Deletes the 1st patient in the results of the `find` command.
 
 === Assigning a health worker to an existing open request : `assign`

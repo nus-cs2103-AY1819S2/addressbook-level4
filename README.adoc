@@ -15,8 +15,7 @@ endif::[]
 
 * This is a desktop Flash Card application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * Know-It-All is targeted at medical students in NUS (or any student!) as their studies requires a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
-* You can manage your flash cards, test yourself, and even has a convenient way to share flash cards with your fellow classmates!
-* Download Know-It-All today.
+* You can manage your flash cards, test yourself, and even has a convenient way to share flash cards with your fellow classmates! What are you waiting for? Download Know-It-All today!
 
 == Site Map
 
@@ -27,8 +26,6 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
 * This application is a fork of the https://github.com/se-edu/addressbook-level4[AddressBook-Level4 project] created by the https://github.com/se-edu/[SE-EDU initiative]
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 

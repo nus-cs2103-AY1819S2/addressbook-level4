@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Ong Suyi
-image::thecognitiveaspie.png[width="150", align="left"]
+image::thecognitiveaspie.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

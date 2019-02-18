@@ -10,14 +10,6 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
 === Eugene Foo
 image::eugenefdw.png[width="150", align="left"]
 {empty}[http://github.com/eugenefdw[github]] [<<eugenefdw#, portfolio>>]
@@ -45,11 +37,11 @@ Responsibilities: Deliverables and deadlines
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Evan Tay
+image::DigiPie.png[width="150", align="left"]
+{empty}[http://www.evantay.com[homepage]][http://github.com/DigiPie[github]] [<<DigiPie#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Management System and Documentation
 
 '''

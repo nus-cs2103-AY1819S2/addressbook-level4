@@ -21,7 +21,7 @@ Role: Project Advisor
 
 === Daniel Sim
 image::danieldssim.png[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/DanielDSSim] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI

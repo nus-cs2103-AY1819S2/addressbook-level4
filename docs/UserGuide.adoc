@@ -24,7 +24,7 @@ Head over to <<Quick Start>> to get started!
 
 == Quick Start
 
-[Coming in v2.0]
+Coming in v2.0
 
 [[Features]]
 == Features

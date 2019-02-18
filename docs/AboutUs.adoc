@@ -45,3 +45,10 @@ Role: Developer +
 Responsibilities: Management System and Documentation
 
 '''
+
+=== Chang Lei
+image::lallanachang.png[width="150", align="left"]
+{empty}[https://github.com/lallanachang[github]] [<<lallanachang#, portfolio>>]
+
+Role: Developer +
+Responsibilities: SRS System

@@ -11,9 +11,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chiu Yu Hua
+image::capture.png[width="150", align="left"]
+{empty}[http://www.chiuyuhua.com[homepage]] [https://github.com/chiuyuhua[github]] [<<chiuyuhua#, portfolio>>]
 
 Role: Project Advisor
 
@@ -39,7 +39,7 @@ Responsibilities: Data
 
 === Teng Yun
 image::caesarty.png[width="150", align="left"]
-{empty}[http://github.com/caesarty[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/caesarty[github]] [<<caesarty#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading

@@ -72,11 +72,13 @@ Example:
 Adds a request, health worker or patient to the application based on the `<type>` parameter accepted +
 Format: `add <type> <additional_parameters>...` +
 Types:
+
 * 1: Adding a request `add 1 n/<patient_name> c/<condition> d/<date> t/time`
 * 2: Adding a health worker `add 2 n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
 * 3: Adding a patient `add 3 n/<patient_name> i/<NRIC> n/<phone_number>`
 
 Examples:
+
 * `add 1 n/Lucas Choong c/Arthritis d/05/02/2019 t/1400`
 * `add 2 n/John Doe p/98765432 a/John street, block 123, #01-01`
 * `add 3 n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/criminal`
@@ -85,7 +87,8 @@ Examples:
 
 Edits a request, health worker or patient to the application based on the `<type>` parameter accepted. +
 Format: `edit <type> <index> <additional_parameters>...` +
-Types: + 
+Types:
+
 * 1: Edit a request `edit 1 <index> n/<patient_name> c/<condition> d/<date> t/time`
 * 2: Edit a health worker `edit 2 <index> n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
 * 3: Edit a patient `edit 3 <index> n/<patient_name> i/<NRIC> n/<phone_number>`
@@ -107,8 +110,10 @@ Edits the name of the 2nd patient to be `Betsy Crower`. +
 
 === Locating request/health worker/patient by name: `find`
 
-Finds requests/health workers/patients whose names contain any of the given keywords. For requests, the requests containing the patient name with the keywords specified will be displayed.+
-Format: `find <type> <keyword> [<more_keywords>]...`
+Finds requests/health workers/patients whose names contain any of the given keywords. For requests, the requests containing the patient name with the keywords specified will be displayed. +
+Format: `find <type> <keyword> [<more_keywords>]...` +
+Types:
+
 * 1: Find a request `find 1 <keyword> [<more_keywords>]`
 * 2: Find a health worker `find 2 <keyword> [<more_keywords>]`
 * 3: Find a patient `find 3 <keyword> [<more_keywords>]`
@@ -132,7 +137,8 @@ Returns requests that involved patients whose names are `Betsy`, `Tim`, or `John
 
 Deletes a request, health worker or patient to the application based on the `<type>` parameter accepted. +
 Format: `delete <type> <index>` +
-Types: +
+Types:
+
 * 1: Edit a request `edit 1 <index>`
 * 2: Edit a health worker `edit 2`
 * 3: Edit a patient `edit 3 <index>`

@@ -5,7 +5,6 @@
 :stylesDir: stylesheets
 
 AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -15,8 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::whyjayxp.png[width="150", align="left"]
 {empty}[http://github.com/whyjayxp[github]] [<<whyjayxp#, portfolio>>]
 
-Role: Team Lead
-Responsibilities: Integration + Model
+Role: Team Lead +
+Responsibilities: Integration, Model
 
 '''
 
@@ -24,8 +23,8 @@ Responsibilities: Integration + Model
 image::beesaycheese.png[width="150", align="left"]
 {empty}[http://github.com/beesaycheese[github]] [<<beesaycheese#, portfolio>>]
 
-Role: Developer
-Responsibilities: Documentation + Deliverables and Deadlines + UI
+Role: Developer +
+Responsibilities: Documentation, Deliverables and Deadlines, UI
 
 '''
 
@@ -33,8 +32,8 @@ Responsibilities: Documentation + Deliverables and Deadlines + UI
 image::Qing-Yuan.png[width="150", align="left"]
 {empty}[http://github.com/Qing-Yuan[github]] [<<Qing-Yuan#, portfolio>>]
 
-Role: Developer
-Responsibilities: Code Quality + Logic
+Role: Developer +
+Responsibilities: Code Quality, Logic
 
 '''
 
@@ -42,7 +41,7 @@ Responsibilities: Code Quality + Logic
 image::bava98.png[width="150", align="left"]
 {empty}[http://github.com/bava98[github]] [<<bava98#, portfolio>>]
 
-Role: Developer
-Responsibilities: Testing + Scheduling and Tracking + Storage
+Role: Developer +
+Responsibilities: Testing, Scheduling and Tracking, Storage
 
 '''

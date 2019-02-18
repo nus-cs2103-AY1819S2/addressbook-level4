@@ -22,7 +22,7 @@ Role: Project Advisor
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
+Role: Developer +
 Responsibilities: UI
 
 '''
@@ -49,7 +49,7 @@ Responsibilities: Dev Ops + Threading
 image::yl_coder.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Team Lead +
 Responsibilities: UI
 
 '''

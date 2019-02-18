@@ -323,6 +323,27 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::quiz[]
+=== Quiz feature
+The Quiz feature allows users to enter quiz related commands and answer.
+
+==== Current Implementation
+The Quiz feature currently contains 4 commands to xxxxxxxxxxxxxx and answer input.
+
+* `\quit` - Quits a quiz session.
+* `\help` - Lists all commands in quiz and inputs the program will accept.
+* `\hint` - Reveals additional information to help user to solve the question.
+* `\status` - Lists current status and lesson progress of user.
+* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+
+==== Design Considerations
+
+
+===== Aspect: How Quiz executes
+
+
+// end::quiz[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

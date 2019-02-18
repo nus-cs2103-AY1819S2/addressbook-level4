@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/orgs/CS2103-AY1819S2-W15-3/teams/developers
+:repoURL: https://github.com/CS2103-AY1819S2-W15-3/main
 
 By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -125,7 +125,7 @@ Format: `search [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE] [t/TAG]`
 * The search is case insensitive. e.g `cs` will match `CS`
 * Any personal information is searched.
 * Only full information will be matched e.g. `computer` will not match `Computer Science`
-* Persons matching all keywords will be returned (i.e. `AND` search). 
+* Persons matching all keywords will be returned (i.e. `AND` search).
 ****
 
 Examples:
@@ -143,7 +143,7 @@ Format: `addtag TAGNAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE]`
 ****
 * Adds tag for people at the specified field.
 * The TAGNAME refers to the tag name you want to add to people.
-* Persons matching all keywords will be add tag (i.e. `AND` search). 
+* Persons matching all keywords will be add tag (i.e. `AND` search).
 ****
 
 Examples:

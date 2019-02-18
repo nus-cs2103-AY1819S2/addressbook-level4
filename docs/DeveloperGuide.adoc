@@ -894,8 +894,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+Amount::
+The amount of money for expenditure and budget
+
+Entry::
+A listed item/activity tracked by the application. It usually consists of the amount, along with a category tag (if specified)
+
+Records::
+the list of all entries stored in the application
 
 [appendix]
 == Product Survey

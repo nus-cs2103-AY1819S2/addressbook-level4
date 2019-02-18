@@ -3,8 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/cs2103-ay1819s2-w10-4/main[image:https://travis-ci.com/cs2103-ay1819s2-w10-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/dlqs/main[image:https://ci.appveyor.com/api/projects/status/w7fr5fgsrmi981o6?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+https://coveralls.io/github/dlqs/main?branch=master[image:https://coveralls.io/repos/github/dlqs/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

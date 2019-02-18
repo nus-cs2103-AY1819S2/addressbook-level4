@@ -46,11 +46,11 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Keith Sim
+image::kthSim.png[width="150", align="left"]
+{empty}[https://github.com/kthSim[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Records Managament
 
 '''

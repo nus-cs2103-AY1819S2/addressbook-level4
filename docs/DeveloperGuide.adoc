@@ -811,13 +811,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant amount of expenses/finances
+* has a need to be more aware of their spending habits/patterns
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage expenses faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -829,15 +829,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |have a record of my recent expenses (day, week, month, category) |be more aware of where I am spending my money
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add a new entry |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete an entry |remove entries that is no longer needed anymore
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |categorise my expenses |be aware of what I am spending most of my money on
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |be able to set a budget (a total for the month and for which category) |be more thrifty in terms of my expenditure
+
+|`* *` |user |summarise my daily spending in a pictorial form |easily see how on track I am in adhering to my budget
+
+|`* *` |user |locate a specific entry easily |recall how much I spent
+
+|`* *` |user save my data |refer to it when I use the app next time
+
+|`* *` |user |sort my expenses in terms of amount |be aware of what costs the most
+
+|`* *` |user |set daily budgets |limit the amount I spend each day
+
+|`*` |user |analyse my spending habits/patterns |derive a savings plan and better plan my expenses
+
+|`*` |spendthrift user |receive tips to be a better saver |be more aware of different ways to keep within my budget
+
+|`*` |IT savvy user |categorise my expenses based on the different methods of payment |automatically track my cashless expenditures as well as credit card transactions
 |=======================================================================
 
 _{More to be added}_
@@ -848,14 +864,36 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add entry
 
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+2.  In-Credit-Ble shows a list of persons
+3.  User requests to add a specific entry in the list
+4.  In-Credit-Ble adds the entry
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. In-Credit-Ble shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete entry
+
+*MSS*
+
+1.  User requests to list entries
+2.  In-Credit-Ble shows a list of entries
+3.  User requests to delete a specific entry in the list
+4.  In-Credit-Ble deletes the entry
 +
 Use case ends.
 
@@ -869,9 +907,26 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. In-Credit-Ble shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Setting a budget for the month
+
+*MSS*
+
+1.  User requests to set a budget for the current month
+2.  In-Credit-Ble displays current budget amount for the month
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. As the user spends more, In-Credit-Ble updates the remaining amount in the current month's budget
++
+Use case ends.
 
 _{More to be added}_
 

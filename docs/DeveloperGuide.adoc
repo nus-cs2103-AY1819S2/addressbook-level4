@@ -948,7 +948,7 @@ Use case ends here.
 [none]
 ** 1b2. Quickdocs alert user that no patient is created yet, suggest to create a new patient record first
 +
-Use case ends here.
+Use case ends.
 [none]
 * 1c. User enter a patient’s name that is unique in the storage
 +
@@ -972,6 +972,64 @@ Use case resumes from step 3.
 ** Quickdocs prompt user that command was invalid and inform them that “end” will exit view
 +
 Use case resumes from 5.
+
+[discrete]
+== Use case: Viewing clinic statistics
+
+*MSS*
+
+1. User requests to view statistics
+2. Quickdocs prompts the user for the topic
+3. User enters the topic
+4. Quickdocs prompts the user for the range of month and year
+5. User enters the months and years
+6. Quickdocs prompts the user whether the user wants it in graphical form (Y/N)
+7. User enters his preference
+8. Quickdocs displays the statistics
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User requests to view statistics with valid optional arguments.
++
+Use case resumes at step 8.
+* 1b. User requests to view statistics with invalid optional arguments.
+[none]
+** 1b1. Quickdocs shows an error message.
++
+Use case ends.
+[none]
+* 3a. User enters invalid topics.
+[none]
+** 3a1. Quickdocs shows an error message.
++
+Use case resumes at step 2.
+[none]
+* 5a. User enters invalid range of months or years.
+[none]
+** 5a1. Quickdocs shows an error message.
++
+Use case resumes at step 4.
+[none]
+* 5b. User enters only range of months.
+[none]
+** 5b1. Quickdocs defaults and displays year to current year.
++
+Use case resumes at step 6.
+[none]
+* 5c. User enters only range of years.
+[none]
+** 5c1. Quickdocs defaults and displays month to current month.
++
+Use case resumes at step 6.
+[none]
+* 7a. User enters invalid response (not Y or N).
+[none]
+** 7a1. Quickdocs shows an error message.
++
+Use case resumes at step 6.
 
 [appendix]
 == Non Functional Requirements

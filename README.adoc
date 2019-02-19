@@ -1,4 +1,4 @@
-= Address Book (Level 4)
+= HealthHub
 
 https://travis-ci.com/CS2103-AY1819S2-W09-2/main[image:https://travis-ci.com/CS2103-AY1819S2-W09-2/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/CS2103-AY1819S2-W09-2?branch=master[image:https://coveralls.io/repos/github/main/badge.svg?branch=master[Coverage Status]]
@@ -12,7 +12,7 @@ ifndef::env-github[]
 image::images/Ui.jpg[width="600"]
 endif::[]
 
-== Why AB4?
+== Why HealthHub?
 
 “Based on trends, if we project into 2050, even with immigration, the population pyramid will be inverted ...
 We are going to be growing old faster than any society in the world.”
@@ -22,16 +22,16 @@ With the number of elderly slated to reach 900,000 by 2030, it is no surprise th
 demands of the nation are being stretched thin. Even today, it is getting harder and harder to have healthcare professionals
 come down to our homes to tend to the elderly, on top of their already burgeoning workload in their workplaces.
 
-Luckily, we now have AB4
+Luckily, we now have HealthHub
 
-AB4 is the first centralized healthcare platform on the market which allows for healthcare professionals (in the
+HealthHub is the first centralized healthcare platform on the market which allows for healthcare professionals (in the
 form of doctors and nurses) and qualified individuals from the community to tend to the needs of elderly at their own
-homes. With a dedicated core administrative team, AB4 intends to match skilled individuals to their respective
+homes. With a dedicated core administrative team, HealthHub intends to match skilled individuals to their respective
 jobs efficiently and effectively.
 
 == Target Group
 
-AB4 is looking at 2 large groups of target users.
+HealthHub is looking at 2 large groups of target users.
 
 * The 1st group comprises qualified individuals with necessary skills, be it basic healthcare skills like administering
 IV drip, to higher-level skills like handling dialysis machinery.

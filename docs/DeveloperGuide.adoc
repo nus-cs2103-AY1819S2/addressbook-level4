@@ -1081,6 +1081,7 @@ Use case resumes at step 6.
 ** 7a1. Quickdocs shows an error message.
 +
 Use case resumes at step 6.
+
 [discrete]
 === Use case: Inquire about medicine storage
 
@@ -1107,7 +1108,7 @@ Use case ends.
 +
 Use case ends here.
 [none]
-* 4b. User types an illegal index 
+* 4b. User types an illegal index
 [none]
 ** 4b1. QuickDocs sends warning and allows the user to retype the index
 +
@@ -1119,23 +1120,22 @@ Use case resume at step 4.
 +
 Use case ends here.
 [none]
-* 7b. User types an illegal index 
+* 7b. User types an illegal index
 [none]
 ** 7b1. QuickDocs sends warning and allows the user to retype the index
 +
 Use case resumes at step 7.
 
-[discrete]
-=== User case: Record purchase of medicine
+=== Use case: Record purchase of medicine
 
 *MSS*
 
 1. User request to record purchase of medicine
 2. QuickDocs shows the list of all general categories of medicine
-3. QuickDocs prompt the user to either select one category 
+3. QuickDocs prompt the user to either select one category
 4. User inputs index
 5. QuickDocs display the list of all categories under the selected category
-6. QuickDocs prompt the user to either select one category 
+6. QuickDocs prompt the user to either select one category
 7. User inputs index
 8. Repeat from step 5 to 8 until the user indicate a specific medicine
 9. QuickDocs remind the user to type in purchased quantity

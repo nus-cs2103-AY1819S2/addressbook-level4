@@ -5,52 +5,52 @@
 :stylesDir: stylesheets
 
 AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Rohan Dev
+image::rohan.jpg[width="150", align="left"]
+{empty}[https://github.com/brohandev[github page]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: A (To be changed later) +
+Responsibilities: B
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Choong Wey Yeh
+image::lukaz.jpg[width="150", align="left"]
+{empty}[http://github.com/Lookuz[github page]]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: A (To be changed later) +
+Responsibilities: B
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== David Livingston
+image::david.jpg[width="150", align="left"]
+{empty}[https://github.com/daviddl9[github page]]
 
-Role: Developer +
-Responsibilities: UI
+Role: A (To be changed later) +
+Responsibilities: B
+
+'''
+
+=== Jin Jing
+image::jinjing.jpg[width="150", align="left"]
+{empty}[https://github.com/jing1324[github page]]
+
+Role: A (To be changed later) +
+Responsibilities: B
+
+'''
+
+=== Tay Hui Chun
+image::huichun.jpg[width="150", align="left"]
+{empty}[http://github.com/huichun66[github page]]
+
+Role: A (To be changed later) +
+Responsibilities: B
 
 '''

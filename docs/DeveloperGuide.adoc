@@ -817,7 +817,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+. Allow users to manage club members faster and more effectively than a typical mouse/ GUI-driven app.
+
+. Allow users to plan activities better based on members’ interest.
+
+. Avoid errors that stem from inaccurate members record (e.g. not keying in CCA points for the member due to inaccurate attendance data).
+
+. Improve the data collection accuracy and efficiency in the member management process.
 
 [appendix]
 == User Stories

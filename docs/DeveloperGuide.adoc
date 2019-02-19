@@ -195,7 +195,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::modelUMLDiagram.jpg[width="800"]
+image::modelUmlDiagram.jpg[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 

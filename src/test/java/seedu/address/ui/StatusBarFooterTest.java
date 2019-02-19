@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.StatusBarFooter.TOTAL_PERSONS_STATUS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,6 +25,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
+
+    private static final int INITIAL_TOTAL_PERSONS = 0;
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
@@ -54,21 +57,26 @@ public class StatusBarFooterTest extends GuiUnitTest {
     @Test
     public void display() {
         // initial state
-        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL,
+                String.format(TOTAL_PERSONS_STATUS, INITIAL_TOTAL_PERSONS));
 
         // after address book is updated
         guiRobot.interact(() -> addressBook.addPerson(ALICE));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()),
+                String.format(TOTAL_PERSONS_STATUS, addressBook.getPersonList().size()));
     }
 
     /**
-     * Asserts that the save location matches that of {@code expectedSaveLocation}, and the
-     * sync status matches that of {@code expectedSyncStatus}.
+     * Asserts that the save location matches that of {@code expectedSaveLocation}, the
+     * sync status matches that of {@code expectedSyncStatus}, and the total persons matches
+     * that of {@code expectedTotalPersonsStatus}.
      */
-    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus) {
+    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus,
+                                        String expectedTotalPersonsStatus) {
         assertEquals(expectedSaveLocation, statusBarFooterHandle.getSaveLocation());
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
+        assertEquals(expectedTotalPersonsStatus, statusBarFooterHandle.getTotalPersonsStatus());
         guiRobot.pauseForHuman();
     }
 

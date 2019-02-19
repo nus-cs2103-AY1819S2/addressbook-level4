@@ -8,9 +8,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIFTH_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -34,7 +34,8 @@ public class DeleteMultipleCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        DeleteMultipleCommand deleteMultipleCommand = new DeleteMultipleCommand(INDEX_FIRST_PERSON, INDEX_FOURTH_PERSON);
+        DeleteMultipleCommand deleteMultipleCommand =
+                new DeleteMultipleCommand(INDEX_FIRST_PERSON, INDEX_FOURTH_PERSON);
         StringBuilder expectedMessage = new StringBuilder();
         Person personToDeleteFirst = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person personToDeleteSecond = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
@@ -60,9 +61,11 @@ public class DeleteMultipleCommandTest {
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundStartIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         Index outOfBoundEndIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 3);
-        DeleteMultipleCommand deleteMultipleCommand = new DeleteMultipleCommand(outOfBoundStartIndex, outOfBoundEndIndex);
+        DeleteMultipleCommand deleteMultipleCommand =
+                new DeleteMultipleCommand(outOfBoundStartIndex, outOfBoundEndIndex);
 
-        assertCommandFailure(deleteMultipleCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteMultipleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -97,9 +100,11 @@ public class DeleteMultipleCommandTest {
         assertTrue(outOfBoundStartIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
         assertTrue(outOfBoundEndIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        DeleteMultipleCommand deleteMultipleCommand = new DeleteMultipleCommand(outOfBoundStartIndex, outOfBoundEndIndex);
+        DeleteMultipleCommand deleteMultipleCommand =
+                new DeleteMultipleCommand(outOfBoundStartIndex, outOfBoundEndIndex);
 
-        assertCommandFailure(deleteMultipleCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteMultipleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -131,10 +136,12 @@ public class DeleteMultipleCommandTest {
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundStartIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         Index outOfBoundEndIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 3);
-        DeleteMultipleCommand deleteMultipleCommand = new DeleteMultipleCommand(outOfBoundStartIndex, outOfBoundEndIndex);
+        DeleteMultipleCommand deleteMultipleCommand =
+                new DeleteMultipleCommand(outOfBoundStartIndex, outOfBoundEndIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(deleteMultipleCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteMultipleCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -180,7 +187,8 @@ public class DeleteMultipleCommandTest {
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteMultipleCommand deleteFirstCommandCopy = new DeleteMultipleCommand(INDEX_FIRST_PERSON, INDEX_FIFTH_PERSON);
+        DeleteMultipleCommand deleteFirstCommandCopy =
+                new DeleteMultipleCommand(INDEX_FIRST_PERSON, INDEX_FIFTH_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -202,6 +210,9 @@ public class DeleteMultipleCommandTest {
         assertTrue(model.getFilteredPersonList().isEmpty());
     }
 
+    /**
+     * Builds the expected message used for testing purposes
+     */
     private StringBuilder buildExpectedMessage(StringBuilder expectedMessage, Person personToDelete) {
         expectedMessage.append(DeleteMultipleCommand.MESSAGE_DELETE_PERSON_SUCCESS);
         expectedMessage.append(personToDelete);

@@ -971,7 +971,58 @@ Use case resumes from step 3.
 [none]
 ** Quickdocs prompt user that command was invalid and inform them that “end” will exit view
 +
-Use case resumes from 5.
+Use case resumes from step 5.
+
+[discrete]
+== Use case: Viewing clinic statistics
+
+*MSS*
+
+1. User enter command to list all free slots, specifying the date and viewing format
+2. User discusses and agrees on an appointment slot with patient
+3. User search for patient’s index by viewing patient records with search criteria
+4. User enter command to add appointment slot and specifies date
+5. Quickdocs displays free slots for the chosen date
+6. Quickdocs prompts the user for the start time of the appointment slot
+7. User enters start time
+8. Quickdocs prompts the user for the end time of the appointment slot
+9. User enters end time
+10. Quickdocs displays a successful message, showing the details of the newly created appointment slot
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User enters invalid keyword when specifying date or format
+[none]
+** 1a1. Quickdocs displays an error message
++
+Use case resumes from step 1.
+[none]
+* 1b. User does not enter any keywords
+[none]
+** 1b1. Quickdocs displays all free slots for the current week
++
+Use case resumes from step 2.
+[none]
+* 4a. User enters invalid index or date
+[none]
+** 4a1. Quickdocs displays an error message
++
+Use case resumes from step 4.
+[none]
+* 10a. Quickdocs displays an error message, showing clashes in timing with another appointment slot
++
+Use case ends here.
+[none]
+* 10b. Patient wants to change appointment slot timing
+[none]
+** 10b1. User enter command to delete appointment slot, specifying date and time
+** 10b2. Quickdocs prompts user with a confirmation message to delete the appointment slot (Y/N)
+** 10b3. User enters Y and appointment slot is removed
++
+Use case ends here.
 
 [discrete]
 == Use case: Viewing clinic statistics

@@ -842,13 +842,18 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* student who is trying to remember something content heavy for a given subject
+* would like a flashcard system that introduces/tests them on words/ideas
+* prefers command line interface for simplicity
+* able to keep track of the progress of all <<lesson,lessons>>
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Possible users*:
+
+* User / Student: Someone who's trying to memorise content
+* Creator / Educator: Someone who generates the lists of content so that other users (i.e Student) can use it directly without having to do the data entry
+
+
+*Value proposition*: Flashcard integrated with <<srs,SRS>> that assists in memorization
 
 [appendix]
 == User Stories
@@ -857,21 +862,64 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that...
+|`* * *` |new user |see usage instructions |I can refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |load/import lessons |I can use the App without needing to make my own lists first
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Creator |export lessons |I can share my lessons easily in a multiple files
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |be tested more often on poorly memorized questions |I can automatically focus on them
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |save my current progress |I do not lose progress between sessions
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |export my current progress |I can keep my progress between different devices
+
+|`* * *` |user |start multiple lessons |I can see all the question at once
+
+|`* * *` |user |reset my progress |I can start anew
+
+|`* * *` |user |see my current progress |I know which questions I frequently get it right or wrong
+
+|`* * *` |user |be give multiple chances to answer |I am given some leeway for mistyping
+
+|`* * *` |user |add tags to the lessons |I can search based on the tags
+
+|`* * *` |user |start a lesson |I can start to memorise
+
+|`* * *` |user |view correct answer and explanation if choosing wrongly |I can understand and remember it better
+
+|`* *` |user |see a hint if I am not sure about the answer |I can have a deeper impression
+
+|`* *` |user |limit how many questions I’m given at one go |I can have shorter/longer sessions
+
+|`* *` |user |store/favourite hard content |I can review them more frequently
+
+|`* *` |user |have my own profile |Others can use the program on the same device
+
+|`* *` |user |use any language |I can use it for languages other than English
+
+|`* *` |user |have a graded test based on my current progress |I can see clearly how well I obtain the knowledge
+
+|`* *` |user |view lessons created by others |I can import them into my own library without creating my own
+
+|`* *` |user |change the frequency of re-testing |I can test everything on my own basis
+
+|`* *` |user |switch question and answer |I can associate the answer and question the other way.
+
+|`*` |user |change the number of possible answers |I can vary the difficulty level
+
+|`*` |user |have images as prompts |I have more varied test options
+
+|`*` |user |set the plan (like 15 words a day) |I can make sure that I'm on track
+
+|`*` |user |autocomplete the lessons name |I can find a lesson quickly
+
+|`*` |Creator |import from other file formats into lessons |I can use my own pre-existing lists with the application
+
+|`*` |Creator |notify users if there is any change of the app |I can help users stay updated with new methods
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1010,11 +1058,24 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[[lesson]] Lesson::
+A labelled set of <<question,questions>>.
+
+[[question]] Question::
+A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
+
+[[session]] Session::
+User’s current learning progress
+
+[[srs]] Spaced Repetition System (SRS)::
+The technique of gradually delaying or accelerating the testing of content based on the user’s success.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
 
 [appendix]
 == Product Survey

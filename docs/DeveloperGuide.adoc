@@ -853,17 +853,15 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `RestOrRant` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Checking for available tables
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User enters command to list all tables in the restaurant.
+2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tables in the restaurant.
 +
 Use case ends.
 
@@ -872,25 +870,110 @@ Use case ends.
 [none]
 * 2a. The list is empty.
 +
+[none]
+** 2a1. RestOrRant Program returns an error message that there are no tables in the restaurant.
++
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Taking an order
+
+*MSS*
+
+1.  User enters the table number, along with item codes and quantities of the menu items.
+2.  RestOrRant Program updates the specified table's order with the menu items and displays the new order list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The item code(s) is/are invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. RestOrRant Program displays the item codes that are invalid and remove them from the list of item codes to add to the order.
 +
-Use case resumes at step 2.
+Use case resumes from step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Adding Items to Menu
+
+*Preconditions:* Item to be added cannot exist in the menu.
+
+*MSS*
+
+1.  User enters the addToMenu command along with the item's code, name and price.
+2.  RestOrRant Program updates the menu to include the added menu item.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The menu already contains the item to be added.
++
+[none]
+** 1a1. RestOrRant Program prints out "Invalid arguments, item already exists in the menu!".
++
+Use case ends.
+
+[none]
+* 1b. The item code already exists in the menu.
++
+[none]
+** 1b1. RestOrRant Program prints out "Invalid arguments, item code exists in the menu!".
++
+Use case ends.
+
+[none]
+* 1c. The item code does not follow the standard alphanumeric format.
++
+[none]
+** 1c1. RestOrRant Program prints out "Invalid code. Please use an alphanumeric code. Example: W09".
++
+Use case ends.
+
+[discrete]
+=== Use case: Check Statistics
+
+*MSS*
+
+1.  User enters the statistic command with specific optional arguements (year, month and date).
+2.  RestOrRant Program collates data from the stated period, calculates all the statistics and prints out the calculated data in a neat presentation for the user to refer to.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The arguments are invalid.
++
+[none]
+** 1a1. RestOrRant Program prints out "Invalid arguments. All arguments should be a numercial number. Format: getStatistics [Year] [Month] [Date]".
++
+Use case ends.
+
+[none]
+* 2a. There is no data recorded, list is empty.
++
+[none]
+** 2a1. RestOrRant Program prints out "No available data recorded."
++
+Use case ends.
+
+[none]
+* 2b. Not all arguments were keyed in.
++
+[none]
+* 2b1. RestOrRant Program returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -898,8 +981,17 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[order]] Order::
+The list of menu items ordered by dining customers ata table
+
+[[menu]] Menu::
+The list of items available to be ordered by dining customers at the restaurant
+
+[[bill]] Bill::
+The amount of money that dining customers have to pay based on their order
+
+[[statistics]] Statistics::
+The record of the revenue earned, number of customers and number of menu items purchased
 
 [appendix]
 == Product Survey

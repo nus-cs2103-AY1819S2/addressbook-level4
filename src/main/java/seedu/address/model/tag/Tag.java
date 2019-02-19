@@ -26,7 +26,7 @@ public class Tag {
     }
 
     /**
-     * Returns true if a given string is a valid tag name and color.
+     * Returns true if a given string is a valid tag.
      */
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -48,7 +48,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return tagName;
+        return "[" + tagName + "]";
     }
 
 }

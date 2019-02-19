@@ -4,50 +4,51 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Battleships was developed by Team W14-G3. We are a team from Singapore developing retro games for the world. +
+Battleship was developed by Team W14-G3. We are a team from Singapore developing retro games for the world. +
 
 We are based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Boston Cheong
-image::boston.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+image::boston.png[width="150", align="left"]
+{empty}[https://github.com/bos10[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Developer +
+Responsibility: UI
 
 '''
 
 === Erjill Sison
-image::erjill.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::erjill.png[width="150", align="left"]
+{empty}[http://github.com/erjillsison[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Logic
 
 '''
 
 === Esther Chong
-image::esther.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::esther.png[width="150", align="left"]
+{empty}[http://github.com/s-tr[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Storage
 
 '''
 
 === Ian Wu
-image::ian.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::ian.png[width="150", align="left"]
+{empty}[http://github.com/iwle[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Model
 
 '''
 
 === Lucy Chan
-image::lucy.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+image::lucy.png[width="150", align="left"]
+{empty}[http://github.com/lucydotc[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI

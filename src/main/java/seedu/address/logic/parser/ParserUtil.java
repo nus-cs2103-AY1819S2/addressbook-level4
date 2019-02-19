@@ -2,11 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.FileName;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
@@ -48,6 +51,30 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String fileName} into a {@code FileName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param fileName The input file name.
+     * @param isEmptyFileNameAllowed If empty input filename is allowed. If it is set to true, then
+     *                               if input file name is empty it will be given the default file name in
+     *                               the format (current date)_(current time).
+     * @return Returns a FileName object based on the input file name if the input file name is valid.
+     * @throws ParseException if the given {@code fileName} is invalid.
+     */
+    public static FileName parseFileName(String fileName, boolean isEmptyFileNameAllowed) throws ParseException {
+        requireNonNull(fileName);
+        String trimmedFileName = fileName.trim();
+        if (isEmptyFileNameAllowed && fileName.isEmpty()) {
+            SimpleDateFormat currentDateAndTimeFormat = new SimpleDateFormat("dd_MMM_yyyy_HH_mm_ss");
+            trimmedFileName = currentDateAndTimeFormat.format(new Date());
+        }
+        if (!FileName.isValidFileName(trimmedFileName)) {
+            throw new ParseException(FileName.MESSAGE_CONSTRAINTS);
+        }
+        return new FileName(trimmedFileName);
     }
 
     /**

@@ -240,8 +240,8 @@ The import/export feature allows user to import CSV files into object and export
 ==== Current Implementation
 The import/export feature currently contains 2 commands to xxxxxxxxx
 
-* 'importuser' - Imports the selected CSV file and load the current progress of the user.
-* *exportuser' - Exports the current progress of the user into a CSV file.
+* `import user` - Imports the selected CSV file and load the current progress of the user.
+* `export user` - Exports the current progress of the user into a CSV file.
 
 // tag::undoredo[]
 === Undo/Redo feature

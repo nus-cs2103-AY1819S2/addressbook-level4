@@ -166,7 +166,7 @@ Displays a list of free slots, ordered by time and date. Can be filtered using d
 Format: appfree KEYWORD DATE
 
 Example: +
-*   `appfree` Lists all free slots in the current day. (By default without any tags) +
+*   `appfree` Lists all free slots in the current week. (By default without any tags) +
 * 	`appfree day 230719` Lists all free slots on 23rd July 2019. +
 *	`appfree month 230719` Lists all free slots in the month of the given date, July 2019.
 

@@ -50,6 +50,11 @@ public class PersonCard extends UiPart<Region> {
         initTags(person);
     }
 
+    /**
+     * Creates the tags in the card for the person.
+     *
+     * @param person the person that the card represents
+     */
     private void initTags(Person person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);

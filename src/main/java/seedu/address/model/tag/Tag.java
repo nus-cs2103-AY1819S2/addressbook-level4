@@ -49,7 +49,7 @@ public class Tag {
     }
 
     /**
-     * Returns true is the given tag color is a valid color
+     * Returns true if the given tag color is a valid color.
      */
     private static boolean isValidTagColor(String test) {
         for (String color: TAG_COLOR_STYLES) {

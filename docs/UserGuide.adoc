@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`listRestaurants`* : lists all restaurants
-* **`addReview n/MCDONALDS r/4 m/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
+* **`addReview`** `n/MCDONALDS r/4 m/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
 * **`delete`**`3` : deletes the 3rd review shown in the index
 * *`exit`* : exits the app
 
@@ -46,10 +46,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/RESTAURANT_NAME`, `RESTAURANT_NAME` is a parameter which can be used as `add n/Burger King`.
+* Items in square brackets are optional.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/RESTAURANT_NAME r/STAR_RATING`, `r/STAR_RATING n/RESTAURANT_NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -103,7 +103,7 @@ Deletes the 2nd review in the Food Diary.
 === Add a picture of the food to a review : `addImage`
 
 Adds a picture of the food to the review in the specified entry +
-Format: `addPicture INDEX f/FOOD_NAME i/IMAGE_FILEPATH`
+Format: `addPicture INDEX [f/FOOD_NAME] i/IMAGE_FILEPATH`
 
 Examples:
 
@@ -116,7 +116,7 @@ Adds a picture to the second review of an apple pie
 === Listing all reviews : `listReviews`
 
 Shows a list of all reviews in the Food Diary. +
-Format: `listReviews n/[RESTAURANT_NAME]`
+Format: `listReviews [n/RESTAURANT_NAME]`
 
 ****
 *If the restaurant name is left blank, all reviews will be shown
@@ -145,7 +145,7 @@ adds the restaurant Nana Thai food with address 561 Clementi Road and cuisine Th
 === Listing all restaurants : `listRestaurants`
 
 Shows a list of all restaurants in the Food Diary with an option to filter for certain property. +
-Format: `listRestaurants n/[RESTAURANT_NAME] a/[ADDRESS] c/[CUISINE]`
+Format: `listRestaurants [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
 
 
 Examples:
@@ -171,7 +171,7 @@ Return all the restaurants that you have not visited
 === Editing details of a restaurant  : `editRestaurant`
 
 Edit the details of a restaurant identified by the index number used in the listRestaurants. +
-Format: `editRestaurant INDEX n/[RESTAURANT_NAME] a/[ADDRESS] c/[CUISINE]`
+Format: `editRestaurant INDEX [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
 
 ****
 * The index refers to the index number shown in the displayed restaurants list.
@@ -196,11 +196,6 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 

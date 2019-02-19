@@ -11,12 +11,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+/**
+ * Deletes multiple persons ranging from start index to end index in the address book.
+ */
 public class DeleteMultipleCommand extends Command {
 
     public static final String COMMAND_WORD = "deletem";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes multiple persons identified by the start and end index number used in the last person listing.\n"
+            + ": Deletes multiple persons identified by the start and end index number in the last person listing.\n"
             + "Parameters: START_INDEX END_INDEX\n"
             + "Example: " + COMMAND_WORD + " 1" + " 5";
 

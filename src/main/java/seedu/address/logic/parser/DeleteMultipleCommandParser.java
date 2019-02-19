@@ -35,7 +35,8 @@ public class DeleteMultipleCommandParser implements Parser<DeleteMultipleCommand
         String[] trimmedIndex = args.trim().split(" ");
         String trimmedStartIndex = trimmedIndex[0];
         String trimmedEndIndex = trimmedIndex[1];
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedStartIndex) || !StringUtil.isNonZeroUnsignedInteger(trimmedEndIndex)) {
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedStartIndex)
+                || !StringUtil.isNonZeroUnsignedInteger(trimmedEndIndex)) {
             throw new ParseException(ParserUtil.MESSAGE_INVALID_INDEX);
         }
         Index startIndex = Index.fromOneBased(Integer.valueOf(trimmedStartIndex));

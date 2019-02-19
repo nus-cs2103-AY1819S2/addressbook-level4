@@ -4,7 +4,6 @@ https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.com/CS21
 https://coveralls.io/github/CS2103-AY1819S2-W09-2?branch=master[image:https://coveralls.io/repos/github/main/badge.svg?branch=master[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/59b2e00f57cf432eab91667b827851b9[link="https://app.codacy.com/app/CS2103-AY1819S2-W09-2/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S2-W09-2/main&utm_campaign=Badge_Grade_Dashboard"]
 
-
 ifdef::env-github[]
 image::docs/images/Ui.jpg[width="600"]
 endif::[]
@@ -41,7 +40,6 @@ IV drip, to higher-level skills like handling dialysis machinery.
 ** The elderly needing help at home and
 
 ** Guardians of the elderly requiring additional healthcare at home
-
 
 == Site Map
 

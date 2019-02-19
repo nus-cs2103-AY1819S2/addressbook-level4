@@ -1,4 +1,4 @@
-= Address Book (Level 4)
+= GradTrak
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
@@ -15,19 +15,30 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+
+NUS graduation tracker is an application to aid School of Computing students to track their graduation progress. GradTrak is implemented to aid students in alleviating the hardships of module planning to tracking C.A.P scores so that students can focus on “student-ing”. Not to mention with the tremendous amount of uncollated information required to keep track of the graduation requirements, GradTrak is the one stop solution to solve all of these problems.
+
+=== Requirements
+* GradTrak is written in *_java_* and uses *_JDK 9_* library.
+
+=== Plan Modules
+* Plan when to take modules throughout your undergraduate studies
+* Recommends which modules to read based on module prerequisites and specialization
+* Able to account for Exchange Programmes, NUS Overseas College & Gap Year etc.
+
+=== Managing C.A.P
+* Track Number of SU left and when to use them
+* Provides minimum grades required for current semester to hit your desired C.A.P
+* Even predict your potential C.A.P
+
+=== Specializations
+* Ability to choose your specialization and GradTrak will aid to reach your goal
+* Recommend potential FYP projects based on selected specialization and modules read
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -36,5 +47,9 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* This project is based-off  AddressBook 4 by:  https://github.com/se-edu/[SE-EDU]
+
 
 == Licence : link:LICENSE[MIT]
+
+

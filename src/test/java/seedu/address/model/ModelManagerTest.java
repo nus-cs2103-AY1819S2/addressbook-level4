@@ -150,6 +150,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void countTags() throws Exception {
+        modelManager.addPerson(ALICE);
+        assertEquals(modelManager.countTags(), ALICE.getTags().size());
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();

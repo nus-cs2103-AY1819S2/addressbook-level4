@@ -15,7 +15,7 @@ endif::[]
 
 == What Is This?
 
-This is a simple restaurant management application intended to ease the management of restaurants for those who work in restaurants. 
+This is a simple restaurant management application intended to ease the management of restaurants for those who work in restaurants.
 This is a desktop application that has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 Hence, our target users are restaurant waiters and managers who can type fast and prefer typing over clicking on GUI.
 

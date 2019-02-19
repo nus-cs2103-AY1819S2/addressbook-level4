@@ -70,11 +70,11 @@ public class PersonCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
-    
+
     private String getTagColourStyle(String tagName) {
         return TAG_COLOURS_STYLES[Math.abs(tagName.hashCode())%TAG_COLOURS_STYLES.length];
     }
-    
+
     private void initTags(Person person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);

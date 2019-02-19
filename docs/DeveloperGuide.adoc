@@ -974,7 +974,7 @@ Use case resumes from step 3.
 Use case resumes from step 5.
 
 [discrete]
-== Use case: Choosing an appointment slot
+=== Use case: Choosing an appointment slot
 
 *MSS*
 

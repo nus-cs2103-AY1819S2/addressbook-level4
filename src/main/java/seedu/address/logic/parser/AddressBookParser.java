@@ -96,6 +96,9 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case HelpCommand.COMMAND_ALIAS:
+            return new HelpCommand();
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 

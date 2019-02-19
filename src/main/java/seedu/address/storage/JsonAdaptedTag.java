@@ -19,26 +19,29 @@ class JsonAdaptedTag {
      * {@code tagColor}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName, String tagColor) {
-        this.tagName = tagName;
-        this.tagColor = tagColor;
+    public JsonAdaptedTag(String tagNameAndColor) {
+        String[] attributes = tagNameAndColor.split("/");
+        this.tagName = attributes[0];
+        if (attributes.length == 2) {
+            this.tagColor = attributes[1];
+        } else {
+            this.tagColor = null;
+        }
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
+    @JsonCreator
     public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;
         tagColor = source.tagColor;
     }
 
     @JsonValue
-    public String getTagName() {
-        return tagName;
+    public String getTagNameAndColor() {
+        return tagName + "/" + tagColor;
     }
-
-    @JsonValue
-    public String getTagColor() { return tagColor; }
 
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
@@ -49,6 +52,11 @@ class JsonAdaptedTag {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
+
+        if (tagColor == null) {
+            return new Tag(tagName);
+        }
+
         return new Tag(tagName, tagColor);
     }
 

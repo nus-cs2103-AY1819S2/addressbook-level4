@@ -11,8 +11,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedTag {
 
-    private final String tagName;
-    private final String tagColor;
+    private final String tagNameAndColor;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName} and
@@ -20,13 +19,7 @@ class JsonAdaptedTag {
      */
     @JsonCreator
     public JsonAdaptedTag(String tagNameAndColor) {
-        String[] attributes = tagNameAndColor.split("/");
-        this.tagName = attributes[0];
-        if (attributes.length == 2) {
-            this.tagColor = attributes[1];
-        } else {
-            this.tagColor = null;
-        }
+        this.tagNameAndColor = tagNameAndColor;
     }
 
     /**
@@ -34,13 +27,12 @@ class JsonAdaptedTag {
      */
     @JsonCreator
     public JsonAdaptedTag(Tag source) {
-        tagName = source.tagName;
-        tagColor = source.tagColor;
+        this.tagNameAndColor = source.tagName + "/" + source.tagColor;
     }
 
     @JsonValue
     public String getTagNameAndColor() {
-        return tagName + "/" + tagColor;
+        return tagNameAndColor;
     }
 
     /**
@@ -49,15 +41,11 @@ class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
+        if (!Tag.isValidTagName(tagNameAndColor)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
 
-        if (tagColor == null) {
-            return new Tag(tagName);
-        }
-
-        return new Tag(tagName, tagColor);
+        return new Tag(tagNameAndColor);
     }
 
 }

@@ -374,6 +374,16 @@
     -fx-background-color: grey;
 }
 
+#tags .magenta {
+    -fx-text-fill: black;
+    -fx-background-color: magenta;
+}
+
+#tags .pink {
+    -fx-text-fill: black;
+    -fx-background-color: pink;
+}
+
 
 
 

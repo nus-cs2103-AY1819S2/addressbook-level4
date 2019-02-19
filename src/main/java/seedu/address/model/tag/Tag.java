@@ -11,8 +11,8 @@ public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String COLOR_CONSTRAINTS = "Color is not supported";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-    private static final String[] TAG_COLOR_STYLES = { "red", "yellow", "blue", "green", "grey" };
+    public static final String VALIDATION_REGEX = "\\p{Alnum}+(/\\p{Alnum}+)?";
+    private static final String[] TAG_COLOR_STYLES = { "red", "yellow", "blue", "green", "grey", "magenta", "pink" };
 
 
     public final String tagName;
@@ -21,39 +21,37 @@ public class Tag {
     /**
      * Constructs a {@code Tag}.
      *
-     * @param tagName A valid tag name.
+     * @param tagNameAndColor A valid tag name.
      */
-    public Tag(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
-        this.tagColor = TAG_COLOR_STYLES[(Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length)];
+    public Tag(String tagNameAndColor) {
+        requireNonNull(tagNameAndColor);
+        checkArgument(isValidTagName(tagNameAndColor), MESSAGE_CONSTRAINTS);
+        String[] attributes = tagNameAndColor.split("/");
+        this.tagName = attributes[0];
+        if (attributes.length == 1) {
+            tagColor = TAG_COLOR_STYLES[(Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length)];
+        } else {
+            checkArgument(isValidTagColor(attributes[1]), COLOR_CONSTRAINTS);
+            tagColor = attributes[1];
+        }
     }
 
     /**
-     * Constructs a {@code Tag} from {@code tagName} and {@code tagColor}.
-     *
-     * @param tagName A valid tag name
-     * @param tagColor A valid tagColor
-     */
-    public Tag(String tagName, String tagColor) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagColor(tagColor), COLOR_CONSTRAINTS);
-        this.tagName = tagName;
-        this.tagColor = tagColor;
-    }
-
-    /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid tag name and color.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        boolean matchesPattern = test.matches(VALIDATION_REGEX);
+        String[] attributes = test.split("/");
+        if (attributes.length == 1) {
+            return matchesPattern;
+        }
+        return matchesPattern && isValidTagColor(attributes[1]);
     }
 
     /**
      * Returns true is the given tag color is a valid color
      */
-    public static boolean isValidTagColor(String test) {
+    private static boolean isValidTagColor(String test) {
         for (String color: TAG_COLOR_STYLES) {
             if (test.compareTo(color) == 0) {
                 return true;

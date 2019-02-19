@@ -40,6 +40,7 @@ image::Ui.png[width="790"]
 command VALUE prefix/VALUE [OPTIONAL_VALUE]...
 
 * Commands are in lowercase, you can view all of them using the help command
+* Some commands have an alias, which can be used to execute the same command e.g. `statistics` can be replace by `stats`.
 * Values are the user input, which the user intend to store or manipulate data with
 * Prefix are used to complement certain commands such as adding or editing of records
 * Optional values can be placed after the command, and can be added multiple times after the command, value and prefix
@@ -183,11 +184,11 @@ Example: +
 
 Sends an auto-email reminder to patients regarding an approaching appointment date.
 
-=== Administration - viewing statistics: `stats`
+=== Administration - viewing statistics: `statistics`
 
-Views the statistics of the clinic.
-
-Format: `stats [TOPIC] [FROM_MONTH] [TO_MONTH] [FROM_YEAR] [TO_YEAR] [GRAPHICAL]`
+Views the statistics of the clinic. +
+Alias: `stats` +
+Format: `statistics [TOPIC] [FROM_MONTH] [TO_MONTH] [FROM_YEAR] [TO_YEAR] [GRAPHICAL]`
 
 * If there are no optional arguments, the application will prompt the user for each of them. +
 * Views the statistics of the topic specified at `TOPIC`. Allowed arguments: `patients`, `revenue`, `expenditures`, `profits`, `medicines`.  +
@@ -197,19 +198,19 @@ Format: `stats [TOPIC] [FROM_MONTH] [TO_MONTH] [FROM_YEAR] [TO_YEAR] [GRAPHICAL]
 
 Examples:
 
-* `stats` +
+* `statistics` +
 View the prompts for topic, range of date, and display preference. +
-* `stats all` +
+* `statistics all` +
 View all the stats of the current month, current year. +
-* `stats 1` +
+* `statistics 1` +
 View all the stats of Jan, current year. +
-* `stats 1 3` +
+* `statistics 1 3` +
 View all the stats from Jan to March of current year. +
-* `stats medicines 2018 true` +
+* `statistics medicines 2018 true` +
 View graphical statistics of medicines for the year 2018. +
-* `stats expenditures Jan 2018 2019` +
+* `statistics expenditures Jan 2018 2019` +
 View statistics of expenditures for Jan 2018. +
-* `stats profits 1 6 2017 2018` +
+* `statistics profits 1 6 2017 2018` +
 View statistics of profit from Jan 2017 to June 2018. +
 
 === Administration - locking the application: `lock`

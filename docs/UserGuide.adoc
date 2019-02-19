@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= RestOrRant - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,17 +14,17 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+RestOrRant (ROR) is for those who *prefer to use a desktop app for managing contacts*. More importantly, ROR is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ROR can get your restaurant management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `RestOrRant.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your RestOrRant application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : lists all tables
+* **`addTables`**`1 2 3` : adds 3 tables of size1, 2 and 3 respectively in the restaurant.
+* **`removeTables`**`3` : deletes the table with the table number 3.
+* *`exit`* : exits the application.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,178 +46,304 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addTables NUMBER_OF_SEATS`, `NUMBER_OF_SEATS` is a parameter which can be used as `addTables 4`.
+* Items in square brackets are optional e.g `ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]` can be used as `W09 3 A02 4` or as `W09 3`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[ITEM_CODE QUANTITY]...` can be used as `{nbsp}` (i.e. 0 times), `W09 3`, `W09 3 A02 4` etc.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding tables : `addTables`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Adds tables to the restaurant. +
+Format: `addTables NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addTables 4`
+* `addTables 4 2 4`
 
-=== Listing all persons : `list`
+=== Listing all tables in the restaurant : `listTables`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Shows a list of all tables in the restaurant as well as their current occupancy. +
+Format: `listTables`
 
-=== Editing a person : `edit`
+=== Updating the table: `updateTable`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Updates the status of the table. +
+Format: `updateTable TABLE_NUMBER NEW_OCCUPANCY`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Checks if the specified table exists before updating.
+* Checks if the specified `NEW_OCCUPANCY` is greater than 0 and not more than the capacity of the table.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `updateTable 2 0`
+* `updateTable 1 4`
 
-=== Locating persons by name: `find`
+=== Removing a table : `removeTable`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Removes an existing table in the restaurant. +
+Format: `removeTable TABLE_NUMBER`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Checks that the table exists.
+* Checks that the table is not occupied.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `removeTable 3`
 
-=== Deleting a person : `delete`
+=== Adding an item to an order: `addToOrder`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Adds the specified item to the order of the specified table and displays the new order list. +
+Format: `addToOrder TABLE_NUMBER ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Item has to exist in the menu (i.e. item code has to be valid).
+* If the item is already in the order, the quantity for that item is increased.
+* There is no limit to the number of items added.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `addToOrder 1 W09 2`
+* `addToOrder 5 W09 1 N01 1 C04 2`
 
-=== Selecting a person : `select`
+=== Adding a note to an item in an order: `addNote`
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Adds a note to an item in the order of the specified table. +
+Format: `addNote TABLE_NUMBER ITEM_CODE NOTE`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Item has to exist both in the menu (i.e. item code has to be valid) and order before the note is added.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `addNote 1 W09 Less spicy`
 
-=== Listing entered commands : `history`
+=== Deleting an item from an order: `deleteFromOrder`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Deletes a specified item from the order of the specified table. +
+Format: `deleteFromOrder TABLE_NUMBER ITEM_CODE [QUANTITY]`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+****
+* Item has to exist both in the menu (i.e. item code has to be valid) and order before it is deleted from the order.
+* If no quantity is specified, all quantities of the item will be deleted.
+****
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `deleteFromOrder 1 W09` +
+Deletes all W09 Chicken Wings from table 1’s order.
+* `deleteFromOrder 1 W09 1` +
+Reduces the quantity of W09 Chicken Wings by 1 in table 1’s order.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+=== Viewing all the items in an order: `viewOrder`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
+Shows a list of items ordered by the specified table. +
+Format: `viewOrder TABLE_NUMBER`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `viewOrder 1` +
+Returns +
+`----------------------------------------` +
+`Order from Table 1` +
+`----------------------------------------` +
+`1. W09 Chicken Wings [1/2 served]` +
+` Less spicy` +
+`2. A02 French Fries [0/1 served]`
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+=== Clearing all the items in an order: `clearOrder`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+Deletes all the items ordered by the specified table. +
+Format: `clearOrder TABLE_NUMBER`
 
-=== Clearing all entries : `clear`
+Examples:
 
-Clears all entries from the address book. +
-Format: `clear`
+* `clearOrder 1`
+
+=== Marking an item in an order as served: `serve`
+
+Marks the specified item as served for the specified table. +
+Format: `serve TABLE_NUMBER ITEM_CODE [QUANTITY]`
+
+****
+* Item has to exist in both the menu (i.e. item code has to be valid) and order before it is marked as served.
+* The quantity served cannot be greater than the ordered quantity of the item.
+* If quantity is not specified, the default quantity is 1.
+****
+
+Examples:
+
+* `serve 1 W09` +
+Updates the status of table 1’s order with 1 W09 Chicken Wings served.
+* `serve 5 C04 2` +
+Updates the status of table 5’s order with 2 C04 Shrimp Fried Rice served.
+
+=== Checking if table is served : `isTableServed`
+
+Checks if all menu items on the order has been served. +
+Format: `isTableServed`
+
+****
+* Checks if the table exists.
+****
+
+Examples:
+
+* `isTableServed` +
+Returns `Table is fully served` or `Table is not fully served`
+
+=== Listing all items in menu : `printMenu`
+
+Lists all the items in the menu currently. +
+Format: `printMenu`
+
+****
+* “Menu is empty” is printed if there is no item in current menu.
+****
+
+=== Adding menu items to the menu : `addToMenu`
+
+Adds the specified item to the menu. +
+Format: `addToMenu ITEM_CODE ITEM_NAME ITEM_PRICE`
+
+Examples:
+
+* `addToMenu c/A02 n/French Fries p/2.00` +
+Adds French Fries with item code A02 and price $2.00 to the menu.
+
+=== Removing menu items from the menu : `removeFromMenu`
+
+Removes the specified item from the menu. +
+Format: `removeFromMenu ITEM_CODE ITEM_NAME`
+
+Examples:
+
+* `removeFromMenu c/A02 n/French Fries` +
+Removes French Fries with item code A02 from the menu.
+
+=== Checking if item exists in the menu : `itemExists`
+
+Checks if item with the specified item code exists in the menu. +
+Format: `itemExists ITEM_CODE`
+
+Examples:
+
+* `itemExists A02` +
+Checks if item with code A02 exists in the menu.
+
+=== Calculating the bill of an order : `bill`
+
+Calculates the bill of an order from the specified table. +
+Format: `bill TABLE_NUMBER`
+
+Examples:
+
+* `bill 1` +
+Returns the total price of the order from table 1.
+
+=== Getting the most popular item ordered: `getMostPopularItem`
+
+Returns the item on the menu that has the most orders. +
+Format: `getMostPopularItem`
+
+Examples:
+
+* `getMostPopularItem` +
+Returns the most popular item `W09 Chicken Wings`
+
+=== Getting the total number of customers : `getTotalCustomers`
+
+Returns the total number of customer for the stated day, month or year. +
+Format: `getTotalCustomers [YEAR] [MONTH] [DAY]`
+
+****
+* `YEAR`, `MONTH`, `DAY` has to be valid.
+* If the stated period has no records, it will inform the user that there is no record.
+* If *no arguments* are included, by default it returns the total number of customers for the *current day*.
+****
+
+Examples:
+
+* `getTotalCustomers` +
+Returns the total number of customers of the current day `21`
+* `getTotalCustomers 2019 01 01` +
+Returns the total number of customers on the specific day 01/01/2019 `21`
+* `getTotalCustomers 2019 02` +
+Returns the total number of customers of the month February 2019 `600`
+* `getTotalCustomers 2019` +
+Returns the total number of customers of the year 2019 `1200`
+
+=== Getting the total revenue : `getTotalRevenue`
+
+Returns the total revenue earned by the restaurant by the stated year, month or day. +
+Format: `getTotalRevenue [YEAR] [MONTH] [DAY]`
+
+****
+* `YEAR`, `MONTH`, `DAY` has to be valid.
+* If the stated period has no records, it will inform the user that there is no record.
+* If *no arguments* are included, by default it returns the total revenue for the *current day*.
+****
+
+Examples:
+
+* `getTotalRevenue` +
+Returns the total revenue of the current day `$45`
+* `getTotalCustomers 2019 01 01` +
+Returns the total revenue on the specific day 01/01/2019 `$45`
+* `getTotalCustomers 2019 02` +
+Returns the total revenue of the month February 2019 `$7000`
+* `getTotalCustomers 2019` +
+Returns the total revenue of the year 2019 `15000`
+
+=== Getting all the statistics : `getStatistics`
+
+Returns all the calculated statistics. +
+Format: `getStatistics`
+
+****
+* It internally executes all the necessary calculations like:
+E.g. Most popular item, Yearly revenue, Monthly revenue, Recent average revenue.
+* Prints out all the statistics it has been computed.
+****
+
+Examples:
+
+* `getStatistics` +
+Returns All the statistics it has computed.
+`WELCOME TO RestOrRant STATISTIC CHART!` +
+`-----------------------------------------------------------------` +
+`Total Revenue` +
+`-----------------------------------------------------------------` +
+`Year 2018: $10540` +
+` ` +
+`Year 2019: $1700` +
+`	Jan: $800` +
+`	Feb: $900` +
+`Average Monthly Revenue: $850` +
+`-----------------------------------------------------------------` +
+`Total Number of Customers` +
+`-----------------------------------------------------------------` +
+`Year 2018: 20000` +
+`Year 2019: 50` +
+`	Jan: 30` +
+`	Feb: 20` +
+`Average no. of Monthly Customers: 25` +
+`-----------------------------------------------------------------` +
+`Top 3 most popular dish item` +
+`-----------------------------------------------------------------` +
+`	1. W09 Chicken Wings` +
+`	2. W12 Pork Chop Rice` +
+`	3. A01 Dumpling Noodles` +
 
 === Exiting the program : `exit`
 
@@ -226,7 +352,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+RestOrRant data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -238,23 +364,45 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous RestOrRant folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Add tables* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
+e.g. `addTables 2 4 6 8`
+* *Remove table* : `removeTable TABLE_NUMBER` +
+e.g. `removeTable 3`
+* *Update table* : `updateTable TABLE_NUMBER NEW_OCCUPANCY` +
+e.g. `updateTable 3 2`
+* *List tables* : `listTables`
+* *Add items to order* : `addToOrder TABLE_NUMBER ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` +
+e.g. `addToOrder 5 W09 1 N01 1 C04 2`
+* *Add note to order* : `addNote TABLE_NUMBER ITEM_CODE NOTE` +
+e.g. `addNote 1 W09 Less spicy`
+* *Delete item from order* : `deleteFromOrder TABLE_NUMBER ITEM_CODE [QUANTITY]` +
+e.g. `deleteFromOrder 1 W09 1`
+* *View order* : `viewOrder TABLE_NUMBER` +
+e.g. `viewOrder 1`
+* *Clear order* : `clearOrder TABLE_NUMBER` +
+e.g. `clearOrder 1`
+* *Update item served status* : `serve TABLE_NUMBER ITEM_CODE [QUANTITY]` +
+e.g. `serve 5 C04 2`
+* *Table serve status* : `isTableServed`
+* *List items in menu* : `printMenu` +
+* *Add item to Menu* : `addToMenu` +
+e.g. `addToMenu c/A02 n/French Fries p/2.00`
+* *Remove item from menu* : `removeFromMenu` +
+e.g. `removeFromMenu c/A02 n/French Fries`
+* *Check if item exists in the menu* : `itemExists` +
+e.g. `itemExists ITEM_CODE`
+* *Calculate bill of an order* : `bill` +
+e.g. `bill TABLE_NUMBER`
+* *Get most popular item* : `getMostPopularItem` +
+e.g. `getMostPopularItem`
+* *Get total number of customers* : `getTotalCustomers` +
+e.g. `getTotalCustomers [YEAR] [MONTH] [DAY]`
+* *Get total revenue* : `getTotalRevenue` +
+e.g. `getTotalRevenue [YEAR] [MONTH] [DAY]`
+* *Get all statistics* : `getStatistics` +
+e.g. `getStatistics`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`

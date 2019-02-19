@@ -43,8 +43,8 @@ IV drip, to higher-level skills like handling dialysis machinery.
 
 == Site Map
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
+* https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/docs/UserGuide.adoc[User Guide]
+* https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
 * http://github.com/CS2103-AY1819S2-W09-2/main/blob/master/docs/AboutUs.adoc[About Us]
 * https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/docs/ContactUs.adoc[Contact Us]
 

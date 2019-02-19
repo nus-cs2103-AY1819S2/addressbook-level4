@@ -1,12 +1,9 @@
 = Address Book (Level 4)
 
-image:https://api.codacy.com/project/badge/Grade/59b2e00f57cf432eab91667b827851b9[link="https://app.codacy.com/app/CS2103-AY1819S2-W09-2/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S2-W09-2/main&utm_campaign=Badge_Grade_Dashboard"]
-ifdef::env-github,env-browser[:relfileprefix: docs/]
-
 https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.com/CS2103-AY1819S2-W09-2/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/CS2103-AY1819S2-W09-2?branch=master[image:https://coveralls.io/repos/github/main/badge.svg?branch=master[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/59b2e00f57cf432eab91667b827851b9[link="https://app.codacy.com/app/CS2103-AY1819S2-W09-2/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S2-W09-2/main&utm_campaign=Badge_Grade_Dashboard"]
-ifdef::env-github,env-browser[:relfileprefix: docs/]
+ifdef::env-github,env-browser
 
 ifdef::env-github[]
 image::docs/images/Ui.jpg[width="600"]
@@ -15,6 +12,8 @@ endif::[]
 ifndef::env-github[]
 image::images/Ui.jpg[width="600"]
 endif::[]
+
+== Why AB4?
 
 “Based on trends, if we project into 2050, even with immigration, the population pyramid will be inverted ...
 We are going to be growing old faster than any society in the world.”

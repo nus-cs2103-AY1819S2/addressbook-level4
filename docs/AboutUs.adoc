@@ -32,6 +32,7 @@ Responsibilities: Display user information
 image::monikernemo.png[width="150", align="left"]
 {empty}[https://github.com/monikernemo[github]] [<<monikernemo#, portfolio>>]
 
+
 Role: Developer +
 Responsibilities: Update modules
 

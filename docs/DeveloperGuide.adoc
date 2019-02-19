@@ -1126,6 +1126,7 @@ Use case ends here.
 +
 Use case resumes at step 7.
 
+[discrete]
 === Use case: Record purchase of medicine
 
 *MSS*
@@ -1170,8 +1171,10 @@ Use case resumes at step 9.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Response time for commands should be below 3 seconds so that consultations can be expedited
+.  Commands should be easy to pick up for novice users, and convenient for expert users.
+.  Data stored can be easily transferred to another device installed with Quickdocs for operation continuation.
+.  Data stored, especially patient records and particulars, need to be encrypted to prevent unauthorised access and misuse.
 
 [appendix]
 == Glossary

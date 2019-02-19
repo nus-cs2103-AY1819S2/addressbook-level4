@@ -79,6 +79,7 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
+Alias: 'ed'
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -226,6 +227,7 @@ Format: `clear`
 === Exiting the program : `exit`
 
 Exits the program. +
+Alias: 'e'
 Format: `exit`
 
 === Saving the data

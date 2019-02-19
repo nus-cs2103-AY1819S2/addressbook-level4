@@ -75,6 +75,7 @@ Examples:
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
+Alias : 'l'
 Format: `list`
 
 === Editing a person : `edit`
@@ -143,6 +144,7 @@ Deletes the 1st person in the results of the `find` command.
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
+Alias: 's'
 Format: `select INDEX`
 
 ****
@@ -175,6 +177,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
+Alias : 'u'
 Format: `undo`
 
 [NOTE]
@@ -201,6 +204,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
+Alias: 'r'
 Format: `redo`
 
 Examples:

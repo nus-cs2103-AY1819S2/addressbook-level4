@@ -1,4 +1,4 @@
-﻿= AddressBook Level 4 - User Guide
+= BrainTrain - User Guide
 :site-section: UserGuide
 :toc:
 :toclevels: 3
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `BrainTrain Team`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -44,85 +44,142 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-=== Management Mode
-
-=== Quiz Mode
-
-==== Quit Session: `\quit`
-
-Quits a quiz session +
-Format: `\quit`
-
-==== View help: `\help`
-
-Lists out all the commands and inputs the program will accept. +
-Format: `\help`
-
-==== View hint: `\hint`
-
-Reveals additional information to help user solve the question. +
-Format: `\hint`
-
-==== View status: `\status`
-
-Lists current status and lesson progression of user. +
-Format: `\status`
-
-==== Answer : `[*]`
-
-Enters any character without escape character \ is treated as an answer., and will be deemed correct/wrong depending on the question.
-Format: `[*]`
-
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add card q/QUESTION a/ANSWER [h/HINT]`, `QUESTION` and  `ANSWER` parameters can be used as `add card q/What is the capital of Belgium? a/Brussels`.
+* Items in square brackets are optional e.g `add card q/QUESTION a/ANSWER [h/HINT]` can be used as `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.` or as `add card q/What state is Seattle in? a/Washington`.
+* Parameters can be in any order e.g. if the command specifies `add card q/QUESTION a/ANSWER`, `add card a/ANSWER q/QUESTION` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Management Mode
 
+==== Viewing help: `help`
+
+Displays usage information on all Management Mode commands. +
 Format: `help`
 
-=== Adding a person: `add`
+==== Starting quiz session: `start`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Switches to Quiz Mode and starts a new quiz session. +
 
-[TIP]
-A person can have any number of tags (including 0)
+[NOTE]
+====
+Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
+====
 
-Examples:
+[[list_cards]]
+==== Listing all flashcards: `list cards`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Shows a numbered list of all flashcards. +
+Format: `list cards`
 
-=== Listing all persons : `list`
+==== Adding a flashcard: `add card`
+Adds a flashcard. +
+Format: `add card q/QUESTION a/ANSWER [h/HINT]`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Usage rules:
 
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* The hint field is optional. When added, it is displayed during Quiz mode when <<hint, `\hint`>> is entered.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add card q/What is the capital of Belgium? a/Brussels`
+* `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.`
+
+==== Editing a flashcard : `edit card`
+
+Edits an existing flashcard. +
+Format: `edit card INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
+
+Usage rules:
+
+* Edits the flashcard at the specified `INDEX`. To find the `INDEX` number of a question, type <<list_cards, `list cards`>> to list all flashcards.
+* All fields are optional, but minimally one field must be specified.
+* The flashcard's hint can be removed by typing `h/`.
+
+Examples:
+
+* `card edit 1 a/Tokyo` +
+Changes the answer of the first flashcard to `Tokyo`. All other fields such as the question remain the same.
+* `card edit 12 q/How many intercostal spaces are there? h/` +
+Changes the question of the 12th flashcard to 'How many intercostal spaces are there?' and removes the flashcard's hint.
+
+==== Deleting a flashcard: `delete card`
+
+Deletes a flashcard in the question pool. +
+Format: `delete card INDEX`
+
+Usage rules:
+
+* Deletes the flashcard at the specified `INDEX`.
+* To find the `INDEX` number of a question, type `list cards` to list all flashcards in the question pool.
+
+Examples:
+
+* `delete card 2` +
+Deletes the 2nd flashcard.
+
+==== Importing user profile : `import user`
+Imports the selected `.csv` file and loads the current progress of the user. +
+Format: `import user FILEPATH`
+
+==== Exporting user profile : 'export user'
+Exports the current progress of the user into a `.csv` file. +
+Format: `export user FILEPATH`
+
+==== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+==== Quitting the program : `quit`
+
+Quits the program. +
+Format: `quit`
+
+// tag::dataencryption[]
+==== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
+=== Quiz Mode
+
+==== Viewing help: `\help`
+
+Displays usage information on all Quiz Mode commands and acceptable inputs for answering cards. +
+Format: `\help`
+
+[[hint]]
+
+==== Viewing the current flashcard's hint: `\hint`
+
+Reveals the hint for the current flashcard. +
+Format: `\hint`
+
+==== Viewing the session status: `\status`
+
+Displays information on the current session's status such as progression. +
+Format: `\status`
+
+==== Answering a flashcard : `[*]`
+
+Any input without the escape character `\` is treated as an answer to the current flashcard. +
+Format: `[*]`
+
+==== Quitting the current quiz session: `\quit`
+
+Quits the current quiz session and switches back to Management Mode. +
+Format: `\quit`
+
+== Address Book 4 Features
+*Features here will be replaced by equivalent features in BrainTrain document above.*
 
 === Locating persons by name: `find`
 
@@ -144,26 +201,6 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
@@ -183,16 +220,6 @@ Selects the 2nd person in the address book.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -249,29 +276,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-=== Importing user profile : `import user`
-
-App is able to import files
-
-=== Exporting user profile : 'export user'
-
-App is able to export the files
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -296,5 +304,3 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Import* : 'import'
-* *Export* : 'export'

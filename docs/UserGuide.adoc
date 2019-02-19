@@ -55,6 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+Alias : 'hp'
 Format: `help`
 
 === Adding a person: `add`
@@ -100,6 +101,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
+Alias: 'f'
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -161,6 +163,7 @@ Selects the 1st person in the results of the `find` command.
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
+Alias: 'hs'
 Format: `history`
 
 [NOTE]

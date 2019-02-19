@@ -12,13 +12,16 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedTag {
 
     private final String tagName;
+    private final String tagColor;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName} and
+     * {@code tagColor}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonAdaptedTag(String tagName, String tagColor) {
         this.tagName = tagName;
+        this.tagColor = tagColor;
     }
 
     /**
@@ -26,12 +29,16 @@ class JsonAdaptedTag {
      */
     public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;
+        tagColor = source.tagColor;
     }
 
     @JsonValue
     public String getTagName() {
         return tagName;
     }
+
+    @JsonValue
+    public String getTagColor() { return tagColor; }
 
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
@@ -42,7 +49,7 @@ class JsonAdaptedTag {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        return new Tag(tagName, tagColor);
     }
 
 }

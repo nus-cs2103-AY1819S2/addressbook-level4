@@ -10,6 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String COLOR_CONSTRAINTS = "Color is not supported";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
     private static final String[] TAG_COLOR_STYLES = { "red", "yellow", "blue", "green", "grey" };
 
@@ -30,10 +31,36 @@ public class Tag {
     }
 
     /**
+     * Constructs a {@code Tag} from {@code tagName} and {@code tagColor}.
+     *
+     * @param tagName A valid tag name
+     * @param tagColor A valid tagColor
+     */
+    public Tag(String tagName, String tagColor) {
+        requireNonNull(tagName);
+        checkArgument(isValidTagColor(tagColor), COLOR_CONSTRAINTS);
+        this.tagName = tagName;
+        this.tagColor = tagColor;
+    }
+
+    /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true is the given tag color is a valid color
+     */
+    public static boolean isValidTagColor(String test) {
+        for (String color: TAG_COLOR_STYLES) {
+            if (test.compareTo(color) == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

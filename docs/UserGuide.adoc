@@ -44,15 +44,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Operating Mode* 
+*Operating Mode*
 
 * MediTabs 2.0 has 2 operating modes: The Medicine Inventory Mode and the Address Book Mode.
 * Medicine Inventory Mode is used to view and manage medicine stock. Refer to <<Medicine Inventory Mode Features>> for features in this mode.
-* Address Book Mode is used to view and manage company contacts. Refer to << Address Book Mode Features `[coming in v2.0]`>> for features in this mode. 
+* Address Book Mode is used to view and manage company contacts. Refer to << Address Book Mode Features `[coming in v2.0]`>> for features in this mode.
 * The mode you are currently on is displayed at the bottom of the application window.
 
 image::UserGuide_OperatingMode.png[width="790"]
-	
+
 *Warnings Panel*
 
 * Low stock of a medicine and expiring medicine will trigger warnings to notify the user that action is required.
@@ -98,7 +98,7 @@ List of possible CRITERIA:
 * Quantity : `quantity` +
 * Expiry Date : `expiry` +
 * Name : `name`
- 
+
 List of possible ORDER:
 
 * Ascending : `ascending` +
@@ -588,7 +588,7 @@ e.g. `add n/Paracetamol c/James Corp.`
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [c/COMPANY_NAME]` +
 e.g. `edit 2 n/James Lee [e/jameslee@example.com]`
-* *Exit* : `exit` 
+* *Exit* : `exit`
 * *Export* : `export [FILE_NAME]` +
 e.g. export Records
 * *Filter* : `filter CRITERIA` +
@@ -609,9 +609,9 @@ e.g.`sort c/quantity o/ascending`
 * *Undo* : `undo`
 * *Update* : `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]` +
 e.g.`update 2 b/s9c4x9532 q/1000 e/11/2/2020`
-* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` 
+* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]`
 
-=== Address Book Mode Commands `[coming in v2.0]` 
+=== Address Book Mode Commands `[coming in v2.0]`
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS` +
 e.g. `add n/James Corp. p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
@@ -620,7 +620,7 @@ e.g. `add n/James Corp. p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` +
 e.g. `edit 2 n/James Lee [e/jameslee@example.com]`
-* *Exit* : `exit` 
+* *Exit* : `exit`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
@@ -634,7 +634,7 @@ e.g.`mailto 1`
 e.g.`select 2`
 * *Undo* : `undo`
 
-== Keyboard Shortcuts `[coming in v2.0]` 
+== Keyboard Shortcuts `[coming in v2.0]`
 
 * *Change operating mode* : kbd:[Shift] + kbd:[Spacebar]
 * *Back to input* : kbd:[Shift] + kbd:[Enter]

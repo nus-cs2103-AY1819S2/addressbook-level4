@@ -3,7 +3,6 @@ package seedu.address.ui.testutil;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
@@ -17,6 +16,7 @@ import seedu.address.ui.PersonCard;
  */
 public class GuiTestAssert {
     private static final String LABEL_DEFAULT_STYLE = "label";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -50,25 +50,25 @@ public class GuiTestAssert {
      */
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName) {
-            case "classmates":
-            case "owesMoney":
-                return "green";
+        case "classmates":
+        case "owesMoney":
+            return "green";
 
-            case "colleagues":
-                return "yellow";
+        case "colleagues":
+            return "yellow";
 
-            case "family":
-            case "friend":
-                return "red";
+        case "family":
+        case "friend":
+            return "red";
 
-            case "friends":
-                return "blue";
+        case "friends":
+            return "blue";
 
-            case "husband":
-                return "grey";
+        case "husband":
+            return "grey";
 
-            default:
-                throw new AssertionError(tagName + " does not have a color assigned.");
+        default:
+            throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 
@@ -80,9 +80,6 @@ public class GuiTestAssert {
         List<String> expectedTags = expectedPerson.getTags().stream()
                 .map(tag -> tag.tagName).collect(Collectors.toList());
         assertEquals(expectedTags, actualCard.getTags());
-//        expectedTags.forEach(tag ->
-//                assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, getTagColorStyleFor(tag)),
-//                        actualCard.getTagStyleClasses(tag)));
     }
 
     /**

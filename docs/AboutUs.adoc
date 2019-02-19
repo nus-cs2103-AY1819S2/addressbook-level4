@@ -21,8 +21,8 @@ Responsibilities: Data
 '''
 
 === Joel Ng Zhi Hao
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::joel0111.jpg[width="150", align="left"]
+{empty}[http://github.com/joel0111[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI

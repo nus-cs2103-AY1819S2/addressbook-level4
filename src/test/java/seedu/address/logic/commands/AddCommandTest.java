@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.tag.Tag;
 
 public class AddCommandTest {
 
@@ -187,6 +188,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void deleteTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");

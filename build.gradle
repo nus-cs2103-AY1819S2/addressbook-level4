@@ -77,7 +77,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'gradtrak.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

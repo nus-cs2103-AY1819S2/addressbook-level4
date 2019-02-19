@@ -2,6 +2,7 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -34,8 +36,7 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+        assertTagsEqual(expectedPerson, actualCard);
     }
 
     /**
@@ -70,5 +71,17 @@ public class GuiTestAssert {
      */
     public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
         assertEquals(expected, resultDisplayHandle.getText());
+    }
+
+    /**
+     * Asserts that the tags in {@code actualCard} matches all the tag names in {@code expectedPerson}.
+     */
+    private static void assertTagsEqual(Person expectedPerson, PersonCardHandle actualCard) {
+        List<String> expectedTags = new ArrayList<String>();
+        for (Tag tag: expectedPerson.getTags()) {
+            expectedTags.add(tag.tagName);
+        }
+        assertEquals(expectedTags, actualCard.getTags());
+
     }
 }

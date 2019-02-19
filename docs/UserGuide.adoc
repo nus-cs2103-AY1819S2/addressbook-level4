@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Know-It-All - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,33 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w10-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*Know-It-All* is a solution for those who find carrying physical flashcards around troublesome and prefer an application to help them store and organize their learning material. *Know-It-All*’s easy to use interface and digital storage allow users to effectively utilize intermittent breaks between lessons to cramp in that last bit of knowledge. *Know-It-All* is targeted at medicine students in NUS as their studies requires a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
+
+Head over to <<Quick Start>> to get started!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+Coming in v2.0
 
 [[Features]]
 == Features
@@ -46,215 +32,130 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `create f/FOLDER`, `FOLDER` is a parameter which can be used as `add f/Human Anatomy`.
+* Items in square brackets are optional e.g `i/INDEX [q/QUESTION] [a/ANSWER]` can be used as `i/1 q/Powerhouse of the cell a/Mitochondria` or as `i/1 q/Powerhouse of the cell`.
+* Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a flashcard : `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a flashcard to the current folder. +
+Format: `add q/QUESTION a/ANSWER`
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Editing a flashcard : `edit`
 
-Examples:
+Edits the flashcard specified by the index in the current folder. +
+Format: `edit i/INDEX [q/QUESTION] [a/ANSWER]`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+=== Selecting a flashcard : `select`
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
+Displays flashcard (question only) upon selection by index. +
 Format: `select INDEX`
 
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+=== Deleting a flashcard : `delete`
+
+Deletes the flashcard identified by index from the current folder. +
+Format: `delete INDEX`
+
+=== Create new folder : `addfolder`
+
+Creates a new flashcard folder with the specified name. +
+Format: `addfolder FOLDER_NAME`
+
+=== Remove folder : `removefolder`
+
+Removes the flashcard folder specified by index. +
+Format: `removefolder FOLDER_INDEX`
+
+=== Enter folder : `change`
+
+Changes to the folder specified by index. +
+Format: `change FOLDER_INDEX`
+
+=== Exit folder : `change ..`
+
+Return to the root directory (exit the current folder). +
+Format: `change ..`
+
+=== View flashcards in a folder : `view`
+
+Begins a view session, where the display area enters a fullscreen and flashcards in a folder are queued to be displayed one by one. Both questions and answers for the flashcard can be seen. +
+Format: `view [FOLDER_INDEX]`
+
+==== Go to previous flashcard : `prev`
+
+Goes back to the previous flashcard in this current view session. +
+Format: `prev`
+
+==== Go to next flashcard : `next`
+
+Presents the next flashcard in this current view session. +
+Format: `next`
+
+==== End the current session : `end`
+
+Quits the current view session. +
+Format: `end`
+
+=== Test flashcards in a folder : `test`
+
+Begins a test session, where the display area enters a fullscreen and flashcards in a folder are queued to be displayed one by one. Only questions are presented and users are required to either input an attempt or the command to reveal the answer. +
+Format: `test [FOLDER_INDEX]`
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `test 1` (starts a session by displaying a flashcard from the 1st folder)
 
-=== Listing entered commands : `history`
+==== Reveal answer to a flashcard : `reveal`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Allows user to see the answer to the currently displayed card without keying in any answer. +
+Format: `reveal`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+==== Keying in answer to a flashcard: `ans`
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+Allows user to input an answer for the currently displayed card. An ans command is only considered valid if a user is currently running an active test session and/or a card is currently being displayed. +
+Format: `ans ANSWER`
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* (Card question: What is the powerhouse of the cell?) +
+`ans Mitochondria`
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+==== End the current session : `end`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+Quits the current test session. +
+Format: `end`
 
-=== Redoing the previously undone command : `redo`
+=== Sort cards by level within a folder : sort
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+Displays all flashcards sorted such that the lowest level cards are at the top. +
+Format: `sort`
 
-Examples:
+=== Search by keywords : `search`
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+At the root directory, searches for folders using keywords in folder names. Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions. +
+Format: `search KEYWORDS [MORE_KEYWORDS]`
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+=== List flashcards : `list`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+Display a list of the flashcards in the current folder, where only questions can be seen, answers are hidden. This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort. +
+Format: `list`
 
-=== Clearing all entries : `clear`
+=== Import flashcards : `import`
 
-Clears all entries from the address book. +
-Format: `clear`
+Searches for a file with the specified filename in the program directory and parses the file to generate a flashcard folder. +
+Format: `import FILENAME`
+
+=== Export flashcards : `export`
+
+Creates a file containing the flashcards from the specified folder, which can later be imported. +
+Format: `export FOLDER_INDEX FILENAME`
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`

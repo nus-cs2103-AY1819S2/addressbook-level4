@@ -1025,7 +1025,7 @@ Use case ends here.
 Use case ends here.
 
 [discrete]
-== Use case: Viewing clinic statistics
+=== Use case: Viewing clinic statistics
 
 *MSS*
 

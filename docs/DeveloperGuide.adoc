@@ -924,35 +924,127 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Export a lesson
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User finds the lesson he wishes to export by using list or find command.
+2. User uses export command.
+3. App displays the location where the exported csv file is saved to.
+
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. User inputs invalid lesson name.
++
+[none]
+** 2a1. Step 2 repeats until a valid lesson is found.
++
+Use case resumes at step 3.
+
+* 2b. App is unable to save due to permissions, invalid format, etc
++
+[none]
+** 2b1. App notifies User of the error.
+** 2b2. Step 2 repeats until the file is able to be saved.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Import a lesson
+
+*MSS*
+
+1. User downloads file from a source (e.g Internet, other users).
+2. User uses import command.
+3. App loads the file as a lesson into the app shows the content of the lesson.
+4. App requests confirmation.
+5. App saves lesson to user profile.
+
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 2a. User inputs invalid file path, file is not found or file is not valid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. Step 2 repeats until a valid file is found.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
-_{More to be added}_
+* 3a. App fails to load the file due to interruption, etc
++
+[none]
+** 3a1. App tells user cause of failure.
+** 3a2. Step 2 repeats until a valid file is successfully loaded.
++
+Use case resumes at step 3.
+
+* 4a. User declines
++
+[none]
++
+** Use case ends
+
+[discrete]
+=== Use case: Test poorly memorised questions
+
+*MSS*
+
+1. User requests to revise poorly/wrongly answered questions
+2. App requests for the pool of questions based on the user’s profile
+3. App displays questions for User to answer.
+4. User to input his answer.
+5. App displays the correct answer.
++
+Steps 3-5 are repeated until there are no more questions left to be tested.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. App detects no questions to be tested now.
++
+[none]
+** 3a1. App prompts User to continue testing all questions.
+** 3a2. User enter yes.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Start multiple lessons
+
+*MSS*
+
+1. User finds specified lessons.
+2. User starts lessons by lesson names.
+3. App displays questions for User to answer.
+4. User to input his answer.
+5. App displays the correct answer.
++
+Steps 3-5 are repeated until there are no more questions left to be tested.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. App detects no questions to be tested now.
++
+[none]
+** 3a1. App prompts User to continue testing all questions.
+** 3a2. User enter yes.
++
+Use case resumes at step 3.
+
 
 [appendix]
 == Non Functional Requirements

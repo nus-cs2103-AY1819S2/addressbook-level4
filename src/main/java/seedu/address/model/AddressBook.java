@@ -122,7 +122,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Remove {@code tag} from all person in the list
      */
     public void removeTag(Tag tag) {
-        persons.forEach(person -> removeTagFromPerson(tag, person));
+        for(Person p: persons){
+            removeTagFromPerson(tag, p);
+        }
     }
 
 

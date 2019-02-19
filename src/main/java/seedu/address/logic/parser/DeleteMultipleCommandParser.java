@@ -43,5 +43,4 @@ public class DeleteMultipleCommandParser implements Parser<DeleteMultipleCommand
 
         return new DeleteMultipleCommand(startIndex, endIndex);
     }
-
 }

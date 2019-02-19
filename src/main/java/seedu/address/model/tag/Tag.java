@@ -11,8 +11,11 @@ public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    private static final String[] TAG_COLOR_STYLES = { "red", "yellow", "blue", "green", "grey" };
+
 
     public final String tagName;
+    public final String tagColor;
 
     /**
      * Constructs a {@code Tag}.
@@ -23,6 +26,7 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        this.tagColor = TAG_COLOR_STYLES[(Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length)];
     }
 
     /**

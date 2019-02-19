@@ -845,17 +845,36 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddressBook` and the *Admin* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Member
 
-*MSS*
+*Main Success Scenario (MSS)*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a specific member in the list
+2.  Club Manager adds the member
+3.  Use case ends.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
++
+** 2a1. Club Manager shows an error message.
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete Member
+
+*Main Success Scenario (MSS)*
+
+1.  Admin requests to list persons
+2.  Club Manager shows a list of members
+3.  User requests to delete a specific member in the list
+4.  Club Manager deletes the member
 +
 Use case ends.
 
@@ -869,9 +888,81 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Club Manager shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Sort Club Manager
+
+*Main Success Scenario (MSS)*
+
+1.  Admin requests to sort the Club Manager.
+2.  Club Manager sorts the members by name alphabetically.
+3.  Club Management System shows the sorted list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. Club Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list persons
+2.  Club Manager shows a list of members
+3.  User requests to edit details of a member in the displayed list
+4.  Club Manager edits the details of the specified member with given information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to add a new activity in the list
+2.  Club Manager adds the activity
+3.  Use case ends.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
++
+** 2a1. Club Manager shows an error message.
+Use case resumes at step 1.
+
 
 _{More to be added}_
 

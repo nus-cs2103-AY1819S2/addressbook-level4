@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= PDF++ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `LATB (T12-4)`      Since: `Feb 2019`      Licence: `NUS?`
 
 == Setting up
 
@@ -845,7 +845,31 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `PDF++` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Add new PDF file
+
+*MSS*
+
+1.  User clicks on `Import PDF` button [top-left corner of the UI].
+2.  User navigates to directory of the PDF file to be added.
+3.  User clicks desired PDF file followed by `Add` button.
+4.  PDF++ makes a record of the relevant attributes of the selected PDF.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort files within PDF++
+
+*MSS*
+
+1.  User clicks on `Sort` dropdown box.
+2.  User clicks on sorting criteria based on dropdown box options.
+3.  User clicks on `Sort` button.
+4.  PDF++ sorts the list of files and displays sorted list to user.
++
+Use case ends.
 
 [discrete]
 === Use case: Delete person

@@ -317,6 +317,26 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
+==== Design Considerations
+
+===== Aspect: How data encryption is executed
+
+* **Alternative 1:** Encrypt the entire address book.
+** Pros: Easy to implement. Use pre-existing encryption libraries to encrypt the entire address book.
+** Cons: May have performance issues when encrypting/decrypting large amounts of data.
+* **Alternative 2:** Only encrypt parts of the address book user selects.
+** Pros: More efficient in terms of performance (cuts down on encryption/decryption time).
+** Cons: Add `encrypt` and `decrypt` command to allow user to choose what needs to be encrypted and decrypted respectively. Need to encrypt/decrypt different chunks of data correctly.
+
+===== Aspect: Data structure to support data encryption
+
+* **Alternative 1:** Save the entire address book as encrypted data in the database. 
+** Pros: Data is secure and not viewable without encryption key.
+** Cons: Implement log in page for decryption of address book. Require alternative if encryption key is forgotten.
+* **Alternative 2:** Save encrypted parts of address book and plaintext in database.
+** Pros: Able to salvage some information if encryption key is lost.
+** Cons: Need to implement packing/unpacking of encrypted data and plaintext during startup/shutdown.
+
 
 // end::dataencryption[]
 

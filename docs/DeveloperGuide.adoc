@@ -880,6 +880,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |pharmacist |have a task list |set reminders for myself
 
+|`*` |pharmacist |save information on medicine's usage |remind myself of its usage
+
 |=======================================================================
 
 [appendix]

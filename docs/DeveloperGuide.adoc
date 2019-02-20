@@ -832,11 +832,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage an inventory
-* prefer desktop apps over other types
-* requires neat, clean GUI
+Our target user, Isabelle, is a pharmacist whose job is to dispense and manage the inventory of the medication. Sadly, she spends a significant part of her day managing her clinic’s inventory to ensure that it is adequately stocked daily. It is crucial that there is not an oversupply of medicine due to their short shelf lives, while expiring products are to be identified and dispose of. As Isabelle has many tasks to complete daily, it is important that she can manage the inventory efficiently.
 
-*Value proposition*: efficient storage, display and organisation of data to make inventory management easier.
+Reference: https://www.powerpak.com/course/content/114338
+
+
+*Value proposition*: streamline and provide an organized overview of medical inventory management.
+
 
 [appendix]
 == User Stories

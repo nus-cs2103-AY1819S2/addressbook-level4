@@ -974,11 +974,26 @@ Use case resume at step 2.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. User Constraints
+.. The product caters users with a preference for typing commands over the command line. Only limited GUI interactions are available as the focus is on the command line interface.
+.. The product is meant only for single user usage. i.e, any features (e.g. profile switching) should only be limited to a single user. Using such features to support mulitple users is not recommended.
 
-_{More to be added}_
+. Data
+.. User should have read and write permissions for data stored on the local machine. i.e, expert users can edit the data file without the application.
+.. Third party database management systems (e.g. MySQL, Postgres) are not permitted.
+
+. Working Environment
+.. The product should work on all mainstream OS.
+.. Connection to external APIs is not recommended, although the usage of reliable external APIs is permissible. In such cases, a fallback should be implemented should the connection fail.
+
+. Portability
+.. The product should work without the need for additional software. `.jar` package will be used for the product release.
+
+. Testability
+.. Avoid implementing features that are difficult to test manually and automatically. i.e, avoid dependence on remote APIs as their behaviours are beyond our control.
+.. Due to the project's constraints, audio related features were not taken into consideration. Avoid any features using audio indicators.
+
+
 
 [appendix]
 == Glossary
@@ -986,8 +1001,12 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[inventory]] Inventory::
+A complete list of goods in stock
+
+[[batch]] Batch::
+A quantity or consignment of goods produced at one time
+
 
 [appendix]
 == Product Survey

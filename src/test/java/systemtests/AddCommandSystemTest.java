@@ -46,7 +46,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.MedicineBuilder;
 import seedu.address.testutil.MedicineUtil;
 
-public class AddCommandSystemTest extends AddressBookSystemTest {
+public class AddCommandSystemTest extends MediTabsSystemTest {
 
     @Test
     public void add() {
@@ -54,7 +54,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a medicine without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a medicine without tags to a non-empty inventory, command with leading spaces and trailing spaces
          * -> added
          */
         Medicine toAdd = AMY;
@@ -73,20 +73,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a medicine with all fields same as another medicine in the address book except name -> added */
+        /* Case: add a medicine with all fields same as another medicine in the inventory except name -> added */
         toAdd = new MedicineBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a medicine with all fields same as another medicine in the address book except phone and email
+        /* Case: add a medicine with all fields same as another medicine in the inventory except phone and email
          * -> added
          */
         toAdd = new MedicineBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = MedicineUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty inventory -> added */
         deleteAllMedicines();
         assertCommandSuccess(ALICE);
 
@@ -189,8 +189,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Medicine toAdd) {
         assertCommandSuccess(MedicineUtil.getAddCommand(toAdd), toAdd);
@@ -233,8 +233,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code MedicineListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

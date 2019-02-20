@@ -36,44 +36,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' inventory file path.
      */
-    Path getAddressBookFilePath();
+    Path getInventoryFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' inventory file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setInventoryFilePath(Path InventoryFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces inventory data with the data in {@code Inventory}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setInventory(ReadOnlyInventory Inventory);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Inventory */
+    ReadOnlyInventory getInventory();
 
     /**
-     * Returns true if a medicine with the same identity as {@code medicine} exists in the address book.
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the inventory.
      */
     boolean hasMedicine(Medicine medicine);
 
     /**
      * Deletes the given medicine.
-     * The medicine must exist in the address book.
+     * The medicine must exist in the inventory.
      */
     void deleteMedicine(Medicine target);
 
     /**
      * Adds the given medicine.
-     * {@code medicine} must not already exist in the address book.
+     * {@code medicine} must not already exist in the inventory.
      */
     void addMedicine(Medicine medicine);
 
     /**
      * Replaces the given medicine {@code target} with {@code editedMedicine}.
-     * {@code target} must exist in the address book.
-     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the address book.
+     * {@code target} must exist in the inventory.
+     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
      */
     void setMedicine(Medicine target, Medicine editedMedicine);
 
@@ -87,29 +87,29 @@ public interface Model {
     void updateFilteredMedicineList(Predicate<Medicine> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous inventory states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoInventory();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone inventory states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoInventory();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's inventory to its previous state.
      */
-    void undoAddressBook();
+    void undoInventory();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's inventory to its previously undone state.
      */
-    void redoAddressBook();
+    void redoInventory();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current inventory state for undo/redo.
      */
-    void commitAddressBook();
+    void commitInventory();
 
     /**
      * Selected medicine in the filtered medicine list.

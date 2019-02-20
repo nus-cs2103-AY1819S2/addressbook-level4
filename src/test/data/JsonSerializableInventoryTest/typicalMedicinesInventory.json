@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Medicine values as in TypicalMedicines#getTypicalAddressBook()",
+  "_comment": "Inventory save file which contains the same Medicine values as in TypicalMedicines#getTypicalInventory()",
   "medicines" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",

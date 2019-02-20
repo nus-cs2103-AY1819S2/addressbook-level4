@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalMedicines.ALICE;
-import static seedu.address.testutil.TypicalMedicines.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,29 +25,29 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.address.testutil.MedicineBuilder;
 
-public class AddressBookTest {
+public class InventoryTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final Inventory Inventory = new Inventory();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getMedicineList());
+        assertEquals(Collections.emptyList(), Inventory.getMedicineList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        Inventory.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyInventory_replacesData() {
+        Inventory newData = getTypicalInventory();
+        Inventory.resetData(newData);
+        assertEquals(newData, Inventory);
     }
 
     @Test
@@ -56,49 +56,49 @@ public class AddressBookTest {
         Medicine editedAlice = new MedicineBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Medicine> newMedicines = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newMedicines);
+        InventoryStub newData = new InventoryStub(newMedicines);
 
         thrown.expect(DuplicateMedicineException.class);
-        addressBook.resetData(newData);
+        Inventory.resetData(newData);
     }
 
     @Test
     public void hasMedicine_nullMedicine_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasMedicine(null);
+        Inventory.hasMedicine(null);
     }
 
     @Test
-    public void hasMedicine_medicineNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasMedicine(ALICE));
+    public void hasMedicine_medicineNotInInventory_returnsFalse() {
+        assertFalse(Inventory.hasMedicine(ALICE));
     }
 
     @Test
-    public void hasMedicine_medicineInAddressBook_returnsTrue() {
-        addressBook.addMedicine(ALICE);
-        assertTrue(addressBook.hasMedicine(ALICE));
+    public void hasMedicine_medicineInInventory_returnsTrue() {
+        Inventory.addMedicine(ALICE);
+        assertTrue(Inventory.hasMedicine(ALICE));
     }
 
     @Test
-    public void hasMedicine_medicineWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addMedicine(ALICE);
+    public void hasMedicine_medicineWithSameIdentityFieldsInInventory_returnsTrue() {
+        Inventory.addMedicine(ALICE);
         Medicine editedAlice = new MedicineBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasMedicine(editedAlice));
+        assertTrue(Inventory.hasMedicine(editedAlice));
     }
 
     @Test
     public void getMedicineList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getMedicineList().remove(0);
+        Inventory.getMedicineList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addMedicine(ALICE);
+        Inventory.addListener(listener);
+        Inventory.addMedicine(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -106,19 +106,19 @@ public class AddressBookTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addMedicine(ALICE);
+        Inventory.addListener(listener);
+        Inventory.removeListener(listener);
+        Inventory.addMedicine(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose medicines list can violate interface constraints.
+     * A stub ReadOnlyInventory whose medicines list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class InventoryStub implements ReadOnlyInventory {
         private final ObservableList<Medicine> medicines = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Medicine> medicines) {
+        InventoryStub(Collection<Medicine> medicines) {
             this.medicines.setAll(medicines);
         }
 

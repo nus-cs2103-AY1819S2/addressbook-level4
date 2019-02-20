@@ -34,17 +34,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalMedicines;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for MediTabs, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class MediTabsSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -79,8 +79,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalMedicines.getTypicalAddressBook();
+    protected Inventory getInitialData() {
+        return TypicalMedicines.getTypicalInventory();
     }
 
     /**
@@ -134,11 +134,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all medicines in the address book.
+     * Displays all medicines in the inventory.
      */
     protected void showAllMedicines() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getMedicineList().size(), getModel().getFilteredMedicineList().size());
+        assertEquals(getModel().getInventory().getMedicineList().size(), getModel().getFilteredMedicineList().size());
     }
 
     /**
@@ -146,7 +146,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showMedicinesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredMedicineList().size() < getModel().getAddressBook().getMedicineList().size());
+        assertTrue(getModel().getFilteredMedicineList().size() < getModel().getInventory().getMedicineList().size());
     }
 
     /**
@@ -158,11 +158,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all medicines in the address book.
+     * Deletes all medicines in the inventory.
      */
     protected void deleteAllMedicines() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getMedicineList().size());
+        assertEquals(0, getModel().getInventory().getMedicineList().size());
     }
 
     /**
@@ -174,7 +174,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new Inventory(expectedModel.getInventory()), testApp.readStorageInventory());
         assertListMatching(getMedicineListPanel(), expectedModel.getFilteredMedicineList());
     }
 

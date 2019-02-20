@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
-import static seedu.address.testutil.TypicalMedicines.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditMedicineDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,7 +34,7 @@ import seedu.address.testutil.MedicineBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,9 +45,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.setMedicine(model.getFilteredMedicineList().get(0), editedMedicine);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,9 +67,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.setMedicine(lastMedicine, editedMedicine);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,8 +81,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -98,9 +98,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.setMedicine(model.getFilteredMedicineList().get(0), editedMedicine);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -118,8 +118,8 @@ public class EditCommandTest {
     public void execute_duplicateMedicineFilteredList_failure() {
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
 
-        // edit medicine in filtered list into a duplicate in address book
-        Medicine medicineInList = model.getAddressBook().getMedicineList().get(INDEX_SECOND_MEDICINE.getZeroBased());
+        // edit medicine in filtered list into a duplicate in inventory
+        Medicine medicineInList = model.getInventory().getMedicineList().get(INDEX_SECOND_MEDICINE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE,
                 new EditMedicineDescriptorBuilder(medicineInList).build());
 
@@ -137,14 +137,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of inventory
      */
     @Test
     public void execute_invalidMedicineIndexFilteredList_failure() {
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
         Index outOfBoundIndex = INDEX_SECOND_MEDICINE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMedicineList().size());
+        // ensures that outOfBoundIndex is still in bounds of inventory list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getMedicineList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -158,19 +158,19 @@ public class EditCommandTest {
         Medicine medicineToEdit = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.setMedicine(medicineToEdit, editedMedicine);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         // edit -> first medicine edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered medicine list to show all medicines
-        expectedModel.undoAddressBook();
+        // undo -> reverts Inventory back to previous state and filtered medicine list to show all medicines
+        expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first medicine edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -180,10 +180,10 @@ public class EditCommandTest {
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> inventory state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single inventory state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -200,23 +200,23 @@ public class EditCommandTest {
         Medicine editedMedicine = new MedicineBuilder().build();
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
 
         showMedicineAtIndex(model, INDEX_SECOND_MEDICINE);
         Medicine medicineToEdit = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
         expectedModel.setMedicine(medicineToEdit, editedMedicine);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         // edit -> edits second medicine in unfiltered medicine list / first medicine in filtered medicine list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered medicine list to show all medicines
-        expectedModel.undoAddressBook();
+        // undo -> reverts Inventory back to previous state and filtered medicine list to show all medicines
+        expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased()), medicineToEdit);
         // redo -> edits same second medicine in unfiltered medicine list
-        expectedModel.redoAddressBook();
+        expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

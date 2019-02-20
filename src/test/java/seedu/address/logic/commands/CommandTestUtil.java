@@ -15,7 +15,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Medicine;
@@ -102,14 +102,14 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered medicine list and selected medicine in {@code actualModel} remain unchanged <br>
+     * - the inventory, filtered medicine list and selected medicine in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        Inventory expectedInventory = new Inventory(actualModel.getInventory());
         List<Medicine> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMedicineList());
         Medicine expectedSelectedMedicine = actualModel.getSelectedMedicine();
 
@@ -120,7 +120,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedInventory, actualModel.getInventory());
             assertEquals(expectedFilteredList, actualModel.getFilteredMedicineList());
             assertEquals(expectedSelectedMedicine, actualModel.getSelectedMedicine());
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -129,7 +129,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the medicine at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s inventory.
      */
     public static void showMedicineAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredMedicineList().size());
@@ -142,12 +142,12 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first medicine in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first medicine in {@code model}'s filtered list from {@code model}'s inventory.
      */
     public static void deleteFirstMedicine(Model model) {
         Medicine firstMedicine = model.getFilteredMedicineList().get(0);
         model.deleteMedicine(firstMedicine);
-        model.commitAddressBook();
+        model.commitInventory();
     }
 
 }

@@ -11,10 +11,10 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.UniqueMedicineList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the inventory level
  * Duplicates are not allowed (by .isSameMedicine comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Inventory implements ReadOnlyInventory {
 
     private final UniqueMedicineList medicines;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -30,12 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         medicines = new UniqueMedicineList();
     }
 
-    public AddressBook() {}
+    public Inventory() {}
 
     /**
-     * Creates an AddressBook using the Medicines in the {@code toBeCopied}
+     * Creates an Inventory using the Medicines in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Inventory(ReadOnlyInventory toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -52,9 +52,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Inventory} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyInventory newData) {
         requireNonNull(newData);
 
         setMedicines(newData.getMedicineList());
@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// medicine-level operations
 
     /**
-     * Returns true if a medicine with the same identity as {@code medicine} exists in the address book.
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the inventory.
      */
     public boolean hasMedicine(Medicine medicine) {
         requireNonNull(medicine);
@@ -71,8 +71,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a medicine to the address book.
-     * The medicine must not already exist in the address book.
+     * Adds a medicine to the inventory.
+     * The medicine must not already exist in the inventory.
      */
     public void addMedicine(Medicine p) {
         medicines.add(p);
@@ -81,8 +81,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given medicine {@code target} in the list with {@code editedMedicine}.
-     * {@code target} must exist in the address book.
-     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the address book.
+     * {@code target} must exist in the inventory.
+     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
      */
     public void setMedicine(Medicine target, Medicine editedMedicine) {
         requireNonNull(editedMedicine);
@@ -92,8 +92,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Inventory}.
+     * {@code key} must exist in the inventory.
      */
     public void removeMedicine(Medicine key) {
         medicines.remove(key);
@@ -111,7 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the inventory has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -133,8 +133,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && medicines.equals(((AddressBook) other).medicines));
+                || (other instanceof Inventory // instanceof handles nulls
+                && medicines.equals(((Inventory) other).medicines));
     }
 
     @Override

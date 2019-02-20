@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a File name in the address book.
+ * Represents a File name in MediTabs.
  * Guarantees: immutable; is valid as declared in {@link #isValidFileName(String)}
  */
 public class FileName {

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * Deletes a medicine identified using it's displayed index from the address book.
+ * Deletes a medicine identified using it's displayed index from the inventory.
  */
 public class DeleteCommand extends Command {
 
@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
 
         Medicine medicineToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteMedicine(medicineToDelete);
-        model.commitAddressBook();
+        model.commitInventory();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete));
     }
 

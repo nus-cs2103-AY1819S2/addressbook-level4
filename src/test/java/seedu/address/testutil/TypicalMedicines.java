@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.Inventory;
 import seedu.address.model.medicine.Medicine;
 
 /**
@@ -60,14 +60,14 @@ public class TypicalMedicines {
     private TypicalMedicines() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical medicines.
+     * Returns an {@code Inventory} with all the typical medicines.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static Inventory getTypicalInventory() {
+        Inventory inv = new Inventory();
         for (Medicine medicine : getTypicalMedicines()) {
-            ab.addMedicine(medicine);
+            inv.addMedicine(medicine);
         }
-        return ab;
+        return inv;
     }
 
     public static List<Medicine> getTypicalMedicines() {

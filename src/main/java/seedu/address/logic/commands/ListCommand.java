@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all medicines in the address book to the user.
+ * Lists all medicines in the inventory to the user.
  */
 public class ListCommand extends Command {
 

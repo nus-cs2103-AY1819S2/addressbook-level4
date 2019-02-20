@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MEDICINE;
-import static seedu.address.testutil.TypicalMedicines.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import org.junit.Test;
 
@@ -23,8 +23,8 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -57,8 +57,8 @@ public class SelectCommandTest {
         showMedicineAtIndex(expectedModel, INDEX_FIRST_MEDICINE);
 
         Index outOfBoundsIndex = INDEX_SECOND_MEDICINE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getMedicineList().size());
+        // ensures that outOfBoundIndex is still in bounds of inventory list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getInventory().getMedicineList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
     }

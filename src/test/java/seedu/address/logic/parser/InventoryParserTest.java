@@ -37,11 +37,11 @@ import seedu.address.testutil.ExportUtil;
 import seedu.address.testutil.MedicineBuilder;
 import seedu.address.testutil.MedicineUtil;
 
-public class AddressBookParserTest {
+public class InventoryParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final InventoryParser parser = new InventoryParser();
 
     @Test
     public void parseCommand_add() throws Exception {

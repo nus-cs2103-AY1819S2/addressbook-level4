@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * Selects a medicine identified using it's displayed index from the address book.
+ * Selects a medicine identified using it's displayed index from the inventory.
  */
 public class SelectCommand extends Command {
 

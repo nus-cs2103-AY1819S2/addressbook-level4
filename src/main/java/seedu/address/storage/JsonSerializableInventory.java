@@ -9,52 +9,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Inventory;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable Inventory that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "Inventory")
+class JsonSerializableInventory {
 
     public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicines list contains duplicate medicine(s).";
 
     private final List<JsonAdaptedMedicine> medicines = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given medicines.
+     * Constructs a {@code JsonSerializableInventory} with the given medicines.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("medicines") List<JsonAdaptedMedicine> medicines) {
+    public JsonSerializableInventory(@JsonProperty("medicines") List<JsonAdaptedMedicine> medicines) {
         this.medicines.addAll(medicines);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyInventory} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableInventory}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableInventory(ReadOnlyInventory source) {
         medicines.addAll(source.getMedicineList().stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this inventory into the model's {@code Inventory} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public Inventory toModelType() throws IllegalValueException {
+        Inventory Inventory = new Inventory();
         for (JsonAdaptedMedicine jsonAdaptedMedicine : medicines) {
             Medicine medicine = jsonAdaptedMedicine.toModelType();
-            if (addressBook.hasMedicine(medicine)) {
+            if (Inventory.hasMedicine(medicine)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
             }
-            addressBook.addMedicine(medicine);
+            Inventory.addMedicine(medicine);
         }
-        return addressBook;
+        return Inventory;
     }
 
 }

@@ -48,7 +48,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.MedicineBuilder;
 import seedu.address.testutil.MedicineUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends MediTabsSystemTest {
 
     @Test
     public void edit() {
@@ -82,7 +82,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getMedicineList().contains(BOB));
+        assertTrue(getModel().getInventory().getMedicineList().contains(BOB));
         index = INDEX_SECOND_MEDICINE;
         assertNotEquals(getModel().getFilteredMedicineList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -108,7 +108,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered medicine list, edit index within bounds of address book and medicine list -> edited */
+        /* Case: filtered medicine list, edit index within bounds of inventory and medicine list -> edited */
         showMedicinesWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_MEDICINE;
         assertTrue(index.getZeroBased() < getModel().getFilteredMedicineList().size());
@@ -117,11 +117,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedMedicine = new MedicineBuilder(medicineToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedMedicine);
 
-        /* Case: filtered medicine list, edit index within bounds of address book but out of bounds of medicine list
+        /* Case: filtered medicine list, edit index within bounds of inventory but out of bounds of medicine list
          * -> rejected
          */
         showMedicinesWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getMedicineList().size();
+        int invalidIndex = getModel().getInventory().getMedicineList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 
@@ -184,7 +184,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a medicine with new values same as another medicine's values -> rejected */
         executeCommand(MedicineUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getMedicineList().contains(BOB));
+        assertTrue(getModel().getInventory().getMedicineList().contains(BOB));
         index = INDEX_FIRST_MEDICINE;
         assertFalse(getModel().getFilteredMedicineList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -258,9 +258,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see MediTabsSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -283,8 +283,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

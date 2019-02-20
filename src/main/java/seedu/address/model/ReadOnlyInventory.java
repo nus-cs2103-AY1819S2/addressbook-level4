@@ -5,9 +5,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an inventory
  */
-public interface ReadOnlyAddressBook extends Observable {
+public interface ReadOnlyInventory extends Observable {
 
     /**
      * Returns an unmodifiable view of the medicines list.

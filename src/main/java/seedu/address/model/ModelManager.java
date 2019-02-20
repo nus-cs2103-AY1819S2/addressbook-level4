@@ -19,33 +19,33 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the inventory data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
     private final FilteredList<Medicine> filteredMedicines;
     private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyInventory inventory, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(inventory, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedInventory = new VersionedInventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMedicines = new FilteredList<>(versionedAddressBook.getMedicineList());
+        filteredMedicines = new FilteredList<>(versionedInventory.getMedicineList());
         filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Inventory(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,42 +73,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getInventoryFilePath() {
+        return userPrefs.getInventoryFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setInventoryFilePath(Path InventoryFilePath) {
+        requireNonNull(InventoryFilePath);
+        userPrefs.setInventoryFilePath(InventoryFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Inventory ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setInventory(ReadOnlyInventory Inventory) {
+        versionedInventory.resetData(Inventory);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyInventory getInventory() {
+        return versionedInventory;
     }
 
     @Override
     public boolean hasMedicine(Medicine medicine) {
         requireNonNull(medicine);
-        return versionedAddressBook.hasMedicine(medicine);
+        return versionedInventory.hasMedicine(medicine);
     }
 
     @Override
     public void deleteMedicine(Medicine target) {
-        versionedAddressBook.removeMedicine(target);
+        versionedInventory.removeMedicine(target);
     }
 
     @Override
     public void addMedicine(Medicine medicine) {
-        versionedAddressBook.addMedicine(medicine);
+        versionedInventory.addMedicine(medicine);
         updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
     }
 
@@ -116,14 +116,14 @@ public class ModelManager implements Model {
     public void setMedicine(Medicine target, Medicine editedMedicine) {
         requireAllNonNull(target, editedMedicine);
 
-        versionedAddressBook.setMedicine(target, editedMedicine);
+        versionedInventory.setMedicine(target, editedMedicine);
     }
 
     //=========== Filtered Medicine List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedInventory}
      */
     @Override
     public ObservableList<Medicine> getFilteredMedicineList() {
@@ -139,28 +139,28 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoInventory() {
+        return versionedInventory.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoInventory() {
+        return versionedInventory.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoInventory() {
+        versionedInventory.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoInventory() {
+        versionedInventory.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitInventory() {
+        versionedInventory.commit();
     }
 
     //=========== Selected medicine ===========================================================================
@@ -226,7 +226,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedInventory.equals(other.versionedInventory)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMedicines.equals(other.filteredMedicines)
                 && Objects.equals(selectedMedicine.get(), other.selectedMedicine.get());

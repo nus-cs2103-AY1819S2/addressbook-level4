@@ -22,7 +22,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.InventoryBuilder;
 import seedu.address.testutil.MedicineBuilder;
 
 public class ModelManagerTest {
@@ -35,7 +35,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new Inventory(), new Inventory(modelManager.getInventory()));
         assertEquals(null, modelManager.getSelectedMedicine());
     }
 
@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setInventoryFilePath(Paths.get("inventory/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setInventoryFilePath(Paths.get("new/inventory/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,16 +73,16 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setInventoryFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.setInventoryFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setInventoryFilePath_validPath_setsInventoryFilePath() {
+        Path path = Paths.get("inventory/file/path");
+        modelManager.setInventoryFilePath(path);
+        assertEquals(path, modelManager.getInventoryFilePath());
     }
 
     @Test
@@ -92,12 +92,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasMedicine_medicineNotInAddressBook_returnsFalse() {
+    public void hasMedicine_medicineNotInInventory_returnsFalse() {
         assertFalse(modelManager.hasMedicine(ALICE));
     }
 
     @Test
-    public void hasMedicine_medicineInAddressBook_returnsTrue() {
+    public void hasMedicine_medicineInInventory_returnsTrue() {
         modelManager.addMedicine(ALICE);
         assertTrue(modelManager.hasMedicine(ALICE));
     }
@@ -151,13 +151,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withMedicine(ALICE).withMedicine(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        Inventory Inventory = new InventoryBuilder().withMedicine(ALICE).withMedicine(BENSON).build();
+        Inventory differentInventory = new Inventory();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(Inventory, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(Inventory, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -169,20 +169,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different Inventory -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredMedicineList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(Inventory, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setInventoryFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(Inventory, differentUserPrefs)));
     }
 }

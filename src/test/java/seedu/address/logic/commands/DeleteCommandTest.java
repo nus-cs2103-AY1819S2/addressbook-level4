@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
-import static seedu.address.testutil.TypicalMedicines.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import seedu.address.model.medicine.Medicine;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,9 +36,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
         expectedModel.deleteMedicine(medicineToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -60,9 +60,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
         expectedModel.deleteMedicine(medicineToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
         showNoMedicine(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -73,8 +73,8 @@ public class DeleteCommandTest {
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
 
         Index outOfBoundIndex = INDEX_SECOND_MEDICINE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMedicineList().size());
+        // ensures that outOfBoundIndex is still in bounds of inventory list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getMedicineList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -85,19 +85,19 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Medicine medicineToDelete = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MEDICINE);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
         expectedModel.deleteMedicine(medicineToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         // delete -> first medicine deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered medicine list to show all medicines
-        expectedModel.undoAddressBook();
+        // undo -> reverts Inventory back to previous state and filtered medicine list to show all medicines
+        expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first medicine deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMedicineList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> inventory state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single inventory state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -124,23 +124,23 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameMedicineDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MEDICINE);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
 
         showMedicineAtIndex(model, INDEX_SECOND_MEDICINE);
         Medicine medicineToDelete = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
         expectedModel.deleteMedicine(medicineToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitInventory();
 
         // delete -> deletes second medicine in unfiltered medicine list / first medicine in filtered medicine list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered medicine list to show all medicines
-        expectedModel.undoAddressBook();
+        // undo -> reverts Inventory back to previous state and filtered medicine list to show all medicines
+        expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(medicineToDelete, model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased()));
         // redo -> deletes same second medicine in unfiltered medicine list
-        expectedModel.redoAddressBook();
+        expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

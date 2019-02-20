@@ -9,6 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.VIP_PERSON;
+import static seedu.address.testutil.TypicalPersons.VIP_PERSON2;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -95,5 +97,15 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void isVip() {
+        // VIP Person -> returns true
+        assertTrue(VIP_PERSON.isVip());
+        assertTrue(VIP_PERSON2.isVip());
+
+        // Normal Person -> returns false
+        assertFalse(ALICE.isVip());
     }
 }

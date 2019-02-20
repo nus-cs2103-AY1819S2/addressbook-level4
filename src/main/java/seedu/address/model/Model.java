@@ -6,14 +6,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,37 +54,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasMedicine(Medicine medicine);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given medicine.
+     * The medicine must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteMedicine(Medicine target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given medicine.
+     * {@code medicine} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addMedicine(Medicine medicine);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given medicine {@code target} with {@code editedMedicine}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setMedicine(Medicine target, Medicine editedMedicine);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered medicine list */
+    ObservableList<Medicine> getFilteredMedicineList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -112,19 +112,19 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected medicine in the filtered medicine list.
+     * null if no medicine is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Medicine> selectedMedicineProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected medicine in the filtered medicine list.
+     * null if no medicine is selected.
      */
-    Person getSelectedPerson();
+    Medicine getSelectedMedicine();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected medicine in the filtered medicine list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedMedicine(Medicine medicine);
 }

@@ -7,16 +7,16 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.UniqueMedicineList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameMedicine comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueMedicineList medicines;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,13 +27,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        medicines = new UniqueMedicineList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Medicines in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -43,11 +43,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the medicine list with {@code medicines}.
+     * {@code medicines} must not contain duplicate medicines.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines.setMedicines(medicines);
         indicateModified();
     }
 
@@ -57,37 +57,37 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setMedicines(newData.getMedicineList());
     }
 
-    //// person-level operations
+    //// medicine-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.contains(medicine);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a medicine to the address book.
+     * The medicine must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addMedicine(Medicine p) {
+        medicines.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given medicine {@code target} in the list with {@code editedMedicine}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setMedicine(Medicine target, Medicine editedMedicine) {
+        requireNonNull(editedMedicine);
 
-        persons.setPerson(target, editedPerson);
+        medicines.setMedicine(target, editedMedicine);
         indicateModified();
     }
 
@@ -95,8 +95,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeMedicine(Medicine key) {
+        medicines.remove(key);
         indicateModified();
     }
 
@@ -121,24 +121,24 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return medicines.asUnmodifiableObservableList().size() + " medicines";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Medicine> getMedicineList() {
+        return medicines.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && medicines.equals(((AddressBook) other).medicines));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return medicines.hashCode();
     }
 }

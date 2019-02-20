@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= HealthHub - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W09-2/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -195,13 +195,12 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::modelUmlDiagram.jpg[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -828,19 +827,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |Check the details of new or unassigned requests|See what requests have yet to be assigned a health worker and what type of request it is
+|`* * *` |user |Assign a health worker to an existing request|Close a currently open request by assigning a new health worker who has the skillset to fufill the request at the time of the request
 
-|`* * *` |user |add a new person |
+|`* * *` |user |Register a new health worker|
+|`* * *` |user |Register a new patient|
+|`* * *` |user |Register a new caretaker|
 
 |`* * *` |user |delete a person |remove entries that I no longer need
-
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |Check the professional details of existing health workers|Identify which health worker has the appropriate skillsets and certificates to fufill the corresponding requests
+|`* * *` |user |Register a new request from a caretaker|Key in a new request from a caretaker with the specific request and patient details
+|`* *` |user handling many requests at once|Identify the number of requests and their proportion|Immediately see which type of requests have the most demand
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`* *` |user |filter requests by type|Perform assignment of staff of tasks of a specific type
+|`* *` |user |Delete a request|Remove a request that is no longer valid or cancelled
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -872,6 +878,54 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add request
+1. User wants to register a new request.
+[none]
+* 1.a. Patient is not in Application:
+[none]
+** 1.a1. User registers the patient and the relevant details into the system.
+
+** 1.a2. Application stores the data of newly registered patient
+[none]
+2. Application registers the new request
+Use case ends.
+
+
+[discrete]
+=== Use case: Assign requests to worker
+
+1. User wants to view the list of open requests.
+[none]
+* 1.a. User does not know command for listing requests:
+* 1.a1. User enters the help command to look up the command for listing all requests.
+2. Application displays list of open requests.
+3. User wants to assign a health worker to a request.
+[none]
+* 3.a. No free health worker during the specified time slot for assignment:
+** 3.a1 Request is left open.
+* Use case ends.
+* 3.b.No health worker with the necessary skillsets/certifications:
+* 3.b1. Request is left open.
+Use case ends.
+4. Free health worker that has the necessary certifications and with the closest
+proximity to the patient address will be assigned to the request.
+[none]
+Use case ends.
+
+[discrete]
+=== Use case: Delete requests
+
+1. User wants to delete a request that is expired or invalid.
+[none]
+* 1.a. Specified request is not in Application
+* Use case ends.
+2. Application deletes the specified request.
+[none]
+* Use case ends.
+
+
 
 _{More to be added}_
 

@@ -234,7 +234,7 @@ Format: `clear`
 === Exiting the program : `exit`
 
 Exits the program. +
-Alias: 'e'
+Alias: 'ex'
 Format: `exit`
 
 === Saving the data

@@ -316,7 +316,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+Data encryption is likely to be implemented in future versions of the address book if a reasonable implementation is found.
+
 ==== Design Considerations
 
 ===== Aspect: How data encryption is executed

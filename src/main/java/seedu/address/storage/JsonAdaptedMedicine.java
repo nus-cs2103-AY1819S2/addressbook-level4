@@ -14,7 +14,7 @@ import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +25,7 @@ class JsonAdaptedMedicine {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Medicine's %s field is missing!";
 
     private final String name;
-    private final String phone;
+    private final String quantity;
     private final String email;
     private final String company;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -34,11 +34,11 @@ class JsonAdaptedMedicine {
      * Constructs a {@code JsonAdaptedMedicine} with the given medicine details.
      */
     @JsonCreator
-    public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("quantity") String quantity,
             @JsonProperty("email") String email, @JsonProperty("company") String company,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.quantity = quantity;
         this.email = email;
         this.company = company;
         if (tagged != null) {
@@ -51,7 +51,7 @@ class JsonAdaptedMedicine {
      */
     public JsonAdaptedMedicine(Medicine source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        quantity = source.getQuantity().value;
         email = source.getEmail().value;
         company = source.getCompany().value;
         tagged.addAll(source.getTags().stream()
@@ -78,13 +78,13 @@ class JsonAdaptedMedicine {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (quantity == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Quantity.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Quantity.isValidQuantity(quantity)) {
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Quantity modelQuantity = new Quantity(quantity);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -103,7 +103,7 @@ class JsonAdaptedMedicine {
         final Company modelCompany = new Company(company);
 
         final Set<Tag> modelTags = new HashSet<>(medicineTags);
-        return new Medicine(modelName, modelPhone, modelEmail, modelCompany, modelTags);
+        return new Medicine(modelName, modelQuantity, modelEmail, modelCompany, modelTags);
     }
 
 }

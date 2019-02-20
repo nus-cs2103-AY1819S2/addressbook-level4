@@ -9,7 +9,7 @@ import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,7 +33,7 @@ public class EditMedicineDescriptorBuilder {
     public EditMedicineDescriptorBuilder(Medicine medicine) {
         descriptor = new EditMedicineDescriptor();
         descriptor.setName(medicine.getName());
-        descriptor.setPhone(medicine.getPhone());
+        descriptor.setQuantity(medicine.getQuantity());
         descriptor.setEmail(medicine.getEmail());
         descriptor.setCompany(medicine.getCompany());
         descriptor.setTags(medicine.getTags());
@@ -48,10 +48,10 @@ public class EditMedicineDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditMedicineDescriptor} that we are building.
+     * Sets the {@code Quantity} of the {@code EditMedicineDescriptor} that we are building.
      */
-    public EditMedicineDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditMedicineDescriptorBuilder withQuantity(String quantity) {
+        descriptor.setQuantity(new Quantity(quantity));
         return this;
     }
 

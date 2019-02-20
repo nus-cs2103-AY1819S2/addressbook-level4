@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
@@ -39,8 +39,8 @@ public class EditMedicineDescriptorTest {
         EditMedicineDescriptor editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different phone -> returns false
-        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
+        // different quantity -> returns false
+        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withQuantity(VALID_QUANTITY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false

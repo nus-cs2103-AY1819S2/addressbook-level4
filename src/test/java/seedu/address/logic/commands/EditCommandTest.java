@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -58,11 +58,11 @@ public class EditCommandTest {
         Medicine lastMedicine = model.getFilteredMedicineList().get(indexLastMedicine.getZeroBased());
 
         MedicineBuilder medicineInList = new MedicineBuilder(lastMedicine);
-        Medicine editedMedicine = medicineInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Medicine editedMedicine = medicineInList.withName(VALID_NAME_BOB).withQuantity(VALID_QUANTITY_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withQuantity(VALID_QUANTITY_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastMedicine, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);

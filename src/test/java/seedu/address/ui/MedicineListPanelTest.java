@@ -21,7 +21,7 @@ import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 
 public class MedicineListPanelTest extends GuiUnitTest {
     private static final ObservableList<Medicine> TYPICAL_MEDICINES =
@@ -80,10 +80,10 @@ public class MedicineListPanelTest extends GuiUnitTest {
         ObservableList<Medicine> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < medicineCount; i++) {
             Name name = new Name(i + "a");
-            Phone phone = new Phone("000");
+            Quantity quantity = new Quantity("000");
             Email email = new Email("a@aa");
             Company company = new Company("a");
-            Medicine medicine = new Medicine(name, phone, email, company, Collections.emptySet());
+            Medicine medicine = new Medicine(name, quantity, email, company, Collections.emptySet());
             backingList.add(medicine);
         }
         return backingList;

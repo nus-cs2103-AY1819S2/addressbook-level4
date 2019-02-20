@@ -1,13 +1,13 @@
 {
   "medicines": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "quantity": "312",
     "email": "alice@example.com",
     "company": "GlaxoSmithKline",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "quantity": "312",
     "email": "pauline@example.com",
     "company": "Johnson & Johnson"
   } ]

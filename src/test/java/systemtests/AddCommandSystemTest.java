@@ -8,18 +8,18 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalMedicines.ALICE;
 import static seedu.address.testutil.TypicalMedicines.AMY;
@@ -41,7 +41,7 @@ import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.MedicineBuilder;
 import seedu.address.testutil.MedicineUtil;
@@ -58,7 +58,7 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
          * -> added
          */
         Medicine toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + QUANTITY_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + COMPANY_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -75,14 +75,14 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: add a medicine with all fields same as another medicine in the inventory except name -> added */
         toAdd = new MedicineBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + QUANTITY_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a medicine with all fields same as another medicine in the inventory except phone and email
+        /* Case: add a medicine with all fields same as another medicine in the inventory except quantity and email
          * -> added
          */
-        toAdd = new MedicineBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new MedicineBuilder(AMY).withQuantity(VALID_QUANTITY_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = MedicineUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -92,7 +92,7 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: add a medicine with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + COMPANY_DESC_BOB + NAME_DESC_BOB
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + QUANTITY_DESC_BOB + COMPANY_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -117,8 +117,8 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         command = MedicineUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
-        /* Case: add a duplicate medicine except with different phone -> rejected */
-        toAdd = new MedicineBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        /* Case: add a duplicate medicine except with different quantity -> rejected */
+        toAdd = new MedicineBuilder(HOON).withQuantity(VALID_QUANTITY_BOB).build();
         command = MedicineUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
@@ -137,19 +137,19 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUANTITY_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing phone -> rejected */
+        /* Case: missing quantity -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + COMPANY_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing company -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -157,23 +157,23 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + QUANTITY_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
-        assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
+        /* Case: invalid quantity -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_QUANTITY_DESC + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
+        assertCommandFailure(command, Quantity.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + INVALID_EMAIL_DESC + COMPANY_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid company -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_COMPANY_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + EMAIL_DESC_AMY + INVALID_COMPANY_DESC;
         assertCommandFailure(command, Company.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + EMAIL_DESC_AMY + COMPANY_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }

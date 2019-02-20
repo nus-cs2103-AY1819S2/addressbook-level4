@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -31,7 +31,7 @@ public class MedicineUtil {
     public static String getMedicineDetails(Medicine medicine) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + medicine.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + medicine.getPhone().value + " ");
+        sb.append(PREFIX_QUANTITY + medicine.getQuantity().value + " ");
         sb.append(PREFIX_EMAIL + medicine.getEmail().value + " ");
         sb.append(PREFIX_COMPANY + medicine.getCompany().value + " ");
         medicine.getTags().stream().forEach(
@@ -46,7 +46,7 @@ public class MedicineUtil {
     public static String getEditMedicineDescriptorDetails(EditMedicineDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getQuantity().ifPresent(quantity -> sb.append(PREFIX_QUANTITY).append(quantity.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getCompany().ifPresent(company -> sb.append(PREFIX_COMPANY).append(company.value).append(" "));
         if (descriptor.getTags().isPresent()) {

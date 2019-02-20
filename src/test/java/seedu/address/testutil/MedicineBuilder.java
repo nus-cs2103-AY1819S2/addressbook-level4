@@ -7,7 +7,7 @@ import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -17,19 +17,19 @@ import seedu.address.model.util.SampleDataUtil;
 public class MedicineBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_QUANTITY = "332";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_COMPANY = "GlaxoSmithKline";
 
     private Name name;
-    private Phone phone;
+    private Quantity quantity;
     private Email email;
     private Company company;
     private Set<Tag> tags;
 
     public MedicineBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        quantity = new Quantity(DEFAULT_QUANTITY);
         email = new Email(DEFAULT_EMAIL);
         company = new Company(DEFAULT_COMPANY);
         tags = new HashSet<>();
@@ -40,7 +40,7 @@ public class MedicineBuilder {
      */
     public MedicineBuilder(Medicine medicineToCopy) {
         name = medicineToCopy.getName();
-        phone = medicineToCopy.getPhone();
+        quantity = medicineToCopy.getQuantity();
         email = medicineToCopy.getEmail();
         company = medicineToCopy.getCompany();
         tags = new HashSet<>(medicineToCopy.getTags());
@@ -71,10 +71,10 @@ public class MedicineBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Medicine} that we are building.
+     * Sets the {@code Quantity} of the {@code Medicine} that we are building.
      */
-    public MedicineBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public MedicineBuilder withQuantity(String quantity) {
+        this.quantity = new Quantity(quantity);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class MedicineBuilder {
     }
 
     public Medicine build() {
-        return new Medicine(name, phone, email, company, tags);
+        return new Medicine(name, quantity, email, company, tags);
     }
 
 }

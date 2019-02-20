@@ -1,12 +1,12 @@
 {
   "medicines": [ {
     "name": "Valid Medicine",
-    "phone": "9482424",
+    "quantity": "948",
     "email": "hans@example.com",
     "company": "Johnson & Johnson"
   }, {
-    "name": "Medicine With Invalid Phone Field",
-    "phone": "948asdf2424",
+    "name": "Medicine With Invalid Quantity Field",
+    "quantity": "2asd492",
     "email": "hans@example.com",
     "company": "Johnson & Johnson"
   } ]

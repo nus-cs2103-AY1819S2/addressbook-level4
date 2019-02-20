@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
@@ -24,7 +24,7 @@ import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,12 +39,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_COMPANY + "COMPANY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_QUANTITY + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_MEDICINE_SUCCESS = "Edited Medicine: %1$s";
@@ -96,12 +96,12 @@ public class EditCommand extends Command {
         assert medicineToEdit != null;
 
         Name updatedName = editMedicineDescriptor.getName().orElse(medicineToEdit.getName());
-        Phone updatedPhone = editMedicineDescriptor.getPhone().orElse(medicineToEdit.getPhone());
+        Quantity updatedQuantity = editMedicineDescriptor.getQuantity().orElse(medicineToEdit.getQuantity());
         Email updatedEmail = editMedicineDescriptor.getEmail().orElse(medicineToEdit.getEmail());
         Company updatedCompany = editMedicineDescriptor.getCompany().orElse(medicineToEdit.getCompany());
         Set<Tag> updatedTags = editMedicineDescriptor.getTags().orElse(medicineToEdit.getTags());
 
-        return new Medicine(updatedName, updatedPhone, updatedEmail, updatedCompany, updatedTags);
+        return new Medicine(updatedName, updatedQuantity, updatedEmail, updatedCompany, updatedTags);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class EditCommand extends Command {
      */
     public static class EditMedicineDescriptor {
         private Name name;
-        private Phone phone;
+        private Quantity quantity;
         private Email email;
         private Company company;
         private Set<Tag> tags;
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
          */
         public EditMedicineDescriptor(EditMedicineDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setQuantity(toCopy.quantity);
             setEmail(toCopy.email);
             setCompany(toCopy.company);
             setTags(toCopy.tags);
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, company, tags);
+            return CollectionUtil.isAnyNonNull(name, quantity, email, company, tags);
         }
 
         public void setName(Name name) {
@@ -162,12 +162,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setQuantity(Quantity quantity) {
+            this.quantity = quantity;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Quantity> getQuantity() {
+            return Optional.ofNullable(quantity);
         }
 
         public void setEmail(Email email) {
@@ -219,7 +219,7 @@ public class EditCommand extends Command {
             EditMedicineDescriptor e = (EditMedicineDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getQuantity().equals(e.getQuantity())
                     && getEmail().equals(e.getEmail())
                     && getCompany().equals(e.getCompany())
                     && getTags().equals(e.getTags());

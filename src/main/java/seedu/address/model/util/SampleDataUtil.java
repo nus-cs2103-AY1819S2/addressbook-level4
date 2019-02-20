@@ -10,7 +10,7 @@ import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,22 +19,22 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Medicine[] getSampleMedicines() {
         return new Medicine[] {
-            new Medicine(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+            new Medicine(new Name("Alex Yeoh"), new Quantity("807"), new Email("alexyeoh@example.com"),
                 new Company("Otsuka Pharmaceutical Co."),
                 getTagSet("friends")),
-            new Medicine(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+            new Medicine(new Name("Bernice Yu"), new Quantity("58"), new Email("berniceyu@example.com"),
                 new Company("Piramal Healthcare"),
                 getTagSet("colleagues", "friends")),
-            new Medicine(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Medicine(new Name("Charlotte Oliveiro"), new Quantity("283"), new Email("charlotte@example.com"),
                 new Company("Renovo PLC"),
                 getTagSet("neighbours")),
-            new Medicine(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Medicine(new Name("David Li"), new Quantity("312"), new Email("lidavid@example.com"),
                 new Company("Vion Pharmaceuticals, Inc."),
                 getTagSet("family")),
-            new Medicine(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Medicine(new Name("Irfan Ibrahim"), new Quantity("4921"), new Email("irfan@example.com"),
                 new Company("Eli Lilly and Company"),
                 getTagSet("classmates")),
-            new Medicine(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Medicine(new Name("Roy Balakrishnan"), new Quantity("296"), new Email("royb@example.com"),
                 new Company("Mitsubishi Tanabe Pharma"),
                 getTagSet("colleagues"))
         };

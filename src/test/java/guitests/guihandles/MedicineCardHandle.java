@@ -17,14 +17,14 @@ public class MedicineCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String COMPANY_FIELD_ID = "#company";
-    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String QUANTITY_FIELD_ID = "#quantity";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label companyLabel;
-    private final Label phoneLabel;
+    private final Label quantityLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
 
@@ -34,7 +34,7 @@ public class MedicineCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         companyLabel = getChildNode(COMPANY_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
+        quantityLabel = getChildNode(QUANTITY_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
@@ -57,8 +57,8 @@ public class MedicineCardHandle extends NodeHandle<Node> {
         return companyLabel.getText();
     }
 
-    public String getPhone() {
-        return phoneLabel.getText();
+    public String getQuantity() {
+        return quantityLabel.getText();
     }
 
     public String getEmail() {
@@ -78,7 +78,7 @@ public class MedicineCardHandle extends NodeHandle<Node> {
     public boolean equals(Medicine medicine) {
         return getName().equals(medicine.getName().fullName)
                 && getCompany().equals(medicine.getCompany().value)
-                && getPhone().equals(medicine.getPhone().value)
+                && getQuantity().equals(medicine.getQuantity().value)
                 && getEmail().equals(medicine.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(medicine.getTags().stream()
                         .map(tag -> tag.tagName)

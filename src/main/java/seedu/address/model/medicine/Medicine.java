@@ -17,7 +17,7 @@ public class Medicine {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Quantity quantity;
     private final Email email;
 
     // Data fields
@@ -27,10 +27,10 @@ public class Medicine {
     /**
      * Every field must be present and not null.
      */
-    public Medicine(Name name, Phone phone, Email email, Company company, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, company, tags);
+    public Medicine(Name name, Quantity quantity, Email email, Company company, Set<Tag> tags) {
+        requireAllNonNull(name, quantity, email, company, tags);
         this.name = name;
-        this.phone = phone;
+        this.quantity = quantity;
         this.email = email;
         this.company = company;
         this.tags.addAll(tags);
@@ -40,8 +40,8 @@ public class Medicine {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Quantity getQuantity() {
+        return quantity;
     }
 
     public Email getEmail() {
@@ -71,7 +71,7 @@ public class Medicine {
 
         return otherMedicine != null
                 && otherMedicine.getName().equals(getName())
-                && (otherMedicine.getPhone().equals(getPhone()) || otherMedicine.getEmail().equals(getEmail()));
+                && (otherMedicine.getQuantity().equals(getQuantity()) || otherMedicine.getEmail().equals(getEmail()));
     }
 
     /**
@@ -90,7 +90,7 @@ public class Medicine {
 
         Medicine otherMedicine = (Medicine) other;
         return otherMedicine.getName().equals(getName())
-                && otherMedicine.getPhone().equals(getPhone())
+                && otherMedicine.getQuantity().equals(getQuantity())
                 && otherMedicine.getEmail().equals(getEmail())
                 && otherMedicine.getCompany().equals(getCompany())
                 && otherMedicine.getTags().equals(getTags());
@@ -99,15 +99,15 @@ public class Medicine {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, company, tags);
+        return Objects.hash(name, quantity, email, company, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Quantity: ")
+                .append(getQuantity())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Company: ")

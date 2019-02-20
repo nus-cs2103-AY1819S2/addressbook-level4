@@ -1,7 +1,7 @@
 {
   "medicines": [ {
     "name": "Medicine with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
+    "quantity": "948",
     "email": "hans@example.com",
     "company": "Johnson & Johnson"
   } ]

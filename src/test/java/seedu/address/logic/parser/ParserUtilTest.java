@@ -19,19 +19,19 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
-import seedu.address.model.medicine.Phone;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_QUANTITY = "+651234";
     private static final String INVALID_COMPANY = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_QUANTITY = "123456";
     private static final String VALID_COMPANY = "Roche";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -88,26 +88,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseQuantity_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseQuantity((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseQuantity_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseQuantity(INVALID_QUANTITY));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseQuantity_validValueWithoutWhitespace_returnsQuantity() throws Exception {
+        Quantity expectedQuantity = new Quantity(VALID_QUANTITY);
+        assertEquals(expectedQuantity, ParserUtil.parseQuantity(VALID_QUANTITY));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseQuantity_validValueWithWhitespace_returnsTrimmedQuantity() throws Exception {
+        String quantityWithWhitespace = WHITESPACE + VALID_QUANTITY + WHITESPACE;
+        Quantity expectedQuantity = new Quantity(VALID_QUANTITY);
+        assertEquals(expectedQuantity, ParserUtil.parseQuantity(quantityWithWhitespace));
     }
 
     @Test

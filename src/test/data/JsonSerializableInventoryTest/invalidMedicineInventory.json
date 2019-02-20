@@ -1,7 +1,7 @@
 {
   "medicines": [ {
     "name": "Hans Muster",
-    "phone": "9482424",
+    "quantity": "948",
     "email": "invalid@email!3e",
     "company": "Johnson & Johnson"
   } ]

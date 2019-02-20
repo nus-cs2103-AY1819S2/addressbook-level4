@@ -23,7 +23,7 @@ public class MedicineCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label quantity;
     @FXML
     private Label company;
     @FXML
@@ -36,7 +36,7 @@ public class MedicineCard extends UiPart<Region> {
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         name.setText(medicine.getName().fullName);
-        phone.setText(medicine.getPhone().value);
+        quantity.setText(medicine.getQuantity().value);
         company.setText(medicine.getCompany().value);
         email.setText(medicine.getEmail().value);
         medicine.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

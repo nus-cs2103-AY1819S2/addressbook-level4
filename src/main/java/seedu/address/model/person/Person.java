@@ -60,6 +60,10 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public boolean isVIP() {
+        return this.tags.stream().anyMatch(Tag::isVIPTag);
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -112,6 +116,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" VIP Status: ")
+                .append(isVIP())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

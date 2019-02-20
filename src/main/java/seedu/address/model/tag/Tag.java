@@ -28,8 +28,10 @@ public class Tag {
     /**
      * Returns true if a given string is a valid tag name.
      */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidTagName(String test) { return test.matches(VALIDATION_REGEX); }
+
+    public boolean isVIPTag() {
+        return this.tagName.equalsIgnoreCase("vip");
     }
 
     @Override

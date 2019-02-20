@@ -97,7 +97,7 @@ public class PersonTest {
     }
 
     @Test
-    public void isVIP() {
+    public void isVip() {
         // VIP Person -> returns true
         assertTrue(VIP_PERSON.isVip());
         assertTrue(VIP_PERSON2.isVip());

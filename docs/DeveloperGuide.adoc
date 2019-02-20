@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= MediTab - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -832,13 +832,11 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage an inventory
 * prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* requires neat, clean GUI
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: efficient storage, display and organisation of data to make inventory management easier.
 
 [appendix]
 == User Stories
@@ -848,20 +846,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |pharmacist |view the inventory easily |check stock levels
 
-|`* * *` |user |add a new person |
+|`* * *` |pharmacist |view the expiry dates of medicine easily |remove expired medicine
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |pharmacist |view batch details easily |get batch information quickly
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |pharmacist |add new and existing medicine to the inventory |keep my inventory updated
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |pharmacist |delete medicine |remove medicine that have expired or are no longer need
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |pharmacist |edit inventory level |keep my inventory updated
+
+|`* * *` |pharmacist |receive notifications when my inventory is low or there is expiring stock |will not forget to update the inventory
+
+|`* * *` |pharmacist |find a medicine by name |locate details of the medicine without having to go through the entire list
+
+|`* * *` |pharmacist |export inventory data |send the data to relevant personnel
+
+|`* * *` |pharmacist |print labels for the medicine |label the medicine for the patients' reference
+
+|`* *` |pharmacist |have an auto-completing search bar |do not have to type out the medicine's full name
+
+|`* *` |pharmacist |view purchase and sales history |forecast sales and performance
+
+|`* *` |pharmacist |view manufacturers' contact details |find out who to contact for more stock quickly
+
+|`* *` |pharmacist |be redirected to a mailer to email manufacturers |restock quickly
+
+|`* *` |pharmacist |be recommended dosage |recommend dosage based on patient's profile
+
+|`* *` |pharmacist |have a task list |set reminders for myself
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases

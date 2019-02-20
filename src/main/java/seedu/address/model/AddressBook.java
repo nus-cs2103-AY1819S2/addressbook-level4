@@ -108,7 +108,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     private void removeTagFromPerson(Tag tag, Person person) {
         Set<Tag> tags = new HashSet<Tag>(person.getTags());
-        if(!tags.remove(tag)) {
+        if (!tags.remove(tag)) {
             return;
         }
 
@@ -122,7 +122,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Remove {@code tag} from all person in the list
      */
     public void removeTag(Tag tag) {
-        for(Person p: persons){
+        for (Person p: persons) {
             removeTagFromPerson(tag, p);
         }
     }

@@ -14,19 +14,19 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is an application intended for Real Estate Agents.
+* This is an Address Book application intended for Real Estate Agents.
+* It is a desktop-based application with a GUI, but most of the user interactions happen using a CLI (Command Line Interface).
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
+* The original source of the code (https://github.com/se-edu/addressbook-level4[AddressBook-Level4]) was created by the https://github.com/se-edu/[SE-EDU] initiative.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]

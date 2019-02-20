@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class MedicineBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Paracetamol";
     public static final String DEFAULT_QUANTITY = "332";
     public static final String DEFAULT_EXPIRY = "10/10/2019";
     public static final String DEFAULT_COMPANY = "GlaxoSmithKline";

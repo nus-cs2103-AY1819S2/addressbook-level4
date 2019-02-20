@@ -3,10 +3,10 @@ package seedu.address.model.medicine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
-import static seedu.address.testutil.TypicalMedicines.BOB;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
+import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,21 +34,21 @@ public class UniqueMedicineListTest {
 
     @Test
     public void contains_medicineNotInList_returnsFalse() {
-        assertFalse(uniqueMedicineList.contains(ALICE));
+        assertFalse(uniqueMedicineList.contains(PARACETAMOL));
     }
 
     @Test
     public void contains_medicineInList_returnsTrue() {
-        uniqueMedicineList.add(ALICE);
-        assertTrue(uniqueMedicineList.contains(ALICE));
+        uniqueMedicineList.add(PARACETAMOL);
+        assertTrue(uniqueMedicineList.contains(PARACETAMOL));
     }
 
     @Test
     public void contains_medicineWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueMedicineList.add(ALICE);
-        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(uniqueMedicineList.contains(editedAlice));
+        uniqueMedicineList.add(PARACETAMOL);
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(uniqueMedicineList.contains(editedParacetamol));
     }
 
     @Test
@@ -59,64 +59,64 @@ public class UniqueMedicineListTest {
 
     @Test
     public void add_duplicateMedicine_throwsDuplicateMedicineException() {
-        uniqueMedicineList.add(ALICE);
+        uniqueMedicineList.add(PARACETAMOL);
         thrown.expect(DuplicateMedicineException.class);
-        uniqueMedicineList.add(ALICE);
+        uniqueMedicineList.add(PARACETAMOL);
     }
 
     @Test
     public void setMedicine_nullTargetMedicine_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueMedicineList.setMedicine(null, ALICE);
+        uniqueMedicineList.setMedicine(null, PARACETAMOL);
     }
 
     @Test
     public void setMedicine_nullEditedMedicine_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueMedicineList.setMedicine(ALICE, null);
+        uniqueMedicineList.setMedicine(PARACETAMOL, null);
     }
 
     @Test
     public void setMedicine_targetMedicineNotInList_throwsMedicineNotFoundException() {
         thrown.expect(MedicineNotFoundException.class);
-        uniqueMedicineList.setMedicine(ALICE, ALICE);
+        uniqueMedicineList.setMedicine(PARACETAMOL, PARACETAMOL);
     }
 
     @Test
     public void setMedicine_editedMedicineIsSameMedicine_success() {
-        uniqueMedicineList.add(ALICE);
-        uniqueMedicineList.setMedicine(ALICE, ALICE);
+        uniqueMedicineList.add(PARACETAMOL);
+        uniqueMedicineList.setMedicine(PARACETAMOL, PARACETAMOL);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
-        expectedUniqueMedicineList.add(ALICE);
+        expectedUniqueMedicineList.add(PARACETAMOL);
         assertEquals(expectedUniqueMedicineList, uniqueMedicineList);
     }
 
     @Test
     public void setMedicine_editedMedicineHasSameIdentity_success() {
-        uniqueMedicineList.add(ALICE);
-        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        uniqueMedicineList.setMedicine(ALICE, editedAlice);
+        uniqueMedicineList.add(PARACETAMOL);
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
+                .withTags(VALID_TAG_HUSBAND).build();
+        uniqueMedicineList.setMedicine(PARACETAMOL, editedParacetamol);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
-        expectedUniqueMedicineList.add(editedAlice);
+        expectedUniqueMedicineList.add(editedParacetamol);
         assertEquals(expectedUniqueMedicineList, uniqueMedicineList);
     }
 
     @Test
     public void setMedicine_editedMedicineHasDifferentIdentity_success() {
-        uniqueMedicineList.add(ALICE);
-        uniqueMedicineList.setMedicine(ALICE, BOB);
+        uniqueMedicineList.add(PARACETAMOL);
+        uniqueMedicineList.setMedicine(PARACETAMOL, GABAPENTIN);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
-        expectedUniqueMedicineList.add(BOB);
+        expectedUniqueMedicineList.add(GABAPENTIN);
         assertEquals(expectedUniqueMedicineList, uniqueMedicineList);
     }
 
     @Test
     public void setMedicine_editedMedicineHasNonUniqueIdentity_throwsDuplicateMedicineException() {
-        uniqueMedicineList.add(ALICE);
-        uniqueMedicineList.add(BOB);
+        uniqueMedicineList.add(PARACETAMOL);
+        uniqueMedicineList.add(GABAPENTIN);
         thrown.expect(DuplicateMedicineException.class);
-        uniqueMedicineList.setMedicine(ALICE, BOB);
+        uniqueMedicineList.setMedicine(PARACETAMOL, GABAPENTIN);
     }
 
     @Test
@@ -128,13 +128,13 @@ public class UniqueMedicineListTest {
     @Test
     public void remove_medicineDoesNotExist_throwsMedicineNotFoundException() {
         thrown.expect(MedicineNotFoundException.class);
-        uniqueMedicineList.remove(ALICE);
+        uniqueMedicineList.remove(PARACETAMOL);
     }
 
     @Test
     public void remove_existingMedicine_removesMedicine() {
-        uniqueMedicineList.add(ALICE);
-        uniqueMedicineList.remove(ALICE);
+        uniqueMedicineList.add(PARACETAMOL);
+        uniqueMedicineList.remove(PARACETAMOL);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
         assertEquals(expectedUniqueMedicineList, uniqueMedicineList);
     }
@@ -147,9 +147,9 @@ public class UniqueMedicineListTest {
 
     @Test
     public void setMedicines_uniqueMedicineList_replacesOwnListWithProvidedUniqueMedicineList() {
-        uniqueMedicineList.add(ALICE);
+        uniqueMedicineList.add(PARACETAMOL);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
-        expectedUniqueMedicineList.add(BOB);
+        expectedUniqueMedicineList.add(GABAPENTIN);
         uniqueMedicineList.setMedicines(expectedUniqueMedicineList);
         assertEquals(expectedUniqueMedicineList, uniqueMedicineList);
     }
@@ -162,17 +162,17 @@ public class UniqueMedicineListTest {
 
     @Test
     public void setMedicines_list_replacesOwnListWithProvidedList() {
-        uniqueMedicineList.add(ALICE);
-        List<Medicine> medicineList = Collections.singletonList(BOB);
+        uniqueMedicineList.add(PARACETAMOL);
+        List<Medicine> medicineList = Collections.singletonList(GABAPENTIN);
         uniqueMedicineList.setMedicines(medicineList);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
-        expectedUniqueMedicineList.add(BOB);
+        expectedUniqueMedicineList.add(GABAPENTIN);
         assertEquals(expectedUniqueMedicineList, uniqueMedicineList);
     }
 
     @Test
     public void setMedicines_listWithDuplicateMedicines_throwsDuplicateMedicineException() {
-        List<Medicine> listWithDuplicateMedicines = Arrays.asList(ALICE, ALICE);
+        List<Medicine> listWithDuplicateMedicines = Arrays.asList(PARACETAMOL, PARACETAMOL);
         thrown.expect(DuplicateMedicineException.class);
         uniqueMedicineList.setMedicines(listWithDuplicateMedicines);
     }

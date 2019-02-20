@@ -3,16 +3,16 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalMedicines.BENSON;
-import static seedu.address.testutil.TypicalMedicines.CARL;
-import static seedu.address.testutil.TypicalMedicines.DANIEL;
-import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
+import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
+import static seedu.address.testutil.TypicalMedicines.LEVOTHYROXINE;
+import static seedu.address.testutil.TypicalMedicines.NAPROXEN;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -28,45 +28,45 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         /* Case: find multiple medicines in inventory, command with leading spaces and trailing spaces
          * -> 2 medicines found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, NAPROXEN, LEVOTHYROXINE); // Naproxen Sodium and Levothyroxine Sodium
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where medicine list is displaying the medicines we are finding
          * -> 2 medicines found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine where medicine list is not displaying the medicine we are finding -> 1 medicine found */
-        command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        command = FindCommand.COMMAND_WORD + " Acetaminophen";
+        ModelHelper.setFilteredList(expectedModel, ACETAMINOPHEN);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 keywords -> 2 medicines found */
-        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        command = FindCommand.COMMAND_WORD + " Ibuprofen Levothyroxine";
+        ModelHelper.setFilteredList(expectedModel, IBUPROFEN, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 keywords in reversed order -> 2 medicines found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson";
+        command = FindCommand.COMMAND_WORD + " Levothyroxine Ibuprofen";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 keywords with 1 repeat -> 2 medicines found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
+        command = FindCommand.COMMAND_WORD + " Levothyroxine Ibuprofen Levothyroxine";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 matching keywords and 1 non-matching keyword
          * -> 2 medicines found
          */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " Levothyroxine Ibuprofen NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -82,52 +82,52 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: find same medicines in inventory after deleting 1 of them -> 1 medicine found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getInventory().getMedicineList().contains(BENSON));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getInventory().getMedicineList().contains(IBUPROFEN));
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine in inventory, keyword is same as name but of different case -> 1 medicine found */
-        command = FindCommand.COMMAND_WORD + " MeIeR";
+        command = FindCommand.COMMAND_WORD + " SoDiUm";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine in inventory, keyword is substring of name -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " Mei";
+        command = FindCommand.COMMAND_WORD + " Sodi";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine in inventory, name is substring of keyword -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " Meiers";
+        command = FindCommand.COMMAND_WORD + " Sodiums";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine not in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " Mark";
+        command = FindCommand.COMMAND_WORD + " Augmentin";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find quantity of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getQuantity().value;
+        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getQuantity().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find company of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getCompany().value;
+        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getCompany().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find expiry date of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getExpiry().value;
+        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getExpiry().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tags of medicine in inventory -> 0 medicines found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
+        List<Tag> tags = new ArrayList<>(LEVOTHYROXINE.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -135,22 +135,22 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         /* Case: find while a medicine is selected -> selected card deselected */
         showAllMedicines();
         selectMedicine(Index.fromOneBased(1));
-        assertFalse(getMedicineListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
-        command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertFalse(getMedicineListPanel().getHandleToSelectedCard().getName().equals(LEVOTHYROXINE.getName().fullName));
+        command = FindCommand.COMMAND_WORD + " Levothyroxine";
+        ModelHelper.setFilteredList(expectedModel, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find medicine in empty inventory -> 0 medicines found */
         deleteAllMedicines();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Meier";
+        command = "FiNd Sodium";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

@@ -26,46 +26,46 @@ import seedu.address.testutil.EditMedicineDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_QUANTITY_AMY = "111";
-    public static final String VALID_QUANTITY_BOB = "222";
-    public static final String VALID_EXPIRY_AMY = "27/11/2019";
-    public static final String VALID_EXPIRY_BOB = "09/07/2019";
-    public static final String VALID_COMPANY_AMY = "Merck & Co. (MSD)";
-    public static final String VALID_COMPANY_BOB = "Sanofi";
+    public static final String VALID_NAME_AMOXICILLIN = "Amoxicillin";
+    public static final String VALID_NAME_GABAPENTIN = "Gabapentin";
+    public static final String VALID_QUANTITY_AMOXICILLIN = "111";
+    public static final String VALID_QUANTITY_GABAPENTIN = "222";
+    public static final String VALID_EXPIRY_AMOXICILLIN = "27/11/2019";
+    public static final String VALID_EXPIRY_GABAPENTIN = "09/07/2019";
+    public static final String VALID_COMPANY_AMOXICILLIN = "Merck & Co. (MSD)";
+    public static final String VALID_COMPANY_GABAPENTIN = "Sanofi";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String QUANTITY_DESC_AMY = " " + PREFIX_QUANTITY + VALID_QUANTITY_AMY;
-    public static final String QUANTITY_DESC_BOB = " " + PREFIX_QUANTITY + VALID_QUANTITY_BOB;
-    public static final String EXPIRY_DESC_AMY = " " + PREFIX_EXPIRY + VALID_EXPIRY_AMY;
-    public static final String EXPIRY_DESC_BOB = " " + PREFIX_EXPIRY + VALID_EXPIRY_BOB;
-    public static final String COMPANY_DESC_AMY = " " + PREFIX_COMPANY + VALID_COMPANY_AMY;
-    public static final String COMPANY_DESC_BOB = " " + PREFIX_COMPANY + VALID_COMPANY_BOB;
+    public static final String NAME_DESC_AMOXICILLIN = " " + PREFIX_NAME + VALID_NAME_AMOXICILLIN;
+    public static final String NAME_DESC_GABAPENTIN = " " + PREFIX_NAME + VALID_NAME_GABAPENTIN;
+    public static final String QUANTITY_DESC_AMOXICILLIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_AMOXICILLIN;
+    public static final String QUANTITY_DESC_GABAPENTIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_GABAPENTIN;
+    public static final String EXPIRY_DESC_AMOXICILLIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_AMOXICILLIN;
+    public static final String EXPIRY_DESC_GABAPENTIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_GABAPENTIN;
+    public static final String COMPANY_DESC_AMOXICILLIN = " " + PREFIX_COMPANY + VALID_COMPANY_AMOXICILLIN;
+    public static final String COMPANY_DESC_GABAPENTIN = " " + PREFIX_COMPANY + VALID_COMPANY_GABAPENTIN;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Paraceta&mol"; // '&' not allowed in names
     public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "911a"; // 'a' not allowed in quantities
-    public static final String INVALID_EXPIRY_DESC = " " + PREFIX_EXPIRY + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_EXPIRY_DESC = " " + PREFIX_EXPIRY + "1211/2020"; // missing '/' symbol
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY; // empty string not allowed for company name
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditMedicineDescriptor DESC_AMY;
-    public static final EditCommand.EditMedicineDescriptor DESC_BOB;
+    public static final EditCommand.EditMedicineDescriptor DESC_AMOXICILLIN;
+    public static final EditCommand.EditMedicineDescriptor DESC_GABAPENTIN;
 
     static {
-        DESC_AMY = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withQuantity(VALID_QUANTITY_AMY).withExpiry(VALID_EXPIRY_AMY).withCompany(VALID_COMPANY_AMY)
+        DESC_AMOXICILLIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
+                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).withCompany(VALID_COMPANY_AMOXICILLIN)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withQuantity(VALID_QUANTITY_BOB).withExpiry(VALID_EXPIRY_BOB).withCompany(VALID_COMPANY_BOB)
+        DESC_GABAPENTIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
+                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN).withCompany(VALID_COMPANY_GABAPENTIN)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

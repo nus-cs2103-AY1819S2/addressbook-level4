@@ -1,33 +1,32 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPIRY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
-import static seedu.address.testutil.TypicalMedicines.AMY;
-import static seedu.address.testutil.TypicalMedicines.BOB;
-import static seedu.address.testutil.TypicalMedicines.CARL;
-import static seedu.address.testutil.TypicalMedicines.HOON;
-import static seedu.address.testutil.TypicalMedicines.IDA;
-import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
+import static seedu.address.testutil.TypicalMedicines.AMOXICILLIN;
+import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
+import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
+import static seedu.address.testutil.TypicalMedicines.HYDROCHLOROTHIAZIDE;
+import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
 
 import org.junit.Test;
 
@@ -57,99 +56,99 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         /* Case: add a medicine without tags to a non-empty inventory, command with leading spaces and trailing spaces
          * -> added
          */
-        Medicine toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + QUANTITY_DESC_AMY + " "
-                + EXPIRY_DESC_AMY + "   " + COMPANY_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        Medicine toAdd = AMOXICILLIN;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMOXICILLIN + "  " + QUANTITY_DESC_AMOXICILLIN + " "
+                + EXPIRY_DESC_AMOXICILLIN + "   " + COMPANY_DESC_AMOXICILLIN + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
-        /* Case: undo adding Amy to the list -> Amy deleted */
+        /* Case: undo adding Amoxicillin to the list -> Amoxicillin deleted */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: redo adding Amy to the list -> Amy added again */
+        /* Case: redo adding Amoxicillin to the list -> Amoxicillin added again */
         command = RedoCommand.COMMAND_WORD;
         model.addMedicine(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a medicine with all fields same as another medicine in the inventory except name -> added */
-        toAdd = new MedicineBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY + COMPANY_DESC_AMY
+        toAdd = new MedicineBuilder(AMOXICILLIN).withName(VALID_NAME_GABAPENTIN).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_GABAPENTIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a medicine with all fields same as another medicine in the inventory except quantity and expiry
          * -> added
          */
-        toAdd = new MedicineBuilder(AMY).withQuantity(VALID_QUANTITY_BOB).withExpiry(VALID_EXPIRY_BOB).build();
+        toAdd = new MedicineBuilder(AMOXICILLIN).withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
         command = MedicineUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty inventory -> added */
         deleteAllMedicines();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(PARACETAMOL);
 
         /* Case: add a medicine with tags, command with parameters in random order -> added */
-        toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + QUANTITY_DESC_BOB + COMPANY_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EXPIRY_DESC_BOB;
+        toAdd = GABAPENTIN;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + QUANTITY_DESC_GABAPENTIN + COMPANY_DESC_GABAPENTIN + NAME_DESC_GABAPENTIN
+                + TAG_DESC_HUSBAND + EXPIRY_DESC_GABAPENTIN;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a medicine, missing tags -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(AMOXICILLIN);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the medicine list before adding -> added */
-        showMedicinesWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
+        assertCommandSuccess(HYDROCHLOROTHIAZIDE);
 
         /* ------------------------ Perform add operation while a medicine card is selected --------------------------- */
 
         /* Case: selects first card in the medicine list, add a medicine -> added, card selection remains unchanged */
         selectMedicine(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(ACETAMINOPHEN);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate medicine -> rejected */
-        command = MedicineUtil.getAddCommand(HOON);
+        command = MedicineUtil.getAddCommand(AMOXICILLIN);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: add a duplicate medicine except with different quantity -> rejected */
-        toAdd = new MedicineBuilder(HOON).withQuantity(VALID_QUANTITY_BOB).build();
+        toAdd = new MedicineBuilder(AMOXICILLIN).withQuantity(VALID_QUANTITY_GABAPENTIN).build();
         command = MedicineUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: add a duplicate medicine except with different expiry date-> rejected */
-        toAdd = new MedicineBuilder(HOON).withExpiry(VALID_EXPIRY_BOB).build();
+        toAdd = new MedicineBuilder(AMOXICILLIN).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
         command = MedicineUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: add a duplicate medicine except with different company -> rejected */
-        toAdd = new MedicineBuilder(HOON).withCompany(VALID_COMPANY_BOB).build();
+        toAdd = new MedicineBuilder(AMOXICILLIN).withCompany(VALID_COMPANY_GABAPENTIN).build();
         command = MedicineUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: add a duplicate medicine except with different tags -> rejected */
-        command = MedicineUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = MedicineUtil.getAddCommand(AMOXICILLIN) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing quantity -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EXPIRY_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing expiry date-> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing company -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -157,23 +156,23 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid quantity -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_QUANTITY_DESC + EXPIRY_DESC_AMY + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + INVALID_QUANTITY_DESC + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN;
         assertCommandFailure(command, Quantity.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid expiry date-> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + INVALID_EXPIRY_DESC + COMPANY_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + INVALID_EXPIRY_DESC + COMPANY_DESC_AMOXICILLIN;
         assertCommandFailure(command, Expiry.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid company -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY + INVALID_COMPANY_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN + INVALID_COMPANY_DESC;
         assertCommandFailure(command, Company.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY + COMPANY_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }

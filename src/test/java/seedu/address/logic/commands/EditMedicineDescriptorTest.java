@@ -2,12 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
@@ -20,39 +20,39 @@ public class EditMedicineDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditMedicineDescriptor descriptorWithSameValues = new EditMedicineDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditMedicineDescriptor descriptorWithSameValues = new EditMedicineDescriptor(DESC_AMOXICILLIN);
+        assertTrue(DESC_AMOXICILLIN.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_AMOXICILLIN.equals(DESC_AMOXICILLIN));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_AMOXICILLIN.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_AMOXICILLIN.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_AMOXICILLIN.equals(DESC_GABAPENTIN));
 
         // different name -> returns false
-        EditMedicineDescriptor editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditMedicineDescriptor editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withName(VALID_NAME_GABAPENTIN).build();
+        assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different quantity -> returns false
-        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withQuantity(VALID_QUANTITY_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withQuantity(VALID_QUANTITY_GABAPENTIN).build();
+        assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different expiry date-> returns false
-        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withExpiry(VALID_EXPIRY_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
+        assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different company -> returns false
-        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withCompany(VALID_COMPANY_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withCompany(VALID_COMPANY_GABAPENTIN).build();
+        assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different tags -> returns false
-        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
     }
 }

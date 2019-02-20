@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 
 import java.net.URL;
 
@@ -32,8 +32,8 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a medicine
-        guiRobot.interact(() -> selectedMedicine.set(ALICE));
-        URL expectedMedicineUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        guiRobot.interact(() -> selectedMedicine.set(PARACETAMOL));
+        URL expectedMedicineUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + PARACETAMOL.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedMedicineUrl, browserPanelHandle.getLoadedUrl());

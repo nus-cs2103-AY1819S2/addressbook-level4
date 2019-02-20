@@ -3,9 +3,9 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.util.Arrays;
@@ -53,9 +53,9 @@ public class InventoryTest {
     @Test
     public void resetData_withDuplicateMedicines_throwsDuplicateMedicineException() {
         // Two medicines with the same identity fields
-        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Medicine> newMedicines = Arrays.asList(ALICE, editedAlice);
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
+                .withTags(VALID_TAG_HUSBAND).build();
+        List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, editedParacetamol);
         InventoryStub newData = new InventoryStub(newMedicines);
 
         thrown.expect(DuplicateMedicineException.class);
@@ -70,21 +70,21 @@ public class InventoryTest {
 
     @Test
     public void hasMedicine_medicineNotInInventory_returnsFalse() {
-        assertFalse(Inventory.hasMedicine(ALICE));
+        assertFalse(Inventory.hasMedicine(PARACETAMOL));
     }
 
     @Test
     public void hasMedicine_medicineInInventory_returnsTrue() {
-        Inventory.addMedicine(ALICE);
-        assertTrue(Inventory.hasMedicine(ALICE));
+        Inventory.addMedicine(PARACETAMOL);
+        assertTrue(Inventory.hasMedicine(PARACETAMOL));
     }
 
     @Test
     public void hasMedicine_medicineWithSameIdentityFieldsInInventory_returnsTrue() {
-        Inventory.addMedicine(ALICE);
-        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(Inventory.hasMedicine(editedAlice));
+        Inventory.addMedicine(PARACETAMOL);
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(Inventory.hasMedicine(editedParacetamol));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class InventoryTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         Inventory.addListener(listener);
-        Inventory.addMedicine(ALICE);
+        Inventory.addMedicine(PARACETAMOL);
         assertEquals(1, counter.get());
     }
 
@@ -108,7 +108,7 @@ public class InventoryTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         Inventory.addListener(listener);
         Inventory.removeListener(listener);
-        Inventory.addMedicine(ALICE);
+        Inventory.addMedicine(PARACETAMOL);
         assertEquals(0, counter.get());
     }
 

@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             + PREFIX_COMPANY + "COMPANY "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Paracetamol "
             + PREFIX_QUANTITY + "432 "
             + PREFIX_EXPIRY + "21/09/2019 "
             + PREFIX_COMPANY + "Novartis "

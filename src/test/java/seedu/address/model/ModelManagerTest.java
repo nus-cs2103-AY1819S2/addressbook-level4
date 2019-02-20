@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
-import static seedu.address.testutil.TypicalMedicines.BENSON;
-import static seedu.address.testutil.TypicalMedicines.BOB;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
+import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -93,40 +93,40 @@ public class ModelManagerTest {
 
     @Test
     public void hasMedicine_medicineNotInInventory_returnsFalse() {
-        assertFalse(modelManager.hasMedicine(ALICE));
+        assertFalse(modelManager.hasMedicine(PARACETAMOL));
     }
 
     @Test
     public void hasMedicine_medicineInInventory_returnsTrue() {
-        modelManager.addMedicine(ALICE);
-        assertTrue(modelManager.hasMedicine(ALICE));
+        modelManager.addMedicine(PARACETAMOL);
+        assertTrue(modelManager.hasMedicine(PARACETAMOL));
     }
 
     @Test
     public void deleteMedicine_medicineIsSelectedAndFirstMedicineInFilteredMedicineList_selectionCleared() {
-        modelManager.addMedicine(ALICE);
-        modelManager.setSelectedMedicine(ALICE);
-        modelManager.deleteMedicine(ALICE);
+        modelManager.addMedicine(PARACETAMOL);
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        modelManager.deleteMedicine(PARACETAMOL);
         assertEquals(null, modelManager.getSelectedMedicine());
     }
 
     @Test
     public void deleteMedicine_medicineIsSelectedAndSecondMedicineInFilteredMedicineList_firstMedicineSelected() {
-        modelManager.addMedicine(ALICE);
-        modelManager.addMedicine(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredMedicineList());
-        modelManager.setSelectedMedicine(BOB);
-        modelManager.deleteMedicine(BOB);
-        assertEquals(ALICE, modelManager.getSelectedMedicine());
+        modelManager.addMedicine(PARACETAMOL);
+        modelManager.addMedicine(GABAPENTIN);
+        assertEquals(Arrays.asList(PARACETAMOL, GABAPENTIN), modelManager.getFilteredMedicineList());
+        modelManager.setSelectedMedicine(GABAPENTIN);
+        modelManager.deleteMedicine(GABAPENTIN);
+        assertEquals(PARACETAMOL, modelManager.getSelectedMedicine());
     }
 
     @Test
     public void setMedicine_medicineIsSelected_selectedMedicineUpdated() {
-        modelManager.addMedicine(ALICE);
-        modelManager.setSelectedMedicine(ALICE);
-        Medicine updatedAlice = new MedicineBuilder(ALICE).withExpiry(VALID_EXPIRY_BOB).build();
-        modelManager.setMedicine(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedMedicine());
+        modelManager.addMedicine(PARACETAMOL);
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        Medicine updatedPARACETAMOL = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
+        modelManager.setMedicine(PARACETAMOL, updatedPARACETAMOL);
+        assertEquals(updatedPARACETAMOL, modelManager.getSelectedMedicine());
     }
 
     @Test
@@ -138,20 +138,20 @@ public class ModelManagerTest {
     @Test
     public void setSelectedMedicine_medicineNotInFilteredMedicineList_throwsMedicineNotFoundException() {
         thrown.expect(MedicineNotFoundException.class);
-        modelManager.setSelectedMedicine(ALICE);
+        modelManager.setSelectedMedicine(PARACETAMOL);
     }
 
     @Test
     public void setSelectedMedicine_medicineInFilteredMedicineList_setsSelectedMedicine() {
-        modelManager.addMedicine(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredMedicineList());
-        modelManager.setSelectedMedicine(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedMedicine());
+        modelManager.addMedicine(PARACETAMOL);
+        assertEquals(Collections.singletonList(PARACETAMOL), modelManager.getFilteredMedicineList());
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        assertEquals(PARACETAMOL, modelManager.getSelectedMedicine());
     }
 
     @Test
     public void equals() {
-        Inventory Inventory = new InventoryBuilder().withMedicine(ALICE).withMedicine(BENSON).build();
+        Inventory Inventory = new InventoryBuilder().withMedicine(PARACETAMOL).withMedicine(IBUPROFEN).build();
         Inventory differentInventory = new Inventory();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -173,7 +173,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = PARACETAMOL.getName().fullName.split("\\s+");
         modelManager.updateFilteredMedicineList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(Inventory, userPrefs)));
 

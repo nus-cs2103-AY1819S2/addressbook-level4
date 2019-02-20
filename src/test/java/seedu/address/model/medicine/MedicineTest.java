@@ -2,13 +2,13 @@ package seedu.address.model.medicine;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
-import static seedu.address.testutil.TypicalMedicines.BOB;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
+import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,70 +30,74 @@ public class MedicineTest {
     @Test
     public void isSameMedicine() {
         // same object -> returns true
-        assertTrue(ALICE.isSameMedicine(ALICE));
+        assertTrue(PARACETAMOL.isSameMedicine(PARACETAMOL));
 
         // null -> returns false
-        assertFalse(ALICE.isSameMedicine(null));
+        assertFalse(PARACETAMOL.isSameMedicine(null));
 
         // different quantity and expiry date-> returns false
-        Medicine editedAlice = new MedicineBuilder(ALICE).withQuantity(VALID_QUANTITY_BOB).withExpiry(VALID_EXPIRY_BOB).build();
-        assertFalse(ALICE.isSameMedicine(editedAlice));
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withQuantity(VALID_QUANTITY_GABAPENTIN)
+                .withExpiry(VALID_EXPIRY_GABAPENTIN).build();
+        assertFalse(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // different name -> returns false
-        editedAlice = new MedicineBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameMedicine(editedAlice));
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withName(VALID_NAME_GABAPENTIN).build();
+        assertFalse(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // same name, same quantity, different attributes -> returns true
-        editedAlice = new MedicineBuilder(ALICE).withExpiry(VALID_EXPIRY_BOB).withCompany(VALID_COMPANY_BOB)
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN)
+                .withCompany(VALID_COMPANY_GABAPENTIN)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameMedicine(editedAlice));
+        assertTrue(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // same name, same expiry, different attributes -> returns true
-        editedAlice = new MedicineBuilder(ALICE).withQuantity(VALID_QUANTITY_BOB).withCompany(VALID_COMPANY_BOB)
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withQuantity(VALID_QUANTITY_GABAPENTIN)
+                .withCompany(VALID_COMPANY_GABAPENTIN)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameMedicine(editedAlice));
+        assertTrue(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // same name, same quantity, same expiry, different attributes -> returns true
-        editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameMedicine(editedAlice));
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(PARACETAMOL.isSameMedicine(editedParacetamol));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Medicine aliceCopy = new MedicineBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Medicine ParacetamolCopy = new MedicineBuilder(PARACETAMOL).build();
+        assertTrue(PARACETAMOL.equals(ParacetamolCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(PARACETAMOL.equals(PARACETAMOL));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(PARACETAMOL.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(PARACETAMOL.equals(5));
 
         // different medicine -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(PARACETAMOL.equals(GABAPENTIN));
 
         // different name -> returns false
-        Medicine editedAlice = new MedicineBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withName(VALID_NAME_GABAPENTIN).build();
+        assertFalse(PARACETAMOL.equals(editedParacetamol));
 
         // different quantity -> returns false
-        editedAlice = new MedicineBuilder(ALICE).withQuantity(VALID_QUANTITY_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withQuantity(VALID_QUANTITY_GABAPENTIN).build();
+        assertFalse(PARACETAMOL.equals(editedParacetamol));
 
         // different expiry date-> returns false
-        editedAlice = new MedicineBuilder(ALICE).withExpiry(VALID_EXPIRY_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
+        assertFalse(PARACETAMOL.equals(editedParacetamol));
 
         // different company -> returns false
-        editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN).build();
+        assertFalse(PARACETAMOL.equals(editedParacetamol));
 
         // different tags -> returns false
-        editedAlice = new MedicineBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(PARACETAMOL.equals(editedParacetamol));
     }
 }

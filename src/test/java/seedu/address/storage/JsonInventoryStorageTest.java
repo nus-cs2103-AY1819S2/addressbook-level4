@@ -2,9 +2,9 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
-import static seedu.address.testutil.TypicalMedicines.HOON;
-import static seedu.address.testutil.TypicalMedicines.IDA;
+import static seedu.address.testutil.TypicalMedicines.HYDROCHLOROTHIAZIDE;
+import static seedu.address.testutil.TypicalMedicines.NAPROXEN;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.io.IOException;
@@ -15,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyInventory;
@@ -84,14 +83,14 @@ public class JsonInventoryStorageTest {
         assertEquals(original, new Inventory(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addMedicine(HOON);
-        original.removeMedicine(ALICE);
+        original.addMedicine(NAPROXEN);
+        original.removeMedicine(PARACETAMOL);
         jsonInventoryStorage.saveInventory(original, filePath);
         readBack = jsonInventoryStorage.readInventory(filePath).get();
         assertEquals(original, new Inventory(readBack));
 
         // Save and read without specifying file path
-        original.addMedicine(IDA);
+        original.addMedicine(HYDROCHLOROTHIAZIDE);
         jsonInventoryStorage.saveInventory(original); // file path not specified
         readBack = jsonInventoryStorage.readInventory().get(); // file path not specified
         assertEquals(original, new Inventory(readBack));

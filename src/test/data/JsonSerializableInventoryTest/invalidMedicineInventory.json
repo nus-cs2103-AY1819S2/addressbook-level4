@@ -1,6 +1,6 @@
 {
   "medicines": [ {
-    "name": "Hans Muster",
+    "name": "Adalimumab",
     "quantity": "948",
     "expiry": "invalid/expiry!3e",
     "company": "Johnson & Johnson"

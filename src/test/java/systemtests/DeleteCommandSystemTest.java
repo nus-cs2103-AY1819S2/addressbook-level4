@@ -8,7 +8,7 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getMedicine;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
-import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
 
 import org.junit.Test;
 
@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered medicine list, delete index within bounds of inventory and medicine list -> deleted */
-        showMedicinesWithName(KEYWORD_MATCHING_MEIER);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         Index index = INDEX_FIRST_MEDICINE;
         assertTrue(index.getZeroBased() < getModel().getFilteredMedicineList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
         /* Case: filtered medicine list, delete index within bounds of inventory but out of bounds of medicine list
          * -> rejected
          */
-        showMedicinesWithName(KEYWORD_MATCHING_MEIER);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         int invalidIndex = getModel().getInventory().getMedicineList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);

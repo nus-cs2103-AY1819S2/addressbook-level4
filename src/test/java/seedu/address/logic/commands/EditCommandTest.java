@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -58,11 +58,11 @@ public class EditCommandTest {
         Medicine lastMedicine = model.getFilteredMedicineList().get(indexLastMedicine.getZeroBased());
 
         MedicineBuilder medicineInList = new MedicineBuilder(lastMedicine);
-        Medicine editedMedicine = medicineInList.withName(VALID_NAME_BOB).withQuantity(VALID_QUANTITY_BOB)
+        Medicine editedMedicine = medicineInList.withName(VALID_NAME_GABAPENTIN).withQuantity(VALID_QUANTITY_GABAPENTIN)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withQuantity(VALID_QUANTITY_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
+                .withQuantity(VALID_QUANTITY_GABAPENTIN).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastMedicine, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
@@ -92,9 +92,9 @@ public class EditCommandTest {
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
 
         Medicine medicineInFilteredList = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
-        Medicine editedMedicine = new MedicineBuilder(medicineInFilteredList).withName(VALID_NAME_BOB).build();
+        Medicine editedMedicine = new MedicineBuilder(medicineInFilteredList).withName(VALID_NAME_GABAPENTIN).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE,
-                new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
 
@@ -129,7 +129,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidMedicineIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMedicineList().size() + 1);
-        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
@@ -147,7 +147,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getMedicineList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
     }
@@ -177,7 +177,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMedicineList().size() + 1);
-        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> inventory state not added into model
@@ -222,10 +222,10 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_MEDICINE, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_MEDICINE, DESC_AMOXICILLIN);
 
         // same values -> returns true
-        EditMedicineDescriptor copyDescriptor = new EditMedicineDescriptor(DESC_AMY);
+        EditMedicineDescriptor copyDescriptor = new EditMedicineDescriptor(DESC_AMOXICILLIN);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_MEDICINE, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -239,10 +239,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_MEDICINE, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_MEDICINE, DESC_AMOXICILLIN)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_MEDICINE, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_MEDICINE, DESC_GABAPENTIN)));
     }
 
 }

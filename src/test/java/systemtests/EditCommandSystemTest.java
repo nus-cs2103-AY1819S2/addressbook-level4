@@ -3,33 +3,33 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPIRY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
-import static seedu.address.testutil.TypicalMedicines.AMY;
-import static seedu.address.testutil.TypicalMedicines.BOB;
-import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalMedicines.AMOXICILLIN;
+import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
+import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
 
 import org.junit.Test;
 
@@ -60,9 +60,9 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_MEDICINE;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + QUANTITY_DESC_BOB + " " + EXPIRY_DESC_BOB + "  " + COMPANY_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Medicine editedMedicine = new MedicineBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_GABAPENTIN + "  "
+                + QUANTITY_DESC_GABAPENTIN + " " + EXPIRY_DESC_GABAPENTIN + "  " + COMPANY_DESC_GABAPENTIN + " " + TAG_DESC_HUSBAND + " ";
+        Medicine editedMedicine = new MedicineBuilder(GABAPENTIN).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedMedicine);
 
         /* Case: undo editing the last medicine in the list -> last medicine restored */
@@ -77,26 +77,26 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a medicine with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + QUANTITY_DESC_BOB + EXPIRY_DESC_BOB
-                + COMPANY_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandSuccess(command, index, BOB);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN + EXPIRY_DESC_GABAPENTIN
+                + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandSuccess(command, index, GABAPENTIN);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different name -> edited */
-        assertTrue(getModel().getInventory().getMedicineList().contains(BOB));
+        assertTrue(getModel().getInventory().getMedicineList().contains(GABAPENTIN));
         index = INDEX_SECOND_MEDICINE;
-        assertNotEquals(getModel().getFilteredMedicineList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + QUANTITY_DESC_BOB + EXPIRY_DESC_BOB
-                + COMPANY_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedMedicine = new MedicineBuilder(BOB).withName(VALID_NAME_AMY).build();
+        assertNotEquals(getModel().getFilteredMedicineList().get(index.getZeroBased()), GABAPENTIN);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_GABAPENTIN + EXPIRY_DESC_GABAPENTIN
+                + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        editedMedicine = new MedicineBuilder(GABAPENTIN).withName(VALID_NAME_AMOXICILLIN).build();
         assertCommandSuccess(command, index, editedMedicine);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different quantity and expiry
          * -> edited
          */
         index = INDEX_SECOND_MEDICINE;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY
-                + COMPANY_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedMedicine = new MedicineBuilder(BOB).withQuantity(VALID_QUANTITY_AMY).withExpiry(VALID_EXPIRY_AMY).build();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN
+                + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        editedMedicine = new MedicineBuilder(GABAPENTIN).withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
         assertCommandSuccess(command, index, editedMedicine);
 
         /* Case: clear tags -> cleared */
@@ -109,20 +109,20 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered medicine list, edit index within bounds of inventory and medicine list -> edited */
-        showMedicinesWithName(KEYWORD_MATCHING_MEIER);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         index = INDEX_FIRST_MEDICINE;
         assertTrue(index.getZeroBased() < getModel().getFilteredMedicineList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_GABAPENTIN;
         medicineToEdit = getModel().getFilteredMedicineList().get(index.getZeroBased());
-        editedMedicine = new MedicineBuilder(medicineToEdit).withName(VALID_NAME_BOB).build();
+        editedMedicine = new MedicineBuilder(medicineToEdit).withName(VALID_NAME_GABAPENTIN).build();
         assertCommandSuccess(command, index, editedMedicine);
 
         /* Case: filtered medicine list, edit index within bounds of inventory but out of bounds of medicine list
          * -> rejected
          */
-        showMedicinesWithName(KEYWORD_MATCHING_MEIER);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         int invalidIndex = getModel().getInventory().getMedicineList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_GABAPENTIN,
                 Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a medicine card is selected -------------------------- */
@@ -133,29 +133,29 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         showAllMedicines();
         index = INDEX_FIRST_MEDICINE;
         selectMedicine(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + QUANTITY_DESC_AMY + EXPIRY_DESC_AMY
-                + COMPANY_DESC_AMY + TAG_DESC_FRIEND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN
+                + COMPANY_DESC_AMOXICILLIN + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new medicine's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, AMOXICILLIN, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_GABAPENTIN,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_GABAPENTIN,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredMedicineList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_GABAPENTIN,
                 Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_GABAPENTIN,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
@@ -183,32 +183,32 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a medicine with new values same as another medicine's values -> rejected */
-        executeCommand(MedicineUtil.getAddCommand(BOB));
-        assertTrue(getModel().getInventory().getMedicineList().contains(BOB));
+        executeCommand(MedicineUtil.getAddCommand(GABAPENTIN));
+        assertTrue(getModel().getInventory().getMedicineList().contains(GABAPENTIN));
         index = INDEX_FIRST_MEDICINE;
-        assertFalse(getModel().getFilteredMedicineList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + QUANTITY_DESC_BOB + EXPIRY_DESC_BOB
-                + COMPANY_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertFalse(getModel().getFilteredMedicineList().get(index.getZeroBased()).equals(GABAPENTIN));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN + EXPIRY_DESC_GABAPENTIN
+                + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + QUANTITY_DESC_BOB + EXPIRY_DESC_BOB
-                + COMPANY_DESC_BOB + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN + EXPIRY_DESC_GABAPENTIN
+                + COMPANY_DESC_GABAPENTIN + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different company -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + QUANTITY_DESC_BOB + EXPIRY_DESC_BOB
-                + COMPANY_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN + EXPIRY_DESC_GABAPENTIN
+                + COMPANY_DESC_AMOXICILLIN + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different quantity -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + QUANTITY_DESC_AMY + EXPIRY_DESC_BOB
-                + COMPANY_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_GABAPENTIN
+                + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different expiry date-> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + QUANTITY_DESC_BOB + EXPIRY_DESC_AMY
-                + COMPANY_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN + EXPIRY_DESC_AMOXICILLIN
+                + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEDICINE);
     }
 

@@ -41,35 +41,35 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new MedicineBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Paracetamol"));
+        assertTrue(predicate.test(new MedicineBuilder().withName("Paracetamol Gabapentin").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new MedicineBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Paracetamol", "Gabapentin"));
+        assertTrue(predicate.test(new MedicineBuilder().withName("Paracetamol Gabapentin").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new MedicineBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Gabapentin", "Calcipotriene"));
+        assertTrue(predicate.test(new MedicineBuilder().withName("Paracetamol Calcipotriene").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new MedicineBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Paracetamol", "Gabapentin"));
+        assertTrue(predicate.test(new MedicineBuilder().withName("Paracetamol Gabapentin    ").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new MedicineBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new MedicineBuilder().withName("Paracetamol").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new MedicineBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Calcipotriene"));
+        assertFalse(predicate.test(new MedicineBuilder().withName("Paracetamol Gabapentin").build()));
 
         // Keywords match quantity, expiry date and company, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("123", "06/10/2019", "Adcock", "Ingram"));
-        assertFalse(predicate.test(new MedicineBuilder().withName("Alice").withQuantity("123")
+        assertFalse(predicate.test(new MedicineBuilder().withName("Paracetamol").withQuantity("123")
                 .withExpiry("06/10/2019").withCompany("Adcock Ingram").build()));
     }
 }

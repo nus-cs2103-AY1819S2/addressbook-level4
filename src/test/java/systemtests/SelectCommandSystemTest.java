@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_MEDICINE
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
-import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
 
 import org.junit.Test;
 
@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
         /* Case: filtered medicine list, select index within bounds of inventory but out of bounds of medicine list
          * -> rejected
          */
-        showMedicinesWithName(KEYWORD_MATCHING_MEIER);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         int invalidIndex = getModel().getInventory().getMedicineList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 

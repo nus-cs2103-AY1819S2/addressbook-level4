@@ -19,22 +19,22 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Medicine[] getSampleMedicines() {
         return new Medicine[] {
-            new Medicine(new Name("Alex Yeoh"), new Quantity("807"), new Expiry("29/11/2019"),
+            new Medicine(new Name("Aspirin"), new Quantity("807"), new Expiry("29/11/2019"),
                 new Company("Otsuka Pharmaceutical Co."),
                 getTagSet("friends")),
-            new Medicine(new Name("Bernice Yu"), new Quantity("58"), new Expiry("03/10/2019"),
+            new Medicine(new Name("Bendroflumethiazide"), new Quantity("58"), new Expiry("03/10/2019"),
                 new Company("Piramal Healthcare"),
                 getTagSet("colleagues", "friends")),
-            new Medicine(new Name("Charlotte Oliveiro"), new Quantity("283"), new Expiry("28/02/2020"),
+            new Medicine(new Name("Co-codamol"), new Quantity("283"), new Expiry("28/02/2020"),
                 new Company("Renovo PLC"),
                 getTagSet("neighbours")),
-            new Medicine(new Name("David Li"), new Quantity("312"), new Expiry("16/09/2019"),
+            new Medicine(new Name("Simvastatin"), new Quantity("312"), new Expiry("16/09/2019"),
                 new Company("Vion Pharmaceuticals, Inc."),
                 getTagSet("family")),
-            new Medicine(new Name("Irfan Ibrahim"), new Quantity("921"), new Expiry("02/07/2019"),
+            new Medicine(new Name("Omeprazole"), new Quantity("921"), new Expiry("02/07/2019"),
                 new Company("Eli Lilly and Company"),
                 getTagSet("classmates")),
-            new Medicine(new Name("Roy Balakrishnan"), new Quantity("296"), new Expiry("31/12/2019"),
+            new Medicine(new Name("Atorvastatin"), new Quantity("296"), new Expiry("31/12/2019"),
                 new Company("Mitsubishi Tanabe Pharma"),
                 getTagSet("colleagues"))
         };

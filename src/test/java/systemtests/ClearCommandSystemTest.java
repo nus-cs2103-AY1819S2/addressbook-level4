@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: filters the medicine list before clearing -> entire inventory cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original inventory
-        showMedicinesWithName(KEYWORD_MATCHING_MEIER);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

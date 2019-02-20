@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -23,39 +23,39 @@ import seedu.address.model.medicine.Medicine;
  */
 public class TypicalMedicines {
 
-    public static final Medicine ALICE = new MedicineBuilder().withName("Alice Pauline")
+    public static final Medicine PARACETAMOL = new MedicineBuilder().withName("Paracetamol")
             .withCompany("GlaxoSmithKline").withExpiry("31/12/2019")
             .withQuantity("312")
             .withTags("friends").build();
-    public static final Medicine BENSON = new MedicineBuilder().withName("Benson Meier")
+    public static final Medicine IBUPROFEN = new MedicineBuilder().withName("Ibuprofen")
             .withCompany("Novartis")
             .withExpiry("21/09/2019").withQuantity("432")
             .withTags("owesMoney", "friends").build();
-    public static final Medicine CARL = new MedicineBuilder().withName("Carl Kurz").withQuantity("563")
+    public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withName("Acetaminophen").withQuantity("563")
             .withExpiry("04/02/2020").withCompany("Pfizer").build();
-    public static final Medicine DANIEL = new MedicineBuilder().withName("Daniel Meier").withQuantity("533")
+    public static final Medicine LEVOTHYROXINE = new MedicineBuilder().withName("Levothyroxine Sodium").withQuantity("533")
             .withExpiry("13/08/2019").withCompany("3M Pharmaceuticals").withTags("friends").build();
-    public static final Medicine ELLE = new MedicineBuilder().withName("Elle Meyer").withQuantity("94")
+    public static final Medicine LISINOPRIL = new MedicineBuilder().withName("Lisinopril").withQuantity("94")
             .withExpiry("06/07/2019").withCompany("Takeda Pharmaceutical Co.").build();
-    public static final Medicine FIONA = new MedicineBuilder().withName("Fiona Kunz").withQuantity("427")
-            .withExpiry("19/11/2019").withCompany("Gilead Sciences").build();
-    public static final Medicine GEORGE = new MedicineBuilder().withName("George Best").withQuantity("82")
+    public static final Medicine PREDNISONE = new MedicineBuilder().withName("Prednisone")
+            .withQuantity("427").withExpiry("19/11/2019").withCompany("Gilead Sciences").build();
+    public static final Medicine LIPITOR = new MedicineBuilder().withName("Lipitor").withQuantity("82")
             .withExpiry("25/01/2020").withCompany("Johnson & Johnson").build();
 
     // Manually added
-    public static final Medicine HOON = new MedicineBuilder().withName("Hoon Meier").withQuantity("424")
+    public static final Medicine NAPROXEN = new MedicineBuilder().withName("Naproxen Sodium").withQuantity("424")
             .withExpiry("29/07/2019").withCompany("Boehringer-Ingelheim").build();
-    public static final Medicine IDA = new MedicineBuilder().withName("Ida Mueller").withQuantity("31")
-            .withExpiry("12/08/2019").withCompany("NovaBay Pharmaceuticals").build();
+    public static final Medicine HYDROCHLOROTHIAZIDE = new MedicineBuilder().withName("Hydrochlorothiazide")
+            .withQuantity("31").withExpiry("12/08/2019").withCompany("NovaBay Pharmaceuticals").build();
 
     // Manually added - Medicine's details found in {@code CommandTestUtil}
-    public static final Medicine AMY = new MedicineBuilder().withName(VALID_NAME_AMY).withQuantity(VALID_QUANTITY_AMY)
-            .withExpiry(VALID_EXPIRY_AMY).withCompany(VALID_COMPANY_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Medicine BOB = new MedicineBuilder().withName(VALID_NAME_BOB).withQuantity(VALID_QUANTITY_BOB)
-            .withExpiry(VALID_EXPIRY_BOB).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Medicine AMOXICILLIN = new MedicineBuilder().withName(VALID_NAME_AMOXICILLIN).withQuantity(VALID_QUANTITY_AMOXICILLIN)
+            .withExpiry(VALID_EXPIRY_AMOXICILLIN).withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
+    public static final Medicine GABAPENTIN = new MedicineBuilder().withName(VALID_NAME_GABAPENTIN).withQuantity(VALID_QUANTITY_GABAPENTIN)
+            .withExpiry(VALID_EXPIRY_GABAPENTIN).withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_SODIUM = "Sodium"; // A keyword that matches SODIUM
 
     private TypicalMedicines() {} // prevents instantiation
 
@@ -71,6 +71,7 @@ public class TypicalMedicines {
     }
 
     public static List<Medicine> getTypicalMedicines() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(PARACETAMOL, IBUPROFEN, ACETAMINOPHEN, LEVOTHYROXINE, LISINOPRIL,
+                PREDNISONE, LIPITOR));
     }
 }

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMedicines.CARL;
-import static seedu.address.testutil.TypicalMedicines.ELLE;
-import static seedu.address.testutil.TypicalMedicines.FIONA;
+import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
+import static seedu.address.testutil.TypicalMedicines.LISINOPRIL;
+import static seedu.address.testutil.TypicalMedicines.PREDNISONE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.util.Arrays;
@@ -69,11 +69,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleMedicinesFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Acetaminophen Lisinopril Prednisone");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredMedicineList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredMedicineList());
+        assertEquals(Arrays.asList(ACETAMINOPHEN, LISINOPRIL, PREDNISONE), model.getFilteredMedicineList());
     }
 
     /**

@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.JsonAdaptedMedicine.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalMedicines.BENSON;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +24,18 @@ public class JsonAdaptedMedicineTest {
     private static final String INVALID_EXPIRY = "a/1/09";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_QUANTITY = BENSON.getQuantity().toString();
-    private static final String VALID_EXPIRY = BENSON.getExpiry().toString();
-    private static final String VALID_COMPANY = BENSON.getCompany().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = IBUPROFEN.getName().toString();
+    private static final String VALID_QUANTITY = IBUPROFEN.getQuantity().toString();
+    private static final String VALID_EXPIRY = IBUPROFEN.getExpiry().toString();
+    private static final String VALID_COMPANY = IBUPROFEN.getCompany().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = IBUPROFEN.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validMedicineDetails_returnsMedicine() throws Exception {
-        JsonAdaptedMedicine medicine = new JsonAdaptedMedicine(BENSON);
-        assertEquals(BENSON, medicine.toModelType());
+        JsonAdaptedMedicine medicine = new JsonAdaptedMedicine(IBUPROFEN);
+        assertEquals(IBUPROFEN, medicine.toModelType());
     }
 
     @Test

@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalMedicines.ALICE;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
@@ -57,7 +57,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
         // after inventory is updated
-        guiRobot.interact(() -> inventory.addMedicine(ALICE));
+        guiRobot.interact(() -> inventory.addMedicine(PARACETAMOL));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }

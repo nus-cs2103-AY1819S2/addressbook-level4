@@ -121,7 +121,7 @@ Effect: Deletes a customer from the customer database. +
 Format: `deletecustomer INDEX`
 
 ****
-* Deletes the person at the specified index. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
+* Deletes the customer at the specified index. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
 ****
 
 Examples:
@@ -137,27 +137,34 @@ Effect: Adds a booking for a room associated with certain customers. +
 Format: `{addbooking/addb/ab} r/ROOM_TYPE d/START_DATE-END_DATE i/INDEX_OF_CUSTOMER [i/MORE_INDICIES]… [c/COMMENTS]`
 
 ****
-* ROOM_TYPE is a positive integer. Which number corresponds to which actual type is defined by the user.
-* START_DATE and END_DATE follows the DAY.MONTH format.
-* COMMENTS can contain any text without slash (/).
+* `ROOM_TYPE` is a positive integer. Which number corresponds to which actual type is defined by the user.
+* `START_DATE` and `END_DATE` follows the `DAY.MONTH` format.
+* `COMMENTS` can contain any text without slash (/).
 ****
 
 Examples:
 
 * `listcustomers`, then `addb r/1 d/20.5-25.5 i/15` +
-Adds a booking of Room Type 1, one customer from the complete customer list, from 20 May to 25 May
+Adds a booking of Room Type 1, one customer from the complete customer list, from 20 May to 25 May.
 * `findname Jack Rose`, then `addb r/2 d/14.2-15.2 c/1 c/2` +
-Adds a booking of Room Type 3, two customers from the search result of Jack and Rose, from 14 Feb to 15 Feb
+Adds a booking of Room Type 3, two customers from the search result of Jack and Rose, from 14 Feb to 15 Feb.
 
 === Listing all bookings : `listbookings`, `listb`, `lb`
-Effect: Displays a booking list, which lists one of: 1. all the bookings in the booking database; 2. the bookings associated with certain customers; 3. the bookings that covers a certain date. +
+Effect: Displays a booking list, which lists one of: 1. all the bookings in the booking database; 2. the bookings associated with certain customers; 3. the bookings that contains a certain date. +
 Format: `{listbookings/listb/lb} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
 
 ****
 * If the indices are provided, the command shows only the bookings associated with any of the customers. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
-* If a date is provided, the command shows only the bookings that span across that date. The date should follow the `DATE.MONTH` format.
+* If a date is provided, the command shows only the bookings that span across that date. The date should follow the `DD.MM` format.
 * Indicies and dates can be provided at the same time. The command will then show only the bookings associated with the customers that covers the date.
 ****
+
+Examples:
+
+* `listc`, then `listb i/2` +
+Lists all the bookings under the name of the 2nd customer.
+* `listb d/05.12` +
+Lists all the bookings that spans across the date 12 May.
 
 === Editing a booking : `editbooking`, `editb`, `eb`
 
@@ -196,7 +203,7 @@ Deletes the 2nd person of the booking database
 * `listb i/2`, then `deletebooking 1` +
 Deletes the 1st booking in the results of the listb command.
 
-=== Adding a service booking: `addservice`, `adds`, `as`
+=== Adding a room service: `addservice`, `adds`, `as`
 
 Effect: Adds a service associated with certain customers. +
 Format: `{addservice/adds/as} s/SERVICE_TYPE h/START_TIME-END_TIME i/INDEX [i/MORE_INDICES] [c/COMMENTS]`
@@ -205,26 +212,28 @@ Format: `{addservice/adds/as} s/SERVICE_TYPE h/START_TIME-END_TIME i/INDEX [i/MO
 * `SERVICE_TYPE` is a positive integer. Which number corresponds to which actual type is defined by the user.
 * `START_TIME` and `END_TIME` follows the `HH.MM 24-hour` format.
 * `COMMENTS` can contain any text without slash (`/`).
+****
 
 Examples:
 
 * `listc`, then `adds s/1 h/20:55-23:55 i/15`
-Adds a booking for service 1, for the 15th customer from the complete customer list, from 20:55 - 23:55
-* `findn Jack Rose`, then `adds s/2 h/14:20-15:20 c/1 c/2`
-Adds a booking of service 2 for two customers from the search result of Jack and Rose, from 14:20 to 15:20
+Adds a booking for service 1, for the 15th customer from the complete customer list, from 20:55 to 23:55.
+* `findn Jack Rose`, then `adds s/2 h/14:20-15:20 i/1 i/2`
+Adds a booking of service 2 for two customers from the search result of Jack and Rose, from 14:20 to 15:20.
 
-=== Listing service bookings: `listservices`, `lists`, `ls`
-Effect: Displays a service booking list, which lists one of: 1. all the bookings in the booking database; 2. the bookings associated with certain customers; 3. the bookings that are inside a time range. +
-Format: `{listservices/lists/ls} [i/INDEX_OF_CUSTOMER]… [h/START_TIME - END_TIME]`
+=== Listing room services: `listservices`, `lists`, `ls`
+Effect: Displays a room service list, which lists one of: 1. all the room services in the booking database; 2. the room services associated with certain customers; 3. the room services that are inside a date range. +
+Format: `{listservices/lists/ls} [i/INDEX_OF_CUSTOMER]… [d/START_DATE-END_DATE]`
 
 ****
 * If the indices are provided, the command shows only the bookings associated with any of the customers. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
-* If a time range is provided, the command shows only the bookings that are in that time range. The date should follow the `DATE.MONTH` format.
+* If a time range is provided, the command shows only the bookings that are in that time range. The date should follow the `DD.MM` format.
 * Indices and time ranges can be provided at the same time. The command will then show only the bookings associated with the customers that covers the date.
+****
 
-=== Editing a service booking: `editservice`, `edits`, `es`
+=== Edit a room service: `editservice`, `edits`, `es`
 
-Effect: Edits the fields of an service booking in the database. +
+Effect: Edits the fields of an room service in the database. +
 Format: `{editservice/edits/es} INDEX [s/SERVICE_TYPE] [h/START_TIME - END_TIME] [c/COMMENTS]`
 
 ****
@@ -234,6 +243,7 @@ Format: `{editservice/edits/es} INDEX [s/SERVICE_TYPE] [h/START_TIME - END_TIME]
 * Existing values will be updated to the input values.
 * When editing comments, the existing comments of the booking will be removed, i.e adding of comments is not cumulative.
 * You can remove all the booking's comments by typing `c/` without specifying any tags after it.
+****
 
 Examples:
 
@@ -242,19 +252,19 @@ Edits the service type of the 1st booking to be Type 3.
 * `listb`, then `edits 2 s/14:20-14.30 c/`
 Edits the timing of the 2nd booking to be 14:20 - 14:30 and clears all existing comments.
 
-=== Deleting a service booking: `deletebooking`
+=== Deleting a room service: `deleteservice`
 
-Effect: Deletes a service booking from the database.
-Format: `deletebooking` INDEX
+Effect: Deletes a room service from the database.
+Format: `deleteservice INDEX`
 
 ****
-* Deletes the booking at the specified index. The index refers to the index number shown in the displayed booking list. The index must be a positive integer.
+* Deletes the room service at the specified index. The index refers to the index number shown in the displayed room service list. The index must be a positive integer.
 ****
 
 Examples:
-* `listbookings`, then `deletebooking 2`
+* `lists`, then `deleteservice 2`
 Deletes the 2nd booking of the booking database
-* `lists i/2`, then `deletebooking 1`
+* `lists i/2`, then `deleteservice 1`
 Deletes the 1st booking in the results of the `lists` command.
 
 === Generate customer's bill : `generatebill`, `gb`

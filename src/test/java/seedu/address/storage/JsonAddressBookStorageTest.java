@@ -99,6 +99,27 @@ public class JsonAddressBookStorageTest {
     }
 
     @Test
+    public void readAndBackupAddressBook_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
+        AddressBook original = getTypicalAddressBook();
+        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+
+        // Backup in new file and read back
+        jsonAddressBookStorage.backupAddressBook(original);
+        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(
+                jsonAddressBookStorage.getAddressBookBackupFilePath()).get();
+        assertEquals(original, new AddressBook(readBack));
+
+        // Modify data, overwrite backup file, and read back
+        original.addPerson(HOON);
+        original.removePerson(ALICE);
+        jsonAddressBookStorage.backupAddressBook(original);
+        readBack = jsonAddressBookStorage.readAddressBook(
+                jsonAddressBookStorage.getAddressBookBackupFilePath()).get();
+        assertEquals(original, new AddressBook(readBack));
+    }
+
+    @Test
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         saveAddressBook(null, "SomeFile.json");

@@ -3,10 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPIRY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -17,8 +17,8 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
@@ -37,7 +37,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditMedicineDescriptor;
 import seedu.address.model.medicine.Company;
-import seedu.address.model.medicine.Email;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
@@ -83,12 +83,12 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid quantity
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_EXPIRY_DESC, Expiry.MESSAGE_CONSTRAINTS); // invalid expiry
         assertParseFailure(parser, "1" + INVALID_COMPANY_DESC, Company.MESSAGE_CONSTRAINTS); // invalid company name
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        // invalid quantity followed by valid email
-        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC + EMAIL_DESC_AMY, Quantity.MESSAGE_CONSTRAINTS);
+        // invalid quantity followed by valid expiry
+        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC + EXPIRY_DESC_AMY, Quantity.MESSAGE_CONSTRAINTS);
 
         // valid quantity followed by invalid quantity. The test case for invalid quantity followed by valid quantity
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -101,7 +101,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_COMPANY_AMY + VALID_QUANTITY_AMY,
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EXPIRY_DESC + VALID_COMPANY_AMY + VALID_QUANTITY_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -109,10 +109,10 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_MEDICINE;
         String userInput = targetIndex.getOneBased() + QUANTITY_DESC_BOB + TAG_DESC_HUSBAND
-                + EMAIL_DESC_AMY + COMPANY_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+                + EXPIRY_DESC_AMY + COMPANY_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withQuantity(VALID_QUANTITY_BOB).withEmail(VALID_EMAIL_AMY).withCompany(VALID_COMPANY_AMY)
+                .withQuantity(VALID_QUANTITY_BOB).withExpiry(VALID_EXPIRY_AMY).withCompany(VALID_COMPANY_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -122,10 +122,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_MEDICINE;
-        String userInput = targetIndex.getOneBased() + QUANTITY_DESC_BOB + EMAIL_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + QUANTITY_DESC_BOB + EXPIRY_DESC_AMY;
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_BOB)
-                .withEmail(VALID_EMAIL_AMY).build();
+                .withExpiry(VALID_EXPIRY_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -146,9 +146,9 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditMedicineDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
+        // expiry
+        userInput = targetIndex.getOneBased() + EXPIRY_DESC_AMY;
+        descriptor = new EditMedicineDescriptorBuilder().withExpiry(VALID_EXPIRY_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -168,12 +168,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_MEDICINE;
-        String userInput = targetIndex.getOneBased() + QUANTITY_DESC_AMY + COMPANY_DESC_AMY + EMAIL_DESC_AMY
-                + TAG_DESC_FRIEND + QUANTITY_DESC_AMY + COMPANY_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + QUANTITY_DESC_BOB + COMPANY_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + QUANTITY_DESC_AMY + COMPANY_DESC_AMY + EXPIRY_DESC_AMY
+                + TAG_DESC_FRIEND + QUANTITY_DESC_AMY + COMPANY_DESC_AMY + EXPIRY_DESC_AMY + TAG_DESC_FRIEND
+                + QUANTITY_DESC_BOB + COMPANY_DESC_BOB + EXPIRY_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_BOB)
-                .withEmail(VALID_EMAIL_BOB).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withExpiry(VALID_EXPIRY_BOB).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -190,9 +190,9 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_QUANTITY_DESC + COMPANY_DESC_BOB
+        userInput = targetIndex.getOneBased() + EXPIRY_DESC_BOB + INVALID_QUANTITY_DESC + COMPANY_DESC_BOB
                 + QUANTITY_DESC_BOB;
-        descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_BOB).withEmail(VALID_EMAIL_BOB)
+        descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_BOB).withExpiry(VALID_EXPIRY_BOB)
                 .withCompany(VALID_COMPANY_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

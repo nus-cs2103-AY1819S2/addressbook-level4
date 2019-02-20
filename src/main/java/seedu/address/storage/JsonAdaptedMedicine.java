@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicine.Company;
-import seedu.address.model.medicine.Email;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Quantity;
@@ -26,7 +26,7 @@ class JsonAdaptedMedicine {
 
     private final String name;
     private final String quantity;
-    private final String email;
+    private final String expiry;
     private final String company;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -35,11 +35,11 @@ class JsonAdaptedMedicine {
      */
     @JsonCreator
     public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("quantity") String quantity,
-            @JsonProperty("email") String email, @JsonProperty("company") String company,
+            @JsonProperty("expiry") String expiry, @JsonProperty("company") String company,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.quantity = quantity;
-        this.email = email;
+        this.expiry = expiry;
         this.company = company;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -52,7 +52,7 @@ class JsonAdaptedMedicine {
     public JsonAdaptedMedicine(Medicine source) {
         name = source.getName().fullName;
         quantity = source.getQuantity().value;
-        email = source.getEmail().value;
+        expiry = source.getExpiry().value;
         company = source.getCompany().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -86,13 +86,13 @@ class JsonAdaptedMedicine {
         }
         final Quantity modelQuantity = new Quantity(quantity);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (expiry == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Expiry.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!Expiry.isValidDate(expiry)) {
+            throw new IllegalValueException(Expiry.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Expiry modelExpiry = new Expiry(expiry);
 
         if (company == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));
@@ -103,7 +103,7 @@ class JsonAdaptedMedicine {
         final Company modelCompany = new Company(company);
 
         final Set<Tag> modelTags = new HashSet<>(medicineTags);
-        return new Medicine(modelName, modelQuantity, modelEmail, modelCompany, modelTags);
+        return new Medicine(modelName, modelQuantity, modelExpiry, modelCompany, modelTags);
     }
 
 }

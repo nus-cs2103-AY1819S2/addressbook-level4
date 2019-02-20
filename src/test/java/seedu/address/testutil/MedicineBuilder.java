@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.medicine.Company;
-import seedu.address.model.medicine.Email;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Quantity;
@@ -18,19 +18,19 @@ public class MedicineBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_QUANTITY = "332";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_EXPIRY = "10/10/2019";
     public static final String DEFAULT_COMPANY = "GlaxoSmithKline";
 
     private Name name;
     private Quantity quantity;
-    private Email email;
+    private Expiry expiry;
     private Company company;
     private Set<Tag> tags;
 
     public MedicineBuilder() {
         name = new Name(DEFAULT_NAME);
         quantity = new Quantity(DEFAULT_QUANTITY);
-        email = new Email(DEFAULT_EMAIL);
+        expiry = new Expiry(DEFAULT_EXPIRY);
         company = new Company(DEFAULT_COMPANY);
         tags = new HashSet<>();
     }
@@ -41,7 +41,7 @@ public class MedicineBuilder {
     public MedicineBuilder(Medicine medicineToCopy) {
         name = medicineToCopy.getName();
         quantity = medicineToCopy.getQuantity();
-        email = medicineToCopy.getEmail();
+        expiry = medicineToCopy.getExpiry();
         company = medicineToCopy.getCompany();
         tags = new HashSet<>(medicineToCopy.getTags());
     }
@@ -79,15 +79,15 @@ public class MedicineBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Medicine} that we are building.
+     * Sets the {@code Expiry} of the {@code Medicine} that we are building.
      */
-    public MedicineBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public MedicineBuilder withExpiry(String expiry) {
+        this.expiry = new Expiry(expiry);
         return this;
     }
 
     public Medicine build() {
-        return new Medicine(name, quantity, email, company, tags);
+        return new Medicine(name, quantity, expiry, company, tags);
     }
 
 }

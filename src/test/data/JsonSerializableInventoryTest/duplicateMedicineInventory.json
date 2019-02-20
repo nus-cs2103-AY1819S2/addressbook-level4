@@ -2,13 +2,13 @@
   "medicines": [ {
     "name": "Alice Pauline",
     "quantity": "312",
-    "email": "alice@example.com",
+    "expiry": "31/12/2019",
     "company": "GlaxoSmithKline",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "quantity": "312",
-    "email": "pauline@example.com",
+    "expiry": "26/09/2019",
     "company": "Johnson & Johnson"
   } ]
 }

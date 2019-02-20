@@ -3,7 +3,7 @@ package seedu.address.model.medicine;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -35,8 +35,8 @@ public class MedicineTest {
         // null -> returns false
         assertFalse(ALICE.isSameMedicine(null));
 
-        // different quantity and email -> returns false
-        Medicine editedAlice = new MedicineBuilder(ALICE).withQuantity(VALID_QUANTITY_BOB).withEmail(VALID_EMAIL_BOB).build();
+        // different quantity and expiry date-> returns false
+        Medicine editedAlice = new MedicineBuilder(ALICE).withQuantity(VALID_QUANTITY_BOB).withExpiry(VALID_EXPIRY_BOB).build();
         assertFalse(ALICE.isSameMedicine(editedAlice));
 
         // different name -> returns false
@@ -44,16 +44,16 @@ public class MedicineTest {
         assertFalse(ALICE.isSameMedicine(editedAlice));
 
         // same name, same quantity, different attributes -> returns true
-        editedAlice = new MedicineBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withCompany(VALID_COMPANY_BOB)
+        editedAlice = new MedicineBuilder(ALICE).withExpiry(VALID_EXPIRY_BOB).withCompany(VALID_COMPANY_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameMedicine(editedAlice));
 
-        // same name, same email, different attributes -> returns true
+        // same name, same expiry, different attributes -> returns true
         editedAlice = new MedicineBuilder(ALICE).withQuantity(VALID_QUANTITY_BOB).withCompany(VALID_COMPANY_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameMedicine(editedAlice));
 
-        // same name, same quantity, same email, different attributes -> returns true
+        // same name, same quantity, same expiry, different attributes -> returns true
         editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameMedicine(editedAlice));
     }
@@ -84,8 +84,8 @@ public class MedicineTest {
         editedAlice = new MedicineBuilder(ALICE).withQuantity(VALID_QUANTITY_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new MedicineBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        // different expiry date-> returns false
+        editedAlice = new MedicineBuilder(ALICE).withExpiry(VALID_EXPIRY_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different company -> returns false

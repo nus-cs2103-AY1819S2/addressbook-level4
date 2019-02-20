@@ -18,7 +18,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Company;
-import seedu.address.model.medicine.Email;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Quantity;
@@ -81,9 +81,9 @@ public class MedicineListPanelTest extends GuiUnitTest {
         for (int i = 0; i < medicineCount; i++) {
             Name name = new Name(i + "a");
             Quantity quantity = new Quantity("000");
-            Email email = new Email("a@aa");
+            Expiry expiry = new Expiry("1/1/2011");
             Company company = new Company("a");
-            Medicine medicine = new Medicine(name, quantity, email, company, Collections.emptySet());
+            Medicine medicine = new Medicine(name, quantity, expiry, company, Collections.emptySet());
             backingList.add(medicine);
         }
         return backingList;

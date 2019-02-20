@@ -18,14 +18,14 @@ public class MedicineCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#name";
     private static final String COMPANY_FIELD_ID = "#company";
     private static final String QUANTITY_FIELD_ID = "#quantity";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String EXPIRY_FIELD_ID = "#expiry";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label companyLabel;
     private final Label quantityLabel;
-    private final Label emailLabel;
+    private final Label expiryLabel;
     private final List<Label> tagLabels;
 
     public MedicineCardHandle(Node cardNode) {
@@ -35,7 +35,7 @@ public class MedicineCardHandle extends NodeHandle<Node> {
         nameLabel = getChildNode(NAME_FIELD_ID);
         companyLabel = getChildNode(COMPANY_FIELD_ID);
         quantityLabel = getChildNode(QUANTITY_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
+        expiryLabel = getChildNode(EXPIRY_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -61,8 +61,8 @@ public class MedicineCardHandle extends NodeHandle<Node> {
         return quantityLabel.getText();
     }
 
-    public String getEmail() {
-        return emailLabel.getText();
+    public String getExpiry() {
+        return expiryLabel.getText();
     }
 
     public List<String> getTags() {
@@ -79,7 +79,7 @@ public class MedicineCardHandle extends NodeHandle<Node> {
         return getName().equals(medicine.getName().fullName)
                 && getCompany().equals(medicine.getCompany().value)
                 && getQuantity().equals(medicine.getQuantity().value)
-                && getEmail().equals(medicine.getEmail().value)
+                && getExpiry().equals(medicine.getExpiry().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(medicine.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

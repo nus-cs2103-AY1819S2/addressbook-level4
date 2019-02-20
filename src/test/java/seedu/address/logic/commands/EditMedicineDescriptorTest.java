@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -43,8 +43,8 @@ public class EditMedicineDescriptorTest {
         editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withQuantity(VALID_QUANTITY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different email -> returns false
-        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        // different expiry date-> returns false
+        editedAmy = new EditMedicineDescriptorBuilder(DESC_AMY).withExpiry(VALID_EXPIRY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different company -> returns false

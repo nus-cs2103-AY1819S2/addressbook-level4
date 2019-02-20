@@ -3,43 +3,43 @@
   "medicines" : [ {
     "name" : "Alice Pauline",
     "quantity" : "312",
-    "email" : "alice@example.com",
+    "expiry" : "31/12/2019",
     "company" : "GlaxoSmithKline",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "quantity" : "432",
-    "email" : "johnd@example.com",
+    "expiry" : "21/09/2019",
     "company" : "Novartis",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "quantity" : "563",
-    "email" : "heinz@example.com",
+    "expiry" : "04/02/2020",
     "company" : "Pfizer",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "quantity" : "533",
-    "email" : "cornelia@example.com",
+    "expiry" : "13/08/2019",
     "company" : "3M Pharmaceuticals",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "quantity" : "94",
-    "email" : "werner@example.com",
-    "company" : "takeda pharmaceutical co.",
+    "expiry" : "06/07/2019",
+    "company" : "Takeda Pharmaceutical Co.",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "quantity" : "427",
-    "email" : "lydia@example.com",
+    "expiry" : "19/11/2019",
     "company" : "Gilead Sciences",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "quantity" : "82",
-    "email" : "anna@example.com",
+    "expiry" : "25/01/2020",
     "company" : "Johnson & Johnson",
     "tagged" : [ ]
   } ]

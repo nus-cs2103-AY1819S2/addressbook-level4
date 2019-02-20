@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 import static seedu.address.testutil.TypicalMedicines.ALICE;
 import static seedu.address.testutil.TypicalMedicines.BENSON;
@@ -124,7 +124,7 @@ public class ModelManagerTest {
     public void setMedicine_medicineIsSelected_selectedMedicineUpdated() {
         modelManager.addMedicine(ALICE);
         modelManager.setSelectedMedicine(ALICE);
-        Medicine updatedAlice = new MedicineBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Medicine updatedAlice = new MedicineBuilder(ALICE).withExpiry(VALID_EXPIRY_BOB).build();
         modelManager.setMedicine(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedMedicine());
     }

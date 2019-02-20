@@ -27,7 +27,7 @@ public class MedicineCard extends UiPart<Region> {
     @FXML
     private Label company;
     @FXML
-    private Label email;
+    private Label expiry;
     @FXML
     private FlowPane tags;
 
@@ -38,7 +38,7 @@ public class MedicineCard extends UiPart<Region> {
         name.setText(medicine.getName().fullName);
         quantity.setText(medicine.getQuantity().value);
         company.setText(medicine.getCompany().value);
-        email.setText(medicine.getEmail().value);
+        expiry.setText(medicine.getExpiry().value);
         medicine.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

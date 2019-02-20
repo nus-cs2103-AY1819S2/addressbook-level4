@@ -31,7 +31,7 @@ public class Company {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid company name.
      */
     public static boolean isValidCompany(String test) {
         return test.matches(VALIDATION_REGEX);

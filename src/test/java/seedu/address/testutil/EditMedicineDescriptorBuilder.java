@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditMedicineDescriptor;
 import seedu.address.model.medicine.Company;
-import seedu.address.model.medicine.Email;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Quantity;
@@ -34,7 +34,7 @@ public class EditMedicineDescriptorBuilder {
         descriptor = new EditMedicineDescriptor();
         descriptor.setName(medicine.getName());
         descriptor.setQuantity(medicine.getQuantity());
-        descriptor.setEmail(medicine.getEmail());
+        descriptor.setExpiryDate(medicine.getExpiry());
         descriptor.setCompany(medicine.getCompany());
         descriptor.setTags(medicine.getTags());
     }
@@ -56,10 +56,10 @@ public class EditMedicineDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditMedicineDescriptor} that we are building.
+     * Sets the {@code Expiry} of the {@code EditMedicineDescriptor} that we are building.
      */
-    public EditMedicineDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditMedicineDescriptorBuilder withExpiry(String expiry) {
+        descriptor.setExpiryDate(new Expiry(expiry));
         return this;
     }
 

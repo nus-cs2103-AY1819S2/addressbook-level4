@@ -121,8 +121,8 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        /* Case: find expiry date of medicine in inventory -> 0 medicines found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getExpiry().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,7 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Company;
-import seedu.address.model.medicine.Email;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Quantity;
@@ -40,12 +40,12 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_EXPIRY + "EXPIRY] "
             + "[" + PREFIX_COMPANY + "COMPANY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_QUANTITY + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EXPIRY + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_MEDICINE_SUCCESS = "Edited Medicine: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -97,11 +97,11 @@ public class EditCommand extends Command {
 
         Name updatedName = editMedicineDescriptor.getName().orElse(medicineToEdit.getName());
         Quantity updatedQuantity = editMedicineDescriptor.getQuantity().orElse(medicineToEdit.getQuantity());
-        Email updatedEmail = editMedicineDescriptor.getEmail().orElse(medicineToEdit.getEmail());
+        Expiry updatedExpiry = editMedicineDescriptor.getExpiryDate().orElse(medicineToEdit.getExpiry());
         Company updatedCompany = editMedicineDescriptor.getCompany().orElse(medicineToEdit.getCompany());
         Set<Tag> updatedTags = editMedicineDescriptor.getTags().orElse(medicineToEdit.getTags());
 
-        return new Medicine(updatedName, updatedQuantity, updatedEmail, updatedCompany, updatedTags);
+        return new Medicine(updatedName, updatedQuantity, updatedExpiry, updatedCompany, updatedTags);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class EditCommand extends Command {
     public static class EditMedicineDescriptor {
         private Name name;
         private Quantity quantity;
-        private Email email;
+        private Expiry expiry;
         private Company company;
         private Set<Tag> tags;
 
@@ -142,7 +142,7 @@ public class EditCommand extends Command {
         public EditMedicineDescriptor(EditMedicineDescriptor toCopy) {
             setName(toCopy.name);
             setQuantity(toCopy.quantity);
-            setEmail(toCopy.email);
+            setExpiryDate(toCopy.expiry);
             setCompany(toCopy.company);
             setTags(toCopy.tags);
         }
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, quantity, email, company, tags);
+            return CollectionUtil.isAnyNonNull(name, quantity, expiry, company, tags);
         }
 
         public void setName(Name name) {
@@ -170,12 +170,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(quantity);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setExpiryDate(Expiry expiry) {
+            this.expiry = expiry;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Expiry> getExpiryDate() {
+            return Optional.ofNullable(expiry);
         }
 
         public void setCompany(Company company) {
@@ -220,7 +220,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getQuantity().equals(e.getQuantity())
-                    && getEmail().equals(e.getEmail())
+                    && getExpiryDate().equals(e.getExpiryDate())
                     && getCompany().equals(e.getCompany())
                     && getTags().equals(e.getTags());
         }

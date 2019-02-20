@@ -2,7 +2,7 @@
   "medicines": [ {
     "name": "Hans Muster",
     "quantity": "948",
-    "email": "invalid@email!3e",
+    "expiry": "invalid/expiry!3e",
     "company": "Johnson & Johnson"
   } ]
 }

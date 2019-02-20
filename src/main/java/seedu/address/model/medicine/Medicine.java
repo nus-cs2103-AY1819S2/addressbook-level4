@@ -18,7 +18,7 @@ public class Medicine {
     // Identity fields
     private final Name name;
     private final Quantity quantity;
-    private final Email email;
+    private final Expiry expiry;
 
     // Data fields
     private final Company company;
@@ -27,11 +27,11 @@ public class Medicine {
     /**
      * Every field must be present and not null.
      */
-    public Medicine(Name name, Quantity quantity, Email email, Company company, Set<Tag> tags) {
-        requireAllNonNull(name, quantity, email, company, tags);
+    public Medicine(Name name, Quantity quantity, Expiry expiry, Company company, Set<Tag> tags) {
+        requireAllNonNull(name, quantity, expiry, company, tags);
         this.name = name;
         this.quantity = quantity;
-        this.email = email;
+        this.expiry = expiry;
         this.company = company;
         this.tags.addAll(tags);
     }
@@ -44,8 +44,8 @@ public class Medicine {
         return quantity;
     }
 
-    public Email getEmail() {
-        return email;
+    public Expiry getExpiry() {
+        return expiry;
     }
 
     public Company getCompany() {
@@ -71,7 +71,7 @@ public class Medicine {
 
         return otherMedicine != null
                 && otherMedicine.getName().equals(getName())
-                && (otherMedicine.getQuantity().equals(getQuantity()) || otherMedicine.getEmail().equals(getEmail()));
+                && (otherMedicine.getQuantity().equals(getQuantity()) || otherMedicine.getExpiry().equals(getExpiry()));
     }
 
     /**
@@ -91,7 +91,7 @@ public class Medicine {
         Medicine otherMedicine = (Medicine) other;
         return otherMedicine.getName().equals(getName())
                 && otherMedicine.getQuantity().equals(getQuantity())
-                && otherMedicine.getEmail().equals(getEmail())
+                && otherMedicine.getExpiry().equals(getExpiry())
                 && otherMedicine.getCompany().equals(getCompany())
                 && otherMedicine.getTags().equals(getTags());
     }
@@ -99,7 +99,7 @@ public class Medicine {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, quantity, email, company, tags);
+        return Objects.hash(name, quantity, expiry, company, tags);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class Medicine {
         builder.append(getName())
                 .append(" Quantity: ")
                 .append(getQuantity())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Expiry: ")
+                .append(getExpiry())
                 .append(" Company: ")
                 .append(getCompany())
                 .append(" Tags: ");

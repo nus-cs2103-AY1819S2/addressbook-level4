@@ -13,7 +13,7 @@ import seedu.address.commons.util.FileName;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Company;
-import seedu.address.model.medicine.Email;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
@@ -108,18 +108,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String expiry} into an {@code Expiry}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code expiry} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Expiry parseExpiry(String expiry) throws ParseException {
+        requireNonNull(expiry);
+        String trimmedExpiry = expiry.trim();
+        if (!Expiry.isValidDate(trimmedExpiry)) {
+            throw new ParseException(Expiry.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Expiry(trimmedExpiry);
     }
 
     /**

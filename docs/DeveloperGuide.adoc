@@ -331,13 +331,12 @@ Data encryption is likely to be implemented in future versions of the address bo
 
 ===== Aspect: Data structure to support data encryption
 
-* **Alternative 1:** Save the entire address book as encrypted data in the database. 
+* **Alternative 1:** Save the entire address book as encrypted data in the database.
 ** Pros: Data is secure and not viewable without encryption key.
 ** Cons: Implement log in page for decryption of address book. Require alternative if encryption key is forgotten.
 * **Alternative 2:** Save encrypted parts of address book and plaintext in database.
 ** Pros: Able to salvage some information if encryption key is lost.
 ** Cons: Need to implement packing/unpacking of encrypted data and plaintext during startup/shutdown.
-
 
 // end::dataencryption[]
 

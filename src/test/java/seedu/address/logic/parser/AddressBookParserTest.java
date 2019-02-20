@@ -92,10 +92,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_editAlias() throws Exception {
-        Person person= new PersonBuilder().build();
+        Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand commandAlias = (EditCommand) parser.parseCommand( EditCommand.COMMAND_ALIAS + " "
-        + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        EditCommand commandAlias = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), commandAlias);
     }
 
@@ -108,7 +108,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_exitAlias() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS + " 3") instanceof  ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS + " 3") instanceof ExitCommand);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand commandAlias = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)),commandAlias);
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), commandAlias);
     }
 
     @Test

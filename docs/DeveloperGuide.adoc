@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+﻿= Fashion Match - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,20 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w15-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W15-01`      Since: `Jan 2019`      Licence: `MIT`
+
+//tag::introduction
+== Introduction
+
+Fashion Match (FM) is for those who prefer to use a desktop app to find the matching combination for their clothing and accessories.
+FM is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, FM can get your contact management tasks done faster than traditional GUI apps.
+
+This Developer Guide contains a broad overview of FM. The implementation key features will be discussed, as well as the general software architecture.
+By reading through this guide, you should be able to modify the codebase yourself.
+//end::introduction
 
 == Setting up
 
@@ -54,6 +65,8 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
+To verify that you have FM correctly setup:
+
 . Run the `seedu.address.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
@@ -74,9 +87,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, links in the documentation will still refer to the `CS2103-AY1819S2-W15-1/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S2-W15-1/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -233,92 +246,68 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::add[]
+=== Add Clothes feature
+Adds an item to the clothing database.
 ==== Current Implementation
+_{More to be added}_
+// end::add[]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+// tag::list[]
+=== List Clothes feature
+Show a list of all the clothing.
+==== Current Implementation
+_{More to be added}_
+// end::list[]
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+// tag::edit[]
+=== Edit Clothes feature
+Edits an existing item in the database.
+==== Current Implementation
+_{More to be added}_
+// end::edit[]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+// tag::find[]
+=== Find Clothes feature
+Find item whose name contain any of the given keywords.
+==== Current Implementation
+_{More to be added}_
+// end::find[]
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+// tag::delete[]
+=== Delete Clothes feature
+Deletes the specified item from the database.
+==== Current Implementation
+_{More to be added}_
+// end::delete[]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+// tag::sort[]
+=== Sort Clothes feature
+Sort the list of items.
+==== Current Implementation
+_{More to be added}_
+// end::sort[]
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+// tag::relation[]
+=== Establish Relation feature
+Establish a relation between two clothings.
+==== Current Implementation
+_{More to be added}_
+// end::relation[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+// tag::match[]
+=== Match Clothes feature
+Locate other clothings that can match the given clothing.
+==== Current Implementation
+_{More to be added}_
+// end::match[]
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+// tag::save[]
+=== Save Clothes feature
+Save the clothing combination and it will be identified by the NAME and tagged to it’s relevant OCCASION.
+==== Current Implementation
+_{More to be added}_
+// end::save[]
 
 === Logging
 
@@ -811,13 +800,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* wish for a clothing and accessories matching app
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+* match clothing and accessories instantly
+* ability to know which clothes/accessories are underutilised/overutilised
 
 [appendix]
 == User Stories
@@ -827,49 +818,78 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |see all items in closet |see all the clothings that i have
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add an item |add new item to closet
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |remove item |remove item from closet
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |get outfit recommendations |look good
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |sort by how much they like an item |locate a clothing item easily
+
+|`* * *` |user |add matching relation between clothings (including accessories) |define matching color combinations that are outside of the default combinations
+
+|`* *` |user |see clothings being categorised in their respective category (e.g. shirt, pants, shoe, etc) |locate the clothing item easily
+
+|`* *` |user |know the suitable clothing based on occasions |wear the right clothing based on occasions
+
+|`*` |user |know the colors that are not suitable for certain clothings |avoid wearing colors that don’t match
+
+|`*` |user |add tags to each clothing |identify clothing by tags
+
+|`* * *` |user |edit item details |edit item details
+
+|`* * *` |user |exit the app |exit the app
+
+|`* * *` |user |save favorite clothing combination |easily find my go-to attire
+
+|`*` |user |Redo previous command |avoid the hassle of retyping commonly used command
+
+|`*` |user |undo previous changes |undo recently committed mistake
+
+|`*` |user |search by keyword |easily locate clothing
+
+|`*` |user |see all saved combinations |easy choice
+
+|`*` |user |top n most versatile clothing |
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Application` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Addding an entry
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User asks application to add a new entry
+2.  Application creates a new entry, displays confirmation to user
+3.  User enters additional information for new entry
+4.  Application updates entry, displays infomation to user
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 1a. Entry with same name already exists in Application.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Application informs user, requests for confirmation
+** 1a2. User confirms request
++
+Use case resumes at step 2.
+
+* 2a. The given information is invalid.
++
+[none]
+** 2a1. Application shows an error message.
 +
 Use case resumes at step 2.
 

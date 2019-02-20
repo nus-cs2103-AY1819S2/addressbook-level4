@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Fashion Match - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,20 +12,20 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w15-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `[W15-1]`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Fashion Match (FM) is for those who *prefer to use a desktop app for managing dresswear*. More importantly, FM is *optimized for those who prefer to work with a Command Line Interface* (CLI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Fork and clone the FM repository into your local directory.
+.  Import the project in Intellij.
+.  Run main.
 +
 image::Ui.png[width="790"]
 +
@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
-
+`
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -234,6 +234,26 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+=== Add Clothes `[coming in v2.0]`
+
+Add a piece of clothing given type i.e. shirt, colour, formality level.
+
+=== Listing all Clothes `[coming in v2.0]`
+
+Lists all the clothes you have added to your CLI.
+
+=== Calculating use Statistics `[coming in v2.0]`
+
+Calculates the rate of wear of each clothes.
+
+=== Recommend clothes `[coming in v2.0]`
+
+Recommends clothes given occasion formality and clothes chosen.
+
+=== Recommend formality `[coming in v2.0]`
+
+Recommends dress attire formality i.e. formal, semi-formal, smart-casual, casual by answers to the questions asked in CLI.
 
 == FAQ
 

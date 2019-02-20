@@ -5,7 +5,6 @@
 :stylesDir: stylesheets
 
 AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team.
- 
 
 == Project Team
 

@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lee Wei Hao Jonathan
-image::Jonathan.png[width="150", align="left"]
+image::jonathanleewh.png[width="150", align="left"]
 {empty} [https://github.com/JonathanLeeWH[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -20,7 +20,7 @@ Role: Team Lead +
 '''
 
 === Tan Kian Wei, Jason
-image::Jason.png[width="150", align="left"]
+image::jtankw3.png[width="150", align="left"]
 {empty}[https://github.com/jtankw3[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Model
 '''
 
 === Melvin Vito
-image::Melvin.png[width="150", align="left"]
+image::melpulomas.png[width="150", align="left"]
 {empty}[https://github.com/melpulomas[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.medicine.Address;
+import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
@@ -19,19 +19,19 @@ public class MedicineBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_COMPANY = "GlaxoSmithKline";
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
+    private Company company;
     private Set<Tag> tags;
 
     public MedicineBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        company = new Company(DEFAULT_COMPANY);
         tags = new HashSet<>();
     }
 
@@ -42,7 +42,7 @@ public class MedicineBuilder {
         name = medicineToCopy.getName();
         phone = medicineToCopy.getPhone();
         email = medicineToCopy.getEmail();
-        address = medicineToCopy.getAddress();
+        company = medicineToCopy.getCompany();
         tags = new HashSet<>(medicineToCopy.getTags());
     }
 
@@ -63,10 +63,10 @@ public class MedicineBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Medicine} that we are building.
+     * Sets the {@code Company} of the {@code Medicine} that we are building.
      */
-    public MedicineBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public MedicineBuilder withCompany(String company) {
+        this.company = new Company(company);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class MedicineBuilder {
     }
 
     public Medicine build() {
-        return new Medicine(name, phone, email, address, tags);
+        return new Medicine(name, phone, email, company, tags);
     }
 
 }

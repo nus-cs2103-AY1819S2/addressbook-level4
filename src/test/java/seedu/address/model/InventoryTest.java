@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalMedicines.ALICE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
@@ -53,7 +53,7 @@ public class InventoryTest {
     @Test
     public void resetData_withDuplicateMedicines_throwsDuplicateMedicineException() {
         // Two medicines with the same identity fields
-        Medicine editedAlice = new MedicineBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Medicine> newMedicines = Arrays.asList(ALICE, editedAlice);
         InventoryStub newData = new InventoryStub(newMedicines);
@@ -82,7 +82,7 @@ public class InventoryTest {
     @Test
     public void hasMedicine_medicineWithSameIdentityFieldsInInventory_returnsTrue() {
         Inventory.addMedicine(ALICE);
-        Medicine editedAlice = new MedicineBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(Inventory.hasMedicine(editedAlice));
     }

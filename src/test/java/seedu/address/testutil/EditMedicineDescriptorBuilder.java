@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditMedicineDescriptor;
-import seedu.address.model.medicine.Address;
+import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
@@ -35,7 +35,7 @@ public class EditMedicineDescriptorBuilder {
         descriptor.setName(medicine.getName());
         descriptor.setPhone(medicine.getPhone());
         descriptor.setEmail(medicine.getEmail());
-        descriptor.setAddress(medicine.getAddress());
+        descriptor.setCompany(medicine.getCompany());
         descriptor.setTags(medicine.getTags());
     }
 
@@ -64,10 +64,10 @@ public class EditMedicineDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditMedicineDescriptor} that we are building.
+     * Sets the {@code Company} of the {@code EditMedicineDescriptor} that we are building.
      */
-    public EditMedicineDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditMedicineDescriptorBuilder withCompany(String company) {
+        descriptor.setCompany(new Company(company));
         return this;
     }
 

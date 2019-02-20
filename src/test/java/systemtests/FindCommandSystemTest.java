@@ -116,8 +116,8 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        /* Case: find company of medicine in inventory -> 0 medicines found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getCompany().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

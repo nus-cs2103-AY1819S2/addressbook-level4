@@ -17,7 +17,7 @@ import guitests.guihandles.MedicineListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.medicine.Address;
+import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Email;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
@@ -82,8 +82,8 @@ public class MedicineListPanelTest extends GuiUnitTest {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
-            Address address = new Address("a");
-            Medicine medicine = new Medicine(name, phone, email, address, Collections.emptySet());
+            Company company = new Company("a");
+            Medicine medicine = new Medicine(name, phone, email, company, Collections.emptySet());
             backingList.add(medicine);
         }
         return backingList;

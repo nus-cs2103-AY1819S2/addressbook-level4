@@ -3,7 +3,7 @@ package seedu.address.model.medicine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalMedicines.ALICE;
 import static seedu.address.testutil.TypicalMedicines.BOB;
@@ -46,7 +46,7 @@ public class UniqueMedicineListTest {
     @Test
     public void contains_medicineWithSameIdentityFieldsInList_returnsTrue() {
         uniqueMedicineList.add(ALICE);
-        Medicine editedAlice = new MedicineBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueMedicineList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueMedicineListTest {
     @Test
     public void setMedicine_editedMedicineHasSameIdentity_success() {
         uniqueMedicineList.add(ALICE);
-        Medicine editedAlice = new MedicineBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Medicine editedAlice = new MedicineBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueMedicineList.setMedicine(ALICE, editedAlice);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();

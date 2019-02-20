@@ -61,7 +61,7 @@ public class Person {
     }
 
     public boolean isVip() {
-        return this.tags.stream().anyMatch(Tag::isVIPTag);
+        return this.tags.stream().anyMatch(Tag::isVipTag);
     }
 
     /**

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= MediTab - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-t12-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -74,9 +74,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the cs2103-ay1819s2-t12-3 branding and refer to the `cs2103-ay1819s2-t12-3/addressbook-level4` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `cs2103-ay1819s2-t12-3/addressbook-level4`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -316,7 +316,27 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+Data encryption is likely to be implemented in future versions of the address book if a reasonable implementation is found.
+
+==== Design Considerations
+
+===== Aspect: How data encryption is executed
+
+* **Alternative 1:** Encrypt the entire address book.
+** Pros: Easy to implement. Use pre-existing encryption libraries to encrypt the entire address book.
+** Cons: May have performance issues when encrypting/decrypting large amounts of data.
+* **Alternative 2:** Only encrypt parts of the address book user selects.
+** Pros: More efficient in terms of performance (cuts down on encryption/decryption time).
+** Cons: Add `encrypt` and `decrypt` command to allow user to choose what needs to be encrypted and decrypted respectively. Need to encrypt/decrypt different chunks of data correctly.
+
+===== Aspect: Data structure to support data encryption
+
+* **Alternative 1:** Save the entire address book as encrypted data in the database.
+** Pros: Data is secure and not viewable without encryption key.
+** Cons: Implement log in page for decryption of address book. Require alternative if encryption key is forgotten.
+* **Alternative 2:** Save encrypted parts of address book and plaintext in database.
+** Pros: Able to salvage some information if encryption key is lost.
+** Cons: Need to implement packing/unpacking of encrypted data and plaintext during startup/shutdown.
 
 // end::dataencryption[]
 
@@ -811,13 +831,10 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+Our target user, Isabelle, is a pharmacist whose job is to dispense and manage the inventory of the medication. Sadly, she spends a significant part of her day managing her clinic’s inventory to ensure that it is adequately stocked daily. It is crucial that there is not an oversupply of medicine due to their short shelf lives, while expiring products are to be identified and dispose of. As Isabelle has many tasks to complete daily, it is important that she can manage the inventory efficiently.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: streamline and provide an organized overview of medical inventory management.
+
 
 [appendix]
 == User Stories
@@ -827,62 +844,152 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |pharmacist |view the inventory easily |check stock levels
 
-|`* * *` |user |add a new person |
+|`* * *` |pharmacist |view the expiry dates of medicine easily |remove expired medicine
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |pharmacist |view batch details easily |get batch information quickly
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |pharmacist |add new and existing medicine to the inventory |keep my inventory updated
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |pharmacist |delete medicine |remove medicine that have expired or are no longer need
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |pharmacist |edit inventory level |keep my inventory updated
+
+|`* * *` |pharmacist |receive notifications when my inventory is low or there is expiring stock |will not forget to update the inventory
+
+|`* * *` |pharmacist |find a medicine by name |locate details of the medicine without having to go through the entire list
+
+|`* * *` |pharmacist |export inventory data |send the data to relevant personnel
+
+|`* * *` |pharmacist |print labels for the medicine |label the medicine for the patients' reference
+
+|`* *` |pharmacist |have an auto-completing search bar |do not have to type out the medicine's full name
+
+|`* *` |pharmacist |view purchase and sales history |forecast sales and performance
+
+|`* *` |pharmacist |view manufacturers' contact details |find out who to contact for more stock quickly
+
+|`* *` |pharmacist |be redirected to a mailer to email manufacturers |restock quickly
+
+|`* *` |pharmacist |be recommended dosage |recommend dosage based on patient's profile
+
+|`* *` |pharmacist |have a task list |set reminders for myself
+
+|`*` |pharmacist |save information on medicine's usage |remind myself of its usage
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `MediTab` and the *Actor* is the `pharmacist`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: View Complete Inventory
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Upon start up, System displays the complete inventory of medicine.
+2.  Pharmacist navigates the list with arrow keys.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Pharmacist used a `filter` function, filtered inventory is shown.
++
+[none]
+** 1a1. Pharmacist requests for complete inventory to be listed.
+** 1a2. System displays complete inventory.
++
+Use case resume at step 2.
+
+
+[discrete]
+=== Use Case 2: Update Inventory in Batches Medicine
+
+*MSS*
+
+1.  Pharmacist notes the index of the selected medicine in the list.
+2.  Pharmacist request to add new batch to medicine using the index.
+3.  System requests details of the new batch of medicine
+4.  Pharmacist enters the required details
+5.  System displays updated details
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. Pharmacist cannot find the medicine listing manually from the list.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Pharmacist uses the `search` function to look for medicine listing.
+** 1a2. System list the search results.
+** 1a3. Pharmacist notes the index of the medicine listing from the search result.
 +
-Use case resumes at step 2.
+Use case resume at step 2.
 
-_{More to be added}_
+[none]
+* 1b. Medicine is new and has not been added to the inventory.
++
+[none]
+** 1b1. Pharmacist uses the `add` function to add a new entry to list.
+** 1b2. Pharmacist enters details of the medicine to add.
+** 1b3. Pharmacist notes the index of the medicine listing from the search result.
++
+Use case resume at step 2.
+
+
+[discrete]
+=== Use Case 3: Delete Medicine from Inventory
+
+*MSS*
+
+1.  Pharmacist uses the `delete` function to remove a listing from the inventory.
+2.  System displays updated list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Selected entry is not empty. Deletion is illegal.
++
+[none]
+** 1a1.  System displays error message.
+** 1a2.  Pharmacist uses the `edit` function to decrease quantity of medicine to zero.
+** 1a3.  System displays updated quantity.
+** 1a4.  Repeat step 1.
++
+Use case resume at step 2.
+
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. User Constraints
+.. The product caters users with a preference for typing commands over the command line. Only limited GUI interactions are available as the focus is on the command line interface.
+.. The product is meant only for single user usage. i.e, any features (e.g. profile switching) should only be limited to a single user. Using such features to support mulitple users is not recommended.
 
-_{More to be added}_
+. Data
+.. User should have read and write permissions for data stored on the local machine. i.e, expert users can edit the data file without the application.
+.. Third party database management systems (e.g. MySQL, Postgres) are not permitted.
+
+. Working Environment
+.. The product should work on all mainstream OS.
+.. Connection to external APIs is not recommended, although the usage of reliable external APIs is permissible. In such cases, a fallback should be implemented should the connection fail.
+
+. Portability
+.. The product should work without the need for additional software. `.jar` package will be used for the product release.
+
+. Testability
+.. Avoid implementing features that are difficult to test manually and automatically. i.e, avoid dependence on remote APIs as their behaviours are beyond our control.
+.. Due to the project's constraints, audio related features were not taken into consideration. Avoid any features using audio indicators.
+
+
 
 [appendix]
 == Glossary
@@ -890,8 +997,12 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[inventory]] Inventory::
+A complete list of goods in stock
+
+[[batch]] Batch::
+A quantity or consignment of goods produced at one time
+
 
 [appendix]
 == Product Survey

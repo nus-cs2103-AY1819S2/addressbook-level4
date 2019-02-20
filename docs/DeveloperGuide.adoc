@@ -887,35 +887,89 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `MediTab` and the *Actor* is the `pharmacist`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: View Complete Inventory
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Upon start up, System displays the complete inventory of medicine.
+2.  Pharmacist navigates the list with arrow keys.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Pharmacist used a `filter` function, filtered inventory is shown.
++
+[none]
+** 1a1. Pharmacist requests for complete inventory to be listed.
+** 1a2. System displays complete inventory.
++
+Use case resume at step 2.
+
+
+[discrete]
+=== Use Case 2: Update Inventory in Batches Medicine
+
+*MSS*
+
+1.  Pharmacist notes the index of the selected medicine in the list.
+2.  Pharmacist request to add new batch to medicine using the index.
+3.  System requests details of the new batch of medicine
+4.  Pharmacist enters the required details
+5.  System displays updated details
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. Pharmacist cannot find the medicine listing manually from the list.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Pharmacist uses the `search` function to look for medicine listing.
+** 1a2. System list the search results.
+** 1a3. Pharmacist notes the index of the medicine listing from the search result.
 +
-Use case resumes at step 2.
+Use case resume at step 2.
 
-_{More to be added}_
+[none]
+* 1b. Medicine is new and has not been added to the inventory.
++
+[none]
+** 1b1. Pharmacist uses the `add` function to add a new entry to list.
+** 1b2. Pharmacist enters details of the medicine to add.
+** 1b3. Pharmacist notes the index of the medicine listing from the search result.
++
+Use case resume at step 2.
+
+
+[discrete]
+=== Use Case 3: Delete Medicine from Inventory
+
+*MSS*
+
+1.  Pharmacist uses the `delete` function to remove a listing from the inventory.
+2.  System displays updated list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Selected entry is not empty. Deletion is illegal.
++
+[none]
+** 1a1.  System displays error message.
+** 1a2.  Pharmacist uses the `edit` function to decrease quantity of medicine to zero.
+** 1a3.  System displays updated quantity.
+** 1a4.  Repeat step 1.
++
+Use case resume at step 2.
+
 
 [appendix]
 == Non Functional Requirements

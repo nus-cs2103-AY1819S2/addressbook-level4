@@ -60,7 +60,7 @@ Adds a PDF file to the app +
 Format: `import PATH_TO_FILE`
 
 
-* The file must be a PDF file (with .pdf extension) and does not have duplicate names 
+* The file must be a PDF file (with .pdf extension) and does not have duplicate names
 
 Example:
 
@@ -144,7 +144,7 @@ Example:
 
 === Setting a deadline for the file : `deadline`
 
-Set or remove a deadline for the pdf file. 
+Set or remove a deadline for the pdf file.
 
 ****
 * Format for setting a deadline: `deadline FILENAME DATE` +

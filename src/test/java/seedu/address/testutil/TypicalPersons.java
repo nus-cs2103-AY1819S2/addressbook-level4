@@ -41,12 +41,17 @@ public class TypicalPersons {
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
+    public static final Person VIP_PERSON = new PersonBuilder().withName("I am VIP").withPhone("94824425")
+            .withEmail("vip@example.com").withAddress("VIP street").withTags("VIP").build();
+    public static final Person VIP_PERSON2 = new PersonBuilder().withName("I am also VIP").withPhone("34824425")
+            .withEmail("vip2@example.com").withAddress("VVIP street").withTags("vip").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
+
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

@@ -99,10 +99,10 @@ public class PersonTest {
     @Test
     public void isVIP() {
         // VIP Person -> returns true
-        assertTrue(VIP_PERSON.isVIP());
-        assertTrue(VIP_PERSON2.isVIP());
+        assertTrue(VIP_PERSON.isVip());
+        assertTrue(VIP_PERSON2.isVip());
 
         // Normal Person -> returns false
-        assertFalse(ALICE.isVIP());
+        assertFalse(ALICE.isVip());
     }
 }

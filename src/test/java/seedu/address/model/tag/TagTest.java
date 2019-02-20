@@ -28,11 +28,11 @@ public class TagTest {
     @Test
     public void isVIPTag() {
         // "VIP" and "vip" -> return true
-        assertTrue(new Tag("VIP").isVIPTag());
-        assertTrue(new Tag("vip").isVIPTag());
+        assertTrue(new Tag("VIP").isVipTag());
+        assertTrue(new Tag("vip").isVipTag());
 
         // Other tag name -> returns false
-        assertFalse(new Tag("VI").isVIPTag());
+        assertFalse(new Tag("VI").isVipTag());
     }
 
 }

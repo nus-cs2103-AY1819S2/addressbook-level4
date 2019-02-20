@@ -60,7 +60,7 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
-    public boolean isVIP() {
+    public boolean isVip() {
         return this.tags.stream().anyMatch(Tag::isVIPTag);
     }
 
@@ -117,7 +117,7 @@ public class Person {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" VIP Status: ")
-                .append(isVIP())
+                .append(isVip())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

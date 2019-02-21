@@ -6,14 +6,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,37 +54,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasRestaurant(Restaurant restaurant);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given restaurant.
+     * The restaurant must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteRestaurant(Restaurant target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given restaurant.
+     * {@code restaurant} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addRestaurant(Restaurant restaurant);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given restaurant {@code target} with {@code editedRestaurant}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setRestaurant(Restaurant target, Restaurant editedRestaurant);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered restaurant list */
+    ObservableList<Restaurant> getFilteredRestaurantList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered restaurant list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -112,19 +112,19 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected restaurant in the filtered restaurant list.
+     * null if no restaurant is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Restaurant> selectedRestaurantProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected restaurant in the filtered restaurant list.
+     * null if no restaurant is selected.
      */
-    Person getSelectedPerson();
+    Restaurant getSelectedRestaurant();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected restaurant in the filtered restaurant list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedRestaurant(Restaurant restaurant);
 }

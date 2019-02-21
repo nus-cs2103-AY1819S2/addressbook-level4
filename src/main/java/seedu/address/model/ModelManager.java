@@ -15,8 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.exceptions.RestaurantNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,8 +26,8 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Restaurant> filteredRestaurants;
+    private final SimpleObjectProperty<Restaurant> selectedRestaurant = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,8 +40,8 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredRestaurants = new FilteredList<>(versionedAddressBook.getRestaurantList());
+        filteredRestaurants.addListener(this::ensureSelectedRestaurantIsValid);
     }
 
     public ModelManager() {
@@ -96,44 +96,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasRestaurant(Restaurant restaurant) {
+        requireNonNull(restaurant);
+        return versionedAddressBook.hasRestaurant(restaurant);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public void deleteRestaurant(Restaurant target) {
+        versionedAddressBook.removeRestaurant(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addRestaurant(Restaurant restaurant) {
+        versionedAddressBook.addRestaurant(restaurant);
+        updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
+        requireAllNonNull(target, editedRestaurant);
 
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedAddressBook.setRestaurant(target, editedRestaurant);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Restaurant List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Restaurant} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Restaurant> getFilteredRestaurantList() {
+        return filteredRestaurants;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredRestaurants.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -163,51 +163,51 @@ public class ModelManager implements Model {
         versionedAddressBook.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected restaurant ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
+    public ReadOnlyProperty<Restaurant> selectedRestaurantProperty() {
+        return selectedRestaurant;
     }
 
     @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
+    public Restaurant getSelectedRestaurant() {
+        return selectedRestaurant.getValue();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public void setSelectedRestaurant(Restaurant restaurant) {
+        if (restaurant != null && !filteredRestaurants.contains(restaurant)) {
+            throw new RestaurantNotFoundException();
         }
-        selectedPerson.setValue(person);
+        selectedRestaurant.setValue(restaurant);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedRestaurant} is a valid restaurant in {@code filteredRestaurants}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedRestaurantIsValid(ListChangeListener.Change<? extends Restaurant> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+            if (selectedRestaurant.getValue() == null) {
+                // null is always a valid selected restaurant, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedRestaurantReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedRestaurant.getValue());
+            if (wasSelectedRestaurantReplaced) {
+                // Update selectedRestaurant to its new value.
+                int index = change.getRemoved().indexOf(selectedRestaurant.getValue());
+                selectedRestaurant.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            boolean wasSelectedRestaurantRemoved = change.getRemoved().stream()
+                    .anyMatch(removedRestaurant -> selectedRestaurant.getValue().isSameRestaurant(removedRestaurant));
+            if (wasSelectedRestaurantRemoved) {
+                // Select the restaurant that came before it in the list,
+                // or clear the selection if there is no such restaurant.
+                selectedRestaurant.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -228,8 +228,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredRestaurants.equals(other.filteredRestaurants)
+                && Objects.equals(selectedRestaurant.get(), other.selectedRestaurant.get());
     }
 
 }

@@ -103,7 +103,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteRestaurant_restaurantIsSelectedAndFirstRestaurantInFilteredRestaurantList_selectionCleared() {
+    public void deleteRestaurant_restaurantIsSelectedAndFirstRestaurantInFilteredList_selectionCleared() {
         modelManager.addRestaurant(ALICE);
         modelManager.setSelectedRestaurant(ALICE);
         modelManager.deleteRestaurant(ALICE);
@@ -111,7 +111,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteRestaurant_restaurantIsSelectedAndSecondRestaurantInFilteredRestaurantList_firstRestaurantSelected() {
+    public void deleteRestaurant_restaurantIsSelectedAndSecondRestaurantInFilteredList_firstRestaurantSelected() {
         modelManager.addRestaurant(ALICE);
         modelManager.addRestaurant(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredRestaurantList());

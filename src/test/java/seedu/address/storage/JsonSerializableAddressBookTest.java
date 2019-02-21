@@ -16,10 +16,12 @@ import seedu.address.testutil.TypicalRestaurants;
 
 public class JsonSerializableAddressBookTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_RESTAURANTS_FILE = TEST_DATA_FOLDER.resolve("typicalRestaurantsAddressBook.json");
     private static final Path INVALID_RESTAURANT_FILE = TEST_DATA_FOLDER.resolve("invalidRestaurantAddressBook.json");
-    private static final Path DUPLICATE_RESTAURANT_FILE = TEST_DATA_FOLDER.resolve("duplicateRestaurantAddressBook.json");
+    private static final Path DUPLICATE_RESTAURANT_FILE = TEST_DATA_FOLDER
+            .resolve("duplicateRestaurantAddressBook.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

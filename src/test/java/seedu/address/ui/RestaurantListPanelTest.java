@@ -20,8 +20,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Restaurant;
 
 public class RestaurantListPanelTest extends GuiUnitTest {
     private static final ObservableList<Restaurant> TYPICAL_RESTAURANTS =
@@ -53,14 +53,15 @@ public class RestaurantListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedRestaurant.set(secondRestaurant));
         guiRobot.pauseForHuman();
 
-        RestaurantCardHandle expectedRestaurant = restaurantListPanelHandle.getRestaurantCardHandle(INDEX_SECOND_RESTAURANT.getZeroBased());
+        RestaurantCardHandle expectedRestaurant = restaurantListPanelHandle
+                .getRestaurantCardHandle(INDEX_SECOND_RESTAURANT.getZeroBased());
         RestaurantCardHandle selectedRestaurant = restaurantListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedRestaurant, selectedRestaurant);
     }
 
     /**
-     * Verifies that creating and deleting large number of restaurants in {@code RestaurantListPanel} requires lesser than
-     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
+     * Verifies that creating and deleting large number of restaurants in {@code RestaurantListPanel} requires lesser
+     * than {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
     public void performanceTest() {

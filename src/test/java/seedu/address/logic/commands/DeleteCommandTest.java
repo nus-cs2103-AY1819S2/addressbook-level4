@@ -131,14 +131,17 @@ public class DeleteCommandTest {
         expectedModel.deleteRestaurant(restaurantToDelete);
         expectedModel.commitAddressBook();
 
-        // delete -> deletes second restaurant in unfiltered restaurant list / first restaurant in filtered restaurant list
+        /* delete -> deletes second restaurant in unfiltered restaurant list / first restaurant in filtered
+         * restaurant list
+         */
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered restaurant list to show all restaurants
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(restaurantToDelete, model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased()));
+        assertNotEquals(restaurantToDelete, model.getFilteredRestaurantList()
+                .get(INDEX_FIRST_RESTAURANT.getZeroBased()));
         // redo -> deletes same second restaurant in unfiltered restaurant list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

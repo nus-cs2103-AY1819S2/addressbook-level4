@@ -138,7 +138,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllRestaurants() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getRestaurantList().size(), getModel().getFilteredRestaurantList().size());
+        assertEquals(getModel().getAddressBook().getRestaurantList().size(),
+                getModel().getFilteredRestaurantList().size());
     }
 
     /**
@@ -146,7 +147,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void showRestaurantsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredRestaurantList().size() < getModel().getAddressBook().getRestaurantList().size());
+        assertTrue(getModel().getFilteredRestaurantList().size()
+                < getModel().getAddressBook().getRestaurantList().size());
     }
 
     /**
@@ -201,8 +203,8 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the restaurant in the restaurant list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * Asserts that the browser's url is changed to display the details of the restaurant in the restaurant list panel
+     * at {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see RestaurantListPanelHandle#isSelectedRestaurantCardChanged()
      */
@@ -211,7 +213,8 @@ public abstract class AddressBookSystemTest {
         String selectedCardName = getRestaurantListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+                    + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }

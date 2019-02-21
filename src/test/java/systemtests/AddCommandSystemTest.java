@@ -40,8 +40,8 @@ import seedu.address.model.Model;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.RestaurantUtil;
@@ -54,8 +54,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a restaurant without tags to a non-empty address book, command with leading spaces and trailing spaces
-         * -> added
+        /* Case: add a restaurant without tags to a non-empty address book, command with leading spaces and
+         * trailing spaces -> added
          */
         Restaurant toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
@@ -105,9 +105,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a restaurant card is selected --------------------------- */
+        /* ---------------------- Perform add operation while a restaurant card is selected ------------------------- */
 
-        /* Case: selects first card in the restaurant list, add a restaurant -> added, card selection remains unchanged */
+        /* Case: selects first card in the restaurant list, add a restaurant -> added, card selection remains
+         * unchanged
+         */
         selectRestaurant(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 

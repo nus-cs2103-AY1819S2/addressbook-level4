@@ -87,7 +87,8 @@ public class SelectCommandTest {
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that the model's selected restaurant is set to the restaurant at {@code index} in the filtered restaurant list.
+     * and checks that the model's selected restaurant is set to the restaurant at {@code index} in the filtered
+     * restaurant list.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

@@ -91,7 +91,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
 
-        Restaurant restaurantInFilteredList = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        Restaurant restaurantInFilteredList = model.getFilteredRestaurantList()
+                .get(INDEX_FIRST_RESTAURANT.getZeroBased());
         Restaurant editedRestaurant = new RestaurantBuilder(restaurantInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT,
                 new EditRestaurantDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -119,7 +120,8 @@ public class EditCommandTest {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
 
         // edit restaurant in filtered list into a duplicate in address book
-        Restaurant restaurantInList = model.getAddressBook().getRestaurantList().get(INDEX_SECOND_RESTAURANT.getZeroBased());
+        Restaurant restaurantInList = model.getAddressBook().getRestaurantList()
+                .get(INDEX_SECOND_RESTAURANT.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT,
                 new EditRestaurantDescriptorBuilder(restaurantInList).build());
 

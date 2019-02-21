@@ -31,7 +31,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first restaurant in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_RESTAURANT.getOneBased() + "       ";
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_RESTAURANT.getOneBased()
+                + "       ";
         Restaurant deletedRestaurant = removeRestaurant(expectedModel, INDEX_FIRST_RESTAURANT);
         String expectedResultMessage = String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, deletedRestaurant);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -64,17 +65,19 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredRestaurantList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered restaurant list, delete index within bounds of address book but out of bounds of restaurant list
-         * -> rejected
+        /* Case: filtered restaurant list, delete index within bounds of address book but out of bounds of
+         * restaurant list -> rejected
          */
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRestaurantList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a restaurant card is selected ------------------------ */
+        /* ------------------- Performing delete operation while a restaurant card is selected ---------------------- */
 
-        /* Case: delete the selected restaurant -> restaurant list panel selects the restaurant before the deleted restaurant */
+        /* Case: delete the selected restaurant -> restaurant list panel selects the restaurant before the
+         * deleted restaurant
+         */
         showAllRestaurants();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -131,8 +134,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Restaurant deletedRestaurant = removeRestaurant(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, deletedRestaurant);
 
-        assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+        assertCommandSuccess(DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel,
+                expectedResultMessage);
     }
 
     /**

@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyInventory;
@@ -104,12 +105,12 @@ public class JsonInventoryStorageTest {
     }
 
     /**
-     * Saves {@code Inventory} at the specified {@code filePath}.
+     * Saves {@code inventory} at the specified {@code filePath}.
      */
-    private void saveInventory(ReadOnlyInventory Inventory, String filePath) {
+    private void saveInventory(ReadOnlyInventory inventory, String filePath) {
         try {
             new JsonInventoryStorage(Paths.get(filePath))
-                    .saveInventory(Inventory, addToTestDataPathIfNotNull(filePath));
+                    .saveInventory(inventory, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

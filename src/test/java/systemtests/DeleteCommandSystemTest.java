@@ -5,8 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEDICINE_DISPL
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MEDICINE_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getMedicine;
+import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
 
@@ -31,7 +31,8 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: delete the first medicine in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_MEDICINE.getOneBased() + "       ";
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_MEDICINE.getOneBased()
+                + "       ";
         Medicine deletedMedicine = removeMedicine(expectedModel, INDEX_FIRST_MEDICINE);
         String expectedResultMessage = String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, deletedMedicine);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -72,7 +73,7 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a medicine card is selected ------------------------ */
+        /* -------------------- Performing delete operation while a medicine card is selected ----------------------- */
 
         /* Case: delete the selected medicine -> medicine list panel selects the medicine before the deleted medicine */
         showAllMedicines();

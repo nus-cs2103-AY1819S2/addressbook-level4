@@ -78,16 +78,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setInventoryFilePath(Path InventoryFilePath) {
-        requireNonNull(InventoryFilePath);
-        userPrefs.setInventoryFilePath(InventoryFilePath);
+    public void setInventoryFilePath(Path inventoryFilePath) {
+        requireNonNull(inventoryFilePath);
+        userPrefs.setInventoryFilePath(inventoryFilePath);
     }
 
     //=========== Inventory ================================================================================
 
     @Override
-    public void setInventory(ReadOnlyInventory Inventory) {
-        versionedInventory.resetData(Inventory);
+    public void setInventory(ReadOnlyInventory inventory) {
+        versionedInventory.resetData(inventory);
     }
 
     @Override
@@ -193,8 +193,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedMedicineReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedMedicine.getValue());
+            boolean wasSelectedMedicineReplaced = change.wasReplaced() && change.getAddedSize()
+                    == change.getRemovedSize() && change.getRemoved().contains(selectedMedicine.getValue());
             if (wasSelectedMedicineReplaced) {
                 // Update selectedMedicine to its new value.
                 int index = change.getRemoved().indexOf(selectedMedicine.getValue());

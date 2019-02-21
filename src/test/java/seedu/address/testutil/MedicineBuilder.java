@@ -5,8 +5,8 @@ import java.util.Set;
 
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Expiry;
-import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;

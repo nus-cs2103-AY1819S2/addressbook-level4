@@ -17,13 +17,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private InventoryStorage InventoryStorage;
+    private InventoryStorage inventoryStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(InventoryStorage InventoryStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.InventoryStorage = InventoryStorage;
+        this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,29 +49,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getInventoryFilePath() {
-        return InventoryStorage.getInventoryFilePath();
+        return inventoryStorage.getInventoryFilePath();
     }
 
     @Override
     public Optional<ReadOnlyInventory> readInventory() throws DataConversionException, IOException {
-        return readInventory(InventoryStorage.getInventoryFilePath());
+        return readInventory(inventoryStorage.getInventoryFilePath());
     }
 
     @Override
     public Optional<ReadOnlyInventory> readInventory(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return InventoryStorage.readInventory(filePath);
+        return inventoryStorage.readInventory(filePath);
     }
 
     @Override
-    public void saveInventory(ReadOnlyInventory Inventory) throws IOException {
-        saveInventory(Inventory, InventoryStorage.getInventoryFilePath());
+    public void saveInventory(ReadOnlyInventory inventory) throws IOException {
+        saveInventory(inventory, inventoryStorage.getInventoryFilePath());
     }
 
     @Override
-    public void saveInventory(ReadOnlyInventory Inventory, Path filePath) throws IOException {
+    public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        InventoryStorage.saveInventory(Inventory, filePath);
+        inventoryStorage.saveInventory(inventory, filePath);
     }
 
 }

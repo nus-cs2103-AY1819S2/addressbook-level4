@@ -19,8 +19,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Expiry;
-import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 
 public class MedicineListPanelTest extends GuiUnitTest {
@@ -53,7 +53,8 @@ public class MedicineListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedMedicine.set(secondMedicine));
         guiRobot.pauseForHuman();
 
-        MedicineCardHandle expectedMedicine = medicineListPanelHandle.getMedicineCardHandle(INDEX_SECOND_MEDICINE.getZeroBased());
+        MedicineCardHandle expectedMedicine = medicineListPanelHandle.getMedicineCardHandle(
+                INDEX_SECOND_MEDICINE.getZeroBased());
         MedicineCardHandle selectedMedicine = medicineListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedMedicine, selectedMedicine);
     }

@@ -22,8 +22,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Expiry;
-import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
 
@@ -92,7 +92,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Medicine} with the details of {@code medicineToEdit}
      * edited with {@code editMedicineDescriptor}.
      */
-    private static Medicine createEditedMedicine(Medicine medicineToEdit, EditMedicineDescriptor editMedicineDescriptor) {
+    private static Medicine createEditedMedicine(Medicine medicineToEdit,
+            EditMedicineDescriptor editMedicineDescriptor) {
         assert medicineToEdit != null;
 
         Name updatedName = editMedicineDescriptor.getName().orElse(medicineToEdit.getName());

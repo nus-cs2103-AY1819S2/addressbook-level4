@@ -33,7 +33,8 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a medicine
         guiRobot.interact(() -> selectedMedicine.set(PARACETAMOL));
-        URL expectedMedicineUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + PARACETAMOL.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedMedicineUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + PARACETAMOL.getName()
+                .fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedMedicineUrl, browserPanelHandle.getLoadedUrl());

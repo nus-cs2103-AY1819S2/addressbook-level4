@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
-import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
-import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
 import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,8 +19,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 import seedu.address.testutil.InventoryBuilder;
 import seedu.address.testutil.MedicineBuilder;
@@ -124,9 +124,9 @@ public class ModelManagerTest {
     public void setMedicine_medicineIsSelected_selectedMedicineUpdated() {
         modelManager.addMedicine(PARACETAMOL);
         modelManager.setSelectedMedicine(PARACETAMOL);
-        Medicine updatedPARACETAMOL = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
-        modelManager.setMedicine(PARACETAMOL, updatedPARACETAMOL);
-        assertEquals(updatedPARACETAMOL, modelManager.getSelectedMedicine());
+        Medicine updatedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
+        modelManager.setMedicine(PARACETAMOL, updatedParacetamol);
+        assertEquals(updatedParacetamol, modelManager.getSelectedMedicine());
     }
 
     @Test
@@ -151,13 +151,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Inventory Inventory = new InventoryBuilder().withMedicine(PARACETAMOL).withMedicine(IBUPROFEN).build();
+        Inventory inventory = new InventoryBuilder().withMedicine(PARACETAMOL).withMedicine(IBUPROFEN).build();
         Inventory differentInventory = new Inventory();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(Inventory, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(Inventory, userPrefs);
+        modelManager = new ModelManager(inventory, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(inventory, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -169,13 +169,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different Inventory -> returns false
+        // different inventory -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = PARACETAMOL.getName().fullName.split("\\s+");
         modelManager.updateFilteredMedicineList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(Inventory, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
@@ -183,6 +183,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setInventoryFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(Inventory, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(inventory, differentUserPrefs)));
     }
 }

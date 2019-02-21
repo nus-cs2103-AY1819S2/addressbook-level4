@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedInventory extends Inventory {
 
-    private final List<ReadOnlyInventory> InventoryStateList;
+    private final List<ReadOnlyInventory> inventoryStateList;
     private int currentStatePointer;
 
     public VersionedInventory(ReadOnlyInventory initialState) {
         super(initialState);
 
-        InventoryStateList = new ArrayList<>();
-        InventoryStateList.add(new Inventory(initialState));
+        inventoryStateList = new ArrayList<>();
+        inventoryStateList.add(new Inventory(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,13 +25,13 @@ public class VersionedInventory extends Inventory {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        InventoryStateList.add(new Inventory(this));
+        inventoryStateList.add(new Inventory(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        InventoryStateList.subList(currentStatePointer + 1, InventoryStateList.size()).clear();
+        inventoryStateList.subList(currentStatePointer + 1, inventoryStateList.size()).clear();
     }
 
     /**
@@ -42,7 +42,7 @@ public class VersionedInventory extends Inventory {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(InventoryStateList.get(currentStatePointer));
+        resetData(inventoryStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VersionedInventory extends Inventory {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(InventoryStateList.get(currentStatePointer));
+        resetData(inventoryStateList.get(currentStatePointer));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VersionedInventory extends Inventory {
      * Returns true if {@code redo()} has inventory states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < InventoryStateList.size() - 1;
+        return currentStatePointer < inventoryStateList.size() - 1;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class VersionedInventory extends Inventory {
 
         // state check
         return super.equals(otherVersionedInventory)
-                && InventoryStateList.equals(otherVersionedInventory.InventoryStateList)
+                && inventoryStateList.equals(otherVersionedInventory.inventoryStateList)
                 && currentStatePointer == otherVersionedInventory.currentStatePointer;
     }
 

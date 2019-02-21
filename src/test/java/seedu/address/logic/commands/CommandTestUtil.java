@@ -17,8 +17,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
-import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditMedicineDescriptorBuilder;
 
 /**
@@ -62,11 +62,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMOXICILLIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).withCompany(VALID_COMPANY_AMOXICILLIN)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN)
+                .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
         DESC_GABAPENTIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN).withCompany(VALID_COMPANY_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
+                .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
     /**

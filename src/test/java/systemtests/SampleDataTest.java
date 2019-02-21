@@ -44,7 +44,7 @@ public class SampleDataTest extends MediTabsSystemTest {
     }
 
     @Test
-    public void Inventory_dataFileDoesNotExist_loadSampleData() {
+    public void inventory_dataFileDoesNotExist_loadSampleData() {
         Medicine[] expectedList = SampleDataUtil.getSampleMedicines();
         assertListMatching(getMedicineListPanel(), expectedList);
     }

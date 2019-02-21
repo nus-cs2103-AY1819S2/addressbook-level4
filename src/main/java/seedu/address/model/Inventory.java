@@ -82,7 +82,7 @@ public class Inventory implements ReadOnlyInventory {
     /**
      * Replaces the given medicine {@code target} in the list with {@code editedMedicine}.
      * {@code target} must exist in the inventory.
-     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
+     * The identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
      */
     public void setMedicine(Medicine target, Medicine editedMedicine) {
         requireNonNull(editedMedicine);

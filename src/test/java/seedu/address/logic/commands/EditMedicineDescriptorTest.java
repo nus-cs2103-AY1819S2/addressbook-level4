@@ -36,19 +36,23 @@ public class EditMedicineDescriptorTest {
         assertFalse(DESC_AMOXICILLIN.equals(DESC_GABAPENTIN));
 
         // different name -> returns false
-        EditMedicineDescriptor editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withName(VALID_NAME_GABAPENTIN).build();
+        EditMedicineDescriptor editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN)
+                .withName(VALID_NAME_GABAPENTIN).build();
         assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different quantity -> returns false
-        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withQuantity(VALID_QUANTITY_GABAPENTIN).build();
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withQuantity(VALID_QUANTITY_GABAPENTIN)
+                .build();
         assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different expiry date-> returns false
-        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
+                .build();
         assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different company -> returns false
-        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withCompany(VALID_COMPANY_GABAPENTIN).build();
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withCompany(VALID_COMPANY_GABAPENTIN)
+                .build();
         assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different tags -> returns false

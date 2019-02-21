@@ -49,9 +49,9 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonInventoryStorage InventoryStorage = new JsonInventoryStorage(temporaryFolder.newFile().toPath());
+        JsonInventoryStorage inventoryStorage = new JsonInventoryStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(InventoryStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(inventoryStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -79,15 +79,15 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonInventoryIoExceptionThrowingStub
-        JsonInventoryStorage InventoryStorage =
+        JsonInventoryStorage inventoryStorage =
                 new JsonInventoryIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(InventoryStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(inventoryStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN
-                + COMPANY_DESC_AMOXICILLIN;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN
+                + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN;
         Medicine expectedMedicine = new MedicineBuilder(AMOXICILLIN).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addMedicine(expectedMedicine);
@@ -182,7 +182,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveInventory(ReadOnlyInventory Inventory, Path filePath) throws IOException {
+        public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

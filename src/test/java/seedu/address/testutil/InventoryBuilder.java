@@ -6,7 +6,7 @@ import seedu.address.model.medicine.Medicine;
 /**
  * A utility class to help with building inventory objects.
  * Example usage: <br>
- *     {@code inventory ab = new InventoryBuilder().withMedicine("John", "Doe").build();}
+ *     {@code Inventory inv = new InventoryBuilder().withMedicine("John", "Doe").build();}
  */
 
 public class InventoryBuilder {

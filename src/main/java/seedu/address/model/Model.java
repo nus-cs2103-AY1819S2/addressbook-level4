@@ -43,12 +43,12 @@ public interface Model {
     /**
      * Sets the user prefs' inventory file path.
      */
-    void setInventoryFilePath(Path InventoryFilePath);
+    void setInventoryFilePath(Path inventoryFilePath);
 
     /**
-     * Replaces inventory data with the data in {@code Inventory}.
+     * Replaces inventory data with the data in {@code inventory}.
      */
-    void setInventory(ReadOnlyInventory Inventory);
+    void setInventory(ReadOnlyInventory inventory);
 
     /** Returns the Inventory */
     ReadOnlyInventory getInventory();
@@ -73,7 +73,7 @@ public interface Model {
     /**
      * Replaces the given medicine {@code target} with {@code editedMedicine}.
      * {@code target} must exist in the inventory.
-     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
+     * The identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
      */
     void setMedicine(Medicine target, Medicine editedMedicine);
 

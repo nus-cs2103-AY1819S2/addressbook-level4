@@ -118,7 +118,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setInventoryFilePath(Path InventoryFilePath) {
+        public void setInventoryFilePath(Path inventoryFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

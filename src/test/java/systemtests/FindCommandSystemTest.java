@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -135,7 +136,8 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         /* Case: find while a medicine is selected -> selected card deselected */
         showAllMedicines();
         selectMedicine(Index.fromOneBased(1));
-        assertFalse(getMedicineListPanel().getHandleToSelectedCard().getName().equals(LEVOTHYROXINE.getName().fullName));
+        assertFalse(getMedicineListPanel().getHandleToSelectedCard().getName()
+                .equals(LEVOTHYROXINE.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Levothyroxine";
         ModelHelper.setFilteredList(expectedModel, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);

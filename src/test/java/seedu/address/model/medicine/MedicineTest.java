@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -65,8 +65,8 @@ public class MedicineTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Medicine ParacetamolCopy = new MedicineBuilder(PARACETAMOL).build();
-        assertTrue(PARACETAMOL.equals(ParacetamolCopy));
+        Medicine paracetamolCopy = new MedicineBuilder(PARACETAMOL).build();
+        assertTrue(PARACETAMOL.equals(paracetamolCopy));
 
         // same object -> returns true
         assertTrue(PARACETAMOL.equals(PARACETAMOL));

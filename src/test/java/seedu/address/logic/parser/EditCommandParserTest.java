@@ -92,7 +92,8 @@ public class EditCommandParserTest {
 
         // valid quantity followed by invalid quantity. The test case for invalid quantity followed by valid quantity
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + QUANTITY_DESC_GABAPENTIN + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + QUANTITY_DESC_GABAPENTIN + INVALID_QUANTITY_DESC,
+                Quantity.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Medicine} being edited,
         // parsing it together with a valid tag results in error
@@ -101,8 +102,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EXPIRY_DESC + VALID_COMPANY_AMOXICILLIN + VALID_QUANTITY_AMOXICILLIN,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EXPIRY_DESC + VALID_COMPANY_AMOXICILLIN
+                + VALID_QUANTITY_AMOXICILLIN, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -112,8 +113,8 @@ public class EditCommandParserTest {
                 + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN + NAME_DESC_AMOXICILLIN + TAG_DESC_FRIEND;
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).withCompany(VALID_COMPANY_AMOXICILLIN)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_AMOXICILLIN)
+                .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -136,7 +137,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_MEDICINE;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMOXICILLIN;
-        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN).build();
+        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -168,13 +170,14 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_MEDICINE;
-        String userInput = targetIndex.getOneBased() + QUANTITY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN
-                + TAG_DESC_FRIEND + QUANTITY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN + EXPIRY_DESC_AMOXICILLIN + TAG_DESC_FRIEND
-                + QUANTITY_DESC_GABAPENTIN + COMPANY_DESC_GABAPENTIN + EXPIRY_DESC_GABAPENTIN + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + QUANTITY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN
+                + EXPIRY_DESC_AMOXICILLIN + TAG_DESC_FRIEND + QUANTITY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN
+                + EXPIRY_DESC_AMOXICILLIN + TAG_DESC_FRIEND + QUANTITY_DESC_GABAPENTIN + COMPANY_DESC_GABAPENTIN
+                + EXPIRY_DESC_GABAPENTIN + TAG_DESC_HUSBAND;
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_GABAPENTIN)
-                .withExpiry(VALID_EXPIRY_GABAPENTIN).withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
+                .withExpiry(VALID_EXPIRY_GABAPENTIN).withCompany(VALID_COMPANY_GABAPENTIN)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -185,15 +188,16 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_MEDICINE;
         String userInput = targetIndex.getOneBased() + INVALID_QUANTITY_DESC + QUANTITY_DESC_GABAPENTIN;
-        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_GABAPENTIN).build();
+        EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_GABAPENTIN)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EXPIRY_DESC_GABAPENTIN + INVALID_QUANTITY_DESC + COMPANY_DESC_GABAPENTIN
                 + QUANTITY_DESC_GABAPENTIN;
-        descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
-                .withCompany(VALID_COMPANY_GABAPENTIN).build();
+        descriptor = new EditMedicineDescriptorBuilder().withQuantity(VALID_QUANTITY_GABAPENTIN)
+                .withExpiry(VALID_EXPIRY_GABAPENTIN).withCompany(VALID_COMPANY_GABAPENTIN).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -25,9 +25,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonInventoryStorage InventoryStorage = new JsonInventoryStorage(getTempFilePath("ab"));
+        JsonInventoryStorage inventoryStorage = new JsonInventoryStorage(getTempFilePath("inv"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(InventoryStorage, userPrefsStorage);
+        storageManager = new StorageManager(inventoryStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -50,7 +50,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void InventoryReadSave() throws Exception {
+    public void inventoryReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonInventoryStorage} class.

@@ -33,8 +33,8 @@ public class TypicalMedicines {
             .withTags("owesMoney", "friends").build();
     public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withName("Acetaminophen").withQuantity("563")
             .withExpiry("04/02/2020").withCompany("Pfizer").build();
-    public static final Medicine LEVOTHYROXINE = new MedicineBuilder().withName("Levothyroxine Sodium").withQuantity("533")
-            .withExpiry("13/08/2019").withCompany("3M Pharmaceuticals").withTags("friends").build();
+    public static final Medicine LEVOTHYROXINE = new MedicineBuilder().withName("Levothyroxine Sodium")
+            .withQuantity("533").withExpiry("13/08/2019").withCompany("3M Pharmaceuticals").withTags("friends").build();
     public static final Medicine LISINOPRIL = new MedicineBuilder().withName("Lisinopril").withQuantity("94")
             .withExpiry("06/07/2019").withCompany("Takeda Pharmaceutical Co.").build();
     public static final Medicine PREDNISONE = new MedicineBuilder().withName("Prednisone")
@@ -49,11 +49,12 @@ public class TypicalMedicines {
             .withQuantity("31").withExpiry("12/08/2019").withCompany("NovaBay Pharmaceuticals").build();
 
     // Manually added - Medicine's details found in {@code CommandTestUtil}
-    public static final Medicine AMOXICILLIN = new MedicineBuilder().withName(VALID_NAME_AMOXICILLIN).withQuantity(VALID_QUANTITY_AMOXICILLIN)
-            .withExpiry(VALID_EXPIRY_AMOXICILLIN).withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
-    public static final Medicine GABAPENTIN = new MedicineBuilder().withName(VALID_NAME_GABAPENTIN).withQuantity(VALID_QUANTITY_GABAPENTIN)
-            .withExpiry(VALID_EXPIRY_GABAPENTIN).withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .build();
+    public static final Medicine AMOXICILLIN = new MedicineBuilder().withName(VALID_NAME_AMOXICILLIN)
+            .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN)
+            .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
+    public static final Medicine GABAPENTIN = new MedicineBuilder().withName(VALID_NAME_GABAPENTIN)
+            .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
+            .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_SODIUM = "Sodium"; // A keyword that matches SODIUM
 

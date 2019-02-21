@@ -27,6 +27,6 @@ public interface Storage extends InventoryStorage, UserPrefsStorage {
     Optional<ReadOnlyInventory> readInventory() throws DataConversionException, IOException;
 
     @Override
-    void saveInventory(ReadOnlyInventory Inventory) throws IOException;
+    void saveInventory(ReadOnlyInventory inventory) throws IOException;
 
 }

@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
 import static seedu.address.testutil.TypicalMedicines.AMOXICILLIN;
 import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
-import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +19,10 @@ import seedu.address.testutil.InventoryBuilder;
 
 public class VersionedInventoryTest {
 
-    private final ReadOnlyInventory InventoryWithAmoxicillin = new InventoryBuilder().withMedicine(AMOXICILLIN).build();
-    private final ReadOnlyInventory InventoryWithGabapentin = new InventoryBuilder().withMedicine(GABAPENTIN).build();
-    private final ReadOnlyInventory InventoryWithAcetaminophen = new InventoryBuilder().withMedicine(ACETAMINOPHEN).build();
+    private final ReadOnlyInventory inventoryWithAmoxicillin = new InventoryBuilder().withMedicine(AMOXICILLIN).build();
+    private final ReadOnlyInventory inventoryWithGabapentin = new InventoryBuilder().withMedicine(GABAPENTIN).build();
+    private final ReadOnlyInventory inventoryWithAcetaminophen = new InventoryBuilder().withMedicine(ACETAMINOPHEN)
+            .build();
     private final ReadOnlyInventory emptyInventory = new InventoryBuilder().build();
 
     @Test
@@ -37,19 +39,19 @@ public class VersionedInventoryTest {
     @Test
     public void commit_multipleInventoryPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
 
         versionedInventory.commit();
         assertInventoryListStatus(versionedInventory,
-                Arrays.asList(emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin),
-                InventoryWithGabapentin,
+                Arrays.asList(emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin),
+                inventoryWithGabapentin,
                 Collections.emptyList());
     }
 
     @Test
     public void commit_multipleInventoryPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 2);
 
         versionedInventory.commit();
@@ -62,7 +64,7 @@ public class VersionedInventoryTest {
     @Test
     public void canUndo_multipleInventoryPointerAtEndOfStateList_returnsTrue() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
 
         assertTrue(versionedInventory.canUndo());
     }
@@ -70,7 +72,7 @@ public class VersionedInventoryTest {
     @Test
     public void canUndo_multipleInventoryPointerAtStartOfStateList_returnsTrue() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 1);
 
         assertTrue(versionedInventory.canUndo());
@@ -86,7 +88,7 @@ public class VersionedInventoryTest {
     @Test
     public void canUndo_multipleInventoryPointerAtStartOfStateList_returnsFalse() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 2);
 
         assertFalse(versionedInventory.canUndo());
@@ -95,7 +97,7 @@ public class VersionedInventoryTest {
     @Test
     public void canRedo_multipleInventoryPointerNotAtEndOfStateList_returnsTrue() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 1);
 
         assertTrue(versionedInventory.canRedo());
@@ -104,7 +106,7 @@ public class VersionedInventoryTest {
     @Test
     public void canRedo_multipleInventoryPointerAtStartOfStateList_returnsTrue() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 2);
 
         assertTrue(versionedInventory.canRedo());
@@ -120,7 +122,7 @@ public class VersionedInventoryTest {
     @Test
     public void canRedo_multipleInventoryPointerAtEndOfStateList_returnsFalse() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
 
         assertFalse(versionedInventory.canRedo());
     }
@@ -128,26 +130,26 @@ public class VersionedInventoryTest {
     @Test
     public void undo_multipleInventoryPointerAtEndOfStateList_success() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
 
         versionedInventory.undo();
         assertInventoryListStatus(versionedInventory,
                 Collections.singletonList(emptyInventory),
-                InventoryWithAmoxicillin,
-                Collections.singletonList(InventoryWithGabapentin));
+                inventoryWithAmoxicillin,
+                Collections.singletonList(inventoryWithGabapentin));
     }
 
     @Test
     public void undo_multipleInventoryPointerNotAtStartOfStateList_success() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 1);
 
         versionedInventory.undo();
         assertInventoryListStatus(versionedInventory,
                 Collections.emptyList(),
                 emptyInventory,
-                Arrays.asList(InventoryWithAmoxicillin, InventoryWithGabapentin));
+                Arrays.asList(inventoryWithAmoxicillin, inventoryWithGabapentin));
     }
 
     @Test
@@ -160,7 +162,7 @@ public class VersionedInventoryTest {
     @Test
     public void undo_multipleInventoryPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 2);
 
         assertThrows(VersionedInventory.NoUndoableStateException.class, versionedInventory::undo);
@@ -169,27 +171,27 @@ public class VersionedInventoryTest {
     @Test
     public void redo_multipleInventoryPointerNotAtEndOfStateList_success() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 1);
 
         versionedInventory.redo();
         assertInventoryListStatus(versionedInventory,
-                Arrays.asList(emptyInventory, InventoryWithAmoxicillin),
-                InventoryWithGabapentin,
+                Arrays.asList(emptyInventory, inventoryWithAmoxicillin),
+                inventoryWithGabapentin,
                 Collections.emptyList());
     }
 
     @Test
     public void redo_multipleInventoryPointerAtStartOfStateList_success() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 2);
 
         versionedInventory.redo();
         assertInventoryListStatus(versionedInventory,
                 Collections.singletonList(emptyInventory),
-                InventoryWithAmoxicillin,
-                Collections.singletonList(InventoryWithGabapentin));
+                inventoryWithAmoxicillin,
+                Collections.singletonList(inventoryWithGabapentin));
     }
 
     @Test
@@ -202,17 +204,17 @@ public class VersionedInventoryTest {
     @Test
     public void redo_multipleInventoryPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedInventory versionedInventory = prepareInventoryList(
-                emptyInventory, InventoryWithAmoxicillin, InventoryWithGabapentin);
+                emptyInventory, inventoryWithAmoxicillin, inventoryWithGabapentin);
 
         assertThrows(VersionedInventory.NoRedoableStateException.class, versionedInventory::redo);
     }
 
     @Test
     public void equals() {
-        VersionedInventory versionedInventory = prepareInventoryList(InventoryWithAmoxicillin, InventoryWithGabapentin);
+        VersionedInventory versionedInventory = prepareInventoryList(inventoryWithAmoxicillin, inventoryWithGabapentin);
 
         // same values -> returns true
-        VersionedInventory copy = prepareInventoryList(InventoryWithAmoxicillin, InventoryWithGabapentin);
+        VersionedInventory copy = prepareInventoryList(inventoryWithAmoxicillin, inventoryWithGabapentin);
         assertTrue(versionedInventory.equals(copy));
 
         // same object -> returns true
@@ -225,12 +227,13 @@ public class VersionedInventoryTest {
         assertFalse(versionedInventory.equals(1));
 
         // different state list -> returns false
-        VersionedInventory differentInventoryList = prepareInventoryList(InventoryWithGabapentin, InventoryWithAcetaminophen);
+        VersionedInventory differentInventoryList = prepareInventoryList(inventoryWithGabapentin,
+                inventoryWithAcetaminophen);
         assertFalse(versionedInventory.equals(differentInventoryList));
 
         // different current pointer index -> returns false
         VersionedInventory differentCurrentStatePointer = prepareInventoryList(
-                InventoryWithAmoxicillin, InventoryWithGabapentin);
+                inventoryWithAmoxicillin, inventoryWithGabapentin);
         shiftCurrentStatePointerLeftwards(versionedInventory, 1);
         assertFalse(versionedInventory.equals(differentCurrentStatePointer));
     }
@@ -272,15 +275,15 @@ public class VersionedInventoryTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedInventory} with the {@code InventoryStates} added into it, and the
+     * Creates and returns a {@code VersionedInventory} with the {@code inventoryStates} added into it, and the
      * {@code VersionedInventory#currentStatePointer} at the end of list.
      */
-    private VersionedInventory prepareInventoryList(ReadOnlyInventory... InventoryStates) {
-        assertFalse(InventoryStates.length == 0);
+    private VersionedInventory prepareInventoryList(ReadOnlyInventory... inventoryStates) {
+        assertFalse(inventoryStates.length == 0);
 
-        VersionedInventory versionedInventory = new VersionedInventory(InventoryStates[0]);
-        for (int i = 1; i < InventoryStates.length; i++) {
-            versionedInventory.resetData(InventoryStates[i]);
+        VersionedInventory versionedInventory = new VersionedInventory(inventoryStates[0]);
+        for (int i = 1; i < inventoryStates.length; i++) {
+            versionedInventory.resetData(inventoryStates[i]);
             versionedInventory.commit();
         }
 

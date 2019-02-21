@@ -41,7 +41,8 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Paracetamol"));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList(
+                "Paracetamol"));
         assertTrue(predicate.test(new MedicineBuilder().withName("Paracetamol Gabapentin").build()));
 
         // Multiple keywords

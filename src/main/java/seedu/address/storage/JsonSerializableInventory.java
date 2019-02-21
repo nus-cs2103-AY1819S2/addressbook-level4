@@ -46,15 +46,15 @@ class JsonSerializableInventory {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public Inventory toModelType() throws IllegalValueException {
-        Inventory Inventory = new Inventory();
+        Inventory inventory = new Inventory();
         for (JsonAdaptedMedicine jsonAdaptedMedicine : medicines) {
             Medicine medicine = jsonAdaptedMedicine.toModelType();
-            if (Inventory.hasMedicine(medicine)) {
+            if (inventory.hasMedicine(medicine)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
             }
-            Inventory.addMedicine(medicine);
+            inventory.addMedicine(medicine);
         }
-        return Inventory;
+        return inventory;
     }
 
 }

@@ -10,12 +10,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Request {
   private final String id;
   private final Person patient;
-  private final String requestDate; // perhaps can change the date into a
-  // class in the future
+  private final String requestDate;
   private final Set<String> conditions;
   private Person healthStaff;
-  private boolean isCompleted; // represents the state of the request -
-  // perhaps can make a separate class for this in the future
+  private boolean isCompleted; // represents the state of the request
 
   /*
    * Minimally requires the following parameters to be non-null.

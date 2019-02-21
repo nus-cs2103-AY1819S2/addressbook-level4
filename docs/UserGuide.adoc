@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all medicines in inventory
-* *`add`* `n/Paracetamol c/John's Pharmaceutical` : adds a new medine named Paracetamol to the inventory list.
+* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medine named Paracetamol to the medicine list.
 * *`delete`* `3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
@@ -46,9 +46,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Operating Mode*
 
-* MediTabs 2.0 has 2 operating modes: The Medicine Inventory Mode and the Address Book Mode.
+* MediTabs 2.0 has 2 operating modes: The Medicine Inventory Mode and the Address book Mode.
 * Medicine Inventory Mode is used to view and manage medicine stock. Refer to <<Medicine Inventory Mode Features>> for features in this mode.
-* Address Book Mode is used to view and manage company contacts. Refer to << Address Book Mode Features `[coming in v2.0]`>> for features in this mode.
+* Address book Mode is used to view and manage company contacts. Refer to <<Address book Mode Features `[coming in v2.0]`>> for features in this mode.
 * The mode you are currently on is displayed at the bottom of the application window.
 
 image::UserGuide_OperatingMode.png[width="790"]
@@ -68,27 +68,27 @@ image::UserGuide_WarningPanel.png[width="790"]
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Medicine Inventory Mode Features
+== Medicine Inventory Mode Features
 
-==== Viewing help : `help`
+=== Viewing help : `help`
 
 Format: `help`
 
-==== Adding a new medicine: `add`
+=== Adding a new medicine: `add`
 
 Adds a new medicine to the inventory +
 Format: `add n/NAME c/COMPANY_NAME`
 
 Example:
 
-* `dd n/Paracetamol c/John's Pharmaceutical`
+* `add n/Paracetamol c/3M Pharmaceuticals`
 
-==== Listing all medicines : `list`
+=== Listing all medicines : `list`
 
 Shows a list of all medicine in the inventory. +
 Format: `list`
 
-==== Sorting the list : `sort`
+=== Sorting the list : `sort`
 
 Sort the list based on certain criteria. +
 Format: `sort c/CRITERIA o/ORDER`
@@ -109,27 +109,27 @@ Example:
 * `sort c/quantity o/ascending` +
 Displays list of all medicine in ascending order of quantity.
 
-==== Locating medicine by name: `find`
+=== Locating medicine by name: `find`
 
 Finds medicine whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `sodium` will match `Sodium`
+* The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Sodi` will not match `Sodium`
+* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `Sodium Ibuprofen` will return `Levothyroxine Sodium`, `Ibuprofen`
 ****
 
 Examples:
 
-* `find Isosorbide` +
-Returns `Isosorbide Dinitrate` and `Isosorbide Mononitrate`
-* `find Aminophylline Beconase Carboplatin` +
-Returns any medicine having names `Aminophylline`, `Beconase`  or `Carboplatin`
+* `find Sodium` +
+Returns `Levothyroxine Sodium` and `Naproxen Sodium`
+* `find Amoxicillin Gabapentin Lisinopril` +
+Returns any medicine having names `Amoxicillin`, `Gabapentin`  or `Lisinopril`
 
-==== Editing a medicine : `edit`
+=== Editing a medicine : `edit`
 
 Edits an existing medicine in the inventory. +
 Format: `edit INDEX [n/NAME] [c/COMPANY_NAME]`
@@ -143,13 +143,13 @@ Format: `edit INDEX [n/NAME] [c/COMPANY_NAME]`
 Examples:
 
 * `list` +
-`edit 2 n/Anorex` +
-Edits the name of the 2nd medicine in the list to be `Anorex`.
-* `find Anorex` +
-`edit 1 c/MedEx Corp` +
-Edits the company name of the 1st medicine in the results of the find command to `MedEx Corp`.
+`edit 2 n/Prednisone` +
+Edits the name of the 2nd medicine in the list to be `Prednisone`.
+* `find Prednisone` +
+`edit 1 c/Johnson & Johnson` +
+Edits the company name of the 1st medicine in the results of the find command to `Johnson & Johnson`.
 
-==== Deleting a company : `delete`
+=== Deleting a company : `delete`
 
 Deletes the specified medicine from the inventory. +
 Format: `delete INDEX`
@@ -165,11 +165,11 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd medicine in the list.
-* `find Beconase` +
+* `find Gabapentin` +
 `delete 1` +
 Deletes the 1st medicine in the results of the `find` command.
 
-==== Updating quantity of medicine by batch : `update`
+=== Updating quantity of medicine by batch : `update`
 
 Updates quantity of medicine in inventory by batch. +
 Format: `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]
@@ -186,11 +186,11 @@ Examples:
 * `list` +
 `update 2 b/s9c4x9532 q/1000 e/11/2/2020` +
 Updates the quantity of medicine to `1000` in batch `s9c4x9532` of the 2nd medicine in the list.
-* `find Beconase` +
+* `find Gabapentin` +
 `update 1 b/8937v1x7 q/500` +
 Updates the quantity of medicine to `500` in batch `8937v1x7` to the 1st medicine in the results of the `find` command.
 
-==== Selecting a medicine : `select`
+=== Selecting a medicine : `select`
 
 Selects the medicine identified by the index number used in the displayed medicine list. +
 Format: `select INDEX`
@@ -206,11 +206,11 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd medicine in the inventory.
-* `find Beconase` +
+* `find Gabapentin` +
 `select 1` +
 Selects the 1st medicine in the results of the `find` command.
 
-==== Managing Warnings Panel : `warning`
+=== Managing Warnings Panel : `warning`
 
 Manage the threshold for expiry date and low stock warning. +
 Format: `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]`
@@ -228,7 +228,7 @@ Expiry date warning will be triggered 20 days before any medicine expires.
 * `warning s/10` +
 Low stock warning will be triggered when quantity remaining is less than or equal to 10.
 
-==== Filtering the list : `filter`
+=== Filtering the list : `filter`
 
 Filter the list based on certain criteria. +
 Format: `filter CRITERIA`
@@ -243,10 +243,10 @@ Examples:
 
 * `filter low` +
 Displays list of all medicine that are low in stock.
-* `filter c/John's Pharmaceutical` +
-Displays a list of all medicine purchased from John's Pharmaceutical.
+* `filter c/3M Pharmaceuticals` +
+Displays a list of all medicine purchased from 3M Pharmaceuticals.
 
-==== Exporting as CSV file format : `export`
+=== Exporting as CSV file format : `export`
 
 Exports the current list shown into CSV file format. +
 Format: `export [FILE_NAME]`
@@ -262,7 +262,7 @@ Export the current list shown in the GUI to a CSV file which has the filename `e
 * `export` +
 Export the current list shown in the GUI to a CSV file which has a default file name in this format `{Date of export}_{Time of export}`.
 
-==== Printing labels : `label`
+=== Printing labels : `label`
 
 Outputs label to a text file. Label will include name of medicine and standard label template. +
 Format: `label INDEX [FILE_NAME]`
@@ -279,11 +279,11 @@ Examples:
 * `list` +
 `label 2` +
 Outputs label text file for 2nd medicine in the list with default file name `label`.
-* `find Beconase` +
+* `find Gabapentin` +
 `label 1` +
-Outputs label text file for 1st medicine in the results of the `find` command with file name `Beconase`.
+Outputs label text file for 1st medicine in the results of the `find` command with file name `Gabapentin`.
 
-==== Listing entered commands : `history`
+=== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -294,7 +294,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-==== Undoing previous command : `undo`
+=== Undoing previous command : `undo`
 
 Restores the inventory to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -320,7 +320,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-==== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -343,22 +343,22 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-==== Clearing all entries : `clear`
+=== Clearing all entries : `clear`
 
 Clears all entries from the inventory. +
 Format: `clear`
 
-==== Changing to Address Book Mode : `mode` `[coming in v2.0]`
+=== Changing to Address book Mode : `mode` `[coming in v2.0]`
 
-Changes operating mode to Address Book Mode. +
+Changes operating mode to Address book Mode. +
 Format: `mode`
 
-==== Exiting the program : `exit`
+=== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-==== Suggested Medicine Name `[coming in v2.0]`
+=== Suggested Medicine Name `[coming in v2.0]`
 
 When typing fields that include medicine name, a list of suggested medicine names will appear after you input the first letter. +
 
@@ -367,38 +367,38 @@ When typing fields that include medicine name, a list of suggested medicine name
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list of suggestions.
 ====
 
-==== Saving the data
+=== Saving the data
 
 Inventory data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
+=== Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-=== Address Book Mode Features `[coming in v2.0]`
+== Address book Mode Features `[coming in v2.0]`
 
-==== Viewing help : `help`
+=== Viewing help : `help`
 
 Format: `help`
 
-==== Adding a company: `add`
+=== Adding a company: `add`
 
 Adds a company to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 
 Example:
 
-* `add n/John's Pharmaceutical p/67661584 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/3M Pharmaceuticals p/67661584 e/johnd@example.com a/John street, block 123, #01-01`
 
-==== Listing all companies : `list`
+=== Listing all companies : `list`
 
 Shows a list of all companies in the address book. +
 Format: `list`
 
-==== Editing a company : `edit`
+=== Editing a company : `edit`
 
 Edits an existing company in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
@@ -414,27 +414,27 @@ Example:
 * `edit 1 p/61234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st company to be `61234567` and `johndoe@example.com` respectively.
 
-==== Locating companies by name: `find`
+=== Locating companies by name: `find`
 
 Finds companies whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `pfizer` will match `Pfizer`
+* The order of the keywords does not matter. e.g. `Sciences Gilead` will match `Gilead Sciences`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Pfiz` will not match `Pfizer`
+* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Pharmaceuticals` will return `3M Pharmaceuticals`, `Acadia Pharmaceuticals`
 ****
 
 Examples:
 
-* `find John's` +
-Returns `john's company` and `John's Pharmaceutical`
-* `find Betsy Tim John` +
-Returns any company having names `Betsy`, `Tim`, or `John`
+* `find Pharmaceuticals` +
+Returns `Acadia Pharmaceuticals` and `3M Pharmaceuticals`
+* `find Sciences Co. Industries` +
+Returns any company having names `Sciences`, `Co.`, or `Industries`
 
-==== Deleting a company : `delete`
+=== Deleting a company : `delete`
 
 Deletes the specified company from the address book. +
 Format: `delete INDEX`
@@ -450,11 +450,11 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd company in the address book.
-* `find Betsy` +
+* `find Pharmaceuticals` +
 `delete 1` +
 Deletes the 1st company in the results of the `find` command.
 
-==== Selecting a company : `select`
+=== Selecting a company : `select`
 
 Selects the company identified by the index number used in the displayed company list. +
 Format: `select INDEX`
@@ -470,11 +470,11 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd company in the address book.
-* `find Betsy` +
+* `find Pharmaceuticals` +
 `select 1` +
 Selects the 1st company in the results of the `find` command.
 
-==== Mailing a company : `mailto`
+=== Mailing a company : `mailto`
 
 Open mail application with new mail with email address of company inputted. +
 Format: `mailto INDEX`
@@ -489,11 +489,11 @@ Examples:
 * `list` +
 `mailto 2` +
 Open mail application with address of the 2nd company in the address book.
-* `find Betsy` +
+* `find Pharmaceuticals` +
 `mailto 1` +
 Open mail application with address of 1st company in the results of the find
 
-==== Listing entered commands : `history`
+=== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -504,7 +504,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-==== Undoing previous command : `undo`
+=== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -530,7 +530,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-==== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -553,41 +553,40 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-==== Clearing all entries : `clear`
+=== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-==== Exiting the program : `exit`
+=== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-==== Saving the data
+=== Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
+=== Encrypting data files 
 
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address book folder.
 
-== Command Summary
 
-=== Medicine Inventory Mode Commands
+== Medicine Inventory Mode Commands Summary
 
 * *Add* `add n/NAME c/COMPANY_NAME` +
-e.g. `add n/Paracetamol c/James Corp.`
+e.g. `add n/Paracetamol c/3M Pharmaceuticals`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [c/COMPANY_NAME]` +
-e.g. `edit 2 n/James Lee [e/jameslee@example.com]`
+e.g. `edit 2 n/James Lee [c/GlaxoSmithKline]`
 * *Exit* : `exit`
 * *Export* : `export [FILE_NAME]` +
 e.g. export Records
@@ -609,20 +608,21 @@ e.g.`sort c/quantity o/ascending`
 * *Undo* : `undo`
 * *Update* : `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]` +
 e.g.`update 2 b/s9c4x9532 q/1000 e/11/2/2020`
-* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]`
+* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
+e.g. `warning e/20 s/10`
 
-=== Address Book Mode Commands `[coming in v2.0]`
+== Address book Mode Commands Summary `[coming in v2.0]`
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS` +
-e.g. `add n/James Corp. p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
+e.g. `add n/GlaxoSmithKline p/22224444 e/jamesho@gsk.com a/123, Clementi Rd, 1234665`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` +
-e.g. `edit 2 n/James Lee [e/jameslee@example.com]`
+e.g. `edit 2 n/Pfizer [e/jameslee@pfizer.com]`
 * *Exit* : `exit`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+e.g. `find Pfizer 3M`
 * *List* : `list`
 * *Help* : `help`
 * *History* : `history`
@@ -639,4 +639,4 @@ e.g.`select 2`
 * *Change operating mode* : kbd:[Shift] + kbd:[Spacebar]
 * *Back to input* : kbd:[Shift] + kbd:[Enter]
 * *To bottom of list* : kbd:[Shift] + kbd:[d]
-* *To top of list* : kbd:[Shift] + kbd:[u]= MediTabs v2.0 - User Guide
+* *To top of list* : kbd:[Shift] + kbd:[u]

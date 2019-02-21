@@ -17,92 +17,91 @@ public class Request {
     private Person healthStaff;
     private boolean isCompleted; // represents the state of the request
 
-  /*
-   * Minimally requires the following parameters to be non-null.
-   */
-  public Request(String id, Person patient, String
-      requestDate, Set<String> conditions, boolean isCompleted) {
-      requireAllNonNull(id, patient, requestDate, conditions, isCompleted);
-      this.id = id;
-      this.patient = patient;
-      this.requestDate = requestDate;
-      this.conditions = conditions;
-      this.isCompleted = isCompleted;
-  }
+    /*
+     * Minimally requires the following parameters to be non-null.
+     */
+    public Request(String id, Person patient, String requestDate, Set<String> conditions, boolean isCompleted) {
+        requireAllNonNull(id, patient, requestDate, conditions, isCompleted);
+        this.id = id;
+        this.patient = patient;
+        this.requestDate = requestDate;
+        this.conditions = conditions;
+        this.isCompleted = isCompleted;
+    }
 
-  public void setHealthStaff(Person healthStaff) {
-      this.healthStaff = healthStaff;
-  }
+    public void setHealthStaff(Person healthStaff) {
+        this.healthStaff = healthStaff;
+    }
 
-  /**
-   * Returns true if both requests of the same ID have at least one other
-   * property field that is the same.
-   * This defines a weaker notion of equality between two requests.
-   */
-  public boolean isSameRequest(Request otherRequest) {
-      if (otherRequest == this) {
-        return true;
-      }
+    /**
+     * Returns true if both requests of the same ID have at least one other
+     * property field that is the same.
+     * This defines a weaker notion of equality between two requests.
+     */
+    public boolean isSameRequest(Request otherRequest) {
+        if (otherRequest == this) {
+            return true;
+        }
 
-      return otherRequest != null
-          && otherRequest.getId().equals(this.id)
-          && ((otherRequest.getPatient().equals(this.patient)) || otherRequest
-          .getConditions().equals(this.conditions));
-  }
+        return otherRequest != null
+                && otherRequest.getId().equals(this.id)
+                && ((otherRequest.getPatient().equals(this.patient)) || otherRequest
+                .getConditions().equals(this.conditions));
+    }
 
-  @Override
-  public String toString() {
-      String healthStaff = this.healthStaff == null ? "Unassigned" : this
-          .healthStaff.toString();
-      String status = isCompleted ? "Completed" : "Pending";
+    @Override
+    public String toString() {
+        String healthStaff = this.healthStaff == null ? "Unassigned" : this
+                .healthStaff.toString();
+        String status = isCompleted ? "Completed" : "Pending";
 
-      return "----------Request----------\n" +
-          "ID: " + this.id + "\n" +
-          "Patient: " + this.patient + "\n" +
-          "Assigned staff: " + healthStaff + "\n" +
-          "Request Date: " + this.requestDate + "\n" +
-          "Condition(s): " + this.conditions + "\n" +
-          "Status: " + status + "\n" +
-          "----------End of Request----------\n";
-  }
+        return "----------Request----------\n" +
+                "ID: " + this.id + "\n" +
+                "Patient: " + this.patient + "\n" +
+                "Assigned staff: " + healthStaff + "\n" +
+                "Request Date: " + this.requestDate + "\n" +
+                "Condition(s): " + this.conditions + "\n" +
+                "Status: " + status + "\n" +
+                "----------End of Request----------\n";
+    }
 
-  @Override
-  public boolean equals(Object other) {
-      if (other == this) return true;
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) return true;
 
-      if (!(other instanceof Request)) {
-        return false;
-      }
+        if (!(other instanceof Request)) {
+            return false;
+        }
 
-      Request otherRequest = (Request) other;
-      return otherRequest.getId().equals(this.id)
-          && otherRequest.getPatient().equals(this.patient)
-          && (otherRequest.getRequestDate().equals(this.requestDate))
-          && otherRequest.getHealthStaff().equals(this.healthStaff)
-          && (otherRequest.isComplete() == this.isCompleted);
-  }
+        Request otherRequest = (Request) other;
+        return otherRequest.getId().equals(this.id)
+                && otherRequest.getPatient().equals(this.patient)
+                && (otherRequest.getRequestDate().equals(this.requestDate))
+                && otherRequest.getHealthStaff().equals(this.healthStaff)
+                && (otherRequest.isComplete() == this.isCompleted);
+    }
 
-  public Set<String> getConditions() {
-      return this.conditions;
-  }
+    public Set<String> getConditions() {
+        return this.conditions;
+    }
 
-  public String getId() {
-      return this.id;
-  }
+    public String getId() {
+        return this.id;
+    }
 
-  public Person getPatient() {
-      return patient;
-  }
+    public Person getPatient() {
+        return patient;
+    }
 
-  public String getRequestDate() {
-      return requestDate;
-  }
+    public String getRequestDate() {
+        return requestDate;
+    }
 
-  public Person getHealthStaff() {
-      return healthStaff;
-  }
+    public Person getHealthStaff() {
+        return healthStaff;
+    }
 
-  public boolean isComplete() {
-      return isCompleted;
-  }
+    public boolean isComplete() {
+        return isCompleted;
+    }
 }

@@ -193,8 +193,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedRestaurantReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedRestaurant.getValue());
+            boolean wasSelectedRestaurantReplaced = change.wasReplaced() && change.getAddedSize()
+                    == change.getRemovedSize() && change.getRemoved().contains(selectedRestaurant.getValue());
             if (wasSelectedRestaurantReplaced) {
                 // Update selectedRestaurant to its new value.
                 int index = change.getRemoved().indexOf(selectedRestaurant.getValue());

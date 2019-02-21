@@ -23,8 +23,9 @@ public class RestaurantListPanel extends UiPart<Region> {
     @FXML
     private ListView<Restaurant> restaurantListView;
 
-    public RestaurantListPanel(ObservableList<Restaurant> restaurantList, ObservableValue<Restaurant> selectedRestaurant,
-            Consumer<Restaurant> onSelectedRestaurantChange) {
+    public RestaurantListPanel(ObservableList<Restaurant> restaurantList,
+                               ObservableValue<Restaurant> selectedRestaurant,
+                               Consumer<Restaurant> onSelectedRestaurantChange) {
         super(FXML);
         restaurantListView.setItems(restaurantList);
         restaurantListView.setCellFactory(listView -> new RestaurantListViewCell());

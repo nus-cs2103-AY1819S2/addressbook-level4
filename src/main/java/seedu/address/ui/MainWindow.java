@@ -114,8 +114,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedRestaurantProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList(), logic.selectedRestaurantProperty(),
-                logic::setSelectedRestaurant);
+        restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList(),
+                logic.selectedRestaurantProperty(), logic::setSelectedRestaurant);
         restaurantListPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

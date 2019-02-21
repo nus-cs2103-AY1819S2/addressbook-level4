@@ -55,19 +55,21 @@ public class Request {
                 .healthStaff.toString();
         String status = isCompleted ? "Completed" : "Pending";
 
-        return "----------Request----------\n" +
-                "ID: " + this.id + "\n" +
-                "Patient: " + this.patient + "\n" +
-                "Assigned staff: " + healthStaff + "\n" +
-                "Request Date: " + this.requestDate + "\n" +
-                "Condition(s): " + this.conditions + "\n" +
-                "Status: " + status + "\n" +
-                "----------End of Request----------\n";
+        return "----------Request----------\n"
+                + "ID: " + this.id + "\n"
+                + "Patient: " + this.patient + "\n"
+                + "Assigned staff: " + healthStaff + "\n"
+                + "Request Date: " + this.requestDate + "\n"
+                + "Condition(s): " + this.conditions + "\n"
+                + "Status: " + status + "\n"
+                + "----------End of Request----------\n";
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
+        if (other == this) {
+            return true;
+        }
 
         if (!(other instanceof Request)) {
             return false;

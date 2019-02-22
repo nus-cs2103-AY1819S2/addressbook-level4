@@ -36,44 +36,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' card folder file path.
      */
-    Path getAddressBookFilePath();
+    Path getCardFolderFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' card folder file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setCardFolderFilePath(Path cardFolderFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces card folder data with the data in {@code cardFolder}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setCardFolder(ReadOnlyCardFolder cardFolder);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the CardFolder */
+    ReadOnlyCardFolder getCardFolder();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the card folder.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the card folder.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the card folder.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the card folder.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the card folder.
      */
     void setPerson(Person target, Person editedPerson);
 
@@ -87,29 +87,29 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous card folder states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoCardFolder();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone card folder states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoCardFolder();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's card folder to its previous state.
      */
-    void undoAddressBook();
+    void undoCardFolder();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's card folder to its previously undone state.
      */
-    void redoAddressBook();
+    void redoCardFolder();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current card folder state for undo/redo.
      */
-    void commitAddressBook();
+    void commitCardFolder();
 
     /**
      * Selected person in the filtered person list.

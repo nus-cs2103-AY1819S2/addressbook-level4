@@ -5,9 +5,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an card folder
  */
-public interface ReadOnlyAddressBook extends Observable {
+public interface ReadOnlyCardFolder extends Observable {
 
     /**
      * Returns an unmodifiable view of the persons list.

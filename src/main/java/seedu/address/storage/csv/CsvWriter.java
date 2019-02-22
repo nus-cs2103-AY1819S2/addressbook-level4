@@ -9,7 +9,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * A CSV Java Library for creating csv files.
@@ -37,7 +37,7 @@ public class CsvWriter {
      * @throws CommandException If there is an error exporting the current list in the GUI to a csv file.
      */
     public void export() throws CommandException {
-        List<Person> currentGuiList = model.getFilteredPersonList();
+        List<Medicine> currentGuiList = model.getFilteredMedicineList();
         createCsvFile(csvFileName);
     }
 

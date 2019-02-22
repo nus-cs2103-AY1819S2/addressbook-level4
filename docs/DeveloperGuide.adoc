@@ -817,7 +817,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+. Allow users to manage club members faster and more effectively than a typical mouse/ GUI-driven app.
+
+. Allow users to plan activities better based on members’ interest.
+
+. Avoid errors that stem from inaccurate members record (e.g. not keying in CCA points for the member due to inaccurate attendance data).
+
+. Improve the data collection accuracy and efficiency in the member management process.
 
 [appendix]
 == User Stories
@@ -827,17 +835,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |CCA main committee member |see who are the members in my CCA |track the CCA’s current membership level
 
-|`* * *` |user |add a new person |
+|`* * *` |CCA main committee member |see which members are attending an activity |plan the activity according to the participation rate.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |CCA main committee member |see which members are interested in attending a future event |decide whether to execute the activity or to cancel it based on the level of  interests.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |CCA main committee member |view the activities that a member has participated. |better select applicants for the main committee positions.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`*` |CCA main committee member |see the payments of each member |track the payments of each member.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |CCA main committee member |sort members into categories (e.g. race, nationality, religion, gender, year of study).  |target specific groups of members based on the type of activities offered by the CCA (e.g. interfaith CCA, Sports Club).
+
+|`* *` |CCA main committee member |add new members to the CCA |see the new members in the list
+
+|`* *` |CCA main committee member |delete members from the CCA |see the new members in the list
+
+|`* *` |CCA main committee member |see what are the ongoing and upcoming activities of the CCA |sign up for activities I am interested in.
+
+|`*` |CCA main committee member |view the list of people who have not made payment based on activity |request payment from these members
+
+|`*` |CCA main committee member |conduct surveys |gather feedback from users
+
+|`* * *` |CCA main committee member |Import and export members data |easily enter new members’ information from the annual CCA fair.
+
+|`* *` |CCA main committee member |to have a calendar that shows the activities |plan my schedule
+
+|`* *` |CCA main committee member |Record the attendance of members |see the new members in the list.
+
+|`*` |CCA main committee member |send a quick SMS/email to members |inform them of any upcoming activities
+
+|`* *` |CCA main committee member |track the attendance of members |Identify members who are inactive
+
+|`* *` |CCA main committee member |add event tags to members |record which members are going for which events
+
+|`* *` |CCA main committee member |remove tags from members |keep the address book neat after an event has concluded
+
+|`* * *` |CCA main committee member |create an activity list |see the upcoming events
 |=======================================================================
 
 _{More to be added}_
@@ -962,6 +996,155 @@ Use case ends.
 +
 ** 2a1. Club Manager shows an error message.
 Use case resumes at step 1.
+
+[discrete]
+=== Use case: activityEdit
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to edit details of an activity in the displayed list
+4.  Club Manager edits the details of the specified member with given information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index or parameters is/are invalid.
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: activitySort
+
+*Main Success Scenario (MSS)*
+
+1.  Admin requests to sort the activity list
+2.  Club Manager sorts the activity list according to specified parameter
+3.  Club Management System shows the sorted list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 2b. The given parameter is invalid.
++
+[none]
+** 2b1. Club Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: activityAddMember
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to add a member to the attendance list of an activity
+4.  Club Manager adds the member to the activity's attendance list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3b. The specified member does not exist.
++
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3c. The specified member is already in the attendance list.
++
+** 3c1. Club Manager shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: activityRemoveMember
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to remove a member from the attendance list of an activity
+4.  Club Manager removes the member to the activity's attendance list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3b. The specified member does not exist.
++
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3c. The specified member is not in the attendance list.
++
+** 3c1. Club Manager shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: activityDelete
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to permanently delete an activity from the activity list
+4.  Club Manager deletes the activity.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
 
 
 _{More to be added}_

@@ -1,0 +1,14 @@
+{
+  "medicines": [ {
+    "name": "Paracetamol",
+    "quantity": "312",
+    "expiry": "31/12/2019",
+    "company": "GlaxoSmithKline",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Paracetamol",
+    "quantity": "312",
+    "expiry": "26/09/2019",
+    "company": "Johnson & Johnson"
+  } ]
+}

@@ -15,37 +15,37 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the inventory data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Medicine> filteredMedicines;
+    private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyInventory inventory, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(inventory, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedInventory = new VersionedInventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredMedicines = new FilteredList<>(versionedInventory.getMedicineList());
+        filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Inventory(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,141 +73,141 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getInventoryFilePath() {
+        return userPrefs.getInventoryFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setInventoryFilePath(Path inventoryFilePath) {
+        requireNonNull(inventoryFilePath);
+        userPrefs.setInventoryFilePath(inventoryFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Inventory ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void setInventory(ReadOnlyInventory inventory) {
+        versionedInventory.resetData(inventory);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public ReadOnlyInventory getInventory() {
+        return versionedInventory;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return versionedInventory.hasMedicine(medicine);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void deleteMedicine(Medicine target) {
+        versionedInventory.removeMedicine(target);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.setPerson(target, editedPerson);
+    public void addMedicine(Medicine medicine) {
+        versionedInventory.addMedicine(medicine);
+        updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void setMedicine(Medicine target, Medicine editedMedicine) {
+        requireAllNonNull(target, editedMedicine);
+
+        versionedInventory.setMedicine(target, editedMedicine);
+    }
+
+    //=========== Filtered Medicine List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
+     * {@code versionedInventory}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return filteredMedicines;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredMedicines.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoInventory() {
+        return versionedInventory.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoInventory() {
+        return versionedInventory.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoInventory() {
+        versionedInventory.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoInventory() {
+        versionedInventory.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitInventory() {
+        versionedInventory.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected medicine ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
-    }
-
-    @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
+    public ReadOnlyProperty<Medicine> selectedMedicineProperty() {
+        return selectedMedicine;
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public Medicine getSelectedMedicine() {
+        return selectedMedicine.getValue();
+    }
+
+    @Override
+    public void setSelectedMedicine(Medicine medicine) {
+        if (medicine != null && !filteredMedicines.contains(medicine)) {
+            throw new MedicineNotFoundException();
         }
-        selectedPerson.setValue(person);
+        selectedMedicine.setValue(medicine);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedMedicine} is a valid medicine in {@code filteredMedicines}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedMedicineIsValid(ListChangeListener.Change<? extends Medicine> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+            if (selectedMedicine.getValue() == null) {
+                // null is always a valid selected medicine, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedMedicineReplaced = change.wasReplaced() && change.getAddedSize()
+                    == change.getRemovedSize() && change.getRemoved().contains(selectedMedicine.getValue());
+            if (wasSelectedMedicineReplaced) {
+                // Update selectedMedicine to its new value.
+                int index = change.getRemoved().indexOf(selectedMedicine.getValue());
+                selectedMedicine.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            boolean wasSelectedMedicineRemoved = change.getRemoved().stream()
+                    .anyMatch(removedMedicine -> selectedMedicine.getValue().isSameMedicine(removedMedicine));
+            if (wasSelectedMedicineRemoved) {
+                // Select the medicine that came before it in the list,
+                // or clear the selection if there is no such medicine.
+                selectedMedicine.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -226,10 +226,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedInventory.equals(other.versionedInventory)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredMedicines.equals(other.filteredMedicines)
+                && Objects.equals(selectedMedicine.get(), other.selectedMedicine.get());
     }
 
 }

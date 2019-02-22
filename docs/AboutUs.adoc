@@ -4,27 +4,17 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+The Real App was developed by the *cs2103-ay1819s2-w16-2* team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
-
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
 
 === Chen Wen
 image::chenwencuhk.png[width="150", align="left"]
 {empty}[https://github.com/ChenWenCUHK[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Scheduling and Tracking + Deliverables and Deadlines
 
 '''
 
@@ -33,7 +23,7 @@ image::yongxiang1095.png[width="150", align="left"]
 {empty}[http://github.com/yongxiang1095[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Integration + Documentation + Code Quality
 
 '''
 
@@ -42,7 +32,7 @@ image::sharadk1234.png[width="150", align="left"]
 {empty}[http://github.com/sharadk1234[github]] [<<sharadk1234#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Data + Testing
 
 '''
 
@@ -51,6 +41,6 @@ image::tanlongbin.png[width="150", align="left"]
 {empty}[https://github.com/tanlongbin[github]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI + Documentation + Code Quality
 
 '''

@@ -1,31 +1,31 @@
 package seedu.address.storage.csv;
 
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.opencsv.CSVWriter;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * A CSV Java Library for creating csv files.
- * Currently this library is exclusively for https://github.com/cs2103-ay1819s2-t12-3/main unless otherwise stated by
- * the author LEE WEI HAO JONATHAN (A0166980R)
+ * A CsvWriter class to complement the export command for MediTabs.
+ * It uses Opencsv library from http://opencsv.sourceforge.net/index.html
  *
- * @author LEE WEI HAO JONATHAN (A0166980R)
  */
 public class CsvWriter {
 
     private static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
-    private static String defaultHeading = "";
+    private static String[] defaultHeading = {"Name", "Quantity", "Expiry Date", "Company", "Tags"};
     private static final Path DEFAULT_EXPORT_FOLDER_PATH = Paths.get("exported");
     private String csvFileName;
     private Model model;
-    private File exportFolder;
+    private Path csvFilePath;
 
     public CsvWriter(String csvFileName, Model model) {
         this.csvFileName = csvFileName;
@@ -39,6 +39,7 @@ public class CsvWriter {
     public void export() throws CommandException {
         List<Medicine> currentGuiList = model.getFilteredMedicineList();
         createCsvFile(csvFileName);
+        writeDataToCsv(currentGuiList);
     }
 
     /**
@@ -49,42 +50,23 @@ public class CsvWriter {
     private void createCsvFile(String csvFileName) throws CommandException {
         createIfExportDirectoryMissing();
         try {
-            Files.createFile(Paths.get("exported", csvFileName + ".csv"));
+            csvFilePath = Files.createFile(Paths.get("exported", csvFileName + ".csv"));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
     }
 
     /**
-     * Converts an input string to be compliant with RFC4180 based on
-     * its definition of CSV format.
-     * Source: https://tools.ietf.org/html/rfc4180
-     * @param input The input string to be converted to CSV compliant format
-     * @return The converted string which is in CSV compliant format.
+     * Writes data from current list displayed in GUI when export command is called to a csv file.
+     * @param currentGuiList The current list displayed in the GUI when the export command is called.
+     * @throws CommandException If tere is an error exporting the current list in the GUI to a csv file.
      */
-    public String convertStringToCsvFieldCompliantFormat(String input) {
-
-        /**
-         * If double quotes are used to enclose fields, then a double-quote appearing inside
-         * a field must be escaped by preceding it with another double quote.
-         * Based on definition of the CSV Format in RFC4180 point 7.
-         */
-        if (input.contains("\"")) {
-            input = input.replaceAll("\"", "\"\"");
+    private void writeDataToCsv(List currentGuiList) throws CommandException {
+        try (CSVWriter csvWriter = new CSVWriter(new FileWriter(csvFilePath.toString()))) {
+            csvWriter.writeNext(defaultHeading);
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
-
-        /**
-         * If the input contains a comma or a link break, to ensure the comma is preserved
-         * in the CSV file format, the input string is enclosed by double quotation
-         * marks.
-         * Based on definition of the CSV Format in RFC4180 point 5 and 6.
-         */
-        if (input.contains(",") || input.contains("\n")) {
-            input = "\"" + input + "\"";
-        }
-
-        return input;
     }
 
     /**

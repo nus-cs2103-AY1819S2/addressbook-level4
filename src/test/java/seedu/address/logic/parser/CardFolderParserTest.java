@@ -31,8 +31,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.CardBuilder;
-import seedu.address.testutil.EditCardDescriptorBuilder;
 import seedu.address.testutil.CardUtil;
+import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class CardFolderParserTest {
     @Rule

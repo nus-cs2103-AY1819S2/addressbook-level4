@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -34,9 +34,7 @@ public class CardUtil {
         sb.append(PREFIX_ANSWER + card.getAnswer().value + " ");
         sb.append(PREFIX_EMAIL + card.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + card.getAddress().value + " ");
-        card.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        card.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
         return sb.toString();
     }
 
@@ -45,7 +43,8 @@ public class CardUtil {
      */
     public static String getEditCardDescriptorDetails(EditCommand.EditCardDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION).append(question.fullQuestion).append(" "));
+        descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION)
+                .append(question.fullQuestion).append(" "));
         descriptor.getAnswer().ifPresent(answer -> sb.append(PREFIX_ANSWER).append(answer.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));

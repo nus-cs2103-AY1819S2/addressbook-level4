@@ -6,7 +6,9 @@ import org.junit.Rule;
 
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
+
 import javafx.scene.Node;
+
 import seedu.address.ui.testutil.UiPartRule;
 
 /**

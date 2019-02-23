@@ -28,7 +28,7 @@ image::checkstyle-idea-scan-scope.png[width="500"]
 +
 image::checkstyle-idea-configuration.png[width="700"]
 . Click `OK`
-
+b
 == Troubleshooting Checkstyle-IDEA
 
 **Problem: When importing `checkstyle.xml`, Checkstyle-IDEA plugin complains that `The Checkstyle rules file could not be parsed. ... The file has been blacklisted for 60s.`**

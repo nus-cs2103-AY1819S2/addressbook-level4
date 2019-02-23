@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.CardListPanelHandle;
 import guitests.guihandles.CardThumbnailHandle;
 import guitests.guihandles.ResultDisplayHandle;
+
 import seedu.address.model.card.Card;
 
 /**

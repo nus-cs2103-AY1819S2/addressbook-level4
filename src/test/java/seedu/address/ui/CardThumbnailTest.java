@@ -5,8 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCard;
 
-import guitests.guihandles.CardThumbnailHandle;
 import org.junit.Test;
+
+import guitests.guihandles.CardThumbnailHandle;
 
 import seedu.address.model.card.Card;
 import seedu.address.testutil.CardBuilder;

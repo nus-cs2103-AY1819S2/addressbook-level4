@@ -21,6 +21,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.testutil.CardBuilder;

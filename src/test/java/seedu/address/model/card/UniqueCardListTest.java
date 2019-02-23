@@ -16,8 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.card.exceptions.CardNotFoundException;
+import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.testutil.CardBuilder;
 
 public class UniqueCardListTest {

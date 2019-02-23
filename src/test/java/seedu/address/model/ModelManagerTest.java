@@ -19,11 +19,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.model.card.exceptions.CardNotFoundException;
-import seedu.address.testutil.CardFolderBuilder;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.CardFolderBuilder;
 
 public class ModelManagerTest {
     @Rule

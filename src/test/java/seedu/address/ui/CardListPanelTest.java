@@ -1,22 +1,26 @@
 package seedu.address.ui;
 
 import static java.time.Duration.ofMillis;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
+
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCard;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
+import org.junit.Test;
+
 import guitests.guihandles.CardListPanelHandle;
 import guitests.guihandles.CardThumbnailHandle;
-import org.junit.Test;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.card.Address;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;

@@ -135,7 +135,8 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
         /* Case: find while a card is selected -> selected card deselected */
         showAllCards();
         selectCard(Index.fromOneBased(1));
-        assertFalse(getCardListPanel().getHandleToSelectedCard().getQuestion().equals(DANIEL.getQuestion().fullQuestion));
+        assertFalse(
+                getCardListPanel().getHandleToSelectedCard().getQuestion().equals(DANIEL.getQuestion().fullQuestion));
         command = FindCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);

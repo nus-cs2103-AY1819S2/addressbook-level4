@@ -27,7 +27,10 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     public JsonAddressBookStorage(Path filePath) {
         this.filePath = filePath;
-        this.backupFilePath = Paths.get("backup\\" + filePath.toString());
+        this.backupFilePath = filePath;
+        if(filePath.getRoot() == null) {
+            this.backupFilePath = Paths.get("backup\\" + filePath.toString());
+        }
     }
 
     public Path getAddressBookFilePath() {

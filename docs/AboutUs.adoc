@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Yang Yiqing
-image::yl_coder.jpg[width="150", align="left"]
+image::ivyyangyq.jpg[width="150", align="left"]
 {empty}[http://github.com/ivyyangyq[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +

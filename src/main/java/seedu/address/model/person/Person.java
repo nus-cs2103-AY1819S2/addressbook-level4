@@ -19,7 +19,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final NRIC nric;
+    private final Nric nric;
 
     // Data fields
     private final Address address;
@@ -39,9 +39,9 @@ public class Person {
     }
 
     /**
-     * Overloaded Constructor to include new field NRIC.
+     * Overloaded Constructor to include new field Nric.
      */
-    public Person(Name name, Phone phone, Email email, NRIC nric, Address
+    public Person(Name name, Phone phone, Email email, Nric nric, Address
             address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, nric);
         this.name = name;
@@ -68,7 +68,7 @@ public class Person {
         return address;
     }
 
-    public NRIC getNric() {
+    public Nric getNric() {
         return nric;
     }
 
@@ -113,7 +113,7 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-//                && otherPerson.getNric().equals(getNric())
+                // && otherPerson.getNric().equals(getNric())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -128,8 +128,8 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-//                .append(" NRIC: ")
-//                .append(getNric())
+                // .append(" Nric: ")
+                // .append(getNric())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")

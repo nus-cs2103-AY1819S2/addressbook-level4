@@ -56,6 +56,38 @@ public class CsvWriter {
     }
 
     /**
+     * Converts an input string to be compliant with RFC4180 based on
+     * its definition of CSV format.
+     * Source: https://tools.ietf.org/html/rfc4180
+     * @param input The input string to be converted to CSV compliant format
+     * @return The converted string which is in CSV compliant format.
+     */
+    public String convertStringToCsvFieldCompliantFormat(String input) {
+
+        /**
+         * If double quotes are used to enclose fields, then a double-quote appearing inside
+         * a field must be escaped by preceding it with another double quote.
+         * Based on definition of the CSV Format in RFC4180 point 7.
+         */
+        if (input.contains("\"")) {
+            input = input.replaceAll("\"", "\"\"");
+        }
+
+
+        /**
+         * If the input contains a comma or a link break, to ensure the comma is preserved
+         * in the CSV file format, the input string is enclosed by double quotation
+         * marks.
+         * Based on definition of the CSV Format in RFC4180 point 5 and 6.
+         */
+        if (input.contains(",") || input.contains("\n")) {
+            input = "\"" + input + "\"";
+        }
+
+        return input;
+    }
+
+    /**
      * Creates the export directory if export directory where exported data are stored.
      * @throws CommandException if there are errors creating the export directory.
      */

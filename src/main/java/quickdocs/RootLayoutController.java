@@ -48,4 +48,12 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * This method allow other modules to tap on the display to show the output
+     * of different commands
+     * @return the reference to the display textArea for other modules
+     */
+    public TextArea getDisplay() {
+        return this.display;
+    }
 }

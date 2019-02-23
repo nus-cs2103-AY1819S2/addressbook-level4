@@ -14,11 +14,11 @@ import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * A CsvWriter class to complement the export command for MediTabs.
+ * A CsvWrapper class to complement the export command for MediTabs.
  * It uses Opencsv library from http://opencsv.sourceforge.net/index.html
  *
  */
-public class CsvWriter {
+public class CsvWrapper {
 
     private static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
     private static String[] defaultHeading = {"Name", "Quantity", "Expiry Date", "Company", "Tags"};
@@ -27,7 +27,7 @@ public class CsvWriter {
     private Model model;
     private Path csvFilePath;
 
-    public CsvWriter(String csvFileName, Model model) {
+    public CsvWrapper(String csvFileName, Model model) {
         this.csvFileName = csvFileName;
         this.model = model;
     }

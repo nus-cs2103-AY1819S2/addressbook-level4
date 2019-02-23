@@ -3,6 +3,11 @@ package seedu.address.model.medicine;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+
 /**
  * Represents the expiry date of a batch Medicine in the inventory.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
@@ -33,6 +38,22 @@ public class Expiry {
      */
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns expiry date in the format dd/MM/yyyy
+     * @return the expiry date in the format dd/MM/yyyy
+     * @throws CommandException If there are errors parsing the current expiry date to the new date format.
+     */
+    public String toFormattedDateString() throws CommandException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate;
+        try {
+            formattedDate = dateFormat.format(dateFormat.parse(value));
+        } catch (ParseException pe) {
+            throw new CommandException("Command unable to execute due to error: " + pe.getMessage(), pe);
+        }
+        return formattedDate;
     }
 
     @Override

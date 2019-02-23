@@ -5,6 +5,10 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
+/**
+ * Represents a Health Worker class that can handle requests.
+ * Guarantees: details are present and not null, and field values are validated.
+ */
 public class HealthWorker extends Person {
 
     // TODO: Add fields for skills/certification.

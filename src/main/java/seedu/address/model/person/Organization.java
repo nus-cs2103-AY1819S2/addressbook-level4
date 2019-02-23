@@ -3,10 +3,14 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Health Worker's Organization.
+ * Guarantees: immutable; is valid as declared in {@link #isValidOrgName(String)}
+ */
 public class Organization {
 
-    public static final String MESSAGE_CONSTRAINTS = "Organization name " +
-            "should contain at least 2 characters";
+    public static final String MESSAGE_CONSTRAINTS = "Organization name "
+            + "should contain at least 2 characters";
     public static final String VALIDATION_REGEX = "[a-zA-z0-9,.\\-\\s]{2}";
 
     private String orgName;

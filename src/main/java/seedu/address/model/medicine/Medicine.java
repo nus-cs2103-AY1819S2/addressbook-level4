@@ -4,10 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
-
-import com.opencsv.CSVWriter;
 
 import seedu.address.model.tag.Tag;
 
@@ -86,15 +85,21 @@ public class Medicine {
         final StringBuilder builder = new StringBuilder();
         String[] result;
         builder.append(getName())
-                .append(CSVWriter.DEFAULT_SEPARATOR)
+                .append("|")
                 .append(getQuantity())
-                .append(CSVWriter.DEFAULT_SEPARATOR)
+                .append("|")
                 .append(getExpiry())
-                .append(CSVWriter.DEFAULT_SEPARATOR)
+                .append("|")
                 .append(getCompany())
-                .append(CSVWriter.DEFAULT_SEPARATOR);
-        getTags().forEach(builder::append);
-        result = builder.toString().split(",");
+                .append("|");
+        Iterator iterator = getTags().iterator();
+        while (iterator.hasNext()) {
+            Tag current = (Tag) iterator.next();
+            String formattedCurrentTagString = current.toStringUpperCase();
+            builder.append(formattedCurrentTagString);
+            builder.append(' ');
+        }
+        result = builder.toString().split("\\|");
         return result;
     }
 

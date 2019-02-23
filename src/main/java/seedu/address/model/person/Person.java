@@ -35,7 +35,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.nric = null;
+        this.nric = new Nric("S1234567Z"); //Placeholder NRIC
     }
 
     /**

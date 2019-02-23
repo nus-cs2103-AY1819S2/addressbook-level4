@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.opencsv.CSVWriter;
+
 import seedu.address.model.tag.Tag;
 
 /**
@@ -72,6 +74,28 @@ public class Medicine {
         return otherMedicine != null
                 && otherMedicine.getName().equals(getName())
                 && (otherMedicine.getQuantity().equals(getQuantity()) || otherMedicine.getExpiry().equals(getExpiry()));
+    }
+
+    /**
+     * Returns a String array containing the information of the various variables of the medicine.
+     * This method is mainly used to support the export command to export the current list in the GUI to
+     * a csv file.
+     * @return A string array containing the medicine information.
+     */
+    public String[] toStringArray() {
+        final StringBuilder builder = new StringBuilder();
+        String[] result;
+        builder.append(getName())
+                .append(CSVWriter.DEFAULT_SEPARATOR)
+                .append(getQuantity())
+                .append(CSVWriter.DEFAULT_SEPARATOR)
+                .append(getExpiry())
+                .append(CSVWriter.DEFAULT_SEPARATOR)
+                .append(getCompany())
+                .append(CSVWriter.DEFAULT_SEPARATOR);
+        getTags().forEach(builder::append);
+        result = builder.toString().split(",");
+        return result;
     }
 
     /**

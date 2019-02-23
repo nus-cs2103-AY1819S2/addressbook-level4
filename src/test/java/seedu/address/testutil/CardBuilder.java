@@ -7,7 +7,7 @@ import seedu.address.model.card.Address;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.card.Phone;
+import seedu.address.model.card.Answer;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -17,19 +17,19 @@ import seedu.address.model.util.SampleDataUtil;
 public class CardBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_ANSWER = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Question question;
-    private Phone phone;
+    private Answer answer;
     private Email email;
     private Address address;
     private Set<Tag> tags;
 
     public CardBuilder() {
         question = new Question(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        answer = new Answer(DEFAULT_ANSWER);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -40,7 +40,7 @@ public class CardBuilder {
      */
     public CardBuilder(Card cardToCopy) {
         question = cardToCopy.getQuestion();
-        phone = cardToCopy.getPhone();
+        answer = cardToCopy.getAnswer();
         email = cardToCopy.getEmail();
         address = cardToCopy.getAddress();
         tags = new HashSet<>(cardToCopy.getTags());
@@ -71,10 +71,10 @@ public class CardBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Card} that we are building.
+     * Sets the {@code Answer} of the {@code Card} that we are building.
      */
-    public CardBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public CardBuilder withAnswer(String answer) {
+        this.answer = new Answer(answer);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class CardBuilder {
     }
 
     public Card build() {
-        return new Card(question, phone, email, address, tags);
+        return new Card(question, answer, email, address, tags);
     }
 
 }

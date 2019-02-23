@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Address;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.card.Phone;
+import seedu.address.model.card.Answer;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -51,18 +51,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String answer} into a {@code Answer}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code answer} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Answer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Answer(trimmedAnswer);
     }
 
     /**

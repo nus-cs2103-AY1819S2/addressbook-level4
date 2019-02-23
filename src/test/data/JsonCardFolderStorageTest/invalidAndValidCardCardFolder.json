@@ -1,12 +1,12 @@
 {
   "cards": [ {
     "question": "Valid Card",
-    "phone": "9482424",
+    "answer": "9482424",
     "email": "hans@example.com",
     "address": "4th street"
   }, {
-    "question": "Card With Invalid Phone Field",
-    "phone": "948asdf2424",
+    "question": "Card With Invalid Answer Field",
+    "answer": "948asdf2424",
     "email": "hans@example.com",
     "address": "4th street"
   } ]

@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Address;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.card.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +25,7 @@ class JsonAdaptedCard {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
 
     private final String question;
-    private final String phone;
+    private final String answer;
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -34,11 +34,11 @@ class JsonAdaptedCard {
      * Constructs a {@code JsonAdaptedCard} with the given card details.
      */
     @JsonCreator
-    public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("phone") String phone,
+    public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
                            @JsonProperty("email") String email, @JsonProperty("address") String address,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
-        this.phone = phone;
+        this.answer = answer;
         this.email = email;
         this.address = address;
         if (tagged != null) {
@@ -51,7 +51,7 @@ class JsonAdaptedCard {
      */
     public JsonAdaptedCard(Card source) {
         question = source.getQuestion().fullQuestion;
-        phone = source.getPhone().value;
+        answer = source.getAnswer().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
@@ -78,13 +78,13 @@ class JsonAdaptedCard {
         }
         final Question modelQuestion = new Question(question);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (answer == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Answer.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Answer.isValidAnswer(answer)) {
+            throw new IllegalValueException(Answer.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Answer modelAnswer = new Answer(answer);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -103,7 +103,7 @@ class JsonAdaptedCard {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(cardTags);
-        return new Card(modelQuestion, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Card(modelQuestion, modelAnswer, modelEmail, modelAddress, modelTags);
     }
 
 }

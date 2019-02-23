@@ -18,10 +18,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Address;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.card.Phone;
 
 public class CardListPanelTest extends GuiUnitTest {
     private static final ObservableList<Card> TYPICAL_CARDS =
@@ -80,10 +80,10 @@ public class CardListPanelTest extends GuiUnitTest {
         ObservableList<Card> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < cardCount; i++) {
             Question question = new Question(i + "a");
-            Phone phone = new Phone("000");
+            Answer answer = new Answer("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Card card = new Card(question, phone, email, address, Collections.emptySet());
+            Card card = new Card(question, answer, email, address, Collections.emptySet());
             backingList.add(card);
         }
         return backingList;

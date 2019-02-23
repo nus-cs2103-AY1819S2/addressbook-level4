@@ -8,18 +8,18 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.AMY;
@@ -38,10 +38,10 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.card.Address;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.card.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.CardUtil;
@@ -58,7 +58,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
          * -> added
          */
         Card toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_AMY + "  " + ANSWER_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -75,14 +75,14 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: add a card with all fields same as another card in the card folder except question -> added */
         toAdd = new CardBuilder(AMY).withQuestion(VALID_QUESTION_BOB).build();
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_BOB + ANSWER_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a card with all fields same as another card in the card folder except phone and email
+        /* Case: add a card with all fields same as another card in the card folder except answer and email
          * -> added
          */
-        toAdd = new CardBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new CardBuilder(AMY).withAnswer(VALID_ANSWER_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = CardUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -92,7 +92,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: add a card with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + QUESTION_DESC_BOB
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + ANSWER_DESC_BOB + ADDRESS_DESC_BOB + QUESTION_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -117,8 +117,8 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         command = CardUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: add a duplicate card except with different phone -> rejected */
-        toAdd = new CardBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        /* Case: add a duplicate card except with different answer -> rejected */
+        toAdd = new CardBuilder(HOON).withAnswer(VALID_ANSWER_BOB).build();
         command = CardUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
@@ -137,19 +137,19 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: missing question -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + ANSWER_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing phone -> rejected */
+        /* Case: missing answer -> rejected */
         command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -157,23 +157,23 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid question -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_QUESTION_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_QUESTION_DESC + ANSWER_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Question.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
+        /* Case: invalid answer -> rejected */
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + INVALID_ANSWER_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        assertCommandFailure(command, Answer.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }

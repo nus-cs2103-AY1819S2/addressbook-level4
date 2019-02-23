@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
@@ -21,10 +21,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Address;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.card.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,12 +39,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_ANSWER + "ANSWER] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_ANSWER + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
@@ -96,12 +96,12 @@ public class EditCommand extends Command {
         assert cardToEdit != null;
 
         Question updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
-        Phone updatedPhone = editCardDescriptor.getPhone().orElse(cardToEdit.getPhone());
+        Answer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
         Email updatedEmail = editCardDescriptor.getEmail().orElse(cardToEdit.getEmail());
         Address updatedAddress = editCardDescriptor.getAddress().orElse(cardToEdit.getAddress());
         Set<Tag> updatedTags = editCardDescriptor.getTags().orElse(cardToEdit.getTags());
 
-        return new Card(updatedQuestion, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Card(updatedQuestion, updatedAnswer, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class EditCommand extends Command {
      */
     public static class EditCardDescriptor {
         private Question question;
-        private Phone phone;
+        private Answer answer;
         private Email email;
         private Address address;
         private Set<Tag> tags;
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
          */
         public EditCardDescriptor(EditCardDescriptor toCopy) {
             setQuestion(toCopy.question);
-            setPhone(toCopy.phone);
+            setAnswer(toCopy.answer);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(question, answer, email, address, tags);
         }
 
         public void setQuestion(Question question) {
@@ -162,12 +162,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(question);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setAnswer(Answer answer) {
+            this.answer = answer;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Answer> getAnswer() {
+            return Optional.ofNullable(answer);
         }
 
         public void setEmail(Email email) {
@@ -219,7 +219,7 @@ public class EditCommand extends Command {
             EditCardDescriptor e = (EditCardDescriptor) other;
 
             return getQuestion().equals(e.getQuestion())
-                    && getPhone().equals(e.getPhone())
+                    && getAnswer().equals(e.getAnswer())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());

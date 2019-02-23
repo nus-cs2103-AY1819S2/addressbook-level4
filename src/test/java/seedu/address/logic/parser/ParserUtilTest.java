@@ -17,21 +17,21 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Address;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.card.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_QUESTION = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_ANSWER = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_QUESTION = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_ANSWER = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -88,26 +88,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseAnswer_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAnswer((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseAnswer_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAnswer(INVALID_ANSWER));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseAnswer_validValueWithoutWhitespace_returnsAnswer() throws Exception {
+        Answer expectedAnswer = new Answer(VALID_ANSWER);
+        assertEquals(expectedAnswer, ParserUtil.parseAnswer(VALID_ANSWER));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseAnswer_validValueWithWhitespace_returnsTrimmedAnswer() throws Exception {
+        String answerWithWhitespace = WHITESPACE + VALID_ANSWER + WHITESPACE;
+        Answer expectedAnswer = new Answer(VALID_ANSWER);
+        assertEquals(expectedAnswer, ParserUtil.parseAnswer(answerWithWhitespace));
     }
 
     @Test

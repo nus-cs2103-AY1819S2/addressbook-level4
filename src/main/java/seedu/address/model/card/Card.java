@@ -17,7 +17,7 @@ public class Card {
 
     // Identity fields
     private final Question question;
-    private final Phone phone;
+    private final Answer answer;
     private final Email email;
 
     // Data fields
@@ -27,10 +27,10 @@ public class Card {
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(question, phone, email, address, tags);
+    public Card(Question question, Answer answer, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(question, answer, email, address, tags);
         this.question = question;
-        this.phone = phone;
+        this.answer = answer;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
@@ -40,8 +40,8 @@ public class Card {
         return question;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Answer getAnswer() {
+        return answer;
     }
 
     public Email getEmail() {
@@ -71,7 +71,7 @@ public class Card {
 
         return otherCard != null
                 && otherCard.getQuestion().equals(getQuestion())
-                && (otherCard.getPhone().equals(getPhone()) || otherCard.getEmail().equals(getEmail()));
+                && (otherCard.getAnswer().equals(getAnswer()) || otherCard.getEmail().equals(getEmail()));
     }
 
     /**
@@ -90,7 +90,7 @@ public class Card {
 
         Card otherCard = (Card) other;
         return otherCard.getQuestion().equals(getQuestion())
-                && otherCard.getPhone().equals(getPhone())
+                && otherCard.getAnswer().equals(getAnswer())
                 && otherCard.getEmail().equals(getEmail())
                 && otherCard.getAddress().equals(getAddress())
                 && otherCard.getTags().equals(getTags());
@@ -99,15 +99,15 @@ public class Card {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, phone, email, address, tags);
+        return Objects.hash(question, answer, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getQuestion())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Answer: ")
+                .append(getAnswer())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")

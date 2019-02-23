@@ -7,16 +7,16 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.UniqueCardList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameCard comparison)
  */
 public class CardFolder implements ReadOnlyCardFolder {
 
-    private final UniquePersonList persons;
+    private final UniqueCardList cards;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,13 +27,13 @@ public class CardFolder implements ReadOnlyCardFolder {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        cards = new UniqueCardList();
     }
 
     public CardFolder() {}
 
     /**
-     * Creates an CardFolder using the Persons in the {@code toBeCopied}
+     * Creates an CardFolder using the Cards in the {@code toBeCopied}
      */
     public CardFolder(ReadOnlyCardFolder toBeCopied) {
         this();
@@ -43,11 +43,11 @@ public class CardFolder implements ReadOnlyCardFolder {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the card list with {@code cards}.
+     * {@code cards} must not contain duplicate cards.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setCards(List<Card> cards) {
+        this.cards.setCards(cards);
         indicateModified();
     }
 
@@ -57,37 +57,37 @@ public class CardFolder implements ReadOnlyCardFolder {
     public void resetData(ReadOnlyCardFolder newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setCards(newData.getCardList());
     }
 
-    //// person-level operations
+    //// card-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the card folder.
+     * Returns true if a card with the same identity as {@code card} exists in the card folder.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasCard(Card card) {
+        requireNonNull(card);
+        return cards.contains(card);
     }
 
     /**
-     * Adds a person to the card folder.
-     * The person must not already exist in the card folder.
+     * Adds a card to the card folder.
+     * The card must not already exist in the card folder.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addCard(Card p) {
+        cards.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given card {@code target} in the list with {@code editedCard}.
      * {@code target} must exist in the card folder.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the card folder.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the card folder.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setCard(Card target, Card editedCard) {
+        requireNonNull(editedCard);
 
-        persons.setPerson(target, editedPerson);
+        cards.setCard(target, editedCard);
         indicateModified();
     }
 
@@ -95,8 +95,8 @@ public class CardFolder implements ReadOnlyCardFolder {
      * Removes {@code key} from this {@code CardFolder}.
      * {@code key} must exist in the card folder.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeCard(Card key) {
+        cards.remove(key);
         indicateModified();
     }
 
@@ -121,24 +121,24 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return cards.asUnmodifiableObservableList().size() + " cards";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Card> getCardList() {
+        return cards.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CardFolder // instanceof handles nulls
-                && persons.equals(((CardFolder) other).persons));
+                && cards.equals(((CardFolder) other).cards));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return cards.hashCode();
     }
 }

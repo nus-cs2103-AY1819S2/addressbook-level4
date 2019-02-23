@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import guitests.guihandles.CardListPanelHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -25,7 +26,6 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
@@ -36,7 +36,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalCards;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -80,7 +80,7 @@ public abstract class CardFolderSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected CardFolder getInitialData() {
-        return TypicalPersons.getTypicalCardFolder();
+        return TypicalCards.getTypicalCardFolder();
     }
 
     /**
@@ -98,8 +98,8 @@ public abstract class CardFolderSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public CardListPanelHandle getCardListPanel() {
+        return mainWindowHandle.getCardListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -134,52 +134,52 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Displays all persons in the card folder.
+     * Displays all cards in the card folder.
      */
-    protected void showAllPersons() {
+    protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getCardFolder().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getCardFolder().getCardList().size(), getModel().getFilteredCardList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showCardsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getCardFolder().getPersonList().size());
+        assertTrue(getModel().getFilteredCardList().size() < getModel().getCardFolder().getCardList().size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the card at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectCard(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getCardListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the card folder.
+     * Deletes all cards in the card folder.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllCards() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getCardFolder().getPersonList().size());
+        assertEquals(0, getModel().getCardFolder().getCardList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same card objects as {@code expectedModel}
+     * and the card list panel displays the cards in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new CardFolder(expectedModel.getCardFolder()), testApp.readStorageCardFolder());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getCardListPanel(), expectedModel.getFilteredCardList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code CardListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -187,7 +187,7 @@ public abstract class CardFolderSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getCardListPanel().rememberSelectedCardCard();
     }
 
     /**
@@ -197,18 +197,18 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getCardListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * Asserts that the browser's url is changed to display the details of the card in the card list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see CardListPanelHandle#isSelectedCardCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getCardListPanel().navigateToCard(getCardListPanel().getSelectedCardIndex());
+        String selectedCardName = getCardListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -217,17 +217,17 @@ public abstract class CardFolderSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getCardListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the browser's url and the selected card in the card list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see CardListPanelHandle#isSelectedCardCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getCardListPanel().isSelectedCardCardChanged());
     }
 
     /**
@@ -271,7 +271,7 @@ public abstract class CardFolderSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getCardListPanel(), getModel().getFilteredCardList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

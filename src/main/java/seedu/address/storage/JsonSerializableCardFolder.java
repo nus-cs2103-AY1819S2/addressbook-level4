@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.CardFolder;
 import seedu.address.model.ReadOnlyCardFolder;
-import seedu.address.model.person.Person;
+import seedu.address.model.card.Card;
 
 /**
  * An Immutable CardFolder that is serializable to JSON format.
@@ -19,16 +19,16 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "cardfolder")
 class JsonSerializableCardFolder {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate card(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedCard> cards = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableCardFolder} with the given persons.
+     * Constructs a {@code JsonSerializableCardFolder} with the given cards.
      */
     @JsonCreator
-    public JsonSerializableCardFolder(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableCardFolder(@JsonProperty("cards") List<JsonAdaptedCard> cards) {
+        this.cards.addAll(cards);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableCardFolder {
      * @param source future changes to this will not affect the created {@code JsonSerializableCardFolder}.
      */
     public JsonSerializableCardFolder(ReadOnlyCardFolder source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        cards.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableCardFolder {
      */
     public CardFolder toModelType() throws IllegalValueException {
         CardFolder cardFolder = new CardFolder();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (cardFolder.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedCard jsonAdaptedCard : cards) {
+            Card card = jsonAdaptedCard.toModelType();
+            if (cardFolder.hasCard(card)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CARD);
             }
-            cardFolder.addPerson(person);
+            cardFolder.addCard(card);
         }
         return cardFolder;
     }

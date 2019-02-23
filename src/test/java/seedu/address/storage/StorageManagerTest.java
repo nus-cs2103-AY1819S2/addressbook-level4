@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalCardFolder;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
 
 import java.nio.file.Path;
 

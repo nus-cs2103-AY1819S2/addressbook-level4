@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
 import seedu.address.model.CardFolder;
-import seedu.address.model.person.Person;
+import seedu.address.model.card.Card;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code CardFolder ab = new CardFolderBuilder().withPerson("John", "Doe").build();}
+ *     {@code CardFolder ab = new CardFolderBuilder().withCard("John", "Doe").build();}
  */
 public class CardFolderBuilder {
 
@@ -21,10 +21,10 @@ public class CardFolderBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code CardFolder} that we are building.
+     * Adds a new {@code Card} to the {@code CardFolder} that we are building.
      */
-    public CardFolderBuilder withPerson(Person person) {
-        cardFolder.addPerson(person);
+    public CardFolderBuilder withCard(Card card) {
+        cardFolder.addCard(card);
         return this;
     }
 

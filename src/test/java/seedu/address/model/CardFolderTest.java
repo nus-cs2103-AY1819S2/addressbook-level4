@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalCardFolder;
+import static seedu.address.testutil.TypicalCards.ALICE;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,9 +21,9 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.testutil.CardBuilder;
 
 public class CardFolderTest {
 
@@ -34,7 +34,7 @@ public class CardFolderTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), cardFolder.getPersonList());
+        assertEquals(Collections.emptyList(), cardFolder.getCardList());
     }
 
     @Test
@@ -51,46 +51,46 @@ public class CardFolderTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateCards_throwsDuplicateCardException() {
+        // Two cards with the same identity fields
+        Card editedAlice = new CardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        CardFolderStub newData = new CardFolderStub(newPersons);
+        List<Card> newCards = Arrays.asList(ALICE, editedAlice);
+        CardFolderStub newData = new CardFolderStub(newCards);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateCardException.class);
         cardFolder.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasCard_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        cardFolder.hasPerson(null);
+        cardFolder.hasCard(null);
     }
 
     @Test
-    public void hasPerson_personNotInCardFolder_returnsFalse() {
-        assertFalse(cardFolder.hasPerson(ALICE));
+    public void hasCard_cardNotInCardFolder_returnsFalse() {
+        assertFalse(cardFolder.hasCard(ALICE));
     }
 
     @Test
-    public void hasPerson_personInCardFolder_returnsTrue() {
-        cardFolder.addPerson(ALICE);
-        assertTrue(cardFolder.hasPerson(ALICE));
+    public void hasCard_cardInCardFolder_returnsTrue() {
+        cardFolder.addCard(ALICE);
+        assertTrue(cardFolder.hasCard(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInCardFolder_returnsTrue() {
-        cardFolder.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasCard_cardWithSameIdentityFieldsInCardFolder_returnsTrue() {
+        cardFolder.addCard(ALICE);
+        Card editedAlice = new CardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(cardFolder.hasPerson(editedAlice));
+        assertTrue(cardFolder.hasCard(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        cardFolder.getPersonList().remove(0);
+        cardFolder.getCardList().remove(0);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class CardFolderTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         cardFolder.addListener(listener);
-        cardFolder.addPerson(ALICE);
+        cardFolder.addCard(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -108,23 +108,23 @@ public class CardFolderTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         cardFolder.addListener(listener);
         cardFolder.removeListener(listener);
-        cardFolder.addPerson(ALICE);
+        cardFolder.addCard(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyCardFolder whose persons list can violate interface constraints.
+     * A stub ReadOnlyCardFolder whose cards list can violate interface constraints.
      */
     private static class CardFolderStub implements ReadOnlyCardFolder {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Card> cards = FXCollections.observableArrayList();
 
-        CardFolderStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        CardFolderStub(Collection<Card> cards) {
+            this.cards.setAll(cards);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Card> getCardList() {
+            return cards;
         }
 
         @Override

@@ -6,14 +6,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.card.Card;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,37 +54,37 @@ public interface Model {
     ReadOnlyCardFolder getCardFolder();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the card folder.
+     * Returns true if a card with the same identity as {@code card} exists in the card folder.
      */
-    boolean hasPerson(Person person);
+    boolean hasCard(Card card);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the card folder.
+     * Deletes the given card.
+     * The card must exist in the card folder.
      */
-    void deletePerson(Person target);
+    void deleteCard(Card target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the card folder.
+     * Adds the given card.
+     * {@code card} must not already exist in the card folder.
      */
-    void addPerson(Person person);
+    void addCard(Card card);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the card folder.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the card folder.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the card folder.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setCard(Card target, Card editedCard);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered card list */
+    ObservableList<Card> getFilteredCardList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredCardList(Predicate<Card> predicate);
 
     /**
      * Returns true if the model has previous card folder states to restore.
@@ -112,19 +112,19 @@ public interface Model {
     void commitCardFolder();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected card in the filtered card list.
+     * null if no card is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Card> selectedCardProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected card in the filtered card list.
+     * null if no card is selected.
      */
-    Person getSelectedPerson();
+    Card getSelectedCard();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected card in the filtered card list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedCard(Card card);
 }

@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalCardFolder;
+import static seedu.address.testutil.TypicalCards.ALICE;
+import static seedu.address.testutil.TypicalCards.HOON;
+import static seedu.address.testutil.TypicalCards.IDA;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -61,15 +61,15 @@ public class JsonCardFolderStorageTest {
     }
 
     @Test
-    public void readCardFolder_invalidPersonCardFolder_throwDataConversionException() throws Exception {
+    public void readCardFolder_invalidCardCardFolder_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readCardFolder("invalidPersonCardFolder.json");
+        readCardFolder("invalidCardCardFolder.json");
     }
 
     @Test
-    public void readCardFolder_invalidAndValidPersonCardFolder_throwDataConversionException() throws Exception {
+    public void readCardFolder_invalidAndValidCardCardFolder_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readCardFolder("invalidAndValidPersonCardFolder.json");
+        readCardFolder("invalidAndValidCardCardFolder.json");
     }
 
     @Test
@@ -84,14 +84,14 @@ public class JsonCardFolderStorageTest {
         assertEquals(original, new CardFolder(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addCard(HOON);
+        original.removeCard(ALICE);
         jsonCardFolderStorage.saveCardFolder(original, filePath);
         readBack = jsonCardFolderStorage.readCardFolder(filePath).get();
         assertEquals(original, new CardFolder(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addCard(IDA);
         jsonCardFolderStorage.saveCardFolder(original); // file path not specified
         readBack = jsonCardFolderStorage.readCardFolder().get(); // file path not specified
         assertEquals(original, new CardFolder(readBack));

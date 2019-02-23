@@ -15,8 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.exceptions.CardNotFoundException;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -26,8 +26,8 @@ public class ModelManager implements Model {
 
     private final VersionedCardFolder versionedCardFolder;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Card> filteredCards;
+    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given cardFolder and userPrefs.
@@ -40,8 +40,8 @@ public class ModelManager implements Model {
 
         versionedCardFolder = new VersionedCardFolder(cardFolder);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedCardFolder.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
+        filteredCards.addListener(this::ensureSelectedCardIsValid);
     }
 
     public ModelManager() {
@@ -96,44 +96,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedCardFolder.hasPerson(person);
+    public boolean hasCard(Card card) {
+        requireNonNull(card);
+        return versionedCardFolder.hasCard(card);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedCardFolder.removePerson(target);
+    public void deleteCard(Card target) {
+        versionedCardFolder.removeCard(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedCardFolder.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addCard(Card card) {
+        versionedCardFolder.addCard(card);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setCard(Card target, Card editedCard) {
+        requireAllNonNull(target, editedCard);
 
-        versionedCardFolder.setPerson(target, editedPerson);
+        versionedCardFolder.setCard(target, editedCard);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Card List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
      * {@code versionedCardFolder}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Card> getFilteredCardList() {
+        return filteredCards;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredCards.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -163,51 +163,51 @@ public class ModelManager implements Model {
         versionedCardFolder.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected card ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
+    public ReadOnlyProperty<Card> selectedCardProperty() {
+        return selectedCard;
     }
 
     @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
+    public Card getSelectedCard() {
+        return selectedCard.getValue();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public void setSelectedCard(Card card) {
+        if (card != null && !filteredCards.contains(card)) {
+            throw new CardNotFoundException();
         }
-        selectedPerson.setValue(person);
+        selectedCard.setValue(card);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedCard} is a valid card in {@code filteredCards}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedCardIsValid(ListChangeListener.Change<? extends Card> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+            if (selectedCard.getValue() == null) {
+                // null is always a valid selected card, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedCardReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedCard.getValue());
+            if (wasSelectedCardReplaced) {
+                // Update selectedCard to its new value.
+                int index = change.getRemoved().indexOf(selectedCard.getValue());
+                selectedCard.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            boolean wasSelectedCardRemoved = change.getRemoved().stream()
+                    .anyMatch(removedCard -> selectedCard.getValue().isSameCard(removedCard));
+            if (wasSelectedCardRemoved) {
+                // Select the card that came before it in the list,
+                // or clear the selection if there is no such card.
+                selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -228,8 +228,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedCardFolder.equals(other.versionedCardFolder)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredCards.equals(other.filteredCards)
+                && Objects.equals(selectedCard.get(), other.selectedCard.get());
     }
 
 }

@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.address.model.CardFolder;
-import seedu.address.model.person.Person;
+import seedu.address.model.card.Card;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
@@ -45,7 +45,7 @@ public class SampleDataTest extends CardFolderSystemTest {
 
     @Test
     public void cardFolder_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+        Card[] expectedList = SampleDataUtil.getSampleCards();
+        assertListMatching(getCardListPanel(), expectedList);
     }
 }

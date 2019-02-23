@@ -111,7 +111,7 @@
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:selected #thumbnailPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
@@ -307,7 +307,7 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#thumbnailPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
@@ -328,7 +328,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #cardListPanel, #cardWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 

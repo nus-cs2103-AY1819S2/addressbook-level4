@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -36,15 +36,15 @@ public class ClearCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in person list and clears card folder -> cleared and no card selected */
+        /* Case: selects first card in card list and clears card folder -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original card folder
-        selectPerson(Index.fromOneBased(1));
+        selectCard(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the person list before clearing -> entire card folder cleared */
+        /* Case: filters the card list before clearing -> entire card folder cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original card folder
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showCardsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

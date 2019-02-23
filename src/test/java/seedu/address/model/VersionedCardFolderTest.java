@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalCards.AMY;
+import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import seedu.address.testutil.CardFolderBuilder;
 
 public class VersionedCardFolderTest {
 
-    private final ReadOnlyCardFolder cardFolderWithAmy = new CardFolderBuilder().withPerson(AMY).build();
-    private final ReadOnlyCardFolder cardFolderWithBob = new CardFolderBuilder().withPerson(BOB).build();
-    private final ReadOnlyCardFolder cardFolderWithCarl = new CardFolderBuilder().withPerson(CARL).build();
+    private final ReadOnlyCardFolder cardFolderWithAmy = new CardFolderBuilder().withCard(AMY).build();
+    private final ReadOnlyCardFolder cardFolderWithBob = new CardFolderBuilder().withCard(BOB).build();
+    private final ReadOnlyCardFolder cardFolderWithCarl = new CardFolderBuilder().withCard(CARL).build();
     private final ReadOnlyCardFolder emptyCardFolder = new CardFolderBuilder().build();
 
     @Test

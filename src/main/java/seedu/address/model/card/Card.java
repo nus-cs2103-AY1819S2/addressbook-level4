@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Card {
 
     // Identity fields
-    private final Name name;
+    private final Question question;
     private final Phone phone;
     private final Email email;
 
@@ -27,17 +27,17 @@ public class Card {
     /**
      * Every field must be present and not null.
      */
-    public Card(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
+    public Card(Question question, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(question, phone, email, address, tags);
+        this.question = question;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Question getQuestion() {
+        return question;
     }
 
     public Phone getPhone() {
@@ -61,7 +61,7 @@ public class Card {
     }
 
     /**
-     * Returns true if both cards of the same name have at least one other identity field that is the same.
+     * Returns true if both cards of the same question have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two cards.
      */
     public boolean isSameCard(Card otherCard) {
@@ -70,7 +70,7 @@ public class Card {
         }
 
         return otherCard != null
-                && otherCard.getName().equals(getName())
+                && otherCard.getQuestion().equals(getQuestion())
                 && (otherCard.getPhone().equals(getPhone()) || otherCard.getEmail().equals(getEmail()));
     }
 
@@ -89,7 +89,7 @@ public class Card {
         }
 
         Card otherCard = (Card) other;
-        return otherCard.getName().equals(getName())
+        return otherCard.getQuestion().equals(getQuestion())
                 && otherCard.getPhone().equals(getPhone())
                 && otherCard.getEmail().equals(getEmail())
                 && otherCard.getAddress().equals(getAddress())
@@ -99,13 +99,13 @@ public class Card {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(question, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getQuestion())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")

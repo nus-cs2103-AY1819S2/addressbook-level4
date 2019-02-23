@@ -5,24 +5,24 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.card.NameContainsKeywordsPredicate;
+import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 
 /**
- * Finds and lists all cards in card folder whose name contains any of the argument keywords.
+ * Finds and lists all cards in card folder whose question contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all cards whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all cards whose questions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final QuestionContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(QuestionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

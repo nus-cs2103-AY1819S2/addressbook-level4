@@ -15,14 +15,14 @@ import seedu.address.model.card.Card;
  */
 public class CardThumbnailHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
-    private static final String NAME_FIELD_ID = "#name";
+    private static final String NAME_FIELD_ID = "#question";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
-    private final Label nameLabel;
+    private final Label questionLabel;
     private final Label addressLabel;
     private final Label phoneLabel;
     private final Label emailLabel;
@@ -32,7 +32,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
-        nameLabel = getChildNode(NAME_FIELD_ID);
+        questionLabel = getChildNode(NAME_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
@@ -49,8 +49,8 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
         return idLabel.getText();
     }
 
-    public String getName() {
-        return nameLabel.getText();
+    public String getQuestion() {
+        return questionLabel.getText();
     }
 
     public String getAddress() {
@@ -76,7 +76,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code card}.
      */
     public boolean equals(Card card) {
-        return getName().equals(card.getName().fullName)
+        return getQuestion().equals(card.getQuestion().fullQuestion)
                 && getAddress().equals(card.getAddress().value)
                 && getPhone().equals(card.getPhone().value)
                 && getEmail().equals(card.getEmail().value)

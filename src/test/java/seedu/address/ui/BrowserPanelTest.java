@@ -33,7 +33,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a card
         guiRobot.interact(() -> selectedCard.set(ALICE));
-        URL expectedCardUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedCardUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getQuestion().fullQuestion.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedCardUrl, browserPanelHandle.getLoadedUrl());

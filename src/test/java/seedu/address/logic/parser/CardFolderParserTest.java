@@ -29,7 +29,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.NameContainsKeywordsPredicate;
+import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 import seedu.address.testutil.CardUtil;
@@ -80,7 +80,7 @@ public class CardFolderParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new QuestionContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

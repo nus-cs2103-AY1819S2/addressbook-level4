@@ -78,7 +78,7 @@ After forking the repo, the documentation will still have the SE-EDU branding an
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-question`, to suit your own project.
 
 . Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
@@ -135,7 +135,7 @@ The rest of the App consists of four components.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same question as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -381,11 +381,11 @@ Attributes left unset in the `build.gradle` file will use their *default value*,
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
 |===
-|Attribute name |Description |Default value
+|Attribute question |Description |Default value
 
-|`site-name`
-|The name of the website.
-If set, the name will be displayed near the top of the page.
+|`site-question`
+|The question of the website.
+If set, the question will be displayed near the top of the page.
 |_not set_
 
 |`site-githuburl`
@@ -413,7 +413,7 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
 |===
-|Attribute name |Description |Default value
+|Attribute question |Description |Default value
 
 |`site-section`
 |Site section that the document belongs to.
@@ -745,7 +745,7 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/card/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/card/Address.java[`Address`], remove the regex and change the questions accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**

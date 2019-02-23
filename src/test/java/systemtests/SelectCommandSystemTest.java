@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends CardFolderSystemTest {
         /* Case: filtered card list, select index within bounds of card folder but out of bounds of card list
          * -> rejected
          */
-        showCardsWithName(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getCardFolder().getCardList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 

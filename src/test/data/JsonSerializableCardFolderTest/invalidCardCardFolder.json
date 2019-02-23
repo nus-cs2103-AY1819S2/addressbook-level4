@@ -1,6 +1,6 @@
 {
   "cards": [ {
-    "name": "Hans Muster",
+    "question": "Hans Muster",
     "phone": "9482424",
     "email": "invalid@email!3e",
     "address": "4th street"

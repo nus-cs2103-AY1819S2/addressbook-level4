@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered card list, delete index within bounds of card folder and card list -> deleted */
-        showCardsWithName(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
         /* Case: filtered card list, delete index within bounds of card folder but out of bounds of card list
          * -> rejected
          */
-        showCardsWithName(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getCardFolder().getCardList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);

@@ -27,7 +27,7 @@ public class CardThumbnail extends UiPart<Region> {
     @FXML
     private HBox thumbnailPane;
     @FXML
-    private Label name;
+    private Label question;
     @FXML
     private Label id;
     @FXML
@@ -43,7 +43,7 @@ public class CardThumbnail extends UiPart<Region> {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
-        name.setText(card.getName().fullName);
+        question.setText(card.getQuestion().fullQuestion);
         phone.setText(card.getPhone().value);
         address.setText(card.getAddress().value);
         email.setText(card.getEmail().value);

@@ -6,7 +6,7 @@ import java.util.Set;
 import seedu.address.model.card.Address;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
-import seedu.address.model.card.Name;
+import seedu.address.model.card.Question;
 import seedu.address.model.card.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -21,14 +21,14 @@ public class CardBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
-    private Name name;
+    private Question question;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
 
     public CardBuilder() {
-        name = new Name(DEFAULT_NAME);
+        question = new Question(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
@@ -39,7 +39,7 @@ public class CardBuilder {
      * Initializes the CardBuilder with the data of {@code cardToCopy}.
      */
     public CardBuilder(Card cardToCopy) {
-        name = cardToCopy.getName();
+        question = cardToCopy.getQuestion();
         phone = cardToCopy.getPhone();
         email = cardToCopy.getEmail();
         address = cardToCopy.getAddress();
@@ -47,10 +47,10 @@ public class CardBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Card} that we are building.
+     * Sets the {@code Question} of the {@code Card} that we are building.
      */
-    public CardBuilder withName(String name) {
-        this.name = new Name(name);
+    public CardBuilder withQuestion(String question) {
+        this.question = new Question(question);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class CardBuilder {
     }
 
     public Card build() {
-        return new Card(name, phone, email, address, tags);
+        return new Card(question, phone, email, address, tags);
     }
 
 }

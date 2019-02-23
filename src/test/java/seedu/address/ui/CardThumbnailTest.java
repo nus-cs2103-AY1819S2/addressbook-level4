@@ -47,7 +47,7 @@ public class CardThumbnailTest extends GuiUnitTest {
         assertFalse(cardThumbnail.equals(0));
 
         // different card, same index -> returns false
-        Card differentCard = new CardBuilder().withName("differentName").build();
+        Card differentCard = new CardBuilder().withQuestion("differentName").build();
         assertFalse(cardThumbnail.equals(new CardThumbnail(differentCard, 0)));
 
         // same card, different index -> returns false

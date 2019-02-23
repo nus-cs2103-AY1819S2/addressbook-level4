@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.card.NameContainsKeywordsPredicate;
+import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.testutil.CardFolderBuilder;
@@ -173,8 +173,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentCardFolder, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] keywords = ALICE.getQuestion().fullQuestion.split("\\s+");
+        modelManager.updateFilteredCardList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(cardFolder, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

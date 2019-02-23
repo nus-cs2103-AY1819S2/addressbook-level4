@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
@@ -23,7 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Address;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
-import seedu.address.model.card.Name;
+import seedu.address.model.card.Question;
 import seedu.address.model.card.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -38,7 +38,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed card list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -95,13 +95,13 @@ public class EditCommand extends Command {
     private static Card createEditedCard(Card cardToEdit, EditCardDescriptor editCardDescriptor) {
         assert cardToEdit != null;
 
-        Name updatedName = editCardDescriptor.getName().orElse(cardToEdit.getName());
+        Question updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
         Phone updatedPhone = editCardDescriptor.getPhone().orElse(cardToEdit.getPhone());
         Email updatedEmail = editCardDescriptor.getEmail().orElse(cardToEdit.getEmail());
         Address updatedAddress = editCardDescriptor.getAddress().orElse(cardToEdit.getAddress());
         Set<Tag> updatedTags = editCardDescriptor.getTags().orElse(cardToEdit.getTags());
 
-        return new Card(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Card(updatedQuestion, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class EditCommand extends Command {
      * corresponding field value of the card.
      */
     public static class EditCardDescriptor {
-        private Name name;
+        private Question question;
         private Phone phone;
         private Email email;
         private Address address;
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditCardDescriptor(EditCardDescriptor toCopy) {
-            setName(toCopy.name);
+            setQuestion(toCopy.question);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -151,15 +151,15 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(question, phone, email, address, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setQuestion(Question question) {
+            this.question = question;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Question> getQuestion() {
+            return Optional.ofNullable(question);
         }
 
         public void setPhone(Phone phone) {
@@ -218,7 +218,7 @@ public class EditCommand extends Command {
             // state check
             EditCardDescriptor e = (EditCardDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getQuestion().equals(e.getQuestion())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())

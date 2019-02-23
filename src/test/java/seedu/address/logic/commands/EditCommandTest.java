@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -58,10 +58,10 @@ public class EditCommandTest {
         Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
 
         CardBuilder cardInList = new CardBuilder(lastCard);
-        Card editedCard = cardInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Card editedCard = cardInList.withQuestion(VALID_QUESTION_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastCard, descriptor);
 
@@ -92,9 +92,9 @@ public class EditCommandTest {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
         Card cardInFilteredList = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
-        Card editedCard = new CardBuilder(cardInFilteredList).withName(VALID_NAME_BOB).build();
+        Card editedCard = new CardBuilder(cardInFilteredList).withQuestion(VALID_QUESTION_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD,
-                new EditCardDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
@@ -129,7 +129,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidCardIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -147,7 +147,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getCardFolder().getCardList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditCardDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_BOB).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
@@ -177,7 +177,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> card folder state not added into model

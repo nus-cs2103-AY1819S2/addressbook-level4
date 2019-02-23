@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: filters the card list before clearing -> entire card folder cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original card folder
-        showCardsWithName(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

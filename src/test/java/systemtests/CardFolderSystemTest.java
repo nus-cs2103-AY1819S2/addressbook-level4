@@ -142,9 +142,9 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all cards with any parts of their questions matching {@code keyword} (case-insensitive).
      */
-    protected void showCardsWithName(String keyword) {
+    protected void showCardsWithQuestion(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredCardList().size() < getModel().getCardFolder().getCardList().size());
     }
@@ -208,10 +208,10 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCardListPanel().navigateToCard(getCardListPanel().getSelectedCardIndex());
-        String selectedCardName = getCardListPanel().getHandleToSelectedCard().getName();
+        String selectedCardQuestion = getCardListPanel().getHandleToSelectedCard().getQuestion();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardQuestion.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }

@@ -63,7 +63,7 @@ Format: `delete INDEX`
 
 === Create new folder : `addfolder`
 
-Creates a new flashcard folder with the specified name. +
+Creates a new flashcard folder with the specified question. +
 Format: `addfolder FOLDER_NAME`
 
 === Remove folder : `removefolder`

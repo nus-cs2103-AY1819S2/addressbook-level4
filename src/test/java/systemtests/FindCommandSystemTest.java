@@ -89,18 +89,18 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find card in card folder, keyword is same as name but of different case -> 1 card found */
+        /* Case: find card in card folder, keyword is same as question but of different case -> 1 card found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find card in card folder, keyword is substring of name -> 0 cards found */
+        /* Case: find card in card folder, keyword is substring of question -> 0 cards found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find card in card folder, name is substring of keyword -> 0 cards found */
+        /* Case: find card in card folder, question is substring of keyword -> 0 cards found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
@@ -135,7 +135,7 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
         /* Case: find while a card is selected -> selected card deselected */
         showAllCards();
         selectCard(Index.fromOneBased(1));
-        assertFalse(getCardListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
+        assertFalse(getCardListPanel().getHandleToSelectedCard().getQuestion().equals(DANIEL.getQuestion().fullQuestion));
         command = FindCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);

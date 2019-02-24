@@ -5,6 +5,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.LinkedList;
 
+/**
+ * Represents a module's module prerequisite
+ * Guarantees: immutable; is valid as declared in {@link #isValidModulePrereq(String)}
+ */
 public class ModulePrereq {
 
     public static final String MESSAGE_CONSTRAINTS =

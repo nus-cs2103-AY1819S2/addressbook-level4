@@ -3,6 +3,10 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a module's module title
+ * Guarantees: immutable; is valid as declared in {@link #isValidModuleTitle(String)}
+ */
 public class ModuleTitle {
     public static final String MESSAGE_CONSTRAINTS =
             "Only alphanumeric characters and first character cannot be whitespace";

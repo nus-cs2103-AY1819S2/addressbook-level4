@@ -2,6 +2,10 @@ package seedu.address.model.module;
 
 import java.util.Objects;
 
+/**
+ * Represents a module in Graduation Tracker
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Module {
 
     private final ModuleCode moduleCode;
@@ -46,6 +50,10 @@ public class Module {
         return moduleCredits;
     }
 
+    /**
+     * Returns true if both modules have same module code or same module title.
+     * This defines a weaker notion of equality between two modules.
+     */
     public boolean isSameModule(Module other) {
         if (other == this) {
             return true;
@@ -59,8 +67,8 @@ public class Module {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, moduleTitle, moduleDescription, moduleDepartment
-                , modulePrereq, moduleCredits);
+        return Objects.hash(moduleCode, moduleTitle, moduleDescription, moduleDepartment,
+                modulePrereq, moduleCredits);
     }
 
     @Override

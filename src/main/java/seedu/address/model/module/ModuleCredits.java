@@ -2,6 +2,10 @@ package seedu.address.model.module;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a module's module credit
+ * Guarantees: immutable; is valid as declared in {@link #isValidModuleCredits(String)}
+ */
 public class ModuleCredits {
 
     public static final String MESSAGE_CONSTRAINTS =

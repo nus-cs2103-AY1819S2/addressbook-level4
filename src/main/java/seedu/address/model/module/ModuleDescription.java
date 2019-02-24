@@ -3,6 +3,10 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a module's module description
+ * Guarantees: immutable; is valid as declared in {@link #isValidModuleDescription(String)}
+ */
 public class ModuleDescription {
     public static final String MESSAGE_CONSTRAINTS =
             "Must consist of at least 1 word and cannot start with whitespace";

@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.card.Address;
+import seedu.address.model.card.Answer;
+import seedu.address.model.card.Email;
+import seedu.address.model.card.Question;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,33 +36,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String question} into a {@code Question}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code question} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static Question parseQuestion(String question) throws ParseException {
+        requireNonNull(question);
+        String trimmedQuestion = question.trim();
+        if (!Question.isValidQuestion(trimmedQuestion)) {
+            throw new ParseException(Question.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Question(trimmedQuestion);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String answer} into a {@code Answer}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code answer} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Answer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Answer(trimmedAnswer);
     }
 
     /**

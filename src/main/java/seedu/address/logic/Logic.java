@@ -8,8 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.model.card.Card;
 
 /**
  * API of the Logic component
@@ -25,14 +25,14 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the CardFolder.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getCardFolder()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyCardFolder getCardFolder();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of cards */
+    ObservableList<Card> getFilteredCardList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -41,9 +41,9 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' card folder file path.
      */
-    Path getAddressBookFilePath();
+    Path getCardFolderFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,17 +56,17 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected card in the filtered card list.
+     * null if no card is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedCardProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Card> selectedCardProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected card in the filtered card list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @see seedu.address.model.Model#setSelectedCard(Card)
      */
-    void setSelectedPerson(Person person);
+    void setSelectedCard(Card card);
 }

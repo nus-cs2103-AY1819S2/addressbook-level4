@@ -16,7 +16,7 @@ public class ModuleCode {
         value = moduleCode;
     }
 
-    public boolean isValidModuleCode(String test) {
+    public static boolean isValidModuleCode(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

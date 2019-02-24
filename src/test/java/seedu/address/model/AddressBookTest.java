@@ -103,27 +103,6 @@ public class AddressBookTest {
     }
 
     @Test
-    public void removeTag_nonExistentTag_addressBookUnchanged() throws Exception {
-        addressBookWithBobAndAmy.removeTag(new Tag(VALID_TAG_UNUSED));
-
-        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
-
-        assertEquals(expectedAddressBook, addressBookWithBobAndAmy);
-    }
-
-    @Test
-    public void removeTag_tagUsedByMultiplePersons_tagRemoved() throws Exception {
-        addressBookWithBobAndAmy.removeTag(new Tag(VALID_TAG_FRIEND));
-
-        Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
-        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag)
-                .withPerson(amyWithoutFriendTag).build();
-
-        assertEquals(expectedAddressBook, addressBookWithBobAndAmy);
-    }
-
-    @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);

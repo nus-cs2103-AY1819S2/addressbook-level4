@@ -3,7 +3,6 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 [![Build Status](https://travis-ci.org/cs2103-ay1819s2-t12-1/main.svg?branch=master)](https://travis-ci.org/cs2103-ay1819s2-t12-1/main)
 [![Coverage Status](https://coveralls.io/repos/github/cs2103-ay1819s2-t12-1/main/badge.svg?branch=master)](https://coveralls.io/github/cs2103-ay1819s2-t12-1/main?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/53f8f7d769b54d2cac03c05c6c81336e)](https://www.codacy.com/app/sreycodes/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cs2103-ay1819s2-t12-1/main&amp;utm_campaign=Badge_Grade)
 
 * This is a hotel management system. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.

@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -48,6 +51,10 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+
+    // seedu.address.quickdocs attributes
+    private Stage primaryStage;
+    private AnchorPane rootLayout;
 
     @Override
     public void init() throws Exception {
@@ -168,11 +175,11 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
-        ui.start(primaryStage);
-    }
+    //@Override
+    //public void start(Stage primaryStage) {
+    //    logger.info("Starting AddressBook " + MainApp.VERSION);
+    //    ui.start(primaryStage);
+    //}
 
     @Override
     public void stop() {
@@ -187,4 +194,43 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    // Quickdocs codes
+
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("QuickDocs");
+        this.primaryStage.setMinWidth(400);
+        this.primaryStage.setMinHeight(300);
+        initRootLayout();
+    }
+
+    /**
+     * Display the root layout when application is launched
+     */
+    public void initRootLayout() {
+
+
+        try {
+            // Load root layout from fxml file.
+
+            FXMLLoader loader = new FXMLLoader();
+            //loader.setLocation(MainApp.class.getClassLoader().getResource("RootLayout.fxml"));
+            //rootLayout = (AnchorPane) loader.load();
+
+            //this will work when the rootlayout fxml file is in the resources folder but cannot link to controller
+            rootLayout = loader.load(getClass().getClassLoader().getResourceAsStream("view/RootLayout.fxml"));
+
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

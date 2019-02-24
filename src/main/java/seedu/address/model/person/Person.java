@@ -102,8 +102,6 @@ public class Person {
         return Objects.hash(name, phone, email, address, tags);
     }
 
-
-
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

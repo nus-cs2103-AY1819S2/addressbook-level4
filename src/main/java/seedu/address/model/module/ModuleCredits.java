@@ -6,26 +6,26 @@ public class ModuleCredits {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Module credits is at least 0, at most 20";
-    public static final int MAX_CREDITS = 20;
-    public static final int MIN_CREDITS = 0;
-    public final int credits;
+    public static final String VALIDATION_REGEX = "20|1?\\d";
+    public final Integer credits;
 
-    public ModuleCredits(int moduleCredits) {
+    public ModuleCredits(String moduleCredits) {
         checkArgument(isValidModuleCredits(moduleCredits), MESSAGE_CONSTRAINTS);
-        credits = moduleCredits;
+        credits = Integer.valueOf(moduleCredits);
     }
 
-    public boolean isValidModuleCredits(int test) {
-        return test <= MAX_CREDITS && test>= MIN_CREDITS;
+    public static boolean isValidModuleCredits(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String toString() {
-        return String.format("%d", credits);
+        return credits.toString();
     }
 
     public int getCredits() {
         return credits;
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -35,6 +35,6 @@ public class ModuleCredits {
 
     @Override
     public int hashCode() {
-        return credits;
+        return credits.hashCode();
     }
 }

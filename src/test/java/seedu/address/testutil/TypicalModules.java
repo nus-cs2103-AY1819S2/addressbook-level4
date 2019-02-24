@@ -27,7 +27,7 @@ public class TypicalModules {
                     "fundamental data structures (arrays, strings, composite data types), basic sorting, and recursion."
             ),
             new ModulePrereq("Nil", new LinkedList<Module>()),
-            new ModuleDepartment("Computer Science"), new ModuleCredits(4));
+            new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
     public static final Module CS2030 = new Module(new ModuleCode("CS2030"), new ModuleTitle("Programming Methodology II"),
             new ModuleDescription("This module is a follow up to CS1010. It explores two modern programming paradigms, " +
@@ -41,7 +41,7 @@ public class TypicalModules {
                     "effect-free programming, first class functions, closures, continuations, monad, etc."
             ),
             new ModulePrereq("CS1010", new LinkedList<Module>(Arrays.asList(CS1010))),
-            new ModuleDepartment("Computer Science"), new ModuleCredits(4));
+            new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
 
     public static final Module CS2040 = new Module(new ModuleCode("CS2040"), new ModuleTitle("Data Structures and Algorithms"),
@@ -52,7 +52,7 @@ public class TypicalModules {
                     "searching and sorting algorithms, and basic analysis of algorithms."),
             new ModulePrereq("CS1010",
                     new LinkedList<Module>(Arrays.asList(CS1010))),
-            new ModuleDepartment("Computer Science"), new ModuleCredits(4));
+            new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
     public static final Module CS2040C = new Module(new ModuleCode("CS2040C"),
             new ModuleTitle("Data Structures and Algorithms"),
@@ -65,7 +65,7 @@ public class TypicalModules {
             ),
             new ModulePrereq("CS1010",
                     new LinkedList<Module>(Arrays.asList(CS1010))),
-            new ModuleDepartment("Computer Science"), new ModuleCredits(4));
+            new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
     public static final Module CS2103T = new Module(new ModuleCode("CS2103T"), new ModuleTitle("Software Engineering"),
             new ModuleDescription("This module introduces the necessary conceptual and analytical tools for " +
@@ -81,7 +81,7 @@ public class TypicalModules {
             new ModulePrereq("For SoC students only. " +
                     "(CS1020 or CS1020E or CS2020) or (CS2030 and (CS2040 or CS2040C))",
                     new LinkedList<Module>(Arrays.asList(CS2030, CS2040, CS2040C))),
-            new ModuleDepartment("Computer Science"), new ModuleCredits(4));
+            new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
     public static final Module MA1512 = new Module(new ModuleCode("MA1512"), new ModuleTitle("Calculus for Computing"),
             new ModuleDescription("This module provides a basic foundation for calculus " +
@@ -100,7 +100,7 @@ public class TypicalModules {
                     "Basic numerical methods for ordinary differential equations."
             ),
             new ModulePrereq("GCE ‘A’ level Mathematics or H2 Mathematics or H2 Further Mathematics", new LinkedList<Module>()),
-            new ModuleDepartment("Computer Science"), new ModuleCredits(4));
+            new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
 
     public static final Module LSM1301 = new Module(new ModuleCode("LSM1301"), new ModuleTitle("General Biology"),
@@ -117,11 +117,11 @@ public class TypicalModules {
                     "The focus will be to introduce the unifying concepts in biology " +
                     "and how they play a role in everyday life."),
             new ModulePrereq("Nil", new LinkedList<Module>()),
-            new ModuleDepartment(("Life Science")), new ModuleCredits(4));
+            new ModuleDepartment(("Life Science")), new ModuleCredits("4"));
 
     private TypicalModules() {}
 
-    public static List<Module> getTypicalModules() {
-        return new ArrayList<>(Arrays.asList(CS1010, CS2030, CS2040, CS2040C, CS2103T, LSM1301));
+    public static LinkedList<Module> getTypicalModules() {
+        return new LinkedList<>(Arrays.asList(CS1010, CS2030, CS2040, CS2040C, CS2103T, LSM1301));
     }
 }

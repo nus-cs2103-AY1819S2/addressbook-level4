@@ -40,7 +40,7 @@ class ModuleTest {
         Module modifiedCS2040 = new ModuleBuilder().withModuleCode("CS2040")
             .withModuleTitle("Algorithms and Data Structures")
             .withModuleDescription(CS2040.getModuleDescription().toString())
-            .withModuleCredits(CS2040.getModuleCredits().getCredits())
+            .withModuleCredits(CS2040.getModuleCredits().toString())
             .withModuleDepartment(CS2040.getModuleDepartment().toString())
             .withModulePrereq(CS2040.getModulePrereq().toString(),
                     (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -50,7 +50,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode("CS2040C")
                 .withModuleTitle(CS2040.getModuleTitle().toString())
                 .withModuleDescription(CS2040.getModuleDescription().toString())
-                .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                .withModuleCredits(CS2040.getModuleCredits().toString())
                 .withModuleDepartment(CS2040.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -61,7 +61,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode("CS2040C")
                 .withModuleTitle("Algorithms and Data Structures")
                 .withModuleDescription(CS2040.getModuleDescription().toString())
-                .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                .withModuleCredits(CS2040.getModuleCredits().toString())
                 .withModuleDepartment(CS2040.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -71,7 +71,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode(CS2040.getModuleCode().toString())
                 .withModuleTitle(CS2040.getModuleTitle().toString())
                 .withModuleDescription(CS1010.getModuleDescription().toString())
-                .withModuleCredits(CS1010.getModuleCredits().getCredits())
+                .withModuleCredits(CS1010.getModuleCredits().toString())
                 .withModuleDepartment(CS1010.getModuleDepartment().toString())
                 .withModulePrereq(CS1010.getModulePrereq().toString(),
                         (CS1010.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -84,7 +84,7 @@ class ModuleTest {
         Module modifiedCS2040 = new ModuleBuilder().withModuleCode(CS2040.getModuleTitle().toString())
                 .withModuleTitle(CS2040.getModuleTitle().toString())
                 .withModuleDescription(CS2040.getModuleDescription().toString())
-                .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                .withModuleCredits(CS2040.getModuleCredits().toString())
                 .withModuleDepartment(CS2040.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -105,7 +105,7 @@ class ModuleTest {
          modifiedCS2040 = new ModuleBuilder().withModuleCode("CS2040C")
                             .withModuleTitle(CS2040.getModuleTitle().toString())
                             .withModuleDescription(CS2040.getModuleDescription().toString())
-                            .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                            .withModuleCredits(CS2040.getModuleCredits().toString())
                             .withModuleDepartment(CS2040.getModuleDepartment().toString())
                             .withModulePrereq(CS2040.getModulePrereq().toString(),
                                     (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -115,7 +115,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode(CS2040.getModuleTitle().toString())
                 .withModuleTitle("Algorithms and Data Structures")
                 .withModuleDescription(CS2040.getModuleDescription().toString())
-                .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                .withModuleCredits(CS2040.getModuleCredits().toString())
                 .withModuleDepartment(CS2040.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -125,7 +125,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode(CS2040.getModuleTitle().toString())
                 .withModuleTitle(CS2040.getModuleTitle().toString())
                 .withModuleDescription(CS1010.getModuleDescription().toString())
-                .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                .withModuleCredits(CS2040.getModuleCredits().toString())
                 .withModuleDepartment(CS2040.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -135,7 +135,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode(CS2040.getModuleTitle().toString())
                 .withModuleTitle(CS2040.getModuleTitle().toString())
                 .withModuleDescription(CS2040.getModuleDescription().toString())
-                .withModuleCredits(10)
+                .withModuleCredits("10")
                 .withModuleDepartment(CS2040.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -145,7 +145,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode(CS2040.getModuleTitle().toString())
                 .withModuleTitle(CS2040.getModuleTitle().toString())
                 .withModuleDescription(CS2040.getModuleDescription().toString())
-                .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                .withModuleCredits(CS2040.getModuleCredits().toString())
                 .withModuleDepartment(LSM1301.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2040.getModulePrereq().prereq).toArray(new Module[0])).build();
@@ -155,7 +155,7 @@ class ModuleTest {
         modifiedCS2040 = new ModuleBuilder().withModuleCode(CS2040.getModuleTitle().toString())
                 .withModuleTitle(CS2040.getModuleTitle().toString())
                 .withModuleDescription(CS2040.getModuleDescription().toString())
-                .withModuleCredits(CS2040.getModuleCredits().getCredits())
+                .withModuleCredits(CS2040.getModuleCredits().toString())
                 .withModuleDepartment(CS2040.getModuleDepartment().toString())
                 .withModulePrereq(CS2040.getModulePrereq().toString(),
                         (CS2103T.getModulePrereq().prereq).toArray(new Module[0])).build();

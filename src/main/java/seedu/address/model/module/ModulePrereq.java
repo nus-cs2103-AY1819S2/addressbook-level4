@@ -26,7 +26,7 @@ public class ModulePrereq {
     }
 
 
-    public boolean isValidModulePrereq(String test) {
+    public static boolean isValidModulePrereq(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

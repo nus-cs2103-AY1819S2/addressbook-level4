@@ -5,8 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class ModuleDepartment {
     public static final String MESSAGE_CONSTRAINTS =
-            "Must consist of at least 1 word and cannot begin with whitespace";
-    public static final String VALIDATION_REGEX  = "[^\\s].*";
+            "Must consist of only characters and white spaces and cannot begin with whitespace.";
+    public static final String VALIDATION_REGEX  = "[^\\s1-9][a-zA-Z ]{0,}";
     public final String department;
 
     public ModuleDepartment(String moduleDepartment) {
@@ -15,7 +15,7 @@ public class ModuleDepartment {
         department = moduleDepartment;
     }
 
-    public boolean isValidModuleDepartment(String test) {
+    public static boolean isValidModuleDepartment(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

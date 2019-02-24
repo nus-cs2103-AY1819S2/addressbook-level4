@@ -29,7 +29,7 @@ public class ModuleBuilder {
             "program correctness, and software quality will also be covered.";
     public static final String DEFAULT_MODULEPREREQUISITE = "CS1010";
     public static final String DEFAULT_MODULEDEPARTMENT = "Computer Science";
-    public static final int DEFAULT_MODULECREDITS = 4;
+    public static final String DEFAULT_MODULECREDITS = "4";
 
     public static final LinkedList<Module> DEFAULT_PREREQLIST =
             new LinkedList<>(Arrays.asList(TypicalModules.CS2030,
@@ -96,7 +96,7 @@ public class ModuleBuilder {
         return this;
     }
 
-    public ModuleBuilder withModuleCredits(int credits) {
+    public ModuleBuilder withModuleCredits(String credits) {
         this.moduleCredits = new ModuleCredits(credits);
         return this;
     }

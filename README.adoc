@@ -1,10 +1,15 @@
 = Address Book (Level 4)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+
 image:https://travis-ci.org/cs2103-ay1819s2-w13-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/cs2103-ay1819s2-w13-1/main"]
+<<<<<<< HEAD
 https://ci.appveyor.com/project/wayneswq/main/branch/master[image:https://ci.appveyor.com/api/projects/status/yulbp51x3qkkyrlu/branch/master?svg=true[Build status]]
 https://coveralls.io/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+=======
+
+>>>>>>> modify readme.adoc
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,25 +19,27 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
-
+* This is a desktop patient management application designed for clinic receptionists. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* Nowadays many clinic receptionists are still using pen and paper to track patients' information, which can be quite troublesome if the number of patients is large. Our patient management application is designed specifically to make this process much easier for them.
+* The features we provide include:
+** Make, edit and delete appointments for patients
+** Keep track of, edit and delete the medical history for each patient
+** Undo or redo the modification you have just made to the system
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
+<<<<<<< HEAD
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], https://github.com/se-edu/[travis-ci]
+=======
+* The original source of the code comes from AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/
+
+>>>>>>> modify readme.adoc
 == Licence : link:LICENSE[MIT]

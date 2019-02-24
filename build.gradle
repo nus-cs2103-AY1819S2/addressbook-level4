@@ -155,15 +155,18 @@ test {
 
         if (runNonGuiTests) {
             test.include 'seedu/address/**'
+            test.include 'braintree/**'
         }
 
         if (runGuiTests) {
             test.include 'systemtests/**'
             test.include 'seedu/address/ui/**'
+            test.include 'braintree/ui/**'
         }
 
         if (!runGuiTests) {
             test.exclude 'seedu/address/ui/**'
+            test.include 'braintree/**'
         }
     }
 }

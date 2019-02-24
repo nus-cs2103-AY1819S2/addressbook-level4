@@ -3,13 +3,10 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 
 image:https://travis-ci.org/cs2103-ay1819s2-w13-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/cs2103-ay1819s2-w13-1/main"]
-<<<<<<< HEAD
+
 https://ci.appveyor.com/project/wayneswq/main/branch/master[image:https://ci.appveyor.com/api/projects/status/yulbp51x3qkkyrlu/branch/master?svg=true[Build status]]
 https://coveralls.io/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-=======
-
->>>>>>> modify readme.adoc
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -34,13 +31,7 @@ endif::[]
 
 == Acknowledgements
 
-<<<<<<< HEAD
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], https://github.com/se-edu/[travis-ci]
-=======
 * The original source of the code comes from AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
->>>>>>> modify readme.adoc
 == Licence : link:LICENSE[MIT]

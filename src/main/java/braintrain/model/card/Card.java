@@ -1,5 +1,7 @@
 package braintrain.model.card;
 
+import static braintrain.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +19,7 @@ public class Card {
      * Every field must be present and not null.
      */
     public Card(List<String> cores, List<String> optionals) {
-        // requireAllNonNull(cores, optionals);
+        requireAllNonNull(cores, optionals);
         this.cores.addAll(cores);
         this.optionals.addAll(optionals);
     }

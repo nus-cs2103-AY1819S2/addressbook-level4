@@ -2,9 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,22 +15,22 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.card.Address;
+import seedu.address.model.card.Answer;
+import seedu.address.model.card.Email;
+import seedu.address.model.card.Question;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_QUESTION = "R@chel";
+    private static final String INVALID_ANSWER = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_QUESTION = "Rachel Walker";
+    private static final String VALID_ANSWER = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -58,56 +57,56 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_CARD, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_CARD, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
-    public void parseName_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+    public void parseQuestion_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseQuestion((String) null));
     }
 
     @Test
-    public void parseName_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+    public void parseQuestion_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseQuestion(INVALID_QUESTION));
     }
 
     @Test
-    public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+    public void parseQuestion_validValueWithoutWhitespace_returnsQuestion() throws Exception {
+        Question expectedQuestion = new Question(VALID_QUESTION);
+        assertEquals(expectedQuestion, ParserUtil.parseQuestion(VALID_QUESTION));
     }
 
     @Test
-    public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    public void parseQuestion_validValueWithWhitespace_returnsTrimmedQuestion() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_QUESTION + WHITESPACE;
+        Question expectedQuestion = new Question(VALID_QUESTION);
+        assertEquals(expectedQuestion, ParserUtil.parseQuestion(nameWithWhitespace));
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseAnswer_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAnswer((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseAnswer_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAnswer(INVALID_ANSWER));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseAnswer_validValueWithoutWhitespace_returnsAnswer() throws Exception {
+        Answer expectedAnswer = new Answer(VALID_ANSWER);
+        assertEquals(expectedAnswer, ParserUtil.parseAnswer(VALID_ANSWER));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseAnswer_validValueWithWhitespace_returnsTrimmedAnswer() throws Exception {
+        String answerWithWhitespace = WHITESPACE + VALID_ANSWER + WHITESPACE;
+        Answer expectedAnswer = new Answer(VALID_ANSWER);
+        assertEquals(expectedAnswer, ParserUtil.parseAnswer(answerWithWhitespace));
     }
 
     @Test

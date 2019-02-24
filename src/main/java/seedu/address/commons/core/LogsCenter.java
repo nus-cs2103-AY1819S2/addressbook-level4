@@ -18,7 +18,7 @@ import java.util.logging.SimpleFormatter;
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
-    private static final String LOG_FILE = "addressbook.log";
+    private static final String LOG_FILE = "cardfolder.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
@@ -27,7 +27,7 @@ public class LogsCenter {
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
      * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
-     * Logging levels for existing loggers will only be updated if the logger with the same name
+     * Logging levels for existing loggers will only be updated if the logger with the same question
      * is requested again from the LogsCenter.
      */
     public static void init(Config config) {

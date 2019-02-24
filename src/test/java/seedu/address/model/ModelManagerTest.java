@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
+import static seedu.address.testutil.TypicalCards.ALICE;
+import static seedu.address.testutil.TypicalCards.BENSON;
+import static seedu.address.testutil.TypicalCards.BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,11 +19,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.QuestionContainsKeywordsPredicate;
+import seedu.address.model.card.exceptions.CardNotFoundException;
+import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.CardFolderBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -35,8 +35,8 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(new CardFolder(), new CardFolder(modelManager.getCardFolder()));
+        assertEquals(null, modelManager.getSelectedCard());
     }
 
     @Test
@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setCardFolderFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setCardFolderFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,91 +73,91 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setCardFolderFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.setCardFolderFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setCardFolderFilePath_validPath_setsCardFolderFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setCardFolderFilePath(path);
+        assertEquals(path, modelManager.getCardFolderFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasCard_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.hasCard(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasCard_cardNotInCardFolder_returnsFalse() {
+        assertFalse(modelManager.hasCard(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasCard_cardInCardFolder_returnsTrue() {
+        modelManager.addCard(ALICE);
+        assertTrue(modelManager.hasCard(ALICE));
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
-        assertEquals(null, modelManager.getSelectedPerson());
+    public void deleteCard_cardIsSelectedAndFirstCardInFilteredCardList_selectionCleared() {
+        modelManager.addCard(ALICE);
+        modelManager.setSelectedCard(ALICE);
+        modelManager.deleteCard(ALICE);
+        assertEquals(null, modelManager.getSelectedCard());
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+    public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
+        modelManager.addCard(ALICE);
+        modelManager.addCard(BOB);
+        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredCardList());
+        modelManager.setSelectedCard(BOB);
+        modelManager.deleteCard(BOB);
+        assertEquals(ALICE, modelManager.getSelectedCard());
     }
 
     @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        modelManager.setPerson(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedPerson());
+    public void setCard_cardIsSelected_selectedCardUpdated() {
+        modelManager.addCard(ALICE);
+        modelManager.setSelectedCard(ALICE);
+        Card updatedAlice = new CardBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        modelManager.setCard(ALICE, updatedAlice);
+        assertEquals(updatedAlice, modelManager.getSelectedCard());
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        modelManager.getFilteredCardList().remove(0);
     }
 
     @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
+    public void setSelectedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
+        thrown.expect(CardNotFoundException.class);
+        modelManager.setSelectedCard(ALICE);
     }
 
     @Test
-    public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+    public void setSelectedCard_cardInFilteredCardList_setsSelectedCard() {
+        modelManager.addCard(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCardList());
+        modelManager.setSelectedCard(ALICE);
+        assertEquals(ALICE, modelManager.getSelectedCard());
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        CardFolder cardFolder = new CardFolderBuilder().withCard(ALICE).withCard(BENSON).build();
+        CardFolder differentCardFolder = new CardFolder();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(cardFolder, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(cardFolder, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -169,20 +169,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different cardFolder -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentCardFolder, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        String[] keywords = ALICE.getQuestion().fullQuestion.split("\\s+");
+        modelManager.updateFilteredCardList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(cardFolder, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setCardFolderFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(cardFolder, differentUserPrefs)));
     }
 }

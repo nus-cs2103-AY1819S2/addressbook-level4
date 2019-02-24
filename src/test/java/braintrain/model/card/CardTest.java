@@ -21,9 +21,6 @@ public class CardTest {
         // different object -> returns false
         assertFalse(BELGIUM.equals(JAPAN));
 
-        // null -> returns false
-        assertFalse(JAPAN.equals(null));
-
         // same cores and optionals -> returns true
         Card belgiumCopy = new CardBuilder(BELGIUM).build();
         assertTrue(BELGIUM.equals(belgiumCopy));
@@ -31,7 +28,7 @@ public class CardTest {
         // same cores with modified optionals -> returns false
         Card modifiedCopy = new CardBuilder(JAPAN).withOptionals("Same characters as Kyoto").build();
         assertFalse(JAPAN.equals(modifiedCopy));
-        
+
         // modify existing card to have same cores and optionals as another card -> returns true
         modifiedCopy = new CardBuilder(BELGIUM)
                 .withCores(JAPAN_QUESTION, JAPAN_ANSWER)

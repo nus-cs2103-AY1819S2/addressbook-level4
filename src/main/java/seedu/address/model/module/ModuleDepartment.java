@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ModuleDepartment {
     public static final String MESSAGE_CONSTRAINTS =
             "Must consist of only characters and white spaces and cannot begin with whitespace.";
-    public static final String VALIDATION_REGEX  = "[^\\s1-9][a-zA-Z ]{0,}";
+    public static final String VALIDATION_REGEX = "[^\\s1-9][a-zA-Z ]{0,}";
     public final String department;
 
     public ModuleDepartment(String moduleDepartment) {

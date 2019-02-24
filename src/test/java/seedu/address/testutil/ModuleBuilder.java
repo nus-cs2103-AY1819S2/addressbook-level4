@@ -8,25 +8,27 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleCredits;
 import seedu.address.model.module.ModuleDepartment;
 import seedu.address.model.module.ModuleDescription;
-import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.ModulePrereq;
-
-import seedu.address.testutil.TypicalModules;
-
+import seedu.address.model.module.ModuleTitle;
+/**
+ * Helper class to build modules for testing
+ */
 public class ModuleBuilder {
 
-    public static final String DEFAULT_MODULECODE  = "CS2103T";
+    public static final String DEFAULT_MODULECODE = "CS2103T";
     public static final String DEFAULT_MODULETITLE = "Software Engineering";
-    public static final String DEFAULT_MODULEDESCRIPTION = "This module introduces the necessary conceptual and analytical tools for " +
-            "systematic and rigorous development of software systems. " +
-            "It covers four main areas of software development, namely object-oriented system analysis, " +
-            "object-oriented system modelling and design, implementation, " +
-            "and testing, with emphasis on system modelling and design and " +
-            "implementation of software modules that work cooperatively to fulfill the requirements of the system. " +
-            "Tools and techniques for software development, " +
-            "such as Unified Modelling Language (UML), program specification, and testing methods, " +
-            "will be taught. Major software engineering issues such as modularisation criteria, " +
-            "program correctness, and software quality will also be covered.";
+    public static final String DEFAULT_MODULEDESCRIPTION =
+            "This module introduces the necessary conceptual and analytical tools for "
+                    + "systematic and rigorous development of software systems. "
+                    + "It covers four main areas of software development, namely object-oriented system analysis, "
+                    + "object-oriented system modelling and design, implementation, "
+                    + "and testing, with emphasis on system modelling and design and "
+                    + "implementation of software modules that work cooperatively to "
+                    + "fulfill the requirements of the system. "
+                    + "Tools and techniques for software development, "
+                    + "such as Unified Modelling Language (UML), program specification, and testing methods, "
+                    + "will be taught. Major software engineering issues such as modularisation criteria, "
+                    + "program correctness, and software quality will also be covered.";
     public static final String DEFAULT_MODULEPREREQUISITE = "CS1010";
     public static final String DEFAULT_MODULEDEPARTMENT = "Computer Science";
     public static final String DEFAULT_MODULECREDITS = "4";
@@ -51,7 +53,11 @@ public class ModuleBuilder {
         moduleCredits = new ModuleCredits(DEFAULT_MODULECREDITS);
     }
 
-    public ModuleBuilder (Module moduleToCopy) {
+
+    /**
+     * Initializes the ModuleBuilder with the data of {@code moduleToCopy}.
+     */
+    public ModuleBuilder(Module moduleToCopy) {
         moduleCode = moduleToCopy.getModuleCode();
         moduleTitle = moduleToCopy.getModuleTitle();
         moduleDescription = moduleToCopy.getModuleDescription();
@@ -60,13 +66,16 @@ public class ModuleBuilder {
         moduleCredits = moduleToCopy.getModuleCredits();
     }
 
+    /**
+     * Sets the {@code ModuleCode} of the {@code Module} that we are building
+     */
     public ModuleBuilder withModuleCode(String code) {
         this.moduleCode = new ModuleCode(code);
         return this;
     }
 
     /**
-     * Sets the {@code moduleTitle} of the {@code Module} that we are building.
+     * Sets the {@code ModuleTitle} of the {@code Module} that we are building.
      */
     public ModuleBuilder withModuleTitle(String title) {
         this.moduleTitle = new ModuleTitle(title);
@@ -74,14 +83,16 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code moduleDescription
-     *} of the {@code Module} that we are building.
+     * Sets the {@code moduleDescription} of the {@code Module} that we are building.
      */
     public ModuleBuilder withModuleDescription(String description) {
         this.moduleDescription = new ModuleDescription(description);
         return this;
     }
 
+    /**
+     * Sets the {@code ModulePrereq} of the {@code Module} that we are building
+     */
     public ModuleBuilder withModulePrereq(String description, Module... modules) {
         this.modulePrereq = new ModulePrereq(description, new LinkedList<>(Arrays.asList(modules)));
         return this;
@@ -89,13 +100,16 @@ public class ModuleBuilder {
 
 
     /**
-     * Sets the {@code } of the {@code Module} that we are building.
+     * Sets the {@code ModuleDepartment} of the {@code Module} that we are building.
      */
     public ModuleBuilder withModuleDepartment(String department) {
         this.moduleDepartment = new ModuleDepartment(department);
         return this;
     }
 
+    /**
+     * Sets the {@code ModuleCredits} of the {@code Module} that we are building
+     */
     public ModuleBuilder withModuleCredits(String credits) {
         this.moduleCredits = new ModuleCredits(credits);
         return this;
@@ -104,7 +118,6 @@ public class ModuleBuilder {
     public Module build() {
         return new Module(moduleCode, moduleTitle, moduleDescription, modulePrereq, moduleDepartment, moduleCredits);
     }
-
 
 
 }

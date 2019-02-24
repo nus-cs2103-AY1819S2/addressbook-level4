@@ -46,7 +46,7 @@ public class Module {
         return moduleCredits;
     }
 
-    public boolean isSameModule (Module other) {
+    public boolean isSameModule(Module other) {
         if (other == this) {
             return true;
         }
@@ -55,11 +55,12 @@ public class Module {
                 && (other.getModuleCode().equals(getModuleCode())
                 || other.getModuleTitle().equals(getModuleTitle()));
     }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(moduleCode, moduleTitle, moduleDescription, moduleDepartment
-        , modulePrereq, moduleCredits);
+                , modulePrereq, moduleCredits);
     }
 
     @Override

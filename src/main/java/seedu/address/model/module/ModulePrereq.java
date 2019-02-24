@@ -1,17 +1,17 @@
 package seedu.address.model.module;
 
-import java.util.LinkedList;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.LinkedList;
 
 public class ModulePrereq {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Must consist of at least 1 word and cannot begin with whitespace";
-    public static final String VALIDATION_REGEX  = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
     public final String prereqDescription;
-    public final LinkedList<Module>  prereq;
+    public final LinkedList<Module> prereq;
     /*
     LinkedList of Modules is not the most best / accurate way of checking
     pre-requisite but is sufficient to act as a placeholder for v1.1

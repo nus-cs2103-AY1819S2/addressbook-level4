@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
 import seedu.address.testutil.Assert;
 
 public class ModuleCreditsTest {
@@ -36,6 +37,5 @@ public class ModuleCreditsTest {
         assertTrue(ModuleCredits.isValidModuleCredits("0")); //minimum
         assertTrue(ModuleCredits.isValidModuleCredits("20")); //maximum
     }
-
 
 }

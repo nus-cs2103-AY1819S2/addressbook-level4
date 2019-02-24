@@ -17,8 +17,8 @@ public class ModulePrerequisiteTest {
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
         String invalidModulePrereq = "";
-        Assert.assertThrows(IllegalArgumentException.class,
-                () -> new ModulePrereq(invalidModulePrereq, TypicalModules.getTypicalModules()));
+        Assert.assertThrows(IllegalArgumentException.class, (
+                ) -> new ModulePrereq(invalidModulePrereq, TypicalModules.getTypicalModules()));
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ModulePrerequisiteTest {
         // valid addresses
         assertTrue(ModulePrereq.isValidModulePrereq("LSM1301 and CS1010S")); //spaces in between words
         assertTrue(ModulePrereq.isValidModulePrereq("CS2103T")); //no spaces
-        assertTrue(ModulePrereq.isValidModulePrereq("Students are from SOC and" +
-                " must clear at least 70 MCs.")); //multiple spaces
+        assertTrue(ModulePrereq.isValidModulePrereq("Students are from SOC and"
+                + " must clear at least 70 MCs.")); //multiple spaces
     }
 }

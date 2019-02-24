@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ModuleTitle {
     public static final String MESSAGE_CONSTRAINTS =
             "Only alphanumeric characters and first character cannot be whitespace";
-    public static final String VALIDATION_REGEX  = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     public final String title;
 
     public ModuleTitle(String moduleTitle) {

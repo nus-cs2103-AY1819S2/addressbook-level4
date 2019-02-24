@@ -26,7 +26,6 @@ public class HelpWindowTest extends GuiUnitTest {
         FxToolkit.registerStage(helpWindow::getRoot);
         helpWindowHandle = new HelpWindowHandle(helpWindow.getRoot());
     }
-    
 
     @Test
     public void display() throws Exception {

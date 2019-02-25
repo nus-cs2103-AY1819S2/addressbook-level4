@@ -1,15 +1,17 @@
 package braintrain.model.lesson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import braintrain.model.card.Card;
 import braintrain.model.lesson.exceptions.MissingCoreValueException;
 
-import java.util.ArrayList;
-import java.util.List;
+
+
 
 
 /**
  * Represents a lesson that stores multiple cards.
- *
  */
 public class Lesson {
     private static final int CORE_COUNT_MINIMUM = 2;
@@ -25,22 +27,24 @@ public class Lesson {
     private int questionIndex;
     private int answerIndex;
     private boolean[] optionals;
+
     /**
      * Constructor for lesson. Takes in formats and field names in preparation for
      * card input.
+     *
      * @param coreCount TODO
-     * @param fields The list of names of each column corresponding to the format.
+     * @param fields    The list of names of each column corresponding to the format.
      */
     public Lesson(String name, int coreCount, List<String> fields) {
-        if(name == null || name.length() == 0) {
-            throw new IllegalArgumentException("Invalid name" );
+        if (name == null || name.length() == 0) {
+            throw new IllegalArgumentException("Invalid name");
         }
 
-        if(coreCount < CORE_COUNT_MINIMUM) {
+        if (coreCount < CORE_COUNT_MINIMUM) {
             throw new IllegalArgumentException("CoreCount less than " + CORE_COUNT_MINIMUM + ": " + coreCount);
         }
 
-        if(fields == null || fields.size() < CORE_COUNT_MINIMUM) {
+        if (fields == null || fields.size() < CORE_COUNT_MINIMUM) {
             throw new IllegalArgumentException("Invalid fields");
         }
 
@@ -54,7 +58,6 @@ public class Lesson {
     }
 
     /**
-     *
      * @param cardValues List of values.
      * @return Whether add was successful. See List.add().
      */
@@ -77,7 +80,7 @@ public class Lesson {
         return cards.add(newCard);
     }
 
-    public void setQuestionAnswerIndices(int question, int answer) throws IllegalArgumentException{
+    public void setQuestionAnswerIndices(int question, int answer) throws IllegalArgumentException {
         if (question < 0 || question >= coreCount) {
             throw new IllegalArgumentException("Question index: " + question + " out of bounds");
         }

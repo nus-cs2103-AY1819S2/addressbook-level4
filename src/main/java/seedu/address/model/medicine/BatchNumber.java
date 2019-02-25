@@ -46,8 +46,8 @@ public class BatchNumber {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.medicine.Name // instanceof handles nulls
-                && number.equals(((seedu.address.model.medicine.Name) other).fullName)); // state check
+                || (other instanceof seedu.address.model.medicine.BatchNumber // instanceof handles nulls
+                && number.equals(((seedu.address.model.medicine.BatchNumber) other).number)); // state check
     }
 
     @Override

@@ -1,14 +1,15 @@
 package seedu.address.testutil;
 
 import seedu.address.model.person.*;
-import seedu.address.model.request.Request;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import seedu.address.model.request.Request;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleDataUtil;
 
 import static java.util.Objects.requireNonNull;
 

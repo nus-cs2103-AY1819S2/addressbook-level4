@@ -18,6 +18,7 @@ public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
     public static final String COMMAND_ALIAS = "s";
+    public static final String COMMAND_ALIAS2 = "sel";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the person identified by the index number used in the displayed person list.\n"

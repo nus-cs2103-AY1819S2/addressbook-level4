@@ -46,7 +46,8 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+
+        switch (commandWord.toLowerCase()) {
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
@@ -57,14 +58,17 @@ public class AddressBookParser {
 
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS:
+        case SelectCommand.COMMAND_ALIAS2:
             return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_ALIAS:
+        case DeleteCommand.COMMAND_ALIAS2:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
         case ClearCommand.COMMAND_ALIAS:
+        case ClearCommand.COMMAND_ALIAS2:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
@@ -73,10 +77,12 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:
+        case ListCommand.COMMAND_ALIAS2:
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:
+        case HistoryCommand.COMMAND_ALIAS2:
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:

@@ -26,8 +26,7 @@ public class RequestBuilder {
     public static final String DEFAULT_STAFF_PHONE = "81237822";
     public static final String DEFAULT_STAFF_ADDRESS = "Health Hub Ave 3, 129834";
     public static final String DEFAULT_STAFF_EMAIL = "healthstaff@health.com";
-    public static final String DEFAULT_STAFF_TAG = "Specialisation: " +
-            "Physiotherapy";
+
     private String id;
     private String requestDate;
     private boolean isComplete;
@@ -39,29 +38,29 @@ public class RequestBuilder {
      * A utility class to help with building Request objects.
      */
     public RequestBuilder() {
-        id = DEFAULT_ID;
-        patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone
+        this.id = DEFAULT_ID;
+        this.patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone
                 (DEFAULT_PHONE), new Email(DEFAULT_EMAIL), new Address
                 (DEFAULT_ADDRESS), new HashSet<>(Collections.singleton(new Tag
                 (DEFAULT_REQUEST))));
-        healthStaff = Optional.of(new Person(new Name(DEFAULT_STAFF_NAME), new Phone
+        this.healthStaff = Optional.of(new Person(new Name(DEFAULT_STAFF_NAME), new Phone
                 (DEFAULT_STAFF_PHONE), new Email(DEFAULT_STAFF_EMAIL), new Address
-                (DEFAULT_STAFF_ADDRESS), new HashSet<>(Collections.singleton(new Tag
-                (DEFAULT_STAFF_TAG)))));
-        requestDate = DEFAULT_DATE;
-        conditions = new HashSet<>(Collections.singleton(new Tag(DEFAULT_REQUEST)));
-        isComplete = DEFAULT_ISCOMPLETE;
+                (DEFAULT_STAFF_ADDRESS), Collections.emptySet()));
+        this.requestDate = DEFAULT_DATE;
+        this.conditions = new HashSet<>(Collections.singleton(new Tag(DEFAULT_REQUEST)));
+        this.isComplete = DEFAULT_ISCOMPLETE;
     }
 
     /*
      * Initializes the RequestBuilder with the data of {@code requestToCopy}.
      */
     public RequestBuilder(Request requestToCopy) {
-        id = requestToCopy.getId();
-        patient = requestToCopy.getPatient();
-        healthStaff = requestToCopy.getHealthStaff();
-        conditions = requestToCopy.getConditions();
-        requestDate = requestToCopy.getRequestDate();
+        this.id = requestToCopy.getId();
+        this.patient = requestToCopy.getPatient();
+        this.healthStaff = requestToCopy.getHealthStaff();
+        this.conditions = requestToCopy.getConditions();
+        this.requestDate = requestToCopy.getRequestDate();
+        this.isComplete = requestToCopy.isComplete();
     }
 
     /*
@@ -122,6 +121,5 @@ public class RequestBuilder {
         return this.healthStaff.map(person -> new Request(this.id, this.patient, person, this.requestDate, this.conditions, this.isComplete))
                 .orElseGet(() -> new Request(this.id, this.patient, this.requestDate, this.conditions, this.isComplete));
     }
-
 
 }

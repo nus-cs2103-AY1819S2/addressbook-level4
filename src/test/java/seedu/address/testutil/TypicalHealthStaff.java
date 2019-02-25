@@ -21,7 +21,7 @@ public class TypicalHealthStaff {
             .withEmail("betty@example.com").withPhone("98761232")
             .withTags("Eldercare", "Stroke").build();
     public static final Person CARLIE = new PersonBuilder().withName("Carlie Kurz").withPhone("95358463")
-            .withEmail("Kurz@example.com").withAddress("wall street").withTags("Palliative care").build();
+            .withEmail("Kurz@example.com").withAddress("wall street").withTags("Palliative").build();
     public static final Person PANIEL = new PersonBuilder().withName("Paniel Meier").withPhone("87652133")
             .withEmail("panda@example.com").withAddress("10th street").withTags("Doctor").build();
     public static final Person ELLA = new PersonBuilder().withName("Ella Meyer").withPhone("94824524")

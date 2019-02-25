@@ -20,7 +20,7 @@ public class TypicalRequests {
     public static final Request BENSON_REQUEST = new RequestBuilder()
             .withId(BENSON_ID)
             .withPatient(TypicalPatients.BENSON)
-            .withConditions("Palliative Care")
+            .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthStaff.BETTY)
             .withStatus(false)
@@ -29,17 +29,16 @@ public class TypicalRequests {
     public static final Request CARL_REQUEST = new RequestBuilder()
             .withId(CARL_ID)
             .withPatient(TypicalPatients.CARL)
-            .withConditions("Palliative Care")
+            .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthStaff.CARLIE)
             .withStatus(false)
             .build();
 
-
     public static final Request DANIEL = new RequestBuilder()
             .withId(DANIEL_ID)
             .withPatient(TypicalPatients.DANIEL)
-            .withConditions("Palliative Care")
+            .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthStaff.PANIEL)
             .withStatus(false)

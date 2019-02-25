@@ -100,6 +100,7 @@ public class Request {
         return otherRequest.getId().equals(this.id)
                 && otherRequest.getPatient().equals(this.patient)
                 && (otherRequest.getRequestDate().equals(this.requestDate))
+                && (otherRequest.getConditions().equals(this.conditions))
                 && otherRequest.getHealthStaff().equals(this.healthStaff)
                 && (otherRequest.isComplete() == this.isCompleted);
     }

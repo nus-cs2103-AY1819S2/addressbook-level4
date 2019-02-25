@@ -24,7 +24,7 @@ public class RequestTest {
         assertFalse(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // everything same, but conditions different -> returns true
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions("Feet swelling").build();
+        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions("Stroke").build();
         assertTrue(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // different date, everything else same -> returns false

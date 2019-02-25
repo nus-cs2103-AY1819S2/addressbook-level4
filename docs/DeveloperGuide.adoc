@@ -1027,9 +1027,9 @@ Use case resumes at step 2.
 
 *Main Success Scenario (MSS)*
 
-1.  Admin requests to sort the activity list
-2.  Club Manager sorts the activity list according to specified parameter
-3.  Club Management System shows the sorted list.
+1.  User requests to sort the activity list
+2.  Club Manager sorts the activity list according to date
+3.  Club Manager shows the sorted list
 +
 Use case ends.
 

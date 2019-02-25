@@ -1,4 +1,4 @@
-= HotSpots
+= TravelBuddy
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/cs2103-ay1819s2-w11-3/main[image:https://travis-ci.org/cs2103-ay1819s2-w11-3/main.svg?branch=master[Build Status]]
@@ -13,7 +13,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* HotSpots is a desktop Travel Guide application. It has a GUI but most of the user interactions happen using a CLI
+* TravelBuddy is a desktop Travel Guide application. It has a GUI but most of the user interactions happen using a CLI
 (Command Line Interface).
 * Remove references to addressbook-level3, Learning Outcomes etc. mention target users, add a marketing blurb etc
 

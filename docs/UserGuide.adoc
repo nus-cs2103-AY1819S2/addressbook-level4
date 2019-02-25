@@ -97,26 +97,80 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Searching places by name: `search`
 
-Finds persons whose names contain any of the given keywords. +
-Alias: 'f' +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds places whose names contain any of the given keywords. +
+Format: `search KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `national` will match `National`
+* The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Nation` will not match `National`
+* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore`, `National University Hospital`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `search National` +
+Returns `National Museum of Singapore` and `National University Hospital`
+* `search National Temple` +
+Returns any place having names `National` or `Temple`
+
+=== Searching places by country: `searchc`
+
+Finds places that are located within the countries specified. +
+Format: `searchc KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search follows ISO-3166 country code. e.g `SGP` corresponds to `Singapore`
+* Only the countries are searched.
+* Only correct country codes will be matched e.g. `SGX` will not match `Singapore`
+* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `SGP JPN` will return places found in `Singapore` or `Japan`
+****
+
+Examples:
+
+* `searchc SGP` +
+Returns a list of places in `Singapore`
+* `searchc SGP JPN` +
+Returns a list of places located in `Singapore` or `Japan`
+
+=== Searching places by tags: `searcht`
+
+Finds places whose tags correspond to any given keywords. +
+Format: `searcht KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `Temple` will match `temple`
+* Only the tags are searched.
+* Only full words will be matched e.g. `temp` will not match `temple`
+* Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`
+****
+
+Examples:
+
+* `searcht temple` +
+Returns a list of places tagged with `temple`
+* `searcht temple school` +
+Returns a list of places tagged with `temple` or `school`
+
+=== Searching places by ratings: `searchr`
+
+Finds places whose ratings match the specified rating from 0 to 5. +
+Format: `searchr INDEX`
+
+****
+* The search rating is from a range of 0 to 5. e.g `5` will return places with 5 star ratings.
+* Only the ratings are searched.
+****
+
+Examples:
+
+* `searchr 5` +
+Returns a list of places with rating of `5`
+* `searchr 3` +
+Returns a list of places with rating of `3`
 
 === Deleting a person : `delete`
 

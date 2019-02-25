@@ -42,7 +42,8 @@ public class Request {
     /*
      * Requires all the properties of a request to be non-null.
      */
-    public Request(String id, Person patient, Person healthStaff, String requestDate, Set<Tag> conditions, boolean isCompleted) {
+    public Request(String id, Person patient, Person healthStaff, String requestDate, Set<Tag> conditions,
+                   boolean isCompleted) {
         this(id, patient, requestDate, conditions, isCompleted);
         requireNonNull(healthStaff);
         this.healthWorker = Optional.of(healthStaff);

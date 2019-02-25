@@ -20,14 +20,15 @@ public class Request {
     private Optional<Person> healthWorker;
     private boolean isCompleted; // represents the state of the request
 
-    /*
+    /**
+     *
      * Minimally requires the following parameters to be non-null.
      *
      * @param id The id of the request
      * @param patient The patient requesting for services.
      * @param requestDate The date of the request.
-     * @param conditions The set of conditions the patient is requesting treatment for.
-     * @param isCompleted The state of the request.
+     * @param conditions The set of the conditions the patient is requesting treatmeent for.
+     * @param isCompleted The state of the request - true if complete, false otherwise.
      */
     public Request(String id, Person patient, String requestDate, Set<Tag> conditions, boolean isCompleted) {
         requireAllNonNull(id, patient, requestDate, conditions, isCompleted);

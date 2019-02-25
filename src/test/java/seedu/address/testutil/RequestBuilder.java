@@ -62,34 +62,41 @@ public class RequestBuilder {
         this.requestDate = requestToCopy.getRequestDate();
         this.isComplete = requestToCopy.isComplete();
     }
-    /*
+
+    /**
      * Sets the {@code id} of the {@code Request} that we are building.
-     *
-     * @param id The id of the order.
+     * @param id The id of the request.
+     * @return The RequestBuilder object.
      */
     public RequestBuilder withId(String id) {
         this.id = id;
         return this;
     }
 
-    /*
-     * Sets the {@code requestDate} of the {@code Request} that we are building.
+    /**
+     * Sets the {@code requestDate} of the {@code Request} that we are building
+     * @param date the date of the request.
+     * @return The RequestBuilder object.
      */
     public RequestBuilder withDate(String date) {
         this.requestDate = date;
         return this;
     }
 
-    /*
+    /**
      * Sets the {@code patient} of the {@code Request} we are building.
+     * @param person The patient making the request.
+     * @return The RequestBuilder object.
      */
     public RequestBuilder withPatient(Person person) {
         this.patient = person;
         return this;
     }
 
-    /*
+    /**
      * Sets the {@code healthStaff} of the {@code Request} we are building.
+     * @param healthStaff The healthStaff attending to the request.
+     * @return The RequestBuilder object.
      */
     public RequestBuilder withHealthStaff(Person healthStaff) {
         requireNonNull(healthStaff);
@@ -97,16 +104,20 @@ public class RequestBuilder {
         return this;
     }
 
-    /*
-     * Parses the {@code conditions} into a {@code Set<Tag} and set it to the {@code Request} that we are building.
+    /**
+     * Sets the {@code healthStaff} of the {@code Request} we are building.
+     * @param conditions The conditions that need be attended to, by the healthworker.
+     * @return The RequestBuilder object.
      */
     public RequestBuilder withConditions(String... conditions) {
         this.conditions = SampleDataUtil.getTagSet(conditions);
         return this;
     }
 
-    /*
-     * Sets the {@code isComplete} status of the {@code Request} we are building.
+    /**
+     * Sets the {@code healthStaff} of the {@code Request} we are building.
+     * @param isComplete The status of the request - true if complete, false otherwise.
+     * @return The RequestBuilder object.
      */
     public RequestBuilder withStatus(boolean isComplete) {
         this.isComplete = isComplete;

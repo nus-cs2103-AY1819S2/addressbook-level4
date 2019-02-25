@@ -17,12 +17,13 @@ public class Medicine {
 
     // Identity fields
     private final Name name;
-    private final Quantity quantity;
-    private final Expiry expiry;
+    private final Company company;
 
     // Data fields
-    private final Company company;
+    private final Quantity quantity;
+    private final Expiry expiry;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Batch> batches = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -61,6 +62,14 @@ public class Medicine {
     }
 
     /**
+     * Returns an immutable batch set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Batch> getBatches() {
+        return Collections.unmodifiableSet(batches);
+    }
+
+    /**
      * Returns true if both medicines of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two medicines.
      */
@@ -93,13 +102,14 @@ public class Medicine {
                 && otherMedicine.getQuantity().equals(getQuantity())
                 && otherMedicine.getExpiry().equals(getExpiry())
                 && otherMedicine.getCompany().equals(getCompany())
-                && otherMedicine.getTags().equals(getTags());
+                && otherMedicine.getTags().equals(getTags())
+                && otherMedicine.getBatches().equals(getBatches());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, quantity, expiry, company, tags);
+        return Objects.hash(name, quantity, expiry, company, tags, batches);
     }
 
     @Override
@@ -114,7 +124,9 @@ public class Medicine {
                 .append(getCompany())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Batches: ");
+        getBatches().forEach(builder::append);
+
         return builder.toString();
     }
-
 }

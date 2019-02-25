@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ho Boon Wee Addison
 image::addison.jpeg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/Carrein[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Leader
 
@@ -21,7 +21,7 @@ Role: Team Leader
 
 === Tan Qun Wei Randy
 image::randy.jpeg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/randytqw[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -30,7 +30,7 @@ Responsibilities: UI
 
 === Tay Zhan Peng
 image::zack.jpeg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/itszp[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
@@ -39,7 +39,7 @@ Responsibilities: Data
 
 === Tham Si Mun
 image::simun.jpeg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/thamsimun[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 
 === Chong Kay Heen
 image::kayheen.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/kayheen[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI

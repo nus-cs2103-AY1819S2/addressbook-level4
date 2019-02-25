@@ -14,9 +14,10 @@ public class HealthWorker extends Person {
     // TODO: Add fields for skills/certification.
     private Organization organization;
 
-    public HealthWorker(Name name, Phone phone, Email email, Address address,
+    public HealthWorker(Name name, Phone phone, Email email, Nric nric, Address
+                        address,
                         Set<Tag> tags, Organization organization) {
-        super(name, phone, email, address, tags);
+        super(name, phone, email, nric, address, tags);
         this.organization = organization;
     }
 

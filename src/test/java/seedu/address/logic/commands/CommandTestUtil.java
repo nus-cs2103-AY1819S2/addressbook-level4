@@ -39,6 +39,8 @@ public class CommandTestUtil {
     // Default strings for Health Worker objects
     public static final String VALID_NAME_HW_A = "Health Worker A";
     public static final String VALID_NAME_HW_B = "Health Worker B";
+    public static final String VALID_NRIC_HW_A = "S9999111Z";
+    public static final String VALID_NRIC_HW_B = "S9898222A";
     public static final String VALID_PHONE_HW_A = "98765432";
     public static final String VALID_PHONE_HW_B = "99991111";
     public static final String VALID_EMAIL_HW_A = "healthworkera@example.com";

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HW_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_HW_A;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_HW_B;
@@ -40,6 +41,11 @@ public class HealthWorkerTest {
         // different phone -> returns false
         HealthWorker editedTestWorkerA = new HealthWorkerBuilder(TEST_HW_A)
                 .withPhone(VALID_PHONE_HW_B).build();
+        assertFalse(TEST_HW_A.isSameHealthWorker(editedTestWorkerA));
+
+        // different NRIC -> returns false
+        editedTestWorkerA = new HealthWorkerBuilder(TEST_HW_A)
+                .withNric(VALID_NRIC_HW_B).build();
         assertFalse(TEST_HW_A.isSameHealthWorker(editedTestWorkerA));
 
         // different name -> returns false
@@ -81,6 +87,11 @@ public class HealthWorkerTest {
         // different name -> returns false
         HealthWorker editedWorkerA = new HealthWorkerBuilder(TEST_HW_A)
                 .withName(VALID_NAME_HW_B).build();
+        assertFalse(TEST_HW_A.equals(editedWorkerA));
+
+        // different NRIC -> returns false
+        editedWorkerA = new HealthWorkerBuilder(TEST_HW_A)
+                .withNric(VALID_NRIC_HW_B).build();
         assertFalse(TEST_HW_A.equals(editedWorkerA));
 
         // different phone -> returns false

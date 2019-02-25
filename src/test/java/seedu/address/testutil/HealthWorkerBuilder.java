@@ -7,6 +7,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Organization;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -18,12 +19,14 @@ import seedu.address.model.util.SampleDataUtil;
 public class HealthWorkerBuilder {
 
     public static final String DEFAULT_NAME = "Default Health Worker";
+    public static final String DEFAULT_NRIC = "S1234567A";
     public static final String DEFAULT_PHONE = "98765432";
     public static final String DEFAULT_EMAIL = "default@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_ORGANIZATION = "NUS";
 
     private Name name;
+    private Nric nric;
     private Phone phone;
     private Email email;
     private Address address;
@@ -32,6 +35,7 @@ public class HealthWorkerBuilder {
 
     public HealthWorkerBuilder() {
         this.name = new Name(DEFAULT_NAME);
+        this.nric = new Nric(DEFAULT_NRIC);
         this.phone = new Phone(DEFAULT_PHONE);
         this.email = new Email(DEFAULT_EMAIL);
         this.address = new Address(DEFAULT_ADDRESS);
@@ -45,6 +49,7 @@ public class HealthWorkerBuilder {
      */
     public HealthWorkerBuilder(HealthWorker healthWorkerToCopy) {
         this.name = healthWorkerToCopy.getName();
+        this.nric = healthWorkerToCopy.getNric();
         this.phone = healthWorkerToCopy.getPhone();
         this.email = healthWorkerToCopy.getEmail();
         this.address = healthWorkerToCopy.getAddress();
@@ -103,8 +108,18 @@ public class HealthWorkerBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Nric} of the {@code HealthWorker} that we are building.
+     */
+    public HealthWorkerBuilder withNric(String nric) {
+        this.nric = new Nric(nric);
+        return this;
+    }
+
+
     public HealthWorker build() {
-        return new HealthWorker(name, phone, email, address, tags, organization);
+        return new HealthWorker(name, phone, email, nric, address, tags,
+                organization);
     }
 
 }

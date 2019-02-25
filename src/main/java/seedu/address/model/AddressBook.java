@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -17,6 +19,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final BookingList bookings;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        bookings = new BookingList();
     }
 
     public AddressBook() {}
@@ -48,6 +52,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the booking list with {@code bookings}.
+     */
+    public void setBookings(List<Booking> bookings) {
+        this.bookings.setBookings(bookings);
         indicateModified();
     }
 
@@ -100,6 +112,36 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    //// booking-level operations
+
+    /**
+     * Adds a booking to the address book.
+     */
+    public void addBooking(Booking p) {
+        bookings.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the booking at the given {@code bookingIndex} in the list with {@code editedBooking}.
+     * {@code bookingIndex} must be within the list of bookings.
+     */
+    public void setBooking(int bookingIndex, Booking editedBooking) {
+        requireNonNull(editedBooking);
+
+        bookings.setBooking(bookingIndex, editedBooking);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeBooking(int removeIndex) {
+        bookings.remove(removeIndex);
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -120,14 +162,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// util methods
 
     @Override
-    public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+    public ObservableList<Person> getPersonList() {
+        return persons.asUnmodifiableObservableList();
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Booking> getBookingList() {
+        return bookings.asUnmodifiableObservableList();
     }
 
     @Override

@@ -1,7 +1,10 @@
 package seedu.address.model.util;
 
+import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -53,5 +56,17 @@ public class TimeRange {
     @Override
     public int hashCode() {
         return Objects.hash(getStartTime(), getEndTime());
+    }
+
+    public Iterable<TimeRange> getHourlySlots() {
+        List<TimeRange> hourlySlots = new ArrayList<TimeRange>();
+        for(int i = this.startTime.getHour(); i < this.endTime.getHour(); i++) {
+            hourlySlots.add(new TimeRange(i, i + 1));
+        }
+        return hourlySlots;
+    }
+
+    public int numOfHours() {
+        return this.endTime.getHour() - this.startTime.getHour();
     }
 }

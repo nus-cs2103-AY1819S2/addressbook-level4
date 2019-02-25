@@ -1,6 +1,4 @@
-package seedu.address.model.person;
-
-import java.util.ArrayList;
+package seedu.address.model.medicine;
 
 /**
  * Represents the name and history of quantities of a particular medicine
@@ -10,8 +8,7 @@ public class Medicine {
     private static int defaultThreshold = 50;
 
     public final String name;
-    private ArrayList<Integer> quantity; //A record of history of quantities to support undo function
-    private int pointer;
+    private int quantity;
     private boolean thresholdIsDefault = true;
     private int threshold;
 
@@ -30,27 +27,18 @@ public class Medicine {
      */
     public Medicine(String name, int amount) {
         this.name = name;
-        this.quantity = new ArrayList<>();
-        this.setQuantity(amount);
-        this.pointer = -1;
+        setQuantity(amount);
     }
 
     public void setQuantity(int amount) {
         if (amount < 0) {
             throw new IllegalArgumentException("Quantity must be positive");
         }
-        pointer++;
-        if (quantity.size() > pointer) {
-            int n = quantity.size() - 1;
-            for (int i = n; i >= pointer; i--) {
-                quantity.remove(i);
-            }
-        }
-        quantity.add(amount);
+        quantity = amount;
     }
 
     public int getQuantity() {
-        return quantity.get(pointer);
+        return quantity;
     }
 
     /**
@@ -98,25 +86,5 @@ public class Medicine {
     public void setThreshold(int threshold) {
         thresholdIsDefault = false;
         this.threshold = threshold;
-    }
-
-    /**
-     * To undo a previous addition to this medicine;
-     */
-    public void undoChange() {
-        if (pointer <= 0) {
-            throw new IllegalStateException("No change to undo");
-        }
-        pointer--;
-    }
-
-    /**
-     * To redo a undone change
-     */
-    public void redoChange() {
-        if (pointer >= quantity.size() - 1) {
-            throw new IllegalStateException("No change to redo");
-        }
-        pointer++;
     }
 }

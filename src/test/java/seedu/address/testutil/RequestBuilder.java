@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.person.*;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,8 +11,6 @@ import java.util.Set;
 import seedu.address.model.request.Request;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-
-import static java.util.Objects.requireNonNull;
 
 public class RequestBuilder {
     public static final String DEFAULT_ID = "1233";

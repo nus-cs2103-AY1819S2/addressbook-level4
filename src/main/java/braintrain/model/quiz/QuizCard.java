@@ -11,7 +11,7 @@ import java.util.List;
 public class QuizCard {
 
     public static final String MESSAGE_CONSTRAINTS = "Question/answer can take any values, and it"
-        + " should not be blank";
+        + " should not be blank or contain only whitespaces";
 
     private String question;
     private String answer;
@@ -20,9 +20,17 @@ public class QuizCard {
     private int totalAttempts;
     private int streak;
 
+    public QuizCard(String question, String answer) {
+        requireAllNonNull(question, answer);
+        checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
+
+        this.question = question;
+        this.answer = answer;
+    }
+
     public QuizCard(String question, String answer, List<String> opt) {
         requireAllNonNull(question, answer, opt);
-        checkArgument(!question.isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
+        checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.question = question;
         this.answer = answer;

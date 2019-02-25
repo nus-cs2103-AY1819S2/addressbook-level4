@@ -14,8 +14,7 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES =
-            {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink",
-            "black", "grey"};
+            {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -56,7 +55,7 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Returns the color style for {@code tagName}'s label.
      */
-    private String getTagColorStyleFor(String tagName){
+    private String getTagColorStyleFor(String tagName) {
         //Using the hash code of the tag name to generate a random color, so color remains consistent
         //between different runs of the program while still making it random enough between tags
         return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
@@ -65,7 +64,7 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates the tag labels for {@code person}.
      */
-    private void initTags(Person person){
+    private void initTags(Person person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
 

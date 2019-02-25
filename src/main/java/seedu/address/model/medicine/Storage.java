@@ -30,18 +30,27 @@ public class Storage {
      * @param path the path to store to
      */
     public void addMedicine(String medicineName, int quantity, String[] path) {
-        try {
-            Optional<Directory> directory = root.findDirectory(path, 0);
-            if (!directory.isPresent()) {
-                throw new IllegalArgumentException("Invalid Path");
-            }
-            Medicine medicine = new Medicine(medicineName, quantity);
-            listOfMedicine.add(medicine);
-            listOfMedicine.sort(Comparator.comparing((Medicine x) -> (x.name)));
-            directory.get().addMedicine(medicine);
-        } catch (Exception ex) {
+        Optional<Directory> directory = root.findDirectory(path, 0);
+        if (!directory.isPresent()) {
             throw new IllegalArgumentException("Invalid Path");
         }
+        Medicine medicine = new Medicine(medicineName, quantity);
+        listOfMedicine.add(medicine);
+        listOfMedicine.sort(Comparator.comparing((Medicine x) -> (x.name)));
+        directory.get().addMedicine(medicine);
+    }
+
+    /**
+     * Add a new directory under a directory specified by the path
+     * @param directoryName the name of the new directory
+     * @param path the path of the destination directory
+     */
+    public void addDirectory(String directoryName, String[] path) {
+        Optional<Directory> directory = root.findDirectory(path, 0);
+        if (!directory.isPresent()) {
+            throw new IllegalArgumentException("Invalid path");
+        }
+        directory.get().addDirectory(directoryName);
     }
 
     /**

@@ -14,17 +14,24 @@ import java.util.Optional;
  */
 public class Directory {
 
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String MESSAGE_CONSTRAINTS = "Directory name can take any values, and it should not be blank";
+
     private ArrayList<Medicine> listOfMedicine;
     private final String name;
     private ArrayList<Directory> listOfDirectory;
 
     public Directory(String name) {
         requireNonNull(name);
+        checkArgument(isValidDirectory(name), MESSAGE_CONSTRAINTS);
         this.name = name;
         this.listOfDirectory = new ArrayList<>();
         this.listOfMedicine = new ArrayList<>();
     }
 
+    private boolean isValidDirectory(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
     /**
      * Add a medicine to this directory
      * @param medicine the medicine to add

@@ -582,17 +582,35 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `In-Credit-Ble` and the *User* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add entry
+=== Use case: Setting a budget for the month
 
 *MSS*
 
-1.  User requests to list persons
-2.  In-Credit-Ble shows a list of persons
-3.  User requests to add a specific entry in the list
-4.  In-Credit-Ble adds the entry
+1.  User requests to set a budget for the current month
+2.  System displays current budget amount for the month
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. With addition of expense entries, System updates the remaining amount in the current month's budget
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Add expense entry
+
+*MSS*
+
+1.  User requests to list entries
+2.  System shows a list of expense entries
+3.  User requests to add a specific expense entry in the list
+4.  System adds the expense entry
 +
 Use case ends.
 
@@ -602,19 +620,70 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. In-Credit-Ble shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete entry
+=== Use case: Increasing budget for the month
 
 *MSS*
 
 1.  User requests to list entries
-2.  In-Credit-Ble shows a list of entries
-3.  User requests to delete a specific entry in the list
-4.  In-Credit-Ble deletes the entry
+2.  System shows a list of expense entries
+3.  User requests to increase budget for the month (can be associated with a category)
+4.  System will increase the budget for the month (that is associated with category input)
++
+Use case ends.
+
+[discrete]
+=== Use case: Allocate budget to a category
+
+*MSS*
+
+1.  User requests to list summary of budget based on category
+2.  System shows a summary of budget based on category
+3.  User requests to allocate a certain amount to a category
+4.  System allocates the user input amount to the given category
++
+Use case ends.
+
+[discrete]
+=== Use case: Editing an expense entry
+
+*MSS*
+
+1.  User requests to list expense entries
+2.  System shows a list of expense entries
+3.  User requests to edit a specific expense entry in the list
+4.  System updates the expense entry as well as the budget summary accordingly
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends
+
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete expense entry
+
+*MSS*
+
+1.  User requests to list expense entries
+2.  System shows a list of expense entries
+3.  User requests to delete a specific expense entry in the list
+4.  System deletes the entry
 +
 Use case ends.
 
@@ -628,28 +697,79 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. In-Credit-Ble shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Setting a budget for the month
+=== Use case: Listing history of entered commands
 
 *MSS*
 
-1.  User requests to set a budget for the current month
-2.  In-Credit-Ble displays current budget amount for the month
+1.  User requests to list history of entered commands
+2.  System shows history of commands in reverse chronological order (latest command first)
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. As the user spends more, In-Credit-Ble updates the remaining amount in the current month's budget
+* 1a. There was no entered commands
 +
 Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: User wants to undo previous command
+
+*MSS*
+
+1.  User requests to undo previous command
+2.  System undo previous command and updates budget accordingly
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There was no previous command
++
+Use case ends with message to let user know there is no previous command
+
+[discrete]
+=== Use case: User wants to redo previous undone command
+
+*MSS*
+
+1.  User requests to redo previous undone command
+2.  System redo previous undone command and updates budget accordingly
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There was no previous undone command
++
+Use case ends with message to let user know there is no previous undone command
+
+
+[discrete]
+=== Use case: User wants to clear all entries
+
+*MSS*
+
+1. User requests to clear all entries
+2. System clears all entries and updates the budget accordingly
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no entries in the System
++
+Use case ends with message to let user know there are no entries in System
+
 
 [appendix]
 == Non Functional Requirements

@@ -116,6 +116,11 @@ public class HealthWorkerBuilder {
         return this;
     }
 
+    /**
+     * Builds a new HealthWorker object for testing.
+     * @return a HealthWorker object with the parameters specified in this
+     * object.
+     */
     public HealthWorker build() {
         return new HealthWorker(name, phone, email, nric, address, tags,
                 organization);

@@ -166,7 +166,7 @@ test {
 
         if (!runGuiTests) {
             test.exclude 'seedu/address/ui/**'
-            test.include 'braintree/**'
+            test.include 'braintree/ui/**'
         }
     }
 }

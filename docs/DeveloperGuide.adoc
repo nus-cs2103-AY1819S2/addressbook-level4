@@ -566,9 +566,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |locate a specific entry easily |recall how much I spent
 
-|`* *` |user save my data |refer to it when I use the app next time
+|`* *` |user | save my data |refer to it when I use the app next time
 
-|`* *` |user |sort my expenses in terms of amount |be aware of what costs the most
+|`* *` |user | sort my expenses in terms of amount | be aware of what costs the most
 
 |`* *` |user |set daily budgets |limit the amount I spend each day
 
@@ -578,8 +578,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |IT savvy user |categorise my expenses based on the different methods of payment |automatically track my cashless expenditures as well as credit card transactions
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases

@@ -41,6 +41,11 @@ public class HealthWorker extends Person {
         return builder.toString();
     }
 
+    /**
+     * Returns true if both HealthWorkers have the same name, nric, phone and
+     * organization.
+     * This defines a weaker notion of equality between two persons.
+     */
     public boolean isSameHealthWorker(HealthWorker other) {
         if (other == this) {
             return true;

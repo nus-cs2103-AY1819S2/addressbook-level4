@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ho Boon Wee Addison
-image::damithc.jpg[width="150", align="left"]
+image::addison.jpeg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Leader
@@ -20,7 +20,7 @@ Role: Team Leader
 '''
 
 === Tan Qun Wei Randy
-image::lejolly.jpg[width="150", align="left"]
+image::randy.jpeg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Tay Zhan Peng
-image::yijinl.jpg[width="150", align="left"]
+image::zack.jpeg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Tham Si Mun
-image::m133225.jpg[width="150", align="left"]
+image::simun.jpeg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Chong Kay Heen
-image::yl_coder.jpg[width="150", align="left"]
+image::kayheen.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

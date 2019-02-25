@@ -1,14 +1,15 @@
 package braintrain.commons.util;
 
-import com.opencsv.CSVReader;
-import java.io.Reader;
-import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
+
+import com.opencsv.CSVReader;
 
 import braintrain.commons.core.LogsCenter;
 /**
@@ -42,7 +43,7 @@ public class CsvUtil {
             logger.info("Invalid file path.");
             return null;
         }
-        if(values.size() == 0) {
+        if (values.size() == 0) {
             logger.info("Invalid/empty file.");
             return null;
         }

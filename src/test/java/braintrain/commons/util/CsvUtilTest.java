@@ -1,20 +1,18 @@
 package braintrain.commons.util;
 
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import braintrain.testutil.Assert;
 
 public class CsvUtilTest {
-    public static final String[] TEST_STRINGS = new String[]{"ab","bc","cd","de"};
+    public static final String[] TEST_STRINGS = new String[]{"ab", "bc", "cd", "de"};
 
     @Test
     public void readCsvFile_nullPath_throwsNullPointerException() {
@@ -24,7 +22,7 @@ public class CsvUtilTest {
     }
 
     @Test
-    public void readCsvFile_invalidPath_throwsIOException() throws IOException {
+    public void readCsvFile_invalidPath_throwsIoException() throws IOException {
         Path path = Paths.get("");
         assertEquals(null, CsvUtil.readCsvFile(path));
         path = Paths.get("doesnotexist");
@@ -44,7 +42,7 @@ public class CsvUtilTest {
 
         //Extra handling of first line for UTF-8 BOM.
         String[] firstLine = data.get(0);
-        if(firstLine[0].startsWith("\uFEFF")) {
+        if (firstLine[0].startsWith("\uFEFF")) {
             firstLine[0] = firstLine[0].substring(1);
         }
         data.set(0, firstLine);

@@ -29,9 +29,9 @@ public class CommandTestUtil {
     public static final String VALID_NAME_AMOXICILLIN = "Amoxicillin";
     public static final String VALID_NAME_GABAPENTIN = "Gabapentin";
     public static final String VALID_QUANTITY_AMOXICILLIN = "111";
-    public static final String VALID_QUANTITY_GABAPENTIN = "222";
+    public static final String VALID_QUANTITY_GABAPENTIN = "0";
     public static final String VALID_EXPIRY_AMOXICILLIN = "27/11/2019";
-    public static final String VALID_EXPIRY_GABAPENTIN = "09/07/2019";
+    public static final String VALID_EXPIRY_GABAPENTIN = "-";
     public static final String VALID_COMPANY_AMOXICILLIN = "Merck & Co. (MSD)";
     public static final String VALID_COMPANY_GABAPENTIN = "Sanofi";
     public static final String VALID_TAG_HUSBAND = "husband";

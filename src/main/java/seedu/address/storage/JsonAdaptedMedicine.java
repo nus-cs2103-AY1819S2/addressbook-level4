@@ -112,5 +112,4 @@ class JsonAdaptedMedicine {
         final Set<Tag> modelTags = new HashSet<>(medicineTags);
         return new Medicine(modelName, modelQuantity, modelExpiry, modelCompany, modelTags, Collections.emptyMap());
     }
-
 }

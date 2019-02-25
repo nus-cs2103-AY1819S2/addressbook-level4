@@ -31,8 +31,8 @@ public class TypicalMedicines {
             .withCompany("Novartis")
             .withExpiry("21/09/2019").withQuantity("432")
             .withTags("owesMoney", "friends").build();
-    public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withName("Acetaminophen").withQuantity("563")
-            .withExpiry("04/02/2020").withCompany("Pfizer").build();
+    public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withName("Acetaminophen").withQuantity("0")
+            .withExpiry("-").withCompany("Pfizer").build();
     public static final Medicine LEVOTHYROXINE = new MedicineBuilder().withName("Levothyroxine Sodium")
             .withQuantity("533").withExpiry("13/08/2019").withCompany("3M Pharmaceuticals").withTags("friends").build();
     public static final Medicine LISINOPRIL = new MedicineBuilder().withName("Lisinopril").withQuantity("94")
@@ -46,7 +46,7 @@ public class TypicalMedicines {
     public static final Medicine NAPROXEN = new MedicineBuilder().withName("Naproxen Sodium").withQuantity("424")
             .withExpiry("29/07/2019").withCompany("Boehringer-Ingelheim").build();
     public static final Medicine HYDROCHLOROTHIAZIDE = new MedicineBuilder().withName("Hydrochlorothiazide")
-            .withQuantity("31").withExpiry("12/08/2019").withCompany("NovaBay Pharmaceuticals").build();
+            .withQuantity("0").withExpiry("-").withCompany("NovaBay Pharmaceuticals").build();
 
     // Manually added - Medicine's details found in {@code CommandTestUtil}
     public static final Medicine AMOXICILLIN = new MedicineBuilder().withName(VALID_NAME_AMOXICILLIN)

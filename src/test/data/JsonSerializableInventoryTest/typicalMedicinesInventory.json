@@ -14,8 +14,8 @@
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Acetaminophen",
-    "quantity" : "563",
-    "expiry" : "04/02/2020",
+    "quantity" : "0",
+    "expiry" : "-",
     "company" : "Pfizer",
     "tagged" : [ ]
   }, {

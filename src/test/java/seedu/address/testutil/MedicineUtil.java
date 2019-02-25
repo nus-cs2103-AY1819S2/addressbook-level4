@@ -31,8 +31,6 @@ public class MedicineUtil {
     public static String getMedicineDetails(Medicine medicine) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + medicine.getName().fullName + " ");
-        sb.append(PREFIX_QUANTITY + medicine.getQuantity().value + " ");
-        sb.append(PREFIX_EXPIRY + medicine.getExpiry().value + " ");
         sb.append(PREFIX_COMPANY + medicine.getCompany().value + " ");
         medicine.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")

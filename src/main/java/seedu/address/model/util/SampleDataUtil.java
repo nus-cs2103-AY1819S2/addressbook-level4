@@ -2,11 +2,15 @@ package seedu.address.model.util;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.medicine.Batch;
+import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Medicine;
@@ -58,4 +62,15 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a batch map containing the list of strings given.
+     */
+    public static Map<BatchNumber, Batch> getBatchSet(String... strings) {
+        Map<BatchNumber, Batch> map = new HashMap<>();
+        for (int i = 0; i < strings.length; i += 3){
+            BatchNumber batchNumber = new BatchNumber(strings[i]);
+            map.put(batchNumber, new Batch(batchNumber, new Expiry(strings[i+1]), new Quantity(strings[i+2])));
+        }
+        return map;
+    }
 }

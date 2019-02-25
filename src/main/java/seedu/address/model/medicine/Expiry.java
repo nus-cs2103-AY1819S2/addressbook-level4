@@ -32,7 +32,7 @@ public class Expiry {
      * Returns if a given string is a valid expiry.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) || test.equals("-");
     }
 
     @Override

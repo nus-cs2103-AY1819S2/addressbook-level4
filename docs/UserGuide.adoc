@@ -56,9 +56,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a : `add`
+=== Adding a Book: `addBook`
 
-Adds a person to the address book +
+Adds a book to the book list +
 Format: `addBook n/BOOK NAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
@@ -80,16 +80,18 @@ Examples:
 
 Shows a list of all book entries, with the specified TAG and RATING. +
 Format: `listBook [t/TAG] [m/RATING]`
+
 Examples:
 
-*`listBook t/textbook m/5`
-*`listBook t/testbook`
-*`listBook m/5`
+* `listBook t/textbook m/5`
+* `listBook t/testbook`
+* `listBook m/5`
 
 === Listing Book Reviews to a Certain Book : `listReview`
 
 Shows a list of all review entries of a book. +
 Format: `listReview n/BOOKNAME`
+
 Examples:
 
 *`listReview n/Alice in Wonderland`

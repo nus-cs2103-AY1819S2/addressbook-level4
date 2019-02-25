@@ -15,8 +15,6 @@ public class Batch {
 
     /**
      * Constructs a {@code Batch}.
-     *
-     * @param batchNumber A valid batch number.
      */
     public Batch(BatchNumber batchNumber, Expiry expiry, Quantity quantity) {
         requireAllNonNull(batchNumber, expiry, quantity);

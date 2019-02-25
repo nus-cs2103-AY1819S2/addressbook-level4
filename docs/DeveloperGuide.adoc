@@ -589,8 +589,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list persons
-2.  In-Credit-Ble shows a list of persons
+1.  User requests to list entries
+2.  In-Credit-Ble shows a list of entries
 3.  User requests to add a specific entry in the list
 4.  In-Credit-Ble adds the entry
 +

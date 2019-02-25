@@ -17,7 +17,7 @@ public class Request {
     private final Person patient;
     private final String requestDate;
     private final Set<Tag> conditions;
-    private Optional<Person> healthStaff;
+    private Optional<Person> healthWorker;
     private boolean isCompleted; // represents the state of the request
 
     /*
@@ -36,7 +36,7 @@ public class Request {
         this.requestDate = requestDate;
         this.conditions = conditions;
         this.isCompleted = isCompleted;
-        this.healthStaff = Optional.empty();
+        this.healthWorker = Optional.empty();
     }
 
     /*
@@ -45,12 +45,12 @@ public class Request {
     public Request(String id, Person patient, Person healthStaff, String requestDate, Set<Tag> conditions, boolean isCompleted) {
         this(id, patient, requestDate, conditions, isCompleted);
         requireNonNull(healthStaff);
-        this.healthStaff = Optional.of(healthStaff);
+        this.healthWorker = Optional.of(healthStaff);
     }
 
     public void setHealthStaff(Person healthStaff) {
         requireNonNull(healthStaff);
-        this.healthStaff = Optional.of(healthStaff);
+        this.healthWorker = Optional.of(healthStaff);
     }
 
     /**
@@ -72,8 +72,8 @@ public class Request {
 
     @Override
     public String toString() {
-        String healthStaff = this.healthStaff == null ? "Unassigned" : this
-                .healthStaff.toString();
+        String healthStaff = this.healthWorker == null ? "Unassigned" : this
+                .healthWorker.toString();
         String status = isCompleted ? "Completed" : "Pending";
 
         return "----------Request----------\n"
@@ -101,7 +101,7 @@ public class Request {
                 && otherRequest.getPatient().equals(this.patient)
                 && (otherRequest.getRequestDate().equals(this.requestDate))
                 && (otherRequest.getConditions().equals(this.conditions))
-                && otherRequest.getHealthStaff().equals(this.healthStaff)
+                && otherRequest.getHealthStaff().equals(this.healthWorker)
                 && (otherRequest.isComplete() == this.isCompleted);
     }
 
@@ -122,7 +122,7 @@ public class Request {
     }
 
     public Optional<Person> getHealthStaff() {
-        return healthStaff;
+        return healthWorker;
     }
 
     public boolean isComplete() {

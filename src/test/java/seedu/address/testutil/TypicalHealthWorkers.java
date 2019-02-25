@@ -10,7 +10,7 @@ import seedu.address.model.person.Person;
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalHealthStaff {
+public class TypicalHealthWorkers {
 
     public static final Person ANDY = new PersonBuilder().withName("Andy Tan")
             .withAddress("125, Jurong West Ave 6, #08-111").withEmail("andye@example.com")
@@ -33,7 +33,7 @@ public class TypicalHealthStaff {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalHealthStaff() {
+    private TypicalHealthWorkers() {
     } // prevents instantiation
 
     /**

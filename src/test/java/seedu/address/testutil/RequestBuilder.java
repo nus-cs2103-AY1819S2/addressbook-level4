@@ -31,7 +31,7 @@ public class RequestBuilder {
     private String requestDate;
     private boolean isComplete;
     private Set<Tag> conditions;
-    private Optional<Person> healthStaff;
+    private Optional<Person> healthWorker;
     private Person patient;
 
     /*
@@ -43,7 +43,7 @@ public class RequestBuilder {
                 (DEFAULT_PHONE), new Email(DEFAULT_EMAIL), new Address
                 (DEFAULT_ADDRESS), new HashSet<>(Collections.singleton(new Tag
                 (DEFAULT_REQUEST))));
-        this.healthStaff = Optional.of(new Person(new Name(DEFAULT_STAFF_NAME), new Phone
+        this.healthWorker = Optional.of(new Person(new Name(DEFAULT_STAFF_NAME), new Phone
                 (DEFAULT_STAFF_PHONE), new Email(DEFAULT_STAFF_EMAIL), new Address
                 (DEFAULT_STAFF_ADDRESS), Collections.emptySet()));
         this.requestDate = DEFAULT_DATE;
@@ -57,7 +57,7 @@ public class RequestBuilder {
     public RequestBuilder(Request requestToCopy) {
         this.id = requestToCopy.getId();
         this.patient = requestToCopy.getPatient();
-        this.healthStaff = requestToCopy.getHealthStaff();
+        this.healthWorker = requestToCopy.getHealthStaff();
         this.conditions = requestToCopy.getConditions();
         this.requestDate = requestToCopy.getRequestDate();
         this.isComplete = requestToCopy.isComplete();
@@ -94,7 +94,7 @@ public class RequestBuilder {
      */
     public RequestBuilder withHealthStaff(Person healthStaff) {
         requireNonNull(healthStaff);
-        this.healthStaff = Optional.of(healthStaff);
+        this.healthWorker = Optional.of(healthStaff);
         return this;
     }
 
@@ -118,7 +118,7 @@ public class RequestBuilder {
      * Builds and returns the order.
      */
     public Request build() {
-        return this.healthStaff.map(person -> new Request(this.id, this.patient, person, this.requestDate, this.conditions, this.isComplete))
+        return this.healthWorker.map(person -> new Request(this.id, this.patient, person, this.requestDate, this.conditions, this.isComplete))
                 .orElseGet(() -> new Request(this.id, this.patient, this.requestDate, this.conditions, this.isComplete));
     }
 

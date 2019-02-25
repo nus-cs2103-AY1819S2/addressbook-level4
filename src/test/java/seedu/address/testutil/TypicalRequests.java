@@ -13,7 +13,7 @@ public class TypicalRequests {
             .withPatient(TypicalPatients.ALICE)
             .withConditions("Physiotherapy")
             .withDate("01-01-2019 10:00:00")
-            .withHealthStaff(TypicalHealthStaff.ANDY)
+            .withHealthStaff(TypicalHealthWorkers.ANDY)
             .withStatus(false)
             .build();
 
@@ -22,7 +22,7 @@ public class TypicalRequests {
             .withPatient(TypicalPatients.BENSON)
             .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
-            .withHealthStaff(TypicalHealthStaff.BETTY)
+            .withHealthStaff(TypicalHealthWorkers.BETTY)
             .withStatus(false)
             .build();
 
@@ -31,7 +31,7 @@ public class TypicalRequests {
             .withPatient(TypicalPatients.CARL)
             .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
-            .withHealthStaff(TypicalHealthStaff.CARLIE)
+            .withHealthStaff(TypicalHealthWorkers.CARLIE)
             .withStatus(false)
             .build();
 
@@ -40,7 +40,7 @@ public class TypicalRequests {
             .withPatient(TypicalPatients.DANIEL)
             .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
-            .withHealthStaff(TypicalHealthStaff.PANIEL)
+            .withHealthStaff(TypicalHealthWorkers.PANIEL)
             .withStatus(false)
             .build();
 }

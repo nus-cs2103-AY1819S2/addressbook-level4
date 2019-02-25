@@ -4,7 +4,7 @@ import org.junit.Test;
 import seedu.address.testutil.RequestBuilder;
 
 import static org.junit.Assert.*;
-import static seedu.address.testutil.TypicalHealthStaff.BETTY;
+import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;

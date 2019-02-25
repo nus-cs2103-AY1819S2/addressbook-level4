@@ -116,7 +116,6 @@ public class HealthWorkerBuilder {
         return this;
     }
 
-
     public HealthWorker build() {
         return new HealthWorker(name, phone, email, nric, address, tags,
                 organization);

@@ -9,8 +9,8 @@ import java.util.Objects;
  */
 public class TimeRange {
 
-    final LocalTime startTime;
-    final LocalTime endTime;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
 
     public TimeRange(int startHour, int endHour) {
         this.startTime = LocalTime.of(startHour, 0);

@@ -16,6 +16,7 @@ public class QuizCard {
     private String question;
     private String answer;
     private List<String> opt;
+    private int index;
     private boolean swap; //swap qn/ans
     private int totalAttempts;
     private int streak;
@@ -35,6 +36,15 @@ public class QuizCard {
         this.question = question;
         this.answer = answer;
         this.opt = opt;
+    }
+
+    public QuizCard(int index, String question, String answer) {
+        requireAllNonNull(index, question, answer);
+        checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
+
+        this.index = index;
+        this.question = question;
+        this.answer = answer;
     }
 
     public String getQuestion() {

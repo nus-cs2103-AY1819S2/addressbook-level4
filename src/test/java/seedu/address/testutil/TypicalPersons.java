@@ -8,7 +8,26 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_HW_A;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_HW_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_HW_A;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_HW_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HW_A;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HW_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_HW_A;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_HW_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_HW_A;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_HW_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.

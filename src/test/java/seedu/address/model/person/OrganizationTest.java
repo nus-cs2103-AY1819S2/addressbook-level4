@@ -17,8 +17,7 @@ public class OrganizationTest {
     @Test
     public void constructor_invalidOrgName_throwsIllegalArgumentException() {
         String invalidOrgName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Name
-                (invalidOrgName));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidOrgName));
     }
 
     @Test

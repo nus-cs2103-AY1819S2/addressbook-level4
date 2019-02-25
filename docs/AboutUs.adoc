@@ -13,9 +13,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ho Boon Wee Addison
 image::addison.jpeg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/Carrein[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Carrein[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Leader
+Role: Team Lead +
+Responsibilities: UI
 
 '''
 
@@ -23,8 +24,8 @@ Role: Team Leader
 image::randy.jpeg[width="150", align="left"]
 {empty}[https://github.com/randytqw[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Image State Management (undo, redo)
 
 '''
 
@@ -33,7 +34,7 @@ image::zack.jpeg[width="150", align="left"]
 {empty}[https://github.com/itszp[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Import/Export
 
 '''
 
@@ -42,7 +43,7 @@ image::simun.jpeg[width="150", align="left"]
 {empty}[https://github.com/thamsimun[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Image Filters
 
 '''
 
@@ -51,6 +52,6 @@ image::kayheen.jpg[width="150", align="left"]
 {empty}[https://github.com/kayheen[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Image Manipulation
 
 '''

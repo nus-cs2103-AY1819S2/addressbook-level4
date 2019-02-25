@@ -1,4 +1,4 @@
-*CountryName,*CapitalName,CountryCode,ContinentName
+﻿*CountryName,*CapitalName,CountryCode,ContinentName
 Afghanistan,Kabul,AF,Asia
 Aland Islands,Mariehamn,AX,Europe
 Albania,Tirana,AL,Europe
@@ -51,7 +51,7 @@ Costa Rica,San Jose,CR,Central America
 Cote d'Ivoire,Yamoussoukro,CI,Africa
 Croatia,Zagreb,HR,Europe
 Cuba,Havana,CU,North America
-Curaçao,Willemstad,CW,North America
+CuraÃ§ao,Willemstad,CW,North America
 Cyprus,Nicosia,CY,Europe
 Czech Republic,Prague,CZ,Europe
 Democratic Republic of the Congo,Kinshasa,CD,Africa
@@ -73,7 +73,7 @@ Fiji,Suva,FJ,Australia
 Finland,Helsinki,FI,Europe
 France,Paris,FR,Europe
 French Polynesia,Papeete,PF,Australia
-French Southern and Antarctic Lands,Port-aux-Français,TF,Antarctica
+French Southern and Antarctic Lands,Port-aux-FranÃ§ais,TF,Antarctica
 Gabon,Libreville,GA,Africa
 Georgia,Tbilisi,GE,Europe
 Germany,Berlin,DE,Europe
@@ -233,7 +233,7 @@ Vatican City,Vatican City,VA,Europe
 Venezuela,Caracas,VE,South America
 Vietnam,Hanoi,VN,Asia
 Wallis and Futuna,Mata-Utu,WF,Australia
-Western Sahara,El-Aaiún,EH,Africa
+Western Sahara,El-AaiÃºn,EH,Africa
 Yemen,Sanaa,YE,Asia
 Zambia,Lusaka,ZM,Africa
 Zimbabwe,Harare,ZW,Africa

@@ -39,7 +39,11 @@ public class CsvUtil {
             csvReader = new CSVReader(reader);
             values = csvReader.readAll();
         } catch (IOException exception) {
-            logger.info("Invalid csv file.");
+            logger.info("Invalid file path.");
+            return null;
+        }
+        if(values.size() == 0) {
+            logger.info("Invalid/empty file.");
             return null;
         }
         return values;

@@ -16,12 +16,14 @@ import seedu.address.model.request.Request;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building Request objects.
+ */
 public class RequestBuilder {
     public static final String DEFAULT_ID = "1233";
     public static final String DEFAULT_PATIENT_NAME = "Amanda Tan";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_ADDRESS = "123, Far East Ave 3, #04-123," +
-            " 123456";
+    public static final String DEFAULT_ADDRESS = "123, Far East Ave 3, #04-123, 123456";
     public static final boolean DEFAULT_ISCOMPLETE = false;
     public static final String DEFAULT_DATE = "01-01-2019 08:00:00";
     public static final String DEFAULT_REQUEST = "Physiotherapy";
@@ -38,9 +40,6 @@ public class RequestBuilder {
     private Optional<Person> healthWorker;
     private Person patient;
 
-    /*
-     * A utility class to help with building Request objects.
-     */
     public RequestBuilder() {
         this.id = DEFAULT_ID;
         this.patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone(DEFAULT_PHONE), new Email(DEFAULT_EMAIL),
@@ -63,12 +62,11 @@ public class RequestBuilder {
         this.requestDate = requestToCopy.getRequestDate();
         this.isComplete = requestToCopy.isComplete();
     }
-
     /*
-    -     * Sets the {@code id} of the {@code Request} that we are building.
-    -     *
-    -     * @param id The id of the order.
-    -     */
+     * Sets the {@code id} of the {@code Request} that we are building.
+     *
+     * @param id The id of the order.
+     */
     public RequestBuilder withId(String id) {
         this.id = id;
         return this;
@@ -115,7 +113,7 @@ public class RequestBuilder {
         return this;
     }
 
-    /**
+    /*
      * Builds and returns the order.
      */
     public Request build() {

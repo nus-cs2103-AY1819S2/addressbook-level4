@@ -2,6 +2,9 @@ package seedu.address.testutil;
 
 import seedu.address.model.request.Request;
 
+/**
+ * A utility class containing {@code Request} objects to be used in tests.
+ */
 public class TypicalRequests {
     public static final String ALICE_ID = "aslkdjaslaskd";
     public static final String BENSON_ID = "slkajsfddasdf";

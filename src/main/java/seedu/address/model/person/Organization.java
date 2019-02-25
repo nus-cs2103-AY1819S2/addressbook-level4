@@ -10,8 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Organization {
 
     public static final String MESSAGE_CONSTRAINTS = "Organization name "
-            + "should contain at least 2 characters";
-    public static final String VALIDATION_REGEX = "[a-zA-z0-9,.\\-\\s]{2}";
+            + "should contain only alphanumeric characters and spaces";
+    public static final String VALIDATION_REGEX =
+            "^[a-zA-Z0-9]+( [a-zA-Z0-9]+)*$"; // Organization name should
+    // contain only alphanumeric character strings with spaces in between.
 
     private String orgName;
 
@@ -21,7 +23,7 @@ public class Organization {
         this.orgName = orgName;
     }
 
-    public boolean isValidOrgName(String test) {
+    public static boolean isValidOrgName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

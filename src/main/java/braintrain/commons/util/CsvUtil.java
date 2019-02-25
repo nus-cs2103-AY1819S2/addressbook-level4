@@ -1,16 +1,16 @@
 package braintrain.commons.util;
 
+import com.opencsv.CSVReader;
+import java.io.Reader;
+import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import braintrain.commons.core.LogsCenter;
-import braintrain.commons.exceptions.DataConversionException;
-
 /**
  * Converts a Java object instance to CSV and vice versa
  */
@@ -22,33 +22,30 @@ public class CsvUtil {
      * If any values are missing from the file, default values will be used, as long as the file is a valid csv file.
      *
      * @param filePath                   cannot be null.
-     * @param classOfObjectToDeserialize Csv file has to correspond to the structure in the class given here.
-     * @throws DataConversionException if the file format is not as expected.
+     * @throws IOException
      */
-    public static <T> Optional<T> readCsvFile(
-        Path filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException, IOException {
+    public static List<String[]> readCsvFile(Path filePath) throws IOException {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
-            logger.info("Csv file " + filePath + " not found");
-            return Optional.empty();
+            logger.info("csv file at [" + filePath + "] not found");
+            return null;
         }
 
-
-        T csvFile = null;
-        /*
+        CSVReader csvReader;
+        List<String[]> values;
         try {
-            csvFile = null; //TODO
-        } catch (IOException e) {
-            logger.warning("Error reading from csvFile file " + filePath + ": " + e);
-            throw new DataConversionException(e);
+            Reader reader = Files.newBufferedReader(filePath);
+            csvReader = new CSVReader(reader);
+            values = csvReader.readAll();
+        } catch (IOException exception) {
+            logger.info("Invalid csv file.");
+            return null;
         }
-        */
-
-        return Optional.of(csvFile);
+        return values;
     }
 
-    /**
+    /*
      * Saves the Csv object to the specified file.
      * Overwrites existing file if it exists, creates a new file if it doesn't.
      *
@@ -56,6 +53,7 @@ public class CsvUtil {
      * @param filePath cannot be null
      * @throws IOException if there was an error during writing to the file
      */
+    /*
     public static <T> void saveCsvFile(T csvFile, Path filePath) throws IOException {
         requireNonNull(filePath);
         requireNonNull(csvFile);
@@ -63,5 +61,5 @@ public class CsvUtil {
         //serializeObjectToCsvFile(filePath, csvFile);
     }
 
-
+    */
 }

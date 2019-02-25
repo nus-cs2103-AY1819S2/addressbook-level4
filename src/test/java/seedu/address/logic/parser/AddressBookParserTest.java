@@ -177,7 +177,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_ListAlias2() throws Exception {
+    public void parseCommand_listAlias2() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS2) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS2 + " 3") instanceof ListCommand);
     }

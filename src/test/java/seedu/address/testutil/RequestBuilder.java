@@ -119,7 +119,8 @@ public class RequestBuilder {
     public Request build() {
         return this.healthWorker.map(person -> new Request(this.id, this.patient, person, this.requestDate,
                 this.conditions, this.isComplete))
-                .orElseGet(() -> new Request(this.id, this.patient, this.requestDate, this.conditions, this.isComplete));
+                .orElseGet(() -> new Request(this.id, this.patient, this.requestDate, this.conditions, this.isComplete)
+                );
     }
 
 }

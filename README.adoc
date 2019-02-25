@@ -3,10 +3,8 @@
 image:https://api.codacy.com/project/badge/Grade/9a712b09ec8f4acbb39586d28ba4b749[link="https://app.codacy.com/app/sreycodes/main?utm_source=github.com&utm_medium=referral&utm_content=cs2103-ay1819s2-t12-1/main&utm_campaign=Badge_Grade_Settings"]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+[![Build Status](https://travis-ci.org/cs2103-ay1819s2-t12-1/main.svg?branch=master)](https://travis-ci.org/cs2103-ay1819s2-t12-1/main)
+[![Coverage Status](https://coveralls.io/repos/github/cs2103-ay1819s2-t12-1/main/badge.svg?branch=master)](https://coveralls.io/github/cs2103-ay1819s2-t12-1/main?branch=master)
 
 * This is a hotel management system. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
@@ -24,5 +22,6 @@ https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_m
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* https://github.com/se-edu/addressbook-level4
 
 == Licence : link:LICENSE[MIT]

@@ -43,13 +43,10 @@ public class RequestBuilder {
      */
     public RequestBuilder() {
         this.id = DEFAULT_ID;
-        this.patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone
-                (DEFAULT_PHONE), new Email(DEFAULT_EMAIL), new Address
-                (DEFAULT_ADDRESS), new HashSet<>(Collections.singleton(new Tag
-                (DEFAULT_REQUEST))));
-        this.healthWorker = Optional.of(new Person(new Name(DEFAULT_STAFF_NAME), new Phone
-                (DEFAULT_STAFF_PHONE), new Email(DEFAULT_STAFF_EMAIL), new Address
-                (DEFAULT_STAFF_ADDRESS), Collections.emptySet()));
+        this.patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone(DEFAULT_PHONE), new Email(DEFAULT_EMAIL),
+                new Address(DEFAULT_ADDRESS), new HashSet<>(Collections.singleton(new Tag(DEFAULT_REQUEST))));
+        this.healthWorker = Optional.of(new Person(new Name(DEFAULT_STAFF_NAME), new Phone(DEFAULT_STAFF_PHONE),
+                new Email(DEFAULT_STAFF_EMAIL), new Address(DEFAULT_STAFF_ADDRESS), Collections.emptySet()));
         this.requestDate = DEFAULT_DATE;
         this.conditions = new HashSet<>(Collections.singleton(new Tag(DEFAULT_REQUEST)));
         this.isComplete = DEFAULT_ISCOMPLETE;
@@ -122,7 +119,8 @@ public class RequestBuilder {
      * Builds and returns the order.
      */
     public Request build() {
-        return this.healthWorker.map(person -> new Request(this.id, this.patient, person, this.requestDate, this.conditions, this.isComplete))
+        return this.healthWorker.map(person -> new Request(this.id, this.patient, person, this.requestDate,
+                this.conditions, this.isComplete))
                 .orElseGet(() -> new Request(this.id, this.patient, this.requestDate, this.conditions, this.isComplete));
     }
 

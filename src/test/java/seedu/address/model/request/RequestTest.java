@@ -1,6 +1,8 @@
 package seedu.address.model.request;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;

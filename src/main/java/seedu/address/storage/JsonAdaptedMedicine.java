@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +30,7 @@ class JsonAdaptedMedicine {
     private final String expiry;
     private final String company;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedBatch> batches = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMedicine} with the given medicine details.
@@ -36,13 +38,17 @@ class JsonAdaptedMedicine {
     @JsonCreator
     public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("quantity") String quantity,
             @JsonProperty("expiry") String expiry, @JsonProperty("company") String company,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+            @JsonProperty("batches") List<JsonAdaptedBatch> batches) {
         this.name = name;
         this.quantity = quantity;
         this.expiry = expiry;
         this.company = company;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (batches != null) {
+            this.batches.addAll(batches);
         }
     }
 
@@ -104,7 +110,7 @@ class JsonAdaptedMedicine {
         final Company modelCompany = new Company(company);
 
         final Set<Tag> modelTags = new HashSet<>(medicineTags);
-        return new Medicine(modelName, modelQuantity, modelExpiry, modelCompany, modelTags);
+        return new Medicine(modelName, modelQuantity, modelExpiry, modelCompany, modelTags, Collections.emptyMap());
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,22 +22,22 @@ public class SampleDataUtil {
         return new Medicine[] {
             new Medicine(new Name("Aspirin"), new Quantity("807"), new Expiry("29/11/2019"),
                 new Company("Otsuka Pharmaceutical Co."),
-                getTagSet("friends")),
+                getTagSet("friends"), Collections.emptyMap()),
             new Medicine(new Name("Bendroflumethiazide"), new Quantity("58"), new Expiry("03/10/2019"),
                 new Company("Piramal Healthcare"),
-                getTagSet("colleagues", "friends")),
+                getTagSet("colleagues", "friends"), Collections.emptyMap()),
             new Medicine(new Name("Co-codamol"), new Quantity("283"), new Expiry("28/02/2020"),
                 new Company("Renovo PLC"),
-                getTagSet("neighbours")),
+                getTagSet("neighbours"), Collections.emptyMap()),
             new Medicine(new Name("Simvastatin"), new Quantity("312"), new Expiry("16/09/2019"),
                 new Company("Vion Pharmaceuticals, Inc."),
-                getTagSet("family")),
+                getTagSet("family"), Collections.emptyMap()),
             new Medicine(new Name("Omeprazole"), new Quantity("921"), new Expiry("02/07/2019"),
                 new Company("Eli Lilly and Company"),
-                getTagSet("classmates")),
+                getTagSet("classmates"), Collections.emptyMap()),
             new Medicine(new Name("Atorvastatin"), new Quantity("296"), new Expiry("31/12/2019"),
                 new Company("Mitsubishi Tanabe Pharma"),
-                getTagSet("colleagues"))
+                getTagSet("colleagues"), Collections.emptyMap())
         };
     }
 

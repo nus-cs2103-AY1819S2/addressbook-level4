@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -87,7 +88,7 @@ public class MedicineBuilder {
     }
 
     public Medicine build() {
-        return new Medicine(name, quantity, expiry, company, tags);
+        return new Medicine(name, quantity, expiry, company, tags, Collections.emptyMap());
     }
 
 }

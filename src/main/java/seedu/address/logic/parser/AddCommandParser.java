@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -44,7 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Company company = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Medicine medicine = new Medicine(name, quantity, expiry, company, tagList);
+        Medicine medicine = new Medicine(name, quantity, expiry, company, tagList, Collections.emptyMap());
 
         return new AddCommand(medicine);
     }

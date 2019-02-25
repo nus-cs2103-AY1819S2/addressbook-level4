@@ -84,7 +84,7 @@ public class MedicineListPanelTest extends GuiUnitTest {
             Quantity quantity = new Quantity("000");
             Expiry expiry = new Expiry("1/1/2011");
             Company company = new Company("a");
-            Medicine medicine = new Medicine(name, quantity, expiry, company, Collections.emptySet());
+            Medicine medicine = new Medicine(name, quantity, expiry, company, Collections.emptySet(), Collections.emptyMap());
             backingList.add(medicine);
         }
         return backingList;

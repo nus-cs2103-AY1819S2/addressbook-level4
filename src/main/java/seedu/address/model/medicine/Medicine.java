@@ -3,7 +3,9 @@ package seedu.address.model.medicine;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,18 +25,20 @@ public class Medicine {
     private final Quantity quantity;
     private final Expiry expiry;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Batch> batches = new HashSet<>();
+    private final Map<BatchNumber, Batch> batches = new HashMap<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Medicine(Name name, Quantity quantity, Expiry expiry, Company company, Set<Tag> tags) {
+    public Medicine(Name name, Quantity quantity, Expiry expiry, Company company, Set<Tag> tags,
+            Map<BatchNumber, Batch> batches) {
         requireAllNonNull(name, quantity, expiry, company, tags);
         this.name = name;
         this.quantity = quantity;
         this.expiry = expiry;
         this.company = company;
         this.tags.addAll(tags);
+        this.batches.putAll(batches);
     }
 
     public Name getName() {
@@ -65,8 +69,8 @@ public class Medicine {
      * Returns an immutable batch set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Batch> getBatches() {
-        return Collections.unmodifiableSet(batches);
+    public Map<BatchNumber, Batch> getBatches() {
+        return Collections.unmodifiableMap(batches);
     }
 
     /**
@@ -125,7 +129,7 @@ public class Medicine {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Batches: ");
-        getBatches().forEach(builder::append);
+        getBatches().entrySet().forEach(builder::append);
 
         return builder.toString();
     }

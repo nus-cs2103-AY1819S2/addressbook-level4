@@ -124,8 +124,8 @@ public class RequestBuilder {
         return this;
     }
 
-    /*
-     * Builds and returns the order.
+    /**
+     * Builds and returns the request.
      */
     public Request build() {
         return this.healthWorker.map(person -> new Request(this.id, this.patient, person, this.requestDate,

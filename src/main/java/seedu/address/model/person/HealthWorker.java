@@ -41,6 +41,18 @@ public class HealthWorker extends Person {
         return builder.toString();
     }
 
+    public boolean isSameHealthWorker(HealthWorker other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other != null
+                && other.getName().equals(this.getName())
+                && other.getNric().equals(this.getNric())
+                && other.getPhone().equals(this.getPhone())
+                && other.getOrganization().equals(this.getOrganization());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

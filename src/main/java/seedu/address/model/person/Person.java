@@ -113,7 +113,7 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                // && otherPerson.getNric().equals(getNric())
+                && otherPerson.getNric().equals(getNric())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -128,8 +128,8 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                // .append(" Nric: ")
-                // .append(getNric())
+                .append(" Nric: ")
+                .append(getNric())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")

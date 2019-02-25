@@ -22,7 +22,7 @@ public class OrganizationTest {
     }
 
     @Test
-    public void isValidName() {
+    public void isValidOrgName() {
         // null orgname
         Assert.assertThrows(NullPointerException.class, () -> Organization
                 .isValidOrgName(null));

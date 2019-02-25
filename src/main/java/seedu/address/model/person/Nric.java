@@ -38,7 +38,7 @@ public class Nric {
      * @param test Nric string to be tested
      * @return true if test matches the validation regex
      */
-    public boolean isValidNric(String test) {
+    public static boolean isValidNric(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

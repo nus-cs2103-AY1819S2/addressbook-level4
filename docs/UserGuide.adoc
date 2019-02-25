@@ -56,184 +56,123 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Importing an image : `import`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Input the image to edit from a specified filepath. +
+Format: `import f/FILEPATH`
 
-[TIP]
-A person can have any number of tags (including 0)
+Example:
 
-Examples:
+* `import f/desktop/photoalbum/image123`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+=== Export edited image : `export`
 
-=== Listing all persons : `list`
+Export the edited photo into the specified filepath +
+Format: `export f/FILEPATH`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Example:
 
-=== Editing a person : `edit`
+* `export f/desktop/editedphotoalbum`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Undo edit steps : `undo`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Go back to the previous state of the image. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `rotate 20 4 5` +
+`brightness add` +
+`undo` (reverses the `brightness add` command) +
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+* `contrast subtract` +
+`crop 2,3 3,4 4,5 5,6` +
+`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
+`undo` (reverses the `contrast subtract`)
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redo edit steps : `redo`
 
-Reverses the most recent `undo` command. +
+Return to a previously undone state. +
 Format: `redo`
+
+[NOTE]
+====
+Redoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
+====
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `rotate 20 4 5` +
+`brightness add` +
+`undo` (reverses the `brightness add` command) +
+`redo` (runs `brightness add` again)
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+* `contrast subtract` +
+`crop 2,3 3,4 4,5 5,6` +
+`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
+`undo` (reverses the `contrast subtract`)
+`redo` (runs `contrast subtract` command again) + 
+`redo` (runs `crop 2,3 3,4 4,5 5,6` command again)
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+=== Crop an image : `crop`
 
-=== Clearing all entries : `clear`
+Crop a photo based on given coordinates. +
+Format: `crop x/POINTCOORD y/POINTCOORD w/POINTCOORD z/POINTCOORD`
 
-Clears all entries from the address book. +
-Format: `clear`
+****
+* The point coordinates must be separated by a comma without any spacing in between
+****
+
+Example:
+
+* `crop x/2,3 y/3,4 w/4,5 z/5,6`
+
+=== Rotate an image : `rotate`
+
+Rotates the photo for a given degree provided by the user.  +
+Format: `rotate a/ANGLE x/XCOORDINATE y/YCOORDINATE`
+
+Example:
+
+* `rotate a/30 x/23 y/45`
+
+=== Contrast: `contrast`
+
+Adjust the contrast of the photo. +
+Format: `contrast o/OPERATOR [n/DEGREE]`
+
+Examples:
+
+* `contrast o/add`
+
+* `contrast o/subtract n/30`
+
+=== Brightness: `brightness`
+
+Adjust the brightness of the photo. +
+Format: `brightness o/OPERATOR [n/DEGREE]`
+
+Examples:
+
+* `brightness o/subtract`
+* `brightness o/add n/40`
+
+=== Black and White filter : `bw`
+
+Change the photo to black and white. +
+Format: `bw`
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 

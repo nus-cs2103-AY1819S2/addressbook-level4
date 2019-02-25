@@ -50,7 +50,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addAlias() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS + " " + PersonUtil.getPersonDetails(person));
+        AddCommand command = (AddCommand) parser.parseCommand(
+                AddCommand.COMMAND_ALIAS + " " + PersonUtil.getPersonDetails(person));
         assertEquals(new AddCommand(person), command);
     }
 
@@ -94,7 +95,7 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
-         + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

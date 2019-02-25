@@ -57,6 +57,9 @@ test {
 dependencies {
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
+    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+    compile group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.13'
+    
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'

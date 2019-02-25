@@ -34,10 +34,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`import`**`f/desktop/photoalbum/image1` : import image1 picture from filepath desktop/photoalbum/image1
+* *`import`*`f/desktop/photoalbum/image1` : import image1 picture from filepath desktop/photoalbum/image1
 * **`undo`** : undo the editing of the image by one step
 * **`export`** : deletes the 3rd contact shown in the current list
-* *`exit`**`f/desktop/photoalbum` : Export the edited photo into the specified filepath
+* *`exit`*`f/desktop/photoalbum` : Export the edited photo into the specified filepath
 
 .  Refer to <<Features>> for details of each command.
 

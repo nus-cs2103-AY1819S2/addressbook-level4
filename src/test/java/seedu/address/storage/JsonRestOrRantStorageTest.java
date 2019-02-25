@@ -21,7 +21,7 @@ import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.RestOrRant;
 
 public class JsonRestOrRantStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonRestOrRantStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

@@ -54,7 +54,7 @@ public class TypicalPersons {
             .withName(VALID_NAME_HW_A).withPhone(VALID_PHONE_HW_A).withEmail
                     (VALID_EMAIL_HW_A).withAddress(VALID_ADDRESS_HW_A)
             .withOrganization(VALID_ORGANIZATION_HW_A).build();
-    public static final HealthWorker TEST_HW_B= new HealthWorkerBuilder()
+    public static final HealthWorker TEST_HW_B = new HealthWorkerBuilder()
             .withName(VALID_NAME_HW_B).withPhone(VALID_PHONE_HW_B).withEmail
                     (VALID_EMAIL_HW_B).withAddress(VALID_ADDRESS_HW_B)
             .withOrganization(VALID_ORGANIZATION_HW_B).build();

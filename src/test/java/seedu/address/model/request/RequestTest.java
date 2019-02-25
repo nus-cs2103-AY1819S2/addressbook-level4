@@ -12,8 +12,6 @@ import org.junit.Test;
 
 import seedu.address.testutil.RequestBuilder;
 
-
-
 public class RequestTest {
 
     @Test

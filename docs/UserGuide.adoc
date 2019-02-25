@@ -117,7 +117,7 @@ Examples:
 `crop 2,3 3,4 4,5 5,6` +
 `undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
 `undo` (reverses the `contrast subtract`) +
-`redo` (runs `contrast subtract` command again) + 
+`redo` (runs `contrast subtract` command again) +
 `redo` (runs `crop 2,3 3,4 4,5 5,6` command again)
 
 === Crop an image : `crop`

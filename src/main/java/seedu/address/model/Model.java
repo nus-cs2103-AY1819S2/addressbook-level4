@@ -6,14 +6,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -36,95 +36,95 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' inventory file path.
      */
-    Path getAddressBookFilePath();
+    Path getInventoryFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' inventory file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setInventoryFilePath(Path inventoryFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces inventory data with the data in {@code inventory}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setInventory(ReadOnlyInventory inventory);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Inventory */
+    ReadOnlyInventory getInventory();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the inventory.
      */
-    boolean hasPerson(Person person);
+    boolean hasMedicine(Medicine medicine);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given medicine.
+     * The medicine must exist in the inventory.
      */
-    void deletePerson(Person target);
+    void deleteMedicine(Medicine target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given medicine.
+     * {@code medicine} must not already exist in the inventory.
      */
-    void addPerson(Person person);
+    void addMedicine(Medicine medicine);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given medicine {@code target} with {@code editedMedicine}.
+     * {@code target} must exist in the inventory.
+     * The identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setMedicine(Medicine target, Medicine editedMedicine);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered medicine list */
+    ObservableList<Medicine> getFilteredMedicineList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous inventory states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoInventory();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone inventory states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoInventory();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's inventory to its previous state.
      */
-    void undoAddressBook();
+    void undoInventory();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's inventory to its previously undone state.
      */
-    void redoAddressBook();
+    void redoInventory();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current inventory state for undo/redo.
      */
-    void commitAddressBook();
+    void commitInventory();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected medicine in the filtered medicine list.
+     * null if no medicine is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Medicine> selectedMedicineProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected medicine in the filtered medicine list.
+     * null if no medicine is selected.
      */
-    Person getSelectedPerson();
+    Medicine getSelectedMedicine();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected medicine in the filtered medicine list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedMedicine(Medicine medicine);
 }

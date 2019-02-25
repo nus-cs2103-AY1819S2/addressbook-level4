@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= FomoFoto
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,20 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W14-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FomoFoto is a image processing software suite written in Java. It is designed for those who *prefer to work a Command Line Interface (CLI)* while providing a Graphical User Interface (GUI) for easy reference. For users who who are looking to edit photos in a quick editor, FomoFoto is the best editor out there. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java version 9 or later installed in your Computer.
+.  Download the latest FomoFoto.jar here.
+.  Copy the file to the folder you want to use as the home folder for your FomoFoto application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +34,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`import`**`f/desktop/photoalbum/image1` : import image1 picture from filepath desktop/photoalbum/image1
+* **`undo`** : undo the editing of the image by one step
+* **`export`** : deletes the 3rd contact shown in the current list
+* *`exit`**`f/desktop/photoalbum` : Export the edited photo into the specified filepath
 
 .  Refer to <<Features>> for details of each command.
 

@@ -30,9 +30,8 @@ public class OrganizationTest {
         // invalid organization names
         assertFalse(Organization.isValidOrgName("")); // empty string
         assertFalse(Organization.isValidOrgName(" ")); // spaces only
-        assertFalse(Organization.isValidOrgName("^")); // only non-alphanumeric characters
-        assertFalse(Organization.isValidOrgName("peter*")); // contains non-alphanumeric
-        // characters
+        assertFalse(Organization.isValidOrgName("hello-world")); // Non space
+        // symbols
 
         // valid name
         assertTrue(Organization.isValidOrgName("hello world"));

@@ -56,48 +56,46 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a patient: `add-patient`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a patient to docX +
+Format: `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER`
 
-[TIP]
-A person can have any number of tags (including 0)
+// [TIP]
+// A person can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add-patient n/John Doe g/Male a/21 p/98765432`
+* `add-patient n/Betsy Crowe g/Female p/1234567 a/32`
 
-=== Listing all persons : `list`
+=== Listing all patients : `list-patient`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Shows a list of all patients in docX. +
+Format: `list-patient`
 
-=== Editing a person : `edit`
+=== Editing a patient : `edit-patient`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing patient in the address book. +
+Format: `edit-patient INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the patient at the specified `INDEX`. The index refers to the identification number (ID) of the patient. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit-patient 1 p/91234567` +
+Edits the phone number of the patient with ID of '1' to be `91234567`.
+* `edit-patient 2 n/Betsy Crower p/45678901` +
+Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '45678901' respectively.
 
-=== Locating persons by name: `find`
+=== Locating patient by name: `search-patient`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds patient(s) whose names contain any of the given keywords. +
+Format: `search-patient NAME [PHONE_NUMBER]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -109,50 +107,291 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
+* `search-patient John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `search-patient Betsy Tim John` +
+Returns any patient having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+=== Deleting an existing patient : `delete-patient`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified patient from the address book. +
+Format: `delete-patient INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the patient of the specified `INDEX` in docX.
+* The index refers to the identification number (ID) of the patient.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list-patient` +
+`delete-patient 3` +
+Deletes the patient with ID of '3' in the address book.
+* `delete-patient 2` +
+Deletes the patient with ID of '2' in the address book.
 
-=== Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+=== Adding a doctor: `add-doctor`
+
+Adds a doctor to docX +
+Format: `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* A doctor must have at least 1 specialisation.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `add-doctor n/John Doe g/Male a/21 p/98765432`
+* `add-doctor n/Betsy Crowe g/Female p/1234567 a/32 s/GENERAL PRACTITIONER`
+
+=== Listing all doctors : `list-doctor`
+
+Shows a list of all doctors in docX. +
+Format: `list-doctor`
+
+=== Editing a doctor : `edit-doctor`
+
+Edits an existing doctor in the address book. +
+Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]`
+
+****
+* Edits the doctor at the specified `INDEX`. The index refers to the identification number (ID) of the doctor. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing specialisation, the existing specialisations of the doctor will be removed i.e adding of specialisation(s) is not cumulative.
+* You can remove all the doctor's specialisations by typing `s/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit-doctor 1 p/91234567` +
+Edits the phone number of the doctor with ID of '1' to be `91234567`.
+* `edit-doctor 2 n/Betsy Crower p/45678901` +
+Edits the name and phone number of the doctor with ID of '2' to be `Betsy Crower` and '45678901' respectively.
+
+=== Locating doctor by name: `search-doctor`
+
+Finds doctor(s) whose names contain any of the given keywords. +
+Format: `search-doctor NAME [PHONE_NUMBER]` or `search-doctor SPECIALISATION`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Each specialisation is to be quoted in quotation marks.
+****
+
+Examples:
+
+* `search-doctor John` +
+Returns `john` and `John Doe`
+* `search-doctor 'general practitioner' 'acupuncture'` +
+Returns any doctor having either 'general practitioner' or 'acupuncture' or both.
+
+=== Deleting an existing doctor : `delete-doctor`
+
+Deletes the specified doctor from the address book. +
+Format: `delete-doctor INDEX`
+
+****
+* Deletes the doctor of the specified `INDEX`.
+* The index refers to the identification number (ID) of the doctor.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list-doctor` +
+`delete-doctor 1` +
+Deletes the doctor with ID of '1' in the address book.
+* `delete-doctor 2` +
+Deletes the doctor with ID of '2' in the address book.
+
+=== Adding a medical history: `add-med-hist`
+
+Adds a medical history to the patient +
+Format: `add-med-hist p/PATIENT_NAME [pid/PATIENT_ID] d/DOCTOR_NAME [did/DOCTOR_ID] w/SHORT_WRITEUP`
+
+****
+* Medical history and the attending doctor will be added under the patient of `PATIENT_NAME`.
+* Date of visit (same as entry date) will be added to the medical history.
+* If there are common names (patient/doctor) found, the system will stop the information from being added and prompt the user to insert the command with the specific ID of the patient/doctor.
+****
+
+Examples:
+
+* `add-med-hist p/John pid/1 d/Amy Lim w/Came down with a stomach flu, possibly due to eating expired food`
+* `add-med-hist p/John Doe did/3 d/Amy w/Had a fever with sorethroat. Sleeps late.`
+
+=== Listing all medical history of specified patient : `list-med-hist`
+
+Shows a list of all medical history of the specified patient. +
+Format: `list-med-hist PATIENT_ID`
+
+=== Editing a medical history : `edit-med-hist`
+
+Edits a specified medical history of a specified patient. +
+Format: `edit-med-hist pid/PATIENT_ID mhid/MED_HIST_ID [d/DATE_OF_VISIT] [w/SHORT_WRITEUP]`
+
+****
+* Edits the medical history of the specified `MED_HIST_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
+* `DATE_OF_VISIT` must be in the format `DDMMYYYY`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `edit-med-hist pid/1 mhid/2 d/10022019` +
+Edits the date of the medical history entry with ID of '2' under patient with ID of '1' to be `10022019`.
+* `edit-med-hist pid/4 mhid/1 w/Came down with a stomach flu, possibly due to eating expired canned food` +
+Edits the short write up of the medical history with ID of '1' under patient with ID of '2' to be `Came down with a stomach flu, possibly due to eating expired food`.
+
+=== Viewing medical history of a patient: `view-med-hist`
+
+View the full specified medical history of the specified patient. +
+Format: `view-med-hist n/PATIENT_NAME [pid/PATIENT_ID] mhid/MED_HIST_ID`
+
+****
+* Display the full medical history of the specified `MED_HIST_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* If there are common names of patients found, the system will stop the information from being added and prompt the user to insert the command with the specific ID of the patient.
+****
+
+Examples:
+
+* `view-med-hist n/JOHN DOE mhid/1` +
+Returns full write up of the medical history with ID of '1' of the patient with name of 'John Doe'
+* `view-med-hist n/Amy pid/2 mhid/4` +
+Returns full write up of the medical history with ID of '4' of the patient with name of 'Amy' and ID of '2'
+
+=== Locating medical history : `search-med-hist`
+
+Finds medical history(ies) whose write up contain any of the given keywords. +
+Format: `search-med-hist KEYWORD`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Write ups of the medical history matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Each keyword is to be quoted in quotation marks.
+****
+
+Examples:
+
+* `search-med-hist 'flu'` +
+Returns all medical history with the write up containing the keyword `flu`
+* `search-med-hist 'stomach flu' 'sorethroat'` +
+Returns all medical history with the write up containing either 'stomach flu' or 'sorethroat' or both keywords.
+
+=== Adding an appointment: `add-appt`
+
+Adds an appointment under the doctor and patient. +
+Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
+
+****
+* Doctors are assumed to be free from 9am to 12pm and 1pm to 5pm.
+* Appointments are in 1-hour blocks.
+* Returns invalid if the doctor is not available during the specified block.
+* `DATE_OF_APPT` must be in the format `DDMMYYYY`
+* `START_TIME` must be in the 24-hour format `HH` as timing for appointment is hourly, starting from 9am.
+****
+
+Examples:
+
+* `add-appt pid/1 did/1 d/25032019 t/09` +
+Adds an appointment under patient with ID of '1' and doctor with ID of '1' on 25th March 2019 at 9am.
+* `add-appt pid/3 did/2 d/25042019 t/13` +
+Adds an appointment under patient with ID of '3' and doctor with ID of '2' on 25th April 2019 at 1pm.
+
+=== Completing an appointment : `complete-appt`
+
+Complete the appointment when the patient and doctor finishes the appointment +
+Format: `complete-appt INDEX`
+
+****
+* Complete the appointment of the specified `INDEX`.
+* The index refers to the identification number (ID) of the appointment.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Only appointments on the actual day or future dates can be completed.
+****
+
+Examples:
+
+* `complete-appt 1` +
+Completes the appointment with ID of '1' in docX.
+* `complete-appt 3` +
+Completes the appointment with ID of '3' in docX.
+
+=== Cancelling an appointment : `cancel-appt`
+
+Cancel the appointment when the patient or doctor cannot attend the appointment +
+Format: `cancel-appt INDEX`
+
+****
+* Cancel and delete the appointment of the specified `INDEX`.
+* The index refers to the identification number (ID) of the appointment.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Only appointments on the actual day or future dates can be cancelled.
+****
+
+Examples:
+
+* `cancel-appt 1` +
+Cancels and deletes the appointment with ID of '1' in docX.
+* `complete-appt 3` +
+Cancels and delete the appointment with ID of '3' in docX.
+
+
+=== Listing appointments of a doctor : `list-appt`
+
+Shows a list of all incomplete appointments of a doctor in docX within a specified time period. +
+Format: `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
+
+****
+* The start and end date specified are both inclusive in the search results.
+* Completed or cancelled appointments will not be displayed.
+****
+
+Examples:
+
+* list-appt did/3 sd/30032019 ed/30042019 +
+Lists all appointments of the doctor with ID of '3' from 30th March 2019 to 30th April 2019.
+
+=== Listing available timings of a doctor : `list-doc-time`
+
+Shows a list of all available blocks of timing of the specified doctor. +
+Format: `list-doc-time did/DOCTOR_ID d/DATE`
+
+****
+* `DATE` must be in the format `DDMMYYYY`
+* Acceptable dates include the date today and future dates.
+****
+
+Examples:
+
+* list-doc-time did/3 d/05032019 +
+Lists all available blocks of timing of the doctor with ID of '3' on 5th March 2019.
+
+=== Listing available timings of all doctors : `list-time`
+
+Shows a list of all available blocks of timings of all doctors on the specified date. +
+Format: `list-time DATE`
+
+****
+* `DATE` must be in the format `DDMMYYYY`
+* Acceptable dates include the date today and future dates.
+****
+
+Examples:
+
+* list-time 26022019 +
+Lists all doctors' available blocks of timing for each 1-hour time slot on 26th February 2019.
+
 
 === Listing entered commands : `history`
 

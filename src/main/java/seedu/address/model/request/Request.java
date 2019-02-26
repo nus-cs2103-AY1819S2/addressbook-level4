@@ -31,7 +31,8 @@ public class Request {
      * @param conditions The set of the conditions the patient is requesting treatmeent for.
      * @param requestStatus The state of the request.
      */
-    public Request(String id, Person patient, RequestDate requestDate, Set<Tag> conditions, RequestStatus requestStatus) {
+    public Request(String id, Person patient, RequestDate requestDate, Set<Tag> conditions,
+                   RequestStatus requestStatus) {
         requireAllNonNull(id, patient, requestDate, conditions, requestStatus);
         this.id = id;
         this.patient = patient;

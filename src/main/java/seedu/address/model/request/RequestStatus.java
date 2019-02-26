@@ -8,6 +8,9 @@ public class RequestStatus {
 
     public static final String MESSAGE_STATUS_CONSTRAINTS = "Status should be either: PENDING, ONGOING or COMPLETED";
 
+    /**
+     * Represents the different possible statuses of a request.
+     */
     private enum Status {
         PENDING,
         ONGOING,

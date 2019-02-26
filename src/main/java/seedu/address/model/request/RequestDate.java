@@ -1,11 +1,10 @@
 package seedu.address.model.request;
 
-import java.text.SimpleDateFormat;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,8 +13,8 @@ import java.util.Date;
  */
 public class RequestDate {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in the format dd-MM-yyyy HH:mm:ss and it " +
-            "should be a valid date.";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in the format dd-MM-yyyy HH:mm:ss and it "
+            + "should be a valid date.";
 
     private static final SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
@@ -38,6 +37,10 @@ public class RequestDate {
         }
     }
 
+    /**
+     * @param orderDate The date to check for validity.
+     * @return true if the orderDate is valid, false otherwise.
+     */
     public static boolean isValidDate(String orderDate) {
         try {
             sf.setLenient(false);

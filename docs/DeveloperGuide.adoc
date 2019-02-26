@@ -977,8 +977,75 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: List Members
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list persons
+2.  Club Manager shows a list of members
++  
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
 
 [discrete]
+=== Use case: Select Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to select a specific member in the list by the index number.
+2.  Club Manager shows the details of the specific person in the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
+* 2b. Member does not exist in the list.
++
+** 2b1. Club Manager shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to find a specific member.
+2.  Club Manager shows the specific member.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
+* 2b. Member does not exist in the list.
++
+** 2b1. Club Manager shows an error message.
++
+Use case ends.
+
+* 2c. The search index is not unique.
++
+** 2c1. Club Manager shows a list of all members who match the search index. 
++
+Use case resumes at step 1.
+
 === Use case: Add Activity
 
 *Main Success Scenario (MSS)*

@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -14,11 +18,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 /**
  * Prints a selected medicine identified using it's displayed index from the inventory.
@@ -32,15 +31,17 @@ public class LabelCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_MEDICINE_SUCCESS = "Successfully printed the medicine " +
-            "label in PDF format: %1$s";
+    public static final String MESSAGE_SELECT_MEDICINE_SUCCESS = "Successfully printed the medicine "
+            + "label in PDF format: %1$s";
 
     private final Index targetIndex;
 
+    /**
+     * Creates an LabelCommand to add the specified {@code Medicine}
+     */
     public LabelCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
-
 
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         String filename = "to_print";
@@ -85,14 +86,15 @@ public class LabelCommand extends Command {
                     String subString = text.substring(0, spaceIndex);
                     float size = fontSize * font.getStringWidth(subString) / 1000;
                     System.out.printf("'%s' - %f of %f\n", subString, size, width);
-                       if (size > width) {
-                        if (lastSpace < 0)
+                    if (size > width) {
+                        if (lastSpace < 0) {
                             lastSpace = spaceIndex;
-                        subString = text.substring(0, lastSpace);
-                        lines.add(subString);
-                        text = text.substring(lastSpace).trim();
-                        System.out.printf("'%s' is line\n", subString);
-                        lastSpace = -1;
+                            subString = text.substring(0, lastSpace);
+                            lines.add(subString);
+                            text = text.substring(lastSpace).trim();
+                            System.out.printf("'%s' is line\n", subString);
+                            lastSpace = -1;
+                        }
                     } else if (spaceIndex == text.length()) {
                         lines.add(text);
                         System.out.printf("'%s' is line\n", text);
@@ -107,8 +109,7 @@ public class LabelCommand extends Command {
                 contents.beginText();
                 contents.setFont(font, 12);
                 contents.newLineAtOffset(startX, startY);
-                for (String line: lines)
-                {
+                for (String line: lines) {
                     contents.showText(line);
                     contents.newLineAtOffset(0, -leading);
                 }

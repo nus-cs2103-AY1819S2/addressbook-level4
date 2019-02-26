@@ -18,4 +18,8 @@ public class Tooth {
     public boolean isPresent() {
         return isPresent;
     }
+
+    public boolean hasStatus() {
+        return hasStatus;
+    }
 }

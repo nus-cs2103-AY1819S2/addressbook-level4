@@ -8,5 +8,18 @@ import java.util.Date;
  */
 public class Status {
     private String description;
-    private Date dateModified;
+    private Date dateCreated;
+
+    public Status(String description) {
+        this.description = description;
+        this.dateCreated = new Date();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
 }

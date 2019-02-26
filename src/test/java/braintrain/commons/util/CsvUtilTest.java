@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -82,6 +83,8 @@ public class CsvUtilTest {
     @Test
     public void writeCsvFile_invalidFile() {
         Path path = Paths.get("src/test/data/test-readonly.csv");
+        File file = path.toFile();
+        file.setReadOnly();
         List<String[]> data = Arrays.asList(TEST_STRINGS, TEST_STRINGS, TEST_STRINGS);
 
         assertFalse(CsvUtil.writeCsvFile(path, data));

@@ -1,5 +1,8 @@
 package seedu.address.model.module;
 
+/**
+ * Represents grades of a module taken
+ */
 public enum Grades {
 
     APlus (5, true, true, "A+"),
@@ -11,7 +14,7 @@ public enum Grades {
     CPlus (2.5, true, true, "C+"),
     C (2, true, true, "C"),
     DPlus (1.5, true, true, "D+"),
-    D (1, true,true, "D"),
+    D (1, true, true, "D"),
     F (0, false, true, "F"),
     CS (0, true, false, "CS"),
     CU (0, false, false, "CU"),
@@ -29,7 +32,7 @@ public enum Grades {
     Grades (double gradePoint, boolean isPass, boolean isCounted, String grade) {
         this.gradePoint = gradePoint;
         this.isPass = isPass;
-        this.isCounted= isCounted;
+        this.isCounted = isCounted;
         this.grade = grade;
     }
 
@@ -47,38 +50,38 @@ public enum Grades {
 
     Grades getGrades(String grades) {
         switch(grades) {
-            case "A+":
-                return APlus;
-            case "A":
-                return A;
-            case "A-":
-                return AMinus;
-            case "B+":
-                return BPlus;
-            case "B":
-                return B;
-            case "B-":
-                return BMinus;
-            case "C+":
-                return CPlus;
-            case "C":
-                return C;
-            case "D+":
-                return DPlus;
-            case "D":
-                return D;
-            case "F":
-                return F;
-            case "CS":
-                return CS;
-            case "CU":
-                return CU;
-            case "W":
-                return W;
-            case "IC":
-                return IC;
-            case "EXE": default:
-                return EXE;
+        case "A+":
+            return APlus;
+        case "A":
+            return A;
+        case "A-":
+            return AMinus;
+        case "B+":
+            return BPlus;
+        case "B":
+            return B;
+        case "B-":
+            return BMinus;
+        case "C+":
+            return CPlus;
+        case "C":
+            return C;
+        case "D+":
+            return DPlus;
+        case "D":
+            return D;
+        case "F":
+            return F;
+        case "CS":
+            return CS;
+        case "CU":
+            return CU;
+        case "W":
+            return W;
+        case "IC":
+            return IC;
+        case "EXE": default:
+            return EXE;
         }
     }
     @Override

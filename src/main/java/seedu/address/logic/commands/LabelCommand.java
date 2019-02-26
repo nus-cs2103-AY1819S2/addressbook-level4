@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -43,6 +43,7 @@ public class LabelCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         String filename = "to_print";
         requireNonNull(model);
@@ -59,8 +60,8 @@ public class LabelCommand extends Command {
         String medicineExpiry = medicineToPrint.getExpiry().toString();
         String medicineCompany = medicineToPrint.getCompany().toString();
         String medicineTags = medicineToPrint.getTags().toString();
-        String textNextLine = (medicineName + "\n" + medicineCompany + "\n" +
-                medicineExpiry + "\n" + medicineTags);
+        String textNextLine = (medicineName + "\n" + medicineCompany + "\n"
+                + medicineExpiry + "\n" + medicineTags);
 
         try (PDDocument doc = new PDDocument()) {
             PDPage page = new PDPage();
@@ -81,8 +82,9 @@ public class LabelCommand extends Command {
                 int lastSpace = -1;
                 while (text.length() > 0) {
                     int spaceIndex = text.indexOf(' ', lastSpace + 1);
-                    if (spaceIndex < 0)
+                    if (spaceIndex < 0) {
                         spaceIndex = text.length();
+                    }
                     String subString = text.substring(0, spaceIndex);
                     float size = fontSize * font.getStringWidth(subString) / 1000;
                     System.out.printf("'%s' - %f of %f\n", subString, size, width);

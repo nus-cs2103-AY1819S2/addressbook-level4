@@ -7,7 +7,9 @@ import seedu.address.logic.commands.LabelCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
+/**
+ * Parses input arguments and creates a new LabelCommand object
+ */
 public class LabelCommandParser {
 
     /**

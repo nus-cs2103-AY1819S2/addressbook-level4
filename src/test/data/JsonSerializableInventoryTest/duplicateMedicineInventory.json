@@ -4,11 +4,21 @@
     "quantity": "312",
     "expiry": "31/12/2019",
     "company": "GlaxoSmithKline",
-    "tagged": [ "friends" ]
+    "tagged": [ "friends" ],
+    "batches" : [ {
+      "batchNumber" : "852055K",
+      "expiry" : "31/12/2019",
+      "quantity" : "312"
+    } ]
   }, {
     "name": "Paracetamol",
     "quantity": "452",
     "expiry": "26/09/2019",
-    "company": "GlaxoSmithKline"
+    "company": "GlaxoSmithKline",
+    "batches" : [ {
+      "batchNumber" : "30254584",
+      "expiry" : "26/09/2019",
+      "quantity" : "452"
+    } ]
   } ]
 }

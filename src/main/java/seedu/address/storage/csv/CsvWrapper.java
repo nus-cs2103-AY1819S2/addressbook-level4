@@ -64,9 +64,13 @@ public class CsvWrapper {
 
     /**
      * Cleans up empty csv that is created in the exported directory if an error occurs.
+     * If csvFilePath is null, return as there is no file to clean up.
      * @throws CommandException If there is an error cleaning up the empty csv file created.
      */
     private void doCleanUp() throws CommandException {
+        if (csvFilePath == null) {
+            return;
+        }
         try {
             Files.deleteIfExists(csvFilePath);
         } catch (IOException ioe) {

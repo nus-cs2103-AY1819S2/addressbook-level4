@@ -161,11 +161,11 @@ public class QuizCardTest {
         // same value
         assertTrue(VALID_QUIZCARD.equals(anotherValidQuizCard));
 
-        // null
-        assertFalse(VALID_QUIZCARD.equals(null));
+        // different obj
+        assertFalse(VALID_QUIZCARD.equals(new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), Quiz.Mode.LEARN)));
 
         // different types
-        assertFalse(VALID_QUIZCARD.equals("random thing"));
+        assertFalse("random things".equals(VALID_QUIZCARD));
 
         // different values
         assertFalse(VALID_QUIZCARD.equals(quizCardWithAb));

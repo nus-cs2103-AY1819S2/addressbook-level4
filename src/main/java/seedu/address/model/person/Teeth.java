@@ -6,6 +6,9 @@ import java.util.ArrayList;
  * Represents a set of teeth a Person has.
  */
 public class Teeth {
+    private final int childTeethCount = 20;
+    private final int adultTeethCount = 32;
+
     private ArrayList<Tooth> teeth;
 
     public Teeth() {

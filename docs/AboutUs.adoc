@@ -10,36 +10,36 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Kuan Wei Heng
+image::weiheng.png[width="150", align="left"]
+{empty}[http://github.com/xsot[github]] [<<xsot#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: TBC
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Darren Chang
+image::darren.png[width="150", align="left"]
+{empty}[http://github.com/changdarren[github]] [<<changdarren#, portfolio>>]
 
 Role: Developer +
 Responsibilities: TBC
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== John Wong
+image::john.png[width="150", align="left"]
+{empty}[http://github.com/ckjohn000[github]] [<<ckjohn000#, portfolio>>]
 
 Role: Developer +
 Responsibilities: TBC
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tiffany Chong
+image::tiffany.png[width="150", align="left"]
+{empty}[http://github.com/sciffany[github]] [<<sciffany#, portfolio>>]
 
 Role: Developer +
 Responsibilities: TBC

@@ -96,8 +96,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateRestOrRant() { 
-        restOrRant.indicateModified(); 
+    public void updateRestOrRant() {
+        restOrRant.indicateModified();
     }
 
     @Override

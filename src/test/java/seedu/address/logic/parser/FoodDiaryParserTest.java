@@ -34,11 +34,11 @@ import seedu.address.testutil.EditRestaurantDescriptorBuilder;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.RestaurantUtil;
 
-public class AddressBookParserTest {
+public class FoodDiaryParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final FoodDiaryParser parser = new FoodDiaryParser();
 
     @Test
     public void parseCommand_add() throws Exception {

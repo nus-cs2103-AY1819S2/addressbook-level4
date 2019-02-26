@@ -9,53 +9,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.FoodDiary;
+import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable FoodDiary that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableFoodDiary {
 
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "Restaurants list contains duplicate restaurant(s).";
 
     private final List<JsonAdaptedRestaurant> restaurants = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given restaurants.
+     * Constructs a {@code JsonSerializableFoodDiary} with the given restaurants.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("restaurants") List<JsonAdaptedRestaurant> restaurants) {
+    public JsonSerializableFoodDiary(@JsonProperty("restaurants") List<JsonAdaptedRestaurant> restaurants) {
         this.restaurants.addAll(restaurants);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyFoodDiary} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableFoodDiary}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableFoodDiary(ReadOnlyFoodDiary source) {
         restaurants.addAll(source.getRestaurantList().stream().map(JsonAdaptedRestaurant::new)
                 .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this food diary into the model's {@code AddressBook} object.
+     * Converts this food diary into the model's {@code FoodDiary} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public FoodDiary toModelType() throws IllegalValueException {
+        FoodDiary foodDiary = new FoodDiary();
         for (JsonAdaptedRestaurant jsonAdaptedRestaurant : restaurants) {
             Restaurant restaurant = jsonAdaptedRestaurant.toModelType();
-            if (addressBook.hasRestaurant(restaurant)) {
+            if (foodDiary.hasRestaurant(restaurant)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RESTAURANT);
             }
-            addressBook.addRestaurant(restaurant);
+            foodDiary.addRestaurant(restaurant);
         }
-        return addressBook;
+        return foodDiary;
     }
 
 }

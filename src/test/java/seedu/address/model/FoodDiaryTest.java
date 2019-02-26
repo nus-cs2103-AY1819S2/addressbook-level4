@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalRestaurants.ALICE;
-import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,29 +25,29 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.exceptions.DuplicateRestaurantException;
 import seedu.address.testutil.RestaurantBuilder;
 
-public class AddressBookTest {
+public class FoodDiaryTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final FoodDiary foodDiary = new FoodDiary();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getRestaurantList());
+        assertEquals(Collections.emptyList(), foodDiary.getRestaurantList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        foodDiary.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyFoodDiary_replacesData() {
+        FoodDiary newData = getTypicalFoodDiary();
+        foodDiary.resetData(newData);
+        assertEquals(newData, foodDiary);
     }
 
     @Test
@@ -56,49 +56,49 @@ public class AddressBookTest {
         Restaurant editedAlice = new RestaurantBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Restaurant> newRestaurants = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newRestaurants);
+        FoodDiaryStub newData = new FoodDiaryStub(newRestaurants);
 
         thrown.expect(DuplicateRestaurantException.class);
-        addressBook.resetData(newData);
+        foodDiary.resetData(newData);
     }
 
     @Test
     public void hasRestaurant_nullRestaurant_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasRestaurant(null);
+        foodDiary.hasRestaurant(null);
     }
 
     @Test
-    public void hasRestaurant_restaurantNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasRestaurant(ALICE));
+    public void hasRestaurant_restaurantNotInFoodDiary_returnsFalse() {
+        assertFalse(foodDiary.hasRestaurant(ALICE));
     }
 
     @Test
-    public void hasRestaurant_restaurantInAddressBook_returnsTrue() {
-        addressBook.addRestaurant(ALICE);
-        assertTrue(addressBook.hasRestaurant(ALICE));
+    public void hasRestaurant_restaurantInFoodDiary_returnsTrue() {
+        foodDiary.addRestaurant(ALICE);
+        assertTrue(foodDiary.hasRestaurant(ALICE));
     }
 
     @Test
-    public void hasRestaurant_restaurantWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addRestaurant(ALICE);
+    public void hasRestaurant_restaurantWithSameIdentityFieldsInFoodDiary_returnsTrue() {
+        foodDiary.addRestaurant(ALICE);
         Restaurant editedAlice = new RestaurantBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasRestaurant(editedAlice));
+        assertTrue(foodDiary.hasRestaurant(editedAlice));
     }
 
     @Test
     public void getRestaurantList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getRestaurantList().remove(0);
+        foodDiary.getRestaurantList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addRestaurant(ALICE);
+        foodDiary.addListener(listener);
+        foodDiary.addRestaurant(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -106,19 +106,19 @@ public class AddressBookTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addRestaurant(ALICE);
+        foodDiary.addListener(listener);
+        foodDiary.removeListener(listener);
+        foodDiary.addRestaurant(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose restaurants list can violate interface constraints.
+     * A stub ReadOnlyFoodDiary whose restaurants list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class FoodDiaryStub implements ReadOnlyFoodDiary {
         private final ObservableList<Restaurant> restaurants = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Restaurant> restaurants) {
+        FoodDiaryStub(Collection<Restaurant> restaurants) {
             this.restaurants.setAll(restaurants);
         }
 

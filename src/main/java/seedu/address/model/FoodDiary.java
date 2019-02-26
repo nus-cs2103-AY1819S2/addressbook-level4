@@ -14,7 +14,7 @@ import seedu.address.model.restaurant.UniqueRestaurantList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameRestaurant comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class FoodDiary implements ReadOnlyFoodDiary {
 
     private final UniqueRestaurantList restaurants;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -30,12 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         restaurants = new UniqueRestaurantList();
     }
 
-    public AddressBook() {}
+    public FoodDiary() {}
 
     /**
-     * Creates an AddressBook using the Restaurants in the {@code toBeCopied}
+     * Creates an FoodDiary using the Restaurants in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public FoodDiary(ReadOnlyFoodDiary toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -52,9 +52,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code FoodDiary} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyFoodDiary newData) {
         requireNonNull(newData);
 
         setRestaurants(newData.getRestaurantList());
@@ -93,7 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code FoodDiary}.
      * {@code key} must exist in the food diary.
      */
     public void removeRestaurant(Restaurant key) {
@@ -134,8 +134,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && restaurants.equals(((AddressBook) other).restaurants));
+                || (other instanceof FoodDiary // instanceof handles nulls
+                && restaurants.equals(((FoodDiary) other).restaurants));
     }
 
     @Override

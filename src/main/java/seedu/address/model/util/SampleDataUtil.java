@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.FoodDiary;
+import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
@@ -14,7 +14,7 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code FoodDiary} with sample data.
  */
 public class SampleDataUtil {
     public static Restaurant[] getSampleRestaurants() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyFoodDiary getSampleFoodDiary() {
+        FoodDiary sampleAb = new FoodDiary();
         for (Restaurant sampleRestaurant : getSampleRestaurants()) {
             sampleAb.addRestaurant(sampleRestaurant);
         }

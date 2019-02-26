@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRestaurantAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
-import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditRestaurantDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,7 +34,7 @@ import seedu.address.testutil.RestaurantBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,9 +45,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), editedRestaurant);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFoodDiary();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,9 +67,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
         expectedModel.setRestaurant(lastRestaurant, editedRestaurant);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFoodDiary();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,8 +81,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        expectedModel.commitFoodDiary();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -99,9 +99,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), editedRestaurant);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFoodDiary();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -120,7 +120,7 @@ public class EditCommandTest {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
 
         // edit restaurant in filtered list into a duplicate in food diary
-        Restaurant restaurantInList = model.getAddressBook().getRestaurantList()
+        Restaurant restaurantInList = model.getFoodDiary().getRestaurantList()
                 .get(INDEX_SECOND_RESTAURANT.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT,
                 new EditRestaurantDescriptorBuilder(restaurantInList).build());
@@ -146,7 +146,7 @@ public class EditCommandTest {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
         Index outOfBoundIndex = INDEX_SECOND_RESTAURANT;
         // ensures that outOfBoundIndex is still in bounds of food diary list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRestaurantList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getFoodDiary().getRestaurantList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditRestaurantDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -160,19 +160,19 @@ public class EditCommandTest {
         Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(editedRestaurant).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
         expectedModel.setRestaurant(restaurantToEdit, editedRestaurant);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFoodDiary();
 
         // edit -> first restaurant edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered restaurant list to show all restaurants
-        expectedModel.undoAddressBook();
+        expectedModel.undoFoodDiary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first restaurant edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoFoodDiary();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -202,23 +202,23 @@ public class EditCommandTest {
         Restaurant editedRestaurant = new RestaurantBuilder().build();
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(editedRestaurant).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
 
         showRestaurantAtIndex(model, INDEX_SECOND_RESTAURANT);
         Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         expectedModel.setRestaurant(restaurantToEdit, editedRestaurant);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFoodDiary();
 
         // edit -> edits second restaurant in unfiltered restaurant list / first restaurant in filtered restaurant list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered restaurant list to show all restaurants
-        expectedModel.undoAddressBook();
+        expectedModel.undoFoodDiary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased()), restaurantToEdit);
         // redo -> edits same second restaurant in unfiltered restaurant list
-        expectedModel.redoAddressBook();
+        expectedModel.redoFoodDiary();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

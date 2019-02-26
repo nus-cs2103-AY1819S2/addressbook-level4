@@ -8,7 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
@@ -25,11 +25,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the FoodDiary.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getFoodDiary()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyFoodDiary getFoodDiary();
 
     /** Returns an unmodifiable view of the filtered list of restaurants */
     ObservableList<Restaurant> getFilteredRestaurantList();
@@ -43,7 +43,7 @@ public interface Logic {
     /**
      * Returns the user prefs' food diary file path.
      */
-    Path getAddressBookFilePath();
+    Path getFoodDiaryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

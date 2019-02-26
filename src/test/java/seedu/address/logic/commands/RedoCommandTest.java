@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstRestaurant;
-import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +15,8 @@ import seedu.address.model.UserPrefs;
 
 public class RedoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -24,23 +24,23 @@ public class RedoCommandTest {
         // set up of both models' undo/redo history
         deleteFirstRestaurant(model);
         deleteFirstRestaurant(model);
-        model.undoAddressBook();
-        model.undoAddressBook();
+        model.undoFoodDiary();
+        model.undoFoodDiary();
 
         deleteFirstRestaurant(expectedModel);
         deleteFirstRestaurant(expectedModel);
-        expectedModel.undoAddressBook();
-        expectedModel.undoAddressBook();
+        expectedModel.undoFoodDiary();
+        expectedModel.undoFoodDiary();
     }
 
     @Test
     public void execute() {
         // multiple redoable states in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoFoodDiary();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoFoodDiary();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model

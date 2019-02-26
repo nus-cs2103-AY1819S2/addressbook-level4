@@ -20,11 +20,11 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook()) {
+        if (!model.canRedoFoodDiary()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoAddressBook();
+        model.redoFoodDiary();
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

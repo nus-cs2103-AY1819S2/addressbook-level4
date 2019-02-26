@@ -7,7 +7,7 @@ import seedu.address.model.restaurant.Restaurant;
 /**
  * Unmodifiable view of an food diary
  */
-public interface ReadOnlyAddressBook extends Observable {
+public interface ReadOnlyFoodDiary extends Observable {
 
     /**
      * Returns an unmodifiable view of the restaurants list.

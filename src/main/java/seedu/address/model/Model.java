@@ -38,20 +38,20 @@ public interface Model {
     /**
      * Returns the user prefs' food diary file path.
      */
-    Path getAddressBookFilePath();
+    Path getFoodDiaryFilePath();
 
     /**
      * Sets the user prefs' food diary file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setFoodDiaryFilePath(Path foodDiaryFilePath);
 
     /**
-     * Replaces food diary data with the data in {@code addressBook}.
+     * Replaces food diary data with the data in {@code foodDiary}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setFoodDiary(ReadOnlyFoodDiary foodDiary);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the FoodDiary */
+    ReadOnlyFoodDiary getFoodDiary();
 
     /**
      * Returns true if a restaurant with the same identity as {@code restaurant} exists in the food diary.
@@ -90,27 +90,27 @@ public interface Model {
     /**
      * Returns true if the model has previous food diary states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoFoodDiary();
 
     /**
      * Returns true if the model has undone food diary states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoFoodDiary();
 
     /**
      * Restores the model's food diary to its previous state.
      */
-    void undoAddressBook();
+    void undoFoodDiary();
 
     /**
      * Restores the model's food diary to its previously undone state.
      */
-    void redoAddressBook();
+    void redoFoodDiary();
 
     /**
      * Saves the current food diary state for undo/redo.
      */
-    void commitAddressBook();
+    void commitFoodDiary();
 
     /**
      * Selected restaurant in the filtered restaurant list.

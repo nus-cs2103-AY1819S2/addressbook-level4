@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addRestaurant(toAdd);
-        model.commitAddressBook();
+        model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

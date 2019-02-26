@@ -24,28 +24,28 @@ import seedu.address.model.restaurant.exceptions.RestaurantNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedFoodDiary versionedFoodDiary;
     private final UserPrefs userPrefs;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final SimpleObjectProperty<Restaurant> selectedRestaurant = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given foodDiary and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFoodDiary foodDiary, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(foodDiary, userPrefs);
 
-        logger.fine("Initializing with food diary: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with food diary: " + foodDiary + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedFoodDiary = new VersionedFoodDiary(foodDiary);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredRestaurants = new FilteredList<>(versionedAddressBook.getRestaurantList());
+        filteredRestaurants = new FilteredList<>(versionedFoodDiary.getRestaurantList());
         filteredRestaurants.addListener(this::ensureSelectedRestaurantIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new FoodDiary(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,42 +73,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getFoodDiaryFilePath() {
+        return userPrefs.getFoodDiaryFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setFoodDiaryFilePath(Path foodDiaryFilePath) {
+        requireNonNull(foodDiaryFilePath);
+        userPrefs.setFoodDiaryFilePath(foodDiaryFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== FoodDiary ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setFoodDiary(ReadOnlyFoodDiary foodDiary) {
+        versionedFoodDiary.resetData(foodDiary);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyFoodDiary getFoodDiary() {
+        return versionedFoodDiary;
     }
 
     @Override
     public boolean hasRestaurant(Restaurant restaurant) {
         requireNonNull(restaurant);
-        return versionedAddressBook.hasRestaurant(restaurant);
+        return versionedFoodDiary.hasRestaurant(restaurant);
     }
 
     @Override
     public void deleteRestaurant(Restaurant target) {
-        versionedAddressBook.removeRestaurant(target);
+        versionedFoodDiary.removeRestaurant(target);
     }
 
     @Override
     public void addRestaurant(Restaurant restaurant) {
-        versionedAddressBook.addRestaurant(restaurant);
+        versionedFoodDiary.addRestaurant(restaurant);
         updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
     }
 
@@ -116,14 +116,14 @@ public class ModelManager implements Model {
     public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
         requireAllNonNull(target, editedRestaurant);
 
-        versionedAddressBook.setRestaurant(target, editedRestaurant);
+        versionedFoodDiary.setRestaurant(target, editedRestaurant);
     }
 
     //=========== Filtered Restaurant List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Restaurant} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedFoodDiary}
      */
     @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
@@ -139,28 +139,28 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoFoodDiary() {
+        return versionedFoodDiary.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoFoodDiary() {
+        return versionedFoodDiary.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoFoodDiary() {
+        versionedFoodDiary.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoFoodDiary() {
+        versionedFoodDiary.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitFoodDiary() {
+        versionedFoodDiary.commit();
     }
 
     //=========== Selected restaurant ===========================================================================
@@ -226,7 +226,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedFoodDiary.equals(other.versionedFoodDiary)
                 && userPrefs.equals(other.userPrefs)
                 && filteredRestaurants.equals(other.filteredRestaurants)
                 && Objects.equals(selectedRestaurant.get(), other.selectedRestaurant.get());

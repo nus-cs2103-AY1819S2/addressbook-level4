@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,16 +24,16 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
     }
 
     @Test
     public void execute_newRestaurant_success() {
         Restaurant validRestaurant = new RestaurantBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs());
         expectedModel.addRestaurant(validRestaurant);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFoodDiary();
 
         assertCommandSuccess(new AddCommand(validRestaurant), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validRestaurant), expectedModel);
@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateRestaurant_throwsCommandException() {
-        Restaurant restaurantInList = model.getAddressBook().getRestaurantList().get(0);
+        Restaurant restaurantInList = model.getFoodDiary().getRestaurantList().get(0);
         assertCommandFailure(new AddCommand(restaurantInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_RESTAURANT);
     }

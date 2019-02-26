@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showRestaurantAtIndex
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_RESTAURANT;
-import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import org.junit.Test;
 
@@ -23,8 +23,8 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -58,7 +58,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_RESTAURANT;
         // ensures that outOfBoundIndex is still in bounds of food diary list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getRestaurantList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getFoodDiary().getRestaurantList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
     }

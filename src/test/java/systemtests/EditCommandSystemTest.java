@@ -48,7 +48,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.RestaurantUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends FoodDiarySystemTest {
 
     @Test
     public void edit() {
@@ -85,7 +85,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a restaurant with new values same as another restaurant's values
          * but with different name -> edited
          */
-        assertTrue(getModel().getAddressBook().getRestaurantList().contains(BOB));
+        assertTrue(getModel().getFoodDiary().getRestaurantList().contains(BOB));
         index = INDEX_SECOND_RESTAURANT;
         assertNotEquals(getModel().getFilteredRestaurantList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -124,7 +124,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getRestaurantList().size();
+        int invalidIndex = getModel().getFoodDiary().getRestaurantList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
 
@@ -192,7 +192,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a restaurant with new values same as another restaurant's values -> rejected */
         executeCommand(RestaurantUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getRestaurantList().contains(BOB));
+        assertTrue(getModel().getFoodDiary().getRestaurantList().contains(BOB));
         index = INDEX_FIRST_RESTAURANT;
         assertFalse(getModel().getFilteredRestaurantList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -276,9 +276,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code FoodDiarySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see FoodDiarySystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see FoodDiarySystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -301,8 +301,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code FoodDiarySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see FoodDiarySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

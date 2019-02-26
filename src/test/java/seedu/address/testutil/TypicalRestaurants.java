@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.FoodDiary;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalRestaurants {
     private TypicalRestaurants() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical restaurants.
+     * Returns an {@code FoodDiary} with all the typical restaurants.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static FoodDiary getTypicalFoodDiary() {
+        FoodDiary ab = new FoodDiary();
         for (Restaurant restaurant : getTypicalRestaurants()) {
             ab.addRestaurant(restaurant);
         }

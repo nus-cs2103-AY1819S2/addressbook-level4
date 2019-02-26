@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.customer.Customer;
 
 /**
  * The Browser Panel of the App.
@@ -31,26 +31,26 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<Person> selectedPerson) {
+    public BrowserPanel(ObservableValue<Customer> selectedCustomer) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Load person page when selected person changes.
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        // Load customer page when selected customer changes.
+        selectedCustomer.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+            loadCustomerPage(newValue);
         });
 
         loadDefaultPage();
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void loadCustomerPage(Customer customer) {
+        loadPage(SEARCH_PAGE_URL + customer.getName().fullName);
     }
 
     public void loadPage(String url) {

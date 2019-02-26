@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Kuan Wei Heng
-image::weiheng.png[width="150", align="left"]
+image::xsot.png[width="150", align="left"]
 {empty}[http://github.com/xsot[github]] [<<xsot#, portfolio>>]
 
 Role: Team Lead +
@@ -20,7 +20,7 @@ Responsibilities: TBC
 '''
 
 === Darren Chang
-image::darren.png[width="150", align="left"]
+image::changdarren.png[width="150", align="left"]
 {empty}[http://github.com/changdarren[github]] [<<changdarren#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: TBC
 '''
 
 === John Wong
-image::john.png[width="150", align="left"]
+image::ckjohn000.png[width="150", align="left"]
 {empty}[http://github.com/ckjohn000[github]] [<<ckjohn000#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: TBC
 '''
 
 === Tiffany Chong
-image::tiffany.png[width="150", align="left"]
+image::sciffany.png[width="150", align="left"]
 {empty}[http://github.com/sciffany[github]] [<<sciffany#, portfolio>>]
 
 Role: Developer +

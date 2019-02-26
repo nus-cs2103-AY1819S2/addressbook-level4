@@ -1,5 +1,4 @@
-1,1,0,0
-CountryName,CapitalName,CountryCode,ContinentName
+*CountryName,*CapitalName,CountryCode,ContinentName
 Afghanistan,Kabul,AF,Asia
 Bahrain,Manama,BH,Asia
 Bangladesh,Dhaka,BD,Asia

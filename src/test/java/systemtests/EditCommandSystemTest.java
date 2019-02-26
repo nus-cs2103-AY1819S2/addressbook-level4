@@ -60,7 +60,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         Index index = INDEX_FIRST_MEDICINE;
         Medicine medicineToEdit = model.getFilteredMedicineList().get(index.getZeroBased());
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_AMOXICILLIN
-                + "  "  + COMPANY_DESC_AMOXICILLIN + " " + TAG_DESC_FRIEND + " ";
+                + "  " + COMPANY_DESC_AMOXICILLIN + " " + TAG_DESC_FRIEND + " ";
         Medicine editedMedicine = new MedicineBuilder(medicineToEdit).withName(VALID_NAME_AMOXICILLIN)
                 .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
         assertCommandSuccess(command, index, editedMedicine);
@@ -148,7 +148,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         // browser's url is updated to reflect the new medicine's name
 
         editedMedicine = new MedicineBuilder(medicineToEdit).withName(VALID_NAME_PARACETAMOL)
-                .withCompany(VALID_COMPANY_GABAPENTIN) .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedMedicine, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */

@@ -81,10 +81,11 @@ public class MedicineListPanelTest extends GuiUnitTest {
         ObservableList<Medicine> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < medicineCount; i++) {
             Name name = new Name(i + "a");
-            Quantity quantity = new Quantity("000");
-            Expiry expiry = new Expiry("1/1/2011");
+            Quantity quantity = new Quantity("0");
+            Expiry expiry = new Expiry("-");
             Company company = new Company("a");
-            Medicine medicine = new Medicine(name, quantity, expiry, company, Collections.emptySet(), Collections.emptyMap());
+            Medicine medicine = new Medicine(name, quantity, expiry, company, Collections.emptySet(),
+                    Collections.emptyMap());
             backingList.add(medicine);
         }
         return backingList;

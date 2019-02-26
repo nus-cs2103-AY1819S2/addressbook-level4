@@ -131,7 +131,7 @@ public class MedicineBuilder {
     /**
      *  Sets {@code medicineToCopy}'s uneditable fields to the {@code Medicine} that we are building.
      */
-    public MedicineBuilder withUneditableFields(Medicine medicineToCopy){
+    public MedicineBuilder withUneditableFields(Medicine medicineToCopy) {
         this.quantity = medicineToCopy.getQuantity();
         this.expiry = medicineToCopy.getExpiry();
         this.batches = medicineToCopy.getBatches();

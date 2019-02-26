@@ -25,9 +25,9 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
-    public final String INITIAL_EXPIRY = "-";
-    public final String INITIAL_QUANTITY = "0";
-    public final Map<BatchNumber, Batch> INITIAL_BATCHES = Collections.emptyMap();
+    public static final Expiry INITIAL_EXPIRY = new Expiry("-");
+    public static final Quantity INITIAL_QUANTITY = new Quantity("0");
+    public static final Map<BatchNumber, Batch> INITIAL_BATCHES = Collections.emptyMap();
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -46,8 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Company company = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Medicine medicine = new Medicine(name, new Quantity(INITIAL_QUANTITY), new Expiry(INITIAL_EXPIRY),
-                company, tagList, INITIAL_BATCHES);
+        Medicine medicine = new Medicine(name, INITIAL_QUANTITY, INITIAL_EXPIRY, company, tagList, INITIAL_BATCHES);
 
         return new AddCommand(medicine);
     }

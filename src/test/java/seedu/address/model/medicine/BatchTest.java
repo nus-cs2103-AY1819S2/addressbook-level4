@@ -15,21 +15,19 @@ public class BatchTest {
     @Test
     public void constructor_invalidBatchNumber_throwsIllegalArgumentException() {
         String invalidBatchNumber = " ";
-        Assert.assertThrows(IllegalArgumentException.class,
-                () -> new BatchBuilder().withBatchNumber(invalidBatchNumber));
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+            new BatchBuilder().withBatchNumber(invalidBatchNumber));
     }
 
     @Test
     public void constructor_invalidExpiry_throwsIllegalArgumentException() {
         String invalidExpiry = "12-12-2020";
-        Assert.assertThrows(IllegalArgumentException.class,
-                () -> new BatchBuilder().withExpiry(invalidExpiry));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new BatchBuilder().withExpiry(invalidExpiry));
     }
 
     @Test
     public void constructor_invalidQuantity_throwsIllegalArgumentException() {
         String invalidQuantity = "50.2";
-        Assert.assertThrows(IllegalArgumentException.class,
-                () -> new BatchBuilder().withQuantity(invalidQuantity));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new BatchBuilder().withQuantity(invalidQuantity));
     }
 }

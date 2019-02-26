@@ -39,7 +39,7 @@ public class AddCommandParserTest {
         Medicine expectedMedicine = new MedicineBuilder(GABAPENTIN).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_GABAPENTIN  + COMPANY_DESC_GABAPENTIN
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_GABAPENTIN + COMPANY_DESC_GABAPENTIN
                 + TAG_DESC_FRIEND, new AddCommand(expectedMedicine));
 
         // multiple names - last name accepted

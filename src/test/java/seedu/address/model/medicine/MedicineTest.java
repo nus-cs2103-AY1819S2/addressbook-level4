@@ -36,7 +36,7 @@ public class MedicineTest {
         assertFalse(PARACETAMOL.isSameMedicine(null));
 
         // different name -> returns false
-        Medicine  editedParacetamol = new MedicineBuilder(PARACETAMOL).withName(VALID_NAME_GABAPENTIN).build();
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withName(VALID_NAME_GABAPENTIN).build();
         assertFalse(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // same name, same quantity, different attributes -> returns false

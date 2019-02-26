@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.LabelCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -13,8 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class LabelCommandParser {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SelectCommand
-     * and returns an SelectCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the LabelCommand
+     * and returns an LabelCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public LabelCommand parse(String args) throws ParseException {
@@ -23,7 +22,7 @@ public class LabelCommandParser {
             return new LabelCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, LabelCommand.MESSAGE_USAGE), pe);
         }
     }
 }

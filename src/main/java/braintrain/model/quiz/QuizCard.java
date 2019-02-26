@@ -28,6 +28,9 @@ public class QuizCard {
 
         this.question = question;
         this.answer = answer;
+        this.index = -1;
+        this.totalAttempts = 0;
+        this.streak = 0;
     }
 
     public QuizCard(String question, String answer, List<String> opt) {
@@ -37,6 +40,9 @@ public class QuizCard {
         this.question = question;
         this.answer = answer;
         this.opt = opt;
+        this.index = -1;
+        this.totalAttempts = 0;
+        this.streak = 0;
     }
 
     public QuizCard(int index, String question, String answer) {
@@ -58,6 +64,45 @@ public class QuizCard {
 
     public List<String> getOpt() {
         return opt;
+    }
+
+    public int getIndex() {
+        if (index > 0) {
+            return index;
+        }
+
+        throw new IllegalArgumentException("This card do not contain index.");
+    }
+
+    public int getTotalAttempts() {
+        return totalAttempts;
+    }
+
+    public int getStreak() {
+        return streak;
+    }
+
+    /**
+     * Check if the given answer is the same as the answer of the card.
+     * @param answer user's input answer.
+     * @return the result after checking.
+     */
+    public boolean isCorrect(String answer) throws NullPointerException {
+        return answer.equals(this.answer);
+    }
+
+    /**
+     * Update both totalAttempts and streak depending on isCorrect
+     * @param isCorrect the output of isCorrect method
+     */
+    public void updateTotalAttemptsandStreak(boolean isCorrect) {
+        if (isCorrect) {
+            streak += 1;
+        } else {
+            streak = 0;
+        }
+
+        totalAttempts += 1;
     }
 
     @Override

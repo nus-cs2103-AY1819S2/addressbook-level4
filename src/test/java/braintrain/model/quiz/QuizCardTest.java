@@ -112,6 +112,45 @@ public class QuizCardTest {
     }
 
     @Test
+    public void getIndex() {
+        assertEquals(1, VALID_QUIZCARD_INDEX.getIndex());
+
+        // do not contain actual index.
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+            VALID_QUIZCARD.getIndex());
+    }
+
+    @Test
+    public void isCorrect() {
+        assertTrue(VALID_QUIZCARD.isCorrect(ANSWER));
+
+        assertFalse(VALID_QUIZCARD.isCorrect(" not answer"));
+
+        assertFalse(VALID_QUIZCARD.isCorrect("       "));
+
+        Assert.assertThrows(NullPointerException.class, () ->
+            VALID_QUIZCARD.isCorrect(null));
+    }
+
+    @Test
+    public void updateTotalAttemptsandStreak() {
+        QuizCard quizCardWithIndex = VALID_QUIZCARD_INDEX;
+
+        quizCardWithIndex.updateTotalAttemptsandStreak(true);
+        assertEquals(1, quizCardWithIndex.getTotalAttempts());
+        assertEquals(1, quizCardWithIndex.getStreak());
+
+        quizCardWithIndex.updateTotalAttemptsandStreak(true);
+        assertEquals(2, quizCardWithIndex.getTotalAttempts());
+        assertEquals(2, quizCardWithIndex.getStreak());
+
+        quizCardWithIndex.updateTotalAttemptsandStreak(false);
+        assertEquals(3, quizCardWithIndex.getTotalAttempts());
+        assertEquals(0, quizCardWithIndex.getStreak());
+
+    }
+
+    @Test
     public void equals() {
         final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
         final QuizCard quizCardWithAb = new QuizCard("A", "B");

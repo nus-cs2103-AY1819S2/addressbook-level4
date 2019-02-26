@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -87,6 +86,15 @@ public class MedicineBuilder {
     }
 
     /**
+     * Adds {@code quantity} to the {@code Quantity} of the {@code Medicine} that we are building.
+     */
+    public MedicineBuilder withAddedQuantity(String quantity) {
+        int sum = Integer.parseInt(this.quantity.value) + Integer.parseInt(quantity);
+        this.quantity = new Quantity(Integer.toString(sum));
+        return this;
+    }
+
+    /**
      * Sets the {@code Expiry} of the {@code Medicine} that we are building.
      */
     public MedicineBuilder withExpiry(String expiry) {
@@ -95,16 +103,43 @@ public class MedicineBuilder {
     }
 
     /**
-     * Parses the {@code batchDetails} into a {@code Map<BatchName, Batch>} and set it to the {@code Medicine} that we are
-     * building.
+     * Sets {@code batches} to the {@code Medicine} that we are building.
+     */
+    public MedicineBuilder withBatches(Map<BatchNumber, Batch> batches) {
+        this.batches = batches;
+        return this;
+    }
+
+    /**
+     * Parses the {@code batchDetails} into a {@code Map<BatchName, Batch>} and set it to the {@code Medicine} that we
+     * are building.
      */
     public MedicineBuilder withBatches(String ... batchDetails) {
         this.batches = SampleDataUtil.getBatchSet(batchDetails);
         return this;
     }
 
+    /**
+     * Parses the {@code batchDetails} into a {@code Map<BatchName, Batch>} and add it to the {@code Medicine} that we
+     * are building.
+     */
+    public MedicineBuilder withAddedBatches(String ... batchDetails) {
+        this.batches.putAll(SampleDataUtil.getBatchSet(batchDetails));
+        return this;
+    }
+
+    /**
+     *  Sets {@code medicineToCopy}'s uneditable fields to the {@code Medicine} that we are building.
+     */
+    public MedicineBuilder withUneditableFields(Medicine medicineToCopy){
+        this.quantity = medicineToCopy.getQuantity();
+        this.expiry = medicineToCopy.getExpiry();
+        this.batches = medicineToCopy.getBatches();
+        return this;
+    }
+
     public Medicine build() {
-        return new Medicine(name, quantity, expiry, company, tags, Collections.emptyMap());
+        return new Medicine(name, quantity, expiry, company, tags, batches);
     }
 
 }

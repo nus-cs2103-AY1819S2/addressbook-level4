@@ -39,6 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_BATCHNUMBER_AMOXICILLIN = "ACN2134";
+    public static final String VALID_BATCHNUMBER_GABAPENTIN = "O26M997570";
+    public static final String VALID_BATCHNUMBER_LISNOPRIL = "s9c4xs9532";
 
     public static final String NAME_DESC_AMOXICILLIN = " " + PREFIX_NAME + VALID_NAME_AMOXICILLIN;
     public static final String NAME_DESC_GABAPENTIN = " " + PREFIX_NAME + VALID_NAME_GABAPENTIN;

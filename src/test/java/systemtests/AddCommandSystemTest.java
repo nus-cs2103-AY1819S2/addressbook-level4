@@ -77,7 +77,8 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a medicine, missing tags -> added */
-        assertCommandSuccess(new MedicineBuilder(AMOXICILLIN).withQuantity("0").withExpiry("-").build());
+        assertCommandSuccess(new MedicineBuilder(AMOXICILLIN).withQuantity("0").withExpiry("-").withBatches()
+                .build());
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 

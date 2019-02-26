@@ -81,8 +81,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMOXICILLIN
                 + COMPANY_DESC_AMOXICILLIN + TAG_DESC_FRIEND;
         medicineToEdit = getModel().getFilteredMedicineList().get(index.getZeroBased());
-        editedMedicine = new MedicineBuilder(AMOXICILLIN).withQuantity(medicineToEdit.getQuantity().value)
-                .withExpiry(medicineToEdit.getExpiry().value).build();
+        editedMedicine = new MedicineBuilder(AMOXICILLIN).withUneditableFields(medicineToEdit).build();
         assertEquals(medicineToEdit, editedMedicine);
         assertCommandSuccess(command, index, editedMedicine);
 
@@ -94,7 +93,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GABAPENTIN + " "
                 + PREFIX_TAG.getPrefix() + " " + COMPANY_DESC_LISNOPRIL;
         editedMedicine = new MedicineBuilder(LISINOPRIL).withName(VALID_NAME_GABAPENTIN)
-                .withQuantity(medicineToEdit.getQuantity().value).withExpiry(medicineToEdit.getExpiry().value).build();
+                .withUneditableFields(medicineToEdit).build();
         assertCommandSuccess(command, index, editedMedicine);
 
         /* Case: edit a medicine with new values same as another medicine's values but with different company
@@ -104,8 +103,8 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         medicineToEdit = model.getFilteredMedicineList().get(index.getZeroBased());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMOXICILLIN
                 + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND;
-        editedMedicine = new MedicineBuilder(AMOXICILLIN).withQuantity(medicineToEdit.getQuantity().value)
-                .withExpiry(medicineToEdit.getExpiry().value).withCompany(VALID_COMPANY_GABAPENTIN).build();
+        editedMedicine = new MedicineBuilder(AMOXICILLIN).withUneditableFields(medicineToEdit)
+                .withCompany(VALID_COMPANY_GABAPENTIN).build();
         assertCommandSuccess(command, index, editedMedicine);
 
         /* Case: clear tags -> cleared */

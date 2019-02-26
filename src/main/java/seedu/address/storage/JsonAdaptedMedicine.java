@@ -1,9 +1,10 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.medicine.Batch;
+import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Medicine;
@@ -63,6 +66,10 @@ class JsonAdaptedMedicine {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        batches.addAll(source.getBatches().values()
+                .stream()
+                .map(JsonAdaptedBatch::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -74,6 +81,12 @@ class JsonAdaptedMedicine {
         final List<Tag> medicineTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             medicineTags.add(tag.toModelType());
+        }
+
+        final Map<BatchNumber, Batch> medicineBatches = new HashMap<>();
+        for (JsonAdaptedBatch batch : batches) {
+            Batch modelTypeBatch = batch.toModelType();
+            medicineBatches.put(modelTypeBatch.getBatchNumber(), modelTypeBatch);
         }
 
         if (name == null) {
@@ -110,6 +123,7 @@ class JsonAdaptedMedicine {
         final Company modelCompany = new Company(company);
 
         final Set<Tag> modelTags = new HashSet<>(medicineTags);
-        return new Medicine(modelName, modelQuantity, modelExpiry, modelCompany, modelTags, Collections.emptyMap());
+
+        return new Medicine(modelName, modelQuantity, modelExpiry, modelCompany, modelTags, medicineBatches);
     }
 }

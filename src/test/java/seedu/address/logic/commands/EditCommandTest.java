@@ -39,8 +39,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Medicine medicineToEdit = model.getFilteredMedicineList().get(0);
-        Medicine editedMedicine = new MedicineBuilder().withQuantity(medicineToEdit.getQuantity().value)
-                .withExpiry(medicineToEdit.getExpiry().value).build();
+        Medicine editedMedicine = new MedicineBuilder().withUneditableFields(medicineToEdit).build();
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
 
@@ -155,8 +154,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Medicine medicineToEdit = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
-        Medicine editedMedicine = new MedicineBuilder().withQuantity(medicineToEdit.getQuantity().value)
-                .withExpiry(medicineToEdit.getExpiry().value).build();
+        Medicine editedMedicine = new MedicineBuilder().withUneditableFields(medicineToEdit).build();
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
@@ -199,8 +197,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameMedicineEdited() throws Exception {
         Medicine medicineToEdit = model.getFilteredMedicineList().get(INDEX_SECOND_MEDICINE.getZeroBased());
-        Medicine editedMedicine = new MedicineBuilder().withExpiry(medicineToEdit.getExpiry().value)
-                .withQuantity(medicineToEdit.getQuantity().value).build();
+        Medicine editedMedicine = new MedicineBuilder().withUneditableFields(medicineToEdit).build();
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());

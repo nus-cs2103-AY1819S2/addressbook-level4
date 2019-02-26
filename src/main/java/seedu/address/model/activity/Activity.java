@@ -2,13 +2,17 @@ package seedu.address.model.activity;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Map;
+import java.util.Objects;
 
 import seedu.address.model.person.Person;
 
+
+/**
+ * Represents an Acrivity in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Activity {
     // Identity fields
     private final ActivityName name;

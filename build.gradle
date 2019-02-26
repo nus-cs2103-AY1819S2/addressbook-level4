@@ -12,6 +12,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '2.0.3'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 if (JavaVersion.current() == JavaVersion.VERSION_1_10
@@ -74,6 +75,10 @@ dependencies {
     testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' , 'javafx.web']
 }
 
 shadowJar {

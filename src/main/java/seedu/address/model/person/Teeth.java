@@ -11,4 +11,13 @@ public class Teeth {
     public Teeth() {
         teeth = new ArrayList<>();
     }
+
+    /**
+     * Returns a Tooth representing a patient's tooth using a tooth number.
+     * @param toothNum the tooth number of tooth to be retrieved.
+     * @return the tooth represented by provided tooth number.
+     */
+    public Tooth getTooth(int toothNum) {
+        return null;    // Stub
+    }
 }

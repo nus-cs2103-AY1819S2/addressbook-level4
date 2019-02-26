@@ -1,12 +1,14 @@
 package braintrain.model.quiz;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 
 import braintrain.testutil.Assert;
-
 
 public class QuizTest {
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
@@ -26,6 +28,26 @@ public class QuizTest {
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
             new Quiz(Arrays.asList(new QuizCard("", "")), Quiz.Mode.LEARN));
+    }
+
+    @Test
+    public void generate() {
+        List<QuizCard> expected = new ArrayList<>();
+        QuizCard actualCurrentCard;
+        for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
+            actualCurrentCard = VALID_QUIZCARD.get(i);
+            expected.add(new QuizCard(i, actualCurrentCard.getQuestion(), actualCurrentCard.getAnswer()));
+        }
+
+        for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
+            actualCurrentCard = VALID_QUIZCARD.get(i);
+            expected.add(new QuizCard(i, actualCurrentCard.getAnswer(), actualCurrentCard.getQuestion()));
+        }
+
+        List<QuizCard> actual = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN).generate();
+
+        assertEquals(4, actual.size());
+        assertEquals(expected, actual);
     }
 
 }

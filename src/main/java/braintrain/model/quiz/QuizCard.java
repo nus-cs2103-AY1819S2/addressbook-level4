@@ -4,6 +4,7 @@ import static braintrain.commons.util.AppUtil.checkArgument;
 import static braintrain.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a partial of Card, only contains the necessary information for Quiz.
@@ -57,6 +58,28 @@ public class QuizCard {
 
     public List<String> getOpt() {
         return opt;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof QuizCard)) {
+            return false;
+        }
+
+        // state check
+        QuizCard other = (QuizCard) obj;
+        return other.hashCode() == this.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(question, answer);
     }
 
     //

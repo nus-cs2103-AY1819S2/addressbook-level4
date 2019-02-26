@@ -1,6 +1,9 @@
 package braintrain.model.quiz;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -106,6 +109,39 @@ public class QuizCardTest {
         assertEquals(null, VALID_QUIZCARD_NO_OPT.getOpt());
 
         assertEquals(null, VALID_QUIZCARD_INDEX.getOpt());
+    }
+
+    @Test
+    public void equals() {
+        final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
+        final QuizCard quizCardWithAb = new QuizCard("A", "B");
+
+        // same object
+        assertTrue(VALID_QUIZCARD.equals(VALID_QUIZCARD));
+
+        // same value
+        assertTrue(VALID_QUIZCARD.equals(anotherValidQuizCard));
+
+        // null
+        assertFalse(VALID_QUIZCARD.equals(null));
+
+        // different types
+        assertFalse(VALID_QUIZCARD.equals("random thing"));
+
+        // different values
+        assertFalse(VALID_QUIZCARD.equals(quizCardWithAb));
+    }
+
+    @Test
+    public void hashcode() {
+        final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
+        final QuizCard quizCardWithAb = new QuizCard("A", "B");
+
+        // same value
+        assertEquals(VALID_QUIZCARD.hashCode(), anotherValidQuizCard.hashCode());
+
+        // different values
+        assertNotEquals(VALID_QUIZCARD.hashCode(), quizCardWithAb.hashCode());
     }
 
 }

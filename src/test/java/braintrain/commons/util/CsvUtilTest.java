@@ -40,13 +40,6 @@ public class CsvUtilTest {
         Path path = Paths.get("src/test/data/test.csv");
         List<String[]> data = CsvUtil.readCsvFile(path);
 
-        //Extra handling of first line for UTF-8 BOM.
-        String[] firstLine = data.get(0);
-        if (firstLine[0].startsWith("\uFEFF")) {
-            firstLine[0] = firstLine[0].substring(1);
-        }
-        data.set(0, firstLine);
-
         for (int i = 0; i < TEST_STRINGS.length; i++) {
             String value = TEST_STRINGS[i];
             for (String str: data.get(i)) {

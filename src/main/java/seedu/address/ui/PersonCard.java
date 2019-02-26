@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Map;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -13,9 +15,14 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES = {"red", "yellow", "blue", "green", "grey"};
+
+    private static final Map<String, String> COLORS = Map.of("ongoing", "8B008B", "urgent", "FF0000",
+                                                             "north", "2196F3", "west", "00BCD4",
+                                                             "south", "4CAF50", "east", "2E8B57");
 
     /**
+     *
+     *
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
@@ -48,26 +55,13 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        initTags(person);
-    }
-
-    /**
-     * Returns the color style for {@code tagName}'s label.
-     *
-     */
-
-    private String getTagColorStyleFor(String tagName) {
-        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
-    }
-
-    /**
-     * Creates the tag labels for {@code person}.
-     */
-    private void initTags(Person person) {
         person.getTags().forEach(tag -> {
-            Label tagLabel = new Label(tag.tagName);
-            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
-            tags.getChildren().add(tagLabel);
+            String tagName = tag.tagName;
+            tags.getChildren().add(new Label(tagName));
+            if (COLORS.containsKey(tagName)) {
+                tags.getChildren().get(tags.getChildren().size() - 1).setStyle("-fx-background-color: #"
+                        + COLORS.get(tagName));
+            }
         });
     }
 

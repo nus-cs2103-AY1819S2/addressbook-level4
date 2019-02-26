@@ -6,16 +6,13 @@ import seedu.address.model.person.exceptions.Status;
  * Represents a tooth of a Person.
  */
 public class Tooth {
-    private boolean isPresent;
-    private boolean isOnStatus;
+    private boolean isPresent = true;
+    private boolean isOnStatus = false;
     private Status status;
 
-    public Tooth() {
-        this.isOnStatus = false;
-    }
+    public Tooth() { }
 
     public Tooth(Status status) {
-        this.isPresent = true;
         this.isOnStatus = true;
         this.status = status;
     }

@@ -45,4 +45,3 @@ public class User {
         private Instant srsDueDate;
     }
 }
- ProTip! Use

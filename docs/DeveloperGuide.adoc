@@ -770,7 +770,7 @@ We now have `Remark` s for `Restaurant` s, but they will be gone when we exit th
 
 **Tests:**
 
-. Fix `invalidAndValidRestaurantAddressBook.json`, `typicalRestaurantsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
+. Fix `invalidAndValidRestaurantAddressBook.json`, `typicalRestaurantsFoodDiary.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
 ===== [Step 6b] Test: Add withRemark() for `RestaurantBuilder`
 Since `Restaurant` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/RestaurantBuilder.java[`RestaurantBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/restaurant/Restaurant.java[`Restaurant`].

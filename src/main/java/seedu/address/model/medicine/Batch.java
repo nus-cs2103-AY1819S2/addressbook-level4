@@ -52,7 +52,8 @@ public class Batch {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getBatchNumber())
+        builder.append("BatchNumber: ")
+                .append(getBatchNumber())
                 .append(" Quantity: ")
                 .append(getQuantity())
                 .append(" Expiry: ")

@@ -120,6 +120,14 @@ public class MedicineBuilder {
     }
 
     /**
+     * Add {@code batch} to the {@code Medicine} that we are building. Replaces existing value.
+     */
+    public MedicineBuilder withAddedBatch(Batch batch) {
+        this.batches.put(batch.getBatchNumber(), batch);
+        return this;
+    }
+
+    /**
      * Parses the {@code batchDetails} into a {@code Map<BatchName, Batch>} and add it to the {@code Medicine} that we
      * are building.
      */

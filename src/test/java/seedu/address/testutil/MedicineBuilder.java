@@ -24,7 +24,7 @@ public class MedicineBuilder {
     public static final String DEFAULT_NAME = "Paracetamol";
     public static final String DEFAULT_QUANTITY = "0";
     public static final String DEFAULT_EXPIRY = "-";
-    public static final String DEFAULT_COMPANY = "GlaxoSmithKline";
+    public static final String DEFAULT_COMPANY = "Gilead Sciences";
 
     private Name name;
     private Quantity quantity;

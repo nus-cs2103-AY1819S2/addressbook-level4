@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMOXICILLIN
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMOXICILLIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
@@ -96,11 +95,6 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: add a duplicate medicine -> rejected */
         command = MedicineUtil.getAddCommand(AMOXICILLIN);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
-
-        /* Case: add a duplicate medicine except with different company -> rejected */
-        toAdd = new MedicineBuilder(AMOXICILLIN).withCompany(VALID_COMPANY_GABAPENTIN).build();
-        command = MedicineUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: add a duplicate medicine except with different tags -> rejected */

@@ -74,7 +74,7 @@ public class Medicine {
     }
 
     /**
-     * Returns true if both medicines of the same name have at least one other identity field that is the same.
+     * Returns true if both medicines of the same name were purchased from the same company.
      * This defines a weaker notion of equality between two medicines.
      */
     public boolean isSameMedicine(Medicine otherMedicine) {
@@ -84,7 +84,7 @@ public class Medicine {
 
         return otherMedicine != null
                 && otherMedicine.getName().equals(getName())
-                && (otherMedicine.getQuantity().equals(getQuantity()) || otherMedicine.getExpiry().equals(getExpiry()));
+                && (otherMedicine.getCompany().equals(getCompany()));
     }
 
     /**
@@ -128,8 +128,7 @@ public class Medicine {
                 .append(getCompany())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append(" Batches: ");
-        getBatches().entrySet().forEach(builder::append);
+        builder.append(" Batches: ").append(getBatches().size());
 
         return builder.toString();
     }

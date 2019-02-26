@@ -113,12 +113,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getRestOrRantFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setRestOrRantFilePath(Path restOrRantFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -128,12 +128,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyRestOrRant newData) {
+        public void setRestOrRant(ReadOnlyRestOrRant newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyRestOrRant getAddressBook() {
+        public ReadOnlyRestOrRant getRestOrRant() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRestOrRant() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -161,32 +166,7 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
+        
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
@@ -240,12 +220,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void updateRestOrRant() { 
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyRestOrRant getAddressBook() {
+        public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRant();
         }
     }

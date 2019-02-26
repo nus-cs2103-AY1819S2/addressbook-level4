@@ -28,23 +28,27 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMOXICILLIN = "Amoxicillin";
     public static final String VALID_NAME_GABAPENTIN = "Gabapentin";
+    public static final String VALID_NAME_PARACETAMOL = "Paracetamol";
     public static final String VALID_QUANTITY_AMOXICILLIN = "111";
     public static final String VALID_QUANTITY_GABAPENTIN = "0";
     public static final String VALID_EXPIRY_AMOXICILLIN = "27/11/2019";
     public static final String VALID_EXPIRY_GABAPENTIN = "-";
     public static final String VALID_COMPANY_AMOXICILLIN = "Merck & Co. (MSD)";
     public static final String VALID_COMPANY_GABAPENTIN = "Sanofi";
+    public static final String VALID_COMPANY_LISNOPRIL = "Takeda Pharmaceutical Co.";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String NAME_DESC_AMOXICILLIN = " " + PREFIX_NAME + VALID_NAME_AMOXICILLIN;
     public static final String NAME_DESC_GABAPENTIN = " " + PREFIX_NAME + VALID_NAME_GABAPENTIN;
+    public static final String NAME_DESC_PARACETAMOL = " " + PREFIX_NAME + VALID_NAME_PARACETAMOL;
     public static final String QUANTITY_DESC_AMOXICILLIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_AMOXICILLIN;
     public static final String QUANTITY_DESC_GABAPENTIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_GABAPENTIN;
     public static final String EXPIRY_DESC_AMOXICILLIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_AMOXICILLIN;
     public static final String EXPIRY_DESC_GABAPENTIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_GABAPENTIN;
     public static final String COMPANY_DESC_AMOXICILLIN = " " + PREFIX_COMPANY + VALID_COMPANY_AMOXICILLIN;
     public static final String COMPANY_DESC_GABAPENTIN = " " + PREFIX_COMPANY + VALID_COMPANY_GABAPENTIN;
+    public static final String COMPANY_DESC_LISNOPRIL = " " + PREFIX_COMPANY + VALID_COMPANY_LISNOPRIL;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -62,10 +66,8 @@ public class CommandTestUtil {
 
     static {
         DESC_AMOXICILLIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN)
                 .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
         DESC_GABAPENTIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
                 .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

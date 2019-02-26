@@ -59,4 +59,57 @@ public class QuizTest {
         assertEquals(new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW).generate(), VALID_QUIZCARD);
     }
 
+    @Test
+    public void getNextCard() {
+        // ------- learn -------
+        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+
+        // before running generate
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+            quiz.getNextCard());
+
+        // normal, after generate
+        List<QuizCard> generated = quiz.generate();
+        assertEquals(generated.get(0), quiz.getNextCard());
+        assertEquals(generated.get(1), quiz.getNextCard());
+        assertEquals(generated.get(2), quiz.getNextCard());
+        assertEquals(generated.get(3), quiz.getNextCard());
+
+        // no more cards
+        Assert.assertThrows(IndexOutOfBoundsException.class, () ->
+            quiz.getNextCard());
+
+        // ------- review -------
+        Quiz quizReview = new Quiz(VALID_QUIZCARD, Quiz.Mode.REVIEW);
+        // before running generate
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+            quizReview.getNextCard());
+
+        // normal, after generate
+        List<QuizCard> generatedReview = quizReview.generate();
+        assertEquals(generatedReview.get(0), quizReview.getNextCard());
+        assertEquals(generatedReview.get(1), quizReview.getNextCard());
+        assertEquals(generatedReview.get(2), quizReview.getNextCard());
+        assertEquals(generatedReview.get(3), quizReview.getNextCard());
+
+        // no more cards
+        Assert.assertThrows(IndexOutOfBoundsException.class, () ->
+            quizReview.getNextCard());
+
+        // ------- preview -------
+        Quiz quizPreview = new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW);
+        // before running generate
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+            quizPreview.getNextCard());
+
+        // normal, after generate
+        List<QuizCard> generatedPreview = quizPreview.generate();
+        assertEquals(generatedPreview.get(0), quizPreview.getNextCard());
+        assertEquals(generatedPreview.get(1), quizPreview.getNextCard());
+
+        // no more cards
+        Assert.assertThrows(IndexOutOfBoundsException.class, () ->
+            quizPreview.getNextCard());
+    }
+
 }

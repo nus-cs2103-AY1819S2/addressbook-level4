@@ -19,6 +19,7 @@ public class Quiz {
     private List<QuizCard> generatedSession;
     private Mode mode; // learn/review/preview
     private QuizCard currentQuizCard;
+    private int currentCardIndex;
     private int generatedCardSize;
 
     /**
@@ -43,6 +44,7 @@ public class Quiz {
 
         this.currentSession = session;
         this.mode = mode;
+        this.currentCardIndex = -1;
     }
 
     /**
@@ -69,5 +71,20 @@ public class Quiz {
 
         generatedCardSize = generatedSession.size();
         return generatedSession;
+    }
+
+    public QuizCard getNextCard() {
+        if (generatedCardSize == 0) {
+            throw new IllegalArgumentException("Run generate first");
+        }
+
+        currentCardIndex += 1;
+
+        if (currentCardIndex < generatedCardSize) {
+            currentQuizCard = generatedSession.get(currentCardIndex);
+            return currentQuizCard;
+        }
+
+        throw new IndexOutOfBoundsException("No cards left.");
     }
 }

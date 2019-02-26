@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -119,6 +120,13 @@ public class ModelManager implements Model {
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void updatePerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        versionedAddressBook.updatePerson(target, editedPerson);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -183,6 +191,11 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
+    public void deleteTag(Tag tag) {
+        versionedAddressBook.removeTag(tag);
+    }
+
     /**
      * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
      */
@@ -231,5 +244,4 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
-
 }

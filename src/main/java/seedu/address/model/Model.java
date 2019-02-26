@@ -54,7 +54,7 @@ public interface Model {
     ReadOnlyRestOrRant getRestOrRant();
 
     /**
-     * Notifies the listeners that the RestOrRant has been modified. 
+     * Notifies the listeners that the RestOrRant has been modified.
      */
     void updateRestOrRant();
 

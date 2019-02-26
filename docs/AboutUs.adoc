@@ -48,7 +48,7 @@ Responsibilities:
 '''
 
 === Pai Si Kai
-image::SiKai.jpg[width="150", align="left"]
+image::PaiSiKai.jpg[width="150", align="left"]
 {empty}[https://github.com/skpai27[github]]
 
 Role: Developer +

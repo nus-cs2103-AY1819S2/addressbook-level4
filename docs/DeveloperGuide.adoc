@@ -887,7 +887,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |start a lesson |I can start to memorise
 
-|`* * *` |user |view correct answer and explanation if choosing wrongly |I can understand and remember it better
+|`* * *` |user |view correct answer and explanation if I answered wrongly|I can understand and
+remember
+ it better
 
 |`* *` |user |see a hint if I am not sure about the answer |I can have a deeper impression
 

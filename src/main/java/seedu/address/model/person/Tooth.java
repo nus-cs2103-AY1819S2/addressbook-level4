@@ -12,6 +12,12 @@ public class Tooth {
     }
 
     public Tooth(boolean hasStatus) {
+        this.isPresent = true;
+        this.hasStatus = hasStatus;
+    }
+
+    public Tooth(boolean isPresent, boolean hasStatus) {
+        this.isPresent = isPresent;
         this.hasStatus = hasStatus;
     }
 

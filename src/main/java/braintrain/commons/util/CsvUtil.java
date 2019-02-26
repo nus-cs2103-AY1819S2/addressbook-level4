@@ -80,7 +80,6 @@ public class CsvUtil {
             return false;
         }
 
-
         String[] firstLine = data.get(0);
         if (!firstLine[0].startsWith("\uFEFF")) {
             firstLine[0] = "\uFEFF" + firstLine[0];
@@ -91,10 +90,12 @@ public class CsvUtil {
 
         try {
             BufferedWriter writer = Files.newBufferedWriter(filePath);
-            csvWriter = new CSVWriter(writer);
+            csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.DEFAULT_QUOTE_CHARACTER,
+                '\\', CSVWriter.DEFAULT_LINE_END);
             csvWriter.writeAll(data);
+            csvWriter.close();
         } catch (IOException exception) {
-            logger.info("??");
+            logger.info("Write to file failed.");
             return false;
         }
         return true;

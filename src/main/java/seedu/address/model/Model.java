@@ -36,17 +36,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' food diary file path.
      */
     Path getAddressBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' food diary file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces food diary data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
@@ -54,27 +54,27 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the address book.
+     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the food diary.
      */
     boolean hasRestaurant(Restaurant restaurant);
 
     /**
      * Deletes the given restaurant.
-     * The restaurant must exist in the address book.
+     * The restaurant must exist in the food diary.
      */
     void deleteRestaurant(Restaurant target);
 
     /**
      * Adds the given restaurant.
-     * {@code restaurant} must not already exist in the address book.
+     * {@code restaurant} must not already exist in the food diary.
      */
     void addRestaurant(Restaurant restaurant);
 
     /**
      * Replaces the given restaurant {@code target} with {@code editedRestaurant}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the food diary.
      * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant
-     * in the address book.
+     * in the food diary.
      */
     void setRestaurant(Restaurant target, Restaurant editedRestaurant);
 
@@ -88,27 +88,27 @@ public interface Model {
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous food diary states to restore.
      */
     boolean canUndoAddressBook();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone food diary states to restore.
      */
     boolean canRedoAddressBook();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's food diary to its previous state.
      */
     void undoAddressBook();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's food diary to its previously undone state.
      */
     void redoAddressBook();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current food diary state for undo/redo.
      */
     void commitAddressBook();
 

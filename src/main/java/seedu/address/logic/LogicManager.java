@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
+        // Set addressBookModified to true whenever the models' food diary is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 
@@ -55,7 +55,7 @@ public class LogicManager implements Logic {
         }
 
         if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+            logger.info("Food diary modified, saving to file.");
             try {
                 storage.saveAddressBook(model.getAddressBook());
             } catch (IOException ioe) {

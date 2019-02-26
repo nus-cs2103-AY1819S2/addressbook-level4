@@ -134,7 +134,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all restaurants in the address book.
+     * Displays all restaurants in the food diary.
      */
     protected void showAllRestaurants() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -160,7 +160,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all restaurants in the address book.
+     * Deletes all restaurants in the food diary.
      */
     protected void deleteAllRestaurants() {
         executeCommand(ClearCommand.COMMAND_WORD);

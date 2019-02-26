@@ -54,7 +54,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a restaurant without tags to a non-empty address book, command with leading spaces and
+        /* Case: add a restaurant without tags to a non-empty food diary, command with leading spaces and
          * trailing spaces -> added
          */
         Restaurant toAdd = AMY;
@@ -73,20 +73,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a restaurant with all fields same as another restaurant in the address book except name -> added */
+        /* Case: add a restaurant with all fields same as another restaurant in the food diary except name -> added */
         toAdd = new RestaurantBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a restaurant with all fields same as another restaurant in the address book except phone and email
+        /* Case: add a restaurant with all fields same as another restaurant in the food diary except phone and email
          * -> added
          */
         toAdd = new RestaurantBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = RestaurantUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty food diary -> added */
         deleteAllRestaurants();
         assertCommandSuccess(ALICE);
 

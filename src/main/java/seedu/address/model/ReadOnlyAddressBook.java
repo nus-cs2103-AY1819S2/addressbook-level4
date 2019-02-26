@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an food diary
  */
 public interface ReadOnlyAddressBook extends Observable {
 

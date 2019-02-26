@@ -69,7 +69,7 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the food diary data stored inside the storage file.
      */
     public AddressBook readStorageAddressBook() {
         try {

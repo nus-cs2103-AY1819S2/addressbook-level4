@@ -54,7 +54,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered restaurant list, select index within bounds of address book but out of bounds of
+        /* Case: filtered restaurant list, select index within bounds of food diary but out of bounds of
          * restaurant list -> rejected
          */
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);
@@ -62,7 +62,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
 
-        /* Case: filtered restaurant list, select index within bounds of address book and restaurant list -> selected */
+        /* Case: filtered restaurant list, select index within bounds of food diary and restaurant list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredRestaurantList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -94,7 +94,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty food diary -> rejected */
         deleteAllRestaurants();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_RESTAURANT.getOneBased(),
                 MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);

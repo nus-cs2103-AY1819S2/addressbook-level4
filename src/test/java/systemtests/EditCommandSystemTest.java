@@ -111,7 +111,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered restaurant list, edit index within bounds of address book and restaurant list -> edited */
+        /* Case: filtered restaurant list, edit index within bounds of food diary and restaurant list -> edited */
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_RESTAURANT;
         assertTrue(index.getZeroBased() < getModel().getFilteredRestaurantList().size());
@@ -120,7 +120,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedRestaurant = new RestaurantBuilder(restaurantToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedRestaurant);
 
-        /* Case: filtered restaurant list, edit index within bounds of address book but out of bounds of restaurant list
+        /* Case: filtered restaurant list, edit index within bounds of food diary but out of bounds of restaurant list
          * -> rejected
          */
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);

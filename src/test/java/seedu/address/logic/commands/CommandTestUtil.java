@@ -102,7 +102,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered restaurant list and selected restaurant in {@code actualModel} remain unchanged <br>
+     * - the food diary, filtered restaurant list and selected restaurant in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -129,7 +129,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the restaurant at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s food diary.
      */
     public static void showRestaurantAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredRestaurantList().size());
@@ -142,7 +142,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first restaurant in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first restaurant in {@code model}'s filtered list from {@code model}'s food diary.
      */
     public static void deleteFirstRestaurant(Model model) {
         Restaurant firstRestaurant = model.getFilteredRestaurantList().get(0);

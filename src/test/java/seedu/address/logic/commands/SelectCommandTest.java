@@ -57,7 +57,7 @@ public class SelectCommandTest {
         showRestaurantAtIndex(expectedModel, INDEX_FIRST_RESTAURANT);
 
         Index outOfBoundsIndex = INDEX_SECOND_RESTAURANT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of food diary list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getRestaurantList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);

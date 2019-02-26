@@ -59,13 +59,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered restaurant list, delete index within bounds of address book and restaurant list -> deleted */
+        /* Case: filtered restaurant list, delete index within bounds of food diary and restaurant list -> deleted */
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_RESTAURANT;
         assertTrue(index.getZeroBased() < getModel().getFilteredRestaurantList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered restaurant list, delete index within bounds of address book but out of bounds of
+        /* Case: filtered restaurant list, delete index within bounds of food diary but out of bounds of
          * restaurant list -> rejected
          */
         showRestaurantsWithName(KEYWORD_MATCHING_MEIER);
@@ -115,7 +115,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Restaurant} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Restaurant} at the specified {@code index} in {@code model}'s food diary.
      * @return the removed restaurant
      */
     private Restaurant removeRestaurant(Model model, Index index) {

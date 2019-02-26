@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.restaurant.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all restaurants in address book whose name contains any of the argument keywords.
+ * Finds and lists all restaurants in food diary whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

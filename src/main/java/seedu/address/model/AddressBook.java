@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// restaurant-level operations
 
     /**
-     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the address book.
+     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the food diary.
      */
     public boolean hasRestaurant(Restaurant restaurant) {
         requireNonNull(restaurant);
@@ -71,8 +71,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a restaurant to the address book.
-     * The restaurant must not already exist in the address book.
+     * Adds a restaurant to the food diary.
+     * The restaurant must not already exist in the food diary.
      */
     public void addRestaurant(Restaurant p) {
         restaurants.add(p);
@@ -81,9 +81,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given restaurant {@code target} in the list with {@code editedRestaurant}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the food diary.
      * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant
-     * in the address book.
+     * in the food diary.
      */
     public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
         requireNonNull(editedRestaurant);
@@ -94,7 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the food diary.
      */
     public void removeRestaurant(Restaurant key) {
         restaurants.remove(key);
@@ -112,7 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the food diary has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);

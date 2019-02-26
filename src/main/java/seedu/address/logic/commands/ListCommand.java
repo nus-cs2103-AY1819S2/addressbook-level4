@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all restaurants in the address book to the user.
+ * Lists all restaurants in the food diary to the user.
  */
 public class ListCommand extends Command {
 

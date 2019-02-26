@@ -25,7 +25,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple restaurants in address book, command with leading spaces and trailing spaces
+        /* Case: find multiple restaurants in food diary, command with leading spaces and trailing spaces
          * -> 2 restaurants found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
@@ -49,23 +49,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple restaurants in address book, 2 keywords -> 2 restaurants found */
+        /* Case: find multiple restaurants in food diary, 2 keywords -> 2 restaurants found */
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple restaurants in address book, 2 keywords in reversed order -> 2 restaurants found */
+        /* Case: find multiple restaurants in food diary, 2 keywords in reversed order -> 2 restaurants found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple restaurants in address book, 2 keywords with 1 repeat -> 2 restaurants found */
+        /* Case: find multiple restaurants in food diary, 2 keywords with 1 repeat -> 2 restaurants found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple restaurants in address book, 2 matching keywords and 1 non-matching keyword
+        /* Case: find multiple restaurants in food diary, 2 matching keywords and 1 non-matching keyword
          * -> 2 restaurants found
          */
         command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
@@ -82,7 +82,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same restaurants in address book after deleting 1 of them -> 1 restaurant found */
+        /* Case: find same restaurants in food diary after deleting 1 of them -> 1 restaurant found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getAddressBook().getRestaurantList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
@@ -91,44 +91,44 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find restaurant in address book, keyword is same as name but of different case -> 1 restaurant found */
+        /* Case: find restaurant in food diary, keyword is same as name but of different case -> 1 restaurant found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find restaurant in address book, keyword is substring of name -> 0 restaurants found */
+        /* Case: find restaurant in food diary, keyword is substring of name -> 0 restaurants found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find restaurant in address book, name is substring of keyword -> 0 restaurants found */
+        /* Case: find restaurant in food diary, name is substring of keyword -> 0 restaurants found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find restaurant not in address book -> 0 restaurants found */
+        /* Case: find restaurant not in food diary -> 0 restaurants found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of restaurant in address book -> 0 restaurants found */
+        /* Case: find phone number of restaurant in food diary -> 0 restaurants found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of restaurant in address book -> 0 restaurants found */
+        /* Case: find address of restaurant in food diary -> 0 restaurants found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of restaurant in address book -> 0 restaurants found */
+        /* Case: find email of restaurant in food diary -> 0 restaurants found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of restaurant in address book -> 0 restaurants found */
+        /* Case: find tags of restaurant in food diary -> 0 restaurants found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
@@ -143,7 +143,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find restaurant in empty address book -> 0 restaurants found */
+        /* Case: find restaurant in empty food diary -> 0 restaurants found */
         deleteAllRestaurants();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();

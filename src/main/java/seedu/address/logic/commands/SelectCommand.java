@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
- * Selects a restaurant identified using it's displayed index from the address book.
+ * Selects a restaurant identified using it's displayed index from the food diary.
  */
 public class SelectCommand extends Command {
 

@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import java.nio.file.Path;
 
@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.FoodDiary;
+import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -25,9 +25,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonFoodDiaryStorage foodDiaryStorage = new JsonFoodDiaryStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(foodDiaryStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -50,21 +50,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void foodDiaryReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonFoodDiaryStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonFoodDiaryStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        FoodDiary original = getTypicalFoodDiary();
+        storageManager.saveFoodDiary(original);
+        ReadOnlyFoodDiary retrieved = storageManager.readFoodDiary().get();
+        assertEquals(original, new FoodDiary(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getFoodDiaryFilePath() {
+        assertNotNull(storageManager.getFoodDiaryFilePath());
     }
 
 }

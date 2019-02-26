@@ -32,6 +32,7 @@ public class QuizTest {
 
     @Test
     public void generate() {
+        // learn
         List<QuizCard> expected = new ArrayList<>();
         QuizCard actualCurrentCard;
         for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
@@ -44,10 +45,18 @@ public class QuizTest {
             expected.add(new QuizCard(i, actualCurrentCard.getAnswer(), actualCurrentCard.getQuestion()));
         }
 
-        List<QuizCard> actual = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN).generate();
+        List<QuizCard> actualLearn = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN).generate();
 
-        assertEquals(4, actual.size());
-        assertEquals(expected, actual);
+        assertEquals(4, actualLearn.size());
+        assertEquals(expected, actualLearn);
+
+        // review
+        List<QuizCard> actualReview = new Quiz(VALID_QUIZCARD, Quiz.Mode.REVIEW).generate();
+        assertEquals(4, actualReview.size());
+        assertEquals(expected, actualReview);
+
+        // preview
+        assertEquals(new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW).generate(), VALID_QUIZCARD);
     }
 
 }

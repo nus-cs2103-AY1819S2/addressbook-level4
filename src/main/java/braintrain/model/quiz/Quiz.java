@@ -19,6 +19,7 @@ public class Quiz {
     private List<QuizCard> generatedSession;
     private Mode mode; // learn/review/preview
     private QuizCard currentQuizCard;
+    private int generatedCardSize;
 
     /**
      * Different types of mode supported in Quiz.
@@ -49,9 +50,9 @@ public class Quiz {
      */
     public List<QuizCard> generate() {
         QuizCard currentCard;
+        generatedSession = new ArrayList<>();
 
         if (mode != Mode.PREVIEW) {
-            generatedSession = new ArrayList<>();
             for (int i = 0; i < currentSession.size(); i++) {
                 currentCard = currentSession.get(i);
                 generatedSession.add(new QuizCard(i, currentCard.getQuestion(), currentCard.getAnswer()));
@@ -61,8 +62,12 @@ public class Quiz {
                 currentCard = currentSession.get(i);
                 generatedSession.add(new QuizCard(i, currentCard.getAnswer(), currentCard.getQuestion()));
             }
+
+        } else {
+            generatedSession = currentSession;
         }
 
+        generatedCardSize = generatedSession.size();
         return generatedSession;
     }
 }

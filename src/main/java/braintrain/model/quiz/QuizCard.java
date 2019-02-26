@@ -18,7 +18,6 @@ public class QuizCard {
     private String answer;
     private List<String> opt;
     private int index;
-    private boolean swap; //swap qn/ans
     private int totalAttempts;
     private int streak;
 
@@ -126,21 +125,4 @@ public class QuizCard {
     public int hashCode() {
         return Objects.hash(question, answer);
     }
-
-    //
-    //  public QuizCard(Card card, int totalAttempts, int streak) {
-    //    this.card = card;
-    //    this.totalAttempts = totalAttempts;
-    //    this.streak = streak;
-    //  }
-    //
-    //  public void setStreakTotal(boolean isCorrect) {
-    //    this.totalAttempts += 1;
-    //
-    //    if (isCorrect) {
-    //      this.streak += 1;
-    //    } else {
-    //      this.streak = 0;
-    //    }
-    //  }
 }

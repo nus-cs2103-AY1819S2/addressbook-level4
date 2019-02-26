@@ -14,7 +14,6 @@ public class Quiz {
 
     public static final String MESSAGE_CONSTRAINTS = "Mode must only be learn/review/preview";
 
-    private List<List<Integer>> returnSession; //return format list [index, totalAttempts, streak]
     private List<QuizCard> currentSession;
     private List<QuizCard> generatedSession;
     private Mode mode; // learn/review/preview

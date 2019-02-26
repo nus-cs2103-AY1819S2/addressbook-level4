@@ -30,8 +30,8 @@ Responsibilities: UI
 '''
 
 === Kevin Yeong Yu Heng
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::kevin1.jpeg[width="150", align="left"]
+{empty}[http://github.com/A0143487X-Kevin[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data

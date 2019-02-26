@@ -7,11 +7,6 @@ import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -20,14 +15,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 
-
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-
+/**
+ * Prints a selected medicine identified using it's displayed index from the inventory.
+ */
 public class LabelCommand extends Command {
 
     public static final String COMMAND_WORD = "label";
@@ -63,11 +58,10 @@ public class LabelCommand extends Command {
         String medicineExpiry = medicineToPrint.getExpiry().toString();
         String medicineCompany = medicineToPrint.getCompany().toString();
         String medicineTags = medicineToPrint.getTags().toString();
+        String textNextLine = (medicineName + "\n" + medicineCompany + "\n" +
+                medicineExpiry + "\n" + medicineTags);
 
-        String textNL = (medicineName + "\n" + medicineCompany + "\n" + medicineExpiry + "\n" + medicineTags);
-
-        try (PDDocument doc = new PDDocument())
-        {
+        try (PDDocument doc = new PDDocument()) {
             PDPage page = new PDPage();
             doc.addPage(page);
 
@@ -75,14 +69,14 @@ public class LabelCommand extends Command {
             float fontSize = 25;
             float leading = 1.5f * fontSize;
 
-            PDRectangle mediabox = page.getMediaBox();
+            PDRectangle mediaBox = page.getMediaBox();
             float margin = 72;
-            float width = mediabox.getWidth() - 2*margin;
-            float startX = mediabox.getLowerLeftX() + margin;
-            float startY = mediabox.getUpperRightY() - margin;
+            float width = mediaBox.getWidth() - 2 * margin;
+            float startX = mediaBox.getLowerLeftX() + margin;
+            float startY = mediaBox.getUpperRightY() - margin;
 
             List<String> lines = new ArrayList<String>();
-            for (String text : textNL.split("\n")) {
+            for (String text : textNextLine.split("\n")) {
                 int lastSpace = -1;
                 while (text.length() > 0) {
                     int spaceIndex = text.indexOf(' ', lastSpace + 1);
@@ -91,7 +85,7 @@ public class LabelCommand extends Command {
                     String subString = text.substring(0, spaceIndex);
                     float size = fontSize * font.getStringWidth(subString) / 1000;
                     System.out.printf("'%s' - %f of %f\n", subString, size, width);
-                    if (size > width) {
+                       if (size > width) {
                         if (lastSpace < 0)
                             lastSpace = spaceIndex;
                         subString = text.substring(0, lastSpace);
@@ -109,8 +103,7 @@ public class LabelCommand extends Command {
                 }
             }
 
-            try (PDPageContentStream contents = new PDPageContentStream(doc, page))
-            {
+            try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
                 contents.beginText();
                 contents.setFont(font, 12);
                 contents.newLineAtOffset(startX, startY);
@@ -123,7 +116,7 @@ public class LabelCommand extends Command {
             }
 
             doc.save(filename);
-        } catch(IOException ie) {
+        } catch (IOException ie) {
             ie.printStackTrace();
         }
 

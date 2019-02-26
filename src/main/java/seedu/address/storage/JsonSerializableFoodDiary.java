@@ -16,7 +16,7 @@ import seedu.address.model.restaurant.Restaurant;
 /**
  * An Immutable FoodDiary that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "fooddiary")
 class JsonSerializableFoodDiary {
 
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "Restaurants list contains duplicate restaurant(s).";

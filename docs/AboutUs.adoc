@@ -37,12 +37,17 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::Kyler.png[width="200", align="left"]
+{nbsp} +
+*Kyler Wong Shen Meng*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities::
+* Build efficient data structures that stores represented dental data
+* Develop dentistry-specific functions and features
+* Ensure intuitiveness of dentistry data to dentist users
+* Apply and conform to renowned dentistry standards
 
 '''
 

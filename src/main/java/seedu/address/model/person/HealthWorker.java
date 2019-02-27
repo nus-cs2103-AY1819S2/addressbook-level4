@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -15,8 +16,7 @@ public class HealthWorker extends Person {
     private Organization organization;
 
     public HealthWorker(Name name, Phone phone, Email email, Nric nric, Address
-                        address,
-                        Set<Tag> tags, Organization organization) {
+                        address, Set<Tag> tags, Organization organization) {
         super(name, phone, email, nric, address, tags);
         this.organization = organization;
     }

@@ -41,7 +41,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find equipment where equipment list is not displaying the equipment we are finding -> 1 equipment found */
+        /* Case: find equipment where equipment list is not displaying the equipment we are finding
+         * -> 1 equipment found
+         */
         command = FindCommand.COMMAND_WORD + " Carl";
         ModelHelper.setFilteredList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);

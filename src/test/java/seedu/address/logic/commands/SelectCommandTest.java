@@ -87,7 +87,8 @@ public class SelectCommandTest {
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that the model's selected equipment is set to the equipment at {@code index} in the filtered equipment list.
+     * and checks that the model's selected equipment is set to the equipment at {@code index}
+     * in the filtered equipment list.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

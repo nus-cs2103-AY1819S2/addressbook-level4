@@ -23,8 +23,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.equipment.NameContainsKeywordsPredicate;
 import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.NameContainsKeywordsPredicate;
 import seedu.address.model.equipment.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;

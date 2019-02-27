@@ -129,8 +129,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------- Performing edit operation while a equipment card is selected ----------------------- */
 
-        /* Case: selects first card in the equipment list, edit a equipment -> edited, card selection remains unchanged but
-         * browser url changes
+        /* Case: selects first card in the equipment list, edit a equipment -> edited, card selection remains unchanged
+         * but browser url changes
          */
         showAllPersons();
         index = INDEX_FIRST_PERSON;

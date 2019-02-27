@@ -121,4 +121,20 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String file}.
+     *
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    public static String parseFile(String file) throws ParseException {
+        requireNonNull(file);
+
+        String VALIDATION_REGEX = "^\\/([A-z0-9-_+]+\\/)*([A-z0-9]+\\.(txt))$";
+
+        if (!file.matches(VALIDATION_REGEX)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return file;
+    }
 }

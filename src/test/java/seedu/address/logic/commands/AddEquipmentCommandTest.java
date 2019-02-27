@@ -27,7 +27,7 @@ import seedu.address.model.equipment.Equipment;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class AddEquipmentCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -39,7 +39,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddEquipmentCommand(null);
     }
 
     @Test
@@ -47,9 +47,9 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Equipment validEquipment = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validEquipment).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddEquipmentCommand(validEquipment).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEquipment), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddEquipmentCommand.MESSAGE_SUCCESS, validEquipment), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validEquipment), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -57,26 +57,26 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Equipment validEquipment = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validEquipment);
+        AddEquipmentCommand addEquipmentCommand = new AddEquipmentCommand(validEquipment);
         ModelStub modelStub = new ModelStubWithPerson(validEquipment);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddEquipmentCommand.MESSAGE_DUPLICATE_PERSON);
+        addEquipmentCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Equipment alice = new PersonBuilder().withName("Alice").build();
         Equipment bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddEquipmentCommand addAliceCommand = new AddEquipmentCommand(alice);
+        AddEquipmentCommand addBobCommand = new AddEquipmentCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddEquipmentCommand addAliceCommandCopy = new AddEquipmentCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -252,7 +252,7 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddEquipmentCommand#execute()}
         }
 
         @Override

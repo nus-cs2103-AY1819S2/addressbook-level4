@@ -14,7 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEquipmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -43,8 +43,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Equipment equipment = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(equipment));
-        assertEquals(new AddCommand(equipment), command);
+        AddEquipmentCommand command = (AddEquipmentCommand) parser.parseCommand(PersonUtil.getAddCommand(equipment));
+        assertEquals(new AddEquipmentCommand(equipment), command);
     }
 
     @Test

@@ -161,12 +161,12 @@ test {
         if (runGuiTests) {
             test.include 'systemtests/**'
             test.include 'seedu/address/ui/**'
-            test.include 'braintrain/**'
+            test.include 'braintrain/ui/**'
         }
 
         if (!runGuiTests) {
             test.exclude 'seedu/address/ui/**'
-            test.exclude 'braintrain/**'
+            test.exclude 'braintrain/ui/**'
         }
     }
 }

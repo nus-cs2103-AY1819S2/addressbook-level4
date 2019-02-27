@@ -15,7 +15,7 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
 
     private static final Pattern AddMedicineCommand_Argument_Format =
             Pattern.compile("(?<rawPath>\\S+)(?:\\s+)(?<medicineInformation>\\S.+)");
-    private static final Pattern MedicineInformation_format =
+    private static final Pattern MedicineInformation_Format =
             Pattern.compile("(?<name>\\S+)(?:\\s*)(?<quantity>\\d*)(?:\\s*)");
 
     /**
@@ -38,7 +38,7 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
         final String rawPath = pathMedicine.group("rawPath");
         final String medicineInfo = pathMedicine.group("medicineInformation");
         String[] path = rawPath.split("\\\\");
-        final Matcher nameQuantity = MedicineInformation_format.matcher(medicineInfo);
+        final Matcher nameQuantity = MedicineInformation_Format.matcher(medicineInfo);
         if (!nameQuantity.matches()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));

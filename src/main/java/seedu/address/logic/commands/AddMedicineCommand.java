@@ -16,7 +16,7 @@ public class AddMedicineCommand extends Command {
 
     public static final String COMMAND_WORD = "addMed";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":Adds a medicine to the medicine storage. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the medicine storage. "
             + "Parameters: "
             + "Directory path separated by \\ "
             + "Name of Medicine "
@@ -49,7 +49,7 @@ public class AddMedicineCommand extends Command {
         requireNonNull(model);
         //model.addMedicine(toAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(toAdd.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }
 
     @Override

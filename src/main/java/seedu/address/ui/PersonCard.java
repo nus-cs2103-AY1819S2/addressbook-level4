@@ -43,7 +43,6 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        System.out.println(name);
         name.setText(person.getModuleInfo().fullName);
         phone.setText(person.getSemester().value);
         email.setText(person.getExpectedMinGrade().toString());

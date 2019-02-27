@@ -6,14 +6,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.place.Place;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Place> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,37 +54,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a place with the same identity as {@code place} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPlace(Place place);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given place.
+     * The place must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePlace(Place target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given place.
+     * {@code place} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPlace(Place place);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given place {@code target} with {@code editedPlace}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The place identity of {@code editedPlace} must not be the same as another existing place in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPlace(Place target, Place editedPlace);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered place list */
+    ObservableList<Place> getFilteredPlaceList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered place list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPlaceList(Predicate<Place> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -112,19 +112,19 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected place in the filtered place list.
+     * null if no place is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Place> selectedPlaceProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected place in the filtered place list.
+     * null if no place is selected.
      */
-    Person getSelectedPerson();
+    Place getSelectedPlace();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected place in the filtered place list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedPlace(Place place);
 }

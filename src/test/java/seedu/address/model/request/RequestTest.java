@@ -76,7 +76,7 @@ public class RequestTest {
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different isComplete status -> returns false
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withStatus(true).build();
+        editedAlice = new RequestBuilder(ALICE_REQUEST).withStatus("COMPLETED").build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));
     }
 }

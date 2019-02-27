@@ -17,7 +17,7 @@ public class TypicalRequests {
             .withConditions("Physiotherapy")
             .withDate("01-01-2019 10:00:00")
             .withHealthStaff(TypicalHealthWorkers.ANDY)
-            .withStatus(false)
+            .withStatus("PENDING")
             .build();
 
     public static final Request BENSON_REQUEST = new RequestBuilder()
@@ -26,7 +26,7 @@ public class TypicalRequests {
             .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.BETTY)
-            .withStatus(false)
+            .withStatus("PENDING")
             .build();
 
     public static final Request CARL_REQUEST = new RequestBuilder()
@@ -35,7 +35,7 @@ public class TypicalRequests {
             .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.CARLIE)
-            .withStatus(false)
+            .withStatus("PENDING")
             .build();
 
     public static final Request DANIEL = new RequestBuilder()
@@ -44,6 +44,6 @@ public class TypicalRequests {
             .withConditions("Palliative")
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.PANIEL)
-            .withStatus(false)
+            .withStatus("COMPLETED")
             .build();
 }

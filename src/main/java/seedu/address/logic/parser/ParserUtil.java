@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -127,14 +128,21 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static String parseFile(String file) throws ParseException {
-        requireNonNull(file);
-        file = file.trim();
+    public static File parseFile(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        filePath = filePath.trim();
         String VALIDATION_REGEX = "\\p{Alnum}+.(txt|xml)$";
 
-        if (!file.matches(VALIDATION_REGEX)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        if (!filePath.matches(VALIDATION_REGEX)) {
+            throw new ParseException("File name is invalid");
         }
+
+        File file = new File(filePath);
+
+        if (!file.exists() || !file.isFile() || !file.canRead()) {
+            throw new ParseException("File is invalid");
+        }
+
         return file;
     }
 }

@@ -24,10 +24,10 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    private static final String VALID_NAME = BENSON.getModuleInfo().toString();
+    private static final String VALID_PHONE = BENSON.getSemester().toString();
+    private static final String VALID_EMAIL = BENSON.getExpectedMinGrade().toString();
+    private static final String VALID_ADDRESS = BENSON.getExpectedMaxGrade().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

@@ -95,10 +95,10 @@ public class EditCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getModuleInfo());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getSemester());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getExpectedMinGrade());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getExpectedMaxGrade());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);

@@ -36,19 +36,19 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
+    public Name getModuleInfo() {
         return moduleInfo;
     }
 
-    public Phone getPhone() {
+    public Phone getSemester() {
         return semester;
     }
 
-    public Email getEmail() {
+    public Email getExpectedMinGrade() {
         return expectedMinGrade;
     }
 
-    public Address getAddress() {
+    public Address getExpectedMaxGrade() {
         return expectedMaxGrade;
     }
 
@@ -70,8 +70,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && otherPerson.getModuleInfo().equals(getModuleInfo())
+                && (otherPerson.getSemester().equals(getSemester()) || otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade()));
     }
 
     /**
@@ -89,10 +89,10 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
+        return otherPerson.getModuleInfo().equals(getModuleInfo())
+                && otherPerson.getSemester().equals(getSemester())
+                && otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade())
+                && otherPerson.getExpectedMaxGrade().equals(getExpectedMaxGrade())
                 && otherPerson.getTags().equals(getTags());
     }
 
@@ -105,13 +105,13 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+        builder.append(getModuleInfo())
+                .append(" Module Info: ")
+                .append(getSemester())
+                .append(" Expected Min Grade: ")
+                .append(getExpectedMinGrade())
+                .append(" Expected Max Grade: ")
+                .append(getExpectedMaxGrade())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -39,10 +39,10 @@ public class PersonBuilder {
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
     public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
+        name = personToCopy.getModuleInfo();
+        phone = personToCopy.getSemester();
+        email = personToCopy.getExpectedMinGrade();
+        address = personToCopy.getExpectedMaxGrade();
         tags = new HashSet<>(personToCopy.getTags());
     }
 

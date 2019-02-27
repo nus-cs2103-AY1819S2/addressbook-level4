@@ -12,8 +12,7 @@ import seedu.address.model.tag.Tag;
 public class Patient extends Person {
 
     public Patient(Name name, Phone phone, Email email, Nric nric, Address
-            address,
-                        Set<Tag> tags, Organization organization) {
+            address, Set<Tag> tags) {
         super(name, phone, email, nric, address, tags);
     }
 

@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -17,9 +18,8 @@ public class Request {
     private final Person patient;
     private final RequestDate requestDate;
     private final Set<Tag> conditions;
-    private Optional<Person> healthWorker;
+    private Optional<HealthWorker> healthWorker;
     private RequestStatus requestStatus;
-    private boolean isCompleted; // represents the state of the request
 
     /**
      *
@@ -28,7 +28,7 @@ public class Request {
      * @param id The id of the request
      * @param patient The patient requesting for services.
      * @param requestDate The date of the request.
-     * @param conditions The set of the conditions the patient is requesting treatmeent for.
+     * @param conditions The set of the conditions the patient is requesting treatment for.
      * @param requestStatus The state of the request.
      */
     public Request(String id, Person patient, RequestDate requestDate, Set<Tag> conditions,
@@ -45,14 +45,14 @@ public class Request {
     /*
      * Requires all the properties of a request to be non-null.
      */
-    public Request(String id, Person patient, Person healthStaff, RequestDate requestDate, Set<Tag> conditions,
+    public Request(String id, Person patient, HealthWorker healthStaff, RequestDate requestDate, Set<Tag> conditions,
                    RequestStatus requestStatus) {
         this(id, patient, requestDate, conditions, requestStatus);
         requireNonNull(healthStaff);
         this.healthWorker = Optional.of(healthStaff);
     }
 
-    public void setHealthStaff(Person healthStaff) {
+    public void setHealthStaff(HealthWorker healthStaff) {
         requireNonNull(healthStaff);
         this.healthWorker = Optional.of(healthStaff);
     }
@@ -129,7 +129,7 @@ public class Request {
         return this.requestDate;
     }
 
-    public Optional<Person> getHealthStaff() {
+    public Optional<HealthWorker> getHealthStaff() {
         return healthWorker;
     }
 

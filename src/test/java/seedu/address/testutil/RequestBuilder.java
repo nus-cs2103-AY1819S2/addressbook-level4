@@ -9,7 +9,10 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.request.Request;
@@ -34,20 +37,23 @@ public class RequestBuilder {
     public static final String DEFAULT_STAFF_PHONE = "81237822";
     public static final String DEFAULT_STAFF_ADDRESS = "Health Hub Ave 3, 129834";
     public static final String DEFAULT_STAFF_EMAIL = "healthstaff@health.com";
+    public static final String DEFAULT_STAFF_NRIC = "S9123742I";
+    public static final String DEFAULT_ORGANISATION = "NUH";
 
     private String id;
     private RequestDate requestDate;
     private RequestStatus requestStatus;
     private Set<Tag> conditions;
-    private Optional<Person> healthWorker;
+    private Optional<HealthWorker> healthWorker;
     private Person patient;
 
     public RequestBuilder() {
         this.id = DEFAULT_ID;
         this.patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone(DEFAULT_PHONE), new Email(DEFAULT_EMAIL),
                 new Address(DEFAULT_ADDRESS), new HashSet<>(Collections.singleton(new Tag(DEFAULT_REQUEST))));
-        this.healthWorker = Optional.of(new Person(new Name(DEFAULT_STAFF_NAME), new Phone(DEFAULT_STAFF_PHONE),
-                new Email(DEFAULT_STAFF_EMAIL), new Address(DEFAULT_STAFF_ADDRESS), Collections.emptySet()));
+        this.healthWorker = Optional.of(new HealthWorker(new Name(DEFAULT_STAFF_NAME), new Phone(DEFAULT_STAFF_PHONE),
+                new Email(DEFAULT_STAFF_EMAIL), new Nric(DEFAULT_STAFF_NRIC), new Address(DEFAULT_STAFF_ADDRESS),
+                Collections.emptySet(), new Organization(DEFAULT_ORGANISATION)));
         this.requestDate = new RequestDate(DEFAULT_DATE);
         this.conditions = new HashSet<>(Collections.singleton(new Tag(DEFAULT_REQUEST)));
         this.requestStatus = new RequestStatus(DEFAULT_STATUS);
@@ -100,7 +106,7 @@ public class RequestBuilder {
      * @param healthStaff The healthStaff attending to the request.
      * @return The RequestBuilder object.
      */
-    public RequestBuilder withHealthStaff(Person healthStaff) {
+    public RequestBuilder withHealthStaff(HealthWorker healthStaff) {
         requireNonNull(healthStaff);
         this.healthWorker = Optional.of(healthStaff);
         return this;

@@ -83,15 +83,16 @@ public class Medicine {
      */
     public String[] toStringArray() {
         final StringBuilder builder = new StringBuilder();
+        String delimiter = "|";
         String[] result;
         builder.append(getName())
-                .append("|")
+                .append(delimiter)
                 .append(getQuantity())
-                .append("|")
+                .append(delimiter)
                 .append(getExpiry())
-                .append("|")
+                .append(delimiter)
                 .append(getCompany())
-                .append("|");
+                .append(delimiter);
         Iterator iterator = getTags().iterator();
         while (iterator.hasNext()) {
             Tag current = (Tag) iterator.next();

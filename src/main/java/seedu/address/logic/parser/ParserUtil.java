@@ -141,12 +141,6 @@ public class ParserUtil {
 
         File file = new File(newPath.concat(filePath));
 
-        System.out.println(newPath);
-
-        if (!file.exists() || !file.isFile() || !file.canRead()) {
-            throw new ParseException("File is invalid");
-        }
-
         return file;
     }
 }

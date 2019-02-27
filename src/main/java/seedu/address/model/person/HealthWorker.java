@@ -73,6 +73,8 @@ public class HealthWorker extends Person {
         return otherHealthWorker.getName().equals(getName())
                 && otherHealthWorker.getPhone().equals(getPhone())
                 && otherHealthWorker.getNric().equals(getNric())
+                && otherHealthWorker.getTags().equals(getTags())
+                && otherHealthWorker.getEmail().equals(getEmail())
                 && otherHealthWorker.getAddress().equals(getAddress())
                 && otherHealthWorker.getOrganization().equals(getOrganization());
     }
@@ -80,6 +82,6 @@ public class HealthWorker extends Person {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getNric(), getAddress(), getPhone(),
-                getOrganization());
+                getOrganization(), getEmail(), getTags());
     }
 }

@@ -38,6 +38,7 @@ public class ExportCommand extends Command {
             + "Example: " + COMMAND_WORD + " records1.json";
 
     public static final String MESSAGE_SUCCESS = "Exported the records!";
+    private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
 
     private final File file;
 
@@ -48,12 +49,12 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        readFile(model);
+        writeFile(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    public void readFile(Model model) {
+    private void writeFile(Model model) {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);
@@ -63,7 +64,7 @@ public class ExportCommand extends Command {
         try {
             storage.saveAddressBook(model.getAddressBook(), file.toPath());
         } catch (IOException e) {
-            logger.warning("Problem while writing to the file.");
+            logger.warning(MESSAGE_FAILURE);
         }
     }
 }

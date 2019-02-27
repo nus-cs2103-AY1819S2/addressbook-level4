@@ -3,5 +3,5 @@ package seedu.address.model.activity.exceptions;
 /**
  * Signals that the operation is unable to find the specified activity.
  */
-public class ActivityNotFoundException {
+public class ActivityNotFoundException extends RuntimeException {
 }

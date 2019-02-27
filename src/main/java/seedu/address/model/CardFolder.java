@@ -17,6 +17,7 @@ import seedu.address.model.card.UniqueCardList;
 public class CardFolder implements ReadOnlyCardFolder {
 
     private final UniqueCardList cards;
+    private String folderName;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -58,6 +59,7 @@ public class CardFolder implements ReadOnlyCardFolder {
         requireNonNull(newData);
 
         setCards(newData.getCardList());
+        setFolderName(newData.getFolderName());
     }
 
     //// card-level operations
@@ -130,6 +132,20 @@ public class CardFolder implements ReadOnlyCardFolder {
         return cards.asUnmodifiableObservableList();
     }
 
+    /**
+     * Sets the name of the {@code CardFolder} and overwrites the previous name.
+     */
+    public void setFolderName(String newFolderName) {
+        this.folderName = newFolderName;
+        indicateModified();
+    }
+
+    @Override
+    public String getFolderName() {
+        return folderName;
+    }
+
+    // TODO: Check for folder equivalence with folderName instead
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

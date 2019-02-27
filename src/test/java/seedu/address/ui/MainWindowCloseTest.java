@@ -3,7 +3,9 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
+import seedu.address.storage.CardFolderStorage;
 import seedu.address.storage.JsonCardFolderStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -35,8 +38,11 @@ public class MainWindowCloseTest extends GuiUnitTest {
     @Before
     public void setUp() throws Exception {
         JsonCardFolderStorage jsonCardFolderStorage = new JsonCardFolderStorage(temporaryFolder.newFile().toPath());
+        List<CardFolderStorage> jsonCardFolderStorageList = new ArrayList<>();
+        // TODO: Iterate over all files in directory
+        jsonCardFolderStorageList.add(jsonCardFolderStorage);
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storageManager = new StorageManager(jsonCardFolderStorage, jsonUserPrefsStorage);
+        StorageManager storageManager = new StorageManager(jsonCardFolderStorageList, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));

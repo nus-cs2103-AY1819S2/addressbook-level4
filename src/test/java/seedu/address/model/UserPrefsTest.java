@@ -13,9 +13,9 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setCardFolderFilePath_nullPath_throwsNullPointerException() {
+    public void setcardFolderFilesPath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setCardFolderFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setcardFolderFilesPath(null));
     }
 
 }

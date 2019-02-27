@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
-import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
@@ -26,17 +26,17 @@ import seedu.address.model.card.Card;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalCardFolder(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getCardFolder(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitCardFolder();
 
@@ -45,7 +45,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCards().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -55,12 +55,12 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
-        Model expectedModel = new ModelManager(model.getCardFolder(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitCardFolder();
         showNoCard(expectedModel);
@@ -74,7 +74,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of card folder list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getCardFolder().getCardList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getActiveCardFolder().getCardList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -83,9 +83,9 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
-        Model expectedModel = new ModelManager(model.getCardFolder(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitCardFolder();
 
@@ -103,7 +103,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCards().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> card folder state not added into model
@@ -124,10 +124,10 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameCardDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
-        Model expectedModel = new ModelManager(model.getCardFolder(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitCardFolder();
 
@@ -138,7 +138,7 @@ public class DeleteCommandTest {
         expectedModel.undoCardFolder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(cardToDelete, model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased()));
+        assertNotEquals(cardToDelete, model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()));
         // redo -> deletes same second card in unfiltered card list
         expectedModel.redoCardFolder();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -170,8 +170,8 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoCard(Model model) {
-        model.updateFilteredCardList(p -> false);
+        model.updateFilteredCard(p -> false);
 
-        assertTrue(model.getFilteredCardList().isEmpty());
+        assertTrue(model.getFilteredCards().isEmpty());
     }
 }

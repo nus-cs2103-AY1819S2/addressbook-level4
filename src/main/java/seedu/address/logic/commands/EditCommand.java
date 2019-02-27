@@ -69,7 +69,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Card> lastShownList = model.getFilteredCardList();
+        List<Card> lastShownList = model.getFilteredCards();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -83,7 +83,7 @@ public class EditCommand extends Command {
         }
 
         model.setCard(cardToEdit, editedCard);
-        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitCardFolder();
         return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
     }

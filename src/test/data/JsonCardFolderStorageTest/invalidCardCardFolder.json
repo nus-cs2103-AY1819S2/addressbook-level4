@@ -1,4 +1,5 @@
 {
+  "folderName" : "Invalid question",
   "cards": [ {
     "question": "Card with invalid question field: Ha!ns Mu@ster",
     "answer": "9482424",

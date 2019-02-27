@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
-import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
@@ -23,13 +23,13 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalCardFolder(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolder(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastCardIndex = Index.fromOneBased(model.getFilteredCardList().size());
+        Index lastCardIndex = Index.fromOneBased(model.getFilteredCards().size());
 
         assertExecutionSuccess(INDEX_FIRST_CARD);
         assertExecutionSuccess(INDEX_THIRD_CARD);
@@ -38,7 +38,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredCards().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
@@ -58,7 +58,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of card folder list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getCardFolder().getCardList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getActiveCardFolder().getCardList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
@@ -92,7 +92,7 @@ public class SelectCommandTest {
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_CARD_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedCard(model.getFilteredCardList().get(index.getZeroBased()));
+        expectedModel.setSelectedCard(model.getFilteredCards().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }

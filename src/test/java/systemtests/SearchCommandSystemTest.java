@@ -111,8 +111,8 @@ public class SearchCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of place in address book -> 0 places found */
-        command = SearchCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        /* Case: find rating of place in address book -> 0 places found */
+        command = SearchCommand.COMMAND_WORD + " " + DANIEL.getRating().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

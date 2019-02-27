@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPlaces.ALICE;
 import static seedu.address.testutil.TypicalPlaces.BOB;
@@ -39,8 +39,8 @@ public class PlaceTest {
         Place editedAlice = new PlaceBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePlace(editedAlice));
 
-        // same name, different phone -> returns true
-        editedAlice = new PlaceBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // same name, different rating -> returns true
+        editedAlice = new PlaceBuilder(ALICE).withRating(VALID_RATING_BOB).build();
         assertTrue(ALICE.isSamePlace(editedAlice));
 
         // same name, different description -> returns true
@@ -78,8 +78,8 @@ public class PlaceTest {
         Place editedAlice = new PlaceBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new PlaceBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different rating -> returns false
+        editedAlice = new PlaceBuilder(ALICE).withRating(VALID_RATING_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different description -> returns false

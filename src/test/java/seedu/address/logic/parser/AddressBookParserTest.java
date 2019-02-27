@@ -106,7 +106,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_search() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(SearchCommand.COMMAND_WORD
                 + " " + keywords.stream().collect(Collectors.joining(" ")));
@@ -114,7 +114,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_findAlias() throws Exception {
+    public void parseCommand_searchAlias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(SearchCommand.COMMAND_ALIAS
                 + " " + keywords.stream().collect(Collectors.joining(" ")));

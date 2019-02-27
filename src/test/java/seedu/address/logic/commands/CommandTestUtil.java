@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -30,10 +30,10 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Cougar";
     public static final String VALID_NAME_CODY = "Cody Dog";
     public static final String VALID_NAME_DICK = "Dick Eagle";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_PHONE_CODY = "33333333";
-    public static final String VALID_PHONE_DICK = "44444444";
+    public static final String VALID_RATING_AMY = "5";
+    public static final String VALID_RATING_BOB = "1";
+    public static final String VALID_RATING_CODY = "4";
+    public static final String VALID_RATING_DICK = "2";
     public static final String VALID_DESCRIPTION_AMY = "I love this place";
     public static final String VALID_DESCRIPTION_BOB = "I hate this place";
     public static final String VALID_DESCRIPTION_CODY = "This place is great";
@@ -49,10 +49,10 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NAME_DESC_CODY = " " + PREFIX_NAME + VALID_NAME_CODY;
     public static final String NAME_DESC_DICK = " " + PREFIX_NAME + VALID_NAME_DICK;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String PHONE_DESC_CODY = " " + PREFIX_PHONE + VALID_PHONE_CODY;
-    public static final String PHONE_DESC_DICK = " " + PREFIX_PHONE + VALID_PHONE_DICK;
+    public static final String RATING_DESC_AMY = " " + PREFIX_RATING + VALID_RATING_AMY;
+    public static final String RATING_DESC_BOB = " " + PREFIX_RATING + VALID_RATING_BOB;
+    public static final String RATING_DESC_CODY = " " + PREFIX_RATING + VALID_RATING_CODY;
+    public static final String RATING_DESC_DICK = " " + PREFIX_RATING + VALID_RATING_DICK;
     public static final String DESCRIPTION_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
     public static final String DESCRIPTION_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
     public static final String DESCRIPTION_CODY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CODY;
@@ -65,7 +65,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "4a"; // 'a' not allowed in ratings
     public static final String INVALID_DESCRIPTION = " " + PREFIX_DESCRIPTION + ".I love this place";
     // must begin with alphabet
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
@@ -79,10 +79,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withDescription(VALID_DESCRIPTION_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withRating(VALID_RATING_AMY).withDescription(VALID_DESCRIPTION_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withDescription(VALID_DESCRIPTION_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withRating(VALID_RATING_BOB).withDescription(VALID_DESCRIPTION_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

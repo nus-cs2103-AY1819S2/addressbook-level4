@@ -1,12 +1,12 @@
 {
   "places": [ {
     "name": "Valid Place",
-    "phone": "9482424",
+    "rating": "4",
     "description": "No description",
     "address": "4th street"
   }, {
-    "name": "Place With Invalid Phone Field",
-    "phone": "948asdf2424",
+    "name": "Place With Invalid Rating Field",
+    "rating": "9",
     "description": "No description",
     "address": "4th street"
   } ]

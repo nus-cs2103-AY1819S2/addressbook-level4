@@ -997,7 +997,6 @@ Use case ends.
 ** 2a1. Club Manager shows an error message.
 Use case resumes at step 1.
 
-
 _{More to be added}_
 
 [appendix]

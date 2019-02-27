@@ -54,29 +54,20 @@ public class ExportCommand extends Command {
     }
 
     public void readFile(Model model) {
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
+        //AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
 
-        StorageManager storage = new StorageManager(addressBookStorage, null);
+        //StorageManager storage = new StorageManager(addressBookStorage, null);
+
+        StorageManager storage = new StorageManager(null, null);
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        //Optional<ReadOnlyAddressBook> addressBookOptional;
 
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            storage.saveAddressBook(model.getAddressBook(), file.toPath());
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
         }
-
-        model.setAddressBook(initialData);
     }
 }

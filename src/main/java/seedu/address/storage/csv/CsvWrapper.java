@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,7 +14,9 @@ import com.opencsv.CSVWriter;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.tag.Tag;
 
 /**
  * A CsvWrapper class to complement the export command for MediTabs.
@@ -22,7 +26,7 @@ import seedu.address.model.medicine.Medicine;
 public class CsvWrapper {
 
     private static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
-    private static String[] defaultHeading = {"Name", "Quantity", "Expiry Date", "Company", "Tags"};
+    private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags"};
     private static final Path DEFAULT_EXPORT_FOLDER_PATH = Paths.get("exported");
     private String csvFileName;
     private Model model;
@@ -80,6 +84,11 @@ public class CsvWrapper {
 
     /**
      * Writes data from current list displayed in GUI when export command is called to a csv file.
+     * Note: For medicine containing more than one batch, the csv data will be compiled
+     * such that each individual batches of each medicine has its own individual line in the csv file.
+     * Medicines with no batches, in other words, just added or initialised without any batches linked to it,
+     * it will be ignored and not written in the csv file. This is due to the fact that there is no useful information
+     * to be compiled to the csv file for those medicines without any batches.
      * @param currentGuiList The current list displayed in the GUI when the export command is called.
      * @throws CommandException If there is an error exporting the current list in the GUI to a csv file.
      */
@@ -89,7 +98,11 @@ public class CsvWrapper {
             Iterator iterator = currentGuiList.listIterator();
             while (iterator.hasNext()) {
                 Medicine current = (Medicine) iterator.next();
-                csvWriter.writeNext(current.toStringArray());
+                if (isMedicineInitialised(current) == false) {
+                    continue;
+                }
+                List<String[]> medicineDataStringArray = processMedicineData(current);
+                csvWriter.writeAll(medicineDataStringArray);
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -108,6 +121,71 @@ public class CsvWrapper {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
+    }
+
+    /**
+     * Returns whether the input medicine has been initialised.
+     * Initalised, in this case, is defined as whether it has any batches or it was just added with currently
+     * no batches linked to it.
+     * @param medicine The input medicine.
+     * @return Whether the input medicine has been initialised.
+     */
+    private boolean isMedicineInitialised(Medicine medicine) {
+        if (medicine.getBatches().size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Processes the input medicine data and returns a List of String Array
+     * representation of the input medicine data for writing to csv file.
+     * @param medicine The input medicine.
+     * @return Returns a list of String Array containing the input medicine data for writing to csv file.
+     */
+    private List<String[]> processMedicineData(Medicine medicine) {
+        List<String[]> result = new ArrayList<>();
+        Collection<Batch> batches = medicine.getBatches().values();
+        Iterator iterator = batches.iterator();
+        while (iterator.hasNext()) {
+            Batch currentBatch = (Batch) iterator.next();
+            String[] currentData = buildStringArray(medicine, currentBatch);
+            result.add(currentData);
+        }
+        return result;
+    }
+
+    /**
+     * Builds a String Array containing detailed information of the medicine
+     * which will be written to the csv file.
+     * @param medicine The input medicine.
+     * @param batch The input batch of the input medicine.
+     * @return A String Array containing detailed information of the medicine.
+     */
+    private String[] buildStringArray(Medicine medicine, Batch batch) {
+        final StringBuilder builder = new StringBuilder();
+        String delimiter = "|";
+        String[] result;
+        builder.append(medicine.getName())
+                .append(delimiter)
+                .append(batch.getBatchNumber())
+                .append(delimiter)
+                .append(batch.getQuantity())
+                .append(delimiter)
+                .append(batch.getExpiry())
+                .append(delimiter)
+                .append(medicine.getCompany())
+                .append(delimiter);
+        Iterator iterator = medicine.getTags().iterator();
+        while (iterator.hasNext()) {
+            Tag current = (Tag) iterator.next();
+            String formattedCurrentTagString = current.toStringUpperCase();
+            builder.append(formattedCurrentTagString);
+            builder.append(' ');
+        }
+        result = builder.toString().split("\\|");
+        return result;
     }
 
 }

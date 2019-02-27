@@ -13,8 +13,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.place.Address;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
-import seedu.address.model.place.Phone;
 import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +25,7 @@ class JsonAdaptedPlace {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Place's %s field is missing!";
 
     private final String name;
-    private final String phone;
+    private final String rating;
     private final String description;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -34,11 +34,11 @@ class JsonAdaptedPlace {
      * Constructs a {@code JsonAdaptedPlace} with the given place details.
      */
     @JsonCreator
-    public JsonAdaptedPlace(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedPlace(@JsonProperty("name") String name, @JsonProperty("rating") String rating,
             @JsonProperty("description") String description, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.rating = rating;
         this.description = description;
         this.address = address;
         if (tagged != null) {
@@ -51,7 +51,7 @@ class JsonAdaptedPlace {
      */
     public JsonAdaptedPlace(Place source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        rating = source.getRating().value;
         description = source.getDescription().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
@@ -78,13 +78,13 @@ class JsonAdaptedPlace {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (rating == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Rating.isValidRating(rating)) {
+            throw new IllegalValueException(Rating.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Rating modelPhone = new Rating(rating);
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

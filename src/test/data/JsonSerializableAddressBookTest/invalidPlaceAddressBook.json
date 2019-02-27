@@ -1,7 +1,7 @@
 {
   "places": [ {
     "name": "Hans Muster",
-    "phone": "9482424",
+    "rating": "2",
     "description": "#Invalid description",
     "address": "4th street"
   } ]

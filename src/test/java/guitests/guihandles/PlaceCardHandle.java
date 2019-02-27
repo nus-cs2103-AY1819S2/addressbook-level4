@@ -17,14 +17,14 @@ public class PlaceCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String RATING_FIELD_ID = "#rating";
     private static final String DESCRIPTION_FIELD_ID = "#description";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label addressLabel;
-    private final Label phoneLabel;
+    private final Label ratingLabel;
     private final Label descriptionLabel;
     private final List<Label> tagLabels;
 
@@ -34,7 +34,7 @@ public class PlaceCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
+        ratingLabel = getChildNode(RATING_FIELD_ID);
         descriptionLabel = getChildNode(DESCRIPTION_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
@@ -57,8 +57,8 @@ public class PlaceCardHandle extends NodeHandle<Node> {
         return addressLabel.getText();
     }
 
-    public String getPhone() {
-        return phoneLabel.getText();
+    public String getRating() {
+        return ratingLabel.getText();
     }
 
     public String getDescription() {
@@ -87,7 +87,7 @@ public class PlaceCardHandle extends NodeHandle<Node> {
     public boolean equals(Place place) {
         return getName().equals(place.getName().fullName)
                 && getAddress().equals(place.getAddress().value)
-                && getPhone().equals(place.getPhone().value)
+                && getRating().equals(place.getRating().value)
                 && getDescription().equals(place.getDescription().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(place.getTags().stream()
                         .map(tag -> tag.tagName)

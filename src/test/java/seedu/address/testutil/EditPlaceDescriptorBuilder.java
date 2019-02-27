@@ -8,9 +8,8 @@ import seedu.address.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.address.model.place.Address;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
-import seedu.address.model.place.Phone;
 import seedu.address.model.place.Place;
-
+import seedu.address.model.place.Rating;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,7 +33,7 @@ public class EditPlaceDescriptorBuilder {
     public EditPlaceDescriptorBuilder(Place place) {
         descriptor = new EditPlaceDescriptor();
         descriptor.setName(place.getName());
-        descriptor.setPhone(place.getPhone());
+        descriptor.setRating(place.getRating());
         descriptor.setDescription(place.getDescription());
         descriptor.setAddress(place.getAddress());
         descriptor.setTags(place.getTags());
@@ -49,10 +48,10 @@ public class EditPlaceDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPlaceDescriptor} that we are building.
+     * Sets the {@code Rating} of the {@code EditPlaceDescriptor} that we are building.
      */
-    public EditPlaceDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditPlaceDescriptorBuilder withRating(String rating) {
+        descriptor.setRating(new Rating(rating));
         return this;
     }
 

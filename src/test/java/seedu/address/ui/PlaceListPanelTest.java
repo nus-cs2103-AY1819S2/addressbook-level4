@@ -20,8 +20,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.place.Address;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
-import seedu.address.model.place.Phone;
 import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 
 public class PlaceListPanelTest extends GuiUnitTest {
     private static final ObservableList<Place> TYPICAL_PERSONS =
@@ -80,7 +80,7 @@ public class PlaceListPanelTest extends GuiUnitTest {
         ObservableList<Place> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < placeCount; i++) {
             Name name = new Name(i + "a");
-            Phone phone = new Phone("000");
+            Rating phone = new Rating("1");
             Description description = new Description("a@aa");
             Address address = new Address("a");
             Place place = new Place(name, phone, description, address, Collections.emptySet());

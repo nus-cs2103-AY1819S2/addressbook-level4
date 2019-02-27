@@ -25,7 +25,7 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getDescription(), actualCard.getDescription());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+        assertEquals(expectedCard.getRating(), actualCard.getRating());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
         expectedCard.getTags().forEach(tag ->
             assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
@@ -36,7 +36,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysPlace(Place expectedPlace, PlaceCardHandle actualCard) {
         assertEquals(expectedPlace.getName().fullName, actualCard.getName());
-        assertEquals(expectedPlace.getPhone().value, actualCard.getPhone());
+        assertEquals(expectedPlace.getRating().value, actualCard.getRating());
         assertEquals(expectedPlace.getDescription().value, actualCard.getDescription());
         assertEquals(expectedPlace.getAddress().value, actualCard.getAddress());
         assertTagsEqual(expectedPlace, actualCard);

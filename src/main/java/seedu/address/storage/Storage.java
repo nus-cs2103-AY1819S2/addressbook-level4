@@ -12,21 +12,11 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends CardFolderStorage, UserPrefsStorage {
-
-    @Override
+public interface Storage {
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
-
-    @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
-
-    @Override
-    Path getCardFolderFilePath();
-
-    @Override
+    Path getcardFolderFilesPath();
     Optional<ReadOnlyCardFolder> readCardFolder() throws DataConversionException, IOException;
-
-    @Override
     void saveCardFolder(ReadOnlyCardFolder cardFolder) throws IOException;
 
 }

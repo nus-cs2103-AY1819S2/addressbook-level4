@@ -82,8 +82,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getCardFolderFilePath() {
-        return model.getCardFolderFilePath();
+    public Path getcardFolderFilesPath() {
+        return model.getcardFolderFilesPath();
     }
 
     @Override

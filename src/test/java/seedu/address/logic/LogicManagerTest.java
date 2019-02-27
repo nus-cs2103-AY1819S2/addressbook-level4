@@ -11,6 +11,8 @@ import static seedu.address.testutil.TypicalCards.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,6 +31,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
+import seedu.address.storage.CardFolderStorage;
 import seedu.address.storage.JsonCardFolderStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -50,8 +53,11 @@ public class LogicManagerTest {
     @Before
     public void setUp() throws Exception {
         JsonCardFolderStorage cardFolderStorage = new JsonCardFolderStorage(temporaryFolder.newFile().toPath());
+        List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
+        // TODO: Iterate over all files in directory
+        cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(cardFolderStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(cardFolderStorageList, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -81,8 +87,11 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonCardFolderIoExceptionThrowingStub
         JsonCardFolderStorage cardFolderStorage =
                 new JsonCardFolderIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
+        // TODO: Iterate over all files in directory
+        cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(cardFolderStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(cardFolderStorageList, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

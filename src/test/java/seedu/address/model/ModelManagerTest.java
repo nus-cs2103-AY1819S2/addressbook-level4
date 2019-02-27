@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setCardFolderFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setcardFolderFilesPath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setCardFolderFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setcardFolderFilesPath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,16 +73,16 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setCardFolderFilePath_nullPath_throwsNullPointerException() {
+    public void setcardFolderFilesPath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setCardFolderFilePath(null);
+        modelManager.setcardFolderFilesPath(null);
     }
 
     @Test
-    public void setCardFolderFilePath_validPath_setsCardFolderFilePath() {
+    public void setcardFolderFilesPath_validPath_setscardFolderFilesPath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setCardFolderFilePath(path);
-        assertEquals(path, modelManager.getCardFolderFilePath());
+        modelManager.setcardFolderFilesPath(path);
+        assertEquals(path, modelManager.getcardFolderFilesPath());
     }
 
     @Test
@@ -182,7 +182,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setCardFolderFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setcardFolderFilesPath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(cardFolder, differentUserPrefs)));
     }
 }

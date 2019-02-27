@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getCardFolderFilePath() {
+        public Path getcardFolderFilesPath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCardFolderFilePath(Path cardFolderFilePath) {
+        public void setcardFolderFilesPath(Path cardFolderFilesPath) {
             throw new AssertionError("This method should not be called.");
         }
 

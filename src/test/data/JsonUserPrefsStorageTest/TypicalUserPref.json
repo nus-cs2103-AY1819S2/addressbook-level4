@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "cardFolderFilePath" : "cardfolder.json"
+  "cardFolderFilesPath" : "cardfolder.json"
 }

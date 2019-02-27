@@ -2,6 +2,8 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -16,20 +18,22 @@ import seedu.address.model.UserPrefs;
  */
 public class StorageManager implements Storage {
 
+    // Temporary constant
+    public static final String DEFAULT_FOLDER_NAME = "cardfolder";
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private CardFolderStorage cardFolderStorage;
+    private List<CardFolderStorage> cardFolderStorageList;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(CardFolderStorage cardFolderStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(List<CardFolderStorage> cardFolderStorageList, UserPrefsStorage userPrefsStorage) {
         super();
-        this.cardFolderStorage = cardFolderStorage;
+        this.cardFolderStorageList = new ArrayList<>(cardFolderStorageList);
         this.userPrefsStorage = userPrefsStorage;
     }
 
     // ================ UserPrefs methods ==============================
 
-    @Override
+
     public Path getUserPrefsFilePath() {
         return userPrefsStorage.getUserPrefsFilePath();
     }
@@ -48,30 +52,35 @@ public class StorageManager implements Storage {
     // ================ CardFolder methods ==============================
 
     @Override
-    public Path getCardFolderFilePath() {
-        return cardFolderStorage.getCardFolderFilePath();
+    public Path getcardFolderFilesPath() {
+        return cardFolderStorageList.get(0).getcardFolderFilesPath();
     }
 
     @Override
     public Optional<ReadOnlyCardFolder> readCardFolder() throws DataConversionException, IOException {
-        return readCardFolder(cardFolderStorage.getCardFolderFilePath());
+        return readCardFolder(cardFolderStorageList.get(0).getcardFolderFilesPath());
     }
 
-    @Override
+    /**
+     * Javadoc comment
+     */
     public Optional<ReadOnlyCardFolder> readCardFolder(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return cardFolderStorage.readCardFolder(filePath);
+        return cardFolderStorageList.get(0).readCardFolder(filePath);
     }
+
 
     @Override
     public void saveCardFolder(ReadOnlyCardFolder cardFolder) throws IOException {
-        saveCardFolder(cardFolder, cardFolderStorage.getCardFolderFilePath());
+        saveCardFolder(cardFolder, cardFolderStorageList.get(0).getcardFolderFilesPath());
     }
 
-    @Override
+    /**
+     * Javadoc comment
+     */
     public void saveCardFolder(ReadOnlyCardFolder cardFolder, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        cardFolderStorage.saveCardFolder(cardFolder, filePath);
+        cardFolderStorageList.get(0).saveCardFolder(cardFolder, filePath);
     }
 
 }

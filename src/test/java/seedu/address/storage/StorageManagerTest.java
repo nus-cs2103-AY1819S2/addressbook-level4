@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,8 +28,11 @@ public class StorageManagerTest {
     @Before
     public void setUp() {
         JsonCardFolderStorage cardFolderStorage = new JsonCardFolderStorage(getTempFilePath("ab"));
+        List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
+        // TODO: Iterate over all files in directory
+        cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(cardFolderStorage, userPrefsStorage);
+        storageManager = new StorageManager(cardFolderStorageList, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -63,8 +68,8 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getCardFolderFilePath() {
-        assertNotNull(storageManager.getCardFolderFilePath());
+    public void getcardFolderFilesPath() {
+        assertNotNull(storageManager.getcardFolderFilesPath());
     }
 
 }

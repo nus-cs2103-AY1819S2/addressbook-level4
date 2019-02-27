@@ -64,7 +64,7 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setCardFolderFilePath(saveFileLocation);
+        userPrefs.setcardFolderFilesPath(saveFileLocation);
         return userPrefs;
     }
 
@@ -85,7 +85,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getCardFolderFilePath();
+        return storage.getcardFolderFilesPath();
     }
 
     /**

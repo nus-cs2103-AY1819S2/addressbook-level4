@@ -43,7 +43,7 @@ public interface Logic {
     /**
      * Returns the user prefs' card folder file path.
      */
-    Path getCardFolderFilePath();
+    Path getcardFolderFilesPath();
 
     /**
      * Returns the user prefs' GUI settings.

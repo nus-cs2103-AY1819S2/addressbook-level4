@@ -17,6 +17,7 @@ import seedu.address.model.card.UniqueCardList;
 public class CardFolder implements ReadOnlyCardFolder {
 
     private final UniqueCardList cards;
+    private String folderName;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -128,6 +129,18 @@ public class CardFolder implements ReadOnlyCardFolder {
     @Override
     public ObservableList<Card> getCardList() {
         return cards.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Javadoc comment
+     */
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    @Override
+    public String getFolderName() {
+        return folderName;
     }
 
     @Override

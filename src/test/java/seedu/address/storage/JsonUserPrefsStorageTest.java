@@ -83,7 +83,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setCardFolderFilePath(Paths.get("cardfolder.json"));
+        userPrefs.setcardFolderFilesPath(Paths.get("cardfolder.json"));
         return userPrefs;
     }
 

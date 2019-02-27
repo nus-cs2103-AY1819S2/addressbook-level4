@@ -73,14 +73,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getCardFolderFilePath() {
-        return userPrefs.getCardFolderFilePath();
+    public Path getcardFolderFilesPath() {
+        return userPrefs.getcardFolderFilesPath();
     }
 
     @Override
-    public void setCardFolderFilePath(Path cardFolderFilePath) {
-        requireNonNull(cardFolderFilePath);
-        userPrefs.setCardFolderFilePath(cardFolderFilePath);
+    public void setcardFolderFilesPath(Path cardFolderFilesPath) {
+        requireNonNull(cardFolderFilesPath);
+        userPrefs.setcardFolderFilesPath(cardFolderFilesPath);
     }
 
     //=========== CardFolder ================================================================================

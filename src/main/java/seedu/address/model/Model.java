@@ -38,12 +38,12 @@ public interface Model {
     /**
      * Returns the user prefs' card folder file path.
      */
-    Path getCardFolderFilePath();
+    Path getcardFolderFilesPath();
 
     /**
      * Sets the user prefs' card folder file path.
      */
-    void setCardFolderFilePath(Path cardFolderFilePath);
+    void setcardFolderFilesPath(Path cardFolderFilesPath);
 
     /**
      * Replaces card folder data with the data in {@code cardFolder}.

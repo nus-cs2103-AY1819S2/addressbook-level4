@@ -2,6 +2,8 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -56,8 +58,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(userPrefs.getCardFolderFilePath());
-        storage = new StorageManager(cardFolderStorage, userPrefsStorage);
+        List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
+        // TODO: Iterate over all files in directory
+        Path cardFolderFilesPath = userPrefs.getcardFolderFilesPath();
+        cardFolderStorageList.add(new JsonCardFolderStorage(cardFolderFilesPath));
+        storage = new StorageManager(cardFolderStorageList, userPrefsStorage);
 
         initLogging(config);
 

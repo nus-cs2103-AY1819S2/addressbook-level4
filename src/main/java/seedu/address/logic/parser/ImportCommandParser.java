@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.io.File;
+
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -11,13 +13,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ImportCommandParser implements Parser<ImportCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ImportCommand
+     * Parses the given argument {@code String} in the context of the ImportCommand
      * and returns an ImportCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ImportCommand parse(String args) throws ParseException {
         try {
-            String file = ParserUtil.parseFile(args);
+            File file = ParserUtil.parseFile(args);
             return new ImportCommand(file);
         } catch (ParseException pe) {
             throw new ParseException(

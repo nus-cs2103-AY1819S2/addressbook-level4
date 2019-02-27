@@ -35,6 +35,7 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    String getName();
     /**
      * Returns the user prefs' food diary file path.
      */

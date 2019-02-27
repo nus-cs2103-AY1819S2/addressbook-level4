@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -29,19 +30,23 @@ public class StatusBarFooter extends UiPart<Region> {
     private static Clock clock = Clock.systemDefaultZone();
 
     private static final String FXML = "StatusBarFooter.fxml";
+    private static final String PROFILE = "Name: ";
 
     @FXML
     private Label syncStatus;
     @FXML
     private Label saveLocationStatus;
+    @FXML
+    private Label profileName;
 
-
-    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary) {
+    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary,String name) {
         super(FXML);
         foodDiary.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
+        profileName.setText(PROFILE+name);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
+
 
     /**
      * Sets the clock used to determine the current time.

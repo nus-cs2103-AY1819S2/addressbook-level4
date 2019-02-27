@@ -77,6 +77,8 @@ public class ModelManager implements Model {
         return userPrefs.getFoodDiaryFilePath();
     }
 
+    public String getName(){ return userPrefs.getName(); }
+
     @Override
     public void setFoodDiaryFilePath(Path foodDiaryFilePath) {
         requireNonNull(foodDiaryFilePath);

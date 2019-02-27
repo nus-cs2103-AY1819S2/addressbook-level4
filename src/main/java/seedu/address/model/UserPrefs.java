@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path foodDiaryFilePath = Paths.get("data" , "addressbook.json");
+    private String name = "blah";
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setFoodDiaryFilePath(newUserPrefs.getFoodDiaryFilePath());
+        setName(newUserPrefs.getName());
     }
 
     public GuiSettings getGuiSettings() {
@@ -51,9 +53,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return foodDiaryFilePath;
     }
 
+    public String getName(){return name; }
+
     public void setFoodDiaryFilePath(Path foodDiaryFilePath) {
         requireNonNull(foodDiaryFilePath);
         this.foodDiaryFilePath = foodDiaryFilePath;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     @Override

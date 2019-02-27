@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_BETTY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BETTY;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;

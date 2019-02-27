@@ -13,10 +13,11 @@ import seedu.address.model.equipment.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A equipment is considered unique by comparing using {@code Equipment#isSamePerson(Equipment)}. As such, adding and updating of
- * persons uses Equipment#isSamePerson(Equipment) for equality so as to ensure that the equipment being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a equipment uses Equipment#equals(Object) so
- * as to ensure that the equipment with exactly the same fields will be removed.
+ * A equipment is considered unique by comparing using {@code Equipment#isSamePerson(Equipment)}.
+ * As such, adding and updating of persons uses Equipment#isSamePerson(Equipment) for equality so as to ensure
+ * that the equipment being added or updated is unique in terms of identity in the UniquePersonList.
+ * However, the removal of a equipment uses Equipment#equals(Object) so as to ensure that the equipment
+ * with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

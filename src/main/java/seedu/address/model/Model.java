@@ -74,7 +74,8 @@ public interface Model {
     /**
      * Replaces the given equipment {@code target} with {@code editedEquipment}.
      * {@code target} must exist in the address book.
-     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the address book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another
+     * existing equipment in the address book.
      */
     void setPerson(Equipment target, Equipment editedEquipment);
 

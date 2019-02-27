@@ -16,40 +16,40 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Name moduleInfo;
+    private final Phone semester;
 
     // Data fields
-    private final Address address;
+    private final Email expectedMinGrade;
+    private final Address expectedMaxGrade;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+    public Person(Name moduleInfo, Phone semester, Email expectedMinGrade, Address expectedMaxGrade, Set<Tag> tags) {
+        requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
+        this.moduleInfo = moduleInfo;
+        this.semester = semester;
+        this.expectedMinGrade = expectedMinGrade;
+        this.expectedMaxGrade = expectedMaxGrade;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
-        return name;
+        return moduleInfo;
     }
 
     public Phone getPhone() {
-        return phone;
+        return semester;
     }
 
     public Email getEmail() {
-        return email;
+        return expectedMinGrade;
     }
 
     public Address getAddress() {
-        return address;
+        return expectedMaxGrade;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
     }
 
     @Override

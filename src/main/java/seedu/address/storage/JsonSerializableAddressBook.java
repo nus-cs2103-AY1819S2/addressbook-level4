@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
-
+    public static HashMap<String,Person> personHashMap = new HashMap<>();
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
@@ -53,6 +54,7 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+            personHashMap.put(person.getNric().toString(),person);
         }
         return addressBook;
     }

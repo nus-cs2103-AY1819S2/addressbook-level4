@@ -54,11 +54,11 @@ class JsonAdaptedRequest {
      */
     public JsonAdaptedRequest(Request source) {
         this.id = source.getId();
-        this.patient = source.getPatient().getName().toString();
+        this.patient = source.getPatient().getNric().toString();
         this.conditions.addAll(source.getConditions());
         this.requestDate = source.getRequestDate();
         this.isCompleted = Boolean.toString(source.isComplete());
-        this.healthStaff = source.getHealthStaff().getName().fullName;
+        this.healthStaff = source.getHealthStaff().getNric().toString();
         this.conditions.addAll(source.getConditions());
     }
 
@@ -67,7 +67,7 @@ class JsonAdaptedRequest {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Request toModelType() throws IllegalValueException {
         final List<String> conditionsArray = new ArrayList<>();
 
         conditionsArray.addAll(conditions);
@@ -78,17 +78,15 @@ class JsonAdaptedRequest {
 
         final String modelID = this.id;
 
-        // to be modified
+
         if (patient == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
 
-        final Person modelPatient = new Person(this.patient);
+        final Person modelPatient = JsonSerializableAddressBook.personHashMap.get(patient);
 
-        if (healthStaff == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        final Person modelHealthStaff = new Person(this.healthStaff);
+
+        final Person modelHealthStaff = JsonSerializableAddressBook.personHashMap.get(healthStaff);
 
         if (requestDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -103,7 +101,7 @@ class JsonAdaptedRequest {
 
         final Set<String> modelConditions = new HashSet<>(conditionsArray);
 
-        return new Person(modelID,modelPatient,modelrequestDate,modelConditions,modelIscompleted.booleanValue());
+        return new Request(modelID,modelPatient,modelrequestDate,modelConditions,modelIscompleted);
     }
 
 }

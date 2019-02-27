@@ -48,7 +48,7 @@ public class ImportCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    public void readFile(Model model) {
+    private void readFile(Model model) {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);

@@ -54,8 +54,8 @@ public class AddEquipmentCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a equipment without tags to a non-empty address book, command with leading spaces and trailing spaces
-         * -> added
+        /* Case: add a equipment without tags to a non-empty address book, command with leading spaces
+         * and trailing spaces -> added
          */
         Equipment toAdd = AMY;
         String command = "   " + AddEquipmentCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
@@ -105,7 +105,7 @@ public class AddEquipmentCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a equipment card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a equipment card is selected ------------------------ */
 
         /* Case: selects first card in the equipment list, add a equipment -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
@@ -157,19 +157,23 @@ public class AddEquipmentCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddEquipmentCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC
+                + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */

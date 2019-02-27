@@ -72,9 +72,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a equipment card is selected ------------------------ */
+        /* ------------------- Performing delete operation while a equipment card is selected --------------------- */
 
-        /* Case: delete the selected equipment -> equipment list panel selects the equipment before the deleted equipment */
+        /* Case: delete the selected equipment -> equipment list panel selects the equipment
+         * before the deleted equipment
+         */
         showAllPersons();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -131,8 +133,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Equipment deletedEquipment = removePerson(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedEquipment);
 
-        assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+        assertCommandSuccess(DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(),
+                expectedModel, expectedResultMessage);
     }
 
     /**

@@ -49,7 +49,8 @@ public class AddEquipmentCommandTest {
 
         CommandResult commandResult = new AddEquipmentCommand(validEquipment).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddEquipmentCommand.MESSAGE_SUCCESS, validEquipment), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddEquipmentCommand.MESSAGE_SUCCESS, validEquipment),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validEquipment), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -100,11 +101,13 @@ public class AddEquipmentCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public GuiSettings getGuiSettings() {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -115,6 +118,7 @@ public class AddEquipmentCommandTest {
 
         @Override
         public Path getAddressBookFilePath() {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -125,6 +129,7 @@ public class AddEquipmentCommandTest {
 
         @Override
         public void addPerson(Equipment equipment) {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -135,16 +140,19 @@ public class AddEquipmentCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasPerson(Equipment equipment) {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deletePerson(Equipment target) {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -175,26 +183,31 @@ public class AddEquipmentCommandTest {
 
         @Override
         public boolean canUndoAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean canRedoAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void undoAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void redoAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void commitAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -205,6 +218,7 @@ public class AddEquipmentCommandTest {
 
         @Override
         public Equipment getSelectedPerson() {
+
             throw new AssertionError("This method should not be called.");
         }
 

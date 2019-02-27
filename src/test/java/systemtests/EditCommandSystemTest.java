@@ -81,7 +81,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a equipment with new values same as another equipment's values but with different name -> edited */
+        /* Case: edit a equipment with new values same as another equipment's values but with
+         * different name -> edited
+         */
         assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
@@ -125,7 +127,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a equipment card is selected -------------------------- */
+        /* ------------------- Performing edit operation while a equipment card is selected ----------------------- */
 
         /* Case: selects first card in the equipment list, edit a equipment -> edited, card selection remains unchanged but
          * browser url changes
@@ -139,7 +141,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         // browser's url is updated to reflect the new equipment's name
         assertCommandSuccess(command, index, AMY, index);
 
-        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
+        /* --------------------------------- Performing invalid edit operation ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
@@ -163,24 +165,24 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
-                Phone.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
-                Email.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
-                Tag.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a equipment with new values same as another equipment's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
@@ -191,22 +193,30 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a equipment with new values same as another equipment's values but with different tags -> rejected */
+        /* Case: edit a equipment with new values same as another equipment's values
+         * but with different tags -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a equipment with new values same as another equipment's values but with different address -> rejected */
+        /* Case: edit a equipment with new values same as another equipment's values
+         * but with different address -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a equipment with new values same as another equipment's values but with different phone -> rejected */
+        /* Case: edit a equipment with new values same as another equipment's values
+         * but with different phone -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a equipment with new values same as another equipment's values but with different email -> rejected */
+        /* Case: edit a equipment with new values same as another equipment's values
+         * but with different email -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);

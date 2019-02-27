@@ -54,20 +54,16 @@ public class ExportCommand extends Command {
     }
 
     public void readFile(Model model) {
-        //AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
 
-        //StorageManager storage = new StorageManager(addressBookStorage, null);
-
-        StorageManager storage = new StorageManager(null, null);
+        StorageManager storage = new StorageManager(addressBookStorage, null);
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
-
-        //Optional<ReadOnlyAddressBook> addressBookOptional;
 
         try {
             storage.saveAddressBook(model.getAddressBook(), file.toPath());
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while writing to the file.");
         }
     }
 }

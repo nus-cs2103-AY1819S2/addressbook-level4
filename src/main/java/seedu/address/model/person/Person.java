@@ -20,14 +20,14 @@ public class Person {
     private final Phone semester;
 
     // Data fields
-    private final Email expectedMinGrade;
+    private final Grade expectedMinGrade;
     private final Address expectedMaxGrade;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name moduleInfo, Phone semester, Email expectedMinGrade, Address expectedMaxGrade, Set<Tag> tags) {
+    public Person(Name moduleInfo, Phone semester, Grade expectedMinGrade, Address expectedMaxGrade, Set<Tag> tags) {
         requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
         this.moduleInfo = moduleInfo;
         this.semester = semester;
@@ -44,7 +44,7 @@ public class Person {
         return semester;
     }
 
-    public Email getExpectedMinGrade() {
+    public Grade getExpectedMinGrade() {
         return expectedMinGrade;
     }
 
@@ -106,7 +106,7 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getModuleInfo())
-                .append(" Module Info: ")
+                .append(" Semester: ")
                 .append(getSemester())
                 .append(" Expected Min Grade: ")
                 .append(getExpectedMinGrade())

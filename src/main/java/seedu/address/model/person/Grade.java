@@ -28,12 +28,21 @@ public enum Grade {
     private final boolean isPass;
     private final boolean isCounted;
     private final String printedGrade;
+    public static final String MESSAGE_CONSTRAINTS = "Grade must be from A+ to F. or S/U";
 
     Grade (double gradePoint, boolean isPass, boolean isCounted, String printedGrade) {
         this.gradePoint = gradePoint;
         this.isPass = isPass;
         this.isCounted = isCounted;
         this.printedGrade = printedGrade;
+    }
+
+    Grade(String printedGrade) {
+        Grade grade = getGrade(printedGrade);
+        this.gradePoint = grade.gradePoint;
+        this.isPass = grade.isPass;
+        this.isCounted = grade.isCounted;
+        this.printedGrade = grade.printedGrade;
     }
 
     double getGradePoint() {
@@ -48,42 +57,70 @@ public enum Grade {
         return this.isCounted;
     }
 
-    Grade getGrades(String grades) {
-        switch(grades) {
-        case "A+":
-            return A_Plus;
-        case "A":
-            return A;
-        case "A-":
-            return A_Minus;
-        case "B+":
-            return B_Plus;
-        case "B":
-            return B;
-        case "B-":
-            return B_Minus;
-        case "C+":
-            return C_Plus;
-        case "C":
-            return C;
-        case "D+":
-            return D_Plus;
-        case "D":
-            return D;
-        case "F":
-            return F;
-        case "CS":
-            return CS;
-        case "CU":
-            return CU;
-        case "W":
-            return W;
-        case "IC":
-            return IC;
-        case "EXE": default:
-            return EXE;
+    Grade getGrade(String grade) {
+        switch(grade) {
+            case "A+":
+                return A_Plus;
+            case "A":
+                return A;
+            case "A-":
+                return A_Minus;
+            case "B+":
+                return B_Plus;
+            case "B":
+                return B;
+            case "B-":
+                return B_Minus;
+            case "C+":
+                return C_Plus;
+            case "C":
+                return C;
+            case "D+":
+                return D_Plus;
+            case "D":
+                return D;
+            case "F":
+                return F;
+            case "CS":
+                return CS;
+            case "CU":
+                return CU;
+            case "W":
+                return W;
+            case "IC":
+                return IC;
+            case "EXE": default:
+                return EXE;
         }
     }
+
+    /**
+     * Returns if a given string is a valid grade.
+     */
+    public static boolean isValidGrade(String test) {
+        switch(test) {
+            case "A+":
+            case "A":
+            case "A-":
+            case "B+":
+            case "B":
+            case "B-":
+            case "C+":
+            case "C":
+            case "D+":
+            case "D":
+            case "F":
+            case "CS":
+            case "CU":
+            case "W":
+            case "IC":
+            case "EXE":
+                return true;
+            default:
+                return false;
+        }
+    }
+
     @Override
     public String toString() {
         return this.printedGrade;

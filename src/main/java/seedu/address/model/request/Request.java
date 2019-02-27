@@ -1,10 +1,14 @@
 package seedu.address.model.request;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a request made by a patient in the request book.
@@ -12,29 +16,49 @@ import seedu.address.model.person.Person;
 public class Request {
     private final String id;
     private final Person patient;
-    private final String requestDate;
-    private final Set<String> conditions;
-    private Person healthStaff;
-    private boolean isCompleted; // represents the state of the request
+    private final RequestDate requestDate;
+    private final Set<Tag> conditions;
+    private Optional<HealthWorker> healthWorker;
+    private RequestStatus requestStatus;
 
-    /*
+    /**
+     *
      * Minimally requires the following parameters to be non-null.
+     *
+     * @param id The id of the request
+     * @param patient The patient requesting for services.
+     * @param requestDate The date of the request.
+     * @param conditions The set of the conditions the patient is requesting treatment for.
+     * @param requestStatus The state of the request.
      */
-    public Request(String id, Person patient, String requestDate, Set<String> conditions, boolean isCompleted) {
-        requireAllNonNull(id, patient, requestDate, conditions, isCompleted);
+    public Request(String id, Person patient, RequestDate requestDate, Set<Tag> conditions,
+                   RequestStatus requestStatus) {
+        requireAllNonNull(id, patient, requestDate, conditions, requestStatus);
         this.id = id;
         this.patient = patient;
         this.requestDate = requestDate;
         this.conditions = conditions;
-        this.isCompleted = isCompleted;
+        this.requestStatus = requestStatus;
+        this.healthWorker = Optional.empty();
     }
 
-    public void setHealthStaff(Person healthStaff) {
-        this.healthStaff = healthStaff;
+    /*
+     * Requires all the properties of a request to be non-null.
+     */
+    public Request(String id, Person patient, HealthWorker healthStaff, RequestDate requestDate, Set<Tag> conditions,
+                   RequestStatus requestStatus) {
+        this(id, patient, requestDate, conditions, requestStatus);
+        requireNonNull(healthStaff);
+        this.healthWorker = Optional.of(healthStaff);
+    }
+
+    public void setHealthStaff(HealthWorker healthStaff) {
+        requireNonNull(healthStaff);
+        this.healthWorker = Optional.of(healthStaff);
     }
 
     /**
-     * Returns true if both requests of the same ID have at least one other
+     * Returns true if both requests of the same ID and date have at least one other
      * property field that is the same.
      * This defines a weaker notion of equality between two requests.
      */
@@ -45,15 +69,16 @@ public class Request {
 
         return otherRequest != null
                 && otherRequest.getId().equals(this.id)
+                && otherRequest.getRequestDate().equals(this.requestDate)
                 && ((otherRequest.getPatient().equals(this.patient)) || otherRequest
                 .getConditions().equals(this.conditions));
     }
 
     @Override
     public String toString() {
-        String healthStaff = this.healthStaff == null ? "Unassigned" : this
-                .healthStaff.toString();
-        String status = isCompleted ? "Completed" : "Pending";
+
+        String healthStaff = this.healthWorker.map(Person::toString)
+                .orElse("Unassigned");
 
         return "----------Request----------\n"
                 + "ID: " + this.id + "\n"
@@ -61,7 +86,7 @@ public class Request {
                 + "Assigned staff: " + healthStaff + "\n"
                 + "Request Date: " + this.requestDate + "\n"
                 + "Condition(s): " + this.conditions + "\n"
-                + "Status: " + status + "\n"
+                + "Status: " + this.requestStatus + "\n"
                 + "----------End of Request----------\n";
     }
 
@@ -79,12 +104,17 @@ public class Request {
         return otherRequest.getId().equals(this.id)
                 && otherRequest.getPatient().equals(this.patient)
                 && (otherRequest.getRequestDate().equals(this.requestDate))
-                && otherRequest.getHealthStaff().equals(this.healthStaff)
-                && (otherRequest.isComplete() == this.isCompleted);
+                && (otherRequest.getConditions().equals(this.conditions))
+                && otherRequest.getHealthStaff().equals(this.healthWorker)
+                && (otherRequest.getRequestStatus() == this.requestStatus);
     }
 
-    public Set<String> getConditions() {
+    public Set<Tag> getConditions() {
         return this.conditions;
+    }
+
+    public RequestStatus getRequestStatus() {
+        return this.requestStatus;
     }
 
     public String getId() {
@@ -95,15 +125,12 @@ public class Request {
         return patient;
     }
 
-    public String getRequestDate() {
-        return requestDate;
+    public RequestDate getRequestDate() {
+        return this.requestDate;
     }
 
-    public Person getHealthStaff() {
-        return healthStaff;
+    public Optional<HealthWorker> getHealthStaff() {
+        return healthWorker;
     }
 
-    public boolean isComplete() {
-        return isCompleted;
-    }
 }

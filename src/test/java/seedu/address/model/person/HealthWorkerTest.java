@@ -99,10 +99,10 @@ public class HealthWorkerTest {
                 .withPhone(VALID_PHONE_HW_B).build();
         assertFalse(TEST_HW_A.equals(editedWorkerA));
 
-        // different email -> returns true
+        // different email -> returns false
         editedWorkerA = new HealthWorkerBuilder(TEST_HW_A)
                 .withEmail(VALID_EMAIL_HW_B).build();
-        assertTrue(TEST_HW_A.equals(editedWorkerA));
+        assertFalse(TEST_HW_A.equals(editedWorkerA));
 
         // different address -> returns false
         editedWorkerA = new HealthWorkerBuilder(TEST_HW_A)

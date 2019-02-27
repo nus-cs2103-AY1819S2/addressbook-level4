@@ -10,17 +10,27 @@ public class Skills {
 
     private Set<Specialisation> skills;
 
+    public Skills() {
+        this.skills = new HashSet<>();
+    }
+
     /**
      * Constructs a Skills object from existing {@code skills}
      *
-     * @param skills set of Specialisations to construct from
+     * @param skills Skills object to construct from
      */
     public Skills(Skills skills) {
-        this.skills = skills.getSkills();
+        this.skills = new HashSet<>(skills.getSkills());
     }
 
-    public Skills() {
-        this.skills = new HashSet<>();
+    /**
+     * Constructs a Skills object from existing {@code skills} Set of
+     * Specialisations.
+     * TODO: Consider using variable argument list.
+     * @param skills Set object containing Specialisation to construct from.
+     */
+    public Skills(Set<Specialisation> skills) {
+        this.skills = skills;
     }
 
     public Set<Specialisation> getSkills() {
@@ -61,11 +71,24 @@ public class Skills {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Skills: \n");
+        stringBuilder.append("Skills: ");
         for (Specialisation specialisation : this.skills) {
             stringBuilder.append(specialisation.name());
         }
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Skills)) {
+            return false;
+        }
+
+        return this.skills.equals(((Skills) other).getSkills());
     }
 }

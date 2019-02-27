@@ -2,10 +2,13 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.HealthWorker;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -16,14 +19,21 @@ public class TypicalHealthWorkers {
             .withName("Andy Tan")
             .withAddress("125, Jurong West Ave 6, #08-111")
             .withEmail("andye@example.com")
-            .withPhone("94358253").withNric("S8312942G")
-            .withTags("Physiotherapy", "Dialysis")).withOrganization("NUH").build();
+            .withPhone("94358253")
+            .withNric("S8312942G")
+            .withTags("Physiotherapy", "Dialysis"))
+            .withOrganization("NUH")
+            .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation
+                            .GENERAL_PRACTICE, Specialisation.PHYSIOTHERAPY)))).build();
     public static final HealthWorker BETTY = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Betty Meier")
             .withAddress("312, Clementi Ave 2, #02-25")
             .withEmail("betty@example.com").withPhone("98761232")
             .withNric("S8312942G")
-            .withTags("Eldercare", "Stroke")).withOrganization("NUH").build();
+            .withTags("Eldercare", "Stroke"))
+            .withOrganization("NUH")
+            .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation
+                    .GENERAL_PRACTICE, Specialisation.ORTHOPAEDIC)))).build();
     public static final HealthWorker CARLIE = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Carlie Kurz")
             .withPhone("95358463").withNric("S9312942G")

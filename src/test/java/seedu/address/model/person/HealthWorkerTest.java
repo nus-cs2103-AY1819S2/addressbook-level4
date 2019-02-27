@@ -62,6 +62,13 @@ public class HealthWorkerTest {
         editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withEmail
                 (VALID_EMAIL_BETTY)).build();
         assertTrue(ANDY.isSameHealthWorker(editedAndy));
+
+        // same name, phone, organization and nric, different skills ->
+        // returns true
+        editedAndy = new HealthWorkerBuilder(ANDY)
+                .withSkills(BETTY.getSkills()).build();
+        assertTrue(ANDY.isSameHealthWorker(editedAndy));
+
     }
 
     @Test
@@ -83,28 +90,39 @@ public class HealthWorkerTest {
         assertFalse(ANDY.equals(BETTY));
 
         // different name -> returns false
-        HealthWorker editedWorkerA = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
+        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withName(VALID_NAME_BETTY)).build();
-        assertFalse(ANDY.equals(editedWorkerA));
+        assertFalse(ANDY.equals(editedAndy));
 
         // different NRIC -> returns false
-        editedWorkerA = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
+        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withNric(VALID_NRIC_BETTY)).build();
-        assertFalse(ANDY.equals(editedWorkerA));
+        assertFalse(ANDY.equals(editedAndy));
 
         // different phone -> returns false
-        editedWorkerA = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
+        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withPhone(VALID_PHONE_BETTY)).build();
-        assertFalse(ANDY.equals(editedWorkerA));
+        assertFalse(ANDY.equals(editedAndy));
 
         // different email -> returns false
-        editedWorkerA = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
+        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withEmail(VALID_EMAIL_BETTY)).build();
-        assertFalse(ANDY.equals(editedWorkerA));
+        assertFalse(ANDY.equals(editedAndy));
 
         // different address -> returns false
-        editedWorkerA = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
+        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withAddress(VALID_ADDRESS_BETTY)).build();
-        assertFalse(ANDY.equals(editedWorkerA));
+        assertFalse(ANDY.equals(editedAndy));
+
+        // different skills -> returns false
+        editedAndy = new HealthWorkerBuilder(ANDY)
+                .withSkills(BETTY.getSkills()).build();
+        assertFalse(ANDY.equals(editedAndy));
+
+        // different organization -> returns false
+        editedAndy = new HealthWorkerBuilder(ANDY)
+                .withOrganization(VALID_ORGANIZATION_BETTY).build();
+        assertFalse(ANDY.equals(editedAndy));
+
     }
 }

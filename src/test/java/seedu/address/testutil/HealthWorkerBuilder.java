@@ -1,8 +1,13 @@
 package seedu.address.testutil;
 
 import seedu.address.model.person.HealthWorker;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Organization;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Utility Class for building Health Worker objects.
@@ -10,13 +15,16 @@ import seedu.address.model.person.Organization;
 public class HealthWorkerBuilder extends PersonBuilder {
 
     public static final String DEFAULT_ORGANIZATION = "NUS";
+    public static final Set<Specialisation> DEFAULT_SKILL_SET = new HashSet<>
+            (Arrays.asList(Specialisation.GENERAL_PRACTICE));
 
     private Organization organization;
+    private Skills skills;
 
     public HealthWorkerBuilder() {
         super();
         this.organization = new Organization(DEFAULT_ORGANIZATION);
-        this.nric = new Nric(DEFAULT_NRIC);
+        this.skills = new Skills(DEFAULT_SKILL_SET);
     }
 
     /**
@@ -25,8 +33,8 @@ public class HealthWorkerBuilder extends PersonBuilder {
      */
     public HealthWorkerBuilder(HealthWorker healthWorkerToCopy) {
         super(healthWorkerToCopy);
-        this.nric = healthWorkerToCopy.getNric();
         this.organization = healthWorkerToCopy.getOrganization();
+        this.skills = healthWorkerToCopy.getSkills();
     }
 
     /**
@@ -39,13 +47,22 @@ public class HealthWorkerBuilder extends PersonBuilder {
     }
 
     /**
+     * Sets the {@code skills} of the {@code HealthWorker} that we are
+     * building.
+     */
+    public HealthWorkerBuilder withSkills(Skills skills) {
+        this.skills = new Skills(skills);
+        return this;
+    }
+
+    /**
      * Builds a new HealthWorker object for testing.
      * @return a HealthWorker object with the parameters specified in this
      * object.
      */
     public HealthWorker build() {
         return new HealthWorker(name, phone, email, nric, address, tags,
-                organization);
+                organization, skills);
     }
 
 }

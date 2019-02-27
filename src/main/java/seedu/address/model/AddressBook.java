@@ -85,7 +85,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given equipment {@code target} in the list with {@code editedEquipment}.
      * {@code target} must exist in the address book.
-     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the address book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment
+     * in the address book.
      */
     public void setPerson(Equipment target, Equipment editedEquipment) {
         requireNonNull(editedEquipment);
@@ -106,7 +107,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given equipment {@code target} in the list with {@code editedEquipment}.
      * {@code target} must exist in the address book.
-     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the address book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment
+     * in the address book.
      */
     public void updatePerson(Equipment target, Equipment editedEquipment) {
         requireNonNull(editedEquipment);
@@ -125,7 +127,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         Equipment newEquipment =
-                new Equipment(equipment.getName(), equipment.getPhone(), equipment.getEmail(), equipment.getAddress(), newTags);
+                new Equipment(equipment.getName(), equipment.getPhone(),
+                        equipment.getEmail(), equipment.getAddress(), newTags);
 
         updatePerson(equipment, newEquipment);
     }

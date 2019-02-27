@@ -23,9 +23,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.equipment.NameContainsKeywordsPredicate;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -129,7 +129,7 @@ public class ModelManagerTest {
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Equipment updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setPerson(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPerson());
     }
@@ -211,8 +211,8 @@ public class ModelManagerTest {
         modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
 
         ModelManager expectedModelManager = new ModelManager(addressBook, userPrefs);
-        Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
-        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Equipment amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
+        Equipment bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         expectedModelManager.updatePerson(AMY, amyWithoutFriendTag);
         expectedModelManager.updatePerson(BOB, bobWithoutFriendTag);
 

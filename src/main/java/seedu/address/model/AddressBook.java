@@ -9,8 +9,8 @@ import java.util.Set;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -46,11 +46,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the equipment list with {@code equipment}.
+     * {@code equipment} must not contain duplicate equipment.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Equipment> equipment) {
+        this.persons.setPersons(equipment);
         indicateModified();
     }
 
@@ -63,34 +63,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// equipment-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a equipment with the same identity as {@code equipment} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Equipment equipment) {
+        requireNonNull(equipment);
+        return persons.contains(equipment);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a equipment to the address book.
+     * The equipment must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Equipment p) {
         persons.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given equipment {@code target} in the list with {@code editedEquipment}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Equipment target, Equipment editedEquipment) {
+        requireNonNull(editedEquipment);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedEquipment);
         indicateModified();
     }
 
@@ -98,36 +98,36 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Equipment key) {
         persons.remove(key);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given equipment {@code target} in the list with {@code editedEquipment}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the address book.
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void updatePerson(Equipment target, Equipment editedEquipment) {
+        requireNonNull(editedEquipment);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedEquipment);
     }
 
     /**
-     * Removes {@code tag} from {@code person} in this {@code AddressBook}.
+     * Removes {@code tag} from {@code equipment} in this {@code AddressBook}.
      */
-    private void removeTagFromPerson(Tag tag, Person person) {
-        Set<Tag> newTags = new HashSet<>(person.getTags());
+    private void removeTagFromPerson(Tag tag, Equipment equipment) {
+        Set<Tag> newTags = new HashSet<>(equipment.getTags());
 
         if (!newTags.remove(tag)) {
             return;
         }
 
-        Person newPerson =
-                new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
+        Equipment newEquipment =
+                new Equipment(equipment.getName(), equipment.getPhone(), equipment.getEmail(), equipment.getAddress(), newTags);
 
-        updatePerson(person, newPerson);
+        updatePerson(equipment, newEquipment);
     }
 
     /**
@@ -163,7 +163,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Equipment> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

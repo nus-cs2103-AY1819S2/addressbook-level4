@@ -60,9 +60,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding an equipment: `add equipment`
+=== Adding an equipment: `add-e`
 Adds an equipment to the Equipment Manager +
-Format: `add equipment /[field name][field value]`
+Format: `add-e /[field name][field value]`
 
 [TIP]
 The user can enter multiple field name and values.
@@ -71,7 +71,7 @@ Example:
 
 * `add equipment /name AED /clientid 1729 /year 2019 /status in-use`
 
-=== Creating a new worklist: `add worklist`
+=== Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
 Format: `add worklist /[worklist id]`
 
@@ -93,7 +93,7 @@ Example:
 
 * `put 17291 203`
 
-=== List all equipments:  `list equipment`
+=== List all equipments:  `list-e`
 Shows a list of all equipments in the Equipment Manager +
 Format: list equipment
 
@@ -101,11 +101,11 @@ Example:
 
 * `list equipment`
 
-=== View work list: `list worklist`
+=== View work list: `list-w`
 Shows a list of all clients in the Equipment Manager +
 Format: `list worklist`
 
-=== View equipment details: `view equipment`
+=== View equipment details: `view-e`
 View and retrieve more information on thhe equipment with the equipment id +
 Format: `view equipment [equipment id]`
 
@@ -163,7 +163,7 @@ Example:
 * `filter /region north /type HDB /status spoiled`
 * `filter /year 1987-2018 /status in-use`
 
-=== Updating equipment details: `update equipment`
+=== Updating equipment details: `update-e`
 Update details of a equipment.
 Format: `update equipment [equipment id] /[fieldname to be updated] [value to be updated to]`
 
@@ -174,7 +174,7 @@ Example:
 === Autocomplete: kbd:[tab]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
 
-=== Deleting equipment: `delete equipment`
+=== Deleting equipment: `delete-e`
 Deletes the specified equipment from the equipment list and the whole details contained under the equipment specified by its equipment name /[equipment id]
 
 Format: delete equipment EQUIPMENT_ID
@@ -183,7 +183,7 @@ Example:
 
 * `delete equipment 38120`
 
-=== Deleting work list: `delete worklist`
+=== Deleting work list: `delete-w`
 Deletes the specified work list from the work list.
 Format: delete worklist /[worklist id]
 

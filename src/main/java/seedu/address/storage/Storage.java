@@ -21,12 +21,12 @@ public interface Storage extends RestOrRantStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getRestOrRantFilePath();
 
     @Override
-    Optional<ReadOnlyRestOrRant> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyRestOrRant addressBook) throws IOException;
+    void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException;
 
 }

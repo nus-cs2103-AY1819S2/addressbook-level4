@@ -30,32 +30,32 @@ public class JsonRestOrRantStorage implements RestOrRantStorage {
         backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getRestOrRantFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyRestOrRant> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException {
+        return readRestOrRant(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readRestOrRant()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyRestOrRant> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyRestOrRant> readRestOrRant(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableRestOrRant> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableRestOrRant> jsonRestOrRant = JsonUtil.readJsonFile(
                 filePath, JsonSerializableRestOrRant.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonRestOrRant.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonRestOrRant.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -63,26 +63,26 @@ public class JsonRestOrRantStorage implements RestOrRantStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyRestOrRant addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
+        saveRestOrRant(restOrRant, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyRestOrRant)}.
+     * Similar to {@link #saveRestOrRant(ReadOnlyRestOrRant)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyRestOrRant addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveRestOrRant(ReadOnlyRestOrRant restOrRant, Path filePath) throws IOException {
+        requireNonNull(restOrRant);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableRestOrRant(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableRestOrRant(restOrRant), filePath);
     }
 
     @Override
-    public void backupAddressBook(ReadOnlyRestOrRant addressBook) throws IOException {
-        saveAddressBook(addressBook, backupFilePath);
+    public void backupRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
+        saveRestOrRant(restOrRant, backupFilePath);
     }
 
 }

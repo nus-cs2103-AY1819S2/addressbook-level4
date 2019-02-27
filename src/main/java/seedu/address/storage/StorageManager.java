@@ -19,11 +19,13 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private RestOrRantStorage restOrRantStorage;
     private UserPrefsStorage userPrefsStorage;
+    private MenuStorage menuStorage;
 
 
-    public StorageManager(RestOrRantStorage restOrRantStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(RestOrRantStorage restOrRantStorage, MenuStorage menuStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.restOrRantStorage = restOrRantStorage;
+        this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -48,34 +50,34 @@ public class StorageManager implements Storage {
     // ================ RestOrRant methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return restOrRantStorage.getAddressBookFilePath();
+    public Path getRestOrRantFilePath() {
+        return restOrRantStorage.getRestOrRantFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyRestOrRant> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(restOrRantStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException {
+        return readRestOrRant(restOrRantStorage.getRestOrRantFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyRestOrRant> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyRestOrRant> readRestOrRant(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return restOrRantStorage.readAddressBook(filePath);
+        return restOrRantStorage.readRestOrRant(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyRestOrRant addressBook) throws IOException {
-        saveAddressBook(addressBook, restOrRantStorage.getAddressBookFilePath());
+    public void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
+        saveRestOrRant(restOrRant, restOrRantStorage.getRestOrRantFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyRestOrRant addressBook, Path filePath) throws IOException {
+    public void saveRestOrRant(ReadOnlyRestOrRant restOrRant, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        restOrRantStorage.saveAddressBook(addressBook, filePath);
+        restOrRantStorage.saveRestOrRant(restOrRant, filePath);
     }
 
     @Override
-    public void backupAddressBook(ReadOnlyRestOrRant addressBook) throws IOException {
-        restOrRantStorage.backupAddressBook(addressBook);
+    public void backupRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
+        restOrRantStorage.backupRestOrRant(restOrRant);
     }
 }

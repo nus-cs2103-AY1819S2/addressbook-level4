@@ -16,7 +16,7 @@ public interface RestOrRantStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getRestOrRantFilePath();
 
     /**
      * Returns RestOrRant data as a {@link ReadOnlyRestOrRant}.
@@ -24,25 +24,25 @@ public interface RestOrRantStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyRestOrRant> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getRestOrRantFilePath()
      */
-    Optional<ReadOnlyRestOrRant> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyRestOrRant> readRestOrRant(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyRestOrRant} to the storage.
-     * @param addressBook cannot be null.
+     * @param restOrRant cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyRestOrRant addressBook) throws IOException;
+    void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyRestOrRant)
+     * @see #saveRestOrRant(ReadOnlyRestOrRant)
      */
-    void saveAddressBook(ReadOnlyRestOrRant addressBook, Path filePath) throws IOException;
+    void saveRestOrRant(ReadOnlyRestOrRant addressBook, Path filePath) throws IOException;
 
-    void backupAddressBook(ReadOnlyRestOrRant addressBook) throws IOException;
+    void backupRestOrRant(ReadOnlyRestOrRant addressBook) throws IOException;
 
 }

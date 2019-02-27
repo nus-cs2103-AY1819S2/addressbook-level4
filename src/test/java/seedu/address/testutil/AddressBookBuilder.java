@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.MapGrid;
+import seedu.address.model.person.Cell;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code MapGrid ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private MapGrid mapGrid;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        mapGrid = new MapGrid();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public AddressBookBuilder(MapGrid mapGrid) {
+        this.mapGrid = mapGrid;
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Cell} to the {@code MapGrid} that we are building.
      */
-    public AddressBookBuilder withPerson(Person person) {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(Cell cell) {
+        mapGrid.addPerson(cell);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public MapGrid build() {
+        return mapGrid;
     }
 }

@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAP_SIZE;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Cell;
 
 /**
  * Initialise map to size input by user.
@@ -42,10 +42,10 @@ public class InitialiseMapCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }*/
 
-        model.setAddressBook(new AddressBook());
+        model.setAddressBook(new MapGrid());
 
         for (int i = 0; i < mapSize; i++) {
-            model.addPerson(new Person());
+            model.addPerson(new Cell());
         }
 
         model.commitAddressBook();

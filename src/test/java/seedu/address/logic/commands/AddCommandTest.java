@@ -23,8 +23,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.place.Place;
+import seedu.address.testutil.PlaceBuilder;
 
 public class AddCommandTest {
 
@@ -36,28 +36,28 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullPlace_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_placeAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPlaceAdded modelStub = new ModelStubAcceptingPlaceAdded();
+        Place validPlace = new PlaceBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPlace).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPlace), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPlace), modelStub.placesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicatePlace_throwsCommandException() throws Exception {
+        Place validPlace = new PlaceBuilder().build();
+        AddCommand addCommand = new AddCommand(validPlace);
+        ModelStub modelStub = new ModelStubWithPlace(validPlace);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
@@ -66,8 +66,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Place alice = new PlaceBuilder().withName("Alice").build();
+        Place bob = new PlaceBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -84,7 +84,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different place -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -123,7 +123,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addPlace(Place place) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,27 +138,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasPlace(Place place) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deletePlace(Place target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setPlace(Place target, Place editedPlace) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Place> getFilteredPlaceList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPlaceList(Predicate<Place> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,55 +188,55 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Person> selectedPersonProperty() {
+        public ReadOnlyProperty<Place> selectedPlaceProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Person getSelectedPerson() {
+        public Place getSelectedPlace() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Person person) {
+        public void setSelectedPlace(Place place) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single place.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithPlace extends ModelStub {
+        private final Place place;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPlace(Place place) {
+            requireNonNull(place);
+            this.place = place;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPlace(Place place) {
+            requireNonNull(place);
+            return this.place.isSamePlace(place);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the place being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingPlaceAdded extends ModelStub {
+        final ArrayList<Place> placesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasPlace(Place place) {
+            requireNonNull(place);
+            return placesAdded.stream().anyMatch(place::isSamePlace);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addPlace(Place place) {
+            requireNonNull(place);
+            placesAdded.add(place);
         }
 
         @Override

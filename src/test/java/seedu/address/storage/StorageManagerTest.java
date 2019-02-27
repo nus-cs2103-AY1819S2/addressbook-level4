@@ -25,9 +25,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonRestOrRantStorage addressBookStorage = new JsonRestOrRantStorage(getTempFilePath("ab"));
+        JsonRestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(restOrRantStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -50,21 +50,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void restOrRantReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonRestOrRantStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonRestOrRantStorageTest} class.
          */
         RestOrRant original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyRestOrRant retrieved = storageManager.readAddressBook().get();
+        storageManager.saveRestOrRant(original);
+        ReadOnlyRestOrRant retrieved = storageManager.readRestOrRant().get();
         assertEquals(original, new RestOrRant(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getRestOrRantFilePath() {
+        assertNotNull(storageManager.getRestOrRantFilePath());
     }
 
 }

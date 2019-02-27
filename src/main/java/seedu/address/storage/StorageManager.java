@@ -22,10 +22,9 @@ public class StorageManager implements Storage {
     private MenuStorage menuStorage;
 
 
-    public StorageManager(RestOrRantStorage restOrRantStorage, MenuStorage menuStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(RestOrRantStorage restOrRantStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.restOrRantStorage = restOrRantStorage;
-        this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 

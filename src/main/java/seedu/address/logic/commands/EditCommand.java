@@ -94,9 +94,25 @@ public class EditCommand extends Command {
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
         } else {
             Person personToEdit = lastShownList.get(index.getZeroBased());
-            // todo: generate the actual command to pre-fill
-            String updatedText = String.format("%s %d %s", COMMAND_WORD, index.getOneBased(), personToEdit.getName());
-            int cursorPos = 0;
+            Name name = personToEdit.getName();
+            Phone phone = personToEdit.getPhone();
+            Email email = personToEdit.getEmail();
+            Address address = personToEdit.getAddress();
+            Set<Tag> tags = personToEdit.getTags();
+
+            final StringBuilder builder = new StringBuilder();
+            for (Tag tag : tags) {
+                builder.append(" ").append(PREFIX_TAG).append(tag.tagName);
+            }
+            String updatedText = String.format("%s %d %s%s %s%s %s%s %s%s%s",
+                    COMMAND_WORD,
+                    index.getOneBased(),
+                    PREFIX_NAME, name,
+                    PREFIX_PHONE, phone,
+                    PREFIX_EMAIL, email,
+                    PREFIX_ADDRESS, address,
+                    builder.toString());
+            int cursorPos = updatedText.length();
             return new PrefillCommandBoxCommandResult(updatedText, cursorPos);
         }
     }

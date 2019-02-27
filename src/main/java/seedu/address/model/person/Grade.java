@@ -37,14 +37,6 @@ public enum Grade {
         this.printedGrade = printedGrade;
     }
 
-    Grade(String printedGrade) {
-        Grade grade = getGrade(printedGrade);
-        this.gradePoint = grade.gradePoint;
-        this.isPass = grade.isPass;
-        this.isCounted = grade.isCounted;
-        this.printedGrade = grade.printedGrade;
-    }
-
     double getGradePoint() {
         return this.gradePoint;
     }

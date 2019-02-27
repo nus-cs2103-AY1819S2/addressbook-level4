@@ -60,11 +60,12 @@
             </padding>
           </StackPane>
 
-          <StackPane fx:id="warningPanelPlaceholder" prefWidth="100" >
+          <VBox fx:id="warning" minWidth="200" prefWidth="200" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-          </StackPane>
+            <StackPane fx:id="warningPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

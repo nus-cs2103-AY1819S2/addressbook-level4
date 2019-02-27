@@ -1,43 +1,33 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
-import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import javafx.scene.web.WebView;
+import seedu.address.commons.core.LogsCenter;
+
+import java.util.logging.Logger;
 
 /**
- * A ui for the status bar that is displayed at the header of the application.
+ * A ui for the warning panel that is displayed at the right of the application.
  */
 public class WarningPanel extends UiPart<Region> {
+    @FXML
+    private ListView<String> dummyList;
+    private final Logger logger = LogsCenter.getLogger(WarningPanel.class);
 
-    private static final String DUMMY_URL = "https://se-education.org/dummy-search-page/";
     private static final String FXML = "WarningPanel.fxml";
-
-    @FXML
-    private TextArea warning;
-
-    @FXML
-    private WebView browser;
 
     public WarningPanel() {
         super(FXML);
-        loadWarning();
-    }
+        dummyList.setPlaceholder(new Label("No Content In List"));
+        ObservableList<String> names = FXCollections.observableArrayList(
+                "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise");
 
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
-    }
+        dummyList.setItems(names);
 
-    private void loadWarning() {
-        loadPage(DUMMY_URL);
     }
-
-//    public void setFeedbackToUser(String feedbackToUser) {
-//        requireNonNull(feedbackToUser);
-//        warning.setText(feedbackToUser);
-//    }
 
 }

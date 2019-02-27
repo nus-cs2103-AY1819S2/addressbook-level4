@@ -21,7 +21,7 @@ import seedu.address.model.person.Organization;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link HealthWorker}.
  */
 class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
 
@@ -30,7 +30,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
     private final String organization;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedHealthWorker} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedHealthWorker(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
@@ -41,7 +41,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code HealthWorker} into this class for Jackson use.
      */
     public JsonAdaptedHealthWorker(HealthWorker source) {
         super(source);
@@ -50,9 +50,9 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code HealthWorker} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted HealthWorker.
      */
     public HealthWorker toModelType() throws IllegalValueException {
  final List<Tag> personTags = new ArrayList<>();

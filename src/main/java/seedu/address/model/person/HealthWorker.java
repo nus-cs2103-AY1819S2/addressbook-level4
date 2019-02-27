@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -11,18 +13,40 @@ import seedu.address.model.tag.Tag;
  */
 public class HealthWorker extends Person {
 
-    // TODO: Add fields for skills/certification.
     private Organization organization;
+    private Skills skills;
 
     public HealthWorker(Name name, Phone phone, Email email, Nric nric, Address
-                        address,
-                        Set<Tag> tags, Organization organization) {
+                        address, Set<Tag> tags, Organization organization) {
         super(name, phone, email, nric, address, tags);
         this.organization = organization;
+        this.skills = new Skills();
+    }
+
+    public HealthWorker(Name name, Phone phone, Email email, Nric nric, Address address,
+                        Set<Tag> tags, Organization organization, Skills skills) {
+        super(name, phone, email, nric, address, tags);
+        this.organization = organization;
+        this.skills = skills;
     }
 
     public Organization getOrganization() {
         return organization;
+    }
+
+    public Skills getSkills() {
+        return skills;
+    }
+
+    /**
+     * Checks if the current HealthWorker object has the specified
+     * specialisation
+     * @param specialisation to check for
+     * @return true if the HealthWorker object contains the specialisation in
+     * Skills, false otherwise.
+     */
+    public boolean hasSkill(Specialisation specialisation) {
+        return this.skills.contains(specialisation);
     }
 
     @Override
@@ -38,7 +62,9 @@ public class HealthWorker extends Person {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append(" Skills: ")
+                .append(getSkills());
         return builder.toString();
     }
 
@@ -76,12 +102,13 @@ public class HealthWorker extends Person {
                 && otherHealthWorker.getTags().equals(getTags())
                 && otherHealthWorker.getEmail().equals(getEmail())
                 && otherHealthWorker.getAddress().equals(getAddress())
-                && otherHealthWorker.getOrganization().equals(getOrganization());
+                && otherHealthWorker.getOrganization().equals(getOrganization())
+                && otherHealthWorker.getSkills().equals(getSkills());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getNric(), getAddress(), getPhone(),
-                getOrganization(), getEmail(), getTags());
+                getOrganization(), getEmail(), getTags(), getSkills());
     }
 }

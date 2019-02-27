@@ -81,13 +81,14 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different equipment -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that the model's selected person is set to the person at {@code index} in the filtered person list.
+     * and checks that the model's selected equipment is set to the equipment at {@code index}
+     * in the filtered equipment list.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

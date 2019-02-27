@@ -10,16 +10,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.equipment.Equipment;
 
 /**
- * Adds a person to the address book.
+ * Adds an equipment to the address book.
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add-e";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an equipment to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -34,17 +34,17 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "west "
             + PREFIX_TAG + "urgent";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New equipment added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This equipment already exists in the address book";
 
-    private final Person toAdd;
+    private final Equipment toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Equipment}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Equipment equipment) {
+        requireNonNull(equipment);
+        toAdd = equipment;
     }
 
     @Override

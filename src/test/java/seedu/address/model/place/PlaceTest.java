@@ -3,7 +3,7 @@ package seedu.address.model.place;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -35,26 +35,24 @@ public class PlaceTest {
         // null -> returns false
         assertFalse(ALICE.isSamePlace(null));
 
-        // different phone and email -> returns false
-        Place editedAlice = new PlaceBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePlace(editedAlice));
-
         // different name -> returns false
-        editedAlice = new PlaceBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Place editedAlice = new PlaceBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePlace(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new PlaceBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        // same name, different phone -> returns true
+        editedAlice = new PlaceBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertTrue(ALICE.isSamePlace(editedAlice));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new PlaceBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        // same name, different description -> returns true
+        editedAlice = new PlaceBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
         assertTrue(ALICE.isSamePlace(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PlaceBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same name, different address -> returns true
+        editedAlice = new PlaceBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertTrue(ALICE.isSamePlace(editedAlice));
+
+        // same name, different tags -> returns true
+        editedAlice = new PlaceBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePlace(editedAlice));
     }
 
@@ -84,8 +82,8 @@ public class PlaceTest {
         editedAlice = new PlaceBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new PlaceBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        // different description -> returns false
+        editedAlice = new PlaceBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false

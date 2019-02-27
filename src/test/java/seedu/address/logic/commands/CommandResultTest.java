@@ -32,6 +32,14 @@ public class CommandResultTest {
 
         // PrefillCommandBoxCommandResult -> returns false
         assertFalse(commandResult.equals(new PrefillCommandBoxCommandResult("feedback", 0)));
+
+        // PrefillCommandBoxCommandResult with different fields -> returns false
+        CommandResult PrefillCommandBoxCommandResult1 = new PrefillCommandBoxCommandResult("a", 0);
+        CommandResult PrefillCommandBoxCommandResult2 = new PrefillCommandBoxCommandResult("b", 0);
+        CommandResult PrefillCommandBoxCommandResult3 = new PrefillCommandBoxCommandResult("b", 1);
+        assertFalse(PrefillCommandBoxCommandResult1.equals(PrefillCommandBoxCommandResult2));
+        assertFalse(PrefillCommandBoxCommandResult1.equals(PrefillCommandBoxCommandResult3));
+        assertFalse(PrefillCommandBoxCommandResult2.equals(PrefillCommandBoxCommandResult3));
     }
 
     @Test
@@ -51,6 +59,14 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new ExitCommandResult("feedback").hashCode());
 
         // PrefillCommandBoxCommandResult -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new PrefillCommandBoxCommandResult("feedback",0).hashCode());
+        assertNotEquals(commandResult.hashCode(), new PrefillCommandBoxCommandResult("feedback", 0).hashCode());
+
+        // PrefillCommandBoxCommandResult with different fields -> returns different hashcode
+        CommandResult PrefillCommandBoxCommandResult1 = new PrefillCommandBoxCommandResult("a", 0);
+        CommandResult PrefillCommandBoxCommandResult2 = new PrefillCommandBoxCommandResult("b", 0);
+        CommandResult PrefillCommandBoxCommandResult3 = new PrefillCommandBoxCommandResult("b", 1);
+        assertNotEquals(PrefillCommandBoxCommandResult1.hashCode(), PrefillCommandBoxCommandResult2.hashCode());
+        assertNotEquals(PrefillCommandBoxCommandResult1.hashCode(), PrefillCommandBoxCommandResult3.hashCode());
+        assertNotEquals(PrefillCommandBoxCommandResult2.hashCode(), PrefillCommandBoxCommandResult3.hashCode());
     }
 }

@@ -25,7 +25,7 @@ public class CommandResult {
             return true;
         }
 
-        if (other == null || other.getClass() != this.getClass()) {
+        if (other == null || other.getClass() != getClass()) {
             return false;
         }
 
@@ -35,7 +35,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, this.getClass());
+        return Objects.hash(feedbackToUser, getClass());
     }
 
 }

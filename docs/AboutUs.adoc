@@ -43,9 +43,12 @@ image::Kyler.png[width="200", align="left"]
 
 Role::
 * Developer
-Responsibilities::
-* Dentistry-specific features development
 * Tester
+Responsibilities::
+* Build efficient data structures that stores represented dental data
+* Develop dentistry-specific functions and features
+* Ensure intuitiveness of dentistry data to dentist users
+* Apply and conform to renowned dentistry standards
 
 '''
 

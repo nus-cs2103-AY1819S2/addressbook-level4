@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-
 import static seedu.address.storage.JsonAdaptedMedicine.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
 
@@ -32,6 +31,9 @@ public class JsonAdaptedMedicineTest {
     private static final List<JsonAdaptedTag> VALID_TAGS = IBUPROFEN.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
+    private static final List<JsonAdaptedBatch> VALID_BATCHES = IBUPROFEN.getBatches().values().stream()
+            .map(JsonAdaptedBatch::new)
+            .collect(Collectors.toList());
 
     @Test
     public void toModelType_validMedicineDetails_returnsMedicine() throws Exception {
@@ -42,7 +44,8 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(INVALID_NAME, VALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, VALID_TAGS);
+                new JsonAdaptedMedicine(INVALID_NAME, VALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, VALID_TAGS,
+                        VALID_BATCHES);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -50,7 +53,7 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine = new JsonAdaptedMedicine(null, VALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY,
-                VALID_TAGS);
+                VALID_TAGS, VALID_BATCHES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -58,7 +61,8 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_invalidQuantity_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(VALID_NAME, INVALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, VALID_TAGS);
+                new JsonAdaptedMedicine(VALID_NAME, INVALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, VALID_TAGS,
+                        VALID_BATCHES);
         String expectedMessage = Quantity.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -66,7 +70,8 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_nullQuantity_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(VALID_NAME, null, VALID_EXPIRY, VALID_COMPANY, VALID_TAGS);
+                new JsonAdaptedMedicine(VALID_NAME, null, VALID_EXPIRY, VALID_COMPANY, VALID_TAGS,
+                        VALID_BATCHES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Quantity.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -74,7 +79,8 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_invalidExpiry_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, INVALID_EXPIRY, VALID_COMPANY, VALID_TAGS);
+                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, INVALID_EXPIRY, VALID_COMPANY, VALID_TAGS,
+                        VALID_BATCHES);
         String expectedMessage = Expiry.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -82,7 +88,7 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_nullExpiry_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, null, VALID_COMPANY, VALID_TAGS);
+                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, null, VALID_COMPANY, VALID_TAGS, VALID_BATCHES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Expiry.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -90,7 +96,8 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_invalidCompany_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, INVALID_COMPANY, VALID_TAGS);
+                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, INVALID_COMPANY, VALID_TAGS,
+                        VALID_BATCHES);
         String expectedMessage = Company.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -98,7 +105,7 @@ public class JsonAdaptedMedicineTest {
     @Test
     public void toModelType_nullCompany_throwsIllegalValueException() {
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, null, VALID_TAGS);
+                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, null, VALID_TAGS, VALID_BATCHES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medicine::toModelType);
     }
@@ -108,7 +115,8 @@ public class JsonAdaptedMedicineTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedMedicine medicine =
-                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, invalidTags);
+                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, invalidTags,
+                        VALID_BATCHES);
         Assert.assertThrows(IllegalValueException.class, medicine::toModelType);
     }
 

@@ -2,9 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
@@ -22,17 +20,13 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the inventory. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_QUANTITY + "QUANTITY "
-            + PREFIX_EXPIRY + "EXPIRY "
             + PREFIX_COMPANY + "COMPANY "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Paracetamol "
-            + PREFIX_QUANTITY + "432 "
-            + PREFIX_EXPIRY + "21/09/2019 "
             + PREFIX_COMPANY + "Novartis "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "Popular "
+            + PREFIX_TAG + "needsRestock";
 
     public static final String MESSAGE_SUCCESS = "New medicine added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the inventory";

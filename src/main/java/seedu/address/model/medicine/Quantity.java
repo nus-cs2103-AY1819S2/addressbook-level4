@@ -32,6 +32,13 @@ public class Quantity {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns quantity as an int
+     */
+    public int getNumericValue() {
+        return Integer.parseInt(value);
+    }
+
     @Override
     public String toString() {
         return value;

@@ -38,8 +38,8 @@ Responsibilities: Data
 '''
 
 === Kyler Wong Shen Meng
-image::m133225.jpg[width="150", align="left"]
-{empty}``https://github.com/kylerwsm[github]``{nbsp}{nbsp}{nbsp}``<<johndoe#, portfolio>>``
+image::Kyler.png[width="200", align="left"]
+{empty}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[github]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, portfolio>>``
 
 Role::
 * Developer

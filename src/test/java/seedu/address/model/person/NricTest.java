@@ -39,4 +39,9 @@ public class NricTest {
         assertTrue(Nric.isValidNric("S9876543Z")); // NRIC starting with S
         assertTrue(Nric.isValidNric("T1234567A")); // NRIC starting with T
     }
+
+    @Test
+    public void equals() {
+
+    }
 }

@@ -3,11 +3,10 @@ package seedu.address.model.tag;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-import seedu.address.testutil.Assert;
-
 import java.util.Arrays;
 import java.util.HashSet;
+
+import org.junit.Test;
 
 public class SkillsTest {
 

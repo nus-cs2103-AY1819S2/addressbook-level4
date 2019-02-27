@@ -2,12 +2,12 @@
   "places": [ {
     "name": "Valid Place",
     "phone": "9482424",
-    "email": "hans@example.com",
+    "description": "No description",
     "address": "4th street"
   }, {
     "name": "Place With Invalid Phone Field",
     "phone": "948asdf2424",
-    "email": "hans@example.com",
+    "description": "No description",
     "address": "4th street"
   } ]
 }

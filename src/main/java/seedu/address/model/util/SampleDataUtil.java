@@ -25,7 +25,7 @@ public class SampleDataUtil {
             new Restaurant(new Name("Bangkok Jam"), new Phone("65272758"), new Email("bangkokjam@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("Thai")),
-            new Restaurant(new Name("Chili's"), new Phone("63210283"), new Email("chilis@example.com"),
+            new Restaurant(new Name("Chilis"), new Phone("63210283"), new Email("chilis@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("Mexican")),
             new Restaurant(new Name("Ding Tai Fung"), new Phone("61031282"), new Email("dingtaifung@example.com"),

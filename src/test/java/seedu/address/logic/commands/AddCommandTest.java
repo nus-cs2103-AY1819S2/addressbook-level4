@@ -166,7 +166,7 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
@@ -220,7 +220,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateRestOrRant() { 
+        public void updateRestOrRant() {
             // called by {@code AddCommand#execute()}
         }
 

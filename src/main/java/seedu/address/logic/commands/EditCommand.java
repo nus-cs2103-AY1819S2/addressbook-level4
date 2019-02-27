@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -23,8 +23,8 @@ import seedu.address.model.Model;
 import seedu.address.model.place.Address;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
-import seedu.address.model.place.Phone;
 import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,12 +39,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_RATING + "4 "
             + PREFIX_DESCRIPTION + "No description";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Place: %1$s";
@@ -96,12 +96,12 @@ public class EditCommand extends Command {
         assert placeToEdit != null;
 
         Name updatedName = editPlaceDescriptor.getName().orElse(placeToEdit.getName());
-        Phone updatedPhone = editPlaceDescriptor.getPhone().orElse(placeToEdit.getPhone());
+        Rating updatedRating = editPlaceDescriptor.getRating().orElse(placeToEdit.getRating());
         Description updatedDescription = editPlaceDescriptor.getDescription().orElse(placeToEdit.getDescription());
         Address updatedAddress = editPlaceDescriptor.getAddress().orElse(placeToEdit.getAddress());
         Set<Tag> updatedTags = editPlaceDescriptor.getTags().orElse(placeToEdit.getTags());
 
-        return new Place(updatedName, updatedPhone, updatedDescription, updatedAddress, updatedTags);
+        return new Place(updatedName, updatedRating, updatedDescription, updatedAddress, updatedTags);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class EditCommand extends Command {
      */
     public static class EditPlaceDescriptor {
         private Name name;
-        private Phone phone;
+        private Rating rating;
         private Description description;
         private Address address;
         private Set<Tag> tags;
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
          */
         public EditPlaceDescriptor(EditPlaceDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setRating(toCopy.rating);
             setDescription(toCopy.description);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, description, address, tags);
+            return CollectionUtil.isAnyNonNull(name, rating, description, address, tags);
         }
 
         public void setName(Name name) {
@@ -162,12 +162,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setRating(Rating rating) {
+            this.rating = rating;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Rating> getRating() {
+            return Optional.ofNullable(rating);
         }
 
         public void setDescription(Description description) {
@@ -219,7 +219,7 @@ public class EditCommand extends Command {
             EditPlaceDescriptor e = (EditPlaceDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getRating().equals(e.getRating())
                     && getDescription().equals(e.getDescription())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());

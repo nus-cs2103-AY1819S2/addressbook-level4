@@ -17,7 +17,7 @@ public class Place {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Rating rating;
     private final Description description;
 
     // Data fields
@@ -27,10 +27,10 @@ public class Place {
     /**
      * Every field must be present and not null.
      */
-    public Place(Name name, Phone phone, Description description, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, description, address, tags);
+    public Place(Name name, Rating rating, Description description, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, rating, description, address, tags);
         this.name = name;
-        this.phone = phone;
+        this.rating = rating;
         this.description = description;
         this.address = address;
         this.tags.addAll(tags);
@@ -40,8 +40,8 @@ public class Place {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Rating getRating() {
+        return rating;
     }
 
     public Description getDescription() {
@@ -88,7 +88,7 @@ public class Place {
 
         Place otherPlace = (Place) other;
         return otherPlace.getName().equals(getName())
-                && otherPlace.getPhone().equals(getPhone())
+                && otherPlace.getRating().equals(getRating())
                 && otherPlace.getDescription().equals(getDescription())
                 && otherPlace.getAddress().equals(getAddress())
                 && otherPlace.getTags().equals(getTags());
@@ -97,15 +97,15 @@ public class Place {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, description, address, tags);
+        return Objects.hash(name, rating, description, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Rating: ")
+                .append(getRating())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Address: ")

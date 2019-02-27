@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
-import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Before;
@@ -24,8 +24,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalCardFolder(), new UserPrefs());
-        expectedModel = new ModelManager(model.getCardFolder(), new UserPrefs());
+        model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
     }
 
     @Test

@@ -27,7 +27,7 @@ public class JsonCardFolderStorage implements CardFolderStorage {
         this.filePath = filePath;
     }
 
-    public Path getCardFolderFilePath() {
+    public Path getcardFolderFilesPath() {
         return filePath;
     }
 
@@ -57,6 +57,15 @@ public class JsonCardFolderStorage implements CardFolderStorage {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
+    }
+
+    @Override
+    public Optional<String> getCardFolderName() throws DataConversionException, IOException {
+        Optional<ReadOnlyCardFolder> readOnlyCardFolder = readCardFolder();
+        if (!readOnlyCardFolder.isPresent()) {
+            return Optional.empty();
+        }
+        return Optional.of(StorageManager.DEFAULT_FOLDER_NAME);
     }
 
     @Override

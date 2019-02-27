@@ -138,7 +138,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getCardFolder().getCardList().size(), getModel().getFilteredCardList().size());
+        assertEquals(getModel().getActiveCardFolder().getCardList().size(), getModel().getFilteredCards().size());
     }
 
     /**
@@ -146,7 +146,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void showCardsWithQuestion(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCardList().size() < getModel().getCardFolder().getCardList().size());
+        assertTrue(getModel().getFilteredCards().size() < getModel().getActiveCardFolder().getCardList().size());
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void deleteAllCards() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getCardFolder().getCardList().size());
+        assertEquals(0, getModel().getActiveCardFolder().getCardList().size());
     }
 
     /**
@@ -174,8 +174,8 @@ public abstract class CardFolderSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new CardFolder(expectedModel.getCardFolder()), testApp.readStorageCardFolder());
-        assertListMatching(getCardListPanel(), expectedModel.getFilteredCardList());
+        assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readStorageCardFolder());
+        assertListMatching(getCardListPanel(), expectedModel.getFilteredCards());
     }
 
     /**
@@ -271,7 +271,7 @@ public abstract class CardFolderSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getCardListPanel(), getModel().getFilteredCardList());
+        assertListMatching(getCardListPanel(), getModel().getFilteredCards());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

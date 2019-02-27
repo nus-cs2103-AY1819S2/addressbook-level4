@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.storage.StorageManager;
 
 /**
  * Represents User's preferences.
@@ -14,7 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path cardFolderFilePath = Paths.get("data" , "cardfolder.json");
+    private Path cardFolderFilesPath = Paths.get("data" , StorageManager.DEFAULT_FOLDER_NAME);
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setCardFolderFilePath(newUserPrefs.getCardFolderFilePath());
+        setcardFolderFilesPath(newUserPrefs.getcardFolderFilesPath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +48,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getCardFolderFilePath() {
-        return cardFolderFilePath;
+    public Path getcardFolderFilesPath() {
+        return cardFolderFilesPath;
     }
 
-    public void setCardFolderFilePath(Path cardFolderFilePath) {
-        requireNonNull(cardFolderFilePath);
-        this.cardFolderFilePath = cardFolderFilePath;
+    public void setcardFolderFilesPath(Path cardFolderFilesPath) {
+        requireNonNull(cardFolderFilesPath);
+        this.cardFolderFilesPath = cardFolderFilesPath;
     }
 
     @Override
@@ -68,19 +69,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && cardFolderFilePath.equals(o.cardFolderFilePath);
+                && cardFolderFilesPath.equals(o.cardFolderFilesPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, cardFolderFilePath);
+        return Objects.hash(guiSettings, cardFolderFilesPath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + cardFolderFilePath);
+        sb.append("\nLocal data file location : " + cardFolderFilesPath);
         return sb.toString();
     }
 

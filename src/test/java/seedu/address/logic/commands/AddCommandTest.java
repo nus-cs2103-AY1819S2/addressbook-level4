@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -114,12 +115,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getCardFolderFilePath() {
+        public Path getcardFolderFilesPath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCardFolderFilePath(Path cardFolderFilePath) {
+        public void setcardFolderFilesPath(Path cardFolderFilesPath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -134,7 +135,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyCardFolder getCardFolder() {
+        public ReadOnlyCardFolder getActiveCardFolder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<ReadOnlyCardFolder> getCardFolders() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,12 +160,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Card> getFilteredCardList() {
+        public ObservableList<Card> getFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredCardList(Predicate<Card> predicate) {
+        public void updateFilteredCard(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -246,7 +252,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyCardFolder getCardFolder() {
+        public ReadOnlyCardFolder getActiveCardFolder() {
             return new CardFolder();
         }
     }

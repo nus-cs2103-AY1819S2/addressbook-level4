@@ -38,7 +38,7 @@ public class LogicManager implements Logic {
         cardFolderParser = new CardFolderParser();
 
         // Set cardFolderModified to true whenever the models' card folder is modified.
-        model.getCardFolder().addListener(observable -> cardFolderModified = true);
+        model.getActiveCardFolder().addListener(observable -> cardFolderModified = true);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         if (cardFolderModified) {
             logger.info("card folder modified, saving to file.");
             try {
-                storage.saveCardFolder(model.getCardFolder());
+                storage.saveCardFolder(model.getActiveCardFolder());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -68,12 +68,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyCardFolder getCardFolder() {
-        return model.getCardFolder();
+        return model.getActiveCardFolder();
     }
 
     @Override
     public ObservableList<Card> getFilteredCardList() {
-        return model.getFilteredCardList();
+        return model.getFilteredCards();
     }
 
     @Override
@@ -82,8 +82,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getCardFolderFilePath() {
-        return model.getCardFolderFilePath();
+    public Path getcardFolderFilesPath() {
+        return model.getcardFolderFilesPath();
     }
 
     @Override

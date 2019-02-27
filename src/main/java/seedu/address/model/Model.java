@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -38,20 +39,23 @@ public interface Model {
     /**
      * Returns the user prefs' card folder file path.
      */
-    Path getCardFolderFilePath();
+    Path getcardFolderFilesPath();
 
     /**
      * Sets the user prefs' card folder file path.
      */
-    void setCardFolderFilePath(Path cardFolderFilePath);
+    void setcardFolderFilesPath(Path cardFolderFilesPath);
 
     /**
      * Replaces card folder data with the data in {@code cardFolder}.
      */
     void setCardFolder(ReadOnlyCardFolder cardFolder);
 
-    /** Returns the CardFolder */
-    ReadOnlyCardFolder getCardFolder();
+    /** Returns the active CardFolder */
+    ReadOnlyCardFolder getActiveCardFolder();
+
+    /** Returns all CardFolders */
+    List<ReadOnlyCardFolder> getCardFolders();
 
     /**
      * Returns true if a card with the same identity as {@code card} exists in the card folder.
@@ -78,13 +82,13 @@ public interface Model {
     void setCard(Card target, Card editedCard);
 
     /** Returns an unmodifiable view of the filtered card list */
-    ObservableList<Card> getFilteredCardList();
+    ObservableList<Card> getFilteredCards();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredCardList(Predicate<Card> predicate);
+    void updateFilteredCard(Predicate<Card> predicate);
 
     /**
      * Returns true if the model has previous card folder states to restore.

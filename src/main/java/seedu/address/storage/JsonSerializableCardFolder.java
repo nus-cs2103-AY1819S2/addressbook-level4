@@ -21,13 +21,16 @@ class JsonSerializableCardFolder {
 
     public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate card(s).";
 
+    private final String folderName;
     private final List<JsonAdaptedCard> cards = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableCardFolder} with the given cards.
      */
     @JsonCreator
-    public JsonSerializableCardFolder(@JsonProperty("cards") List<JsonAdaptedCard> cards) {
+    public JsonSerializableCardFolder(@JsonProperty("folderName") String folderName,
+                                      @JsonProperty("cards") List<JsonAdaptedCard> cards) {
+        this.folderName = folderName;
         this.cards.addAll(cards);
     }
 
@@ -38,6 +41,7 @@ class JsonSerializableCardFolder {
      */
     public JsonSerializableCardFolder(ReadOnlyCardFolder source) {
         cards.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
+        folderName = source.getFolderName();
     }
 
     /**
@@ -54,6 +58,7 @@ class JsonSerializableCardFolder {
             }
             cardFolder.addCard(card);
         }
+        cardFolder.setFolderName(folderName);
         return cardFolder;
     }
 

@@ -13,9 +13,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.model.CardFolder;
+import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
 
 /**
@@ -58,6 +60,11 @@ public class TypicalCards {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalCards() {} // prevents instantiation
+
+    // TODO: Add more folders
+    public static List<ReadOnlyCardFolder> getTypicalCardFolders() {
+        return Collections.singletonList(getTypicalCardFolder());
+    }
 
     /**
      * Returns an {@code CardFolder} with all the typical cards.

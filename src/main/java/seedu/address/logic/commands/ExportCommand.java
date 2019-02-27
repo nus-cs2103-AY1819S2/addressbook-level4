@@ -30,7 +30,7 @@ import seedu.address.storage.UserPrefsStorage;
  */
 public class ExportCommand extends Command {
 
-    public static final String COMMAND_WORD = "import";
+    public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports to text file in the \"data\" folder \n"

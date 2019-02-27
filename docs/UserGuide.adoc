@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all medicines in inventory
-* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medine named Paracetamol to the medicine list.
+* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medicine named Paracetamol to the inventory
 * *`delete`* `3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
@@ -43,12 +43,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-====
 *Operating Mode*
 
-* MediTabs 2.0 has 2 operating modes: The Medicine Inventory Mode and the Address book Mode.
+* MediTabs v2.0 has 2 operating modes: Medicine Inventory Mode and Address Book Mode.
 * Medicine Inventory Mode is used to view and manage medicine stock. Refer to <<Medicine Inventory Mode Features>> for features in this mode.
-* Address book Mode is used to view and manage company contacts. Refer to <<Address book Mode Features `[coming in v2.0]`>> for features in this mode.
+* Address Book Mode is used to view and manage company contacts. Refer to <<Address Book Mode Features `[coming in v2.0]`>> for features in this mode.
 * The mode you are currently on is displayed at the bottom of the application window.
 
 image::UserGuide_OperatingMode.png[width="790"]
@@ -56,16 +55,25 @@ image::UserGuide_OperatingMode.png[width="790"]
 *Warnings Panel*
 
 * Low stock of a medicine and expiring medicine will trigger warnings to notify the user that action is required.
-* After acknowledgement, warnings will be logged in the warnings panel until action required has been taken.
+* Warnings will be logged in the warnings panel until action required has been taken.
 
 image::UserGuide_WarningPanel.png[width="790"]
+
+*Terminology*
+
+* *List:* This refers to the currently displayed list (possibly filtered).
+* *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command in Medicine Inventory Mode.
+* *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command in Medicine Inventory Mode.
+
+====
 
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Paracetamol`.
-* Items in square brackets are optional e.g `e.g export [FILE_NAME] can be used as export Inventory` or as `export`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[MORE_KEYWORDS]...` can be used as `{nbsp}` (i.e. 0 times).
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as `n/Paracetamol t/Popular` or as `n/Paracetamol`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), t/Ordered, t/PhasingOut t/SlowMoving etc..
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
+
 ====
 
 == Medicine Inventory Mode Features
@@ -74,19 +82,24 @@ image::UserGuide_WarningPanel.png[width="790"]
 
 Format: `help`
 
-=== Adding a new medicine: `add`
+=== Adding a new medicine : `add`
 
-Adds a new medicine to the inventory +
-Format: `add n/NAME c/COMPANY_NAME`
+Adds a new medicine to the inventory. +
+Format: `add n/NAME c/COMPANY_NAME [t/TAG]…​`
 
-Example:
+Examples:
 
 * `add n/Paracetamol c/3M Pharmaceuticals`
+* `add n/Ibuprofen c/Takeda Pharmaceutical Co. t/New`
 
 === Listing all medicines : `list`
 
 Shows a list of all medicine in the inventory. +
 Format: `list`
+
+****
+* The details of the medicine shown in the list include: name, company, total quantity, closest expiry date and tags.
+****
 
 === Sorting the list : `sort`
 
@@ -109,54 +122,65 @@ Example:
 * `sort c/quantity o/ascending` +
 Displays list of all medicine in ascending order of quantity.
 
-=== Locating medicine by name: `find`
+=== Locating medicines : `find`
 
-Finds medicine whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds all medicines that match the given criteria and displays them in the list. +
+Format: `find CRITERIA [MORE_CRITERIA]...`
 
+List of possible criteria:
+
+* Low stock: `low`
+* Expiring: `expiring`
+* Name: `n/NAME_KEYWORD`
+* Company: `c/COMPANY_KEYWORD`
+
+{nbsp}
 ****
-* The search is case insensitive. e.g `sodium` will match `Sodium`
-* The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`
-* Only the name is searched.
-* Only full words will be matched e.g. `Sodi` will not match `Sodium`
-* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `Sodium Ibuprofen` will return `Levothyroxine Sodium`, `Ibuprofen`
+* Searches with keywords are case insensitive. e.g `n/sodium` will match `Sodium`
+* The order of the keywords does not matter. e.g. `n/Sodium n/Levothyroxine` will match `Levothyroxine Sodium`
+* Only full words will be matched e.g. `c/Sci` will not match `Sciences`
+* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `n/Sodium n/Ibuprofen` will return `Levothyroxine Sodium`, `Ibuprofen`
 ****
 
 Examples:
 
-* `find Sodium` +
-Returns `Levothyroxine Sodium` and `Naproxen Sodium`
-* `find Amoxicillin Gabapentin Lisinopril` +
-Returns any medicine having names `Amoxicillin`, `Gabapentin`  or `Lisinopril`
+* `find low` +
+Displays list of all medicines that are low in stock.
+* `find n/Sodium` +
+Returns `Levothyroxine Sodium` and `Naproxen Sodium`.
+* `find n/Amoxicillin n/Gabapentin c/Johnson` +
+Returns any medicine having names `Amoxicillin` or `Gabapentin` or with company name having `Johnson`.
 
 === Editing a medicine : `edit`
 
 Edits an existing medicine in the inventory. +
-Format: `edit INDEX [n/NAME] [c/COMPANY_NAME]`
+Format: `edit INDEX [n/NAME] [c/COMPANY_NAME] [t/TAG]...`
 
 ****
-* Edits the medicine at the specified INDEX. The index refers to the index number shown in the displayed company list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the medicine at the specified INDEX.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* The index refers to the index number shown in the displayed medicine list.
+* The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
 * `list` +
-`edit 2 n/Prednisone` +
-Edits the name of the 2nd medicine in the list to be `Prednisone`.
+`edit 2 n/Prednisone c/Johnson & Johnson` +
+Edits the name of the 2nd medicine in the list to be `Prednisone` and company to be `Johnson & Johnson`.
 * `find Prednisone` +
-`edit 1 c/Johnson & Johnson` +
-Edits the company name of the 1st medicine in the results of the find command to `Johnson & Johnson`.
+`edit 1 t/` +
+Remove tags from the 1st medicine in the results of the `find` command.
 
-=== Deleting a company : `delete`
+=== Deleting a medicine : `delete`
 
 Deletes the specified medicine from the inventory. +
 Format: `delete INDEX`
 
 ****
 * Deletes the medicine at the specified `INDEX`.
-* The index refers to the index number shown in the displayed company list.
+* The index refers to the index number shown in the displayed medicine list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -169,34 +193,14 @@ Deletes the 2nd medicine in the list.
 `delete 1` +
 Deletes the 1st medicine in the results of the `find` command.
 
-=== Updating quantity of medicine by batch : `update`
-
-Updates quantity of medicine in inventory by batch. +
-Format: `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]
-****
-* Deletes the medicine at the specified `INDEX`Updates inventory record of medicine at specified `INDEX`.
-* The index refers to the index number shown in the displayed medicine list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* If batch number already exists, the quantity of medicine from the batch is updated.
-* If batch number does not exist, a new batch record is created.​
-****
-
-Examples:
-
-* `list` +
-`update 2 b/s9c4x9532 q/1000 e/11/2/2020` +
-Updates the quantity of medicine to `1000` in batch `s9c4x9532` of the 2nd medicine in the list.
-* `find Gabapentin` +
-`update 1 b/8937v1x7 q/500` +
-Updates the quantity of medicine to `500` in batch `8937v1x7` to the 1st medicine in the results of the `find` command.
-
-=== Selecting a medicine : `select`
-
-Selects the medicine identified by the index number used in the displayed medicine list. +
+=== Viewing medicine information page : `select`
+Selects a medicine and loads the information page of the medicine. +
 Format: `select INDEX`
 
 ****
-* Selects the medicine and loads the information page of the medicine at the specified `INDEX`.
+* Loads the information page of the medicine at the specified `INDEX`.
+* The information page consists of a table with details of all batches of the selected medicine.
+* These details include: batch number, quantity, expiry date, time last updated.
 * The index refers to the index number shown in the displayed medicine list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -210,9 +214,33 @@ Selects the 2nd medicine in the inventory.
 `select 1` +
 Selects the 1st medicine in the results of the `find` command.
 
-=== Managing Warnings Panel : `warning`
+=== Updating batch records : `update`
 
-Manage the threshold for expiry date and low stock warning. +
+Updates details of a batch of medicine. +
+Format: `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]`
+
+****
+* Updates details of a batch in the batch records of medicine at specified `INDEX`.
+* If batch number already exists, the quantity or expiry date of the batch is updated.
+* If batch number does not exist, a new batch record is created.
+* If quantity of batch is updated to `0`, it will be removed.
+* The total quantity and closest expiry date of the medicine will also be updated.
+* The index refers to the index number shown in the displayed medicine list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`update 2 b/s9c4x9532 q/1000 e/11/2/2020` +
+Updates quantity and expiry date of batch `s9c4x9532` in batch records of the 2nd medicine in the list to `1000` and `11/2/2020`.
+* `find Gabapentin` +
+`update 1 b/8937v1x7 q/500` +
+Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the results of the `find` command to `500`.
+
+=== Managing warnings panel : `warning`
+
+Manage the threshold for expiry date and low stock warnings. +
 Format: `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]`
 
 ****
@@ -227,24 +255,6 @@ Examples:
 Expiry date warning will be triggered 20 days before any medicine expires.
 * `warning s/10` +
 Low stock warning will be triggered when quantity remaining is less than or equal to 10.
-
-=== Filtering the list : `filter`
-
-Filter the list based on certain criteria. +
-Format: `filter CRITERIA`
-
-List of possible criteria:
-
-* Low stock: `low`
-* Expiring: `expiring`
-* Company: `c/COMPANY_NAME`
-
-Examples:
-
-* `filter low` +
-Displays list of all medicine that are low in stock.
-* `filter c/3M Pharmaceuticals` +
-Displays a list of all medicine purchased from 3M Pharmaceuticals.
 
 === Exporting as CSV file format : `export`
 
@@ -264,24 +274,24 @@ Export the current list shown in the GUI to a CSV file which has a default file 
 
 === Printing labels : `label`
 
-Outputs label to a text file. Label will include name of medicine and standard label template. +
+Outputs label to a PDF file. Label will include name of medicine and standard label template. +
 Format: `label INDEX [FILE_NAME]`
 
 ****
 * Outputs the label for the medicine at the specified INDEX.
+* If no file name is specified, the default file name is `label`.
 * The index refers to the index number shown in the displayed medicine list.
 * The index must be a positive integer 1, 2, 3, …
-* If no file name is specified, the default file name is `label`.
 ****
 
 Examples:
 
 * `list` +
 `label 2` +
-Outputs label text file for 2nd medicine in the list with default file name `label`.
+Outputs label PDF file for 2nd medicine in the list with default file name `label`.
 * `find Gabapentin` +
 `label 1` +
-Outputs label text file for 1st medicine in the results of the `find` command with file name `Gabapentin`.
+Outputs label PDF file for 1st medicine in the results of the `find` command with file name `Gabapentin`.
 
 === Listing entered commands : `history`
 
@@ -348,9 +358,9 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the inventory. +
 Format: `clear`
 
-=== Changing to Address book Mode : `mode` `[coming in v2.0]`
+=== Changing to Address Book Mode : `mode` `[coming in v2.0]`
 
-Changes operating mode to Address book Mode. +
+Changes operating mode to Address Book Mode. +
 Format: `mode`
 
 === Exiting the program : `exit`
@@ -358,7 +368,7 @@ Format: `mode`
 Exits the program. +
 Format: `exit`
 
-=== Suggested Medicine Name `[coming in v2.0]`
+=== Suggested medicine names `[coming in v2.0]`
 
 When typing fields that include medicine name, a list of suggested medicine names will appear after you input the first letter. +
 
@@ -378,30 +388,34 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-== Address book Mode Features `[coming in v2.0]`
+== Address Book Mode Features `[coming in v2.0]`
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a company: `add`
+=== Adding a company : `add`
 
 Adds a company to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 Example:
 
-* `add n/3M Pharmaceuticals p/67661584 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/3M Pharmaceuticals p/67661584 e/johnd@example.com a/John street, block 123, #01-01 t/3weeksLeadTime`
 
 === Listing all companies : `list`
 
 Shows a list of all companies in the address book. +
 Format: `list`
 
+****
+* The details of the company shown in the list include: name, phone number, email, address and tags.
+****
+
 === Editing a company : `edit`
 
 Edits an existing company in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
 * Edits the company at the specified `INDEX`. The index refers to the index number shown in the displayed company list. The index *must be a positive integer* 1, 2, 3, ...
@@ -414,7 +428,7 @@ Example:
 * `edit 1 p/61234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st company to be `61234567` and `johndoe@example.com` respectively.
 
-=== Locating companies by name: `find`
+=== Locating companies by name : `find`
 
 Finds companies whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -454,13 +468,13 @@ Deletes the 2nd company in the address book.
 `delete 1` +
 Deletes the 1st company in the results of the `find` command.
 
-=== Selecting a company : `select`
+=== Viewing company Google search page : `select`
 
-Selects the company identified by the index number used in the displayed company list. +
+Selects the company and loads the Google search page of the company. +
 Format: `select INDEX`
 
 ****
-* Selects the company and loads the Google search page the company at the specified `INDEX`.
+* Loads the Google search page the company at the specified `INDEX`.
 * The index refers to the index number shown in the displayed company list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -580,20 +594,18 @@ There is no need to save manually.
 
 == Medicine Inventory Mode Commands Summary
 
-* *Add* `add n/NAME c/COMPANY_NAME` +
-e.g. `add n/Paracetamol c/3M Pharmaceuticals`
+* *Add* `add n/NAME c/COMPANY_NAME [t/TAG]...` +
+e.g. `add n/Paracetamol c/3M Pharmaceuticals t/Popular`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [c/COMPANY_NAME]` +
-e.g. `edit 2 n/James Lee [c/GlaxoSmithKline]`
+* *Edit* : `edit INDEX [n/NAME] [c/COMPANY_NAME] [t/TAG]...` +
+e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/SlowMoving'
 * *Exit* : `exit`
 * *Export* : `export [FILE_NAME]` +
 e.g. export Records
-* *Filter* : `filter CRITERIA` +
-e.g. `filter expiring`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find paracetamol ibuprofen`
+* *Find* : `find CRITERIA [MORE_CRITERIA]...` +
+e.g. `find n/paracetamol c/3M`
 * *Help* : `help`
 * *History* : `history`
 * *Label* : `label INDEX [FILE_NAME]` +
@@ -607,21 +619,21 @@ e.g.`select 2`
 e.g.`sort c/quantity o/ascending`
 * *Undo* : `undo`
 * *Update* : `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]` +
-e.g.`update 2 b/s9c4x9532 q/1000 e/11/2/2020`
+e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`
 * *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
 e.g. `warning e/20 s/10`
 
-== Address book Mode Commands Summary `[coming in v2.0]`
+== Address Book Mode Commands Summary `[coming in v2.0]`
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS` +
-e.g. `add n/GlaxoSmithKline p/22224444 e/jamesho@gsk.com a/123, Clementi Rd, 1234665`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/GlaxoSmithKline p/22224444 e/jamesho@gsk.com a/123, Clementi Rd, 1234665 + t/3weeksLeadTime`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` +
-e.g. `edit 2 n/Pfizer [e/jameslee@pfizer.com]`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/Pfizer e/jameslee@pfizer.com`
 * *Exit* : `exit`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Find* : `find KEYWORD [MORE_KEYWORDS]...` +
 e.g. `find Pfizer 3M`
 * *List* : `list`
 * *Help* : `help`

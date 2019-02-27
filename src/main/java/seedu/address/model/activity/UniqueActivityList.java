@@ -8,15 +8,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.activity.exceptions.DuplicateActivityException;
 import seedu.address.model.activity.exceptions.ActivityNotFoundException;
+import seedu.address.model.activity.exceptions.DuplicateActivityException;
 
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
- * An activity is considered unique by comparing using {@code Activity#isSameActivity(Activity)}. As such, adding and updating of
- * activities uses Activity#isSameActivity(Activity) for equality so as to ensure that the activity being added or updated is
- * unique in terms of identity in the UniqueActivityList. However, the removal of a activity uses Activity#equals(Object) so
- * as to ensure that the activity with exactly the same fields will be removed.
+ * An activity is considered unique by comparing using {@code Activity#isSameActivity(Activity)}. As such, adding
+ * and updating of activities uses Activity#isSameActivity(Activity) for equality so as to ensure that  the activity
+ * being added or updated is unique in terms of identity in the UniqueActivityList.  However, the removal of a activity
+ * uses Activity#equals(Object) so as to ensure that the activity with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

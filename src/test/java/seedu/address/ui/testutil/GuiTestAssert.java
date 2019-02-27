@@ -65,7 +65,7 @@ public class GuiTestAssert {
         case "transportation":
             return "yellow";
 
-        case "dining":
+        case "vices":
             return "orange";
 
         case "entertainment":

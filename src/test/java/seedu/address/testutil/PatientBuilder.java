@@ -1,11 +1,16 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Patient;
+import seedu.address.model.person.Phone;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Utility Class for building Health Worker objects.
@@ -25,7 +30,7 @@ public class PatientBuilder extends PersonBuilder {
     private Address address;
     private Set<Tag> tags;
 
-    public PatientBuilder(){
+    public PatientBuilder() {
         this.name = new Name(DEFAULT_NAME);
         this.nric = new Nric(DEFAULT_NRIC);
         this.phone = new Phone(DEFAULT_PHONE);
@@ -38,13 +43,13 @@ public class PatientBuilder extends PersonBuilder {
      * Initializes the HealthWorkerBuilder with the data of {@code
      * healthWorkerToCopy}
      */
-    public PatientBuilder(Patient PatientToCopy) {
-        this.name = PatientToCopy.getName();
-        this.nric = PatientToCopy.getNric();
-        this.phone = PatientToCopy.getPhone();
-        this.email = PatientToCopy.getEmail();
-        this.address = PatientToCopy.getAddress();
-        this.tags = new HashSet<>(PatientToCopy.getTags());
+    public PatientBuilder(Patient patientToCopy) {
+        this.name = patientToCopy.getName();
+        this.nric = patientToCopy.getNric();
+        this.phone = patientToCopy.getPhone();
+        this.email = patientToCopy.getEmail();
+        this.address = patientToCopy.getAddress();
+        this.tags = new HashSet<>(patientToCopy.getTags());
     }
 
     /**

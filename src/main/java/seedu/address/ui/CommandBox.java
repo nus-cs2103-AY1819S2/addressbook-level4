@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.PrefillCommandBoxCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -93,15 +94,30 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Sets {@code CommandBox}'s text field with {@code text} and
+     * positions the caret at {@code cursorPos}.
+     */
+    private void replaceText(String text, int cursorPos) {
+        commandTextField.setText(text);
+        commandTextField.positionCaret(cursorPos);
+    }
+
+    /**
      * Handles the Enter button pressed event.
      */
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            CommandResult commandResult = commandExecutor.execute(commandTextField.getText());
             initHistory();
             historySnapshot.next();
-            commandTextField.setText("");
+            if (commandResult instanceof PrefillCommandBoxCommandResult) {
+                String prefilledText = ((PrefillCommandBoxCommandResult) commandResult).getPrefilledText();
+                int cursorPos = ((PrefillCommandBoxCommandResult) commandResult).getCursorPos();
+                replaceText(prefilledText, cursorPos);
+            } else {
+                replaceText("");
+            }
         } catch (CommandException | ParseException e) {
             initHistory();
             setStyleToIndicateCommandFailure();

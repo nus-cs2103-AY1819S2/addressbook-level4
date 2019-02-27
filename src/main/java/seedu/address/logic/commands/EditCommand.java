@@ -52,7 +52,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final Optional<EditPersonDescriptor> editPersonDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -63,7 +63,12 @@ public class EditCommand extends Command {
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editPersonDescriptor = Optional.of(new EditPersonDescriptor(editPersonDescriptor));
+    }
+    public EditCommand(Index index) {
+        requireNonNull(index);
+        this.index = index;
+        this.editPersonDescriptor = Optional.empty();
     }
 
     @Override
@@ -75,17 +80,25 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        if (editPersonDescriptor.isPresent()) {
+            Person personToEdit = lastShownList.get(index.getZeroBased());
+            Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor.get());
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            model.setPerson(personToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        } else {
+            Person personToEdit = lastShownList.get(index.getZeroBased());
+            // todo: generate the actual command to pre-fill
+            String updatedText = String.format("%s %d %s", COMMAND_WORD, index.getOneBased(), personToEdit.getName());
+            int cursorPos = 0;
+            return new PrefillCommandBoxCommandResult(updatedText, cursorPos);
         }
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**

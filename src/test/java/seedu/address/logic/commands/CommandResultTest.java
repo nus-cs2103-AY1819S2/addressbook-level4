@@ -29,6 +29,9 @@ public class CommandResultTest {
 
         // ExitCommandResult -> returns false
         assertFalse(commandResult.equals(new ExitCommandResult("feedback")));
+
+        // PrefillCommandBoxCommandResult -> returns false
+        assertFalse(commandResult.equals(new PrefillCommandBoxCommandResult("feedback", 0)));
     }
 
     @Test
@@ -46,5 +49,8 @@ public class CommandResultTest {
 
         // ExitCommandResult -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new ExitCommandResult("feedback").hashCode());
+
+        // PrefillCommandBoxCommandResult -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new PrefillCommandBoxCommandResult("feedback",0).hashCode());
     }
 }

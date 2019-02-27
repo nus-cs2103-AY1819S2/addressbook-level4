@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.Mode;
 
 /**
  * Parses user input.
@@ -36,7 +38,7 @@ public class RestOrRantParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(Mode mode, String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -44,6 +46,50 @@ public class RestOrRantParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        if (mode != Mode.RM) {
+            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+        }
+
+//        FUTURE USAGE
+//        switch (commandWord) {
+//
+//        case RestaurantMode.COMMAND_WORD:
+//            return new RestaurantModeCommand();
+//            
+//        case TableMode.COMMAND_WORD:
+//            return new TableModeCommand();
+//            
+//        case MenuMode.COMMAND_WORD:
+//            return new MenuModeCommand();
+//            
+//        }
+//
+//        if (mode == Mode.RM) {
+//            switch (commandWord) {
+//
+//            case AddTableCommand.COMMAND_WORD:
+//                return new AddTableCommandParser().parse(arguments);
+//
+//            }
+//        } else if (mode == Mode.TM) {
+//           switch (commandWord) {
+//
+//                case AddOrderToTable.COMMAND_WORD:
+//                    return new AddOrderToTableCommandParser().parse(arguments);
+//
+//            }
+//        } else if (mode == Mode.MM) {
+//            switch (commandWord) {
+//
+//                case AddMenuItem.COMMAND_WORD:
+//                    return new AddMenuItemCommandParser().parse(arguments);
+//
+//            }
+//        } else {
+//            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+//        }
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:

@@ -39,14 +39,11 @@ Responsibilities: Data
 
 image::Kyler.png[width="200", align="left"]
 === Kyler Wong Shen Meng
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}
 _Developer / Tester_
 
-{empty}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[github]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, portfolio>>``
+{empty}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[github]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, portfolio>>``
 
-Role::
-* Developer
-* Tester
 Responsibilities::
 * Build efficient data structures that stores represented dental data
 * Develop dentistry-specific functions and features

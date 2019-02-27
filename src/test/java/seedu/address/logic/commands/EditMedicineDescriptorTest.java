@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
@@ -38,16 +36,6 @@ public class EditMedicineDescriptorTest {
         // different name -> returns false
         EditMedicineDescriptor editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN)
                 .withName(VALID_NAME_GABAPENTIN).build();
-        assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
-
-        // different quantity -> returns false
-        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withQuantity(VALID_QUANTITY_GABAPENTIN)
-                .build();
-        assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
-
-        // different expiry date-> returns false
-        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
-                .build();
         assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different company -> returns false

@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileName;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
@@ -147,5 +148,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String batchNumber} into a {@code BatchNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code batchNumber} is invalid.
+     */
+    public static BatchNumber parseBatchNumber(String batchNumber) throws ParseException {
+        requireNonNull(batchNumber);
+        String trimmedBatchNumber = batchNumber.trim();
+        if (!BatchNumber.isValidBatchNumber(trimmedBatchNumber)) {
+            throw new ParseException(BatchNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new BatchNumber(trimmedBatchNumber);
     }
 }

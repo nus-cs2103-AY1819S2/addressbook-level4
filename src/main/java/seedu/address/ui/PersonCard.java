@@ -53,7 +53,8 @@ public class PersonCard extends UiPart<Region> {
     }
 
     //@@author geezlouisee-reused
-    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0 with minor modifications
+    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0
+    // with minor modifications
     /**
      * Returns the color style for {@code tagName}'s label.
      */

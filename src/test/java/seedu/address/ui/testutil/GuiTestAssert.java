@@ -52,7 +52,8 @@ public class GuiTestAssert {
      * @see PersonCard#getTagColorStyleFor(String)
      */
     //@@author geezlouisee-reused
-    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0 with minor modifications
+    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0
+    // with minor modifications
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName.toLowerCase()) {
         case "shopping":

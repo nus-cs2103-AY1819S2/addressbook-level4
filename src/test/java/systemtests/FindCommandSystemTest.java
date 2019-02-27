@@ -82,7 +82,7 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: find same cards in card folder after deleting 1 of them -> 1 card found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getCardFolder().getCardList().contains(BENSON));
+        assertFalse(getModel().getActiveCardFolder().getCardList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
@@ -167,7 +167,7 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCardList().size());
+                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCards().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

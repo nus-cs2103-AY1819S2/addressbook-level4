@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -79,23 +80,23 @@ public class MainApp extends Application {
      * or an empty card folder will be used instead if errors occur when reading {@code storage}'s card folder.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyCardFolder> cardFolderOptional;
-        ReadOnlyCardFolder initialData;
+        List<ReadOnlyCardFolder> initialCardFolders;
+        // TODO: For exception handling, allow non-corrupted folders to be displayed
         try {
-            cardFolderOptional = storage.readCardFolder();
-            if (!cardFolderOptional.isPresent()) {
+            initialCardFolders = storage.readCardFolders();
+            if (initialCardFolders.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample CardFolder");
+                initialCardFolders.add(SampleDataUtil.getSampleCardFolder());
             }
-            initialData = cardFolderOptional.orElseGet(SampleDataUtil::getSampleCardFolder);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty CardFolder");
-            initialData = new CardFolder();
+            initialCardFolders = Collections.singletonList(new CardFolder());
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty CardFolder");
-            initialData = new CardFolder();
+            initialCardFolders = Collections.singletonList(new CardFolder());
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialCardFolders, userPrefs);
     }
 
     private void initLogging(Config config) {

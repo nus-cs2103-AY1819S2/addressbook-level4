@@ -57,12 +57,18 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyCardFolder> readCardFolder() throws DataConversionException, IOException {
-        return readCardFolder(cardFolderStorageList.get(0).getcardFolderFilesPath());
+    public List<ReadOnlyCardFolder> readCardFolders() throws DataConversionException, IOException {
+        List<ReadOnlyCardFolder> cardFolders = new ArrayList<>();
+        for (CardFolderStorage cardFolderStorage : cardFolderStorageList) {
+            Optional<ReadOnlyCardFolder> cardFolder = readCardFolder(cardFolderStorage.getcardFolderFilesPath());
+            cardFolder.ifPresent(cardFolders::add);
+        }
+        return cardFolders;
     }
 
     /**
-     * Javadoc comment
+     * Reads a {@code ReadOnlyCardFolder} at the specified filepath.
+     * @return {@code Optional.empty} if the file is not found.
      */
     public Optional<ReadOnlyCardFolder> readCardFolder(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
@@ -76,7 +82,7 @@ public class StorageManager implements Storage {
     }
 
     /**
-     * Javadoc comment
+     * Saves the CardFolder to the specified filePath
      */
     public void saveCardFolder(ReadOnlyCardFolder cardFolder, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);

@@ -63,7 +63,8 @@ public class StorageManagerTest {
          */
         CardFolder original = getTypicalCardFolder();
         storageManager.saveCardFolder(original);
-        ReadOnlyCardFolder retrieved = storageManager.readCardFolder().get();
+        // TODO: Address hardcoding in the following line
+        ReadOnlyCardFolder retrieved = storageManager.readCardFolders().get(0);
         assertEquals(original, new CardFolder(retrieved));
     }
 

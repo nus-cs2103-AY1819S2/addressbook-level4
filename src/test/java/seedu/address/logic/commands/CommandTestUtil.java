@@ -109,8 +109,8 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        CardFolder expectedCardFolder = new CardFolder(actualModel.getCardFolder());
-        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
+        CardFolder expectedCardFolder = new CardFolder(actualModel.getActiveCardFolder());
+        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCards());
         Card expectedSelectedCard = actualModel.getSelectedCard();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -120,8 +120,8 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedCardFolder, actualModel.getCardFolder());
-            assertEquals(expectedFilteredList, actualModel.getFilteredCardList());
+            assertEquals(expectedCardFolder, actualModel.getActiveCardFolder());
+            assertEquals(expectedFilteredList, actualModel.getFilteredCards());
             assertEquals(expectedSelectedCard, actualModel.getSelectedCard());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -132,20 +132,20 @@ public class CommandTestUtil {
      * {@code model}'s card folder.
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCardList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCards().size());
 
-        Card card = model.getFilteredCardList().get(targetIndex.getZeroBased());
+        Card card = model.getFilteredCards().get(targetIndex.getZeroBased());
         final String[] splitQuestion = card.getQuestion().fullQuestion.split("\\s+");
-        model.updateFilteredCardList(new QuestionContainsKeywordsPredicate(Arrays.asList(splitQuestion[0])));
+        model.updateFilteredCard(new QuestionContainsKeywordsPredicate(Arrays.asList(splitQuestion[0])));
 
-        assertEquals(1, model.getFilteredCardList().size());
+        assertEquals(1, model.getFilteredCards().size());
     }
 
     /**
      * Deletes the first card in {@code model}'s filtered list from {@code model}'s card folder.
      */
     public static void deleteFirstCard(Model model) {
-        Card firstCard = model.getFilteredCardList().get(0);
+        Card firstCard = model.getFilteredCards().get(0);
         model.deleteCard(firstCard);
         model.commitCardFolder();
     }

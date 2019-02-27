@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalCards.AMY;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -142,7 +143,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getCardFolder(), new UserPrefs());
+        Model expectedModel = new ModelManager(Collections.singletonList(model.getActiveCardFolder()),
+                new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

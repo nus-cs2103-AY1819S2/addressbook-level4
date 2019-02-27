@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -24,28 +27,48 @@ import seedu.address.model.card.exceptions.CardNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedCardFolder versionedCardFolder;
+    private final List<VersionedCardFolder> versionedCardFolders;
+    private int activeCardFolderIndex;
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredCards;
+    private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given cardFolder and userPrefs.
+     * Initializes a ModelManager with the given cardFolders and userPrefs.
      */
-    public ModelManager(ReadOnlyCardFolder cardFolder, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(List<ReadOnlyCardFolder> cardFolders, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(cardFolder, userPrefs);
+        requireAllNonNull(cardFolders, userPrefs);
 
-        logger.fine("Initializing with card folder: " + cardFolder + " and user prefs " + userPrefs);
+        logger.fine("Initializing with card folder: " + cardFolders + " and user prefs " + userPrefs);
 
-        versionedCardFolder = new VersionedCardFolder(cardFolder);
+        versionedCardFolders = new ArrayList<>();
+        for (ReadOnlyCardFolder cardFolder : cardFolders) {
+            versionedCardFolders.add(new VersionedCardFolder(cardFolder));
+        }
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
-        filteredCards.addListener(this::ensureSelectedCardIsValid);
+
+        filteredCardsList = new ArrayList<>();
+        for (int i = 0; i < versionedCardFolders.size(); i++) {
+            FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolders.get(i).getCardList());
+            filteredCardsList.add(filteredCards);
+            filteredCards.addListener(this::ensureSelectedCardIsValid);
+        }
+
+        // TODO: Address the following hardcoded line
+        activeCardFolderIndex = 0;
     }
 
     public ModelManager() {
-        this(new CardFolder(), new UserPrefs());
+        this(Collections.singletonList(new CardFolder()), new UserPrefs());
+    }
+
+    private VersionedCardFolder getActiveVersionedCardFolder() {
+        return versionedCardFolders.get(activeCardFolderIndex);
+    }
+
+    private FilteredList<Card> getActiveFilteredCards() {
+        return filteredCardsList.get(activeCardFolderIndex);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -87,35 +110,46 @@ public class ModelManager implements Model {
 
     @Override
     public void setCardFolder(ReadOnlyCardFolder cardFolder) {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.resetData(cardFolder);
     }
 
     @Override
-    public ReadOnlyCardFolder getCardFolder() {
-        return versionedCardFolder;
+    public ReadOnlyCardFolder getActiveCardFolder() {
+        return getActiveVersionedCardFolder();
+    }
+
+    @Override
+    public List<ReadOnlyCardFolder> getCardFolders() {
+        return new ArrayList<>(versionedCardFolders);
     }
 
     @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
+
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         return versionedCardFolder.hasCard(card);
     }
 
     @Override
     public void deleteCard(Card target) {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.removeCard(target);
     }
 
     @Override
     public void addCard(Card card) {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.addCard(card);
-        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
 
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.setCard(target, editedCard);
     }
 
@@ -123,16 +157,17 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code versionedCardFolder}
+     * {@code versionedCardFolders}
      */
     @Override
-    public ObservableList<Card> getFilteredCardList() {
-        return filteredCards;
+    public ObservableList<Card> getFilteredCards() {
+        return getActiveFilteredCards();
     }
 
     @Override
-    public void updateFilteredCardList(Predicate<Card> predicate) {
+    public void updateFilteredCard(Predicate<Card> predicate) {
         requireNonNull(predicate);
+        FilteredList<Card> filteredCards = getActiveFilteredCards();
         filteredCards.setPredicate(predicate);
     }
 
@@ -140,26 +175,31 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndoCardFolder() {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         return versionedCardFolder.canUndo();
     }
 
     @Override
     public boolean canRedoCardFolder() {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         return versionedCardFolder.canRedo();
     }
 
     @Override
     public void undoCardFolder() {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.undo();
     }
 
     @Override
     public void redoCardFolder() {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.redo();
     }
 
     @Override
     public void commitCardFolder() {
+        VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.commit();
     }
 
@@ -177,14 +217,14 @@ public class ModelManager implements Model {
 
     @Override
     public void setSelectedCard(Card card) {
-        if (card != null && !filteredCards.contains(card)) {
+        if (card != null && !getActiveFilteredCards().contains(card)) {
             throw new CardNotFoundException();
         }
         selectedCard.setValue(card);
     }
 
     /**
-     * Ensures {@code selectedCard} is a valid card in {@code filteredCards}.
+     * Ensures {@code selectedCard} is a valid card in {@code filteredCardsList}.
      */
     private void ensureSelectedCardIsValid(ListChangeListener.Change<? extends Card> change) {
         while (change.next()) {
@@ -226,9 +266,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedCardFolder.equals(other.versionedCardFolder)
+        return versionedCardFolders.equals(other.versionedCardFolders)
                 && userPrefs.equals(other.userPrefs)
-                && filteredCards.equals(other.filteredCards)
+                && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());
     }
 

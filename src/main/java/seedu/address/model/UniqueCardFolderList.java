@@ -6,7 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Javadoc comment
+ * A list of folders that enforces uniqueness between its elements. To be completed.
  */
 public class UniqueCardFolderList {
 
@@ -15,9 +15,7 @@ public class UniqueCardFolderList {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Javadoc comment
-     * @param toCheck
-     * @return
+     * Returns true if the list contains an equivalent folder as the given argument.
      */
     public boolean contains(CardFolder toCheck) {
         requireNonNull(toCheck);
@@ -26,8 +24,8 @@ public class UniqueCardFolderList {
     }
 
     /**
-     * Javadoc comment
-     * @param toAdd
+     * Adds a folder to the list.
+     * The folder must not already exist in the list.
      */
     public void add(CardFolder toAdd) {
         requireNonNull(toAdd);

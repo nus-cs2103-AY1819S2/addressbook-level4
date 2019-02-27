@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCards.CARL;
 import static seedu.address.testutil.TypicalCards.ELLE;
 import static seedu.address.testutil.TypicalCards.FIONA;
-import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,8 +25,8 @@ import seedu.address.model.card.QuestionContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalCardFolder(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolder(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -61,9 +61,9 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 0);
         QuestionContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredCardList(predicate);
+        expectedModel.updateFilteredCard(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredCardList());
+        assertEquals(Collections.emptyList(), model.getFilteredCards());
     }
 
     @Test
@@ -71,9 +71,9 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 3);
         QuestionContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredCardList(predicate);
+        expectedModel.updateFilteredCard(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCardList());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCards());
     }
 
     /**

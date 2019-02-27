@@ -35,7 +35,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Card> filteredCardList = model.getFilteredCardList();
+        List<Card> filteredCardList = model.getFilteredCards();
 
         if (targetIndex.getZeroBased() >= filteredCardList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);

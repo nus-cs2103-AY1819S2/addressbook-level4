@@ -133,10 +133,10 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Javadoc comment
+     * Sets the name of the {@code CardFolder} and overwrites the previous name.
      */
-    public void setFolderName(String folderName) {
-        this.folderName = folderName;
+    public void setFolderName(String newFolderName) {
+        this.folderName = newFolderName;
         indicateModified();
     }
 
@@ -145,6 +145,7 @@ public class CardFolder implements ReadOnlyCardFolder {
         return folderName;
     }
 
+    // TODO: Check for folder equivalence with folderName instead
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

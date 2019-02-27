@@ -27,7 +27,7 @@ public interface Logic {
     /**
      * Returns the CardFolder.
      *
-     * @see seedu.address.model.Model#getCardFolder()
+     * @see seedu.address.model.Model#getActiveCardFolder()
      */
     ReadOnlyCardFolder getCardFolder();
 

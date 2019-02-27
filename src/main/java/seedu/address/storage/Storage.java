@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -16,7 +17,7 @@ public interface Storage {
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
     Path getcardFolderFilesPath();
-    Optional<ReadOnlyCardFolder> readCardFolder() throws DataConversionException, IOException;
+    List<ReadOnlyCardFolder> readCardFolders() throws DataConversionException, IOException;
     void saveCardFolder(ReadOnlyCardFolder cardFolder) throws IOException;
 
 }

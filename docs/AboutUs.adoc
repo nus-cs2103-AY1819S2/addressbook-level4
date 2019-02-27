@@ -12,8 +12,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chan Ming En Minern
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+image::minernchan.PNG[width="150", align="left"]
+{empty}[http://github.com/minernchan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data

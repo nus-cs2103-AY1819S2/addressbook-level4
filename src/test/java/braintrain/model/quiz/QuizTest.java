@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import braintrain.model.quiz.exceptions.NotInitialisedException;
 import braintrain.testutil.Assert;
 
 public class QuizTest {
@@ -60,12 +61,12 @@ public class QuizTest {
     }
 
     @Test
-    public void getNextCard() {
+    public void getNextCard() throws NotInitialisedException {
         // ------- learn -------
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
 
         // before running generate
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+        Assert.assertThrows(NotInitialisedException.class, () ->
             quiz.getNextCard());
 
         // normal, after generate
@@ -82,7 +83,7 @@ public class QuizTest {
         // ------- review -------
         Quiz quizReview = new Quiz(VALID_QUIZCARD, Quiz.Mode.REVIEW);
         // before running generate
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+        Assert.assertThrows(NotInitialisedException.class, () ->
             quizReview.getNextCard());
 
         // normal, after generate
@@ -99,7 +100,7 @@ public class QuizTest {
         // ------- preview -------
         Quiz quizPreview = new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW);
         // before running generate
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+        Assert.assertThrows(NotInitialisedException.class, () ->
             quizPreview.getNextCard());
 
         // normal, after generate

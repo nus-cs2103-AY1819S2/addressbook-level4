@@ -6,6 +6,8 @@ import static braintrain.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import braintrain.model.quiz.exceptions.NotInitialisedException;
+
 /**
  * Represents a partial of Card, only contains the necessary information for Quiz.
  */
@@ -65,12 +67,12 @@ public class QuizCard {
         return opt;
     }
 
-    public int getIndex() {
+    public int getIndex() throws NotInitialisedException {
         if (index > 0) {
             return index;
         }
 
-        throw new IllegalArgumentException("This card do not contain index.");
+        throw new NotInitialisedException("This card do not contain index.");
     }
 
     public int getTotalAttempts() {

@@ -7,6 +7,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import braintrain.model.quiz.exceptions.NotInitialisedException;
+
 /**
  * Represents a quiz that stores a list of QuizCard
  */
@@ -72,12 +74,12 @@ public class Quiz {
         return generatedSession;
     }
 
-    public QuizCard getNextCard() {
+    public QuizCard getNextCard() throws NotInitialisedException {
         if (generatedCardSize == 0) {
-            throw new IllegalArgumentException("Run generate first");
+            throw new NotInitialisedException("Cards have not been generated, please run generate first");
         }
 
-        currentCardIndex += 1;
+        currentCardIndex++;
 
         if (currentCardIndex < generatedCardSize) {
             currentQuizCard = generatedSession.get(currentCardIndex);

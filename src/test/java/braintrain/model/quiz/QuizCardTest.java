@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import braintrain.model.quiz.exceptions.NotInitialisedException;
 import braintrain.testutil.Assert;
 
 public class QuizCardTest {
@@ -112,11 +113,14 @@ public class QuizCardTest {
     }
 
     @Test
-    public void getIndex() {
+    public void getIndex() throws NotInitialisedException {
         assertEquals(1, VALID_QUIZCARD_INDEX.getIndex());
+    }
 
+    @Test
+    public void getIndex_invalidIndex_throwsNotInitialisedException() {
         // do not contain actual index.
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+        Assert.assertThrows(NotInitialisedException.class, () ->
             VALID_QUIZCARD.getIndex());
     }
 

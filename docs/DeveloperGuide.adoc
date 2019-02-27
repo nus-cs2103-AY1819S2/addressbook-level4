@@ -992,7 +992,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The given index is invalid.
+* 2a. The given input is invalid.
 +
 ** 2a1. Club Manager shows an error message.
 Use case resumes at step 1.
@@ -1143,6 +1143,143 @@ Use case ends.
 * 3a. The given activity index is invalid
 +
 ** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: List Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Select Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
+3. User request to select an activity from the displayed list
+4. Club Manager shows the details of the selected activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to find activities based on keywords
+2. Club Manager finds the activities with the given keywords
+3. Club Manager displays the list of activities that matches the keywords
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Keyword input is invalid
++[none]
+** 1a1. Club Manager shows an error message.
++
+Use case ends.
+
+
+
+* 3a. The list is empty
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Archive Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
+3. User request to archive an activity from the displayed list
+4. Club Manager archives the selected activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The activity at the given index is already archived.
++
+[none]
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Unarchive Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
+3. User request to unarchive an activity from the displayed list
+4. Club Manager unarchives the selected activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The activity at the given index is not archived.
++
+[none]
+** 3b1. Club Manager shows an error message.
 +
 Use case resumes at step 2.
 

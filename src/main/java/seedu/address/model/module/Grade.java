@@ -1,19 +1,19 @@
 package seedu.address.model.module;
 
 /**
- * Represents grades of a module taken
+ * Represents grade of a module taken
  */
-public enum Grades {
+public enum Grade {
 
-    APlus (5, true, true, "A+"),
+    A_Plus (5, true, true, "A+"),
     A (5, true, true, "A"),
-    AMinus (4.5, true, true, "A-"),
-    BPlus (4, true, true, "B+"),
+    A_Minus (4.5, true, true, "A-"),
+    B_Plus (4, true, true, "B+"),
     B (3.5, true, true, "B"),
-    BMinus (3, true, true, "B-"),
-    CPlus (2.5, true, true, "C+"),
+    B_Minus (3, true, true, "B-"),
+    C_Plus (2.5, true, true, "C+"),
     C (2, true, true, "C"),
-    DPlus (1.5, true, true, "D+"),
+    D_Plus (1.5, true, true, "D+"),
     D (1, true, true, "D"),
     F (0, false, true, "F"),
     CS (0, true, false, "CS"),
@@ -27,13 +27,13 @@ public enum Grades {
     private final double gradePoint;
     private final boolean isPass;
     private final boolean isCounted;
-    private final String grade;
+    private final String printedGrade;
 
-    Grades (double gradePoint, boolean isPass, boolean isCounted, String grade) {
+    Grade (double gradePoint, boolean isPass, boolean isCounted, String printedGrade) {
         this.gradePoint = gradePoint;
         this.isPass = isPass;
         this.isCounted = isCounted;
-        this.grade = grade;
+        this.printedGrade = printedGrade;
     }
 
     double getGradePoint() {
@@ -48,26 +48,26 @@ public enum Grades {
         return this.isCounted;
     }
 
-    Grades getGrades(String grades) {
+    Grade getGrades(String grades) {
         switch(grades) {
         case "A+":
-            return APlus;
+            return A_Plus;
         case "A":
             return A;
         case "A-":
-            return AMinus;
+            return A_Minus;
         case "B+":
-            return BPlus;
+            return B_Plus;
         case "B":
             return B;
         case "B-":
-            return BMinus;
+            return B_Minus;
         case "C+":
-            return CPlus;
+            return C_Plus;
         case "C":
             return C;
         case "D+":
-            return DPlus;
+            return D_Plus;
         case "D":
             return D;
         case "F":
@@ -86,6 +86,6 @@ public enum Grades {
     }
     @Override
     public String toString() {
-        return this.grade;
+        return this.printedGrade;
     }
 }

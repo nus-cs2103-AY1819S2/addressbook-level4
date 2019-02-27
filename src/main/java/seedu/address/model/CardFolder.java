@@ -59,6 +59,7 @@ public class CardFolder implements ReadOnlyCardFolder {
         requireNonNull(newData);
 
         setCards(newData.getCardList());
+        setFolderName(newData.getFolderName());
     }
 
     //// card-level operations
@@ -136,6 +137,7 @@ public class CardFolder implements ReadOnlyCardFolder {
      */
     public void setFolderName(String folderName) {
         this.folderName = folderName;
+        indicateModified();
     }
 
     @Override

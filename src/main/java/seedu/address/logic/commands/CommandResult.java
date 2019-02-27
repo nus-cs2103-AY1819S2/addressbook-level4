@@ -5,15 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 /**
- * Represents the result of a command execution.
+ * Represents the result of a command execution and the updates delegated to MainWindow.
  */
 public class CommandResult {
 
     private final String feedbackToUser;
 
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
     }

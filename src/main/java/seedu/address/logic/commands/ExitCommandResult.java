@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 /**
- * Represents the result of a command execution.
+ * Represents a command result that exits the application.
  */
 public class ExitCommandResult extends CommandResult {
 

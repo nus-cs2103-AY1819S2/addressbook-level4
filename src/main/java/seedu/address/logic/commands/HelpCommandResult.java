@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 /**
- * Represents the result of a command execution.
+ * Represents a command result that launches the help window.
  */
 public class HelpCommandResult extends CommandResult {
 

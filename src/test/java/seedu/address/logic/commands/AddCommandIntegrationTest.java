@@ -15,9 +15,9 @@ import seedu.address.model.equipment.Equipment;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddEquipmentCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
-public class AddEquipmentCommandIntegrationTest {
+public class AddCommandIntegrationTest {
 
     private Model model;
     private CommandHistory commandHistory = new CommandHistory();
@@ -35,15 +35,15 @@ public class AddEquipmentCommandIntegrationTest {
         expectedModel.addPerson(validEquipment);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new AddEquipmentCommand(validEquipment), model, commandHistory,
-                String.format(AddEquipmentCommand.MESSAGE_SUCCESS, validEquipment), expectedModel);
+        assertCommandSuccess(new AddCommand(validEquipment), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validEquipment), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Equipment equipmentInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddEquipmentCommand(equipmentInList), model, commandHistory,
-                AddEquipmentCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(equipmentInList), model, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

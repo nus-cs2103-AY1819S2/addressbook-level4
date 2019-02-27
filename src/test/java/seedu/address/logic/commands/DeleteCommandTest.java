@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first place deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered place list to show all places
+        // undo -> reverts TravelBuddy back to previous state and filtered place list to show all places
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
         // delete -> deletes second place in unfiltered place list / first place in filtered place list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered place list to show all places
+        // undo -> reverts TravelBuddy back to previous state and filtered place list to show all places
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

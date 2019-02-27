@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPlaces.ALICE;
 import static seedu.address.testutil.TypicalPlaces.BENSON;
@@ -124,7 +124,7 @@ public class ModelManagerTest {
     public void setPlace_placeIsSelected_selectedPlaceUpdated() {
         modelManager.addPlace(ALICE);
         modelManager.setSelectedPlace(ALICE);
-        Place updatedAlice = new PlaceBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Place updatedAlice = new PlaceBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
         modelManager.setPlace(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPlace());
     }

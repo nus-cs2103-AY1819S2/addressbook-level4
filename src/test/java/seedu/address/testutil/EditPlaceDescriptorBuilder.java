@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.address.model.place.Address;
-import seedu.address.model.place.Email;
+import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Phone;
 import seedu.address.model.place.Place;
@@ -35,7 +35,7 @@ public class EditPlaceDescriptorBuilder {
         descriptor = new EditPlaceDescriptor();
         descriptor.setName(place.getName());
         descriptor.setPhone(place.getPhone());
-        descriptor.setEmail(place.getEmail());
+        descriptor.setDescription(place.getDescription());
         descriptor.setAddress(place.getAddress());
         descriptor.setTags(place.getTags());
     }
@@ -57,10 +57,10 @@ public class EditPlaceDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPlaceDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditPlaceDescriptor} that we are building.
      */
-    public EditPlaceDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditPlaceDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
         return this;
     }
 

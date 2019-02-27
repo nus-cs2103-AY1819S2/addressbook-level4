@@ -6,10 +6,6 @@ import java.util.List;
 import braintrain.model.card.Card;
 import braintrain.model.lesson.exceptions.MissingCoreValueException;
 
-
-
-
-
 /**
  * Represents a lesson that stores multiple cards.
  */

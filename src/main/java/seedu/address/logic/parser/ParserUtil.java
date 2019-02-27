@@ -131,13 +131,17 @@ public class ParserUtil {
     public static File parseFile(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        String VALIDATION_REGEX = "\\p{Alnum}+.(txt|xml)$";
+        String VALIDATION_REGEX = "\\p{Alnum}+.(txt|xml|json)$";
 
         if (!filePath.matches(VALIDATION_REGEX)) {
             throw new ParseException("File name is invalid");
         }
 
-        File file = new File(filePath);
+        String newPath = "data\\";
+
+        File file = new File(newPath.concat(filePath));
+
+        System.out.println(newPath);
 
         if (!file.exists() || !file.isFile() || !file.canRead()) {
             throw new ParseException("File is invalid");

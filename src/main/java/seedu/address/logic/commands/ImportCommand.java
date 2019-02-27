@@ -48,6 +48,9 @@ public class ImportCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    /**
+     * readFile() overwrites the current address book with the contents of the file
+     */
     private void readFile(Model model) {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
 

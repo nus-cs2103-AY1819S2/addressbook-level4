@@ -129,8 +129,8 @@ public class ParserUtil {
      */
     public static String parseFile(String file) throws ParseException {
         requireNonNull(file);
-
-        String VALIDATION_REGEX = "^\\/([A-z0-9-_+]+\\/)*([A-z0-9]+\\.(txt))$";
+        file = file.trim();
+        String VALIDATION_REGEX = "\\p{Alnum}+.(txt|xml)$";
 
         if (!file.matches(VALIDATION_REGEX)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);

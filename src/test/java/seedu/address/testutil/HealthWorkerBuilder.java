@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Organization;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Utility Class for building Health Worker objects.
@@ -15,8 +15,8 @@ import java.util.Set;
 public class HealthWorkerBuilder extends PersonBuilder {
 
     public static final String DEFAULT_ORGANIZATION = "NUS";
-    public static final Set<Specialisation> DEFAULT_SKILL_SET = new HashSet<>
-            (Arrays.asList(Specialisation.GENERAL_PRACTICE));
+    public static final Set<Specialisation> DEFAULT_SKILL_SET = new HashSet<>(
+            Arrays.asList(Specialisation.GENERAL_PRACTICE));
 
     private Organization organization;
     private Skills skills;

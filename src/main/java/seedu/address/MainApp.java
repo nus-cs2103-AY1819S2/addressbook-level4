@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;

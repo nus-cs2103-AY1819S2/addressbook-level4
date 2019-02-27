@@ -35,7 +35,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
-    private Label expectedMinGrade;
+    private Label email;
     @FXML
     private FlowPane tags;
 
@@ -43,13 +43,9 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        System.out.println(name);
         name.setText(person.getModuleInfo().fullName);
-        System.out.println(name);
         phone.setText(person.getSemester().value);
-        System.out.println(expectedMinGrade);
-        //expectedMinGrade = new Label(person.getExpectedMinGrade().toString());
-        //expectedMinGrade.setText(person.getExpectedMinGrade().toString());
+        email.setText(person.getExpectedMinGrade().toString());
         address.setText(person.getExpectedMaxGrade().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

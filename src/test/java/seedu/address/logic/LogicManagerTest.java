@@ -3,11 +3,9 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMOXICILLIN;
-import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DESC_AMOXICILLIN;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMOXICILLIN;
-import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_AMOXICILLIN;
-import static seedu.address.testutil.TypicalMedicines.AMOXICILLIN;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GABAPENTIN;
+import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -86,9 +84,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN
-                + EXPIRY_DESC_AMOXICILLIN + COMPANY_DESC_AMOXICILLIN;
-        Medicine expectedMedicine = new MedicineBuilder(AMOXICILLIN).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_GABAPENTIN + COMPANY_DESC_GABAPENTIN;
+        Medicine expectedMedicine = new MedicineBuilder(GABAPENTIN).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addMedicine(expectedMedicine);
         expectedModel.commitInventory();

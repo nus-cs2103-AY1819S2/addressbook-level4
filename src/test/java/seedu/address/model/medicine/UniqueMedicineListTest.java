@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
@@ -46,7 +47,7 @@ public class UniqueMedicineListTest {
     @Test
     public void contains_medicineWithSameIdentityFieldsInList_returnsTrue() {
         uniqueMedicineList.add(PARACETAMOL);
-        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(uniqueMedicineList.contains(editedParacetamol));
     }

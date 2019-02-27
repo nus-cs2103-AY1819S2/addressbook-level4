@@ -66,7 +66,6 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        logger.info("Your logic manager gui settings is -------------- " + logic.getGuiSettings());
         ui = new UiManager(logic);
     }
 

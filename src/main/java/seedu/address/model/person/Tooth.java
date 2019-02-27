@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.model.person.exceptions.Status;
-
 /**
  * Represents a tooth of a Person.
  */

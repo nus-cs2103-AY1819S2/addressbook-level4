@@ -129,6 +129,16 @@ public class EditCommandParserTest {
     }
 
     @Test
+    public void parse_noFieldsSpecified_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = Integer.toString(targetIndex.getOneBased());
+
+        EditCommand expectedCommand = new EditCommand(targetIndex);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;

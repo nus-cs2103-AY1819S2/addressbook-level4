@@ -24,23 +24,23 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedRestOrRant versionedAddressBook;
+    private final RestOrRant restOrRant;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given restOrRant and userPrefs.
      */
-    public ModelManager(ReadOnlyRestOrRant addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRestOrRant restOrRant, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(restOrRant, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with RestOrRant: " + restOrRant + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedRestOrRant(addressBook);
+        this.restOrRant = new RestOrRant(restOrRant);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.restOrRant.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
     }
 
@@ -73,42 +73,47 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getRestOrRantFilePath() {
+        return userPrefs.getRestOrRantFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setRestOrRantFilePath(Path restOrRantFilePath) {
+        requireNonNull(restOrRantFilePath);
+        userPrefs.setRestOrRantFilePath(restOrRantFilePath);
     }
 
     //=========== RestOrRant ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyRestOrRant addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
+        this.restOrRant.resetData(restOrRant);
     }
 
     @Override
-    public ReadOnlyRestOrRant getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyRestOrRant getRestOrRant() {
+        return restOrRant;
+    }
+
+    @Override
+    public void updateRestOrRant() {
+        restOrRant.indicateModified();
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return restOrRant.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+        restOrRant.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        restOrRant.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -116,14 +121,14 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        versionedAddressBook.setPerson(target, editedPerson);
+        restOrRant.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code restOrRant}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -134,33 +139,6 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    //=========== Undo/Redo =================================================================================
-
-    @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
-
-    @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
     }
 
     //=========== Selected person ===========================================================================
@@ -226,7 +204,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return restOrRant.equals(other.restOrRant)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

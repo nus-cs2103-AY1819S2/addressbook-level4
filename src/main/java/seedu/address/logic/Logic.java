@@ -27,7 +27,7 @@ public interface Logic {
     /**
      * Returns the RestOrRant.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getRestOrRant()
      */
     ReadOnlyRestOrRant getAddressBook();
 

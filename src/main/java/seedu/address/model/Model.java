@@ -36,22 +36,27 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' RestOrRant file path.
      */
-    Path getAddressBookFilePath();
+    Path getRestOrRantFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' RestOrRant file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setRestOrRantFilePath(Path restOrRantFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyRestOrRant addressBook);
+    void setRestOrRant(ReadOnlyRestOrRant restOrRant);
 
     /** Returns the RestOrRant */
-    ReadOnlyRestOrRant getAddressBook();
+    ReadOnlyRestOrRant getRestOrRant();
+
+    /**
+     * Notifies the listeners that the RestOrRant has been modified.
+     */
+    void updateRestOrRant();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -85,31 +90,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
-
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
-
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
 
     /**
      * Selected person in the filtered person list.

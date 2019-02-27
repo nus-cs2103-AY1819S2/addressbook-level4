@@ -60,7 +60,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        RestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(userPrefs.getAddressBookFilePath());
+        RestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(userPrefs.getRestOrRantFilePath());
         storage = new StorageManager(restOrRantStorage, userPrefsStorage);
 
         initLogging(config);

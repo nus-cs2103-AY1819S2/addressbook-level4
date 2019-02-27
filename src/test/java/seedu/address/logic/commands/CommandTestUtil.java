@@ -37,18 +37,18 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     // Default strings for Health Worker objects
-    public static final String VALID_NAME_HW_A = "Health Worker A";
-    public static final String VALID_NAME_HW_B = "Health Worker B";
-    public static final String VALID_NRIC_HW_A = "S9999111Z";
-    public static final String VALID_NRIC_HW_B = "S9898222A";
-    public static final String VALID_PHONE_HW_A = "98765432";
-    public static final String VALID_PHONE_HW_B = "99991111";
-    public static final String VALID_EMAIL_HW_A = "healthworkera@example.com";
-    public static final String VALID_EMAIL_HW_B = "healthworkerb@example.com";
-    public static final String VALID_ADDRESS_HW_A = "Block 123, NUS";
-    public static final String VALID_ADDRESS_HW_B = "Block 456, NUS";
-    public static final String VALID_ORGANIZATION_HW_A = "Hospital A";
-    public static final String VALID_ORGANIZATION_HW_B = "Clinic B";
+    public static final String VALID_NAME_ANDY = "Health Worker A";
+    public static final String VALID_NAME_BETTY = "Health Worker B";
+    public static final String VALID_NRIC_ANDY = "S9999111Z";
+    public static final String VALID_NRIC_BETTY = "S9898222A";
+    public static final String VALID_PHONE_ANDY = "98765432";
+    public static final String VALID_PHONE_BETTY = "99991111";
+    public static final String VALID_EMAIL_ANDY = "healthworkera@example.com";
+    public static final String VALID_EMAIL_BETTY = "healthworkerb@example.com";
+    public static final String VALID_ADDRESS_ANDY = "Block 123, NUS";
+    public static final String VALID_ADDRESS_BETTY = "Block 456, NUS";
+    public static final String VALID_ORGANIZATION_ANDY = "Hospital A";
+    public static final String VALID_ORGANIZATION_BETTY = "Clinic B";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

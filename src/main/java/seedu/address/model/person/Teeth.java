@@ -21,6 +21,6 @@ public class Teeth {
      * @return the tooth represented by provided tooth number.
      */
     public Tooth getTooth(int toothNum) {
-        return null;    // Stub
+        return null;
     }
 }

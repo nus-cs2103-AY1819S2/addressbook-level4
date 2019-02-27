@@ -54,8 +54,7 @@ public class HealthWorkerTest {
         assertFalse(ANDY.isSameHealthWorker(editedAndy));
 
         // same name, same phone, different organization -> returns false
-        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withPhone
-                (VALID_PHONE_ANDY).withPhone(VALID_PHONE_ANDY))
+        editedAndy = new HealthWorkerBuilder(ANDY)
                 .withOrganization(VALID_ORGANIZATION_BETTY).build();
         assertFalse(ANDY.isSameHealthWorker(editedAndy));
 

@@ -9,10 +9,8 @@ import seedu.address.model.person.Organization;
  */
 public class HealthWorkerBuilder extends PersonBuilder {
 
-    public static final String DEFAULT_NRIC = "S1234567A";
     public static final String DEFAULT_ORGANIZATION = "NUS";
 
-    private Nric nric;
     private Organization organization;
 
     public HealthWorkerBuilder() {

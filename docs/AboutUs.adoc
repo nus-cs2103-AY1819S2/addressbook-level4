@@ -21,7 +21,7 @@ Responsibilities: Data
 '''
 
 === Joel Ng Zhi Hao
-image::joel0111.jpg[width="150", align="left"]
+image::joel0111.png[width="150", align="left"]
 {empty}[http://github.com/joel0111[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -30,7 +30,7 @@ Responsibilities: UI
 '''
 
 === Kevin Yeong Yu Heng
-image::kevin1.jpeg[width="150", align="left"]
+image::kevin1.png[width="150", align="left"]
 {empty}[http://github.com/A0143487X-Kevin[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Yang Yiqing
-image::ivyyangyq.jpg[width="150", align="left"]
+image::ivyyangyq.png[width="150", align="left"]
 {empty}[http://github.com/ivyyangyq[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +

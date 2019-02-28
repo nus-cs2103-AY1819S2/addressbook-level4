@@ -125,9 +125,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a person deck is selected -------------------------- */
+        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
 
-        /* Case: selects first deck in the person list, edit a person -> edited, deck selection remains unchanged but
+        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
          * browser url changes
          */
         showAllPersons();
@@ -135,7 +135,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         selectPerson(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
-        // this can be misleading: deck selection actually remains unchanged but the
+        // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
         assertCommandSuccess(command, index, AMY, index);
 
@@ -210,7 +210,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
-     * the browser url and selected deck remain unchanged.
+     * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Person, Index)
      */
@@ -238,7 +238,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
-     * browser url and selected deck remain unchanged.
+     * browser url and selected card remain unchanged.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -249,7 +249,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url and selected deck update accordingly depending on the deck at
+     * 3. Asserts that the browser url and selected card update accordingly depending on the card at
      * {@code expectedSelectedCardIndex}.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
@@ -276,7 +276,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url, selected deck and status bar remain unchanged.<br>
+     * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

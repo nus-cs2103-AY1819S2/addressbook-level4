@@ -25,114 +25,114 @@ import seedu.address.model.deck.exceptions.DuplicateCardException;
  */
 public class UniqueCardList implements Iterable<Card> {
 
-	private final ObservableList<Card> internalList = FXCollections.observableArrayList();
-	private final ObservableList<Card> internalUnmodifiableList =
-			FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Card> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Card> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
-	/**
-	 * Returns true if the list contains an equivalent card as the given argument.
-	 */
-	public boolean contains(Card toCheck) {
-		requireNonNull(toCheck);
-		return internalList.stream().anyMatch(toCheck::isSameCard);
-	}
+    /**
+     * Returns true if the list contains an equivalent card as the given argument.
+     */
+    public boolean contains(Card toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameCard);
+    }
 
-	/**
-	 * Adds a card to the list.
-	 * The question should not already exist in the list.
-	 */
-	public void add(Card toAdd) {
-		requireNonNull(toAdd);
-		if (contains(toAdd)) {
+    /**
+     * Adds a card to the list.
+     * The question should not already exist in the list.
+     */
+    public void add(Card toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
 
-		}
-	}
+        }
+    }
 
 
-	/**
-	 * Replaces the person {@code target} in the list with {@code editedCard}.
-	 * {@code target} must exist in the list.
-	 * The person identity of {@code editedCard} must not be the same as another existing card in the list.
-	 */
-	public void setPerson(Card target, Card editedCard) {
-		requireAllNonNull(target, editedCard);
+    /**
+     * Replaces the person {@code target} in the list with {@code editedCard}.
+     * {@code target} must exist in the list.
+     * The person identity of {@code editedCard} must not be the same as another existing card in the list.
+     */
+    public void setPerson(Card target, Card editedCard) {
+        requireAllNonNull(target, editedCard);
 
-		int index = internalList.indexOf(target);
-		if (index == -1) {
-			throw new CardNotFoundException();
-		}
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new CardNotFoundException();
+        }
 
-		if (!target.isSameCard(editedCard) && contains(editedCard)) {
-			throw new DuplicateCardException();
-		}
+        if (!target.isSameCard(editedCard) && contains(editedCard)) {
+            throw new DuplicateCardException();
+        }
 
-		internalList.set(index, editedCard);
-	}
+        internalList.set(index, editedCard);
+    }
 
-	/**
-	 * Removes the equivalent card from the list.
-	 * The card must exist in the list.
-	 */
-	public void remove(Card toRemove) {
-		requireNonNull(toRemove);
-		if (!internalList.remove(toRemove)) {
-			throw new CardNotFoundException();
-		}
-	}
+    /**
+     * Removes the equivalent card from the list.
+     * The card must exist in the list.
+     */
+    public void remove(Card toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new CardNotFoundException();
+        }
+    }
 
-	public void setPersons(UniqueCardList replacement) {
-		requireNonNull(replacement);
-		internalList.setAll(replacement.internalList);
-	}
+    public void setPersons(UniqueCardList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
 
-	/**
-	 * Replaces the contents of this list with {@code cards}.
-	 * {@code cards} must not contain duplicate cards.
-	 */
-	public void setPersons(List<Card> cards) {
-		requireAllNonNull(cards);
-		if (!personsAreUnique(cards)) {
-			throw new DuplicateCardException();
-		}
+    /**
+     * Replaces the contents of this list with {@code cards}.
+     * {@code cards} must not contain duplicate cards.
+     */
+    public void setPersons(List<Card> cards) {
+        requireAllNonNull(cards);
+        if (!personsAreUnique(cards)) {
+            throw new DuplicateCardException();
+        }
 
-		internalList.setAll(cards);
-	}
+        internalList.setAll(cards);
+    }
 
-	/**
-	 * Returns the backing list as an unmodifiable {@code ObservableList}.
-	 */
-	public ObservableList<Card> asUnmodifiableObservableList() {
-		return internalUnmodifiableList;
-	}
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Card> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
 
-	@Override
-	public Iterator<Card> iterator() {
-		return internalList.iterator();
-	}
+    @Override
+    public Iterator<Card> iterator() {
+        return internalList.iterator();
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		return other == this // short circuit if same object
-				|| (other instanceof UniqueCardList // instanceof handles nulls
-				&& internalList.equals(((UniqueCardList) other).internalList));
-	}
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueCardList // instanceof handles nulls
+                && internalList.equals(((UniqueCardList) other).internalList));
+    }
 
-	@Override
-	public int hashCode() {
-		return internalList.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
 
-	/**
-	 * Returns true if {@code cards} contains only unique cards.
-	 */
-	private boolean personsAreUnique(List<Card> cards) {
-		for (int i = 0; i < cards.size() - 1; i++) {
-			for (int j = i + 1; j < cards.size(); j++) {
-				if (cards.get(i).isSameCard(cards.get(j))) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+    /**
+     * Returns true if {@code cards} contains only unique cards.
+     */
+    private boolean personsAreUnique(List<Card> cards) {
+        for (int i = 0; i < cards.size() - 1; i++) {
+            for (int j = i + 1; j < cards.size(); j++) {
+                if (cards.get(i).isSameCard(cards.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

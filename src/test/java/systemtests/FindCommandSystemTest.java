@@ -132,7 +132,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a person is selected -> selected deck deselected */
+        /* Case: find while a person is selected -> selected card deselected */
         showAllPersons();
         selectPerson(Index.fromOneBased(1));
         assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
@@ -161,7 +161,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
-     * selected deck updated accordingly, depending on {@code cardStatus}.
+     * selected card updated accordingly, depending on {@code cardStatus}.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
@@ -179,7 +179,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the browser url, selected deck and status bar remain unchanged, and the command box has the
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */

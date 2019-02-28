@@ -14,9 +14,9 @@ import seedu.address.model.tag.Tag;
  */
 public class Card {
     //Identity field
-	private final String question;
+    private final String question;
 
-	private final String answer;
+    private final String answer;
 
     private Set<Tag> tags = new HashSet<Tag>();
 

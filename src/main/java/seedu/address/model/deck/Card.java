@@ -13,7 +13,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated and immutable
  */
 public class Card {
-
 	//Identity field
 	private final String question;
 
@@ -56,7 +55,7 @@ public class Card {
 			return true;
 		}
 
-		return otherCard!= null
+		return otherCard != null
 				&& otherCard.getQuestion().equals(question);
 	}
 
@@ -75,7 +74,7 @@ public class Card {
 			return false;
 		}
 
-		Card otherCard = (Card)other;
+		Card otherCard = (Card) other;
 		return this.answer.equals(otherCard.answer)
 				&& this.question.equals(otherCard.question);
 	}

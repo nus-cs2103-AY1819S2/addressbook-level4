@@ -1,13 +1,11 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -133,18 +131,17 @@ public interface Model {
 
     /** Removes the given {@code tag} from all {@code Person}s. */
     void deleteTag(Tag tag);
+    //void addMedicine(String medicineName, String[] path);
 
-    void addMedicine(String medicineName, String[] path);
+    //void addMedicine(String medicineName, int quantity, String[] path);
 
-    void addMedicine(String medicineName, int quantity, String[] path);
+    //void addDirectory(String directoryName, String[] path);
 
-    void addDirectory(String directoryName, String[] path);
+    //Optional<Medicine> findMedicine(String medicineName);
 
-    Optional<Medicine> findMedicine(String medicineName);
+    //Optional<Medicine> findMedicine(String[] path);
 
-    Optional<Medicine> findMedicine(String[] path);
+    //void purchaseMedicine(String[] path, int quantity);
 
-    void purchaseMedicine(String[] path, int quantity);
-
-    void purchaseMedicine(String medicineName, int quantity);
+    //void purchaseMedicine(String medicineName, int quantity);
 }

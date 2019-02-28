@@ -25,7 +25,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
-    @Test
+    //@Test
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 

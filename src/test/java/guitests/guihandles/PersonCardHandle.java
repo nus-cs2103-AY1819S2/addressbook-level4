@@ -16,15 +16,15 @@ import seedu.address.model.person.Person;
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String SEMESTER_FIELD_ID = "#semester";
     private static final String EXPECTED_MIN_GRADE_FIELD_ID = "#expectedMinGrade";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label addressLabel;
-    private final Label phoneLabel;
+    private final Label expectedMaxGradeLabel;
+    private final Label semesterLabel;
     private final Label expectedMinGradeLabel;
     private final List<Label> tagLabels;
 
@@ -33,8 +33,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
+        expectedMaxGradeLabel = getChildNode(ADDRESS_FIELD_ID);
+        semesterLabel = getChildNode(SEMESTER_FIELD_ID);
         expectedMinGradeLabel = getChildNode(EXPECTED_MIN_GRADE_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
@@ -53,12 +53,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getAddress() {
-        return addressLabel.getText();
+    public String getExpectedMaxGrade() {
+        return expectedMaxGradeLabel.getText();
     }
 
-    public String getPhone() {
-        return phoneLabel.getText();
+    public String getSemester() {
+        return semesterLabel.getText();
     }
 
     public String getExpectedMinGrade() {
@@ -77,8 +77,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Person person) {
         return getName().equals(person.getModuleInfo().fullName)
-                && getAddress().equals(person.getExpectedMaxGrade().value)
-                && getPhone().equals(person.getSemester().value)
+                && getExpectedMaxGrade().equals(person.getExpectedMaxGrade().toString())
+                && getSemester().equals(person.getSemester().toString())
                 && getExpectedMinGrade().equals(person.getExpectedMinGrade().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                         .map(tag -> tag.tagName)

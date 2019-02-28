@@ -45,4 +45,5 @@ public enum ServiceType {
 
     public double getRatePerHour() {
         return ratePerHour;
-    } }
+    }
+}

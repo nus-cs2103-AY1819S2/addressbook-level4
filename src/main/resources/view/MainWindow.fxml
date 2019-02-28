@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="MediTabs" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
@@ -60,12 +61,11 @@
             </padding>
           </StackPane>
 
-          <VBox fx:id="warning" minWidth="200" prefWidth="200" SplitPane.resizableWithParent="false">
+          <GridPane fx:id="warningPanelPlaceholder" minWidth="200" prefWidth="200" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="warningPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          </GridPane>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

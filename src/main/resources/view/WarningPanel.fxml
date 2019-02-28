@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 
-
-<VBox fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="dummyList" />
-</VBox>
+<Pane id="warningPanel" minWidth="340" prefWidth="340">
+    <children>
+        <GridPane fx:id="warningGridPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+    </children>
+</Pane>

@@ -1,10 +1,9 @@
 package seedu.address.ui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 
@@ -14,20 +13,26 @@ import java.util.logging.Logger;
  * A ui for the warning panel that is displayed at the right of the application.
  */
 public class WarningPanel extends UiPart<Region> {
-    @FXML
-    private ListView<String> dummyList;
-    private final Logger logger = LogsCenter.getLogger(WarningPanel.class);
-
+    private static final int ROWS = 2; // one for expiry dates, one for stock
     private static final String FXML = "WarningPanel.fxml";
+    private static final Logger logger = LogsCenter.getLogger(WarningPanel.class);
+
+    @FXML
+    private GridPane warningGridPane;
 
     public WarningPanel() {
         super(FXML);
-        dummyList.setPlaceholder(new Label("No Content In List"));
-        ObservableList<String> names = FXCollections.observableArrayList(
-                "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise");
 
-        dummyList.setItems(names);
+        createGrid();
 
+    }
+
+    private void createGrid() {
+//        warningGridPane.add(new Pane(new Label("Expiring Soon")), 0, 0);
+//        warningGridPane.add(new Pane(new Label("Low in Stock")), 0, 1);
+        warningGridPane.add(new WarningContentCell().getRoot(), 0, 0);
+        warningGridPane.add(new WarningContentCell().getRoot(), 0, 1);
+        warningGridPane.setVgap(150.0);
     }
 
 }

@@ -3,11 +3,10 @@ package seedu.address.model.tag;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-import seedu.address.testutil.Assert;
-
 import java.util.Arrays;
 import java.util.HashSet;
+
+import org.junit.Test;
 
 public class SkillsTest {
 
@@ -63,5 +62,28 @@ public class SkillsTest {
                 .asList(Specialisation.GENERAL_PRACTICE, Specialisation
                         .ANAESTHESIOLOGY, Specialisation.NEUROLOGY,
                 Specialisation.GYNAECOLOGY, Specialisation.ORTHOPAEDIC))));
+    }
+
+    @Test
+    public void equals() {
+        //initialization
+        Skills skillsTest = new Skills();
+
+        skillsTest.addSpecialisation(Specialisation.GENERAL_PRACTICE);
+        skillsTest.addSpecialisation(Specialisation.ANAESTHESIOLOGY);
+        skillsTest.addSpecialisation(Specialisation.NEUROLOGY);
+        skillsTest.addSpecialisation(Specialisation.GYNAECOLOGY);
+        skillsTest.addSpecialisation(Specialisation.ORTHOPAEDIC);
+
+        // Different types -> return false
+        assertFalse(skillsTest.equals(""));
+
+        // Same set of skills -> return true
+        Skills editedSkillsTest = new Skills(skillsTest);
+        assertTrue(skillsTest.equals(editedSkillsTest));
+
+        // Different set of skills -> return false
+        editedSkillsTest.addSpecialisation(Specialisation.CARDIOLOGY);
+        assertFalse(skillsTest.equals(editedSkillsTest));
     }
 }

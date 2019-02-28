@@ -12,7 +12,9 @@ import seedu.address.model.tag.Tag;
  */
 public class Card {
 
+	//Identity field
 	private final String question;
+
 	private final String answer;
 
 	private Set<Tag> tags = new HashSet<Tag>();
@@ -43,8 +45,22 @@ public class Card {
 	}
 
 	/**
+	 * Returns true if both cards have the same question.
+	 * This defines a weaker notion of equality between two persons.
+	 */
+	public boolean isSameCard(Card otherCard) {
+		if (otherCard == this) {
+			return true;
+		}
+
+		return otherCard!= null
+				&& otherCard.getQuestion().equals(question);
+	}
+
+
+	/**
 	 * Returns true if both cards have the same question and answers.
-	 * Defines the notion of equality between 2 cards.
+	 * Defines a stronger notion of equality between 2 cards.
 	 */
 	@Override
 	public boolean equals(Object other) {

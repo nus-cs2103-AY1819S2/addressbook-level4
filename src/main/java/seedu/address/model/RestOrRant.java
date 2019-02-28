@@ -62,7 +62,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public void resetData(ReadOnlyRestOrRant newData) {
         requireNonNull(newData);
 
-        // setPersons(newData.getOrderItemList()); TODO: commented out due to compatibility issues
+        setPersons(newData.getPersonList());
     }
 
     //// person-level operations

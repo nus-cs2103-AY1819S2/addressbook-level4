@@ -46,7 +46,7 @@ public class CardTest {
                 .withOptionals(JAPAN_HINT).build();
         assertTrue(JAPAN.equals(modifiedCopy));
     }
-    
+
     @Test
     public void setAndGetCoresAndOptionals() {
         Card belgiumCopy = new CardBuilder(BELGIUM).build();
@@ -68,7 +68,7 @@ public class CardTest {
         Card belgiumCopy = new CardBuilder(BELGIUM).build();
         Card japanCopy = new CardBuilder(JAPAN).build();
         assertNotEquals(belgiumCopy, japanCopy);
-        
+
         belgiumCopy.setCore(0, japanCopy.getCore(0));
         assertEquals(belgiumCopy.getCore(0), japanCopy.getCore(0));
 

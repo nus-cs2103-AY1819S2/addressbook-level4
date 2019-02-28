@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BATCHNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -28,31 +29,40 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMOXICILLIN = "Amoxicillin";
     public static final String VALID_NAME_GABAPENTIN = "Gabapentin";
+    public static final String VALID_NAME_PARACETAMOL = "Paracetamol";
     public static final String VALID_QUANTITY_AMOXICILLIN = "111";
-    public static final String VALID_QUANTITY_GABAPENTIN = "222";
+    public static final String VALID_QUANTITY_GABAPENTIN = "0";
     public static final String VALID_EXPIRY_AMOXICILLIN = "27/11/2019";
-    public static final String VALID_EXPIRY_GABAPENTIN = "09/07/2019";
+    public static final String VALID_EXPIRY_GABAPENTIN = "-";
     public static final String VALID_COMPANY_AMOXICILLIN = "Merck & Co. (MSD)";
     public static final String VALID_COMPANY_GABAPENTIN = "Sanofi";
+    public static final String VALID_COMPANY_LISNOPRIL = "Takeda Pharmaceutical Co.";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_BATCHNUMBER_AMOXICILLIN = "s9c4xs9532";
+    public static final String VALID_BATCHNUMBER_GABAPENTIN = "O26M997570";
 
     public static final String NAME_DESC_AMOXICILLIN = " " + PREFIX_NAME + VALID_NAME_AMOXICILLIN;
     public static final String NAME_DESC_GABAPENTIN = " " + PREFIX_NAME + VALID_NAME_GABAPENTIN;
+    public static final String NAME_DESC_PARACETAMOL = " " + PREFIX_NAME + VALID_NAME_PARACETAMOL;
     public static final String QUANTITY_DESC_AMOXICILLIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_AMOXICILLIN;
     public static final String QUANTITY_DESC_GABAPENTIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_GABAPENTIN;
     public static final String EXPIRY_DESC_AMOXICILLIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_AMOXICILLIN;
     public static final String EXPIRY_DESC_GABAPENTIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_GABAPENTIN;
     public static final String COMPANY_DESC_AMOXICILLIN = " " + PREFIX_COMPANY + VALID_COMPANY_AMOXICILLIN;
     public static final String COMPANY_DESC_GABAPENTIN = " " + PREFIX_COMPANY + VALID_COMPANY_GABAPENTIN;
+    public static final String COMPANY_DESC_LISNOPRIL = " " + PREFIX_COMPANY + VALID_COMPANY_LISNOPRIL;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String BATCHNUMBER_DESC_AMOXICILLIN = " " + PREFIX_BATCHNUMBER + VALID_BATCHNUMBER_AMOXICILLIN;
+    public static final String BATCHNUMBER_DESC_GABAPENTIN = " " + PREFIX_BATCHNUMBER + VALID_BATCHNUMBER_GABAPENTIN;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Paraceta&mol"; // '&' not allowed in names
     public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "911a"; // 'a' not allowed in quantities
     public static final String INVALID_EXPIRY_DESC = " " + PREFIX_EXPIRY + "1211/2020"; // missing '/' symbol
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY; // empty string not allowed for company name
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_BATCHNUMBER_DESC = " " + PREFIX_BATCHNUMBER + "!4815%&"; // '!' not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -62,10 +72,8 @@ public class CommandTestUtil {
 
     static {
         DESC_AMOXICILLIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN)
                 .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
         DESC_GABAPENTIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
                 .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

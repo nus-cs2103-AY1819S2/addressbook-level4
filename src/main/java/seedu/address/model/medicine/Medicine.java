@@ -3,7 +3,9 @@ package seedu.address.model.medicine;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,23 +19,26 @@ public class Medicine {
 
     // Identity fields
     private final Name name;
-    private final Quantity quantity;
-    private final Expiry expiry;
+    private final Company company;
 
     // Data fields
-    private final Company company;
+    private final Quantity quantity;
+    private final Expiry expiry;
     private final Set<Tag> tags = new HashSet<>();
+    private final Map<BatchNumber, Batch> batches = new HashMap<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Medicine(Name name, Quantity quantity, Expiry expiry, Company company, Set<Tag> tags) {
+    public Medicine(Name name, Quantity quantity, Expiry expiry, Company company, Set<Tag> tags,
+            Map<BatchNumber, Batch> batches) {
         requireAllNonNull(name, quantity, expiry, company, tags);
         this.name = name;
         this.quantity = quantity;
         this.expiry = expiry;
         this.company = company;
         this.tags.addAll(tags);
+        this.batches.putAll(batches);
     }
 
     public Name getName() {
@@ -61,7 +66,15 @@ public class Medicine {
     }
 
     /**
-     * Returns true if both medicines of the same name have at least one other identity field that is the same.
+     * Returns an immutable batch set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<BatchNumber, Batch> getBatches() {
+        return Collections.unmodifiableMap(batches);
+    }
+
+    /**
+     * Returns true if both medicines of the same name were purchased from the same company.
      * This defines a weaker notion of equality between two medicines.
      */
     public boolean isSameMedicine(Medicine otherMedicine) {
@@ -71,7 +84,7 @@ public class Medicine {
 
         return otherMedicine != null
                 && otherMedicine.getName().equals(getName())
-                && (otherMedicine.getQuantity().equals(getQuantity()) || otherMedicine.getExpiry().equals(getExpiry()));
+                && (otherMedicine.getCompany().equals(getCompany()));
     }
 
     /**
@@ -93,13 +106,14 @@ public class Medicine {
                 && otherMedicine.getQuantity().equals(getQuantity())
                 && otherMedicine.getExpiry().equals(getExpiry())
                 && otherMedicine.getCompany().equals(getCompany())
-                && otherMedicine.getTags().equals(getTags());
+                && otherMedicine.getTags().equals(getTags())
+                && otherMedicine.getBatches().equals(getBatches());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, quantity, expiry, company, tags);
+        return Objects.hash(name, quantity, expiry, company, tags, batches);
     }
 
     @Override
@@ -114,7 +128,8 @@ public class Medicine {
                 .append(getCompany())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Batches: ").append(getBatches().size());
+
         return builder.toString();
     }
-
 }

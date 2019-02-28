@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -39,14 +38,15 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Medicine editedMedicine = new MedicineBuilder().build();
+        Medicine medicineToEdit = model.getFilteredMedicineList().get(0);
+        Medicine editedMedicine = new MedicineBuilder().withUneditableFields(medicineToEdit).build();
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
-        expectedModel.setMedicine(model.getFilteredMedicineList().get(0), editedMedicine);
+        expectedModel.setMedicine(medicineToEdit, editedMedicine);
         expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -58,11 +58,10 @@ public class EditCommandTest {
         Medicine lastMedicine = model.getFilteredMedicineList().get(indexLastMedicine.getZeroBased());
 
         MedicineBuilder medicineInList = new MedicineBuilder(lastMedicine);
-        Medicine editedMedicine = medicineInList.withName(VALID_NAME_GABAPENTIN).withQuantity(VALID_QUANTITY_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Medicine editedMedicine = medicineInList.withName(VALID_NAME_GABAPENTIN).withTags(VALID_TAG_HUSBAND).build();
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_GABAPENTIN).withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastMedicine, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);
@@ -154,8 +153,8 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Medicine editedMedicine = new MedicineBuilder().build();
         Medicine medicineToEdit = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
+        Medicine editedMedicine = new MedicineBuilder().withUneditableFields(medicineToEdit).build();
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
@@ -197,13 +196,14 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameMedicineEdited() throws Exception {
-        Medicine editedMedicine = new MedicineBuilder().build();
+        Medicine medicineToEdit = model.getFilteredMedicineList().get(INDEX_SECOND_MEDICINE.getZeroBased());
+        Medicine editedMedicine = new MedicineBuilder().withUneditableFields(medicineToEdit).build();
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder(editedMedicine).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEDICINE, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
 
         showMedicineAtIndex(model, INDEX_SECOND_MEDICINE);
-        Medicine medicineToEdit = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
+        medicineToEdit = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
         expectedModel.setMedicine(medicineToEdit, editedMedicine);
         expectedModel.commitInventory();
 

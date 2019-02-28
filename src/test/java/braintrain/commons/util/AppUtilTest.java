@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import braintrain.testutil.Assert;
+
 public class AppUtilTest {
 
     @Rule
@@ -13,6 +15,8 @@ public class AppUtilTest {
     public void checkArgument_true_nothingHappens() {
         AppUtil.checkArgument(true);
         AppUtil.checkArgument(true, "");
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+            AppUtil.checkArgument(false));
     }
 
     @Test

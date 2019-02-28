@@ -31,7 +31,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private PersonListPanelHandle personListPanelHandle;
 
-    //@Test
+    @Test
     public void display() {
         initUi(TYPICAL_PERSONS);
 

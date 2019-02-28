@@ -51,7 +51,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
     }
 
-    //@Test
+    @Test
     public void display() {
         // initial state
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);

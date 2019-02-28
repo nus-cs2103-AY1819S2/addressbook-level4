@@ -49,7 +49,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
-    //@Test
+    @Test
     public void edit() {
         Model model = getModel();
 

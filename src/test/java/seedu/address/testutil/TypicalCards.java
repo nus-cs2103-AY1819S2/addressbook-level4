@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
 
 /**
@@ -20,6 +21,17 @@ public class TypicalCards {
             .withAnswer("World").build();
 
     private TypicalCards() {} // prevents instantiation
+
+    /**
+     * Returns an {@code TopDeck} with all the typical cards.
+     */
+    public static TopDeck getTypicalTopDeck() {
+        TopDeck td = new TopDeck();
+        for (Card card : getTypicalCards()) {
+            td.addPerson(card);
+        }
+        return td;
+    }
 
 
     public static List<Card> getTypicalCards() {

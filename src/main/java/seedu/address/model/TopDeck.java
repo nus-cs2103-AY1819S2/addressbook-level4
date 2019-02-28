@@ -74,7 +74,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      * Adds a card to the deck.
      * The card must not already exist in the deck.
      */
-    public void addPerson(Card card) {
+    public void addCard(Card card) {
         cards.add(card);
         indicateModified();
     }
@@ -84,7 +84,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      * {@code target} must exist in the deck.
      * The person identity of {@code editedCard} must not be the same as another existing card in the deck.
      */
-    public void setPerson(Card target, Card editedCard) {
+    public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);
 
         cards.setPerson(target, editedCard);
@@ -95,7 +95,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      * Removes {@code key} from this {@code TopDeck}.
      * {@code key} must exist in the deck.
      */
-    public void removePerson(Card key) {
+    public void removeCard(Card key) {
         cards.remove(key);
         indicateModified();
     }

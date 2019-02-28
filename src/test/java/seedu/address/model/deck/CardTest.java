@@ -24,7 +24,20 @@ public class CardTest {
 
 	@Test
 	public void isSameCard() {
+		Card additionCopy = new CardBuilder(ADDITION).build();
 
+		//same object -> returns true
+		assertTrue(additionCopy.isSameCard(additionCopy));
+
+		//null -> returns false
+		assertFalse(additionCopy.isSameCard(null));
+
+		//different question and answer -> return false
+		assertFalse(additionCopy.isSameCard(SUBTRACTION));
+
+		//same question, different answer -> returns true
+		Card editedAddition = new CardBuilder(ADDITION).withAnswer("DIFFERENT").build();
+		assertTrue(ADDITION.isSameCard(editedAddition));
 	}
 
 	@Test

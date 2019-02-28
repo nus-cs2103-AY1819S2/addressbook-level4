@@ -1,5 +1,7 @@
 package seedu.address.model.patient;
 
+import java.util.regex.Pattern;
+
 /**
  * Represents email of a particular patient
  */
@@ -12,7 +14,7 @@ public class Email {
     private String email;
 
     public Email(String email) {
-        if (!email.matches(REGEX_EMAIL)) {
+        if (!Pattern.compile(REGEX_EMAIL, Pattern.CASE_INSENSITIVE).matcher(email).find()) {
             throw new IllegalArgumentException(EMAIL_CONSTRAINTS);
         }
 

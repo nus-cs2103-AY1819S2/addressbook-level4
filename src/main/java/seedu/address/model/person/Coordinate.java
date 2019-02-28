@@ -1,8 +1,5 @@
 package seedu.address.model.person;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -33,13 +30,8 @@ public class Coordinate {
     public static final String VALIDATION_REGEX = ROW_PART_REGEX + COL_PART_REGEX;
 
     public final String value;
-<<<<<<< HEAD
     public final Index rowValue;
     public final Index colValue;
-=======
-    public final String row;
-    public final String col;
->>>>>>> b07c42eff41dcf6420d95a98a13f78eae165e71e
 
     /**
      * Constructs an {@code Coordinate}.
@@ -58,7 +50,6 @@ public class Coordinate {
         Matcher rowMatch = rowRegex.matcher(value);
         Matcher colMatch = colRegex.matcher(value);
 
-<<<<<<< HEAD
         String row = rowMatch.group(0);
         String col = colMatch.group(0);
 
@@ -92,11 +83,7 @@ public class Coordinate {
      */
     public Index getColValue() {
         return this.colValue;
-=======
-        this.row = rowMatch.group(0);
-        this.col = colMatch.group(0);
 
->>>>>>> b07c42eff41dcf6420d95a98a13f78eae165e71e
     }
 
     /**

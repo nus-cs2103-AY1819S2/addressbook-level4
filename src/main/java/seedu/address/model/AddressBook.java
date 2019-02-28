@@ -10,16 +10,16 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.equipment.Equipment;
-import seedu.address.model.equipment.UniquePersonList;
+import seedu.address.model.equipment.UniqueEquipmentList;
 import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameEquipment comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueEquipmentList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniqueEquipmentList();
     }
 
     public AddressBook() {}
@@ -50,7 +50,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code equipment} must not contain duplicate equipment.
      */
     public void setPersons(List<Equipment> equipment) {
-        this.persons.setPersons(equipment);
+        this.persons.setEquipments(equipment);
         indicateModified();
     }
 
@@ -91,7 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Equipment target, Equipment editedEquipment) {
         requireNonNull(editedEquipment);
 
-        persons.setPerson(target, editedEquipment);
+        persons.setEquipment(target, editedEquipment);
         indicateModified();
     }
 
@@ -113,7 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updatePerson(Equipment target, Equipment editedEquipment) {
         requireNonNull(editedEquipment);
 
-        persons.setPerson(target, editedEquipment);
+        persons.setEquipment(target, editedEquipment);
     }
 
     /**

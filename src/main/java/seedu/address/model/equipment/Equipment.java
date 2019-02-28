@@ -64,7 +64,7 @@ public class Equipment {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Equipment otherEquipment) {
+    public boolean isSameEquipment(Equipment otherEquipment) {
         if (otherEquipment == this) {
             return true;
         }

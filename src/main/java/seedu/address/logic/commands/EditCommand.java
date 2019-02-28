@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         Equipment equipmentToEdit = lastShownList.get(index.getZeroBased());
         Equipment editedEquipment = createEditedPerson(equipmentToEdit, editPersonDescriptor);
 
-        if (!equipmentToEdit.isSamePerson(editedEquipment) && model.hasPerson(editedEquipment)) {
+        if (!equipmentToEdit.isSameEquipment(editedEquipment) && model.hasPerson(editedEquipment)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

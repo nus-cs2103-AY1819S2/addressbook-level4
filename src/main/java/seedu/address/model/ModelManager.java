@@ -16,7 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.equipment.Equipment;
-import seedu.address.model.equipment.exceptions.PersonNotFoundException;
+import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -186,7 +186,7 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedPerson(Equipment equipment) {
         if (equipment != null && !filteredEquipments.contains(equipment)) {
-            throw new PersonNotFoundException();
+            throw new EquipmentNotFoundException();
         }
         selectedPerson.setValue(equipment);
     }
@@ -216,7 +216,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameEquipment(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the equipment that came before it in the list,
                 // or clear the selection if there is no such equipment.

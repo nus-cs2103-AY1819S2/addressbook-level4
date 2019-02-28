@@ -1,12 +1,9 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -24,11 +21,14 @@ public class WarningPanel extends UiPart<Region> {
     public WarningPanel() {
         super(FXML);
 
-        createGrid();
+        createVBox();
 
     }
 
-    private void createGrid() {
+    /**
+     * Creates the VBox which holds the lists.
+     */
+    private void createVBox() {
         warningVBox.getChildren().addAll(new Label("Expiring Soon"), new WarningContentCell().getRoot());
         warningVBox.getChildren().addAll(new Label("Low in Stock"), new WarningContentCell().getRoot());
     }

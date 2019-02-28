@@ -5,14 +5,13 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Panel containing the list of medicines.
+ * Cell containing content of warning.
  */
 public class WarningContentCell extends UiPart<Region> {
     private static final String FXML = "WarningContentCell.fxml";
@@ -23,11 +22,16 @@ public class WarningContentCell extends UiPart<Region> {
 
     public WarningContentCell() {
         super(FXML);
-        ObservableList<String>  dummyList = FXCollections.observableArrayList (
-                "dummy1", "dummy2", "dummy3");
-        dummyListView.setItems(dummyList);
+
+        // disable selection of items in ListView
+        dummyListView.setMouseTransparent(true);
+        dummyListView.setFocusTraversable(false);
+
+        // placeholder if the list is empty
         dummyListView.setPlaceholder(new Label("Nothing to show"));
-//        dummyListView.setCellFactory(listView -> new WarningListViewCell());
+
+        ObservableList<String>  dummyList = FXCollections.observableArrayList ("dummy1", "dummy2", "dummy3");
+        dummyListView.setItems(dummyList);
     }
 
 }

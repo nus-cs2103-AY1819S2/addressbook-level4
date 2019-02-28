@@ -9,7 +9,7 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class OrderItem {
-    
+
     private final int tableNumber;
     private final String menuItem; // TODO: implement MenuItem and change type
     private final boolean status; // TODO: implement ItemStatus and change type, quantity part of status

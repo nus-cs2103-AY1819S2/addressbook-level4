@@ -14,10 +14,10 @@ import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 
 /**
  * A list of order items that enforces uniqueness between its elements and does not allow nulls.
- * An order item is considered unique by comparing using {@code OrderItem#isSameOrderItem(OrderItem)}. As such, 
- * adding and updating of order items uses OrderItem#isSameOrderItem(OrderItem) for equality so as to ensure that 
- * the order item being added or updated is unique in terms of identity in the UniqueOrderItemList. However, the removal 
- * of an order item uses OrderItem#isSameOrderItem(OrderItem) so as to ensure that the order item with exactly the same 
+ * An order item is considered unique by comparing using {@code OrderItem#isSameOrderItem(OrderItem)}. As such,
+ * adding and updating of order items uses OrderItem#isSameOrderItem(OrderItem) for equality so as to ensure that
+ * the order item being added or updated is unique in terms of identity in the UniqueOrderItemList. However, the removal
+ * of an order item uses OrderItem#isSameOrderItem(OrderItem) so as to ensure that the order item with exactly the same
  * fields will be removed. TODO: this is quite pointless now, may use the same function for both.
  *
  * Supports a minimal set of list operations.
@@ -53,7 +53,8 @@ public class UniqueOrderItemList implements Iterable<OrderItem> {
     /**
      * Replaces the order item {@code target} in the list with {@code editedOrderItem}.
      * {@code target} must exist in the list.
-     * The order item identity of {@code editedOrderItem} must not be the same as another existing order item in the list.
+     * The order item identity of {@code editedOrderItem} must not be the same as another existing order item
+     * in the list.
      */
     public void setOrderItem(OrderItem target, OrderItem editedOrderItem) {
         requireAllNonNull(target, editedOrderItem);

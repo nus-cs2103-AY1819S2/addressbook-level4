@@ -16,8 +16,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.exceptions.PersonNotFoundException; // TODO: remove once the other components stop relying on person methods
 import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
+import seedu.address.model.person.exceptions.PersonNotFoundException; // TODO: remove
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,8 +29,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<OrderItem> filteredOrderItems;
     private final SimpleObjectProperty<OrderItem> selectedOrderItem = new SimpleObjectProperty<>();
-    private final FilteredList<Person> filteredPersons; // TODO: remove once the other components stop relying on person methods
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>(); // TODO: remove once the other components stop relying on person methods
+    private final FilteredList<Person> filteredPersons; // TODO: remove
+    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>(); // TODO: remove
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -44,7 +44,7 @@ public class ModelManager implements Model {
         this.restOrRant = new RestOrRant(restOrRant);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOrderItems = new FilteredList<>(this.restOrRant.getOrderItemList());
-        
+
         filteredPersons = new FilteredList<>(this.restOrRant.getPersonList()); // TODO: remove
         filteredPersons.addListener(this::ensureSelectedPersonIsValid); // TODO: remove
     }

@@ -139,7 +139,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
-    
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

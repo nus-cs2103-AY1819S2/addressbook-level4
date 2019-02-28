@@ -29,8 +29,8 @@ public class UniqueHealthWorkerListTest {
     @Test
     public void contains() {
         // null health worker
-        Assert.assertThrows(NullPointerException.class,
-                () -> uniqueHealthWorkerList.contains(null));
+        Assert.assertThrows(NullPointerException.class, () ->
+                uniqueHealthWorkerList.contains(null));
 
         // health worker not in list -> returns false
         assertFalse(uniqueHealthWorkerList.contains(ANDY));
@@ -53,27 +53,27 @@ public class UniqueHealthWorkerListTest {
 
         // duplicate health worker
         uniqueHealthWorkerList.add(ANDY);
-        Assert.assertThrows(DuplicatePersonException.class,
-                () -> uniqueHealthWorkerList.add(ANDY));
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                uniqueHealthWorkerList.add(ANDY));
 
         // same identity fields -> duplicate
         HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withAddress(VALID_ADDRESS_BETTY)).build();
-        Assert.assertThrows(DuplicatePersonException.class,
-                () -> uniqueHealthWorkerList.add(editedAndy));
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                uniqueHealthWorkerList.add(editedAndy));
     }
 
     @Test
     public void setHealthWorker() {
         // null health worker
-        Assert.assertThrows(NullPointerException.class,
-                () -> uniqueHealthWorkerList.setHealthWorker(null, ANDY));
-        Assert.assertThrows(NullPointerException.class,
-                () -> uniqueHealthWorkerList.setHealthWorker(ANDY, null));
+        Assert.assertThrows(NullPointerException.class, () ->
+                uniqueHealthWorkerList.setHealthWorker(null, ANDY));
+        Assert.assertThrows(NullPointerException.class, () ->
+                uniqueHealthWorkerList.setHealthWorker(ANDY, null));
 
         // target health worker not in list
-        Assert.assertThrows(PersonNotFoundException.class,
-                () -> uniqueHealthWorkerList.setHealthWorker(ANDY, ANDY));
+        Assert.assertThrows(PersonNotFoundException.class, () ->
+                uniqueHealthWorkerList.setHealthWorker(ANDY, ANDY));
 
         // edit same person -> same list
         uniqueHealthWorkerList.add(ANDY);
@@ -98,19 +98,19 @@ public class UniqueHealthWorkerListTest {
 
         // adding duplicate health workers
         uniqueHealthWorkerList.add(ANDY);
-        Assert.assertThrows(DuplicatePersonException.class,
-                () -> uniqueHealthWorkerList.setHealthWorker(ANDY, BETTY));
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                uniqueHealthWorkerList.setHealthWorker(ANDY, BETTY));
     }
 
     @Test
     public void remove() {
         // remove null health worker
-        Assert.assertThrows(NullPointerException.class,
-                () -> uniqueHealthWorkerList.remove(null));
+        Assert.assertThrows(NullPointerException.class, () ->
+                uniqueHealthWorkerList.remove(null));
 
         // remove health worker that is not in list
-        Assert.assertThrows(PersonNotFoundException.class,
-                () -> uniqueHealthWorkerList.remove(ANDY));
+        Assert.assertThrows(PersonNotFoundException.class, () ->
+                uniqueHealthWorkerList.remove(ANDY));
 
         // remove existing heath worker
         uniqueHealthWorkerList.add(ANDY);
@@ -121,19 +121,17 @@ public class UniqueHealthWorkerListTest {
         // different fields -> object not in list
         HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withAddress(VALID_ADDRESS_BETTY)).build();
-        Assert.assertThrows(PersonNotFoundException.class,
-                () -> uniqueHealthWorkerList.remove(editedAndy));
+        Assert.assertThrows(PersonNotFoundException.class, () ->
+                uniqueHealthWorkerList.remove(editedAndy));
     }
 
     @Test
     public void setPersons() {
         // replace with null
-        Assert.assertThrows(NullPointerException.class,
-                () -> uniqueHealthWorkerList.setHealthWorkers(
-                        (UniqueHealthWorkerList) null));
-        Assert.assertThrows(NullPointerException.class,
-                () -> uniqueHealthWorkerList.setHealthWorkers(
-                        (List<HealthWorker>) null));
+        Assert.assertThrows(NullPointerException.class, () ->
+                uniqueHealthWorkerList.setHealthWorkers((UniqueHealthWorkerList) null));
+        Assert.assertThrows(NullPointerException.class, () ->
+                uniqueHealthWorkerList.setHealthWorkers((List<HealthWorker>) null));
 
         // replace current list with given
         uniqueHealthWorkerList.add(ANDY);
@@ -147,15 +145,14 @@ public class UniqueHealthWorkerListTest {
 
         // replacing with list with duplicates
         List<HealthWorker> listWithDuplicatePersons = Arrays.asList(ANDY, ANDY);
-        Assert.assertThrows(DuplicatePersonException.class,
-                () -> uniqueHealthWorkerList.setHealthWorkers(listWithDuplicatePersons));
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                uniqueHealthWorkerList.setHealthWorkers(listWithDuplicatePersons));
     }
 
     @Test
     public void asUnmodifiableObservableList() {
         // attempt to modify list
-        Assert.assertThrows(UnsupportedOperationException.class,
-                () -> uniqueHealthWorkerList.asUnmodifiableObservableList()
-                        .remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () ->
+                uniqueHealthWorkerList.asUnmodifiableObservableList().remove(0));
     }
 }

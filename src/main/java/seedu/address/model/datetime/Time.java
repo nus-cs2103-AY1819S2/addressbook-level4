@@ -8,8 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class Time {
-    public static final String MESSAGE_CONSTRAINTS = "Time should only contain exactly 4 numbers, the first two not " +
-        "going above 24, the latter two not going above 59.";
+    public static final String MESSAGE_CONSTRAINTS = "Time should only contain exactly 4 numbers, the first two not "
+        + "going above 24, the latter two not going above 59.";
 
     public static final String VALIDATION_REGEX = "^([0-1][0-9]|2[0-3])([0-5][0-9])$";
 
@@ -40,7 +40,7 @@ public class Time {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Time // instanceof handles nulls
-            && storedTime.equals(((Time) other).storedTime) );  // state check
+            && storedTime.equals(((Time) other).storedTime)); // state check
     }
 
     @Override

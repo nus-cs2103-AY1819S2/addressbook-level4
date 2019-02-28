@@ -48,11 +48,11 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_EDIT_PERSON_AUTOCOMPLETE = "";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final Optional<EditPersonDescriptor> editPersonDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -63,7 +63,12 @@ public class EditCommand extends Command {
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editPersonDescriptor = Optional.of(new EditPersonDescriptor(editPersonDescriptor));
+    }
+    public EditCommand(Index index) {
+        requireNonNull(index);
+        this.index = index;
+        this.editPersonDescriptor = Optional.empty();
     }
 
     @Override
@@ -75,17 +80,40 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        if (editPersonDescriptor.isPresent()) {
+            Person personToEdit = lastShownList.get(index.getZeroBased());
+            Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor.get());
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            model.setPerson(personToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        } else {
+            Person personToEdit = lastShownList.get(index.getZeroBased());
+            Name name = personToEdit.getName();
+            Phone phone = personToEdit.getPhone();
+            Email email = personToEdit.getEmail();
+            Address address = personToEdit.getAddress();
+            Set<Tag> tags = personToEdit.getTags();
+
+            final StringBuilder builder = new StringBuilder();
+            for (Tag tag : tags) {
+                builder.append(" ").append(PREFIX_TAG).append(tag.tagName);
+            }
+            String updatedText = String.format("%s %d %s%s %s%s %s%s %s%s%s",
+                    COMMAND_WORD,
+                    index.getOneBased(),
+                    PREFIX_NAME, name,
+                    PREFIX_PHONE, phone,
+                    PREFIX_EMAIL, email,
+                    PREFIX_ADDRESS, address,
+                    builder.toString());
+            return new PrefillCommandBoxCommandResult(MESSAGE_EDIT_PERSON_AUTOCOMPLETE, updatedText);
         }
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**

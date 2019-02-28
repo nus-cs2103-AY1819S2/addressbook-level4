@@ -15,8 +15,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.order.OrderItem;
+import seedu.address.model.person.exceptions.PersonNotFoundException; // TODO: remove once the other components stop relying on person methods
+import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,8 +27,10 @@ public class ModelManager implements Model {
 
     private final RestOrRant restOrRant;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<OrderItem> filteredOrderItems;
+    private final SimpleObjectProperty<OrderItem> selectedOrderItem = new SimpleObjectProperty<>();
+    private final FilteredList<Person> filteredPersons; // TODO: remove once the other components stop relying on person methods
+    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>(); // TODO: remove once the other components stop relying on person methods
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -40,8 +43,10 @@ public class ModelManager implements Model {
 
         this.restOrRant = new RestOrRant(restOrRant);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.restOrRant.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredOrderItems = new FilteredList<>(this.restOrRant.getOrderItemList());
+        
+        filteredPersons = new FilteredList<>(this.restOrRant.getPersonList()); // TODO: remove
+        filteredPersons.addListener(this::ensureSelectedPersonIsValid); // TODO: remove
     }
 
     public ModelManager() {
@@ -174,7 +179,7 @@ public class ModelManager implements Model {
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedPerson.getValue());
             if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
+                // Update selectedOrderItem to its new value.
                 int index = change.getRemoved().indexOf(selectedPerson.getValue());
                 selectedPerson.setValue(change.getAddedSubList().get(index));
                 continue;
@@ -206,8 +211,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return restOrRant.equals(other.restOrRant)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredOrderItems.equals(other.filteredOrderItems)
+                && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get());
     }
 
 }

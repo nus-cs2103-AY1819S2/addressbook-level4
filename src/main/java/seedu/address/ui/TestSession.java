@@ -15,13 +15,16 @@ public class TestSession extends UiPart<Region> {
 
     private static final String FXML = "TestSession.fxml";
 
-    public final CardFolder cardFolder;
+    public CardFolder cardFolder; //final?
 
     @FXML
     private AnchorPane testSessionPage;
     @FXML
     private Label testCard;
-
+    
+    public TestSession() {
+        super(FXML);
+    }
     public TestSession(CardFolder cardFolder) {
         super(FXML);
         this.cardFolder = cardFolder;

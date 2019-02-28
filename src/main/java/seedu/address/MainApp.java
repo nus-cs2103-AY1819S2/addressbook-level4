@@ -81,7 +81,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyRestOrRant> addressBookOptional;
         ReadOnlyRestOrRant initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readRestOrRant();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample RestOrRant");
             }

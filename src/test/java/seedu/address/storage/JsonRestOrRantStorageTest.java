@@ -30,13 +30,13 @@ public class JsonRestOrRantStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readRestOrRant_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readRestOrRant(null);
     }
 
-    private java.util.Optional<ReadOnlyRestOrRant> readAddressBook(String filePath) throws Exception {
-        return new JsonRestOrRantStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyRestOrRant> readRestOrRant(String filePath) throws Exception {
+        return new JsonRestOrRantStorage(Paths.get(filePath)).readRestOrRant(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,82 +47,82 @@ public class JsonRestOrRantStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readRestOrRant("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("notJsonFormatAddressBook.json");
+        readRestOrRant("notJsonFormatAddressBook.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readRestOrRant_invalidPersonRestOrRant_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.json");
+        readRestOrRant("invalidPersonAddressBook.json");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readRestOrRant_invalidAndValidPersonRestOrRant_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.json");
+        readRestOrRant("invalidAndValidPersonAddressBook.json");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveRestOrRant_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
         RestOrRant original = getTypicalAddressBook();
-        JsonRestOrRantStorage jsonAddressBookStorage = new JsonRestOrRantStorage(filePath);
+        JsonRestOrRantStorage jsonRestOrRantStorage = new JsonRestOrRantStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyRestOrRant readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonRestOrRantStorage.saveRestOrRant(original, filePath);
+        ReadOnlyRestOrRant readBack = jsonRestOrRantStorage.readRestOrRant(filePath).get();
         assertEquals(original, new RestOrRant(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonRestOrRantStorage.saveRestOrRant(original, filePath);
+        readBack = jsonRestOrRantStorage.readRestOrRant(filePath).get();
         assertEquals(original, new RestOrRant(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonRestOrRantStorage.saveRestOrRant(original); // file path not specified
+        readBack = jsonRestOrRantStorage.readRestOrRant().get(); // file path not specified
         assertEquals(original, new RestOrRant(readBack));
 
-        jsonAddressBookStorage.backupAddressBook(original);
-        readBack = jsonAddressBookStorage.readAddressBook().get();
+        jsonRestOrRantStorage.backupRestOrRant(original);
+        readBack = jsonRestOrRantStorage.readRestOrRant().get();
         assertEquals(original, new RestOrRant(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveRestOrRant_nullRestOrRant_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.json");
+        saveRestOrRant(null, "SomeFile.json");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code restOrRant} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyRestOrRant addressBook, String filePath) {
+    private void saveRestOrRant(ReadOnlyRestOrRant restOrRant, String filePath) {
         try {
             new JsonRestOrRantStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveRestOrRant(restOrRant, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveRestOrRant_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new RestOrRant(), null);
+        saveRestOrRant(new RestOrRant(), null);
     }
 }

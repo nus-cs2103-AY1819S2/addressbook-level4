@@ -9,12 +9,12 @@ import java.util.Optional;
 /**
  * An model for overall storage of medicine
  */
-public class Storage {
+public class MedicineManager {
 
     private Directory root;
     private ArrayList<Medicine> listOfMedicine;
 
-    public Storage() {
+    public MedicineManager() {
         root = new Directory("root");
         listOfMedicine = new ArrayList<>();
     }
@@ -67,5 +67,31 @@ public class Storage {
 
     public Optional<Medicine> findMedicine(String[] path) {
         return root.findMedicine(path, 0);
+    }
+
+    /**
+     * record a purchase of medicine in the medicine storage
+     * @param path the path leading to the medicine
+     * @param quantity quantity of medicine purchased
+     */
+    public void purchaseMedicine(String[] path, int quantity) {
+        Optional<Medicine> medicine = findMedicine(path);
+        if (!medicine.isPresent()) {
+            throw new IllegalArgumentException("No medicine found at the given path");
+        }
+        medicine.get().addQuantity(quantity);
+    }
+
+    /**
+     * record a purchase of medicine in the medicine storage
+     * @param medicineName the name of the medicine
+     * @param quantity quantity of medicine purchased
+     */
+    public void purchaseMedicine(String medicineName, int quantity) {
+        Optional<Medicine> medicine = findMedicine(medicineName);
+        if (!medicine.isPresent()) {
+            throw new IllegalArgumentException("No medicine with the given name");
+        }
+        medicine.get().addQuantity(quantity);
     }
 }

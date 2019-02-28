@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.BETTY;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -113,10 +113,10 @@ public class ModelManagerTest {
     @Test
     public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
         modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
+        modelManager.addPerson(BETTY);
+        assertEquals(Arrays.asList(ALICE, BETTY), modelManager.getFilteredPersonList());
+        modelManager.setSelectedPerson(BETTY);
+        modelManager.deletePerson(BETTY);
         assertEquals(ALICE, modelManager.getSelectedPerson());
     }
 

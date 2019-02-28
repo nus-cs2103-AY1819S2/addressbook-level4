@@ -103,6 +103,13 @@ public class UniqueHealthWorkerList implements Iterable<HealthWorker> {
         this.internalList.setAll(healthWorkers);
     }
 
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<HealthWorker> asUnmodifiableObservableList() {
+        return this.internalUnmodifiableList;
+    }
+
     @Override
     public Iterator<HealthWorker> iterator() {
         return this.internalList.iterator();

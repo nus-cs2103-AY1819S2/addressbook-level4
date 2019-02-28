@@ -27,12 +27,13 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "National University of Singapore "
             + PREFIX_RATING + "4 "
-            + PREFIX_DESCRIPTION + "No description "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_DESCRIPTION
+            + "The National University of Singapore is an autonomous research university in Singapore. "
+            + PREFIX_ADDRESS + "21 Lower Kent Ridge Rd, Singapore 119077 "
+            + PREFIX_TAG + "school "
+            + PREFIX_TAG + "studiesHere";
 
     public static final String MESSAGE_SUCCESS = "New place added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This place already exists in the address book";

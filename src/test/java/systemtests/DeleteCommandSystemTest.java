@@ -8,7 +8,7 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPlace;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_SINGAPORE;
 
 import org.junit.Test;
 
@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered place list, delete index within bounds of address book and place list -> deleted */
-        showPlacesWithName(KEYWORD_MATCHING_MEIER);
+        showPlacesWithName(KEYWORD_MATCHING_SINGAPORE);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPlaceList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered place list, delete index within bounds of address book but out of bounds of place list
          * -> rejected
          */
-        showPlacesWithName(KEYWORD_MATCHING_MEIER);
+        showPlacesWithName(KEYWORD_MATCHING_SINGAPORE);
         int invalidIndex = getModel().getAddressBook().getPlaceList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

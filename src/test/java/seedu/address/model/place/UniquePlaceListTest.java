@@ -3,10 +3,10 @@ package seedu.address.model.place;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_EWL;
 import static seedu.address.testutil.TypicalPlaces.ALICE;
-import static seedu.address.testutil.TypicalPlaces.BOB;
+import static seedu.address.testutil.TypicalPlaces.BEDOK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,7 +46,7 @@ public class UniquePlaceListTest {
     @Test
     public void contains_placeWithSameIdentityFieldsInList_returnsTrue() {
         uniquePlaceList.add(ALICE);
-        Place editedAlice = new PlaceBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Place editedAlice = new PlaceBuilder(ALICE).withAddress(VALID_ADDRESS_BEDOK).withTags(VALID_TAG_EWL)
                 .build();
         assertTrue(uniquePlaceList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniquePlaceListTest {
     @Test
     public void setPlace_editedPlaceHasSameIdentity_success() {
         uniquePlaceList.add(ALICE);
-        Place editedAlice = new PlaceBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Place editedAlice = new PlaceBuilder(ALICE).withAddress(VALID_ADDRESS_BEDOK).withTags(VALID_TAG_EWL)
                 .build();
         uniquePlaceList.setPlace(ALICE, editedAlice);
         UniquePlaceList expectedUniquePlaceList = new UniquePlaceList();
@@ -105,18 +105,18 @@ public class UniquePlaceListTest {
     @Test
     public void setPlace_editedPlaceHasDifferentIdentity_success() {
         uniquePlaceList.add(ALICE);
-        uniquePlaceList.setPlace(ALICE, BOB);
+        uniquePlaceList.setPlace(ALICE, BEDOK);
         UniquePlaceList expectedUniquePlaceList = new UniquePlaceList();
-        expectedUniquePlaceList.add(BOB);
+        expectedUniquePlaceList.add(BEDOK);
         assertEquals(expectedUniquePlaceList, uniquePlaceList);
     }
 
     @Test
     public void setPlace_editedPlaceHasNonUniqueIdentity_throwsDuplicatePlaceException() {
         uniquePlaceList.add(ALICE);
-        uniquePlaceList.add(BOB);
+        uniquePlaceList.add(BEDOK);
         thrown.expect(DuplicatePlaceException.class);
-        uniquePlaceList.setPlace(ALICE, BOB);
+        uniquePlaceList.setPlace(ALICE, BEDOK);
     }
 
     @Test
@@ -149,7 +149,7 @@ public class UniquePlaceListTest {
     public void setPlaces_uniquePlaceList_replacesOwnListWithProvidedUniquePlaceList() {
         uniquePlaceList.add(ALICE);
         UniquePlaceList expectedUniquePlaceList = new UniquePlaceList();
-        expectedUniquePlaceList.add(BOB);
+        expectedUniquePlaceList.add(BEDOK);
         uniquePlaceList.setPlaces(expectedUniquePlaceList);
         assertEquals(expectedUniquePlaceList, uniquePlaceList);
     }
@@ -163,10 +163,10 @@ public class UniquePlaceListTest {
     @Test
     public void setPlaces_list_replacesOwnListWithProvidedList() {
         uniquePlaceList.add(ALICE);
-        List<Place> placeList = Collections.singletonList(BOB);
+        List<Place> placeList = Collections.singletonList(BEDOK);
         uniquePlaceList.setPlaces(placeList);
         UniquePlaceList expectedUniquePlaceList = new UniquePlaceList();
-        expectedUniquePlaceList.add(BOB);
+        expectedUniquePlaceList.add(BEDOK);
         assertEquals(expectedUniquePlaceList, uniquePlaceList);
     }
 

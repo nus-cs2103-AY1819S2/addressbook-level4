@@ -5,8 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIE
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPlaces.BENSON;
 import static seedu.address.testutil.TypicalPlaces.CARL;
-import static seedu.address.testutil.TypicalPlaces.DANIEL;
-import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaces.ELLE;
+import static seedu.address.testutil.TypicalPlaces.FIONA;
+import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_SINGAPORE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,47 +27,47 @@ public class SearchCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void find() {
         /* Case: find multiple places in address book, command with leading spaces and trailing spaces
-         * -> 2 places found
+         * -> 4 places found
          */
-        String command = "   " + SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SINGAPORE + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BENSON, CARL, ELLE, FIONA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where place list is displaying the places we are finding
          * -> 2 places found
          */
-        command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SINGAPORE;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find place where place list is not displaying the place we are finding -> 1 place found */
-        command = SearchCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        command = SearchCommand.COMMAND_WORD + " University";
+        ModelHelper.setFilteredList(expectedModel, ELLE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple places in address book, 2 keywords -> 2 places found */
-        command = SearchCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        command = SearchCommand.COMMAND_WORD + " University Zoo";
+        ModelHelper.setFilteredList(expectedModel, ELLE, FIONA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple places in address book, 2 keywords in reversed order -> 2 places found */
-        command = SearchCommand.COMMAND_WORD + " Daniel Benson";
+        command = SearchCommand.COMMAND_WORD + " Zoo University";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple places in address book, 2 keywords with 1 repeat -> 2 places found */
-        command = SearchCommand.COMMAND_WORD + " Daniel Benson Daniel";
+        command = SearchCommand.COMMAND_WORD + " Zoo University Zoo";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple places in address book, 2 matching keywords and 1 non-matching keyword
          * -> 2 places found
          */
-        command = SearchCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = SearchCommand.COMMAND_WORD + " Zoo University NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -80,54 +81,54 @@ public class SearchCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same places in address book after deleting 1 of them -> 1 place found */
+        /* Case: find same places in address book after deleting 1 of them -> 3 places found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getPlaceList().contains(BENSON));
-        command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getAddressBook().getPlaceList().contains(ELLE));
+        command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SINGAPORE;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, BENSON, CARL, FIONA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find place in address book, keyword is same as name but of different case -> 1 place found */
-        command = SearchCommand.COMMAND_WORD + " MeIeR";
+        /* Case: find place in address book, keyword is same as name but of different case -> 3 places found */
+        command = SearchCommand.COMMAND_WORD + " SiNgApOrE";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find place in address book, keyword is substring of name -> 0 places found */
-        command = SearchCommand.COMMAND_WORD + " Mei";
+        command = SearchCommand.COMMAND_WORD + " Sin";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find place in address book, name is substring of keyword -> 0 places found */
-        command = SearchCommand.COMMAND_WORD + " Meiers";
+        command = SearchCommand.COMMAND_WORD + " Singapores";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find place not in address book -> 0 places found */
-        command = SearchCommand.COMMAND_WORD + " Mark";
+        command = SearchCommand.COMMAND_WORD + " Mosque";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find rating of place in address book -> 0 places found */
-        command = SearchCommand.COMMAND_WORD + " " + DANIEL.getRating().value;
+        command = SearchCommand.COMMAND_WORD + " " + CARL.getRating().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find address of place in address book -> 0 places found */
-        command = SearchCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        command = SearchCommand.COMMAND_WORD + " " + CARL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find description of place in address book -> 0 places found */
-        command = SearchCommand.COMMAND_WORD + " " + DANIEL.getDescription().value;
+        command = SearchCommand.COMMAND_WORD + " " + CARL.getDescription().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tags of place in address book -> 0 places found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
+        List<Tag> tags = new ArrayList<>(CARL.getTags());
         command = SearchCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -135,22 +136,22 @@ public class SearchCommandSystemTest extends AddressBookSystemTest {
         /* Case: find while a place is selected -> selected card deselected */
         showAllPlaces();
         selectPlace(Index.fromOneBased(1));
-        assertFalse(getPlaceListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
-        command = SearchCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertFalse(getPlaceListPanel().getHandleToSelectedCard().getName().equals(CARL.getName().fullName));
+        command = SearchCommand.COMMAND_WORD + " Universal";
+        ModelHelper.setFilteredList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find place in empty address book -> 0 places found */
         deleteAllPlaces();
-        command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SINGAPORE;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "sEaRcH Meier";
+        command = "sEaRcH Temple";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

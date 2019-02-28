@@ -17,8 +17,8 @@ public class Place {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Rating rating;
+    private final Description description;
 
     // Data fields
     private final Address address;
@@ -27,11 +27,11 @@ public class Place {
     /**
      * Every field must be present and not null.
      */
-    public Place(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Place(Name name, Rating rating, Description description, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, rating, description, address, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.rating = rating;
+        this.description = description;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -40,12 +40,12 @@ public class Place {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Rating getRating() {
+        return rating;
     }
 
-    public Email getEmail() {
-        return email;
+    public Description getDescription() {
+        return description;
     }
 
     public Address getAddress() {
@@ -61,7 +61,7 @@ public class Place {
     }
 
     /**
-     * Returns true if both places of the same name have at least one other identity field that is the same.
+     * Returns true if both places of the same name also have the same phone number.
      * This defines a weaker notion of equality between two places.
      */
     public boolean isSamePlace(Place otherPlace) {
@@ -69,9 +69,7 @@ public class Place {
             return true;
         }
 
-        return otherPlace != null
-                && otherPlace.getName().equals(getName())
-                && (otherPlace.getPhone().equals(getPhone()) || otherPlace.getEmail().equals(getEmail()));
+        return otherPlace != null && otherPlace.getName().equals(getName());
     }
 
     /**
@@ -90,8 +88,8 @@ public class Place {
 
         Place otherPlace = (Place) other;
         return otherPlace.getName().equals(getName())
-                && otherPlace.getPhone().equals(getPhone())
-                && otherPlace.getEmail().equals(getEmail())
+                && otherPlace.getRating().equals(getRating())
+                && otherPlace.getDescription().equals(getDescription())
                 && otherPlace.getAddress().equals(getAddress())
                 && otherPlace.getTags().equals(getTags());
     }
@@ -99,17 +97,17 @@ public class Place {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, rating, description, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Rating: ")
+                .append(getRating())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

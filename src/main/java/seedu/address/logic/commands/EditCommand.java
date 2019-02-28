@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -21,10 +21,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.place.Address;
-import seedu.address.model.place.Email;
+import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
-import seedu.address.model.place.Phone;
 import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,13 +39,13 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_RATING + "RATING] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_RATING + "4 "
+            + PREFIX_DESCRIPTION + "No description";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Place: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -96,12 +96,12 @@ public class EditCommand extends Command {
         assert placeToEdit != null;
 
         Name updatedName = editPlaceDescriptor.getName().orElse(placeToEdit.getName());
-        Phone updatedPhone = editPlaceDescriptor.getPhone().orElse(placeToEdit.getPhone());
-        Email updatedEmail = editPlaceDescriptor.getEmail().orElse(placeToEdit.getEmail());
+        Rating updatedRating = editPlaceDescriptor.getRating().orElse(placeToEdit.getRating());
+        Description updatedDescription = editPlaceDescriptor.getDescription().orElse(placeToEdit.getDescription());
         Address updatedAddress = editPlaceDescriptor.getAddress().orElse(placeToEdit.getAddress());
         Set<Tag> updatedTags = editPlaceDescriptor.getTags().orElse(placeToEdit.getTags());
 
-        return new Place(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Place(updatedName, updatedRating, updatedDescription, updatedAddress, updatedTags);
     }
 
     @Override
@@ -128,8 +128,8 @@ public class EditCommand extends Command {
      */
     public static class EditPlaceDescriptor {
         private Name name;
-        private Phone phone;
-        private Email email;
+        private Rating rating;
+        private Description description;
         private Address address;
         private Set<Tag> tags;
 
@@ -141,8 +141,8 @@ public class EditCommand extends Command {
          */
         public EditPlaceDescriptor(EditPlaceDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setRating(toCopy.rating);
+            setDescription(toCopy.description);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, rating, description, address, tags);
         }
 
         public void setName(Name name) {
@@ -162,20 +162,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setRating(Rating rating) {
+            this.rating = rating;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Rating> getRating() {
+            return Optional.ofNullable(rating);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         public void setAddress(Address address) {
@@ -219,8 +219,8 @@ public class EditCommand extends Command {
             EditPlaceDescriptor e = (EditPlaceDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
+                    && getRating().equals(e.getRating())
+                    && getDescription().equals(e.getDescription())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

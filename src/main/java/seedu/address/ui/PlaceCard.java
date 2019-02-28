@@ -33,11 +33,11 @@ public class PlaceCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label rating;
     @FXML
     private Label address;
     @FXML
-    private Label email;
+    private Label description;
     @FXML
     private FlowPane tags;
 
@@ -46,9 +46,9 @@ public class PlaceCard extends UiPart<Region> {
         this.place = place;
         id.setText(displayedIndex + ". ");
         name.setText(place.getName().fullName);
-        phone.setText(place.getPhone().value);
+        rating.setText(place.getRating().value);
         address.setText(place.getAddress().value);
-        email.setText(place.getEmail().value);
+        description.setText(place.getDescription().value);
         initTags(place);
     }
 

@@ -1,5 +1,7 @@
 package seedu.address.model.deck;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class Card {
 	 * Every field must be present and not null.
 	 */
 	public Card(String question, String answer, Set<Tag> tags) {
+		requireNonNull(question, answer);
 		this.question = question;
 		this.answer = answer;
 		this.tags.addAll(tags);

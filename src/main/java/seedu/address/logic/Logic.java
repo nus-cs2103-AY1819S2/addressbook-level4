@@ -27,7 +27,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getTopDeck()
      */
     ReadOnlyAddressBook getAddressBook();
 
@@ -59,7 +59,7 @@ public interface Logic {
      * Selected person in the filtered person list.
      * null if no person is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedCardProperty()
      */
     ReadOnlyProperty<Person> selectedPersonProperty();
 

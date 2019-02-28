@@ -1,5 +1,8 @@
 package seedu.address.model.patient;
 
+/**
+ * Represents the address of the patient
+ */
 public class Address {
     public static final String REGEX_ADDRESS = "[\\p{Alnum}][\\p{Alnum} ]*";
     public static final String ADDRESS_CONSTRAINTS =

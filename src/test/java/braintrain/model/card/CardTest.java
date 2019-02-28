@@ -17,6 +17,9 @@ import braintrain.testutil.CardBuilder;
 public class CardTest {
     @Test
     public void equals() {
+        // different type of object -> return false
+        assertFalse(BELGIUM.equals(new Object()));
+
         // same object -> returns true
         assertTrue(BELGIUM.equals(BELGIUM));
 
@@ -39,7 +42,7 @@ public class CardTest {
     }
 
     @Test
-    public void setAndGetCores() {
+    public void setAndGetCoresAndOptionals() {
         Card belgiumCopy = new CardBuilder(BELGIUM).build();
         Card japanCopy = new CardBuilder(JAPAN).build();
         assertNotEquals(belgiumCopy, japanCopy);
@@ -49,5 +52,18 @@ public class CardTest {
 
         belgiumCopy.setOptionals(japanCopy.getOptionals());
         assertEquals(belgiumCopy, japanCopy);
+    }
+
+    @Test
+    public void setAndGetCoreAndOptional() {
+        Card belgiumCopy = new CardBuilder(BELGIUM).build();
+        Card japanCopy = new CardBuilder(JAPAN).build();
+        assertNotEquals(belgiumCopy, japanCopy);
+
+        belgiumCopy.setCore(0, japanCopy.getCore(0));
+        assertEquals(belgiumCopy.getCore(0), japanCopy.getCore(0));
+
+        belgiumCopy.setOptional(0, japanCopy.getOptional(0));
+        assertEquals(belgiumCopy.getOptional(0), japanCopy.getOptional(0));
     }
 }

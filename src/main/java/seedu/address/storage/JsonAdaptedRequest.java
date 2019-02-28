@@ -12,41 +12,44 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.request.RequestDate;
+import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.request.Request;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Request}.
  */
 class JsonAdaptedRequest {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Request's %s field is missing!";
 
     private final String id;
     private final String patient;
     private final String requestDate;
-    private final List<String> conditions = new ArrayList<>();
-    private final String healthStaff;
-    private final String isCompleted;
+    private final List<JsonAdaptedTag> conditions = new ArrayList<>();
+    private final String healthWorker;
+    private final String requestStatus;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedRequest(@JsonProperty("id") String id, @JsonProperty("patient") String patient,
-                              @JsonProperty("requestdate") String requestDate,@JsonProperty("healthstaff") String healthStaff,
-                              @JsonProperty("conditions") List<String> conditions , @JsonProperty("isCompleted") String isCompleted) {
+                              @JsonProperty("requestdate") String requestDate,@JsonProperty("healthstaff") String healthWorker,
+                              @JsonProperty("conditions") List<JsonAdaptedTag> conditions , @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;
         this.patient = patient;
         this.requestDate = requestDate;
         if (conditions != null) {
             this.conditions.addAll(conditions);
         }
-        this.healthStaff = healthStaff;
-        this.isCompleted = isCompleted;
+        this.healthWorker = healthWorker;
+        this.requestStatus = requestStatus;
     }
 
     /**
@@ -55,11 +58,12 @@ class JsonAdaptedRequest {
     public JsonAdaptedRequest(Request source) {
         this.id = source.getId();
         this.patient = source.getPatient().getNric().toString();
-        this.conditions.addAll(source.getConditions());
-        this.requestDate = source.getRequestDate();
-        this.isCompleted = Boolean.toString(source.isComplete());
-        this.healthStaff = source.getHealthStaff().getNric().toString();
-        this.conditions.addAll(source.getConditions());
+         this.conditions.addAll(source.getConditions().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
+        this.requestDate = source.getRequestDate().toString();
+        this.requestStatus = source.getRequestStatus().toString();
+        this.healthWorker = source.getHealthStaff().toString();
     }
 
     /**
@@ -68,40 +72,43 @@ class JsonAdaptedRequest {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Request toModelType() throws IllegalValueException {
-        final List<String> conditionsArray = new ArrayList<>();
-
-        conditionsArray.addAll(conditions);
+        final List<Tag> requestConditions = new ArrayList<>();
+        for (JsonAdaptedTag tag : conditions) {
+            requestConditions.add(tag.toModelType());
+        }
 
         if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "id"));
         }
 
         final String modelID = this.id;
 
 
         if (patient == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
         }
 
         final Person modelPatient = JsonSerializableAddressBook.personHashMap.get(patient);
-
-
-        final Person modelHealthStaff = JsonSerializableAddressBook.personHashMap.get(healthStaff);
-
+        final HealthWorker modelHealthStaff;
+        if (healthWorker != null) {
+            modelHealthStaff = (HealthWorker)JsonSerializableAddressBook.personHashMap.get(healthWorker);
+        }
+        else {
+            modelHealthStaff = null;
+        }
         if (requestDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, RequestDate.class.getSimpleName()));
         }
 
-        final String modelrequestDate = requestDate;
+        final RequestDate modelrequestDate = new RequestDate(this.requestDate);
 
-        if (isCompleted == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (requestStatus == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, RequestStatus.class.getSimpleName()));
         }
-        final Boolean modelIscompleted = Boolean.getBoolean(isCompleted);
+        final RequestStatus modelrequestStatus = new RequestStatus(this.requestStatus);
 
-        final Set<String> modelConditions = new HashSet<>(conditionsArray);
-
-        return new Request(modelID,modelPatient,modelrequestDate,modelConditions,modelIscompleted);
+        final Set<Tag> modelConditions = new HashSet<>(requestConditions);
+        return new Request(modelID,modelPatient,modelHealthStaff,modelrequestDate,modelConditions,modelrequestStatus);
     }
 
 }

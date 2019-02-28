@@ -13,6 +13,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Jackson-friendly version of {@link Card}.
+ */
 public class JsonAdaptedCard {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
 

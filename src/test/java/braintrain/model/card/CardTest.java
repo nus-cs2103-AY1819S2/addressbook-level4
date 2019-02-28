@@ -5,7 +5,9 @@ import static braintrain.testutil.TypicalCards.JAPAN;
 import static braintrain.testutil.TypicalCards.JAPAN_ANSWER;
 import static braintrain.testutil.TypicalCards.JAPAN_HINT;
 import static braintrain.testutil.TypicalCards.JAPAN_QUESTION;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -34,5 +36,18 @@ public class CardTest {
                 .withCores(JAPAN_QUESTION, JAPAN_ANSWER)
                 .withOptionals(JAPAN_HINT).build();
         assertTrue(JAPAN.equals(modifiedCopy));
+    }
+
+    @Test
+    public void setAndGetCores() {
+        Card belgiumCopy = new CardBuilder(BELGIUM).build();
+        Card japanCopy = new CardBuilder(JAPAN).build();
+        assertNotEquals(belgiumCopy, japanCopy);
+
+        belgiumCopy.setCores(japanCopy.getCores());
+        assertNotEquals(belgiumCopy, japanCopy);
+
+        belgiumCopy.setOptionals(japanCopy.getOptionals());
+        assertEquals(belgiumCopy, japanCopy);
     }
 }

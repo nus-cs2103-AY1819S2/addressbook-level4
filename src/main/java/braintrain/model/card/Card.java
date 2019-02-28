@@ -40,11 +40,15 @@ public class Card {
     }
 
     public void setCores(List<String> cores) {
+        this.cores.clear();
         this.cores.addAll(cores);
+        hashCode = generateHashCode();
     }
 
     public void setOptionals(List<String> optionals) {
+        this.optionals.clear();
         this.optionals.addAll(optionals);
+        hashCode = generateHashCode();
     }
 
     public String getCore(int index) {

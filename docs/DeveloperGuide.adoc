@@ -835,7 +835,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a book by name |locate details of books without having to go through the entire list
 
-|`*` |user with many books in the list |sort books by rating |locate a book easily
+|`* * *` |user |update a book's review |edit base on current content
+
+|`* * *` |user |exist the program |
+
+|`* * *` |user |select a book | 
+
+|`* * *` |user |save | able to save data in local
+
+|`* *` |user |show history |able to see what you did
+
+|`* *` |user |undo |able to undo your operation
+
+|`* *` |user |redo |able to redo your undo
+
+|`* *` |user |clear |clear all entires 
+
+|`* *` |user |entrypt | entrypt your review
+
+|`* *` |user |detrypt | detrypt your entrypted review
+
+|`* *` |user |guideline |by typing help to show all commands
+
+|`*` |user | sort | sort the list in alphabetical order
 |=======================================================================
 
 _{More to be added}_

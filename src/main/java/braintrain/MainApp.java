@@ -55,9 +55,9 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic);
     }
@@ -65,7 +65,7 @@ public class MainApp extends Application {
     /**
      * Returns a {@code ModelManager} with the data from {@code userPrefs}.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
         return new ModelManager(userPrefs);
     }
 

@@ -10,7 +10,6 @@ import braintrain.logic.commands.exceptions.CommandException;
 import braintrain.logic.parser.BrainTrainParser;
 import braintrain.logic.parser.exceptions.ParseException;
 import braintrain.model.Model;
-import braintrain.storage.Storage;
 import javafx.collections.ObservableList;
 
 /**
@@ -24,7 +23,7 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final BrainTrainParser addressBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new BrainTrainParser();

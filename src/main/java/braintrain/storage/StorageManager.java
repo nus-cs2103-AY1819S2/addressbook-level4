@@ -3,9 +3,7 @@ package braintrain.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.logging.Logger;
 
-import braintrain.commons.core.LogsCenter;
 import braintrain.commons.exceptions.DataConversionException;
 import braintrain.model.ReadOnlyUserPrefs;
 import braintrain.model.UserPrefs;
@@ -15,7 +13,6 @@ import braintrain.model.UserPrefs;
  */
 public class StorageManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private UserPrefsStorage userPrefsStorage;
 
 

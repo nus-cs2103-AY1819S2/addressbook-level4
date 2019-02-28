@@ -3,8 +3,6 @@ package braintrain.logic;
 import static braintrain.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,8 +20,6 @@ import braintrain.storage.JsonUserPrefsStorage;
 import braintrain.storage.StorageManager;
 
 public class LogicManagerTest {
-    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -37,7 +33,7 @@ public class LogicManagerTest {
     public void setUp() throws Exception {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
     }
 
     @Test

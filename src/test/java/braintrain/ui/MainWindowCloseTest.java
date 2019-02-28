@@ -14,7 +14,6 @@ import org.testfx.api.FxToolkit;
 import braintrain.logic.LogicManager;
 import braintrain.model.ModelManager;
 import braintrain.storage.JsonUserPrefsStorage;
-import braintrain.storage.StorageManager;
 import guitests.guihandles.HelpWindowHandle;
 import guitests.guihandles.StageHandle;
 
@@ -35,10 +34,9 @@ public class MainWindowCloseTest extends GuiUnitTest {
     @Before
     public void setUp() throws Exception {
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storageManager = new StorageManager(jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));
+            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager()));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

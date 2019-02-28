@@ -44,4 +44,10 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
+    @Test
+    public void getUserPrefsFilePath() {
+        JsonUserPrefsStorage expected = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        assertEquals(expected.getUserPrefsFilePath(), storageManager.getUserPrefsFilePath());
+    }
+
 }

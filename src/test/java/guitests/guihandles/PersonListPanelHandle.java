@@ -25,8 +25,8 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     /**
      * Returns a handle to the selected {@code PersonCardHandle}.
      * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     * @throws AssertionError if no deck is selected, or more than 1 deck is selected.
+     * @throws IllegalStateException if the selected deck is currently not in the scene graph.
      */
     public PersonCardHandle getHandleToSelectedCard() {
         List<Person> selectedPersonList = getRootNode().getSelectionModel().getSelectedItems();
@@ -43,14 +43,14 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Returns the index of the selected card.
+     * Returns the index of the selected deck.
      */
     public int getSelectedCardIndex() {
         return getRootNode().getSelectionModel().getSelectedIndex();
     }
 
     /**
-     * Returns true if a card is currently selected.
+     * Returns true if a deck is currently selected.
      */
     public boolean isAnyCardSelected() {
         List<Person> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
@@ -98,8 +98,8 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     * Returns the person deck handle of a person associated with the {@code index} in the list.
+     * @throws IllegalStateException if the selected deck is currently not in the scene graph.
      */
     public PersonCardHandle getPersonCardHandle(int index) {
         return getAllCardNodes().stream()
@@ -114,7 +114,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Returns all card nodes in the scene graph.
+     * Returns all deck nodes in the scene graph.
      * Card nodes that are visible in the listview are definitely in the scene graph, while some nodes that are not
      * visible in the listview may also be in the scene graph.
      */

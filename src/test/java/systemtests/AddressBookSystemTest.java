@@ -193,7 +193,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
+     * Asserts that the previously selected deck is now deselected and the browser's url is now displaying the
      * default page.
      * @see BrowserPanelHandle#isUrlChanged()
      */
@@ -204,7 +204,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * {@code expectedSelectedCardIndex}, and only the deck at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
@@ -223,7 +223,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the browser's url and the selected deck in the person list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */

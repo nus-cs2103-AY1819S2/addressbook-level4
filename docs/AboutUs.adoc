@@ -39,8 +39,8 @@ Responsibilities: Data
 '''
 
 === Melissa Khoo Wan Xuan
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::melissakhoo.jpg[width="150", align="left"]
+{empty}[http://github.com/melkwx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading

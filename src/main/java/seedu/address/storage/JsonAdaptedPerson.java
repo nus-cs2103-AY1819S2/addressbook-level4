@@ -34,8 +34,8 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("semester") String semester,
-            @JsonProperty("expectedMinGrade") String expectedMinGrade, @JsonProperty("expectedMaxGrade") String expectedMaxGrade,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("expectedMinGrade") String expectedMinGrade, @JsonProperty("expectedMaxGrade") String expectedMaxGrade,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.semester = semester;
         this.expectedMinGrade = expectedMinGrade;

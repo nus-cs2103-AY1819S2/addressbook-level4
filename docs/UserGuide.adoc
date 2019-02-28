@@ -96,7 +96,7 @@ User wants to choose focus area to be Artificial Intelligence so inputs `2`
 === Add modules completed and grades : `add`
 
 Adds module based on module code. +
-Format: `add m/MODULE_CODE [g/GRADE_OBTAINED]`
+Format: `add m/MODULE_CODE s/YEAR_SEMESTER [min/MIN_GRADE_EXPECTED] [max/MAX_GRADE_EXPECTED]`
 
 ****
 * Possible grade options are the standard letter grades (A+, A, A-, B+, B, B- etc.) and IC, EXE, CS, CU, W, S, U.

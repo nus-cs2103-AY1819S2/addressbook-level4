@@ -71,7 +71,8 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getModuleInfo().equals(getModuleInfo())
-                && (otherPerson.getSemester().equals(getSemester()) || otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade()));
+                && (otherPerson.getSemester().equals(getSemester())
+                || otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade()));
     }
 
     /**

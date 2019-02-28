@@ -73,17 +73,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Cap computeCumulativeCap(){
+    public Cap computeCumulativeCap() {
         return new Cap("3.19");
     }
 
     @Override
-    public Cap computeExpectedMinimumCap(){
+    public Cap computeExpectedMinimumCap() {
         return new Cap("2.43");
     }
 
     @Override
-    public Cap computeExpectedMaximumCap(){
+    public Cap computeExpectedMaximumCap() {
         return new Cap("4.23");
     }
 

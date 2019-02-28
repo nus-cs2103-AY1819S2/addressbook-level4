@@ -5,24 +5,24 @@ package seedu.address.model.person;
  */
 public enum Grade {
 
-    A_Plus (5, true, true, "A+"),
-    A (5, true, true, "A"),
-    A_Minus (4.5, true, true, "A-"),
-    B_Plus (4, true, true, "B+"),
-    B (3.5, true, true, "B"),
-    B_Minus (3, true, true, "B-"),
-    C_Plus (2.5, true, true, "C+"),
-    C (2, true, true, "C"),
-    D_Plus (1.5, true, true, "D+"),
-    D (1, true, true, "D"),
-    F (0, false, true, "F"),
-    CS (0, true, false, "CS"),
-    CU (0, false, false, "CU"),
-    EXE (0, true, false, "EXE"),
-    IC (0, false, false, "IC"),
-    S (0, true, false, "S"),
-    U (0, false, false, "U"),
-    W (0, false, false, "W");
+    A_Plus(5, true, true, "A+"),
+    A(5, true, true, "A"),
+    A_Minus(4.5, true, true, "A-"),
+    B_Plus(4, true, true, "B+"),
+    B(3.5, true, true, "B"),
+    B_Minus(3, true, true, "B-"),
+    C_Plus(2.5, true, true, "C+"),
+    C(2, true, true, "C"),
+    D_Plus(1.5, true, true, "D+"),
+    D(1, true, true, "D"),
+    F(0, false, true, "F"),
+    CS(0, true, false, "CS"),
+    CU(0, false, false, "CU"),
+    EXE(0, true, false, "EXE"),
+    IC(0, false, false, "IC"),
+    S(0, true, false, "S"),
+    U(0, false, false, "U"),
+    W(0, false, false, "W");
 
     private final double gradePoint;
     private final boolean isPass;
@@ -30,7 +30,7 @@ public enum Grade {
     private final String printedGrade;
     public static final String MESSAGE_CONSTRAINTS = "Grade must be from A+ to F. or S/U";
 
-    Grade (double gradePoint, boolean isPass, boolean isCounted, String printedGrade) {
+    Grade(double gradePoint, boolean isPass, boolean isCounted, String printedGrade) {
         this.gradePoint = gradePoint;
         this.isPass = isPass;
         this.isCounted = isCounted;
@@ -50,7 +50,7 @@ public enum Grade {
     }
 
     Grade getGrade(String grade) {
-        switch(grade) {
+        switch (grade) {
             case "A+":
                 return A_Plus;
             case "A":
@@ -81,7 +81,8 @@ public enum Grade {
                 return W;
             case "IC":
                 return IC;
-            case "EXE": default:
+            case "EXE":
+            default:
                 return EXE;
         }
     }
@@ -90,7 +91,7 @@ public enum Grade {
      * Returns if a given string is a valid grade.
      */
     public static boolean isValidGrade(String test) {
-        switch(test) {
+        switch (test) {
             case "A+":
             case "A":
             case "A-":

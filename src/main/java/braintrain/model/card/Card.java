@@ -12,7 +12,8 @@ import java.util.Objects;
  */
 public class Card {
     // Identity fields
-    private int hashCode; // Used for identification and equality purposes.
+    private int hashCode; // Used for identification purposes.
+    // Two cards with the same sets of cores and optionals will have the same hash code.
 
     // Data fields
     private ArrayList<String> cores; // Core fields a Card must have such as Question and Answer.
@@ -90,6 +91,7 @@ public class Card {
     /**
      * Generates a hash code using cores and optionals as input.
      * The hash code is used for identification and equality purposes.
+     * Two cards with the same set of cores and optionals will have the same hash code.
      * @return A hash code generated using cores and optionals as input.
      */
     private int generateHashCode() {
@@ -104,5 +106,17 @@ public class Card {
     @Override
     public int hashCode() {
         return hashCode;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Hash Code: ")
+                .append(hashCode())
+                .append(", Cores: ")
+                .append(getCores())
+                .append(", Optionals: ")
+                .append(getOptionals());
+        return builder.toString();
     }
 }

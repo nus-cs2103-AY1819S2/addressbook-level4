@@ -17,24 +17,24 @@ import braintrain.testutil.CardBuilder;
 public class CardTest {
     @Test
     public void equals() {
-        // different type of object -> return false
+        // Different type of object -> return false
         assertFalse(BELGIUM.equals(new Object()));
 
-        // same object -> returns true
+        // Same object -> returns true
         assertTrue(BELGIUM.equals(BELGIUM));
 
-        // different object -> returns false
+        // Different object -> returns false
         assertFalse(BELGIUM.equals(JAPAN));
 
-        // same cores and optionals -> returns true
+        // Same cores and optionals -> returns true
         Card belgiumCopy = new CardBuilder(BELGIUM).build();
         assertTrue(BELGIUM.equals(belgiumCopy));
 
-        // same cores with modified optionals -> returns false
+        // Same cores with modified optionals -> returns false
         Card modifiedCopy = new CardBuilder(JAPAN).withOptionals("Same characters as Kyoto").build();
         assertFalse(JAPAN.equals(modifiedCopy));
 
-        // modify existing card to have same cores and optionals as another card -> returns true
+        // Modify existing card to have same cores and optionals as another card -> returns true
         modifiedCopy = new CardBuilder(BELGIUM)
                 .withCores(JAPAN_QUESTION, JAPAN_ANSWER)
                 .withOptionals(JAPAN_HINT).build();
@@ -45,12 +45,15 @@ public class CardTest {
     public void setAndGetCoresAndOptionals() {
         Card belgiumCopy = new CardBuilder(BELGIUM).build();
         Card japanCopy = new CardBuilder(JAPAN).build();
+        // These two cards have different cores and optionals and should not be equal.
         assertNotEquals(belgiumCopy, japanCopy);
 
         belgiumCopy.setCores(japanCopy.getCores());
+        // Despite having the same cores, the two cards still have different optionals.
         assertNotEquals(belgiumCopy, japanCopy);
 
         belgiumCopy.setOptionals(japanCopy.getOptionals());
+        // Both cards have the same cores and optionals, and should be treated as equivalents.
         assertEquals(belgiumCopy, japanCopy);
     }
 
@@ -59,11 +62,21 @@ public class CardTest {
         Card belgiumCopy = new CardBuilder(BELGIUM).build();
         Card japanCopy = new CardBuilder(JAPAN).build();
         assertNotEquals(belgiumCopy, japanCopy);
-
+        
         belgiumCopy.setCore(0, japanCopy.getCore(0));
         assertEquals(belgiumCopy.getCore(0), japanCopy.getCore(0));
 
         belgiumCopy.setOptional(0, japanCopy.getOptional(0));
         assertEquals(belgiumCopy.getOptional(0), japanCopy.getOptional(0));
+    }
+
+    @Test
+    public void cardToString() {
+        Card belgiumCopy = new CardBuilder(BELGIUM).build();
+        Card newCard = new Card(belgiumCopy.getCores(), belgiumCopy.getOptionals());
+        // newCard should be a copy of belgiumCopy
+        assertEquals(belgiumCopy, newCard);
+        // since both cards are identical, their string representation should be the same
+        assertEquals(belgiumCopy.toString(), newCard.toString());
     }
 }

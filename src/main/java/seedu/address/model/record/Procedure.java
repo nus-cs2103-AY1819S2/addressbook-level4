@@ -44,10 +44,10 @@ public class Procedure {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return obj == this // short circuit if same object
-            || (obj instanceof Procedure // instanceof handles nulls
-            && procedureType.equals(((Procedure) obj).procedureType)); // state check
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Procedure // instanceof handles nulls
+            && procedureType.equals(((Procedure) other).procedureType)); // state check
     }
 
     @Override

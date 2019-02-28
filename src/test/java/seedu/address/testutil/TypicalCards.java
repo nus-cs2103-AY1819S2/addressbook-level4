@@ -1,11 +1,14 @@
 package seedu.address.testutil;
 
-        import java.util.ArrayList;
-        import java.util.Arrays;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-        import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Card;
 
+/**
+ * A utility class containing a list of {@code Card} objects to be used in tests.
+ */
 public class TypicalCards {
     public static final Card ADDITION = new CardBuilder().withQuestion("What is 1 + 1?")
             .withAnswer("2").withTags("Easy").build();

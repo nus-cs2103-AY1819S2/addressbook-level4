@@ -7,6 +7,9 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building a Card object.
+ */
 public class CardBuilder {
     public static final String DEFAULT_QUESTION = "What is the name of this app?";
     public static final String DEFAULT_ANSWER = "TopDeck";

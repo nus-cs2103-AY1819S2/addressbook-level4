@@ -46,8 +46,8 @@ public class TimeRange {
             return false;
         }
         TimeRange timeRange = (TimeRange) o;
-        return getStartTime().equals(timeRange.getStartTime()) &&
-            getEndTime().equals(timeRange.getEndTime());
+        return getStartTime().equals(timeRange.getStartTime())
+            && getEndTime().equals(timeRange.getEndTime());
     }
 
     @Override

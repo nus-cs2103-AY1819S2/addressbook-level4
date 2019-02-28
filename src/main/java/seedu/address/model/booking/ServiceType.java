@@ -16,6 +16,7 @@ public enum ServiceType {
     private final TimeRange timing;
     private final String name;
     private final double ratePerHour;
+
     ServiceType(int capacity, TimeRange timing, String name, double ratePerHour) {
         this.capacity = capacity;
         this.timing = timing;
@@ -44,4 +45,4 @@ public enum ServiceType {
 
     public double getRatePerHour() {
         return ratePerHour;
-    }}
+    } }

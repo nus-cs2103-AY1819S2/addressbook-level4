@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MediTabs" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="MediTabs" minWidth="500" minHeight="700" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -61,11 +61,11 @@
             </padding>
           </StackPane>
 
-          <GridPane fx:id="warningPanelPlaceholder" minWidth="200" prefWidth="200" >
+          <VBox fx:id="warningPanelPlaceholder" minWidth="260" prefWidth="260" maxWidth="260">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="5" right="5" bottom="5" left="5" />
             </padding>
-          </GridPane>
+          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

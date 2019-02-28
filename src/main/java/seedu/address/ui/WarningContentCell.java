@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -22,11 +24,10 @@ public class WarningContentCell extends UiPart<Region> {
     public WarningContentCell() {
         super(FXML);
         ObservableList<String>  dummyList = FXCollections.observableArrayList (
-                "Single", "Double", "Suite", "Family App");
+                "dummy1", "dummy2", "dummy3");
         dummyListView.setItems(dummyList);
+        dummyListView.setPlaceholder(new Label("Nothing to show"));
 //        dummyListView.setCellFactory(listView -> new WarningListViewCell());
-
-
     }
 
 }

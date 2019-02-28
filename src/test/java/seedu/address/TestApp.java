@@ -44,7 +44,7 @@ public class TestApp extends MainApp {
         if (initialDataSupplier.get() != null) {
             JsonRestOrRantStorage jsonAddressBookStorage = new JsonRestOrRantStorage(saveFileLocation);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonAddressBookStorage.saveRestOrRant(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -73,7 +73,7 @@ public class TestApp extends MainApp {
      */
     public RestOrRant readStorageAddressBook() {
         try {
-            return new RestOrRant(storage.readAddressBook().get());
+            return new RestOrRant(storage.readRestOrRant().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the RestOrRant format.", dce);
         } catch (IOException ioe) {
@@ -85,7 +85,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getRestOrRantFilePath();
     }
 
     /**

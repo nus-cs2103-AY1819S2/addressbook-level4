@@ -51,30 +51,49 @@ public class GuiTestAssert {
      *
      * @see PersonCard#getTagColorStyleFor(String)
      */
+    //@@author geezlouisee-reused
+    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0
+    // with minor modifications
     private static String getTagColorStyleFor(String tagName) {
-        switch (tagName) {
-        case "classmates":
-        case "owesMoney":
-            return "teal";
-
-        case "colleagues":
-        case "neighbours":
+        switch (tagName.toLowerCase()) {
+        case "owesmoney":
             return "yellow";
 
+        case "shopping":
+        case "dining":
+            return "teal";
+
+        case "transportation":
         case "family":
-        case "friend":
+            return "black";
+
+        case "vices":
             return "orange";
 
-        case "friends":
+        case "entertainment":
+        case "colleagues":
+            return "purple";
+
+        case "classmates":
             return "brown";
 
-        case "husband":
+        case"neighbours":
+            return "green";
+
+        case"friend":
             return "grey";
+
+        case"friends":
+            return "pink";
+
+        case"husband":
+            return "red";
 
         default:
             throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
+    //@@author
 
     /**
      * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedPerson} with the correct

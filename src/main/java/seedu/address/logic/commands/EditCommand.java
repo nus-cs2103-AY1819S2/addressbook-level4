@@ -43,8 +43,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EXPECTED_MAX_GRADE + "EXPECTED MAX GRADE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SEMESTER + "91234567 "
-            + PREFIX_EXPECTED_MIN_GRADE + "johndoe@example.com";
+            + PREFIX_SEMESTER + "Y3S1 "
+            + PREFIX_EXPECTED_MIN_GRADE + "B";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

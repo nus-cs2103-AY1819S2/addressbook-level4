@@ -1,7 +1,7 @@
 diff a/src/test/java/braintrain/commons/util/AppUtilTest.java b/src/test/java/braintrain/commons/util/AppUtilTest.java	(rejected hunks)
 @@ -1,7 +1,10 @@
   package braintrain.commons.util;
-  
+
 ++<<<<<<< HEAD
  +import static org.junit.Assert.assertNotNull;
  +

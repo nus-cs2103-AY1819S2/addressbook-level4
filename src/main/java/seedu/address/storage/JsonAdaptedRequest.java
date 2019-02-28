@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -108,6 +109,9 @@ class JsonAdaptedRequest {
         final RequestStatus modelrequestStatus = new RequestStatus(this.requestStatus);
 
         final Set<Tag> modelConditions = new HashSet<>(requestConditions);
+        if (modelHealthStaff == null) {
+            return new Request(modelID,modelPatient,modelrequestDate,modelConditions,modelrequestStatus);
+        }
         return new Request(modelID,modelPatient,modelHealthStaff,modelrequestDate,modelConditions,modelrequestStatus);
     }
 

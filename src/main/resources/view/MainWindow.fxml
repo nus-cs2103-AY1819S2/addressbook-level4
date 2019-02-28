@@ -32,6 +32,8 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
+        
+        <StackPane fx:id="fullScreenPlaceholder" VBox.vgrow="ALWAYS" />
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>

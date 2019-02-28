@@ -27,7 +27,7 @@ public class CsvUtil {
      * @param filePath cannot be null.
      * @throws IOException
      */
-    public static List<String[]> readCsvFile(Path filePath) {
+    public static List<String[]> readCsvFile(Path filePath) throws IOException, NullPointerException {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
@@ -37,25 +37,20 @@ public class CsvUtil {
 
         CSVReader csvReader;
         List<String[]> values;
-        try {
-            Reader reader = Files.newBufferedReader(filePath);
-            csvReader = new CSVReader(reader);
-            values = csvReader.readAll();
+        Reader reader = Files.newBufferedReader(filePath);
+        csvReader = new CSVReader(reader);
+        values = csvReader.readAll();
 
-            if (values.size() == 0) {
-                logger.info("Invalid/empty file.");
-                return null;
-            }
-
-            //Extra handling of first line for UTF-8 BOM.
-            String[] firstLine = values.get(0);
-            if (firstLine[0].startsWith("\uFEFF")) {
-                firstLine[0] = firstLine[0].substring(1);
-                values.set(0, firstLine);
-            }
-        } catch (IOException exception) {
-            logger.info("Invalid file path.");
+        if (values.size() == 0) {
+            logger.info("Invalid/empty file.");
             return null;
+        }
+
+        //Extra handling of first line for UTF-8 BOM.
+        String[] firstLine = values.get(0);
+        if (firstLine[0].startsWith("\uFEFF")) {
+            firstLine[0] = firstLine[0].substring(1);
+            values.set(0, firstLine);
         }
         return values;
     }
@@ -71,7 +66,7 @@ public class CsvUtil {
      * @return Whether a file was successfully written to.
      * @throws IOException if there was an error during writing to the file
      */
-    public static boolean writeCsvFile(Path filePath, List<String[]> data) {
+    public static boolean writeCsvFile(Path filePath, List<String[]> data) throws IOException, NullPointerException {
         requireNonNull(filePath);
         requireNonNull(data);
 
@@ -88,16 +83,11 @@ public class CsvUtil {
 
         CSVWriter csvWriter;
 
-        try {
-            BufferedWriter writer = Files.newBufferedWriter(filePath);
-            csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.DEFAULT_QUOTE_CHARACTER,
-                '\\', CSVWriter.DEFAULT_LINE_END);
-            csvWriter.writeAll(data);
-            csvWriter.close();
-        } catch (IOException exception) {
-            logger.info("Write to file failed.");
-            return false;
-        }
+        BufferedWriter writer = Files.newBufferedWriter(filePath);
+        csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.DEFAULT_QUOTE_CHARACTER,
+            '\\', CSVWriter.DEFAULT_LINE_END);
+        csvWriter.writeAll(data);
+        csvWriter.close();
         return true;
     }
 }

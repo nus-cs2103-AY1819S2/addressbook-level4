@@ -8,22 +8,22 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.equipment.exceptions.DuplicatePersonException;
-import seedu.address.model.equipment.exceptions.PersonNotFoundException;
+import seedu.address.model.equipment.exceptions.DuplicateEquipmentException;
+import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A equipment is considered unique by comparing using {@code Equipment#isSamePerson(Equipment)}.
- * As such, adding and updating of persons uses Equipment#isSamePerson(Equipment) for equality so as to ensure
- * that the equipment being added or updated is unique in terms of identity in the UniquePersonList.
+ * A list of equipments that enforces uniqueness between its elements and does not allow nulls.
+ * A equipment is considered unique by comparing using {@code Equipment#isSameEquipment(Equipment)}.
+ * As such, adding and updating of equipments uses Equipment#isSameEquipment(Equipment) for equality so as to ensure
+ * that the equipment being added or updated is unique in terms of identity in the UniqueEquipmentList.
  * However, the removal of a equipment uses Equipment#equals(Object) so as to ensure that the equipment
  * with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Equipment#isSamePerson(Equipment)
+ * @see Equipment#isSameEquipment(Equipment)
  */
-public class UniquePersonList implements Iterable<Equipment> {
+public class UniqueEquipmentList implements Iterable<Equipment> {
 
     private final ObservableList<Equipment> internalList = FXCollections.observableArrayList();
     private final ObservableList<Equipment> internalUnmodifiableList =
@@ -34,7 +34,7 @@ public class UniquePersonList implements Iterable<Equipment> {
      */
     public boolean contains(Equipment toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameEquipment);
     }
 
     /**
@@ -44,7 +44,7 @@ public class UniquePersonList implements Iterable<Equipment> {
     public void add(Equipment toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEquipmentException();
         }
         internalList.add(toAdd);
     }
@@ -54,16 +54,16 @@ public class UniquePersonList implements Iterable<Equipment> {
      * {@code target} must exist in the list.
      * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the list.
      */
-    public void setPerson(Equipment target, Equipment editedEquipment) {
+    public void setEquipment(Equipment target, Equipment editedEquipment) {
         requireAllNonNull(target, editedEquipment);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new EquipmentNotFoundException();
         }
 
-        if (!target.isSamePerson(editedEquipment) && contains(editedEquipment)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameEquipment(editedEquipment) && contains(editedEquipment)) {
+            throw new DuplicateEquipmentException();
         }
 
         internalList.set(index, editedEquipment);
@@ -76,11 +76,11 @@ public class UniquePersonList implements Iterable<Equipment> {
     public void remove(Equipment toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new EquipmentNotFoundException();
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setEquipments(UniqueEquipmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -89,10 +89,10 @@ public class UniquePersonList implements Iterable<Equipment> {
      * Replaces the contents of this list with {@code equipment}.
      * {@code equipment} must not contain duplicate equipment.
      */
-    public void setPersons(List<Equipment> equipment) {
+    public void setEquipments(List<Equipment> equipment) {
         requireAllNonNull(equipment);
-        if (!personsAreUnique(equipment)) {
-            throw new DuplicatePersonException();
+        if (!equipmentsAreUnique(equipment)) {
+            throw new DuplicateEquipmentException();
         }
 
         internalList.setAll(equipment);
@@ -113,8 +113,8 @@ public class UniquePersonList implements Iterable<Equipment> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueEquipmentList // instanceof handles nulls
+                        && internalList.equals(((UniqueEquipmentList) other).internalList));
     }
 
     @Override
@@ -125,10 +125,10 @@ public class UniquePersonList implements Iterable<Equipment> {
     /**
      * Returns true if {@code equipment} contains only unique equipment.
      */
-    private boolean personsAreUnique(List<Equipment> equipment) {
+    private boolean equipmentsAreUnique(List<Equipment> equipment) {
         for (int i = 0; i < equipment.size() - 1; i++) {
             for (int j = i + 1; j < equipment.size(); j++) {
-                if (equipment.get(i).isSamePerson(equipment.get(j))) {
+                if (equipment.get(i).isSameEquipment(equipment.get(j))) {
                     return false;
                 }
             }

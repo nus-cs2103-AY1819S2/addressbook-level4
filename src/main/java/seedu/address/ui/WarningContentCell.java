@@ -30,7 +30,7 @@ public class WarningContentCell extends UiPart<Region> {
         // placeholder if the list is empty
         dummyListView.setPlaceholder(new Label("Nothing to show"));
 
-        ObservableList<String>  dummyList = FXCollections.observableArrayList ("dummy1", "dummy2", "dummy3");
+        ObservableList<String> dummyList = FXCollections.observableArrayList ("dummy1", "dummy2", "dummy3");
         dummyListView.setItems(dummyList);
     }
 

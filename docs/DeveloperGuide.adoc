@@ -1365,28 +1365,52 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+This section is designed to provide you with definitions for
+terms that are used in this document below.
+
+[horizontal]
+
+[[CLI]] CLI::
+Command Line Interface
+
+[[CCA]] CCA::
+Co-Curricular Activities
+
+[[crud]] Create, Read, Update and Delete (CRUD)::
+Basic functions of a database
+
+[[GUI]] GUI::
+Graphical User Interface
+
+[[Main-Committee-Member]] Main Committee Member::
+A person who is in the core team of organisers for the CCA.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[Sub-Committee-Member]] Sub-Committee Member::
+A person who is an active member of the CCA, but do not play any organiser role.
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Product Name:* EventBank
 
-Author: ...
+Author: Joel Ng
 
 Pros:
 
-* ...
-* ...
+* Has necessary relevant features to a member management system
+* Available in Desktop and Mobile Platforms.
+* Easy to use and set up activities for members.
 
 Cons:
 
-* ...
-* ...
+* Does not clearly differentiate the Users application and the managers application well. This caused managers to download the users application.
+
+* Interface could be more intuitive e.g. allowing preview of corporate members.
+
+* No training document provided. Users have to contact the support manager for “how to” questions.
 
 [appendix]
 == Instructions for Manual Testing

@@ -112,17 +112,17 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getSemester().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getSemester().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find address of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getExpectedMaxGrade().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getExpectedMaxGrade().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find email of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getExpectedMinGrade().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getExpectedMinGrade().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

@@ -5,12 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Grade;
 import seedu.address.model.person.Grade;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,9 +32,9 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getModuleInfo());
-        descriptor.setPhone(person.getSemester());
-        descriptor.setExpectecMinGrade(person.getExpectedMinGrade());
-        descriptor.setAddress(person.getExpectedMaxGrade());
+        descriptor.setSemester(person.getSemester());
+        descriptor.setExpectedMinGrade(person.getExpectedMinGrade());
+        descriptor.setExpectedMaxGrade(person.getExpectedMaxGrade());
         descriptor.setTags(person.getTags());
     }
 
@@ -49,26 +47,26 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Semester} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditPersonDescriptorBuilder withSemester(String semester) {
+        descriptor.setSemester(Semester.valueOf(semester));
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Grade} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withExpectedMinGrade(String expectedMinGrade) {
-        descriptor.setExpectecMinGrade(Grade.valueOf(expectedMinGrade));
+        descriptor.setExpectedMinGrade(Grade.valueOf(expectedMinGrade));
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Grade} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditPersonDescriptorBuilder withExpectedMaxGrade(String expectedMaxGrade) {
+        descriptor.setExpectedMaxGrade(Grade.valueOf(expectedMaxGrade));
         return this;
     }
 

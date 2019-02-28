@@ -17,17 +17,17 @@ public class Person {
 
     // Identity fields
     private final Name moduleInfo;
-    private final Phone semester;
+    private final Semester semester;
 
     // Data fields
     private final Grade expectedMinGrade;
-    private final Address expectedMaxGrade;
+    private final Grade expectedMaxGrade;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name moduleInfo, Phone semester, Grade expectedMinGrade, Address expectedMaxGrade, Set<Tag> tags) {
+    public Person(Name moduleInfo, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade, Set<Tag> tags) {
         requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
         this.moduleInfo = moduleInfo;
         this.semester = semester;
@@ -40,7 +40,7 @@ public class Person {
         return moduleInfo;
     }
 
-    public Phone getSemester() {
+    public Semester getSemester() {
         return semester;
     }
 
@@ -48,7 +48,7 @@ public class Person {
         return expectedMinGrade;
     }
 
-    public Address getExpectedMaxGrade() {
+    public Grade getExpectedMaxGrade() {
         return expectedMaxGrade;
     }
 
@@ -71,7 +71,8 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getModuleInfo().equals(getModuleInfo())
-                && (otherPerson.getSemester().equals(getSemester()) || otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade()));
+                && (otherPerson.getSemester().equals(getSemester())
+                || otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade()));
     }
 
     /**

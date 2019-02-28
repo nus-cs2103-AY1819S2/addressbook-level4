@@ -20,6 +20,6 @@ public class CliSyntax {
     // Prefixes for Add/Edit/Delete Command modes
     public static final Prefix PREFIX_ADD_HEALTHWORKER = new Prefix("1");
     public static final Prefix PREFIX_ADD_PATIENT = new Prefix("2");
-    public  static final Prefix PREFIX_ADD_OTHERS = new Prefix("3");
+    public static final Prefix PREFIX_ADD_OTHERS = new Prefix("3");
 
 }

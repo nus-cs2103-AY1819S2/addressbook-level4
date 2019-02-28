@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a flashcard which minimally contains two core fields, Question and Answer.
+ * @file: Card.java
+ * @author: Evan Tay
+ *
+ * Represents a flash card which minimally contains two core fields, Question and Answer.
  * Guarantees: Core fields are present and not null, core and optional field values are validated.
  */
 public class Card {
@@ -16,11 +19,14 @@ public class Card {
     // Two cards with the same sets of cores and optionals will have the same hash code.
 
     // Data fields
-    private ArrayList<String> cores; // Core fields a Card must have such as Question and Answer.
-    private ArrayList<String> optionals; // Optional fields a Card can have such as Hint.
+    private ArrayList<String> cores; // Core fields a card must have, such as Question and Answer
+    private ArrayList<String> optionals; // Optional fields a card can have, such as Hint
 
     /**
-     * Every field must be present and not null.
+     * Creates a {@code Card} which represents a flash card.
+     *
+     * @param cores core fields a {@code Card} must have, such as Question and Answer
+     * @param optionals optional fields a {@code Card} can have, such as Hint
      */
     public Card(List<String> cores, List<String> optionals) {
         requireAllNonNull(cores, optionals);
@@ -32,47 +38,94 @@ public class Card {
         hashCode = generateHashCode();
     }
 
+    /**
+     * Returns the list of cores. Cores are fields a {@code Card} must have, such as Question and Answer.
+     *
+     * @return the list of cores
+     */
     public ArrayList<String> getCores() {
         return cores;
     }
 
+    /**
+     * Returns the list of optionals. Optional are fields a {@code Card} can have, such as Hint.
+     *
+     * @return the list of optionals
+     */
     public ArrayList<String> getOptionals() {
         return optionals;
     }
 
-    public void setCores(List<String> cores) {
+    /**
+     * Replaces the core list with the specified list of cores.
+     *
+     * @param newCores the new list of cores
+     */
+    public void setCores(List<String> newCores) {
         this.cores.clear();
-        this.cores.addAll(cores);
-        hashCode = generateHashCode();
-    }
-
-    public void setOptionals(List<String> optionals) {
-        this.optionals.clear();
-        this.optionals.addAll(optionals);
-        hashCode = generateHashCode();
-    }
-
-    public String getCore(int index) {
-        return cores.get(index);
-    }
-
-    public String getOptional(int index) {
-        return optionals.get(index);
-    }
-
-    public void setCore(int index, String s) {
-        cores.set(index, s);
-        hashCode = generateHashCode();
-    }
-
-    public void setOptional(int index, String s) {
-        optionals.set(index, s);
+        this.cores.addAll(newCores);
         hashCode = generateHashCode();
     }
 
     /**
-     * Returns true if both cards have the same data fields.
-     * This defines a strong notion of equality between two cards.
+     * Replaces the optional list with the specified list of optionals.
+     *
+     * @param newOptionals the new list of optionals
+     */
+    public void setOptionals(List<String> newOptionals) {
+        this.optionals.clear();
+        this.optionals.addAll(newOptionals);
+        hashCode = generateHashCode();
+    }
+
+    /**
+     * Returns the core at the specified position in the core list.
+     *
+     * @param index index of the core to return
+     * @return the core at the specified position in the core list
+     */
+    public String getCore(int index) {
+        return cores.get(index);
+    }
+
+    /**
+     * Returns the optional at the specified position in the optional list.
+     *
+     * @param index index of the optional to return
+     * @return the optional at the specified position in the optional list
+     */
+    public String getOptional(int index) {
+        return optionals.get(index);
+    }
+
+    /**
+     * Replaces the core at the specified position in the core list with the specified core.
+     *
+     * @param index index of the core to replace
+     * @param newCore core to be stored at the specified position in the core list
+     */
+    public void setCore(int index, String newCore) {
+        cores.set(index, newCore);
+        hashCode = generateHashCode();
+    }
+
+    /**
+     * Replaces the optional at the specified position in the optional list with the specified optional.
+     *
+     * @param index index of the optional to replace
+     * @param newOptional optional to be stored at the specified position in the optional list
+     */
+    public void setOptional(int index, String newOptional) {
+        optionals.set(index, newOptional);
+        hashCode = generateHashCode();
+    }
+
+    /**
+     * Returns true if both {@code Card} objects have the same data fields.
+     * This defines a strong notion of equality between two {@code Card} objects.
+     *
+     * @param other object to be compared for equality with this {@code Card}
+     * @return true if the specified object is a {@code Card} identical to this {@code Card}
      */
     @Override
     public boolean equals(Object other) {
@@ -89,20 +142,15 @@ public class Card {
     }
 
     /**
-     * Generates a hash code using cores and optionals as input.
-     * The hash code is used for identification and equality purposes.
-     * Two cards with the same set of cores and optionals will have the same hash code.
-     * @return A hash code generated using cores and optionals as input.
+     * Generates a hash code using cores and optionals for identification and equality purposes.
+     * Two {@code Card} objects with the same set of cores and optionals will have the same hash code.
+     *
+     * @return hash code generated from cores and optionals
      */
     private int generateHashCode() {
         return Objects.hash(cores, optionals);
     }
 
-    /**
-     * Returns a hash code for identification and equality purposes.
-     * Hash code is only updated with generateHashCode() when the card is created or modified.
-     * @return A hash code identifying and representing a Card.
-     */
     @Override
     public int hashCode() {
         return hashCode;

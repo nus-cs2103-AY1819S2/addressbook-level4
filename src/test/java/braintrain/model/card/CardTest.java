@@ -14,6 +14,12 @@ import org.junit.Test;
 
 import braintrain.testutil.CardBuilder;
 
+/**
+ * @file: CardTest.java
+ * @author: Evan Tay
+ *
+ * Tests the {@code Card} object (100% coverage).
+ */
 public class CardTest {
     @Test
     public void equals() {
@@ -40,7 +46,7 @@ public class CardTest {
                 .withOptionals(JAPAN_HINT).build();
         assertTrue(JAPAN.equals(modifiedCopy));
     }
-
+    
     @Test
     public void setAndGetCoresAndOptionals() {
         Card belgiumCopy = new CardBuilder(BELGIUM).build();

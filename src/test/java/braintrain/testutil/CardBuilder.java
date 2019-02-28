@@ -8,7 +8,10 @@ import java.util.List;
 import braintrain.model.card.Card;
 
 /**
- * A utility class to help with building Person objects.
+ * @file: TypicalCards.java
+ * @author: Evan Tay
+ *
+ * A utility class to help with building {@code Card} objects.
  */
 public class CardBuilder {
 

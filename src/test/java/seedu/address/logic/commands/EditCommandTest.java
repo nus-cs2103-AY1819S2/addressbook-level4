@@ -11,6 +11,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -26,6 +31,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -76,15 +82,24 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON);
+        Person firstPerson = model.getFilteredPersonList().get(0);
+        final StringBuilder builder = new StringBuilder();
+        for (Tag tag : firstPerson.getTags()) {
+            builder.append(" ").append(PREFIX_TAG).append(tag.tagName);
+        }
+        String prefilledText = String.format("%s %d %s%s %s%s %s%s %s%s%s",
+                EditCommand.COMMAND_WORD,
+                1,
+                PREFIX_NAME, firstPerson.getName(),
+                PREFIX_PHONE, firstPerson.getPhone(),
+                PREFIX_EMAIL, firstPerson.getEmail(),
+                PREFIX_ADDRESS, firstPerson.getAddress(),
+                builder.toString());
+        CommandResult expectedResult = new PrefillCommandBoxCommandResult(EditCommand.MESSAGE_EDIT_PERSON_AUTOCOMPLETE,
+                prefilledText);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
-
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, commandHistory, expectedResult, model);
     }
 
     @Test

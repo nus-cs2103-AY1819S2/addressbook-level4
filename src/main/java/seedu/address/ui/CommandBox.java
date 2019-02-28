@@ -94,15 +94,6 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Sets {@code CommandBox}'s text field with {@code text} and
-     * positions the caret at {@code cursorPos}.
-     */
-    private void replaceText(String text, int cursorPos) {
-        commandTextField.setText(text);
-        commandTextField.positionCaret(cursorPos);
-    }
-
-    /**
      * Handles the Enter button pressed event.
      */
     @FXML
@@ -113,8 +104,7 @@ public class CommandBox extends UiPart<Region> {
             historySnapshot.next();
             if (commandResult instanceof PrefillCommandBoxCommandResult) {
                 String prefilledText = ((PrefillCommandBoxCommandResult) commandResult).getPrefilledText();
-                int cursorPos = ((PrefillCommandBoxCommandResult) commandResult).getCursorPos();
-                replaceText(prefilledText, cursorPos);
+                replaceText(prefilledText);
             } else {
                 replaceText("");
             }

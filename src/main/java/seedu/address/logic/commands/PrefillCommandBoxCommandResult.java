@@ -8,20 +8,14 @@ import java.util.Objects;
 public class PrefillCommandBoxCommandResult extends CommandResult {
 
     private final String prefilledText;
-    private final int cursorPos;
 
-    public PrefillCommandBoxCommandResult(String prefilledText, int cursorPos) {
-        super("");
+    public PrefillCommandBoxCommandResult(String feedbackToUser, String prefilledText) {
+        super(feedbackToUser);
         this.prefilledText = prefilledText;
-        this.cursorPos = cursorPos;
     }
 
     public String getPrefilledText() {
         return prefilledText;
-    }
-
-    public int getCursorPos() {
-        return cursorPos;
     }
 
     @Override
@@ -30,12 +24,11 @@ public class PrefillCommandBoxCommandResult extends CommandResult {
             return false;
         }
         PrefillCommandBoxCommandResult otherCommandResult = (PrefillCommandBoxCommandResult) other;
-        return prefilledText.equals(otherCommandResult.prefilledText)
-                && cursorPos == otherCommandResult.cursorPos;
+        return prefilledText.equals(otherCommandResult.prefilledText);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prefilledText, cursorPos, getClass());
+        return Objects.hash(super.hashCode(), prefilledText);
     }
 }

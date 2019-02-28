@@ -48,6 +48,7 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_AUTOCOMPLETE = "";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
@@ -111,8 +112,7 @@ public class EditCommand extends Command {
                     PREFIX_EMAIL, email,
                     PREFIX_ADDRESS, address,
                     builder.toString());
-            int cursorPos = updatedText.length();
-            return new PrefillCommandBoxCommandResult(updatedText, cursorPos);
+            return new PrefillCommandBoxCommandResult(MESSAGE_EDIT_PERSON_AUTOCOMPLETE, updatedText);
         }
     }
 

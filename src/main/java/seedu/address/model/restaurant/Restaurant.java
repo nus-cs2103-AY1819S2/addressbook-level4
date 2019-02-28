@@ -5,8 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +26,9 @@ public class Restaurant {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // Category fields
+    private Optional<Cuisine> cuisine = Optional.empty();
+
     /**
      * Every field must be present and not null.
      */
@@ -34,6 +39,10 @@ public class Restaurant {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = Optional.of(cuisine);
     }
 
     public Name getName() {

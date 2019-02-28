@@ -94,7 +94,7 @@ Format: `listReview n/BOOKNAME`
 
 Examples:
 
-*`listReview n/Alice in Wonderland`
+* `listReview n/Alice in Wonderland`
 
 === Editing Book Entry : `editBook`
 

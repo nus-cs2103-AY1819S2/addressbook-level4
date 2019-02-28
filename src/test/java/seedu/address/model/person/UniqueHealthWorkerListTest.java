@@ -55,6 +55,12 @@ public class UniqueHealthWorkerListTest {
         uniqueHealthWorkerList.add(ANDY);
         Assert.assertThrows(DuplicatePersonException.class,
                 () -> uniqueHealthWorkerList.add(ANDY));
+
+        // same identity fields -> duplicate
+        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
+                .withAddress(VALID_ADDRESS_BETTY)).build();
+        Assert.assertThrows(DuplicatePersonException.class,
+                () -> uniqueHealthWorkerList.add(editedAndy));
     }
 
     @Test
@@ -111,6 +117,12 @@ public class UniqueHealthWorkerListTest {
         uniqueHealthWorkerList.remove(ANDY);
         UniqueHealthWorkerList expectedUniqueHealthWorkerList = new UniqueHealthWorkerList();
         assertEquals(expectedUniqueHealthWorkerList, uniqueHealthWorkerList);
+
+        // different fields -> object not in list
+        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
+                .withAddress(VALID_ADDRESS_BETTY)).build();
+        Assert.assertThrows(PersonNotFoundException.class,
+                () -> uniqueHealthWorkerList.remove(editedAndy));
     }
 
     @Test

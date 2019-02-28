@@ -56,11 +56,11 @@ public class JsonAdaptedCard {
 			cardTags.add(tag.toModelType());
 		}
 
-		if (question == null) {
+		if (question == null || question.isEmpty()) {
 			throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "question"));
 		}
 
-		if (answer == null) {
+		if (answer == null || answer.isEmpty()) {
 			throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "answer"));
 		}
 

@@ -1,0 +1,37 @@
+package seedu.address.model.patient;
+
+/**
+ * Represents email of a particular patient
+ */
+public class Email {
+
+    public static final String REGEX_EMAIL = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+    public static final String EMAIL_CONSTRAINTS =
+            "Emails should follow standard email convention: username@domain";
+
+    private String email;
+
+    public Email(String email) {
+        if (!email.matches(REGEX_EMAIL)) {
+            throw new IllegalArgumentException(EMAIL_CONSTRAINTS);
+        }
+
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return email;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Email // instanceof handles nulls
+                && email.equals(((Email) other).getEmail())); // state check
+    }
+}

@@ -28,7 +28,7 @@ public class TypicalCards {
     public static TopDeck getTypicalTopDeck() {
         TopDeck td = new TopDeck();
         for (Card card : getTypicalCards()) {
-            td.addPerson(card);
+            td.addCard(card);
         }
         return td;
     }

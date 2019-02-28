@@ -44,8 +44,9 @@ public class UniqueCardList implements Iterable<Card> {
     public void add(Card toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-
+            throw new DuplicateCardException();
         }
+        internalList.add(toAdd);
     }
 
 

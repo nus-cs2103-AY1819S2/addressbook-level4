@@ -18,7 +18,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#name";
     private static final String SEMESTER_FIELD_ID = "#semester";
     private static final String EXPECTED_MIN_GRADE_FIELD_ID = "#expectedMinGrade";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String EXPECTED_MAX_GRADE_FIELD_ID = "#expectedMaxGrade";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -33,7 +33,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        expectedMaxGradeLabel = getChildNode(ADDRESS_FIELD_ID);
+        expectedMaxGradeLabel = getChildNode(EXPECTED_MAX_GRADE_FIELD_ID);
         semesterLabel = getChildNode(SEMESTER_FIELD_ID);
         expectedMinGradeLabel = getChildNode(EXPECTED_MIN_GRADE_FIELD_ID);
 
@@ -77,9 +77,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Person person) {
         return getName().equals(person.getModuleInfo().fullName)
-                && getExpectedMaxGrade().equals(person.getExpectedMaxGrade().toString())
                 && getSemester().equals(person.getSemester().toString())
                 && getExpectedMinGrade().equals(person.getExpectedMinGrade().toString())
+                && getExpectedMaxGrade().equals(person.getExpectedMaxGrade().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

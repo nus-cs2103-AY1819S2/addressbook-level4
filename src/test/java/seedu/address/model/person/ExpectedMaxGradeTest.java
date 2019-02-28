@@ -22,16 +22,27 @@ public class ExpectedMaxGradeTest {
 
     @Test
     public void isValidGrade() {
-        // null address
+        // null grade
         Assert.assertThrows(NullPointerException.class, () -> Grade.isValidGrade(null));
 
-        // invalid addresses
+        // blank grade
         assertFalse(Grade.isValidGrade("")); // empty string
         assertFalse(Grade.isValidGrade(" ")); // spaces only
 
-        // valid addresses
-        assertTrue(Grade.isValidGrade("Blk 456, Den Road, #01-355"));
-        assertTrue(Grade.isValidGrade("-")); // one character
-        assertTrue(Grade.isValidGrade("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        // invalid parts
+        assertFalse(Grade.isValidGrade("@"));
+        assertFalse(Grade.isValidGrade("f"));
+        assertFalse(Grade.isValidGrade("3"));
+        assertFalse(Grade.isValidGrade("122"));
+        assertFalse(Grade.isValidGrade("G3"));
+        assertFalse(Grade.isValidGrade("ABC"));
+        assertFalse(Grade.isValidGrade("A--"));
+
+        // valid email
+        assertTrue(Grade.isValidGrade("C"));
+        assertTrue(Grade.isValidGrade("F"));
+        assertTrue(Grade.isValidGrade("D"));
+        assertTrue(Grade.isValidGrade("B"));
+        assertTrue(Grade.isValidGrade("A"));
     }
 }

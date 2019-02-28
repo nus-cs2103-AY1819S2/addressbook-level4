@@ -24,12 +24,12 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_SEMESTER_AMY = "11111111";
-    public static final String VALID_SEMESTER_BOB = "22222222";
-    public static final String VALID_EXPECTED_MIN_GRADE_AMY = "amy@example.com";
-    public static final String VALID_EXPECTED_MIN_GRADE_BOB = "bob@example.com";
-    public static final String VALID_EXPECTED_MAX_GRADE_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_EXPECTED_MAX_GRADE_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_SEMESTER_AMY = "Y2S2";
+    public static final String VALID_SEMESTER_BOB = "Y2S1";
+    public static final String VALID_EXPECTED_MIN_GRADE_AMY = "C";
+    public static final String VALID_EXPECTED_MIN_GRADE_BOB = "C";
+    public static final String VALID_EXPECTED_MAX_GRADE_AMY = "A";
+    public static final String VALID_EXPECTED_MAX_GRADE_BOB = "A";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 

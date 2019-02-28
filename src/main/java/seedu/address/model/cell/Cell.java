@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.cell;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -77,6 +77,16 @@ public class Cell {
 
     public Address getAddress() {
         return address;
+    }
+
+    /**
+     * Returns true if this cell has a battleship, otherwise returns false
+     */
+    public boolean hasBattleShip() {
+        if (battleship.isPresent()) {
+            return true;
+        }
+        return false;
     }
 
     /**

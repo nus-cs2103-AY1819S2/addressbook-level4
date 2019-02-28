@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -15,6 +16,14 @@ import java.util.stream.Collectors;
  */
 public class ArgumentTokenizer {
 
+    // Mapping of respective command mode numbers to CommandMode enum
+    private static final Map<String, CommandMode> COMMAND_MODES = Map.of(
+            "1", CommandMode.HEALTH_WORKER,
+            "2", CommandMode.PATIENT,
+            "3", CommandMode.REQUEST,
+            "4", CommandMode.OTHERS
+    );
+
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
      * respective argument values. Only the given prefixes will be recognized in the arguments string.
@@ -26,6 +35,21 @@ public class ArgumentTokenizer {
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
+    }
+
+    /**
+     * Checks a given argument string and returns the corresponding
+     * CommandMode enum
+     * @param args argument string to check
+     * @return CommandMode enum type if available, else CommandMode.INVALID
+     */
+    public static CommandMode checkMode(String args) {
+        if (!Character.toString(args.charAt(1)).equals(" ")) {
+            return CommandMode.INVALID;
+        }
+
+        return COMMAND_MODES.getOrDefault(Character.toString(args.charAt(0)),
+                CommandMode.INVALID);
     }
 
     /**

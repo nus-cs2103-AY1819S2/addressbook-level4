@@ -16,6 +16,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    // TODO: create and add UniqueHealthWorkerList class
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -99,6 +100,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
         indicateModified();
     }
+
+    // TODO: Add methods for hasHealthWorker, addHealthWorker, setHealthWorker, removeHealthWorker
 
     @Override
     public void addListener(InvalidationListener listener) {

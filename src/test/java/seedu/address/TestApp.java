@@ -77,7 +77,7 @@ public class TestApp extends MainApp {
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AddressBook format.", dce);
         } catch (IOException ioe) {
-            throw new AssertionError("Storage file cannot be found.", ioe);
+            throw new AssertionError("MedicineManager file cannot be found.", ioe);
         }
     }
 

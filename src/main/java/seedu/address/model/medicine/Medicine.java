@@ -10,6 +10,7 @@ public class Medicine {
 
     public static final String MESSAGE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
     public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String TO_STRING = "Name: %1$s, Quantity: %2$d";
 
     private static int defaultThreshold = 50;
 
@@ -104,5 +105,9 @@ public class Medicine {
         }
         thresholdIsDefault = false;
         this.threshold = threshold;
+    }
+
+    public String toString() {
+        return String.format(TO_STRING, name, quantity);
     }
 }

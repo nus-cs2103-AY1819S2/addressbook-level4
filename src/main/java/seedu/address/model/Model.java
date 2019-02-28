@@ -131,5 +131,17 @@ public interface Model {
 
     /** Removes the given {@code tag} from all {@code Person}s. */
     void deleteTag(Tag tag);
+    //void addMedicine(String medicineName, String[] path);
 
+    //void addMedicine(String medicineName, int quantity, String[] path);
+
+    //void addDirectory(String directoryName, String[] path);
+
+    //Optional<Medicine> findMedicine(String medicineName);
+
+    //Optional<Medicine> findMedicine(String[] path);
+
+    //void purchaseMedicine(String[] path, int quantity);
+
+    //void purchaseMedicine(String medicineName, int quantity);
 }

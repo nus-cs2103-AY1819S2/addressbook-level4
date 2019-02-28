@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,6 +16,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -29,6 +32,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final MedicineManager medicineManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,6 +47,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        this.medicineManager = new MedicineManager();
     }
 
     public ModelManager() {
@@ -88,7 +93,41 @@ public class ModelManager implements Model {
         versionedAddressBook.removeTag(tag);
     }
 
+    //=========== MedicineManager ============================================================================
+    //@Override
+    public void addMedicine(String medicineName, String[] path) {
+        medicineManager.addMedicine(medicineName, path);
+    }
 
+    //@Override
+    public void addMedicine(String medicineName, int quantity, String[] path) {
+        medicineManager.addMedicine(medicineName, quantity, path);
+    }
+
+    //@Override
+    public void addDirectory(String directoryName, String[] path) {
+        medicineManager.addDirectory(directoryName, path);
+    }
+
+    //@Override
+    public Optional<Medicine> findMedicine(String medicineName) {
+        return medicineManager.findMedicine(medicineName);
+    }
+
+    //@Override
+    public Optional<Medicine> findMedicine(String[] path) {
+        return medicineManager.findMedicine(path);
+    }
+
+    //@Override
+    public void purchaseMedicine(String[] path, int quantity) {
+        medicineManager.purchaseMedicine(path, quantity);
+    }
+
+    //@Override
+    public void purchaseMedicine(String medicineName, int quantity) {
+        medicineManager.purchaseMedicine(medicineName, quantity);
+    }
     //=========== AddressBook ================================================================================
 
     @Override

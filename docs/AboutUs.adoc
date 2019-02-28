@@ -30,7 +30,7 @@ Responsibilities: UI
 '''
 
 === Kevin Yeong Yu Heng
-image::kevin1.png[width="150", align="left"]
+image::A0143487X-Kevin.png[width="150", align="left"]
 {empty}[http://github.com/A0143487X-Kevin[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

@@ -22,14 +22,14 @@ public interface Storage extends RestOrRantStorage, UserPrefsStorage {
 
     @Override
     Path getRestOrRantFilePath();
-//    Path getMenuFilePath();
+    // Path getMenuFilePath();
 
     @Override
     Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException;
-//    Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
+    // Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
 
     @Override
     void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException;
-//    void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
+    // void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
 
 }

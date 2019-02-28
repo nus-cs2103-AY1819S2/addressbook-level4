@@ -48,7 +48,7 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking for "   
+        return "Booking for "
             + service
             + " from " + timing
             + " by " + payer

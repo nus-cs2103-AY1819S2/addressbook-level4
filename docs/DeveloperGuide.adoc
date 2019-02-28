@@ -984,7 +984,7 @@ Use case resumes at step 2.
 
 1.  User requests to list persons
 2.  Club Manager shows a list of members
-+  
++
 Use case ends.
 
 *Extensions*
@@ -1042,7 +1042,7 @@ Use case ends.
 
 * 2c. The search index is not unique.
 +
-** 2c1. Club Manager shows a list of all members who match the search index. 
+** 2c1. Club Manager shows a list of all members who match the search index.
 +
 Use case resumes at step 1.
 

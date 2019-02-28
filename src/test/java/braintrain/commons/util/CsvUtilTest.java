@@ -3,10 +3,12 @@ package braintrain.commons.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,16 +30,25 @@ public class CsvUtilTest {
         });
     }
 
+    // I can't guarantee the path is access denied since it might be OS dependent, so..
+    /*
     @Test
-    public void readCsvFile_invalidPath() {
-        Path path = Paths.get("");
-        assertEquals(null, CsvUtil.readCsvFile(path));
-        path = Paths.get("doesnotexist");
-        assertEquals(null, CsvUtil.readCsvFile(path));
+    public void readCsvFile_accessDeniedPath_throwsAccessDeniedException() {
+        final Path emptyPath = Paths.get("");
+        Assert.assertThrows(AccessDeniedException.class, () -> {
+            CsvUtil.readCsvFile(emptyPath);
+        });
+    }
+    */
+
+    @Test
+    public void readCsvFile_nonExistentPath() throws IOException {
+        final Path fakePath = Paths.get("doesnotexist");
+        assertNull(CsvUtil.readCsvFile(fakePath));
     }
 
     @Test
-    public void readCsvFile_invalidFile() {
+    public void readCsvFile_invalidFile() throws IOException {
         Path path = Paths.get("src/test/data/empty.bmp");
         assertEquals(null, CsvUtil.readCsvFile(path));
     }
@@ -59,11 +70,10 @@ public class CsvUtilTest {
                 assertEquals(value, str);
             }
         }
-
     }
 
     @Test
-    public void writeCsvFile() {
+    public void writeCsvFile() throws IOException {
         Path path = TestUtil.getFilePathInSandboxFolder("test_write.csv");
         List<String[]> data = Arrays.asList(TEST_STRINGS, TEST_STRINGS, TEST_STRINGS);
 
@@ -73,7 +83,7 @@ public class CsvUtilTest {
     }
 
     @Test
-    public void writeCsvFile_emptyData() {
+    public void writeCsvFile_emptyData() throws IOException {
         Path path = TestUtil.getFilePathInSandboxFolder("test_write_empty.csv");
         List<String[]> data = new ArrayList<>();
 
@@ -81,12 +91,14 @@ public class CsvUtilTest {
     }
 
     @Test
-    public void writeCsvFile_invalidFile() {
+    public void writeCsvFile_invalidFile() throws IOException {
         Path path = Paths.get("src/test/data/test-readonly.csv");
         File file = path.toFile();
         file.setReadOnly();
         List<String[]> data = Arrays.asList(TEST_STRINGS, TEST_STRINGS, TEST_STRINGS);
 
-        assertFalse(CsvUtil.writeCsvFile(path, data));
+        Assert.assertThrows(AccessDeniedException.class, () -> {
+            CsvUtil.writeCsvFile(path, data);
+        });
     }
 }

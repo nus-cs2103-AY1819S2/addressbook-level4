@@ -1,22 +1,36 @@
 package braintrain.commons.util;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import braintrain.testutil.Assert;
+import seedu.address.commons.util.AppUtil;
 
 public class AppUtilTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+
+
+    @Test
+    public void getImage_exitingImage() {
+        assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
+    }
+
+
+    @Test
+    public void getImage_nullGiven_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        AppUtil.getImage(null);
+    }
+
     @Test
     public void checkArgument_true_nothingHappens() {
         AppUtil.checkArgument(true);
         AppUtil.checkArgument(true, "");
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-            AppUtil.checkArgument(false));
     }
 
     @Test

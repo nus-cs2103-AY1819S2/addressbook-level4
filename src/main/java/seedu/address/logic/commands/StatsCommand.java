@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.lang.*;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -24,23 +25,22 @@ public class StatsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
-        ArrayList<String> outputStatistics = new ArrayList<String>();
+        ArrayList<String> onlyCommands = new ArrayList<>();
+        ArrayList<String> outputStatistics = new ArrayList<>();
 
         if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
-        // parse through commands and count how many usage
-        // remove the key command words from previousCommand
-        // and parse it instead of raw input
 
-        Set<String> set = new HashSet<String>(previousCommands);
-
+        for (String string : previousCommands) {
+            onlyCommands.add(string.split(" ")[0]); // Take first word
+        }
+        Set<String> set = new HashSet<>(onlyCommands);
+        // get frequency of each command
         for (String s : set) {
-            outputStatistics.add(s + ": " + Collections.frequency(previousCommands, s));
+            outputStatistics.add(s + ": " + Collections.frequency(onlyCommands, s));
         }
 
-        // System.out.println();
-        //Collections.reverse(previousCommands);
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
     }
 

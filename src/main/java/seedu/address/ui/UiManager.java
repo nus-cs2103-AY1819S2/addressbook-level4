@@ -20,11 +20,9 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-<<<<<<< HEAD
-    private static final String ICON_APPLICATION = "/images/MediTabs.png";
-=======
+
     private static final String ICON_APPLICATION = "/images/medicine_bottle_32.png";
->>>>>>> 6840270be8ab553fff9a7c5ae73403276fb54fab
+
 
     private Logic logic;
     private MainWindow mainWindow;

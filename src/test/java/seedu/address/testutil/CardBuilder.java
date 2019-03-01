@@ -21,7 +21,7 @@ public class CardBuilder {
     public static final String DEFAULT_ANSWER = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_SCORE = "5/10";
+    public static final String DEFAULT_SCORE = "0/0";
 
     private Question question;
     private Answer answer;

@@ -16,28 +16,28 @@ public class TypicalCards {
 
     public static final Card ALICE = new CardBuilder().withQuestion("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withAnswer("94351253").withScore("5/10").withTags("friends").build();
+            .withAnswer("94351253").withScore("0/0").withTags("friends").build();
     public static final Card BENSON = new CardBuilder().withQuestion("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withAnswer("98765432").withScore("0/0")
             .withTags("owesMoney", "friends").build();
     public static final Card CARL = new CardBuilder().withQuestion("Carl Kurz").withAnswer("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").withScore("0/30").build();
+            .withEmail("heinz@example.com").withAddress("wall street").withScore("0/0").build();
     public static final Card DANIEL = new CardBuilder().withQuestion("Daniel Meier").withAnswer("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withScore("69/420").withTags("friends")
+            .withEmail("cornelia@example.com").withAddress("10th street").withScore("0/0").withTags("friends")
             .build();
     public static final Card ELLE = new CardBuilder().withQuestion("Elle Meyer").withAnswer("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").withScore("12/24").build();
+            .withEmail("werner@example.com").withAddress("michegan ave").withScore("0/0").build();
     public static final Card FIONA = new CardBuilder().withQuestion("Fiona Kunz").withAnswer("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withScore("240/420").build();
+            .withEmail("lydia@example.com").withAddress("little tokyo").withScore("0/0").build();
     public static final Card GEORGE = new CardBuilder().withQuestion("George Best").withAnswer("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").withScore("123/321").build();
+            .withEmail("anna@example.com").withAddress("4th street").withScore("0/0").build();
 
     // Manually added
     public static final Card HOON = new CardBuilder().withQuestion("Hoon Meier").withAnswer("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").withScore("12/42").build();
+            .withEmail("stefan@example.com").withAddress("little india").withScore("0/0").build();
     public static final Card IDA = new CardBuilder().withQuestion("Ida Mueller").withAnswer("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").withScore("100/200").build();
+            .withEmail("hans@example.com").withAddress("chicago ave").withScore("0/0").build();
 
     // Manually added - Card's details found in {@code CommandTestUtil}
     public static final Card AMY = new CardBuilder().withQuestion(VALID_QUESTION_AMY).withAnswer(VALID_ANSWER_AMY)

@@ -61,7 +61,7 @@ public class UniqueTagList{
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableMap<Tag, ObservableList<Person> asUnmodifiableObservableMap(){
+    public ObservableMap<Tag, ObservableList<Person>> asUnmodifiableObservableMap(){
         return unmodifiableTagAndPersonList;
     }
 }

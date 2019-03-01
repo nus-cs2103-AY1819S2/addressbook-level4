@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_DATE;
+import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_END;
+import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_INDEX;
+import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_START;
 
 import java.time.LocalDateTime;
 
@@ -23,10 +27,18 @@ public class AddAppCommand extends Command {
     //public static final String COMMAND_ALIAS = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to quickdocs. "
-            + "Parameters: INDEX DATE START END"
-            + "Example: " + COMMAND_WORD + " 3 231019 1600 1700";
+            + "Parameters: "
+            + PREFIX_INDEX + "INDEX "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_START + "START "
+            + PREFIX_END + "END\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDEX + "3 "
+            + PREFIX_DATE + "2019-10-23 "
+            + PREFIX_START + "16:00 "
+            + PREFIX_END + "17:00\n";
 
-    public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
+    public static final String MESSAGE_SUCCESS = "Appointment added: \n%1$s\n";
     public static final String MESSAGE_DUPLICATE_APP = "The time slot has already been taken";
 
     private final Index targetIndex;
@@ -34,7 +46,7 @@ public class AddAppCommand extends Command {
     private final LocalDateTime end;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddAppCommand to add the specified {@code Appointment}
      */
     public AddAppCommand(Index index, LocalDateTime start, LocalDateTime end) {
         this.targetIndex = index;
@@ -45,6 +57,7 @@ public class AddAppCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        //TODO: link to patients instead
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -59,7 +72,6 @@ public class AddAppCommand extends Command {
         }
 
         model.addApp(toAdd);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

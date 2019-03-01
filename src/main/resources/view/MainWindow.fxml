@@ -10,11 +10,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MediTabs" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="MediTabs" minWidth="500" minHeight="700" onCloseRequest="#handleExit">
   <icons>
+<<<<<<< HEAD
     <Image url="@/images/MediTabs.png" />
+=======
+    <Image url="@/images/medicine_bottle_32.png" />
+>>>>>>> 6840270be8ab553fff9a7c5ae73403276fb54fab
   </icons>
   <scene>
     <Scene>
@@ -54,11 +59,17 @@
             <StackPane fx:id="medicineListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+          <StackPane fx:id="browserPlaceholder" minWidth="340" prefWidth="340" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
           </StackPane>
+
+          <VBox fx:id="warningPanelPlaceholder" minWidth="260" prefWidth="260" maxWidth="260">
+            <padding>
+              <Insets top="5" right="5" bottom="5" left="5" />
+            </padding>
+          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

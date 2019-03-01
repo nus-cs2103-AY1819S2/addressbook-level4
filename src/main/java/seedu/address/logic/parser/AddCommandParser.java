@@ -17,6 +17,7 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
+import seedu.address.model.card.Score;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,9 +44,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        // Default score is 0/0
+        Score score = new Score(0, 0);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Card card = new Card(question, answer, email, address, tagList);
+        Card card = new Card(question, answer, email, address, score, tagList);
 
         return new AddCommand(card);
     }

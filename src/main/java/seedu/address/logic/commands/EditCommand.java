@@ -72,7 +72,7 @@ public class EditCommand extends Command {
         List<Equipment> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
         }
 
         Equipment equipmentToEdit = lastShownList.get(index.getZeroBased());

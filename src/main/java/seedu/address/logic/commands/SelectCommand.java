@@ -38,7 +38,7 @@ public class SelectCommand extends Command {
         List<Equipment> filteredEquipmentList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= filteredEquipmentList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
         }
 
         model.setSelectedPerson(filteredEquipmentList.get(targetIndex.getZeroBased()));

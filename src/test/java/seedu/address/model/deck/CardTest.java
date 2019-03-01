@@ -26,16 +26,16 @@ public class CardTest {
     public void isSameCard() {
         Card additionCopy = new CardBuilder(ADDITION).build();
 
-        //same object -> returns true
+        // same object -> returns true
         assertTrue(additionCopy.isSameCard(additionCopy));
 
-        //null -> returns false
+        // null -> returns false
         assertFalse(additionCopy.isSameCard(null));
 
-        //different question and answer -> return false
+        // different question and answer -> return false
         assertFalse(additionCopy.isSameCard(SUBTRACTION));
 
-        //same question, different answer -> returns true
+        // same question, different answer -> returns true
         Card editedAddition = new CardBuilder(ADDITION).withAnswer("DIFFERENT").build();
         assertTrue(ADDITION.isSameCard(editedAddition));
     }
@@ -44,19 +44,19 @@ public class CardTest {
     public void equals() {
         Card additionCopy = new CardBuilder(ADDITION).build();
 
-        //same object -> returns true
+        // same object -> returns true
         assertTrue(additionCopy.equals(additionCopy));
 
-        //null -> returns false
+        // null -> returns false
         assertFalse(additionCopy.equals(null));
 
-        //different type -> return false
+        // different type -> return false
         assertFalse(additionCopy.equals(5));
 
-        //different card -> return false
+        // different card -> return false
         assertFalse(additionCopy.equals(SUBTRACTION));
 
-        //different answer -> return false
+        // different answer -> return false
         Card editedAddition = new CardBuilder(ADDITION).withAnswer("DIFFERENT").build();
         assertFalse(ADDITION.equals(editedAddition));
     }

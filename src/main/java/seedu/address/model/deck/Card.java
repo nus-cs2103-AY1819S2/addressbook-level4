@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -18,7 +19,7 @@ public class Card {
 
     private final String answer;
 
-    private Set<Tag> tags = new HashSet<Tag>();
+    private final Set<Tag> tags = new HashSet<Tag>();
 
     /**
      * Every field must be present and not null.
@@ -48,7 +49,7 @@ public class Card {
 
     /**
      * Returns true if both cards have the same question.
-     * This defines a weaker notion of equality between two persons.
+     * This defines a weaker notion of equality between two cards.
      */
     public boolean isSameCard(Card otherCard) {
         if (otherCard == this) {
@@ -75,14 +76,14 @@ public class Card {
         }
 
         Card otherCard = (Card) other;
+
         return this.answer.equals(otherCard.answer)
                 && this.question.equals(otherCard.question);
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        return hash + question.hashCode() + answer.hashCode();
+        return Objects.hash(question, answer);
     }
 
     @Override

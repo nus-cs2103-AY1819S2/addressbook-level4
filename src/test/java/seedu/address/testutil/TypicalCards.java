@@ -12,10 +12,10 @@ import seedu.address.model.deck.Card;
  */
 public class TypicalCards {
     public static final Card ADDITION = new CardBuilder().withQuestion("What is 1 + 1?")
-            .withAnswer("2").withTags("Easy").build();
+            .withAnswer("2").withTags("Math").build();
 
     public static final Card SUBTRACTION = new CardBuilder().withQuestion("What is 10 - 10?")
-            .withAnswer("0").withTags("Easy").build();
+            .withAnswer("0").withTags("Math").build();
 
     public static final Card HELLO_WORLD = new CardBuilder().withQuestion("Hello?")
             .withAnswer("World").build();

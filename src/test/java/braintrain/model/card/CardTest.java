@@ -15,9 +15,6 @@ import org.junit.Test;
 import braintrain.testutil.CardBuilder;
 
 /**
- * @file: CardTest.java
- * @author: Evan Tay
- *
  * Tests the {@code Card} object (100% coverage).
  */
 public class CardTest {

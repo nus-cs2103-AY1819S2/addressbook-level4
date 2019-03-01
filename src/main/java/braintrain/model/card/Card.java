@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @file: Card.java
- * @author: Evan Tay
- *
  * Represents a flash card which minimally contains two core fields, Question and Answer.
  * Guarantees: Core fields are present and not null, core and optional field values are validated.
  */

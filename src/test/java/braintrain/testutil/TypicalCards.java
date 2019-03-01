@@ -7,9 +7,6 @@ import java.util.List;
 import braintrain.model.card.Card;
 
 /**
- * @file: TypicalCards.java
- * @author: Evan Tay
- *
  * A utility class containing a list of {@code Card} objects used for {@code Card} testing.
  */
 public class TypicalCards {

@@ -41,7 +41,7 @@ public class AddAppCommand extends Command {
             + PREFIX_END + "17:00"
             + PREFIX_COMMENT + "<any comments>\n";
 
-    public static final String MESSAGE_SUCCESS = "Appointment added: \n%1$s\n";
+    public static final String MESSAGE_SUCCESS = "Appointment added:\n%1$s\n";
     public static final String MESSAGE_DUPLICATE_APP = "The time slot has already been taken";
 
     private final Index targetIndex;

@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -183,5 +186,27 @@ public class AddressBookParserTest {
         AddPatientCommand command = (AddPatientCommand) parser.parseCommand(userInput);
 
         assertEquals(new AddPatientCommand(patient1), command);
+    }
+
+    @Test
+    public void parseCommand_addAppointment() throws Exception {
+        String dateString = "2019-10-23";
+        String startString = "16:00";
+        String endString = "17:00";
+
+        LocalDate date = LocalDate.parse(dateString);
+        LocalTime start = LocalTime.parse(startString);
+        LocalTime end = LocalTime.parse(endString);
+        String comment = "This is a test comment";
+
+
+        String userInput = AddAppCommand.COMMAND_WORD
+                + " i/" + INDEX_FIRST_PERSON.getOneBased()
+                + " d/" + dateString
+                + " s/" + startString
+                + " e/" + endString
+                + " c/" + comment;
+        AddAppCommand command = (AddAppCommand) parser.parseCommand(userInput);
+        assertEquals(new AddAppCommand(INDEX_FIRST_PERSON, date, start, end, comment), command);
     }
 }

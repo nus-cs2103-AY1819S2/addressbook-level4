@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 
+import javafx.application.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -17,6 +18,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
+    public static final String TOTAL_PERSONS_STATUS = "%d person(s) total";
 
     /**
      * Used to generate time stamps.
@@ -33,14 +35,17 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label syncStatus;
     @FXML
+    private Label totalPersonsStatus;
+    @FXML
     private Label saveLocationStatus;
 
 
     public StatusBarFooter(Path saveLocation, ReadOnlyAddressBook addressBook) {
         super(FXML);
-        addressBook.addListener(observable -> updateSyncStatus());
+        addressBook.addListener(observable -> updateSyncStatus(addressBook.getPersonList().size()));
         syncStatus.setText(SYNC_STATUS_INITIAL);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+
     }
 
     /**
@@ -60,10 +65,11 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Updates "last updated" status to the current time.
      */
-    private void updateSyncStatus() {
+    private void updateSyncStatus(int totalPersons) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        totalPersonsStatus.setText(String.format(TOTAL_PERSONS_STATUS, totalPersons));
     }
 
 }

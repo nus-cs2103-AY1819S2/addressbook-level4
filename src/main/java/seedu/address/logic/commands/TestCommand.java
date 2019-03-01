@@ -9,7 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.card.Card;
+import seedu.address.model.ReadOnlyCardFolder;
 
 /**
  * Deletes a card identified using it's displayed index from the card folder.
@@ -23,7 +23,7 @@ public class TestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_TEST_FOLDER_SUCCESS = "Test Card Folder: %1$s";
+    public static final String MESSAGE_TEST_FOLDER_SUCCESS = "Testing Card Folder: %1$s";
 
     private final Index targetIndex;
 
@@ -34,16 +34,15 @@ public class TestCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Card> lastShownList = model.getFilteredCards();
+        List<ReadOnlyCardFolder> cardFoldersList = model.getCardFolders();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        if (targetIndex.getZeroBased() >= cardFoldersList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX);
         }
 
-        Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCard(cardToDelete);
-        model.commitCardFolder();
-        return new CommandResult(String.format(MESSAGE_TEST_FOLDER_SUCCESS, cardToDelete));
+        ReadOnlyCardFolder cardFolderToTest = cardFoldersList.get(targetIndex.getZeroBased());
+        model.testCardFolder(cardFolderToTest);
+        return new CommandResult(String.format(MESSAGE_TEST_FOLDER_SUCCESS, cardFolderToTest));
     }
 
     @Override

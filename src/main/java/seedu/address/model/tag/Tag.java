@@ -25,9 +25,9 @@ public class Tag {
         this.tagName = tagName;
     }
     /**
-     * Returns the tag name
+     * Returns tag name
      */
-    public String getName(){
+    public String getName() {
         return tagName;
     }
 

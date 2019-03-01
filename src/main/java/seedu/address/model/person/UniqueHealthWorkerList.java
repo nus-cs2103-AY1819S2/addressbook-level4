@@ -24,6 +24,8 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * Supports a minimal set of list operations.
  *
  * @see HealthWorker#isSameHealthWorker(HealthWorker)
+ *
+ * @author Lookaz
  */
 public class UniqueHealthWorkerList implements Iterable<HealthWorker> {
 

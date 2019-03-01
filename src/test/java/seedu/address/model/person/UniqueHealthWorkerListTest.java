@@ -20,6 +20,9 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBuilder;
 
+/**
+ * @author Lookaz
+ */
 public class UniqueHealthWorkerListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

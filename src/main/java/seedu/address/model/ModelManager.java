@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -117,6 +118,33 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
+    }
+
+    // ============= Implemented methods through Model Interface =============
+    // @author: Lookaz
+
+    @Override
+    public boolean hasHealthWorker(HealthWorker healthWorker) {
+        requireNonNull(healthWorker);
+        return this.versionedAddressBook.hasHealthWorker(healthWorker);
+    }
+
+    @Override
+    public void deleteHealthWorker(HealthWorker target) {
+        this.versionedAddressBook.removeHealthWorker(target);
+    }
+
+    @Override
+    public void addHealthWorker(HealthWorker healthWorker) {
+        this.versionedAddressBook.addHealthWorker(healthWorker);
+        // TODO: Create HealthWorker version of {@code updateFilteredPersonList}
+    }
+
+    @Override
+    public void setHealthWorker(HealthWorker target, HealthWorker editedWorker) {
+        requireAllNonNull(target, editedWorker);
+
+        this.versionedAddressBook.setHealthWorker(target, editedWorker);
     }
 
     //=========== Filtered Person List Accessors =============================================================

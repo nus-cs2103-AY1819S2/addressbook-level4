@@ -104,6 +104,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    // ==== Added methods to support operations on UniqueHealthWorkerList ====
+    // @author: Lookaz
+
     /**
      * Returns true if a HealthWorker with the same identity as {@code worker}
      * exists in the address book.
@@ -143,6 +146,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.healthWorkers.remove(worker);
         indicateModified();
     }
+
+    // ======================================================================
 
     @Override
     public void addListener(InvalidationListener listener) {

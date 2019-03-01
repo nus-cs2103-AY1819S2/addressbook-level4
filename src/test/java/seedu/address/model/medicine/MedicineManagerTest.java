@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
-public class StorageTest {
+public class MedicineManagerTest {
 
-    private static Storage typicalStorage;
+    private static MedicineManager typicalMedicineManager;
     private static final String[] directoriesNames = new String[] {"test1", "test2", "test3"};
     private static final String[] medicineNames = new String[] {"med1", "med2", "med3"};
 
@@ -17,9 +17,9 @@ public class StorageTest {
      * initialize a typical storage
      */
     private void initializeTypicalStorage() {
-        typicalStorage = new Storage();
+        typicalMedicineManager = new MedicineManager();
         for (String c : directoriesNames) {
-            typicalStorage.addDirectory(c, new String[] {"root"});
+            typicalMedicineManager.addDirectory(c, new String[] {"root"});
         }
     }
 
@@ -28,29 +28,29 @@ public class StorageTest {
         initializeTypicalStorage();
         Assert.assertThrows(
                 IllegalStateException.class, ()
-                -> typicalStorage.addMedicine(medicineNames[0], new String[]{"RRR"}));
+                -> typicalMedicineManager.addMedicine(medicineNames[0], new String[]{"RRR"}));
     }
 
     @Test
     public void addMedicine_searchByName() {
         initializeTypicalStorage();
-        typicalStorage.addMedicine(medicineNames[0], new String[] {"root", "test1"});
-        assertTrue(typicalStorage.findMedicine(medicineNames[0]).get().name == medicineNames[0]);
+        typicalMedicineManager.addMedicine(medicineNames[0], new String[] {"root", "test1"});
+        assertTrue(typicalMedicineManager.findMedicine(medicineNames[0]).get().name == medicineNames[0]);
     }
 
     @Test
     public void addMedicine_searchThroughWrongPath() {
         initializeTypicalStorage();
-        typicalStorage.addMedicine(medicineNames[0], new String[] {"root", "test2"});
-        assertFalse(typicalStorage.findMedicine(new String[] {"root", "test1", medicineNames[0]}).isPresent());
+        typicalMedicineManager.addMedicine(medicineNames[0], new String[] {"root", "test2"});
+        assertFalse(typicalMedicineManager.findMedicine(new String[] {"root", "test1", medicineNames[0]}).isPresent());
     }
 
     @Test
     public void addMedicine_searchThroughRightPath() {
         initializeTypicalStorage();
-        typicalStorage.addMedicine(medicineNames[0], new String[] {"root", "test2"});
+        typicalMedicineManager.addMedicine(medicineNames[0], new String[] {"root", "test2"});
         assertTrue(
-                typicalStorage.findMedicine(
+                typicalMedicineManager.findMedicine(
                         new String[] {"root", "test2", medicineNames[0]}).get().name == medicineNames[0]);
     }
 }

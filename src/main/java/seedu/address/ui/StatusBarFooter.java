@@ -17,7 +17,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
-    public static final String TOTAL_PERSONS_STATUS = "%d person(s) total";
+    public static final String TOTAL_EQUIPMENTS_STATUS = "%d person(s) total";
 
     /**
      * Used to generate time stamps.
@@ -34,7 +34,7 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label syncStatus;
     @FXML
-    private Label totalPersonsStatus;
+    private Label totalEquipmentsStatus;
     @FXML
     private Label saveLocationStatus;
 
@@ -68,7 +68,7 @@ public class StatusBarFooter extends UiPart<Region> {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
-        totalPersonsStatus.setText(String.format(TOTAL_PERSONS_STATUS, totalPersons));
+        totalEquipmentsStatus.setText(String.format(TOTAL_EQUIPMENTS_STATUS, totalPersons));
     }
 
 }

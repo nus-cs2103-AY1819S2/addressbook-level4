@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         List<Equipment> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
         }
 
         Equipment equipmentToDelete = lastShownList.get(targetIndex.getZeroBased());

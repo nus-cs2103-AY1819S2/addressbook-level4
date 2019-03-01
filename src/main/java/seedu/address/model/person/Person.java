@@ -22,6 +22,7 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Major major = new Major("CS");
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -50,6 +51,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Major getMajor() {
+        return major;
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -150,4 +151,8 @@ public interface Model {
     boolean duplicatePatient(Patient patient);
 
     void addPatient(Patient patient);
+
+    boolean duplicateApp(Appointment app);
+
+    void addApp(Appointment app);
 }

@@ -58,15 +58,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Viewing player map : `print map`
+=== Initialising the maps : `init`
 
-Prints the player's current map with the position of the ships. +
-Format: `print map`
-
-=== Viewing enemy map : `print enemy map`
-
-Prints the player's view of the enemy's map with the position of the ships that have already been hit. +
-Format: `print enemy map`
+Initialises the both player's map to the specified size.
+Format: `init [s/MAP_SIZE]`
 
 === Listing all ships : `list`
 
@@ -309,6 +304,5 @@ _{explain how the user can enable/disable data encryption}_
 * **Put**: `put c/COORDINATES r/ORIENTATION`
 * **Edit**: `edit INDEX [n/NAME] [s/SIZE] [c/COMMAND_FLAG] [t/TAGS]`
 * **List**: `list`
-* **Print enemy map**: `print enemy map`
-* **Print player map**: `print map`
+* **Initialise maps**: `init [s/MAP_SIZE]`
 * **Help**: `help`

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= The Real App - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w16-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-AY1819S2-W16-2`      Since: `Mar 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*The Real App* is an enhanced address book designed primarily for *real estate agents* who need to store large amount of customer contacts as well as property information. More importantly, this product is optimized for those who prefer to use a desktop app for managing contacts, and *prefer to work with a Command Line Interface (CLI)*, while still having the benefits of a Graphical User Interface (GUI). If you can type fast, this product can help you manage all your contact and property information quickly and securely. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `therealapp.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -34,11 +34,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456` : adds a contact named `James Ho` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+.  Refer to <<Summary>> for a summary of all commands.
 
 [[Features]]
 == Features
@@ -46,82 +47,118 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/James Ho`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/James Ho t/friend` or as `n/James Ho`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+Views a pop-up of the User Guide +
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a contact : `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a contact with property information to the address book +
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE OF PROPERTY] [t/TAG]...`
+
+[NOTE]
+====
+Acceptable `CUSTOMER_TYPE`: `Buyer`, `Seller`, `Lessor`, `Lessee`
+====
 
 [TIP]
-A person can have any number of tags (including 0)
+A contact can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Tan Ah Beng p/87654321 e/tab@example.com a/Blk 456 Woodlands Ave 1, #10-10, S789456 c/Lessor t/nearSupermarket`
+* `add n/Ricky Young e/rickyyoung@example.com c/Buyer a/10 Ocean Dr, S000010 p/1234567 f/12000000 t/landed`
+* `add n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456 f/500000 t/MRT t/newlyRenovated`
 
-=== Listing all persons : `list`
+=== Listing all contacts : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all contacts in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Displaying a sorted list of contacts by specified category : sort
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Shows a list of all contacts in the address book, sorted according to a specified category. +
+Format: `sort CATEGORY`
+
+[NOTE]
+====
+`CATEGORY` List: `NAME`, `CUSTOMER_TYPE`, `PRICE_OF_PROPERTY`
+====
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Sort methods:
+** Sort by name in alphabetical order
+** Sort by customer type
+** Sort by property price in increasing order
+****
+
+Example: `sort CUSTOMER_TYPE`
+
+=== Editing a contact : `edit`
+
+Edits an existing contact in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE_OF_PROPERTY] [t/TAG]...`
+
+****
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
+* You can remove all the contact's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 p/91234567 e/abtan@example.com` +
+Edits the phone number and email address of the 1st contact to be `91234567` and `abtan@example.com` respectively.
+* `edit 2 n/Nicky Young t/` +
+Edits the name of the 2nd contact to be `Nicky Young` and clears all existing tags.
+* `edit 3 n/James Lee e/jameslee@example.com` +
+Edits the name and email address of the 3rd contact to be `James Lee` and `jameslee@example.com` respectively.
 
-=== Locating persons by name: `find`
+=== Finding contact(s) by keyword(s) : `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds contact(s) whose information contains any of the keyword(s). +
+e.g. search by name, search by address, search by tags etc. +
+Format: `find KEYWORD [KEYWORDS]...`
+
+[NOTE]
+====
+`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+====
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Contacts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find n/James` +
+Returns `James Lee` and `John James`
+* `find n/James n/Tan n/Young` +
+Returns any contact having names `James`, `Tan`, or `Young`
+* `find a/Woodlands c/Lessor` +
+Returns any contact with address `Woodlands` and customer type `Lessor`
 
-=== Deleting a person : `delete`
+=== Deleting a contact : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified contact from the address book. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,19 +166,22 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd contact in the address book.
+* `find James` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st contact in the results of the `find` command.
+* `sort` +
+`delete 3` +
+Deletes the 3rd contact in the sorted list displayed earlier.
 
-=== Selecting a person : `select`
+=== Selecting a contact : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the contact identified by the index number used in the displayed contact list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the contact at the specified `INDEX` and loads the Google Maps location of the contact in the applet window.
+* The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -149,10 +189,119 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd contact in the address book.
+* `find James` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st contact in the results of the `find` command.
+* `sort` +
+`select 3` +
+Selects the 3rd contact in the sorted list displayed earlier.
+
+=== Pinning a contact : `pin`
+
+Pins a contact. +
+These contacts will always be showing in a pinned list at the top of the side panel. +
+Format: `pin INDEX`
+
+****
+* Pins the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`pin 2` +
+Pins the 2nd contact in the address book.
+* `find James` +
+`pin 1` +
+Pins the 1st contact in the results of the `find` command.
+* `sort` +
+`pin 3` +
+Pins the 3rd contact in the sorted list displayed earlier.
+
+=== Unpinning a contact : `unpin`
+
+Unpins a pinned contact. +
+Format: `unpin INDEX`
+
+****
+* Unpins the contact at the specified `INDEX`.
+* The index refers to the index number *shown in the pinned list* on the side panel.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `unpin 1` +
+Unpins the 1st contact in the pinned list.
+
+=== Archiving a contact : `archive`
+Moves the specified contact to the archive from the normal address book. +
+Archived contacts can *only* be accessed through a archive search function. +
+Format: `archive INDEX`
+
+[NOTE]
+====
+Archived contacts *cannot* be displayed in a sorted list or be pinned.
+====
+
+****
+* Archives the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`archive 2` +
+Archives the 2nd contact in the address book.
+* `find James` +
+`archive 1` +
+Archives the 1st contact in the results of the `find` command.
+* `sort` +
+`archive 3` +
+Archives the 3rd contact in the sorted list displayed earlier.
+
+==== Listing all archived contacts : `archivelist`
+
+Lists all the contacts in the archive. +
+Format: `archivelist`
+
+==== Finding archived contact(s) : `archivefind`
+Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
+Format: `archivefind KEYWORD [KEYWORD]...`
+
+[NOTE]
+====
+`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+====
+
+Example:
+
+* `archivefind n/James c/Seller` +
+Returns any contact having name `James` and customer type `Seller`
+
+==== Unarchiving a contact : `unarchive`
+Moves the specified contact from the archive back into the normal address book. +
+Format: `unarchive INDEX`
+
+****
+* Unarchives the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed *archived* contact list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `archivelist` +
+`unarchive 2` +
+Moves the the 2nd contact from the archived contacts list back into the address book.
+* `archivefind James` +
+`select 1` +
+Moves the 1st contact in the results of the `archivefind` command from the archive back into the address book.
 
 === Listing entered commands : `history`
 
@@ -172,7 +321,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit`, `archive`, `unarchive` and `clear`).
 ====
 
 Examples:
@@ -219,9 +368,9 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exiting the app : `exit`
 
-Exits the program. +
+Exits the app. +
 Format: `exit`
 
 === Saving the data
@@ -229,32 +378,57 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Displaying address on map `[coming in v2.0]`
+Double-clicking the contact will bring up the Google Maps location of the contact in the applet window.
+
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+The database will be saved in an encrypted format.
 // end::dataencryption[]
+
+=== Password-protected login `[coming in v2.0]`
+User can set a password, which will be required when logging into the app.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+[[Summary]]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* : `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE OF PROPERTY] [t/TAG]...` +
+e.g. `add n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456 f/500000 t/MRT t/newlyRenovated`
+* *Archive* : `archive INDEX` +
+e.g. `archive 1`
+* *Archive list* : `archivelist`
+* *Archive search* : `archivefind KEYWORD [KEYWORD]...` +
+[`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`] +
+e.g. `archivefind n/James c/Seller`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE_OF_PROPERTY] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Exit*: `exit`
+* *Find* : `find KEYWORD [KEYWORD]...` +
+[`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`] +
+e.g. `find n/James n/Tan n/Young`
 * *Help* : `help`
+* *History* : `history`
+* *List* : `list`
+* *Pin* : `pin INDEX` +
+e.g. `pin 3`
+* *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *History* : `history`
+* *Sort* : `sort CATEGORY` +
+[`CATEGORY` List: `NAME`, `CUSTOMER_TYPE`, `PRICE_OF_PROPERTY`] +
+e.g. `sort CUSTOMER_TYPE`
+* *Unarchive* : `unarchive INDEX` +
+e.g. `unarchive 1`
 * *Undo* : `undo`
-* *Redo* : `redo`
+* *Unpin* : `unpin INDEX` +
+e.g. `unpin 1`
+

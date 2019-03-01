@@ -47,7 +47,7 @@ public class Restaurant {
      * @param restaurant the restaurant to set cuisine to
      * @param cuisine the cuisine to be set
      */
-    private Restaurant(Restaurant restaurant, Cuisine cuisine) {
+    public Restaurant(Restaurant restaurant, Cuisine cuisine) {
         requireAllNonNull(restaurant, cuisine);
         this.name = restaurant.name;
         this.phone = restaurant.phone;

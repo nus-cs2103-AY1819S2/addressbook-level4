@@ -44,15 +44,11 @@ public class SetCuisineCommand extends Command {
         }
 
         Restaurant restaurantToAddCuisine = lastShownList.get(index.getZeroBased());
-        Restaurant restaurantWithCuisineAdded = createRestaurantWithCuisine(restaurantToAddCuisine);
+        Restaurant restaurantWithCuisineAdded = new Restaurant(restaurantToAddCuisine, this.cuisine);
 
         model.setRestaurant(restaurantToAddCuisine, restaurantWithCuisineAdded);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_SET_CUISINE_SUCCESS, restaurantWithCuisineAdded));
-    }
-
-    private static Restaurant createRestaurantWithCuisine(Restaurant restaurantToAddCuisine) {
-        return restaurantToAddCuisine;
     }
 }

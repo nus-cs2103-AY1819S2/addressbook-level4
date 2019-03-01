@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -151,6 +152,30 @@ public class AddCommandTest {
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
+
+        // =========== Implemented methods supporting Health Worker ===========
+        // @author Lookaz
+
+        @Override
+        public boolean hasHealthWorker(HealthWorker healthWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteHealthWorker(HealthWorker target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addHealthWorker(HealthWorker healthWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setHealthWorker(HealthWorker target, HealthWorker editedWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+        // ===================================================================
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {

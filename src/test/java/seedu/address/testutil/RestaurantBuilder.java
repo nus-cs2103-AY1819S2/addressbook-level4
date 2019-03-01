@@ -8,6 +8,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,12 +21,14 @@ public class RestaurantBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_CUISINE = "Fast Food";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Cuisine cuisine;
 
     public RestaurantBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +36,7 @@ public class RestaurantBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        cuisine = new Cuisine(DEFAULT_CUISINE);
     }
 
     /**
@@ -44,6 +48,7 @@ public class RestaurantBuilder {
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
         tags = new HashSet<>(restaurantToCopy.getTags());
+        cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
     }
 
     /**
@@ -83,6 +88,11 @@ public class RestaurantBuilder {
      */
     public RestaurantBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    public RestaurantBuilder withCuisine(String cuisine) {
+        this.cuisine = new Cuisine(cuisine);
         return this;
     }
 

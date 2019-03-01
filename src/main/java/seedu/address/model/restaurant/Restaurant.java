@@ -43,6 +43,19 @@ public class Restaurant {
     }
 
     /**
+     * Create new restaurant with Optional cuisine field.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine) {
+        requireAllNonNull(name, phone, email, address, tags, cuisine);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.cuisine = cuisine;
+    }
+
+    /**
      * Creates a new restaurant from an existing restaurant with cuisine set.
      * @param restaurant the restaurant to set cuisine to
      * @param cuisine the cuisine to be set
@@ -139,6 +152,12 @@ public class Restaurant {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+
+        this.cuisine.ifPresent(content ->
+            builder.append(" Cuisine: ")
+                    .append(content)
+        );
+
         return builder.toString();
     }
 

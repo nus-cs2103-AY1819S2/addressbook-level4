@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,13 +32,15 @@ class JsonAdaptedRestaurant {
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
+    private final String cuisine;
+
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
      */
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("cuisine") String cuisine) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,6 +48,7 @@ class JsonAdaptedRestaurant {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.cuisine = cuisine;
     }
 
     /**
@@ -57,6 +62,12 @@ class JsonAdaptedRestaurant {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+
+        if (source.getCuisine().isPresent()) {
+            cuisine = source.getCuisine().get().value;
+        } else {
+            cuisine = null;
+        }
     }
 
     /**
@@ -102,8 +113,18 @@ class JsonAdaptedRestaurant {
         }
         final Address modelAddress = new Address(address);
 
+        final Optional<Cuisine> modelCuisine;
+        if (cuisine == null) {
+            modelCuisine = Optional.empty();
+        } else {
+            if (!Cuisine.isValidCuisine(cuisine)) {
+                throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
+            }
+            modelCuisine = Optional.of(cuisine).map(content -> new Cuisine(content));
+        }
+
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelCuisine);
     }
 
 }

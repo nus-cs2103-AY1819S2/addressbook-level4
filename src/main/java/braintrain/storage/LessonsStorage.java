@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import braintrain.model.Lessons;
-import braintrain.model.lesson.Lesson;
 
 /**
  * Represents a storage for {@link braintrain.model.Lessons}.
@@ -30,13 +29,13 @@ public interface LessonsStorage {
 
     /**
      * Saves the given {@link Lessons} to the storage.
-     * @param Lessons cannot be null.
+     * @param lessons cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveLessons(Lessons Lessons) throws IOException;
+    void saveLessons(Lessons lessons) throws IOException;
 
     /**
      * @see #saveLessons(Lessons)
      */
-    void saveLessons(Lessons Lessons, Path filePath) throws IOException;
+    void saveLessons(Lessons lessons, Path filePath) throws IOException;
 }

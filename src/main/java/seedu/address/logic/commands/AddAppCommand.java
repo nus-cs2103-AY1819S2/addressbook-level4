@@ -1,13 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_COMMENT;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_DATE;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_END;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_INDEX;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_START;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -31,27 +32,33 @@ public class AddAppCommand extends Command {
             + PREFIX_INDEX + "INDEX "
             + PREFIX_DATE + "DATE "
             + PREFIX_START + "START "
-            + PREFIX_END + "END\n"
+            + PREFIX_END + "END"
+            + PREFIX_COMMENT + "COMMENT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "3 "
             + PREFIX_DATE + "2019-10-23 "
             + PREFIX_START + "16:00 "
-            + PREFIX_END + "17:00\n";
+            + PREFIX_END + "17:00"
+            + PREFIX_COMMENT + "<any comments>\n";
 
     public static final String MESSAGE_SUCCESS = "Appointment added: \n%1$s\n";
     public static final String MESSAGE_DUPLICATE_APP = "The time slot has already been taken";
 
     private final Index targetIndex;
-    private final LocalDateTime start;
-    private final LocalDateTime end;
+    private final LocalDate date;
+    private final LocalTime start;
+    private final LocalTime end;
+    private final String comment;
 
     /**
      * Creates an AddAppCommand to add the specified {@code Appointment}
      */
-    public AddAppCommand(Index index, LocalDateTime start, LocalDateTime end) {
+    public AddAppCommand(Index index, LocalDate date, LocalTime start, LocalTime end, String comment) {
         this.targetIndex = index;
+        this.date = date;
         this.start = start;
         this.end = end;
+        this.comment = comment;
     }
 
     @Override
@@ -65,7 +72,7 @@ public class AddAppCommand extends Command {
         }
 
         Person personToAdd = lastShownList.get(targetIndex.getZeroBased());
-        Appointment toAdd = new Appointment(personToAdd, start, end);
+        Appointment toAdd = new Appointment(personToAdd, date, start, end, comment);
 
         if (model.duplicateApp(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APP);

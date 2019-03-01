@@ -1,6 +1,7 @@
 package seedu.address.model.appointment;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 import seedu.address.model.person.Person;
@@ -12,31 +13,37 @@ import seedu.address.model.person.Person;
  */
 public class Appointment {
     private final Person patient;
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
-    //private final String description;
+    private final LocalDate date;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
+    private final String comment;
 
-    public Appointment(Person patient, LocalDateTime startTime, LocalDateTime endTime) {
+    public Appointment(Person patient, LocalDate date, LocalTime startTime, LocalTime endTime, String comment) {
         this.patient = patient;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        //this.description = description;
+        this.comment = comment;
     }
 
     public Person getPatient() {
         return patient;
     }
 
-    //public String getDescription() {
-    // return description;
-    //}
+    public LocalDate getDate() {
+        return date;
+    }
 
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
+    }
+
+    public String getComment() {
+        return comment;
     }
     /**
      * Returns true if both appointments have the same identity and data fields.
@@ -68,10 +75,14 @@ public class Appointment {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getPatient())
+                .append("Date: ")
+                .append(getDate() + "\n")
                 .append(" Start Time: ")
-                .append(getStartTime())
+                .append(getStartTime() + "\n")
                 .append(" End Time: ")
-                .append(getEndTime());
+                .append(getEndTime() + "\n")
+                .append(" Comments: ")
+                .append(getComment() + "\n");
         return builder.toString();
     }
 }

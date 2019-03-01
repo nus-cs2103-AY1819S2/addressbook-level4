@@ -18,7 +18,10 @@ public class TimeRange {
     }
 
     public boolean withinTiming(TimeRange other) {
-        return other.getStartTime().isAfter(this.startTime) && other.getEndTime().isBefore(this.endTime);
+        return (other.getStartTime().isAfter(this.startTime)
+            || other.getStartTime().equals(this.startTime))
+            && (other.getEndTime().isBefore(this.endTime)
+            || other.getEndTime().equals(this.endTime));
     }
 
     public LocalTime getStartTime() {

@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 
-import javafx.application.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;

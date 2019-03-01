@@ -28,7 +28,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
-        this.lessons = new Lessons();
+        this.lessons = lessons;
     }
 
     public ModelManager() {

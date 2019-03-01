@@ -1,5 +1,6 @@
 package braintrain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import braintrain.model.lesson.Lesson;
@@ -9,6 +10,10 @@ import braintrain.model.lesson.Lesson;
  */
 public class Lessons {
     private List<Lesson> lessons;
+
+    public Lessons () {
+        lessons = new ArrayList<>();
+    }
 
     public List<Lesson> getLessons() {
         return lessons;

@@ -14,6 +14,9 @@ import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.categories.Cuisine;
 
+/**
+ * Sets the cuisine of an existing restaurant in the food diary.
+ */
 public class SetCuisineCommand extends Command {
 
     public static final String COMMAND_WORD = "setCuisine";

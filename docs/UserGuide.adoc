@@ -206,10 +206,10 @@ Example:
 
 * `stats`
 
-=== Listing entered commands : `history`
+=== Listing entered commands : `stats`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Displays statistics of commands used +
+Format: `stats`
 
 [NOTE]
 ====
@@ -298,7 +298,7 @@ _{explain how the user can enable/disable data encryption}_
 * **Clear**: `clear`
 * **Redo**: `redo`
 * **Undo**: `undo`
-* **History**: `history`
+* **Statistics**: `stats`
 * **Stats**: `stats`
 * **Shoot**: `shoot c/COORDINATES`
 * **Play**: `play`

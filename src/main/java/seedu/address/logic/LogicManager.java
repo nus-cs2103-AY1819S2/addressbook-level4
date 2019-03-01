@@ -45,16 +45,16 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
-
+        boolean validCommand = false;
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
-            // STATISTICS: if command is executed, then add in
-            // FUTURE : Track return value
+            validCommand = true; // only valid commands can reach here without getting handled by exception
         } finally {
-            // FOR STATISTICS : PUT A CONDITION TO ADD INTO HISTORY INSTEAD OF FINALLY
-            history.add(commandText);
+            if (validCommand) {
+                history.add(commandText);
+            }
         }
 
         if (addressBookModified) {

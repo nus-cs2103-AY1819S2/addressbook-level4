@@ -26,7 +26,7 @@ public class Tag {
     }
     /**
      * Returns tag name
-     * */
+     */
     public String getName(){
         return tagName;
     }

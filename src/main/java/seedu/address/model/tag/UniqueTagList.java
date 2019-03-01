@@ -11,16 +11,16 @@ import seedu.address.model.person.Person;
 
 /**
  * A list keeping track of all Tags, and for each tag, keeps track of every person that has the tag.
- * */
+ */
 
-public class UniqueTagList{
+public class UniqueTagList {
     private final ObservableMap<Tag, ObservableList<Person>> tagAndPersonList = FXCollections.observableHashMap();
     private final ObservableMap<Tag, ObservableList<Person>> unmodifiableTagAndPersonList = FXCollections.unmodifiableObservableMap(tagAndPersonList);
 
     /**
      * Adds person to the list of every tag that this person is tagged in
      */
-    public void addPerson(Person toAdd){
+    public void addPerson(Person toAdd) {
         Set<Tag> personTagList = toAdd.getTags();
         for (Tag i : personTagList) {
             if (tagAndPersonList.containsKey(i)) {
@@ -36,7 +36,7 @@ public class UniqueTagList{
     /**
      * Find person in every tag that contains the person and remove the person
      */
-    public void removePerson(Person toRemove){
+    public void removePerson(Person toRemove) {
         Set<Tag> personTagList = toRemove.getTags();
         for (Tag i : personTagList) {
             if (tagAndPersonList.containsKey(i)) {
@@ -48,12 +48,12 @@ public class UniqueTagList{
     /**
      * Removes the entire tag from tag list
      */
-    public void removeEntireTag(Tag tag){
+    public void removeEntireTag(Tag tag) {
         tagAndPersonList.remove(tag);
     }
 
 
-    public ObservableList<Person> getListOfPerson(Tag tag){
+    public ObservableList<Person> getListOfPerson(Tag tag) {
         return tagAndPersonList.get(tag);
     }
 
@@ -61,7 +61,7 @@ public class UniqueTagList{
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableMap<Tag, ObservableList<Person>> asUnmodifiableObservableMap(){
+    public ObservableMap<Tag, ObservableList<Person>> asUnmodifiableObservableMap() {
         return unmodifiableTagAndPersonList;
     }
 }

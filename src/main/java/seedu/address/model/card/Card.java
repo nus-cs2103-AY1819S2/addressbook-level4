@@ -61,7 +61,7 @@ public class Card {
     }
 
     /**
-     * Returns true if both cards of the same question have at least one other identity field that is the same.
+     * Returns true if both cards of the same question also have the same answer, but not necessarily the same hint.
      * This defines a weaker notion of equality between two cards.
      */
     public boolean isSameCard(Card otherCard) {
@@ -71,7 +71,7 @@ public class Card {
 
         return otherCard != null
                 && otherCard.getQuestion().equals(getQuestion())
-                && (otherCard.getAnswer().equals(getAnswer()) || otherCard.getEmail().equals(getEmail()));
+                && (otherCard.getAnswer().equals(getAnswer()));
     }
 
     /**
@@ -91,7 +91,6 @@ public class Card {
         Card otherCard = (Card) other;
         return otherCard.getQuestion().equals(getQuestion())
                 && otherCard.getAnswer().equals(getAnswer())
-                && otherCard.getEmail().equals(getEmail())
                 && otherCard.getAddress().equals(getAddress())
                 && otherCard.getHints().equals(getHints());
     }
@@ -99,7 +98,7 @@ public class Card {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, email, address, hints);
+        return Objects.hash(question, answer, address, hints);
     }
 
     @Override
@@ -108,8 +107,6 @@ public class Card {
         builder.append(getQuestion())
                 .append(" Answer: ")
                 .append(getAnswer())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Hint: ");

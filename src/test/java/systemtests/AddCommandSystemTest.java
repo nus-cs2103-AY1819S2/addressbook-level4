@@ -117,11 +117,6 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         command = CardUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: add a duplicate card except with different answer -> rejected */
-        toAdd = new CardBuilder(HOON).withAnswer(VALID_ANSWER_BOB).build();
-        command = CardUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
-
         /* Case: add a duplicate card except with different email -> rejected */
         toAdd = new CardBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = CardUtil.getAddCommand(toAdd);

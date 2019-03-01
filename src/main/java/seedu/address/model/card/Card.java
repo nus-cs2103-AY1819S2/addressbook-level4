@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.hint.Hint;
 
 /**
  * Represents a Card in the card folder.
@@ -22,18 +22,18 @@ public class Card {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Hint> hints = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(question, answer, email, address, tags);
+    public Card(Question question, Answer answer, Email email, Address address, Set<Hint> hints) {
+        requireAllNonNull(question, answer, email, address, hints);
         this.question = question;
         this.answer = answer;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        this.hints.addAll(hints);
     }
 
     public Question getQuestion() {
@@ -53,11 +53,11 @@ public class Card {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable hint set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Hint> getHints() {
+        return Collections.unmodifiableSet(hints);
     }
 
     /**
@@ -93,13 +93,13 @@ public class Card {
                 && otherCard.getAnswer().equals(getAnswer())
                 && otherCard.getEmail().equals(getEmail())
                 && otherCard.getAddress().equals(getAddress())
-                && otherCard.getTags().equals(getTags());
+                && otherCard.getHints().equals(getHints());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, email, address, tags);
+        return Objects.hash(question, answer, email, address, hints);
     }
 
     @Override
@@ -112,8 +112,8 @@ public class Card {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Hint: ");
+        getHints().forEach(builder::append);
         return builder.toString();
     }
 

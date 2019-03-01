@@ -8,7 +8,7 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.hint.Hint;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -25,14 +25,14 @@ public class CardBuilder {
     private Answer answer;
     private Email email;
     private Address address;
-    private Set<Tag> tags;
+    private Set<Hint> hints;
 
     public CardBuilder() {
         question = new Question(DEFAULT_NAME);
         answer = new Answer(DEFAULT_ANSWER);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
+        hints = new HashSet<>();
     }
 
     /**
@@ -43,7 +43,7 @@ public class CardBuilder {
         answer = cardToCopy.getAnswer();
         email = cardToCopy.getEmail();
         address = cardToCopy.getAddress();
-        tags = new HashSet<>(cardToCopy.getTags());
+        hints = new HashSet<>(cardToCopy.getHints());
     }
 
     /**
@@ -55,10 +55,10 @@ public class CardBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Card} that we are building.
+     * Parses the {@code hints} into a {@code Set<Hint>} and set it to the {@code Card} that we are building.
      */
-    public CardBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public CardBuilder withHint(String ... hint) {
+        this.hints = SampleDataUtil.getHintSet(hint);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class CardBuilder {
     }
 
     public Card build() {
-        return new Card(question, answer, email, address, tags);
+        return new Card(question, answer, email, address, hints);
     }
 
 }

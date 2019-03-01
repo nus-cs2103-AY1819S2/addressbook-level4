@@ -37,7 +37,7 @@ public class CardThumbnail extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane hints;
 
     public CardThumbnail(Card card, int displayedIndex) {
         super(FXML);
@@ -47,7 +47,7 @@ public class CardThumbnail extends UiPart<Region> {
         answer.setText(card.getAnswer().value);
         address.setText(card.getAddress().value);
         email.setText(card.getEmail().value);
-        card.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        card.getHints().forEach(hint -> hints.getChildren().add(new Label(hint.hintName)));
     }
 
     @Override

@@ -22,7 +22,8 @@ public class SetCuisineCommand extends Command {
             + ": Sets cuisine of the restaurant identified by the index number used in the displayed restaurant list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CUISINE + "CUISINE]\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_CUISINE + "Fast Food";
 
     public static final String MESSAGE_SET_CUISINE_SUCCESS = "Cuisine Set for Restaurant: %1$s";
 

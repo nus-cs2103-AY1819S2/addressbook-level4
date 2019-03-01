@@ -1,6 +1,5 @@
 package seedu.address.model.tag;
 
-
 import java.util.Set;
 
 import javafx.collections.FXCollections;
@@ -15,7 +14,8 @@ import seedu.address.model.person.Person;
 
 public class UniqueTagList {
     private final ObservableMap<Tag, ObservableList<Person>> tagAndPersonList = FXCollections.observableHashMap();
-    private final ObservableMap<Tag, ObservableList<Person>> unmodifiableTagAndPersonList = FXCollections.unmodifiableObservableMap(tagAndPersonList);
+    private final ObservableMap<Tag, ObservableList<Person>> unmodifiableTagAndPersonList =
+            FXCollections.unmodifiableObservableMap(tagAndPersonList);
 
     /**
      * Adds person to the list of every tag that this person is tagged in
@@ -41,7 +41,10 @@ public class UniqueTagList {
         for (Tag i : personTagList) {
             if (tagAndPersonList.containsKey(i)) {
                 tagAndPersonList.get(i).remove(toRemove);
-            } else continue;
+            }
+            else {
+                continue;
+            }
         }
     }
 

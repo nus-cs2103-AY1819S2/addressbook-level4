@@ -8,8 +8,8 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -50,7 +50,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons){
+    public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
         indicateModified();
     }
@@ -112,7 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void removeEveryoneWithThisTag(Tag tag) {
         ObservableList<Person> listOfPeople = tags.getListOfPerson(tag);
-        for (Person i : listOfPeople){
+        for (Person i : listOfPeople) {
             persons.remove(i);
             tags.removePerson(i);
         }
@@ -132,7 +132,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Notifies listeners that the address book has been modified.
      */
-    protected void indicateModified(){
+    protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 

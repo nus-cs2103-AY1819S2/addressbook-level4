@@ -13,4 +13,6 @@ public interface ReadOnlyUserPrefs {
     GuiSettings getGuiSettings();
 
     Path getLessonsFolderPath();
+
+    Path getLessonImportExportFilePath();
 }

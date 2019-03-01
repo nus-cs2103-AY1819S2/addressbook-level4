@@ -11,6 +11,12 @@ import braintrain.model.Lessons;
  */
 public class CsvLessonsStorage implements LessonsStorage {
 
+    private Path filePath;
+
+    public CsvLessonsStorage(Path filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public Path getLessonsFolderPath() {
         return null;

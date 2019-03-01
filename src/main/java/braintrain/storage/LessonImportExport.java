@@ -13,7 +13,7 @@ public interface LessonImportExport {
     /**
      * Returns the default folder exported lessons are placed.
      */
-    Path getDefaultExportFilePath();
+    Path getImportExportFilePath();
 
     /**
      * Returns Lesson data as a {@link Lesson} from a given location.

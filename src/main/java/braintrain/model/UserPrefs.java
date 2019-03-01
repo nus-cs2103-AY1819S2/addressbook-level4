@@ -14,6 +14,7 @@ import braintrain.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path lessonsFolderPath = Paths.get("data");
+    private Path lessonImportExportFilePath = Paths.get("import", "test-lesson.csv");
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -34,6 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setLessonsFolderPath(newUserPrefs.getLessonsFolderPath());
+        setLessonImportExportFilePath(newUserPrefs.getLessonImportExportFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -54,6 +56,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.lessonsFolderPath = lessonsFolderPath;
     }
 
+    public Path getLessonImportExportFilePath() {
+        return lessonImportExportFilePath;
+    }
+
+    public void getLessonImportExportFilePath(Path lessonImportExportFilePath) {
+        requireNonNull(lessonImportExportFilePath);
+        this.lessonImportExportFilePath = lessonImportExportFilePath;
+    }
+
+    public void setLessonImportExportFilePath(Path lessonImportExportFilePath) {
+        requireNonNull(lessonImportExportFilePath);
+        this.lessonImportExportFilePath = lessonImportExportFilePath;
+    }
+
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -66,12 +83,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && lessonsFolderPath.equals(o.lessonsFolderPath);
+                && lessonsFolderPath.equals(o.lessonsFolderPath)
+                && lessonImportExportFilePath.equals(o.lessonImportExportFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, lessonsFolderPath);
+        return Objects.hash(guiSettings, lessonsFolderPath, lessonImportExportFilePath);
     }
 
     @Override
@@ -79,6 +97,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + lessonsFolderPath);
+        sb.append("\nLocal import/export file location : " + lessonsFolderPath);
         return sb.toString();
     }
 

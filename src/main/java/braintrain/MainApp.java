@@ -18,7 +18,11 @@ import braintrain.model.Model;
 import braintrain.model.ModelManager;
 import braintrain.model.ReadOnlyUserPrefs;
 import braintrain.model.UserPrefs;
+import braintrain.storage.CsvLessonImportExport;
+import braintrain.storage.CsvLessonsStorage;
 import braintrain.storage.JsonUserPrefsStorage;
+import braintrain.storage.LessonImportExport;
+import braintrain.storage.LessonsStorage;
 import braintrain.storage.Storage;
 import braintrain.storage.StorageManager;
 import braintrain.storage.UserPrefsStorage;
@@ -52,8 +56,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        Lessons lessons = new Lessons(); //TODO
-        storage = new StorageManager(userPrefsStorage);
+        LessonsStorage lessonsStorage = new CsvLessonsStorage(userPrefs.getLessonsFolderPath());
+        Lessons lessons = initLessons(lessonsStorage);
+        LessonImportExport lessonImportExport = new CsvLessonImportExport(userPrefs.getLessonImportExportFilePath());
+        storage = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
 
         initLogging(config);
 
@@ -141,6 +147,40 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
+    }
+
+
+    /**
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * reading from the file.
+     */
+    protected Lessons initLessons(LessonsStorage storage) {
+        Path prefsFilePath = storage.getLessonsFolderPath();
+        logger.info("Using prefs file : " + prefsFilePath);
+
+        Lessons initializedLessons = null;
+        /*
+        try {
+            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                    + "Using default user prefs");
+            initializedPrefs = new UserPrefs();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with a empty BrainTrain");
+            initializedPrefs = new UserPrefs();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            storage.saveUserPrefs(initializedPrefs);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+*/
+        return initializedLessons;
     }
 
     @Override

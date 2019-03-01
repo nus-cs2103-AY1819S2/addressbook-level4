@@ -10,8 +10,15 @@ import braintrain.model.lesson.Lesson;
  * A class to access individual Lesson stored in the hard disk as a csv file
  */
 public class CsvLessonImportExport implements LessonImportExport {
+
+    private Path filePath;
+
+    public CsvLessonImportExport(Path filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
-    public Path getDefaultExportFilePath() {
+    public Path getImportExportFilePath() {
         return null;
     }
 

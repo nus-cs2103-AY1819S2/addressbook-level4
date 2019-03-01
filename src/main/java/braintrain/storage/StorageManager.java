@@ -16,11 +16,17 @@ import braintrain.model.lesson.Lesson;
 public class StorageManager implements Storage {
 
     private UserPrefsStorage userPrefsStorage;
+    private LessonsStorage lessonsStorage;
+    private LessonImportExport lessonImportExport;
 
 
-    public StorageManager(UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage,
+                          LessonsStorage lessonsStorage,
+                          LessonImportExport lessonImportExport) {
         super();
         this.userPrefsStorage = userPrefsStorage;
+        this.lessonsStorage = lessonsStorage;
+        this.lessonImportExport = lessonImportExport;
     }
 
     // ================ UserPrefs methods ==============================
@@ -68,7 +74,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Path getDefaultExportFilePath() {
+    public Path getImportExportFilePath() {
         return null;
     }
 

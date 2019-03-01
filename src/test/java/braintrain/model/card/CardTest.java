@@ -42,6 +42,10 @@ public class CardTest {
                 .withCores(JAPAN_QUESTION, JAPAN_ANSWER)
                 .withOptionals(JAPAN_HINT).build();
         assertTrue(JAPAN.equals(modifiedCopy));
+
+        // Same cores and optionals but different order for cores -> returns false
+        modifiedCopy = new CardBuilder(JAPAN).withCores(JAPAN_ANSWER, JAPAN_QUESTION).build();
+        assertFalse(JAPAN.equals(modifiedCopy));
     }
 
     @Test

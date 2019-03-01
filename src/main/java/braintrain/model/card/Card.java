@@ -118,8 +118,8 @@ public class Card {
     }
 
     /**
-     * Returns true if both {@code Card} objects have the same data fields.
-     * This defines a strong notion of equality between two {@code Card} objects.
+     * Returns true if both {@code Card} objects have the same set and order of cores and optionals.
+     * See {@link #generateHashCode()}. This defines a strong notion of equality between two {@code Card} objects.
      *
      * @param other object to be compared for equality with this {@code Card}
      * @return true if the specified object is a {@code Card} identical to this {@code Card}
@@ -139,8 +139,13 @@ public class Card {
     }
 
     /**
-     * Generates a hash code using cores and optionals for identification and equality purposes.
-     * Two {@code Card} objects with the same set of cores and optionals will have the same hash code.
+     * Generates a hash code using cores and optionals for equality purposes. See {@link #equals(Object)}.
+     * Two {@code Card} objects with the same set and order of cores and optionals will have the same hash code.
+     *
+     * If two {@code Card} objects have the same set of cores and optionals, but their cores or optionals are ordered
+     * differently, they will have different hash codes. For example: Given card1's cores:
+     * [What is the capital of Japan?, Tokyo] and card2's cores: Tokyo, What is the capital of Japan?],
+     * card1 and card2 will have different hash codes and card1.equals(card2) will return false.
      *
      * @return hash code generated from cores and optionals
      */

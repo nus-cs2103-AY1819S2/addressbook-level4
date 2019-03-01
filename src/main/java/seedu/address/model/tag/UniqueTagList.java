@@ -41,8 +41,7 @@ public class UniqueTagList {
         for (Tag i : personTagList) {
             if (tagAndPersonList.containsKey(i)) {
                 tagAndPersonList.get(i).remove(toRemove);
-            }
-            else {
+            } else {
                 continue;
             }
         }

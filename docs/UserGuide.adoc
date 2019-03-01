@@ -82,7 +82,7 @@ Examples:
 Shows a list of all contacts in the address book. +
 Format: `list`
 
-=== Displaying a sorted list of contacts by specified category : sort
+=== Displaying a sorted list of contacts by specified category : `sort`
 
 Shows a list of all contacts in the address book, sorted according to a specified category. +
 Format: `sort CATEGORY`
@@ -398,37 +398,37 @@ User can set a password, which will be required when logging into the app.
 [[Summary]]
 == Command Summary
 
-* *Add* : `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE OF PROPERTY] [t/TAG]...` +
-e.g. `add n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456 f/500000 t/MRT t/newlyRenovated`
-* *Archive* : `archive INDEX` +
-e.g. `archive 1`
+* *Add* : `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE OF PROPERTY] [t/TAG]...`
+** e.g. `add n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456 f/500000 t/MRT t/newlyRenovated`
+* *Archive* : `archive INDEX`
+** e.g. `archive 1`
 * *Archive list* : `archivelist`
-* *Archive search* : `archivefind KEYWORD [KEYWORD]...` +
-[`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`] +
-e.g. `archivefind n/James c/Seller`
+* *Archive search* : `archivefind KEYWORD [KEYWORD]...`
+** `KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+** e.g. `archivefind n/James c/Seller`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE_OF_PROPERTY] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Delete* : `delete INDEX`
+** e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE_OF_PROPERTY] [t/TAG]...`
+** e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Exit*: `exit`
-* *Find* : `find KEYWORD [KEYWORD]...` +
-[`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`] +
-e.g. `find n/James n/Tan n/Young`
+* *Find* : `find KEYWORD [KEYWORD]...`
+** `KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+** e.g. `find n/James n/Tan n/Young`
 * *Help* : `help`
 * *History* : `history`
 * *List* : `list`
-* *Pin* : `pin INDEX` +
-e.g. `pin 3`
+* *Pin* : `pin INDEX`
+** e.g. `pin 3`
 * *Redo* : `redo`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *Sort* : `sort CATEGORY` +
-[`CATEGORY` List: `NAME`, `CUSTOMER_TYPE`, `PRICE_OF_PROPERTY`] +
-e.g. `sort CUSTOMER_TYPE`
-* *Unarchive* : `unarchive INDEX` +
-e.g. `unarchive 1`
+* *Select* : `select INDEX`
+** e.g.`select 2`
+* *Sort* : `sort CATEGORY`
+** `CATEGORY` List: `NAME`, `CUSTOMER_TYPE`, `PRICE_OF_PROPERTY`
+** e.g. `sort CUSTOMER_TYPE`
+* *Unarchive* : `unarchive INDEX`
+** e.g. `unarchive 1`
 * *Undo* : `undo`
-* *Unpin* : `unpin INDEX` +
-e.g. `unpin 1`
+* *Unpin* : `unpin INDEX`
+** e.g. `unpin 1`
 

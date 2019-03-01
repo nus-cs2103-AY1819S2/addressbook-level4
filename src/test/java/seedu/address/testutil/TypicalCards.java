@@ -16,8 +16,7 @@ public class TypicalCards {
 
     public static final Card ALICE = new CardBuilder().withQuestion("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withAnswer("94351253").withScore("5/10")
-            .withTags("friends").build();
+            .withAnswer("94351253").withScore("5/10").withTags("friends").build();
     public static final Card BENSON = new CardBuilder().withQuestion("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withAnswer("98765432").withScore("0/0")

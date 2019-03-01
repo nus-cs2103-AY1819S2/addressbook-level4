@@ -47,6 +47,7 @@ public class CardBuilder {
         answer = cardToCopy.getAnswer();
         email = cardToCopy.getEmail();
         address = cardToCopy.getAddress();
+        score = cardToCopy.getScore();
         tags = new HashSet<>(cardToCopy.getTags());
     }
 

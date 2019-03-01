@@ -17,7 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CardFolder;
+import seedu.address.model.card.Card;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -177,9 +177,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
     
-    private void handleStartTestSession(CardFolder cardFolder) {
+    private void handleStartTestSession(Card card) {
         fullScreenPlaceholder.getChildren().get(fullScreenPlaceholder.getChildren().size() - 1).toBack();
-        Region testSessionRegion = (new TestSession(cardFolder)).getRoot();
+        Region testSessionRegion = (new TestSession(card)).getRoot();
         fullScreenPlaceholder.getChildren().set(0, testSessionRegion);
     }
     

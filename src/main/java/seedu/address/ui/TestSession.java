@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.CardFolder;
 import seedu.address.model.card.Card;
 
 /**
@@ -15,7 +13,7 @@ public class TestSession extends UiPart<Region> {
 
     private static final String FXML = "TestSession.fxml";
 
-    public CardFolder cardFolder; //final?
+    public Card cardToTest; //final?
 
     @FXML
     private StackPane testSessionPage;
@@ -25,20 +23,20 @@ public class TestSession extends UiPart<Region> {
     public TestSession() {
         super(FXML);
     }
-    public TestSession(CardFolder cardFolder) {
+    public TestSession(Card cardToTest) {
         super(FXML);
-        this.cardFolder = cardFolder;
-        displayCard(cardFolder);
+        this.cardToTest = cardToTest;
+        displayCard(cardToTest);
     }
-    
-    public void displayCard(CardFolder cardFolder) {
-        ObservableList<Card> cards = cardFolder.getCardList();
-        //TODO: remove the hard coding of the first question 
-        displayCardQuestion(cards.get(1));
-    }
-    
-    public void displayCardQuestion(Card cardToBeTested) {
-        testCard.setText(cardToBeTested.getQuestion().fullQuestion);
+
+    /**
+     * Updates the UI to show test session page with the question of the specified card
+     * @param cardToTest card to be tested in this page of test session
+     */
+    public void displayCard(Card cardToTest) {
+        testSessionPage.getChildren().clear();
+        testCard.setText(cardToTest.getQuestion().fullQuestion);
+        testSessionPage.getChildren().add(testCard);
     }
 }
 

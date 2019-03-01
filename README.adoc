@@ -27,3 +27,5 @@ endif::[]
 == Acknowledgements
 
 * AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/
+
+== Licence : link:LICENSE[MIT]

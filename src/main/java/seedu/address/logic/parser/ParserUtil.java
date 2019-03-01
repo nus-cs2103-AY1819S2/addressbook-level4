@@ -131,9 +131,9 @@ public class ParserUtil {
     public static File parseFile(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        String VALIDATION_REGEX = "\\p{Alnum}+.(txt|xml|json)$";
+        final String validationRegex = "\\p{Alnum}+.(txt|xml|json)$";
 
-        if (!filePath.matches(VALIDATION_REGEX)) {
+        if (!filePath.matches(validationRegex)) {
             throw new ParseException("File name is invalid");
         }
 

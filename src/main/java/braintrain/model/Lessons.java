@@ -25,7 +25,6 @@ public class Lessons {
 
     /**
      * Adds a lesson to the current list.
-     * @param lesson
      */
     public void addLesson(Lesson lesson) {
         lessons.add(lesson);

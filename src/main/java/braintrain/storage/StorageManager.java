@@ -8,6 +8,7 @@ import braintrain.commons.exceptions.DataConversionException;
 import braintrain.model.Lessons;
 import braintrain.model.ReadOnlyUserPrefs;
 import braintrain.model.UserPrefs;
+import braintrain.model.lesson.Lesson;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -42,7 +43,7 @@ public class StorageManager implements Storage {
     // ================ Lessons methods ==============================
 
     @Override
-    public Path getLessonsFilePath() {
+    public Path getLessonsFolderPath() {
         return null;
     }
 
@@ -65,5 +66,21 @@ public class StorageManager implements Storage {
     public void saveLessons(Lessons Lessons, Path filePath) throws IOException {
 
     }
+
+    @Override
+    public Path getDefaultExportFilePath() {
+        return null;
+    }
+
+    @Override
+    public Optional<Lesson> importLesson(Path filePath) throws IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void exportLesson(Lesson lesson, Path filePath) throws IOException {
+
+    }
+
 
 }

@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import braintrain.model.Lessons;
+import braintrain.model.lesson.Lesson;
 
 /**
  * A class to access Lessons stored in the hard disk as a csv file
@@ -12,7 +13,7 @@ import braintrain.model.Lessons;
 public class CsvLessonsStorage implements LessonsStorage {
 
     @Override
-    public Path getLessonsFilePath() {
+    public Path getLessonsFolderPath() {
         return null;
     }
 
@@ -22,7 +23,12 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     @Override
-    public Optional<Lessons> readLessons(Path filePath) throws IOException {
+    public Optional<Lessons> readLessons(Path folderPath) throws IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Lesson> importLesson(Path filePath) throws IOException {
         return Optional.empty();
     }
 

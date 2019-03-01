@@ -5,15 +5,16 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import braintrain.model.Lessons;
+import braintrain.model.lesson.Lesson;
 
 /**
  * Represents a storage for {@link braintrain.model.Lessons}.
  */
 public interface LessonsStorage {
     /**
-     * Returns the file path of the data file.
+     * Returns the folder path of the data file.
      */
-    Path getLessonsFilePath();
+    Path getLessonsFolderPath();
 
     /**
      * Returns Lessons data as a {@link Lessons}.
@@ -23,9 +24,9 @@ public interface LessonsStorage {
     Optional<Lessons> readLessons() throws IOException;
 
     /**
-     * @see #getLessonsFilePath()
+     * @see #getLessonsFolderPath()
      */
-    Optional<Lessons> readLessons(Path filePath) throws IOException;
+    Optional<Lessons> readLessons(Path folderPath) throws IOException;
 
     /**
      * Saves the given {@link Lessons} to the storage.

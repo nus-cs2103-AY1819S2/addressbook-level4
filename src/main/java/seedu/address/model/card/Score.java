@@ -26,9 +26,8 @@ public class Score {
         requireNonNull(score);
         checkArgument(isValidScore(score), MESSAGE_CONSTRAINTS);
 
-        String[] splitString = score.split("/");
-        this.correctAttempts = Integer.parseInt(splitString[0]);
-        this.totalAttempts = Integer.parseInt(splitString[1]);
+        this.correctAttempts = parseCorrectAttempts(score);
+        this.totalAttempts = parseTotalAttempts(score);
     }
 
     /**
@@ -50,14 +49,9 @@ public class Score {
      * Returns true if a given string is a valid score.
      */
     public static boolean isValidScore(String score) {
-        String[] splitString = score.split("/");
-
-        if (splitString.length != 2) {
-            return false;
-        }
 
         try {
-            return isValidScore(Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1]));
+            return isValidScore(parseCorrectAttempts(score), parseTotalAttempts(score));
         } catch (NumberFormatException e) {
             return false;
         }
@@ -68,6 +62,49 @@ public class Score {
      */
     public static boolean isValidScore(int correctAttempts, int totalAttempts) {
         return 0 <= correctAttempts && correctAttempts <= totalAttempts;
+    }
+
+    /**
+     * Returns score as correctAttempts divided by totalAttempts
+     * @return score A double between 0 and 1
+     */
+    public double getAsDouble() {
+        if (totalAttempts == 0) {
+            return 0;
+        }
+        return (double)correctAttempts/totalAttempts;
+    }
+
+    /**
+     * Returns number of correct attempts as integer from score string.
+     * @param score Score formatted as string
+     * @return correctAttempts The number of correct attempts
+     * @throws NumberFormatException
+     */
+    private static int parseCorrectAttempts(String score) throws NumberFormatException {
+        String[] splitString = score.split("/");
+
+        if (splitString.length != 2) {
+            throw new NumberFormatException("Score is not formatted correctly.");
+        }
+
+        return Integer.parseInt(splitString[0]);
+    }
+
+    /**
+     * Returns number of total attempts as integer from score string.
+     * @param score Score formatted as string
+     * @return totalAttempts The number of total attempts
+     * @throws NumberFormatException
+     */
+    private static int parseTotalAttempts(String score) throws NumberFormatException {
+        String[] splitString = score.split("/");
+
+        if (splitString.length != 2) {
+            throw new NumberFormatException("Score is not formatted correctly.");
+        }
+
+        return Integer.parseInt(splitString[1]);
     }
 
     @Override

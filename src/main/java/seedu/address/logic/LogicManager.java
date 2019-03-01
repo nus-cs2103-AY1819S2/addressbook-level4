@@ -30,12 +30,14 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final RestOrRantParser restOrRantParser;
     private boolean addressBookModified;
+    private Mode mode;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
         restOrRantParser = new RestOrRantParser();
+        mode = Mode.RESTAURANT_MODE;
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getRestOrRant().addListener(observable -> addressBookModified = true);
@@ -48,8 +50,8 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = restOrRantParser.parseCommand(commandText);
-            commandResult = command.execute(model, history);
+            Command command = restOrRantParser.parseCommand(mode, commandText);
+            commandResult = command.execute(mode, model, history);
         } finally {
             history.add(commandText);
         }

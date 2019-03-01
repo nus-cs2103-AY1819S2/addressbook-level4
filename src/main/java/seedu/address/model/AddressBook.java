@@ -105,6 +105,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Removes everyone in the addressbook that has the input tag
+     * Removes the tag itself from list of tag
+     */
+
     public void removeEveryoneWithThisTag(Tag tag){
         ObservableList<Person> listOfPeople = tags.getListOfPerson(tag);
         for (Person i : listOfPeople){

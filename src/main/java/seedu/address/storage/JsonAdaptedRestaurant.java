@@ -40,7 +40,7 @@ class JsonAdaptedRestaurant {
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("cuisine") String cuisine) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -48,7 +48,7 @@ class JsonAdaptedRestaurant {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-        this.cuisine = cuisine;
+        this.cuisine = null;
     }
 
     /**

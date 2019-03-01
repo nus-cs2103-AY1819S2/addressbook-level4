@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice";
-    public static final String DEFAULT_SEMESTER = "Y4S1";
+    public static final String DEFAULT_SEMESTER = "Y4S2";
     public static final String DEFAULT_EXPECTED_MIN_GRADE = "F";
     public static final String DEFAULT_EXPECTED_MAX_GRADE = "A_Plus";
 

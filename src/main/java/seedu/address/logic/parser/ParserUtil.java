@@ -76,7 +76,7 @@ public class ParserUtil {
         if (!Grade.isValidGrade(trimmedAddress)) {
             throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
         }
-        return Grade.valueOf(trimmedAddress);
+        return Grade.getGrade(trimmedAddress);
     }
 
     /**

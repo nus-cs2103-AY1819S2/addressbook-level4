@@ -27,9 +27,9 @@ public class CommandTestUtil {
     public static final String VALID_SEMESTER_AMY = "Y2S2";
     public static final String VALID_SEMESTER_BOB = "Y2S1";
     public static final String VALID_EXPECTED_MIN_GRADE_AMY = "C";
-    public static final String VALID_EXPECTED_MIN_GRADE_BOB = "C";
+    public static final String VALID_EXPECTED_MIN_GRADE_BOB = "D";
     public static final String VALID_EXPECTED_MAX_GRADE_AMY = "A";
-    public static final String VALID_EXPECTED_MAX_GRADE_BOB = "A";
+    public static final String VALID_EXPECTED_MAX_GRADE_BOB = "B";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -52,8 +52,7 @@ public class CommandTestUtil {
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EXPECTED_MIN_GRADE_DESC = " "
             + PREFIX_EXPECTED_MIN_GRADE + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_EXPECTED_MAX_GRADE_DESC = " "
-            + PREFIX_EXPECTED_MAX_GRADE; // empty string not allowed for addresses
+    public static final String INVALID_EXPECTED_MAX_GRADE_DESC = " " + PREFIX_EXPECTED_MAX_GRADE; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

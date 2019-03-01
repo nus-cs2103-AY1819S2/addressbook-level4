@@ -30,8 +30,8 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_SEMESTER = "123456";
-    private static final String VALID_EXPECTED_MAX_GRADE = "123 Main Street #0505";
+    private static final String VALID_SEMESTER = "Y2S2";
+    private static final String VALID_EXPECTED_MAX_GRADE = "A+";
     private static final String VALID_EXPECTED_MIN_GRADE = "F";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
@@ -121,14 +121,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseExpectedMaxGrade_validValueWithoutWhitespace_returnsExpectedMaxGrade() throws Exception {
-        Grade expectedExpectedMaxGrade = Grade.valueOf(VALID_EXPECTED_MAX_GRADE);
+        Grade expectedExpectedMaxGrade = Grade.getGrade(VALID_EXPECTED_MAX_GRADE);
         assertEquals(expectedExpectedMaxGrade, ParserUtil.parseExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE));
     }
 
     @Test
     public void parseExpectedMaxGrade_validValueWithWhitespace_returnsTrimmedExpectedMaxGrade() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_EXPECTED_MAX_GRADE + WHITESPACE;
-        Grade expectedExpectedMaxGrade = Grade.valueOf(VALID_EXPECTED_MAX_GRADE);
+        Grade expectedExpectedMaxGrade = Grade.getGrade(VALID_EXPECTED_MAX_GRADE);
         assertEquals(expectedExpectedMaxGrade, ParserUtil.parseExpectedMaxGrade(addressWithWhitespace));
     }
 

@@ -1,13 +1,10 @@
 package braintrain.model.quiz;
 
 import static braintrain.commons.util.AppUtil.checkArgument;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import braintrain.model.quiz.exceptions.NotInitialisedException;
 
 /**
  * Represents a quiz that stores a list of QuizCard
@@ -47,6 +44,8 @@ public class Quiz {
         this.mode = mode;
         this.currentCardIndex = -1;
         this.generatedCardSize = -1;
+
+        generate();
     }
 
     /**
@@ -82,11 +81,7 @@ public class Quiz {
         return currentCardIndex < (generatedCardSize - 1);
     }
 
-    public QuizCard getNextCard() throws NotInitialisedException {
-        if (generatedCardSize == -1) {
-            throw new NotInitialisedException("Cards have not been generated, please run generate first");
-        }
-
+    public QuizCard getNextCard() {
         currentCardIndex++;
 
         if (currentCardIndex < generatedCardSize) {

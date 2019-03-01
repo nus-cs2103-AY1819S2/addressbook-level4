@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import braintrain.model.quiz.exceptions.NotInitialisedException;
 import braintrain.testutil.Assert;
 
 public class QuizTest {
@@ -65,23 +64,13 @@ public class QuizTest {
     @Test
     public void isNextCard() {
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
-
-        // have not generated yet
-        assertFalse(quiz.isNextCard());
-
-        // after generate
-        quiz.generate();
         assertTrue(quiz.isNextCard());
 
         // get all cards
-        try {
-            quiz.getNextCard();
-            quiz.getNextCard();
-            quiz.getNextCard();
-            quiz.getNextCard();
-        } catch (NotInitialisedException e) {
-            e.printStackTrace();
-        }
+        quiz.getNextCard();
+        quiz.getNextCard();
+        quiz.getNextCard();
+        quiz.getNextCard();
 
         // no cards left
         assertFalse(quiz.isNextCard());
@@ -89,15 +78,11 @@ public class QuizTest {
     }
 
     @Test
-    public void getNextCard() throws NotInitialisedException {
+    public void getNextCard() {
         // ------- learn -------
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
 
-        // before running generate
-        Assert.assertThrows(NotInitialisedException.class, () ->
-            quiz.getNextCard());
-
-        // normal, after generate
+        // normal
         List<QuizCard> generated = quiz.generate();
         assertEquals(generated.get(0), quiz.getNextCard());
         assertEquals(generated.get(1), quiz.getNextCard());
@@ -110,11 +95,8 @@ public class QuizTest {
 
         // ------- review -------
         Quiz quizReview = new Quiz(VALID_QUIZCARD, Quiz.Mode.REVIEW);
-        // before running generate
-        Assert.assertThrows(NotInitialisedException.class, () ->
-            quizReview.getNextCard());
 
-        // normal, after generate
+        // normal
         List<QuizCard> generatedReview = quizReview.generate();
         assertEquals(generatedReview.get(0), quizReview.getNextCard());
         assertEquals(generatedReview.get(1), quizReview.getNextCard());
@@ -127,9 +109,6 @@ public class QuizTest {
 
         // ------- preview -------
         Quiz quizPreview = new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW);
-        // before running generate
-        Assert.assertThrows(NotInitialisedException.class, () ->
-            quizPreview.getNextCard());
 
         // normal, after generate
         List<QuizCard> generatedPreview = quizPreview.generate();

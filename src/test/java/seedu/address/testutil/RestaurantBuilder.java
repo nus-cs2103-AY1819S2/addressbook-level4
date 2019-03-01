@@ -92,6 +92,9 @@ public class RestaurantBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
+     */
     public RestaurantBuilder withCuisine(String cuisine) {
         this.cuisine = new Cuisine(cuisine);
         return this;

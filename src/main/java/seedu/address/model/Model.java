@@ -146,6 +146,8 @@ public interface Model {
 
     //void purchaseMedicine(String medicineName, int quantity);
 
+    //Optional<Directory> findDirectory(String[] path);
+
     //===========Patient module operations============================
     boolean duplicatePatient(Patient patient);
 

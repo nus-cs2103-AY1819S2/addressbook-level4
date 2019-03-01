@@ -51,15 +51,21 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
-    
-    public boolean isTestSession() { 
+
+    /**
+     * Check if command is to enter test session
+     * @return a boolean variable to state if command is test or not
+     */
+    public boolean isTestSession() {
         if (testSessionCard == null) {
             return false;
         }
         return true;
     }
-    
-    public Card getTestSessionCard() { return testSessionCard; }
+
+    public Card getTestSessionCard() {
+        return testSessionCard;
+    }
 
     @Override
     public boolean equals(Object other) {

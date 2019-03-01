@@ -13,7 +13,7 @@ import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
 
 /**
- * Deletes a card identified using it's displayed index from the card folder.
+ * Test a card folder identified using it's displayed index from the card folder list.
  */
 public class TestCommand extends Command {
 

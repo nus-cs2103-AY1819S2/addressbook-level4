@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
-import javafx.scene.control.Label;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.card.Card;
@@ -13,13 +13,13 @@ public class TestSession extends UiPart<Region> {
 
     private static final String FXML = "TestSession.fxml";
 
-    public Card cardToTest; //final?
+    private Card cardToTest; //final?
 
     @FXML
     private StackPane testSessionPage;
     @FXML
     private Label testCard;
-    
+
     public TestSession() {
         super(FXML);
     }

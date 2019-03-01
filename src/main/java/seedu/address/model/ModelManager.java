@@ -123,7 +123,7 @@ public class ModelManager implements Model {
     public List<ReadOnlyCardFolder> getCardFolders() {
         return new ArrayList<>(versionedCardFolders);
     }
-    
+
     @Override
     public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
         //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode

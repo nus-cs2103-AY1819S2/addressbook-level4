@@ -127,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedCardProperty());
         cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
                 logic::setSelectedCard);
-        cardMainScreen = new CardMainScreen(cardListPanel,browserPanel);
+        cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
     }
 
@@ -170,13 +170,13 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-    
+
     private void handleStartTestSession(Card card) {
         fullScreenPlaceholder.getChildren().get(fullScreenPlaceholder.getChildren().size() - 1).toBack();
         Region testSessionRegion = (new TestSession(card)).getRoot();
         fullScreenPlaceholder.getChildren().set(0, testSessionRegion);
     }
-    
+
     private void handleEndTestSession() {
         fullScreenPlaceholder.getChildren().get(fullScreenPlaceholder.getChildren().size() - 1).toBack();
     }
@@ -203,7 +203,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-            
+
             if (commandResult.isTestSession()) {
                 handleStartTestSession(commandResult.getTestSessionCard());
             }

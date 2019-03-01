@@ -143,6 +143,11 @@ public class AddCommandTest {
         public List<ReadOnlyCardFolder> getCardFolders() {
             throw new AssertionError("This method should not be called.");
         }
+        
+        @Override
+        public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean hasCard(Card card) {

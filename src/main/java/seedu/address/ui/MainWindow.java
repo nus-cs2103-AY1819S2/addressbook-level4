@@ -38,18 +38,13 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TestSession testSessionScreen;
-
-    @FXML
-    private StackPane browserPlaceholder;
+    private CardMainScreen cardMainScreen;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane cardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -117,13 +112,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedCardProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
-                logic::setSelectedCard);
-        cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -135,6 +123,12 @@ public class MainWindow extends UiPart<Stage> {
 
         testSessionScreen = new TestSession();
         fullScreenPlaceholder.getChildren().add(testSessionScreen.getRoot());
+
+        browserPanel = new BrowserPanel(logic.selectedCardProperty());
+        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
+                logic::setSelectedCard);
+        cardMainScreen = new CardMainScreen(cardListPanel,browserPanel);
+        fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
     }
 
     /**

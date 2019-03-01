@@ -79,12 +79,20 @@ Examples:
 === Listing Book Entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
-Format: `listBook [t/TAG] [m/RATING]`
+Format: `listBook [n/NAME] [t/TAG] [m/RATING]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only books match all the search criteria will be returned
+* For name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
+****
 
 Examples:
 
 * `listBook t/textbook m/5`
-* `listBook t/testbook`
+* `listBook n/CS2104T t/textbook`
 * `listBook m/5`
 
 === Listing Book Reviews to a Certain Book : `listReview`
@@ -127,26 +135,6 @@ Format: `editTag n/BOOKNAME [ta/TAG TO ADD] [td/TAG TO DELETE]`
 Examples:
 
 * `editTag n/Alice in Wonderland ta/horror td/fantasy.`
-
-=== Locating Book by name: `find`
-
-Finds book entries whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Books matching at least one keyword will be returned (i.e. OR search). e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
-****
-
-Examples:
-
-* `find Wonderland` +
-Returns `Alice in Wonderland`
-* `find Computer Security` +
-Returns any book with the word `Conputer`, `Security`
 
 === Deleting a book : `deleteBook`
 
@@ -285,9 +273,7 @@ e.g. `deleteBook n/Alice in Wonderland`
 e.g. `edit n/Alice in Wonderland a/some author`
 * *EditTag* : `editTag n/BOOKNAME [ta/TAG TO ADD] [td/TAG TO DELETE]` +
 e.g. `editTag n/Alice in Wonderland ta/horror td/fantasy.`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find Wonderland`
-* *ListBook* : `listBook [t/TAG] [m/RATING]` +
+* *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING]` +
 e.g. `listBook t/textbook m/5`
 * *ListReview* : `listReview n/BOOKNAME` +
 e.g. `listReview n/Alice in Wonderland`

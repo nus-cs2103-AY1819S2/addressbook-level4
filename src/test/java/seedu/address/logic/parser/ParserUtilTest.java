@@ -24,7 +24,7 @@ import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_QUESTION = " ";
-    private static final String INVALID_ANSWER = "+651234";
+    private static final String INVALID_ANSWER = " ";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_HINT = "#friend";

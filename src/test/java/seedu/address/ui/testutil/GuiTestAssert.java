@@ -32,7 +32,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysCard(Card expectedCard, CardThumbnailHandle actualCard) {
         assertEquals(expectedCard.getQuestion().fullQuestion, actualCard.getQuestion());
-        assertEquals(expectedCard.getAnswer().value, actualCard.getAnswer());
+        assertEquals(expectedCard.getAnswer().fullAnswer, actualCard.getAnswer());
         assertEquals(expectedCard.getEmail().value, actualCard.getEmail());
         assertEquals(expectedCard.getAddress().value, actualCard.getAddress());
         assertEquals(expectedCard.getHints().stream().map(hint -> hint.hintName).collect(Collectors.toList()),

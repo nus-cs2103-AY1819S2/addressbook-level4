@@ -112,7 +112,7 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find answer number of card in card folder -> 0 cards found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAnswer().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAnswer().fullAnswer;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

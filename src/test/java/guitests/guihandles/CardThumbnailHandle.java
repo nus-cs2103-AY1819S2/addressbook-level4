@@ -78,7 +78,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
     public boolean equals(Card card) {
         return getQuestion().equals(card.getQuestion().fullQuestion)
                 && getAddress().equals(card.getAddress().value)
-                && getAnswer().equals(card.getAnswer().value)
+                && getAnswer().equals(card.getAnswer().fullAnswer)
                 && getEmail().equals(card.getEmail().value)
                 && ImmutableMultiset.copyOf(getHint()).equals(ImmutableMultiset.copyOf(card.getHints().stream()
                         .map(hint -> hint.hintName)

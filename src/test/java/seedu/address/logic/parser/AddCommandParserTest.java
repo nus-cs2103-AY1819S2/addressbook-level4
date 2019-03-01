@@ -129,7 +129,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, QUESTION_DESC_BOB + ANSWER_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_HINT_DESC + VALID_HINT_FRIEND, Hint.MESSAGE_CONSTRAINTS);
 
-        // two invalid values, only first invalid value reported
+        // two invalid values, only first invalid fullAnswer reported
         assertParseFailure(parser, INVALID_QUESTION_DESC + ANSWER_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
                 Question.MESSAGE_CONSTRAINTS);
 

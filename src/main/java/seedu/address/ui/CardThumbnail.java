@@ -44,7 +44,7 @@ public class CardThumbnail extends UiPart<Region> {
         this.card = card;
         id.setText(displayedIndex + ". ");
         question.setText(card.getQuestion().fullQuestion);
-        answer.setText(card.getAnswer().value);
+        answer.setText(card.getAnswer().fullAnswer);
         address.setText(card.getAddress().value);
         email.setText(card.getEmail().value);
         card.getHints().forEach(hint -> hints.getChildren().add(new Label(hint.hintName)));

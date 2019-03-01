@@ -51,7 +51,7 @@ class JsonAdaptedCard {
      */
     public JsonAdaptedCard(Card source) {
         question = source.getQuestion().fullQuestion;
-        answer = source.getAnswer().value;
+        answer = source.getAnswer().fullAnswer;
         email = source.getEmail().value;
         address = source.getAddress().value;
         hintList.addAll(source.getHints().stream()

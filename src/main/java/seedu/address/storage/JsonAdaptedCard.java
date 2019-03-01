@@ -15,6 +15,7 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
+import seedu.address.model.card.Score;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,6 +29,7 @@ class JsonAdaptedCard {
     private final String answer;
     private final String email;
     private final String address;
+    private final String score;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,11 +38,12 @@ class JsonAdaptedCard {
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
                            @JsonProperty("email") String email, @JsonProperty("address") String address,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("score") String score, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
         this.answer = answer;
         this.email = email;
         this.address = address;
+        this.score = score;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -54,6 +57,7 @@ class JsonAdaptedCard {
         answer = source.getAnswer().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        score = source.getAddress().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -103,8 +107,16 @@ class JsonAdaptedCard {
         }
         final Address modelAddress = new Address(address);
 
+        if (score == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Score.class.getSimpleName()));
+        }
+        if (!Score.isValidScore(score)) {
+            throw new IllegalValueException(Score.MESSAGE_CONSTRAINTS);
+        }
+        final Score modelScore = new Score(score);
+
         final Set<Tag> modelTags = new HashSet<>(cardTags);
-        return new Card(modelQuestion, modelAnswer, modelEmail, modelAddress, modelTags);
+        return new Card(modelQuestion, modelAnswer, modelEmail, modelAddress, modelScore, modelTags);
     }
 
 }

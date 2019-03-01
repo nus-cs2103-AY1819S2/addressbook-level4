@@ -17,6 +17,10 @@ public class TimeRange {
         this.endTime = LocalTime.of(endHour, 0);
     }
 
+    /**
+     * Returns whether the other timing is inside this timing.
+     * @param other The timing to check if exists inside this timing or not.
+     */
     public boolean withinTiming(TimeRange other) {
         return (other.getStartTime().isAfter(this.startTime)
             || other.getStartTime().equals(this.startTime))

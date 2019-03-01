@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
+/**
+ * Represents CAP (Cumulative Average Grade) of the user in the system
+ */
 public class Cap {
 
     public static final String MESSAGE_CONSTRAINTS =

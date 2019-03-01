@@ -46,9 +46,18 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getSemester().ifPresent(semester -> sb.append(PREFIX_SEMESTER).append(semester.toString()).append(" "));
-        descriptor.getExpectedMinGrade().ifPresent(expectedMinGrade -> sb.append(PREFIX_EXPECTED_MIN_GRADE).append(expectedMinGrade.toString()).append(" "));
-        descriptor.getExpectedMaxGrade().ifPresent(expectedMaxGrade -> sb.append(PREFIX_EXPECTED_MAX_GRADE).append(expectedMaxGrade.toString()).append(" "));
+        descriptor.getSemester().ifPresent(semester ->
+                sb.append(PREFIX_SEMESTER)
+                        .append(semester.toString())
+                        .append(" "));
+        descriptor.getExpectedMinGrade().ifPresent(expectedMinGrade ->
+                sb.append(PREFIX_EXPECTED_MIN_GRADE)
+                        .append(expectedMinGrade.toString())
+                        .append(" "));
+        descriptor.getExpectedMaxGrade().ifPresent(expectedMaxGrade ->
+                sb.append(PREFIX_EXPECTED_MAX_GRADE)
+                        .append(expectedMaxGrade.toString())
+                        .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

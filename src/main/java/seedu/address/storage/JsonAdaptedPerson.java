@@ -34,7 +34,8 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("semester") String semester,
-                             @JsonProperty("expectedMinGrade") String expectedMinGrade, @JsonProperty("expectedMaxGrade") String expectedMaxGrade,
+                             @JsonProperty("expectedMinGrade") String expectedMinGrade,
+                             @JsonProperty("expectedMaxGrade") String expectedMaxGrade,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.semester = semester;
@@ -70,7 +71,8 @@ class JsonAdaptedPerson {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -78,7 +80,8 @@ class JsonAdaptedPerson {
         final Name modelName = new Name(name);
 
         if (semester == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Semester.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Semester.class.getSimpleName()));
         }
         if (!Semester.isValidSemester(semester)) {
             throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);

@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.Patient;
@@ -133,6 +134,11 @@ public class ModelManager implements Model {
     //@Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
+    }
+
+    //@Override
+    public Optional<Directory> findDirectory(String[] path) {
+        return medicineManager.findDirectory(path);
     }
     //=========== AddressBook ================================================================================
 

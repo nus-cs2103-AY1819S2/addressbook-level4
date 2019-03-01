@@ -44,6 +44,9 @@ public class ExportCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    /**
+     * writeFile() writes or overwrites a file with the contents of the current address book.
+     */
     private void writeFile(Model model) {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
 

@@ -24,7 +24,7 @@ public class TestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_ENTER_TEST_FOLDER_SUCCESS = "Testing Card Folder: %1$s";
+    public static final String MESSAGE_ENTER_TEST_FOLDER_SUCCESS = "In Test Session";
 
     private final Index targetIndex;
 

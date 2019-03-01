@@ -152,4 +152,14 @@ public interface Model {
     boolean duplicatePatient(Patient patient);
 
     void addPatient(Patient patient);
+
+    boolean isPatientListEmpty();
+
+    boolean checkValidIndex(int index);
+
+    Patient getPatientAtIndex(int index);
+
+    boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient);
+
+    void replacePatient(int index, Patient editedPatient);
 }

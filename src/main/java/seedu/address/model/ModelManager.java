@@ -291,6 +291,7 @@ public class ModelManager implements Model {
 
     //==========Patient module============================================================================
 
+    // for adding
     public boolean duplicatePatient(Patient patient) {
         return this.patientManager.duplicatePatient(patient);
     }
@@ -298,4 +299,26 @@ public class ModelManager implements Model {
     public void addPatient(Patient patient) {
         this.patientManager.addPatient(patient);
     }
+
+    // for editing
+    public boolean isPatientListEmpty() {
+        return this.patientManager.isPatientListEmpty();
+    }
+
+    public boolean checkValidIndex(int index) {
+        return this.patientManager.checkValidIndex(index);
+    }
+
+    public Patient getPatientAtIndex(int index) {
+        return this.patientManager.getPatientAtIndex(index);
+    }
+
+    public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
+        return this.patientManager.checkDuplicatePatientAfterEdit(index, editedPatient);
+    }
+
+    public void replacePatient(int index, Patient editedPatient) {
+        this.patientManager.replacePatient(index, editedPatient);
+    }
+
 }

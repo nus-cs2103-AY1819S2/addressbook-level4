@@ -34,4 +34,52 @@ public class PatientManager {
     public ArrayList<Patient> getPatientList() {
         return patientList;
     }
+
+    //==========Patient edit methods=================================================
+
+    public boolean isPatientListEmpty() {
+        return patientList.size() < 1;
+    }
+
+    /**
+     * Check if index entered to edit patient exceeds the bounds of the
+     * list of patients
+     */
+    public boolean checkValidIndex(int index) {
+        if (index - 1 >= patientList.size()) {
+            return false;
+        }
+
+        if (index - 1 < 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public Patient getPatientAtIndex(int index) {
+        // index for patientlist should be 1 based
+        return patientList.get(index - 1);
+    }
+
+    /**
+     * Check for patient records with same nric as the newly edited patient
+     */
+    public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
+        for (int i = 0; i < patientList.size(); i++) {
+            if (i == index - 1) {
+                continue;
+            }
+
+            if (patientList.get(i).getNric().equals(editedPatient.getNric())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void replacePatient(int index, Patient editedPatient) {
+        patientList.set(index - 1, editedPatient);
+    }
+
 }

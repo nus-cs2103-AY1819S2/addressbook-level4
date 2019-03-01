@@ -125,8 +125,10 @@ public class ModelManager implements Model {
     }
     
     @Override
-    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Enter card folder and get the list of cards, enter test session mode
+    public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
+        Card cardToTest = cardFolderToTest.getCardList().get(0);
+        return cardToTest;
     }
 
     @Override

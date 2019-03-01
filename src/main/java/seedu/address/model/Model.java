@@ -135,5 +135,5 @@ public interface Model {
     /**
      * Enters a test session using the specified card folder.
      */
-    void testCardFolder(ReadOnlyCardFolder cardFolder);
+    Card testCardFolder(ReadOnlyCardFolder cardFolder);
 }

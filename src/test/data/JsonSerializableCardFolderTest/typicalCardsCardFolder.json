@@ -5,42 +5,49 @@
     "answer" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "score" : "5/10",
     "tagged" : [ "friends" ]
   }, {
     "question" : "Benson Meier",
     "answer" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
+    "score" : "0/0",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "question" : "Carl Kurz",
     "answer" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
+    "score" : "0/30",
     "tagged" : [ ]
   }, {
     "question" : "Daniel Meier",
     "answer" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
+    "score" : "69/420",
     "tagged" : [ "friends" ]
   }, {
     "question" : "Elle Meyer",
     "answer" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
+    "score" : "12/24",
     "tagged" : [ ]
   }, {
     "question" : "Fiona Kunz",
     "answer" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
+    "score" : "240/420",
     "tagged" : [ ]
   }, {
     "question" : "George Best",
     "answer" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
+    "score" : "123/321",
     "tagged" : [ ]
   } ]
 }

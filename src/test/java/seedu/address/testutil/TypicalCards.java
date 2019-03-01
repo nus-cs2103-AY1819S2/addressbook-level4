@@ -20,7 +20,7 @@ public class TypicalCards {
             .withTags("friends").build();
     public static final Card BENSON = new CardBuilder().withQuestion("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withAnswer("98765432").withScore("10/20")
+            .withEmail("johnd@example.com").withAnswer("98765432").withScore("0/0")
             .withTags("owesMoney", "friends").build();
     public static final Card CARL = new CardBuilder().withQuestion("Carl Kurz").withAnswer("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withScore("0/30").build();

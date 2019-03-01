@@ -12,6 +12,8 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
+ * @author Lookaz
+ *
  * A list of HealthWorker objects that enforces uniqueness between its elements
  * and does not allow nulls. A person is considered unique by comparing using
  * {@code HealthWorker#isSameHealthWorker(HealthWorker)}. As such, adding and
@@ -24,8 +26,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * Supports a minimal set of list operations.
  *
  * @see HealthWorker#isSameHealthWorker(HealthWorker)
- *
- * @author Lookaz
  */
 public class UniqueHealthWorkerList implements Iterable<HealthWorker> {
 

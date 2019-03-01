@@ -38,6 +38,7 @@ public class ArgumentTokenizer {
     }
 
     /**
+     * @author Lookaz
      * Checks a given argument string and returns the corresponding
      * CommandMode enum
      * @param args argument string to check

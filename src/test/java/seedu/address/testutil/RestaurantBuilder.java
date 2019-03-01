@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.restaurant.Address;
@@ -97,7 +98,7 @@ public class RestaurantBuilder {
     }
 
     public Restaurant build() {
-        return new Restaurant(name, phone, email, address, tags);
+        return new Restaurant(name, phone, email, address, tags, Optional.of(cuisine));
     }
 
 }

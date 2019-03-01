@@ -21,6 +21,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -116,7 +117,8 @@ public class RestOrRantTest {
      * A stub ReadOnlyRestOrRant whose persons list can violate interface constraints.
      */
     private static class RestOrRantStub implements ReadOnlyRestOrRant {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Person> persons = FXCollections.observableArrayList(); // TODO: remove
+        private final ObservableList<OrderItem> orderItems = FXCollections.observableArrayList();
 
         RestOrRantStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -125,6 +127,11 @@ public class RestOrRantTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<OrderItem> getOrderItemList() {
+            return orderItems;
         }
 
         @Override

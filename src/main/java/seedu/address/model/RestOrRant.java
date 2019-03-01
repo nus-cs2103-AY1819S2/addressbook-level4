@@ -7,8 +7,10 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.UniqueOrderItemList;
+import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
+import seedu.address.model.person.UniquePersonList; // TODO: remove once the other components stop relying on person methods
 
 /**
  * Wraps all data at the address-book level
@@ -16,7 +18,9 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class RestOrRant implements ReadOnlyRestOrRant {
 
-    private final UniquePersonList persons;
+    private final UniqueOrderItemList orderItems;
+    // TODO: feel free to add more lists for menu items and tables
+    private final UniquePersonList persons; // TODO: remove once the other components stop relying on person methods
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +31,8 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        orderItems = new UniqueOrderItemList();
+        persons = new UniquePersonList(); // TODO: remove once the other components stop relying on person methods
     }
 
     public RestOrRant() {}
@@ -121,11 +126,16 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return orderItems.asUnmodifiableObservableList().size() + " order items";
         // TODO: refine later
     }
 
     @Override
+    public ObservableList<OrderItem> getOrderItemList() {
+        return orderItems.asUnmodifiableObservableList();
+    }
+
+    // TODO: remove once the other components stop relying on person methods
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
@@ -134,11 +144,11 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
-                && persons.equals(((RestOrRant) other).persons));
+                && orderItems.equals(((RestOrRant) other).orderItems));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return orderItems.hashCode();
     }
 }

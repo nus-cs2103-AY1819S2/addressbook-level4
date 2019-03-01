@@ -27,7 +27,7 @@ public class Restaurant {
     private final Set<Tag> tags = new HashSet<>();
 
     // Category fields
-    private Optional<Cuisine> cuisine = Optional.empty();
+    private final Optional<Cuisine> cuisine;
 
     /**
      * Every field must be present and not null.
@@ -39,9 +39,21 @@ public class Restaurant {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.cuisine = Optional.empty();
     }
 
-    public void setCuisine(Cuisine cuisine) {
+    /**
+     * Creates a new restaurant from an existing restaurant with cuisine set.
+     * @param restaurant the restaurant to set cuisine to
+     * @param cuisine the cuisine to be set
+     */
+    private Restaurant(Restaurant restaurant, Cuisine cuisine) {
+        requireAllNonNull(restaurant, cuisine);
+        this.name = restaurant.name;
+        this.phone = restaurant.phone;
+        this.email = restaurant.email;
+        this.address = restaurant.address;
+        this.tags.addAll(restaurant.tags);
         this.cuisine = Optional.of(cuisine);
     }
 

@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddPatientCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -19,7 +18,6 @@ import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.Assert;
 
 public class AddPatientParserTest {
 

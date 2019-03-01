@@ -30,10 +30,13 @@ public class MajorTest {
         assertFalse(Major.isValidMajor(" ")); // spaces only
         assertFalse(Major.isValidMajor("91")); // numeric
         assertFalse(Major.isValidMajor("phone")); // not in list
+        assertFalse(Major.isValidMajor("phone999")); // mix
 
 
         // valid phone numbers
         assertTrue(Major.isValidMajor("CS")); // short form
         assertTrue(Major.isValidMajor("Computer Science")); //formal form
+        assertTrue(Major.isValidMajor("ME")); //others
+        assertTrue(Major.isValidMajor("MATH")); //others
     }
 }

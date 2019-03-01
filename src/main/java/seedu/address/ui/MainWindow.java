@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -35,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private MedicineListPanel medicineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private WarningPanel warningPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -53,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private VBox warningPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -117,6 +122,9 @@ public class MainWindow extends UiPart<Stage> {
         medicineListPanel = new MedicineListPanel(logic.getFilteredMedicineList(), logic.selectedMedicineProperty(),
                 logic::setSelectedMedicine);
         medicineListPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
+
+        warningPanel = new WarningPanel();
+        warningPanelPlaceholder.getChildren().add(warningPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

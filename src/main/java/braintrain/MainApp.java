@@ -13,6 +13,7 @@ import braintrain.commons.util.ConfigUtil;
 import braintrain.commons.util.StringUtil;
 import braintrain.logic.Logic;
 import braintrain.logic.LogicManager;
+import braintrain.model.Lessons;
 import braintrain.model.Model;
 import braintrain.model.ModelManager;
 import braintrain.model.ReadOnlyUserPrefs;
@@ -51,11 +52,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        Lessons lessons = new Lessons(); //TODO
         storage = new StorageManager(userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(userPrefs);
+        model = initModelManager(userPrefs, lessons);
 
         logic = new LogicManager(model);
 
@@ -65,8 +67,8 @@ public class MainApp extends Application {
     /**
      * Returns a {@code ModelManager} with the data from {@code userPrefs}.
      */
-    private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
-        return new ModelManager(userPrefs);
+    private Model initModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
+        return new ModelManager(userPrefs, lessons);
     }
 
     private void initLogging(Config config) {

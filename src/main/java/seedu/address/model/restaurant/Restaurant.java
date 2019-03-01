@@ -73,6 +73,10 @@ public class Restaurant {
         return address;
     }
 
+    public Optional<Cuisine> getCuisine() {
+        return cuisine;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

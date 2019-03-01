@@ -18,6 +18,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -32,7 +34,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    // to handle QuickDocs operations
     private final MedicineManager medicineManager;
+    private final PatientManager patientManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -48,6 +52,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         this.medicineManager = new MedicineManager();
+        this.patientManager = new PatientManager();
     }
 
     public ModelManager() {
@@ -88,6 +93,7 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
+
     @Override
     public void deleteTag(Tag tag) {
         versionedAddressBook.removeTag(tag);
@@ -277,4 +283,13 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
+    //==========Patient module============================================================================
+
+    public boolean duplicatePatient(Patient patient) {
+        return this.patientManager.duplicatePatient(patient);
+    }
+
+    public void addPatient(Patient patient) {
+        this.patientManager.addPatient(patient);
+    }
 }

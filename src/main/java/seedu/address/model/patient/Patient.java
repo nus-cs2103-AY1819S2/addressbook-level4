@@ -80,4 +80,20 @@ public class Patient {
         Patient otherPatient = (Patient) other;
         return otherPatient.getNric().equals(nric);
     }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Patient details for: " + nric + "\n");
+        sb.append("Name: " + name + "\n");
+        sb.append("Date of Birth: " + dob + "\n");
+        sb.append("Gender: " + gender + "\n");
+        sb.append("Contact: " + contact + "\n");
+        sb.append("Email: " + email + "\n");
+        sb.append("Address: " + address + "\n");
+        sb.append("Tags: " + tagList.toString() + "\n");
+
+        return sb.toString();
+    }
 }

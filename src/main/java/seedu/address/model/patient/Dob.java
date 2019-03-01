@@ -10,7 +10,7 @@ import java.util.List;
 public class Dob {
     //public static final String REGEX_DOB = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/[0-9]{4}";
     public static final String REGEX_DOB = "[0-9]{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
-    public static final String DOB_CONSTRAINTS = "Date of Birth should be in DD/MM/YYYY format";
+    public static final String DOB_CONSTRAINTS = "Date of Birth should be in YYYY-MM-DD format";
     public static final String FEBURARY_CONSTRAINT = "Feburary only have 28 or 29 days";
     public static final String LEAPYEAR_CONSTRAINT = "Only leap years have 29 Feb";
     public static final String THIRTYFIRST_CONSTRAINT = "The month entered does not have a 31st day";

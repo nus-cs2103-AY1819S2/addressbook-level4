@@ -1,6 +1,8 @@
 package braintrain.model.quiz;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,6 +60,32 @@ public class QuizTest {
 
         // preview
         assertEquals(new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW).generate(), VALID_QUIZCARD);
+    }
+
+    @Test
+    public void isNextCard() {
+        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+
+        // have not generated yet
+        assertFalse(quiz.isNextCard());
+
+        // after generate
+        quiz.generate();
+        assertTrue(quiz.isNextCard());
+
+        // get all cards
+        try {
+            quiz.getNextCard();
+            quiz.getNextCard();
+            quiz.getNextCard();
+            quiz.getNextCard();
+        } catch (NotInitialisedException e) {
+            e.printStackTrace();
+        }
+
+        // no cards left
+        assertFalse(quiz.isNextCard());
+
     }
 
     @Test

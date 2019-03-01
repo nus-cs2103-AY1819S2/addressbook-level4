@@ -29,7 +29,7 @@ public class Quiz {
      * Review: only get tested.
      * Preview: sees both question and answer but not tested.
      */
-    enum Mode {
+    public enum Mode {
         LEARN,
         REVIEW,
         PREVIEW
@@ -46,6 +46,7 @@ public class Quiz {
         this.currentSession = session;
         this.mode = mode;
         this.currentCardIndex = -1;
+        this.generatedCardSize = -1;
     }
 
     /**
@@ -72,6 +73,13 @@ public class Quiz {
 
         generatedCardSize = generatedSession.size();
         return generatedSession;
+    }
+
+    /**
+     * Returns true if there is card left in quiz
+     */
+    public boolean isNextCard() {
+        return currentCardIndex < (generatedCardSize - 1);
     }
 
     public QuizCard getNextCard() throws NotInitialisedException {

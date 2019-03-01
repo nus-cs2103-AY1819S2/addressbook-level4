@@ -1,4 +1,4 @@
-package braintrain.model.quiz;
+package braintrain.quiz;
 
 import static braintrain.commons.util.AppUtil.checkArgument;
 import static braintrain.commons.util.CollectionUtil.requireAllNonNull;
@@ -6,7 +6,7 @@ import static braintrain.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
-import braintrain.model.quiz.exceptions.NotInitialisedException;
+import braintrain.quiz.exceptions.NotInitialisedException;
 
 /**
  * Represents a partial of Card, only contains the necessary information for Quiz.

@@ -1,10 +1,11 @@
-package braintrain.model.quiz;
+package braintrain.quiz;
 
 import static braintrain.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Represents a quiz that stores a list of QuizCard
@@ -19,6 +20,7 @@ public class Quiz {
     private QuizCard currentQuizCard;
     private int currentCardIndex;
     private int generatedCardSize;
+    private boolean end;
 
     /**
      * Different types of mode supported in Quiz.
@@ -44,6 +46,7 @@ public class Quiz {
         this.mode = mode;
         this.currentCardIndex = -1;
         this.generatedCardSize = -1;
+        this.end = false;
 
         generate();
     }
@@ -90,5 +93,13 @@ public class Quiz {
         }
 
         throw new IndexOutOfBoundsException("No cards left.");
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void haveEnded() {
+        this.end = true;
     }
 }

@@ -1,4 +1,4 @@
-package braintrain.model.quiz;
+package braintrain.quiz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -110,7 +110,7 @@ public class QuizTest {
         // ------- preview -------
         Quiz quizPreview = new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW);
 
-        // normal, after generate
+        // normal
         List<QuizCard> generatedPreview = quizPreview.generate();
         assertEquals(generatedPreview.get(0), quizPreview.getNextCard());
         assertEquals(generatedPreview.get(1), quizPreview.getNextCard());

@@ -1,4 +1,4 @@
-package braintrain.model.quiz.exceptions;
+package braintrain.quiz.exceptions;
 
 /**
  *  Represents not yet initialised error encountered by Quiz

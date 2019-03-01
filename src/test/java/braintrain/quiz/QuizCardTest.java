@@ -1,4 +1,4 @@
-package braintrain.model.quiz;
+package braintrain.quiz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import braintrain.model.quiz.exceptions.NotInitialisedException;
+import braintrain.quiz.exceptions.NotInitialisedException;
 import braintrain.testutil.Assert;
 
 public class QuizCardTest {

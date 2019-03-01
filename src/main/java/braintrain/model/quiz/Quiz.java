@@ -83,7 +83,7 @@ public class Quiz {
     }
 
     public QuizCard getNextCard() throws NotInitialisedException {
-        if (generatedCardSize == 0) {
+        if (generatedCardSize == -1) {
             throw new NotInitialisedException("Cards have not been generated, please run generate first");
         }
 

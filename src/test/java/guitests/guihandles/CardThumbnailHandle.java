@@ -19,7 +19,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String ANSWER_FIELD_ID = "#answer";
     private static final String EMAIL_FIELD_ID = "#email";
-    private static final String HINT_FIELD_ID = "#hint";
+    private static final String HINTS_FIELD_ID = "#hints";
 
     private final Label idLabel;
     private final Label questionLabel;
@@ -37,7 +37,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
         answerLabel = getChildNode(ANSWER_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
 
-        Region hintContainer = getChildNode(HINT_FIELD_ID);
+        Region hintContainer = getChildNode(HINTS_FIELD_ID);
         hintLabel = hintContainer
                 .getChildrenUnmodifiable()
                 .stream()

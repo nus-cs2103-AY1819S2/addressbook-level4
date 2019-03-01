@@ -1,5 +1,8 @@
 package seedu.address.model.patient;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -30,6 +33,18 @@ public class ContactTest {
 
         String alphabetsIncluded = "12E45678";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Contact(extraNumbers));
+    }
+
+    @Test
+    public void equals() {
+        Contact contact1 = new Contact("91111111");
+        assertTrue(contact1.equals(contact1));
+
+        Contact contact2 = new Contact("91111111");
+        assertTrue(contact1.equals(contact2));
+
+        Contact contact3 = new Contact("82222222");
+        assertFalse(contact1.equals(contact3));
     }
 
 }

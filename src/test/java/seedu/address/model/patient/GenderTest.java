@@ -1,5 +1,8 @@
 package seedu.address.model.patient;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -27,5 +30,18 @@ public class GenderTest {
 
         String invalidGenderCode = "N";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Gender(invalidGenderCode));
+    }
+
+    @Test
+    public void equals() {
+        Gender gender = new Gender("M");
+        assertTrue(gender.equals(gender));
+
+        Gender gender2 = new Gender("M");
+        assertTrue(gender.equals(gender2));
+
+        Gender gender3 = new Gender("F");
+        assertFalse(gender.equals(gender3));
+
     }
 }

@@ -1,5 +1,8 @@
 package seedu.address.model.patient;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -26,5 +29,16 @@ public class NameTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> new Name(containsSymbols));
     }
 
+    @Test
+    public void equals() {
+        Name name = new Name("George Gan");
+        assertTrue(name.equals(name));
+
+        Name name2 = new Name("George Gan");
+        assertTrue(name.equals(name2));
+
+        Name name3 = new Name("Georgina Gan");
+        assertFalse(name.equals(name3));
+    }
 
 }

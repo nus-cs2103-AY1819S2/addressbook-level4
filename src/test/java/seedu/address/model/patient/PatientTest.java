@@ -32,13 +32,23 @@ public class PatientTest {
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         Patient patient2 = new Patient(name2, nric2, email2, address2, contact2, gender2, dob2, tagList2);
 
+        // test equality of same referenced object
+        Assert.assertTrue(patient1.equals(patient1));
+
+        // test equality of two different object except Nric, which is the same
         Assert.assertTrue(patient1.equals(patient2));
 
+        // test equality of two different patient object with different nric
         Nric nric4 = new Nric("S6134937E");
 
         Patient patient3 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         Patient patient4 = new Patient(name, nric4, email, address, contact, gender, dob, tagList);
 
         Assert.assertFalse(patient3.equals(patient4));
+
+        // test equality of different object types
+        Email otherObject = new Email("abc@gmail.com");
+        Assert.assertFalse(patient1.equals(otherObject));
     }
+
 }

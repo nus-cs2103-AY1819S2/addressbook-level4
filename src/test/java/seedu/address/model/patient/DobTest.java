@@ -1,5 +1,8 @@
 package seedu.address.model.patient;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -37,8 +40,19 @@ public class DobTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(invalidDay));
 
         String invalidMonth = "01-13-2000";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(invalidDay));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(invalidMonth));
 
+    }
+
+    @Test
+    public void equals() {
+        Dob dob1 = new Dob("1999-09-09");
+        assertTrue(dob1.equals(dob1));
+
+        Dob dob2 = new Dob("1999-09-09");
+        Dob dob3 = new Dob("1999-09-08");
+        assertFalse(dob1.equals(dob3));
+        assertTrue(dob1.toString().equals(dob2.toString()));
     }
 
 }

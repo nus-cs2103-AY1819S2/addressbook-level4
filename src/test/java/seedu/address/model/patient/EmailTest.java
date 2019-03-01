@@ -1,5 +1,8 @@
 package seedu.address.model.patient;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -35,5 +38,17 @@ public class EmailTest {
 
         String unallowedDomainCharacters = "abc@gm@il.com";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Email(unallowedDomainCharacters));
+    }
+
+    @Test
+    public void equals() {
+        Email email = new Email("abc@gmail.com");
+        assertTrue(email.equals(email));
+
+        Email email2 = new Email("abc@gmail.com");
+        assertTrue(email.equals(email2));
+
+        Email email3 = new Email("bbc@gmail.com");
+        assertFalse(email.equals(email3));
     }
 }

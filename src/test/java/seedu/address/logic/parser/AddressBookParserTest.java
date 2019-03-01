@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -28,8 +30,17 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.Address;
+import seedu.address.model.patient.Contact;
+import seedu.address.model.patient.Dob;
+import seedu.address.model.patient.Email;
+import seedu.address.model.patient.Gender;
+import seedu.address.model.patient.Name;
+import seedu.address.model.patient.Nric;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -147,5 +158,30 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_addPatient() throws Exception {
+        Name name = new Name("Peter Tan");
+        Nric nric = new Nric("S9123456A");
+        Email email = new Email("ptan@gmail.com");
+        Address address = new Address("1 Simei Road");
+        Contact contact = new Contact("91111111");
+        Gender gender = new Gender("M");
+        Dob dob = new Dob("1991-01-01");
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+
+        String userInput = "padd n/" + name.getName() + " "
+                + "r/" + nric.getNric() + " "
+                + "e/" + email.getEmail() + " "
+                + "a/" + address.getAddress() + " "
+                + "c/" + contact.getContact() + " "
+                + "g/" + gender.getGender() + " "
+                + "d/" + dob.getDob();
+
+        AddPatientCommand command = (AddPatientCommand) parser.parseCommand(userInput);
+
+        assertEquals(new AddPatientCommand(patient1), command);
     }
 }

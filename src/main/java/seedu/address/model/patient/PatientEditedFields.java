@@ -112,35 +112,35 @@ public class PatientEditedFields {
      */
     public boolean checkNonNullFields(PatientEditedFields other) {
 
-        if ((name != null && other.getName() != null) && name.equals(other.getName())) {
+        if ((name != null && other.getName().isPresent()) && name.equals(other.getName())) {
             return false;
         }
 
-        if ((nric != null && other.getNric() != null) && nric.equals(other.getNric())) {
+        if ((nric != null && other.getNric().isPresent()) && nric.equals(other.getNric())) {
             return false;
         }
 
-        if ((email != null && other.getEmail() != null) && email.equals(other.getEmail())) {
+        if ((email != null && other.getEmail().isPresent()) && email.equals(other.getEmail())) {
             return false;
         }
 
-        if ((address != null && other.getAddress() != null) && address.equals(other.getAddress())) {
+        if ((address != null && other.getAddress().isPresent()) && address.equals(other.getAddress())) {
             return false;
         }
 
-        if ((contact != null && other.getContact() != null) && contact.equals(other.getContact())) {
+        if ((contact != null && other.getContact().isPresent()) && contact.equals(other.getContact())) {
             return false;
         }
 
-        if ((gender != null && other.getGender() != null) && gender.equals(other.getGender())) {
+        if ((gender != null && other.getGender().isPresent()) && gender.equals(other.getGender())) {
             return false;
         }
 
-        if ((dob != null && other.getDob() != null) && dob.equals(other.getDob())) {
+        if ((dob != null && other.getDob().isPresent()) && dob.equals(other.getDob())) {
             return false;
         }
 
-        if (tagList != null && other.getTagList() != null) {
+        if (tagList != null && other.getTagList().isPresent()) {
             if (!Arrays.equals(tagList.toArray(), other.getTagList().get().toArray())) {
                 return false;
             }

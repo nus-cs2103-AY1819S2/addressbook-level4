@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         history = new CommandHistory();
         restOrRantParser = new RestOrRantParser();
-        mode = Mode.RM;
+        mode = Mode.RESTAURANT_MODE;
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getRestOrRant().addListener(observable -> addressBookModified = true);

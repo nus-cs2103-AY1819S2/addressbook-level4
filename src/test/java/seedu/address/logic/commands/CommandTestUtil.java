@@ -80,7 +80,7 @@ public class CommandTestUtil {
             CommandResult expectedCommandResult, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(Mode.RM, actualModel, actualCommandHistory);
+            CommandResult result = command.execute(Mode.RESTAURANT_MODE, actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -117,7 +117,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            command.execute(Mode.RM, actualModel, actualCommandHistory);
+            command.execute(Mode.RESTAURANT_MODE, actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());

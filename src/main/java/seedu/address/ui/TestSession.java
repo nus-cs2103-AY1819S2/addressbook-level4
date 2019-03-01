@@ -3,8 +3,8 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.model.CardFolder;
 import seedu.address.model.card.Card;
 
@@ -18,7 +18,7 @@ public class TestSession extends UiPart<Region> {
     public CardFolder cardFolder; //final?
 
     @FXML
-    private AnchorPane testSessionPage;
+    private StackPane testSessionPage;
     @FXML
     private Label testCard;
     

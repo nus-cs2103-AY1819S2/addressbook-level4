@@ -45,7 +45,6 @@
           </padding>
         </StackPane>
           <StackPane fx:id="fullScreenPlaceholder" VBox.vgrow="ALWAYS" />
-          
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>

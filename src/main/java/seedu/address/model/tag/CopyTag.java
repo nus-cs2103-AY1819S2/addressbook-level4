@@ -1,5 +1,7 @@
 package seedu.address.model.tag;
 
+import seedu.address.model.person.Person;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -13,14 +15,17 @@ public class CopyTag{
     public static final String VALIDATION_REGEX = "(\\$)(copy)([0-9]+)";
 
     public final String tagName;
+    private final Person originalPerson;
 
     /**
      * Constructs a {@code CopyTag}.
      *
+     * @param personToCopy A pointer to the original person
      * @param tagName A valid tag name.
      */
-    public CopyTag(String tagName) {
-        requireNonNull(tagName);
+    public CopyTag(Person personToCopy, String tagName) {
+        requireNonNull(personToCopy);
+        originalPerson = personToCopy;
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
     }
@@ -31,6 +36,8 @@ public class CopyTag{
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
+    public Person getOriginalPerson(){return  originalPerson;};
 
     @Override
     public boolean equals(Object other) {

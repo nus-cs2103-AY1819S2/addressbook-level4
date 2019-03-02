@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.PrefillCommandBoxCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -98,10 +99,15 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            CommandResult commandResult = commandExecutor.execute(commandTextField.getText());
             initHistory();
             historySnapshot.next();
-            commandTextField.setText("");
+            if (commandResult instanceof PrefillCommandBoxCommandResult) {
+                String prefilledText = ((PrefillCommandBoxCommandResult) commandResult).getPrefilledText();
+                replaceText(prefilledText);
+            } else {
+                replaceText("");
+            }
         } catch (CommandException | ParseException e) {
             initHistory();
             setStyleToIndicateCommandFailure();

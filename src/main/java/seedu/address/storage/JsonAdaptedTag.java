@@ -14,7 +14,7 @@ class JsonAdaptedTag {
     private final String tagName;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}
      */
     @JsonCreator
     public JsonAdaptedTag(String tagName) {
@@ -24,8 +24,9 @@ class JsonAdaptedTag {
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
+    @JsonCreator
     public JsonAdaptedTag(Tag source) {
-        tagName = source.tagName;
+        this.tagName = source.tagName;
     }
 
     @JsonValue
@@ -42,6 +43,7 @@ class JsonAdaptedTag {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
+
         return new Tag(tagName);
     }
 

@@ -57,8 +57,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
+        // Abbreviated version of the command is given, expand full command in the text box
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            return new EditCommand(index);
         }
 
         return new EditCommand(index, editPersonDescriptor);

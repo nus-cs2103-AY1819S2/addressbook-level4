@@ -13,7 +13,7 @@ public class Amount {
         public static final String MESSAGE_CONSTRAINTS = "Amounts must be positive numbers";
         public static final String VALIDATION_REGEX = "-?\\d+(\\.\\d+)?";
 
-        public final double value;
+        public final String value;
 
         /**
          * Constructs an {@code Amount}.
@@ -23,7 +23,7 @@ public class Amount {
         public Amount(String amount) {
             requireNonNull(amount);
             checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
-            value = convertAmount(amount);
+            value = amount;
         }
 
         /**
@@ -31,10 +31,10 @@ public class Amount {
          */
         public static boolean isValidAmount(String test) { return test.matches(VALIDATION_REGEX); }
 
-        public static double convertAmount(String value) { return Double.parseDouble(value); }
+        //public static double convertAmount(String value) { return Double.parseDouble(value); }
 
         @Override
-        public String toString() { return Double.toString(value); }
+        public String toString() { return value; }
 
         @Override
         public boolean equals(Object other) {

@@ -23,7 +23,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TopDeckBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
@@ -152,7 +152,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook addressBook = new TopDeckBuilder().withCard(ALICE).withCard(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

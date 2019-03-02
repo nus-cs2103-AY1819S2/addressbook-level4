@@ -46,7 +46,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.CardUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
@@ -179,7 +179,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a card with new values same as another card's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(CardUtil.getAddCommand(BOB));
         assertTrue(getModel().getTopDeck().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredCardList().get(index.getZeroBased()).equals(BOB));

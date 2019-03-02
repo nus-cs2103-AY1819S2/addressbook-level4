@@ -14,14 +14,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TopDeckBuilder;
 
 public class VersionedAddressBookTest {
 
-    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyAddressBook addressBookWithAmy = new TopDeckBuilder().withCard(AMY).build();
+    private final ReadOnlyAddressBook addressBookWithBob = new TopDeckBuilder().withCard(BOB).build();
+    private final ReadOnlyAddressBook addressBookWithCarl = new TopDeckBuilder().withCard(CARL).build();
+    private final ReadOnlyAddressBook emptyAddressBook = new TopDeckBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {

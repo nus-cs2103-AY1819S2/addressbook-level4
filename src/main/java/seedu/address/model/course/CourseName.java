@@ -1,5 +1,6 @@
 package seedu.address.model.course;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -7,17 +8,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class CourseName {
     public static final String MESSAGE_CONSTRAINTS =
-            "Must consist of at least 1 word and cannot begin with whitespace";
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+            "Consists of characters and spaces only ";
+    public static final String VALIDATION_REGEX = "[^\\s][A-z ]*";
     private final String courseName;
 
     public CourseName(String courseName) {
-        checkArgument(isValidCourseReq(courseName), MESSAGE_CONSTRAINTS);
+        requireNonNull(courseName);
+        checkArgument(isValidCourseName(courseName), MESSAGE_CONSTRAINTS);
         this.courseName = courseName;
 
     }
 
-    public static boolean isValidCourseReq(String test) {
+    public static boolean isValidCourseName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

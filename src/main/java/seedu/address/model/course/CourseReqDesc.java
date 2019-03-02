@@ -13,12 +13,12 @@ public class CourseReqDesc {
     private final String courseReqDesc;
 
     public CourseReqDesc(String courseReqDesc) {
-        checkArgument(isValidCourseReq(courseReqDesc), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCourseReqDesc(courseReqDesc), MESSAGE_CONSTRAINTS);
         this.courseReqDesc = courseReqDesc;
 
     }
 
-    public static boolean isValidCourseReq(String test) {
+    public static boolean isValidCourseReqDesc(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

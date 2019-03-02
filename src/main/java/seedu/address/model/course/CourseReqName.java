@@ -9,16 +9,16 @@ public class CourseReqName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Must consist of at least 1 word and cannot begin with whitespace";
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[^\\s][A-z ]*";
     private final String courseReqName;
 
     public CourseReqName(String courseReqName) {
-        checkArgument(isValidCourseReq(courseReqName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCourseReqName(courseReqName), MESSAGE_CONSTRAINTS);
         this.courseReqName = courseReqName;
 
     }
 
-    public static boolean isValidCourseReq(String test) {
+    public static boolean isValidCourseReqName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

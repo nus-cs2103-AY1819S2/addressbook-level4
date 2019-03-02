@@ -22,18 +22,23 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Amount amount;
+    private final Date date;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Amount amount, Date date, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, amount, date, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.amount = amount;
+        this.date = date;
     }
 
     public Name getName() {
@@ -51,6 +56,10 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    public Amount getAmount() { return amount; }
+
+    public Date getDate() { return date; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -112,6 +121,10 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Amount: ")
+                .append(getAmount())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

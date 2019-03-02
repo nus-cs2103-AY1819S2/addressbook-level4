@@ -203,7 +203,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean checkNoCopy(){ throw new AssertionError("This method should not be called."); }
+        public boolean checkNoCopy() { throw new AssertionError("This method should not be called."); }
     }
 
     /**

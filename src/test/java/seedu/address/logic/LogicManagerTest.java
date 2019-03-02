@@ -48,7 +48,7 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    private Model model = new ModelManager();
+    private Model model = new ModelManager(this.getClass().getName());
     private Logic logic;
 
     @Before
@@ -99,7 +99,7 @@ public class LogicManagerTest {
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
         Card expectedCard = new CardBuilder(AMY).withTags().build();
-        ModelManager expectedModel = new ModelManager();
+        ModelManager expectedModel = new ModelManager(this.getClass().getName());
         expectedModel.addCard(expectedCard);
         expectedModel.commitCardFolder();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

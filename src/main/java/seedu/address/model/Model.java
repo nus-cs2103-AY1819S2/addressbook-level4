@@ -81,6 +81,20 @@ public interface Model {
      */
     void setCard(Card target, Card editedCard);
 
+    // TODO: Implement hasFolder and setFolder
+
+    /**
+     * Deletes the given folder.
+     * The folder must exist.
+     */
+    void deleteFolder(CardFolder target);
+
+    /**
+     * Adds the given folder.
+     * {@code cardFolder} must not already exist.
+     */
+    void addFolder(CardFolder cardFolder);
+
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();
 

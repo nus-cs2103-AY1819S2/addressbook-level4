@@ -165,6 +165,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteFolder(CardFolder target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addFolder(CardFolder cardFolder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Card> getFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }
@@ -254,11 +264,6 @@ public class AddCommandTest {
         @Override
         public void commitCardFolder() {
             // called by {@code AddCommand#execute()}
-        }
-
-        @Override
-        public ReadOnlyCardFolder getActiveCardFolder() {
-            return new CardFolder();
         }
     }
 

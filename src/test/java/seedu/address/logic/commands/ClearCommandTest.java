@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.address.testutil.TypicalCards.getTypicalFolderName;
 
 import org.junit.Test;
 
@@ -17,8 +18,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_emptyCardFolder_success() {
-        Model model = new ModelManager();
-        Model expectedModel = new ModelManager();
+        Model model = new ModelManager(this.getClass().getName());
+        Model expectedModel = new ModelManager(this.getClass().getName());
         expectedModel.commitCardFolder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
@@ -28,7 +29,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyCardFolder_success() {
         Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-        expectedModel.setCardFolder(new CardFolder());
+        expectedModel.setCardFolder(new CardFolder(getTypicalFolderName()));
         expectedModel.commitCardFolder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);

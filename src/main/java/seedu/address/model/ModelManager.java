@@ -59,8 +59,19 @@ public class ModelManager implements Model {
         activeCardFolderIndex = 0;
     }
 
-    public ModelManager() {
-        this(Collections.singletonList(new CardFolder()), new UserPrefs());
+    public ModelManager(ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireNonNull(userPrefs);
+
+        logger.fine("Initialising user prefs without folder: " + userPrefs);
+
+        versionedCardFolders = new ArrayList<>();
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredCardsList = new ArrayList<>();
+    }
+
+    public ModelManager(String newFolderName) {
+        this(Collections.singletonList(new CardFolder(newFolderName)), new UserPrefs());
     }
 
     private VersionedCardFolder getActiveVersionedCardFolder() {
@@ -158,6 +169,18 @@ public class ModelManager implements Model {
 
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.setCard(target, editedCard);
+    }
+
+    @Override
+    public void deleteFolder(CardFolder target) {
+        versionedCardFolders.remove(new VersionedCardFolder(target));
+        // TODO: Call storage method
+    }
+
+    @Override
+    public void addFolder(CardFolder cardFolder) {
+        versionedCardFolders.add(new VersionedCardFolder(cardFolder));
+        // TODO: Call storage method
     }
 
     //=========== Filtered Card List Accessors =============================================================

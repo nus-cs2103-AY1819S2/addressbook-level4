@@ -56,6 +56,7 @@ public class TypicalCards {
     public static final Card BOB = new CardBuilder().withQuestion(VALID_QUESTION_BOB).withAnswer(VALID_ANSWER_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+    public static final String TYPICAL_FOLDER_NAME = "Typical Cards";
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -70,14 +71,18 @@ public class TypicalCards {
      * Returns an {@code CardFolder} with all the typical cards.
      */
     public static CardFolder getTypicalCardFolder() {
-        CardFolder ab = new CardFolder();
+        CardFolder folder = new CardFolder(getTypicalFolderName());
         for (Card card : getTypicalCards()) {
-            ab.addCard(card);
+            folder.addCard(card);
         }
-        return ab;
+        return folder;
     }
 
     public static List<Card> getTypicalCards() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static String getTypicalFolderName() {
+        return TYPICAL_FOLDER_NAME;
     }
 }

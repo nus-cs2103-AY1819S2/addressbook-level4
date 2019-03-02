@@ -839,7 +839,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |exist the program |
 
-|`* * *` |user |select a book | 
+|`* * *` |user |select a book |
 
 |`* * *` |user |save |able to save data in local
 
@@ -849,7 +849,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |redo |able to redo your undo
 
-|`* *` |user |clear |clear all entires 
+|`* *` |user |clear |clear all entires
 
 |`* *` |user |entrypt |entrypt your review
 

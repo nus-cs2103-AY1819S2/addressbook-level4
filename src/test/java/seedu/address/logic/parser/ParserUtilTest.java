@@ -39,6 +39,12 @@ public class ParserUtilTest {
 
     private static final String WHITESPACE = " \t\r\n";
 
+    private static final String INVALID_COORD_1 = "  ";
+    private static final String INVALID_COORD_2 = "";
+    private static final String INVALID_COORD_3 = "*9";
+    private static final String INVALID_COORD_4 = "z9";
+    private static final String INVALID_COORD_5 = "a0";
+
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
@@ -204,5 +210,35 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseCoords_invalidSpaces_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCoordinates(INVALID_COORD_1);
+    }
+
+    @Test
+    public void parseCoords_emptyString_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCoordinates(INVALID_COORD_2);
+    }
+
+    @Test
+    public void parseCoords_symbolString_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCoordinates(INVALID_COORD_3);
+    }
+
+    @Test
+    public void parseCoords_outOfBounds_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCoordinates(INVALID_COORD_4);
+    }
+
+    @Test
+    public void parseCoords_outOfBoundsToo_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCoordinates(INVALID_COORD_5);
     }
 }

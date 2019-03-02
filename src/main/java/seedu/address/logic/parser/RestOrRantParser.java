@@ -8,17 +8,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.Mode;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.MenuMode;
+import seedu.address.logic.commands.AddItemToMenuCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -52,19 +46,33 @@ public class RestOrRantParser {
         }
 
         //        FUTURE USAGE
-        //        switch (commandWord) {
-        //
-        //        case RestaurantMode.COMMAND_WORD:
-        //            return new RestaurantModeCommand();
-        //
-        //        case TableMode.COMMAND_WORD:
-        //            return new TableModeCommand();
-        //
-        //        case MenuMode.COMMAND_WORD:
-        //            return new MenuModeCommand();
-        //
-        //        }
-        //
+        switch (commandWord) {
+            //
+            //        case RestaurantMode.COMMAND_WORD:
+            //            return new RestaurantModeCommand();
+            //
+            //        case TableMode.COMMAND_WORD:
+            //            return new TableModeCommand();
+            //
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+            case HelpCommand.COMMAND_ALIAS:
+                return new HelpCommand();
+
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+            case ExitCommand.COMMAND_ALIAS:
+                return new ExitCommand();
+                
+            case MenuMode.COMMAND_WORD:
+                return new MenuMode();
+                
+            case AddItemToMenuCommand.COMMAND_WORD:
+                return new AddItemToMenuCommandParser().parse(arguments);
+                
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
         //        if (mode == Mode.RM) {
         //            switch (commandWord) {
         //
@@ -90,71 +98,61 @@ public class RestOrRantParser {
         //            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
         //        }
 
-        switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case AddCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_ALIAS:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_ALIAS:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case ClearCommand.COMMAND_ALIAS:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case FindCommand.COMMAND_ALIAS:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ListCommand.COMMAND_ALIAS:
-            return new ListCommand();
-
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
-
-        case HistoryCommand.COMMAND_ALIAS:
-            return new HistoryCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case ExitCommand.COMMAND_ALIAS:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        case HelpCommand.COMMAND_ALIAS:
-            return new HelpCommand();
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
+        //        switch (commandWord) {
+        //
+        //        case AddCommand.COMMAND_WORD:
+        //            return new AddCommandParser().parse(arguments);
+        //
+        //        case AddCommand.COMMAND_ALIAS:
+        //            return new AddCommandParser().parse(arguments);
+        //
+        //        case EditCommand.COMMAND_WORD:
+        //            return new EditCommandParser().parse(arguments);
+        //
+        //        case EditCommand.COMMAND_ALIAS:
+        //            return new EditCommandParser().parse(arguments);
+        //
+        //        case SelectCommand.COMMAND_WORD:
+        //            return new SelectCommandParser().parse(arguments);
+        //
+        //        case SelectCommand.COMMAND_ALIAS:
+        //            return new SelectCommandParser().parse(arguments);
+        //
+        //        case DeleteCommand.COMMAND_WORD:
+        //            return new DeleteCommandParser().parse(arguments);
+        //
+        //        case DeleteCommand.COMMAND_ALIAS:
+        //            return new DeleteCommandParser().parse(arguments);
+        //
+        //        case ClearCommand.COMMAND_WORD:
+        //            return new ClearCommand();
+        //
+        //        case ClearCommand.COMMAND_ALIAS:
+        //            return new ClearCommand();
+        //
+        //        case FindCommand.COMMAND_WORD:
+        //            return new FindCommandParser().parse(arguments);
+        //
+        //        case FindCommand.COMMAND_ALIAS:
+        //            return new FindCommandParser().parse(arguments);
+        //
+        //        case ListCommand.COMMAND_WORD:
+        //            return new ListCommand();
+        //
+        //        case ListCommand.COMMAND_ALIAS:
+        //            return new ListCommand();
+        //
+        //        case HistoryCommand.COMMAND_WORD:
+        //            return new HistoryCommand();
+        //
+        //        case HistoryCommand.COMMAND_ALIAS:
+        //            return new HistoryCommand();
+        //
+        //        case ExitCommand.COMMAND_WORD:
+        //            return new ExitCommand();
+        //
+        //        case ExitCommand.COMMAND_ALIAS:
+        //            return new ExitCommand();
     }
 
 }

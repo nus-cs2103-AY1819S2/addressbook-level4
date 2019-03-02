@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.Mode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -32,9 +33,12 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ListPanel listPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    //  public Mode mode;
+    public boolean isMenuMode = false;
+    public boolean isTableMode = false;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -46,7 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -110,18 +114,37 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+    public void fillInnerParts(Mode mode) {
+        // TODO: change according to mode
+        // MenuMode: browser panel shows app logo
+        if (mode.equals(Mode.TABLE_MODE)) {
+            browserPanel = new BrowserPanel(logic.selectedMenuItemProperty());
+            isTableMode = true;
+            isMenuMode = false;
+        } else if (mode.equals(Mode.MENU_MODE)) {
+            browserPanel = null; // correct? wrong?
+            isMenuMode = true;
+            isTableMode = false;
+        }
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //  browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        //  browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        
+        // TODO: change according to mode
+        if (mode.equals(Mode.MENU_MODE)) {
+            listPanel = new ListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                    logic::setSelectedMenuItem);
+            isMenuMode = true;
+        }
+        //  listPanel = new ListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(), 
+        //          logic::setSelectedPerson);
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        // TODO: refine later (this correct??)
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRestOrRantFilePath(), logic.getRestOrRant());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -168,8 +191,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ListPanel getListPanel() {
+        return listPanel;
     }
 
     /**

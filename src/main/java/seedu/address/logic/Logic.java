@@ -8,7 +8,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.menu.MenuItem;
 import seedu.address.model.person.Person;
 
 /**
@@ -29,10 +31,12 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getRestOrRant()
      */
-    ReadOnlyRestOrRant getAddressBook();
+    ReadOnlyRestOrRant getRestOrRant();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Person> getFilteredPersonList(); // TODO: remove
+    /** Returns an unmodifiable view of the filtered list of menu items */
+    ObservableList<MenuItem> getFilteredMenuItemList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -43,7 +47,14 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getRestOrRantFilePath(); // TODO: remove
+
+    /**
+     * Returns the user pref's menu file path.
+     */
+    Path getMenuFilePath();
+    
+    Mode getMode();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -61,12 +72,28 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#selectedPersonProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Person> selectedPersonProperty(); // TODO: remove
+    
+    /**
+     * Selected menu item in the filtered menu item list.
+     * null if no person is selected.
+     * 
+     * @see Model#selectedMenuItemProperty() 
+     */
+    ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
 
     /**
      * Sets the selected person in the filtered person list.
      *
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
-    void setSelectedPerson(Person person);
+    void setSelectedPerson(Person person); // TODO: remove
+    
+    /**
+     * Sets the selected menu item in the filtered menu item list.
+     * 
+     * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
+     */
+    void setSelectedMenuItem(MenuItem menuItem);
+
 }

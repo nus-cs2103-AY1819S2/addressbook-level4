@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,6 +26,7 @@ public class AddItemToMenuCommand extends Command {
             + PREFIX_PRICE + "2.00";
     public static final String MESSAGE_SUCCESS = "New menu item added: %1$s";
     public static final String MESSAGE_DUPLICATE_MENU_ITEM = "This item already exists in the menu";
+    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter menuMode";
     
     private final MenuItem toAdd;
     
@@ -39,6 +41,12 @@ public class AddItemToMenuCommand extends Command {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model);
+        
+        ObservableList<String> commandHistories = history.getHistory();
+        int indexToCheck = commandHistories.size() - 1;
+        if (!commandHistories.get(indexToCheck).equals("menuMode")) {
+            throw new CommandException(MESSAGE_INCORRECT_MODE);
+        }
         
         if (model.hasMenuItem(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MENU_ITEM);

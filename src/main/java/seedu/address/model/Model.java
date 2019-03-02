@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<MenuItem> PREDICATE_SHOW_ALL_MENUITEMS = unused -> true;
+    Predicate<MenuItem> PREDICATE_SHOW_ALL_MENU_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -40,12 +40,24 @@ public interface Model {
     /**
      * Returns the user prefs' RestOrRant file path.
      */
-    Path getRestOrRantFilePath();
+    Path getRestOrRantFilePath(); // TODO: remove
+    
+    /**
+     * Returns the user pref's Menu file path.
+     */
+    Path getMenuFilePath();
+    // TODO: add get file path for each feature
 
     /**
      * Sets the user prefs' RestOrRant file path.
      */
-    void setRestOrRantFilePath(Path restOrRantFilePath);
+    void setRestOrRantFilePath(Path restOrRantFilePath); // TODO: remove
+    
+    /**
+     * Sets the user pref's Menu file path.
+     */
+    void setMenuFilePath(Path menuFilePath);
+    // TODO: add set file path for each feature
 
     /**
      * Replaces restOrRant data with the data in {@code restOrRant}.

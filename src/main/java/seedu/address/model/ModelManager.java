@@ -49,6 +49,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOrderItems = new FilteredList<>(this.restOrRant.getOrderItemList());
         filteredMenuItems = new FilteredList<>(this.restOrRant.getMenuItemList());
+        filteredMenuItems.addListener(this::ensureSelectedMenuItemIsValid);
 
         filteredPersons = new FilteredList<>(this.restOrRant.getPersonList()); // TODO: remove
         filteredPersons.addListener(this::ensureSelectedPersonIsValid); // TODO: remove
@@ -83,11 +84,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getMenuFilePath() {
+        return userPrefs.getMenuFilePath();
+    }
     public Path getRestOrRantFilePath() {
         return userPrefs.getRestOrRantFilePath();
-    }
+    } // TODO: remove
 
     @Override
+    public void setMenuFilePath(Path menuFilePath) {
+        requireNonNull(menuFilePath);
+        userPrefs.setMenuFilePath(menuFilePath);
+    }
+    // TODO: remove
     public void setRestOrRantFilePath(Path restOrRantFilePath) {
         requireNonNull(restOrRantFilePath);
         userPrefs.setRestOrRantFilePath(restOrRantFilePath);
@@ -134,7 +143,7 @@ public class ModelManager implements Model {
     @Override
     public void addMenuItem(MenuItem menuItem) {
         restOrRant.addMenuItem(menuItem);
-        updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENUITEMS);
+        updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENU_ITEMS);
     }
     // TODO: remove
     public void addPerson(Person person) {

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.StatusBarFooter.TOTAL_PERSONS_STATUS;
+import static seedu.address.ui.StatusBarFooter.TOTAL_CARDS_STATUS;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
@@ -283,7 +283,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
 
         final int totalPersons = testApp.getModel().getTopDeck().getPersonList().size();
-        assertEquals(String.format(TOTAL_PERSONS_STATUS, totalPersons), handle.getTotalPersonsStatus());
+        assertEquals(String.format(TOTAL_CARDS_STATUS, totalPersons), handle.getTotalPersonsStatus());
 
         assertFalse(handle.isSaveLocationChanged());
     }
@@ -299,7 +299,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-        assertEquals(String.format(TOTAL_PERSONS_STATUS, getModel().getTopDeck().getPersonList().size()),
+        assertEquals(String.format(TOTAL_CARDS_STATUS, getModel().getTopDeck().getPersonList().size()),
                 getStatusBarFooter().getTotalPersonsStatus());
     }
 

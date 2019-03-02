@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.StatusBarFooter.TOTAL_PERSONS_STATUS;
+import static seedu.address.ui.StatusBarFooter.TOTAL_CARDS_STATUS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,13 +58,13 @@ public class StatusBarFooterTest extends GuiUnitTest {
     public void display() {
         // initial state
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL,
-                String.format(TOTAL_PERSONS_STATUS, INITIAL_TOTAL_PERSONS));
+                String.format(TOTAL_CARDS_STATUS, INITIAL_TOTAL_PERSONS));
 
         // after address book is updated
         guiRobot.interact(() -> addressBook.addPerson(ALICE));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()),
-                String.format(TOTAL_PERSONS_STATUS, addressBook.getPersonList().size()));
+                String.format(TOTAL_CARDS_STATUS, addressBook.getPersonList().size()));
     }
 
     /**

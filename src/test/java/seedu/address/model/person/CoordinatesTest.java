@@ -1,10 +1,12 @@
 package seedu.address.model.person;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.testutil.Assert;
@@ -38,5 +40,19 @@ public class CoordinatesTest {
         assertTrue(Coordinates.isValidCoordinates("a1")); // starting coordinate
         assertTrue(Coordinates.isValidCoordinates("e5")); // in between coordinate
         assertTrue(Coordinates.isValidCoordinates("j9")); // extreme boundary
+    }
+
+    @Test
+    public void testGetRow() {
+        Coordinates coordinates = new Coordinates("b5");
+        Index correct_col_index = Index.fromOneBased(5);
+        assertEquals(coordinates.getColValue(), correct_col_index);
+    }
+
+    @Test
+    public void testGetCol() {
+        Coordinates coordinates = new Coordinates("a1");
+        Index correct_col_index = Index.fromOneBased(1);
+        assertEquals(coordinates.getColValue(), correct_col_index);
     }
 }

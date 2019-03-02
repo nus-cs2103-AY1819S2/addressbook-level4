@@ -24,15 +24,15 @@ public class SamplePatientsUtil {
         //padd n/Perry Ng a/2 Shenton Road e/ssh@gmail.com c/92222222 r/S9234567B g/M d/1995-02-02
         //t/highbloodpressure t/diabetes
         return new Patient[] {
-                new Patient(new Name("Peter Tan"), new Nric("S9123456A"), new Email("ptan@gmail.com"),
-                        new Address("1 Simei Road"), new Contact("91111111"), new Gender("M"),
-                        new Dob("1993-02-01"), parseTags("diabetes")),
-                new Patient(new Name("Piper Wright"), new Nric("S9234568C"), new Email("pwright@gmail.com"),
-                        new Address("3 diamond city"), new Contact("93333333"), new Gender("F"),
-                        new Dob("1995-03-03"), parseTags("highbloodpressure")),
-                new Patient(new Name("Perry Ng"), new Nric("S9234567B"), new Email("ssh@gmail.com"),
-                        new Address("2 Shenton Road"), new Contact("92222222"), new Gender("M"),
-                        new Dob("1995-02-02"), parseTags("highbloodpressure", "diabetes")),
+            new Patient(new Name("Peter Tan"), new Nric("S9123456A"), new Email("ptan@gmail.com"),
+                    new Address("1 Simei Road"), new Contact("91111111"), new Gender("M"),
+                    new Dob("1993-02-01"), parseTags("diabetes")),
+            new Patient(new Name("Piper Wright"), new Nric("S9234568C"), new Email("pwright@gmail.com"),
+                    new Address("3 diamond city"), new Contact("93333333"), new Gender("F"),
+                    new Dob("1995-03-03"), parseTags("highbloodpressure")),
+            new Patient(new Name("Perry Ng"), new Nric("S9234567B"), new Email("ssh@gmail.com"),
+                    new Address("2 Shenton Road"), new Contact("92222222"), new Gender("M"),
+                    new Dob("1995-02-02"), parseTags("highbloodpressure", "diabetes")),
         };
     }
 

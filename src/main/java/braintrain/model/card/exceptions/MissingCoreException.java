@@ -9,15 +9,6 @@ public class MissingCoreException extends RuntimeException {
     private static String MISSING_CORE_SUFFIX = " is missing."; // Used by MissingCoreException(int missingCoreIndex)
 
     /**
-     * Constructs a MissingCoreException with a custom detail message.
-     *
-     * @param message the detail message to append to the RunTimeException message constructor
-     */
-    public MissingCoreException(String message) {
-        super(message);
-    }
-
-    /**
      * Constructs a MissingCoreException with a custom detail message specifying the missing core's index.
      *
      * @param missingCoreIndex the index of the missing core in the list

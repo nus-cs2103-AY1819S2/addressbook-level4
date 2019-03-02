@@ -11,15 +11,6 @@ public class MissingOptionalException extends RuntimeException {
     // Used by MissingOptionalException(int missingOptionalIndex)
 
     /**
-     * Constructs a MissingOptionalException with a custom detail message.
-     *
-     * @param message the detail message to append to the RunTimeException message constructor
-     */
-    public MissingOptionalException(String message) {
-        super(message);
-    }
-
-    /**
      * Constructs a MissingOptionalException with a custom detail message specifying the missing optional's index.
      *
      * @param missingOptionalIndex the index of the missing optional in the list

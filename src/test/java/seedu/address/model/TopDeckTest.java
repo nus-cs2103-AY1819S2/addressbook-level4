@@ -106,7 +106,7 @@ public class TopDeckTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyTopDeck whose cards list can violate interface constraints.
      */
     private static class TopDeckStub implements ReadOnlyTopDeck {
         private final ObservableList<Card> cards = FXCollections.observableArrayList();

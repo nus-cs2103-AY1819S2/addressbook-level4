@@ -1,5 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_OTHERS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PATIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_REQUEST;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,10 +23,10 @@ public class ArgumentTokenizer {
 
     // Mapping of respective command mode numbers to CommandMode enum
     private static final Map<String, CommandMode> COMMAND_MODES = Map.of(
-            "1", CommandMode.HEALTH_WORKER,
-            "2", CommandMode.PATIENT,
-            "3", CommandMode.REQUEST,
-            "4", CommandMode.OTHERS
+            PREFIX_ADD_HEALTHWORKER.getPrefix(), CommandMode.HEALTH_WORKER,
+            PREFIX_ADD_PATIENT.getPrefix(), CommandMode.PATIENT,
+            PREFIX_ADD_REQUEST.getPrefix(), CommandMode.REQUEST,
+            PREFIX_ADD_OTHERS.getPrefix(), CommandMode.OTHERS
     );
 
     /**

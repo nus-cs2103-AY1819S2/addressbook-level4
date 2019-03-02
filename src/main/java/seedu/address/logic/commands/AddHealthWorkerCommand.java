@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
@@ -20,13 +19,11 @@ import seedu.address.model.tag.Specialisation;
  * Adds a HealthWorker to the address book.
  * @author Lookaz
  */
-public class AddHealthWorkerCommand extends Command {
+public class AddHealthWorkerCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "add 1"
-            + PREFIX_ADD_HEALTHWORKER;
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a "
-            + "health worker to the address book. "
-            + "Parameters: "
+    public static final String COMMAND_OPTION = "1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + COMMAND_OPTION
+            + ": Add a health worker to the address book. Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_PHONE + "PHONE "
@@ -45,13 +42,13 @@ public class AddHealthWorkerCommand extends Command {
             + Specialisation.GENERAL_PRACTICE;
 
     public static final String MESSAGE_SUCCESS = "New health worker added: %1$s";
-    public static final String DUPLICATE_HEALTH_WORKER = "This health worker " +
-            "already exists in the address book";
+    public static final String DUPLICATE_HEALTH_WORKER = "This health worker "
+            + "already exists in the address book";
 
     private final HealthWorker toAdd;
 
     public AddHealthWorkerCommand(HealthWorker toAdd) {
-        requireNonNull(toAdd);
+        super(toAdd);
         this.toAdd = toAdd;
     }
 

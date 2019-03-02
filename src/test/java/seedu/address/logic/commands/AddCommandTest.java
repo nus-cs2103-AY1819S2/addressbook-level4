@@ -29,12 +29,13 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    protected static final CommandHistory EMPTY_COMMAND_HISTORY = new
+            CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private CommandHistory commandHistory = new CommandHistory();
+    protected CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -92,7 +93,7 @@ public class AddCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private class ModelStub implements Model {
+    protected class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");

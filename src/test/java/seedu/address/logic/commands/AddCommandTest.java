@@ -206,6 +206,31 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isPatientListEmpty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkValidIndex(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Patient getPatientAtIndex(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void replacePatient(int index, Patient editedPatient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }

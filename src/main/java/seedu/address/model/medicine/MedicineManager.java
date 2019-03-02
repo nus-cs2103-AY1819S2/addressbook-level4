@@ -69,6 +69,10 @@ public class MedicineManager {
         return root.findMedicine(path, 0);
     }
 
+    public Optional<Directory> findDirectory(String[] path) {
+        return root.findDirectory(path, 0);
+    }
+
     /**
      * record a purchase of medicine in the medicine storage
      * @param path the path leading to the medicine

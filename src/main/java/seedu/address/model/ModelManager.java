@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentManager;
+import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.Patient;
@@ -40,11 +41,12 @@ public class ModelManager implements Model {
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
     private final AppointmentManager appointmentManager;
+    private final Patient[] samplePatients;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Patient[] samplePatients) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -57,11 +59,24 @@ public class ModelManager implements Model {
         this.medicineManager = new MedicineManager();
         this.patientManager = new PatientManager();
         this.appointmentManager = new AppointmentManager();
+        this.samplePatients = samplePatients;
+        iniPatients();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new Patient[10]);
     }
+
+    /**
+     * Initialise quickdocs with sample patient data
+     */
+    public void iniPatients() {
+        for (Patient patient : samplePatients) {
+            patientManager.addPatient(patient);
+        }
+    }
+
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -137,6 +152,11 @@ public class ModelManager implements Model {
     //@Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
+    }
+
+    //@Override
+    public Optional<Directory> findDirectory(String[] path) {
+        return medicineManager.findDirectory(path);
     }
     //=========== AddressBook ================================================================================
 
@@ -289,6 +309,7 @@ public class ModelManager implements Model {
 
     //==========Patient module============================================================================
 
+    // for adding
     public boolean duplicatePatient(Patient patient) {
         return this.patientManager.duplicatePatient(patient);
     }
@@ -305,4 +326,25 @@ public class ModelManager implements Model {
     public void addApp(Appointment app) {
         appointmentManager.add(app);
     }
+    // for editing
+    public boolean isPatientListEmpty() {
+        return this.patientManager.isPatientListEmpty();
+    }
+
+    public boolean checkValidIndex(int index) {
+        return this.patientManager.checkValidIndex(index);
+    }
+
+    public Patient getPatientAtIndex(int index) {
+        return this.patientManager.getPatientAtIndex(index);
+    }
+
+    public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
+        return this.patientManager.checkDuplicatePatientAfterEdit(index, editedPatient);
+    }
+
+    public void replacePatient(int index, Patient editedPatient) {
+        this.patientManager.replacePatient(index, editedPatient);
+    }
+
 }

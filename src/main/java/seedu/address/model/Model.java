@@ -147,6 +147,8 @@ public interface Model {
 
     //void purchaseMedicine(String medicineName, int quantity);
 
+    //Optional<Directory> findDirectory(String[] path);
+
     //===========Patient module operations============================
     boolean duplicatePatient(Patient patient);
 
@@ -155,4 +157,14 @@ public interface Model {
     boolean duplicateApp(Appointment app);
 
     void addApp(Appointment app);
+
+    boolean isPatientListEmpty();
+
+    boolean checkValidIndex(int index);
+
+    Patient getPatientAtIndex(int index);
+
+    boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient);
+
+    void replacePatient(int index, Patient editedPatient);
 }

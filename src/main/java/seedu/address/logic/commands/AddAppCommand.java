@@ -38,7 +38,7 @@ public class AddAppCommand extends Command {
             + PREFIX_INDEX + "3 "
             + PREFIX_DATE + "2019-10-23 "
             + PREFIX_START + "16:00 "
-            + PREFIX_END + "17:00"
+            + PREFIX_END + "17:00 "
             + PREFIX_COMMENT + "<any comments>\n";
 
     public static final String MESSAGE_SUCCESS = "Appointment added:\n%1$s\n";

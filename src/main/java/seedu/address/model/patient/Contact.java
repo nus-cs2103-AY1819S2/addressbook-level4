@@ -22,6 +22,11 @@ public class Contact {
     }
 
     @Override
+    public String toString() {
+        return contact;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Contact // instanceof handles nulls

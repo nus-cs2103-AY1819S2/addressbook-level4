@@ -37,6 +37,12 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label timeStamp;
+    @FXML
+    private Label rating;
+    @FXML
+    private Label entry;
+    @FXML
     private FlowPane tags;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
@@ -48,6 +54,11 @@ public class RestaurantCard extends UiPart<Region> {
         address.setText(restaurant.getAddress().value);
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        restaurant.getReviews().forEach(review -> {
+            timeStamp.setText(review.getTimeStamp().toLocalDateTime().toString());
+            rating.setText(review.getRating().toString());
+            entry.setText(review.getEntry().toString());
+        });
     }
 
     @Override

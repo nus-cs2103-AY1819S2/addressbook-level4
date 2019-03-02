@@ -84,7 +84,7 @@ public class Review {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTimeStamp())
+        builder.append(getTimeStamp().toLocalDateTime().toString())
                 .append(" Rating: ")
                 .append(getRating())
                 .append(" Entry: ")

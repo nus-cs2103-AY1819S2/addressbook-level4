@@ -57,6 +57,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int getSize(){
+        return versionedFoodDiary.getSize();
+    }
+
+    @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
     }
@@ -77,7 +82,13 @@ public class ModelManager implements Model {
         return userPrefs.getFoodDiaryFilePath();
     }
 
+    @Override
     public String getName(){ return userPrefs.getName(); }
+
+    @Override
+    public void setName(String name){
+        userPrefs.setName(name);
+    }
 
     @Override
     public void setFoodDiaryFilePath(Path foodDiaryFilePath) {

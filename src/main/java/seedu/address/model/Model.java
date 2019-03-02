@@ -35,7 +35,14 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     *
+     * Returns the name of the user
+     */
     String getName();
+
+    void setName(String name);
+
     /**
      * Returns the user prefs' food diary file path.
      */
@@ -87,6 +94,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
+
+    /**
+     *
+     * Returns the number of Restaurants in the Food Diary
+     */
+    int getSize();
 
     /**
      * Returns true if the model has previous food diary states to restore.

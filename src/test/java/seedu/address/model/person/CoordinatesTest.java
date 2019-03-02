@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.model.cell.Address;
+import seedu.address.model.cell.Coordinates;
 import seedu.address.testutil.Assert;
 
 public class CoordinatesTest {

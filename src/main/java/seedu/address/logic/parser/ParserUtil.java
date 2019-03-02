@@ -11,9 +11,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Address;
+import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Email;
 import seedu.address.model.cell.Phone;
-import seedu.address.model.person.Coordinates;
 import seedu.address.model.tag.Tag;
 
 /**

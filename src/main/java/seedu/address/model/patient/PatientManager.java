@@ -84,6 +84,7 @@ public class PatientManager {
         patientList.set(index - 1, editedPatient);
     }
 
+
     // listing methods
 
     /**
@@ -206,5 +207,14 @@ public class PatientManager {
         }
 
         return foundPatients.get(0).toString();
+    }
+
+    public Patient getPatientWithNric(Nric nric) {
+        for (Patient patient : patientList) {
+            if (patient.getNric().equals(nric)) {
+                return patient;
+            }
+        }
+        return null;
     }
 }

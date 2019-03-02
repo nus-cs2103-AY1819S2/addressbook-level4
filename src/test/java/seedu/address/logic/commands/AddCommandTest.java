@@ -23,8 +23,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -250,6 +253,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Patient getPatientWithNric(Nric nric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }
@@ -263,6 +271,37 @@ public class AddCommandTest {
         public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean duplicateApp(Appointment app) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addApp(Appointment app) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String listApp() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean duplicateRem(Reminder rem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRem(Reminder rem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String listRem() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

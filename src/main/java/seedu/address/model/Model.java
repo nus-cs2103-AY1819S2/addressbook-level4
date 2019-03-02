@@ -6,8 +6,11 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -170,4 +173,20 @@ public interface Model {
     String findPatientsByNric(String searchSequence);
 
     String findPatientsByTag(Tag tag);
+
+    Patient getPatientWithNric(Nric nric);
+
+    //===========Appointment module operations========================
+    boolean duplicateApp(Appointment app);
+
+    void addApp(Appointment app);
+
+    String listApp();
+
+    //===========Reminder module operations===========================
+    boolean duplicateRem(Reminder rem);
+
+    void addRem(Reminder rem);
+
+    String listRem();
 }

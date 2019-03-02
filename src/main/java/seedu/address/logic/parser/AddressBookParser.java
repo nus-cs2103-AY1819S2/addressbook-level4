@@ -6,8 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPatientCommand;
+import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -17,6 +19,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListAppCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -90,6 +93,15 @@ public class AddressBookParser {
 
         case AddPatientCommand.COMMAND_WORD:
             return new AddPatientParser().parse(arguments);
+
+        case AddAppCommand.COMMAND_WORD:
+            return new AddAppCommandParser().parse(arguments);
+
+        case ListAppCommand.COMMAND_WORD:
+            return new ListAppCommand();
+
+        case AddRemCommand.COMMAND_WORD:
+            return new AddRemCommandParser().parse(arguments);
 
         case EditPatientCommand.COMMAND_WORD:
             return new EditPatientParser().parse(arguments);

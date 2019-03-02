@@ -23,6 +23,7 @@ public class Restaurant {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Weblink weblink;
 
     /**
      * Every field must be present and not null.
@@ -34,6 +35,7 @@ public class Restaurant {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.weblink = Weblink.makeDefaultWeblink();
     }
 
     public Name getName() {
@@ -50,6 +52,10 @@ public class Restaurant {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Weblink getWeblink() {
+        return weblink;
     }
 
     /**
@@ -93,7 +99,8 @@ public class Restaurant {
                 && otherRestaurant.getPhone().equals(getPhone())
                 && otherRestaurant.getEmail().equals(getEmail())
                 && otherRestaurant.getAddress().equals(getAddress())
-                && otherRestaurant.getTags().equals(getTags());
+                && otherRestaurant.getTags().equals(getTags())
+                && otherRestaurant.getWeblink().equals(getWeblink());
     }
 
     @Override
@@ -112,6 +119,8 @@ public class Restaurant {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Weblink: ")
+                .append(getWeblink())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

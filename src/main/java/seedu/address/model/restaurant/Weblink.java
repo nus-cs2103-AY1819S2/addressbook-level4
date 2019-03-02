@@ -43,6 +43,10 @@ public class Weblink {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public static Weblink makeDefaultWeblink() {
+        return new Weblink("www.default.com.sg");
+    }
+
     @Override
     public String toString() {
         return value;

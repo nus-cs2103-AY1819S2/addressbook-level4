@@ -1,13 +1,23 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CopyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parse user input
+ */
 public class CopyCommandParser implements Parser<CopyCommand> {
+
+    /**
+     *
+     * @param args user's input for index
+     * @return corresponding copy command
+     * @throws ParseException if user input is in a wrong format
+     */
     public CopyCommand parse(String args) throws ParseException {
         requireNonNull(args);
 

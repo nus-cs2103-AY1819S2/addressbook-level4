@@ -22,19 +22,26 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAppCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.consultation.Assessment;
+import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Symptom;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -43,6 +50,7 @@ import seedu.address.model.patient.Gender;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.PatientEditedFields;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
@@ -189,6 +197,71 @@ public class AddressBookParserTest {
         AddPatientCommand command = (AddPatientCommand) parser.parseCommand(userInput);
 
         assertEquals(new AddPatientCommand(patient1), command);
+    }
+
+    @Test
+    public void parseCommand_editPatient() throws Exception {
+        Name name = new Name("Peter Tan");
+        Nric nric = new Nric("S9123456A");
+        Email email = new Email("ptan@gmail.com");
+        Address address = new Address("1 Simei Road");
+
+        String userInput = "pedit 1 n/" + name.getName() + " "
+                + "r/" + nric.getNric() + " "
+                + "e/" + email.getEmail() + " "
+                + "a/" + address.getAddress();
+
+        PatientEditedFields pef = new PatientEditedFields();
+        pef.setName(name);
+        pef.setNric(nric);
+        pef.setEmail(email);
+        pef.setAddress(address);
+
+        EditPatientCommand expectedCommand = new EditPatientCommand(1, pef);
+
+        EditPatientCommand command = (EditPatientCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, command);
+    }
+
+    @Test
+    public void parseCommand_listPatient() throws Exception {
+        String userInput = "plist r/S92";
+        ListPatientCommand command1 = new ListPatientCommand("S92", false);
+        assertEquals(command1, parser.parseCommand(userInput));
+
+        userInput = "plist n/pe";
+        ListPatientCommand command2 = new ListPatientCommand("pe", true);
+        assertEquals(command2, parser.parseCommand(userInput));
+
+        userInput = "plist t/diabetes";
+        ListPatientCommand command3 = new ListPatientCommand(new Tag("diabetes"));
+        assertEquals(command3, parser.parseCommand(userInput));
+
+        userInput = "plist 1";
+        ListPatientCommand command4 = new ListPatientCommand(1);
+        assertEquals(command4, parser.parseCommand(userInput));
+
+        userInput = "plist";
+        ListPatientCommand command5 = new ListPatientCommand();
+        assertEquals(command5, parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_consultationcommand() throws Exception {
+        String userInput = "consult r/S9123456A";
+        ConsultationCommand command = new ConsultationCommand("S9123456A");
+        assertEquals(command, parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_diagnosepatientcommand() throws Exception {
+        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
+        Assessment assessment = new Assessment("migrane");
+        ArrayList<Symptom> symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+        symptoms.add(new Symptom("blurred vision"));
+        DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
+        assertEquals(command, parser.parseCommand(userInput));
     }
 
     @Test

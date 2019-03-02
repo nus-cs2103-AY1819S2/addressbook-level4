@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -17,7 +18,9 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
@@ -55,7 +58,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -82,11 +87,14 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -133,7 +141,9 @@ public interface Model {
      */
     void setSelectedPerson(Person person);
 
-    /** Removes the given {@code tag} from all {@code Person}s. */
+    /**
+     * Removes the given {@code tag} from all {@code Person}s.
+     */
     void deleteTag(Tag tag);
     //void addMedicine(String medicineName, String[] path);
 
@@ -174,7 +184,15 @@ public interface Model {
 
     String findPatientsByTag(Tag tag);
 
+    Patient getPatientByNric(String nric);
+
+    //==========Consultation methods=====================
+
+    void createConsultation(Patient patient);
+
     Patient getPatientWithNric(Nric nric);
+
+    void diagnosePatient(Diagnosis diagnosis);
 
     //===========Appointment module operations========================
     boolean duplicateApp(Appointment app);
@@ -189,4 +207,5 @@ public interface Model {
     void addRem(Reminder rem);
 
     String listRem();
+
 }

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,6 +16,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.medicine.Directory;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineManager;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -29,6 +35,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    // to handle QuickDocs operations
+    private final MedicineManager medicineManager;
+    private final PatientManager patientManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,6 +52,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        this.medicineManager = new MedicineManager();
+        this.patientManager = new PatientManager();
     }
 
     public ModelManager() {
@@ -83,12 +94,52 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
+
     @Override
     public void deleteTag(Tag tag) {
         versionedAddressBook.removeTag(tag);
     }
 
+    //=========== MedicineManager ============================================================================
+    //@Override
+    public void addMedicine(String medicineName, String[] path) {
+        medicineManager.addMedicine(medicineName, path);
+    }
 
+    //@Override
+    public void addMedicine(String medicineName, int quantity, String[] path) {
+        medicineManager.addMedicine(medicineName, quantity, path);
+    }
+
+    //@Override
+    public void addDirectory(String directoryName, String[] path) {
+        medicineManager.addDirectory(directoryName, path);
+    }
+
+    //@Override
+    public Optional<Medicine> findMedicine(String medicineName) {
+        return medicineManager.findMedicine(medicineName);
+    }
+
+    //@Override
+    public Optional<Medicine> findMedicine(String[] path) {
+        return medicineManager.findMedicine(path);
+    }
+
+    //@Override
+    public void purchaseMedicine(String[] path, int quantity) {
+        medicineManager.purchaseMedicine(path, quantity);
+    }
+
+    //@Override
+    public void purchaseMedicine(String medicineName, int quantity) {
+        medicineManager.purchaseMedicine(medicineName, quantity);
+    }
+
+    //@Override
+    public Optional<Directory> findDirectory(String[] path) {
+        return medicineManager.findDirectory(path);
+    }
     //=========== AddressBook ================================================================================
 
     @Override
@@ -238,4 +289,52 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
+    //==========Patient module============================================================================
+
+    // for adding
+    public boolean duplicatePatient(Patient patient) {
+        return this.patientManager.duplicatePatient(patient);
+    }
+
+    public void addPatient(Patient patient) {
+        this.patientManager.addPatient(patient);
+    }
+
+    // for editing
+    public boolean isPatientListEmpty() {
+        return this.patientManager.isPatientListEmpty();
+    }
+
+    public boolean checkValidIndex(int index) {
+        return this.patientManager.checkValidIndex(index);
+    }
+
+    public Patient getPatientAtIndex(int index) {
+        return this.patientManager.getPatientAtIndex(index);
+    }
+
+    public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
+        return this.patientManager.checkDuplicatePatientAfterEdit(index, editedPatient);
+    }
+
+    public void replacePatient(int index, Patient editedPatient) {
+        this.patientManager.replacePatient(index, editedPatient);
+    }
+
+    // for listing
+    public String findPatientsByName(String searchSequence) {
+        return this.patientManager.findPatientsByName(searchSequence);
+    }
+
+    public String listFiftyPatients() {
+        return this.patientManager.listFiftyPatients();
+    }
+
+    public String findPatientsByNric(String searchSequence) {
+        return this.patientManager.findPatientsByNric(searchSequence);
+    }
+
+    public String findPatientsByTag(Tag tag) {
+        return this.patientManager.findPatientsByTag(tag);
+    }
 }

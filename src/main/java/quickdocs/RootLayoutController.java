@@ -5,6 +5,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
 
 /**
  * This class handles user interaction with the root layout
@@ -12,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 public class RootLayoutController {
 
     private static int currentInputPointer = 0;
+    private Logic logicManager;
 
     @FXML
     private TextArea display;
@@ -22,6 +25,10 @@ public class RootLayoutController {
     @FXML
     private TextArea inputFeedback;
 
+    public void setLogicManager(Logic logicManager) {
+        this.logicManager = logicManager;
+    }
+
     /**
      * This method will pass the command into the parser whenever the user presses enter
      * @param event Event associated with the user pressing enter to confirm a command
@@ -29,10 +36,18 @@ public class RootLayoutController {
     @FXML
     public void enterInput(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            display.appendText(userInput.getText());
-            display.appendText("\n");
-            userInput.setText("");
-            inputFeedback.setText("Command entered");
+
+            try {
+                inputFeedback.setText("");
+                CommandResult result = logicManager.execute(userInput.getText());
+                display.appendText(userInput.getText() + "\n");
+                display.appendText(result.getFeedbackToUser());
+                display.appendText("\n");
+                userInput.setText("");
+                display.selectPositionCaret(display.getText().length());
+            } catch (Exception e) {
+                inputFeedback.setText(e.getMessage());
+            }
         }
     }
 

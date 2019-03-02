@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import quickdocs.RootLayoutController;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -214,15 +215,12 @@ public class MainApp extends Application {
 
         try {
             // Load root layout from fxml file.
-
             FXMLLoader loader = new FXMLLoader();
-            //loader.setLocation(MainApp.class.getClassLoader().getResource("RootLayout.fxml"));
-            //rootLayout = (AnchorPane) loader.load();
 
             //this will work when the rootlayout fxml file is in the resources folder but cannot link to controller
             rootLayout = loader.load(getClass().getClassLoader().getResourceAsStream("view/RootLayout.fxml"));
-
-
+            RootLayoutController rootLayoutController = loader.getController();
+            rootLayoutController.setLogicManager(logic);
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);

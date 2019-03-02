@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
@@ -192,6 +193,62 @@ public class AddCommandTest {
         public void deleteTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean duplicatePatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isPatientListEmpty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkValidIndex(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Patient getPatientAtIndex(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void replacePatient(int index, Patient editedPatient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String findPatientsByName(String searchSequence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String listFiftyPatients() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String findPatientsByNric(String searchSequence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String findPatientsByTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");

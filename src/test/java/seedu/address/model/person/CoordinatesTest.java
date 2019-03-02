@@ -30,6 +30,7 @@ public class CoordinatesTest {
         // invalid addresses
         assertFalse(Coordinates.isValidCoordinates("")); // empty string
         assertFalse(Coordinates.isValidCoordinates(" ")); // spaces only
+        assertFalse(Coordinates.isValidCoordinates("*9")); // symbols
         assertFalse(Coordinates.isValidCoordinates("z9")); // out of bounds row
         assertFalse(Coordinates.isValidCoordinates("a0")); // out of bounds column
 

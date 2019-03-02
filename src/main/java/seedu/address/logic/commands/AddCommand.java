@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,14 +26,16 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + PREFIX_WEBLINK + "WEBLINK\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "KFC "
             + PREFIX_PHONE + "68765432 "
             + PREFIX_EMAIL + "kfc@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "fastfood "
-            + PREFIX_TAG + "friedChicken ";
+            + PREFIX_TAG + "friedChicken "
+            + PREFIX_WEBLINK + "kfc.com.sg";
 
     public static final String MESSAGE_SUCCESS = "New restaurant added: %1$s";
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "This restaurant already exists in the food diary";

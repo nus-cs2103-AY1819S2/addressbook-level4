@@ -190,10 +190,12 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addAppointment() throws Exception {
+        String nricString = "S9234568C";
         String dateString = "2019-10-23";
         String startString = "16:00";
         String endString = "17:00";
 
+        Nric nric = new Nric(nricString);
         LocalDate date = LocalDate.parse(dateString);
         LocalTime start = LocalTime.parse(startString);
         LocalTime end = LocalTime.parse(endString);
@@ -201,12 +203,12 @@ public class AddressBookParserTest {
 
 
         String userInput = AddAppCommand.COMMAND_WORD
-                + " i/" + INDEX_FIRST_PERSON.getOneBased()
+                + " r/" + nricString
                 + " d/" + dateString
                 + " s/" + startString
                 + " e/" + endString
                 + " c/" + comment;
         AddAppCommand command = (AddAppCommand) parser.parseCommand(userInput);
-        assertEquals(new AddAppCommand(INDEX_FIRST_PERSON, date, start, end, comment), command);
+        assertEquals(new AddAppCommand(nric, date, start, end, comment), command);
     }
 }

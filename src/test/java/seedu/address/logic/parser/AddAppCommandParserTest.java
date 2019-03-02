@@ -1,16 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_COMMENT;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_DATE;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_END;
-import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_INDEX;
+import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_NRIC;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_START;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
@@ -23,16 +20,20 @@ import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.patient.Nric;
 
 public class AddAppCommandParserTest {
     private AddAppCommandParser parser = new AddAppCommandParser();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
+
+    private String nricString = "S9234568C";
     private String dateString = "2019-10-23";
     private String startString = "16:00";
     private String endString = "17:00";
 
+    private Nric nric = new Nric(nricString);
     private LocalDate date = LocalDate.parse(dateString);
     private LocalTime start = LocalTime.parse(startString);
     private LocalTime end = LocalTime.parse(endString);
@@ -42,18 +43,14 @@ public class AddAppCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         // whitespace only preamble
-        System.out.println(PREFIX_INDEX + "" + INDEX_FIRST_PERSON.getOneBased() + " "
-                + PREFIX_DATE + dateString + " "
-                + PREFIX_START + startString + " "
-                + PREFIX_END + endString + " "
-                + PREFIX_COMMENT + comment);
         assertParseSuccess(parser,
-                PREFIX_INDEX + "" + INDEX_FIRST_PERSON.getOneBased() + " "
+                "              "
+                        + PREFIX_NRIC + nricString + " "
                         + PREFIX_DATE + dateString + " "
                         + PREFIX_START + startString + " "
                         + PREFIX_END + endString + " "
-                        + PREFIX_COMMENT + comment + "\n",
-                new AddAppCommand(INDEX_SECOND_PERSON, date, start, end, comment));
+                        + PREFIX_COMMENT + comment,
+                new AddAppCommand(nric, date, start, end, comment));
     }
 
     @Test
@@ -62,7 +59,7 @@ public class AddAppCommandParserTest {
 
         // missing index prefix
         assertParseFailure(parser,
-                INDEX_FIRST_PERSON + " "
+                nricString + " "
                         + PREFIX_DATE + dateString + " "
                         + PREFIX_START + startString + " "
                         + PREFIX_END + endString + " "
@@ -71,7 +68,7 @@ public class AddAppCommandParserTest {
 
         // missing date prefix
         assertParseFailure(parser,
-                PREFIX_INDEX + "" + INDEX_FIRST_PERSON + " "
+                PREFIX_NRIC + nricString + " "
                         + dateString + " "
                         + PREFIX_START + startString + " "
                         + PREFIX_END + endString + " "
@@ -80,7 +77,7 @@ public class AddAppCommandParserTest {
 
         // missing start prefix
         assertParseFailure(parser,
-                PREFIX_INDEX + "" + INDEX_FIRST_PERSON + " "
+                PREFIX_NRIC + nricString + " "
                         + PREFIX_DATE + dateString + " "
                         + startString + " "
                         + PREFIX_END + endString + " "
@@ -89,7 +86,7 @@ public class AddAppCommandParserTest {
 
         // missing end prefix
         assertParseFailure(parser,
-                PREFIX_INDEX + "" + INDEX_FIRST_PERSON + " "
+                PREFIX_NRIC + nricString + " "
                         + PREFIX_DATE + dateString + " "
                         + PREFIX_START + startString + " "
                         + endString + " "
@@ -98,7 +95,7 @@ public class AddAppCommandParserTest {
 
         // missing comment prefix
         assertParseFailure(parser,
-                PREFIX_INDEX + "" + INDEX_FIRST_PERSON + " "
+                PREFIX_NRIC + nricString + " "
                         + PREFIX_DATE + dateString + " "
                         + PREFIX_START + startString + " "
                         + PREFIX_END + endString + " "
@@ -107,7 +104,7 @@ public class AddAppCommandParserTest {
 
         // all prefix missing
         assertParseFailure(parser,
-                INDEX_FIRST_PERSON + " "
+                nricString + " "
                         + dateString + " "
                         + startString + " "
                         + endString + " "

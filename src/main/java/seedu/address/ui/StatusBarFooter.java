@@ -39,7 +39,7 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label profileName;
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary,String name) {
+    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary, String name) {
         super(FXML);
         foodDiary.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);

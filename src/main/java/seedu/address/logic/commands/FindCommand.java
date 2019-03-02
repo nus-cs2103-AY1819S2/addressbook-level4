@@ -29,9 +29,9 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredCardList(predicate);
+        model.updateFilteredCard(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, model.getFilteredCardList().size()));
+                String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, model.getFilteredCards().size()));
     }
 
     @Override

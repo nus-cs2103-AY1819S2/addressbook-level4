@@ -25,7 +25,7 @@ public class RedoCommand extends Command {
         }
 
         model.redoCardFolder();
-        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

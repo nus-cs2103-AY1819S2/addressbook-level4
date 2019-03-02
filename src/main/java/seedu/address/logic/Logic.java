@@ -27,7 +27,7 @@ public interface Logic {
     /**
      * Returns the CardFolder.
      *
-     * @see seedu.address.model.Model#getCardFolder()
+     * @see seedu.address.model.Model#getActiveCardFolder()
      */
     ReadOnlyCardFolder getCardFolder();
 
@@ -43,7 +43,7 @@ public interface Logic {
     /**
      * Returns the user prefs' card folder file path.
      */
-    Path getCardFolderFilePath();
+    Path getcardFolderFilesPath();
 
     /**
      * Returns the user prefs' GUI settings.

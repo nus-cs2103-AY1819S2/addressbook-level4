@@ -35,7 +35,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new CardFolder(), new CardFolder(modelManager.getCardFolder()));
+        assertEquals(new CardFolder(), new CardFolder(modelManager.getActiveCardFolder()));
         assertEquals(null, modelManager.getSelectedCard());
     }
 
@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setCardFolderFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setcardFolderFilesPath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setCardFolderFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setcardFolderFilesPath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,16 +73,16 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setCardFolderFilePath_nullPath_throwsNullPointerException() {
+    public void setcardFolderFilesPath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setCardFolderFilePath(null);
+        modelManager.setcardFolderFilesPath(null);
     }
 
     @Test
-    public void setCardFolderFilePath_validPath_setsCardFolderFilePath() {
+    public void setcardFolderFilesPath_validPath_setscardFolderFilesPath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setCardFolderFilePath(path);
-        assertEquals(path, modelManager.getCardFolderFilePath());
+        modelManager.setcardFolderFilesPath(path);
+        assertEquals(path, modelManager.getcardFolderFilesPath());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class ModelManagerTest {
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
         modelManager.addCard(ALICE);
         modelManager.addCard(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredCardList());
+        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredCards());
         modelManager.setSelectedCard(BOB);
         modelManager.deleteCard(BOB);
         assertEquals(ALICE, modelManager.getSelectedCard());
@@ -132,7 +132,7 @@ public class ModelManagerTest {
     @Test
     public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredCardList().remove(0);
+        modelManager.getFilteredCards().remove(0);
     }
 
     @Test
@@ -144,7 +144,7 @@ public class ModelManagerTest {
     @Test
     public void setSelectedCard_cardInFilteredCardList_setsSelectedCard() {
         modelManager.addCard(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCardList());
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
         modelManager.setSelectedCard(ALICE);
         assertEquals(ALICE, modelManager.getSelectedCard());
     }
@@ -156,8 +156,8 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(cardFolder, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(cardFolder, userPrefs);
+        modelManager = new ModelManager(Collections.singletonList(cardFolder), userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(Collections.singletonList(cardFolder), userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -170,19 +170,19 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different cardFolder -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentCardFolder, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(Collections.singletonList(differentCardFolder), userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getQuestion().fullQuestion.split("\\s+");
-        modelManager.updateFilteredCardList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(cardFolder, userPrefs)));
+        modelManager.updateFilteredCard(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(Collections.singletonList(cardFolder), userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        modelManager.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setCardFolderFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(cardFolder, differentUserPrefs)));
+        differentUserPrefs.setcardFolderFilesPath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(Collections.singletonList(cardFolder), differentUserPrefs)));
     }
 }

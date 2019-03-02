@@ -1,4 +1,5 @@
 {
+  "folderName": "Invalid and Valid",
   "cards": [ {
     "question": "Valid Card",
     "answer": "9482424",
@@ -7,7 +8,7 @@
     "score": "0/0"
   }, {
     "question": "Card With Invalid Answer Field",
-    "answer": "948asdf2424",
+    "answer": " ",
     "email": "hans@example.com",
     "address": "4th street",
     "score": "0/0"

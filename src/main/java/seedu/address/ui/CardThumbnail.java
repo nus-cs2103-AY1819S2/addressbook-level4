@@ -39,18 +39,18 @@ public class CardThumbnail extends UiPart<Region> {
     @FXML
     private Label score;
     @FXML
-    private FlowPane tags;
+    private FlowPane hints;
 
     public CardThumbnail(Card card, int displayedIndex) {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
         question.setText(card.getQuestion().fullQuestion);
-        answer.setText(card.getAnswer().value);
+        answer.setText(card.getAnswer().fullAnswer);
         address.setText(card.getAddress().value);
         score.setText(card.getScore().toString());
         email.setText(card.getEmail().value);
-        card.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        card.getHints().forEach(hint -> hints.getChildren().add(new Label(hint.hintName)));
     }
 
     @Override

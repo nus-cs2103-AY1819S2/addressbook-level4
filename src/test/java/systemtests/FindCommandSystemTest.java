@@ -19,7 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.hint.Hint;
 
 public class FindCommandSystemTest extends CardFolderSystemTest {
 
@@ -82,7 +82,7 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: find same cards in card folder after deleting 1 of them -> 1 card found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getCardFolder().getCardList().contains(BENSON));
+        assertFalse(getModel().getActiveCardFolder().getCardList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
@@ -112,7 +112,7 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find answer number of card in card folder -> 0 cards found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAnswer().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAnswer().fullAnswer;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -126,9 +126,9 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of card in card folder -> 0 cards found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
-        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
+        /* Case: find hints of card in card folder -> 0 cards found */
+        List<Hint> hints = new ArrayList<>(DANIEL.getHints());
+        command = FindCommand.COMMAND_WORD + " " + hints.get(0).hintName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -167,7 +167,7 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCardList().size());
+                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCards().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

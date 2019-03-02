@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -64,7 +65,7 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setCardFolderFilePath(saveFileLocation);
+        userPrefs.setcardFolderFilesPath(saveFileLocation);
         return userPrefs;
     }
 
@@ -73,7 +74,8 @@ public class TestApp extends MainApp {
      */
     public CardFolder readStorageCardFolder() {
         try {
-            return new CardFolder(storage.readCardFolder().get());
+            // TODO: Address hardcoding in the following line
+            return new CardFolder(storage.readCardFolders().get(0));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the CardFolder format.", dce);
         } catch (IOException ioe) {
@@ -85,15 +87,16 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getCardFolderFilePath();
+        return storage.getcardFolderFilesPath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getCardFolder()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredCardList());
+        Model copy = new ModelManager(Collections.singletonList(model.getActiveCardFolder()),
+                new UserPrefs());
+        ModelHelper.setFilteredList(copy, model.getFilteredCards());
         return copy;
     }
 

@@ -16,7 +16,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.hint.Hint;
 
 /**
  * Jackson-friendly version of {@link Card}.
@@ -30,7 +30,7 @@ class JsonAdaptedCard {
     private final String email;
     private final String address;
     private final String score;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedHint> hintList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedCard} with the given card details.
@@ -38,14 +38,14 @@ class JsonAdaptedCard {
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
                            @JsonProperty("email") String email, @JsonProperty("address") String address,
-                           @JsonProperty("score") String score, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("score") String score, @JsonProperty("hint") List<JsonAdaptedHint> hintList) {
         this.question = question;
         this.answer = answer;
         this.email = email;
         this.address = address;
         this.score = score;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (hintList != null) {
+            this.hintList.addAll(hintList);
         }
     }
 
@@ -54,12 +54,12 @@ class JsonAdaptedCard {
      */
     public JsonAdaptedCard(Card source) {
         question = source.getQuestion().fullQuestion;
-        answer = source.getAnswer().value;
+        answer = source.getAnswer().fullAnswer;
         email = source.getEmail().value;
         address = source.getAddress().value;
         score = source.getScore().toString();
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        hintList.addAll(source.getHints().stream()
+                .map(JsonAdaptedHint::new)
                 .collect(Collectors.toList()));
     }
 
@@ -69,9 +69,9 @@ class JsonAdaptedCard {
      * @throws IllegalValueException if there were any data constraints violated in the adapted card.
      */
     public Card toModelType() throws IllegalValueException {
-        final List<Tag> cardTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            cardTags.add(tag.toModelType());
+        final List<Hint> cardHints = new ArrayList<>();
+        for (JsonAdaptedHint hint : hintList) {
+            cardHints.add(hint.toModelType());
         }
 
         if (question == null) {
@@ -115,8 +115,8 @@ class JsonAdaptedCard {
         }
         final Score modelScore = new Score(score);
 
-        final Set<Tag> modelTags = new HashSet<>(cardTags);
-        return new Card(modelQuestion, modelAnswer, modelEmail, modelAddress, modelScore, modelTags);
+        final Set<Hint> modelHints = new HashSet<>(cardHints);
+        return new Card(modelQuestion, modelAnswer, modelEmail, modelAddress, modelScore, modelHints);
     }
 
 }

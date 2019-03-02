@@ -135,4 +135,33 @@ public class Directory {
         Comparator<String> comparator = Comparator.naturalOrder();
         return binarySearch(listOfDirectory, (Directory directory) -> (comparator.compare(directory.name, name)));
     }
+
+    @Override
+    public String toString() {
+        return "- " + name;
+    }
+
+    /**
+     * Return a String representation of the content of the directory
+     * @return
+     */
+    public String viewDetail() {
+        StringBuilder sb = new StringBuilder();
+        if (!listOfDirectory.isEmpty()) {
+            sb.append("List of sub-directories: \n");
+            for (Directory directory : listOfDirectory) {
+                sb.append(directory.toString() + "\n");
+            }
+        }
+        if (!listOfMedicine.isEmpty()) {
+            sb.append("List of Medicine under this directory: \n");
+            for (Medicine medicine : listOfMedicine) {
+                sb.append(medicine.toString() + "\n");
+            }
+        }
+        if (listOfMedicine.isEmpty() && listOfDirectory.isEmpty()) {
+            sb.append("Empty directory\n");
+        }
+        return sb.toString();
+    }
 }

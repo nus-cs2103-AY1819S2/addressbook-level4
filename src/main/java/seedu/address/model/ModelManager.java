@@ -16,15 +16,19 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.ConsultationManager;
-import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentManager;
+import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,10 +45,31 @@ public class ModelManager implements Model {
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
     private final ConsultationManager consultationManager;
+    private final AppointmentManager appointmentManager;
+    private final ReminderManager reminderManager;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Patient[] samplePatients) {
+        super();
+        requireAllNonNull(addressBook, userPrefs);
+
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        this.medicineManager = new MedicineManager();
+        this.patientManager = new PatientManager();
+        this.consultationManager = new ConsultationManager();
+        this.appointmentManager = new AppointmentManager();
+        this.reminderManager = new ReminderManager();
+        iniPatients(samplePatients);
+    }
+
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -58,11 +83,24 @@ public class ModelManager implements Model {
         this.medicineManager = new MedicineManager();
         this.patientManager = new PatientManager();
         this.consultationManager = new ConsultationManager();
+        this.appointmentManager = new AppointmentManager();
+        this.reminderManager = new ReminderManager();
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
+
+    /**
+     * Initialise quickdocs with sample patient data
+     */
+    public void iniPatients(Patient[] samplePatients) {
+        for (Patient patient : samplePatients) {
+            patientManager.addPatient(patient);
+        }
+    }
+
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -138,6 +176,11 @@ public class ModelManager implements Model {
     //@Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
+    }
+
+    //@Override
+    public Optional<Directory> findDirectory(String[] path) {
+        return medicineManager.findDirectory(path);
     }
     //=========== AddressBook ================================================================================
 
@@ -345,5 +388,35 @@ public class ModelManager implements Model {
 
     public void createConsultation(Patient patient) {
         this.consultationManager.createConsultation(patient);
+    }
+
+    public Patient getPatientWithNric(Nric nric) {
+        return this.patientManager.getPatientWithNric(nric);
+    }
+
+    //==========Appointment module===========================================================================
+    public boolean duplicateApp(Appointment app) {
+        return appointmentManager.duplicateApp(app);
+    }
+
+    public void addApp(Appointment app) {
+        appointmentManager.add(app);
+    }
+
+    public String listApp() {
+        return appointmentManager.list();
+    }
+
+    //==========Reminder module==============================================================================
+    public boolean duplicateRem(Reminder rem) {
+        return reminderManager.duplicateReminder(rem);
+    }
+
+    public void addRem(Reminder rem) {
+        reminderManager.addReminder(rem);
+    }
+
+    public String listRem() {
+        return reminderManager.list();
     }
 }

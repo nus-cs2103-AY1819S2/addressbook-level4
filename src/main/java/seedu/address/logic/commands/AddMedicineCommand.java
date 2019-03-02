@@ -7,7 +7,6 @@ import java.util.Arrays;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.medicine.Medicine;
 
 /**
  * An command to add Medicine to the path specified
@@ -26,11 +25,10 @@ public class AddMedicineCommand extends Command {
             + "Healroot "
             + "50";
 
-    public static final String MESSAGE_SUCCESS = "New Medicine added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New Medicine added: %1$s with quantity at %2$d";
 
     private final String name;
     private final int quantity;
-    private final Medicine toAdd;
     private final String[] path;
 
     public AddMedicineCommand(String[] path, String medicineName) {
@@ -40,16 +38,15 @@ public class AddMedicineCommand extends Command {
     public AddMedicineCommand(String[] path, String medicineName, int quantity) {
         this.name = medicineName;
         this.quantity = quantity;
-        this.toAdd = new Medicine(medicineName, quantity);
         this.path = path;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        //model.addMedicine(toAdd);
+        //model.addMedicine(name, quantity, path);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, name, quantity));
     }
 
     @Override

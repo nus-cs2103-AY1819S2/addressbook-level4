@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -154,10 +155,6 @@ public interface Model {
 
     void addPatient(Patient patient);
 
-    boolean duplicateApp(Appointment app);
-
-    void addApp(Appointment app);
-
     boolean isPatientListEmpty();
 
     boolean checkValidIndex(int index);
@@ -167,4 +164,11 @@ public interface Model {
     boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient);
 
     void replacePatient(int index, Patient editedPatient);
+
+    Patient getPatientWithNric(Nric nric);
+
+    //===========Appointment module operations========================
+    boolean duplicateApp(Appointment app);
+
+    void addApp(Appointment app);
 }

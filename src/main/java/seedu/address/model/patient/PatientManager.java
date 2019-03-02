@@ -82,4 +82,13 @@ public class PatientManager {
         patientList.set(index - 1, editedPatient);
     }
 
+    public Patient getPatientWithNric(Nric nric) {
+        for (Patient patient : patientList) {
+            if (patient.getNric().equals(nric)) {
+                return patient;
+            }
+        }
+        return null;
+    }
+
 }

@@ -4,21 +4,19 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.patient.Patient;
 
-
-// TODO: Change Person to Patient
 /**
  * Represents an appointment created in QuickDocs.
  */
 public class Appointment {
-    private final Person patient;
+    private final Patient patient;
     private final LocalDate date;
     private final LocalTime startTime;
     private final LocalTime endTime;
     private final String comment;
 
-    public Appointment(Person patient, LocalDate date, LocalTime startTime, LocalTime endTime, String comment) {
+    public Appointment(Patient patient, LocalDate date, LocalTime startTime, LocalTime endTime, String comment) {
         this.patient = patient;
         this.date = date;
         this.startTime = startTime;
@@ -26,7 +24,7 @@ public class Appointment {
         this.comment = comment;
     }
 
-    public Person getPatient() {
+    public Patient getPatient() {
         return patient;
     }
 
@@ -61,6 +59,7 @@ public class Appointment {
 
         Appointment otherApp = (Appointment) other;
         return otherApp.getPatient().equals(getPatient())
+                && otherApp.getDate().equals(getDate())
                 && otherApp.getStartTime().equals(getStartTime())
                 && otherApp.getEndTime().equals(getEndTime());
     }
@@ -77,11 +76,11 @@ public class Appointment {
         builder.append(getPatient())
                 .append("Date: ")
                 .append(getDate() + "\n")
-                .append(" Start Time: ")
+                .append("Start Time: ")
                 .append(getStartTime() + "\n")
-                .append(" End Time: ")
+                .append("End Time: ")
                 .append(getEndTime() + "\n")
-                .append(" Comments: ")
+                .append("Comments: ")
                 .append(getComment() + "\n");
         return builder.toString();
     }

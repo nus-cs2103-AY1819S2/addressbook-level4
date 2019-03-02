@@ -21,6 +21,7 @@ import seedu.address.model.appointment.AppointmentManager;
 import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
@@ -41,7 +42,6 @@ public class ModelManager implements Model {
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
     private final AppointmentManager appointmentManager;
-    private final Patient[] samplePatients;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -59,18 +59,32 @@ public class ModelManager implements Model {
         this.medicineManager = new MedicineManager();
         this.patientManager = new PatientManager();
         this.appointmentManager = new AppointmentManager();
-        this.samplePatients = samplePatients;
-        iniPatients();
+        iniPatients(samplePatients);
+    }
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(addressBook, userPrefs);
+
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        this.medicineManager = new MedicineManager();
+        this.patientManager = new PatientManager();
+        this.appointmentManager = new AppointmentManager();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new Patient[10]);
+        this(new AddressBook(), new UserPrefs());
     }
 
     /**
      * Initialise quickdocs with sample patient data
      */
-    public void iniPatients() {
+    public void iniPatients(Patient[] samplePatients) {
         for (Patient patient : samplePatients) {
             patientManager.addPatient(patient);
         }
@@ -318,14 +332,6 @@ public class ModelManager implements Model {
         this.patientManager.addPatient(patient);
     }
 
-    //==========Appointment module===========================================================================
-    public boolean duplicateApp(Appointment app) {
-        return appointmentManager.duplicateApp(app);
-    }
-
-    public void addApp(Appointment app) {
-        appointmentManager.add(app);
-    }
     // for editing
     public boolean isPatientListEmpty() {
         return this.patientManager.isPatientListEmpty();
@@ -345,6 +351,19 @@ public class ModelManager implements Model {
 
     public void replacePatient(int index, Patient editedPatient) {
         this.patientManager.replacePatient(index, editedPatient);
+    }
+
+    public Patient getPatientWithNric(Nric nric) {
+        return this.patientManager.getPatientWithNric(nric);
+    }
+
+    //==========Appointment module===========================================================================
+    public boolean duplicateApp(Appointment app) {
+        return appointmentManager.duplicateApp(app);
+    }
+
+    public void addApp(Appointment app) {
+        appointmentManager.add(app);
     }
 
 }

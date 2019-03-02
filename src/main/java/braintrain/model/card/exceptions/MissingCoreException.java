@@ -5,8 +5,8 @@ package braintrain.model.card.exceptions;
  * Used by {@code Card} and {@code Lesson}.
  */
 public class MissingCoreException extends RuntimeException {
-    private static String MISSING_CORE_PREFIX = "Core value: "; // Using by MissingCoreException(int coreIndex)
-    private static String MISSING_CORE_SUFFIX = " is missing."; // Using by MissingCoreException(int coreIndex)
+    private static String MISSING_CORE_PREFIX = "Core value: "; // Used by MissingCoreException(int missingCoreIndex)
+    private static String MISSING_CORE_SUFFIX = " is missing."; // Used by MissingCoreException(int missingCoreIndex)
 
     /**
      * Constructs a MissingCoreException with a custom detail message.

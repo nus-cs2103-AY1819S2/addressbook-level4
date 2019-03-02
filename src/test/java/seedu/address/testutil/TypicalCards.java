@@ -18,7 +18,7 @@ public class TypicalCards {
             .withAnswer("0").withTags("Math").build();
 
     public static final Card HELLO_WORLD = new CardBuilder().withQuestion("Hello?")
-            .withAnswer("World").build();
+            .withAnswer("World").withTags("Simple", "CS").build();
 
     private TypicalCards() {} // prevents instantiation
 

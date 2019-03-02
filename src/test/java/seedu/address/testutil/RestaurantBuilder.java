@@ -22,7 +22,6 @@ public class RestaurantBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_CUISINE = "Fast Food";
 
     private Name name;
     private Phone phone;
@@ -37,7 +36,7 @@ public class RestaurantBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        cuisine = new Cuisine(DEFAULT_CUISINE);
+        cuisine = null;
     }
 
     /**
@@ -101,7 +100,7 @@ public class RestaurantBuilder {
     }
 
     public Restaurant build() {
-        return new Restaurant(name, phone, email, address, tags, Optional.of(cuisine));
+        return new Restaurant(name, phone, email, address, tags, Optional.ofNullable(cuisine));
     }
 
 }

@@ -73,7 +73,14 @@ public class Person {
 
     public boolean hasCopy(){ return copyCount > 0; }
 
-    public boolean isCopy(){ return  copyInfo != null; }
+    private boolean copyInTag(){
+        for(Tag t : getTags()){
+            if(t.tagName.equals("Copy")) return true;
+        }
+        return  false;
+    }
+
+    public boolean isCopy(){ return  copyInfo != null || copyInTag(); }
 
     public void editCopy(){ copyInfo.getOriginalPerson().edittedCopy(); }
 

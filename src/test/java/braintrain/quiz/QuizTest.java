@@ -134,23 +134,27 @@ public class QuizTest {
         expectedCard1.updateTotalAttemptsandStreak(expectedCard1.isCorrect(correctAnswer));
 
         Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        quiz.getNextCard();
         quiz.updateTotalAttemptsandStreak(index, correctAnswer);
 
         assertEquals(expected, quiz.getCurrentSession());
 
         // test wrong answer
         expectedCard1.updateTotalAttemptsandStreak(expectedCard1.isCorrect(wrongAnswer));
+        quiz.getNextCard();
         quiz.updateTotalAttemptsandStreak(index, wrongAnswer);
         assertEquals(expected, quiz.getCurrentSession());
 
         // ------- Review -------
         Quiz quizReview = new Quiz(quizCards, Quiz.Mode.REVIEW);
+        quizReview.getNextCard();
         quizReview.updateTotalAttemptsandStreak(index, correctAnswer);
 
         assertEquals(expected, quizReview.getCurrentSession());
 
         // ------- Preview -------
         Quiz quizPreview = new Quiz(quizCards, Quiz.Mode.REVIEW);
+        quizPreview.getNextCard();
         quizPreview.updateTotalAttemptsandStreak(index, correctAnswer);
 
         assertEquals(expected, quizPreview.getCurrentSession());
@@ -166,11 +170,40 @@ public class QuizTest {
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
         assertFalse(quiz.isEnd());
 
+        // test 2 question
+        quiz.getNextCard();
         quiz.updateTotalAttemptsandStreak(0, "Tokyo");
+        quiz.getNextCard();
         quiz.updateTotalAttemptsandStreak(1, "wrong answer");
 
         assertEquals(expected, quiz.end());
         assertTrue(quiz.isEnd());
+    }
+
+    @Test
+    public void completeFlow() {
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(0, 2, 2));
+        expected.add(Arrays.asList(1, 2, 1));
+
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+
+        Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        assertTrue(quiz.getNextCard().isCorrect("Tokyo"));
+        quiz.updateTotalAttemptsandStreak(0, "Tokyo");
+
+        assertFalse(quiz.getNextCard().isCorrect("wrong answer"));
+        quiz.updateTotalAttemptsandStreak(1, "wrong answer");
+
+        assertTrue(quiz.getNextCard().isCorrect("Japan"));
+        quiz.updateTotalAttemptsandStreak(0, "Japan");
+
+        assertTrue(quiz.getNextCard().isCorrect("Hungary"));
+        quiz.updateTotalAttemptsandStreak(1, "Hungary");
+
+        assertEquals(expected, quiz.end());
     }
 
 }

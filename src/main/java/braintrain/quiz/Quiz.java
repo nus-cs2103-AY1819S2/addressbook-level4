@@ -105,7 +105,7 @@ public class Quiz {
      */
     public void updateTotalAttemptsandStreak(int index, String answer) {
         QuizCard sessionCard = currentSession.get(index);
-        sessionCard.updateTotalAttemptsandStreak(sessionCard.isCorrect(answer));
+        sessionCard.updateTotalAttemptsandStreak(currentQuizCard.isCorrect(answer));
     }
 
     /**

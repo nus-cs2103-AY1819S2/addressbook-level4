@@ -195,4 +195,13 @@ public class QuizCardTest {
         assertNotEquals(VALID_QUIZCARD.hashCode(), cardWithIndex);
     }
 
+    @Test
+    public void quizCardToString() {
+        final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
+        final QuizCard quizCardWithAb = new QuizCard("A", "B");
+
+        assertEquals(VALID_QUIZCARD_NO_OPT.toString(), anotherValidQuizCard.toString());
+        assertNotEquals(VALID_QUIZCARD_NO_OPT.toString(), quizCardWithAb.toString());
+    }
+
 }

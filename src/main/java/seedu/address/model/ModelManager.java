@@ -73,14 +73,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getTopDeckFilePath() {
+        return userPrefs.getTopDeckFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setTopDeckFilePath(Path topDeckFilePath) {
+        requireNonNull(topDeckFilePath);
+        userPrefs.setTopDeckFilePath(topDeckFilePath);
     }
 
     //=========== AddressBook ================================================================================

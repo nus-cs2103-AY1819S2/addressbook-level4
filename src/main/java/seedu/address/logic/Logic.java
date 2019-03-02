@@ -8,7 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTopDeck;
+import seedu.address.model.deck.Card;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,14 +26,14 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns TopDeck.
      *
      * @see seedu.address.model.Model#getTopDeck()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyTopDeck getTopDeck();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Card> getFilteredCardList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -43,7 +44,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getTopDeckFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -61,12 +62,13 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#selectedCardProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Card> selectedCardProperty();
 
     /**
      * Sets the selected person in the filtered person list.
      *
      * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @param card
      */
-    void setSelectedPerson(Person person);
+    void setSelectedCard(Card card);
 }

@@ -14,7 +14,7 @@ public class Code {
      * The first character of the item code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[a-z][0-9][0-9]]";
+    public static final String VALIDATION_REGEX = "[A-Z][0-9][0-9]]";
     
     public final String itemCode;
     

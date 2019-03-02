@@ -19,6 +19,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -68,6 +69,9 @@ public class FoodDiaryParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import braintrain.model.card.exceptions.MissingCoreException;
+import braintrain.model.card.exceptions.MissingOptionalException;
+
 /**
  * Represents a flash card which minimally contains two core fields, Question and Answer.
  * Guarantees: Core fields are present and not null, core and optional field values are validated.
@@ -27,6 +30,7 @@ public class Card {
      */
     public Card(List<String> cores, List<String> optionals) {
         requireAllNonNull(cores, optionals);
+
         this.cores = new ArrayList<>();
         this.optionals = new ArrayList<>();
 
@@ -59,6 +63,7 @@ public class Card {
      * @param newCores the new list of cores
      */
     public void setCores(List<String> newCores) {
+        requireAllNonNull(newCores);
         this.cores.clear();
         this.cores.addAll(newCores);
         hashCode = generateHashCode();
@@ -70,6 +75,7 @@ public class Card {
      * @param newOptionals the new list of optionals
      */
     public void setOptionals(List<String> newOptionals) {
+        requireAllNonNull(newOptionals);
         this.optionals.clear();
         this.optionals.addAll(newOptionals);
         hashCode = generateHashCode();
@@ -82,6 +88,10 @@ public class Card {
      * @return the core at the specified position in the core list
      */
     public String getCore(int index) {
+        if (cores.get(index).isEmpty()) {
+            throw new MissingCoreException(index);
+        }
+
         return cores.get(index);
     }
 
@@ -92,6 +102,10 @@ public class Card {
      * @return the optional at the specified position in the optional list
      */
     public String getOptional(int index) {
+        if (optionals.get(index).isEmpty()) {
+            throw new MissingOptionalException(index);
+        }
+
         return optionals.get(index);
     }
 

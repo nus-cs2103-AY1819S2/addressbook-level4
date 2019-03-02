@@ -84,7 +84,7 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
 
-        if(personToEdit.isCopy()){
+        if (personToEdit.isCopy()) {
             personToEdit.editCopy();
         }
 

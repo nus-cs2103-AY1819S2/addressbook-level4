@@ -174,9 +174,9 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
-        if(model.checkNoCopy()){
+        if (model.checkNoCopy()) {
             logger.info("No copies left");
-        }else{
+        } else {
             logger.info("Unedited copies exist");
         }
         try {

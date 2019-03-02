@@ -41,7 +41,8 @@ public class Person {
         copyCount = 0;
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Person personToCopy, int copyCount) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  Person personToCopy, int copyCount) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -50,7 +51,7 @@ public class Person {
         this.tags.addAll(tags);
         this.tags.add(new Tag("Copy"));
         this.copyCount = copyCount;
-        copyInfo = new CopyTag(personToCopy,"$Copy"+copyCount);
+        copyInfo = new CopyTag(personToCopy, "$Copy" + copyCount);
     }
 
     public Name getName() {
@@ -69,27 +70,39 @@ public class Person {
         return address;
     }
 
-    public int getCopyCount(){ return  copyCount;}
+    public int getCopyCount() { return copyCount; }
 
-    public boolean hasCopy(){ return copyCount > 0; }
+    public boolean hasCopy() { return copyCount > 0; }
 
-    private boolean copyInTag(){
-        for(Tag t : getTags()){
-            if(t.tagName.equals("Copy")) return true;
+    /**
+     *
+     * @return true if a person has {@code Tag} copy
+     */
+    private boolean copyInTag() {
+        for (Tag t : getTags()) {
+            if (t.tagName.equals("Copy")) {
+                return true;
+            }
         }
-        return  false;
+        return false;
     }
 
-    public boolean isCopy(){ return  copyInfo != null || copyInTag(); }
+    public boolean isCopy() { return copyInfo != null || copyInTag(); }
 
-    public void editCopy(){ copyInfo.getOriginalPerson().edittedCopy(); }
+    public void editCopy() { copyInfo.getOriginalPerson().edittedCopy(); }
 
-    private void edittedCopy(){ copyCount -= 1; }
+    private void edittedCopy() { copyCount -= 1; }
 
-    public Person copy(){
-        if(isCopy()) return copyInfo.getOriginalPerson().copy();
+    /**
+     * @return another instance of the same person
+     * {@code Tag} Copy is added
+     */
+    public Person copy() {
+        if (isCopy()) {
+            return copyInfo.getOriginalPerson().copy();
+        }
         copyCount++;
-        return  new Person(name,phone,email,address,tags,this,copyCount);
+        return new Person(name, phone, email, address, tags, this, copyCount);
     }
 
     /**

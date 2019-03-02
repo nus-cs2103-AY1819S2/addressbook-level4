@@ -100,9 +100,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    public boolean checkNoCopy(){
-        for(Person p : persons){
-            if(p.isCopy()) return false;
+    /**
+     * @return {@code true} if no {@code person} is a copy
+     */
+    public boolean checkNoCopy() {
+        for (Person p : persons) {
+            if (p.isCopy()) {
+                return false;
+            }
         }
         return true;
     }

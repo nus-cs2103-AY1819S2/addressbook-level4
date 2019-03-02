@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-
 import braintrain.testutil.Assert;
+
+import org.junit.Test;
 
 public class QuizTest {
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
@@ -36,15 +36,15 @@ public class QuizTest {
     public void generate() {
         // learn
         List<QuizCard> expected = new ArrayList<>();
-        QuizCard actualCurrentCard;
+        QuizCard expectedCurrentCard;
         for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
-            actualCurrentCard = VALID_QUIZCARD.get(i);
-            expected.add(new QuizCard(i, actualCurrentCard.getQuestion(), actualCurrentCard.getAnswer()));
+            expectedCurrentCard = VALID_QUIZCARD.get(i);
+            expected.add(new QuizCard(i, expectedCurrentCard.getQuestion(), expectedCurrentCard.getAnswer()));
         }
 
         for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
-            actualCurrentCard = VALID_QUIZCARD.get(i);
-            expected.add(new QuizCard(i, actualCurrentCard.getAnswer(), actualCurrentCard.getQuestion()));
+            expectedCurrentCard = VALID_QUIZCARD.get(i);
+            expected.add(new QuizCard(i, expectedCurrentCard.getAnswer(), expectedCurrentCard.getQuestion()));
         }
 
         List<QuizCard> actualLearn = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN).generate();
@@ -118,6 +118,60 @@ public class QuizTest {
         // no more cards
         Assert.assertThrows(IndexOutOfBoundsException.class, () ->
             quizPreview.getNextCard());
+    }
+
+    @Test
+    public void updateTotalAttemptsandStreak() {
+        final int index = 0;
+        final String correctAnswer = "Tokyo";
+        final String wrongAnswer = "wrong answer";
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+
+        // ------- learn -------
+        List<QuizCard> expected = quizCards;
+        QuizCard expectedCard1 = expected.get(index);
+        expectedCard1.updateTotalAttemptsandStreak(expectedCard1.isCorrect(correctAnswer));
+
+        Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        quiz.updateTotalAttemptsandStreak(index, correctAnswer);
+
+        assertEquals(expected, quiz.getCurrentSession());
+
+        // test wrong answer
+        expectedCard1.updateTotalAttemptsandStreak(expectedCard1.isCorrect(wrongAnswer));
+        quiz.updateTotalAttemptsandStreak(index, wrongAnswer);
+        assertEquals(expected, quiz.getCurrentSession());
+
+        // ------- Review -------
+        Quiz quizReview = new Quiz(quizCards, Quiz.Mode.REVIEW);
+        quizReview.updateTotalAttemptsandStreak(index, correctAnswer);
+
+        assertEquals(expected, quizReview.getCurrentSession());
+
+        // ------- Preview -------
+        Quiz quizPreview = new Quiz(quizCards, Quiz.Mode.REVIEW);
+        quizPreview.updateTotalAttemptsandStreak(index, correctAnswer);
+
+        assertEquals(expected, quizPreview.getCurrentSession());
+    }
+
+    @Test
+    public void end() {
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(0, 1, 1));
+        expected.add(Arrays.asList(1, 1, 0));
+
+        // quiz just started
+        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+        assertFalse(quiz.isEnd());
+
+        quiz.updateTotalAttemptsandStreak(0, "Tokyo");
+        quiz.updateTotalAttemptsandStreak(1, "wrong answer");
+
+        assertEquals(expected, quiz.end());
+        assertTrue(quiz.isEnd());
     }
 
 }

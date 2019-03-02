@@ -4,8 +4,8 @@ import static braintrain.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 
 /**
  * Represents a quiz that stores a list of QuizCard
@@ -78,12 +78,15 @@ public class Quiz {
     }
 
     /**
-     * Returns true if there is card left in quiz
+     * Returns true if there is card left in quiz.
      */
     public boolean isNextCard() {
         return currentCardIndex < (generatedCardSize - 1);
     }
 
+    /**
+     * Returns the next card in line.
+     */
     public QuizCard getNextCard() {
         currentCardIndex++;
 
@@ -95,11 +98,41 @@ public class Quiz {
         throw new IndexOutOfBoundsException("No cards left.");
     }
 
-    public boolean isEnd() {
-        return end;
+    /**
+     * Update the totalAttempts and streak of a specified card in the current session.
+     * @param index of the card
+     * @param answer user input
+     */
+    public void updateTotalAttemptsandStreak(int index, String answer) {
+        QuizCard sessionCard = currentSession.get(index);
+        sessionCard.updateTotalAttemptsandStreak(sessionCard.isCorrect(answer));
     }
 
-    public void haveEnded() {
+    /**
+     * Returns the current session.
+     */
+    public List<QuizCard> getCurrentSession() {
+        return currentSession;
+    }
+
+    /**
+     * Format data needed by Session
+     * @return a list of index of card, total attempts and streak in this session.
+     */
+    public List<List<Integer>> end() {
         this.end = true;
+
+        List<List<Integer>> session = new ArrayList<>();
+        QuizCard card;
+        for (int i = 0; i < currentSession.size(); i++) {
+            card = currentSession.get(i);
+            session.add(Arrays.asList(i, card.getTotalAttempts(), card.getStreak()));
+        }
+
+        return session;
+    }
+
+    public boolean isEnd() {
+        return end;
     }
 }

@@ -243,7 +243,7 @@ public class ModelManager implements Model {
             boolean wasSelectedCardReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedCard.getValue());
             if (wasSelectedCardReplaced) {
-                // Update selectedCard to its new value.
+                // Update selectedCard to its new fullAnswer.
                 int index = change.getRemoved().indexOf(selectedCard.getValue());
                 selectedCard.setValue(change.getAddedSubList().get(index));
                 continue;

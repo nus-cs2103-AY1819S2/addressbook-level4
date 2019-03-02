@@ -6,10 +6,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,15 +28,15 @@ public class TypicalCards {
     public static final Card ALICE = new CardBuilder().withQuestion("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withAnswer("94351253")
-            .withTags("friends").build();
+            .withHint("friends").build();
     public static final Card BENSON = new CardBuilder().withQuestion("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withAnswer("98765432")
-            .withTags("owesMoney", "friends").build();
+            .withHint("owesMoney", "friends").build();
     public static final Card CARL = new CardBuilder().withQuestion("Carl Kurz").withAnswer("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
     public static final Card DANIEL = new CardBuilder().withQuestion("Daniel Meier").withAnswer("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com").withAddress("10th street").withHint("friends").build();
     public static final Card ELLE = new CardBuilder().withQuestion("Elle Meyer").withAnswer("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
     public static final Card FIONA = new CardBuilder().withQuestion("Fiona Kunz").withAnswer("9482427")
@@ -52,9 +52,9 @@ public class TypicalCards {
 
     // Manually added - Card's details found in {@code CommandTestUtil}
     public static final Card AMY = new CardBuilder().withQuestion(VALID_QUESTION_AMY).withAnswer(VALID_ANSWER_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withHint(VALID_HINT_FRIEND).build();
     public static final Card BOB = new CardBuilder().withQuestion(VALID_QUESTION_BOB).withAnswer(VALID_ANSWER_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withHint(VALID_HINT_HUSBAND, VALID_HINT_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

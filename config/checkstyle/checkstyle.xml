@@ -8,39 +8,39 @@
     https://oss-generic.github.io/process/codingstandards/coding-standards-java.html
 -->
 
-<module question="Checker">
+<module name="Checker">
 
-  <module question="FileTabCharacter">
+  <module name="FileTabCharacter">
     <!-- Checks that there are no tab characters in the file. -->
   </module>
 
-  <module question="NewlineAtEndOfFile">
+  <module name="NewlineAtEndOfFile">
     <!-- Accept LF, CR or CRLF to accomodate devs who prefer different line endings -->
-    <property question="lineSeparator" value="lf_cr_crlf"/>
+    <property name="lineSeparator" value="lf_cr_crlf"/>
   </module>
 
-  <module question="RegexpSingleline">
+  <module name="RegexpSingleline">
     <!-- Checks that FIXME is not used in comments.  TODO is preferred. -->
-    <property question="format" value="((//.*)|(\*.*))FIXME" />
-    <property question="message" value='TODO is preferred to FIXME."' />
+    <property name="format" value="((//.*)|(\*.*))FIXME" />
+    <property name="message" value='TODO is preferred to FIXME."' />
   </module>
 
-  <module question="SuppressionFilter">
-    <property question="file" value="config/checkstyle/suppressions.xml"/>
+  <module name="SuppressionFilter">
+    <property name="file" value="config/checkstyle/suppressions.xml"/>
   </module>
 
 
   <!-- All Java AST specific tests live under TreeWalker module. -->
-  <module question="TreeWalker">
+  <module name="TreeWalker">
 
     <!-- Required for SuppressionCommentFilter to work -->
-    <module question="FileContentsHolder"/>
+    <module name="FileContentsHolder"/>
 
     <!-- Required to allow exceptions in code style -->
-    <module question="SuppressionCommentFilter">
-      <property question="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
-      <property question="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
-      <property question="checkFormat" value="$1"/>
+    <module name="SuppressionCommentFilter">
+      <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+      <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+      <property name="checkFormat" value="$1"/>
     </module>
 
     <!--
@@ -54,12 +54,12 @@
       3. SPECIAL_IMPORTS: defined as org imports
       4. THIRD_PARTY_PACKAGE: defined as com imports
     -->
-    <module question="CustomImportOrder">
-        <property question="customImportOrderRules"
+    <module name="CustomImportOrder">
+        <property name="customImportOrderRules"
             value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
-        <property question="specialImportsRegExp" value="^org\."/>
-        <property question="thirdPartyPackageRegExp" value="^com\."/>
-        <property question="sortImportsInGroupAlphabetically" value="true"/>
+        <property name="specialImportsRegExp" value="^org\."/>
+        <property name="thirdPartyPackageRegExp" value="^com\."/>
+        <property name="sortImportsInGroupAlphabetically" value="true"/>
     </module>
 
     <!-- Checks for redundant import statements.
@@ -68,80 +68,80 @@
       * The class non-statically imported is from the java.lang package, e.g. importing java.lang.String.
       * The class non-statically imported is from the same package as the current package.
     -->
-    <module question="RedundantImport"/>
+    <module name="RedundantImport"/>
 
     <!-- Checks for unused import statements.
     An import statement is unused if:
       It's not referenced in the file.
     -->
-    <module question="UnusedImports"/>
+    <module name="UnusedImports"/>
 
-    <module question="AvoidStarImport"/>
+    <module name="AvoidStarImport"/>
 
     <!--
     NAMING CHECKS
     -->
 
-    <!-- Validate abbreviations (consecutive capital letters) length in identifier question -->
-    <module question="AbbreviationAsWordInName">
-      <property question="ignoreFinal" value="false"/>
-      <property question="allowedAbbreviationLength" value="1"/>
+    <!-- Validate abbreviations (consecutive capital letters) length in identifier name -->
+    <module name="AbbreviationAsWordInName">
+      <property name="ignoreFinal" value="false"/>
+      <property name="allowedAbbreviationLength" value="1"/>
     </module>
 
-    <module question="PackageName">
+    <module name="PackageName">
       <!-- Validates identifiers for package names against the supplied expression. -->
-      <property question="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
-      <property question="severity" value="warning"/>
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="TypeName">
+    <module name="TypeName">
       <!-- Validates static, final fields against the expression "^[A-Z][a-zA-Z0-9]*$". -->
-      <metadata question="altname" value="TypeName"/>
-      <property question="severity" value="warning"/>
+      <metadata name="altname" value="TypeName"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="ConstantName">
+    <module name="ConstantName">
       <!-- Validates non-private, static, final fields against the expression "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
-      <metadata question="altname" value="ConstantName"/>
-      <property question="applyToPrivate" value="false"/>
-      <message key="question.invalidPattern"
+      <metadata name="altname" value="ConstantName"/>
+      <property name="applyToPrivate" value="false"/>
+      <message key="name.invalidPattern"
                value="Variable ''{0}'' should be in ALL_CAPS (if it is a constant) or be private (otherwise)."/>
-      <property question="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="StaticVariableName">
+    <module name="StaticVariableName">
       <!-- Validates static, non-final fields against the supplied expression. -->
-      <metadata question="altname" value="StaticVariableName"/>
-      <property question="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
-      <property question="severity" value="warning"/>
+      <metadata name="altname" value="StaticVariableName"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="MemberName">
+    <module name="MemberName">
       <!-- Validates non-static members against the supplied expression. -->
-      <metadata question="altname" value="MemberName"/>
-      <property question="format" value="^[a-z][a-zA-Z0-9]*$"/>
-      <property question="severity" value="warning"/>
+      <metadata name="altname" value="MemberName"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="MethodName">
+    <module name="MethodName">
       <!-- Validates identifiers for method names against the supplied expression. -->
-      <metadata question="altname" value="MethodName"/>
-      <property question="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+){0,2}$"/>
+      <metadata name="altname" value="MethodName"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+){0,2}$"/>
     </module>
 
-    <module question="ParameterName">
+    <module name="ParameterName">
       <!-- Validates identifiers for method parameters against the expression "^[a-z][a-zA-Z0-9]*$". -->
-      <property question="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="LocalFinalVariableName">
+    <module name="LocalFinalVariableName">
       <!-- Validates identifiers for local final variables against the expression "^[a-z][a-zA-Z0-9]*$". -->
-      <property question="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="LocalVariableName">
+    <module name="LocalVariableName">
       <!-- Validates identifiers for local variables against the expression "^[a-z][a-zA-Z0-9]*$". -->
-      <property question="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
 
 
@@ -153,22 +153,22 @@
       Java style: public static void main(String[] args) // Allowed
       C style:    public static void main(String args[]) // Not allowed
     -->
-    <module question="ArrayTypeStyle"/>
+    <module name="ArrayTypeStyle"/>
 
     <!-- Checks if a catch block is empty and does not contain any comments. -->
-    <module question="EmptyCatchBlock"/>
+    <module name="EmptyCatchBlock"/>
 
-    <module question="LineLength">
+    <module name="LineLength">
       <!-- Checks if a line is too long. -->
-      <property question="max" value="120"/>
+      <property name="max" value="120"/>
     </module>
 
-    <module question="LeftCurly">
+    <module name="LeftCurly">
       <!-- Checks for placement of the left curly brace ('{'). -->
-      <property question="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
 
-    <module question="RightCurly">
+    <module name="RightCurly">
       <!-- Checks right curlies on CATCH, ELSE, and TRY blocks are on
       the same line. e.g., the following example is fine:
       <pre>
@@ -185,11 +185,11 @@
         else
       </pre>
       -->
-      <property question="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
 
     <!-- Checks for braces around loop blocks -->
-    <module question="NeedBraces">
+    <module name="NeedBraces">
       <!--
       if (true) return 1; // Not allowed
 
@@ -202,33 +202,33 @@
       if (true)
         return 1; // Not allowed
       -->
-      <property question="allowEmptyLoopBody" value="true"/>
+      <property name="allowEmptyLoopBody" value="true"/>
     </module>
 
     <!-- Checks that each variable declaration is in its own statement and on its own line. -->
-    <module question="MultipleVariableDeclarations"/>
+    <module name="MultipleVariableDeclarations"/>
 
-    <module question="OneStatementPerLine"/>
+    <module name="OneStatementPerLine"/>
 
     <!-- Checks that long constants are defined with an upper ell.-->
-    <module question="UpperEll" />
+    <module name="UpperEll" />
 
-    <module question="FallThrough">
+    <module name="FallThrough">
       <!-- Warn about falling through to the next case statement.  Similar to
       javac -Xlint:fallthrough, but the check is suppressed if a single-line comment
       on the last non-blank line preceding the fallen-into case contains 'fall through' (or
       some other variants which we don't publicized to promote consistency).
       -->
-      <property question="reliefPattern"
+      <property name="reliefPattern"
        value="fall through|Fall through|fallthru|Fallthru|falls through|Falls through|fallthrough|Fallthrough|No break|NO break|no break|continue on"/>
     </module>
 
-    <module question="MissingSwitchDefault"/>
+    <module name="MissingSwitchDefault"/>
 
     <!-- Checks that Class variables should never be declared public. -->
-    <module question="VisibilityModifier">
-      <property question="protectedAllowed" value="true"/>
-      <property question="allowPublicFinalFields" value="true"/>
+    <module name="VisibilityModifier">
+      <property name="protectedAllowed" value="true"/>
+      <property name="allowPublicFinalFields" value="true"/>
     </module>
 
     <!--
@@ -238,7 +238,7 @@
     <!-- Checks that the order of at-clauses follows the tagOrder default property value order.
          @author, @version, @param, @return, @throws, @exception, @see, @since, @serial, @serialField, @serialData, @deprecated
     -->
-    <module question="AtclauseOrder"/>
+    <module name="AtclauseOrder"/>
 
     <!-- Checks if the Class and Interface declarations is organized in this order
       1. Class (static) variables. Order: public, protected, package level (no access modifier), private.
@@ -246,9 +246,9 @@
       3. Constructors
       4. Methods
     -->
-    <module question ="DeclarationOrder"/>
+    <module name ="DeclarationOrder"/>
 
-    <module question="ModifierOrder">
+    <module name="ModifierOrder">
       <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
            8.4.3.  The prescribed order is:
            public, protected, private, abstract, static, final, transient, volatile,
@@ -256,59 +256,59 @@
         -->
     </module>
 
-    <module question="OverloadMethodsDeclarationOrder"/>
+    <module name="OverloadMethodsDeclarationOrder"/>
 
     <!--
     WHITESPACE CHECKS
     -->
 
     <!-- Checks that comments are indented relative to their position in the code -->
-    <module question="CommentsIndentation"/>
+    <module name="CommentsIndentation"/>
 
-    <module question="WhitespaceAround">
+    <module name="WhitespaceAround">
       <!-- Checks that various tokens are surrounded by whitespace.
            This includes most binary operators and keywords followed
            by regular or curly braces.
       -->
-      <property question="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR,
+      <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR,
         BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN,
         EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE,
         LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN,
         LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS,
-        MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION,
+        MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, name,
         RCURLY, SL, SLIST, SL_ASSIGN, SR_ASSIGN, STAR, STAR_ASSIGN"/>
       <!-- Allow empty constructors e.g. MyClass() {} -->
-      <property question="allowEmptyConstructors" value="true" />
+      <property name="allowEmptyConstructors" value="true" />
       <!-- Allow empty methods e.g. void func() {} -->
-      <property question="allowEmptyMethods" value="true" />
+      <property name="allowEmptyMethods" value="true" />
       <!-- Allow empty types e.g. class Foo {}, enum Foo {} -->
-      <property question="allowEmptyTypes" value="true" />
+      <property name="allowEmptyTypes" value="true" />
       <!-- Allow empty loops e.g. for (int i = 1; i > 1; i++) {} -->
-      <property question="allowEmptyLoops" value="true" />
+      <property name="allowEmptyLoops" value="true" />
       <!-- Allow empty lambdas e.g. () -> {} -->
-      <property question="allowEmptyLambdas" value="true" />
+      <property name="allowEmptyLambdas" value="true" />
     </module>
 
-    <module question="WhitespaceAfter">
+    <module name="WhitespaceAfter">
       <!-- Checks that commas, semicolons and typecasts are followed by whitespace. -->
-      <property question="tokens" value="COMMA, SEMI, TYPECAST"/>
+      <property name="tokens" value="COMMA, SEMI, TYPECAST"/>
     </module>
 
-    <module question="NoWhitespaceAfter">
+    <module name="NoWhitespaceAfter">
       <!-- Checks that there is no whitespace after various unary operators. Linebreaks are allowed. -->
-      <property question="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
+      <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
         UNARY_PLUS"/>
-      <property question="allowLineBreaks" value="true"/>
+      <property name="allowLineBreaks" value="true"/>
     </module>
 
     <!-- No trailing whitespace -->
-    <module question="Regexp">
-      <property question="format" value="[ \t]+$"/>
-      <property question="illegalPattern" value="true"/>
-      <property question="message" value="Trailing whitespace"/>
+    <module name="Regexp">
+      <property name="format" value="[ \t]+$"/>
+      <property name="illegalPattern" value="true"/>
+      <property name="message" value="Trailing whitespace"/>
     </module>
 
-    <module question="OperatorWrap">
+    <module name="OperatorWrap">
       <!-- Checks that the non-assignment type operator is at the next line in a line wrap.
            This includes "?", ":", "==", "!=", "/", "+", "-", "*", "%", ">>", ">>>",
            ">=", ">", "<<", "<=", "<", "^", "|", "||", "&", "&&", "instanceof",
@@ -317,50 +317,50 @@
            "::" when used as a reference to a method or constructor without arguments.
              e.g. String::compareToIgnoreCase
       -->
-      <property question="tokens" value="QUESTION, COLON, EQUAL, NOT_EQUAL, DIV, PLUS, MINUS, STAR, MOD, SR, BSR,
+      <property name="tokens" value="name, COLON, EQUAL, NOT_EQUAL, DIV, PLUS, MINUS, STAR, MOD, SR, BSR,
         GE, GT, SL, LE, LT, BXOR, BOR, LOR, BAND, LAND, LITERAL_INSTANCEOF, TYPE_EXTENSION_AND, METHOD_REF"/>
-      <property question="option" value="nl"/>
+      <property name="option" value="nl"/>
     </module>
-    <module question="OperatorWrap">
+    <module name="OperatorWrap">
       <!-- Checks that the assignment type operator is at the previous end of line in a line wrap.
            This includes "=", "/=", "+=", "-=", "*=", "%=", ">>=", ">>>=", "<<=", "^=", "&=".
       -->
-      <property question="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN,
+      <property name="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN,
         SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN"/>
-      <property question="option" value="eol"/>
+      <property name="option" value="eol"/>
     </module>
 
-    <module question="SeparatorWrap">
+    <module name="SeparatorWrap">
       <!-- Checks that the ".", "@" is at the next line in a line wrap. -->
-      <property question="tokens" value="DOT, AT"/>
-      <property question="option" value="nl"/>
+      <property name="tokens" value="DOT, AT"/>
+      <property name="option" value="nl"/>
     </module>
-    <module question="SeparatorWrap">
+    <module name="SeparatorWrap">
       <!-- Checks that the ",", "]", "[", "...", ";", "(" is at the previous end of line in a line wrap. -->
-      <property question="tokens" value="COMMA, RBRACK, ARRAY_DECLARATOR, ELLIPSIS, SEMI, LPAREN"/>
-      <property question="option" value="eol"/>
+      <property name="tokens" value="COMMA, RBRACK, ARRAY_DECLARATOR, ELLIPSIS, SEMI, LPAREN"/>
+      <property name="option" value="eol"/>
     </module>
 
-    <module question="Indentation">
-      <property question="caseIndent" value="0" />
+    <module name="Indentation">
+      <property name="caseIndent" value="0" />
     </module>
 
-    <module question="NoWhitespaceBefore">
+    <module name="NoWhitespaceBefore">
       <!-- Checks that there is no whitespace before various unary operators. Linebreaks are allowed. -->
-      <property question="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
-      <property question="allowLineBreaks" value="true"/>
+      <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
+      <property name="allowLineBreaks" value="true"/>
     </module>
 
-    <module question="ParenPad">
+    <module name="ParenPad">
       <!-- Checks that there is no whitespace before close parenthesis or after open parenthesis. -->
-      <property question="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
 
     <!-- Checks that non-whitespace characters are separated by no more than one whitespace character.
          a = 1; // Allowed
          a  = 1; // Not allowed (more than one space before =)
     -->
-    <module question="SingleSpaceSeparator">
+    <module name="SingleSpaceSeparator">
       <!-- Validate whitespace surrounding comments as well.
 
            a = 1; // Allowed (single space before start of comment)
@@ -372,7 +372,7 @@
 
            This doesn't validate whitespace within comments so a comment /* like  this */ is allowed.
       -->
-      <property question="validateComments" value="true"/>
+      <property name="validateComments" value="true"/>
     </module>
 
     <!--
@@ -380,43 +380,43 @@
     -->
 
     <!-- Checks that every class, enumeration and interface have a header comment. -->
-    <module question="JavadocType">
-      <property question="allowMissingParamTags" value="true"/>
+    <module name="JavadocType">
+      <property name="allowMissingParamTags" value="true"/>
     </module>
 
     <!-- Checks that every public method (excluding getters, setters and constructors) has a header comment. -->
-    <module question="JavadocMethod">
+    <module name="JavadocMethod">
       <!-- Checks public methods that have more than 1 line of code.
         Single line of code methods are often due to refactor for readability.
       -->
-      <property question="minLineCount" value="1"/>
-      <property question="allowedAnnotations" value="Override, Test, Before, BeforeClass, After, AfterClass, Subscribe"/>
-      <property question="scope" value="public"/>
-      <property question="allowUndeclaredRTE" value="true"/>
-      <property question="allowThrowsTagsForSubclasses" value="true"/>
-      <property question="allowMissingParamTags" value="true"/>
-      <property question="allowMissingThrowsTags" value="true"/>
-      <property question="allowMissingReturnTag" value="true"/>
-      <property question="allowMissingPropertyJavadoc" value="true"/>
-      <property question="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
-      <property question="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
+      <property name="minLineCount" value="1"/>
+      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After, AfterClass, Subscribe"/>
+      <property name="scope" value="public"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingParamTags" value="true"/>
+      <property name="allowMissingThrowsTags" value="true"/>
+      <property name="allowMissingReturnTag" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+      <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+      <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
     </module>
     <!-- Checks that every non-trivial private method (excluding getters, setters and constructors) has a header comment. -->
-    <module question="JavadocMethod">
+    <module name="JavadocMethod">
       <!-- Checks private methods that have more than 3 lines of code.
         We define methods that have more than 3 lines of code as non-trivial.
       -->
-      <property question="minLineCount" value="3"/>
-      <property question="allowedAnnotations" value="Override, Test, Before, BeforeClass, After, AfterClass, Subscribe"/>
-      <property question="scope" value="private"/>
-      <property question="allowUndeclaredRTE" value="true"/>
-      <property question="allowThrowsTagsForSubclasses" value="true"/>
-      <property question="allowMissingParamTags" value="true"/>
-      <property question="allowMissingThrowsTags" value="true"/>
-      <property question="allowMissingReturnTag" value="true"/>
-      <property question="allowMissingPropertyJavadoc" value="true"/>
-      <property question="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
-      <property question="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
+      <property name="minLineCount" value="3"/>
+      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After, AfterClass, Subscribe"/>
+      <property name="scope" value="private"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingParamTags" value="true"/>
+      <property name="allowMissingThrowsTags" value="true"/>
+      <property name="allowMissingReturnTag" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+      <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+      <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
     </module>
 
   </module>

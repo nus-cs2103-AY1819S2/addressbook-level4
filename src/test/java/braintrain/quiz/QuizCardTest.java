@@ -1,4 +1,4 @@
-package braintrain.model.quiz;
+package braintrain.quiz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import braintrain.model.quiz.exceptions.NotInitialisedException;
+import braintrain.quiz.exceptions.NotInitialisedException;
 import braintrain.testutil.Assert;
 
 public class QuizCardTest {
@@ -158,12 +158,13 @@ public class QuizCardTest {
     public void equals() {
         final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
         final QuizCard quizCardWithAb = new QuizCard("A", "B");
+        final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER);
 
         // same object
         assertTrue(VALID_QUIZCARD.equals(VALID_QUIZCARD));
 
         // same value
-        assertTrue(VALID_QUIZCARD.equals(anotherValidQuizCard));
+        assertTrue(VALID_QUIZCARD_NO_OPT.equals(anotherValidQuizCard));
 
         // different obj
         assertFalse(VALID_QUIZCARD.equals(new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), Quiz.Mode.LEARN)));
@@ -173,18 +174,25 @@ public class QuizCardTest {
 
         // different values
         assertFalse(VALID_QUIZCARD.equals(quizCardWithAb));
+
+        // same value but contains index
+        assertFalse(VALID_QUIZCARD.equals(cardWithIndex));
     }
 
     @Test
     public void hashcode() {
         final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
         final QuizCard quizCardWithAb = new QuizCard("A", "B");
+        final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER);
 
         // same value
-        assertEquals(VALID_QUIZCARD.hashCode(), anotherValidQuizCard.hashCode());
+        assertEquals(VALID_QUIZCARD_NO_OPT.hashCode(), anotherValidQuizCard.hashCode());
 
         // different values
         assertNotEquals(VALID_QUIZCARD.hashCode(), quizCardWithAb.hashCode());
+
+        // same value but contains index
+        assertNotEquals(VALID_QUIZCARD.hashCode(), cardWithIndex);
     }
 
 }

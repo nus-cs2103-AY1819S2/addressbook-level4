@@ -1,5 +1,7 @@
 package seedu.address.model.order;
 
+import seedu.address.model.Item;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -8,7 +10,7 @@ import java.util.Objects;
  * Represents an order item in an Order from the RestOrRant.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class OrderItem {
+public class OrderItem extends Item {
 
     private final int tableNumber;
     private final String menuItem; // TODO: implement MenuItem and change type

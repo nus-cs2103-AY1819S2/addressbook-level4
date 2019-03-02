@@ -11,6 +11,7 @@ public class PrescriptionTest {
         String medicine = " ";
         int quantity = 1;
         Assert.assertThrows(IllegalArgumentException.class, ()->new Prescription(medicine, quantity));
-        Assert.assertThrows(IllegalArgumentException.class, ()->new Prescription(medicine, -1));
+        int quantity2 = -1;
+        Assert.assertThrows(IllegalArgumentException.class, ()->new Prescription(medicine, quantity2));
     }
 }

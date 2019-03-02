@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
@@ -20,7 +22,8 @@ import seedu.address.testutil.Assert;
 
 public class ConsultationCommandTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private Model modelManager = new ModelManager();
+    //private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
 
     @Before
@@ -45,6 +48,21 @@ public class ConsultationCommandTest {
         // command exception thrown when consultation is recreated with a ongoing session
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 modelManager.createConsultation(modelManager.getPatientAtIndex(1)));
+    }
+
+    @Test
+    public void executeTest() {
+        ConsultationCommand cr = new ConsultationCommand("S9123456B");
+        Assert.assertThrows(CommandException.class, ()->cr.execute(modelManager, history));
+
+        ConsultationCommand cr2 = new ConsultationCommand("S9123456A");
+        try {
+            String consultationResult = "Consultation session for: " + "S9123456A" + " started";
+            org.junit.Assert.assertEquals(cr2.execute(modelManager, history),
+                    new CommandResult(consultationResult));
+        } catch (CommandException ce) {
+            org.junit.Assert.fail();
+        }
     }
 
 

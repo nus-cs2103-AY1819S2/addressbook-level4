@@ -1,11 +1,14 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.consultation.Assessment;
 import seedu.address.model.consultation.Diagnosis;
@@ -51,5 +54,27 @@ public class DiagnosePatientCommandTest {
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 modelManager.diagnosePatient(new Diagnosis(assessment, symptoms)));
+    }
+
+    @Test
+    public void executeTest() {
+        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
+        Assessment assessment = new Assessment("migrane");
+        ArrayList<Symptom> symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+        symptoms.add(new Symptom("blurred vision"));
+
+        Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
+        DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
+
+        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
+
+        try {
+            assertEquals(command.execute(modelManager, history).getFeedbackToUser(), diagnosis.toString());
+        } catch (CommandException ce) {
+            org.junit.Assert.fail();
+        }
+
+
     }
 }

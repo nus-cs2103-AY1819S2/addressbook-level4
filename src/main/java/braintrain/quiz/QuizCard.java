@@ -96,7 +96,7 @@ public class QuizCard {
      * Update both totalAttempts and streak depending on isCorrect
      * @param isCorrect the output of isCorrect method
      */
-    public void updateTotalAttemptsandStreak(boolean isCorrect) {
+    public void updateTotalAttemptsAndStreak(boolean isCorrect) {
         if (isCorrect) {
             streak += 1;
         } else {

@@ -108,9 +108,9 @@ public class Quiz {
      * @param index of the card
      * @param answer user input
      */
-    public void updateTotalAttemptsandStreak(int index, String answer) {
+    public void updateTotalAttemptsAndStreak(int index, String answer) {
         QuizCard sessionCard = currentSession.get(index);
-        sessionCard.updateTotalAttemptsandStreak(currentQuizCard.isCorrect(answer));
+        sessionCard.updateTotalAttemptsAndStreak(currentQuizCard.isCorrect(answer));
     }
 
     /**

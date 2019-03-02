@@ -14,7 +14,7 @@ public class QuizModelManager implements QuizModel {
     private static final Logger logger = LogsCenter.getLogger(QuizModelManager.class);
 
     private Quiz quiz;
-    private boolean ended;
+    private boolean isDone;
 
     /**
      * Initialises empty QuizModelManager
@@ -23,7 +23,7 @@ public class QuizModelManager implements QuizModel {
         super();
 
         logger.fine("Initializing empty constructor");
-        this.ended = true;
+        this.isDone = true;
     }
 
     // todo include session
@@ -49,17 +49,17 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
-    public void updateTotalAttemptsandStreak(int index, String answer) {
-        quiz.updateTotalAttemptsandStreak(index, answer);
+    public void updateTotalAttemptsAndStreak(int index, String answer) {
+        quiz.updateTotalAttemptsAndStreak(index, answer);
     }
 
     @Override
-    public boolean isEnd() {
+    public boolean isDone() {
         try {
             return quiz.isDone();
         } catch (NullPointerException e) {
             logger.info("quiz not initialised");
-            return ended;
+            return isDone;
         }
     }
 

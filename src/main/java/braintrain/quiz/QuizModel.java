@@ -31,12 +31,12 @@ public interface QuizModel {
      * @param index of the current {@code QuizCard}
      * @param answer user input
      */
-    void updateTotalAttemptsandStreak(int index, String answer);
+    void updateTotalAttemptsAndStreak(int index, String answer);
 
     /**
-     * Returns if {@code Quiz} have ended.
+     * Returns if User is done with {@code Quiz}.
      */
-    boolean isEnd();
+    boolean isDone();
 
     /**
      * Returns data needed by {@code Session} when {@code Quiz} end.

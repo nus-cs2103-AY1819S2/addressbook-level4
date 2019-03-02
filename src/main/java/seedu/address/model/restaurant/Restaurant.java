@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
 import seedu.address.model.review.Review;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Restaurant in the food diary.

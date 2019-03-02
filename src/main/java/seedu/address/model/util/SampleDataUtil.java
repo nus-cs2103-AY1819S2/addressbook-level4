@@ -1,12 +1,9 @@
 package seedu.address.model.util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.model.FoodDiary;
 import seedu.address.model.ReadOnlyFoodDiary;
@@ -15,10 +12,10 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.review.Review;
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
+import seedu.address.model.review.Review;
+import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code FoodDiary} with sample data.

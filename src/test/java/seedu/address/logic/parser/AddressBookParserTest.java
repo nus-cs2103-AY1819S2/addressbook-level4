@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPatientCommand;
+import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -44,6 +45,7 @@ import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -217,5 +219,28 @@ public class AddressBookParserTest {
     public void parseCommand_listApp() throws Exception {
         assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
         assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD + " 3") instanceof ListAppCommand);
+    }
+
+    @Test
+    public void parseCommand_addReminder() throws Exception {
+        String title = "Refill Medicine ABC";
+        String dateString = "2019-05-22";
+        String startString = "13:00";
+        String endString = "14:00";
+        String comment = "This is a test comment";
+
+        LocalDate date = LocalDate.parse(dateString);
+        LocalTime start = LocalTime.parse(startString);
+        LocalTime end = LocalTime.parse(endString);
+        Reminder toAdd = new Reminder(title, comment, date, start, end);
+
+        String userInput = AddRemCommand.COMMAND_WORD
+                + " t/" + title
+                + " d/" + dateString
+                + " s/" + startString
+                + " e/" + endString
+                + " c/" + comment;
+        AddRemCommand command = (AddRemCommand) parser.parseCommand(userInput);
+        assertEquals(new AddRemCommand(toAdd), command);
     }
 }

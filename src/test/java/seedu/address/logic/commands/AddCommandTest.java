@@ -27,6 +27,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -285,6 +286,22 @@ public class AddCommandTest {
         public String listApp() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean duplicateRem(Reminder rem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRem(Reminder rem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String listRem() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

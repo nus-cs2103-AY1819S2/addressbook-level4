@@ -1065,7 +1065,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: activityEdit
+=== Use case: Edit Activity
 
 *Main Success Scenario (MSS)*
 
@@ -1090,7 +1090,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: activitySort
+=== Use case: Sort Activity
 
 *Main Success Scenario (MSS)*
 
@@ -1115,7 +1115,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: activityAddMember
+=== Use case: Add Member to Activity
 
 *Main Success Scenario (MSS)*
 
@@ -1152,7 +1152,7 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
-=== Use case: activityRemoveMember
+=== Use case: Remove Member from Activity
 
 *Main Success Scenario (MSS)*
 
@@ -1189,7 +1189,7 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
-=== Use case: activityDelete
+=== Use case: Delete Activity
 
 *Main Success Scenario (MSS)*
 

@@ -27,10 +27,24 @@ public class Restaurant {
     private final Set<Review> reviews = new HashSet<>();
 
     /**
+     * Constructor for Restaurant class without Reviews.
      * Every field must be present and not null.
      */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructor for Restaurant class with Reviews.
+     * Every field except reviews must be present and not null.
+     */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags, reviews);
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;

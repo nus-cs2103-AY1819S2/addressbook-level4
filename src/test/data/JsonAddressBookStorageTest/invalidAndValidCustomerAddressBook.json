@@ -3,11 +3,13 @@
     "name": "Valid Customer",
     "phone": "9482424",
     "email": "hans@example.com",
+    "idnum": "12334535",
     "address": "4th street"
   }, {
     "name": "Customer With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
+    "idnum": "12135",
     "address": "4th street"
   } ]
 }

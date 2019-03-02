@@ -31,7 +31,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + MemberDeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
+        String command = "     " + MemberDeleteCommand.COMMAND_WORD + "      " +
+                INDEX_FIRST_PERSON.getOneBased() + "       ";
         Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -105,7 +106,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(MemberDeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(MemberDeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        assertCommandFailure(MemberDeleteCommand.COMMAND_WORD + " 1 abc",
+                MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
@@ -122,8 +124,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Deletes the person at {@code toDelete} by creating a default {@code MemberDeleteCommand} using {@code toDelete} and
-     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     * Deletes the person at {@code toDelete} by creating a default {@code MemberDeleteCommand} using {@code toDelete}
+     * and performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {
@@ -132,7 +134,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 
         assertCommandSuccess(
-                MemberDeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+                MemberDeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel,
+                expectedResultMessage);
     }
 
     /**

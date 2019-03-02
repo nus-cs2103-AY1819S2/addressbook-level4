@@ -94,7 +94,7 @@ class JsonAdaptedPerson {
         if (!Grade.isValidGrade(expectedMinGrade)) {
             throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
         }
-        final Grade modelExpectedMinGrade = Grade.valueOf(expectedMinGrade);
+        final Grade modelExpectedMinGrade = Grade.getGrade(expectedMinGrade);
 
         if (expectedMaxGrade == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Grade.class.getSimpleName()));
@@ -102,7 +102,7 @@ class JsonAdaptedPerson {
         if (!Grade.isValidGrade(expectedMaxGrade)) {
             throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
         }
-        final Grade modelExpectedMaxGrade = Grade.valueOf(expectedMaxGrade);
+        final Grade modelExpectedMaxGrade = Grade.getGrade(expectedMaxGrade);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelSemester, modelExpectedMinGrade, modelExpectedMaxGrade, modelTags);

@@ -22,17 +22,19 @@ public class Card {
 
     // Data fields
     private final Address address;
+    private final Score score;
     private final Set<Hint> hints = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Email email, Address address, Set<Hint> hints) {
-        requireAllNonNull(question, answer, email, address, hints);
+    public Card(Question question, Answer answer, Email email, Address address, Score score, Set<Hint> hints) {
+        requireAllNonNull(question, answer, email, address, score, hints);
         this.question = question;
         this.answer = answer;
         this.email = email;
         this.address = address;
+        this.score = score;
         this.hints.addAll(hints);
     }
 
@@ -50,6 +52,10 @@ public class Card {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Score getScore() {
+        return score;
     }
 
     /**
@@ -92,13 +98,14 @@ public class Card {
         return otherCard.getQuestion().equals(getQuestion())
                 && otherCard.getAnswer().equals(getAnswer())
                 && otherCard.getAddress().equals(getAddress())
+                && otherCard.getScore().equals(getScore())
                 && otherCard.getHints().equals(getHints());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, address, hints);
+        return Objects.hash(question, answer, email, address, score, hints);
     }
 
     @Override
@@ -109,7 +116,9 @@ public class Card {
                 .append(getAnswer())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Hint: ");
+                .append(" Score: ")
+                .append(getScore())
+                .append(" Hints: ");
         getHints().forEach(builder::append);
         return builder.toString();
     }

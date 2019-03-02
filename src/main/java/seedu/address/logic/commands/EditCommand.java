@@ -25,6 +25,7 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
+import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
 
 /**
@@ -99,9 +100,11 @@ public class EditCommand extends Command {
         Answer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
         Email updatedEmail = editCardDescriptor.getEmail().orElse(cardToEdit.getEmail());
         Address updatedAddress = editCardDescriptor.getAddress().orElse(cardToEdit.getAddress());
+        // Score cannot be edited, so copy original
+        Score originalScore = cardToEdit.getScore();
         Set<Hint> updatedHints = editCardDescriptor.getHints().orElse(cardToEdit.getHints());
 
-        return new Card(updatedQuestion, updatedAnswer, updatedEmail, updatedAddress, updatedHints);
+        return new Card(updatedQuestion, updatedAnswer, updatedEmail, updatedAddress, originalScore, updatedHints);
     }
 
     @Override

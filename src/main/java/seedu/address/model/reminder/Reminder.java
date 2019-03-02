@@ -58,16 +58,14 @@ public class Reminder {
 
         Reminder otherReminder = (Reminder) other;
         return otherReminder.getTitle().equals(getTitle())
-                && otherReminder.getComment().equals(getComment())
                 && otherReminder.getDate().equals(getDate())
-                && otherReminder.getStartTime().equals(getStartTime())
-                && otherReminder.getEndTime().equals(getEndTime());
+                && otherReminder.getStartTime().equals(getStartTime());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, comment, date, startTime, endTime);
+        return Objects.hash(title, date, startTime, endTime);
     }
 
     @Override

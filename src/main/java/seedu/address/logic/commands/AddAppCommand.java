@@ -63,7 +63,6 @@ public class AddAppCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        // Change to index?
         Patient patientToAdd = model.getPatientWithNric(nric);
         Appointment toAdd = new Appointment(patientToAdd, date, start, end, comment);
 

@@ -10,6 +10,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -182,5 +183,10 @@ public interface Model {
 
     String listApp();
 
-    //===========reminder module operations===========================
+    //===========Reminder module operations===========================
+    boolean duplicateRem(Reminder rem);
+
+    void addRem(Reminder rem);
+
+    String listRem();
 }

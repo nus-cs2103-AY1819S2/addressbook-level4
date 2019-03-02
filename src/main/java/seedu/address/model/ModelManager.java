@@ -26,6 +26,8 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,6 +44,7 @@ public class ModelManager implements Model {
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
     private final AppointmentManager appointmentManager;
+    private final ReminderManager reminderManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -59,6 +62,7 @@ public class ModelManager implements Model {
         this.medicineManager = new MedicineManager();
         this.patientManager = new PatientManager();
         this.appointmentManager = new AppointmentManager();
+        this.reminderManager = new ReminderManager();
         iniPatients(samplePatients);
     }
 
@@ -75,6 +79,7 @@ public class ModelManager implements Model {
         this.medicineManager = new MedicineManager();
         this.patientManager = new PatientManager();
         this.appointmentManager = new AppointmentManager();
+        this.reminderManager = new ReminderManager();
     }
 
     public ModelManager() {
@@ -387,4 +392,16 @@ public class ModelManager implements Model {
         return appointmentManager.list();
     }
 
+    //==========Reminder module==============================================================================
+    public boolean duplicateRem(Reminder rem) {
+        return reminderManager.duplicateReminder(rem);
+    }
+
+    public void addRem(Reminder rem) {
+        reminderManager.addReminder(rem);
+    }
+
+    public String listRem() {
+        return reminderManager.list();
+    }
 }

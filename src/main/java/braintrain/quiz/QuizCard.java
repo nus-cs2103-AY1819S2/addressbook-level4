@@ -125,6 +125,18 @@ public class QuizCard {
 
     @Override
     public int hashCode() {
-        return Objects.hash(question, answer);
+        return Objects.hash(index, question, answer, opt, totalAttempts, streak);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Question: " + question + "\n");
+        sb.append("Answer: " + answer + "\n");
+        sb.append("Optionals: " + opt + "\n");
+        sb.append("Index: " + index + "\n");
+        sb.append("Total attempts: " + totalAttempts + "\n");
+        sb.append("Streak: " + streak + "\n");
+        return sb.toString();
     }
 }

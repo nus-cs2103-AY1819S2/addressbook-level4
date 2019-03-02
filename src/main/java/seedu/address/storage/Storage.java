@@ -12,7 +12,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends RestOrRantStorage, UserPrefsStorage {
+public interface Storage extends MenuStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -20,16 +20,16 @@ public interface Storage extends RestOrRantStorage, UserPrefsStorage {
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
+    //  Path getRestOrRantFilePath(); // TODO: remove
     @Override
-    Path getRestOrRantFilePath();
-    // Path getMenuFilePath();
+    Path getMenuFilePath();
 
+    //  Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException; // TODO: remove
     @Override
-    Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException;
-    // Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
+    Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
 
+    //  void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException; // TODO: remove
     @Override
-    void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException;
-    // void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
+    void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
 
 }

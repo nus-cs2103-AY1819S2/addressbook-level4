@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.UniqueOrderItemList;
+import seedu.address.model.menu.UniqueMenuItemList;
+import seedu.address.model.menu.MenuItem;
 import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
 import seedu.address.model.person.UniquePersonList; // TODO: remove once the other components stop relying on person methods
 
@@ -20,6 +22,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     private final UniqueOrderItemList orderItems;
     // TODO: feel free to add more lists for menu items and tables
+    private final UniqueMenuItemList menuItems;
     private final UniquePersonList persons; // TODO: remove once the other components stop relying on person methods
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -32,6 +35,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      */
     {
         orderItems = new UniqueOrderItemList();
+        menuItems = new UniqueMenuItemList();
         persons = new UniquePersonList(); // TODO: remove once the other components stop relying on person methods
     }
 
@@ -48,13 +52,17 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the menu list with {@code menuItems}.
+     * {@code menuItems} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setMenuItems(List<MenuItem> menuItems) {
+        this.menuItems.setMenuItems(menuItems);
         indicateModified();
     }
+//    public void setPersons(List<Person> persons) {
+//        this.persons.setPersons(persons);
+//        indicateModified();
+//    }
 
     /**
      * Resets the existing data of this {@code RestOrRant} with {@code newData}.
@@ -62,28 +70,49 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public void resetData(ReadOnlyRestOrRant newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setMenuItems(newData.getMenuItemList());
     }
 
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a menu item with the same identity as {@code menuItem} exists in the address book.
      */
+    public boolean hasMenuItem (MenuItem menuItem) {
+        requireNonNull(menuItem);
+        return menuItems.contains(menuItem);
+    }
+    // TODO: remove
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a menu item to the menu.
+     * The menu item must not already exist in the address book.
      */
+    public void addMenuItem (MenuItem item) {
+        menuItems.add(item);
+        indicateModified();
+    }
+    // TODO: remove
     public void addPerson(Person p) {
         persons.add(p);
         indicateModified();
     }
-
+    
+    /**
+     * Replaces the given menu item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the address book.
+     * The item identity of {@code editedItem} must not be the same as another existing menu item in the address book.
+     */
+    public void setMenuItem(MenuItem target, MenuItem editedItem) {
+        requireNonNull(editedItem);
+        
+        menuItems.setMenuItem(target, editedItem);
+    }
+    // TODO: remove
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -96,6 +125,15 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         indicateModified();
     }
 
+    /**
+     * Removes {@code key} from this {@code RestOrRant}.
+     * {@code key} must exist in the menu.
+     */
+    public void removeMenuItem(MenuItem key) {
+        menuItems.remove(key);
+        indicateModified();
+    }
+    // TODO: remove
     /**
      * Removes {@code key} from this {@code RestOrRant}.
      * {@code key} must exist in the address book.
@@ -116,7 +154,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the restOrRant has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -134,6 +172,11 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public ObservableList<OrderItem> getOrderItemList() {
         return orderItems.asUnmodifiableObservableList();
     }
+    
+    @Override
+    public ObservableList<MenuItem> getMenuItemList() {
+        return menuItems.asUnmodifiableObservableList();
+    }
 
     // TODO: remove once the other components stop relying on person methods
     public ObservableList<Person> getPersonList() {
@@ -144,7 +187,8 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
-                && orderItems.equals(((RestOrRant) other).orderItems));
+                && orderItems.equals(((RestOrRant) other).orderItems))
+                && menuItems.equals(((RestOrRant) other).menuItems);
     }
 
     @Override

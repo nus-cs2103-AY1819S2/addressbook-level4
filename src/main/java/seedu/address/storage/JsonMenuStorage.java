@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -73,8 +74,7 @@ public class JsonMenuStorage implements MenuStorage {
      * @param filePath location of the data. Cannot be null.
      */
     public void saveMenu(ReadOnlyRestOrRant menu, Path filePath) throws IOException {
-        requireNonNull(menu);
-        requireNonNull(filePath);
+        requireAllNonNull(menu, filePath);
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableMenu(menu), filePath);

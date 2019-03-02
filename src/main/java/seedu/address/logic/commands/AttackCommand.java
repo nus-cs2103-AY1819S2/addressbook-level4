@@ -11,6 +11,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class AttackCommand extends Command {
 
+	public static final String COMMAND_WORD = "attack";
+	public static final String COMMAND_ALIAS1 = "shoot";
+	public static final String COMMAND_ALIAS2 = "hit";
+	public static final String COMMAND_ALIAS3 = "fire";
 
 	@Override
 	public CommandResult execute(Model model, CommandHistory history) throws CommandException {

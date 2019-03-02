@@ -353,6 +353,23 @@ public class ModelManager implements Model {
         this.patientManager.replacePatient(index, editedPatient);
     }
 
+    // for listing
+    public String findPatientsByName(String searchSequence) {
+        return this.patientManager.findPatientsByName(searchSequence);
+    }
+
+    public String listFiftyPatients() {
+        return this.patientManager.listFiftyPatients();
+    }
+
+    public String findPatientsByNric(String searchSequence) {
+        return this.patientManager.findPatientsByNric(searchSequence);
+    }
+
+    public String findPatientsByTag(Tag tag) {
+        return this.patientManager.findPatientsByTag(tag);
+    }
+
     public Patient getPatientWithNric(Nric nric) {
         return this.patientManager.getPatientWithNric(nric);
     }

@@ -232,6 +232,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public String findPatientsByName(String searchSequence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String listFiftyPatients() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String findPatientsByNric(String searchSequence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String findPatientsByTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Patient getPatientWithNric(Nric nric) {
             throw new AssertionError("This method should not be called.");
         }

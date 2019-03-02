@@ -165,6 +165,14 @@ public interface Model {
 
     void replacePatient(int index, Patient editedPatient);
 
+    String findPatientsByName(String searchSequence);
+
+    String listFiftyPatients();
+
+    String findPatientsByNric(String searchSequence);
+
+    String findPatientsByTag(Tag tag);
+
     Patient getPatientWithNric(Nric nric);
 
     //===========Appointment module operations========================

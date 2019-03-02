@@ -2,6 +2,8 @@ package seedu.address.model.patient;
 
 import java.util.ArrayList;
 
+import seedu.address.model.tag.Tag;
+
 /**
  * Handle all operations involving the models of patient module
  */
@@ -82,6 +84,131 @@ public class PatientManager {
         patientList.set(index - 1, editedPatient);
     }
 
+
+    // listing methods
+
+    /**
+     * find all patients stored in patientlist that fulfills search criteria
+     */
+    public String findPatientsByName(String searchSequence) {
+        ArrayList<Patient> foundPatients = new ArrayList<>();
+        ArrayList<Integer> foundPatientsIndexes = new ArrayList<>();
+        for (int i = 0; i < patientList.size(); i++) {
+            Patient patient = patientList.get(i);
+
+            if (patient.getName().toString().toLowerCase()
+                    .matches("^" + searchSequence.toLowerCase() + ".*")) {
+                foundPatients.add(patient);
+                foundPatientsIndexes.add(i + 1);
+            }
+        }
+
+        if (foundPatients.size() == 0) {
+            return "No patient record found\n";
+        }
+
+        if (foundPatients.size() > 1) {
+            return formatMultiplePatients(foundPatients, foundPatientsIndexes);
+        }
+
+        return foundPatients.get(0).toString();
+
+    }
+
+    /**
+     * find all patients stored in patientlist that fulfills search criteria
+     */
+    public String findPatientsByNric(String searchSequence) {
+        ArrayList<Patient> foundPatients = new ArrayList<>();
+        ArrayList<Integer> foundPatientsIndexes = new ArrayList<>();
+        for (int i = 0; i < patientList.size(); i++) {
+            Patient patient = patientList.get(i);
+
+            if (patient.getNric().toString().toLowerCase()
+                    .matches("^" + searchSequence.toLowerCase() + ".*")) {
+                foundPatients.add(patient);
+                foundPatientsIndexes.add(i + 1);
+            }
+        }
+
+        if (foundPatients.size() == 0) {
+            return "No patient record found\n";
+        }
+
+        if (foundPatients.size() > 1) {
+            return formatMultiplePatients(foundPatients, foundPatientsIndexes);
+        }
+
+        return foundPatients.get(0).toString();
+
+    }
+
+    /**
+     * for default list, try to list up to 50 patients
+     */
+    public String listFiftyPatients() {
+        ArrayList<Patient> foundPatients = new ArrayList<>();
+        ArrayList<Integer> foundPatientsIndexes = new ArrayList<>();
+        for (int i = 0; i < 49; i++) {
+            if (i >= patientList.size()) {
+                break;
+            }
+            Patient patient = patientList.get(i);
+            foundPatients.add(patient);
+            foundPatientsIndexes.add(i + 1);
+        }
+        return formatMultiplePatients(foundPatients, foundPatientsIndexes);
+    }
+
+    /**
+     * For multiple patient records, a list of their names, nric, gender and dob will be displayed instead
+     *
+     * @param patients       patient objects in modelmanager that fulfills the search criteria
+     * @param patientIndexes index where object is stored in patientlist
+     * @return formatted list to be displayed
+     */
+    public static String formatMultiplePatients(ArrayList<Patient> patients, ArrayList<Integer> patientIndexes) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < patients.size(); i++) {
+            Patient patient = patients.get(i);
+
+            sb.append(patientIndexes.get(i) + ") " + patient.getName()
+                    + " " + patient.getNric()
+                    + " " + patient.getGender()
+                    + " " + patient.getDob()
+                    + "\n"
+            );
+        }
+        sb.append("\n");
+        return sb.toString();
+    }
+
+    /**
+     * find all patients stored in patientlist that have the same tag defined by the user
+     */
+    public String findPatientsByTag(Tag tag) {
+        ArrayList<Patient>foundPatients = new ArrayList<>();
+        ArrayList<Integer>foundPatientsIndexes = new ArrayList<>();
+
+        for (int i = 0; i < patientList.size(); i++) {
+            Patient currentPatient = patientList.get(i);
+            if (currentPatient.getTagList().contains(tag)) {
+                foundPatients.add(currentPatient);
+                foundPatientsIndexes.add(i + 1);
+            }
+        }
+
+        if (foundPatients.size() == 0) {
+            return "No patient record found\n";
+        }
+
+        if (foundPatients.size() > 1) {
+            return formatMultiplePatients(foundPatients, foundPatientsIndexes);
+        }
+
+        return foundPatients.get(0).toString();
+    }
+
     public Patient getPatientWithNric(Nric nric) {
         for (Patient patient : patientList) {
             if (patient.getNric().equals(nric)) {
@@ -90,5 +217,4 @@ public class PatientManager {
         }
         return null;
     }
-
 }

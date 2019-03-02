@@ -24,7 +24,7 @@ public class Coordinates {
             + "The column number must be between [1-10] inclusive.\n";
 
     // alphanumeric and special characters
-    private static final String ROW_PART_REGEX = "^[a-j]{1}";
+    private static final String ROW_PART_REGEX = "^([a-j]){1}";
     private static final String COL_PART_REGEX = "(10|[1-9])$";
 
     private static final String VALIDATION_REGEX = ROW_PART_REGEX + COL_PART_REGEX;
@@ -50,6 +50,9 @@ public class Coordinates {
         Matcher rowMatch = rowRegex.matcher(value);
         Matcher colMatch = colRegex.matcher(value);
 
+        rowMatch.find();
+        colMatch.find();
+
         String row = rowMatch.group(0);
         String col = colMatch.group(0);
 
@@ -68,7 +71,7 @@ public class Coordinates {
      */
     private int convertAlphabetToNumber(String alphabet) {
         char alphabetChar = alphabet.charAt(0);
-        return alphabetChar - 'a';
+        return (int) alphabetChar - 'a' + 1;
     }
 
     /**

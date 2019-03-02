@@ -238,6 +238,7 @@ Example:
 Unpins the 1st contact in the pinned list.
 
 === Archiving a contact : `archive`
+
 Moves the specified contact to the archive from the normal address book. +
 Archived contacts can *only* be accessed through a archive search function. +
 Format: `archive INDEX`
@@ -265,12 +266,13 @@ Archives the 1st contact in the results of the `find` command.
 `archive 3` +
 Archives the 3rd contact in the sorted list displayed earlier.
 
-==== Listing all archived contacts : `archivelist`
+=== Listing all archived contacts : `archivelist`
 
 Lists all the contacts in the archive. +
 Format: `archivelist`
 
-==== Finding archived contact(s) : `archivefind`
+=== Finding archived contact(s) : `archivefind`
+
 Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
 Format: `archivefind KEYWORD [KEYWORD]...`
 
@@ -284,7 +286,8 @@ Example:
 * `archivefind n/James c/Seller` +
 Returns any contact having name `James` and customer type `Seller`
 
-==== Unarchiving a contact : `unarchive`
+=== Unarchiving a contact : `unarchive`
+
 Moves the specified contact from the archive back into the normal address book. +
 Format: `unarchive INDEX`
 
@@ -378,7 +381,8 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Displaying address on map `[coming in v2.0]`
+=== Displaying location on Google Maps `[coming in v2.0]`
+
 Double-clicking the contact will bring up the Google Maps location of the contact in the applet window.
 
 // tag::dataencryption[]
@@ -388,6 +392,7 @@ The database will be saved in an encrypted format.
 // end::dataencryption[]
 
 === Password-protected login `[coming in v2.0]`
+
 User can set a password, which will be required when logging into the app.
 
 == FAQ

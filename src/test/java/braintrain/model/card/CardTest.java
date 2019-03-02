@@ -12,6 +12,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import braintrain.model.card.exceptions.MissingCoreException;
+import braintrain.model.card.exceptions.MissingOptionalException;
+import braintrain.testutil.Assert;
 import braintrain.testutil.CardBuilder;
 
 /**
@@ -85,5 +88,23 @@ public class CardTest {
         assertEquals(belgiumCopy, newCard);
         // since both cards are identical, their string representation should be the same
         assertEquals(belgiumCopy.toString(), newCard.toString());
+    }
+
+    @Test
+    public void getCore_invalidIndex_throwsMissingCoreException() {
+        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () -> {
+            Card testCard = new CardBuilder(JAPAN).build();
+            testCard.setCore(0, "");
+            testCard.getCore(0);
+        });
+    }
+
+    @Test
+    public void getOptional_invalidIndex_throwsMissingOptionalException() {
+        Assert.assertThrows(MissingOptionalException.class, MissingOptionalException.generateMessage(0), () -> {
+            Card testCard = new CardBuilder(JAPAN).build();
+            testCard.setOptional(0, "");
+            testCard.getOptional(0);
+        });
     }
 }

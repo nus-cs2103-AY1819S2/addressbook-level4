@@ -73,7 +73,7 @@ public class LessonTest {
     }
 
     @Test
-    public void addCard_invalidCoreValue_throwsMissingCoreValueException() {
+    public void addCard_invalidIndex_throwsMissingCoreException() {
         Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () -> {
             lesson.addCard(Arrays.asList("", "Tokyo"));

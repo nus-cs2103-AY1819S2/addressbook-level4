@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import braintrain.model.card.Card;
-import braintrain.model.lesson.exceptions.MissingCoreValueException;
+import braintrain.model.card.exceptions.MissingCoreException;
 
 /**
  * Represents a lesson that stores multiple cards.
@@ -57,7 +57,7 @@ public class Lesson {
      * @param cardValues List of values.
      * @return Whether add was successful. See List.add().
      */
-    public boolean addCard(List<String> cardValues) throws MissingCoreValueException, IllegalArgumentException {
+    public boolean addCard(List<String> cardValues) throws MissingCoreException, IllegalArgumentException {
         //TODO: More proper exception handling
         if (cardValues.size() != cardFields.size()) {
             StringBuilder sb = new StringBuilder();
@@ -68,7 +68,7 @@ public class Lesson {
         List<String> newCores = cardValues.subList(0, coreCount);
         for (int i = 0; i < newCores.size(); i++) {
             if (newCores.get(i).isEmpty()) {
-                throw new MissingCoreValueException("Core value: " + i + " is empty");
+                throw new MissingCoreException(i);
             }
         }
         List<String> newOptionals = cardValues.subList(cardValues.size() - optionalCount, cardValues.size());

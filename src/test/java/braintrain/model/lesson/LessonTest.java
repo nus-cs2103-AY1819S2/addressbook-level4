@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.Test;
 
 import braintrain.model.card.Card;
-import braintrain.model.lesson.exceptions.MissingCoreValueException;
+import braintrain.model.card.exceptions.MissingCoreException;
 import braintrain.testutil.Assert;
 
 
@@ -75,10 +75,10 @@ public class LessonTest {
     @Test
     public void addCard_invalidCoreValue_throwsMissingCoreValueException() {
         Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
-        Assert.assertThrows(MissingCoreValueException.class, "Core value: 0 is empty", () -> {
+        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () -> {
             lesson.addCard(Arrays.asList("", "Tokyo"));
         });
-        Assert.assertThrows(MissingCoreValueException.class, "Core value: 1 is empty", () -> {
+        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(1), () -> {
             lesson.addCard(Arrays.asList("Japan", ""));
         });
     }

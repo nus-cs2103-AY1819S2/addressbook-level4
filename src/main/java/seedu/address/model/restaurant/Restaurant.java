@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,8 +24,10 @@ public class Restaurant {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Review> reviews = new HashSet<>();
 
     /**
+     * Constructor for Restaurant class without Reviews.
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
@@ -34,6 +37,20 @@ public class Restaurant {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructor for Restaurant class with Reviews.
+     * Every field except reviews must be present and not null.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.reviews.addAll(reviews);
     }
 
     public Name getName() {
@@ -58,6 +75,14 @@ public class Restaurant {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable review set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Review> getReviews() {
+        return Collections.unmodifiableSet(reviews);
     }
 
     /**
@@ -93,13 +118,14 @@ public class Restaurant {
                 && otherRestaurant.getPhone().equals(getPhone())
                 && otherRestaurant.getEmail().equals(getEmail())
                 && otherRestaurant.getAddress().equals(getAddress())
-                && otherRestaurant.getTags().equals(getTags());
+                && otherRestaurant.getTags().equals(getTags())
+                && otherRestaurant.getReviews().equals(getReviews());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, reviews);
     }
 
     @Override
@@ -114,6 +140,8 @@ public class Restaurant {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Reviews: ");
+        getReviews().forEach(builder::append);
         return builder.toString();
     }
 

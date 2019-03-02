@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
@@ -38,6 +39,8 @@ public class RestaurantCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private VBox reviews;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
         super(FXML);
@@ -48,6 +51,11 @@ public class RestaurantCard extends UiPart<Region> {
         address.setText(restaurant.getAddress().value);
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        restaurant.getReviews().forEach(review -> reviews.getChildren().addAll(
+                new Label(review.getTimeStamp().toLocalDateTime().toString()),
+                new Label(review.getRating().toString()),
+                new Label(review.getEntry().toString())
+        ));
     }
 
     @Override

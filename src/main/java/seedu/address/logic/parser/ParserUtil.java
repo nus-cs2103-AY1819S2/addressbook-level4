@@ -127,6 +127,7 @@ public class ParserUtil {
     }
 
     // ===== Methods for parsing Organisation, Nric and Specialisations =====
+    // @author Lookaz
     /**
      * Parses a {@code String organization} into a {@code Organization}.
      * Leading and trailing whitespaces will be trimmed.
@@ -140,7 +141,7 @@ public class ParserUtil {
             throw new ParseException(Organization.MESSAGE_CONSTRAINTS);
         }
 
-        return new Organization(organization);
+        return new Organization(trimmedOrganization);
     }
 
     /**
@@ -173,7 +174,7 @@ public class ParserUtil {
             throw new ParseException(Specialisation.MESSAGE_CONSTRAINTS);
         }
 
-        return Specialisation.parseString(specialisation);
+        return Specialisation.parseString(trimmedSpecialisation);
     }
 
     /**

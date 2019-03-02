@@ -22,10 +22,10 @@ import seedu.address.model.tag.Specialisation;
  */
 public class AddHealthWorkerCommand extends Command {
 
-    private static final String COMMAND_WORD = "add "
+    public static final String COMMAND_WORD = "add 1"
             + PREFIX_ADD_HEALTHWORKER;
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a " +
-            "health worker to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a "
+            + "health worker to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_NRIC + "NRIC "

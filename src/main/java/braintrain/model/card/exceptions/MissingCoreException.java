@@ -2,7 +2,7 @@ package braintrain.model.card.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified core value.
- * Used by {@code Card} and {@code Lesson} when a List input is provided and there is no cores in the list.
+ * Used by {@code Card} and {@code Lesson}.
  */
 public class MissingCoreException extends RuntimeException {
     private static String MISSING_CORE_PREFIX = "Core value: "; // Using by MissingCoreException(int coreIndex)
@@ -29,7 +29,7 @@ public class MissingCoreException extends RuntimeException {
     /**
      * Constructs the custom detail message specifying the missing core's index for testing by {@code LessonTest}.
      *
-     * @param missingCoreIndex The index of the missing core in the list
+     * @param missingCoreIndex the index of the missing core in the list
      * @return the detail message which will be generated if a MissingCoreException occurs for a specified index.
      */
     public static String generateMessage(int missingCoreIndex) {

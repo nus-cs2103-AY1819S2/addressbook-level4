@@ -1,31 +1,33 @@
-package seedu.address.model.appointment;
+package seedu.address.model.reminder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
-import seedu.address.model.patient.Patient;
-
 /**
- * Represents an appointment created in QuickDocs.
+ * Represents a Reminder created in quickdocs.
  */
-public class Appointment {
-    private final Patient patient;
+public class Reminder {
+    private final String title;
+    private final String comment;
     private final LocalDate date;
     private final LocalTime startTime;
     private final LocalTime endTime;
-    private final String comment;
 
-    public Appointment(Patient patient, LocalDate date, LocalTime startTime, LocalTime endTime, String comment) {
-        this.patient = patient;
+    public Reminder(String title, String comment, LocalDate date, LocalTime startTime, LocalTime endTime) {
+        this.title = title;
+        this.comment = comment;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.comment = comment;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getComment() {
+        return comment;
     }
 
     public LocalDate getDate() {
@@ -40,13 +42,9 @@ public class Appointment {
         return endTime;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
     /**
-     * Returns true if both appointments have the same identity and data fields.
-     * This defines a stronger notion of equality between two appointments.
+     * Returns true if both reminders have the same identity and data fields.
+     * This defines a stronger notion of equality between two reminders.
      */
     @Override
     public boolean equals(Object other) {
@@ -54,28 +52,28 @@ public class Appointment {
             return true;
         }
 
-        if (!(other instanceof Appointment)) {
+        if (!(other instanceof Reminder)) {
             return false;
         }
 
-        Appointment otherApp = (Appointment) other;
-        return otherApp.getPatient().equals(getPatient())
-                && otherApp.getDate().equals(getDate())
-                && otherApp.getStartTime().equals(getStartTime())
-                && otherApp.getEndTime().equals(getEndTime());
+        Reminder otherReminder = (Reminder) other;
+        return otherReminder.getTitle().equals(getTitle())
+                && otherReminder.getComment().equals(getComment())
+                && otherReminder.getDate().equals(getDate())
+                && otherReminder.getStartTime().equals(getStartTime())
+                && otherReminder.getEndTime().equals(getEndTime());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patient, startTime, endTime);
+        return Objects.hash(title, comment, date, startTime, endTime);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getPatient().getName() + " ")
-                .append(getPatient().getNric() + "\n")
+        builder.append(getTitle() + ":\n")
                 .append("Date: ")
                 .append(getDate() + "\n")
                 .append("Start Time: ")

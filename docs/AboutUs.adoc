@@ -54,3 +54,12 @@ Role: Developer +
 Responsibilities: UI
 
 '''
+
+=== Lim Jia Hao
+image::yl_coder.jpg[width="150", align="left"]
+{empty}[https://github.com/JiaHaoLim[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Records IO
+
+'''

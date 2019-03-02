@@ -17,6 +17,12 @@ public class TypicalCards {
     public static final Card SUBTRACTION = new CardBuilder().withQuestion("What is 10 - 10?")
             .withAnswer("0").withTags("Math").build();
 
+    public static final Card MULTIPLICATION = new CardBuilder().withQuestion("What is 8 * 8?")
+            .withAnswer("64").withTags("Math").build();
+
+    public static final Card DIVISION = new CardBuilder().withQuestion("What is 1024 / 2?")
+            .withAnswer("512").withTags("Math").build();
+
     public static final Card HELLO_WORLD = new CardBuilder().withQuestion("Hello?")
             .withAnswer("World").withTags("Simple", "CS").build();
 

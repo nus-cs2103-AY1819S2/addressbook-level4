@@ -11,6 +11,21 @@ public class CardData {
     private int streak;
     private Instant srsDueDate; // SRS Due Date for a User
 
+    /**
+     * Constructor for the CardData
+     * Takes in the hash, number of attempmts, streak and the duedate
+     * @param hash
+     * @param attempts
+     * @param consecutive
+     * @param date
+     */
+    public CardData(int hash, int attempts, int consecutive, Instant date) {
+        hashCode = hash;
+        numOfAttempts = attempts;
+        streak = consecutive;
+        srsDueDate = date;
+    }
+
     public int getHashCode() {
         return hashCode;
     }
@@ -24,7 +39,7 @@ public class CardData {
     }
 
     public void setNumOfAttempts(int numOfAttempts) {
-        this.numOfAttempts = numOfAttempts;
+        this.numOfAttempts += numOfAttempts;
     }
 
     public Instant setSrsDueDate(Instant srsDueDate) {

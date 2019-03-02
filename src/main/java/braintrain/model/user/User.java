@@ -9,13 +9,17 @@ public class User {
     private String name;
     private List<CardData> Carddata; // Contains User-specific data on Cards
 
+    /**
+     * TODO: Export data to CSV File depending on what information is passed to userClass
+     */
     public void exportData() {
+    }
 
-    } // Export to CSV file what this UserData object stores
-
+    /**
+     * TODO :import data from CSV File depending on what information is passed to userClass
+     */
     public void importData() {
-
-    } //import from csv into this user data object
+    }
 
     public List<CardData> getCarddata() {
         return Carddata;

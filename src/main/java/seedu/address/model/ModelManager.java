@@ -212,6 +212,10 @@ public class ModelManager implements Model {
         }
     }
 
+    private boolean checkNoCopy(){
+        return versionedAddressBook.checkNoCopy();
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

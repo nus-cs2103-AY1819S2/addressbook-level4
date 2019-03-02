@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
@@ -38,7 +39,9 @@ public class LogicManager implements Logic {
         commandParser = new CommandParser();
 
         // Set cardFolderModified to true whenever the models' card folder is modified.
-        model.getActiveCardFolder().addListener(observable -> cardFolderModified = true);
+        for (ReadOnlyCardFolder cardFolder : model.getCardFolders()) {
+            cardFolder.addListener(observable -> cardFolderModified = true);
+        }
     }
 
     @Override

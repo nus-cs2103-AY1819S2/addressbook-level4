@@ -20,7 +20,7 @@ public class ClearCommandTest {
     public void execute_emptyCardFolder_success() {
         Model model = new ModelManager(this.getClass().getName());
         Model expectedModel = new ModelManager(this.getClass().getName());
-        expectedModel.commitCardFolder();
+        expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -30,7 +30,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         expectedModel.setCardFolder(new CardFolder(getTypicalFolderName()));
-        expectedModel.commitCardFolder();
+        expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

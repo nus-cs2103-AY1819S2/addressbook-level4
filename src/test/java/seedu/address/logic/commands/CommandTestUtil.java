@@ -147,7 +147,7 @@ public class CommandTestUtil {
     public static void deleteFirstCard(Model model) {
         Card firstCard = model.getFilteredCards().get(0);
         model.deleteCard(firstCard);
-        model.commitCardFolder();
+        model.commitActiveCardFolder();
     }
 
 }

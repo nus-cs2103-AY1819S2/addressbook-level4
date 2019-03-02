@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addCard(toAdd);
-        model.commitCardFolder();
+        model.commitActiveCardFolder();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

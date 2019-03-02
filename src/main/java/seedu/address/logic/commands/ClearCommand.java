@@ -20,7 +20,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         // Name of CardFolder is preserved in clear operation
         model.setCardFolder(new CardFolder(model.getActiveCardFolder().getFolderName()));
-        model.commitCardFolder();
+        model.commitActiveCardFolder();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

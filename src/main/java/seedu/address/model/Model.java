@@ -107,27 +107,27 @@ public interface Model {
     /**
      * Returns true if the model has previous card folder states to restore.
      */
-    boolean canUndoCardFolder();
+    boolean canUndoActiveCardFolder();
 
     /**
      * Returns true if the model has undone card folder states to restore.
      */
-    boolean canRedoCardFolder();
+    boolean canRedoActiveCardFolder();
 
     /**
      * Restores the model's card folder to its previous state.
      */
-    void undoCardFolder();
+    void undoActiveCardFolder();
 
     /**
      * Restores the model's card folder to its previously undone state.
      */
-    void redoCardFolder();
+    void redoActiveCardFolder();
 
     /**
      * Saves the current card folder state for undo/redo.
      */
-    void commitCardFolder();
+    void commitActiveCardFolder();
 
     /**
      * Selected card in the filtered card list.

@@ -101,7 +101,7 @@ public class LogicManagerTest {
         Card expectedCard = new CardBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager(this.getClass().getName());
         expectedModel.addCard(expectedCard);
-        expectedModel.commitCardFolder();
+        expectedModel.commitActiveCardFolder();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);

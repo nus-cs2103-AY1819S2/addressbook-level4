@@ -185,27 +185,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoCardFolder() {
+        public boolean canUndoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoCardFolder() {
+        public boolean canRedoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoCardFolder() {
+        public void undoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoCardFolder() {
+        public void redoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitCardFolder() {
+        public void commitActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -262,7 +262,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitCardFolder() {
+        public void commitActiveCardFolder() {
             // called by {@code AddCommand#execute()}
         }
     }

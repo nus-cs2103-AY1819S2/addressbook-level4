@@ -204,31 +204,31 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoCardFolder() {
+    public boolean canUndoActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         return versionedCardFolder.canUndo();
     }
 
     @Override
-    public boolean canRedoCardFolder() {
+    public boolean canRedoActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         return versionedCardFolder.canRedo();
     }
 
     @Override
-    public void undoCardFolder() {
+    public void undoActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.undo();
     }
 
     @Override
-    public void redoCardFolder() {
+    public void redoActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.redo();
     }
 
     @Override
-    public void commitCardFolder() {
+    public void commitActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.commit();
     }

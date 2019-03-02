@@ -71,9 +71,14 @@ public class Lesson {
                 throw new MissingCoreException(i);
             }
         }
+
         List<String> newOptionals = cardValues.subList(cardValues.size() - optionalCount, cardValues.size());
         Card newCard = new Card(newCores, newOptionals);
         return cards.add(newCard);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setQuestionAnswerIndices(int question, int answer) throws IllegalArgumentException {
@@ -98,6 +103,8 @@ public class Lesson {
         }
         return true;
     }
+
+    public String getName() { return name; }
 
     public int getCoreCount() {
         return coreCount;

@@ -2,7 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +56,8 @@ public class CommandTestUtil {
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EXPECTED_MIN_GRADE_DESC = " "
             + PREFIX_EXPECTED_MIN_GRADE + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_EXPECTED_MAX_GRADE_DESC = " " + PREFIX_EXPECTED_MAX_GRADE; // empty string not allowed for addresses
+    public static final String INVALID_EXPECTED_MAX_GRADE_DESC = " "
+            + PREFIX_EXPECTED_MAX_GRADE; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

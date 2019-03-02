@@ -33,8 +33,4 @@ public class SymptomTest {
         Symptom symptom3 = new Symptom("Runny nose");
         assertFalse(symptom1.equals(symptom3));
     }
-
-
-
-
 }

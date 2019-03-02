@@ -1,13 +1,11 @@
-package braintrain.model.quiz;
+package braintrain.quiz;
 
 import static braintrain.commons.util.AppUtil.checkArgument;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import braintrain.model.quiz.exceptions.NotInitialisedException;
 
 /**
  * Represents a quiz that stores a list of QuizCard
@@ -18,10 +16,11 @@ public class Quiz {
 
     private List<QuizCard> currentSession;
     private List<QuizCard> generatedSession;
-    private Mode mode; // learn/review/preview
+    private Mode mode;
     private QuizCard currentQuizCard;
     private int currentCardIndex;
     private int generatedCardSize;
+    private boolean isDone; // Indicates if User is done with this quiz
 
     /**
      * Different types of mode supported in Quiz.
@@ -29,7 +28,7 @@ public class Quiz {
      * Review: only get tested.
      * Preview: sees both question and answer but not tested.
      */
-    enum Mode {
+    public enum Mode {
         LEARN,
         REVIEW,
         PREVIEW
@@ -46,6 +45,10 @@ public class Quiz {
         this.currentSession = session;
         this.mode = mode;
         this.currentCardIndex = -1;
+        this.generatedCardSize = -1;
+        this.isDone = false;
+
+        generate();
     }
 
     /**
@@ -74,11 +77,17 @@ public class Quiz {
         return generatedSession;
     }
 
-    public QuizCard getNextCard() throws NotInitialisedException {
-        if (generatedCardSize == 0) {
-            throw new NotInitialisedException("Cards have not been generated, please run generate first");
-        }
+    /**
+     * Returns true if there is card left in quiz.
+     */
+    public boolean hasCardLeft() {
+        return currentCardIndex < (generatedCardSize - 1);
+    }
 
+    /**
+     * Returns the next card in line.
+     */
+    public QuizCard getNextCard() {
         currentCardIndex++;
 
         if (currentCardIndex < generatedCardSize) {
@@ -87,5 +96,48 @@ public class Quiz {
         }
 
         throw new IndexOutOfBoundsException("No cards left.");
+    }
+
+    public QuizCard getCurrentQuizCard() {
+        requireNonNull(currentQuizCard);
+        return currentQuizCard;
+    }
+
+    /**
+     * Update the totalAttempts and streak of a specified card in the current session.
+     * @param index of the card
+     * @param answer user input
+     */
+    public void updateTotalAttemptsAndStreak(int index, String answer) {
+        QuizCard sessionCard = currentSession.get(index);
+        sessionCard.updateTotalAttemptsAndStreak(currentQuizCard.isCorrect(answer));
+    }
+
+    /**
+     * Returns the current session.
+     */
+    public List<QuizCard> getCurrentSession() {
+        return currentSession;
+    }
+
+    /**
+     * Format data needed by Session
+     * @return a list of index of card, total attempts and streak in this session.
+     */
+    public List<List<Integer>> end() {
+        this.isDone = true;
+
+        List<List<Integer>> session = new ArrayList<>();
+        QuizCard card;
+        for (int i = 0; i < currentSession.size(); i++) {
+            card = currentSession.get(i);
+            session.add(Arrays.asList(i, card.getTotalAttempts(), card.getStreak()));
+        }
+
+        return session;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 }

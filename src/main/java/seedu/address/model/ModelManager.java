@@ -212,7 +212,8 @@ public class ModelManager implements Model {
         }
     }
 
-    private boolean checkNoCopy(){
+    @Override
+    public boolean checkNoCopy(){
         return versionedAddressBook.checkNoCopy();
     }
 

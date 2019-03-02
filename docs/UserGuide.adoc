@@ -219,6 +219,27 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Importing records: `import`
+
+Reads all entries from a specified text file and overwrites the address book. +
+Format: `import FILENAME`
+
+Examples:
+
+* `import records1.json` +
+Reads all entries from a records1.json and overwrites the address book. +
+
+=== Exporting records: `export`
+
+Writes all entries from the address book to a specified text file. +
+If no file exists, a new one will be created.
+Format: `export FILENAME`
+
+Examples:
+
+* `Export records2.json` +
+Writes all entries from the address book to records2.json. +
+
 === Exiting the program : `exit`
 
 Exits the program. +

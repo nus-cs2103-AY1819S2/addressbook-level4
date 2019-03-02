@@ -3,6 +3,10 @@ package seedu.address.model.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Restaurant's weblink in the food diary.
+ * Guarantees: immutable; is valid as declared in {@link #isValidWeblink(String)}
+ */
 public class Weblink {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";

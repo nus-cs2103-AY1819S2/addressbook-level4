@@ -2,11 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,8 +11,9 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Card;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditCardDescriptorBuilder;
@@ -26,47 +23,33 @@ import seedu.address.testutil.EditCardDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_QUESTION_HELLO = "Hello?";
+    public static final String VALID_QUESTION_MOD = "What module is this?";
+    public static final String VALID_ANSWER_HELLO = "World";
+    public static final String VALID_ANSWER_MOD = "CS2103T";
+    public static final String VALID_TAG_MOD = "CS2103T";
+    public static final String VALID_TAG_SUBJECT = "Computer Science";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String QUESTION_DESC_HELLO = " " + PREFIX_QUESTION + VALID_QUESTION_HELLO;
+    public static final String QUESTION_DESC_MOD = " " + PREFIX_QUESTION + VALID_QUESTION_MOD;
+    public static final String ANSWER_DESC_HELLO = " " + PREFIX_ANSWER + VALID_ANSWER_HELLO;
+    public static final String ANSWER_DESC_MOD = " " + PREFIX_ANSWER + VALID_ANSWER_MOD;
+    public static final String TAG_DESC_MOD = " " + PREFIX_TAG + VALID_TAG_MOD;
+    public static final String TAG_DESC_SUBJECT = " " + PREFIX_TAG + VALID_TAG_SUBJECT;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditCardDescriptor DESC_AMY;
-    public static final EditCommand.EditCardDescriptor DESC_BOB;
+    public static final EditCommand.EditCardDescriptor DESC_HELLO;
+    public static final EditCommand.EditCardDescriptor DESC_MOD;
 
     static {
-        DESC_AMY = new EditCardDescriptorBuilder().withQuestion(VALID_NAME_AMY)
-                .withAnswer(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditCardDescriptorBuilder().withQuestion(VALID_NAME_BOB)
-                .withAnswer(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_HELLO = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_HELLO)
+                .withAnswer(VALID_ANSWER_HELLO).withTags(VALID_TAG_MOD).build();
+        DESC_MOD = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_MOD)
+                .withAnswer(VALID_ANSWER_MOD).withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT).build();
     }
 
     /**
@@ -102,16 +85,16 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered card list and selected card in {@code actualModel} remain unchanged <br>
+     * - the topdeck, filtered card list and selected card in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getTopDeck());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
-        Person expectedSelectedPerson = actualModel.getSelectedCard();
+        TopDeck expectedTopDeck = new TopDeck(actualModel.getTopDeck());
+        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
+        Card expectedSelectedCard = actualModel.getSelectedCard();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -120,33 +103,33 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getTopDeck());
+            assertEquals(expectedTopDeck, actualModel.getTopDeck());
             assertEquals(expectedFilteredList, actualModel.getFilteredCardList());
-            assertEquals(expectedSelectedPerson, actualModel.getSelectedCard());
+            assertEquals(expectedSelectedCard, actualModel.getSelectedCard());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
     /**
      * Updates {@code model}'s filtered list to show only the card at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s deck.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showCardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCardList().size());
 
-        Person person = model.getFilteredCardList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
+        Card card = model.getFilteredCardList().get(targetIndex.getZeroBased());
+        final String[] splitName = card.getQuestion().split("\\s+");
         model.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCardList().size());
     }
 
     /**
-     * Deletes the first card in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first card in {@code model}'s filtered list from {@code model}'s deck.
      */
-    public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredCardList().get(0);
-        model.deleteCard(firstPerson);
+    public static void deleteFirstCard(Model model) {
+        Card firstCard = model.getFilteredCardList().get(0);
+        model.deleteCard(firstCard);
         model.commitTopDeck();
     }
 

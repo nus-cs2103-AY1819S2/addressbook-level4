@@ -11,8 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class CopyTag{
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "(\\$)(copy)([0-9]+)";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be like $Copy1";
+    public static final String VALIDATION_REGEX = "(\\$)(Copy)([0-9]+)";
 
     public final String tagName;
     private final Person originalPerson;

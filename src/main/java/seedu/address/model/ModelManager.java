@@ -183,6 +183,10 @@ public class ModelManager implements Model {
         // TODO: Call storage method
     }
 
+    public int getActiveCardFolderIndex() {
+        return activeCardFolderIndex;
+    }
+
     //=========== Filtered Card List Accessors =============================================================
 
     /**

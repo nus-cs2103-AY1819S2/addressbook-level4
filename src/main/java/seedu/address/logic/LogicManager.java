@@ -13,7 +13,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
@@ -60,7 +59,7 @@ public class LogicManager implements Logic {
         if (cardFolderModified) {
             logger.info("card folder modified, saving to file.");
             try {
-                storage.saveCardFolder(model.getActiveCardFolder());
+                storage.saveCardFolder(model.getActiveCardFolder(), model.getActiveCardFolderIndex());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

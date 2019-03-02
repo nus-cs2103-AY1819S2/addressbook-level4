@@ -18,6 +18,7 @@ public interface Storage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
     Path getcardFolderFilesPath();
     List<ReadOnlyCardFolder> readCardFolders() throws DataConversionException, IOException;
-    void saveCardFolder(ReadOnlyCardFolder cardFolder) throws IOException;
-
+    void saveCardFolder(ReadOnlyCardFolder cardFolder, int index) throws IOException;
+    void deleteCardFolder(int index) throws IOException;
+    void addCardFolder(ReadOnlyCardFolder cardFolder) throws IOException;
 }

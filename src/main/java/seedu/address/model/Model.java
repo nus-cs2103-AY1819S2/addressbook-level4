@@ -95,6 +95,11 @@ public interface Model {
      */
     void addFolder(CardFolder cardFolder);
 
+    /**
+     * Gets the index of the current active {@code CardFolder}.
+     */
+    int getActiveCardFolderIndex();
+
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();
 

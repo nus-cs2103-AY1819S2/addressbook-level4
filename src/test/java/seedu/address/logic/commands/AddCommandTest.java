@@ -175,6 +175,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public int getActiveCardFolderIndex() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Card> getFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }

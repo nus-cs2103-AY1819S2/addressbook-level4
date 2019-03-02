@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import braintrain.commons.core.Config;
 import braintrain.commons.core.GuiSettings;
+import braintrain.model.Lessons;
 import braintrain.model.Model;
 import braintrain.model.ModelManager;
 import braintrain.model.UserPrefs;
@@ -48,7 +49,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager(new UserPrefs());
+        Model copy = new ModelManager(new UserPrefs(), new Lessons());
         return copy;
     }
 

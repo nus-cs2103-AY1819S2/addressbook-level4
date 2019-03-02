@@ -22,7 +22,9 @@ public class StorageManagerTest {
     @Before
     public void setUp() {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(userPrefsStorage);
+        CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(getTempFilePath("lessons"));
+        CsvLessonImportExport lessonImportExport = new CsvLessonImportExport(getTempFilePath("import_export"));
+        storageManager = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
     }
 
     private Path getTempFilePath(String fileName) {

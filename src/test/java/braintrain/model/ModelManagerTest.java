@@ -52,10 +52,11 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         UserPrefs userPrefs = new UserPrefs();
+        Lessons lessons = new Lessons();
 
         // same values -> returns true
-        modelManager = new ModelManager(userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(userPrefs);
+        modelManager = new ModelManager(userPrefs, lessons);
+        ModelManager modelManagerCopy = new ModelManager(userPrefs, lessons);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true

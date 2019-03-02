@@ -79,7 +79,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteLesson(int index) {
-        deleteLesson(index);
+        lessons.deleteLesson(index);
     }
 
     //=========== Undo/Redo =================================================================================

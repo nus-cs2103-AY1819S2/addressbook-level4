@@ -137,7 +137,7 @@ public class QuizTest {
     }
 
     @Test
-    public void updateTotalAttemptsandStreak() {
+    public void updateTotalAttemptsAndStreak() {
         final int index = 0;
         final String correctAnswer = "Tokyo";
         final String wrongAnswer = "wrong answer";
@@ -148,31 +148,31 @@ public class QuizTest {
         // ------- learn -------
         List<QuizCard> expected = quizCards;
         QuizCard expectedCard1 = expected.get(index);
-        expectedCard1.updateTotalAttemptsandStreak(expectedCard1.isCorrect(correctAnswer));
+        expectedCard1.updateTotalAttemptsAndStreak(expectedCard1.isCorrect(correctAnswer));
 
         Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
         quiz.getNextCard();
-        quiz.updateTotalAttemptsandStreak(index, correctAnswer);
+        quiz.updateTotalAttemptsAndStreak(index, correctAnswer);
 
         assertEquals(expected, quiz.getCurrentSession());
 
         // test wrong answer
-        expectedCard1.updateTotalAttemptsandStreak(expectedCard1.isCorrect(wrongAnswer));
+        expectedCard1.updateTotalAttemptsAndStreak(expectedCard1.isCorrect(wrongAnswer));
         quiz.getNextCard();
-        quiz.updateTotalAttemptsandStreak(index, wrongAnswer);
+        quiz.updateTotalAttemptsAndStreak(index, wrongAnswer);
         assertEquals(expected, quiz.getCurrentSession());
 
         // ------- Review -------
         Quiz quizReview = new Quiz(quizCards, Quiz.Mode.REVIEW);
         quizReview.getNextCard();
-        quizReview.updateTotalAttemptsandStreak(index, correctAnswer);
+        quizReview.updateTotalAttemptsAndStreak(index, correctAnswer);
 
         assertEquals(expected, quizReview.getCurrentSession());
 
         // ------- Preview -------
         Quiz quizPreview = new Quiz(quizCards, Quiz.Mode.REVIEW);
         quizPreview.getNextCard();
-        quizPreview.updateTotalAttemptsandStreak(index, correctAnswer);
+        quizPreview.updateTotalAttemptsAndStreak(index, correctAnswer);
 
         assertEquals(expected, quizPreview.getCurrentSession());
     }
@@ -189,9 +189,9 @@ public class QuizTest {
 
         // test 2 question
         quiz.getNextCard();
-        quiz.updateTotalAttemptsandStreak(0, "Tokyo");
+        quiz.updateTotalAttemptsAndStreak(0, "Tokyo");
         quiz.getNextCard();
-        quiz.updateTotalAttemptsandStreak(1, "wrong answer");
+        quiz.updateTotalAttemptsAndStreak(1, "wrong answer");
 
         assertEquals(expected, quiz.end());
         assertTrue(quiz.isDone());
@@ -209,16 +209,16 @@ public class QuizTest {
 
         Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
         assertTrue(quiz.getNextCard().isCorrect("Tokyo"));
-        quiz.updateTotalAttemptsandStreak(0, "Tokyo");
+        quiz.updateTotalAttemptsAndStreak(0, "Tokyo");
 
         assertFalse(quiz.getNextCard().isCorrect("wrong answer"));
-        quiz.updateTotalAttemptsandStreak(1, "wrong answer");
+        quiz.updateTotalAttemptsAndStreak(1, "wrong answer");
 
         assertTrue(quiz.getNextCard().isCorrect("Japan"));
-        quiz.updateTotalAttemptsandStreak(0, "Japan");
+        quiz.updateTotalAttemptsAndStreak(0, "Japan");
 
         assertTrue(quiz.getNextCard().isCorrect("Hungary"));
-        quiz.updateTotalAttemptsandStreak(1, "Hungary");
+        quiz.updateTotalAttemptsAndStreak(1, "Hungary");
 
         assertEquals(expected, quiz.end());
     }

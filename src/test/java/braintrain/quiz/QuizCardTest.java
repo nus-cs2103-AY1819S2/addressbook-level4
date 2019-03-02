@@ -137,18 +137,18 @@ public class QuizCardTest {
     }
 
     @Test
-    public void updateTotalAttemptsandStreak() {
+    public void updateTotalAttemptsAndStreak() {
         QuizCard quizCardWithIndex = VALID_QUIZCARD_INDEX;
 
-        quizCardWithIndex.updateTotalAttemptsandStreak(true);
+        quizCardWithIndex.updateTotalAttemptsAndStreak(true);
         assertEquals(1, quizCardWithIndex.getTotalAttempts());
         assertEquals(1, quizCardWithIndex.getStreak());
 
-        quizCardWithIndex.updateTotalAttemptsandStreak(true);
+        quizCardWithIndex.updateTotalAttemptsAndStreak(true);
         assertEquals(2, quizCardWithIndex.getTotalAttempts());
         assertEquals(2, quizCardWithIndex.getStreak());
 
-        quizCardWithIndex.updateTotalAttemptsandStreak(false);
+        quizCardWithIndex.updateTotalAttemptsAndStreak(false);
         assertEquals(3, quizCardWithIndex.getTotalAttempts());
         assertEquals(0, quizCardWithIndex.getStreak());
 

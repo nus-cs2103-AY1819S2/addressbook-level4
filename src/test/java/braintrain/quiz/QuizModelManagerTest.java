@@ -63,14 +63,14 @@ public class QuizModelManagerTest {
     }
 
     @Test
-    public void isEnd() {
-        assertTrue(modelManager.isEnd());
+    public void isDone() {
+        assertTrue(modelManager.isDone());
 
         modelManager.init(QUIZ);
-        assertFalse(modelManager.isEnd());
+        assertFalse(modelManager.isDone());
 
         modelManager.end();
-        assertTrue(modelManager.isEnd());
+        assertTrue(modelManager.isDone());
     }
 
     @Test
@@ -93,13 +93,13 @@ public class QuizModelManagerTest {
         // after quiz end still can ask for next card, keeps track of previous entry
         assertTrue(modelManager.hasCardLeft());
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsandStreak(0, "Tokyo");
+        modelManager.updateTotalAttemptsAndStreak(0, "Tokyo");
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsandStreak(1, "Budapest");
+        modelManager.updateTotalAttemptsAndStreak(1, "Budapest");
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsandStreak(0, "Japan");
+        modelManager.updateTotalAttemptsAndStreak(0, "Japan");
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsandStreak(1, "Hungary");
+        modelManager.updateTotalAttemptsAndStreak(1, "Hungary");
 
         expected = new ArrayList<>();
         expected.add(Arrays.asList(0, 2, 2));

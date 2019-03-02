@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.UniqueCardList;
-import seedu.address.model.person.Person;
 
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      * {@code cards} must not contain duplicate cards.
      */
     public void setCards(List<Card> cards) {
-        this.cards.setPersons(cards);
+        this.cards.setCards(cards);
         indicateModified();
     }
 
@@ -87,7 +86,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);
 
-        cards.setPerson(target, editedCard);
+        cards.setCard(target, editedCard);
         indicateModified();
     }
 

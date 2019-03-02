@@ -55,7 +55,7 @@ public class UniqueCardList implements Iterable<Card> {
      * {@code target} must exist in the list.
      * The card identity of {@code editedCard} must not be the same as another existing card in the list.
      */
-    public void setPerson(Card target, Card editedCard) {
+    public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
 
         int index = internalList.indexOf(target);
@@ -81,7 +81,7 @@ public class UniqueCardList implements Iterable<Card> {
         }
     }
 
-    public void setPersons(UniqueCardList replacement) {
+    public void setCards(UniqueCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -90,9 +90,9 @@ public class UniqueCardList implements Iterable<Card> {
      * Replaces the contents of this list with {@code cards}.
      * {@code cards} must not contain duplicate cards.
      */
-    public void setPersons(List<Card> cards) {
+    public void setCards(List<Card> cards) {
         requireAllNonNull(cards);
-        if (!personsAreUnique(cards)) {
+        if (!cardsAreUnique(cards)) {
             throw new DuplicateCardException();
         }
 
@@ -126,7 +126,7 @@ public class UniqueCardList implements Iterable<Card> {
     /**
      * Returns true if {@code cards} contains only unique cards.
      */
-    private boolean personsAreUnique(List<Card> cards) {
+    private boolean cardsAreUnique(List<Card> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {
             for (int j = i + 1; j < cards.size(); j++) {
                 if (cards.get(i).isSameCard(cards.get(j))) {

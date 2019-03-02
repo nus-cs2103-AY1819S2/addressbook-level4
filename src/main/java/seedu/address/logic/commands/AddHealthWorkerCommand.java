@@ -14,6 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.HealthWorker;
+import seedu.address.model.tag.Specialisation;
 
 /**
  * Adds a HealthWorker to the address book.
@@ -21,7 +22,8 @@ import seedu.address.model.person.HealthWorker;
  */
 public class AddHealthWorkerCommand extends Command {
 
-    private static final String COMMAND_WORD = "add " + PREFIX_ADD_HEALTHWORKER;
+    private static final String COMMAND_WORD = "add "
+            + PREFIX_ADD_HEALTHWORKER;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a " +
             "health worker to the address book. "
             + "Parameters: "
@@ -38,11 +40,13 @@ public class AddHealthWorkerCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_ORGANIZATION + "NUH "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SKILLS + Specialisation.PHYSIOTHERAPY + " "
+            + Specialisation.GENERAL_PRACTICE;
 
     public static final String MESSAGE_SUCCESS = "New health worker added: %1$s";
     public static final String DUPLICATE_HEALTH_WORKER = "This health worker " +
-            "alreadu exists in the address book";
+            "already exists in the address book";
 
     private final HealthWorker toAdd;
 
@@ -66,7 +70,7 @@ public class AddHealthWorkerCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return (other == this) || (other instanceof AddHealthWorkerCommand &&
-                (this.toAdd.equals(((AddHealthWorkerCommand) other).toAdd)));
+        return (other == this) || (other instanceof AddHealthWorkerCommand
+                && (this.toAdd.equals(((AddHealthWorkerCommand) other).toAdd)));
     }
 }

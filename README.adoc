@@ -26,7 +26,7 @@ NUS graduation tracker is an application to aid School of Computing students to 
 * Able to account for Exchange Programmes, NUS Overseas College & Gap Year etc.
 
 === Managing C.A.P
-* Track Number of S/U credits left and recommends when to use them
+* Track Number of S/U courseReqCredits left and recommends when to use them
 * Provides minimum grades required for current and future semesters to hit your desired C.A.P
 * Even predict your potential C.A.P
 

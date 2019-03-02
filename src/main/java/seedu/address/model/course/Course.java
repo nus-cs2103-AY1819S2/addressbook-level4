@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.course;
 
 import java.util.ArrayList;
 /**

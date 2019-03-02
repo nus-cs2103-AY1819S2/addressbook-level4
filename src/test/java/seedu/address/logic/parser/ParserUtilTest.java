@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -222,7 +221,7 @@ public class ParserUtilTest {
     // @author Lookaz
 
     @Test
-    public void parseOrganization() throws ParseException{
+    public void parseOrganization() throws ParseException {
         // null organization
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil
                 .parseOrganization(null));
@@ -241,7 +240,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseNric() throws ParseException{
+    public void parseNric() throws ParseException {
         // null Nric
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil
                 .parseNric(null));
@@ -260,7 +259,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseSpecialisation() throws ParseException{
+    public void parseSpecialisation() throws ParseException {
         // null specialisation
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil
                 .parseSpecialisation(null));

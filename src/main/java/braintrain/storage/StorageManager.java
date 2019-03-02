@@ -54,6 +54,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void setLessonsFolderPath(Path folderPath) {
+        lessonsStorage.setLessonsFolderPath(folderPath);
+    }
+
+    @Override
     public Optional<Lessons> readLessons() throws IOException {
         return Optional.empty();
     }

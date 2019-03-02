@@ -16,6 +16,11 @@ public interface LessonsStorage {
     Path getLessonsFolderPath();
 
     /**
+     * Sets the folder path of the data file.
+     */
+    void setLessonsFolderPath(Path folderPath);
+
+    /**
      * Returns Lessons data as a {@link Lessons}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws IOException if there was any problem when reading from the storage.

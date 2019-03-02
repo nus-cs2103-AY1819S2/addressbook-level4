@@ -10,7 +10,7 @@ import braintrain.model.lesson.exceptions.MissingCoreValueException;
  * Represents a lesson that stores multiple cards.
  */
 public class Lesson {
-    private static final int CORE_COUNT_MINIMUM = 2;
+    public static final int CORE_COUNT_MINIMUM = 2;
 
     private String name;
 

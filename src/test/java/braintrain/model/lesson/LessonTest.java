@@ -2,6 +2,7 @@ package braintrain.model.lesson;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class LessonTest {
     private static final Card CARD_JAPAN =
         new Card(Arrays.asList("Japan", "Tokyo"), Arrays.asList("Starts with T", "JP"));
 
+    private final Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
+    private final Lesson lessonOptional = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () -> {
@@ -60,7 +63,6 @@ public class LessonTest {
 
     @Test
     public void addCard_invalidList_throwsIllegalArgumentException() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         List<String> invalidList = Arrays.asList("Japan", "Tokyo", "Hint");
         StringBuilder sb = new StringBuilder();
         invalidList.forEach(s -> {
@@ -74,7 +76,6 @@ public class LessonTest {
 
     @Test
     public void addCard_invalidCoreValue_throwsMissingCoreValueException() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         Assert.assertThrows(MissingCoreValueException.class, "Core value: 0 is empty", () -> {
             lesson.addCard(Arrays.asList("", "Tokyo"));
         });
@@ -85,14 +86,12 @@ public class LessonTest {
 
     @Test
     public void addCard() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         assertTrue(lesson.addCard(CARD_STRINGS_DEFAULT));
         assertTrue(lesson.addCard(CARD_STRINGS_DEFAULT));
     }
 
     @Test
     public void setQuestionAnswerIndices_invalidQuestionIndex_throwsIllegalArgumentException() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         Assert.assertThrows(IllegalArgumentException.class, "Question index: -1 out of bounds", () -> {
             lesson.setQuestionAnswerIndices(-1, 1);
         });
@@ -103,7 +102,6 @@ public class LessonTest {
 
     @Test
     public void setQuestionAnswerIndices_invalidAnswerIndex_throwsIllegalArgumentException() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         Assert.assertThrows(IllegalArgumentException.class, "Answer index: -1 out of bounds", () -> {
             lesson.setQuestionAnswerIndices(0, -1);
         });
@@ -114,7 +112,6 @@ public class LessonTest {
 
     @Test
     public void setQuestionAnswerIndices() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         assertEquals(lesson.getQuestionIndex(), 0);
         assertEquals(lesson.getAnswerIndex(), 0);
         lesson.setQuestionAnswerIndices(1, 1);
@@ -125,60 +122,67 @@ public class LessonTest {
 
     @Test
     public void setOptionalShown_newChange() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
-        lesson.addCard(CARD_STRINGS_OPTIONALS);
 
-        assertFalse(lesson.getOptionals()[0]);
-        assertTrue(lesson.setOptionalShown(0, true));
-        assertTrue(lesson.getOptionals()[0]);
-        assertTrue(lesson.setOptionalShown(0, false));
-        assertFalse(lesson.getOptionals()[0]);
+        lessonOptional.addCard(CARD_STRINGS_OPTIONALS);
+
+        assertFalse(lessonOptional.getOptionals()[0]);
+        assertTrue(lessonOptional.setOptionalShown(0, true));
+        assertTrue(lessonOptional.getOptionals()[0]);
+        assertTrue(lessonOptional.setOptionalShown(0, false));
+        assertFalse(lessonOptional.getOptionals()[0]);
     }
 
     @Test
     public void setOptionalShown_noChange() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
-        lesson.addCard(CARD_STRINGS_OPTIONALS);
 
-        assertFalse(lesson.getOptionals()[0]);
-        assertTrue(lesson.setOptionalShown(0, false));
-        assertFalse(lesson.getOptionals()[0]);
+        lessonOptional.addCard(CARD_STRINGS_OPTIONALS);
+
+        assertFalse(lessonOptional.getOptionals()[0]);
+        assertTrue(lessonOptional.setOptionalShown(0, false));
+        assertFalse(lessonOptional.getOptionals()[0]);
     }
 
     @Test
     public void setOptionalShown_invalidIndex() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
-        lesson.addCard(CARD_STRINGS_OPTIONALS);
 
-        assertFalse(lesson.setOptionalShown(-1, true));
-        assertFalse(lesson.setOptionalShown(-1, false));
-        assertFalse(lesson.setOptionalShown(2, true));
-        assertFalse(lesson.setOptionalShown(2, false));
+        lessonOptional.addCard(CARD_STRINGS_OPTIONALS);
+
+        assertFalse(lessonOptional.setOptionalShown(-1, true));
+        assertFalse(lessonOptional.setOptionalShown(-1, false));
+        assertFalse(lessonOptional.setOptionalShown(2, true));
+        assertFalse(lessonOptional.setOptionalShown(2, false));
     }
 
     @Test
     public void getCoreCount() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         assertEquals(lesson.getCoreCount(), CORE_COUNT_DEFAULT);
     }
 
     @Test
     public void getCardFields() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
         assertEquals(lesson.getCardFields(), FIELDS_DEFAULT);
 
-        lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
-        assertEquals(lesson.getCardFields(), FIELDS_OPTIONALS);
+        Lesson lessonOptionals = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
+        assertEquals(lessonOptionals.getCardFields(), FIELDS_OPTIONALS);
     }
 
     @Test
     public void getCards() {
-        Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
-        assertTrue(lesson.isInitalized());
-        assertTrue(lesson.getCards().size() == 0);
 
-        lesson.addCard(CARD_STRINGS_OPTIONALS);
-        assertTrue(lesson.getCards().size() == 1);
-        assertEquals(lesson.getCards().get(0), CARD_JAPAN);
+        assertTrue(lessonOptional.isInitalized());
+        assertTrue(lessonOptional.getCards().size() == 0);
+
+        lessonOptional.addCard(CARD_STRINGS_OPTIONALS);
+        assertTrue(lessonOptional.getCards().size() == 1);
+        assertEquals(lessonOptional.getCards().get(0), CARD_JAPAN);
+    }
+
+    @Test
+    public void equals() {
+        assertEquals(lesson, lesson);
+        assertNotEquals(lesson, lessonOptional);
+        assertNotEquals(lesson, new Object());
+        Lesson lessonCopy = new Lesson(lesson.getName(), lesson.getCoreCount(), lesson.getCardFields());
+        assertEquals(lesson, lessonCopy);
     }
 }

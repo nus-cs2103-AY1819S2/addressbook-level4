@@ -41,6 +41,11 @@ public interface Model {
     List<Lesson> getLessons();
 
     /**
+     * Adds the lesson.
+     */
+    void addLesson(Lesson lesson);
+
+    /**
      * Updates the lesson at the given index.
      */
     void setLesson(int index, Lesson updatedLesson);

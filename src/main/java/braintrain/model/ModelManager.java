@@ -62,14 +62,19 @@ public class ModelManager implements Model {
     //=========== Lessons ==================================================================================
 
     @Override
+    public List<Lesson> getLessons() {
+        return lessons.getLessons();
+    }
+
+    @Override
     public Lesson getLesson(int index) {
         Lesson lesson = lessons.getLessons().get(index);
         return lesson;
     }
 
     @Override
-    public List<Lesson> getLessons() {
-        return lessons.getLessons();
+    public void addLesson(Lesson lesson) {
+        lessons.addLesson(lesson);
     }
 
     @Override
@@ -123,7 +128,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return userPrefs.equals(other.userPrefs);
+        return userPrefs.equals(other.userPrefs) && lessons.equals(other.lessons);
     }
 
 }

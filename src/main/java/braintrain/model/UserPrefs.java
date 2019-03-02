@@ -60,11 +60,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return lessonImportExportFilePath;
     }
 
-    public void getLessonImportExportFilePath(Path lessonImportExportFilePath) {
-        requireNonNull(lessonImportExportFilePath);
-        this.lessonImportExportFilePath = lessonImportExportFilePath;
-    }
-
     public void setLessonImportExportFilePath(Path lessonImportExportFilePath) {
         requireNonNull(lessonImportExportFilePath);
         this.lessonImportExportFilePath = lessonImportExportFilePath;
@@ -82,9 +77,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return guiSettings.equals(o.guiSettings)
-                && lessonsFolderPath.equals(o.lessonsFolderPath)
-                && lessonImportExportFilePath.equals(o.lessonImportExportFilePath);
+        return this.hashCode() == o.hashCode();
     }
 
     @Override

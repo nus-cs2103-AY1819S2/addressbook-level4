@@ -1,5 +1,7 @@
 package braintrain.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +21,15 @@ public class Lessons {
         return lessons;
     }
 
+    public Lesson getLesson(int index) {
+        return lessons.get(index);
+    }
+
     /**
      * Removes lesson at index.
      * @param index
      */
     public void deleteLesson(int index) {
-        //TODO Handle exceptions
         lessons.remove(index);
     }
 
@@ -32,10 +37,31 @@ public class Lessons {
      * Adds a lesson to the current list.
      */
     public void addLesson(Lesson lesson) {
+        requireNonNull(lesson);
         lessons.add(lesson);
     }
 
     public void setLesson(int index, Lesson lesson) {
+        requireNonNull(lesson);
         lessons.set(index, lesson);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Lessons)) {
+            return false;
+        }
+
+        Lessons otherLesson = (Lessons) other;
+        return otherLesson.hashCode() == this.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return lessons.hashCode();
     }
 }

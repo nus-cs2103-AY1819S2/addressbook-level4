@@ -7,21 +7,17 @@ import java.util.List;
  */
 public class User {
     private String name;
-    private List<CardData> Carddata; // Contains User-specific data on Cards
+    private List<CardData> cardData; // Contains User-specific data on Cards
 
-    /**
-     * TODO: Export data to CSV File depending on what information is passed to userClass
-     */
     public void exportData() {
+        //    TODO: Export data to CSV File depending on what information is passed to userClass
     }
 
-    /**
-     * TODO :import data from CSV File depending on what information is passed to userClass
-     */
     public void importData() {
+        //    TODO: Export data to CSV File depending on what information is passed to userClass
     }
 
-    public List<CardData> getCarddata() {
-        return Carddata;
+    public List<CardData> getCardData() {
+        return cardData;
     }
 }

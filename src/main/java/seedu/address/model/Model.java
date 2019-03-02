@@ -162,4 +162,12 @@ public interface Model {
     boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient);
 
     void replacePatient(int index, Patient editedPatient);
+
+    String findPatientsByName(String searchSequence);
+
+    String listFiftyPatients();
+
+    String findPatientsByNric(String searchSequence);
+
+    String findPatientsByTag(Tag tag);
 }

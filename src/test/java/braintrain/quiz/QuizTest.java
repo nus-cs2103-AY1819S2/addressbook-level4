@@ -63,7 +63,7 @@ public class QuizTest {
     @Test
     public void isNextCard() {
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
-        assertTrue(quiz.isNextCard());
+        assertTrue(quiz.hasCardLeft());
 
         // get all cards
         quiz.getNextCard();
@@ -72,7 +72,7 @@ public class QuizTest {
         quiz.getNextCard();
 
         // no cards left
-        assertFalse(quiz.isNextCard());
+        assertFalse(quiz.hasCardLeft());
 
     }
 
@@ -185,7 +185,7 @@ public class QuizTest {
 
         // quiz just started
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
-        assertFalse(quiz.isEnd());
+        assertFalse(quiz.isDone());
 
         // test 2 question
         quiz.getNextCard();
@@ -194,7 +194,7 @@ public class QuizTest {
         quiz.updateTotalAttemptsandStreak(1, "wrong answer");
 
         assertEquals(expected, quiz.end());
-        assertTrue(quiz.isEnd());
+        assertTrue(quiz.isDone());
     }
 
     @Test

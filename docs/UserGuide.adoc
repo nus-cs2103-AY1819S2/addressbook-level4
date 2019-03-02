@@ -60,7 +60,7 @@ Format: `help`
 
 === Initialising the maps : `init`
 
-Initialises the both player's map to the specified size.
+Initialises both player's map to the specified size +
 Format: `init [s/MAP_SIZE]`
 
 === Listing all ships : `list`

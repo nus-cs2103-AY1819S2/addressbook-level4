@@ -25,7 +25,7 @@ public class JsonAdaptedCard {
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedCard} with the given person details.
+     * Constructs a {@code JsonAdaptedCard} with the given card details.
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
@@ -51,7 +51,7 @@ public class JsonAdaptedCard {
     /**
      * Converts this Jackson-friendly adapted card object into the model's {@code Card} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted card.
      */
     public Card toModelType() throws IllegalValueException {
         final List<Tag> cardTags = new ArrayList<>();

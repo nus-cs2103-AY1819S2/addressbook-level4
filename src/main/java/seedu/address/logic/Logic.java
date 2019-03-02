@@ -57,15 +57,15 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected card in the filtered card list.
+     * null if no card is selected.
      *
      * @see seedu.address.model.Model#selectedCardProperty()
      */
     ReadOnlyProperty<Card> selectedCardProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected card in the filtered card list.
      *
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      * @param card

@@ -11,31 +11,31 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.deck.Card;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class CardListPanel extends UiPart<Region> {
+    private static final String FXML = "CardListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Card> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList, ObservableValue<Person> selectedPerson,
-            Consumer<Person> onSelectedPersonChange) {
+    public CardListPanel(ObservableList<Card> cardList, ObservableValue<Card> selectedCard,
+                         Consumer<Card> onSelectedCardChange) {
         super(FXML);
-        personListView.setItems(personList);
+        personListView.setItems(cardList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
+            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
+            onSelectedCardChange.accept(newValue);
         });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected person changed to: " + newValue);
+        selectedCard.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected card changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected person,
+            // Don't modify selection if we are already selecting the selected card,
             // otherwise we would have an infinite loop.
             if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
@@ -52,18 +52,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Card} using a {@code CardDisplay}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Card> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Card card, boolean empty) {
+            super.updateItem(card, empty);
 
-            if (empty || person == null) {
+            if (empty || card == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new CardDisplay(card, getIndex() + 1).getRoot());
             }
         }
     }

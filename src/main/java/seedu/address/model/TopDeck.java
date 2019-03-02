@@ -60,7 +60,7 @@ public class TopDeck implements ReadOnlyTopDeck {
         setCards(newData.getCardList());
     }
 
-    //// person-level operations
+    //// card-level operations
 
     /**
      * Returns true if another card with the same question as {@code card} exists in the deck.
@@ -82,7 +82,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     /**
      * Replaces the given card {@code target} in the list with {@code editedCard}.
      * {@code target} must exist in the deck.
-     * The person identity of {@code editedCard} must not be the same as another existing card in the deck.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the deck.
      */
     public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);

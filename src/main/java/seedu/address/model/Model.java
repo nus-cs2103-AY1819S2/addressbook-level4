@@ -65,7 +65,7 @@ public interface Model {
     void deleteCard(Card target);
 
     /**
-     * Adds the given person.
+     * Adds the given card.
      * {@code card} must not already exist in the deck.
      */
     void addCard(Card card);
@@ -73,7 +73,7 @@ public interface Model {
     /**
      * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the deck.
-     * The person identity of {@code editedCard} must not be the same as another existing card in the deck.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the deck.
      */
     void setCard(Card target, Card editedCard);
 

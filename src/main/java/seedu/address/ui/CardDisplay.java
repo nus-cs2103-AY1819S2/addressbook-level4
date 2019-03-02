@@ -5,12 +5,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.deck.Card;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Card}.
  */
-public class PersonCard extends UiPart<Region> {
+public class CardDisplay extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "red", "yellow", "blue", "green", "grey", "magenta", "pink" };
@@ -23,32 +23,26 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Card card;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label question;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label answer;
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public CardDisplay(Card card, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.card = card;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        initTags(person);
+        question.setText(card.getQuestion());
+        answer.setText(card.getAnswer());
+        initTags(card);
     }
 
     /**
@@ -59,10 +53,10 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
-     * Creates the tag labels for {@code person}.
+     * Creates the tag labels for {@code card}.
      */
-    private void initTags(Person person) {
-        person.getTags().forEach(tag -> {
+    private void initTags(Card card) {
+        card.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
             tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
             tags.getChildren().add(tagLabel);
@@ -77,13 +71,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof CardDisplay)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        CardDisplay card = (CardDisplay) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && this.card.equals(card.card);
     }
 }

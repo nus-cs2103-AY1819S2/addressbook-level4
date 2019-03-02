@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 
 /**
- * Adds a person to the address book.
+ * Adds a card to the address book.
  */
 public class AddCommand extends Command {
 
@@ -26,7 +26,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "basic "
             + PREFIX_TAG + "test";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New card added: %1$s";
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the deck";
 
     private final Card toAdd;

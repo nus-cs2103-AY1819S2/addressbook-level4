@@ -28,7 +28,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code card}'s details
      */
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditCommand.EditCardDescriptor();

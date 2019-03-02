@@ -18,7 +18,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
 
-    public static final String TOTAL_PERSONS_STATUS = "%d person(s) total";
+    public static final String TOTAL_PERSONS_STATUS = "%d card(s) total";
 
     /**
      * Used to generate time stamps.
@@ -73,7 +73,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     /**
-     * Updates person count in the status bar to the actual count.
+     * Updates card count in the status bar to the actual count.
      */
     private void updateTotalPersonsStatus(ReadOnlyAddressBook addressBook) {
         int personsCount = addressBook.getPersonList().size();

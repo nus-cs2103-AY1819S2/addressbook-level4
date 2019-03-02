@@ -163,7 +163,7 @@ public class ModelManager implements Model {
         versionedTopDeck.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected card ===========================================================================
 
     @Override
     public ReadOnlyProperty<Card> selectedCardProperty() {
@@ -184,12 +184,12 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedPerson} is a valid card in {@code filteredPersons}.
      */
     private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Card> change) {
         while (change.next()) {
             if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                // null is always a valid selected card, so we do not need to check that it is valid anymore.
                 return;
             }
 
@@ -205,8 +205,8 @@ public class ModelManager implements Model {
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
                     .anyMatch(removedPerson -> selectedPerson.getValue().isSameCard(removedPerson));
             if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
+                // Select the card that came before it in the list,
+                // or clear the selection if there is no such card.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }

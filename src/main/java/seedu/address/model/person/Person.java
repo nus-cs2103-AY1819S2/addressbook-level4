@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.tag.CopyTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,6 +24,8 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private CopyTag copyInfo;
+    private int copyCount;
 
     /**
      * Every field must be present and not null.
@@ -34,6 +37,19 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        copyInfo = null;
+        copyCount = 0;
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Person personToCopy, int copyCount) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.copyCount = copyCount;
+        copyInfo = new CopyTag(personToCopy,"$Copy"+copyCount);
     }
 
     public Name getName() {
@@ -50,6 +66,22 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public int getCopyCount(){ return  copyCount;}
+
+    public boolean hasCopy(){ return copyCount > 0; }
+
+    public boolean isCopy(){ return  copyInfo != null; }
+
+    public void editCopy(){ copyInfo.getOriginalPerson().edittedCopy(); }
+
+    private void edittedCopy(){ copyCount -= 1; }
+
+    public Person copy(){
+        if(isCopy()) return copyInfo.getOriginalPerson().copy();
+        copyCount++;
+        return  new Person(name,phone,email,address,tags,this,copyCount);
     }
 
     /**
@@ -71,7 +103,8 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()))
+                && !(isCopy() || otherPerson.isCopy());
     }
 
     /**

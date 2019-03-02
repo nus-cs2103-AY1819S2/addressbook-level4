@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -27,7 +28,7 @@ import seedu.address.model.card.exceptions.CardNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final List<VersionedCardFolder> versionedCardFolders;
+    private final FilteredList<VersionedCardFolder> filteredFoldersList;
     private int activeCardFolderIndex;
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
@@ -42,15 +43,16 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with card folder: " + cardFolders + " and user prefs " + userPrefs);
 
-        versionedCardFolders = new ArrayList<>();
+        List<VersionedCardFolder> versionedCardFolders = new ArrayList<>();
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             versionedCardFolders.add(new VersionedCardFolder(cardFolder));
         }
+        filteredFoldersList = new FilteredList<>(FXCollections.observableArrayList(versionedCardFolders));
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
-        for (int i = 0; i < versionedCardFolders.size(); i++) {
-            FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolders.get(i).getCardList());
+        for (int i = 0; i < filteredFoldersList.size(); i++) {
+            FilteredList<Card> filteredCards = new FilteredList<>(filteredFoldersList.get(i).getCardList());
             filteredCardsList.add(filteredCards);
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
@@ -65,7 +67,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initialising user prefs without folder: " + userPrefs);
 
-        versionedCardFolders = new ArrayList<>();
+        filteredFoldersList = new FilteredList<>(FXCollections.observableArrayList());
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCardsList = new ArrayList<>();
     }
@@ -75,7 +77,7 @@ public class ModelManager implements Model {
     }
 
     private VersionedCardFolder getActiveVersionedCardFolder() {
-        return versionedCardFolders.get(activeCardFolderIndex);
+        return filteredFoldersList.get(activeCardFolderIndex);
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
@@ -132,7 +134,7 @@ public class ModelManager implements Model {
 
     @Override
     public List<ReadOnlyCardFolder> getCardFolders() {
-        return new ArrayList<>(versionedCardFolders);
+        return new ArrayList<>(filteredFoldersList);
     }
 
     @Override
@@ -172,15 +174,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteFolder(CardFolder target) {
-        versionedCardFolders.remove(new VersionedCardFolder(target));
+    public void deleteFolder(int index) {
+        filteredFoldersList.remove(index);
         // TODO: Call storage method
     }
 
     @Override
     public void addFolder(CardFolder cardFolder) {
-        versionedCardFolders.add(new VersionedCardFolder(cardFolder));
+        filteredFoldersList.add(new VersionedCardFolder(cardFolder));
         // TODO: Call storage method
+
     }
 
     public int getActiveCardFolderIndex() {
@@ -191,7 +194,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code versionedCardFolders}
+     * {@code filteredFoldersList}
      */
     @Override
     public ObservableList<Card> getFilteredCards() {
@@ -300,7 +303,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedCardFolders.equals(other.versionedCardFolders)
+        return filteredFoldersList.equals(other.filteredFoldersList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());

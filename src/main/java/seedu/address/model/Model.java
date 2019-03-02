@@ -84,10 +84,10 @@ public interface Model {
     // TODO: Implement hasFolder and setFolder
 
     /**
-     * Deletes the given folder.
+     * Deletes the folder at the given index.
      * The folder must exist.
      */
-    void deleteFolder(CardFolder target);
+    void deleteFolder(int index);
 
     /**
      * Adds the given folder.

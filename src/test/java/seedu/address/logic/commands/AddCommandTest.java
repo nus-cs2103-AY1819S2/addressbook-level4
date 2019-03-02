@@ -165,7 +165,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteFolder(CardFolder target) {
+        public void deleteFolder(int index) {
             throw new AssertionError("This method should not be called.");
         }
 

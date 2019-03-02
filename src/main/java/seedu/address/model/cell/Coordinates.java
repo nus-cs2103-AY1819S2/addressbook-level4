@@ -52,7 +52,7 @@ public class Coordinates {
 
         rowMatch.find();
         colMatch.find();
-      
+
         String row = rowMatch.group(0);
         String col = colMatch.group(0);
 

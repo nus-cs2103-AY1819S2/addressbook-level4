@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -20,7 +21,7 @@ import seedu.address.model.booking.exceptions.BookingNotFoundException;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class BookingManager implements Model {
+public class BookingManager implements BookingModel {
     private static final Logger logger = LogsCenter.getLogger(BookingManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
@@ -215,4 +216,9 @@ public class BookingManager implements Model {
             && Objects.equals(selectedBooking.get(), other.selectedBooking.get());
     }
 
+
+    public void updateFilteredBookingList(Predicate<Booking> predicate) {
+        requireNonNull(predicate);
+        filteredBookings.setPredicate(predicate);
+    }
 }

@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
@@ -30,7 +31,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing customer in the address book.
  */
-public class EditCommand extends Command {
+public class EditCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "ed";
     public static final String COMMAND_WORD = "edit";
@@ -68,7 +69,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(CustomerModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 

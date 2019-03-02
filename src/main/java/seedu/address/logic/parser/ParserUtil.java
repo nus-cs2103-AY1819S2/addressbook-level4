@@ -2,18 +2,24 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.booking.ServiceType;
 import seedu.address.model.customer.Address;
+import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.TimeRange;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -108,6 +114,62 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String serviceName} into a {@code ServiceType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code serviceName} is invalid.
+     */
+    public static ServiceType parseService(String serviceName) throws ParseException {
+        requireNonNull(serviceName);
+        serviceName = serviceName.trim();
+        switch(serviceName) {
+        case "GYM": return ServiceType.GYM;
+        case "SWIMMING POOL": return ServiceType.POOL;
+        case "SPA": return ServiceType.SPA;
+        case "GAMES ROOM": return ServiceType.GAMES;
+        default: throw new ParseException(String.format("Service Type %s doesn't exist!", serviceName));
+        }
+    }
+
+    /**
+     * Parses a {@code String timing} into a {@code TimeRange}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static TimeRange parseTiming(String timing) throws ParseException {
+        requireNonNull(timing);
+        timing = timing.trim();
+        String[] hours = timing.split(" - ");
+        return new TimeRange(Integer.parseInt(hours[0]), Integer.parseInt(hours[1]));
+    }
+
+    /**
+     * Parses a {@code String timing} into a {@code TimeRange}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Customer parseCustomer(String customerIndex, List<Customer> customers) throws ParseException {
+        requireNonNull(customerIndex);
+        try {
+            int index = Integer.parseInt(customerIndex);
+            return customers.get(index);
+        } catch (Exception e) {
+            throw new ParseException(String.format("Invalid customer index - %s", customerIndex));
+        }
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Optional<List<Customer>> parseCustomers(Collection<String> customerIndices, List<Customer> customers)
+        throws ParseException {
+        requireNonNull(customerIndices);
+        final List<Customer> result = new ArrayList<>();
+        for (String customerIndex : customerIndices) {
+            result.add(customers.get(Integer.parseInt(customerIndex)));
+        }
+        return Optional.of(result);
     }
 
     /**

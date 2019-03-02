@@ -14,16 +14,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.util.TimeRange;
 import seedu.address.model.util.TimeRange;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.customer.Address;
+import seedu.address.model.customer.Email;
+import seedu.address.model.customer.Name;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.TimeRange;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Customer}.
  */
 class JsonAdaptedTimeRange {
 
@@ -32,7 +32,7 @@ class JsonAdaptedTimeRange {
     private final LocalTime startTime;
     private final LocalTime endTime;
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
     public JsonAdaptedTimeRange(@JsonProperty("startTime") LocalTime startTime,
@@ -42,7 +42,7 @@ class JsonAdaptedTimeRange {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Customer} into this class for Jackson use.
      */
     public JsonAdaptedTimeRange(TimeRange source) {
         startTime = source.getStartTime();
@@ -50,9 +50,9 @@ class JsonAdaptedTimeRange {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted customer object into the model's {@code Customer} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted customer.
      */
     public TimeRange toModelType() throws IllegalValueException {
 

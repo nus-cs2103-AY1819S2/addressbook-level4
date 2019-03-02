@@ -70,6 +70,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setCustomers(newData.getCustomerList());
+        setBookings(newData.getBookingList());
     }
 
     //// customer-level operations
@@ -165,7 +166,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Booking> getBookingList() {
         return bookings.asUnmodifiableObservableList();
+    }
 
+    /**
+     * Return a string to represent the address book.
+     */
     public String toString() {
         return customers.asUnmodifiableObservableList().size() + " customers";
         // TODO: refine later

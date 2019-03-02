@@ -8,13 +8,14 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 
 /**
  * Selects a customer identified using it's displayed index from the address book.
  */
-public class SelectCommand extends Command {
+public class SelectCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "s";
     public static final String COMMAND_WORD = "select";
@@ -33,7 +34,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(CustomerModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Customer> filteredCustomerList = model.getFilteredCustomerList();

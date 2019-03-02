@@ -15,14 +15,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookingManager;
+import seedu.address.model.BookingModel;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.customer.Customer;
 import seedu.address.model.booking.Booking;
 
 /**
- * Adds a person to the address book.
+ * Adds a customer to the address book.
  */
-public class AddBookingCommand extends Command {
+public class AddBookingCommand extends BookingCommand {
 
     public static final String COMMAND_ALIAS = "ab";
     public static final String COMMAND_WORD = "add-booking";
@@ -32,7 +33,7 @@ public class AddBookingCommand extends Command {
         + PREFIX_SERVICE + "SERVICE NAME "
         + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format) "
         + PREFIX_PAYER + "PAYER INDEX "
-        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDICES]... "
+        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX]... "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_SERVICE + "GYM "
@@ -48,7 +49,7 @@ public class AddBookingCommand extends Command {
     private final Booking toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Customer}
      */
     public AddBookingCommand(Booking booking) {
         requireNonNull(booking);
@@ -56,7 +57,7 @@ public class AddBookingCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(BookingManager model, CommandHistory history) throws CommandException {
+    public CommandResult execute(BookingModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.addBooking(toAdd);
         model.commitAddressBook();

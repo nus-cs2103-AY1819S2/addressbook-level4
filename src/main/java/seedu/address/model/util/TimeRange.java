@@ -25,10 +25,10 @@ public class TimeRange {
      * @param other The timing to check if exists inside this timing or not.
      */
     public boolean withinTiming(TimeRange other) {
-        return (other.getStartTime().isAfter(this.startTime)
-            || other.getStartTime().equals(this.startTime))
-            && (other.getEndTime().isBefore(this.endTime)
-            || other.getEndTime().equals(this.endTime));
+        return (this.startTime.isAfter(other.getStartTime())
+            || this.startTime.equals(other.getStartTime()))
+            && (this.endTime.isBefore(other.getEndTime())
+            || this.endTime.equals(other.getEndTime()));
     }
 
     public LocalTime getStartTime() {

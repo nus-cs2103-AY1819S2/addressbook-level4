@@ -91,5 +91,4 @@ public class Review {
                 .append(getEntry());
         return builder.toString();
     }
-
 }

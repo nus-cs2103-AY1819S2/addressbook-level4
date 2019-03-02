@@ -38,6 +38,8 @@ public class RestaurantCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label weblink;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
         super(FXML);
@@ -48,6 +50,7 @@ public class RestaurantCard extends UiPart<Region> {
         address.setText(restaurant.getAddress().value);
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        weblink.setText(restaurant.getWeblink().value);
     }
 
     @Override

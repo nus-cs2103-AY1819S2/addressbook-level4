@@ -120,6 +120,23 @@ public class QuizTest {
     }
 
     @Test
+    public void getCurrentQuizCard_null_throwsNullPointerException() {
+        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+
+        Assert.assertThrows(NullPointerException.class, () ->
+            quiz.getCurrentQuizCard());
+    }
+
+    @Test
+    public void getCurrentQuizCard() {
+        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+        QuizCard expected = quiz.getNextCard();
+
+        assertEquals(new QuizCard(0, "Japan", "Tokyo"), quiz.getCurrentQuizCard());
+        assertEquals(expected, quiz.getCurrentQuizCard());
+    }
+
+    @Test
     public void updateTotalAttemptsandStreak() {
         final int index = 0;
         final String correctAnswer = "Tokyo";

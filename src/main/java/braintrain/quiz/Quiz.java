@@ -98,6 +98,11 @@ public class Quiz {
         throw new IndexOutOfBoundsException("No cards left.");
     }
 
+    public QuizCard getCurrentQuizCard() {
+        requireNonNull(currentQuizCard);
+        return currentQuizCard;
+    }
+
     /**
      * Update the totalAttempts and streak of a specified card in the current session.
      * @param index of the card

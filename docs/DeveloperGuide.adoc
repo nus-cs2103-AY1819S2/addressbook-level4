@@ -857,7 +857,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |guideline |by typing help to show all commands
 
-|`*` |user | sort |sort the list in alphabetical order
+|`*` |user |sort |sort the list in alphabetical order
 |=======================================================================
 
 _{More to be added}_

@@ -16,11 +16,11 @@ public class Quiz {
 
     private List<QuizCard> currentSession;
     private List<QuizCard> generatedSession;
-    private Mode mode; // learn/review/preview
+    private Mode mode;
     private QuizCard currentQuizCard;
     private int currentCardIndex;
     private int generatedCardSize;
-    private boolean end;
+    private boolean isDone; // Indicates if User is done with this quiz
 
     /**
      * Different types of mode supported in Quiz.
@@ -46,7 +46,7 @@ public class Quiz {
         this.mode = mode;
         this.currentCardIndex = -1;
         this.generatedCardSize = -1;
-        this.end = false;
+        this.isDone = false;
 
         generate();
     }
@@ -80,7 +80,7 @@ public class Quiz {
     /**
      * Returns true if there is card left in quiz.
      */
-    public boolean isNextCard() {
+    public boolean hasCardLeft() {
         return currentCardIndex < (generatedCardSize - 1);
     }
 
@@ -98,14 +98,19 @@ public class Quiz {
         throw new IndexOutOfBoundsException("No cards left.");
     }
 
+    public QuizCard getCurrentQuizCard() {
+        requireNonNull(currentQuizCard);
+        return currentQuizCard;
+    }
+
     /**
      * Update the totalAttempts and streak of a specified card in the current session.
      * @param index of the card
      * @param answer user input
      */
-    public void updateTotalAttemptsandStreak(int index, String answer) {
+    public void updateTotalAttemptsAndStreak(int index, String answer) {
         QuizCard sessionCard = currentSession.get(index);
-        sessionCard.updateTotalAttemptsandStreak(sessionCard.isCorrect(answer));
+        sessionCard.updateTotalAttemptsAndStreak(currentQuizCard.isCorrect(answer));
     }
 
     /**
@@ -120,7 +125,7 @@ public class Quiz {
      * @return a list of index of card, total attempts and streak in this session.
      */
     public List<List<Integer>> end() {
-        this.end = true;
+        this.isDone = true;
 
         List<List<Integer>> session = new ArrayList<>();
         QuizCard card;
@@ -132,7 +137,7 @@ public class Quiz {
         return session;
     }
 
-    public boolean isEnd() {
-        return end;
+    public boolean isDone() {
+        return isDone;
     }
 }

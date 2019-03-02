@@ -137,18 +137,18 @@ public class QuizCardTest {
     }
 
     @Test
-    public void updateTotalAttemptsandStreak() {
+    public void updateTotalAttemptsAndStreak() {
         QuizCard quizCardWithIndex = VALID_QUIZCARD_INDEX;
 
-        quizCardWithIndex.updateTotalAttemptsandStreak(true);
+        quizCardWithIndex.updateTotalAttemptsAndStreak(true);
         assertEquals(1, quizCardWithIndex.getTotalAttempts());
         assertEquals(1, quizCardWithIndex.getStreak());
 
-        quizCardWithIndex.updateTotalAttemptsandStreak(true);
+        quizCardWithIndex.updateTotalAttemptsAndStreak(true);
         assertEquals(2, quizCardWithIndex.getTotalAttempts());
         assertEquals(2, quizCardWithIndex.getStreak());
 
-        quizCardWithIndex.updateTotalAttemptsandStreak(false);
+        quizCardWithIndex.updateTotalAttemptsAndStreak(false);
         assertEquals(3, quizCardWithIndex.getTotalAttempts());
         assertEquals(0, quizCardWithIndex.getStreak());
 
@@ -193,6 +193,15 @@ public class QuizCardTest {
 
         // same value but contains index
         assertNotEquals(VALID_QUIZCARD.hashCode(), cardWithIndex);
+    }
+
+    @Test
+    public void quizCardToString() {
+        final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
+        final QuizCard quizCardWithAb = new QuizCard("A", "B");
+
+        assertEquals(VALID_QUIZCARD_NO_OPT.toString(), anotherValidQuizCard.toString());
+        assertNotEquals(VALID_QUIZCARD_NO_OPT.toString(), quizCardWithAb.toString());
     }
 
 }

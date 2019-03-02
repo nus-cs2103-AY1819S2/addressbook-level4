@@ -11,8 +11,8 @@ import java.util.Objects;
  */
 public class Score {
 
-    public static final String MESSAGE_CONSTRAINTS = "Score can take a float between 0 and 1 or a string a/b," +
-            "where 0 <= a <= b and a and b are integers.";
+    public static final String MESSAGE_CONSTRAINTS = "Score can take a float between 0 and 1 or a string a/b,"
+            + "where 0 <= a <= b and a and b are integers.";
 
     public final int correctAttempts;
     public final int totalAttempts;
@@ -72,7 +72,7 @@ public class Score {
         if (totalAttempts == 0) {
             return 0;
         }
-        return (double)correctAttempts/totalAttempts;
+        return (double) correctAttempts / totalAttempts;
     }
 
     /**

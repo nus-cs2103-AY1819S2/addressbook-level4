@@ -65,7 +65,8 @@ public class JsonAdaptedCardTest {
 
     @Test
     public void toModelType_nullAnswer_throwsIllegalValueException() {
-        JsonAdaptedCard card = new JsonAdaptedCard(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_SCORE, VALID_TAGS);
+        JsonAdaptedCard card =
+                new JsonAdaptedCard(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_SCORE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Answer.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, card::toModelType);
     }

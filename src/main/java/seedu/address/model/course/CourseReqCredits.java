@@ -2,6 +2,9 @@ package seedu.address.model.course;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents credits for course requirements
+ */
 public class CourseReqCredits {
 
     public static final String MESSAGE_CONSTRAINTS =

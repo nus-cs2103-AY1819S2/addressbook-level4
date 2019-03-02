@@ -2,6 +2,9 @@ package seedu.address.model.course;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a name of a course requirement in the model
+ */
 public class CourseReqName {
 
     public static final String MESSAGE_CONSTRAINTS =

@@ -1,8 +1,8 @@
 package seedu.address.model.course;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import seedu.address.model.module.Module;
@@ -26,6 +26,11 @@ public class CourseRequirement {
         this.courseReqCredits = courseReqCredits;
     }
 
+    /**
+     * Checks from a list whether this requirement is satisfied
+     * @param modulesTaken
+     * @return true if requirement is satisfied, false otherwise
+     */
     public boolean isFulfilled(List<Module> modulesTaken) {
         int satisfied = modulesTaken.stream()
                                     .filter(x -> modules.contains(x))
@@ -34,6 +39,12 @@ public class CourseRequirement {
         return satisfied >= courseReqCredits.getCourseReqCredits();
     }
 
+    /**
+     * Returns a list of modules that can be taken to satisfy this requirement
+     * @param modulesTaken
+     * @return A list of modules where modules, an empty list if requirement is satisfied
+     *
+     */
     public List<Module> getUnfufilledList(List<Module> modulesTaken) {
         if (isFulfilled(modulesTaken)) {
             return new LinkedList<>();

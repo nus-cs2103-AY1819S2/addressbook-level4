@@ -36,7 +36,7 @@ public class Diagnosis {
         sb.append("====================\n");
         sb.append("Assessment: " + assessment + "\n");
         for (int i = 0; i < symptoms.size(); i++) {
-            sb.append(i + 1 + ") " + symptoms.get(0).getSymptom() + "\n");
+            sb.append(i + 1 + ") " + symptoms.get(i).getSymptom() + "\n");
         }
         return sb.toString();
     }

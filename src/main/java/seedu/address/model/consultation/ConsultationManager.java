@@ -2,7 +2,6 @@ package seedu.address.model.consultation;
 
 import java.util.ArrayList;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.patient.Patient;
 
 /**
@@ -21,13 +20,21 @@ public class ConsultationManager {
 
     /**
      * Create a consultation session with the patient indicated
-     *
-     * @throws CommandException
      */
     public void createConsultation(Patient patient) {
         if (currentConsultation != null) {
             throw new IllegalArgumentException("There is already an ongoing consultation session");
         }
         currentConsultation = new Consultation(patient);
+    }
+
+    /**
+     * Adds or replace diagnosis on current consultation session
+     */
+    public void diagnosePatient(Diagnosis diagnosis) {
+        if (currentConsultation == null) {
+            throw new IllegalArgumentException("There is no ongoing consultation session");
+        }
+        currentConsultation.setDiagnosis(diagnosis);
     }
 }

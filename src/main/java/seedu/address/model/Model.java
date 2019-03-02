@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -190,6 +191,8 @@ public interface Model {
     void createConsultation(Patient patient);
 
     Patient getPatientWithNric(Nric nric);
+
+    void diagnosePatient(Diagnosis diagnosis);
 
     //===========Appointment module operations========================
     boolean duplicateApp(Appointment app);

@@ -16,9 +16,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.consultation.ConsultationManager;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentManager;
+import seedu.address.model.consultation.ConsultationManager;
+import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
@@ -30,6 +31,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -392,6 +394,10 @@ public class ModelManager implements Model {
 
     public Patient getPatientWithNric(Nric nric) {
         return this.patientManager.getPatientWithNric(nric);
+    }
+
+    public void diagnosePatient(Diagnosis diagnosis) {
+        this.consultationManager.diagnosePatient(diagnosis);
     }
 
     //==========Appointment module===========================================================================

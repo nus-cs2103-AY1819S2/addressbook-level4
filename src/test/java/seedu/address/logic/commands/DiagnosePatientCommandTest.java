@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ModelManager;
+import seedu.address.model.consultation.Assessment;
+import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Symptom;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -18,7 +21,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
-public class ConsultationCommandTest {
+public class DiagnosePatientCommandTest {
 
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
@@ -38,14 +41,15 @@ public class ConsultationCommandTest {
     }
 
     @Test
-    public void createConsultation() {
+    public void diagnosePatient() {
+        // no consultation session
+        String input = " a/migrane s/constant headache s/blurred vision";
+        Assessment assessment = new Assessment("migrane");
+        ArrayList<Symptom> symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+        symptoms.add(new Symptom("blurred vision"));
 
-        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
-
-        // command exception thrown when consultation is recreated with a ongoing session
         Assert.assertThrows(IllegalArgumentException.class, () ->
-                modelManager.createConsultation(modelManager.getPatientAtIndex(1)));
+                modelManager.diagnosePatient(new Diagnosis(assessment, symptoms)));
     }
-
-
 }

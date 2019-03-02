@@ -22,6 +22,17 @@ public class AppointmentManager {
         return appointments.contains(app);
     }
 
+    /**
+     * Returns a {@code String} of appointments created.
+     */
+    public String list() {
+        StringBuilder sb = new StringBuilder();
+        for (Appointment app : appointments) {
+            sb.append(app.toString() + "\n");
+        }
+        return sb.toString();
+    }
+
     public void delete(Appointment app) {
         appointments.remove(app);
     }

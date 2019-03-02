@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -381,6 +382,10 @@ public class ModelManager implements Model {
 
     public void addApp(Appointment app) {
         appointmentManager.add(app);
+    }
+
+    public String listApp() {
+        return appointmentManager.list();
     }
 
 }

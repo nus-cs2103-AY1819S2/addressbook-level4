@@ -73,7 +73,8 @@ public class Appointment {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getPatient())
+        builder.append(getPatient().getName() + " ")
+                .append(getPatient().getNric() + "\n")
                 .append("Date: ")
                 .append(getDate() + "\n")
                 .append("Start Time: ")

@@ -8,25 +8,17 @@ import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_NRIC;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_START;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.patient.Nric;
 
 public class AddAppCommandParserTest {
     private AddAppCommandParser parser = new AddAppCommandParser();
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
-
 
     private String nricString = "S9234568C";
     private String dateString = "2019-10-23";

@@ -280,6 +280,11 @@ public class AddCommandTest {
         public void addApp(Appointment app) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public String listApp() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

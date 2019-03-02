@@ -28,6 +28,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListAppCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -210,5 +211,11 @@ public class AddressBookParserTest {
                 + " c/" + comment;
         AddAppCommand command = (AddAppCommand) parser.parseCommand(userInput);
         assertEquals(new AddAppCommand(nric, date, start, end, comment), command);
+    }
+
+    @Test
+    public void parseCommand_listApp() throws Exception {
+        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
+        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD + " 3") instanceof ListAppCommand);
     }
 }

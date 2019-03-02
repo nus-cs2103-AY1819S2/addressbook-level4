@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -179,4 +180,6 @@ public interface Model {
     boolean duplicateApp(Appointment app);
 
     void addApp(Appointment app);
+
+    String listApp();
 }

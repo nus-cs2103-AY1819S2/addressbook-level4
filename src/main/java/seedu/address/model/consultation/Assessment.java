@@ -1,5 +1,8 @@
 package seedu.address.model.consultation;
 
+/**
+ * Represents the assessment of the illness during a consultation session
+ */
 public class Assessment {
     public static final String REGEX_SYMPTOMS = "[\\p{Alnum}][\\p{Alnum} ]*";
     public static final String SYMPTOMS_CONSTRAINTS =

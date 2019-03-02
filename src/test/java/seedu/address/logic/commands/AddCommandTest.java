@@ -250,6 +250,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Patient getPatientByNric(String nric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void createConsultation(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }

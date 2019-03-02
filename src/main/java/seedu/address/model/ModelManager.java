@@ -16,6 +16,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.consultation.Consultation;
+import seedu.address.model.consultation.ConsultationManager;
+import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.Patient;
@@ -37,6 +40,7 @@ public class ModelManager implements Model {
     // to handle QuickDocs operations
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
+    private final ConsultationManager consultationManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,6 +57,7 @@ public class ModelManager implements Model {
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         this.medicineManager = new MedicineManager();
         this.patientManager = new PatientManager();
+        this.consultationManager = new ConsultationManager();
     }
 
     public ModelManager() {
@@ -330,5 +335,15 @@ public class ModelManager implements Model {
 
     public String findPatientsByTag(Tag tag) {
         return this.patientManager.findPatientsByTag(tag);
+    }
+
+    public Patient getPatientByNric(String nric) {
+        return this.patientManager.getPatientByNric(nric);
+    }
+
+    //==========Consultation module============================================================================
+
+    public void createConsultation(Patient patient) {
+        this.consultationManager.createConsultation(patient);
     }
 }

@@ -25,9 +25,10 @@ public class Consultation {
     // after symptoms and assessments are parsed in, diagnosis is set
     // when drugs are prescribed, then prescriptions is set
     // once all the fields are not null, only then the consultation can be stored
-    public Consultation() {
-        index = -1;
-        session = LocalDateTime.now();
+    public Consultation(Patient patient) {
+        this.index = -1;
+        this.session = LocalDateTime.now();
+        this.patient = patient;
     }
 
     public int getIndex() {
@@ -44,10 +45,6 @@ public class Consultation {
 
     public Patient getPatient() {
         return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public Diagnosis getDiagnosis() {

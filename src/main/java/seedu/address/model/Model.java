@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import jdk.jshell.Diag;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -168,4 +170,10 @@ public interface Model {
     String findPatientsByNric(String searchSequence);
 
     String findPatientsByTag(Tag tag);
+
+    Patient getPatientByNric(String nric);
+
+    //==========Consultation methods=====================
+
+    void createConsultation(Patient patient);
 }

@@ -11,6 +11,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,22 +22,22 @@ public class SampleDataUtil {
         return new Restaurant[] {
             new Restaurant(new Name("Astons"), new Phone("66123024"), new Email("astons@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("Western")),
+                getTagSet("Western"), new Weblink("astons.com.sg")),
             new Restaurant(new Name("Bangkok Jam"), new Phone("65272758"), new Email("bangkokjam@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("Thai")),
+                getTagSet("Thai"), new Weblink("bangkokjam.com.sg")),
             new Restaurant(new Name("Chilis"), new Phone("63210283"), new Email("chilis@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("Mexican")),
+                getTagSet("Mexican"), new Weblink("chilis.com.sg")),
             new Restaurant(new Name("Ding Tai Fung"), new Phone("61031282"), new Email("dingtaifung@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("Chinese")),
+                getTagSet("Chinese"), new Weblink("bangkokjam.com.sg")),
             new Restaurant(new Name("Itacho"), new Phone("62492021"), new Email("itacho@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("Japanese", "Ramen")),
+                getTagSet("Japanese", "Ramen"), new Weblink("itacho.com.sg")),
             new Restaurant(new Name("McDonalds"), new Phone("62624417"), new Email("mcdonalds@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("FastFood"))
+                getTagSet("FastFood"), new Weblink("mcdonalds.com.sg"))
         };
     }
 

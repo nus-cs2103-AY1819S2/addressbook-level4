@@ -1,10 +1,11 @@
 package braintrain.model.card;
 
-import static braintrain.testutil.TypicalCards.BELGIUM;
-import static braintrain.testutil.TypicalCards.JAPAN;
-import static braintrain.testutil.TypicalCards.JAPAN_ANSWER;
-import static braintrain.testutil.TypicalCards.JAPAN_HINT;
-import static braintrain.testutil.TypicalCards.JAPAN_QUESTION;
+import static braintrain.testutil.TypicalCards.CARD_BELGIUM;
+import static braintrain.testutil.TypicalCards.CARD_JAPAN;
+import static braintrain.testutil.TypicalCards.CARD_JAPAN_CORE1;
+import static braintrain.testutil.TypicalCards.CARD_JAPAN_CORE2;
+import static braintrain.testutil.TypicalCards.CARD_JAPAN_OPT1;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -24,37 +25,37 @@ public class CardTest {
     @Test
     public void equals() {
         // Different type of object -> return false
-        assertFalse(BELGIUM.equals(new Object()));
+        assertFalse(CARD_BELGIUM.equals(new Object()));
 
         // Same object -> returns true
-        assertTrue(BELGIUM.equals(BELGIUM));
+        assertTrue(CARD_BELGIUM.equals(CARD_BELGIUM));
 
         // Different object -> returns false
-        assertFalse(BELGIUM.equals(JAPAN));
+        assertFalse(CARD_BELGIUM.equals(CARD_JAPAN));
 
         // Same cores and optionals -> returns true
-        Card belgiumCopy = new CardBuilder(BELGIUM).build();
-        assertTrue(BELGIUM.equals(belgiumCopy));
+        Card belgiumCopy = new CardBuilder(CARD_BELGIUM).build();
+        assertTrue(CARD_BELGIUM.equals(belgiumCopy));
 
         // Same cores with modified optionals -> returns false
-        Card modifiedCopy = new CardBuilder(JAPAN).withOptionals("Same characters as Kyoto").build();
-        assertFalse(JAPAN.equals(modifiedCopy));
+        Card modifiedCopy = new CardBuilder(CARD_JAPAN).withOptionals("Same characters as Kyoto").build();
+        assertFalse(CARD_JAPAN.equals(modifiedCopy));
 
         // Modify existing card to have same cores and optionals as another card -> returns true
-        modifiedCopy = new CardBuilder(BELGIUM)
-                .withCores(JAPAN_QUESTION, JAPAN_ANSWER)
-                .withOptionals(JAPAN_HINT).build();
-        assertTrue(JAPAN.equals(modifiedCopy));
+        modifiedCopy = new CardBuilder(CARD_BELGIUM)
+                .withCores(CARD_JAPAN_CORE1, CARD_JAPAN_CORE2)
+                .withOptionals(CARD_JAPAN_OPT1).build();
+        assertTrue(CARD_JAPAN.equals(modifiedCopy));
 
         // Same cores and optionals but different order for cores -> returns false
-        modifiedCopy = new CardBuilder(JAPAN).withCores(JAPAN_ANSWER, JAPAN_QUESTION).build();
-        assertFalse(JAPAN.equals(modifiedCopy));
+        modifiedCopy = new CardBuilder(CARD_JAPAN).withCores(CARD_JAPAN_CORE2, CARD_JAPAN_CORE1).build();
+        assertFalse(CARD_JAPAN.equals(modifiedCopy));
     }
 
     @Test
     public void setAndGetCoresAndOptionals() {
-        Card belgiumCopy = new CardBuilder(BELGIUM).build();
-        Card japanCopy = new CardBuilder(JAPAN).build();
+        Card belgiumCopy = new CardBuilder(CARD_BELGIUM).build();
+        Card japanCopy = new CardBuilder(CARD_JAPAN).build();
         // These two cards have different cores and optionals and should not be equal.
         assertNotEquals(belgiumCopy, japanCopy);
 
@@ -69,8 +70,8 @@ public class CardTest {
 
     @Test
     public void setAndGetCoreAndOptional() {
-        Card belgiumCopy = new CardBuilder(BELGIUM).build();
-        Card japanCopy = new CardBuilder(JAPAN).build();
+        Card belgiumCopy = new CardBuilder(CARD_BELGIUM).build();
+        Card japanCopy = new CardBuilder(CARD_JAPAN).build();
         assertNotEquals(belgiumCopy, japanCopy);
 
         belgiumCopy.setCore(0, japanCopy.getCore(0));
@@ -82,7 +83,7 @@ public class CardTest {
 
     @Test
     public void cardToString() {
-        Card belgiumCopy = new CardBuilder(BELGIUM).build();
+        Card belgiumCopy = new CardBuilder(CARD_BELGIUM).build();
         Card newCard = new Card(belgiumCopy.getCores(), belgiumCopy.getOptionals());
         // newCard should be a copy of belgiumCopy
         assertEquals(belgiumCopy, newCard);
@@ -93,7 +94,7 @@ public class CardTest {
     @Test
     public void getCore_invalidIndex_throwsMissingCoreException() {
         Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () -> {
-            Card testCard = new CardBuilder(JAPAN).build();
+            Card testCard = new CardBuilder(CARD_JAPAN).build();
             testCard.setCore(0, "");
             testCard.getCore(0);
         });
@@ -102,7 +103,7 @@ public class CardTest {
     @Test
     public void getOptional_invalidIndex_throwsMissingOptionalException() {
         Assert.assertThrows(MissingOptionalException.class, MissingOptionalException.generateMessage(0), () -> {
-            Card testCard = new CardBuilder(JAPAN).build();
+            Card testCard = new CardBuilder(CARD_JAPAN).build();
             testCard.setOptional(0, "");
             testCard.getOptional(0);
         });

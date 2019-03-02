@@ -2,7 +2,6 @@ package braintrain.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import braintrain.model.card.Card;
@@ -12,11 +11,8 @@ import braintrain.model.card.Card;
  */
 public class CardBuilder {
 
-    public static final List<String> DEFAULT_CORE = Collections.unmodifiableList(
-            Arrays.asList("What is the capital of Belgium?", "Brussels"));
-
-    public static final List<String> DEFAULT_OPTIONAL = Collections.unmodifiableList(
-            Arrays.asList("Starts with B"));
+    public static final List<String> DEFAULT_CORE = List.of("What is the capital of Belgium?", "Brussels");
+    public static final List<String> DEFAULT_OPTIONAL = List.of("Starts with B");
 
     private List<String> cores;
     private List<String> optionals;

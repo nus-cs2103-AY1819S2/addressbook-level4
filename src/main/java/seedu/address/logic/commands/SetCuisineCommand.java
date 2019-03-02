@@ -58,4 +58,22 @@ public class SetCuisineCommand extends Command {
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_SET_CUISINE_SUCCESS, restaurantWithCuisineAdded));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof SetCuisineCommand)) {
+            return false;
+        }
+
+        // state check
+        SetCuisineCommand e = (SetCuisineCommand) other;
+        return index.equals(e.index)
+                && cuisine.equals(e.cuisine);
+    }
 }

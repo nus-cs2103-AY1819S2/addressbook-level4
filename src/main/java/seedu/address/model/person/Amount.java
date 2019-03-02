@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-        public static final String MESSAGE_CONSTRAINTS = "Amounts must be positive numbers up to 2 decimal places";
+        public static final String MESSAGE_CONSTRAINTS = "Amounts must be positive numbers";
         public static final String VALIDATION_REGEX = "-?\\d+(\\.\\d+)?";
 
         public final double value;

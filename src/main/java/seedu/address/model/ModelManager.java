@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Semester;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -23,6 +25,10 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private Course course;
+    private Semester currentSemester;
+    private ArrayList<PlanPreference> planPreferences;
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
@@ -49,6 +55,38 @@ public class ModelManager implements Model {
     }
 
     //=========== UserPrefs ==================================================================================
+
+    @Override
+    public void setCourse(Course course) {
+        requireNonNull(course);
+        this.course = course;
+    }
+
+    @Override
+    public Course getCourse() {
+        return course;
+    }
+
+    @Override
+    public Semester getCurrentSemester() {
+        return currentSemester;
+    }
+
+    @Override
+    public Cap computeCumulativeCap() {
+        return new Cap("3.19");
+    }
+
+    @Override
+    public Cap computeExpectedMinimumCap() {
+        return new Cap("2.43");
+    }
+
+    @Override
+    public Cap computeExpectedMaximumCap() {
+        return new Cap("4.23");
+    }
+
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {

@@ -38,9 +38,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics` : adds a member named
+* *`memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`* : adds a member named
 `John Doe` to the ClubManager.
-* **`memberDelete 3` : deletes the 3rd member shown in the current list
+* *`memberDelete 3`* : deletes the 3rd member shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.

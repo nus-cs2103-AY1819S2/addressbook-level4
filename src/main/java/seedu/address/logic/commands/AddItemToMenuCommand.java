@@ -42,9 +42,7 @@ public class AddItemToMenuCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model);
         
-        ObservableList<String> commandHistories = history.getHistory();
-        int indexToCheck = commandHistories.size() - 1;
-        if (!commandHistories.get(indexToCheck).equals("menuMode")) {
+        if (!mode.equals(Mode.MENU_MODE)) {
             throw new CommandException(MESSAGE_INCORRECT_MODE);
         }
         

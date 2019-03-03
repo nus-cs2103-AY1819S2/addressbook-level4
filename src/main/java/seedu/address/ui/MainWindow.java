@@ -33,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private ListPanel listPanel;
+    private MenuListPanel menuListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     //  public Mode mode;
@@ -119,26 +119,21 @@ public class MainWindow extends UiPart<Stage> {
         // MenuMode: browser panel shows app logo
         if (mode.equals(Mode.TABLE_MODE)) {
             browserPanel = new BrowserPanel(logic.selectedMenuItemProperty());
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            // order list panel
+            
             isTableMode = true;
             isMenuMode = false;
         } else if (mode.equals(Mode.MENU_MODE)) {
-            browserPanel = null; // correct? wrong?
+            browserPanel = new BrowserPanel();
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                    logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+            
             isMenuMode = true;
             isTableMode = false;
         }
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        //  browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        //  browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        
-        // TODO: change according to mode
-        if (mode.equals(Mode.MENU_MODE)) {
-            listPanel = new ListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
-                    logic::setSelectedMenuItem);
-            isMenuMode = true;
-        }
-        //  listPanel = new ListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(), 
-        //          logic::setSelectedPerson);
-        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -191,8 +186,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ListPanel getListPanel() {
-        return listPanel;
+    public MenuListPanel getMenuListPanel() {
+        return menuListPanel;
     }
 
     /**

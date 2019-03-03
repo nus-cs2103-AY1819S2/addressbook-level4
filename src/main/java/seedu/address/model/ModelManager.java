@@ -143,7 +143,7 @@ public class ModelManager implements Model {
     @Override
     public void addMenuItem(MenuItem menuItem) {
         restOrRant.addMenuItem(menuItem);
-        updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENU_ITEMS);
+        updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENUITEMS);
     }
     // TODO: remove
     public void addPerson(Person person) {

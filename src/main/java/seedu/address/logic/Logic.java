@@ -92,7 +92,7 @@ public interface Logic {
     /**
      * Sets the selected menu item in the filtered menu item list.
      * 
-     * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
+     * @see seedu.address.model.Model#setSelectedItem(Item)
      */
     void setSelectedMenuItem(MenuItem menuItem);
 

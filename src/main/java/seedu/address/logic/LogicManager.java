@@ -71,11 +71,10 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    @Override
+    // returns
     public Mode getMode() {
         return mode;
     }
-    
     @Override
     public ReadOnlyRestOrRant getRestOrRant() {
         return model.getRestOrRant();

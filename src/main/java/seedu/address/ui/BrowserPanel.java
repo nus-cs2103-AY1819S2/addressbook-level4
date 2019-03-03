@@ -50,6 +50,11 @@ public class BrowserPanel extends UiPart<Region> {
 
         loadDefaultPage();
     }
+    
+    public BrowserPanel() {
+        super(FXML);
+        loadDefaultPage();
+    }
 
     // TODO: methods for different modes
     private void loadMenuItemPage(MenuItem menuItem) {

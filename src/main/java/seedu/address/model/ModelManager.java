@@ -139,6 +139,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void endTestSession() {
+        insideTestSession = false;
+    }
+
+    @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
 

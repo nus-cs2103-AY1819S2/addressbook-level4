@@ -20,6 +20,7 @@ public class EndCommand extends Command {
         if (!model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
         }
+        model.endTestSession();
         return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, false, false, null, true);
     }
 

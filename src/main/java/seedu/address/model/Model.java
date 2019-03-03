@@ -142,4 +142,9 @@ public interface Model {
      * false user is not.
      */
     boolean checkIfInsideTestSession();
+
+    /**
+     * End the current test session.
+     */
+    void endTestSession();
 }

@@ -69,7 +69,7 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
-    
+
     /**
      * Changes current mode of RestOrRant.
      */

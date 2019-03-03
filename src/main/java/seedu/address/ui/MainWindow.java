@@ -169,6 +169,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Changes application mode.
+     */
     @FXML
     private void handleChangeMode(Mode mode) { // TODO: insert relevant code for each mode.
         switch (mode) {
@@ -179,6 +182,8 @@ public class MainWindow extends UiPart<Stage> {
 
         case MENU_MODE: break;
 
+        default:
+            break;
         }
     }
 

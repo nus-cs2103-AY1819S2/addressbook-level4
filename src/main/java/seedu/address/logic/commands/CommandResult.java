@@ -61,7 +61,7 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
-    
+
     public Mode newModeStatus() {
         return toMode;
     }

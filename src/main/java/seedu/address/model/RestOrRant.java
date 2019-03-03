@@ -105,6 +105,10 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         indicateModified();
     }
 
+    public void changeMode() {
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

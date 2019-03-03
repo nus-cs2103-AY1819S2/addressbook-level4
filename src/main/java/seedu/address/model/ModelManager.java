@@ -215,4 +215,8 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get());
     }
 
+    @Override
+    public void changeMode() {
+        restOrRant.changeMode();
+    }
 }

@@ -107,4 +107,9 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Changes the current mode of the RestOrRant.
+     */
+    void changeMode();
 }

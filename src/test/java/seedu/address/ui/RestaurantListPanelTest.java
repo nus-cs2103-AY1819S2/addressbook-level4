@@ -20,8 +20,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 
 public class RestaurantListPanelTest extends GuiUnitTest {
     private static final ObservableList<Restaurant> TYPICAL_RESTAURANTS =
@@ -84,7 +86,10 @@ public class RestaurantListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Restaurant restaurant = new Restaurant(name, phone, email, address, Collections.emptySet());
+            Weblink weblink = new Weblink("a.com");
+            OpeningHours openingHours = new OpeningHours("24hrs");
+            Restaurant restaurant = new Restaurant(name, phone, email, address, Collections.emptySet(),
+                    weblink, openingHours);
             backingList.add(restaurant);
         }
         return backingList;

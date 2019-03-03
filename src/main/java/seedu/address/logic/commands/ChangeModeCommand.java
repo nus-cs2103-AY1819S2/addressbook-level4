@@ -35,7 +35,7 @@ public abstract class ChangeModeCommand {
 
         model.changeMode();
         changeMode();
-        
+
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

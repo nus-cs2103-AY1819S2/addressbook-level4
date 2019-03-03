@@ -73,15 +73,16 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s RestOrRant and {@code userPrefs}. <br>
+     * The data from the sample RestOrRant will be used instead if {@code storage}'s RestOrRant is not found,
+     * or an empty RestOrRant will be used instead if errors occur when reading {@code storage}'s RestOrRant.
+     * TODO: Write the sample RestOrRant files.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyRestOrRant> addressBookOptional;
         ReadOnlyRestOrRant initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readRestOrRant();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample RestOrRant");
             }

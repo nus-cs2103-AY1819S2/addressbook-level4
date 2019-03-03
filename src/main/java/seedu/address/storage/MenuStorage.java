@@ -11,12 +11,12 @@ import seedu.address.model.RestOrRant;
 /**
  * Represents a storage for {@link RestOrRant}.
  */
-public interface RestOrRantStorage {
+public interface MenuStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getRestOrRantFilePath();
+    Path getMenuFilePath();
 
     /**
      * Returns RestOrRant data as a {@link ReadOnlyRestOrRant}.
@@ -24,25 +24,25 @@ public interface RestOrRantStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException;
+    Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
 
     /**
-     * @see #getRestOrRantFilePath()
+     * @see #getMenuFilePath()
      */
-    Optional<ReadOnlyRestOrRant> readRestOrRant(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyRestOrRant> readMenu(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyRestOrRant} to the storage.
-     * @param restOrRant cannot be null.
+     * @param menu cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException;
+    void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
 
     /**
-     * @see #saveRestOrRant(ReadOnlyRestOrRant)
+     * @see #saveMenu(ReadOnlyRestOrRant)
      */
-    void saveRestOrRant(ReadOnlyRestOrRant addressBook, Path filePath) throws IOException;
+    void saveMenu(ReadOnlyRestOrRant menu, Path filePath) throws IOException;
 
-    void backupRestOrRant(ReadOnlyRestOrRant addressBook) throws IOException;
+    void backupMenu(ReadOnlyRestOrRant menu) throws IOException;
 
 }

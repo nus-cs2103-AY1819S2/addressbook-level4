@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
 
@@ -17,7 +18,7 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Mode mode, Model model, CommandHistory history) {
         requireNonNull(model);
         model.setRestOrRant(new RestOrRant());
         model.updateRestOrRant();

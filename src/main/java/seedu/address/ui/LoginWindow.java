@@ -67,6 +67,10 @@ public class LoginWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    void hide() {
+        primaryStage.hide();
+    }
+
     /**
      * Closes the application.
      */

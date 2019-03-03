@@ -24,7 +24,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Address;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 
@@ -86,7 +85,6 @@ public class CardListPanelTest extends GuiUnitTest {
         for (int i = 0; i < cardCount; i++) {
             Question question = new Question(i + "a");
             Answer answer = new Answer("000");
-            Email email = new Email("a@aa");
             Address address = new Address("a");
             Score score = new Score("0/1");
             Card card = new Card(question, answer, address, score, Collections.emptySet());

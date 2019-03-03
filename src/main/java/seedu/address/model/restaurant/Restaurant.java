@@ -29,8 +29,11 @@ public class Restaurant {
     private final Weblink weblink;
     private final Set<Review> reviews = new HashSet<>();
 
+    // Category fields
+    private final Optional<Cuisine> cuisine;
+
     /**
-     * Constructor for Restaurant class without Reviews.
+     * Constructor for Restaurant class without Reviews and Cuisine
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink) {
@@ -41,10 +44,24 @@ public class Restaurant {
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.cuisine = Optional.empty();
     }
 
-    // Category fields
-    private final Optional<Cuisine> cuisine;
+    /**
+     * Constructor for Restaurant without Reviews.
+     * Every field must be present and not null.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
+                      Weblink weblink) {
+        requireAllNonNull(name, phone, email, address, tags, weblink);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.weblink = weblink;
+        this.cuisine = cuisine;
+    }
 
     /**
      * Every field must be present and not null.
@@ -81,6 +98,7 @@ public class Restaurant {
         this.address = address;
         this.tags.addAll(tags);
         this.cuisine = cuisine;
+        this.weblink = Weblink.makeDefaultWeblink();
     }
 
     /**
@@ -96,6 +114,7 @@ public class Restaurant {
         this.address = restaurant.address;
         this.tags.addAll(restaurant.tags);
         this.cuisine = Optional.of(cuisine);
+        this.weblink = Weblink.makeDefaultWeblink();
     }
 
     public Name getName() {

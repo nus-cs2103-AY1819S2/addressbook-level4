@@ -26,6 +26,7 @@ public class JsonAdaptedRestaurantTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_CUISINE = "Fast$Food";
     private static final String INVALID_WEBLINK = "kfc@com";
+    private static final String INVALID_OPENING_HOURS = "12 to 230";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -36,6 +37,7 @@ public class JsonAdaptedRestaurantTest {
             .collect(Collectors.toList());
     private static final String VALID_CUISINE = BENSON.getCuisine().toString();
     private static final String VALID_WEBLINK = BENSON.getWeblink().toString();
+    private static final String VALID_OPENING_HOURS = BENSON.getOpeningHours().toString();
 
     @Test
     public void toModelType_validRestaurantDetails_returnsRestaurant() throws Exception {
@@ -46,7 +48,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(INVALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -54,7 +56,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(null, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -62,7 +64,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, INVALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -70,7 +72,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, null, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -78,7 +80,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, INVALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -86,7 +88,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, null,
-                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -94,7 +96,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                INVALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                INVALID_ADDRESS, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -102,7 +104,7 @@ public class JsonAdaptedRestaurantTest {
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                null, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK);
+                null, VALID_TAGS, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }
@@ -112,14 +114,14 @@ public class JsonAdaptedRestaurantTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, invalidTags, VALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, invalidTags, VALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         Assert.assertThrows(IllegalValueException.class, restaurant::toModelType);
     }
 
     @Test
     public void toModelType_invalidCuisine_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS, INVALID_CUISINE, VALID_WEBLINK);
+                VALID_ADDRESS, VALID_TAGS, INVALID_CUISINE, VALID_WEBLINK, VALID_OPENING_HOURS);
         String expectedMessage = Cuisine.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
     }

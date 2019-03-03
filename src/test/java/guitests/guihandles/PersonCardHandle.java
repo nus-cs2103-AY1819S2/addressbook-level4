@@ -68,7 +68,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
-    public String getSchool() { return schoolLabel.getText(); }
+    public String getSchool() {
+        return schoolLabel.getText();
+    }
 
     public List<String> getTags() {
         return tagLabels

@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 
@@ -226,6 +227,16 @@ public class AddCommandTest {
 
         @Override
         public void setSelectedCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
     }

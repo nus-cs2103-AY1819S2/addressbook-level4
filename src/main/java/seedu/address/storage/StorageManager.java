@@ -88,18 +88,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void deleteCardFolder(int index) throws IOException {
-        Path filePath = cardFolderStorageList.get(index).getcardFolderFilesPath();
-        logger.fine("Attempting to delete data file: " + filePath);
-        cardFolderStorageList.get(index).deleteCardFolder(filePath);
-        cardFolderStorageList.remove(index);
-    }
-
-    @Override
-    public void addCardFolder(ReadOnlyCardFolder cardFolder) throws IOException {
-        CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(
-                Paths.get("data\\" + cardFolder.getFolderName()));
-        cardFolderStorage.saveCardFolder(cardFolder, cardFolderStorage.getcardFolderFilesPath());
-        cardFolderStorageList.add(cardFolderStorage);
+    public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders) throws IOException {
+        cardFolderStorageList.clear();
+        for (ReadOnlyCardFolder cardFolder : cardFolders) {
+            // TODO: Address hardcoding and add check for orphaned folders
+            Path filePath = Paths.get("data\\" + cardFolder.getFolderName());
+            CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
+            cardFolderStorageList.add(cardFolderStorage);
+            cardFolderStorage.saveCardFolder(cardFolder);
+        }
     }
 }

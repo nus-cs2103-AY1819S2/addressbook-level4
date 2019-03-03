@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 
@@ -33,6 +35,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
@@ -176,18 +179,34 @@ public class ModelManager implements Model {
     @Override
     public void deleteFolder(int index) {
         filteredFoldersList.remove(index);
-        // TODO: Call storage method
+        indicateModified();
     }
 
     @Override
     public void addFolder(CardFolder cardFolder) {
         filteredFoldersList.add(new VersionedCardFolder(cardFolder));
-        // TODO: Call storage method
-
+        indicateModified();
     }
 
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListenerManager.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListenerManager.removeListener(listener);
+    }
+
+    /**
+     * Notifies listeners that the list of card folders has been modified.
+     */
+    protected void indicateModified() {
+        invalidationListenerManager.callListeners(this);
     }
 
     //=========== Filtered Card List Accessors =============================================================
@@ -308,5 +327,4 @@ public class ModelManager implements Model {
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());
     }
-
 }

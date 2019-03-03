@@ -21,7 +21,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.card.Address;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Question;
@@ -85,7 +84,6 @@ public class CardListPanelTest extends GuiUnitTest {
         for (int i = 0; i < cardCount; i++) {
             Question question = new Question(i + "a");
             Answer answer = new Answer("000");
-            Address address = new Address("a");
             Score score = new Score("0/1");
             Card card = new Card(question, answer, score, Collections.emptySet());
             backingList.add(card);

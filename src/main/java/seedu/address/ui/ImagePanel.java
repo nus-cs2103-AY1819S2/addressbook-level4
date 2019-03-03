@@ -1,14 +1,20 @@
 package seedu.address.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.net.MalformedURLException;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import seedu.address.Notifier;
 
 /**
- * The Browser Panel of the App.
+ * The Image Panel of the App.
  */
-public class ImagePanel extends UiPart<Region> {
+public class ImagePanel extends UiPart<Region> implements PropertyChangeListener {
 
     private static final String FXML = "ImagePanel.fxml";
 
@@ -17,8 +23,21 @@ public class ImagePanel extends UiPart<Region> {
 
     public ImagePanel() {
         super(FXML);
-        Image image = new Image("https://i.imgur.com/zy0dRYh.jpg");
-        imageView.setImage(image);
+        Notifier.addPropertyChangeListener(this);
+        imageView.setImage(new Image("/assets/sample.png"));
     }
 
+    public void propertyChange(PropertyChangeEvent event) {
+        if (event.getPropertyName().equals("import")) {
+            File f = new File("src/main/resources/assets/" + event.getNewValue().toString());
+            try {
+                System.out.println(f.toURI().toURL().toExternalForm());
+                Image i = new Image(f.toURI().toURL().toExternalForm());
+                imageView.setImage(i);
+            } catch (MalformedURLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
 }
+

@@ -3,8 +3,6 @@ package seedu.address.model.image;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
@@ -43,9 +41,6 @@ public class Image {
             this.height = buffer.getHeight();
             this.width = buffer.getWidth();
 
-            // Encode image.
-            this.encodedImage = encode(url);
-
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -74,13 +69,14 @@ public class Image {
         return encodedImage;
     }
 
+
     public String encode(String url) throws IOException {
         byte[] fileContent = FileUtils.readFileToByteArray(new File(url));
         return Base64.getEncoder().encodeToString(fileContent);
     }
 
     public void printMetadata() throws IOException, ImageProcessingException {
-        Metadata metadata = ImageMetadataReader.readMetadata(new BufferedInputStream(new ByteArrayInputStream(Base64.getDecoder().decode(encodedImage))), true);
+        Metadata metadata = ImageMetadataReader.readMetadata(new File("src/main/resources/assets/" + this.name));
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
                 System.out.println(tag);

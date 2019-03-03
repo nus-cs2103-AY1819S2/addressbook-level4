@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -37,10 +37,10 @@ public class PutShipCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_COORDINATE + "COORDINATES]\n"
+            + "[" + PREFIX_COORDINATES + "COORDINATES]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Destroyer "
-            + PREFIX_COORDINATE + "c1";
+            + PREFIX_COORDINATES + "c1";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Put ship in cell: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This cell already exists in the address book.";

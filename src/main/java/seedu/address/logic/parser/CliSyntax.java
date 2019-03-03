@@ -12,7 +12,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_MAP_SIZE = new Prefix("s/");
-
-    public static final Prefix PREFIX_COORDINATE = new Prefix("c/");
+    public static final Prefix PREFIX_COORDINATES = new Prefix("c/");
 
 }

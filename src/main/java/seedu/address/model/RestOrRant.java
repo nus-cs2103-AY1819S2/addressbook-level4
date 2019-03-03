@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.logic.Mode;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.UniqueOrderItemList;
 import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods

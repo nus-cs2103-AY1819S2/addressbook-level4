@@ -41,7 +41,7 @@ public abstract class ChangeModeCommand {
 
     /**
      * Checks if mode to change to is same as the current mode.
-     * 
+     *
      * @param mode mode to change to.
      * @return true if mode is same as current mode, otherwise false.
      */

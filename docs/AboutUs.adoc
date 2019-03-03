@@ -70,7 +70,7 @@ Responsibilities: Records IO
 '''
 
 === Wang Debang
-image::db.JPG[width="150", aligh="left"]
+image::wsemis.JPG[width="150", aligh="left"]
 {empty}[https://github.com/wSemis[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

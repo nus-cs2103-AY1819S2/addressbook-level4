@@ -156,30 +156,27 @@ public class MainApp extends Application {
      * reading from the file.
      */
     protected Lessons initLessons(LessonsStorage storage) {
-        Path prefsFilePath = storage.getLessonsFolderPath();
-        logger.info("Using prefs file : " + prefsFilePath);
+        Path lessonsFolderPath = storage.getLessonsFolderPath();
+        logger.info("Using lessons folder : " + lessonsFolderPath);
 
         Lessons initializedLessons = null;
-        /*
         try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
+            Optional<Lessons> prefsOptional = storage.readLessons();
+            initializedLessons = prefsOptional.orElse(new Lessons());
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with a empty BrainTrain");
-            initializedPrefs = new UserPrefs();
+            initializedLessons = new Lessons();
         }
-
+        /*
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-*/
+        */
+
+        logger.info(initializedLessons.getLessons().size() + " lessons loaded.");
         return initializedLessons;
     }
 

@@ -30,6 +30,10 @@ public class CsvLessonsStorageTest {
         "emptyLessonFile");
     private static final Path INVALID_CORE_COUNT_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
         "invalidCoreCount");
+    private static final Path MISSING_CORE_VALUE_FOLDER = Paths.get("src", "test", "data",
+        "CsvLessonsStorageTest", "missingCoreValues");
+    private static final Path INVALID_VALUES_FOLDER = Paths.get("src", "test", "data",
+        "CsvLessonsStorageTest", "invalidValues");
     private static final Path READ_ONLY_FILE_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
         "readOnlyFile");
 
@@ -109,10 +113,23 @@ public class CsvLessonsStorageTest {
         Lessons actual = readLessons(INVALID_CORE_COUNT_FOLDER).get();
         assertEquals(new Lessons(), actual);
     }
+
     @Test
     public void readLessons_emptyFolder_emptyResult() throws IOException {
         Lessons actual = readLessons(testFolder.newFolder().toPath()).get();
         assertEquals(new Lessons(), actual);
+    }
+
+    @Test
+    public void readLessons_invalidData_cardIgnored() {
+        Lessons lessons = readLessons(INVALID_VALUES_FOLDER).get();
+        assertEquals(0, lessons.getLesson(0).getCards().size());
+    }
+
+    @Test
+    public void readLessons_missingData_cardIgnored() {
+        Lessons lessons = readLessons(MISSING_CORE_VALUE_FOLDER).get();
+        assertEquals(0, lessons.getLesson(0).getCards().size());
     }
 
     @Test

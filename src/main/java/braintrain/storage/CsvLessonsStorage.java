@@ -15,6 +15,7 @@ import braintrain.commons.core.LogsCenter;
 import braintrain.commons.util.CsvUtil;
 import braintrain.model.Lessons;
 import braintrain.model.lesson.Lesson;
+import braintrain.model.lesson.exceptions.MissingCoreValueException;
 
 /**
  * A class to access Lessons stored in the hard disk as a csv file
@@ -96,6 +97,15 @@ public class CsvLessonsStorage implements LessonsStorage {
             lessonName = lessonName.substring(0, extensionPos);
             List<String> fields = Arrays.asList(header);
             Lesson newLesson = new Lesson(lessonName, coreCount, fields);
+            for (int i = 1; i < data.size(); i++) {
+                try {
+                    newLesson.addCard(Arrays.asList(data.get(i)));
+                } catch (IllegalArgumentException e) {
+                    continue;
+                } catch (MissingCoreValueException e) {
+                    continue;
+                }
+            }
             lessons.addLesson(newLesson);
         }
         return Optional.of(lessons);

@@ -75,11 +75,13 @@ public class Reminder {
                 .append("Date: ")
                 .append(getDate() + "\n")
                 .append("Start Time: ")
-                .append(getStartTime() + "\n")
-                .append("End Time: ")
-                .append(getEndTime() + "\n")
-                .append("Comments: ")
-                .append(getComment() + "\n");
+                .append(getStartTime() + "\n");
+        if (endTime != null) {
+            builder.append("End Time: ").append(getEndTime() + "\n");
+        }
+        if (comment != null) {
+            builder.append("Comments: ").append(getComment() + "\n");
+        }
         return builder.toString();
     }
 }

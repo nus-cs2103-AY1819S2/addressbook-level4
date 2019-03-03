@@ -19,9 +19,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.*;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyTopDeck;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Card;
+import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {
 
@@ -33,28 +36,28 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
+        Card validCard = new CardBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validCard).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateCard_throwsCommandException() throws Exception {
+        Card validCard = new CardBuilder().build();
+        AddCommand addCommand = new AddCommand(validCard);
+        ModelStub modelStub = new ModelStubWithCard(validCard);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CARD);
@@ -63,26 +66,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Card addition = new CardBuilder().withQuestion("What is 1 + 1?").build();
+        Card subtraction = new CardBuilder().withQuestion("What is 10 - 8?").build();
+        AddCommand addAdditionCommand = new AddCommand(addition);
+        AddCommand addSubtractionCommand = new AddCommand(subtraction);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAdditionCommand.equals(addAdditionCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAdditionCommandCopy = new AddCommand(addition);
+        assertTrue(addAdditionCommand.equals(addAdditionCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAdditionCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAdditionCommand.equals(null));
 
         // different card -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAdditionCommand.equals(addSubtractionCommand));
     }
 
     /**
@@ -120,7 +123,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -135,27 +138,26 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteCard(Card target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setCard(Card target, Card editedCard) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredCardList() {
+        public ObservableList<Card> getFilteredCardList() {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -185,17 +187,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Person> selectedCardProperty() {
+        public ReadOnlyProperty<Card> selectedCardProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Person getSelectedCard() {
+        public Card getSelectedCard() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Person person) {
+        public void setSelectedCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -203,37 +205,37 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single card.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithCard extends ModelStub {
+        private final Card card;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithCard(Card card) {
+            requireNonNull(card);
+            this.card = card;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasCard(Card card) {
+            requireNonNull(card);
+            return this.card.isSameCard(card);
         }
     }
 
     /**
      * A Model stub that always accept the card being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCardAdded extends ModelStub {
+        final ArrayList<Card> cardsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasCard(Card card) {
+            requireNonNull(card);
+            return cardsAdded.stream().anyMatch(card::isSameCard);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addCard(Card card) {
+            requireNonNull(card);
+            cardsAdded.add(card);
         }
 
         @Override
@@ -243,7 +245,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyTopDeck getTopDeck() {
-            return new AddressBook();
+            return new TopDeck();
         }
     }
 

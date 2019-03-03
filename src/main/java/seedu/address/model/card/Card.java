@@ -91,7 +91,6 @@ public class Card {
         Card otherCard = (Card) other;
         return otherCard.getQuestion().equals(getQuestion())
                 && otherCard.getAnswer().equals(getAnswer())
-                && otherCard.getAddress().equals(getAddress())
                 && otherCard.getScore().equals(getScore())
                 && otherCard.getHints().equals(getHints());
     }
@@ -99,7 +98,7 @@ public class Card {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, address, score, hints);
+        return Objects.hash(question, answer, score, hints);
     }
 
     @Override
@@ -108,8 +107,6 @@ public class Card {
         builder.append(getQuestion())
                 .append(" Answer: ")
                 .append(getAnswer())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Score: ")
                 .append(getScore())
                 .append(" Hints: ");

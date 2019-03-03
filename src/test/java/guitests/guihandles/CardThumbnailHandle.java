@@ -16,13 +16,11 @@ import seedu.address.model.card.Card;
 public class CardThumbnailHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String QUESTION_FIELD_ID = "#question";
-    private static final String ADDRESS_FIELD_ID = "#address";
     private static final String ANSWER_FIELD_ID = "#answer";
     private static final String HINTS_FIELD_ID = "#hints";
 
     private final Label idLabel;
     private final Label questionLabel;
-    private final Label addressLabel;
     private final Label answerLabel;
     private final List<Label> hintLabel;
 
@@ -31,7 +29,6 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         questionLabel = getChildNode(QUESTION_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
         answerLabel = getChildNode(ANSWER_FIELD_ID);
 
         Region hintContainer = getChildNode(HINTS_FIELD_ID);
@@ -50,10 +47,6 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
         return questionLabel.getText();
     }
 
-    public String getAddress() {
-        return addressLabel.getText();
-    }
-
     public String getAnswer() {
         return answerLabel.getText();
     }
@@ -70,7 +63,6 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
      */
     public boolean equals(Card card) {
         return getQuestion().equals(card.getQuestion().fullQuestion)
-                && getAddress().equals(card.getAddress().value)
                 && getAnswer().equals(card.getAnswer().fullAnswer)
                 && ImmutableMultiset.copyOf(getHint()).equals(ImmutableMultiset.copyOf(card.getHints().stream()
                         .map(hint -> hint.hintName)

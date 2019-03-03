@@ -4,6 +4,7 @@ import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 
 /**
  * Unmodifiable view of RestOrRant
@@ -14,6 +15,11 @@ public interface ReadOnlyRestOrRant extends Observable {
      * Returns an unmodifiable view of the order items list.
      */
     ObservableList<OrderItem> getOrderItemList();
+
+    /**
+     * Returns an unmodifiable view of the tables list.
+     */
+    ObservableList<Table> getTableList();
 
     ObservableList<Person> getPersonList(); // TODO: remove
 

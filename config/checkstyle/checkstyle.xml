@@ -76,10 +76,7 @@
     -->
     <module name="UnusedImports"/>
 
-    <module name="AvoidStarImport">
-      <property name="excludes" value="seedu.address.logic.commands.CommandTestUtil,
-      seedu.address.logic.parser.CliSyntax"/>
-    </module>
+    <module name="AvoidStarImport"/>
 
     <!--
     NAMING CHECKS

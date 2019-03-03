@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +26,22 @@ public class Restaurant {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Weblink weblink;
+    private final Set<Review> reviews = new HashSet<>();
+
+    /**
+     * Constructor for Restaurant class without Reviews.
+     * Every field must be present and not null.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink) {
+        requireAllNonNull(name, phone, email, address, tags, weblink);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.weblink = weblink;
+    }
 
     // Category fields
     private final Optional<Cuisine> cuisine;
@@ -33,12 +50,23 @@ public class Restaurant {
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        this(name, phone, email, address, tags, Weblink.makeDefaultWeblink());
+    }
+
+    /**
+     * Constructor for Restaurant class with Reviews.
+     * Every field except reviews must be present and not null.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+                      Set<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, weblink, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.weblink = weblink;
+        this.reviews.addAll(reviews);
         this.cuisine = Optional.empty();
     }
 
@@ -86,6 +114,10 @@ public class Restaurant {
         return address;
     }
 
+    public Weblink getWeblink() {
+        return weblink;
+    }
+
     public Optional<Cuisine> getCuisine() {
         return cuisine;
     }
@@ -96,6 +128,14 @@ public class Restaurant {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable review set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Review> getReviews() {
+        return Collections.unmodifiableSet(reviews);
     }
 
     /**
@@ -131,13 +171,15 @@ public class Restaurant {
                 && otherRestaurant.getPhone().equals(getPhone())
                 && otherRestaurant.getEmail().equals(getEmail())
                 && otherRestaurant.getAddress().equals(getAddress())
-                && otherRestaurant.getTags().equals(getTags());
+                && otherRestaurant.getTags().equals(getTags())
+                && otherRestaurant.getWeblink().equals(getWeblink())
+                && otherRestaurant.getReviews().equals(getReviews());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, reviews);
     }
 
     @Override
@@ -150,6 +192,8 @@ public class Restaurant {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Weblink: ")
+                .append(getWeblink())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
 
@@ -158,6 +202,8 @@ public class Restaurant {
                     .append(content)
         );
 
+        builder.append(" Reviews: ");
+        getReviews().forEach(builder::append);
         return builder.toString();
     }
 

@@ -17,6 +17,7 @@ import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,6 +32,7 @@ class JsonAdaptedRestaurant {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String weblink;
 
     private final String cuisine;
 
@@ -40,7 +42,8 @@ class JsonAdaptedRestaurant {
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("cuisine") String cuisine) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("cuisine") String cuisine,
+                                 @JsonProperty("weblink") String weblink) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -49,6 +52,7 @@ class JsonAdaptedRestaurant {
             this.tagged.addAll(tagged);
         }
         this.cuisine = cuisine;
+        this.weblink = weblink;
     }
 
     /**
@@ -68,6 +72,7 @@ class JsonAdaptedRestaurant {
         } else {
             cuisine = null;
         }
+        weblink = source.getWeblink().value;
     }
 
     /**
@@ -123,8 +128,16 @@ class JsonAdaptedRestaurant {
             modelCuisine = Optional.of(cuisine).map(content -> new Cuisine(content));
         }
 
+        if (weblink == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weblink.class.getSimpleName()));
+        }
+        if (!Weblink.isValidWeblink(weblink)) {
+            throw new IllegalValueException(Weblink.MESSAGE_CONSTRAINTS);
+        }
+        final Weblink modelWeblink = new Weblink(weblink);
+
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelCuisine);
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelCuisine, modelWeblink);
     }
 
 }

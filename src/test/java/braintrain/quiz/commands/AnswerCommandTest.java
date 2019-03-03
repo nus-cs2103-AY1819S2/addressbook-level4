@@ -151,7 +151,7 @@ public class AnswerCommandTest {
         card.isCorrect(correctAns);
 
         String expectedMessage = MESSAGE_CORRECT
-            + String.format(AnswerCommand.MESSAGE_QUESTION, card.getQuestion());
+            + String.format(MESSAGE_QUESTION, card.getQuestion());
 
         assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
 

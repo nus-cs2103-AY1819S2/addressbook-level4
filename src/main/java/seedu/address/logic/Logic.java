@@ -69,4 +69,18 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Checks if there was a change in mode.
+     *
+     * @return true if mode has changed, false otherwise.
+     */
+    boolean hasModeChanged();
+
+    /**
+     * Gets current mode of RestOrRant
+     *
+     * @return current Mode
+     */
+    Mode getMode();
 }

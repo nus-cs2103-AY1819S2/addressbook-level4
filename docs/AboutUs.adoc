@@ -20,8 +20,7 @@ Role: Team lead
 image::siyingpoof.png[width="150", align="left"]
 {empty}[http://github.com/siyingpoof[github]]
 
-Role: Documentation +
-Responsibilities: UI
+Role: Documentation
 
 '''
 
@@ -29,8 +28,7 @@ Responsibilities: UI
 image::liuyy99.png[width="150", align="left"]
 {empty}[http://github.com/Liuyy99[github]]
 
-Role: Testing +
-Responsibilities: Data
+Role: Testing
 
 '''
 
@@ -38,8 +36,7 @@ Responsibilities: Data
 image::wayneswq.png[width="150", align="left"]
 {empty}[http://github.com/wayneswq[github]]
 
-Role: Code quality +
-Responsibilities: Code quality
+Role: Code quality
 
 '''
 

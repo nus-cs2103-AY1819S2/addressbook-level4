@@ -123,7 +123,9 @@ public class Restaurant {
         return weblink;
     }
 
-    public OpeningHours getOpeningHours() { return openingHours; }
+    public OpeningHours getOpeningHours() {
+        return openingHours;
+    }
 
     public Optional<Cuisine> getCuisine() {
         return cuisine;

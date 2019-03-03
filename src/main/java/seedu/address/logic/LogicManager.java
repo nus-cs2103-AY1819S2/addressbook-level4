@@ -76,6 +76,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    @Override
     public void changeMode(Mode mode) {
         this.mode = mode;
     }

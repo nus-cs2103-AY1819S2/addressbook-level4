@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.Mode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -168,6 +169,24 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Changes application mode.
+     */
+    @FXML
+    private void handleChangeMode(Mode mode) { // TODO: insert relevant code for each mode.
+        switch (mode) {
+
+        case RESTAURANT_MODE: break;
+
+        case TABLE_MODE: break;
+
+        case MENU_MODE: break;
+
+        default:
+            break;
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -182,6 +201,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            Mode newMode = commandResult.newModeStatus();
+
+            if (newMode != null) {
+                handleChangeMode(newMode);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

@@ -8,14 +8,14 @@ import braintrain.model.user.CardData;
 /**
  * Represents a flashcard contains both core fields(question and answer) and srs data.
  */
-public class SrsCard {
+public class SRSCard {
     private Card card;
     private CardData cardData;
     private Lesson lesson;
     private int questionIndex;
     private int answerIndex;
 
-    public SrsCard(Card card, CardData cardData, Lesson lesson) {
+    public SRSCard(Card card, CardData cardData, Lesson lesson) {
         this.card = card;
         this.cardData = cardData;
         this.lesson = lesson;
@@ -23,7 +23,7 @@ public class SrsCard {
         questionIndex = lesson.getQuestionIndex();
         answerIndex = lesson.getAnswerIndex();
     }
-    public SrsCard() {
+    public SRSCard() {
 
     }
 

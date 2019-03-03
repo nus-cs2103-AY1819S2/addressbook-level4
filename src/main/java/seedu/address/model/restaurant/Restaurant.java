@@ -5,8 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -27,8 +29,11 @@ public class Restaurant {
     private final Weblink weblink;
     private final Set<Review> reviews = new HashSet<>();
 
+    // Category fields
+    private final Optional<Cuisine> cuisine;
+
     /**
-     * Constructor for Restaurant class without Reviews.
+     * Constructor for Restaurant class without Reviews and Cuisine
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink) {
@@ -39,6 +44,23 @@ public class Restaurant {
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.cuisine = Optional.empty();
+    }
+
+    /**
+     * Constructor for Restaurant without Reviews.
+     * Every field must be present and not null.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
+                      Weblink weblink) {
+        requireAllNonNull(name, phone, email, address, tags, weblink);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.weblink = weblink;
+        this.cuisine = cuisine;
     }
 
     /**
@@ -62,6 +84,37 @@ public class Restaurant {
         this.tags.addAll(tags);
         this.weblink = weblink;
         this.reviews.addAll(reviews);
+        this.cuisine = Optional.empty();
+    }
+
+    /**
+     * Create new restaurant with Optional cuisine field.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine) {
+        requireAllNonNull(name, phone, email, address, tags, cuisine);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.cuisine = cuisine;
+        this.weblink = Weblink.makeDefaultWeblink();
+    }
+
+    /**
+     * Creates a new restaurant from an existing restaurant with cuisine set.
+     * @param restaurant the restaurant to set cuisine to
+     * @param cuisine the cuisine to be set
+     */
+    public Restaurant(Restaurant restaurant, Cuisine cuisine) {
+        requireAllNonNull(restaurant, cuisine);
+        this.name = restaurant.name;
+        this.phone = restaurant.phone;
+        this.email = restaurant.email;
+        this.address = restaurant.address;
+        this.tags.addAll(restaurant.tags);
+        this.cuisine = Optional.of(cuisine);
+        this.weblink = Weblink.makeDefaultWeblink();
     }
 
     public Name getName() {
@@ -82,6 +135,10 @@ public class Restaurant {
 
     public Weblink getWeblink() {
         return weblink;
+    }
+
+    public Optional<Cuisine> getCuisine() {
+        return cuisine;
     }
 
     /**
@@ -158,6 +215,12 @@ public class Restaurant {
                 .append(getWeblink())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+
+        this.cuisine.ifPresent(content ->
+            builder.append(" Cuisine: ")
+                    .append(content)
+        );
+
         builder.append(" Reviews: ");
         getReviews().forEach(builder::append);
         return builder.toString();

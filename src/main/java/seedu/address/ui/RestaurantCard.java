@@ -40,6 +40,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private Label cuisine;
+    @FXML
     private Label weblink;
     @FXML
     private VBox reviews;
@@ -53,6 +55,8 @@ public class RestaurantCard extends UiPart<Region> {
         address.setText(restaurant.getAddress().value);
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        restaurant.getCuisine().ifPresentOrElse(content -> cuisine.setText(content.value), () -> cuisine.setText(""));
         weblink.setText(restaurant.getWeblink().value);
         restaurant.getReviews().forEach(review -> reviews.getChildren().addAll(
                 new Label(review.getTimeStamp().toLocalDateTime().toString()),

@@ -43,7 +43,6 @@ public class EditPatientCommandTest {
 
     @Test
     public void executeValidEditPatient() {
-        System.out.println(modelManager.listFiftyPatients());
         Name name = new Name("Bob Toh");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("btan@gmail.com");

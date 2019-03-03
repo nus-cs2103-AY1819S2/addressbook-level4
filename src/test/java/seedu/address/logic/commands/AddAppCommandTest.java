@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,8 +38,8 @@ public class AddAppCommandTest {
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
         String comment = "This is a comment";
-        Patient patientToAdd = model.getPatientWithNric(nric);
-        Appointment toAdd = new Appointment(patientToAdd, date, start, end, comment);
+        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Appointment toAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
 
         model.addApp(toAdd);
     }
@@ -53,8 +54,8 @@ public class AddAppCommandTest {
 
         CommandResult commandResult = new AddAppCommand(nric, date, start, end, comment)
                 .execute(model, commandHistory);
-        Patient patientToAdd = model.getPatientWithNric(nric);
-        Appointment toAdd = new Appointment(patientToAdd, date, start, end, comment);
+        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Appointment toAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
 
         StringBuilder sb = new StringBuilder();
         sb.append("Appointment added:\n")

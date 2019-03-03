@@ -387,7 +387,7 @@ public class ModelManager implements Model {
         this.consultationManager.createConsultation(patient);
     }
 
-    public Patient getPatientWithNric(Nric nric) {
+    public Optional<Patient> getPatientWithNric(Nric nric) {
         return this.patientManager.getPatientWithNric(nric);
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.model.patient;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import seedu.address.model.tag.Tag;
 
@@ -219,12 +220,12 @@ public class PatientManager {
         return null;
     }
 
-    public Patient getPatientWithNric(Nric nric) {
+    public Optional<Patient> getPatientWithNric(Nric nric) {
         for (Patient patient : patientList) {
             if (patient.getNric().equals(nric)) {
-                return patient;
+                return Optional.of(patient);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -190,7 +191,7 @@ public interface Model {
 
     void createConsultation(Patient patient);
 
-    Patient getPatientWithNric(Nric nric);
+    Optional<Patient> getPatientWithNric(Nric nric);
 
     void diagnosePatient(Diagnosis diagnosis);
 

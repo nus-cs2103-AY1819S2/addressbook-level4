@@ -34,8 +34,8 @@ public class OpeningHours {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public static Weblink makeDefaultOpening() {
-        return new Weblink("No opening hours added");
+    public static OpeningHours makeDefaultOpening() {
+        return new OpeningHours("No opening hours added");
     }
 
     @Override

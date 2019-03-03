@@ -44,6 +44,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private Label weblink;
     @FXML
+    private Label openingHours;
+    @FXML
     private VBox reviews;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
@@ -58,6 +60,7 @@ public class RestaurantCard extends UiPart<Region> {
 
         restaurant.getCuisine().ifPresentOrElse(content -> cuisine.setText(content.value), () -> cuisine.setText(""));
         weblink.setText(restaurant.getWeblink().value);
+        openingHours.setText(restaurant.getOpeningHours().value);
         restaurant.getReviews().forEach(review -> reviews.getChildren().addAll(
                 new Label(review.getTimeStamp().toLocalDateTime().toString()),
                 new Label(review.getRating().toString()),

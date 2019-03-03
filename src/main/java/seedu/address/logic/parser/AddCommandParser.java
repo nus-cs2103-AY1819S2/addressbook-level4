@@ -69,6 +69,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @return new AddHealthWorkerCommand for the adding of health worker
      * with the fields specified in args
      * @throws ParseException if there are invalid/unfilled fields.
+     * TODO: Handling of preamble before command mode
      */
     public AddHealthWorkerCommand parseAddHealthWorker(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,

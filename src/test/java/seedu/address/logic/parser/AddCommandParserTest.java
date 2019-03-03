@@ -181,7 +181,7 @@ public class AddCommandParserTest {
                 new AddHealthWorkerCommand(expectedWorker));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser,  MODE_HEALTHWORKER + NAME_DESC_BETTY
+        assertParseSuccess(parser, MODE_HEALTHWORKER + NAME_DESC_BETTY
                 + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY
                 + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY,
                 new AddHealthWorkerCommand(expectedWorker));

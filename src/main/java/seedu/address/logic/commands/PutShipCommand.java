@@ -25,7 +25,7 @@ import seedu.address.model.cell.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing cell in the address book.
+ * Puts ship in an existing cell on the map.
  */
 public class PutShipCommand extends Command {
 

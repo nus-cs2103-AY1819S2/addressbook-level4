@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -14,7 +16,10 @@ public class EndCommand extends Command {
     public static final String MESSAGE_END_TEST_SESSION_SUCCESS = "End test session";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        if (!model.checkIfInsideTestSession()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+        }
         return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, false, false, null, true);
     }
 

@@ -7,6 +7,7 @@ import java.time.YearMonth;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.record.Statistics;
 
 /**
  * Gets the Statistics of the  clinic.
@@ -34,7 +35,8 @@ public class StatisticsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        return null;
-        // TODO
+        Statistics stats = model.getStatistics(this.fromYearMonth, this.toYearMonth);
+        return new CommandResult(
+                String.format(stats.toString()));
     }
 }

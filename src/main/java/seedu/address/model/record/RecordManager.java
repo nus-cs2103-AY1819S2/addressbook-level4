@@ -55,4 +55,12 @@ public class RecordManager {
         MonthRecord monthRecord = monthRecords.get(getYearMonthIndex(yearMonth));
         return monthRecord.getStatistics();
     }
+    public Statistics getStatistics(YearMonth from, YearMonth to) {
+        return new Statistics();
+        // TODO
+    }
+    @Override
+    public String toString() {
+        return super.toString(); // TODO
+    }
 }

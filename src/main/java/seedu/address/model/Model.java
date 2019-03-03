@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.YearMonth;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -12,6 +13,7 @@ import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Statistics;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 
@@ -216,4 +218,6 @@ public interface Model {
 
     String listRem();
 
+    //===========Record module operations=============================
+    Statistics getStatistics(YearMonth from, YearMonth to);
 }

@@ -53,7 +53,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return foodDiaryFilePath;
     }
 
-    public String getName(){return name; }
+    public String getName(){ return name; }
 
     public void setFoodDiaryFilePath(Path foodDiaryFilePath) {
         requireNonNull(foodDiaryFilePath);
@@ -89,6 +89,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + foodDiaryFilePath);
+        sb.append("\nName" + name);
         return sb.toString();
     }
 

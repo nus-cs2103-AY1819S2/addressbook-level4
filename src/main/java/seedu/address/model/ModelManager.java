@@ -83,10 +83,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getName(){ return userPrefs.getName(); }
+    public String getName() {
+        return userPrefs.getName();
+    }
 
     @Override
-    public void setName(String name){
+    public void setName(String name) {
         userPrefs.setName(name);
     }
 

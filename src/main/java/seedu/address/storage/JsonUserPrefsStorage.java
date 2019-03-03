@@ -15,7 +15,6 @@ import seedu.address.model.UserPrefs;
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private Path filePath;
-    private String name;
 
     public JsonUserPrefsStorage(Path filePath) {
         this.filePath = filePath;

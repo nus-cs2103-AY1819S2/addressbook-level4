@@ -14,4 +14,5 @@ public interface ReadOnlyUserPrefs {
     Path getFoodDiaryFilePath();
 
     String getName();
+
 }

@@ -46,6 +46,68 @@ public class CsvLessonsStorage implements LessonsStorage {
         this.folderPath = folderPath;
     }
 
+    /**
+     * Parses the given file at the path into a lesson, in the following order:
+     *
+     * - Reads the file into a List of String arrays
+     * - Parses the first String array as a header
+     *      -> Values marked as core using CORE_ESCAPE have the marker removed
+     *      -> The count of cores is kept
+     * - Name of lesson is read from filename without extension
+     * - Fields of lesson read from modified header
+     * - Cards are read from remainder of data.
+     *
+     * TODO: Further refactoring.
+     * @param filePath Assumes not null.
+     * @return The parsed lesson.
+     */
+    private Optional<Lesson> parseFileIntoLesson(Path filePath) {
+        List<String[]> data;
+        try {
+            data = CsvUtil.readCsvFile(filePath);
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+        if (data == null) {
+            return Optional.empty();
+        }
+        String[] header = data.get(0);
+        int coreCount = 0;
+        boolean readingCores = true;
+        for (int i = 0; i < header.length; i++) {
+            String value = header[i];
+            if (value.startsWith(CORE_ESCAPE)) {
+                if (!readingCores) {
+                    logger.warning("File " + filePath.toString() + ": " + READ_WARNING_CORE_LABEL);
+                    continue;
+                }
+                coreCount++;
+                header[i] = value.substring(CORE_ESCAPE.length());
+            } else {
+                readingCores = false;
+            }
+        }
+        if (coreCount < Lesson.CORE_COUNT_MINIMUM) {
+            return Optional.empty();
+        }
+
+        String lessonName = filePath.getFileName().toString();
+        int extensionPos = lessonName.lastIndexOf(".");
+        lessonName = lessonName.substring(0, extensionPos);
+        List<String> fields = Arrays.asList(header);
+        Lesson newLesson = new Lesson(lessonName, coreCount, fields);
+        for (int i = 1; i < data.size(); i++) {
+            try {
+                newLesson.addCard(Arrays.asList(data.get(i)));
+            } catch (IllegalArgumentException e) {
+                continue;
+            } catch (MissingCoreValueException e) {
+                continue;
+            }
+        }
+        return Optional.of(newLesson);
+    }
+
     @Override
     public Optional<Lessons> readLessons() {
         return readLessons(folderPath);
@@ -64,49 +126,8 @@ public class CsvLessonsStorage implements LessonsStorage {
             return Optional.empty();
         }
         for (Path filePath : paths) {
-            List<String[]> data;
-            try {
-                data = CsvUtil.readCsvFile(filePath);
-            } catch (IOException e) {
-                continue;
-            }
-            if (data == null) {
-                continue;
-            }
-            String[] header = data.get(0);
-            int coreCount = 0;
-            boolean readingCores = true;
-            for (int i = 0; i < header.length; i++) {
-                String value = header[i];
-                if (value.startsWith(CORE_ESCAPE)) {
-                    if (!readingCores) {
-                        logger.warning("File " + filePath.toString() + ": " + READ_WARNING_CORE_LABEL);
-                        continue;
-                    }
-                    coreCount++;
-                    header[i] = value.substring(CORE_ESCAPE.length());
-                } else {
-                    readingCores = false;
-                }
-            }
-            if (coreCount < Lesson.CORE_COUNT_MINIMUM) {
-                continue;
-            }
-            String lessonName = filePath.getFileName().toString();
-            int extensionPos = lessonName.lastIndexOf(".");
-            lessonName = lessonName.substring(0, extensionPos);
-            List<String> fields = Arrays.asList(header);
-            Lesson newLesson = new Lesson(lessonName, coreCount, fields);
-            for (int i = 1; i < data.size(); i++) {
-                try {
-                    newLesson.addCard(Arrays.asList(data.get(i)));
-                } catch (IllegalArgumentException e) {
-                    continue;
-                } catch (MissingCoreValueException e) {
-                    continue;
-                }
-            }
-            lessons.addLesson(newLesson);
+            Optional<Lesson> newLesson = parseFileIntoLesson(filePath);
+            newLesson.ifPresent(lessons::addLesson);
         }
         return Optional.of(lessons);
     }

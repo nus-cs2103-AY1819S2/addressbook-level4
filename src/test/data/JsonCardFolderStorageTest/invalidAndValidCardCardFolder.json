@@ -3,12 +3,10 @@
   "cards": [ {
     "question": "Valid Card",
     "answer": "9482424",
-    "address": "4th street",
     "score": "0/0"
   }, {
     "question": "Card With Invalid Answer Field",
     "answer": " ",
-    "address": "4th street",
     "score": "0/0"
   } ]
 }

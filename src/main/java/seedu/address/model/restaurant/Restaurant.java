@@ -186,7 +186,7 @@ public class Restaurant {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, reviews);
+        return Objects.hash(name, phone, email, address, tags, weblink, openingHours, reviews);
     }
 
     @Override

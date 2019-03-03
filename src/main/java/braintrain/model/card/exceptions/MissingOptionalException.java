@@ -2,16 +2,14 @@ package braintrain.model.card.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified optional value.
- * Used by {@code Card}.
  */
 public class MissingOptionalException extends RuntimeException {
-    private static String MISSING_OPTIONAL_PREFIX = "Optional value: ";
-    // Used by MissingOptionalException(int missingOptionalIndex)
-    private static String MISSING_OPTIONAL_SUFFIX = " is missing.";
-    // Used by MissingOptionalException(int missingOptionalIndex)
+    private static final String MISSING_OPTIONAL_PREFIX = "Optional value: ";
+    private static final String MISSING_OPTIONAL_SUFFIX = " is missing.";
 
     /**
-     * Constructs a MissingOptionalException with a custom detail message specifying the missing optional's index.
+     * Constructs a {@code MissingOptionalException} with a custom detail message specifying the missing
+     * optional's index.
      *
      * @param missingOptionalIndex the index of the missing optional in the list
      */
@@ -20,10 +18,10 @@ public class MissingOptionalException extends RuntimeException {
     }
 
     /**
-     * Constructs the custom detail message specifying the missing optional's index for testing by {@code LessonTest}.
+     * Generates the custom detail message which will be generated when the exception is constructed.
      *
      * @param missingOptionalIndex the index of the missing optional in the list
-     * @return the detail message which will be generated if a MissingOptionalException occurs for a specified index.
+     * @return the message which will be generated if a {@code MissingOptionalException} occurs for a specified index.
      */
     public static String generateMessage(int missingOptionalIndex) {
         final StringBuilder builder = new StringBuilder();

@@ -2,14 +2,13 @@ package braintrain.model.card.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified core value.
- * Used by {@code Card} and {@code Lesson}.
  */
 public class MissingCoreException extends RuntimeException {
-    private static String MISSING_CORE_PREFIX = "Core value: "; // Used by MissingCoreException(int missingCoreIndex)
-    private static String MISSING_CORE_SUFFIX = " is missing."; // Used by MissingCoreException(int missingCoreIndex)
+    private static final String MISSING_CORE_PREFIX = "Core value: ";
+    private static final String MISSING_CORE_SUFFIX = " is missing.";
 
     /**
-     * Constructs a MissingCoreException with a custom detail message specifying the missing core's index.
+     * Constructs a {@code MissingCoreException} with a custom detail message specifying the missing core's index.
      *
      * @param missingCoreIndex the index of the missing core in the list
      */
@@ -18,10 +17,10 @@ public class MissingCoreException extends RuntimeException {
     }
 
     /**
-     * Constructs the custom detail message specifying the missing core's index for testing by {@code LessonTest}.
+     * Generates the custom detail message which will be generated when the exception is constructed.
      *
      * @param missingCoreIndex the index of the missing core in the list
-     * @return the detail message which will be generated if a MissingCoreException occurs for a specified index.
+     * @return the message which will be generated if a {@code MissingCoreException} occurs for a specified index.
      */
     public static String generateMessage(int missingCoreIndex) {
         final StringBuilder builder = new StringBuilder();

@@ -32,6 +32,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private boolean insideTestSession;
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
@@ -128,6 +129,7 @@ public class ModelManager implements Model {
     public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
         //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
         Card cardToTest = cardFolderToTest.getCardList().get(0);
+        insideTestSession = true;
         return cardToTest;
     }
 

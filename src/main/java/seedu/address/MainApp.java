@@ -22,9 +22,11 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.JsonRestOrRantStorage;
+import seedu.address.storage.JsonMenuStorage;
+import seedu.address.storage.JsonRestOrRantStorage; // remove
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.RestOrRantStorage;
+import seedu.address.storage.MenuStorage;
+import seedu.address.storage.RestOrRantStorage; // remove
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -61,7 +63,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(userPrefs.getRestOrRantFilePath());
-        storage = new StorageManager(restOrRantStorage, userPrefsStorage);
+        MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
+        storage = new StorageManager(restOrRantStorage, menuStorage, userPrefsStorage); // TODO: remove restOrRantStorage
 
         initLogging(config);
 
@@ -79,14 +82,17 @@ public class MainApp extends Application {
      * TODO: Write the sample RestOrRant files.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        // TODO: remove, add Optional<ReadOnlyRestOrRant> for each feature / each json file
         Optional<ReadOnlyRestOrRant> addressBookOptional;
+        Optional<ReadOnlyRestOrRant> menuOptional;
         ReadOnlyRestOrRant initialData;
         try {
-            addressBookOptional = storage.readRestOrRant();
-            if (!addressBookOptional.isPresent()) {
+            // TODO: read file for each feature
+            menuOptional = storage.readMenu();
+            if (!menuOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample RestOrRant");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = menuOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");
             initialData = new RestOrRant();

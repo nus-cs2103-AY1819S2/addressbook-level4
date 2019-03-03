@@ -53,8 +53,6 @@ public interface Logic {
      * Returns the user pref's menu file path.
      */
     Path getMenuFilePath();
-    
-    Mode getMode();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -92,7 +90,7 @@ public interface Logic {
     /**
      * Sets the selected menu item in the filtered menu item list.
      * 
-     * @see seedu.address.model.Model#setSelectedItem(Item)
+     * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
      */
     void setSelectedMenuItem(MenuItem menuItem);
 

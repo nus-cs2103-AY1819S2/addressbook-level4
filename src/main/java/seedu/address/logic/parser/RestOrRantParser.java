@@ -47,13 +47,6 @@ public class RestOrRantParser {
 
         //        FUTURE USAGE
         switch (commandWord) {
-            //
-            //        case RestaurantMode.COMMAND_WORD:
-            //            return new RestaurantModeCommand();
-            //
-            //        case TableMode.COMMAND_WORD:
-            //            return new TableModeCommand();
-            //
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
             case HelpCommand.COMMAND_ALIAS:
@@ -73,30 +66,6 @@ public class RestOrRantParser {
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-        //        if (mode == Mode.RM) {
-        //            switch (commandWord) {
-        //
-        //            case AddTableCommand.COMMAND_WORD:
-        //                return new AddTableCommandParser().parse(arguments);
-        //
-        //            }
-        //        } else if (mode == Mode.TM) {
-        //           switch (commandWord) {
-        //
-        //                case AddOrderToTable.COMMAND_WORD:
-        //                    return new AddOrderToTableCommandParser().parse(arguments);
-        //
-        //            }
-        //        } else if (mode == Mode.MM) {
-        //            switch (commandWord) {
-        //
-        //                case AddMenuItem.COMMAND_WORD:
-        //                    return new AddMenuItemCommandParser().parse(arguments);
-        //
-        //            }
-        //        } else {
-        //            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
-        //        }
 
         //        switch (commandWord) {
         //

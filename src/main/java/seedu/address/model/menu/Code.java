@@ -8,13 +8,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Code {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Item codes should be in the format <lowercase alphabet><double digit integer>, and it should not be blank";
+            "Item codes should be in the format <uppercase alphabet><double digit integer>, and it should not be blank";
 
     /*
      * The first character of the item code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[A-Z][0-9][0-9]]";
+    public static final String VALIDATION_REGEX = "[A-Z][0-9][0-9]";
     
     public final String itemCode;
     

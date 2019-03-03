@@ -36,9 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuListPanel menuListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    //  public Mode mode;
-    public boolean isMenuMode = false;
-    public boolean isTableMode = false;
+    public String currentMode;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -114,26 +112,24 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    public void fillInnerParts(Mode mode) {
+    public void fillInnerParts() {
         // TODO: change according to mode
         // MenuMode: browser panel shows app logo
-        if (mode.equals(Mode.TABLE_MODE)) {
+        //if (mode.equals(Mode.TABLE_MODE)) {
             browserPanel = new BrowserPanel(logic.selectedMenuItemProperty());
             browserPlaceholder.getChildren().add(browserPanel.getRoot());
             // order list panel
             
-            isTableMode = true;
-            isMenuMode = false;
-        } else if (mode.equals(Mode.MENU_MODE)) {
-            browserPanel = new BrowserPanel();
+            currentMode = "tableMode";
+        //} else if (mode.equals(Mode.MENU_MODE)) {
+            browserPanel = new BrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
             browserPlaceholder.getChildren().add(browserPanel.getRoot());
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
             
-            isMenuMode = true;
-            isTableMode = false;
-        }
+            currentMode = "menuMode";
+        //}
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

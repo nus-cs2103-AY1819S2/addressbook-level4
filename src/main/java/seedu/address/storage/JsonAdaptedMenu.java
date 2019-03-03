@@ -1,21 +1,9 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-//import seedu.address.model.person.Address;
-//import seedu.address.model.person.Email;
-//import seedu.address.model.person.Name;
-//import seedu.address.model.person.Person;
-//import seedu.address.model.person.Phone;
-//import seedu.address.model.tag.Tag;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Name;
@@ -33,7 +21,7 @@ class JsonAdaptedMenu {
     private final String price;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedMenu} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedMenu(@JsonProperty("name") String name, @JsonProperty("code") String code,

@@ -41,7 +41,7 @@ public class AddItemToMenuCommand extends Command {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model);
-        
+        System.out.println(mode.toString()); //WHY IS IT IN RESTAURANT MODE FFS
         if (!mode.equals(Mode.MENU_MODE)) {
             throw new CommandException(MESSAGE_INCORRECT_MODE);
         }

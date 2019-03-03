@@ -171,12 +171,18 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Start test session UI.
+     */
     private void handleStartTestSession(Card card) {
         Region testSessionRegion = (new TestSession(card)).getRoot();
         fullScreenPlaceholder.getChildren().set(0, testSessionRegion);
         fullScreenPlaceholder.getChildren().get(fullScreenPlaceholder.getChildren().size() - 1).toBack();
     }
 
+    /**
+     * End test session and display back card main screen.
+     */
     private void handleEndTestSession() {
         fullScreenPlaceholder.getChildren().get(fullScreenPlaceholder.getChildren().size() - 1).toBack();
     }

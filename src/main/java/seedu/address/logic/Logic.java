@@ -4,7 +4,9 @@ import java.nio.file.Path;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -39,6 +41,12 @@ public interface Logic {
      * The list is ordered from the least recent command to the most recent command.
      */
     ObservableList<String> getHistory();
+
+    /**
+     * Returns an unmodifiable view of the list of commands (and their inverse) executed by the user.
+     * The list is ordered from the least recent command to the most recent command.
+     */
+    ObservableList<Pair<Command, Command>> getCommandHistory();
 
     /**
      * Returns the user prefs' address book file path.

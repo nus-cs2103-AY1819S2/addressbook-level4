@@ -253,4 +253,8 @@ public class EditCommand extends Command {
                     && getTags().equals(e.getTags());
         }
     }
+
+    public Command inverse(Model model){
+        return this;
+    }
 }

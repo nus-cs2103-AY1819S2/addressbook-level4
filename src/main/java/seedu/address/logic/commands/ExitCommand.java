@@ -17,4 +17,7 @@ public class ExitCommand extends Command {
         return new ExitCommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
+    public Command inverse(Model model){
+        return this;
+    }
 }

@@ -7,6 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
+
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -45,6 +48,17 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
+    }
+
+    /**
+     * Creates a DeleteCommand to delete the specified {@code Person}
+     */
+    public DeleteCommand inverse(Model model){
+
+        List<Person> lastShownList = model.getFilteredPersonList();
+        Index targetIndex = Index.fromZeroBased(lastShownList.size()-1);
+        return new DeleteCommand(targetIndex);
+
     }
 
     @Override

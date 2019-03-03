@@ -19,4 +19,8 @@ public class HelpCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         return new HelpCommandResult(SHOWING_HELP_MESSAGE);
     }
+
+    public Command inverse(Model model){
+        return this;
+    }
 }

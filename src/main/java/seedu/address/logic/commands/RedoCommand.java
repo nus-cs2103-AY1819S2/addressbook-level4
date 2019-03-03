@@ -28,4 +28,7 @@ public class RedoCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    public Command inverse(Model model){
+        return this;
+    }
 }

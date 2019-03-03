@@ -19,4 +19,9 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
 
+    /*
+     * Inverts the command to produce its rollback version.
+     */
+    public abstract Command inverse(Model model) throws CommandException;
+
 }

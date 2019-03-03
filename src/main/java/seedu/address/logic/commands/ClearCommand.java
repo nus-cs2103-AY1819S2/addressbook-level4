@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
@@ -21,5 +22,9 @@ public class ClearCommand extends Command {
         model.setAddressBook(new AddressBook());
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    public Command inverse(Model model){
+        return this;
     }
 }

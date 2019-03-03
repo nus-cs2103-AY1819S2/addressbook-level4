@@ -19,7 +19,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.card.Address;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Question;
@@ -94,12 +93,11 @@ public class EditCommand extends Command {
 
         Question updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
         Answer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
-        Address updatedAddress = editCardDescriptor.getAddress().orElse(cardToEdit.getAddress());
         // Score cannot be edited, so copy original
         Score originalScore = cardToEdit.getScore();
         Set<Hint> updatedHints = editCardDescriptor.getHints().orElse(cardToEdit.getHints());
 
-        return new Card(updatedQuestion, updatedAnswer, updatedAddress, originalScore, updatedHints);
+        return new Card(updatedQuestion, updatedAnswer, originalScore, updatedHints);
     }
 
     @Override
@@ -127,7 +125,6 @@ public class EditCommand extends Command {
     public static class EditCardDescriptor {
         private Question question;
         private Answer answer;
-        private Address address;
         private Set<Hint> hints;
 
         public EditCardDescriptor() {}
@@ -139,7 +136,6 @@ public class EditCommand extends Command {
         public EditCardDescriptor(EditCardDescriptor toCopy) {
             setQuestion(toCopy.question);
             setAnswer(toCopy.answer);
-            setAddress(toCopy.address);
             setHints(toCopy.hints);
         }
 
@@ -147,7 +143,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, answer, address, hints);
+            return CollectionUtil.isAnyNonNull(question, answer, hints);
         }
 
         public void setQuestion(Question question) {
@@ -164,14 +160,6 @@ public class EditCommand extends Command {
 
         public Optional<Answer> getAnswer() {
             return Optional.ofNullable(answer);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
         }
 
         /**
@@ -208,7 +196,6 @@ public class EditCommand extends Command {
 
             return getQuestion().equals(e.getQuestion())
                     && getAnswer().equals(e.getAnswer())
-                    && getAddress().equals(e.getAddress())
                     && getHints().equals(e.getHints());
         }
     }

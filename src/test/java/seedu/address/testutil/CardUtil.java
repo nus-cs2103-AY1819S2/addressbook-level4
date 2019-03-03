@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
@@ -31,7 +30,6 @@ public class CardUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_QUESTION + card.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_ANSWER + card.getAnswer().fullAnswer + " ");
-        sb.append(PREFIX_ADDRESS + card.getAddress().value + " ");
         card.getHints().stream().forEach(s -> sb.append(PREFIX_HINT + s.hintName + " "));
         return sb.toString();
     }
@@ -44,7 +42,6 @@ public class CardUtil {
         descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION)
                 .append(question.fullQuestion).append(" "));
         descriptor.getAnswer().ifPresent(answer -> sb.append(PREFIX_ANSWER).append(answer.fullAnswer).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getHints().isPresent()) {
             Set<Hint> hints = descriptor.getHints().get();
             if (hints.isEmpty()) {

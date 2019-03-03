@@ -1,13 +1,10 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
@@ -32,7 +29,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.card.Address;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Question;
@@ -53,7 +49,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
          */
         Card toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_AMY + "  " + ANSWER_DESC_AMY + " "
-                + "   " + ADDRESS_DESC_AMY + "   " + HINT_DESC_FRIEND + " ";
+                + "   " + HINT_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -69,7 +65,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: add a card with all fields same as another card in the card folder except question -> added */
         toAdd = new CardBuilder(AMY).withQuestion(VALID_QUESTION_BOB).build();
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_BOB + ANSWER_DESC_AMY + ADDRESS_DESC_AMY + HINT_DESC_FRIEND;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_BOB + ANSWER_DESC_AMY + HINT_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a card with all fields same as another card in the card folder except answer -> added */
@@ -83,7 +79,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: add a card with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + HINT_DESC_FRIEND + ANSWER_DESC_BOB + ADDRESS_DESC_BOB + QUESTION_DESC_BOB
+        command = AddCommand.COMMAND_WORD + HINT_DESC_FRIEND + ANSWER_DESC_BOB + QUESTION_DESC_BOB
                 + HINT_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
@@ -119,15 +115,11 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: missing question -> rejected */
-        command = AddCommand.COMMAND_WORD + ANSWER_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + ANSWER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing answer -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -135,19 +127,15 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid question -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_QUESTION_DESC + ANSWER_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_QUESTION_DESC + ANSWER_DESC_AMY;
         assertCommandFailure(command, Question.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid answer -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + INVALID_ANSWER_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + INVALID_ANSWER_DESC;
         assertCommandFailure(command, Answer.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
-
         /* Case: invalid hint -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY
                 + INVALID_HINT_DESC;
         assertCommandFailure(command, Hint.MESSAGE_CONSTRAINTS);
     }

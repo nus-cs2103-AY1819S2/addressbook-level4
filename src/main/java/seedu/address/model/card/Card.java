@@ -20,18 +20,16 @@ public class Card {
     private final Answer answer;
 
     // Data fields
-    private final Address address;
     private final Score score;
     private final Set<Hint> hints = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Address address, Score score, Set<Hint> hints) {
-        requireAllNonNull(question, answer, address, score, hints);
+    public Card(Question question, Answer answer, Score score, Set<Hint> hints) {
+        requireAllNonNull(question, answer, score, hints);
         this.question = question;
         this.answer = answer;
-        this.address = address;
         this.score = score;
         this.hints.addAll(hints);
     }
@@ -42,10 +40,6 @@ public class Card {
 
     public Answer getAnswer() {
         return answer;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public Score getScore() {

@@ -33,7 +33,7 @@ class JsonAdaptedRestaurant {
     private final List<JsonAdaptedReview> reviewed = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details, including reviews.
+     * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
      */
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
@@ -49,22 +49,6 @@ class JsonAdaptedRestaurant {
         }
         if (reviewed != null) {
             this.reviewed.addAll(reviewed);
-        }
-    }
-
-    /**
-     * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
-     */
-    @JsonCreator
-    public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                                 @JsonProperty("email") String email, @JsonProperty("address") String address,
-                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
         }
     }
 

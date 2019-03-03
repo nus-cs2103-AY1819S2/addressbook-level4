@@ -42,7 +42,14 @@ public class AnswerCommand extends QuizCommand {
                         card.getQuestion(), card.getAnswer()));
                 }
                 return new CommandResult(String.format(MESSAGE_QUESTION, card.getQuestion()));
+            } else {
+                sb.append(MESSAGE_COMPLETE);
+
+                // TODO return this to session
+                System.out.println(model.end());
             }
+
+            return new CommandResult(sb.toString());
         }
 
         try {

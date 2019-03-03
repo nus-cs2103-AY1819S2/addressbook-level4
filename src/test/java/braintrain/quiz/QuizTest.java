@@ -12,7 +12,6 @@ import org.junit.Test;
 import braintrain.testutil.Assert;
 
 public class QuizTest {
-    private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
     private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);

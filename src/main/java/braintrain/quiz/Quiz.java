@@ -57,7 +57,6 @@ public class Quiz {
      * R
      */
     public List<QuizCard> generate() {
-        QuizCard currentCard;
         generatedSession = new ArrayList<>();
 
         switch (mode) {
@@ -67,7 +66,8 @@ public class Quiz {
         case LEARN:
             // Learn is a combination of Preview + Review
             generatePreview();
-            // Fall through
+            generateReview();
+            break;
         case REVIEW:
             generateReview();
             break;

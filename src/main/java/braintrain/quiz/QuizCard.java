@@ -95,7 +95,7 @@ public class QuizCard {
      * @return the result after checking.
      */
     public boolean isCorrect(String answer) throws NullPointerException {
-        return answer.toLowerCase().equals(this.answer.toLowerCase());
+        return answer.equalsIgnoreCase(this.answer);
     }
 
     /**

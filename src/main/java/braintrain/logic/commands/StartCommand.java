@@ -19,9 +19,9 @@ public class StartCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
 
-    public StartCommand() {
-        // TODO start session
-    }
+    //    public StartCommand() {
+    //        // TODO start session
+    //    }
 
     /**
      * Executes the command.

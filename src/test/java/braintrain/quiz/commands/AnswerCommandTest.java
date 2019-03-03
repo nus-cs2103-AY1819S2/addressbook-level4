@@ -3,6 +3,7 @@ package braintrain.quiz.commands;
 import static braintrain.quiz.commands.AnswerCommand.MESSAGE_COMPLETE;
 import static braintrain.quiz.commands.AnswerCommand.MESSAGE_CORRECT;
 import static braintrain.quiz.commands.AnswerCommand.MESSAGE_QUESTION;
+import static braintrain.quiz.commands.AnswerCommand.MESSAGE_QUESTION_ANSWER;
 import static braintrain.quiz.commands.AnswerCommand.MESSAGE_WRONG;
 import static braintrain.quiz.commands.QuizCommandTestUtil.assertCommandSuccess;
 import static org.junit.Assert.assertFalse;
@@ -23,7 +24,6 @@ import braintrain.quiz.QuizModel;
 import braintrain.quiz.QuizModelManager;
 
 public class AnswerCommandTest {
-    private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
     private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);
@@ -33,7 +33,6 @@ public class AnswerCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
-    private QuizModel quizModel = new QuizModelManager();
 
     @Test
     public void constructor_nullAnswer_throwsNullPointerException() {
@@ -42,7 +41,7 @@ public class AnswerCommandTest {
     }
 
     @Test
-    public void execute_validPreview_success() {
+    public void execute_validLearn_success() {
         final String answer = "Tokyo";
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
@@ -60,8 +59,41 @@ public class AnswerCommandTest {
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(answer);
 
-        String expectedMessage = String.format(AnswerCommand.MESSAGE_QUESTION_ANSWER, card.getQuestion(),
+        String expectedMessage = String.format(MESSAGE_QUESTION_ANSWER, card.getQuestion(),
             card.getAnswer());
+
+        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validPreview_success() {
+        final String answer = "Tokyo";
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.PREVIEW);
+        QuizModelManager expectedModel = new QuizModelManager();
+        expectedModel.init(quiz);
+
+        QuizModel actual = new QuizModelManager();
+        actual.init(new Quiz(quizCards, Quiz.Mode.PREVIEW));
+        actual.getNextCard();
+
+        AnswerCommand answerCommand = new AnswerCommand(answer);
+        expectedModel.getNextCard();
+        QuizCard card = expectedModel.getNextCard();
+        card.isCorrect(answer);
+
+        String expectedMessage = String.format(MESSAGE_QUESTION_ANSWER, card.getQuestion(),
+            card.getAnswer());
+
+        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+
+        // complete preview quiz
+        answerCommand = new AnswerCommand("Budapest");
+        expectedModel.end();
+
+        expectedMessage = MESSAGE_COMPLETE;
 
         assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
     }
@@ -87,7 +119,7 @@ public class AnswerCommandTest {
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(answer);
 
-        String expectedMessage = String.format(AnswerCommand.MESSAGE_QUESTION, card.getQuestion());
+        String expectedMessage = String.format(MESSAGE_QUESTION, card.getQuestion());
 
         assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
     }

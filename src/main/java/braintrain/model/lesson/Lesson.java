@@ -104,7 +104,9 @@ public class Lesson {
         return true;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public int getCoreCount() {
         return coreCount;

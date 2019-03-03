@@ -4,7 +4,6 @@ import static braintrain.testutil.LessonBuilder.DEFAULT_CORE_COUNT;
 import static braintrain.testutil.LessonBuilder.DEFAULT_FIELDS;
 import static braintrain.testutil.LessonBuilder.DEFAULT_NAME;
 import static braintrain.testutil.TypicalLessons.LESSON_ONE_OPT;
-import static braintrain.testutil.TypicalLessons.LESSON_TWO_OPT;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -131,7 +130,7 @@ public class LessonTest {
 
     @Test
     public void getCardFields() {
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();;
+        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
         assertEquals(lesson.getCardFields(), DEFAULT_FIELDS);
     }
 

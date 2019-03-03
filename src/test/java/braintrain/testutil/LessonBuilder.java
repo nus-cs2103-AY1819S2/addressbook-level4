@@ -61,7 +61,19 @@ public class LessonBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a lesson.
+     *
+     * @return a lesson
+     */
     public Lesson build() {
-        return new Lesson(DEFAULT_NAME, DEFAULT_CORE_COUNT, DEFAULT_FIELDS);
+        Lesson lesson = new Lesson(name, coreCount, cardFields);
+        for (Card card : cards) {
+            ArrayList<String> fields = card.getCores();
+            fields.addAll(card.getOptionals());
+            lesson.addCard(fields);
+        }
+
+        return lesson;
     }
 }

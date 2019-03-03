@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.storage.Storage;
 
 /**
@@ -104,5 +105,20 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
+    }
+
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return model.getFilteredReminderList();
+    }
+
+    @Override
+    public ReadOnlyProperty<Reminder> selectedReminderProperty() {
+        return model.selectedReminderProperty();
+    }
+
+    @Override
+    public void setSelectedReminder(Reminder reminder) {
+        model.setSelectedReminder(reminder);
     }
 }

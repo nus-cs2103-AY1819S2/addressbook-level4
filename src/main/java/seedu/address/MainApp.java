@@ -100,7 +100,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-
         return new ModelManager(initialData, userPrefs);
     }
 
@@ -225,10 +224,15 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            rootLayoutController.fillReminderList();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
+
+
+
 
 }

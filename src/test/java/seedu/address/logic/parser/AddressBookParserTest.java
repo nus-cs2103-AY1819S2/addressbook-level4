@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,21 +17,32 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPatientCommand;
+import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListAppCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListPatientCommand;
+import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.consultation.Assessment;
+import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Symptom;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -38,8 +51,10 @@ import seedu.address.model.patient.Gender;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.PatientEditedFields;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -183,5 +198,129 @@ public class AddressBookParserTest {
         AddPatientCommand command = (AddPatientCommand) parser.parseCommand(userInput);
 
         assertEquals(new AddPatientCommand(patient1), command);
+    }
+
+    @Test
+    public void parseCommand_editPatient() throws Exception {
+        Name name = new Name("Peter Tan");
+        Nric nric = new Nric("S9123456A");
+        Email email = new Email("ptan@gmail.com");
+        Address address = new Address("1 Simei Road");
+
+        String userInput = "pedit 1 n/" + name.getName() + " "
+                + "r/" + nric.getNric() + " "
+                + "e/" + email.getEmail() + " "
+                + "a/" + address.getAddress();
+
+        PatientEditedFields pef = new PatientEditedFields();
+        pef.setName(name);
+        pef.setNric(nric);
+        pef.setEmail(email);
+        pef.setAddress(address);
+
+        EditPatientCommand expectedCommand = new EditPatientCommand(1, pef);
+
+        EditPatientCommand command = (EditPatientCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, command);
+    }
+
+    @Test
+    public void parseCommand_listPatient() throws Exception {
+        String userInput = "plist r/S92";
+        ListPatientCommand command1 = new ListPatientCommand("S92", false);
+        assertEquals(command1, parser.parseCommand(userInput));
+
+        userInput = "plist n/pe";
+        ListPatientCommand command2 = new ListPatientCommand("pe", true);
+        assertEquals(command2, parser.parseCommand(userInput));
+
+        userInput = "plist t/diabetes";
+        ListPatientCommand command3 = new ListPatientCommand(new Tag("diabetes"));
+        assertEquals(command3, parser.parseCommand(userInput));
+
+        userInput = "plist 1";
+        ListPatientCommand command4 = new ListPatientCommand(1);
+        assertEquals(command4, parser.parseCommand(userInput));
+
+        userInput = "plist";
+        ListPatientCommand command5 = new ListPatientCommand();
+        assertEquals(command5, parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_consultationcommand() throws Exception {
+        String userInput = "consult r/S9123456A";
+        ConsultationCommand command = new ConsultationCommand("S9123456A");
+        assertEquals(command, parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_diagnosepatientcommand() throws Exception {
+        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
+        Assessment assessment = new Assessment("migrane");
+        ArrayList<Symptom> symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+        symptoms.add(new Symptom("blurred vision"));
+        DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
+        assertEquals(command, parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_addAppointment() throws Exception {
+        String nricString = "S9234568C";
+        String dateString = "2019-10-23";
+        String startString = "16:00";
+        String endString = "17:00";
+
+        Nric nric = new Nric(nricString);
+        LocalDate date = LocalDate.parse(dateString);
+        LocalTime start = LocalTime.parse(startString);
+        LocalTime end = LocalTime.parse(endString);
+        String comment = "This is a test comment";
+
+
+        String userInput = AddAppCommand.COMMAND_WORD
+                + " r/" + nricString
+                + " d/" + dateString
+                + " s/" + startString
+                + " e/" + endString
+                + " c/" + comment;
+        AddAppCommand command = (AddAppCommand) parser.parseCommand(userInput);
+        assertEquals(new AddAppCommand(nric, date, start, end, comment), command);
+    }
+
+    @Test
+    public void parseCommand_listApp() throws Exception {
+        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
+        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD + " 3") instanceof ListAppCommand);
+    }
+
+    @Test
+    public void parseCommand_addReminder() throws Exception {
+        String title = "Refill Medicine ABC";
+        String dateString = "2019-05-22";
+        String startString = "13:00";
+        String endString = "14:00";
+        String comment = "This is a test comment";
+
+        LocalDate date = LocalDate.parse(dateString);
+        LocalTime start = LocalTime.parse(startString);
+        LocalTime end = LocalTime.parse(endString);
+        Reminder toAdd = new Reminder(title, comment, date, start, end);
+
+        String userInput = AddRemCommand.COMMAND_WORD
+                + " t/" + title
+                + " d/" + dateString
+                + " s/" + startString
+                + " e/" + endString
+                + " c/" + comment;
+        AddRemCommand command = (AddRemCommand) parser.parseCommand(userInput);
+        assertEquals(new AddRemCommand(toAdd), command);
+    }
+
+    @Test
+    public void parseCommand_listReminder() throws Exception {
+        assertTrue(parser.parseCommand(ListRemCommand.COMMAND_WORD) instanceof ListRemCommand);
+        assertTrue(parser.parseCommand(ListRemCommand.COMMAND_WORD + " 3") instanceof ListRemCommand);
     }
 }

@@ -11,19 +11,31 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentManager;
+import seedu.address.model.consultation.ConsultationManager;
+import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleAppUtil;
+import seedu.address.model.util.SamplePatientsUtil;
+import seedu.address.model.util.SampleRemUtil;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -36,8 +48,13 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     // to handle QuickDocs operations
+    private final SimpleObjectProperty<Reminder> selectedReminder = new SimpleObjectProperty<>();
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
+    private final ConsultationManager consultationManager;
+    private final AppointmentManager appointmentManager;
+    private final ReminderManager reminderManager;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -54,11 +71,35 @@ public class ModelManager implements Model {
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         this.medicineManager = new MedicineManager();
         this.patientManager = new PatientManager();
+        this.consultationManager = new ConsultationManager();
+        this.appointmentManager = new AppointmentManager();
+        this.reminderManager = new ReminderManager();
+        iniQuickDocs();
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
+
+    /**
+     * Initialise quickdocs with sample patient data
+     */
+    public void iniQuickDocs() {
+        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
+        for (Patient patient : samplePatients) {
+            addPatient(patient);
+        }
+        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
+        for (Appointment app : sampleAppointments) {
+            addApp(app);
+        }
+        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
+        for (Reminder rem : sampleReminders) {
+            addRem(rem);
+        }
+    }
+
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -193,6 +234,11 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return FXCollections.observableArrayList(reminderManager.getReminderList());
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -228,6 +274,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyProperty<Reminder> selectedReminderProperty() {
+        return selectedReminder;
+    }
+
+    @Override
     public Person getSelectedPerson() {
         return selectedPerson.getValue();
     }
@@ -238,6 +289,14 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+    }
+
+    @Override
+    public void setSelectedReminder(Reminder reminder) {
+        if (reminder != null && !reminderManager.getReminderList().contains(reminder)) {
+            throw new PersonNotFoundException();
+        }
+        selectedReminder.setValue(reminder);
     }
 
     /**
@@ -336,5 +395,55 @@ public class ModelManager implements Model {
 
     public String findPatientsByTag(Tag tag) {
         return this.patientManager.findPatientsByTag(tag);
+    }
+
+    public Patient getPatientByNric(String nric) {
+        return this.patientManager.getPatientByNric(nric);
+    }
+
+    //==========Consultation module============================================================================
+
+    public void createConsultation(Patient patient) {
+        this.consultationManager.createConsultation(patient);
+    }
+
+    public Optional<Patient> getPatientWithNric(Nric nric) {
+        return this.patientManager.getPatientWithNric(nric);
+    }
+
+    public void diagnosePatient(Diagnosis diagnosis) {
+        this.consultationManager.diagnosePatient(diagnosis);
+    }
+
+    //==========Appointment module===========================================================================
+    public boolean duplicateApp(Appointment app) {
+        return appointmentManager.duplicateApp(app);
+    }
+
+    /**
+     * Adds an {@code Appointment} and its {@code Reminder} to their corresponding managers
+     * @param app the {@code Appointment} to add
+     */
+    public void addApp(Appointment app) {
+        appointmentManager.add(app);
+        Reminder remToAdd = new Reminder(app);
+        addRem((remToAdd));
+    }
+
+    public String listApp() {
+        return appointmentManager.list();
+    }
+
+    //==========Reminder module==============================================================================
+    public boolean duplicateRem(Reminder rem) {
+        return reminderManager.duplicateReminder(rem);
+    }
+
+    public void addRem(Reminder rem) {
+        reminderManager.addReminder(rem);
+    }
+
+    public String listRem() {
+        return reminderManager.list();
     }
 }

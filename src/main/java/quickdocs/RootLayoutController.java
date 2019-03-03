@@ -5,8 +5,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.ui.ReminderListPanel;
 
 /**
  * This class handles user interaction with the root layout
@@ -15,6 +17,7 @@ public class RootLayoutController {
 
     private static int currentInputPointer = 0;
     private Logic logicManager;
+    private ReminderListPanel reminderListPanel;
 
     @FXML
     private TextArea display;
@@ -24,6 +27,9 @@ public class RootLayoutController {
 
     @FXML
     private TextArea inputFeedback;
+
+    @FXML
+    private StackPane reminderList;
 
     public void setLogicManager(Logic logicManager) {
         this.logicManager = logicManager;
@@ -61,6 +67,15 @@ public class RootLayoutController {
         if (event.getCode() == KeyCode.SPACE) {
             inputFeedback.setText("space entered");
         }
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    public void fillReminderList() {
+        reminderListPanel = new ReminderListPanel(logicManager.getFilteredReminderList(),
+                logicManager.selectedReminderProperty(), logicManager::setSelectedReminder);
+        reminderList.getChildren().add(reminderListPanel.getRoot());
     }
 
     /**

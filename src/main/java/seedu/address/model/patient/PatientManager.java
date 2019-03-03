@@ -1,6 +1,7 @@
 package seedu.address.model.patient;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import seedu.address.model.tag.Tag;
 
@@ -83,6 +84,7 @@ public class PatientManager {
     public void replacePatient(int index, Patient editedPatient) {
         patientList.set(index - 1, editedPatient);
     }
+
 
     // listing methods
 
@@ -186,8 +188,8 @@ public class PatientManager {
      * find all patients stored in patientlist that have the same tag defined by the user
      */
     public String findPatientsByTag(Tag tag) {
-        ArrayList<Patient>foundPatients = new ArrayList<>();
-        ArrayList<Integer>foundPatientsIndexes = new ArrayList<>();
+        ArrayList<Patient> foundPatients = new ArrayList<>();
+        ArrayList<Integer> foundPatientsIndexes = new ArrayList<>();
 
         for (int i = 0; i < patientList.size(); i++) {
             Patient currentPatient = patientList.get(i);
@@ -206,5 +208,24 @@ public class PatientManager {
         }
 
         return foundPatients.get(0).toString();
+    }
+
+    // for consultation
+    public Patient getPatientByNric(String nric) {
+        for (int i = 0; i < patientList.size(); i++) {
+            if (patientList.get(i).getNric().toString().equals(nric)) {
+                return patientList.get(i);
+            }
+        }
+        return null;
+    }
+
+    public Optional<Patient> getPatientWithNric(Nric nric) {
+        for (Patient patient : patientList) {
+            if (patient.getNric().equals(nric)) {
+                return Optional.of(patient);
+            }
+        }
+        return Optional.empty();
     }
 }

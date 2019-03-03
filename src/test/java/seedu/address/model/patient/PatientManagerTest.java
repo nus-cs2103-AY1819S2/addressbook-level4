@@ -1,6 +1,8 @@
 package seedu.address.model.patient;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -45,7 +47,7 @@ public class PatientManagerTest {
 
         Nric nric2 = new Nric("S9123456B");
         Patient patient2 = new Patient(name, nric2, email, address, contact, gender, dob, tagList);
-        Assert.assertFalse(patientManager.duplicatePatient(patient2));
+        assertFalse(patientManager.duplicatePatient(patient2));
     }
 
     @Test
@@ -78,7 +80,7 @@ public class PatientManagerTest {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         patientManager.addPatient(patient1);
-        Assert.assertFalse(patientManager.isPatientListEmpty());
+        assertFalse(patientManager.isPatientListEmpty());
     }
 
     @Test
@@ -86,9 +88,9 @@ public class PatientManagerTest {
 
         Assert.assertTrue(patientManager.checkValidIndex(1));
 
-        Assert.assertFalse(patientManager.checkValidIndex(2));
+        assertFalse(patientManager.checkValidIndex(2));
 
-        Assert.assertFalse(patientManager.checkValidIndex(0));
+        assertFalse(patientManager.checkValidIndex(0));
     }
 
     @Test
@@ -118,7 +120,7 @@ public class PatientManagerTest {
         Assert.assertTrue(patientManager.checkDuplicatePatientAfterEdit(1, editedPatient));
         Nric nric3 = new Nric("S9123456C");
         editedPatient = new Patient(name2, nric3, email2, address2, contact2, gender2, dob2, tagList2);
-        Assert.assertFalse(patientManager.checkDuplicatePatientAfterEdit(1, editedPatient));
+        assertFalse(patientManager.checkDuplicatePatientAfterEdit(1, editedPatient));
     }
 
     @Test
@@ -265,5 +267,17 @@ public class PatientManagerTest {
         Tag otherTag = new Tag("Highcholesterol");
         assertEquals(patientManager.findPatientsByTag(tag), sb.toString());
         assertEquals(patientManager.findPatientsByTag(otherTag), "No patient record found\n");
+    }
+
+    @Test
+    public void getPatientByNric() {
+        String nric = "S9123456A";
+        Patient patient1 = patientManager.getPatientAtIndex(1);
+        Patient patient2 = patientManager.getPatientByNric(nric);
+        assertTrue(patient1.equals(patient2));
+
+        nric = "S9123456B";
+        patient2 = patientManager.getPatientByNric(nric);
+        assertFalse(patient1.equals(patient2));
     }
 }

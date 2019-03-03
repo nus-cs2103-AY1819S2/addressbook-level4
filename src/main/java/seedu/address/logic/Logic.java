@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 
 /**
  * API of the Logic component
@@ -69,4 +70,11 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    ObservableList<Reminder> getFilteredReminderList();
+
+    ReadOnlyProperty<Reminder> selectedReminderProperty();
+
+    void setSelectedReminder(Reminder reminder);
+
 }

@@ -1,5 +1,6 @@
 package seedu.address.model.record;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -7,32 +8,33 @@ import java.util.List;
  * A Statistics object is immutable.
  */
 public class Statistics {
+    private static BigDecimal consultationFee = BigDecimal.valueOf(30);
     private int noOfConsultations;
-    private int revenue;
-    private int expenditure;
-    private int profit;
+    private BigDecimal revenue;
+    private BigDecimal expenditure;
+    private BigDecimal profit;
     public Statistics() {
         this.noOfConsultations = 0;
-        this.revenue = 0;
-        this.expenditure = 0;
-        this.profit = 0;
+        this.revenue = BigDecimal.ZERO;
+        this.expenditure = BigDecimal.ZERO;
+        this.profit = BigDecimal.ZERO;
     }
-    public Statistics(int noOfConsultations, int revenue, int expenditure, int profit) {
+    public Statistics(int noOfConsultations, BigDecimal revenue, BigDecimal expenditure) {
         this.noOfConsultations = noOfConsultations;
         this.revenue = revenue;
         this.expenditure = expenditure;
-        this.profit = profit;
+        this.profit = revenue.subtract(expenditure);
     }
     public int getNoOfConsultations() {
         return noOfConsultations;
     }
-    public int getRevenue() {
+    public BigDecimal getRevenue() {
         return revenue;
     }
-    public int getExpenditure() {
+    public BigDecimal getExpenditure() {
         return expenditure;
     }
-    public int getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
 
@@ -44,9 +46,8 @@ public class Statistics {
     public Statistics merge(Statistics other) {
         return new Statistics(
                 this.getNoOfConsultations() + other.getNoOfConsultations(),
-                this.getRevenue() + other.getRevenue(),
-                this.getExpenditure() + other.getExpenditure(),
-                this.getProfit() + other.getProfit());
+                this.getRevenue().add(other.getRevenue()),
+                this.getExpenditure().add(other.getExpenditure()));
     }
 
     /**
@@ -61,21 +62,10 @@ public class Statistics {
         }
         return stats;
     }
-
-    /**
-     * Returns a new Statistics object from a ConsultationRecord
-     * @return A new Statistics object
-     */
-    public static Statistics fromConsultationRecord(ConsultationRecord consultationRecord) {
-        return new Statistics();
-        // TODO
+    public static BigDecimal getConsultationFee() {
+        return Statistics.consultationFee;
     }
-    /**
-     * Returns a new Statistics object from a MedicineRecord
-     * @return A new Statistics object
-     */
-    public static Statistics fromMedicineRecord(MedicineRecord medicineRecord) {
-        return new Statistics();
-        // TODO
+    public static void setConsultationFee(BigDecimal cost) {
+        Statistics.consultationFee = cost;
     }
 }

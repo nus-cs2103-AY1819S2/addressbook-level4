@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class holds the statistics of a month, and the records of the month.
+ * This class holds the records for a month, and the statistics relevant to it.
  */
-public class MonthStatistics {
+public class MonthRecord {
     private Statistics stats;
-    private YearMonth date;
+    private YearMonth yearMonth;
     private int recordPointer;
     private ArrayList<Record> records;
 
-    public MonthStatistics(YearMonth date) {
+    public MonthRecord(YearMonth yearMonth) {
         this.stats = new Statistics();
-        this.date = date;
+        this.yearMonth = yearMonth;
         this.recordPointer = 0;
         this.records = new ArrayList<>();
     }
@@ -36,7 +36,7 @@ public class MonthStatistics {
     }
 
     /**
-     * Adds a record to the MonthStatistics, and updates the statistics.
+     * Adds a record to the MonthRecord, and updates the statistics.
      * @param record A single Record object
      */
     public void addRecord(Record record) {
@@ -45,16 +45,11 @@ public class MonthStatistics {
     }
 
     /**
-     * Adds a list of records to the MonthStatistics, and updates the statistics.
+     * Adds a list of records to the MonthRecord, and updates the statistics.
      * @param records A list of Record objects
      */
     public void addRecord(List<Record> records) {
         this.records.addAll(records);
         this.updateStatistics();
-    }
-    @Override
-    public String toString() {
-        // TODO
-        return super.toString();
     }
 }

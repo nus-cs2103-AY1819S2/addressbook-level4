@@ -1,16 +1,16 @@
 package seedu.address.model.record;
 
+import java.math.BigDecimal;
+
 /**
- * s
+ * Record representation of a consultation
  */
 public class ConsultationRecord extends Record {
-    @Override
-    public void record() {
-
-    }
-
+    // TODO Constructor
     @Override
     public Statistics toStatistics() {
-        return Statistics.fromConsultationRecord(this);
+        BigDecimal consultationFee = Statistics.getConsultationFee();
+        // TODO Add prescription expenditures
+        return new Statistics(1, consultationFee, BigDecimal.ZERO);
     }
 }

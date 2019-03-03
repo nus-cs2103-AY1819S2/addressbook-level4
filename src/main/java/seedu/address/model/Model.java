@@ -93,6 +93,13 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
+    ObservableList<Reminder> getFilteredReminderList();
+
+    ReadOnlyProperty<Reminder> selectedReminderProperty();
+
+    void setSelectedReminder(Reminder reminder);
+
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *

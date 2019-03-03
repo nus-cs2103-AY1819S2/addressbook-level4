@@ -318,6 +318,21 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Reminder> getFilteredReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Reminder> selectedReminderProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -47,6 +48,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     // to handle QuickDocs operations
+    private final SimpleObjectProperty<Reminder> selectedReminder = new SimpleObjectProperty<>();
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
     private final ConsultationManager consultationManager;
@@ -232,6 +234,11 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return FXCollections.observableArrayList(reminderManager.getReminderList());
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -267,6 +274,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyProperty<Reminder> selectedReminderProperty() {
+        return selectedReminder;
+    }
+
+    @Override
     public Person getSelectedPerson() {
         return selectedPerson.getValue();
     }
@@ -277,6 +289,14 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+    }
+
+    @Override
+    public void setSelectedReminder(Reminder reminder) {
+        if (reminder != null && !reminderManager.getReminderList().contains(reminder)) {
+            throw new PersonNotFoundException();
+        }
+        selectedReminder.setValue(reminder);
     }
 
     /**

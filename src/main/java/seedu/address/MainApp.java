@@ -22,8 +22,10 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.storage.JsonOrdersStorage;
 import seedu.address.storage.JsonRestOrRantStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.OrdersStorage;
 import seedu.address.storage.RestOrRantStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -61,7 +63,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(userPrefs.getRestOrRantFilePath());
-        storage = new StorageManager(restOrRantStorage, userPrefsStorage);
+        OrdersStorage ordersStorage = new JsonOrdersStorage(userPrefs.getOrdersFilePath());
+        storage = new StorageManager(restOrRantStorage, userPrefsStorage, ordersStorage);
 
         initLogging(config);
 

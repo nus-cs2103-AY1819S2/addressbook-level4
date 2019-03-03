@@ -13,9 +13,12 @@ import braintrain.logic.commands.CommandResult;
 import braintrain.logic.commands.HistoryCommand;
 import braintrain.logic.commands.exceptions.CommandException;
 import braintrain.logic.parser.exceptions.ParseException;
+import braintrain.model.Lessons;
 import braintrain.model.Model;
 import braintrain.model.ModelManager;
 import braintrain.model.UserPrefs;
+import braintrain.storage.CsvLessonImportExport;
+import braintrain.storage.CsvLessonsStorage;
 import braintrain.storage.JsonUserPrefsStorage;
 import braintrain.storage.StorageManager;
 
@@ -32,7 +35,9 @@ public class LogicManagerTest {
     @Before
     public void setUp() throws Exception {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(userPrefsStorage);
+        CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(temporaryFolder.newFile().toPath());
+        CsvLessonImportExport lessonImportExport = new CsvLessonImportExport(temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
         logic = new LogicManager(model);
     }
 
@@ -73,7 +78,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(new UserPrefs());
+        Model expectedModel = new ModelManager(new UserPrefs(), new Lessons());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

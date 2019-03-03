@@ -15,6 +15,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,6 +30,7 @@ class JsonAdaptedRestaurant {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedReview> reviewed = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -36,13 +38,17 @@ class JsonAdaptedRestaurant {
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+            @JsonProperty("reviewed") List<JsonAdaptedReview> reviewed) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (reviewed != null) {
+            this.reviewed.addAll(reviewed);
         }
     }
 
@@ -57,6 +63,9 @@ class JsonAdaptedRestaurant {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        reviewed.addAll(source.getReviews().stream()
+                .map(JsonAdaptedReview::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -68,6 +77,11 @@ class JsonAdaptedRestaurant {
         final List<Tag> restaurantTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             restaurantTags.add(tag.toModelType());
+        }
+
+        final List<Review> restaurantReviews = new ArrayList<>();
+        for (JsonAdaptedReview review : reviewed) {
+            restaurantReviews.add(review.toModelType());
         }
 
         if (name == null) {
@@ -103,7 +117,8 @@ class JsonAdaptedRestaurant {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final Set<Review> modelReviews = new HashSet<>(restaurantReviews);
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelReviews);
     }
 
 }

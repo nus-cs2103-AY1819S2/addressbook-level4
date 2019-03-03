@@ -21,7 +21,8 @@ public class DescriptionCommandParserTest {
         // with remark
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + nonEmptyDescription;
-        DescriptionCommand expectedCommand = new DescriptionCommand(INDEX_FIRST_PERSON, new Description(nonEmptyDescription));
+        DescriptionCommand expectedCommand = new DescriptionCommand(INDEX_FIRST_PERSON,
+                new Description(nonEmptyDescription));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // with no remark

@@ -35,10 +35,13 @@ public class DescriptionCommandTest {
 
     @Test
     public void equals() {
-        final DescriptionCommand standardCommand = new DescriptionCommand(INDEX_FIRST_PERSON, new Description(VALID_DESCRIPTION_AMY));
+        final DescriptionCommand standardCommand = new DescriptionCommand(INDEX_FIRST_PERSON,
+                new Description(VALID_DESCRIPTION_AMY));
 
         // Object with same values -> returns true
-        DescriptionCommand commandWithSameValues = new DescriptionCommand(INDEX_FIRST_PERSON, new Description(VALID_DESCRIPTION_AMY));
+        DescriptionCommand commandWithSameValues = new DescriptionCommand(INDEX_FIRST_PERSON,
+                new Description(VALID_DESCRIPTION_AMY));
+
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // Same object -> returns true
@@ -51,9 +54,11 @@ public class DescriptionCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_SECOND_PERSON, new Description(VALID_DESCRIPTION_AMY))));
+        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_SECOND_PERSON,
+                new Description(VALID_DESCRIPTION_AMY))));
 
         // different description -> returns false
-        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_FIRST_PERSON, new Description(VALID_DESCRIPTION_BOB))));
+        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_FIRST_PERSON,
+                new Description(VALID_DESCRIPTION_BOB))));
     }
 }

@@ -91,6 +91,14 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Description} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDescription(Description description) {
+        this.description = new Description(description.value);
+        return this;
+    }
+
     public Person build() {
         return new Person(name, phone, email, address, description, tags);
     }

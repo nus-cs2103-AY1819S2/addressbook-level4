@@ -33,31 +33,47 @@ public class QuizTest {
 
     @Test
     public void generate() {
-        // learn
-        List<QuizCard> expected = new ArrayList<>();
+        List<QuizCard> expectedPreview = new ArrayList<>();
+        List<QuizCard> expectedReview = new ArrayList<>();
+        List<QuizCard> expectedLearn = new ArrayList<>();
+
         QuizCard expectedCurrentCard;
         for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
             expectedCurrentCard = VALID_QUIZCARD.get(i);
-            expected.add(new QuizCard(i, expectedCurrentCard.getQuestion(), expectedCurrentCard.getAnswer()));
+            expectedPreview.add(new QuizCard(i, expectedCurrentCard.getQuestion(), expectedCurrentCard.getAnswer(),
+                Quiz.Mode.PREVIEW));
         }
 
         for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
             expectedCurrentCard = VALID_QUIZCARD.get(i);
-            expected.add(new QuizCard(i, expectedCurrentCard.getAnswer(), expectedCurrentCard.getQuestion()));
+            expectedReview.add(new QuizCard(i, expectedCurrentCard.getQuestion(), expectedCurrentCard.getAnswer(),
+                Quiz.Mode.REVIEW));
         }
 
+        for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
+            expectedCurrentCard = VALID_QUIZCARD.get(i);
+            expectedReview.add(new QuizCard(i, expectedCurrentCard.getAnswer(), expectedCurrentCard.getQuestion(),
+                Quiz.Mode.REVIEW));
+        }
+
+        expectedLearn.addAll(expectedPreview);
+        expectedLearn.addAll(expectedReview);
+
+        // learn
         List<QuizCard> actualLearn = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN).generate();
 
-        assertEquals(4, actualLearn.size());
-        assertEquals(expected, actualLearn);
+        assertEquals(6, actualLearn.size());
+        assertEquals(expectedLearn, actualLearn);
 
         // review
         List<QuizCard> actualReview = new Quiz(VALID_QUIZCARD, Quiz.Mode.REVIEW).generate();
         assertEquals(4, actualReview.size());
-        assertEquals(expected, actualReview);
+        assertEquals(expectedReview, actualReview);
 
         // preview
-        assertEquals(new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW).generate(), VALID_QUIZCARD);
+        List<QuizCard> actualPreview = new Quiz(VALID_QUIZCARD, Quiz.Mode.PREVIEW).generate();
+        assertEquals(2, actualPreview.size());
+        assertEquals(expectedPreview, actualPreview);
     }
 
     @Test
@@ -66,6 +82,8 @@ public class QuizTest {
         assertTrue(quiz.hasCardLeft());
 
         // get all cards
+        quiz.getNextCard();
+        quiz.getNextCard();
         quiz.getNextCard();
         quiz.getNextCard();
         quiz.getNextCard();
@@ -83,10 +101,9 @@ public class QuizTest {
 
         // normal
         List<QuizCard> generated = quiz.generate();
-        assertEquals(generated.get(0), quiz.getNextCard());
-        assertEquals(generated.get(1), quiz.getNextCard());
-        assertEquals(generated.get(2), quiz.getNextCard());
-        assertEquals(generated.get(3), quiz.getNextCard());
+        for (int i = 0; i < VALID_QUIZCARD.size() * 3; i++) {
+            assertEquals(generated.get(i), quiz.getNextCard());
+        }
 
         // no more cards
         Assert.assertThrows(IndexOutOfBoundsException.class, () ->
@@ -97,10 +114,9 @@ public class QuizTest {
 
         // normal
         List<QuizCard> generatedReview = quizReview.generate();
-        assertEquals(generatedReview.get(0), quizReview.getNextCard());
-        assertEquals(generatedReview.get(1), quizReview.getNextCard());
-        assertEquals(generatedReview.get(2), quizReview.getNextCard());
-        assertEquals(generatedReview.get(3), quizReview.getNextCard());
+        for (int i = 0; i < VALID_QUIZCARD.size() * 2; i++) {
+            assertEquals(generatedReview.get(i), quizReview.getNextCard());
+        }
 
         // no more cards
         Assert.assertThrows(IndexOutOfBoundsException.class, () ->
@@ -132,7 +148,7 @@ public class QuizTest {
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
         QuizCard expected = quiz.getNextCard();
 
-        assertEquals(new QuizCard(0, "Japan", "Tokyo"), quiz.getCurrentQuizCard());
+        assertEquals(new QuizCard(0, "Japan", "Tokyo", Quiz.Mode.PREVIEW), quiz.getCurrentQuizCard());
         assertEquals(expected, quiz.getCurrentQuizCard());
     }
 
@@ -198,6 +214,24 @@ public class QuizTest {
     }
 
     @Test
+    public void equals() {
+        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+
+        // same value -> returns true
+        Quiz quizCopy = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+        assertTrue(quiz.equals(quizCopy));
+
+        // same object -> returns true
+        assertTrue(quiz.equals(quiz));
+
+        // null -> returns false
+        assertFalse(quiz == null);
+
+        // different types -> returns false
+        assertFalse(quiz.equals(5));
+    }
+
+    @Test
     public void completeFlow() {
         List<List<Integer>> expected = new ArrayList<>();
         expected.add(Arrays.asList(0, 2, 2));
@@ -208,6 +242,10 @@ public class QuizTest {
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
 
         Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        // Preview questions and answers
+        quiz.getNextCard();
+        quiz.getNextCard();
+
         assertTrue(quiz.getNextCard().isCorrect("Tokyo"));
         quiz.updateTotalAttemptsAndStreak(0, "Tokyo");
 

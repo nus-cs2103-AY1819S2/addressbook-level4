@@ -29,7 +29,6 @@
       </HBox>
       <FlowPane fx:id="hints"/>
       <Label fx:id="answer" styleClass="cell_small_label" text="\$answer" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="score" styleClass="cell_small_label" text="\$score" />
     </VBox>
   </GridPane>

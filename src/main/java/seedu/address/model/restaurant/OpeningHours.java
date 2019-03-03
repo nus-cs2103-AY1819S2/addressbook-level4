@@ -31,7 +31,7 @@ public class OpeningHours {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidOpeningHour(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) || test.matches("No opening hours added");
     }
 
     public static OpeningHours makeDefaultOpening() {

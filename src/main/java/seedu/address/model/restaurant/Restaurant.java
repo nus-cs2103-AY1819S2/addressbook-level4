@@ -37,7 +37,8 @@ public class Restaurant {
      * Constructor for Restaurant class without Reviews and Cuisine
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink, OpeningHours openingHours) {
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+                      OpeningHours openingHours) {
         requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
         this.name = name;
         this.phone = phone;

@@ -16,7 +16,7 @@ image::Carrein.png[width="150", align="left"]
 {empty}[https://github.com/Carrein[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Scheduling and Tracking, UI
 
 '''
 
@@ -25,7 +25,7 @@ image::randytqw.png[width="150", align="left"]
 {empty}[https://github.com/randytqw[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Image State Management (undo, redo)
+Responsibilities: Integration, Image State Management (undo, redo)
 
 '''
 
@@ -34,7 +34,7 @@ image::itszp.png[width="150", align="left"]
 {empty}[https://github.com/itszp[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Import/Export
+Responsibilities: Code quality, Import/Export
 
 '''
 
@@ -43,7 +43,7 @@ image::thamsimun.png[width="150", align="left"]
 {empty}[https://github.com/thamsimun[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Image Filters
+Responsibilities: Testing, Image Filters
 
 '''
 
@@ -52,6 +52,6 @@ image::kayheen.png[width="150", align="left"]
 {empty}[https://github.com/kayheen[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Image Manipulation
+Responsibilities: Documentation, Image Manipulation
 
 '''

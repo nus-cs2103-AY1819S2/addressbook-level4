@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "foodDiaryFilePath" : "addressbook.json"
+  "foodDiaryFilePath" : "fooddiary.json"
 }

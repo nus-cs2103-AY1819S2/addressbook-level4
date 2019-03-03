@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
@@ -19,7 +20,7 @@ public class RestaurantCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on FoodDiary level 4</a>
+     * @see <a href="https://github.com/se-edu/fooddiary-level4/issues/336">The issue on FoodDiary level 4</a>
      */
 
     public final Restaurant restaurant;
@@ -38,6 +39,12 @@ public class RestaurantCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label cuisine;
+    @FXML
+    private Label weblink;
+    @FXML
+    private VBox reviews;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
         super(FXML);
@@ -48,6 +55,14 @@ public class RestaurantCard extends UiPart<Region> {
         address.setText(restaurant.getAddress().value);
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        restaurant.getCuisine().ifPresentOrElse(content -> cuisine.setText(content.value), () -> cuisine.setText(""));
+        weblink.setText(restaurant.getWeblink().value);
+        restaurant.getReviews().forEach(review -> reviews.getChildren().addAll(
+                new Label(review.getTimeStamp().toLocalDateTime().toString()),
+                new Label(review.getRating().toString()),
+                new Label(review.getEntry().toString())
+        ));
     }
 
     @Override

@@ -167,7 +167,7 @@ public class EditCommandTest {
         // edit -> first restaurant edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered restaurant list to show all restaurants
+        // undo -> reverts fooddiary back to previous state and filtered restaurant list to show all restaurants
         expectedModel.undoFoodDiary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -212,7 +212,7 @@ public class EditCommandTest {
         // edit -> edits second restaurant in unfiltered restaurant list / first restaurant in filtered restaurant list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered restaurant list to show all restaurants
+        // undo -> reverts fooddiary back to previous state and filtered restaurant list to show all restaurants
         expectedModel.undoFoodDiary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

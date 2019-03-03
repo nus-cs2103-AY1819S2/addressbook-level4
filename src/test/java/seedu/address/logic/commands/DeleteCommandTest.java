@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first restaurant deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered restaurant list to show all restaurants
+        // undo -> reverts fooddiary back to previous state and filtered restaurant list to show all restaurants
         expectedModel.undoFoodDiary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -136,7 +136,7 @@ public class DeleteCommandTest {
          */
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered restaurant list to show all restaurants
+        // undo -> reverts fooddiary back to previous state and filtered restaurant list to show all restaurants
         expectedModel.undoFoodDiary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

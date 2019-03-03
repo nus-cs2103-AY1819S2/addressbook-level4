@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -96,7 +97,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_description() throws Exception {
-        assertTrue(parser.parseCommand(DescriptionCommand.COMMAND_WORD) instanceof DescriptionCommand);
+        final String description = "Some description.";
+        DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_DESCRIPTION + description);
+        assertEquals(new DescriptionCommand(INDEX_FIRST_PERSON, description), command);
     }
 
     @Test

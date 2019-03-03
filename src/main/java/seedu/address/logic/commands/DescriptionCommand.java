@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -22,10 +24,38 @@ public class DescriptionCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_DESCRIPTION + "Father's birthday present.";
 
-    public static final String EXCEPTION_MESSAGE = "Description command not yet implemented";
+    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Description: %2$s";
+
+    private final Index index;
+    private final String description;
+
+    /**
+     * @param index Index of the expense entry in the filtered expense list to edit description
+     * @param description description of the expense entry to be updated to
+     */
+    public DescriptionCommand(Index index, String description) {
+        requireAllNonNull(index, description);
+
+        this.index = index;
+        this.description = description;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        throw new CommandException(EXCEPTION_MESSAGE);
+        throw new CommandException(String.format(MESSAGE_ARGUMENTS, index.getOneBased(), description));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DescriptionCommand)) {
+            return false;
+        }
+
+        DescriptionCommand e = (DescriptionCommand) other;
+        return index.equals(e.index) && description.equals(e.description);
     }
 }

@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a quiz that stores a list of QuizCard
@@ -53,28 +54,57 @@ public class Quiz {
 
     /**
      * Generates a list of cards based on the chosen cards given by session.
+     * R
      */
     public List<QuizCard> generate() {
-        QuizCard currentCard;
         generatedSession = new ArrayList<>();
 
-        if (mode != Mode.PREVIEW) {
-            for (int i = 0; i < currentSession.size(); i++) {
-                currentCard = currentSession.get(i);
-                generatedSession.add(new QuizCard(i, currentCard.getQuestion(), currentCard.getAnswer()));
-            }
-
-            for (int i = 0; i < currentSession.size(); i++) {
-                currentCard = currentSession.get(i);
-                generatedSession.add(new QuizCard(i, currentCard.getAnswer(), currentCard.getQuestion()));
-            }
-
-        } else {
-            generatedSession = currentSession;
+        switch (mode) {
+        case PREVIEW:
+            generatePreview();
+            break;
+        case LEARN:
+            // Learn is a combination of Preview + Review
+            generatePreview();
+            generateReview();
+            break;
+        case REVIEW:
+            generateReview();
+            break;
+        default:
+            break;
         }
 
         generatedCardSize = generatedSession.size();
         return generatedSession;
+    }
+
+    /**
+     * Generates a list of card with the mode Review
+     */
+    private void generateReview() {
+        QuizCard currentCard;
+        for (int i = 0; i < currentSession.size(); i++) {
+            currentCard = currentSession.get(i);
+            generatedSession.add(new QuizCard(i, currentCard.getQuestion(), currentCard.getAnswer(), Mode.REVIEW));
+        }
+
+        for (int i = 0; i < currentSession.size(); i++) {
+            currentCard = currentSession.get(i);
+            generatedSession.add(new QuizCard(i, currentCard.getAnswer(), currentCard.getQuestion(), Mode.REVIEW));
+        }
+    }
+
+    /**
+     * Generates a list of card with the mode Preview see but don't need to answer.
+     */
+    private void generatePreview() {
+        QuizCard currentCard;
+
+        for (int i = 0; i < currentSession.size(); i++) {
+            currentCard = currentSession.get(i);
+            generatedSession.add(new QuizCard(i, currentCard.getQuestion(), currentCard.getAnswer(), Mode.PREVIEW));
+        }
     }
 
     /**
@@ -140,4 +170,28 @@ public class Quiz {
     public boolean isDone() {
         return isDone;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof Quiz)) {
+            return false;
+        }
+
+        // state check
+        Quiz other = (Quiz) obj;
+        return other.hashCode() == this.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentSession, generatedSession, mode,
+            currentQuizCard, currentCardIndex, isDone);
+    }
+
 }

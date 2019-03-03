@@ -205,9 +205,13 @@ public class PutShipCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setBattleship(Battleship battleship) { this.battleship = battleship; }
+        public void setBattleship(Battleship battleship) {
+            this.battleship = battleship;
+        }
 
-        public Optional<Battleship> getBattleship() { return Optional.ofNullable(battleship); }
+        public Optional<Battleship> getBattleship() {
+            return Optional.ofNullable(battleship);
+        }
 
         @Override
         public boolean equals(Object other) {

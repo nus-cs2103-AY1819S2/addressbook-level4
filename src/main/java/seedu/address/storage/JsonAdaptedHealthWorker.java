@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,9 +13,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HealthWorker;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Nric;
+//import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Organization;
 import seedu.address.model.tag.Tag;
@@ -23,7 +23,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link HealthWorker}.
  */
-class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
+class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
@@ -33,9 +33,13 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
      * Constructs a {@code JsonAdaptedHealthWorker} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedHealthWorker(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                                   @JsonProperty("email") String email,  @JsonProperty("nric") String nric, @JsonProperty("address") String address,
-                                   @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty String organisation) {
+    public JsonAdaptedHealthWorker(@JsonProperty("name") String name,
+                                   @JsonProperty("phone") String phone,
+                                   @JsonProperty("email") String email,
+                                   @JsonProperty("nric") String nric,
+                                   @JsonProperty("address") String address,
+                                   @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                                   @JsonProperty String organisation) {
         super(name,phone,email,nric,address,tagged);
         this.organization = organisation;
     }
@@ -55,7 +59,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
      * @throws IllegalValueException if there were any data constraints violated in the adapted HealthWorker.
      */
     public HealthWorker toModelType() throws IllegalValueException {
- final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
@@ -106,7 +110,8 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson{
         }
         final Organization modelOrganisation = new Organization(organization);
 
-        return new HealthWorker(modelName, modelPhone, modelEmail, modelNric, modelAddress, modelTags, modelOrganisation);
+        return new HealthWorker(modelName, modelPhone, modelEmail,
+                modelNric, modelAddress, modelTags, modelOrganisation);
     }
 
 }

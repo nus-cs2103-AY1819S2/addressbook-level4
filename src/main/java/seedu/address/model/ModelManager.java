@@ -32,7 +32,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
-    private boolean insideTestSession;
+    private boolean insideTestSession = false;
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.

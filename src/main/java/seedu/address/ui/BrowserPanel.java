@@ -51,6 +51,24 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
     
+    public BrowserPanel(ObservableValue<Person> selectedPerson) {
+        super(FXML);
+    
+        // To prevent triggering events for typing inside the loaded Web page.
+        getRoot().setOnKeyPressed(Event::consume);
+    
+        // Load person page when selected person changes.
+        selectedPerson.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                loadDefaultPage();
+                return;
+            }
+            loadPersonPage(newValue);
+        });
+    
+        loadDefaultPage();
+    }
+    
     public BrowserPanel() {
         super(FXML);
         loadDefaultPage();
@@ -59,6 +77,10 @@ public class BrowserPanel extends UiPart<Region> {
     // TODO: methods for different modes
     private void loadMenuItemPage(MenuItem menuItem) {
         loadPage(SEARCH_PAGE_URL + menuItem.getName().itemName);
+    }
+    
+    private void loadPersonPage(Person person) {
+        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
 
     public void loadPage(String url) {

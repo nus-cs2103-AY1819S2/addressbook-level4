@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private MenuListPanel menuListPanel;
+    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     public String currentMode;
@@ -114,22 +115,18 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void fillInnerParts() {
         // TODO: change according to mode
-        // MenuMode: browser panel shows app logo
-        //if (mode.equals(Mode.TABLE_MODE)) {
-            browserPanel = new BrowserPanel(logic.selectedMenuItemProperty());
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
-            // order list panel
+        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
             
-            currentMode = "tableMode";
-        //} else if (mode.equals(Mode.MENU_MODE)) {
-            browserPanel = new BrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
-            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
-                    logic::setSelectedMenuItem);
-            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
-            
-            currentMode = "menuMode";
-        //}
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                logic::setSelectedPerson);
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        
+//            browserPanel = new BrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
+//            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+//            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+//                    logic::setSelectedMenuItem);
+//            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

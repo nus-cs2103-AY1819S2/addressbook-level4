@@ -17,6 +17,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Cell;
@@ -43,7 +44,8 @@ public class PutShipCommand extends Command {
             + PREFIX_COORDINATES + "c1";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Put ship in cell: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This cell already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This ship already exists on the map.";
+    public static final String MESSAGE_BATTLESHIP_PRESENT = "There is already a ship on the coordinate.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -72,8 +74,10 @@ public class PutShipCommand extends Command {
         Cell cellToEdit = lastShownList.get(index.getZeroBased());
         Cell editedCell = createEditedPerson(cellToEdit, editPersonDescriptor);
 
-        if (!cellToEdit.isSamePerson(editedCell) && model.hasPerson(editedCell)) {
+        if ((!cellToEdit.isSamePerson(editedCell) && model.hasPerson(editedCell))) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (cellToEdit.hasBattleShip()) {
+            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
         }
 
         model.setPerson(cellToEdit, editedCell);
@@ -95,7 +99,9 @@ public class PutShipCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(cellToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(cellToEdit.getTags());
 
-        return new Cell(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        Battleship battleship = new Battleship(updatedName, updatedTags);
+
+        return new Cell(battleship);
     }
 
     @Override
@@ -126,6 +132,7 @@ public class PutShipCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Battleship battleship;
 
         public EditPersonDescriptor() {}
 
@@ -139,6 +146,7 @@ public class PutShipCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setBattleship(toCopy.battleship);
         }
 
         /**
@@ -196,6 +204,10 @@ public class PutShipCommand extends Command {
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
+
+        public void setBattleship(Battleship battleship) { this.battleship = battleship; }
+
+        public Optional<Battleship> getBattleship() { return Optional.ofNullable(battleship); }
 
         @Override
         public boolean equals(Object other) {

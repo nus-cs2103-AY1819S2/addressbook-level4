@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD_FOLDER;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +28,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.TestCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
@@ -59,6 +61,13 @@ public class CommandParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_CARD), command);
+    }
+
+    @Test
+    public void parseCommand_test() throws Exception {
+        TestCommand command = (TestCommand) parser.parseCommand(
+                TestCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD_FOLDER.getOneBased());
+        assertEquals(new TestCommand(INDEX_FIRST_CARD_FOLDER), command);
     }
 
     @Test

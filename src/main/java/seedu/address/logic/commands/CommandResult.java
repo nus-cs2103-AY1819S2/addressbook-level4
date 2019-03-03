@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.logic.Mode;
+
 /**
  * Represents the result of a command execution.
  */
@@ -17,6 +19,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should change mode if not null. */
+    private final Mode toMode;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +29,17 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.toMode = null;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields including toMode.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Mode mode) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.toMode = mode;
     }
 
     /**
@@ -44,6 +60,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+    
+    public Mode newModeStatus() {
+        return toMode;
     }
 
     @Override

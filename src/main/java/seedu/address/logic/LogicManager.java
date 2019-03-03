@@ -76,6 +76,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    @Override
     public void changeMode(Mode mode) {
         this.mode = mode;
     }
@@ -118,15 +119,5 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
-    }
-
-    @Override
-    public boolean hasModeChanged() {
-        return modeModified;
-    }
-
-    @Override
-    public Mode getMode() {
-        return mode;
     }
 }

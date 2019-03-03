@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
  */
 public class ArgumentTokenizer {
 
+    private static final int MODE_POSITION = 0;
+
     // Mapping of respective command mode numbers to CommandMode enum
     private static final Map<String, CommandMode> COMMAND_MODES = Map.of(
             PREFIX_ADD_HEALTHWORKER.getPrefix(), CommandMode.HEALTH_WORKER,
@@ -50,12 +52,13 @@ public class ArgumentTokenizer {
      * @return CommandMode enum type if available, else CommandMode.INVALID
      */
     public static CommandMode checkMode(String args) {
-        if (!Character.toString(args.charAt(1)).equals(" ")) {
+        String trimmedArgs = args.trim();
+        if (!Character.toString(trimmedArgs.charAt(MODE_POSITION + 1)).equals(" ")) {
             return CommandMode.INVALID;
         }
 
-        return COMMAND_MODES.getOrDefault(Character.toString(args.charAt(0)),
-                CommandMode.INVALID);
+        return COMMAND_MODES.getOrDefault(Character.toString(trimmedArgs
+                        .charAt(MODE_POSITION)), CommandMode.INVALID);
     }
 
     /**

@@ -30,7 +30,7 @@ public class AddHealthWorkerCommand extends AddCommand {
             + PREFIX_ORGANIZATION + "ORGANIZATION "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_SKILLS + "SKILLS..."
+            + PREFIX_SKILLS + "SKILLS..." + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Dog Terr "
             + PREFIX_NRIC + "S1234567A"

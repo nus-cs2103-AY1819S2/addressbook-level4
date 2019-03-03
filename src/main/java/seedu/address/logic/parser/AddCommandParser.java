@@ -40,9 +40,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            // TODO: add parseAddHealthWorker command method
             return parseAddHealthWorker(args);
         }
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -63,6 +63,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
+     * @author Lookaz
      * Auxiliary method for parsing the adding of HealthWorker objects
      * @param args argument list for add command
      * @return new AddHealthWorkerCommand for the adding of health worker
@@ -75,8 +76,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SKILLS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC,
-                PREFIX_ORGANIZATION, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_EMAIL,
-                PREFIX_SKILLS) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_ORGANIZATION, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_SKILLS)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddHealthWorkerCommand.MESSAGE_USAGE));
         }

@@ -164,31 +164,31 @@ public class ArgumentTokenizerTest {
                 ArgumentTokenizer.checkMode(null));
 
         // 1 -> HealthWorker command mode
-        assertTrue(ArgumentTokenizer.checkMode("1 ")
+        assertTrue(ArgumentTokenizer.checkMode("1 n/")
                 .equals(CommandMode.HEALTH_WORKER));
 
         // 2 -> Patient command mode
-        assertTrue(ArgumentTokenizer.checkMode("2 ")
+        assertTrue(ArgumentTokenizer.checkMode("2 n/")
                 .equals(CommandMode.PATIENT));
 
         // 3 -> Request command mode
-        assertTrue(ArgumentTokenizer.checkMode("3 ")
+        assertTrue(ArgumentTokenizer.checkMode("3 n/")
                 .equals(CommandMode.REQUEST));
 
         // 4 -> Others command mode
-        assertTrue(ArgumentTokenizer.checkMode("4 ")
+        assertTrue(ArgumentTokenizer.checkMode("4 n/")
                 .equals(CommandMode.OTHERS));
 
         // Invalid number
-        assertTrue(ArgumentTokenizer.checkMode("0 ")
+        assertTrue(ArgumentTokenizer.checkMode("0 n/")
                 .equals(CommandMode.INVALID));
 
         // actual Health Worker, expected invalid -> return false
-        assertFalse(ArgumentTokenizer.checkMode("1 ")
+        assertFalse(ArgumentTokenizer.checkMode("1 n/")
                 .equals(CommandMode.INVALID));
 
         // actual Patient, expected Health Worker -> return false
-        assertFalse(ArgumentTokenizer.checkMode("2 ")
+        assertFalse(ArgumentTokenizer.checkMode("2 n/")
                 .equals(CommandMode.HEALTH_WORKER));
     }
 

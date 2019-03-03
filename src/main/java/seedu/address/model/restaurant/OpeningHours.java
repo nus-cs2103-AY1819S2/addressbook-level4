@@ -11,7 +11,7 @@ public class OpeningHours {
     public static final String MESSAGE_CONSTRAINTS = "Opening hours should be of the format 'HHMM to HHMM' "
             + "for example, 1000 to 2200";
     // alphanumeric and special characters
-    private static final String HOURS = "[\\d{4}]";
+    private static final String HOURS = "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]";
     public static final String VALIDATION_REGEX = HOURS + " to " + HOURS;
 
     public final String value;

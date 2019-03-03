@@ -15,7 +15,7 @@ public class EndCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, false, false, null);
+        return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, false, false, null, true);
     }
 
 }

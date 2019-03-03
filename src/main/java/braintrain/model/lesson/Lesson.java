@@ -2,15 +2,15 @@ package braintrain.model.lesson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import braintrain.model.card.Card;
 import braintrain.model.lesson.exceptions.MissingCoreValueException;
-
 /**
  * Represents a lesson that stores multiple cards.
  */
 public class Lesson {
-    private static final int CORE_COUNT_MINIMUM = 2;
+    public static final int CORE_COUNT_MINIMUM = 2;
 
     private String name;
 
@@ -99,6 +99,10 @@ public class Lesson {
         return true;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getCoreCount() {
         return coreCount;
     }
@@ -137,4 +141,23 @@ public class Lesson {
         return sb.toString();
     }
     */
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Lesson)) {
+            return false;
+        }
+
+        Lesson otherLesson = (Lesson) other;
+        return otherLesson.hashCode() == this.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, cards, cardFields);
+    }
 }

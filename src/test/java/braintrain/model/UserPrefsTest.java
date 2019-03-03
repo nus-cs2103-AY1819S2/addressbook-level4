@@ -1,8 +1,11 @@
 package braintrain.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.nio.file.Paths;
 
 import org.junit.Test;
 
@@ -10,16 +13,17 @@ import braintrain.commons.core.GuiSettings;
 import braintrain.testutil.Assert;
 
 public class UserPrefsTest {
+    private final UserPrefs userPref = new UserPrefs();
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        UserPrefs userPref = new UserPrefs();
         Assert.assertThrows(NullPointerException.class, () -> userPref.setGuiSettings(null));
     }
 
     @Test
     public void equals() {
         UserPrefs userPrefs = new UserPrefs();
+        UserPrefs userPrefDiff = new UserPrefs(userPref);
 
         // same values -> returns true
         UserPrefs userPrefsCopy = new UserPrefs();
@@ -33,6 +37,10 @@ public class UserPrefsTest {
 
         // different types -> returns false
         assertFalse(userPrefs.equals(5));
+
+        // different values -> returns false
+        userPrefDiff.setLessonsFolderPath(Paths.get("test_different"));
+        assertFalse(userPref.equals(userPrefDiff));
     }
 
     @Test
@@ -48,5 +56,15 @@ public class UserPrefsTest {
         userPrefsDiff.setGuiSettings(new GuiSettings(1, 2, 3, 5));
         // same values -> returns same hashcode
         assertNotEquals(userPrefs.hashCode(), userPrefsDiff.hashCode());
+    }
+
+    @Test
+    public void setLessonImportExportFilePath_nullLessonImportExportFilePath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> userPref.setLessonImportExportFilePath(null));
+    }
+
+    @Test
+    public void setLessonsFolderPath_nullLessonsFolderPath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> userPref.setLessonsFolderPath(null));
     }
 }

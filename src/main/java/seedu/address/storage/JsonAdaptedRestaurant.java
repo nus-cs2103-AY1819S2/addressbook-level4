@@ -15,6 +15,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,6 +30,7 @@ class JsonAdaptedRestaurant {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String weblink;
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -36,7 +38,7 @@ class JsonAdaptedRestaurant {
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("weblink") String weblink) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,6 +46,7 @@ class JsonAdaptedRestaurant {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.weblink = weblink;
     }
 
     /**
@@ -57,6 +60,7 @@ class JsonAdaptedRestaurant {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        weblink = source.getWeblink().value;
     }
 
     /**
@@ -102,8 +106,16 @@ class JsonAdaptedRestaurant {
         }
         final Address modelAddress = new Address(address);
 
+        if (weblink == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weblink.class.getSimpleName()));
+        }
+        if (!Weblink.isValidWeblink(weblink)) {
+            throw new IllegalValueException(Weblink.MESSAGE_CONSTRAINTS);
+        }
+        final Weblink modelWeblink = new Weblink(weblink);
+
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink);
     }
 
 }

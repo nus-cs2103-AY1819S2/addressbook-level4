@@ -24,32 +24,43 @@ public class Restaurant {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Weblink weblink;
     private final Set<Review> reviews = new HashSet<>();
 
     /**
      * Constructor for Restaurant class without Reviews.
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink) {
+        requireAllNonNull(name, phone, email, address, tags, weblink);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.weblink = weblink;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, tags, Weblink.makeDefaultWeblink());
     }
 
     /**
      * Constructor for Restaurant class with Reviews.
      * Every field except reviews must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+                      Set<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, weblink, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.weblink = weblink;
         this.reviews.addAll(reviews);
     }
 
@@ -67,6 +78,10 @@ public class Restaurant {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Weblink getWeblink() {
+        return weblink;
     }
 
     /**
@@ -119,6 +134,7 @@ public class Restaurant {
                 && otherRestaurant.getEmail().equals(getEmail())
                 && otherRestaurant.getAddress().equals(getAddress())
                 && otherRestaurant.getTags().equals(getTags())
+                && otherRestaurant.getWeblink().equals(getWeblink())
                 && otherRestaurant.getReviews().equals(getReviews());
     }
 
@@ -138,6 +154,8 @@ public class Restaurant {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Weblink: ")
+                .append(getWeblink())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Reviews: ");

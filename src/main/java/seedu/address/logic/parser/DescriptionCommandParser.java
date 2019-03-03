@@ -8,6 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Description;
 
 /**
  * Parse input arguments and creates a new {@code DescriptionCommand} object.
@@ -34,6 +35,6 @@ public class DescriptionCommandParser implements Parser<DescriptionCommand> {
 
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).orElse("");
 
-        return new DescriptionCommand(index, description);
+        return new DescriptionCommand(index, new Description(description));
     }
 }

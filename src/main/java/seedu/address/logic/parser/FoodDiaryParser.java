@@ -75,6 +75,9 @@ public class FoodDiaryParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
+        case SetCuisineCommand.COMMAND_WORD:
+            return new CuisineCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

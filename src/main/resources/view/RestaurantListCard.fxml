@@ -27,11 +27,13 @@
           </minWidth>
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="cuisine" styleClass="cell_small_label" text="\$cuisine" />
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+         <Label fx:id="weblink" styleClass="cell_small_label" text="\$weblink" />
          <VBox fx:id="reviews" />
     </VBox>
       <rowConstraints>

@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.restaurant.Address;
@@ -8,6 +9,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,9 +18,9 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class RestaurantBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_NAME = "Kentucky Fried Chicken";
+    public static final String DEFAULT_PHONE = "65355255";
+    public static final String DEFAULT_EMAIL = "kfc@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
@@ -26,6 +28,7 @@ public class RestaurantBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Cuisine cuisine;
 
     public RestaurantBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +36,7 @@ public class RestaurantBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        cuisine = null;
     }
 
     /**
@@ -44,6 +48,7 @@ public class RestaurantBuilder {
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
         tags = new HashSet<>(restaurantToCopy.getTags());
+        cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
     }
 
     /**
@@ -86,8 +91,16 @@ public class RestaurantBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withCuisine(String cuisine) {
+        this.cuisine = new Cuisine(cuisine);
+        return this;
+    }
+
     public Restaurant build() {
-        return new Restaurant(name, phone, email, address, tags);
+        return new Restaurant(name, phone, email, address, tags, Optional.ofNullable(cuisine));
     }
 
 }

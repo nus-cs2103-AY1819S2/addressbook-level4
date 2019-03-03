@@ -71,9 +71,14 @@ public class LogicManager implements Logic {
 
         if (modeModified) {
             logger.info("Application mode modified, changing UI");
+            
         }
 
         return commandResult;
+    }
+    
+    public void changeMode(Mode mode) {
+        this.mode = mode;
     }
 
     @Override

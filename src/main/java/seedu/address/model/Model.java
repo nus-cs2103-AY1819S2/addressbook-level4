@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.Mode;
 import seedu.address.model.person.Person;
 
 /**
@@ -107,4 +108,9 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Changes the current mode of the RestOrRant.
+     */
+    void changeMode();
 }

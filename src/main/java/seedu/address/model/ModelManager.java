@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Mode;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
 import seedu.address.model.person.exceptions.PersonNotFoundException; // TODO: remove
@@ -215,4 +216,8 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get());
     }
 
+    @Override
+    public void changeMode() {
+        restOrRant.changeMode();
+    }
 }

@@ -12,7 +12,6 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NRIC_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ORGANIZATION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SKILLS_DESC;
@@ -178,17 +177,20 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODE_HEALTHWORKER
                 + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY
-                + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY, new AddHealthWorkerCommand(expectedWorker));
+                + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY,
+                new AddHealthWorkerCommand(expectedWorker));
 
         // multiple names - last name accepted
         assertParseSuccess(parser,  MODE_HEALTHWORKER + NAME_DESC_BETTY
                 + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY
-                + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY, new AddHealthWorkerCommand(expectedWorker));
+                + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY,
+                new AddHealthWorkerCommand(expectedWorker));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY
                 + PHONE_DESC_BETTY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY
-                + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY, new AddHealthWorkerCommand(expectedWorker));
+                + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY,
+                new AddHealthWorkerCommand(expectedWorker));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY
@@ -214,55 +216,61 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddHealthWorkerCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, MODE_HEALTHWORKER + " " + VALID_NAME_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                        ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
+        assertParseFailure(parser, MODE_HEALTHWORKER + " " + VALID_NAME_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY
+                + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
 
         // missing phone prefix
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + VALID_PHONE_ANDY + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + VALID_PHONE_ANDY + EMAIL_DESC_ANDY
+                + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + VALID_EMAIL_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + VALID_EMAIL_ANDY
+                + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
 
         // missing address prefix
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                VALID_ADDRESS_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY
+                + VALID_ADDRESS_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
 
         // missing organization prefix
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + VALID_ORGANIZATION_ANDY + SKILLS_DESC_ANDY, expectedMessage);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY
+                + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + VALID_ORGANIZATION_ANDY + SKILLS_DESC_ANDY, expectedMessage);
 
         // missing nric prefix
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + VALID_NRIC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY
+                + ADDRESS_DESC_ANDY + VALID_NRIC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, expectedMessage);
 
         // missing skills prefix
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY, expectedMessage);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY
+                + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY, expectedMessage);
 
         // invalid name
-        assertParseFailure(parser, MODE_HEALTHWORKER + " " + INVALID_NAME_DESC + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + " " + INVALID_NAME_DESC + PHONE_DESC_ANDY
+                + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY
+                + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + INVALID_PHONE_DESC + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + INVALID_PHONE_DESC
+                + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY
+                + SKILLS_DESC_ANDY, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + INVALID_EMAIL_DESC +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, Email.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY
+                + INVALID_EMAIL_DESC + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY
+                + SKILLS_DESC_ANDY, Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                INVALID_ADDRESS_DESC + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY, Address.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY
+                + EMAIL_DESC_ANDY + INVALID_ADDRESS_DESC + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY
+                + SKILLS_DESC_ANDY, Address.MESSAGE_CONSTRAINTS);
 
         // invalid organization
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + INVALID_ORGANIZATION_DESC + SKILLS_DESC_ANDY, Organization.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY
+                + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + INVALID_ORGANIZATION_DESC
+                + SKILLS_DESC_ANDY, Organization.MESSAGE_CONSTRAINTS);
 
         // invalid skills
-        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY + EMAIL_DESC_ANDY +
-                ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + INVALID_SKILLS_DESC, Specialisation.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY
+                + EMAIL_DESC_ANDY + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY
+                + INVALID_SKILLS_DESC, Specialisation.MESSAGE_CONSTRAINTS);
     }
 }

@@ -25,14 +25,21 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
      */
     public AddReviewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING);
+                ArgumentTokenizer.tokenize(args, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING)
+                || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE));
         }
 
-        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE), pe);
+        }
+
         Entry entry = ParserUtil.parseEntry(argMultimap.getValue(PREFIX_REVIEWENTRY).get());
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_REVIEWRATING).get());
 

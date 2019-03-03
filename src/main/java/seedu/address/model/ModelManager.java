@@ -85,15 +85,15 @@ public class ModelManager implements Model {
     public void iniQuickDocs() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
         for (Patient patient : samplePatients) {
-            patientManager.addPatient(patient);
+            addPatient(patient);
         }
         Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
         for (Appointment app : sampleAppointments) {
-            appointmentManager.add(app);
+            addApp(app);
         }
         Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
         for (Reminder rem : sampleReminders) {
-            reminderManager.addReminder(rem);
+            addRem(rem);
         }
     }
 
@@ -400,8 +400,14 @@ public class ModelManager implements Model {
         return appointmentManager.duplicateApp(app);
     }
 
+    /**
+     * Adds an {@code Appointment} and its {@code Reminder} to their corresponding managers
+     * @param app the {@code Appointment} to add
+     */
     public void addApp(Appointment app) {
         appointmentManager.add(app);
+        Reminder remToAdd = new Reminder(app);
+        addRem((remToAdd));
     }
 
     public String listApp() {

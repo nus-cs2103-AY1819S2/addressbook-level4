@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
+import seedu.address.model.appointment.Appointment;
+
 /**
  * Represents a Reminder created in quickdocs.
  */
@@ -20,6 +22,24 @@ public class Reminder {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public Reminder(Appointment app) {
+        this.title = createTitle(app);
+        this.comment = app.getComment();
+        this.date = app.getDate();
+        this.startTime = app.getStartTime();
+        this.endTime = app.getEndTime();
+    }
+
+    /**
+     * Returns a {@code String} title given an {@code Appointment}
+     */
+    private String createTitle(Appointment app) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Appointment with ")
+                .append(app.getPatient().getName());
+        return sb.toString();
     }
 
     public String getTitle() {

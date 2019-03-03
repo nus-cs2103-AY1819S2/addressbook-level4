@@ -78,9 +78,9 @@ public class Appointment {
                 .append(getPatient().getNric() + "\n")
                 .append("Date: ")
                 .append(getDate() + "\n")
-                .append("Start Time: ")
-                .append(getStartTime() + "\n")
-                .append("End Time: ")
+                .append("Time: ")
+                .append(getStartTime())
+                .append(" to ")
                 .append(getEndTime() + "\n")
                 .append("Comments: ")
                 .append(getComment() + "\n");

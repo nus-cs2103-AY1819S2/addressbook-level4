@@ -30,7 +30,7 @@ public class AddAppCommand extends Command {
             + PREFIX_NRIC + "NRIC "
             + PREFIX_DATE + "DATE "
             + PREFIX_START + "START "
-            + PREFIX_END + "END"
+            + PREFIX_END + "END "
             + PREFIX_COMMENT + "COMMENT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NRIC + "S9625555I "
@@ -64,14 +64,14 @@ public class AddAppCommand extends Command {
         requireNonNull(model);
 
         Patient patientToAdd = model.getPatientWithNric(nric);
-        Appointment toAdd = new Appointment(patientToAdd, date, start, end, comment);
+        Appointment appToAdd = new Appointment(patientToAdd, date, start, end, comment);
 
-        if (model.duplicateApp(toAdd)) {
+        if (model.duplicateApp(appToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APP);
         }
 
-        model.addApp(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.addApp(appToAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, appToAdd));
     }
 
     @Override

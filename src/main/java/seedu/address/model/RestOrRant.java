@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -142,7 +143,22 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         persons.remove(key);
         indicateModified();
     }
-
+    
+    /**
+     * Given the menu item's {@code String code}, returns the MenuItem with the corresponding code.
+     */
+    @Override
+    public MenuItem checkItemExists(String code) {
+        Iterator<MenuItem> iterator = menuItems.iterator();
+        while (iterator.hasNext()) {
+            MenuItem menuItem = iterator.next();
+            if (menuItem.getCode().itemCode.equals(code)) {
+                return menuItem;
+            }
+        }
+        return null;
+    }
+    
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

@@ -20,6 +20,8 @@ public interface ReadOnlyRestOrRant extends Observable {
      * Returns an unmodifiable view of the menu items list.
      */
     ObservableList<MenuItem> getMenuItemList();
+    
+    MenuItem checkItemExists(String code);
 
     ObservableList<Person> getPersonList(); // TODO: remove
 

@@ -57,7 +57,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public int getSize(){
+    public int getSize() {
         return versionedFoodDiary.getSize();
     }
 

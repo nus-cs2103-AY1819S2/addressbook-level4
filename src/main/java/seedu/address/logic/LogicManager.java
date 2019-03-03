@@ -91,7 +91,9 @@ public class LogicManager implements Logic {
         return model.getGuiSettings();
     }
 
-    public String getName(){ return model.getName(); }
+    public String getName() {
+        return model.getName();
+    }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {

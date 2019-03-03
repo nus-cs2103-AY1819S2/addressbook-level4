@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -43,7 +42,7 @@ public class StatusBarFooter extends UiPart<Region> {
         super(FXML);
         foodDiary.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
-        profileName.setText(PROFILE+name);
+        profileName.setText(PROFILE + name);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 

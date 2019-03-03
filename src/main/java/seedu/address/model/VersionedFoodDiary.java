@@ -19,7 +19,7 @@ public class VersionedFoodDiary extends FoodDiary {
         currentStatePointer = 0;
     }
 
-    public int getSize(){
+    public int getSize() {
         return foodDiaryStateList.get(currentStatePointer).getRestaurantList().size();
     }
     /**

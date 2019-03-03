@@ -97,16 +97,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public String getName(){
+        public String getName() {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void setName(String name){
+        public void setName(String name) {
             throw new AssertionError("This method should not be called.");
         }
 
-        public int
-        getSize(){
+        public int getSize() {
             throw new AssertionError("This method should not be called.");
         }
         @Override

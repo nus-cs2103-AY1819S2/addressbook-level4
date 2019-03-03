@@ -53,14 +53,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return foodDiaryFilePath;
     }
 
-    public String getName(){ return name; }
+    public String getName() {
+        return name;
+    }
 
     public void setFoodDiaryFilePath(Path foodDiaryFilePath) {
         requireNonNull(foodDiaryFilePath);
         this.foodDiaryFilePath = foodDiaryFilePath;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 

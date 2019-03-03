@@ -18,7 +18,7 @@ public class ViewCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        int size  = model.getSize();
+        int size = model.getSize();
         return new CommandResult(MESSAGE_SUCCESS + size);
     }
 }

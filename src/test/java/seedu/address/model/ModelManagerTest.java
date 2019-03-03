@@ -20,9 +20,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.TopDeckBuilder;
 

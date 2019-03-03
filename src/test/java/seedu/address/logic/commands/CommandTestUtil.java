@@ -14,8 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 /**

@@ -26,7 +26,7 @@ Responsibilities: UI
 '''
 
 === Liu Yiyang
-image::Liuyy99.png[width="150", align="left"]
+image::liuyy99.png[width="150", align="left"]
 {empty}[http://github.com/Liuyy99[github]]
 
 Role: Testing +
@@ -44,7 +44,7 @@ Responsibilities: Code quality
 '''
 
 === Gong Changda
-image::GongChangda.png[width="150", align="left"]
+image::gongchangda.png[width="150", align="left"]
 {empty}[http://github.com/GongChangda[github]]
 
 Role: Deliverables and deadlines

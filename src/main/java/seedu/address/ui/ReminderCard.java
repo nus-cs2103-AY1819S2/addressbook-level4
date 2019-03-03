@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.reminder.Reminder;
 
@@ -12,9 +11,6 @@ import seedu.address.model.reminder.Reminder;
 public class ReminderCard extends UiPart<Region> {
 
     private static final String FXML = "ReminderListCard.fxml";
-
-    private static final String[] TAG_COLOR_STYLES =
-            { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -26,8 +22,6 @@ public class ReminderCard extends UiPart<Region> {
 
     public final Reminder reminder;
 
-    @FXML
-    private HBox cardPane;
     @FXML
     private Label title;
     @FXML

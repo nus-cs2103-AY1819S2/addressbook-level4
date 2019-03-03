@@ -2,9 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-
 import javafx.fxml.FXML;
-
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;

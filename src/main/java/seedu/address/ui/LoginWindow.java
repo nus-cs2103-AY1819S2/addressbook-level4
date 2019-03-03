@@ -23,14 +23,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class LoginWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "LoginWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
     private HelpWindow helpWindow;
-
 
 
     public LoginWindow(Stage primaryStage, Logic logic) {
@@ -78,6 +77,14 @@ public class LoginWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Handles the Enter button pressed event.
+     */
+    @FXML
+    private void handleStringEntered() {
+        primaryStage.close();
     }
 
 }

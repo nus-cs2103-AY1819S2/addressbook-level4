@@ -17,9 +17,9 @@ import seedu.address.model.person.HealthWorker;
 //import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 //import seedu.address.model.person.Phone;
+import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
-import seedu.address.model.request.Request;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -116,7 +116,8 @@ class JsonAdaptedRequest {
         if (modelHealthStaff == null) {
             return new Request(modelId, modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
         }
-        return new Request(modelId, modelPatient, modelHealthStaff, modelrequestDate, modelConditions, modelrequestStatus);
+        return new Request(modelId, modelPatient, modelHealthStaff,
+                modelrequestDate, modelConditions, modelrequestStatus);
     }
 
 }

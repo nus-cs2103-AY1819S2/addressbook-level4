@@ -15,9 +15,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.Organization;
 //import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Organization;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,7 +40,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
                                    @JsonProperty("address") String address,
                                    @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                                    @JsonProperty String organisation) {
-        super(name,phone,email,nric,address,tagged);
+        super(name, phone, email, nric, address, tagged);
         this.organization = organisation;
     }
 

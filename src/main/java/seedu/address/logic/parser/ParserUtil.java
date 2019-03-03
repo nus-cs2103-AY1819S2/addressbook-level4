@@ -13,6 +13,8 @@ import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.review.Entry;
+import seedu.address.model.review.Rating;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +122,35 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String entry} into a {@code Entry}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rating} is invalid.
+     */
+    public static Entry parseEntry(String entry) throws ParseException {
+        requireNonNull(entry);
+        String trimmedEntry = entry.trim();
+        if (!Entry.isValidEntry(trimmedEntry)) {
+            throw new ParseException(Entry.MESSAGE_CONSTRAINTS);
+        }
+        return new Entry(trimmedEntry);
+    }
+
+    /**
+     * Parses a {@code String rating} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rating} is invalid.
+     */
+    public static Rating parseRating(String rating) throws ParseException {
+        requireNonNull(rating);
+        String trimmedRating = rating.trim();
+        if (!Rating.isValidRating(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        return new Rating(trimmedRating);
     }
 }

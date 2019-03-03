@@ -77,10 +77,8 @@
     <module name="UnusedImports"/>
 
     <module name="AvoidStarImport">
-      <property name="excludes" value="seedu.address.testutil.PersonUtil,
-      seedu.address.logic.parser.AddCommandParserTest,seedu.address.logic.LogicManagerTest,
-      seedu.address.testutil.TypicalPersons,
-      systemtests.AddCommandSystemTest,systemtests.EditCommandSystemTest"/>
+      <property name="excludes" value="seedu.address.logic.commands.CommandTestUtil,
+      seedu.address.logic.parser.CliSyntax"
     </module>
 
     <!--

@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
@@ -33,6 +34,7 @@ class JsonAdaptedRestaurant {
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String weblink;
+    private final String openingHours;
 
     private final String cuisine;
 
@@ -43,7 +45,7 @@ class JsonAdaptedRestaurant {
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("cuisine") String cuisine,
-                                 @JsonProperty("weblink") String weblink) {
+            @JsonProperty("weblink") String weblink, @JsonProperty("openinghours") String openingHours) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -53,6 +55,7 @@ class JsonAdaptedRestaurant {
         }
         this.cuisine = cuisine;
         this.weblink = weblink;
+        this.openingHours = openingHours;
     }
 
     /**
@@ -73,6 +76,7 @@ class JsonAdaptedRestaurant {
             cuisine = null;
         }
         weblink = source.getWeblink().value;
+        openingHours = source.getOpeningHours().value;
     }
 
     /**
@@ -136,8 +140,18 @@ class JsonAdaptedRestaurant {
         }
         final Weblink modelWeblink = new Weblink(weblink);
 
+        if (openingHours == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    OpeningHours.class.getSimpleName()));
+        }
+        if (!OpeningHours.isValidOpeningHour(openingHours)) {
+            throw new IllegalValueException(OpeningHours.MESSAGE_CONSTRAINTS);
+        }
+        final OpeningHours modelOpeningHours = new OpeningHours(openingHours);
+
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelCuisine, modelWeblink);
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink,
+                modelOpeningHours, modelCuisine);
     }
 
 }

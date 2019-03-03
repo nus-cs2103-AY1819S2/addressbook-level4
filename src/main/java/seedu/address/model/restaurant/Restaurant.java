@@ -28,6 +28,7 @@ public class Restaurant {
     private final Set<Tag> tags = new HashSet<>();
     private final Weblink weblink;
     private final Set<Review> reviews = new HashSet<>();
+    private final OpeningHours openingHours;
 
     // Category fields
     private final Optional<Cuisine> cuisine;
@@ -36,14 +37,15 @@ public class Restaurant {
      * Constructor for Restaurant class without Reviews and Cuisine
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink) {
-        requireAllNonNull(name, phone, email, address, tags, weblink);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink, OpeningHours openingHours) {
+        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.openingHours = openingHours;
         this.cuisine = Optional.empty();
     }
 
@@ -51,15 +53,16 @@ public class Restaurant {
      * Constructor for Restaurant without Reviews.
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
-                      Weblink weblink) {
-        requireAllNonNull(name, phone, email, address, tags, weblink);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                      Weblink weblink, OpeningHours openingHours, Optional<Cuisine> cuisine) {
+        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.openingHours = openingHours;
         this.cuisine = cuisine;
     }
 
@@ -68,7 +71,7 @@ public class Restaurant {
      * Every field except reviews must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      Set<Review> reviews) {
+                      OpeningHours openingHours, Set<Review> reviews) {
         requireAllNonNull(name, phone, email, address, weblink, tags);
         this.name = name;
         this.phone = phone;
@@ -76,6 +79,7 @@ public class Restaurant {
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.openingHours = openingHours;
         this.reviews.addAll(reviews);
         this.cuisine = Optional.empty();
     }
@@ -95,6 +99,7 @@ public class Restaurant {
         this.tags.addAll(restaurant.tags);
         this.cuisine = Optional.of(cuisine);
         this.weblink = restaurant.weblink;
+        this.openingHours = restaurant.openingHours;
     }
 
     public Name getName() {
@@ -116,6 +121,8 @@ public class Restaurant {
     public Weblink getWeblink() {
         return weblink;
     }
+
+    public OpeningHours getOpeningHours() { return openingHours; }
 
     public Optional<Cuisine> getCuisine() {
         return cuisine;
@@ -193,6 +200,8 @@ public class Restaurant {
                 .append(getAddress())
                 .append(" Weblink: ")
                 .append(getWeblink())
+                .append(" Opening Hours: ")
+                .append(getOpeningHours())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
 

@@ -15,27 +15,24 @@ import seedu.address.model.card.Card;
  */
 public class CardThumbnailHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
-    private static final String NAME_FIELD_ID = "#question";
+    private static final String QUESTION_FIELD_ID = "#question";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String ANSWER_FIELD_ID = "#answer";
-    private static final String EMAIL_FIELD_ID = "#email";
     private static final String HINTS_FIELD_ID = "#hints";
 
     private final Label idLabel;
     private final Label questionLabel;
     private final Label addressLabel;
     private final Label answerLabel;
-    private final Label emailLabel;
     private final List<Label> hintLabel;
 
     public CardThumbnailHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
-        questionLabel = getChildNode(NAME_FIELD_ID);
+        questionLabel = getChildNode(QUESTION_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         answerLabel = getChildNode(ANSWER_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
 
         Region hintContainer = getChildNode(HINTS_FIELD_ID);
         hintLabel = hintContainer
@@ -61,10 +58,6 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
         return answerLabel.getText();
     }
 
-    public String getEmail() {
-        return emailLabel.getText();
-    }
-
     public List<String> getHint() {
         return hintLabel
                 .stream()
@@ -79,7 +72,6 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
         return getQuestion().equals(card.getQuestion().fullQuestion)
                 && getAddress().equals(card.getAddress().value)
                 && getAnswer().equals(card.getAnswer().fullAnswer)
-                && getEmail().equals(card.getEmail().value)
                 && ImmutableMultiset.copyOf(getHint()).equals(ImmutableMultiset.copyOf(card.getHints().stream()
                         .map(hint -> hint.hintName)
                         .collect(Collectors.toList())));

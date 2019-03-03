@@ -89,7 +89,7 @@ public class CardListPanelTest extends GuiUnitTest {
             Email email = new Email("a@aa");
             Address address = new Address("a");
             Score score = new Score("0/1");
-            Card card = new Card(question, answer, email, address, score, Collections.emptySet());
+            Card card = new Card(question, answer, address, score, Collections.emptySet());
             backingList.add(card);
         }
         return backingList;

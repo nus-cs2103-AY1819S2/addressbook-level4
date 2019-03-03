@@ -121,11 +121,6 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of card in card folder -> 0 cards found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
         /* Case: find hints of card in card folder -> 0 cards found */
         List<Hint> hints = new ArrayList<>(DANIEL.getHints());
         command = FindCommand.COMMAND_WORD + " " + hints.get(0).hintName;

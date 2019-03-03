@@ -64,10 +64,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withAnswer(VALID_ANSWER_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withAnswer(VALID_ANSWER_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withHint(VALID_HINT_FRIEND).build();
         DESC_BOB = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_BOB)
-                .withAnswer(VALID_ANSWER_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withAnswer(VALID_ANSWER_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withHint(VALID_HINT_HUSBAND, VALID_HINT_FRIEND).build();
     }
 

@@ -18,7 +18,6 @@ public class Card {
     // Identity fields
     private final Question question;
     private final Answer answer;
-    private final Email email;
 
     // Data fields
     private final Address address;
@@ -28,11 +27,10 @@ public class Card {
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Email email, Address address, Score score, Set<Hint> hints) {
-        requireAllNonNull(question, answer, email, address, score, hints);
+    public Card(Question question, Answer answer, Address address, Score score, Set<Hint> hints) {
+        requireAllNonNull(question, answer, address, score, hints);
         this.question = question;
         this.answer = answer;
-        this.email = email;
         this.address = address;
         this.score = score;
         this.hints.addAll(hints);
@@ -44,10 +42,6 @@ public class Card {
 
     public Answer getAnswer() {
         return answer;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Address getAddress() {
@@ -105,7 +99,7 @@ public class Card {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, email, address, score, hints);
+        return Objects.hash(question, answer, address, score, hints);
     }
 
     @Override

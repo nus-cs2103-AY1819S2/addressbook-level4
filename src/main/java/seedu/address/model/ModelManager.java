@@ -143,7 +143,7 @@ public class ModelManager implements Model {
     @Override
     public void addMenuItem(MenuItem menuItem) {
         restOrRant.addMenuItem(menuItem);
-        updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENUITEMS);
+        updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENU_ITEMS);
     }
     // TODO: remove
     public void addPerson(Person person) {
@@ -299,4 +299,8 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedMenuItem.get(), other.selectedMenuItem.get());
     }
 
+    @Override
+    public void changeMode() {
+        restOrRant.changeMode();
+    }
 }

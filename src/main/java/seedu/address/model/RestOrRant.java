@@ -143,7 +143,10 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         persons.remove(key);
         indicateModified();
     }
-    
+
+    public void changeMode() {
+        indicateModified();
+    }
     /**
      * Given the menu item's {@code String code}, returns the MenuItem with the corresponding code.
      */
@@ -158,7 +161,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         }
         return null;
     }
-    
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

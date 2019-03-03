@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.util.SamplePatientsUtil.getSamplePatients;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,7 +24,7 @@ public class AddRemCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs(), getSamplePatients());
+    private Model model = new ModelManager(new AddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before

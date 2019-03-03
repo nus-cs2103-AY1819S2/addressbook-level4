@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.util.SamplePatientsUtil.getSamplePatients;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,25 +28,25 @@ public class AddAppCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs(), getSamplePatients());
+    private Model model = new ModelManager(new AddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void init() {
-        Nric nric = new Nric("S9234568C");
+        Nric nric = new Nric("S9534568C");
         LocalDate date = LocalDate.parse("2019-10-23");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
         String comment = "This is a comment";
-        Patient patientToAdd = model.getPatientWithNric(nric);
-        Appointment toAdd = new Appointment(patientToAdd, date, start, end, comment);
+        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Appointment toAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
 
         model.addApp(toAdd);
     }
 
     @Test
     public void executeValidAddAppointment() throws Exception {
-        Nric nric = new Nric("S9234567B");
+        Nric nric = new Nric("S9367777A");
         LocalDate date = LocalDate.parse("2019-10-23");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
@@ -54,8 +54,8 @@ public class AddAppCommandTest {
 
         CommandResult commandResult = new AddAppCommand(nric, date, start, end, comment)
                 .execute(model, commandHistory);
-        Patient patientToAdd = model.getPatientWithNric(nric);
-        Appointment toAdd = new Appointment(patientToAdd, date, start, end, comment);
+        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Appointment toAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
 
         StringBuilder sb = new StringBuilder();
         sb.append("Appointment added:\n")
@@ -67,7 +67,7 @@ public class AddAppCommandTest {
 
     @Test
     public void executeDuplicateAddAppointment() throws Exception {
-        Nric nric = new Nric("S9234568C");
+        Nric nric = new Nric("S9534568C");
         LocalDate date = LocalDate.parse("2019-10-23");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
@@ -81,8 +81,8 @@ public class AddAppCommandTest {
 
     @Test
     public void equals() {
-        Nric nricA = new Nric("S9234568C");
-        Nric nricB = new Nric("S9234567B");
+        Nric nricA = new Nric("S9534568C");
+        Nric nricB = new Nric("S9367777A");
         LocalDate date = LocalDate.parse("2019-10-23");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");

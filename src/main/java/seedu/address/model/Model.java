@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -91,6 +92,13 @@ public interface Model {
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
+
+    ObservableList<Reminder> getFilteredReminderList();
+
+    ReadOnlyProperty<Reminder> selectedReminderProperty();
+
+    void setSelectedReminder(Reminder reminder);
+
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -190,7 +198,7 @@ public interface Model {
 
     void createConsultation(Patient patient);
 
-    Patient getPatientWithNric(Nric nric);
+    Optional<Patient> getPatientWithNric(Nric nric);
 
     void diagnosePatient(Diagnosis diagnosis);
 

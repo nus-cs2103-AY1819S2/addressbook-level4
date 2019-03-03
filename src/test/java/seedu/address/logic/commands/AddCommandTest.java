@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -263,7 +264,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public Patient getPatientWithNric(Nric nric) {
+        public Optional<Patient> getPatientWithNric(Nric nric) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -314,6 +315,21 @@ public class AddCommandTest {
 
         @Override
         public String listRem() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Reminder> getFilteredReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Reminder> selectedReminderProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_START;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,7 +31,7 @@ public class AddAppCommand extends Command {
             + PREFIX_NRIC + "NRIC "
             + PREFIX_DATE + "DATE "
             + PREFIX_START + "START "
-            + PREFIX_END + "END"
+            + PREFIX_END + "END "
             + PREFIX_COMMENT + "COMMENT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NRIC + "S9625555I "
@@ -41,6 +42,7 @@ public class AddAppCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment added:\n%1$s\n";
     public static final String MESSAGE_DUPLICATE_APP = "The time slot has already been taken";
+    public static final String MESSAGE_PATIENT_NOT_FOUND = "No patient with the given nric found";
 
     private final Nric nric;
     private final LocalDate date;
@@ -63,15 +65,18 @@ public class AddAppCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        Patient patientToAdd = model.getPatientWithNric(nric);
-        Appointment toAdd = new Appointment(patientToAdd, date, start, end, comment);
+        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        if (!patientToAdd.isPresent()) {
+            throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
+        }
 
-        if (model.duplicateApp(toAdd)) {
+        Appointment appToAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
+        if (model.duplicateApp(appToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APP);
         }
 
-        model.addApp(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.addApp(appToAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, appToAdd));
     }
 
     @Override

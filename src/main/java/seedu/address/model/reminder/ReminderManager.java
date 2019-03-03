@@ -21,6 +21,10 @@ public class ReminderManager {
         return reminders.contains(rem);
     }
 
+    public List<Reminder> getReminderList() {
+        return reminders;
+    }
+
     /**
      * Returns a {@code String} of reminders created.
      */

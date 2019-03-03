@@ -20,7 +20,7 @@ import braintrain.model.lesson.Lesson;
  * A class to access Lessons stored in the hard disk as a csv file
  */
 public class CsvLessonsStorage implements LessonsStorage {
-    private static final Logger logger = LogsCenter.getLogger(CsvUtil.class);
+    private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
 
     private static final String CORE_ESCAPE = "*";
 
@@ -36,7 +36,7 @@ public class CsvLessonsStorage implements LessonsStorage {
 
     @Override
     public Path getLessonsFolderPath() {
-        return null;
+        return folderPath;
     }
 
     @Override
@@ -52,45 +52,51 @@ public class CsvLessonsStorage implements LessonsStorage {
 
     @Override
     public Optional<Lessons> readLessons(Path folderPath) {
+        requireNonNull(folderPath);
         List<Path> paths = new ArrayList<>();
         Lessons lessons = new Lessons();
         try {
             Files.walk(folderPath).filter(path -> {
-                return path.endsWith(".csv");
+                return path.toString().endsWith(".csv");
             }).forEach(paths::add);
-            for (Path filePath : paths) {
-                List<String[]> data = CsvUtil.readCsvFile(filePath);
-                if (data.isEmpty()) {
-                    continue;
-                }
-                String[] header = data.get(0);
-                int coreCount = 0;
-                boolean readingCores = true;
-                for (int i = 0; i < header.length; i++) {
-                    String value = header[i];
-                    if (value.startsWith(CORE_ESCAPE)) {
-                        if (!readingCores) {
-                            logger.warning(READ_WARNING_CORE_LABEL);
-                            continue;
-                        }
-                        coreCount++;
-                        header[i] = value.substring(CORE_ESCAPE.length());
-                    } else {
-                        readingCores = false;
-                    }
-                }
-                if (coreCount < Lesson.CORE_COUNT_MINIMUM) {
-                    continue;
-                }
-                String lessonName = filePath.getFileName().toString();
-                int extensionPos = lessonName.lastIndexOf(".");
-                lessonName = lessonName.substring(0, extensionPos);
-                List<String> fields = Arrays.asList(header);
-                Lesson newLesson = new Lesson(lessonName, coreCount, fields);
-                lessons.addLesson(newLesson);
-            }
         } catch (IOException e) {
             return Optional.empty();
+        }
+        for (Path filePath : paths) {
+            List<String[]> data;
+            try {
+                data = CsvUtil.readCsvFile(filePath);
+            } catch (IOException e) {
+                continue;
+            }
+            if (data == null) {
+                continue;
+            }
+            String[] header = data.get(0);
+            int coreCount = 0;
+            boolean readingCores = true;
+            for (int i = 0; i < header.length; i++) {
+                String value = header[i];
+                if (value.startsWith(CORE_ESCAPE)) {
+                    if (!readingCores) {
+                        logger.warning("File " + filePath.toString() + ": " + READ_WARNING_CORE_LABEL);
+                        continue;
+                    }
+                    coreCount++;
+                    header[i] = value.substring(CORE_ESCAPE.length());
+                } else {
+                    readingCores = false;
+                }
+            }
+            if (coreCount < Lesson.CORE_COUNT_MINIMUM) {
+                continue;
+            }
+            String lessonName = filePath.getFileName().toString();
+            int extensionPos = lessonName.lastIndexOf(".");
+            lessonName = lessonName.substring(0, extensionPos);
+            List<String> fields = Arrays.asList(header);
+            Lesson newLesson = new Lesson(lessonName, coreCount, fields);
+            lessons.addLesson(newLesson);
         }
         return Optional.of(lessons);
     }

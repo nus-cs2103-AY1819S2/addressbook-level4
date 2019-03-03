@@ -42,7 +42,7 @@ public class CsvUtil {
         values = csvReader.readAll();
 
         if (values.size() == 0) {
-            logger.info("Invalid/empty file.");
+            logger.info("Invalid/empty file: " + filePath.getFileName().toString());
             return null;
         }
 

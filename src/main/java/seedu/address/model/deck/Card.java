@@ -78,7 +78,8 @@ public class Card {
         Card otherCard = (Card) other;
 
         return this.answer.equals(otherCard.answer)
-                && this.question.equals(otherCard.question);
+                && this.question.equals(otherCard.question)
+                && this.tags.equals(otherCard.tags);
     }
 
     @Override

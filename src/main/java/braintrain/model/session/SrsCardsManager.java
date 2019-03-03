@@ -5,24 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import braintrain.model.card.Card;
-import braintrain.model.card.SRSCard;
+import braintrain.model.card.SrsCard;
 import braintrain.model.lesson.Lesson;
 import braintrain.model.user.CardData;
 
 /**
  * Represents a model of cards manager.
  */
-public class SRSCardsManager {
+public class SrsCardsManager {
     private Lesson lesson;
     private List<CardData> cardData;
-    private List<SRSCard> srsCards;
+    private List<SrsCard> srsCards;
     private List<List<Integer>> quizInformation;
 
-    public SRSCardsManager(Lesson lesson, List<CardData> cardData) {
+    public SrsCardsManager(Lesson lesson, List<CardData> cardData) {
         this.lesson = lesson;
         this.cardData = cardData;
     }
-    public SRSCardsManager(List<SRSCard> srsCards, List<List<Integer>> quizInformation) {
+    public SrsCardsManager(List<SrsCard> srsCards, List<List<Integer>> quizInformation) {
         this.quizInformation = quizInformation;
         this.srsCards = srsCards;
     }
@@ -30,15 +30,15 @@ public class SRSCardsManager {
     /**
      * Sorts all cards in this lesson based on their srsDueDate.
      */
-    public List<SRSCard> generate() {
+    public List<SrsCard> generate() {
         List<Card> cards = lesson.getCards();
-        List<SRSCard> srsCards = new ArrayList<>();
+        List<SrsCard> srsCards = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
             Card currentCard = cards.get(i);
-            SRSCard srsCard = new SRSCard();
+            SrsCard srsCard = new SrsCard();
             for (int j = 0; j < cardData.size(); j++) {
                 if (currentCard.hashCode() == cardData.get(j).getHashCode()) {
-                    srsCard = new SRSCard(currentCard, cardData.get(j), lesson);
+                    srsCard = new SrsCard(currentCard, cardData.get(j), lesson);
                     break;
                 }
             }

@@ -3,7 +3,7 @@ package braintrain.model.session;
 import java.util.ArrayList;
 import java.util.List;
 
-import braintrain.model.card.SRSCard;
+import braintrain.model.card.SrsCard;
 import braintrain.quiz.QuizCard;
 
 
@@ -17,7 +17,7 @@ public class Session {
     private Mode mode;
     private int cardCount;
     private List<QuizCard> quizCards;
-    private List<SRSCard> srsCards;
+    private List<SrsCard> srsCards;
 
     /**
      * Pass different types of mode supported in Quiz.
@@ -31,7 +31,7 @@ public class Session {
         PREVIEW
     }
 
-    public Session(String name, int cardCount, Mode mode, List<SRSCard> srsCards) {
+    public Session(String name, int cardCount, Mode mode, List<SrsCard> srsCards) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Invalid name");
         }
@@ -50,7 +50,7 @@ public class Session {
         this.srsCards = srsCards;
     }
 
-    public Session(String name, Mode mode, List<SRSCard> srsCards) {
+    public Session(String name, Mode mode, List<SrsCard> srsCards) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Invalid name");
         }
@@ -70,7 +70,7 @@ public class Session {
      * Generate a list of quizCards that will pass to quiz system.
      */
     public List<QuizCard> generate() {
-        SRSCard currentCard;
+        SrsCard currentCard;
         for (int i = 0; i < cardCount; i++) {
             currentCard = srsCards.get(i);
             quizCards.add(new QuizCard(currentCard.getQuestion(), currentCard.getAnswer()));
@@ -80,5 +80,8 @@ public class Session {
 
     public Mode getMode() {
         return mode;
+    }
+    public String getName() {
+        return name;
     }
 }

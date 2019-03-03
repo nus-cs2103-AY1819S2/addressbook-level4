@@ -48,7 +48,7 @@ public class SampleDataUtil {
                             + "10/10 service. # 5.0")),
             new Restaurant(new Name("McDonalds"), new Phone("62624417"), new Email("mcdonalds@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("FastFood"), new Weblink("mcdonalds.com.sg"), new OpeningHours("0000 to 0000"),
+                getTagSet("FastFood"), new Weblink("mcdonalds.com.sg"), new OpeningHours("24hrs"),
                     getReviewSet("Love the waiters. Food looks great too. # 4"))
         };
     }

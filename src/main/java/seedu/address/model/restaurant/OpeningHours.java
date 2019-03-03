@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidOpeningHour(String)}
  */
 public class OpeningHours {
-    public static final String MESSAGE_CONSTRAINTS = "Opening hours should be of the format 'HHMM to HHMM' "
+    public static final String MESSAGE_CONSTRAINTS = "Opening hours should be of the format 'HHMM to HHMM' or '24hrs' "
             + "for example, 1000 to 2200";
     // alphanumeric and special characters
     private static final String HOURS = "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]";
@@ -31,7 +31,8 @@ public class OpeningHours {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidOpeningHour(String test) {
-        return test.matches(VALIDATION_REGEX) || test.matches("No opening hours added");
+        return test.matches(VALIDATION_REGEX) || test.matches("No opening hours added")
+                || test.matches("24hrs");
     }
 
     public static OpeningHours makeDefaultOpening() {

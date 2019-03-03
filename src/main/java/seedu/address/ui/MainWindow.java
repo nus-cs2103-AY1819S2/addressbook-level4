@@ -172,9 +172,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void handleStartTestSession(Card card) {
-        fullScreenPlaceholder.getChildren().get(fullScreenPlaceholder.getChildren().size() - 1).toBack();
         Region testSessionRegion = (new TestSession(card)).getRoot();
         fullScreenPlaceholder.getChildren().set(0, testSessionRegion);
+        fullScreenPlaceholder.getChildren().get(fullScreenPlaceholder.getChildren().size() - 1).toBack();
     }
 
     private void handleEndTestSession() {
@@ -206,6 +206,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isTestSession()) {
                 handleStartTestSession(commandResult.getTestSessionCard());
+            }
+
+            if (commandResult.isEndTestSession()) {
+                handleEndTestSession();
             }
 
             return commandResult;

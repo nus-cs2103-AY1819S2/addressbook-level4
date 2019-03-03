@@ -57,6 +57,10 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isEndTestSession() {
+        return endTestSession;
+    }
+
     /**
      * Check if command is to enter test session
      * @return a boolean variable to state if command is test or not

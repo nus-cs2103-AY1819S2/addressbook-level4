@@ -7,8 +7,10 @@ import java.util.Set;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -22,12 +24,16 @@ public class RestaurantBuilder {
     public static final String DEFAULT_PHONE = "65355255";
     public static final String DEFAULT_EMAIL = "kfc@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_WEBLINK = "kfc.com.sg";
+    public static final String DEFAULT_OPENING_HOURS = "0930 to 2130";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Weblink weblink;
+    private OpeningHours openingHours;
     private Cuisine cuisine;
 
     public RestaurantBuilder() {
@@ -36,6 +42,8 @@ public class RestaurantBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        weblink = new Weblink(DEFAULT_WEBLINK);
+        openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
         cuisine = null;
     }
 
@@ -48,6 +56,8 @@ public class RestaurantBuilder {
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
         tags = new HashSet<>(restaurantToCopy.getTags());
+        weblink = restaurantToCopy.getWeblink();
+        openingHours = restaurantToCopy.getOpeningHours();
         cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
     }
 
@@ -92,6 +102,22 @@ public class RestaurantBuilder {
     }
 
     /**
+     * Sets the {@code Email} of the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withWeblink(String weblink) {
+        this.weblink = new Weblink(weblink);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withOpeningHours(String openingHours) {
+        this.openingHours = new OpeningHours(openingHours);
+        return this;
+    }
+
+    /**
      * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
      */
     public RestaurantBuilder withCuisine(String cuisine) {
@@ -100,7 +126,7 @@ public class RestaurantBuilder {
     }
 
     public Restaurant build() {
-        return new Restaurant(name, phone, email, address, tags, Optional.ofNullable(cuisine));
+        return new Restaurant(name, phone, email, address, tags, weblink, openingHours, Optional.ofNullable(cuisine));
     }
 
 }

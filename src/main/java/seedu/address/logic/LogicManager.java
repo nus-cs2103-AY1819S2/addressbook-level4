@@ -30,6 +30,7 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final RestOrRantParser restOrRantParser;
     private boolean addressBookModified;
+    private boolean modeModified;
     private Mode mode;
 
     public LogicManager(Model model, Storage storage) {
@@ -41,12 +42,15 @@ public class LogicManager implements Logic {
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getRestOrRant().addListener(observable -> addressBookModified = true);
+        // Set modeModified to true whenever the models' mode is modified.
+        model.getRestOrRant().addListener(observable -> modeModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
+        modeModified = false;
 
         CommandResult commandResult;
         try {
@@ -63,6 +67,10 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
+        }
+
+        if (modeModified) {
+            logger.info("Application mode modified, changing UI");
         }
 
         return commandResult;

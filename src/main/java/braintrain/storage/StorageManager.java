@@ -50,7 +50,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getLessonsFolderPath() {
-        return null;
+        return lessonsStorage.getLessonsFolderPath();
     }
 
     @Override
@@ -60,12 +60,12 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<Lessons> readLessons() throws IOException {
-        return Optional.empty();
+        return lessonsStorage.readLessons();
     }
 
     @Override
     public Optional<Lessons> readLessons(Path filePath) throws IOException {
-        return Optional.empty();
+        return lessonsStorage.readLessons(filePath);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getImportExportFilePath() {
-        return null;
+        return lessonImportExport.getImportExportFilePath();
     }
 
     @Override

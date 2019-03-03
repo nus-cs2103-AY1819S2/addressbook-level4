@@ -32,8 +32,6 @@ public class CsvLessonsStorageTest {
         "invalidCoreCount");
     private static final Path READ_ONLY_FILE_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
         "readOnlyFile");
-    private static final Path CORRUPT_FILE_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
-        "corruptFile");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -45,11 +43,13 @@ public class CsvLessonsStorageTest {
         return new CsvLessonsStorage(lessonsInTestDataFolder).readLessons(lessonsInTestDataFolder);
     }
 
+    /*
     private Path addToTestDataPathIfNotNull(String lessonsInTestDataFolder) {
         return lessonsInTestDataFolder != null
             ? TEST_DATA_FOLDER.resolve(lessonsInTestDataFolder)
             : null;
     }
+    */
 
     private Lessons getTestLessons() {
         Lessons lessons = new Lessons();

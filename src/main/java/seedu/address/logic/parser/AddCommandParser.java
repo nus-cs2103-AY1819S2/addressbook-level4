@@ -49,7 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Restaurant restaurant;
         if (!arePrefixesPresent(argMultimap, PREFIX_WEBLINK)) {
-            restaurant = new Restaurant(name, phone, email, address, tagList);
+            restaurant = new Restaurant(name, phone, email, address, tagList, Weblink.makeDefaultWeblink());
         } else {
             Weblink weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
             restaurant = new Restaurant(name, phone, email, address, tagList, weblink);

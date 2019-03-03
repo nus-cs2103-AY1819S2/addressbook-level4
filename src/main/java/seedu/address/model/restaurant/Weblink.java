@@ -48,7 +48,7 @@ public class Weblink {
     }
 
     public static Weblink makeDefaultWeblink() {
-        return new Weblink("www.default.com.sg");
+        return new Weblink("No weblink added");
     }
 
     @Override

@@ -21,10 +21,14 @@ public class School {
         value = school;
     }
 
-    public static boolean isValidSchool(String test) { return test.matches(VALIDATION_REGEX); }
+    public static boolean isValidSchool(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
 
     @Override
-    public String toString() { return value; }
+    public String toString() {
+        return value;
+    }
 
     @Override
     public boolean equals(Object other) {

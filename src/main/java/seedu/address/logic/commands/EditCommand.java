@@ -195,9 +195,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        public void setSchool(School school) { this.school = school; }
+        public void setSchool(School school) {
+            this.school = school;
+        }
 
-        public Optional<School> getSchool() { return Optional.ofNullable(school); }
+        public Optional<School> getSchool() {
+            return Optional.ofNullable(school);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

@@ -54,7 +54,9 @@ public class Person {
         return address;
     }
 
-    public School getSchool() { return school; }
+    public School getSchool() {
+        return school;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.model.util.SamplePatientsUtil.getSamplePatients;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,7 +15,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.reminder.Reminder;
 
 public class ListRemCommandTest {
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs(), getSamplePatients());
+    private Model model = new ModelManager(new AddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     private String titleA = "Refill Medicine ABC";

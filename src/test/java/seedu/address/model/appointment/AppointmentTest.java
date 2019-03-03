@@ -1,7 +1,5 @@
 package seedu.address.model.appointment;
 
-import static seedu.address.model.util.SamplePatientsUtil.getSamplePatients;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,8 +13,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.patient.Nric;
 
 public class AppointmentTest {
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs(), getSamplePatients());
-    private Nric nric = new Nric("S9123456A");
+    private Model model = new ModelManager(new AddressBook(), new UserPrefs());
+    private Nric nric = new Nric("S9367777A");
     private LocalDate dateA = LocalDate.parse("2019-10-23");
     private LocalDate dateB = LocalDate.parse("2019-10-24");
     private LocalTime startA = LocalTime.parse("16:00");

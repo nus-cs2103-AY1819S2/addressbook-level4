@@ -29,9 +29,9 @@ public class EditPatientCommandTest {
 
     @Before
     public void init() {
-        Name name = new Name("Peter Tan");
+        Name name = new Name("Bob Tan");
         Nric nric = new Nric("S9123456A");
-        Email email = new Email("ptan@gmail.com");
+        Email email = new Email("btan@gmail.com");
         Address address = new Address("1 Simei Road");
         Contact contact = new Contact("91111111");
         Gender gender = new Gender("M");
@@ -43,9 +43,10 @@ public class EditPatientCommandTest {
 
     @Test
     public void executeValidEditPatient() {
-        Name name = new Name("Peter Toh");
+        System.out.println(modelManager.listFiftyPatients());
+        Name name = new Name("Bob Toh");
         Nric nric = new Nric("S9123456A");
-        Email email = new Email("ptan@gmail.com");
+        Email email = new Email("btan@gmail.com");
         Address address = new Address("1 Simei Road");
         Contact contact = new Contact("91111111");
         Gender gender = new Gender("M");
@@ -54,10 +55,10 @@ public class EditPatientCommandTest {
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
 
         PatientEditedFields editedFields = new PatientEditedFields();
-        editedFields.setName(new Name("Peter Toh"));
+        editedFields.setName(new Name("Bob Toh"));
 
         try {
-            CommandResult commandResult = new EditPatientCommand(1, editedFields)
+            CommandResult commandResult = new EditPatientCommand(4, editedFields)
                     .execute(modelManager, history);
 
             StringBuilder sb = new StringBuilder();

@@ -31,6 +31,9 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleAppUtil;
+import seedu.address.model.util.SamplePatientsUtil;
+import seedu.address.model.util.SampleRemUtil;
 
 
 /**
@@ -54,24 +57,6 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Patient[] samplePatients) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        this.medicineManager = new MedicineManager();
-        this.patientManager = new PatientManager();
-        this.consultationManager = new ConsultationManager();
-        this.appointmentManager = new AppointmentManager();
-        this.reminderManager = new ReminderManager();
-        iniPatients(samplePatients);
-    }
-
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -87,6 +72,7 @@ public class ModelManager implements Model {
         this.consultationManager = new ConsultationManager();
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
+        iniQuickDocs();
     }
 
     public ModelManager() {
@@ -96,9 +82,18 @@ public class ModelManager implements Model {
     /**
      * Initialise quickdocs with sample patient data
      */
-    public void iniPatients(Patient[] samplePatients) {
+    public void iniQuickDocs() {
+        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
         for (Patient patient : samplePatients) {
             patientManager.addPatient(patient);
+        }
+        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
+        for (Appointment app : sampleAppointments) {
+            appointmentManager.add(app);
+        }
+        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
+        for (Reminder rem : sampleReminders) {
+            reminderManager.addReminder(rem);
         }
     }
 

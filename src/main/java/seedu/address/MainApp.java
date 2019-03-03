@@ -25,9 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.patient.Patient;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.util.SamplePatientsUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -102,8 +100,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        return new ModelManager(initialData, userPrefs, samplePatients);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

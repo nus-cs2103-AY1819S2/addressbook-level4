@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.AMY;
+import static seedu.address.testutil.TypicalEquipments.BOB;
+import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,85 +26,85 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.exceptions.DuplicateEquipmentException;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EquipmentBuilder;
+import seedu.address.testutil.EquipmentManagerBuilder;
 
-public class AddressBookTest {
+public class EquipmentManagerTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
-    private final AddressBook addressBookWithBobAndAmy = new AddressBookBuilder().withPerson(BOB)
+    private final EquipmentManager equipmentManager = new EquipmentManager();
+    private final EquipmentManager equipmentManagerWithBobAndAmy = new EquipmentManagerBuilder().withPerson(BOB)
             .withPerson(AMY).build();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), equipmentManager.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        equipmentManager.resetData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        EquipmentManager newData = getTypicalAddressBook();
+        equipmentManager.resetData(newData);
+        assertEquals(newData, equipmentManager);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two equipment with the same identity fields
-        Equipment editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Equipment editedAlice = new EquipmentBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Equipment> newEquipments = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newEquipments);
+        EquipmentManagerStub newData = new EquipmentManagerStub(newEquipments);
 
         thrown.expect(DuplicateEquipmentException.class);
-        addressBook.resetData(newData);
+        equipmentManager.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        equipmentManager.hasPerson(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(equipmentManager.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        equipmentManager.addPerson(ALICE);
+        assertTrue(equipmentManager.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Equipment editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        equipmentManager.addPerson(ALICE);
+        Equipment editedAlice = new EquipmentBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(equipmentManager.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        equipmentManager.getPersonList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addPerson(ALICE);
+        equipmentManager.addListener(listener);
+        equipmentManager.addPerson(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -112,19 +112,19 @@ public class AddressBookTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addPerson(ALICE);
+        equipmentManager.addListener(listener);
+        equipmentManager.removeListener(listener);
+        equipmentManager.addPerson(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose equipment list can violate interface constraints.
+     * A stub ReadOnlyEquipmentManager whose equipment list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class EquipmentManagerStub implements ReadOnlyEquipmentManager {
         private final ObservableList<Equipment> equipment = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Equipment> equipment) {
+        EquipmentManagerStub(Collection<Equipment> equipment) {
             this.equipment.setAll(equipment);
         }
 

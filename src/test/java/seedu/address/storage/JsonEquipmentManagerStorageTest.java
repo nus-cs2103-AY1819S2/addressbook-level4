@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.HOON;
+import static seedu.address.testutil.TypicalEquipments.IDA;
+import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,8 +17,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.EquipmentManager;
+import seedu.address.model.ReadOnlyEquipmentManager;
 
 public class JsonEquipmentManagerStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -36,7 +36,7 @@ public class JsonEquipmentManagerStorageTest {
         readAddressBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyEquipmentManager> readAddressBook(String filePath) throws Exception {
         return new JsonEquipmentManagerStorage(Paths.get(filePath))
                 .readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
@@ -77,26 +77,26 @@ public class JsonEquipmentManagerStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
-        AddressBook original = getTypicalAddressBook();
+        EquipmentManager original = getTypicalAddressBook();
         JsonEquipmentManagerStorage jsonEquipmentManagerStorage = new JsonEquipmentManagerStorage(filePath);
 
         // Save in new file and read back
         jsonEquipmentManagerStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = jsonEquipmentManagerStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        ReadOnlyEquipmentManager readBack = jsonEquipmentManagerStorage.readAddressBook(filePath).get();
+        assertEquals(original, new EquipmentManager(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
         jsonEquipmentManagerStorage.saveAddressBook(original, filePath);
         readBack = jsonEquipmentManagerStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new EquipmentManager(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
         jsonEquipmentManagerStorage.saveAddressBook(original); // file path not specified
         readBack = jsonEquipmentManagerStorage.readAddressBook().get(); // file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new EquipmentManager(readBack));
 
     }
 
@@ -109,7 +109,7 @@ public class JsonEquipmentManagerStorageTest {
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveAddressBook(ReadOnlyEquipmentManager addressBook, String filePath) {
         try {
             new JsonEquipmentManagerStorage(Paths.get(filePath))
                     .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
@@ -121,6 +121,6 @@ public class JsonEquipmentManagerStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveAddressBook(new EquipmentManager(), null);
     }
 }

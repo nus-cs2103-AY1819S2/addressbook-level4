@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalEquipments.AMY;
+import static seedu.address.testutil.TypicalEquipments.BOB;
+import static seedu.address.testutil.TypicalEquipments.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,14 +14,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.EquipmentManagerBuilder;
 
 public class VersionedEquipmentManagerTest {
 
-    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyEquipmentManager addressBookWithAmy = new EquipmentManagerBuilder().withPerson(AMY).build();
+    private final ReadOnlyEquipmentManager addressBookWithBob = new EquipmentManagerBuilder().withPerson(BOB).build();
+    private final ReadOnlyEquipmentManager addressBookWithCarl = new EquipmentManagerBuilder().withPerson(CARL).build();
+    private final ReadOnlyEquipmentManager emptyAddressBook = new EquipmentManagerBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
@@ -244,11 +244,11 @@ public class VersionedEquipmentManagerTest {
      * is equal to {@code expectedStatesAfterPointer}.
      */
     private void assertAddressBookListStatus(VersionedEquipmentManager versionedEquipmentManager,
-                                             List<ReadOnlyAddressBook> expectedStatesBeforePointer,
-                                             ReadOnlyAddressBook expectedCurrentState,
-                                             List<ReadOnlyAddressBook> expectedStatesAfterPointer) {
+                                             List<ReadOnlyEquipmentManager> expectedStatesBeforePointer,
+                                             ReadOnlyEquipmentManager expectedCurrentState,
+                                             List<ReadOnlyEquipmentManager> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
-        assertEquals(new AddressBook(versionedEquipmentManager), expectedCurrentState);
+        assertEquals(new EquipmentManager(versionedEquipmentManager), expectedCurrentState);
 
         // shift pointer to start of state list
         while (versionedEquipmentManager.canUndo()) {
@@ -256,15 +256,15 @@ public class VersionedEquipmentManagerTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new AddressBook(versionedEquipmentManager));
+        for (ReadOnlyEquipmentManager expectedAddressBook : expectedStatesBeforePointer) {
+            assertEquals(expectedAddressBook, new EquipmentManager(versionedEquipmentManager));
             versionedEquipmentManager.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyEquipmentManager expectedAddressBook : expectedStatesAfterPointer) {
             versionedEquipmentManager.redo();
-            assertEquals(expectedAddressBook, new AddressBook(versionedEquipmentManager));
+            assertEquals(expectedAddressBook, new EquipmentManager(versionedEquipmentManager));
         }
 
         // check that there are no more states after pointer
@@ -278,7 +278,7 @@ public class VersionedEquipmentManagerTest {
      * Creates and returns a {@code VersionedEquipmentManager} with the {@code addressBookStates} added into it, and the
      * {@code VersionedEquipmentManager#currentStatePointer} at the end of list.
      */
-    private VersionedEquipmentManager prepareAddressBookList(ReadOnlyAddressBook... addressBookStates) {
+    private VersionedEquipmentManager prepareAddressBookList(ReadOnlyEquipmentManager... addressBookStates) {
         assertFalse(addressBookStates.length == 0);
 
         VersionedEquipmentManager versionedEquipmentManager = new VersionedEquipmentManager(addressBookStates[0]);

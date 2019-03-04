@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameEquipment comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class EquipmentManager implements ReadOnlyEquipmentManager {
 
     private final UniqueEquipmentList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -33,12 +33,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniqueEquipmentList();
     }
 
-    public AddressBook() {}
+    public EquipmentManager() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an EquipmentManager using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public EquipmentManager(ReadOnlyEquipmentManager toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -55,9 +55,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code EquipmentManager} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyEquipmentManager newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -96,7 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code EquipmentManager}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Equipment key) {
@@ -117,7 +117,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code tag} from {@code equipment} in this {@code AddressBook}.
+     * Removes {@code tag} from {@code equipment} in this {@code EquipmentManager}.
      */
     private void removeTagFromPerson(Tag tag, Equipment equipment) {
         Set<Tag> newTags = new HashSet<>(equipment.getTags());
@@ -134,7 +134,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code tag} from all persons in this {@code AddressBook}.
+     * Removes {@code tag} from all persons in this {@code EquipmentManager}.
      */
     public void removeTag(Tag tag) {
         persons.forEach(person -> removeTagFromPerson(tag, person));
@@ -173,8 +173,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof EquipmentManager // instanceof handles nulls
+                && persons.equals(((EquipmentManager) other).persons));
     }
 
     @Override

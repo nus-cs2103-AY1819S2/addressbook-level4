@@ -19,13 +19,13 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.EquipmentManager;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EquipmentBuilder;
 
 public class AddCommandTest {
 
@@ -45,7 +45,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Equipment validEquipment = new PersonBuilder().build();
+        Equipment validEquipment = new EquipmentBuilder().build();
 
         CommandResult commandResult = new AddCommand(validEquipment).execute(modelStub, commandHistory);
 
@@ -57,7 +57,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Equipment validEquipment = new PersonBuilder().build();
+        Equipment validEquipment = new EquipmentBuilder().build();
         AddCommand addCommand = new AddCommand(validEquipment);
         ModelStub modelStub = new ModelStubWithPerson(validEquipment);
 
@@ -68,8 +68,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Equipment alice = new PersonBuilder().withName("Alice").build();
-        Equipment bob = new PersonBuilder().withName("Bob").build();
+        Equipment alice = new EquipmentBuilder().withName("Alice").build();
+        Equipment bob = new EquipmentBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -134,12 +134,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyEquipmentManager newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyEquipmentManager getAddressBook() {
 
             throw new AssertionError("This method should not be called.");
         }
@@ -270,8 +270,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyEquipmentManager getAddressBook() {
+            return new EquipmentManager();
         }
     }
 

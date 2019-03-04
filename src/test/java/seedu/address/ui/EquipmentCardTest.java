@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.equipment.Equipment;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EquipmentBuilder;
 
 public class EquipmentCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Equipment equipmentWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Equipment equipmentWithNoTags = new EquipmentBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(equipmentWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, equipmentWithNoTags, 1);
 
         // with tags
-        Equipment equipmentWithTags = new PersonBuilder().build();
+        Equipment equipmentWithTags = new EquipmentBuilder().build();
         personCard = new PersonCard(equipmentWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, equipmentWithTags, 2);
@@ -30,7 +30,7 @@ public class EquipmentCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Equipment equipment = new PersonBuilder().build();
+        Equipment equipment = new EquipmentBuilder().build();
         PersonCard personCard = new PersonCard(equipment, 0);
 
         // same equipment, same index -> returns true
@@ -47,7 +47,7 @@ public class EquipmentCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(0));
 
         // different equipment, same index -> returns false
-        Equipment differentEquipment = new PersonBuilder().withName("differentName").build();
+        Equipment differentEquipment = new EquipmentBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentEquipment, 0)));
 
         // same equipment, different index -> returns false

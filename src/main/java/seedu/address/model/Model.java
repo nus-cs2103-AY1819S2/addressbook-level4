@@ -49,10 +49,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyEquipmentManager addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the EquipmentManager */
+    ReadOnlyEquipmentManager getAddressBook();
 
     /**
      * Returns true if a equipment with the same identity as {@code equipment} exists in the address book.

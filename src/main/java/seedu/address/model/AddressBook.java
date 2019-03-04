@@ -1,5 +1,9 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
@@ -7,10 +11,6 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.BookingList;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.UniqueCustomerList;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level
@@ -22,7 +22,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueCustomerList customers;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    /*
+    /**
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
@@ -34,7 +34,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         customers = new UniqueCustomerList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Customers in the {@code toBeCopied}
@@ -184,8 +185,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && customers.equals(((AddressBook) other).customers));
+            || (other instanceof AddressBook // instanceof handles nulls
+            && customers.equals(((AddressBook) other).customers));
     }
 
     @Override

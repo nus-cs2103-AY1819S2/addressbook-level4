@@ -1,12 +1,12 @@
 package seedu.address.ui;
 
+import java.util.Optional;
+
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
 import org.junit.Rule;
 import seedu.address.ui.testutil.UiPartRule;
-
-import java.util.Optional;
 
 /**
  * A GUI unit test class for AddressBook.

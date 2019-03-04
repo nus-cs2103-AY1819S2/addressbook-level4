@@ -1,5 +1,9 @@
 package seedu.address.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -14,10 +18,6 @@ import seedu.address.model.CustomerModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.storage.Storage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
-       customerModel.getAddressBook().addListener(observable -> addressBookModified = true);
+        customerModel.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 
     @Override

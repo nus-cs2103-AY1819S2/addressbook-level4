@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
 
 /**
  * Lists all the commands entered by user from the start of app launch.

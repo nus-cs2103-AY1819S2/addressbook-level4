@@ -1,10 +1,10 @@
 package seedu.address.model;
 
+import java.util.function.Predicate;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.customer.Customer;
-
-import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -28,11 +28,14 @@ public interface CustomerModel extends Model {
      */
     void setSelectedCustomer(Customer customer);
 
-    /** Returns an unmodifiable view of the filtered customer list */
+    /**
+     * Returns an unmodifiable view of the filtered customer list
+     */
     ObservableList<Customer> getFilteredCustomerList();
 
     /**
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
@@ -57,7 +60,8 @@ public interface CustomerModel extends Model {
     /**
      * Replaces the given customer {@code target} with {@code editedCustomer}.
      * {@code target} must exist in the address book.
-     * The customer identity of {@code editedCustomer} must not be the same as another existing customer in the address book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer in the
+     * address book.
      */
     void setCustomer(Customer target, Customer editedCustomer);
 }

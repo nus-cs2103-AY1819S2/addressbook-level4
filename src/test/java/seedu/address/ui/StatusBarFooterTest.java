@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
-import guitests.guihandles.StatusBarFooterHandle;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import seedu.address.model.AddressBook;
+import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalCustomers.ALICE;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,10 +12,12 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import guitests.guihandles.StatusBarFooterHandle;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import seedu.address.model.AddressBook;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
@@ -26,9 +26,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-
-    private StatusBarFooterHandle statusBarFooterHandle;
     private final AddressBook addressBook = new AddressBook();
+    private StatusBarFooterHandle statusBarFooterHandle;
 
     @BeforeClass
     public static void setUpBeforeClass() {
@@ -58,7 +57,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // after address book is updated
         guiRobot.interact(() -> addressBook.addCustomer(ALICE));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+            String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }
 
     /**

@@ -1,13 +1,13 @@
 package guitests.guihandles;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.customer.Customer;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Provides a handle to a customer card in the customer list panel.
@@ -38,10 +38,10 @@ public class CustomerCardHandle extends NodeHandle<Node> {
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
-                .getChildrenUnmodifiable()
-                .stream()
-                .map(Label.class::cast)
-                .collect(Collectors.toList());
+            .getChildrenUnmodifiable()
+            .stream()
+            .map(Label.class::cast)
+            .collect(Collectors.toList());
     }
 
     public String getId() {
@@ -66,9 +66,9 @@ public class CustomerCardHandle extends NodeHandle<Node> {
 
     public List<String> getTags() {
         return tagLabels
-                .stream()
-                .map(Label::getText)
-                .collect(Collectors.toList());
+            .stream()
+            .map(Label::getText)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -76,11 +76,11 @@ public class CustomerCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Customer customer) {
         return getName().equals(customer.getName().fullName)
-                && getAddress().equals(customer.getAddress().value)
-                && getPhone().equals(customer.getPhone().value)
-                && getEmail().equals(customer.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(customer.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+            && getAddress().equals(customer.getAddress().value)
+            && getPhone().equals(customer.getPhone().value)
+            && getEmail().equals(customer.getEmail().value)
+            && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(customer.getTags().stream()
+            .map(tag -> tag.tagName)
+            .collect(Collectors.toList())));
     }
 }

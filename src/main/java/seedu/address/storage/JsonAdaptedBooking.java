@@ -1,24 +1,25 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.ServiceType;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.util.TimeRange;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 /**
  * Jackson-friendly version of {@link Booking}.
  */
 class JsonAdaptedBooking {
 
-    public static String MISSING_FIELD_MESSAGE_FORMAT = "Booking's %s field is missing!";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Booking's %s field is missing!";
 
     private final JsonAdaptedServiceType service;
     private final JsonAdaptedTimeRange timing;
@@ -38,10 +39,10 @@ class JsonAdaptedBooking {
         this.service = service;
         this.timing = timing;
         this.payer = payer;
-        if(otherUsers != null) {
+        if (otherUsers != null) {
             this.otherUsers.addAll(otherUsers);
         }
-        if(comment != null) {
+        if (comment != null) {
             this.comment = comment;
         }
     }
@@ -70,11 +71,13 @@ class JsonAdaptedBooking {
         }
 
         if (service == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ServiceType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                ServiceType.class.getSimpleName()));
         }
 
         if (timing == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TimeRange.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                TimeRange.class.getSimpleName()));
         }
 
         if (payer == null) {

@@ -1,12 +1,16 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAYER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookingModel;
 import seedu.address.model.booking.Booking;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Adds a customer to the address book.

@@ -1,11 +1,11 @@
 package seedu.address.model.booking;
 
-import seedu.address.model.customer.Customer;
-import seedu.address.model.util.TimeRange;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
+import seedu.address.model.customer.Customer;
+import seedu.address.model.util.TimeRange;
 
 /**
  * Represents a service booking in the hotel system.

@@ -1,12 +1,12 @@
 package systemtests;
 
-import seedu.address.model.Model;
-import seedu.address.model.customer.Customer;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+
+import seedu.address.model.Model;
+import seedu.address.model.customer.Customer;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
@@ -19,7 +19,7 @@ public class ModelHelper {
      */
     public static void setFilteredList(Model model, List<Customer> toDisplay) {
         Optional<Predicate<Customer>> predicate =
-                toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
+            toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredCustomerList(predicate.orElse(PREDICATE_MATCHING_NO_CUSTOMERS));
     }
 

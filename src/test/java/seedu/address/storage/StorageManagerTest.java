@@ -1,5 +1,11 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
+
+import java.nio.file.Path;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,12 +14,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-
-import java.nio.file.Path;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
 
 public class StorageManagerTest {
 

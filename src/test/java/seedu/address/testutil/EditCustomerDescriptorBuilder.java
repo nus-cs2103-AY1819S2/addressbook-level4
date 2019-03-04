@@ -1,12 +1,16 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditCommand.EditCustomerDescriptor;
-import seedu.address.model.customer.*;
-import seedu.address.model.tag.Tag;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import seedu.address.logic.commands.EditCommand.EditCustomerDescriptor;
+import seedu.address.model.customer.Address;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.Email;
+import seedu.address.model.customer.Name;
+import seedu.address.model.customer.Phone;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditCustomerDescriptor objects.

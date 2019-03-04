@@ -1,13 +1,13 @@
 package seedu.address.model.customer;
 
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Customer in the address book.
@@ -74,8 +74,8 @@ public class Customer {
         }
 
         return otherCustomer != null
-                && otherCustomer.getName().equals(getName())
-                && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail()));
+            && otherCustomer.getName().equals(getName())
+            && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail()));
     }
 
     /**
@@ -94,10 +94,10 @@ public class Customer {
 
         Customer otherCustomer = (Customer) other;
         return otherCustomer.getName().equals(getName())
-                && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getEmail().equals(getEmail())
-                && otherCustomer.getAddress().equals(getAddress())
-                && otherCustomer.getTags().equals(getTags());
+            && otherCustomer.getPhone().equals(getPhone())
+            && otherCustomer.getEmail().equals(getEmail())
+            && otherCustomer.getAddress().equals(getAddress())
+            && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
@@ -110,15 +110,15 @@ public class Customer {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" VIP Status: ")
-                .append(isVip())
-                .append(" Tags: ");
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" VIP Status: ")
+            .append(isVip())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

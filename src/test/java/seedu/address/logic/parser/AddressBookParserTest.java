@@ -1,10 +1,31 @@
 package seedu.address.logic.parser;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditCustomerDescriptor;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
@@ -12,21 +33,10 @@ import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.CustomerUtil;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-
 public class AddressBookParserTest {
+    private final AddressBookParser parser = new AddressBookParser();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private final AddressBookParser parser = new AddressBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -39,7 +49,7 @@ public class AddressBookParserTest {
     public void parseCommand_addAlias() throws Exception {
         Customer customer = new CustomerBuilder().build();
         AddCommand commandAlias = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS + " "
-                + CustomerUtil.getCustomerDetails(customer));
+            + CustomerUtil.getCustomerDetails(customer));
         assertEquals(new AddCommand(customer), commandAlias);
     }
 
@@ -58,14 +68,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased());
+            DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_CUSTOMER), command);
     }
 
     @Test
     public void parseCommand_deleteAlias() throws Exception {
         DeleteCommand commandAlias = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased());
+            DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_CUSTOMER), commandAlias);
     }
 
@@ -74,7 +84,7 @@ public class AddressBookParserTest {
         Customer customer = new CustomerBuilder().build();
         EditCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor));
+            + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_CUSTOMER, descriptor), command);
     }
 
@@ -103,7 +113,7 @@ public class AddressBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -111,7 +121,7 @@ public class AddressBookParserTest {
     public void parseCommand_findAlias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand commandAlias = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), commandAlias);
     }
 
@@ -168,14 +178,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased());
+            SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_CUSTOMER), command);
     }
 
     @Test
     public void parseCommand_selectAlias() throws Exception {
         SelectCommand commandAlias = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased());
+            SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_CUSTOMER), commandAlias);
     }
 

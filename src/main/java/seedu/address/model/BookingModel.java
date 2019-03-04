@@ -1,10 +1,10 @@
 package seedu.address.model;
 
+import java.util.function.Predicate;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
-
-import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -55,7 +55,8 @@ public interface BookingModel extends Model {
     /**
      * Replaces the given booking {@code target} with {@code editedBooking}.
      * {@code target} must exist in the address book.
-     * The booking identity of {@code editedBooking} must not be the same as another existing booking in the address book.
+     * The booking identity of {@code editedBooking} must not be the same as another existing booking in the address
+     * book.
      */
     void setBooking(int target, Booking editedBooking);
 }

@@ -1,14 +1,14 @@
 package seedu.address.ui.testutil;
 
-import guitests.guihandles.CustomerCardHandle;
-import guitests.guihandles.CustomerListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.customer.Customer;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import guitests.guihandles.CustomerCardHandle;
+import guitests.guihandles.CustomerListPanelHandle;
+import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.customer.Customer;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -35,7 +35,7 @@ public class GuiTestAssert {
         assertEquals(expectedCustomer.getEmail().value, actualCard.getEmail());
         assertEquals(expectedCustomer.getAddress().value, actualCard.getAddress());
         assertEquals(expectedCustomer.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+            actualCard.getTags());
     }
 
     /**

@@ -1,9 +1,9 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Stores the history of commands executed.
@@ -11,9 +11,10 @@ import static java.util.Objects.requireNonNull;
 public class CommandHistory {
     private final ObservableList<String> userInputHistory = FXCollections.observableArrayList();
     private final ObservableList<String> unmodifiableUserInputHistory =
-            FXCollections.unmodifiableObservableList(userInputHistory);
+        FXCollections.unmodifiableObservableList(userInputHistory);
 
-    public CommandHistory() {}
+    public CommandHistory() {
+    }
 
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory.addAll(commandHistory.userInputHistory);

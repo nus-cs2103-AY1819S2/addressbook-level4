@@ -21,6 +21,7 @@ public class TimeRange {
 
     /**
      * Returns whether the other timing is inside this timing.
+     *
      * @param other The timing to check if exists inside this timing or not.
      */
     public boolean withinTiming(TimeRange other) {
@@ -66,7 +67,7 @@ public class TimeRange {
 
     public Iterable<TimeRange> getHourlySlots() {
         List<TimeRange> hourlySlots = new ArrayList<TimeRange>();
-        for(int i = this.startTime.getHour(); i < this.endTime.getHour(); i++) {
+        for (int i = this.startTime.getHour(); i < this.endTime.getHour(); i++) {
             hourlySlots.add(new TimeRange(i, i + 1));
         }
         return hourlySlots;

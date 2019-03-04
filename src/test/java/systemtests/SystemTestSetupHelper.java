@@ -1,14 +1,14 @@
 package systemtests;
 
+import java.nio.file.Path;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
+
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
-
-import java.nio.file.Path;
-import java.util.concurrent.TimeoutException;
-import java.util.function.Supplier;
 
 /**
  * Contains helper methods that system tests require.
@@ -16,6 +16,18 @@ import java.util.function.Supplier;
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
+
+    /**
+     * Initializes TestFX.
+     */
+    public static void initialize() {
+        try {
+            FxToolkit.registerPrimaryStage();
+            FxToolkit.hideStage();
+        } catch (TimeoutException e) {
+            throw new AssertionError(e);
+        }
+    }
 
     /**
      * Sets up a new {@code TestApp} and returns it.
@@ -29,18 +41,6 @@ public class SystemTestSetupHelper {
         }
 
         return testApp;
-    }
-
-    /**
-     * Initializes TestFX.
-     */
-    public static void initialize() {
-        try {
-            FxToolkit.registerPrimaryStage();
-            FxToolkit.hideStage();
-        } catch (TimeoutException e) {
-            throw new AssertionError(e);
-        }
     }
 
     /**

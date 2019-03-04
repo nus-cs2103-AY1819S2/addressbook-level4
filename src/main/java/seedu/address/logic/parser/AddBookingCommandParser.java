@@ -1,5 +1,16 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAYER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.AddBookingCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -10,30 +21,33 @@ import seedu.address.model.booking.ServiceType;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.util.TimeRange;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
 /**
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddBookingCommandParser implements Parser<AddBookingCommand> {
 
     /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
      * Parses the given {@code String} of arguments in the context of the AddBookingCommand
      * and returns an AddBookingCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddBookingCommand parse(String args, CustomerModel customerModel)
         throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SERVICE, PREFIX_TIMING, PREFIX_PAYER, PREFIX_CUSTOMERS, PREFIX_COMMENT);
+            ArgumentTokenizer.tokenize(args, PREFIX_SERVICE, PREFIX_TIMING, PREFIX_PAYER, PREFIX_CUSTOMERS,
+                PREFIX_COMMENT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_SERVICE, PREFIX_TIMING, PREFIX_PAYER)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -53,18 +67,11 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddBookingCommand parse(String args) throws ParseException {
         return parse(args, new CustomerManager());
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

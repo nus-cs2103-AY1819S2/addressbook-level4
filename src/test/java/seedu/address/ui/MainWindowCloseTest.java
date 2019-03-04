@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Collections;
+
 import guitests.guihandles.HelpWindowHandle;
 import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
@@ -14,11 +19,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-
-import java.util.Collections;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.
@@ -38,7 +38,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), customerModel, bookingModel, storageManager));
+            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), customerModel, bookingModel,
+                storageManager));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

@@ -1,5 +1,13 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
@@ -9,14 +17,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.exceptions.CustomerNotFoundException;
-
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory customer of the address book data.
@@ -51,14 +51,14 @@ public class CustomerManager implements CustomerModel {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -86,13 +86,13 @@ public class CustomerManager implements CustomerModel {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return versionedAddressBook;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        versionedAddressBook.resetData(addressBook);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class CustomerManager implements CustomerModel {
             }
 
             boolean wasSelectedCustomerReplaced =
-                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedCustomer.getValue());
             if (wasSelectedCustomerReplaced) {
                 // Update selectedCustomer to its new value.
@@ -204,7 +204,7 @@ public class CustomerManager implements CustomerModel {
             }
 
             boolean wasSelectedCustomerRemoved = change.getRemoved().stream()
-                    .anyMatch(removedCustomer -> selectedCustomer.getValue().isSameCustomer(removedCustomer));
+                .anyMatch(removedCustomer -> selectedCustomer.getValue().isSameCustomer(removedCustomer));
             if (wasSelectedCustomerRemoved) {
                 // Select the customer that came before it in the list,
                 // or clear the selection if there is no such customer.

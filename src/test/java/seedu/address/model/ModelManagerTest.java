@@ -1,5 +1,19 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
+import static seedu.address.testutil.TypicalCustomers.ALICE;
+import static seedu.address.testutil.TypicalCustomers.BENSON;
+import static seedu.address.testutil.TypicalCustomers.BOB;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -9,16 +23,6 @@ import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.customer.exceptions.CustomerNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CustomerBuilder;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-
-import static org.junit.Assert.*;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-import static seedu.address.testutil.TypicalCustomers.*;
 
 public class ModelManagerTest {
     @Rule

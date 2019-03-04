@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.ServiceType;
 import seedu.address.model.customer.Customer;
@@ -11,8 +12,8 @@ import seedu.address.model.customer.Customer;
  */
 class JsonAdaptedServiceType {
 
-    public static String MISSING_FIELD_MESSAGE_FORMAT = "Service Type's %s field is missing!";
-    public static String INVALID_NAME_MESSAGE_FORMAT = "Service Type %s doesn't exist!";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Service Type's %s field is missing!";
+    private static final String INVALID_NAME_MESSAGE_FORMAT = "Service Type %s doesn't exist!";
 
     private final String name;
 
@@ -42,12 +43,17 @@ class JsonAdaptedServiceType {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
 
-        switch(name) {
-        case "GYM": return ServiceType.GYM;
-        case "SWIMMING POOL": return ServiceType.POOL;
-        case "SPA": return ServiceType.SPA;
-        case "GAMES ROOM": return ServiceType.GAMES;
-        default: throw new IllegalValueException(String.format(INVALID_NAME_MESSAGE_FORMAT, "name"));
+        switch (name) {
+        case "GYM":
+            return ServiceType.GYM;
+        case "SWIMMING POOL":
+            return ServiceType.POOL;
+        case "SPA":
+            return ServiceType.SPA;
+        case "GAMES ROOM":
+            return ServiceType.GAMES;
+        default:
+            throw new IllegalValueException(String.format(INVALID_NAME_MESSAGE_FORMAT, "name"));
         }
     }
 

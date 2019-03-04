@@ -1,5 +1,10 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -7,11 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalCustomers;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.junit.Assert.assertEquals;
 
 public class JsonSerializableAddressBookTest {
 
@@ -26,7 +26,7 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_typicalCustomersFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_CUSTOMERS_FILE,
-                JsonSerializableAddressBook.class).get();
+            JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalCustomersAddressBook = TypicalCustomers.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalCustomersAddressBook);
@@ -35,7 +35,7 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_invalidCustomerFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_CUSTOMER_FILE,
-                JsonSerializableAddressBook.class).get();
+            JsonSerializableAddressBook.class).get();
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
@@ -43,7 +43,7 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_duplicateCustomers_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CUSTOMER_FILE,
-                JsonSerializableAddressBook.class).get();
+            JsonSerializableAddressBook.class).get();
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(JsonSerializableAddressBook.MESSAGE_DUPLICATE_CUSTOMER);
         dataFromFile.toModelType();

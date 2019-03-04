@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.net.URL;
+
 import javafx.fxml.FXML;
 import org.junit.Rule;
 import org.junit.Test;
@@ -7,11 +12,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.MainApp;
 import seedu.address.testutil.Assert;
-
-import java.net.URL;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class UiPartTest {
 

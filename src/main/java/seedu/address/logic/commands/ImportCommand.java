@@ -6,6 +6,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.image.Image;
 
+/**
+ * Imports a image to FomoFoto.
+ */
 public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 

@@ -16,10 +16,11 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PlaceBuilder {
 
-    public static final String DEFAULT_NAME = "Alice James";
+    public static final String DEFAULT_NAME = "Haw Par Villa";
     public static final String DEFAULT_RATING = "4";
-    public static final String DEFAULT_DESCRIPTION = "I love this place";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DESCRIPTION = "Unique park using giant statues & dioramas "
+            + "to retell historic Chinese legends & religious mythology.";
+    public static final String DEFAULT_ADDRESS = "262 Pasir Panjang Rd, Singapore 118628";
 
     private Name name;
     private Rating rating;
@@ -71,10 +72,10 @@ public class PlaceBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Place} that we are building.
+     * Sets the {@code Rating} of the {@code Place} that we are building.
      */
-    public PlaceBuilder withRating(String phone) {
-        this.rating = new Rating(phone);
+    public PlaceBuilder withRating(String rating) {
+        this.rating = new Rating(rating);
         return this;
     }
 

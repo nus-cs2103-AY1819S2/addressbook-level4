@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_EWL;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPlaceAtIndex;
@@ -58,11 +58,11 @@ public class EditCommandTest {
         Place lastPlace = model.getFilteredPlaceList().get(indexLastPlace.getZeroBased());
 
         PlaceBuilder placeInList = new PlaceBuilder(lastPlace);
-        Place editedPlace = placeInList.withName(VALID_NAME_BOB).withRating(VALID_RATING_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Place editedPlace = placeInList.withName(VALID_NAME_BEDOK).withRating(VALID_RATING_BEDOK)
+                .withTags(VALID_TAG_EWL).build();
 
-        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withRating(VALID_RATING_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK)
+                .withRating(VALID_RATING_BEDOK).withTags(VALID_TAG_EWL).build();
         EditCommand editCommand = new EditCommand(indexLastPlace, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPlace);
@@ -92,9 +92,9 @@ public class EditCommandTest {
         showPlaceAtIndex(model, INDEX_FIRST_PERSON);
 
         Place placeInFilteredList = model.getFilteredPlaceList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Place editedPlace = new PlaceBuilder(placeInFilteredList).withName(VALID_NAME_BOB).build();
+        Place editedPlace = new PlaceBuilder(placeInFilteredList).withName(VALID_NAME_BEDOK).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPlaceDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPlace);
 
@@ -129,7 +129,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPlaceIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPlaceList().size() + 1);
-        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -147,7 +147,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPlaceList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPlaceDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -177,7 +177,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPlaceList().size() + 1);
-        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
@@ -222,10 +222,10 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMK);
 
         // same values -> returns true
-        EditPlaceDescriptor copyDescriptor = new EditPlaceDescriptor(DESC_AMY);
+        EditPlaceDescriptor copyDescriptor = new EditPlaceDescriptor(DESC_AMK);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -239,10 +239,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMK)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BEDOK)));
     }
 
 }

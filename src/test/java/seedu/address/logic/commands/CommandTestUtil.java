@@ -26,43 +26,43 @@ import seedu.address.testutil.EditPlaceDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Beaver";
-    public static final String VALID_NAME_BOB = "Bob Cougar";
-    public static final String VALID_NAME_CODY = "Cody Dog";
-    public static final String VALID_NAME_DICK = "Dick Eagle";
-    public static final String VALID_RATING_AMY = "5";
-    public static final String VALID_RATING_BOB = "1";
-    public static final String VALID_RATING_CODY = "4";
-    public static final String VALID_RATING_DICK = "2";
-    public static final String VALID_DESCRIPTION_AMY = "I love this place";
-    public static final String VALID_DESCRIPTION_BOB = "I hate this place";
-    public static final String VALID_DESCRIPTION_CODY = "This place is great";
-    public static final String VALID_DESCRIPTION_DICK = "This place is shit";
-    public static final String VALID_ADDRESS_AMY = "Block 123, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 321, Bobby Street 3";
-    public static final String VALID_ADDRESS_CODY = "Block 456, Cody Street 1";
-    public static final String VALID_ADDRESS_DICK = "Block 654, Dick Street 6";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NAME_AMK = "Ang Mo Kio MRT";
+    public static final String VALID_NAME_BEDOK = "Bedok MRT";
+    public static final String VALID_NAME_CLEMENTI = "Clementi MRT";
+    public static final String VALID_NAME_DG = "Dhoby Ghaut MRT";
+    public static final String VALID_RATING_AMK = "5";
+    public static final String VALID_RATING_BEDOK = "3";
+    public static final String VALID_RATING_CLEMENTI = "4";
+    public static final String VALID_RATING_DG = "2";
+    public static final String VALID_DESCRIPTION_AMK = "An MRT Station in Ang Mo Kio";
+    public static final String VALID_DESCRIPTION_BEDOK = "An MRT Station in Bedok";
+    public static final String VALID_DESCRIPTION_CLEMENTI = "An MRT Station in Clementi";
+    public static final String VALID_DESCRIPTION_DG = "An MRT Station in Dhoby Ghaut";
+    public static final String VALID_ADDRESS_AMK = "2450 Ang Mo Kio Ave 8, Singapore 569811";
+    public static final String VALID_ADDRESS_BEDOK = "315 New Upper Changi Road, Singapore 467347";
+    public static final String VALID_ADDRESS_CLEMENTI = "3150 Commonwealth Avenue West, Singapore 129580";
+    public static final String VALID_ADDRESS_DG = "11 Orchard Road, Singapore 238826";
+    public static final String VALID_TAG_MRT = "mrt";
+    public static final String VALID_TAG_EWL = "eastWestLine";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String NAME_DESC_CODY = " " + PREFIX_NAME + VALID_NAME_CODY;
-    public static final String NAME_DESC_DICK = " " + PREFIX_NAME + VALID_NAME_DICK;
-    public static final String RATING_DESC_AMY = " " + PREFIX_RATING + VALID_RATING_AMY;
-    public static final String RATING_DESC_BOB = " " + PREFIX_RATING + VALID_RATING_BOB;
-    public static final String RATING_DESC_CODY = " " + PREFIX_RATING + VALID_RATING_CODY;
-    public static final String RATING_DESC_DICK = " " + PREFIX_RATING + VALID_RATING_DICK;
-    public static final String DESCRIPTION_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
-    public static final String DESCRIPTION_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
-    public static final String DESCRIPTION_CODY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CODY;
-    public static final String DESCRIPTION_DICK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_DICK;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String ADDRESS_DESC_CODY = " " + PREFIX_ADDRESS + VALID_ADDRESS_CODY;
-    public static final String ADDRESS_DESC_DICK = " " + PREFIX_ADDRESS + VALID_ADDRESS_DICK;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_AMK = " " + PREFIX_NAME + VALID_NAME_AMK;
+    public static final String NAME_DESC_BEDOK = " " + PREFIX_NAME + VALID_NAME_BEDOK;
+    public static final String NAME_DESC_CLEMENTI = " " + PREFIX_NAME + VALID_NAME_CLEMENTI;
+    public static final String NAME_DESC_DG = " " + PREFIX_NAME + VALID_NAME_DG;
+    public static final String RATING_DESC_AMK = " " + PREFIX_RATING + VALID_RATING_AMK;
+    public static final String RATING_DESC_BEDOK = " " + PREFIX_RATING + VALID_RATING_BEDOK;
+    public static final String RATING_DESC_CLEMENTI = " " + PREFIX_RATING + VALID_RATING_CLEMENTI;
+    public static final String RATING_DESC_DG = " " + PREFIX_RATING + VALID_RATING_DG;
+    public static final String DESCRIPTION_AMK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMK;
+    public static final String DESCRIPTION_BEDOK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BEDOK;
+    public static final String DESCRIPTION_CLEMENTI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CLEMENTI;
+    public static final String DESCRIPTION_DG = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_DG;
+    public static final String ADDRESS_DESC_AMK = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMK;
+    public static final String ADDRESS_DESC_BEDOK = " " + PREFIX_ADDRESS + VALID_ADDRESS_BEDOK;
+    public static final String ADDRESS_DESC_CLEMENTI = " " + PREFIX_ADDRESS + VALID_ADDRESS_CLEMENTI;
+    public static final String ADDRESS_DESC_DG = " " + PREFIX_ADDRESS + VALID_ADDRESS_DG;
+    public static final String TAG_DESC_MRT = " " + PREFIX_TAG + VALID_TAG_MRT;
+    public static final String TAG_DESC_EWL = " " + PREFIX_TAG + VALID_TAG_EWL;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "4a"; // 'a' not allowed in ratings
@@ -74,16 +74,16 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPlaceDescriptor DESC_AMY;
-    public static final EditCommand.EditPlaceDescriptor DESC_BOB;
+    public static final EditCommand.EditPlaceDescriptor DESC_AMK;
+    public static final EditCommand.EditPlaceDescriptor DESC_BEDOK;
 
     static {
-        DESC_AMY = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withRating(VALID_RATING_AMY).withDescription(VALID_DESCRIPTION_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withRating(VALID_RATING_BOB).withDescription(VALID_DESCRIPTION_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_AMK = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMK)
+                .withRating(VALID_RATING_AMK).withDescription(VALID_DESCRIPTION_AMK).withAddress(VALID_ADDRESS_AMK)
+                .withTags(VALID_TAG_MRT).build();
+        DESC_BEDOK = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK)
+                .withRating(VALID_RATING_BEDOK).withDescription(VALID_DESCRIPTION_BEDOK)
+                .withAddress(VALID_ADDRESS_BEDOK).withTags(VALID_TAG_MRT, VALID_TAG_EWL).build();
     }
 
     /**

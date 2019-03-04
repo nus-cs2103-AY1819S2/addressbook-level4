@@ -1,14 +1,14 @@
 {
   "places": [ {
-    "name": "Alice Pauline",
-    "rating": "3",
-    "description": "No description",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+    "name": "National University of Singapore",
+    "rating": "4",
+    "description": "The National University of Singapore is an autonomous research university in Singapore.",
+    "address": "21 Lower Kent Ridge Rd, Singapore 119077",
+    "tagged": [ "school" ]
   }, {
-    "name": "Alice Pauline",
-    "rating": "3",
-    "description": "No description",
+    "name": "National University of Singapore",
+    "rating": "4",
+    "description": "The National University of Singapore is an autonomous research university in Singapore.",
     "address": "4th street"
   } ]
 }

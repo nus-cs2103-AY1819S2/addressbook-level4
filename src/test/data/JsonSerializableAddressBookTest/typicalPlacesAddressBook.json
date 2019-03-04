@@ -1,46 +1,46 @@
 {
   "_comment": "AddressBook save file which contains the same Place values as in TypicalPlaces#getTypicalAddressBook()",
   "places" : [ {
-    "name" : "Alice Pauline",
+    "name" : "VivoCity",
+    "rating": "1",
+    "description" : "Expansive, modern shopping center hosting a wide range of retailers, restaurants & theaters.",
+    "address" : "1 Harbourfront Walk, Singapore 098585",
+    "tagged" : [ "shoppingMall" ]
+  }, {
+    "name" : "Changi Airport Singapore",
+    "rating" : "5",
+    "description" : "Passenger & cargo hub with 4 modern terminals plus buses & trains to the city center.",
+    "address" : "Airport Boulevard",
+    "tagged" : [ "airport", "shoppingMall" ]
+  }, {
+    "name" : "Universal Studios Singapore",
+    "rating" : "4",
+    "description" : "Movie amusement centre with sets & rides on themes from Hollywood to sci-fi, plus live entertainment.",
+    "address" : "8 Sentosa Gateway, 0982693",
+    "tagged" : [ "amusementPark", "recreation" ]
+  }, {
+    "name" : "Japanese Cemetery Park",
     "rating": "3",
-    "description" : "No description",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "description" : "The Japanese Cemetery Park serves as the burial ground for Japanese soldiers and civilians who lived in the early 20th century.",
+    "address" : "22 Chuan Hoe Ave, Singapore 549854",
+    "tagged" : [ "cemetery", "placeOfInterest" ]
   }, {
-    "name" : "Benson Meier",
-    "rating": "5",
-    "description" : "I love this place",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "name" : "National University of Singapore",
+    "rating" : "4",
+    "description" : "The National University of Singapore is an autonomous research university in Singapore.",
+    "address" : "21 Lower Kent Ridge Rd, Singapore 119077",
+    "tagged" : [ "school" ]
   }, {
-    "name" : "Carl Kurz",
-    "rating": "3",
-    "description" : "I love the coffee here",
-    "address" : "wall street",
-    "tagged" : [ ]
+    "name" : "Singapore Zoo",
+    "rating" : "3",
+    "description" : "Rainforest zoo with tram rides, trails & viewing platforms to see wildlife habitats & exhibits.",
+    "address" : "80 Mandai Lake Rd, Singapore 729826",
+    "tagged" : [ "zoo", "animals" ]
   }, {
-    "name" : "Daniel Meier",
-    "rating": "4",
-    "description" : "I love the ambience here",
-    "address" : "10th street",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "rating": "4",
-    "description" : "I love the night life here",
-    "address" : "michegan ave",
-    "tagged" : [ ]
-  }, {
-    "name" : "Fiona Kunz",
-    "rating": "2",
-    "description" : "This place exudes luxury",
-    "address" : "little tokyo",
-    "tagged" : [ ]
-  }, {
-    "name" : "George Best",
-    "rating": "3",
-    "description" : "This place has the best amenities",
-    "address" : "4th street",
-    "tagged" : [ ]
+    "name" : "Buddha Tooth Relic Temple",
+    "rating" : "4",
+    "description" : "Tang dynasty–style temple housing religious relics, with ornate rooms & a tranquil rooftop garden.",
+    "address" : "288 South Bridge Rd, Singapore 058840",
+    "tagged" : [ "temple", "heritageSite" ]
   } ]
 }

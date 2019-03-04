@@ -19,7 +19,6 @@ public class CliSyntax {
 
     // Additional prefixes for HealthWorker and Patient class
     public static final Prefix PREFIX_ORGANIZATION = new Prefix("o/");
-    public static final Prefix PREFIX_CONDITION = new Prefix("c/");
     public static final Prefix PREFIX_SKILLS = new Prefix("s/");
 
     // Prefixes for Add/Edit/Delete Command modes

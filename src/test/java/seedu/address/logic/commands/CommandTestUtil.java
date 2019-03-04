@@ -36,6 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_DATE_BOB = "23/04/2014";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DESCRIPTION_AMY = "Birthday present for Amy";
+    public static final String VALID_DESCRIPTION_BOB = "Birthday present for Bob";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

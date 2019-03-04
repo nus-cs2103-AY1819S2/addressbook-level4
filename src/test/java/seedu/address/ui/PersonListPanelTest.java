@@ -81,7 +81,9 @@ public class PersonListPanelTest extends GuiUnitTest {
             Address address = new Address("a");
             Amount amount = new Amount("123");
             Date date = new Date("12/12/2018");
-            Person person = new Person(name, phone, email, address, amount, date, Collections.emptySet());
+            Description description = new Description ("");
+            Person person = new Person(name, phone, email, address,
+                    amount, date, description, Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

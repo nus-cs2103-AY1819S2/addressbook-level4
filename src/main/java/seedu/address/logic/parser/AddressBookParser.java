@@ -6,20 +6,22 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DescriptionCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SpendCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses user input.
@@ -48,9 +50,12 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parse(arguments);
+        case DescriptionCommand.COMMAND_WORD:
+            return new DescriptionCommandParser().parse(arguments);
+
+        case SpendCommand.COMMAND_WORD:
+        case SpendCommand.COMMAND_ALIAS:
+            return new SpendCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:
@@ -71,9 +76,9 @@ public class AddressBookParser {
         case ClearCommand.COMMAND_ALIAS2:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
-            return new FindCommandParser().parse(arguments);
+        case SearchCommand.COMMAND_WORD:
+        case SearchCommand.COMMAND_ALIAS:
+            return new SearchCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:

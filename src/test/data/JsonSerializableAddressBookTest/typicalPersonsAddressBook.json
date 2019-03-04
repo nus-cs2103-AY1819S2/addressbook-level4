@@ -7,6 +7,7 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "amount" : "123",
     "date" : "12/07/2006",
+    "description": "some description",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -15,6 +16,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "amount" : "124",
     "date" : "12/07/2018",
+    "description": "some description",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -23,6 +25,7 @@
     "address" : "wall street",
     "amount" : "153",
     "date" : "12/08/2006",
+    "description": "some description",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -31,6 +34,7 @@
     "address" : "10th street",
     "amount" : "103",
     "date" : "22/07/2006",
+    "description": "some description",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
@@ -39,6 +43,7 @@
     "address" : "michegan ave",
     "amount" : "123",
     "date" : "12/07/2016",
+    "description": "",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -47,6 +52,7 @@
     "address" : "little tokyo",
     "amount" : "223",
     "date" : "12/09/2006",
+    "description": "",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
@@ -55,6 +61,7 @@
     "address" : "4th street",
     "amount" : "523",
     "date" : "10/07/2009",
+    "description": "",
     "tagged" : [ ]
   } ]
 }

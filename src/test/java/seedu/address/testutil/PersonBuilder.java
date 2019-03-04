@@ -18,6 +18,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_AMOUNT = "12";
     public static final String DEFAULT_DATE = "12/12/2019";
+    public static final String DEFAULT_DESCRIPTION = "";
 
     private Name name;
     private Phone phone;
@@ -25,6 +26,7 @@ public class PersonBuilder {
     private Address address;
     private Amount amount;
     private Date date;
+    private Description description;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -34,6 +36,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         amount = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
+        description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
 
@@ -47,6 +50,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         amount = personToCopy.getAmount();
         date = personToCopy.getDate();
+        description = personToCopy.getDescription();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -106,8 +110,17 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Description} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDescription(Description description) {
+        this.description = new Description(description.value);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, amount, date, tags);
+        return new Person(name, phone, email, address, amount, date,
+                description, tags);
     }
 
 }

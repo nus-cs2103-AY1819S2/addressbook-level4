@@ -12,28 +12,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.SpendCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Amount;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class SpendCommandParser implements Parser<SpendCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public SpendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
@@ -41,7 +35,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_AMOUNT,
         PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -50,11 +44,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        Description description = new Description("");
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, amount, date, tagList);
+        Person person = new Person(name, phone, email, address, amount, date, description, tagList);
 
-        return new AddCommand(person);
+        return new SpendCommand(person);
     }
 
     /**

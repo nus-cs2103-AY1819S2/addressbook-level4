@@ -16,11 +16,11 @@ import seedu.address.model.person.Person;
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String AMOUNT_FIELD_ID = "#amount";
     private static final String DATE_FIELD_ID = "#date";
+    private static final String DESCRIPTION_FIELD_ID = "#description";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -28,6 +28,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label phoneLabel;
     private final Label amountLabel;
     private final Label dateLabel;
+    private final Label descriptionLabel;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -38,6 +39,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         amountLabel = getChildNode(AMOUNT_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         dateLabel = getChildNode(DATE_FIELD_ID);
+        descriptionLabel = getChildNode(DESCRIPTION_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -67,6 +69,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return dateLabel.getText();
     }
 
+    public String getDescription() {
+        return descriptionLabel.getText();
+    }
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -74,6 +80,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
+    //@@author geezlouisee-reused
+    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0
+    //with minor modifications
     public List<String> getTagStyleClasses(String tag) {
         return tagLabels
                 .stream()
@@ -83,6 +92,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .orElseThrow(() -> new
                         IllegalArgumentException("No such tag."));
     }
+    //@@author
 
     /**
      * Returns true if this handle contains {@code person}.

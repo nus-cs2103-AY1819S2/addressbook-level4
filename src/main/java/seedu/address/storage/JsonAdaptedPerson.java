@@ -26,6 +26,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String amount;
     private final String date;
+    private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -35,6 +36,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("amount") String amount, @JsonProperty("date") String date,
+            @JsonProperty("description") String description,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
@@ -42,6 +44,7 @@ class JsonAdaptedPerson {
         this.address = address;
         this.amount = amount;
         this.date = date;
+        this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -57,6 +60,7 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         amount = source.getAmount().value;
         date = source.getDate().value;
+        description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -121,8 +125,15 @@ class JsonAdaptedPerson {
         }
         final Date modelDate = new Date(date);
 
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
+        }
+        final Description modelDescription = new Description(description);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelAmount, modelDate, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelAmount,
+                modelDate, modelDescription, modelTags);
     }
 
 }

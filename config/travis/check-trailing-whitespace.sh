@@ -1,7 +1,7 @@
 #!/bin/sh
 # Checks for trailing whitespace
 
-git grep --cached -I -n --no-color -P '[ \t]+$' -- ':/' |
+git grep --cached -I -n --no-colorValue -P '[ \t]+$' -- ':/' |
 awk '
     BEGIN {
         FS = ":"

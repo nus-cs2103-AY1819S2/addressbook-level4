@@ -4,53 +4,38 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team.
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Philip Garabandic
+image::philipphil.png[width="150", align="left"]
+{empty}[https://github.com/PhilipPhil[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Recommendation Algorithms Methods
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Raffles Andrison
+image::rafflesandrison.png[width="150", align="left"]
+{empty}[http://github.com/rafflesandrison[github]]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Organisation Methods
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Stanley Joseph Mok
+image::stanleymok.png[width="150", align="left"]
+{empty}[http://github.com/stanleymok[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Infrastructure Management Methods
+
+'''
+
+=== Tan Yiren Eugene
+image::reinsheer.png[width="150", align="left"]
+{empty}[http://github.com/ReinSheer[github]]
+
+Role: Statistical Methods
 
 '''

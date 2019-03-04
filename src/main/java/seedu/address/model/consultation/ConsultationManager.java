@@ -48,4 +48,17 @@ public class ConsultationManager {
     public void prescribeMedicine(ArrayList<Prescription> prescriptions) {
         currentConsultation.setPrescriptions(prescriptions);
     }
+
+    public Consultation getCurrentConsultation() {
+        return currentConsultation;
+    }
+
+    /**
+     * End the current consultation and store it into the list
+     */
+    public void endConsultation() {
+        currentConsultation.setIndex(consultationList.size());
+        consultationList.add(currentConsultation);
+        currentConsultation = null;
+    }
 }

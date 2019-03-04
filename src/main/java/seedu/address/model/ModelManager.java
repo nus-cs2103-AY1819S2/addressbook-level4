@@ -20,6 +20,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentManager;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.ConsultationManager;
 import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.consultation.Prescription;
@@ -422,6 +423,14 @@ public class ModelManager implements Model {
 
     public void prescribeMedicine(ArrayList<Prescription> prescriptions) {
         this.consultationManager.prescribeMedicine(prescriptions);
+    }
+
+    public void endConsultation() {
+        this.consultationManager.endConsultation();
+    }
+
+    public Consultation getCurrentConsultation() {
+        return this.consultationManager.getCurrentConsultation();
     }
 
     //==========Appointment module===========================================================================

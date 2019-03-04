@@ -28,6 +28,7 @@ import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.EditPatientCommand;
+import seedu.address.logic.commands.EndConsultationCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -40,6 +41,7 @@ import seedu.address.logic.commands.PrescriptionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.consultation.Assessment;
 import seedu.address.model.consultation.Diagnosis;
@@ -57,6 +59,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -276,6 +279,12 @@ public class AddressBookParserTest {
         PrescriptionCommand command = new PrescriptionCommand(meds, qtys);
         assertEquals(command, parser.parseCommand(userInput));
 
+    }
+
+    @Test
+    public void parseCommand_endconsultation() throws Exception {
+        String userInput = "endconsult";
+        org.junit.Assert.assertTrue(parser.parseCommand(userInput) instanceof EndConsultationCommand);
     }
 
     @Test

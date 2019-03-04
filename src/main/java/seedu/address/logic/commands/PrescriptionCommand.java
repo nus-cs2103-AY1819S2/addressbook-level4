@@ -46,6 +46,8 @@ public class PrescriptionCommand extends Command {
             prescriptions.add(new Prescription(medicineList.get(i), quantityList.get(i)));
         }
 
+        model.prescribeMedicine(prescriptions);
+
         // model will call the addPrescription method in consultationmanager
         StringBuilder sb = new StringBuilder();
         sb.append("prescription:\n");

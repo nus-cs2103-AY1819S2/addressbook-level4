@@ -9,6 +9,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Nric;
@@ -207,6 +208,10 @@ public interface Model {
     boolean checkConsultation();
 
     void prescribeMedicine(ArrayList<Prescription> prescriptions);
+
+    Consultation getCurrentConsultation();
+
+    void endConsultation();
 
     //===========Appointment module operations========================
     boolean duplicateApp(Appointment app);

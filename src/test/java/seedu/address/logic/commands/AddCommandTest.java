@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Nric;
@@ -281,6 +282,16 @@ public class AddCommandTest {
 
         @Override
         public void prescribeMedicine(ArrayList<Prescription> prescriptions) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Consultation getCurrentConsultation() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void endConsultation() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -53,7 +53,7 @@ public class ConsultationManagerTest {
 
         // will only fail when diagnosis is created before a consultation begun
 
-        ArrayList<Symptom>symptoms = new ArrayList<>();
+        ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("Runny nose"));
         Assessment assessment = new Assessment("Cold");
         Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
@@ -68,6 +68,31 @@ public class ConsultationManagerTest {
         Patient patient = patientManager.getPatientAtIndex(1);
         consultationManager.createConsultation(patient);
         org.junit.Assert.assertTrue(consultationManager.checkConsultation());
+    }
+
+    @Test
+    public void getCurrentConsultation() {
+        org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() == null);
+
+        Patient patient = patientManager.getPatientAtIndex(1);
+        consultationManager.createConsultation(patient);
+
+        org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() != null);
+    }
+
+    @Test
+    public void endConsultation() {
+        Assert.assertThrows(NullPointerException.class, () -> consultationManager.endConsultation());
+
+        Patient patient = patientManager.getPatientAtIndex(1);
+        consultationManager.createConsultation(patient);
+
+        // diagnosis and prescription null
+        consultationManager.endConsultation();
+
+        org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() == null);
+
+
     }
 
 }

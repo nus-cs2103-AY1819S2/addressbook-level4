@@ -84,12 +84,12 @@ public class MainApp extends Application {
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. " +
-                    "Will be starting with an empty EquipmentManager");
+            logger.warning("Data file not in the correct format. "
+                    + "Will be starting with an empty EquipmentManager");
             initialData = new EquipmentManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. " +
-                    "Will be starting with an empty EquipmentManager");
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with an empty EquipmentManager");
             initialData = new EquipmentManager();
         }
 
@@ -154,8 +154,8 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. " +
-                    "Will be starting with an empty EquipmentManager");
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with an empty EquipmentManager");
             initializedPrefs = new UserPrefs();
         }
 

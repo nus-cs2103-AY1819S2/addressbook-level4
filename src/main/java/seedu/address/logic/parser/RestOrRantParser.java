@@ -37,11 +37,6 @@ public class RestOrRantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        if (mode != Mode.RESTAURANT_MODE) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
-        }
-
-        //        FUTURE USAGE
         switch (commandWord) {
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
@@ -52,16 +47,43 @@ public class RestOrRantParser {
                 return new ExitCommand();
             case ExitCommand.COMMAND_ALIAS:
                 return new ExitCommand();
-                
+
             case MenuModeCommand.COMMAND_WORD:
                 return new MenuModeCommand();
                 
-            case AddItemToMenuCommand.COMMAND_WORD:
-                return new AddItemToMenuCommandParser().parse(arguments);
-                
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                break;
         }
+
+        if (mode == Mode.RESTAURANT_MODE) {
+            switch (commandWord) {
+                case AddTableCommand.COMMAND_WORD:
+                    return new AddTableCommandParser().parse(arguments);
+
+//                case UpdateTableCommand.COMMAND_WORD:
+//                    return new UpdateTableCommandParser().parse(arguments);
+
+                default:
+                    break;
+            }
+        } else if (mode == Mode.MENU_MODE) {
+            switch (commandWord) {
+                case AddItemToMenuCommand.COMMAND_WORD:
+                    return new AddItemToMenuCommandParser().parse(arguments);
+
+                default:
+                    break;
+            }
+        } else if (mode == Mode.TABLE_MODE) {
+            switch (commandWord) {
+                case AddOrderCommand.COMMAND_WORD:
+                    return new AddOrderCommandParser().parse(arguments);
+            }
+        }
+
+        throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+
+    }
 
         //        switch (commandWord) {
         //

@@ -59,17 +59,6 @@ public class LessonTest {
     }
 
     @Test
-    public void addCard_invalidList_throwsIllegalArgumentException() {
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
-        List<String> invalidList = Arrays.asList("Japan", "Tokyo", "Starts with T", "JP");
-        StringBuilder sb = new StringBuilder();
-        invalidList.forEach(s -> sb.append(s + ","));
-
-        Assert.assertThrows(IllegalArgumentException.class,
-                "Line: " + sb.toString() + " does not match lesson format", () -> lesson.addCard(invalidList));
-    }
-
-    @Test
     public void addCard_invalidIndex_throwsMissingCoreException() {
         Lesson lesson = new Lesson(DEFAULT_NAME, DEFAULT_CORE_COUNT, DEFAULT_FIELDS);
         Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () ->
@@ -81,9 +70,9 @@ public class LessonTest {
     @Test
     public void addCard() throws MissingCoreException {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
-        assertEquals(lesson.getCards().size(), 0);
-        lesson.addCard(List.of("China", "Beijing"));
         assertEquals(lesson.getCards().size(), 1);
+        lesson.addCard(List.of("China", "Beijing"));
+        assertEquals(lesson.getCards().size(), 2);
     }
 
     @Test
@@ -99,22 +88,10 @@ public class LessonTest {
     @Test
     public void setQuestionAnswerIndices_invalidAnswerIndex_throwsIllegalArgumentException() {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
-
         Assert.assertThrows(IllegalArgumentException.class, "Answer index: -1 out of bounds", () ->
                 lesson.setQuestionAnswerIndices(0, -1));
         Assert.assertThrows(IllegalArgumentException.class, "Answer index: 2 out of bounds", () ->
                 lesson.setQuestionAnswerIndices(0, 2));
-    }
-
-    @Test
-    public void setQuestionAnswerIndices() {
-
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
-        assertEquals(lesson.getQuestionCoreIndex(), 0);
-        assertEquals(lesson.getAnswerCoreIndex(), 0);
-        lesson.setQuestionAnswerIndices(1, 1);
-        assertEquals(lesson.getQuestionCoreIndex(), 1);
-        assertEquals(lesson.getAnswerCoreIndex(), 1);
     }
 
     @Test

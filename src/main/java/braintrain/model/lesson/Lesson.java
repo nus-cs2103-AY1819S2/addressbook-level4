@@ -82,8 +82,34 @@ public class Lesson {
      * these headers.
      */
     public Lesson(String name, int coreCount, List<String> cardFields) {
-        this(name, cardFields.subList(0, coreCount),
-                cardFields.subList(cardFields.size() - coreCount, cardFields.size()));
+        requireAllNonNull(cardFields);
+
+        List<String> cores;
+        List<String> optionals;
+
+        try {
+            cores = cardFields.subList(0, coreCount);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(EXCEPTION_CORE_SIZE_MISMATCH);
+        }
+
+        int optionalCount = cardFields.size() - coreCount;
+
+        if (optionalCount == 0) {
+            optionals = new ArrayList<>();
+        } else {
+            optionals = cardFields.subList(optionalCount, cardFields.size());
+        }
+
+        setName(name);
+        setCoreHeaders(cores);
+        setOptionalHeaders(optionals);
+
+        if (optionals.size() > 0) {
+            isVisibleOptionals = new boolean[optionals.size()];
+        }
+
+        cards = new ArrayList<>();
     }
 
     /**
@@ -129,8 +155,6 @@ public class Lesson {
     }
 
     public void setOptionalHeaders(List<String> coreHeaders) {
-        requireAllNonNull(optionalHeaders);
-
         this.optionalHeaders = optionalHeaders;
     }
 
@@ -143,7 +167,11 @@ public class Lesson {
     }
 
     public void setIsVisibleOptional(int index, boolean isShown) {
-        if (index < 0 || index >= optionalHeaders.size()) {
+        try {
+            if (index < 0 || index >= optionalHeaders.size()) {
+                throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX);
+            }
+        } catch (NullPointerException e) {
             throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX);
         }
 
@@ -159,7 +187,11 @@ public class Lesson {
             throw new IllegalArgumentException("Question index: " + question + " out of bounds");
         }
 
-        if (answer < 0 || answer >= optionalHeaders.size()) {
+        try {
+            if (answer < 0 || answer >= optionalHeaders.size()) {
+                throw new IllegalArgumentException("Answer index: " + answer + " out of bounds");
+            }
+        } catch (NullPointerException e) {
             throw new IllegalArgumentException("Answer index: " + answer + " out of bounds");
         }
 
@@ -189,7 +221,7 @@ public class Lesson {
 
         cards.add(card);
     }
-    
+
     /**
      * Adds a {@link Card} object to the lesson.
      *

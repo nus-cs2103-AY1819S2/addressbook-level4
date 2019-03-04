@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.model.EquipmentManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.model.EquipmentManager;
+import seedu.address.ui.StatusBarFooter;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 

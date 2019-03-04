@@ -10,6 +10,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.logic.CommandHistory;
+
 public class CommandHistoryTest {
     private CommandHistory history;
 

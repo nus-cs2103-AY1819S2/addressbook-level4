@@ -11,24 +11,24 @@ import seedu.address.model.equipment.Equipment;
 /**
  * Provides a handle for {@code PersonListPanel} containing the list of {@code EquipmentCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Equipment>> {
+public class EquipmentListPanelHandle extends NodeHandle<ListView<Equipment>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Equipment> lastRememberedSelectedPersonCard;
 
-    public PersonListPanelHandle(ListView<Equipment> personListPanelNode) {
+    public EquipmentListPanelHandle(ListView<Equipment> personListPanelNode) {
         super(personListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code EquipmentCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public EquipmentCardHandle getHandleToSelectedCard() {
         List<Equipment> selectedEquipmentList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedEquipmentList.size() != 1) {
@@ -36,7 +36,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Equipment>> {
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(EquipmentCardHandle::new)
                 .filter(handle -> handle.equals(selectedEquipmentList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -101,9 +101,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Equipment>> {
      * Returns the equipment card handle of a equipment associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public EquipmentCardHandle getPersonCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(EquipmentCardHandle::new)
                 .filter(handle -> handle.equals(getPerson(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);

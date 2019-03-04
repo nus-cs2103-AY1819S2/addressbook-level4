@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.equipment.Equipment;
 
@@ -27,7 +28,7 @@ public interface Logic {
     /**
      * Returns the EquipmentManager.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see Model#getAddressBook()
      */
     ReadOnlyEquipmentManager getAddressBook();
 
@@ -59,14 +60,14 @@ public interface Logic {
      * Selected equipment in the filtered equipment list.
      * null if no equipment is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see Model#selectedPersonProperty()
      */
     ReadOnlyProperty<Equipment> selectedPersonProperty();
 
     /**
      * Sets the selected equipment in the filtered equipment list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Equipment)
+     * @see Model#setSelectedPerson(Equipment)
      */
     void setSelectedPerson(Equipment equipment);
 }

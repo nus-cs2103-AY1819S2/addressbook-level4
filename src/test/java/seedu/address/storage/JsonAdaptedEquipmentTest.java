@@ -15,6 +15,8 @@ import seedu.address.model.equipment.Address;
 import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.storage.JsonAdaptedPerson;
+import seedu.address.storage.JsonAdaptedTag;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedEquipmentTest {

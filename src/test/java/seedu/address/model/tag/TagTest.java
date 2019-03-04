@@ -2,6 +2,7 @@ package seedu.address.model.tag;
 
 import org.junit.Test;
 
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class TagTest {

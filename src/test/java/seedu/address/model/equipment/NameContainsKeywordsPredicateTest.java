@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.equipment.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EquipmentBuilder;
 
 public class NameContainsKeywordsPredicateTest {

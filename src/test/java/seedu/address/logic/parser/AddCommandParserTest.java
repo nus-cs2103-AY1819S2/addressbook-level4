@@ -32,6 +32,7 @@ import static seedu.address.testutil.TypicalEquipments.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.parser.AddCommandParser;
 import seedu.address.model.equipment.Address;
 import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;

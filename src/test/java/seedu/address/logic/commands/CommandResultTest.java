@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.CommandResult;
+
 public class CommandResultTest {
     @Test
     public void equals() {

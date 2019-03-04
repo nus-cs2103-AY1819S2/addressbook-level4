@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.ui.ResultDisplay;
 
 public class ResultDisplayTest extends GuiUnitTest {
 

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import org.junit.Test;
 
+import seedu.address.model.UserPrefs;
 import seedu.address.testutil.Assert;
 
 public class UserPrefsTest {

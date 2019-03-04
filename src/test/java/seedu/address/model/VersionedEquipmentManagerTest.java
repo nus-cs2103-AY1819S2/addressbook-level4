@@ -14,6 +14,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.EquipmentManager;
+import seedu.address.model.ReadOnlyEquipmentManager;
+import seedu.address.model.VersionedEquipmentManager;
 import seedu.address.testutil.EquipmentManagerBuilder;
 
 public class VersionedEquipmentManagerTest {

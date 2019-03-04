@@ -57,9 +57,9 @@ public class ConsultationCommandTest {
 
         ConsultationCommand cr2 = new ConsultationCommand("S9123456A");
         try {
-            String consultationResult = "Consultation session for: " + "S9123456A" + " started";
-            org.junit.Assert.assertEquals(cr2.execute(modelManager, history),
-                    new CommandResult(consultationResult));
+            String consultationResult = "Consultation session for: " + "S9123456A" + " started\n";
+            org.junit.Assert.assertEquals(cr2.execute(modelManager, history).getFeedbackToUser(),
+                    new CommandResult(consultationResult).getFeedbackToUser());
         } catch (CommandException ce) {
             org.junit.Assert.fail();
         }

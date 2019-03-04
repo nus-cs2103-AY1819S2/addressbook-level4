@@ -13,6 +13,11 @@ public class Table {
         this.tableNumber = new TableNumber(tableNumber);
         this.tableStatus = new TableStatus(numberOfSeats);
     }
+    
+    public Table(TableNumber tableNumber, TableStatus tableStatus) {
+        this.tableNumber = tableNumber;
+        this.tableStatus = tableStatus;
+    }
 
     public TableStatus getTableStatus() {
         return tableStatus;

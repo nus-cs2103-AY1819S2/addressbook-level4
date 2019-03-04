@@ -38,7 +38,7 @@ public class TableNumber {
 
     @Override
     public String toString() {
-        return String.valueOf(tableNumber);
+        return tableNumber;
     }
 
     @Override

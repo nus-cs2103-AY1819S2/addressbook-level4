@@ -1,9 +1,5 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW;
-
-import seedu.address.model.CustomerModel;
-
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
     //    @Test
@@ -151,15 +147,15 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
-    private void assertCommandSuccess(String command, CustomerModel expectedModel) {
-        String expectedResultMessage = String.format(
-            MESSAGE_CUSTOMERS_LISTED_OVERVIEW, expectedModel.getFilteredCustomerList().size());
-
-        executeCommand(command);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchanged();
-    }
+    //    private void assertCommandSuccess(String command, CustomerModel expectedModel) {
+    //        String expectedResultMessage = String.format(
+    //            MESSAGE_CUSTOMERS_LISTED_OVERVIEW, expectedModel.getFilteredCustomerList().size());
+    //
+    //        executeCommand(command);
+    //        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+    //        assertCommandBoxShowsDefaultStyle();
+    //        assertStatusBarUnchanged();
+    //    }
 
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
@@ -171,13 +167,13 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) {
-        CustomerModel expectedModel = getModel();
-
-        executeCommand(command);
-        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
-        assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
-    }
+    //    private void assertCommandFailure(String command, String expectedResultMessage) {
+    //        CustomerModel expectedModel = getModel();
+    //
+    //        executeCommand(command);
+    //        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+    //        assertSelectedCardUnchanged();
+    //        assertCommandBoxShowsErrorStyle();
+    //        assertStatusBarUnchanged();
+    //    }
 }

@@ -30,5 +30,35 @@ public enum ColorValue {
     PINK,
     BLACK,
     WHITE,
-    GREY,
+    GREY;
+
+    /**
+     * Return true if a given string is a valid color.
+     */
+    public static boolean isValidColor(String other) {
+        ColorValue[] colors = ColorValue.values();
+        for (ColorValue c : colors) {
+            if (ColorValue.valueOf(other.toUpperCase()) == c) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return true if a given color value is a valid color.
+     */
+    public static boolean isValidColor(ColorValue other) {
+        ColorValue[] colors = ColorValue.values();
+        for (ColorValue c : colors) {
+            if (other == c) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 }

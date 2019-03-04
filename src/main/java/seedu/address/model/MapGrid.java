@@ -9,7 +9,9 @@ import java.util.Set;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Row;
 import seedu.address.model.cell.exceptions.DuplicatePersonException;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
@@ -193,5 +195,12 @@ public class MapGrid implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    /**
+     * Put battleship in the given coordinates
+     */
+    public void putShip(Coordinates coordinates, Battleship battleship) {
+        persons.putShipAtIndex(coordinates.getRowValue(), battleship);
     }
 }

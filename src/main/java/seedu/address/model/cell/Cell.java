@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
 public class Cell {
 
     // Identity fields
-    private final Name name;
+    private Name name;
     private final Phone phone;
     private final Email email;
 
@@ -93,6 +93,14 @@ public class Cell {
     }
 
     /**
+     * Put battleship in this cell
+     */
+    public void putShip(Battleship battleship) {
+        this.battleship = Optional.of(battleship);
+        this.name = battleship.getName();
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
@@ -156,5 +164,4 @@ public class Cell {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

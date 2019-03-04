@@ -7,7 +7,9 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,6 +18,11 @@ import seedu.address.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Cell> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /**
+     * Put battleship in the given coordinates
+     */
+    void putShip(Coordinates coordinates, Battleship battleship);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

@@ -6,8 +6,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -69,13 +69,12 @@ public class DescriptionCommand extends Command {
 
     /**
      * Makes a command execution succcess message based on whether the descrption is added to or removed form
-     * {@ personToEdit}.
-     * @param personToEdit The Person to edit.
-     * @return Command execution success message.
+     * {@personToEdit}.
      */
     private String makeSuccessMessage(Person personToEdit) {
 
-        String message = !description.value.isEmpty() ? MESSAGE_ADD_DESCRIPTION_SUCCESS : MESSAGE_REMOVE_DESCRIPTION_SUCCESS;
+        String message = !description.value.isEmpty() ? MESSAGE_ADD_DESCRIPTION_SUCCESS
+                : MESSAGE_REMOVE_DESCRIPTION_SUCCESS;
         return String.format(message, personToEdit);
     }
 

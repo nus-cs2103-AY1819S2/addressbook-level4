@@ -164,7 +164,7 @@ public class CustomerManagerTest {
         assertTrue(customerManager.equals(customerManager));
 
         // null -> returns false
-        assertFalse(customerManager.equals(null));
+        assertFalse(customerManager == null);
 
         // different types -> returns false
         assertFalse(customerManager.equals(5));

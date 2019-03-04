@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.OPENING_HOURS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -21,9 +22,13 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_OPENING_HOURS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WEBLINK_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.WEBLINK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.WEBLINK_DESC_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalRestaurants.AMY;
@@ -45,41 +50,48 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Restaurant expectedRestaurant = new RestaurantBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Restaurant expectedRestaurant = new RestaurantBuilder(BOB).withTags(VALID_TAG_FRIEND)
+                .withWeblink(VALID_WEBLINK_BOB).withOpeningHours(VALID_OPENING_HOURS).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedRestaurant));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC,
+                new AddCommand(expectedRestaurant));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedRestaurant));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC,
+                new AddCommand(expectedRestaurant));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedRestaurant));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC,
+                new AddCommand(expectedRestaurant));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedRestaurant));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC,
+                new AddCommand(expectedRestaurant));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedRestaurant));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC,
+                new AddCommand(expectedRestaurant));
 
         // multiple tags - all accepted
         Restaurant expectedRestaurantMultipleTags = new RestaurantBuilder(BOB).withTags(VALID_TAG_FRIEND,
-                VALID_TAG_HUSBAND).build();
+                VALID_TAG_HUSBAND).withWeblink(VALID_WEBLINK_BOB).withOpeningHours(VALID_OPENING_HOURS).build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedRestaurantMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC,
+                new AddCommand(expectedRestaurantMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Restaurant expectedRestaurant = new RestaurantBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedRestaurant));
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + WEBLINK_DESC_AMY + OPENING_HOURS_DESC, new AddCommand(expectedRestaurant));
     }
 
     @Test

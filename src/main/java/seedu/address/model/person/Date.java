@@ -30,10 +30,14 @@ public class Date {
     /**
      * Returns true if a given string is a valid date.
      */
-    public static boolean isValidDate(String test) { return test.matches(VALIDATION_REGEX); }
+    public static boolean isValidDate(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
 
     @Override
-    public String toString() { return value; }
+    public String toString() {
+        return value;
+    }
 
     @Override
     public boolean equals(Object other) {

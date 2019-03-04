@@ -59,9 +59,13 @@ public class Person {
         return address;
     }
 
-    public Amount getAmount() { return amount; }
+    public Amount getAmount() {
+        return amount;
+    }
 
-    public Date getDate() { return date; }
+    public Date getDate() {
+        return date;
+    }
 
     public Description getDescription() {
         return description;

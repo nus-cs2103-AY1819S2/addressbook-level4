@@ -56,7 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a Book: `addBook`
+=== Adding a book: `addBook`
 
 Adds a book to the book list +
 Format: `addBook n/BOOK NAME a/author m/RATING(0-10) [t/TAG]…​`
@@ -66,7 +66,7 @@ Examples:
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
 * `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
 
-=== Adding a Book Review: `addReview`
+=== Adding a book review: `addReview`
 
 Adds a book review to a certain book in the book list +
 Format: `addReview n/BOOK NAME r/review`
@@ -76,7 +76,7 @@ Examples:
 * `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * `addReview n/Structure and Interpretation of Computer Programs r/A very difficult book:(`
 
-=== Listing Book Entries : `listBook`
+=== Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
 Format: `listBook [n/NAME] [t/TAG] [m/RATING]`
@@ -95,22 +95,26 @@ Examples:
 * `listBook n/CS2104T t/textbook`
 * `listBook m/5`
 
-=== Listing Book Reviews to a Certain Book : `listReview`
+=== Listing book reviews of a certain book : `listReview`
 
 Shows a list of all review entries of a book. +
 Format: `listReview n/BOOKNAME`
+
+****
+* The book name need to match exactly
+****
 
 Examples:
 
 * `listReview n/Alice in Wonderland`
 
-=== Editing Book Entry : `editBook`
+=== Editing book entry : `editBook`
 
 Edits an existing book entry (eg. edit the mark, author or tag). +
 Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...`
 
 ****
-* Edits the book entry with name BOOKNAME.
+* Edits the book entry with exact name BOOKNAME.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -120,7 +124,7 @@ Examples:
 * `edit n/Alice in Wonderland a/some author` +
 Change the author of book called “Alice in Wonderland” to some author.
 
-=== Editing Tags of a Certain Book: `editTag`
+=== Editing tags of a certain book: `editTag`
 
 Edit tags of the book specified by BOOKNAME.
 Format: `editTag n/BOOKNAME [ta/TAG TO ADD] [td/TAG TO DELETE]`
@@ -151,25 +155,21 @@ Examples:
 * `deleteBook n/Alice in Wonderland` +
 Deletes the entry of Alice in Wonderland.
 
-=== Deleting a Book Review: `deleteReview`
+=== Deleting a book review: `deleteReview`
 
 Deletes the review of the specified book from the review list. +
 Format: ` deleteReview INDEX`
 
 ****
-* Deletes the book of the specified `BOOKNAME`.
-* The `BOOKNAME` refers to the name of the book.
+* Deletes of the book at the specified `INDEX`.
+* The index refers to the index number shown in the displayed review list.
+* The index must be a positive integer 1, 2, 3, …​
 ****
-
-Format:
-*Deletes the review of the book at the specified INDEX.
-*The index refers to the index number shown in the displayed review list.
-*The index must be a positive integer 1, 2, 3, …​
 
 Examples:
 
-* `deleteBook n/Alice in Wonderland`
-* `deleteReview 2`
+* `listReview n/Alice in Wonderland` +
+`deleteReview 2` +
 Deletes the 2nd review of Alice in Wonderland.
 
 === Listing entered commands : `history`
@@ -223,7 +223,7 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-=== Give a Summary of All the Books Read : `summary`
+=== Give a summary of all the books read : `summary`
 
 Generate a summary of all the books read so far. +
 Format: `summary`

@@ -23,14 +23,14 @@ public class Year {
      */
     public Year(String year) {
         requireNonNull(year);
-        checkArgument(isValidCode(year), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidYear(year), MESSAGE_CONSTRAINTS);
         this.year = year;
     }
 
     /**
      * Returns true if a given string is a valid code.
      */
-    public static boolean isValidCode(String test) {
+    public static boolean isValidYear(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

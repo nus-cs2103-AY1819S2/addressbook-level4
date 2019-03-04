@@ -23,14 +23,14 @@ public class Day {
      */
     public Day(String day) {
         requireNonNull(day);
-        checkArgument(isValidCode(day), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDay(day), MESSAGE_CONSTRAINTS);
         this.day = day;
     }
 
     /**
      * Returns true if a given string is a valid code.
      */
-    public static boolean isValidCode(String test) {
+    public static boolean isValidDay(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -39,7 +39,7 @@ public class BillCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Bill Calculated: %1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
 
-    private final TableNumber toBill;
+    private final Table toBill;
 
     /**
      * Creates a BillCommand to find the total bill of the specified {@code Table}
@@ -49,7 +49,7 @@ public class BillCommand extends Command {
         requireNonNull(day);
         requireNonNull(month);
         requireNonNull(year);
-        toBill = tableNumber;
+        toBill = Table.getTable(tableNumber);
     }
 
     @Override

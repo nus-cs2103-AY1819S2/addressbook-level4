@@ -23,14 +23,14 @@ public class Month {
      */
     public Month(String month) {
         requireNonNull(month);
-        checkArgument(isValidCode(month), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMonth(month), MESSAGE_CONSTRAINTS);
         this.month = month;
     }
 
     /**
      * Returns true if a given string is a valid code.
      */
-    public static boolean isValidCode(String test) {
+    public static boolean isValidMonth(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

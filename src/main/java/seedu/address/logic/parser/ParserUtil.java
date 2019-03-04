@@ -122,7 +122,12 @@ public class ParserUtil {
         }
         return tagSet;
     }
-
+    /**
+     * Parses a {@code String color} into a {@code Color}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code color} is invalid.
+     */
     public static Color parseColor(String color) throws ParseException {
         requireNonNull(color);
         String trimmedColor = color.trim();

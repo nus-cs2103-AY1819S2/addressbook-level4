@@ -21,12 +21,12 @@ import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonOrdersStorage;
-import seedu.address.storage.JsonRestOrRantStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.MenuStorage;
 import seedu.address.storage.OrdersStorage;
-import seedu.address.storage.RestOrRantStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -62,9 +62,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        RestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(userPrefs.getRestOrRantFilePath());
         OrdersStorage ordersStorage = new JsonOrdersStorage(userPrefs.getOrdersFilePath());
-        storage = new StorageManager(restOrRantStorage, userPrefsStorage, ordersStorage);
+        MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
+        storage = new StorageManager(userPrefsStorage, ordersStorage, menuStorage);
+        
 
         initLogging(config);
 
@@ -83,16 +84,23 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyOrders> ordersOptional;
+        Optional<ReadOnlyMenu> menuOptional;
         RestOrRant initialData;
         try {
             // addressBookOptional = storage.readRestOrRant();
             ordersOptional = storage.readOrders();
+            menuOptional = storage.readMenu();
             if (!ordersOptional.isPresent()) {
-                logger.info("Orders data file not found. Will be starting with sample Orders");
+                logger.info("Orders data file not found. Will be starting with an empty RestOrRant");
+                initialData = new RestOrRant();
+            } else if (!menuOptional.isPresent()) {
+                logger.info("Menu data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
             } else {
-                initialData = new RestOrRant(ordersOptional.get());
+                initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
             }
+            //initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
+
             // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");

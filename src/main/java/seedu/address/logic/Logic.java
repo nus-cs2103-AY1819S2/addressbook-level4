@@ -8,9 +8,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
 
 /**
@@ -33,13 +34,14 @@ public interface Logic {
      */
     ReadOnlyRestOrRant getRestOrRant();
 
+    /** Returns an unmodifiable view of the filtered list of menu items */
+    ObservableList<MenuItem> getFilteredMenuItemList();
 
     /** Returns an unmodifiable view of the filtered list of order items */
     ObservableList<OrderItem> getFilteredOrderItemList();
 
     /** Returns an unmodifiable view of the filtered list of tables */
     ObservableList<Table> getFilteredTableList();
-
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -49,8 +51,16 @@ public interface Logic {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Returns the user prefs' tables file path.
 =======
+=======
+     * Returns the user pref's menu file path.
+     */
+    Path getMenuFilePath();
+
+    /**
+>>>>>>> f09e89b35e0fd1d55f70b154c5de5bbb1d8b9555
      * Returns the user prefs' RestOrRant orders file path.
      */
     Path getOrdersFilePath();
@@ -70,6 +80,21 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Selected menu item in the filtered menu item list.
+     * null if no person is selected.
+     * 
+     * @see Model#selectedMenuItemProperty() 
+     */
+    ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
+
+    /**
+     * Sets the selected menu item in the filtered menu item list.
+     * 
+     * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
+     */
+    void setSelectedMenuItem(MenuItem menuItem);
 
     /**
      * Selected order item in the filtered order item list.
@@ -105,4 +130,5 @@ public interface Logic {
      * Changes current mode of RestOrRant.
      */
     void changeMode(Mode mode);
+
 }

@@ -111,7 +111,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-
     public void fillInnerParts() {
         // TODO: set restaurant mode defaults
         menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());

@@ -66,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        // helpWindow = new HelpWindow();
+        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -165,9 +165,10 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
             (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
+         helpWindow.hide();
         primaryStage.hide();
     }
+
 
     public CustomerListPanel getCustomerListPanel() {
         return customerListPanel;

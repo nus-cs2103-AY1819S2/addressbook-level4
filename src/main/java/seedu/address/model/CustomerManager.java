@@ -32,20 +32,20 @@ public class CustomerManager implements CustomerModel {
     /**
      * Initializes a CustomerManager with the given addressBook and userPrefs.
      */
-    public CustomerManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public CustomerManager(VersionedAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAddressBook = addressBook;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCustomers = new FilteredList<>(versionedAddressBook.getCustomerList());
         filteredCustomers.addListener(this::ensureSelectedCustomerIsValid);
     }
 
     public CustomerManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new VersionedAddressBook(new AddressBook()), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================

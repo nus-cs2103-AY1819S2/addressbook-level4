@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -99,7 +100,9 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-        Model[] result = {new CustomerManager(initialData, userPrefs), new BookingManager(initialData, userPrefs)};
+        VersionedAddressBook versionedAddressBook = new VersionedAddressBook(initialData);
+        Model[] result = {new CustomerManager(versionedAddressBook, userPrefs),
+            new BookingManager(versionedAddressBook, userPrefs)};
         return result;
     }
 

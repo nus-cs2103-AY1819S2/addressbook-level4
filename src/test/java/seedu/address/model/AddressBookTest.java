@@ -28,10 +28,9 @@ import seedu.address.model.customer.exceptions.DuplicateCustomerException;
 import seedu.address.testutil.CustomerBuilder;
 
 public class AddressBookTest {
+    private final AddressBook addressBook = new AddressBook();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private final AddressBook addressBook = new AddressBook();
 
     @Test
     public void constructor() {

@@ -43,6 +43,7 @@ public class LogicManager implements Logic {
 
         // Set addressBookModified to true whenever the models' address book is modified.
         customerModel.getAddressBook().addListener(observable -> addressBookModified = true);
+        bookingModel.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class LogicManager implements Logic {
         if (addressBookModified) {
             logger.info("Address book modified, saving to file.");
             try {
-                storage.saveAddressBook(customerModel.getAddressBook());
+                storage.saveAddressBook(bookingModel.getAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

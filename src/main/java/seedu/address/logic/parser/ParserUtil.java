@@ -21,6 +21,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_QUANTITY = "Quantity is not a non-zero unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -33,6 +34,19 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code quantity} into an integer and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified quantity is invalid (not non-zero unsigned integer).
+     */
+    public static int parseQuantity(String quantity) throws ParseException {
+        String trimmedQuantity = quantity.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedQuantity)) {
+            throw new ParseException(MESSAGE_INVALID_QUANTITY);
+        }
+        return Integer.parseInt(trimmedQuantity);
     }
 
     /**

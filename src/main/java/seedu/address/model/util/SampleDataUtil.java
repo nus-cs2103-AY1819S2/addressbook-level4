@@ -43,7 +43,7 @@ public class SampleDataUtil {
     public static ReadOnlyRestOrRant getSampleAddressBook() {
         RestOrRant sampleAb = new RestOrRant();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            //sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
     }

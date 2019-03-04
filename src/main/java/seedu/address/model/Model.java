@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 
 /**
  * The API of the Model component.
@@ -15,6 +16,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -42,6 +46,11 @@ public interface Model {
     Path getOrdersFilePath();
 
     /**
+     * Returns the user prefs' Tables file path.
+     */
+    Path getTablesFilePath();
+
+    /**
      * Sets the user prefs' Orders file path.
      */
     void setOrdersFilePath(Path restOrRantFilePath);
@@ -58,6 +67,57 @@ public interface Model {
      * Notifies the listeners that the RestOrRant (mode) has been modified.
      */
     void updateRestOrRant();
+
+    /**
+     * Returns true if a table with the same identity as {@code table} exists in the RestOrRant's Tables.
+     */
+    boolean hasTable(Table table);
+
+    /**
+     * Deletes the given table from Tables.
+     * The table must  exist in the RestOrRant's Tables.
+     */
+    void deleteTable(Table table);
+
+    /**
+     * Adds the given table to Tables.
+     * {@code table} must not already exist in the RestOrRant's Tables.
+     */
+    void addTable(Table table);
+
+    /**
+     * Replaces the given table {@code target} with {@code editedTable}.
+     * {@code target} must exisdt in the RestOrRant's Tables.
+     * The table identity og {@code editedTable} must not be the same as  another existing table in Tables.
+     */
+    void setTable(Table target, Table editedTable);
+
+    /** Returns an unmodifiable view of the filtered table list */
+    ObservableList<Table> getFilteredTableList();
+
+    /**
+     * Updates the filter of the filtered table list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null/
+     */
+    void updateFilteredTableList(Predicate<Table> predicate);
+
+    /**
+     * Selected person in the filtered table list.
+     * null if no table is selected.
+     */
+    ReadOnlyProperty<Table> selectedTableProperty();
+
+    /**
+     * Returns the selected table in the filtered table list.
+     * null if no table is selected.
+     */
+    Table getSelectedTable();
+
+    /**
+     * Sets the selected table in the filtered table list.
+     * @param table
+     */
+    void setSelectedTable(Table table);
 
     /**
      * Returns true if an order item with the same identity as {@code orderItem} exists in the RestOrRant's Orders.
@@ -108,6 +168,11 @@ public interface Model {
      * Sets the selected order item in the filtered order item list.
      */
     void setSelectedOrderItem(OrderItem orderItem);
+
+    /**
+     * Notifies the listeners that the RestOrRant orders has been modified.
+     */
+    void updateOrders();
 
     /**
      * Changes the current mode of the RestOrRant.

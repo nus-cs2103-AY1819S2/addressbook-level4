@@ -7,7 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.menu.MenuItem;
-import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,8 +15,8 @@ import seedu.address.model.person.Person;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<MenuItem> PREDICATE_SHOW_ALL_MENU_ITEMS = unused -> true;
+    Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -39,10 +39,9 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' RestOrRant file path.
+     * Returns the user prefs' Orders file path.
      */
-    Path getRestOrRantFilePath(); // TODO: remove
-    
+    Path getOrdersFilePath();
     /**
      * Returns the user pref's Menu file path.
      */
@@ -50,10 +49,10 @@ public interface Model {
     // TODO: add get file path for each feature
 
     /**
-     * Sets the user prefs' RestOrRant file path.
+     * Sets the user prefs' Orders file path.
      */
-    void setRestOrRantFilePath(Path restOrRantFilePath); // TODO: remove
-    
+    void setOrdersFilePath(Path restOrRantFilePath);
+
     /**
      * Sets the user pref's Menu file path.
      */
@@ -61,53 +60,58 @@ public interface Model {
     // TODO: add set file path for each feature
 
     /**
-     * Replaces restOrRant data with the data in {@code restOrRant}.
+     * Replaces RestOrRant data with the data in {@code restOrRant}.
      */
     void setRestOrRant(ReadOnlyRestOrRant restOrRant);
 
     /** Returns the RestOrRant */
     ReadOnlyRestOrRant getRestOrRant();
-    
-    ReadOnlyMenu getMenu();
 
     /**
-     * Notifies the listeners that the RestOrRant has been modified.
+     * Notifies the listeners that the RestOrRant (mode) has been modified.
      */
     void updateRestOrRant();
 
     /**
+     * Returns true if an order item with the same identity as {@code orderItem} exists in the RestOrRant's Orders.
+     */
+    boolean hasOrderItem(OrderItem orderItem);
+    
+    /**
      * Returns true if a menu item with the same identity as {@code menuItem} exists in the menu.
      */
     boolean hasMenuItem(MenuItem menuItem);
-    // TODO: Remove
+
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Deletes the given order item from Orders.
+     * The order item must exist in the RestOrRant's Orders.
      */
-    boolean hasPerson(Person person);
+    void deleteOrderItem(OrderItem target);
 
     /**
      * Deletes the given menu item.
      * The menu item must exist in the menu.
      */
     void deleteMenuItem(MenuItem menuItem);
-    // TODO: Remove
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
 
+    /**
+     * Adds the given order item to Orders.
+     * {@code orderItem} must not already exist in the RestOrRant's Orders.
+     */
+    void addOrderItem(OrderItem orderItem);
+    
     /**
      * Adds the given menu item to the menu.
      * {@code menuItem} must not already exist in the menu.
      */
     void addMenuItem(MenuItem menuItem);
-    // TODO: remove
+
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Replaces the given order item {@code target} with {@code editedOrderItem}.
+     * {@code target} must exist in the RestOrRant's orders.
+     * The order item identity of {@code editedOrderItem} must not be the same as another existing order item in Orders.
      */
-    void addPerson(Person person);
+    void setOrderItem(OrderItem target, OrderItem editedOrderItem);
 
     /**
      * Replaces the given menu item {@code target} with {@code editedItem}.
@@ -115,65 +119,58 @@ public interface Model {
      * The item identity of {@code editedItem} must not be the same as another existing menu item in the menu.
      */
     void setMenuItem(MenuItem target, MenuItem editedItem);
-    // TODO: remove
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
-    
+
+    /** Returns an unmodifiable view of the filtered order item list */
+    ObservableList<OrderItem> getFilteredOrderItemList();
+
     /** Returns an unmodifiable view of the filtered menu item list */
     ObservableList<MenuItem> getFilteredMenuItemList();
-    // TODO: remove
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Updates the filter of the filtered order item list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredOrderItemList(Predicate<OrderItem> predicate);
     
     /**
      * Updates the filter of the filtered menu item list to filter by the given {@code predicate}
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMenuItemList(Predicate<MenuItem> predicate);
-    // TODO: remove
+
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Selected person in the filtered order item list.
+     * null if no order item is selected.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    ReadOnlyProperty<OrderItem> selectedOrderItemProperty();
     
     /**
      * Selected menu item in the menu item list.
      * null if no menu item is selected.
      */
     ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
-    // TODO: remove
+
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected order item in the filtered order item list.
+     * null if no order item is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-    
+    OrderItem getSelectedOrderItem();
+
     /**
      * Returns the selected menu item in the filtered menu item list.
      * null if no person is selected.
      */
     MenuItem getSelectedMenuItem();
-    // TODO: remove
+
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Sets the selected order item in the filtered order item list.
      */
-    Person getSelectedPerson();
-    
+    void setSelectedOrderItem(OrderItem orderItem);
+
     /**
      * Sets the selected menu item in the filtered menu item list.
      */
     void setSelectedMenuItem(MenuItem menuItem);
-    // TODO: remove
-    /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedPerson(Person person);
 
     /**
      * Changes the current mode of the RestOrRant.

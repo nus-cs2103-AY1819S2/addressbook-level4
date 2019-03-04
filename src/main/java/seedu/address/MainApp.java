@@ -17,7 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
@@ -25,10 +25,12 @@ import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonMenuStorage;
-import seedu.address.storage.JsonRestOrRantStorage; // remove
+import seedu.address.storage.JsonOrdersStorage;
+import seedu.address.storage.JsonRestOrRantStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.MenuStorage;
-import seedu.address.storage.RestOrRantStorage; // remove
+import seedu.address.storage.OrdersStorage;
+import seedu.address.storage.RestOrRantStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -65,8 +67,10 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(userPrefs.getRestOrRantFilePath());
+        OrdersStorage ordersStorage = new JsonOrdersStorage(userPrefs.getOrdersFilePath());
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
-        storage = new StorageManager(restOrRantStorage, menuStorage, userPrefsStorage); // TODO: remove restOrRantStorage
+        storage = new StorageManager(userPrefsStorage, ordersStorage, menuStorage);
+        
 
         initLogging(config);
 
@@ -79,28 +83,33 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s RestOrRant and {@code userPrefs}. <br>
-     * The data from the sample RestOrRant will be used instead if {@code storage}'s RestOrRant is not found,
-     * or an empty RestOrRant will be used instead if errors occur when reading {@code storage}'s RestOrRant.
+     * Sample data will be used instead if any {@code storage} data file is not found,
+     * or an empty RestOrRant will be used instead if errors occur when reading from any {@code storage} data file.
      * TODO: Write the sample RestOrRant files.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        // TODO: remove, add Optional<ReadOnlyRestOrRant> for each feature / each json file
-        Optional<ReadOnlyRestOrRant> addressBookOptional;
+        Optional<ReadOnlyOrders> ordersOptional;
         Optional<ReadOnlyMenu> menuOptional;
-        ReadOnlyMenu initialData;
+        RestOrRant initialData;
         try {
-            // TODO: read file for each feature
+            // addressBookOptional = storage.readRestOrRant();
+            ordersOptional = storage.readOrders();
+            if (!ordersOptional.isPresent()) {
+                logger.info("Orders data file not found. Will be starting with sample Orders");
+            }
+            
             menuOptional = storage.readMenu();
             if (!menuOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample RestOrRant");
+                logger.info("Menu data file not found. Will be starting with sample Menu");
             }
-            initialData = menuOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
+            // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");
-            initialData = new Menu();
+            initialData = new RestOrRant();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty RestOrRant");
-            initialData = new Menu();
+            initialData = new RestOrRant();
         }
 
         return new ModelManager(initialData, userPrefs);

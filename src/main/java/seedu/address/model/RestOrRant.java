@@ -1,20 +1,15 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.Objects;
 
 import javafx.beans.InvalidationListener;
-import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.menu.Menu;
-import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.UniqueOrderItemList;
-import seedu.address.model.menu.UniqueMenuItemList;
-import seedu.address.model.menu.MenuItem;
-import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
-import seedu.address.model.person.UniquePersonList; // TODO: remove once the other components stop relying on person methods
+import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.Orders;
+import seedu.address.model.order.ReadOnlyOrders;
 
 /**
  * Wraps all data at the address-book level
@@ -22,12 +17,9 @@ import seedu.address.model.person.UniquePersonList; // TODO: remove once the oth
  */
 public class RestOrRant implements ReadOnlyRestOrRant {
 
-    private final UniqueOrderItemList orderItems;
-    // TODO: feel free to add more lists for menu items and tables
-    private final UniqueMenuItemList menuItems;
-    private final UniquePersonList persons; // TODO: remove once the other components stop relying on person methods
+    private final Menu menu;
+    private final Orders orders;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-    private Menu menu;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -38,131 +30,40 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      */
     {
         menu = new Menu();
-        orderItems = new UniqueOrderItemList();
-        menuItems = new UniqueMenuItemList();
-        persons = new UniquePersonList(); // TODO: remove once the other components stop relying on person methods
+        orders = new Orders();
+
     }
 
     public RestOrRant() {}
 
     /**
-     * Creates an RestOrRant using the Persons in the {@code toBeCopied}
+     * Creates an RestOrRant using the data in the {@code toBeCopied}
      */
     public RestOrRant(ReadOnlyRestOrRant toBeCopied) {
         this();
-        resetData(toBeCopied);
-    }
-
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the menu list with {@code menuItems}.
-     * {@code menuItems} must not contain duplicate persons.
-     */
-    public void setMenuItems(List<MenuItem> menuItems) {
-        this.menuItems.setMenuItems(menuItems);
-        indicateModified();
-    }
-//    public void setPersons(List<Person> persons) {
-//        this.persons.setPersons(persons);
-//        indicateModified();
-//    }
-
-    /**
-     * Resets the existing data of this {@code RestOrRant} with {@code newData}.
-     */
-    public void resetData(ReadOnlyRestOrRant newData) {
-        requireNonNull(newData);
-
-        setMenuItems(newData.getMenuItemList());
-    }
-
-    //// person-level operations
-
-    /**
-     * Returns true if a menu item with the same identity as {@code menuItem} exists in the address book.
-     */
-    public boolean hasMenuItem (MenuItem menuItem) {
-        requireNonNull(menuItem);
-        return menuItems.contains(menuItem);
-    }
-    // TODO: remove
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a menu item to the menu.
-     * The menu item must not already exist in the address book.
-     */
-    public void addMenuItem (MenuItem item) {
-        menuItems.add(item);
-        indicateModified();
-    }
-    // TODO: remove
-    public void addPerson(Person p) {
-        persons.add(p);
-        indicateModified();
+        resetData(toBeCopied.getOrders(), toBeCopied.getMenu());
     }
     
     /**
-     * Replaces the given menu item {@code target} in the list with {@code editedItem}.
-     * {@code target} must exist in the address book.
-     * The item identity of {@code editedItem} must not be the same as another existing menu item in the address book.
+     * Creates an RestOrRant using the data specified in {@code copyOrders, copyMenu} // TODO: add more parameters
      */
-    public void setMenuItem(MenuItem target, MenuItem editedItem) {
-        requireNonNull(editedItem);
-        
-        menuItems.setMenuItem(target, editedItem);
-    }
-    // TODO: remove
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-        indicateModified();
+    public RestOrRant(ReadOnlyOrders copyOrders, ReadOnlyMenu copyMenu) {
+        this();
+        resetData(copyOrders, copyMenu);
     }
 
     /**
-     * Removes {@code key} from this {@code RestOrRant}.
-     * {@code key} must exist in the menu.
+     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu}. // TODO: add more parameters
      */
-    public void removeMenuItem(MenuItem key) {
-        menuItems.remove(key);
-        indicateModified();
-    }
-    // TODO: remove
-    /**
-     * Removes {@code key} from this {@code RestOrRant}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-        indicateModified();
+    public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu) {
+        requireAllNonNull(newOrders, newMenu);
+        orders.setOrderItems(newOrders.getOrderItemList());
+        // TODO: add more lines to set all the variables
+        menu.setMenuItems(newMenu.getMenuItemList());
     }
 
     public void changeMode() {
         indicateModified();
-    }
-    /**
-     * Given the menu item's {@code String code}, returns the MenuItem with the corresponding code.
-     */
-    @Override
-    public MenuItem checkItemExists(String code) {
-        Iterator<MenuItem> iterator = menuItems.iterator();
-        while (iterator.hasNext()) {
-            MenuItem menuItem = iterator.next();
-            if (menuItem.getCode().itemCode.equals(code)) {
-                return menuItem;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -186,40 +87,30 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     @Override
     public String toString() {
-        return orderItems.asUnmodifiableObservableList().size() + " order items";
+        return orders.getOrderItemList().size() + " order items" + "\n" + 
+                menu.getMenuItemList().size() + " menu items";
         // TODO: refine later
     }
 
-    @Override
-    public ObservableList<OrderItem> getOrderItemList() {
-        return orderItems.asUnmodifiableObservableList();
-    }
-    
-    @Override
-    public ObservableList<MenuItem> getMenuItemList() {
-        return menuItems.asUnmodifiableObservableList();
+    public Orders getOrders() {
+        return orders;
     }
 
-    // TODO: remove once the other components stop relying on person methods
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public Menu getMenu() {
+        return menu;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
-                && orderItems.equals(((RestOrRant) other).orderItems))
-                && menuItems.equals(((RestOrRant) other).menuItems);
+                && orders.equals(((RestOrRant) other).orders)
+                && menu.equals(((RestOrRant) other).menu));
     }
 
     @Override
     public int hashCode() {
-        return orderItems.hashCode();
-    }
-    
-    public Menu getMenu() {
-        return menu;
+        return Objects.hash(orders, menu);
     }
 
 }

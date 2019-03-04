@@ -1,32 +1,16 @@
 package seedu.address.model;
 
 import javafx.beans.Observable;
-import javafx.collections.ObservableList;
-import seedu.address.model.menu.Menu;
-import seedu.address.model.order.OrderItem;
-import seedu.address.model.menu.MenuItem;
-import seedu.address.model.person.Person;
+import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.ReadOnlyOrders;
 
 /**
  * Unmodifiable view of RestOrRant
  */
 public interface ReadOnlyRestOrRant extends Observable {
 
-    /**
-     * Returns an unmodifiable view of the order items list.
-     */
-    ObservableList<OrderItem> getOrderItemList();
-    
-    /**
-     * Returns an unmodifiable view of the menu items list.
-     */
-    ObservableList<MenuItem> getMenuItemList();
-    
-    // get item given code RETURN OPTIONAL<MENUITEM> INSTEAD
-    MenuItem checkItemExists(String code);
-    
-    Menu getMenu();
+    ReadOnlyMenu getMenu();
 
-    ObservableList<Person> getPersonList(); // TODO: remove
+    ReadOnlyOrders getOrders();
 
 }

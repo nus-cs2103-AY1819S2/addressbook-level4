@@ -16,11 +16,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.menu.MenuItem;
-import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
-import seedu.address.model.person.exceptions.PersonNotFoundException; // TODO: remove
+import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -34,8 +32,6 @@ public class ModelManager implements Model {
     private final FilteredList<MenuItem> filteredMenuItems;
     private final SimpleObjectProperty<OrderItem> selectedOrderItem = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<MenuItem> selectedMenuItem = new SimpleObjectProperty<>();
-    private final FilteredList<Person> filteredPersons; // TODO: remove
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>(); // TODO: remove
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -48,12 +44,10 @@ public class ModelManager implements Model {
 
         this.restOrRant = new RestOrRant(restOrRant);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredOrderItems = new FilteredList<>(this.restOrRant.getOrderItemList());
-        filteredMenuItems = new FilteredList<>(this.restOrRant.getMenuItemList());
+        filteredOrderItems = new FilteredList<>(this.restOrRant.getOrders().getOrderItemList());
+        filteredOrderItems.addListener(this::ensureSelectedOrderItemIsValid);
+        filteredMenuItems = new FilteredList<>(this.restOrRant.getMenu().getMenuItemList());
         filteredMenuItems.addListener(this::ensureSelectedMenuItemIsValid);
-
-        filteredPersons = new FilteredList<>(this.restOrRant.getPersonList()); // TODO: remove
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid); // TODO: remove
     }
 
     public ModelManager() {
@@ -84,30 +78,33 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    @Override // TODO: add for the other storages
+    public Path getOrdersFilePath() {
+        return userPrefs.getOrdersFilePath();
+    }
+    
     @Override
     public Path getMenuFilePath() {
-        return userPrefs.getMenuFilePath();
+        return userPrefs.getMenuFilePath(); 
     }
-    public Path getRestOrRantFilePath() {
-        return userPrefs.getRestOrRantFilePath();
-    } // TODO: remove
-
+    
+    @Override
+    public void setOrdersFilePath(Path ordersFilePath) {
+        requireNonNull(ordersFilePath);
+        userPrefs.setOrdersFilePath(ordersFilePath);
+    }
+    
     @Override
     public void setMenuFilePath(Path menuFilePath) {
         requireNonNull(menuFilePath);
-        userPrefs.setMenuFilePath(menuFilePath);
-    }
-    // TODO: remove
-    public void setRestOrRantFilePath(Path restOrRantFilePath) {
-        requireNonNull(restOrRantFilePath);
-        userPrefs.setRestOrRantFilePath(restOrRantFilePath);
+        userPrefs.setMenuFilePath(menuFilePath); 
     }
 
     //=========== RestOrRant ================================================================================
 
     @Override
     public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
-        this.restOrRant.resetData(restOrRant);
+        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu());
     }
 
     @Override
@@ -116,57 +113,79 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateRestOrRant() {
+    public void updateRestOrRant() { // change mode
         restOrRant.indicateModified();
     }
 
+    //=========== Order ======================================================================================
+
+    @Override
+    public boolean hasOrderItem(OrderItem orderItem) {
+        requireNonNull(orderItem);
+        return restOrRant.getOrders().hasOrderItem(orderItem);
+    }
+
+    @Override
+    public void deleteOrderItem(OrderItem target) {
+        restOrRant.getOrders().removeOrderItem(target);
+    }
+
+    @Override
+    public void addOrderItem(OrderItem orderItem) {
+        restOrRant.getOrders().addOrderItem(orderItem);
+        updateFilteredOrderItemList(PREDICATE_SHOW_ALL_ORDER_ITEMS);
+    }
+
+    @Override
+    public void setOrderItem(OrderItem target, OrderItem editedOrderItem) {
+        requireAllNonNull(target, editedOrderItem);
+        restOrRant.getOrders().setOrderItem(target, editedOrderItem);
+    }
+    
+    //=========== Menu ======================================================================================
     @Override
     public boolean hasMenuItem(MenuItem menuItem) {
         requireNonNull(menuItem);
-        return restOrRant.hasMenuItem(menuItem);
+        return restOrRant.getMenu().hasMenuItem(menuItem);
     }
-    // TODO: remove
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return restOrRant.hasPerson(person);
-    }
-
+    
     @Override
     public void deleteMenuItem(MenuItem target) {
-        restOrRant.removeMenuItem(target);
+        restOrRant.getMenu().removeMenuItem(target);
     }
-    // TODO: remove
-    public void deletePerson(Person target) {
-        restOrRant.removePerson(target);
-    }
-
+    
     @Override
     public void addMenuItem(MenuItem menuItem) {
-        restOrRant.addMenuItem(menuItem);
+        restOrRant.getMenu().addMenuItem(menuItem);
         updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENU_ITEMS);
     }
-    // TODO: remove
-    public void addPerson(Person person) {
-        restOrRant.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
+    
     @Override
     public void setMenuItem(MenuItem target, MenuItem editedItem) {
         requireAllNonNull(target, editedItem);
         
-        restOrRant.setMenuItem(target, editedItem);
-    }
-    // TODO: remove
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        restOrRant.setPerson(target, editedPerson);
+        restOrRant.getMenu().setMenuItem(target, editedItem);
     }
 
+    //=========== Filtered Order Item List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code OrderItem} backed by the internal list of
+     * {@code Orders}
+     */
+    @Override
+    public ObservableList<OrderItem> getFilteredOrderItemList() {
+        return filteredOrderItems;
+    }
+
+    @Override
+    public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
+        requireNonNull(predicate);
+        filteredOrderItems.setPredicate(predicate);
+    }
+    
     //=========== Filtered MenuItem List Accessors =============================================================
-
+    
     /**
      * Returns an unmodifiable view of the list of {@code MenuItem} backed by the internal list of
      * {@code restOrRant}
@@ -175,39 +194,45 @@ public class ModelManager implements Model {
     public ObservableList<MenuItem> getFilteredMenuItemList() {
         return filteredMenuItems;
     }
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    } // TODO: remove
-
+    
     @Override
     public void updateFilteredMenuItemList(Predicate<MenuItem> predicate) {
         requireNonNull(predicate);
         filteredMenuItems.setPredicate(predicate);
     }
-    // TODO: remove
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+
+    //=========== Selected order item ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
+        return selectedOrderItem;
+    }
+
+    @Override
+    public OrderItem getSelectedOrderItem() {
+        return selectedOrderItem.getValue();
+    }
+
+    @Override
+    public void setSelectedOrderItem(OrderItem orderItem) {
+        if (orderItem != null && !filteredOrderItems.contains(orderItem)) {
+            throw new OrderItemNotFoundException();
+        }
+        selectedOrderItem.setValue(orderItem);
     }
 
     //=========== Selected menu item ===========================================================================
-
+    
     @Override
     public ReadOnlyProperty<MenuItem> selectedMenuItemProperty() {
         return selectedMenuItem;
     }
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
-    } // TODO: remove
-
+    
     @Override
     public MenuItem getSelectedMenuItem() {
         return selectedMenuItem.getValue();
     }
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
-    } // TODO: remove
-
+    
     @Override
     public void setSelectedMenuItem(MenuItem menuItem) {
         if (menuItem != null && !filteredMenuItems.contains(menuItem)) {
@@ -215,12 +240,34 @@ public class ModelManager implements Model {
         }
         selectedMenuItem.setValue(menuItem);
     }
-    // TODO: remove
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+
+    /**
+     * Ensures {@code selectedOrderItem} is a valid person in {@code filteredOrderItems}.
+     */
+    private void ensureSelectedOrderItemIsValid(ListChangeListener.Change<? extends OrderItem> change) {
+        while (change.next()) {
+            if (selectedOrderItem.getValue() == null) {
+                // null is always a valid selected order item, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedOrderItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedOrderItem.getValue());
+            if (wasSelectedOrderItemReplaced) {
+                // Update selectedOrderItem to its new value.
+                int index = change.getRemoved().indexOf(selectedOrderItem.getValue());
+                selectedOrderItem.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedOrderItemRemoved = change.getRemoved().stream()
+                    .anyMatch(removedOrderItem -> selectedOrderItem.getValue().isSameOrderItem(removedOrderItem));
+            if (wasSelectedOrderItemRemoved) {
+                // Select the order item that came before it in the list,
+                // or clear the selection if there is no such order item.
+                selectedOrderItem.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
         }
-        selectedPerson.setValue(person);
     }
 
     /**
@@ -248,32 +295,6 @@ public class ModelManager implements Model {
                 // Select the menu item that came before it in the list,
                 // or clear the selection if there is no such menu item.
                 selectedMenuItem.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
-    }
-    // TODO: remove
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
-        while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedOrderItem to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -18,16 +19,17 @@ import seedu.address.model.menu.ReadOnlyMenu;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private RestOrRantStorage restOrRantStorage;
     private UserPrefsStorage userPrefsStorage;
     private MenuStorage menuStorage;
+    private OrdersStorage ordersStorage;
 
 
-    public StorageManager(RestOrRantStorage restOrRantStorage, MenuStorage menuStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage, MenuStorage menuStorage) {
         super();
-        this.restOrRantStorage = restOrRantStorage;
         this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.ordersStorage = ordersStorage;
+        this.menuStorage = menuStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -47,59 +49,73 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
     // ================ Menu methods ==============================
 
     @Override
-//    public Path getRestOrRantFilePath() {
-//        return restOrRantStorage.getRestOrRantFilePath();
-//    }
     public Path getMenuFilePath() {
         return menuStorage.getMenuFilePath();
     }
 
     @Override
-//    public Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException {
-//        return readRestOrRant(restOrRantStorage.getRestOrRantFilePath());
-//    }
     public Optional<ReadOnlyMenu> readMenu() throws DataConversionException, IOException {
         return readMenu(menuStorage.getMenuFilePath());
     }
 
     @Override
-//    public Optional<ReadOnlyRestOrRant> readRestOrRant(Path filePath) throws DataConversionException, IOException {
-//        logger.fine("Attempting to read data from file: " + filePath);
-//        return restOrRantStorage.readRestOrRant(filePath);
-//    }
     public Optional<ReadOnlyMenu> readMenu(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return menuStorage.readMenu(filePath);
     }
 
     @Override
-//    public void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
-//        saveRestOrRant(restOrRant, restOrRantStorage.getRestOrRantFilePath());
-//    }
     public void saveMenu(ReadOnlyMenu menu) throws IOException {
         saveMenu(menu, menuStorage.getMenuFilePath());
     }
 
     @Override
-//    public void saveRestOrRant(ReadOnlyRestOrRant restOrRant, Path filePath) throws IOException {
-//        logger.fine("Attempting to write to data file: " + filePath);
-//        restOrRantStorage.saveRestOrRant(restOrRant, filePath);
-//    }
     public void saveMenu(ReadOnlyMenu menu, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         menuStorage.saveMenu(menu, filePath);
     }
 
     @Override
-//    public void backupRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
-//        restOrRantStorage.backupRestOrRant(restOrRant);
-//    }
     public void backupMenu(ReadOnlyMenu menu) throws IOException {
          menuStorage.backupMenu(menu);
+    }
+
+    // ================ Orders methods ==============================
+
+    @Override
+    public Path getOrdersFilePath() {
+        return ordersStorage.getOrdersFilePath();
+    }
+
+
+    @Override
+    public Optional<ReadOnlyOrders> readOrders() throws DataConversionException, IOException {
+        return readOrders(ordersStorage.getOrdersFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyOrders> readOrders(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return ordersStorage.readOrders(filePath);
+    }
+    
+    @Override
+    public void saveOrders(ReadOnlyOrders orders) throws IOException {
+        saveOrders(orders, ordersStorage.getOrdersFilePath());
+    }
+
+    @Override
+    public void saveOrders(ReadOnlyOrders orders, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        ordersStorage.saveOrders(orders, filePath);
+    }
+
+    @Override
+    public void backupOrders(ReadOnlyOrders orders) throws IOException {
+        ordersStorage.backupOrders(orders);
     }
 
 }

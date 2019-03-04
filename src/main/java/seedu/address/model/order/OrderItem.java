@@ -14,17 +14,17 @@ public class OrderItem extends Item {
 
     private final int tableNumber;
     private final String menuItem; // TODO: implement MenuItem and change type
-    private final boolean status; // TODO: implement ItemStatus and change type, quantity part of status
+    private final int quantityOrdered; // TODO: implement ItemStatus and change type, quantity part of status
 
     /**
      * Every field must be present and not null.
      * TODO: create constructor with default status as unserved
      */
-    public OrderItem(int tableNumber, String menuItem, boolean status) {
-        requireAllNonNull(tableNumber, menuItem, status);
+    public OrderItem(int tableNumber, String menuItem, int quantityOrdered) {
+        requireAllNonNull(tableNumber, menuItem, quantityOrdered);
         this.tableNumber = tableNumber;
         this.menuItem = menuItem;
-        this.status = status;
+        this.quantityOrdered = quantityOrdered;
     }
 
     public int getTableNumber() {
@@ -35,12 +35,12 @@ public class OrderItem extends Item {
         return menuItem;
     } // TODO: get the individual menu item details
 
-    public boolean getStatus() {
-        return status;
+    public int getQuantity() {
+        return quantityOrdered;
     }
 
     /**
-     * Returns true if both order items have the same table number and menu item.
+     * Returns true if both order items have the same menu item and quantity ordered.
      * This defines a weaker notion of equality between two order items.
      */
     public boolean isSameOrderItem(OrderItem otherOrderItem) {
@@ -49,12 +49,12 @@ public class OrderItem extends Item {
         }
 
         return otherOrderItem != null
-                && otherOrderItem.getTableNumber() == getTableNumber()
+                && otherOrderItem.getQuantity() == getQuantity()
                 && otherOrderItem.getMenuItem().equals(getMenuItem());
     }
 
     /**
-     * Returns true if both order items have the same table number and menu item.
+     * Returns true if both order items have the same table number, menu item and quantity ordered.
      * This defines a stronger notion of equality between two order items.
      */
     @Override
@@ -68,13 +68,13 @@ public class OrderItem extends Item {
         }
 
         OrderItem otherOrderItem = (OrderItem) other;
-        return isSameOrderItem(otherOrderItem);
+        return isSameOrderItem(otherOrderItem) && otherOrderItem.getTableNumber() == getTableNumber();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tableNumber, menuItem, status);
+        return Objects.hash(tableNumber, menuItem, quantityOrdered);
     }
 
     @Override
@@ -84,8 +84,8 @@ public class OrderItem extends Item {
                 .append(getTableNumber())
                 .append("] ")
                 .append(getMenuItem())
-                .append(" | Status: ")
-                .append(getStatus() ? "served" : "unserved");
+                .append(" | Qty Ordered: ")
+                .append(getQuantity());
         return builder.toString();
     }
 

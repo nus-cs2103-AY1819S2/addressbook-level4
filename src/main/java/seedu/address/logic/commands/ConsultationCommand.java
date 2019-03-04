@@ -29,7 +29,7 @@ public class ConsultationCommand extends Command {
 
         model.createConsultation(patient);
 
-        String consultationResult = "Consultation session for: " + nric + " started";
+        String consultationResult = "Consultation session for: " + nric + " started\n";
 
         return new CommandResult(consultationResult);
     }

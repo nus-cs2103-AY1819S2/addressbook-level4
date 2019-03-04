@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -8,7 +9,9 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -201,6 +204,14 @@ public interface Model {
     Optional<Patient> getPatientWithNric(Nric nric);
 
     void diagnosePatient(Diagnosis diagnosis);
+
+    boolean checkConsultation();
+
+    void prescribeMedicine(ArrayList<Prescription> prescriptions);
+
+    Consultation getCurrentConsultation();
+
+    void endConsultation();
 
     //===========Appointment module operations========================
     boolean duplicateApp(Appointment app);

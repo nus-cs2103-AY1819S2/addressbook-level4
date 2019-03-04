@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -12,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.consultation.Assessment;
 import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Prescription;
 import seedu.address.model.consultation.Symptom;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
@@ -24,7 +23,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
-public class DiagnosePatientCommandTest {
+public class EndConsultationTest {
 
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
@@ -44,35 +43,32 @@ public class DiagnosePatientCommandTest {
     }
 
     @Test
-    public void diagnosePatient() {
-        // no consultation session
-        String input = " a/migrane s/constant headache s/blurred vision";
-        Assessment assessment = new Assessment("migrane");
-        ArrayList<Symptom> symptoms = new ArrayList<>();
-        symptoms.add(new Symptom("constant headache"));
-        symptoms.add(new Symptom("blurred vision"));
-
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                modelManager.diagnosePatient(new Diagnosis(assessment, symptoms)));
-    }
-
-    @Test
-    public void executeTest() {
-        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
-        Assessment assessment = new Assessment("migrane");
-        ArrayList<Symptom> symptoms = new ArrayList<>();
-        symptoms.add(new Symptom("constant headache"));
-        symptoms.add(new Symptom("blurred vision"));
-
-        Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
-        DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
-
+    public void endConsultation() {
         modelManager.createConsultation(modelManager.getPatientAtIndex(1));
 
+        EndConsultationCommand command = new EndConsultationCommand();
+
+        Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
+
+        Assessment assessment = new Assessment("migrane");
+        ArrayList<Symptom> symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+
+        modelManager.diagnosePatient(new Diagnosis(assessment, symptoms));
+
+        Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
+
+        ArrayList<Prescription> prescriptions = new ArrayList<>();
+        prescriptions.add(new Prescription("migrane medicine", 1));
+        modelManager.prescribeMedicine(prescriptions);
+
         try {
-            assertEquals(command.execute(modelManager, history).getFeedbackToUser(), diagnosis.toString());
+            org.junit.Assert.assertEquals(command.execute(modelManager, history).getFeedbackToUser(),
+                    String.format(EndConsultationCommand.END_CONSULT_FEEDBACK,
+                            modelManager.getPatientAtIndex(1).getNric()));
         } catch (CommandException ce) {
             org.junit.Assert.fail();
         }
     }
+
 }

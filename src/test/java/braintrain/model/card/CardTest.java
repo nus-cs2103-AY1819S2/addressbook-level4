@@ -23,6 +23,14 @@ import braintrain.testutil.CardBuilder;
  */
 public class CardTest {
     @Test
+    public void createCards() {
+        Card newCard = new Card(CARD_BELGIUM.getCores());
+        Card anotherCard = new Card(CARD_BELGIUM.getCores(), CARD_BELGIUM.getOptionals());
+        assertEquals(newCard.getCores(), anotherCard.getCores());
+        assertNotEquals(newCard, anotherCard);
+    }
+
+    @Test
     public void equals() {
         // Different type of object -> return false
         assertFalse(CARD_BELGIUM.equals(new Object()));

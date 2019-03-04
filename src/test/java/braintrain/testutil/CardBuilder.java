@@ -48,7 +48,15 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a {@link Card}.
+     * @return a {@link Card}.
+     */
     public Card build() {
-        return new Card(cores, optionals);
+        if (optionals.isEmpty()) {
+            return new Card(cores);
+        } else {
+            return new Card(cores, optionals);
+        }
     }
 }

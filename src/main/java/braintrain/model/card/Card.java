@@ -60,6 +60,21 @@ public class Card {
     }
 
     /**
+     * Creates a {@code Card} which represents a flash card.
+     *
+     * @param cores {@link #cores} a {@code Card} must have.
+     */
+    public Card(List<String> cores) {
+        requireAllNonNull(cores);
+
+        this.cores = new ArrayList<>();
+        this.optionals = new ArrayList<>();
+
+        this.cores.addAll(cores);
+        hashCode = generateHashCode();
+    }
+
+    /**
      * Returns the list of {@link #cores}.
      *
      * @return the list of {@link #cores}

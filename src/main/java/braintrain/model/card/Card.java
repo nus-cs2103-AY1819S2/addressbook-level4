@@ -6,27 +6,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import braintrain.model.card.exceptions.MissingCoreException;
+import braintrain.model.card.exceptions.MissingOptionalException;
+
 /**
- * Represents a flash card which minimally contains two core fields, Question and Answer.
- * Guarantees: Core fields are present and not null, core and optional field values are validated.
+ * Represents a flash card which minimally contains {@value #MIN_CORE_COUNT} {@link java.lang.String} objects in
+ * {@link #cores} and 0 or more {@link java.lang.String} objects in {@link #optionals}.
+ *
+ * <br><br>A basic {@code Card} will have 2 {@link java.lang.String} objects in {@link #cores} representing
+ * Question and Answer, and optionally have 1 {@link java.lang.String} object in {@link #optionals} representing
+ * Hint.
  */
 public class Card {
+    // Class fields
+    /**
+     * A {@code Card} requires at least {@value #MIN_CORE_COUNT} cores to be testable (e.g. Question and Answer).
+     */
+    public static final int MIN_CORE_COUNT = 2;
+
     // Identity fields
-    private int hashCode; // Used for identification purposes.
-    // Two cards with the same sets of cores and optionals will have the same hash code.
+    /**
+     * Two {@code Card} objects with the same sets and order of {@link #cores} and {@link #optionals} will have
+     * the same {@code hashCode}. See {@link #generateHashCode()}.
+     */
+    private int hashCode;
 
     // Data fields
-    private ArrayList<String> cores; // Core fields a card must have, such as Question and Answer
-    private ArrayList<String> optionals; // Optional fields a card can have, such as Hint
+    /**
+     * Cores are fields a {@code Card} must have. A {@code Card} requires at least {@value #MIN_CORE_COUNT} cores
+     * to be testable (e.g. Question and Answer).
+     */
+    private ArrayList<String> cores;
+    /**
+     * Optionals are fields a {@code Card} can have. A {@code Card} can have 0 or more optionals (e.g. Hint)
+     */
+    private ArrayList<String> optionals;
 
     /**
      * Creates a {@code Card} which represents a flash card.
      *
-     * @param cores core fields a {@code Card} must have, such as Question and Answer
-     * @param optionals optional fields a {@code Card} can have, such as Hint
+     * @param cores {@link #cores} a {@code Card} must have.
+     * @param optionals {@link #optionals} a {@code Card} can have.
      */
     public Card(List<String> cores, List<String> optionals) {
         requireAllNonNull(cores, optionals);
+
         this.cores = new ArrayList<>();
         this.optionals = new ArrayList<>();
 
@@ -36,70 +60,105 @@ public class Card {
     }
 
     /**
-     * Returns the list of cores. Cores are fields a {@code Card} must have, such as Question and Answer.
+     * Creates a {@code Card} which represents a flash card.
      *
-     * @return the list of cores
+     * @param cores {@link #cores} a {@code Card} must have.
+     */
+    public Card(List<String> cores) {
+        requireAllNonNull(cores);
+
+        this.cores = new ArrayList<>();
+        this.optionals = new ArrayList<>();
+
+        this.cores.addAll(cores);
+        hashCode = generateHashCode();
+    }
+
+    /**
+     * Returns the list of {@link #cores}.
+     *
+     * @return the list of {@link #cores}
      */
     public ArrayList<String> getCores() {
         return cores;
     }
 
     /**
-     * Returns the list of optionals. Optional are fields a {@code Card} can have, such as Hint.
+     * Returns the list of {@link #optionals}.
      *
-     * @return the list of optionals
+     * @return the list of {@link #optionals}
      */
     public ArrayList<String> getOptionals() {
         return optionals;
     }
 
     /**
-     * Replaces the core list with the specified list of cores.
+     * Replaces the existing list in {@link #cores} with newCores.
      *
-     * @param newCores the new list of cores
+     * @param newCores the new list of {@link #cores}
      */
     public void setCores(List<String> newCores) {
+        requireAllNonNull(newCores);
         this.cores.clear();
         this.cores.addAll(newCores);
         hashCode = generateHashCode();
     }
 
     /**
-     * Replaces the optional list with the specified list of optionals.
+     * Replaces the existing list in {@link #optionals} with newOptionals.
      *
-     * @param newOptionals the new list of optionals
+     * @param newOptionals the new list of {@link #optionals}
      */
     public void setOptionals(List<String> newOptionals) {
+        requireAllNonNull(newOptionals);
         this.optionals.clear();
         this.optionals.addAll(newOptionals);
         hashCode = generateHashCode();
     }
 
     /**
-     * Returns the core at the specified position in the core list.
+     * Returns the core at the specified position in {@link #cores}.
      *
      * @param index index of the core to return
-     * @return the core at the specified position in the core list
+     * @return the core at the specified position in {@link #cores}
+     * @throws MissingCoreException if the index is out of range
      */
-    public String getCore(int index) {
+    public String getCore(int index) throws MissingCoreException {
+        try {
+            if (cores.get(index).isEmpty()) {
+                throw new MissingCoreException(index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new MissingCoreException(index);
+        }
+
         return cores.get(index);
     }
 
     /**
-     * Returns the optional at the specified position in the optional list.
+     * Returns the optional at the specified position in {@link #optionals}.
      *
      * @param index index of the optional to return
-     * @return the optional at the specified position in the optional list
+     * @return the optional at the specified position in {@link #optionals}
+     * @throws MissingCoreException if the index is out of range
      */
-    public String getOptional(int index) {
+    public String getOptional(int index) throws MissingOptionalException {
+        try {
+            if (optionals.get(index).isEmpty()) {
+                throw new MissingOptionalException(index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new MissingOptionalException(index);
+        }
+
         return optionals.get(index);
     }
 
     /**
-     * Replaces the core at the specified position in the core list with the specified core.
+     * Replaces the core at the specified position in {@link #cores} with newCore.
      *
      * @param index index of the core to replace
-     * @param newCore core to be stored at the specified position in the core list
+     * @param newCore core to be stored at the specified position in {@link #cores}
      */
     public void setCore(int index, String newCore) {
         cores.set(index, newCore);
@@ -107,10 +166,10 @@ public class Card {
     }
 
     /**
-     * Replaces the optional at the specified position in the optional list with the specified optional.
+     * Replaces the optional at the specified position in {@link #optionals} with newOptional.
      *
      * @param index index of the optional to replace
-     * @param newOptional optional to be stored at the specified position in the optional list
+     * @param newOptional optional to be stored at the specified position in {@link #optionals}
      */
     public void setOptional(int index, String newOptional) {
         optionals.set(index, newOptional);
@@ -118,8 +177,7 @@ public class Card {
     }
 
     /**
-     * Returns true if both {@code Card} objects have the same set and order of cores and optionals.
-     * See {@link #generateHashCode()}. This defines a strong notion of equality between two {@code Card} objects.
+     * Returns true if both are {@code Card} objects, and are the same object or have the same {@link #hashCode}.
      *
      * @param other object to be compared for equality with this {@code Card}
      * @return true if the specified object is a {@code Card} identical to this {@code Card}
@@ -139,15 +197,11 @@ public class Card {
     }
 
     /**
-     * Generates a hash code using cores and optionals for equality purposes. See {@link #equals(Object)}.
-     * Two {@code Card} objects with the same set and order of cores and optionals will have the same hash code.
+     * Generates a hash code using {@link #cores} and {@link #optionals} as input.
+     * Two {@code Card} objects with the <b>same set and order</b> of {@link #cores} and {@link #optionals}
+     * will have the same hash code.
      *
-     * If two {@code Card} objects have the same set of cores and optionals, but their cores or optionals are ordered
-     * differently, they will have different hash codes. For example: Given card1's cores:
-     * [What is the capital of Japan?, Tokyo] and card2's cores: Tokyo, What is the capital of Japan?],
-     * card1 and card2 will have different hash codes and card1.equals(card2) will return false.
-     *
-     * @return hash code generated from cores and optionals
+     * @return {@link #hashCode} generated using {@link #cores} and {@link #optionals} as input
      */
     private int generateHashCode() {
         return Objects.hash(cores, optionals);

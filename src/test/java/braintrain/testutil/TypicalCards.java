@@ -10,19 +10,18 @@ import braintrain.model.card.Card;
  * A utility class containing a list of {@code Card} objects used for {@code Card} testing.
  */
 public class TypicalCards {
+    public static final Card CARD_BELGIUM = new CardBuilder().build();
 
-    public static final Card BELGIUM = new CardBuilder().build();
-
-    public static final String JAPAN_QUESTION = "What is the capital of Japan?";
-    public static final String JAPAN_ANSWER = "Tokyo";
-    public static final String JAPAN_HINT = "Starts with T";
-    public static final Card JAPAN = new CardBuilder()
-            .withCores(JAPAN_QUESTION, JAPAN_ANSWER)
-            .withOptionals(JAPAN_HINT).build();
+    public static final String CARD_JAPAN_CORE1 = "What is the capital of Japan?"; // First core
+    public static final String CARD_JAPAN_CORE2 = "Tokyo";
+    public static final String CARD_JAPAN_OPT1 = "Starts with T"; // First optional
+    public static final Card CARD_JAPAN = new CardBuilder()
+            .withCores(CARD_JAPAN_CORE1, CARD_JAPAN_CORE2)
+            .withOptionals(CARD_JAPAN_OPT1).build();
 
     private TypicalCards() {} // prevents instantiation
 
     public static List<Card> getTypicalCards() {
-        return new ArrayList<>(Arrays.asList(BELGIUM, JAPAN));
+        return new ArrayList<>(Arrays.asList(CARD_BELGIUM, CARD_JAPAN));
     }
 }

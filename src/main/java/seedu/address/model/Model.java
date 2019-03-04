@@ -219,5 +219,5 @@ public interface Model {
     String listRem();
 
     //===========Record module operations=============================
-    Statistics getStatistics(YearMonth from, YearMonth to);
+    Statistics getStatistics(String topic, YearMonth from, YearMonth to);
 }

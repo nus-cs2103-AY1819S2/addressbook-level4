@@ -68,4 +68,8 @@ public class Statistics {
     public static void setConsultationFee(BigDecimal cost) {
         Statistics.consultationFee = cost;
     }
+    @Override
+    public String toString() {
+        return super.toString(); // TODO
+    }
 }

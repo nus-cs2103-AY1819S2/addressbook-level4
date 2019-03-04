@@ -18,16 +18,20 @@ public class StatisticsCommand extends Command {
     public static final String COMMAND_ALIAS = "stats";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays the statistics of the queried topic from the"
-            + "given date range (Default: current month).\n"
-            + "Parameters: TOPIC [MMYY] [MMYY]\n"
+            + "given date range.\n"
+            + "Parameters: TOPIC MMYY [MMYY]\n"
+            + "List of TOPICS: finances, consultations"
             + "Example: " + COMMAND_WORD + " expenditure 0119";
 
+    private final String topic;
     private final YearMonth fromYearMonth;
     private final YearMonth toYearMonth;
 
-    public StatisticsCommand(YearMonth from, YearMonth to) {
+    public StatisticsCommand(String topic, YearMonth from, YearMonth to) {
+        requireNonNull(topic);
         requireNonNull(from);
         requireNonNull(to);
+        this.topic = topic;
         this.fromYearMonth = from;
         this.toYearMonth = to;
     }
@@ -35,8 +39,22 @@ public class StatisticsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Statistics stats = model.getStatistics(this.fromYearMonth, this.toYearMonth);
+        Statistics stats = model.getStatistics(this.topic, this.fromYearMonth, this.toYearMonth);
         return new CommandResult(
                 String.format(stats.toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof StatisticsCommand)) {
+            return false;
+        }
+        StatisticsCommand sc = (StatisticsCommand) other;
+        return this.topic.equals(sc.topic)
+                && this.toYearMonth.equals(sc.fromYearMonth)
+                && this.fromYearMonth.equals(sc.fromYearMonth);
     }
 }

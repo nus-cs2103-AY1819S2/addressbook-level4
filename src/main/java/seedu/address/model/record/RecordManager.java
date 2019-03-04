@@ -1,5 +1,6 @@
 package seedu.address.model.record;
 
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class RecordManager {
 
     /**
      * Updates the ArrayList of MonthRecord to the proper size according to the current time.
-     * @param clock
+     * @param clock Clock used to get the month and year from
      */
     private void updateListSize(Clock clock) {
         YearMonth now = YearMonth.now(clock);
@@ -55,12 +56,19 @@ public class RecordManager {
         MonthRecord monthRecord = monthRecords.get(getYearMonthIndex(yearMonth));
         return monthRecord.getStatistics();
     }
-    public Statistics getStatistics(YearMonth from, YearMonth to) {
-        return new Statistics();
+    public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
+        switch (topic) {
+        case "finances":
+            return new Statistics();
+        case "consultations":
+            return new Statistics();
+        case "all":
+        default:
+            return new Statistics();
+        }
         // TODO
     }
-    @Override
-    public String toString() {
-        return super.toString(); // TODO
+    public void setConsultationFee(BigDecimal cost) {
+        Statistics.setConsultationFee(cost);
     }
 }

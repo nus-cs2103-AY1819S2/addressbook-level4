@@ -2,7 +2,6 @@ package seedu.address.model.record;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class holds the records for a month, and the statistics relevant to it.
@@ -36,20 +35,11 @@ public class MonthRecord {
     }
 
     /**
-     * Adds a record to the MonthRecord, and updates the statistics.
+     * Adds a single record to the MonthRecord, and updates the statistics.
      * @param record A single Record object
      */
     public void addRecord(Record record) {
         this.records.add(record);
-        this.updateStatistics();
-    }
-
-    /**
-     * Adds a list of records to the MonthRecord, and updates the statistics.
-     * @param records A list of Record objects
-     */
-    public void addRecord(List<Record> records) {
-        this.records.addAll(records);
         this.updateStatistics();
     }
 }

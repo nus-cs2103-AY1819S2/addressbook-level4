@@ -61,7 +61,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu, newTables}. //TODO: add more parameters 
      */
     public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu, ReadOnlyTables newTables) {
-        requireAllNonNull(newOrders, newMenu);
+        requireAllNonNull(newOrders, newMenu, newTables);
         orders.setOrderItems(newOrders.getOrderItemList());
         menu.setMenuItems(newMenu.getMenuItemList());
         tables.setTables(newTables.getTableList());

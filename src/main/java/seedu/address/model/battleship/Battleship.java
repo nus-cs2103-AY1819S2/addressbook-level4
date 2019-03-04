@@ -20,7 +20,7 @@ public class Battleship {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final int length;
-    private final int life;
+    private int life;
 
     /**
      * Every field must be present and not null.
@@ -63,6 +63,21 @@ public class Battleship {
 
     public int getLife() {
         return this.life;
+    }
+
+    /**
+     * Reduces the life of the battleship by one unit.
+     */
+    public void reduceLife() {
+        this.life--;
+    }
+
+    /**
+     * Checks if life of the battleship is equal to zero.
+     * That is, if it is destroyed.
+     */
+    public boolean isDestroyed() {
+        return this.life == 0;
     }
 
     /**

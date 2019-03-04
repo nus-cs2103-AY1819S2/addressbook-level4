@@ -27,6 +27,7 @@ public class Cell {
     private Optional<Battleship> battleship;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private Status status;
 
     /**
      * Every field must be present and not null.
@@ -47,20 +48,22 @@ public class Cell {
      */
     public Cell() {
         this.battleship = Optional.empty();
-        this.name = new Name("placeholder");
+        this.name = new Name("This cell is empty");
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");
+        this.status = Status.EMPTY;
     }
     /**
      * Constructor for cell that contains battleship
      */
     public Cell(Battleship battleship) {
         this.battleship = Optional.of(battleship);
-        this.name = new Name("This has a ship");
+        this.name = battleship.getName();
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");
+        this.status = Status.HIDDEN;
     }
 
     public Name getName() {

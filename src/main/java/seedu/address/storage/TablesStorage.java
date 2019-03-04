@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyRestOrRant;
-import seedu.address.model.ReadOnlyTables;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.RestOrRant;
 
 /**s

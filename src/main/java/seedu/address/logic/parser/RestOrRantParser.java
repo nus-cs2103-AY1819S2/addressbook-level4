@@ -37,14 +37,17 @@ public class RestOrRantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
+        // General commands that work in all modes
         switch (commandWord) {
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
+                
             case HelpCommand.COMMAND_ALIAS:
                 return new HelpCommand();
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+                
             case ExitCommand.COMMAND_ALIAS:
                 return new ExitCommand();
 
@@ -55,31 +58,31 @@ public class RestOrRantParser {
                 return new MenuModeCommand();
 
             case TableModeCommand.COMMAND_WORD:
-                return new TableModeCommand();
+                return new TableModeCommandParser().parse(arguments);
                 
             case AddTableCommand.COMMAND_WORD:
                 if (mode != Mode.RESTAURANT_MODE) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+                    throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddTableCommandParser().parse(arguments);
 
             case AddItemToMenuCommand.COMMAND_WORD:
                 if (mode != Mode.MENU_MODE) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+                    throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddItemToMenuCommandParser().parse(arguments);
 
             case AddOrderCommand.COMMAND_WORD:
                 if (mode != Mode.TABLE_MODE) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+                    throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddOrderCommandParser().parse(arguments);
-
+            
             default:
                 break;
         }
 
-        throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
+        throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
 
     }
     

@@ -15,10 +15,11 @@ import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Price;
 import seedu.address.model.person.Phone;
+import seedu.address.model.table.TableNumber;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.Statistics.Year;
-import seedu.address.model.Statistics.Month;
-import seedu.address.model.Statistics.Day;
+import seedu.address.model.statistics.Year;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Day;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -145,18 +146,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String tableNumber} into a {@code TableNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code tableNumber} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static TableNumber parseTableNumber(String tableNumber) throws ParseException {
+        requireNonNull(tableNumber);
+        String trimmedTableNumber = tableNumber.trim();
+        if (!TableNumber.isValidTableNumber(trimmedTableNumber)) {
+            throw new ParseException(TableNumber.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new TableNumber(trimmedTableNumber);
     }
 
     /**

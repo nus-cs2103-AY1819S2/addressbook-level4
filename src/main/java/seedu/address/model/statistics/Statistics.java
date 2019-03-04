@@ -1,4 +1,4 @@
-package seedu.address.model.Statistics;
+package seedu.address.model.statistics;
 
 import static java.util.Objects.requireNonNull;
 
@@ -61,7 +61,7 @@ public class Statistics implements ReadOnlyStatistics {
     }    
 
     /**
-     * Resets the existing data of this RestOrRant's {@code Statistics} with {@code newData}.
+     * Resets the existing data of this RestOrRant's {@code statistics} with {@code newData}.
      */
     public void resetData(ReadOnlyStatistics newData) {
         requireNonNull(newData);

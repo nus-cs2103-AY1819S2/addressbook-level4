@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Kyler Wong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

@@ -182,6 +182,7 @@ public class Restaurant {
                 && otherRestaurant.getAddress().equals(getAddress())
                 && otherRestaurant.getTags().equals(getTags())
                 && otherRestaurant.getWeblink().equals(getWeblink())
+                && otherRestaurant.getOpeningHours().equals(getOpeningHours())
                 && otherRestaurant.getReviews().equals(getReviews());
     }
 

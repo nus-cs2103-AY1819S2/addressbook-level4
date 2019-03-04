@@ -128,5 +128,4 @@ public class RestaurantBuilder {
     public Restaurant build() {
         return new Restaurant(name, phone, email, address, tags, weblink, openingHours, Optional.ofNullable(cuisine));
     }
-
 }

@@ -3,8 +3,10 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import java.util.Set;
 
@@ -37,6 +39,8 @@ public class RestaurantUtil {
         restaurant.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+        sb.append(PREFIX_WEBLINK + restaurant.getWeblink().value + " ");
+        sb.append(PREFIX_OPENING_HOURS + restaurant.getOpeningHours().value + " ");
         return sb.toString();
     }
 
@@ -57,6 +61,9 @@ public class RestaurantUtil {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }
         }
+        descriptor.getWeblink().ifPresent(weblink -> sb.append(PREFIX_WEBLINK).append(weblink.value).append(" "));
+        descriptor.getOpeningHours().ifPresent(openingHours -> sb.append(PREFIX_OPENING_HOURS).append(openingHours)
+                .append(" "));
         return sb.toString();
     }
 }

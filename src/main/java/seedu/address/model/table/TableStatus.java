@@ -9,7 +9,7 @@ public class TableStatus {
             "Table status should only contain numbers and the number of seats taken is less than number of seats";
 
     public final String numberOfSeats;
-    public final String numberOfTakenSeats;
+    public String numberOfTakenSeats;
     public static final String VALIDATION_REGEX = "[" + "^[\\d]+$" + "/" + "^[\\d]+$" + "]";
 
     /**
@@ -22,6 +22,10 @@ public class TableStatus {
         checkArgument(isValidTableStatus(numberOfSeats), MESSAGE_CONSTRAINTS);
         this.numberOfSeats = numberOfSeats;
         this.numberOfTakenSeats = "0";
+    }
+
+    public void setTableStatus(String newNumberOfTakenSeats) {
+        this.numberOfTakenSeats = newNumberOfTakenSeats;
     }
 
     /**

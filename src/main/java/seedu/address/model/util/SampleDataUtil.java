@@ -5,12 +5,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.EquipmentManager;
+import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.equipment.Address;
 import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
-import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.tag.Tag;
 
 /**

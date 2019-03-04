@@ -97,7 +97,8 @@ public class MainApp extends Application {
             if (!menuOptional.isPresent()) {
                 logger.info("Menu data file not found. Will be starting with sample Menu");
             }
-            initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
+            initialData = new RestOrRant();
+            //initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
             // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");

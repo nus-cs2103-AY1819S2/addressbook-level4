@@ -16,8 +16,8 @@ import seedu.address.model.order.exceptions.OrderItemNotFoundException;
  * An order item is considered unique by comparing using {@code OrderItem#isSameOrderItem(OrderItem)}. As such,
  * adding and updating of order items uses OrderItem#isSameOrderItem(OrderItem) for equality so as to ensure that
  * the order item being added or updated is unique in terms of identity in the UniqueOrderItemList. However, the removal
- * of an order item uses OrderItem#isSameOrderItem(OrderItem) so as to ensure that the order item with exactly the same
- * fields will be removed. TODO: this is quite pointless now, may use the same function for both.
+ * of an order item uses OrderItem#equals so as to ensure that the order item with exactly the same
+ * fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

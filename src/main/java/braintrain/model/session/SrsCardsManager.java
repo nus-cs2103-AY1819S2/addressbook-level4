@@ -71,14 +71,10 @@ public class SrsCardsManager {
 
             Instant currentSrsDueDate = Instant.now();
             int currentLevel = memoryBoxes.get(srsCards.get(i));
-            if (quizInformation.get(i).get(1).equals(quizInformation.get(i).get(2))) {
-                if (currentLevel != 5) {
-                    memoryBoxes.put(srsCards.get(i), currentLevel + 1);
-                }
-            } else if (quizInformation.get(i).get(1) > quizInformation.get(i).get(2)) {
-                if (currentLevel != 1) {
-                    memoryBoxes.put(srsCards.get(i), currentLevel - 1);
-                }
+            if (quizInformation.get(i).get(1).equals(quizInformation.get(i).get(2)) && currentLevel !=5) {
+                memoryBoxes.put(srsCards.get(i), currentLevel + 1);
+            } else if (quizInformation.get(i).get(1) > quizInformation.get(i).get(2) && currentLevel !=1) {
+                memoryBoxes.put(srsCards.get(i), currentLevel - 1);
             }
 
             if (memoryBoxes.get(srsCards.get(i)) == 1) {

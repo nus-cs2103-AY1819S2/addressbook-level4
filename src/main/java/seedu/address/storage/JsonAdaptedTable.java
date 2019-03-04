@@ -61,7 +61,7 @@ class JsonAdaptedTable {
         }
         final TableStatus modelTableStatus = new TableStatus(tableStatus);
 
-        return new Table();
+        return new Table(modelTableNumber, modelTableStatus);
     }
 
 }

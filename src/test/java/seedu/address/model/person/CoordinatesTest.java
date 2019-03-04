@@ -46,13 +46,13 @@ public class CoordinatesTest {
     public void testGetRow() {
         Coordinates coordinates = new Coordinates("b5");
         Index correct_col_index = Index.fromOneBased(5);
-        assertEquals(coordinates.getColValue(), correct_col_index);
+        assertEquals(coordinates.getColIndex(), correct_col_index);
     }
 
     @Test
     public void testGetCol() {
         Coordinates coordinates = new Coordinates("a1");
         Index correct_col_index = Index.fromOneBased(1);
-        assertEquals(coordinates.getColValue(), correct_col_index);
+        assertEquals(coordinates.getColIndex(), correct_col_index);
     }
 }

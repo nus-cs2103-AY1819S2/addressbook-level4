@@ -37,7 +37,7 @@ public class PutShipCommandParser implements Parser<PutShipCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Coordinates coordinates = ParserUtil.parseCoordinates(argMultimap.getValue(PREFIX_COORDINATES).get());
 
-        Index index = coordinates.getRowValue();
+        Index index = coordinates.getRowIndex();
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setName(name);

@@ -201,6 +201,6 @@ public class MapGrid implements ReadOnlyAddressBook {
      * Put battleship in the given coordinates
      */
     public void putShip(Coordinates coordinates, Battleship battleship) {
-        persons.putShipAtIndex(coordinates.getRowValue(), battleship);
+        persons.putShipAtIndex(coordinates.getRowIndex(), battleship);
     }
 }

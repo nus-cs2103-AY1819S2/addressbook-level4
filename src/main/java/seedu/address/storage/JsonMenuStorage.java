@@ -15,6 +15,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.menu.ReadOnlyMenu;
 
 /**
  * A class to access RestOrRant data stored as a json file on the hard disk.
@@ -36,7 +37,7 @@ public class JsonMenuStorage implements MenuStorage {
     }
 
     @Override
-    public Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException {
+    public Optional<ReadOnlyMenu> readMenu() throws DataConversionException {
         return readMenu(filePath);
     }
 
@@ -46,7 +47,7 @@ public class JsonMenuStorage implements MenuStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyRestOrRant> readMenu(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyMenu> readMenu(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableMenu> jsonMenu = JsonUtil.readJsonFile(
@@ -64,16 +65,16 @@ public class JsonMenuStorage implements MenuStorage {
     }
 
     @Override
-    public void saveMenu(ReadOnlyRestOrRant menu) throws IOException {
+    public void saveMenu(ReadOnlyMenu menu) throws IOException {
         saveMenu(menu, filePath);
     }
 
     /**
-     * Similar to {@link #saveMenu(ReadOnlyRestOrRant)}.
+     * Similar to {@link #saveMenu(ReadOnlyMenu)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveMenu(ReadOnlyRestOrRant menu, Path filePath) throws IOException {
+    public void saveMenu(ReadOnlyMenu menu, Path filePath) throws IOException {
         requireAllNonNull(menu, filePath);
 
         FileUtil.createIfMissing(filePath);
@@ -81,7 +82,7 @@ public class JsonMenuStorage implements MenuStorage {
     }
 
     @Override
-    public void backupMenu(ReadOnlyRestOrRant menu) throws IOException {
+    public void backupMenu(ReadOnlyMenu menu) throws IOException {
         saveMenu(menu, backupFilePath);
     }
 

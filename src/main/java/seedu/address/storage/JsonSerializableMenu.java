@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.RestOrRant;
+import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.person.Person;
 
 /**
@@ -35,7 +37,7 @@ class JsonSerializableMenu {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableMenu}.
      */
-    public JsonSerializableMenu(ReadOnlyRestOrRant source) {
+    public JsonSerializableMenu(ReadOnlyMenu source) {
         items.addAll(source.getMenuItemList().stream().map(JsonAdaptedMenu::new).collect(Collectors.toList()));
     }
 
@@ -44,16 +46,16 @@ class JsonSerializableMenu {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public RestOrRant toModelType() throws IllegalValueException {
-        RestOrRant restOrRant = new RestOrRant();
+    public Menu toModelType() throws IllegalValueException {
+        Menu menu = new Menu();
         for (JsonAdaptedMenu jsonAdaptedMenu : items) {
             MenuItem item = jsonAdaptedMenu.toModelType();
-            if (restOrRant.hasMenuItem(item)) {
+            if (menu.hasMenuItem(item)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
             }
-            restOrRant.addMenuItem(item);
+            menu.addMenuItem(item);
         }
-        return restOrRant;
+        return menu;
     }
 
 }

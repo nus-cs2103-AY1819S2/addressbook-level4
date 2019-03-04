@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public abstract class ChangeModeCommand {
+public abstract class ChangeModeCommand extends Command {
 
     // TODO: include and update in individual classes, remove once all change mode classes done.
     public static final String MESSAGE_SUCCESS = "Mode changed to ___________";

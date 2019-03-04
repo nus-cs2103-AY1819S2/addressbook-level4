@@ -21,6 +21,8 @@ import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.Menu;
+import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonRestOrRantStorage; // remove
@@ -84,8 +86,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         // TODO: remove, add Optional<ReadOnlyRestOrRant> for each feature / each json file
         Optional<ReadOnlyRestOrRant> addressBookOptional;
-        Optional<ReadOnlyRestOrRant> menuOptional;
-        ReadOnlyRestOrRant initialData;
+        Optional<ReadOnlyMenu> menuOptional;
+        ReadOnlyMenu initialData;
         try {
             // TODO: read file for each feature
             menuOptional = storage.readMenu();
@@ -95,10 +97,10 @@ public class MainApp extends Application {
             initialData = menuOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");
-            initialData = new RestOrRant();
+            initialData = new Menu();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty RestOrRant");
-            initialData = new RestOrRant();
+            initialData = new Menu();
         }
 
         return new ModelManager(initialData, userPrefs);

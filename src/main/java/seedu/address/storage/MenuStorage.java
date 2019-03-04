@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.RestOrRant;
+import seedu.address.model.menu.ReadOnlyMenu;
 
 /**
  * Represents a storage for {@link RestOrRant}.
@@ -19,30 +19,30 @@ public interface MenuStorage {
     Path getMenuFilePath();
 
     /**
-     * Returns RestOrRant data as a {@link ReadOnlyRestOrRant}.
+     * Returns RestOrRant data as a {@link ReadOnlyMenu}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
+    Optional<ReadOnlyMenu> readMenu() throws DataConversionException, IOException;
 
     /**
      * @see #getMenuFilePath()
      */
-    Optional<ReadOnlyRestOrRant> readMenu(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyMenu> readMenu(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyRestOrRant} to the storage.
+     * Saves the given {@link ReadOnlyMenu} to the storage.
      * @param menu cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
+    void saveMenu(ReadOnlyMenu menu) throws IOException;
 
     /**
-     * @see #saveMenu(ReadOnlyRestOrRant)
+     * @see #saveMenu(ReadOnlyMenu)
      */
-    void saveMenu(ReadOnlyRestOrRant menu, Path filePath) throws IOException;
+    void saveMenu(ReadOnlyMenu menu, Path filePath) throws IOException;
 
-    void backupMenu(ReadOnlyRestOrRant menu) throws IOException;
+    void backupMenu(ReadOnlyMenu menu) throws IOException;
 
 }

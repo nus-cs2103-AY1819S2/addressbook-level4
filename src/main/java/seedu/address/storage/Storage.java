@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.ReadOnlyMenu;
 
 /**
  * API of the Storage component
@@ -26,10 +27,10 @@ public interface Storage extends MenuStorage, UserPrefsStorage {
 
     //  Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException; // TODO: remove
     @Override
-    Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
+    Optional<ReadOnlyMenu> readMenu() throws DataConversionException, IOException;
 
     //  void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException; // TODO: remove
     @Override
-    void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
+    void saveMenu(ReadOnlyMenu menu) throws IOException;
 
 }

@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
@@ -43,7 +44,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(restOrRant, userPrefs);
 
-        logger.fine("Initializing with RestOrRant: " + restOrRant + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Menu: " + restOrRant + " and user prefs " + userPrefs);
 
         this.restOrRant = new RestOrRant(restOrRant);
         this.userPrefs = new UserPrefs(userPrefs);

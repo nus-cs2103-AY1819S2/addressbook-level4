@@ -67,7 +67,7 @@ public class LogicManager implements Logic {
         if (restOrRantModified) {
             logger.info("RestOrRant modified, saving to file.");
             try {
-                storage.saveMenu(model.getRestOrRant());
+                storage.saveMenu(model.getRestOrRant().getMenu());
                 // TODO: add save <each feature> instead of saveRestOrRant
                 // storage.saveRestOrRant(model.getRestOrRant());
             } catch (IOException ioe) {

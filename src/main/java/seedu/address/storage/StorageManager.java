@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.ReadOnlyMenu;
 
 /**
  * Manages storage of RestOrRant data in local storage.
@@ -61,7 +62,7 @@ public class StorageManager implements Storage {
 //    public Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException {
 //        return readRestOrRant(restOrRantStorage.getRestOrRantFilePath());
 //    }
-    public Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException {
+    public Optional<ReadOnlyMenu> readMenu() throws DataConversionException, IOException {
         return readMenu(menuStorage.getMenuFilePath());
     }
 
@@ -70,7 +71,7 @@ public class StorageManager implements Storage {
 //        logger.fine("Attempting to read data from file: " + filePath);
 //        return restOrRantStorage.readRestOrRant(filePath);
 //    }
-    public Optional<ReadOnlyRestOrRant> readMenu(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyMenu> readMenu(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return menuStorage.readMenu(filePath);
     }
@@ -79,7 +80,7 @@ public class StorageManager implements Storage {
 //    public void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
 //        saveRestOrRant(restOrRant, restOrRantStorage.getRestOrRantFilePath());
 //    }
-    public void saveMenu(ReadOnlyRestOrRant menu) throws IOException {
+    public void saveMenu(ReadOnlyMenu menu) throws IOException {
         saveMenu(menu, menuStorage.getMenuFilePath());
     }
 
@@ -88,7 +89,7 @@ public class StorageManager implements Storage {
 //        logger.fine("Attempting to write to data file: " + filePath);
 //        restOrRantStorage.saveRestOrRant(restOrRant, filePath);
 //    }
-    public void saveMenu(ReadOnlyRestOrRant menu, Path filePath) throws IOException {
+    public void saveMenu(ReadOnlyMenu menu, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         menuStorage.saveMenu(menu, filePath);
     }
@@ -97,7 +98,7 @@ public class StorageManager implements Storage {
 //    public void backupRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException {
 //        restOrRantStorage.backupRestOrRant(restOrRant);
 //    }
-    public void backupMenu(ReadOnlyRestOrRant menu) throws IOException {
+    public void backupMenu(ReadOnlyMenu menu) throws IOException {
          menuStorage.backupMenu(menu);
     }
 

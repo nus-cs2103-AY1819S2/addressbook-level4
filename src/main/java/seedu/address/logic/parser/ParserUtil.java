@@ -12,7 +12,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +124,70 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    // ===== Methods for parsing Organisation, Nric and Specialisations =====
+    // @author Lookaz
+    /**
+     * Parses a {@code String organization} into a {@code Organization}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code organization} is invalid.
+     */
+    public static Organization parseOrganization(String organization) throws ParseException {
+        requireNonNull(organization);
+        String trimmedOrganization = organization.trim();
+        if (!Organization.isValidOrgName(trimmedOrganization)) {
+            throw new ParseException(Organization.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Organization(trimmedOrganization);
+    }
+
+    /**
+     * Parses a {@code String nric} into a {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Nric(trimmedNric);
+    }
+
+    /**
+     * Parses a {@code String specialisation} into a {@code Specialisation}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code specialisation} is invalid.
+     */
+    public static Specialisation parseSpecialisation(String specialisation)
+            throws ParseException {
+        requireNonNull(specialisation);
+        String trimmedSpecialisation = specialisation.trim();
+        if (!Specialisation.isValidSpecialisation(trimmedSpecialisation)) {
+            throw new ParseException(Specialisation.MESSAGE_CONSTRAINTS);
+        }
+
+        return Specialisation.parseString(trimmedSpecialisation);
+    }
+
+    /**
+     * Parses {@code Collection<String> specialisations} into a {@code
+     * Skills}.
+     */
+    public static Skills parseSpecialisations(Collection<String> specialisations)
+            throws ParseException {
+        requireNonNull(specialisations);
+        final Skills skills = new Skills();
+        for (String specialisation : specialisations) {
+            skills.addSpecialisation(parseSpecialisation(specialisation));
+        }
+        return skills;
     }
 }

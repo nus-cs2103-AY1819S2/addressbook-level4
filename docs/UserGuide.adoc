@@ -456,6 +456,7 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
+This section provides a comprehensive list of commands that ClubManager offers.
 
 === General Commands
 * *Help* : `help`

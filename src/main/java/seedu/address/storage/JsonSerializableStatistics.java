@@ -9,25 +9,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ReadOnlyStatistics;
-import seedu.address.model.RestOrRant;
-import seedu.address.model.Statistics;
-import seedu.address.model.person.Person;
+import seedu.address.model.Statistics.Bill;
+import seedu.address.model.Statistics.ReadOnlyStatistics;
+import seedu.address.model.Statistics.Statistics;
 
 /**
  * An Immutable RestOrRant that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "Statistics")
 class JsonSerializableStatistics {
+    
+    private final List<JsonAdaptedBill> statsList = new ArrayList<>();
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     /**
      * Constructs a {@code JsonSerializableRestOrRant} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableStatistics(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableStatistics(@JsonProperty("statsList") List<JsonAdaptedBill> statsList) {
+        this.statsList.addAll(statsList);
     }
 
     /**
@@ -36,7 +35,7 @@ class JsonSerializableStatistics {
      * @param source future changes to this will not affect the created {@code JsonSerializableRestOrRant}.
      */
     public JsonSerializableStatistics(ReadOnlyStatistics source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        statsList.addAll(source.getBillList().stream().map(JsonAdaptedBill::new).collect(Collectors.toList()));
     }
 
     /**
@@ -46,12 +45,9 @@ class JsonSerializableStatistics {
      */
     public Statistics toModelType() throws IllegalValueException {
         Statistics statistics = new Statistics();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (statistics.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            statistics.addPerson(person);
+        for (JsonAdaptedBill jsonAdaptedBill : statsList) {
+            Bill bill = jsonAdaptedBill.toModelType();
+            statistics.addBill(bill);
         }
         return statistics;
     }

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyStatistics;
+import seedu.address.model.Statistics.ReadOnlyStatistics;
 import seedu.address.model.RestOrRant;
 
 /**

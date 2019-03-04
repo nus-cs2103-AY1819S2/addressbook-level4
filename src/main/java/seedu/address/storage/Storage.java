@@ -13,7 +13,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends RestOrRantStorage, UserPrefsStorage, OrdersStorage {
+public interface Storage extends RestOrRantStorage, UserPrefsStorage, OrdersStorage, StatisticsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

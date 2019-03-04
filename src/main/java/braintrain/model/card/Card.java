@@ -129,7 +129,7 @@ public class Card {
                 throw new MissingCoreException(index);
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new MissingCoreException(index); 
+            throw new MissingCoreException(index);
         }
 
         return cores.get(index);
@@ -150,7 +150,7 @@ public class Card {
         } catch (IndexOutOfBoundsException e) {
             throw new MissingOptionalException(index);
         }
-        
+
         return optionals.get(index);
     }
 

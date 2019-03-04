@@ -21,6 +21,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -28,6 +29,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.moduleinfostorage.ModuleInfoManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -45,6 +47,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected ModuleInfoManager storageManager;
 
     @Override
     public void init() throws Exception {
@@ -61,7 +64,10 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        //ModuleInfo Manager to create file path for json and create objects
+        storageManager = new ModuleInfoManager();
+
+        model = initModelManager(storage, userPrefs, storageManager);
 
         logic = new LogicManager(model, storage);
 
@@ -73,24 +79,36 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ModuleInfoManager storageManager) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
+        Optional<ModuleInfoList> allModulesOptional;
+        ModuleInfoList allModules;
         try {
+            allModulesOptional = storageManager.readModuleInfoFile();
+            if (!allModulesOptional.isPresent()) {
+                logger.info("File for all module Information not found! Starting with Empty Module List");
+            }
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
+            //If unable to find the data file provide a blank Module Info List
+            allModules = allModulesOptional.orElse(new ModuleInfoList());
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            allModules = new ModuleInfoList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            allModules = new ModuleInfoList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, allModules);
     }
 
     private void initLogging(Config config) {

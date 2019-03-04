@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
 
@@ -159,4 +160,16 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Returns an Observable list of all module information from storage
+     * @return Observable list of ModuleInfo based on predicate set
+     */
+    ObservableList<ModuleInfo> getDisplayList();
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @param predicate
+     */
+    void updateDisplayList(Predicate<ModuleInfo> predicate);
 }

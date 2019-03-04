@@ -16,4 +16,13 @@ public class CliSyntax {
     public static final Prefix PREFIX_EXPECTED_MIN_GRADE = new Prefix("min/");
     public static final Prefix PREFIX_EXPECTED_MAX_GRADE = new Prefix("max/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+<<<<<<< HEAD
+=======
+
+    /*Prefix related to finding Module Information */
+    public static final Prefix PREFIX_MODCODE = new Prefix("c/");
+    public static final Prefix PREFIX_MODNAME = new Prefix("n/");
+    public static final Prefix PREFIX_MODDEPT = new Prefix("d/");
+
+>>>>>>> c73630735cdea17abb39c44041e6ebf2cf90703a
 }

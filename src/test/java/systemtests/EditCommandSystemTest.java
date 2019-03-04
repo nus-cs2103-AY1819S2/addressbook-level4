@@ -66,7 +66,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         Index index = INDEX_FIRST_CUSTOMER;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-            + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+            + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
+            + TAG_DESC_HUSBAND + " ";
         Customer editedCustomer = new CustomerBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedCustomer);
 
@@ -102,7 +103,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_CUSTOMER;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
             + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedCustomer = new CustomerBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withIdNum(VALID_ID_AMY).build();
+        editedCustomer = new CustomerBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+            .withIdNum(VALID_ID_AMY).build();
         assertCommandSuccess(command, index, editedCustomer);
 
         /* Case: clear tags -> cleared */
@@ -170,27 +172,33 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
             EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased() + INVALID_NAME_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+                + INVALID_NAME_DESC,
             Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+                + INVALID_PHONE_DESC,
             Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased() + INVALID_EMAIL_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+                + INVALID_EMAIL_DESC,
             Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid id -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased() + INVALID_ID_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+                + INVALID_ID_DESC,
             IdentificationNo.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased() + INVALID_ADDRESS_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+                + INVALID_ADDRESS_DESC,
             Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased() + INVALID_TAG_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+                + INVALID_TAG_DESC,
             Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a customer with new values same as another customer's values -> rejected */

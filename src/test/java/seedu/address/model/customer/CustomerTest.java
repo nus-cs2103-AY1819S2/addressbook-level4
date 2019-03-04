@@ -39,7 +39,9 @@ public class CustomerTest {
         assertFalse(ALICE.isSameCustomer(null));
 
         // different phone, email and id -> returns false
-        Customer editedAlice = new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).build();
+        Customer editedAlice =
+            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB)
+                .build();
         assertFalse(ALICE.isSameCustomer(editedAlice));
 
         // different name -> returns false
@@ -47,22 +49,27 @@ public class CustomerTest {
         assertFalse(ALICE.isSameCustomer(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice =
+            new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
             .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice =
+            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
             .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same id, different attributes -> returns true
-        editedAlice = new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND).build();
+        editedAlice =
+            new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withPhone(VALID_PHONE_BOB)
+                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice =
+            new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same phone, same email, same id different attributes -> returns true

@@ -83,14 +83,15 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
         command =
             AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY
-            + TAG_DESC_FRIEND;
+                + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a customer with all fields same as another customer in the address book except phone and email
          * -> added
          */
         toAdd =
-            new CustomerBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).build();
+            new CustomerBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB)
+                .build();
         command = CustomerUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -102,7 +103,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         toAdd = BOB;
         command =
             AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + ID_DESC_BOB + NAME_DESC_BOB
-            + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a customer, missing tags -> added */
@@ -176,33 +177,38 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid name -> rejected */
         command =
-            AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY;
+            AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
+                + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
         command =
-            AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY;
+            AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ID_DESC_AMY
+                + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         command =
-            AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ID_DESC_AMY + ADDRESS_DESC_AMY;
+            AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ID_DESC_AMY
+                + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid id -> rejected */
         command =
-            AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ID_DESC + ADDRESS_DESC_AMY;
+            AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ID_DESC
+                + ADDRESS_DESC_AMY;
         assertCommandFailure(command, IdentificationNo.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
         command =
-            AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY + INVALID_ADDRESS_DESC;
+            AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
+                + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command =
             AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY
-            + INVALID_TAG_DESC;
+                + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }
 

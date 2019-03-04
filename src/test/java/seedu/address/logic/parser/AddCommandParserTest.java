@@ -116,7 +116,8 @@ public class AddCommandParserTest {
             expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ID_BOB + VALID_ADDRESS_BOB,
+        assertParseFailure(parser,
+            VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ID_BOB + VALID_ADDRESS_BOB,
             expectedMessage);
     }
 
@@ -147,7 +148,8 @@ public class AddCommandParserTest {
             + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser,
+            INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + INVALID_ADDRESS_DESC,
             Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble

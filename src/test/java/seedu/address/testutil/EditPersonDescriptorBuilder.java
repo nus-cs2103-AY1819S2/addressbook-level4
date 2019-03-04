@@ -11,6 +11,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.School;
+import seedu.address.model.person.PastJob;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,6 +39,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setSchool(person.getSchool());
+        descriptor.setPastJobs(person.getPastJobs());
         descriptor.setTags(person.getTags());
     }
 
@@ -78,6 +80,16 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withSchool(String school) {
         descriptor.setSchool(new School(school));
+        return this;
+    }
+
+    /**
+     * Parses the {@code pastjobs} into a {@code Set<PastJob>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withPastJobs(String... pastjobs) {
+        Set<PastJob> pastjobSet = Stream.of(pastjobs).map(PastJob::new).collect(Collectors.toSet());
+        descriptor.setPastJobs(pastjobSet);
         return this;
     }
 

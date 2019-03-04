@@ -9,6 +9,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.School;
+import seedu.address.model.person.PastJob;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -28,6 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private School school;
+    private Set<PastJob> pastjobs;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -36,6 +38,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         school = new School(DEFAULT_SCHOOL);
+        pastjobs = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -48,6 +51,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         school = personToCopy.getSchool();
+        pastjobs = new HashSet<>(personToCopy.getPastJobs());
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -56,6 +60,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Parses the {@code pastjobs} into a {@code Set<PastJob>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withPastJobs(String ... pastjobs) {
+        this.pastjobs = SampleDataUtil.getPastJobSet(pastjobs);
         return this;
     }
 
@@ -100,7 +112,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, school, tags);
+        return new Person(name, phone, email, address, school, pastjobs, tags);
     }
 
 }

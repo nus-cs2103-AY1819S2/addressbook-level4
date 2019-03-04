@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -40,6 +42,9 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_SCHOOL + person.getSchool().value + " ");
+        person.getPastJobs().stream().forEach(
+                s -> sb.append(PREFIX_PASTJOB + s.value + " ")
+        );
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -56,6 +61,14 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getSchool().ifPresent(school -> sb.append(PREFIX_SCHOOL).append(school.value).append(" "));
+        if (descriptor.getPastJobs().isPresent()) {
+            Set<PastJob> pastjobs = descriptor.getPastJobs().get();
+            if (pastjobs.isEmpty()) {
+                sb.append(PREFIX_PASTJOB);
+            } else {
+                pastjobs.forEach(s -> sb.append(PREFIX_PASTJOB).append(s.value).append(" "));
+            }
+        }
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

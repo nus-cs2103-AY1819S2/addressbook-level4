@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;

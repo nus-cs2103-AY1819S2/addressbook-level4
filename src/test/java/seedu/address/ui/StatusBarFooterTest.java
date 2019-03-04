@@ -12,11 +12,12 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
-import guitests.guihandles.StatusBarFooterHandle;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.model.AddressBook;
 
 public class StatusBarFooterTest extends GuiUnitTest {

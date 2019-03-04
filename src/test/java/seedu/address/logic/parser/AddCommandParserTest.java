@@ -30,6 +30,7 @@ import static seedu.address.testutil.TypicalCustomers.AMY;
 import static seedu.address.testutil.TypicalCustomers.BOB;
 
 import org.junit.Test;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;

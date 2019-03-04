@@ -4,10 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import guitests.guihandles.CommandBoxHandle;
-import javafx.scene.input.KeyCode;
 import org.junit.Before;
 import org.junit.Test;
+
+import guitests.guihandles.CommandBoxHandle;
+import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;

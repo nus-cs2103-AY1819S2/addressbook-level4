@@ -2,9 +2,10 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleObjectProperty;
-import org.junit.Test;
 
 public class InvalidationListenerManagerTest {
     private final SimpleObjectProperty<Object> dummyObservable = new SimpleObjectProperty<>();

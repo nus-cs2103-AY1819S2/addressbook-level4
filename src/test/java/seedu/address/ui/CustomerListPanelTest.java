@@ -10,12 +10,13 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
+import org.junit.Test;
+
 import guitests.guihandles.CustomerCardHandle;
 import guitests.guihandles.CustomerListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.Test;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.Email;
@@ -41,7 +42,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
             CustomerCardHandle actualCard = customerListPanelHandle.getCustomerCardHandle(i);
 
             assertCardDisplaysCustomer(expectedCustomer, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }
 

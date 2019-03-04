@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalCustomers.VIP_CUSTOMER2;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.testutil.CustomerBuilder;
 
 public class CustomerTest {

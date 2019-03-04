@@ -5,15 +5,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 
-import guitests.guihandles.HelpWindowHandle;
-import guitests.guihandles.StageHandle;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.testfx.api.FxToolkit;
+
+import guitests.guihandles.HelpWindowHandle;
+import guitests.guihandles.StageHandle;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.BookingManager;
 import seedu.address.model.CustomerManager;

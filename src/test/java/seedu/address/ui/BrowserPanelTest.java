@@ -6,10 +6,11 @@ import static seedu.address.testutil.TypicalCustomers.ALICE;
 
 import java.net.URL;
 
-import guitests.guihandles.BrowserPanelHandle;
-import javafx.beans.property.SimpleObjectProperty;
 import org.junit.Before;
 import org.junit.Test;
+
+import guitests.guihandles.BrowserPanelHandle;
+import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.customer.Customer;
 
 public class BrowserPanelTest extends GuiUnitTest {

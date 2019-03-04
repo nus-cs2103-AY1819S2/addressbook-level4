@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;

@@ -14,13 +14,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.exceptions.DuplicateCustomerException;

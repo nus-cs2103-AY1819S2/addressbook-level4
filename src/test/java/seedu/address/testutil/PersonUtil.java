@@ -32,6 +32,7 @@ public class PersonUtil {
     public static String getAddAlias(Person person) {
         return AddCommand.COMMAND_ALIAS + " " + getPersonDetails(person);
     }
+
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
@@ -43,7 +44,7 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_SCHOOL + person.getSchool().value + " ");
         person.getPastJobs().stream().forEach(
-                s -> sb.append(PREFIX_PASTJOB + s.value + " ")
+            s -> sb.append(PREFIX_PASTJOB + s.value + " ")
         );
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")

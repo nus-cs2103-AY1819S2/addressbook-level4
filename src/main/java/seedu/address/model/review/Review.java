@@ -72,6 +72,7 @@ public class Review {
 
         Review otherReview = (Review) other;
         return otherReview.getEntry().equals(getEntry())
+                && otherReview.getRating().equals(getRating())
                 && otherReview.getTimeStamp().equals(getTimeStamp());
     }
 

@@ -3,11 +3,14 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.Orders;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.order.UniqueOrderItemList;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.UniqueTableList;
@@ -20,9 +23,7 @@ import seedu.address.model.person.UniquePersonList; // TODO: remove once the oth
  */
 public class RestOrRant implements ReadOnlyRestOrRant {
 
-    private final UniqueOrderItemList orderItems;
-    // TODO: feel free to add more lists for menu items and tables
-    private final UniquePersonList persons; // TODO: remove once the other components stop relying on person methods
+    private final Orders orders;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -33,78 +34,35 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      *   among constructors.
      */
     {
-        orderItems = new UniqueOrderItemList();
-        persons = new UniquePersonList(); // TODO: remove once the other components stop relying on person methods
+        orders = new Orders();
     }
 
     public RestOrRant() {}
 
     /**
-     * Creates an RestOrRant using the Persons in the {@code toBeCopied}
+     * Creates an RestOrRant using the data in the {@code toBeCopied}
      */
     public RestOrRant(ReadOnlyRestOrRant toBeCopied) {
         this();
-        resetData(toBeCopied);
-    }
-
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-        indicateModified();
+        resetData(toBeCopied.getOrders());
     }
 
     /**
-     * Resets the existing data of this {@code RestOrRant} with {@code newData}.
+     * Creates an RestOrRant using the data specified in {@code copyOrders} // TODO: add more parameters
      */
-    public void resetData(ReadOnlyRestOrRant newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
+    public RestOrRant(ReadOnlyOrders copyOrders) {
+        this();
+        resetData(copyOrders);
     }
-
-    //// person-level operations
-
+    
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders}. // TODO: add more parameters
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
+    public void resetData(ReadOnlyOrders newOrders) {
+        requireNonNull(newOrders);
 
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-        indicateModified();
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-        indicateModified();
-    }
-
-    /**
-     * Removes {@code key} from this {@code RestOrRant}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-        indicateModified();
+        orders.setOrderItems(newOrders.getOrderItemList());
+        // TODO: add more lines to set all the variables
     }
 
     public void changeMode() {
@@ -132,29 +90,24 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     @Override
     public String toString() {
-        return orderItems.asUnmodifiableObservableList().size() + " order items";
+        return orders.getOrderItemList().size() + " order items";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<OrderItem> getOrderItemList() {
-        return orderItems.asUnmodifiableObservableList();
-    }
-    
-    // TODO: remove once the other components stop relying on person methods
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public Orders getOrders() {
+        return orders;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
-                && orderItems.equals(((RestOrRant) other).orderItems));
+                && orders.equals(((RestOrRant) other).orders));
     }
 
     @Override
     public int hashCode() {
-        return orderItems.hashCode();
+        return Objects.hash(orders);
     }
 }

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
 
 /**
@@ -13,7 +14,7 @@ import seedu.address.model.person.Person;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -36,17 +37,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' RestOrRant file path.
+     * Returns the user prefs' Orders file path.
      */
-    Path getRestOrRantFilePath();
+    Path getOrdersFilePath();
 
     /**
-     * Sets the user prefs' RestOrRant file path.
+     * Sets the user prefs' Orders file path.
      */
-    void setRestOrRantFilePath(Path restOrRantFilePath);
+    void setOrdersFilePath(Path restOrRantFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces RestOrRant data with the data in {@code restOrRant}.
      */
     void setRestOrRant(ReadOnlyRestOrRant restOrRant);
 
@@ -54,59 +55,59 @@ public interface Model {
     ReadOnlyRestOrRant getRestOrRant();
 
     /**
-     * Notifies the listeners that the RestOrRant has been modified.
+     * Notifies the listeners that the RestOrRant (mode) has been modified.
      */
     void updateRestOrRant();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an order item with the same identity as {@code orderItem} exists in the RestOrRant's Orders.
      */
-    boolean hasPerson(Person person);
+    boolean hasOrderItem(OrderItem orderItem);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given order item from Orders.
+     * The order item must exist in the RestOrRant's Orders.
      */
-    void deletePerson(Person target);
+    void deleteOrderItem(OrderItem target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given order item to Orders.
+     * {@code orderItem} must not already exist in the RestOrRant's Orders.
      */
-    void addPerson(Person person);
+    void addOrderItem(OrderItem orderItem);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given order item {@code target} with {@code editedOrderItem}.
+     * {@code target} must exist in the RestOrRant's orders.
+     * The order item identity of {@code editedOrderItem} must not be the same as another existing order item in Orders.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setOrderItem(OrderItem target, OrderItem editedOrderItem);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered order item list */
+    ObservableList<OrderItem> getFilteredOrderItemList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered order item list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredOrderItemList(Predicate<OrderItem> predicate);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected person in the filtered order item list.
+     * null if no order item is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<OrderItem> selectedOrderItemProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected order item in the filtered order item list.
+     * null if no order item is selected.
      */
-    Person getSelectedPerson();
+    OrderItem getSelectedOrderItem();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected order item in the filtered order item list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedOrderItem(OrderItem orderItem);
 
     /**
      * Changes the current mode of the RestOrRant.

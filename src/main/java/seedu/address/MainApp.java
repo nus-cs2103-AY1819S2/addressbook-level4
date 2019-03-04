@@ -17,7 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
@@ -77,19 +77,21 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s RestOrRant and {@code userPrefs}. <br>
-     * The data from the sample RestOrRant will be used instead if {@code storage}'s RestOrRant is not found,
-     * or an empty RestOrRant will be used instead if errors occur when reading {@code storage}'s RestOrRant.
+     * Sample data will be used instead if any {@code storage} data file is not found,
+     * or an empty RestOrRant will be used instead if errors occur when reading from any {@code storage} data file.
      * TODO: Write the sample RestOrRant files.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyRestOrRant> addressBookOptional;
-        ReadOnlyRestOrRant initialData;
+        Optional<ReadOnlyOrders> ordersOptional;
+        RestOrRant initialData;
         try {
-            addressBookOptional = storage.readRestOrRant();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample RestOrRant");
+            // addressBookOptional = storage.readRestOrRant();
+            ordersOptional = storage.readOrders();
+            if (!ordersOptional.isPresent()) {
+                logger.info("Orders data file not found. Will be starting with sample Orders");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = new RestOrRant(ordersOptional.get());
+            // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");
             initialData = new RestOrRant();

@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.order;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,10 +7,6 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.UniqueOrderItemList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all order-related data
@@ -99,10 +95,6 @@ public class Orders implements ReadOnlyOrders {
      */
     public void removeOrderItem(OrderItem key) {
         orderItems.remove(key);
-        indicateModified();
-    }
-
-    public void changeMode() {
         indicateModified();
     }
 

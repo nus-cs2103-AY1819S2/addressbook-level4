@@ -9,12 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Orders;
-import seedu.address.model.ReadOnlyOrders;
-import seedu.address.model.ReadOnlyRestOrRant;
-import seedu.address.model.RestOrRant;
+import seedu.address.model.order.Orders;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.Person;
 
 /**
  * An Immutable order list that is serializable to JSON format.

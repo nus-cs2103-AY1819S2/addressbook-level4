@@ -16,5 +16,7 @@ public interface ReadOnlyUserPrefs {
     Path getOrdersFilePath();
 
     Path getTablesFilePath();
+    
+    Path getStatisticsFilePath();
 
 }

@@ -16,6 +16,9 @@ import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Price;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.Statistics.Year;
+import seedu.address.model.Statistics.Month;
+import seedu.address.model.Statistics.Day;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -80,7 +83,7 @@ public class ParserUtil {
         }
         return new Code(trimmedCode);
     }
-    
+
     /**
      * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
@@ -94,6 +97,51 @@ public class ParserUtil {
             throw new ParseException(Price.MESSAGE_CONSTRAINTS);
         }
         return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String day} into a {@code Day}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code day} is invalid.
+     */
+    public static Day parseDay(String day) throws ParseException {
+        requireNonNull(day);
+        String trimmedDay = day.trim();
+        if (!Day.isValidDay(trimmedDay)) {
+            throw new ParseException(Day.MESSAGE_CONSTRAINTS);
+        }
+        return new Day(trimmedDay);
+    }
+
+    /**
+     * Parses a {@code String month} into a {@code Month}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code month} is invalid.
+     */
+    public static Month parseMonth(String month) throws ParseException {
+        requireNonNull(month);
+        String trimmedMonth = month.trim();
+        if (!Month.isValidMonth(trimmedMonth)) {
+            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
+        }
+        return new Month(trimmedMonth);
+    }
+
+    /**
+     * Parses a {@code String year} into a {@code Year}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        if (!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
     }
 
     /**

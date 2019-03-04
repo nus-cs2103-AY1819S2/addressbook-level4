@@ -15,6 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Statistics.Bill;
+import seedu.address.model.Statistics.exception.BillNotFoundException;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
@@ -37,6 +39,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<MenuItem> selectedMenuItem = new SimpleObjectProperty<>();
     private final FilteredList<Table> filteredTableList;
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
+    private final FilteredList<Bill> filteredBillList;
+    private final SimpleObjectProperty<Bill> selectedBill = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -55,6 +59,8 @@ public class ModelManager implements Model {
         filteredMenuItems.addListener(this::ensureSelectedMenuItemIsValid);
         filteredTableList = new FilteredList<>(this.restOrRant.getTables().getTableList());
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
+        filteredBillList = new FilteredList<>(this.restOrRant.getStatistics().getBillList());
+        filteredBillList.addListener(this::ensureSelectedBillIsValid);
     }
 
     public ModelManager() {
@@ -101,6 +107,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getStatisticsFilePath() {
+        return userPrefs.getStatisticsFilePath();
+    }
+
+    @Override
     public void setOrdersFilePath(Path ordersFilePath) {
         requireNonNull(ordersFilePath);
         userPrefs.setOrdersFilePath(ordersFilePath);
@@ -112,11 +123,17 @@ public class ModelManager implements Model {
         userPrefs.setMenuFilePath(menuFilePath); 
     }
 
+    @Override
+    public void setStatisticsFilePath(Path statsFilePath) {
+        requireNonNull(statsFilePath);
+        userPrefs.setStatisticsFilePath(statsFilePath);
+    }
+
     //=========== RestOrRant ================================================================================
 
     @Override
     public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
-        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu(), restOrRant.getTables());
+        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu(), restOrRant.getTables(), restOrRant.getStatistics());
     }
 
     @Override
@@ -414,6 +431,82 @@ public class ModelManager implements Model {
         }
     }
 
+    //=========== Statistics =====================================================================================
+
+    @Override
+    public void addBill(Bill bill) {
+        requireNonNull(bill);
+        restOrRant.getStatistics().addBill(bill);
+    }
+    
+    @Override
+    public ObservableList<Bill> getBillList () {
+        return restOrRant.getStatistics().getBillList();
+    }
+    
+    @Override
+    public void setBill(Bill target, Bill editedItem) {
+        requireAllNonNull(target, editedItem);
+
+        restOrRant.getStatistics().setBills(target, editedItem);
+    }
+    //=========== Filtered Bill List Accessors ==============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Bill} backed by the internal list of {@code BillList}
+     */
+    @Override
+    public ObservableList<Bill> getFilteredBillList() {
+        return filteredBillList;
+    }
+
+    @Override
+    public void updateFilteredBillList(Predicate<Bill> predicate) {
+        requireNonNull(predicate);
+        filteredBillList.setPredicate(predicate);
+    }
+
+
+    //=========== Selected bill =============================================================================
+
+    @Override
+    public ReadOnlyProperty<Bill> selectedBillProperty() {
+        return selectedBill;
+    }
+
+    @Override
+    public Bill getSelectedBill() {
+        return selectedBill.getValue();
+    }
+
+    @Override
+    public void setSelectedBill(Bill bill) {
+        if (bill != null && !filteredBillList.contains(bill)) {
+            throw new BillNotFoundException();
+        }
+        selectedBill.setValue(bill);
+    }
+
+    /**
+     * Ensures {@code selectedTable} is a valid table in {@code filteredTable}.
+     */
+    private void ensureSelectedBillIsValid(ListChangeListener.Change<? extends Bill> change) {
+        while (change.next()) {
+            if (selectedBill.getValue() == null) {
+                //null is always a valid selected bill, so we do not need to check that it is valid anymore
+                return;
+            }
+
+            boolean wasSelectedBillReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedBill.getValue());
+            if (wasSelectedBillReplaced) {
+                //Update selectedBill to its new value.
+                int index = change.getRemoved().indexOf(selectedBill.getValue());
+                selectedBill.setValue(change.getAddedSubList().get(index));
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -435,7 +528,9 @@ public class ModelManager implements Model {
                 && filteredMenuItems.equals(other.filteredMenuItems)
                 && Objects.equals(selectedMenuItem.get(), other.selectedMenuItem.get())
                 && filteredTableList.equals(other.filteredTableList)
-                && Objects.equals(selectedTable.get(), other.selectedTable.get());
+                && Objects.equals(selectedTable.get(), other.selectedTable.get())
+                && filteredBillList.equals(other.filteredBillList)
+                && Objects.equals(selectedBill.get(), other.selectedBill.get());
     }
 
     @Override

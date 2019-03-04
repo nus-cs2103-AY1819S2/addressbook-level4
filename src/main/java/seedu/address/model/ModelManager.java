@@ -33,8 +33,8 @@ public class ModelManager implements Model {
     private final RestOrRant restOrRant;
     private final UserPrefs userPrefs;
     private final FilteredList<OrderItem> filteredOrderItems;
-    private final FilteredList<MenuItem> filteredMenuItems;
     private final SimpleObjectProperty<OrderItem> selectedOrderItem = new SimpleObjectProperty<>();
+    private final FilteredList<MenuItem> filteredMenuItems;
     private final SimpleObjectProperty<MenuItem> selectedMenuItem = new SimpleObjectProperty<>();
     private final FilteredList<Table> filteredTableList;
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
@@ -143,6 +143,11 @@ public class ModelManager implements Model {
     @Override
     public void updateRestOrRant() { // change mode
         restOrRant.indicateModified();
+    }
+    
+    @Override
+    public void changeMode() {
+        restOrRant.changeMode();
     }
 
     //=========== Tables =====================================================================================
@@ -262,6 +267,43 @@ public class ModelManager implements Model {
         restOrRant.getOrders().setOrderItem(target, editedOrderItem);
     }
     
+    //=========== Filtered Order Item List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code OrderItem} backed by the internal list of
+     * {@code Orders}
+     */
+    @Override
+    public ObservableList<OrderItem> getFilteredOrderItemList() {
+        return filteredOrderItems;
+    }
+
+    @Override
+    public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
+        requireNonNull(predicate);
+        filteredOrderItems.setPredicate(predicate);
+    }
+    
+    //=========== Selected order item ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
+        return selectedOrderItem;
+    }
+
+    @Override
+    public OrderItem getSelectedOrderItem() {
+        return selectedOrderItem.getValue();
+    }
+
+    @Override
+    public void setSelectedOrderItem(OrderItem orderItem) {
+        if (orderItem != null && !filteredOrderItems.contains(orderItem)) {
+            throw new OrderItemNotFoundException();
+        }
+        selectedOrderItem.setValue(orderItem);
+    }
+    
     //=========== Menu ======================================================================================
     @Override
     public boolean hasMenuItem(MenuItem menuItem) {
@@ -291,23 +333,6 @@ public class ModelManager implements Model {
     public void updateOrders() {
         restOrRant.getOrders().indicateModified();
     }
-
-    //=========== Filtered Order Item List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code OrderItem} backed by the internal list of
-     * {@code Orders}
-     */
-    @Override
-    public ObservableList<OrderItem> getFilteredOrderItemList() {
-        return filteredOrderItems;
-    }
-
-    @Override
-    public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
-        requireNonNull(predicate);
-        filteredOrderItems.setPredicate(predicate);
-    }
     
     //=========== Filtered MenuItem List Accessors =============================================================
     
@@ -324,26 +349,6 @@ public class ModelManager implements Model {
     public void updateFilteredMenuItemList(Predicate<MenuItem> predicate) {
         requireNonNull(predicate);
         filteredMenuItems.setPredicate(predicate);
-    }
-
-    //=========== Selected order item ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
-        return selectedOrderItem;
-    }
-
-    @Override
-    public OrderItem getSelectedOrderItem() {
-        return selectedOrderItem.getValue();
-    }
-
-    @Override
-    public void setSelectedOrderItem(OrderItem orderItem) {
-        if (orderItem != null && !filteredOrderItems.contains(orderItem)) {
-            throw new OrderItemNotFoundException();
-        }
-        selectedOrderItem.setValue(orderItem);
     }
 
     //=========== Selected menu item ===========================================================================
@@ -424,7 +429,7 @@ public class ModelManager implements Model {
         }
     }
 
-    //=========== statistics =====================================================================================
+    //=========== Statistics =====================================================================================
 
     @Override
     public void addBill(Bill bill) {
@@ -443,6 +448,7 @@ public class ModelManager implements Model {
 
         restOrRant.getStatistics().setBills(target, editedItem);
     }
+    
     //=========== Filtered Bill List Accessors ==============================================================
 
     /**
@@ -458,8 +464,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredBillList.setPredicate(predicate);
     }
-
-
+    
     //=========== Selected bill =============================================================================
 
     @Override
@@ -524,10 +529,5 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedTable.get(), other.selectedTable.get())
                 && filteredBillList.equals(other.filteredBillList)
                 && Objects.equals(selectedBill.get(), other.selectedBill.get());
-    }
-
-    @Override
-    public void changeMode() {
-        restOrRant.changeMode();
     }
 }

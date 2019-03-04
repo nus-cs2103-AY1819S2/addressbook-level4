@@ -10,6 +10,7 @@ import seedu.address.model.statistics.Bill;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableStatus;
 
 /**
  * The API of the Model component.
@@ -96,15 +97,21 @@ public interface Model {
 
     /**
      * Deletes the given table from Tables.
-     * The table must  exist in the RestOrRant's Tables.
+     * The table must  exist in the Tables.
      */
     void deleteTable(Table table);
 
     /**
      * Adds the given table to Tables.
-     * {@code table} must not already exist in the RestOrRant's Tables.
+     * {@code table} must not already exist in Tables.
      */
     void addTable(Table table);
+
+    /**
+     * Adds the table with given TableNumber to Tables.
+     * {@code table} must not already exist in Tables
+     */
+    void addTable(TableStatus tableStatus);
 
     /**
      * Replaces the given table {@code target} with {@code editedTable}.

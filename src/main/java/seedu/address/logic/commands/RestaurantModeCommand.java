@@ -34,7 +34,6 @@ public class RestaurantModeCommand extends ChangeModeCommand {
         return generateCommandResult();
     }
 
-
     @Override
     public CommandResult generateCommandResult() {
         return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.RESTAURANT_MODE);
@@ -44,5 +43,4 @@ public class RestaurantModeCommand extends ChangeModeCommand {
     boolean isSameMode(Mode mode) {
         return mode.equals(Mode.RESTAURANT_MODE);
     }
-
 }

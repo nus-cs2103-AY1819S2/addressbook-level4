@@ -22,6 +22,8 @@ import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableStatus;
+
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
@@ -170,6 +172,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addTable(TableStatus tableStatus) {
+        restOrRant.getTables().addTable(tableStatus);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
+    }
+
+    @Override
     public void setTable(Table target, Table editedTable) {
         requireAllNonNull(target, editedTable);
         
@@ -235,7 +243,7 @@ public class ModelManager implements Model {
             boolean wasSelectedTableRemoved = change.getRemoved().stream()
                     .anyMatch(removedTable -> selectedTable.getValue().isSameTable(removedTable));
             if (wasSelectedTableRemoved) {
-                // Select the table taht came before it in the list,
+                // Select the table that came before it in the list,
                 // or clear the selection if there is no such table.
                 selectedTable.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }

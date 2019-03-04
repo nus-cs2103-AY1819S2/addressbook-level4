@@ -60,10 +60,9 @@ public class TableModeCommand extends ChangeModeCommand {
     public CommandResult generateCommandResult() {
         return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.TABLE_MODE);
     }
-    
+
     @Override
     boolean isSameMode(Mode mode) {
         return mode.equals(Mode.TABLE_MODE);
     }
-
 }

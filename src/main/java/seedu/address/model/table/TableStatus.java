@@ -6,11 +6,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class TableStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Table status should only contain numbers and the number of seats taken is less than number of seats";
+            "Table status should only contain numbers and the number of seats taken is less than number of seats.";
 
     public final String numberOfSeats;
     public String numberOfTakenSeats;
-    public static final String VALIDATION_REGEX = "[" + "^[\\d]+$" + "/" + "^[\\d]+$" + "]";
+    public static final String VALIDATION_REGEX = "\\d+";
 
     /**
      * Constructs a {@code TableStatus}/
@@ -32,13 +32,7 @@ public class TableStatus {
      * Returns true if a given string is a valid table status.
      */
     public static boolean isValidTableStatus(String test) {
-        String newTest = test;
-        newTest = newTest.replace("[", "/");
-        newTest = newTest.replace("]", "/");
-        String[] split = newTest.trim().split("/");
-        return true; // TODO: temporary changed this cause idk what string you are expecting
-        //return test.matches(VALIDATION_REGEX)
-        //        && ((Integer.parseInt(split[1]) <= Integer.parseInt(split[0])));
+        return test.matches(VALIDATION_REGEX);
     }
 
     public boolean equals(TableStatus otherTableStatus) {

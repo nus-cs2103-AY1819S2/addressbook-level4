@@ -14,8 +14,11 @@ public class Tables implements ReadOnlyTables {
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     private final UniqueTableList tableList;
+
+    private int nextTableNumber;
     {
-        tableList = new UniqueTableList(); 
+        tableList = new UniqueTableList();
+        nextTableNumber = 1;
     }
     
     public Tables() {}
@@ -62,9 +65,19 @@ public class Tables implements ReadOnlyTables {
      * Adds a table to the UniqueTableList.
      * The table must not already exist in the UniqueTableList.
      */
-    public void addTable(Table t) {
-        tableList.add(t);
+    public void addTable(Table table) {
+        tableList.add(table);
         indicateModified();
+    }
+
+    /**
+     * Adds a table to the UniqueTableList.
+     * The table must not already exist in the UniqueTableList.
+     */
+    public void addTable(TableStatus tableStatus) {
+        tableList.add(new Table(new TableNumber(String.valueOf(nextTableNumber)), tableStatus));
+        indicateModified();
+        nextTableNumber++;
     }
 
     /**
@@ -91,6 +104,10 @@ public class Tables implements ReadOnlyTables {
     @Override
     public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
         return Optional.ofNullable(tableList.getTable(tableNumber));
+    }
+
+    public int getNextTableNumber() {
+        return nextTableNumber;
     }
 
     /**

@@ -43,9 +43,7 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         restOrRantParser = new RestOrRantParser();
         mode = Mode.RESTAURANT_MODE;
-
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getRestOrRant().addListener(observable -> restOrRantModified = true);
+        
         // Set modeModified to true whenever the models' mode is modified.
         model.getRestOrRant().addListener(observable -> modeModified = true);
         model.getRestOrRant().getMenu().addListener(observable -> menuModified = true);
@@ -56,7 +54,6 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        restOrRantModified = false;
         modeModified = false;
         menuModified = false;
         ordersModified = false;
@@ -68,21 +65,19 @@ public class LogicManager implements Logic {
         } finally {
             history.add(commandText);
         }
-
-        if (restOrRantModified) {
-            logger.info("RestOrRant modified, saving to file.");
-            try {
-                storage.saveMenu(model.getRestOrRant().getMenu());
-                // TODO: add save <each feature> instead of saveRestOrRant
-                // storage.saveRestOrRant(model.getRestOrRant());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
-        }
-
+        
         if (modeModified) {
             logger.info("Application mode modified, changing UI");
             changeMode(commandResult.newModeStatus());
+        }
+
+        if (menuModified) {
+            logger.info("RestOrRant modified, saving to file.");
+            try {
+                storage.saveMenu(model.getRestOrRant().getMenu());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         if (ordersModified) {

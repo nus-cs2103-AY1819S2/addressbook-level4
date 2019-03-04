@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private MenuListPanel menuListPanel;
+    private OrderItemListPanel orderItemListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MenuBrowserPanel menuBrowserPanel;
@@ -118,9 +119,10 @@ public class MainWindow extends UiPart<Stage> {
         menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
         browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
             
-        menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
-                logic::setSelectedMenuItem);
-        listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+        orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                logic::setSelectedOrderItem);
+        listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
+        
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -184,17 +186,23 @@ public class MainWindow extends UiPart<Stage> {
         switch (mode) {
 
         case RESTAURANT_MODE:
+            orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                    logic::setSelectedOrderItem);
+            listPanelPlaceholder.getChildren().clear();
+            listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
+            
             statusBarFooter.updateMode("Restaurant Mode");
             break;
 
         case TABLE_MODE:
             menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
             browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
-    
-            // TODO: change to orderListPanel
-            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
-                    logic::setSelectedMenuItem);
-            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+
+            orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                    logic::setSelectedOrderItem);
+            listPanelPlaceholder.getChildren().clear();
+            listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
+            
             statusBarFooter.updateMode("Table Mode");
             break;
 
@@ -205,7 +213,9 @@ public class MainWindow extends UiPart<Stage> {
     
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+            
             statusBarFooter.updateMode("Menu Mode");
             break;
 

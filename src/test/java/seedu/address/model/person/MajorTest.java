@@ -22,10 +22,10 @@ public class MajorTest {
 
     @Test
     public void isValidMajor() {
-        // null phone number
+        // null major
         Assert.assertThrows(NullPointerException.class, () -> Major.isValidMajor(null));
 
-        // invalid phone numbers
+        // invalid majors
         assertFalse(Major.isValidMajor("")); // empty string
         assertFalse(Major.isValidMajor(" ")); // spaces only
         assertFalse(Major.isValidMajor("91")); // numeric
@@ -33,7 +33,7 @@ public class MajorTest {
         assertFalse(Major.isValidMajor("phone999")); // mix
 
 
-        // valid phone numbers
+        // valid majors
         assertTrue(Major.isValidMajor("CS")); // short form
         assertTrue(Major.isValidMajor("Computer Science")); //formal form
         assertTrue(Major.isValidMajor("ME")); //others

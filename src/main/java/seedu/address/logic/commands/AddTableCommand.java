@@ -24,8 +24,6 @@ public class AddTableCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 1 4";
 
     public static final String MESSAGE_SUCCESS = "New table added:\n%1$s";
-    public static final String MESSAGE_DUPLICATE_TABLE = "This table already exists in RestOrRant";
-    public static final String MESSAGE_INVALID_TABLE_NUMBER = "The table number [%1$s] is invalid";
 
     private final List<TableStatus> tableStatusList;
 
@@ -38,14 +36,14 @@ public class AddTableCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Mode mode, Model model, CommandHistory history) {
         requireNonNull(model);
 
         for (TableStatus tableStatus : tableStatusList) {
             model.addTable(tableStatus);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, tableStatusList));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, tableStatusList)); // TODO: Beautify resultDisplay
     }
     
     @Override

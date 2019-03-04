@@ -13,13 +13,14 @@ import org.testfx.api.FxToolkit;
 
 import braintrain.logic.LogicManager;
 import braintrain.model.ModelManager;
+import braintrain.quiz.QuizModelManager;
 import braintrain.storage.JsonUserPrefsStorage;
+
 import guitests.guihandles.HelpWindowHandle;
 import guitests.guihandles.StageHandle;
 
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 /**
  * Contains tests for closing of the {@code MainWindow}.
  */
@@ -36,7 +37,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager()));
+            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), new QuizModelManager()));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

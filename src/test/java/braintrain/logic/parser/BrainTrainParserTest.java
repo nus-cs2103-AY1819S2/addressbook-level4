@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import braintrain.logic.commands.ExitCommand;
 import braintrain.logic.commands.HelpCommand;
 import braintrain.logic.commands.HistoryCommand;
+import braintrain.logic.commands.StartCommand;
 import braintrain.logic.parser.exceptions.ParseException;
 
 public class BrainTrainParserTest {
@@ -56,6 +57,10 @@ public class BrainTrainParserTest {
     //        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
     //        assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     //    }
+    @Test
+    public void parseCommand_start() throws Exception {
+        assertTrue(parser.parseCommand(StartCommand.COMMAND_WORD) instanceof StartCommand);
+    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

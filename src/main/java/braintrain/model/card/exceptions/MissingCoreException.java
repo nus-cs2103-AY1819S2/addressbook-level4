@@ -3,9 +3,9 @@ package braintrain.model.card.exceptions;
 /**
  * Signals that the operation is unable to find the specified core value.
  */
-public class MissingCoreException extends RuntimeException {
-    private static final String MISSING_CORE_PREFIX = "Core value: ";
-    private static final String MISSING_CORE_SUFFIX = " is missing.";
+public class MissingCoreException extends Exception {
+    private static final String MISSING_CORE_PREFIX = "There is no core at index: ";
+    private static final String MISSING_CORE_SUFFIX = ".";
 
     /**
      * Constructs a {@code MissingCoreException} with a custom detail message specifying the missing core's index.

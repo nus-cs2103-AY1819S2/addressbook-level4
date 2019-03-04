@@ -121,10 +121,15 @@ public class Card {
      *
      * @param index index of the core to return
      * @return the core at the specified position in {@link #cores}
+     * @throws MissingCoreException if the index is out of range
      */
-    public String getCore(int index) {
-        if (cores.get(index).isEmpty()) {
-            throw new MissingCoreException(index);
+    public String getCore(int index) throws MissingCoreException {
+        try {
+            if (cores.get(index).isEmpty()) {
+                throw new MissingCoreException(index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new MissingCoreException(index); 
         }
 
         return cores.get(index);
@@ -135,12 +140,17 @@ public class Card {
      *
      * @param index index of the optional to return
      * @return the optional at the specified position in {@link #optionals}
+     * @throws MissingCoreException if the index is out of range
      */
-    public String getOptional(int index) {
-        if (optionals.get(index).isEmpty()) {
+    public String getOptional(int index) throws MissingOptionalException {
+        try {
+            if (optionals.get(index).isEmpty()) {
+                throw new MissingOptionalException(index);
+            }
+        } catch (IndexOutOfBoundsException e) {
             throw new MissingOptionalException(index);
         }
-
+        
         return optionals.get(index);
     }
 

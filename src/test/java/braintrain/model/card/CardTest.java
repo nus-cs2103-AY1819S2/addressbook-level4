@@ -77,7 +77,7 @@ public class CardTest {
     }
 
     @Test
-    public void setAndGetCoreAndOptional() {
+    public void setAndGetCoreAndOptional() throws MissingCoreException, MissingOptionalException {
         Card belgiumCopy = new CardBuilder(CARD_BELGIUM).build();
         Card japanCopy = new CardBuilder(CARD_JAPAN).build();
         assertNotEquals(belgiumCopy, japanCopy);
@@ -87,6 +87,14 @@ public class CardTest {
 
         belgiumCopy.setOptional(0, japanCopy.getOptional(0));
         assertEquals(belgiumCopy.getOptional(0), japanCopy.getOptional(0));
+
+        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(-1), () -> {
+            belgiumCopy.getCore(-1);
+        });
+
+        Assert.assertThrows(MissingOptionalException.class, MissingOptionalException.generateMessage(-1), () -> {
+            belgiumCopy.getOptional(-1);
+        });
     }
 
     @Test

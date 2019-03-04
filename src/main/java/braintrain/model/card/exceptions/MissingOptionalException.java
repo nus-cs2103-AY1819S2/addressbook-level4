@@ -3,9 +3,9 @@ package braintrain.model.card.exceptions;
 /**
  * Signals that the operation is unable to find the specified optional value.
  */
-public class MissingOptionalException extends RuntimeException {
-    private static final String MISSING_OPTIONAL_PREFIX = "Optional value: ";
-    private static final String MISSING_OPTIONAL_SUFFIX = " is missing.";
+public class MissingOptionalException extends Exception {
+    private static final String MISSING_OPTIONAL_PREFIX = "There is no optional at index: ";
+    private static final String MISSING_OPTIONAL_SUFFIX = ".";
 
     /**
      * Constructs a {@code MissingOptionalException} with a custom detail message specifying the missing

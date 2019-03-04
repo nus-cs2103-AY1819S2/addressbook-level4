@@ -23,17 +23,19 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    protected static final CommandHistory EMPTY_COMMAND_HISTORY = new
+            CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private CommandHistory commandHistory = new CommandHistory();
+    protected CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -91,7 +93,7 @@ public class AddCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private class ModelStub implements Model {
+    protected class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -151,6 +153,30 @@ public class AddCommandTest {
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
+
+        // =========== Implemented methods supporting Health Worker ===========
+        // @author Lookaz
+
+        @Override
+        public boolean hasHealthWorker(HealthWorker healthWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteHealthWorker(HealthWorker target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addHealthWorker(HealthWorker healthWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setHealthWorker(HealthWorker target, HealthWorker editedWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+        // ===================================================================
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {

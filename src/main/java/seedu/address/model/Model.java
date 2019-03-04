@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 
 /**
@@ -76,6 +77,37 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    // ============== Added methods for AddHealthWorkerCommand ===============
+    // @author: Lookaz
+
+    /**
+     * Returns true if a person with the same identity as {@code healthWorker}
+     * exists in the address book.
+     */
+    boolean hasHealthWorker(HealthWorker healthWorker);
+
+    /**
+     * Deletes the given HealthWorker.
+     * The HealthWorker object must exist in the address book.
+     */
+    void deleteHealthWorker(HealthWorker target);
+
+    /**
+     * Adds the given HealthWorker.
+     * {@code healthWorker} must not already exist in the address book.
+     */
+    void addHealthWorker(HealthWorker healthWorker);
+
+    /**
+     * Replaces the given person {@code target} with {@code editedWorker}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedWorker} must not be the same as
+     * another existing HealthWorker in the address book.
+     */
+    void setHealthWorker(HealthWorker target, HealthWorker editedWorker);
+
+    // =======================================================================
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

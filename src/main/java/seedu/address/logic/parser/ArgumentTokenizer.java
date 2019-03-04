@@ -1,8 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_OTHERS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PATIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_REQUEST;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -15,6 +21,16 @@ import java.util.stream.Collectors;
  */
 public class ArgumentTokenizer {
 
+    private static final int MODE_POSITION = 0;
+
+    // Mapping of respective command mode numbers to CommandMode enum
+    private static final Map<String, CommandMode> COMMAND_MODES = Map.of(
+            PREFIX_ADD_HEALTHWORKER.getPrefix(), CommandMode.HEALTH_WORKER,
+            PREFIX_ADD_PATIENT.getPrefix(), CommandMode.PATIENT,
+            PREFIX_ADD_REQUEST.getPrefix(), CommandMode.REQUEST,
+            PREFIX_ADD_OTHERS.getPrefix(), CommandMode.OTHERS
+    );
+
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
      * respective argument values. Only the given prefixes will be recognized in the arguments string.
@@ -26,6 +42,23 @@ public class ArgumentTokenizer {
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
+    }
+
+    /**
+     * @author Lookaz
+     * Checks a given argument string and returns the corresponding
+     * CommandMode enum
+     * @param args argument string to check
+     * @return CommandMode enum type if available, else CommandMode.INVALID
+     */
+    public static CommandMode checkMode(String args) {
+        String trimmedArgs = args.trim();
+        if (!Character.toString(trimmedArgs.charAt(MODE_POSITION + 1)).equals(" ")) {
+            return CommandMode.INVALID;
+        }
+
+        return COMMAND_MODES.getOrDefault(Character.toString(trimmedArgs
+                        .charAt(MODE_POSITION)), CommandMode.INVALID);
     }
 
     /**

@@ -1,5 +1,6 @@
 package seedu.address.model.tag;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,8 +30,8 @@ public class Skills {
      * TODO: Consider using variable argument list.
      * @param skills Set object containing Specialisation to construct from.
      */
-    public Skills(Set<Specialisation> skills) {
-        this.skills = skills;
+    public Skills(Collection<Specialisation> skills) {
+        this.skills = new HashSet<>(skills);
     }
 
     public Set<Specialisation> getSkills() {

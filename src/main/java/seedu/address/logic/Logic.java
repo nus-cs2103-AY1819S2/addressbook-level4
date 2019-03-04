@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 
 /**
  * API of the Logic component
@@ -32,7 +33,7 @@ public interface Logic {
     ReadOnlyRestOrRant getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Table> getFilteredTableList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -43,7 +44,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getTablesFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,19 +57,19 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected table in the filtered table list.
+     * null if no table is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedTableProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Table> selectedTableProperty();
 
     /**
      * Sets the selected person in the filtered person list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @see seedu.address.model.Model#setSelectedTable(Table)
      */
-    void setSelectedPerson(Person person);
+    void setSelectedTable(Table table);
 
     /**
      * Changes current mode of RestOrRant.

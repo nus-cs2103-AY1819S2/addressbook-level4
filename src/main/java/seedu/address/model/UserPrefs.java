@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path restOrRantFilePath = Paths.get("data" , "restorrant.json");
     private Path ordersFilePath = Paths.get("data" , "orders.json");
+    private Path tablesFilePath = Paths.get("data", "tables.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setRestOrRantFilePath(newUserPrefs.getRestOrRantFilePath());
         setOrdersFilePath(newUserPrefs.getOrdersFilePath());
+        setTablesFilePath(newUserPrefs.getTablesFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -66,7 +68,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(ordersFilePath);
         this.ordersFilePath = ordersFilePath;
     }
-    
+
+    public Path getTablesFilePath() {
+        return tablesFilePath;
+    }
+
+    public void setTablesFilePath(Path tablesFilePath) {
+        requireNonNull(tablesFilePath);
+        this.tablesFilePath = tablesFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -80,12 +91,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && restOrRantFilePath.equals(o.restOrRantFilePath)
-                && ordersFilePath.equals(o.ordersFilePath);
+                && ordersFilePath.equals(o.ordersFilePath)
+                && tablesFilePath.equals(o.tablesFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, restOrRantFilePath, ordersFilePath);
+        return Objects.hash(guiSettings, restOrRantFilePath, ordersFilePath, tablesFilePath);
     }
 
     @Override
@@ -94,6 +106,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + restOrRantFilePath);
         sb.append("\nLocal data file location for orders: " + ordersFilePath);
+        sb.append("\nLocal data file location for tables: " + tablesFilePath);
         return sb.toString();
     }
 

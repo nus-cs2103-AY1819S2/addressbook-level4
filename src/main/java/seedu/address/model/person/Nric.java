@@ -17,12 +17,12 @@ public class Nric {
     /**
      * Constructs a {@code Nric}.
      *
-     * @param Nric A valid Nric number.
+     * @param nric A valid Nric number.
      */
-    public Nric(String Nric) {
-        requireNonNull(Nric);
-        checkArgument(isValidNric(Nric), MESSAGE_CONSTRAINTS);
-        value = Nric;
+    public Nric(String nric) {
+        requireNonNull(nric);
+        checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
+        value = nric;
     }
 
     /**

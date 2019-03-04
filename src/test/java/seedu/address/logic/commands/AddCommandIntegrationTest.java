@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedAddressBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.testutil.CustomerBuilder;
 
@@ -24,14 +25,15 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new CustomerManager(getTypicalAddressBook(), new UserPrefs());
+        model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
     }
 
     @Test
     public void execute_newCustomer_success() {
         Customer validCustomer = new CustomerBuilder().build();
 
-        CustomerModel expectedModel = new CustomerManager(model.getAddressBook(), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+            new UserPrefs());
         expectedModel.addCustomer(validCustomer);
         expectedModel.commitAddressBook();
 

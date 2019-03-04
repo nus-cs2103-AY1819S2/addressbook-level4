@@ -259,11 +259,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * updated to values specified {@code editedCustomer}.<br>
      *
      * @param toEdit the index of the current model's filtered list.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditCommandSystemTest#assertCommandSuccess(String, CustomerModel, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Customer editedCustomer,
                                       Index expectedSelectedCardIndex) {
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
         expectedModel.setCustomer(expectedModel.getFilteredCustomerList().get(toEdit.getZeroBased()), editedCustomer);
         expectedModel.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
@@ -275,7 +275,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
      *
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditCommandSystemTest#assertCommandSuccess(String, CustomerModel, String, Index)
      */
     private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -292,7 +292,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage,
@@ -318,7 +318,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         CustomerModel expectedModel = getModel();

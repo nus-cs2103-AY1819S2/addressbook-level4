@@ -191,7 +191,6 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //            + INVALID_TAG_DESC;
     //        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     //    }
-     */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         CustomerModel expectedModel = getModel();
 

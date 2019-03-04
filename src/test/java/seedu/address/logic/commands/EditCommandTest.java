@@ -21,10 +21,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditCustomerDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedAddressBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
@@ -34,7 +34,8 @@ import seedu.address.testutil.EditCustomerDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private CustomerModel model = new CustomerManager(getTypicalAddressBook(), new UserPrefs());
+    private CustomerModel model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()),
+        new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,7 +46,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
+            new UserPrefs());
         expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
         expectedModel.commitAddressBook();
 
@@ -67,7 +69,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
+            new UserPrefs());
         expectedModel.setCustomer(lastCustomer, editedCustomer);
         expectedModel.commitAddressBook();
 
@@ -81,7 +84,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
+            new UserPrefs());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -98,7 +102,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
+            new UserPrefs());
         expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
         expectedModel.commitAddressBook();
 
@@ -159,7 +164,8 @@ public class EditCommandTest {
         Customer customerToEdit = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
         EditCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(editedCustomer).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CUSTOMER, descriptor);
-        CustomerModel expectedModel = new CustomerManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
+            new UserPrefs());
         expectedModel.setCustomer(customerToEdit, editedCustomer);
         expectedModel.commitAddressBook();
 
@@ -202,7 +208,8 @@ public class EditCommandTest {
         Customer editedCustomer = new CustomerBuilder().build();
         EditCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(editedCustomer).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CUSTOMER, descriptor);
-        CustomerModel expectedModel = new CustomerManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
+            new UserPrefs());
 
         showCustomerAtIndex(model, INDEX_SECOND_CUSTOMER);
         Customer customerToEdit = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());

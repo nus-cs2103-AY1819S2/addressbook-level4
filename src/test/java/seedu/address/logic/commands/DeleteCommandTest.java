@@ -18,6 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedAddressBook;
 import seedu.address.model.customer.Customer;
 
 /**
@@ -26,7 +27,8 @@ import seedu.address.model.customer.Customer;
  */
 public class DeleteCommandTest {
 
-    private CustomerModel model = new CustomerManager(getTypicalAddressBook(), new UserPrefs());
+    private CustomerModel model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()),
+        new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,7 +38,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
-        CustomerManager expectedModel = new CustomerManager(model.getAddressBook(), new UserPrefs());
+        CustomerManager expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+            new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitAddressBook();
 
@@ -60,7 +63,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
-        CustomerModel expectedModel = new CustomerManager(model.getAddressBook(), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+            new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitAddressBook();
         showNoCustomer(expectedModel);
@@ -85,7 +89,8 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Customer customerToDelete = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CUSTOMER);
-        CustomerModel expectedModel = new CustomerManager(model.getAddressBook(), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+            new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitAddressBook();
 
@@ -124,7 +129,8 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameCustomerDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CUSTOMER);
-        CustomerModel expectedModel = new CustomerManager(model.getAddressBook(), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+            new UserPrefs());
 
         showCustomerAtIndex(model, INDEX_SECOND_CUSTOMER);
         Customer customerToDelete = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());

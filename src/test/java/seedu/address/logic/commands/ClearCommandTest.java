@@ -11,6 +11,7 @@ import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedAddressBook;
 
 public class ClearCommandTest {
 
@@ -27,8 +28,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new CustomerManager(getTypicalAddressBook(), new UserPrefs());
-        CustomerModel expectedModel = new CustomerManager(getTypicalAddressBook(), new UserPrefs());
+        CustomerModel model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();
 

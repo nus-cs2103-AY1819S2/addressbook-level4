@@ -14,6 +14,7 @@ import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedAddressBook;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
@@ -96,7 +97,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public CustomerModel getModel() {
-        CustomerModel copy = new CustomerManager((customerModel.getAddressBook()), new UserPrefs());
+        CustomerModel copy = new CustomerManager((VersionedAddressBook) customerModel.getAddressBook(),
+            new UserPrefs());
         ModelHelper.setFilteredList(copy, customerModel.getFilteredCustomerList());
         return copy;
     }

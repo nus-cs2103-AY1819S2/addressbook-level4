@@ -31,6 +31,7 @@ import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedAddressBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -141,7 +142,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, CustomerModel)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        CustomerModel expectedModel = new CustomerManager(customerModel.getAddressBook(), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) customerModel.getAddressBook(),
+            new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

@@ -29,7 +29,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.equipment.Equipment;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonEquipmentManagerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -49,7 +49,8 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
+        JsonEquipmentManagerStorage addressBookStorage = new JsonEquipmentManagerStorage(
+                temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -78,9 +79,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        // Setup LogicManager with JsonEquipmentManagerIoExceptionThrowingStub
+        JsonEquipmentManagerStorage addressBookStorage =
+                new JsonEquipmentManagerIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -169,15 +170,16 @@ public class LogicManagerTest {
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
-            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
+            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.",
+                    e);
         }
     }
 
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonEquipmentManagerIoExceptionThrowingStub extends JsonEquipmentManagerStorage {
+        private JsonEquipmentManagerIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 

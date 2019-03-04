@@ -7,15 +7,15 @@ package seedu.address.model.table;
 public class Table {
     
     private TableNumber tableNumber;
-    private TableOccupancy tableOccupancy;
+    private TableStatus tableStatus;
 
     public Table(int tableNumber, int numberOfSeats) {
         this.tableNumber = new TableNumber(tableNumber);
-        this.tableOccupancy = new TableOccupancy(numberOfSeats);
+        this.tableStatus = new TableStatus(numberOfSeats);
     }
 
-    public TableOccupancy getOccupancy() {
-        return tableOccupancy;
+    public TableStatus getOccupancy() {
+        return tableStatus;
     }
 
     public int getTableNumber() {

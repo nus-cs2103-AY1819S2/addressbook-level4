@@ -16,11 +16,6 @@ public interface ReadOnlyRestOrRant extends Observable {
      */
     ObservableList<OrderItem> getOrderItemList();
 
-    /**
-     * Returns an unmodifiable view of the tables list.
-     */
-    ObservableList<Table> getTableList();
-
     ObservableList<Person> getPersonList(); // TODO: remove
 
 }

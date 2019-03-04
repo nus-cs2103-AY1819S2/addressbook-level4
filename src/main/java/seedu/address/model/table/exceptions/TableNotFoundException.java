@@ -1,4 +1,4 @@
 package seedu.address.model.table.exceptions;
 
-public class TableNotFoundException {
+public class TableNotFoundException extends RuntimeException {
 }

@@ -21,7 +21,6 @@ import seedu.address.model.person.UniquePersonList; // TODO: remove once the oth
 public class RestOrRant implements ReadOnlyRestOrRant {
 
     private final UniqueOrderItemList orderItems;
-    private final UniqueTableList tableList;
     // TODO: feel free to add more lists for menu items and tables
     private final UniquePersonList persons; // TODO: remove once the other components stop relying on person methods
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -34,7 +33,6 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      *   among constructors.
      */
     {
-        tableList = new UniqueTableList();
         orderItems = new UniqueOrderItemList();
         persons = new UniquePersonList(); // TODO: remove once the other components stop relying on person methods
     }
@@ -142,12 +140,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public ObservableList<OrderItem> getOrderItemList() {
         return orderItems.asUnmodifiableObservableList();
     }
-
-    @Override
-    public ObservableList<Table> getTableList() {
-        return tableList.asUnmodifiableObservableList();
-    }
-
+    
     // TODO: remove once the other components stop relying on person methods
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
@@ -157,8 +150,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
-                && orderItems.equals(((RestOrRant) other).orderItems))
-                && tableList.equals(((RestOrRant) other).tableList);
+                && orderItems.equals(((RestOrRant) other).orderItems));
     }
 
     @Override

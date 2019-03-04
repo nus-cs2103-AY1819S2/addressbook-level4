@@ -126,6 +126,11 @@ public class ModelManager implements Model {
         restOrRant.getOrders().setOrderItem(target, editedOrderItem);
     }
 
+    @Override
+    public void updateOrders() {
+        restOrRant.getOrders().indicateModified();
+    }
+
     //=========== Filtered Order Item List Accessors =============================================================
 
     /**

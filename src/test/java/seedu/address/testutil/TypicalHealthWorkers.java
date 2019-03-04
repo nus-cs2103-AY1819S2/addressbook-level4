@@ -21,8 +21,7 @@ public class TypicalHealthWorkers {
             .withAddress("125, Jurong West Ave 6, #08-111")
             .withEmail("andye@example.com")
             .withPhone("94358253")
-            .withNric("S8312942G")
-            .withTags("Physiotherapy", "Dialysis"))
+            .withNric("S8312942G"))
             .withOrganization("NUH")
             .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation
                             .GENERAL_PRACTICE, Specialisation.PHYSIOTHERAPY)))).build();

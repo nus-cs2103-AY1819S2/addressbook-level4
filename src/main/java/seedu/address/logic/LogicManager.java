@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -52,9 +53,9 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText, customerModel, bookingModel);
-            try {
+            if (command instanceof CustomerCommand) {
                 commandResult = command.execute(customerModel, history);
-            } catch (Exception e) {
+            } else {
                 commandResult = command.execute(bookingModel, history);
             }
         } finally {

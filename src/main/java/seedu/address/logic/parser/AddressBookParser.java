@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AttackCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -100,6 +101,12 @@ public class AddressBookParser {
         case PutShipCommand.COMMAND_WORD:
         case PutShipCommand.COMMAND_ALIAS:
             return new PutShipCommandParser().parse(arguments);
+
+        case AttackCommand.COMMAND_WORD:
+        case AttackCommand.COMMAND_ALIAS1:
+        case AttackCommand.COMMAND_ALIAS2:
+        case AttackCommand.COMMAND_ALIAS3:
+            return new AttackCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -9,18 +9,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.CliSyntax;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.equipment.Address;
 import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
 /**

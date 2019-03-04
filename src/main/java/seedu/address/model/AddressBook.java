@@ -1,9 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
@@ -11,6 +7,10 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.BookingList;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.UniqueCustomerList;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level

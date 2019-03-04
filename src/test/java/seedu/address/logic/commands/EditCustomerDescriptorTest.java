@@ -1,18 +1,11 @@
 package seedu.address.logic.commands;
 
+import org.junit.Test;
+import seedu.address.testutil.EditCustomerDescriptorBuilder;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-
-import org.junit.Test;
-
-import seedu.address.testutil.EditCustomerDescriptorBuilder;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 
 public class EditCustomerDescriptorTest {
 

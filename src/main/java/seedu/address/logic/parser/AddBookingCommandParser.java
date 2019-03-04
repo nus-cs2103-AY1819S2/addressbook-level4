@@ -1,29 +1,21 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PAYER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
+import seedu.address.logic.commands.AddBookingCommand;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CustomerManager;
+import seedu.address.model.CustomerModel;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.ServiceType;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.util.TimeRange;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddBookingCommand;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.BookingModel;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.booking.Booking;
-import seedu.address.model.booking.ServiceType;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.util.TimeRange;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object

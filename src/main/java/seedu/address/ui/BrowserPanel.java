@@ -1,10 +1,5 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
-import java.net.URL;
-import java.util.logging.Logger;
-
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -14,6 +9,11 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.customer.Customer;
+
+import java.net.URL;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The Browser Panel of the App.

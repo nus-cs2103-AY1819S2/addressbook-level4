@@ -1,21 +1,20 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.JsonAdaptedCustomer.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalCustomers.BENSON;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.testutil.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+import static seedu.address.storage.JsonAdaptedCustomer.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalCustomers.BENSON;
 
 public class JsonAdaptedCustomerTest {
     private static final String INVALID_NAME = "R@chel";

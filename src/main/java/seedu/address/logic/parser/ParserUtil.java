@@ -1,25 +1,16 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.ServiceType;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
+import seedu.address.model.customer.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.TimeRange;
+
+import java.util.*;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

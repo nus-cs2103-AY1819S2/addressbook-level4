@@ -1,19 +1,19 @@
 package seedu.address.model.booking;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.exceptions.BookingNotFoundException;
 import seedu.address.model.booking.exceptions.ServiceFullException;
 import seedu.address.model.booking.exceptions.ServiceUnavailableException;
 import seedu.address.model.util.TimeRange;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A list of Bookings that enforces all elements are non-null and that none of the bookings exceed the service's

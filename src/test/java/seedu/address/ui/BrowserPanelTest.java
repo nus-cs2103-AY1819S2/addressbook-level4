@@ -1,17 +1,16 @@
 package seedu.address.ui;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
+import guitests.guihandles.BrowserPanelHandle;
+import javafx.beans.property.SimpleObjectProperty;
+import org.junit.Before;
+import org.junit.Test;
+import seedu.address.model.customer.Customer;
 
 import java.net.URL;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import guitests.guihandles.BrowserPanelHandle;
-import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.model.customer.Customer;
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
+import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalCustomers.ALICE;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Customer> selectedCustomer = new SimpleObjectProperty<>();

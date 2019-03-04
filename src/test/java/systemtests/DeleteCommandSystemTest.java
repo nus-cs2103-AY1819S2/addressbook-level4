@@ -1,17 +1,6 @@
 package systemtests;
 
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS;
-import static seedu.address.testutil.TestUtil.getCustomer;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-
 import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
@@ -19,6 +8,14 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
+
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS;
+import static seedu.address.testutil.TestUtil.*;
+import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 

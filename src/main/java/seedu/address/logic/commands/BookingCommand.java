@@ -2,10 +2,8 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.BookingManager;
 import seedu.address.model.BookingModel;
 import seedu.address.model.Model;
-import seedu.address.model.booking.Booking;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

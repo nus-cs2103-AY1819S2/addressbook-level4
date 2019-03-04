@@ -1,11 +1,10 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 /**
  * Lists all customers in the address book to the user.

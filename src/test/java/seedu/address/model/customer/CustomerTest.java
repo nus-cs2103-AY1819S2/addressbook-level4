@@ -1,22 +1,14 @@
 package seedu.address.model.customer;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.testutil.TypicalCustomers.BOB;
-import static seedu.address.testutil.TypicalCustomers.VIP_CUSTOMER;
-import static seedu.address.testutil.TypicalCustomers.VIP_CUSTOMER2;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.testutil.CustomerBuilder;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.testutil.TypicalCustomers.*;
 
 public class CustomerTest {
     @Rule

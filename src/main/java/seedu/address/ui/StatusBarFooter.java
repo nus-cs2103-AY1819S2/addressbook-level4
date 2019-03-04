@@ -1,14 +1,14 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Clock;
-import java.util.Date;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.ReadOnlyAddressBook;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Clock;
+import java.util.Date;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.

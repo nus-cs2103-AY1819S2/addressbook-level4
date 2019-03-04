@@ -37,9 +37,9 @@ public class RestOrRantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        if (mode != Mode.RESTAURANT_MODE) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
-        }
+        //if (mode != Mode.RESTAURANT_MODE) {
+        //    throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+        //}
 
         // General commands that work in all modes
         switch (commandWord) {
@@ -54,6 +54,9 @@ public class RestOrRantParser {
                 
             case ExitCommand.COMMAND_ALIAS:
                 return new ExitCommand();
+                
+            case RestaurantModeCommand.COMMAND_WORD:
+                return new RestaurantModeCommand();
                 
             case MenuModeCommand.COMMAND_WORD:
                 return new MenuModeCommand();

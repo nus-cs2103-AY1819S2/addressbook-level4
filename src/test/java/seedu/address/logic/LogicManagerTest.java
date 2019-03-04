@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_PROFESSOR;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PASTJOB_PROFESSSOR;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;

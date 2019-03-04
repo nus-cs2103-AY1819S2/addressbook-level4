@@ -21,7 +21,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
-public class MemberFindCommandSystemTest extends AddressBookSystemTest {
+public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void find() {

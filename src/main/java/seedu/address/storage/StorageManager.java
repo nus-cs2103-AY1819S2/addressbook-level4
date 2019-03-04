@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -20,12 +21,15 @@ public class StorageManager implements Storage {
     private RestOrRantStorage restOrRantStorage;
     private UserPrefsStorage userPrefsStorage;
     // private MenuStorage menuStorage;
+    private OrdersStorage ordersStorage;
 
 
-    public StorageManager(RestOrRantStorage restOrRantStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(RestOrRantStorage restOrRantStorage, UserPrefsStorage userPrefsStorage, 
+        OrdersStorage ordersStorage) {
         super();
         this.restOrRantStorage = restOrRantStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.ordersStorage = ordersStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -44,8 +48,7 @@ public class StorageManager implements Storage {
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
-
-
+    
     // ================ Menu methods ==============================
 
     @Override
@@ -99,4 +102,39 @@ public class StorageManager implements Storage {
     // public void backupMenu(ReadOnlyRestOrRant menu) throws IOException {
     //     menuStorage.backupMenu(menu);
     // }
+
+    // ================ Orders methods ==============================
+
+    @Override
+    public Path getOrdersFilePath() {
+        return ordersStorage.getOrdersFilePath();
+    }
+
+
+    @Override
+    public Optional<ReadOnlyOrders> readOrders() throws DataConversionException, IOException {
+        return readOrders(ordersStorage.getOrdersFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyOrders> readOrders(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return ordersStorage.readOrders(filePath);
+    }
+    
+    @Override
+    public void saveOrders(ReadOnlyOrders orders) throws IOException {
+        saveOrders(orders, ordersStorage.getOrdersFilePath());
+    }
+
+    @Override
+    public void saveOrders(ReadOnlyOrders orders, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        ordersStorage.saveOrders(orders, filePath);
+    }
+
+    @Override
+    public void backupOrders(ReadOnlyOrders orders) throws IOException {
+        ordersStorage.backupOrders(orders);
+    }
 }

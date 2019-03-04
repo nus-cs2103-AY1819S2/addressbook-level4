@@ -17,51 +17,51 @@ public class EquipmentCardTest extends GuiUnitTest {
     public void display() {
         // no tags
         Equipment equipmentWithNoTags = new EquipmentBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(equipmentWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, equipmentWithNoTags, 1);
+        EquipmentCard equipmentCard = new EquipmentCard(equipmentWithNoTags, 1);
+        uiPartRule.setUiPart(equipmentCard);
+        assertCardDisplay(equipmentCard, equipmentWithNoTags, 1);
 
         // with tags
         Equipment equipmentWithTags = new EquipmentBuilder().build();
-        personCard = new PersonCard(equipmentWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, equipmentWithTags, 2);
+        equipmentCard = new EquipmentCard(equipmentWithTags, 2);
+        uiPartRule.setUiPart(equipmentCard);
+        assertCardDisplay(equipmentCard, equipmentWithTags, 2);
     }
 
     @Test
     public void equals() {
         Equipment equipment = new EquipmentBuilder().build();
-        PersonCard personCard = new PersonCard(equipment, 0);
+        EquipmentCard equipmentCard = new EquipmentCard(equipment, 0);
 
         // same equipment, same index -> returns true
-        PersonCard copy = new PersonCard(equipment, 0);
-        assertTrue(personCard.equals(copy));
+        EquipmentCard copy = new EquipmentCard(equipment, 0);
+        assertTrue(equipmentCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(equipmentCard.equals(equipmentCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(equipmentCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(equipmentCard.equals(0));
 
         // different equipment, same index -> returns false
         Equipment differentEquipment = new EquipmentBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentEquipment, 0)));
+        assertFalse(equipmentCard.equals(new EquipmentCard(differentEquipment, 0)));
 
         // same equipment, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(equipment, 1)));
+        assertFalse(equipmentCard.equals(new EquipmentCard(equipment, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedEquipment} correctly and matches
+     * Asserts that {@code equipmentCard} displays the details of {@code expectedEquipment} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Equipment expectedEquipment, int expectedId) {
+    private void assertCardDisplay(EquipmentCard equipmentCard, Equipment expectedEquipment, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        PersonCardHandle personCardHandle = new PersonCardHandle(equipmentCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());

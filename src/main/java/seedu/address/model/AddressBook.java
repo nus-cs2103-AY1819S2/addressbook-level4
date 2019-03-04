@@ -7,7 +7,9 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueHealthWorkerList;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -16,6 +18,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueHealthWorkerList healthWorkers;
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        healthWorkers = new UniqueHealthWorkerList();
     }
 
     public AddressBook() {}
@@ -99,6 +103,51 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
         indicateModified();
     }
+
+    // ==== Added methods to support operations on UniqueHealthWorkerList ====
+    // @author: Lookaz
+
+    /**
+     * Returns true if a HealthWorker with the same identity as {@code worker}
+     * exists in the address book.
+     */
+    public boolean hasHealthWorker(HealthWorker worker) {
+        requireNonNull(worker);
+        return this.healthWorkers.contains(worker);
+    }
+
+    /**
+     * Adds a HealthWorker to the address book.
+     * The HealthWorker must not already exist in the address book.
+     */
+    public void addHealthWorker(HealthWorker worker) {
+        this.healthWorkers.add(worker);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given HealthWorker {@code target} in the list with {@code
+     * edited}. {@code target} must exist in the address book.
+     * The identity of {@code edited} must not be the same as
+     * another existing HealthWorker in the address book.
+     */
+    public void setHealthWorker(HealthWorker target, HealthWorker edited) {
+        requireNonNull(edited);
+
+        this.healthWorkers.setHealthWorker(target, edited);
+        indicateModified();
+    }
+
+    /**
+     * Removes HealthWorker {@code worker} from this {@code AddressBook}.
+     * HealthWorker {@code worker} must exist in the address book.
+     */
+    public void removeHealthWorker(HealthWorker worker) {
+        this.healthWorkers.remove(worker);
+        indicateModified();
+    }
+
+    // ======================================================================
 
     @Override
     public void addListener(InvalidationListener listener) {

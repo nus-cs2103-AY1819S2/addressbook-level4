@@ -3,9 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -19,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -37,18 +42,18 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     // Default strings for Health Worker objects
-    public static final String VALID_NAME_HW_A = "Health Worker A";
-    public static final String VALID_NAME_HW_B = "Health Worker B";
-    public static final String VALID_NRIC_HW_A = "S9999111Z";
-    public static final String VALID_NRIC_HW_B = "S9898222A";
-    public static final String VALID_PHONE_HW_A = "98765432";
-    public static final String VALID_PHONE_HW_B = "99991111";
-    public static final String VALID_EMAIL_HW_A = "healthworkera@example.com";
-    public static final String VALID_EMAIL_HW_B = "healthworkerb@example.com";
-    public static final String VALID_ADDRESS_HW_A = "Block 123, NUS";
-    public static final String VALID_ADDRESS_HW_B = "Block 456, NUS";
-    public static final String VALID_ORGANIZATION_HW_A = "Hospital A";
-    public static final String VALID_ORGANIZATION_HW_B = "Clinic B";
+    public static final String VALID_NAME_ANDY = "Andy Tan";
+    public static final String VALID_NAME_BETTY = "Health Worker B";
+    public static final String VALID_NRIC_ANDY = "S8312942G";
+    public static final String VALID_NRIC_BETTY = "S9898222A";
+    public static final String VALID_PHONE_ANDY = "94358253";
+    public static final String VALID_PHONE_BETTY = "99991111";
+    public static final String VALID_EMAIL_ANDY = "andye@example.com";
+    public static final String VALID_EMAIL_BETTY = "healthworkerb@example.com";
+    public static final String VALID_ADDRESS_ANDY = "125, Jurong West Ave 6, #08-111";
+    public static final String VALID_ADDRESS_BETTY = "Block 456, NUS";
+    public static final String VALID_ORGANIZATION_ANDY = "NUH";
+    public static final String VALID_ORGANIZATION_BETTY = "Clinic B";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -60,12 +65,31 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    // Default descriptions for Health Worker objects
+    public static final String MODE_HEALTHWORKER = " " + PREFIX_ADD_HEALTHWORKER;
+    public static final String NAME_DESC_ANDY = " " + PREFIX_NAME + VALID_NAME_ANDY;
+    public static final String NAME_DESC_BETTY = " " + PREFIX_NAME + VALID_NAME_BETTY;
+    public static final String NRIC_DESC_ANDY = " " + PREFIX_NRIC + VALID_NRIC_ANDY;
+    public static final String NRIC_DESC_BETTY = " " + PREFIX_NRIC + VALID_NRIC_BETTY;
+    public static final String PHONE_DESC_ANDY = " " + PREFIX_PHONE + VALID_PHONE_ANDY;
+    public static final String PHONE_DESC_BETTY = " " + PREFIX_PHONE + VALID_PHONE_BETTY;
+    public static final String EMAIL_DESC_ANDY = " " + PREFIX_EMAIL + VALID_EMAIL_ANDY;
+    public static final String EMAIL_DESC_BETTY = " " + PREFIX_EMAIL + VALID_EMAIL_BETTY;
+    public static final String ADDRESS_DESC_ANDY = " " + PREFIX_ADDRESS + VALID_ADDRESS_ANDY;
+    public static final String ADDRESS_DESC_BETTY = " " + PREFIX_ADDRESS + VALID_ADDRESS_BETTY;
+    public static final String ORGANIZATION_DESC_ANDY = " " + PREFIX_ORGANIZATION + VALID_ORGANIZATION_ANDY;
+    public static final String ORGANIZATION_DESC_BETTY = " " + PREFIX_ORGANIZATION + VALID_ORGANIZATION_BETTY;
+    public static final String SKILLS_DESC_ANDY = " " + PREFIX_SKILLS + Specialisation.GENERAL_PRACTICE.name()
+            + " " + PREFIX_SKILLS + Specialisation.PHYSIOTHERAPY.name();
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_ORGANIZATION_DESC = " " + PREFIX_ORGANIZATION + "ABC!";
+    public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "A12345678";
+    public static final String INVALID_SKILLS_DESC = " " + PREFIX_SKILLS + "general_practice";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

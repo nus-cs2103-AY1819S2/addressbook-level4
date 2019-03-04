@@ -8,14 +8,12 @@ import java.util.Optional;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.ReadOnlyTables;
 
 public class Tables implements ReadOnlyTables {
 
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     private final UniqueTableList tableList;
-
     {
         tableList = new UniqueTableList(); 
     }
@@ -90,6 +88,7 @@ public class Tables implements ReadOnlyTables {
         indicateModified();
     }
     
+    @Override
     public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
         return Optional.of(tableList.getTable(tableNumber));
     }

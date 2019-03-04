@@ -40,7 +40,7 @@ public class BillCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Bill Calculated: %1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
 
-    private final Table toBill;
+    //private final Table toBill;
     private Bill bill;
 
     /**
@@ -51,18 +51,18 @@ public class BillCommand extends Command {
         requireNonNull(day);
         requireNonNull(month);
         requireNonNull(year);
-        toBill = Table.getTableFromNumber(tableNumber);
+        // toBill = Table.getTableFromNumber(tableNumber);
     }
 
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasTable(toBill)) {
-            throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
-        }
+        //if (!model.hasTable(toBill)) {
+        //    throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
+        //}
 
-        bill = calculateBill(toBill);
+        //bill = calculateBill(toBill);
         model.updateRestOrRant();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }

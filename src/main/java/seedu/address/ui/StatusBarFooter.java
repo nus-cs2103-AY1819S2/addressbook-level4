@@ -42,6 +42,10 @@ public class StatusBarFooter extends UiPart<Region> {
         syncStatus.setText(SYNC_STATUS_INITIAL);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
+    
+    public StatusBarFooter() {
+        super(FXML);
+    }
 
     /**
      * Sets the clock used to determine the current time.

@@ -33,8 +33,6 @@ public interface Logic {
      */
     ReadOnlyRestOrRant getRestOrRant();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList(); // TODO: remove
     /** Returns an unmodifiable view of the filtered list of menu items */
     ObservableList<MenuItem> getFilteredMenuItemList();
 
@@ -43,11 +41,6 @@ public interface Logic {
      * The list is ordered from the least recent command to the most recent command.
      */
     ObservableList<String> getHistory();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getRestOrRantFilePath(); // TODO: remove
 
     /**
      * Returns the user pref's menu file path.
@@ -65,14 +58,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     *
-     * @see seedu.address.model.Model#selectedPersonProperty()
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty(); // TODO: remove
-    
-    /**
      * Selected menu item in the filtered menu item list.
      * null if no person is selected.
      * 
@@ -80,14 +65,6 @@ public interface Logic {
      */
     ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
 
-    /**
-     * Sets the selected person in the filtered person list.
-     *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
-     */
-
-    void setSelectedPerson(Person person); // TODO: remove
-    
     /**
      * Sets the selected menu item in the filtered menu item list.
      * 

@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 /**
  * An Immutable RestOrRant that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "menu")
 class JsonSerializableMenu {
 
     public static final String MESSAGE_DUPLICATE_ITEM = "Menu list contains duplicate items(s).";

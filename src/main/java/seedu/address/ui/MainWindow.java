@@ -32,9 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private MenuListPanel menuListPanel;
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MenuBrowserPanel menuBrowserPanel;
@@ -114,19 +112,19 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        // TODO: change according to mode
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        // TODO: set restaurant mode defaults
+        menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
+        browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
             
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                logic::setSelectedMenuItem);
+        listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         // TODO: refine later (this correct??)
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRestOrRantFilePath(), logic.getRestOrRant());
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -185,27 +183,22 @@ public class MainWindow extends UiPart<Stage> {
         switch (mode) {
 
         case RESTAURANT_MODE:
-            browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
-    
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                    logic::setSelectedPerson);
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    
             break;
 
         case TABLE_MODE:
             menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
     
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                    logic::setSelectedPerson);
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            // TODO: change to orderListPanel
+            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                    logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
             break;
 
         case MENU_MODE:
-            browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            // TODO: change to browser panel to app logo in future versions (for now keep the tables?)
+            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
+            browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
     
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
@@ -216,11 +209,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         }
     }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
+    
     /**
      * Executes the command and returns the result.
      *

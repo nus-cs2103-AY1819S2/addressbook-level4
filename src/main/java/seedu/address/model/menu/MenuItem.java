@@ -1,7 +1,5 @@
 package seedu.address.model.menu;
 
-import seedu.address.model.Item;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -10,7 +8,7 @@ import java.util.Objects;
  * Represents a MenuItem in the menu.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class MenuItem extends Item{
+public class MenuItem {
 
     // Identity fields
     private final Name name;

@@ -100,10 +100,6 @@ public class LogicManager implements Logic {
     public ObservableList<MenuItem> getFilteredMenuItemList() {
         return model.getFilteredMenuItemList();
     }
-    // TODO: remove
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList(); 
-    }
 
     @Override
     public ObservableList<String> getHistory() {
@@ -114,9 +110,6 @@ public class LogicManager implements Logic {
     public Path getMenuFilePath() {
         return model.getMenuFilePath();
     }
-    public Path getRestOrRantFilePath() {
-        return model.getRestOrRantFilePath();
-    } // TODO: remove
 
     @Override
     public GuiSettings getGuiSettings() {
@@ -132,15 +125,10 @@ public class LogicManager implements Logic {
     public ReadOnlyProperty<MenuItem> selectedMenuItemProperty() {
         return model.selectedMenuItemProperty();
     }
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
-    } // TODO: remove
 
     @Override
     public void setSelectedMenuItem(MenuItem item) {
         model.setSelectedMenuItem(item);
     }
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
-    } // TODO: remove
+
 }

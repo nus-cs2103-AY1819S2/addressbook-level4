@@ -63,7 +63,7 @@ public class MenuListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ItemCard(item, getIndex() + 1).getRoot());
+                setGraphic(new MenuItemCard(item, getIndex() + 1).getRoot());
             }
         }
     }

@@ -30,6 +30,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SpendCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Description;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -97,9 +98,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_description() throws Exception {
-        final String description = "Some description.";
+        final Description description = new Description("Some description.");
         DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_DESCRIPTION + description);
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
         assertEquals(new DescriptionCommand(INDEX_FIRST_PERSON, description), command);
     }
 

@@ -16,6 +16,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Description;
 
 /**
  * Contains integration tests (interaction with Model)and unit tests for DescriptionCommand.
@@ -26,7 +27,7 @@ public class DescriptionCommandTest {
 
     @Test
     public void execute() {
-        final String description = "Some description";
+        final Description description = new Description("Some description");
 
         assertCommandFailure(new DescriptionCommand(INDEX_FIRST_PERSON, description), model, new CommandHistory(),
                 String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), description));
@@ -34,10 +35,13 @@ public class DescriptionCommandTest {
 
     @Test
     public void equals() {
-        final DescriptionCommand standardCommand = new DescriptionCommand(INDEX_FIRST_PERSON, VALID_DESCRIPTION_AMY);
+        final DescriptionCommand standardCommand = new DescriptionCommand(INDEX_FIRST_PERSON,
+                new Description(VALID_DESCRIPTION_AMY));
 
         // Object with same values -> returns true
-        DescriptionCommand commandWithSameValues = new DescriptionCommand(INDEX_FIRST_PERSON, VALID_DESCRIPTION_AMY);
+        DescriptionCommand commandWithSameValues = new DescriptionCommand(INDEX_FIRST_PERSON,
+                new Description(VALID_DESCRIPTION_AMY));
+
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // Same object -> returns true
@@ -50,9 +54,11 @@ public class DescriptionCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_SECOND_PERSON, VALID_DESCRIPTION_AMY)));
+        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_SECOND_PERSON,
+                new Description(VALID_DESCRIPTION_AMY))));
 
         // different description -> returns false
-        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_FIRST_PERSON, VALID_DESCRIPTION_BOB)));
+        assertFalse(standardCommand.equals(new DescriptionCommand(INDEX_FIRST_PERSON,
+                new Description(VALID_DESCRIPTION_BOB))));
     }
 }

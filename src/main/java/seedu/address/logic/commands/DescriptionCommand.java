@@ -7,6 +7,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Description;
+
 
 /**
  * Changes the description of an existing expense entry in finance log.
@@ -27,13 +29,13 @@ public class DescriptionCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Description: %2$s";
 
     private final Index index;
-    private final String description;
+    private final Description description;
 
     /**
      * @param index Index of the expense entry in the filtered expense list to edit description
      * @param description description of the expense entry to be updated to
      */
-    public DescriptionCommand(Index index, String description) {
+    public DescriptionCommand(Index index, Description description) {
         requireAllNonNull(index, description);
 
         this.index = index;

@@ -18,6 +18,8 @@ import braintrain.model.Model;
 import braintrain.model.ModelManager;
 import braintrain.model.ReadOnlyUserPrefs;
 import braintrain.model.UserPrefs;
+import braintrain.quiz.QuizModel;
+import braintrain.quiz.QuizModelManager;
 import braintrain.storage.CsvLessonImportExport;
 import braintrain.storage.CsvLessonsStorage;
 import braintrain.storage.JsonUserPrefsStorage;
@@ -28,9 +30,9 @@ import braintrain.storage.StorageManager;
 import braintrain.storage.UserPrefsStorage;
 import braintrain.ui.Ui;
 import braintrain.ui.UiManager;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 /**
  * The main entry point to the application.
  */
@@ -44,6 +46,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected QuizModel quizModel;
     protected Config config;
 
     @Override
@@ -64,8 +67,9 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(userPrefs, lessons);
+        quizModel = initQuizModelManager();
 
-        logic = new LogicManager(model);
+        logic = new LogicManager(model, quizModel);
 
         ui = new UiManager(logic);
     }
@@ -75,6 +79,13 @@ public class MainApp extends Application {
      */
     private Model initModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
         return new ModelManager(userPrefs, lessons);
+    }
+
+    /**
+     * Returns an empty {@code QuizModelManager}.
+     */
+    private QuizModelManager initQuizModelManager() {
+        return new QuizModelManager();
     }
 
     private void initLogging(Config config) {

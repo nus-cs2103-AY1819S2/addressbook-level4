@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -22,13 +24,23 @@ public class StatsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
+        ArrayList<String> onlyCommands = new ArrayList<>();
+        ArrayList<String> outputStatistics = new ArrayList<>();
 
         if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
-        Collections.reverse(previousCommands);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
+        for (String string : previousCommands) {
+            onlyCommands.add(string.split(" ")[0]); // Take first word
+        }
+        Set<String> set = new HashSet<>(onlyCommands);
+        // get frequency of each command
+        for (String s : set) {
+            outputStatistics.add(s + ": " + Collections.frequency(onlyCommands, s));
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
     }
 
 }

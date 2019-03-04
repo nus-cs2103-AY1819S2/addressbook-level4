@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import jdk.nashorn.api.tree.CatchTree;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.consultation.Assessment;
 import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
@@ -20,7 +17,6 @@ import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.Assert;
 
 public class PrescriptionCommandTest {
 

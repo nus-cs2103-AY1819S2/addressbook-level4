@@ -115,13 +115,13 @@ public class ParserUtil {
      */
     public static ServiceType parseService(String serviceName) throws ParseException {
         requireNonNull(serviceName);
-        serviceName = serviceName.trim();
-        switch(serviceName) {
+        String trimmedServiceName = serviceName.trim();
+        switch(trimmedServiceName) {
         case "GYM": return ServiceType.GYM;
         case "SWIMMING POOL": return ServiceType.POOL;
         case "SPA": return ServiceType.SPA;
         case "GAMES ROOM": return ServiceType.GAMES;
-        default: throw new ParseException(String.format("Service Type %s doesn't exist!", serviceName));
+        default: throw new ParseException(String.format("Service Type %s doesn't exist!", trimmedServiceName));
         }
     }
 
@@ -131,8 +131,8 @@ public class ParserUtil {
      */
     public static TimeRange parseTiming(String timing) throws ParseException {
         requireNonNull(timing);
-        timing = timing.trim();
-        String[] hours = timing.split(" - ");
+        String trimmedTiming = timing.trim();
+        String[] hours = trimmedTiming.split(" - ");
         return new TimeRange(Integer.parseInt(hours[0]), Integer.parseInt(hours[1]));
     }
 

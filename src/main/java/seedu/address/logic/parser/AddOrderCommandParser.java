@@ -14,13 +14,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.menu.Code;
 
 /**
  * Parses input arguments and creates a new AddOrderCommand object
@@ -40,10 +34,10 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
         }
 
-        List<String> itemCodes = new ArrayList<>();
+        List<Code> itemCodes = new ArrayList<>();
         List<Integer> itemQuantities = new ArrayList<>();
         for (int i = 0; i < itemDetails.length - 1; i += 2) {
-            itemCodes.add(itemDetails[i]); // TODO: check for valid code?
+            itemCodes.add(new Code(itemDetails[i])); // TODO: check for valid code?
             itemQuantities.add(ParserUtil.parseQuantity(itemDetails[i + 1]));
         }
 

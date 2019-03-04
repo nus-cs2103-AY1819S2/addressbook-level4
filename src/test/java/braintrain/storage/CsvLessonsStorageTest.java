@@ -123,7 +123,7 @@ public class CsvLessonsStorageTest {
     @Test
     public void readLessons_invalidData_cardIgnored() {
         Lessons lessons = readLessons(INVALID_VALUES_FOLDER).get();
-        assertEquals(0, lessons.getLesson(0).getCards().size());
+        assertEquals(1, lessons.getLesson(0).getCards().size());
     }
 
     @Test

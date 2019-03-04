@@ -19,8 +19,8 @@ public class AttackCommandParserTest {
 	private AttackCommandParser parser = new AttackCommandParser();
 
 	@Test
-	public void parse_validArgs_returnsAttackCommand() {
-		//assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_PERSON));
+    public void parse_validArgs_returnsAttackCommand() {
+        //assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_PERSON));
 		org.junit.Assert.assertTrue(true);
 	}
 

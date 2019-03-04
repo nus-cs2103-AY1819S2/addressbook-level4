@@ -107,7 +107,7 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-   /* public BrowserPanelHandle getBrowserPanel() {
+    /* public BrowserPanelHandle getBrowserPanel() {
         return mainWindowHandle.getBrowserPanel();
     }*/
 

@@ -46,25 +46,25 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      */
     public RestOrRant(ReadOnlyRestOrRant toBeCopied) {
         this();
-        resetData(toBeCopied.getOrders(), toBeCopied.getMenu());
+        resetData(toBeCopied.getOrders(), toBeCopied.getMenu(), toBeCopied.getTables());
     }
     
     /**
-     * Creates an RestOrRant using the data specified in {@code copyOrders, copyMenu} // TODO: add more parameters
+     * Creates an RestOrRant using the data specified in {@code copyOrders, copyMenu, copyTables} // TODO: add more parameters
      */
-    public RestOrRant(ReadOnlyOrders copyOrders, ReadOnlyMenu copyMenu) {
+    public RestOrRant(ReadOnlyOrders copyOrders, ReadOnlyMenu copyMenu, ReadOnlyTables copyTables) {
         this();
-        resetData(copyOrders, copyMenu);
+        resetData(copyOrders, copyMenu, copyTables);
     }
 
     /**
-     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu}. // TODO: add more parameters
+     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu, newTables}. //TODO: add more parameters 
      */
-    public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu) {
+    public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu, ReadOnlyTables newTables) {
         requireAllNonNull(newOrders, newMenu);
         orders.setOrderItems(newOrders.getOrderItemList());
-        // TODO: add more lines to set all the variables
         menu.setMenuItems(newMenu.getMenuItemList());
+        tables.setTables(newTables.getTableList());
     }
 
     public void changeMode() {
@@ -115,7 +115,8 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
                 && orders.equals(((RestOrRant) other).orders)
-                && menu.equals(((RestOrRant) other).menu));
+                && menu.equals(((RestOrRant) other).menu)
+                && tables.equals(((RestOrRant) other).tables));
     }
 
     @Override

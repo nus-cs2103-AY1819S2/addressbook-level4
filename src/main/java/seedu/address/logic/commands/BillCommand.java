@@ -9,6 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Statistics.Bill;
 import seedu.address.model.Statistics.Day;
 import seedu.address.model.Statistics.Month;
 import seedu.address.model.Statistics.Year;
@@ -40,6 +41,7 @@ public class BillCommand extends Command {
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
 
     private final Table toBill;
+    private Bill bill;
 
     /**
      * Creates a BillCommand to find the total bill of the specified {@code Table}
@@ -49,7 +51,7 @@ public class BillCommand extends Command {
         requireNonNull(day);
         requireNonNull(month);
         requireNonNull(year);
-        toBill = Table.getTable(tableNumber);
+        toBill = Table.getTableFromNumber(tableNumber);
     }
 
     @Override
@@ -60,9 +62,15 @@ public class BillCommand extends Command {
             throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
         }
 
-        model.calculateBill(toBill);
+        bill = calculateBill(toBill);
         model.updateRestOrRant();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toBill));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }
+    /**
+    Bill calculateBill(Table table) {
+        Bill bill = new Bill(table.getTableNumber(), );
+        return 
+    }
+     **/
 
 }

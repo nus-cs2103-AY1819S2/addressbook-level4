@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.Statistics.ReadOnlyStatistics;
 
 /**
  * Wraps all order-related data
@@ -42,12 +41,24 @@ public class Statistics implements ReadOnlyStatistics {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the bill list with {@code billList}.
+     * Replaces the given menu item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the address book.
+     * The item identity of {@code editedItem} must not be the same as another existing menu item in the address book.
      */
-    public void setBillList(List<Bill> billList) {
-        this.billList.setBillList(billList);
+    public void setBills(Bill target, Bill editedItem) {
+        requireNonNull(editedItem);
+
+        billList.setBills(target, editedItem);
         indicateModified();
     }
+
+    /**
+     * Replaces the contents of the bill list with {@code billList}.
+     */
+    public void setBills(List<Bill> billList) {
+        this.billList.setBillList(billList);
+        indicateModified();
+    }    
 
     /**
      * Resets the existing data of this RestOrRant's {@code Statistics} with {@code newData}.
@@ -55,7 +66,7 @@ public class Statistics implements ReadOnlyStatistics {
     public void resetData(ReadOnlyStatistics newData) {
         requireNonNull(newData);
 
-        setBillList(newData.getBillList());
+        setBills(newData.getBillList());
     }
 
     /**

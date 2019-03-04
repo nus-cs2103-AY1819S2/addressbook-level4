@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.Statistics.exception.BillNotFoundException;
 
 /**
  * A list of bills
@@ -29,12 +30,43 @@ public class BillList implements Iterable<Bill>{
     }
 
     /**
+     * Replaces the order item {@code target} in the list with {@code editedOrderItem}.
+     * {@code target} must exist in the list.
+     * The order item identity of {@code editedOrderItem} must not be the same as another existing order item
+     * in the list.
+     */
+    public void setBills(Bill target, Bill editedBillItem) {
+        requireAllNonNull(target, editedBillItem);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new BillNotFoundException();
+        }
+
+        internalList.set(index, editedBillItem);
+    }
+
+    /**
+     * Removes the equivalent order item from the list.
+     * The order item must exist in the list.
+     */
+    public void remove(Bill toRemove) {
+        requireNonNull(toRemove);
+    }
+
+    public void setBills(BillList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
      * Replaces the contents of this list with {@code billList}.
      */
     public void setBillList(List<Bill> billList) {
         requireAllNonNull(billList);
         internalList.setAll(billList);
     }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

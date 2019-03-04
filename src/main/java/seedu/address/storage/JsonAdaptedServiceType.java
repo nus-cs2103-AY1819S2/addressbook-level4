@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.ServiceType;
 import seedu.address.model.customer.Customer;
@@ -12,8 +11,8 @@ import seedu.address.model.customer.Customer;
  */
 class JsonAdaptedServiceType {
 
-    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Service Type's %s field is missing!";
-    private static final String INVALID_NAME_MESSAGE_FORMAT = "Service Type %s doesn't exist!";
+    private final static String MISSING_FIELD_MESSAGE_FORMAT = "Service Type's %s field is missing!";
+    private final static String INVALID_NAME_MESSAGE_FORMAT = "Service Type %s doesn't exist!";
 
     private final String name;
 

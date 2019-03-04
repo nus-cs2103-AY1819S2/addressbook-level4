@@ -15,7 +15,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.testfx.api.FxToolkit;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.ModelManager;
+import seedu.address.model.BookingManager;
+import seedu.address.model.CustomerManager;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -38,7 +39,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), customerModel, bookingModel,
+            mainWindow = new MainWindow(stage, new LogicManager(new CustomerManager(), new BookingManager(),
                 storageManager));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();

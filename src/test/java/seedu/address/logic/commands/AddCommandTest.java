@@ -122,42 +122,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCustomer(Customer customer) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasCustomer(Customer customer) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteCustomer(Customer target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setCustomer(Customer target, Customer editedCustomer) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Customer> getFilteredCustomerList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredCustomerList(Predicate<Customer> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,20 +156,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public ReadOnlyProperty<Customer> selectedCustomerProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Customer getSelectedCustomer() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedCustomer(Customer customer) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
@@ -212,12 +168,6 @@ public class AddCommandTest {
             requireNonNull(customer);
             this.customer = customer;
         }
-
-        @Override
-        public boolean hasCustomer(Customer customer) {
-            requireNonNull(customer);
-            return this.customer.isSameCustomer(customer);
-        }
     }
 
     /**
@@ -225,18 +175,6 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingCustomerAdded extends ModelStub {
         final ArrayList<Customer> customersAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasCustomer(Customer customer) {
-            requireNonNull(customer);
-            return customersAdded.stream().anyMatch(customer::isSameCustomer);
-        }
-
-        @Override
-        public void addCustomer(Customer customer) {
-            requireNonNull(customer);
-            customersAdded.add(customer);
-        }
 
         @Override
         public void commitAddressBook() {

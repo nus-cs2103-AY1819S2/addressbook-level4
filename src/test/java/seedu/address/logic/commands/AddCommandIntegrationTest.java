@@ -7,8 +7,9 @@ import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
 import org.junit.Before;
 import org.junit.Test;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.CustomerManager;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.testutil.CustomerBuilder;
@@ -18,19 +19,19 @@ import seedu.address.testutil.CustomerBuilder;
  */
 public class AddCommandIntegrationTest {
 
-    private Model model;
+    private CustomerModel model;
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new CustomerManager(getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newCustomer_success() {
         Customer validCustomer = new CustomerBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addCustomer(validCustomer);
         expectedModel.commitAddressBook();
 

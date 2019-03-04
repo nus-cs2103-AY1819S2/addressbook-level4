@@ -218,6 +218,7 @@ public class BookingManager implements BookingModel {
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     public void updateFilteredBookingList(Predicate<Booking> predicate) {

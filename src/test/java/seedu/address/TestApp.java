@@ -10,7 +10,8 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
+import seedu.address.model.CustomerManager;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -94,9 +95,9 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the model.
      */
-    public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredCustomerList());
+    public CustomerModel getModel() {
+        CustomerModel copy = new CustomerManager((customerModel.getAddressBook()), new UserPrefs());
+        ModelHelper.setFilteredList(copy, customerModel.getFilteredCustomerList());
         return copy;
     }
 

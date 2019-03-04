@@ -17,6 +17,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
@@ -28,7 +29,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
          * -> 2 customers found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -162,9 +163,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
-    private void assertCommandSuccess(String command, Model expectedModel) {
+    private void assertCommandSuccess(String command, CustomerModel expectedModel) {
         String expectedResultMessage = String.format(
             MESSAGE_CUSTOMERS_LISTED_OVERVIEW, expectedModel.getFilteredCustomerList().size());
 
@@ -182,10 +183,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);

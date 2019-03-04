@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalCustomers.ALICE;
 import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import javafx.collections.ObservableList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.exceptions.DuplicateCustomerException;
 import seedu.address.testutil.CustomerBuilder;
@@ -54,7 +56,7 @@ public class AddressBookTest {
         Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         List<Customer> newCustomers = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newCustomers);
+        AddressBookStub newData = new AddressBookStub(newCustomers, new ArrayList<>());
 
         thrown.expect(DuplicateCustomerException.class);
         addressBook.resetData(newData);
@@ -115,14 +117,21 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();
+        private final ObservableList<Booking> bookings = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Customer> customers) {
+        AddressBookStub(Collection<Customer> customers, Collection<Booking> bookings) {
             this.customers.setAll(customers);
+            this.bookings.setAll(bookings);
         }
 
         @Override
         public ObservableList<Customer> getCustomerList() {
             return customers;
+        }
+
+        @Override
+        public ObservableList<Booking> getBookingList() {
+            return bookings;
         }
 
         @Override

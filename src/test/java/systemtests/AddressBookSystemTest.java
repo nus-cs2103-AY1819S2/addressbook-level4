@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,7 +34,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
+import seedu.address.model.CustomerModel;
 import seedu.address.testutil.TypicalCustomers;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -167,7 +168,7 @@ public abstract class AddressBookSystemTest {
      * and the customer list panel displays the customers in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-                                                     Model expectedModel) {
+                                                     CustomerModel expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
@@ -280,7 +281,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns a defensive copy of the current model.
      */
-    protected Model getModel() {
+    protected CustomerModel getModel() {
         return testApp.getModel();
     }
 }

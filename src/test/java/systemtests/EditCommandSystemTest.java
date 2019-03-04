@@ -1,6 +1,7 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -36,6 +37,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
@@ -50,7 +52,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void edit() {
-        Model model = getModel();
+        CustomerModel model = getModel();
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
@@ -237,7 +239,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Index toEdit, Customer editedCustomer,
                                       Index expectedSelectedCardIndex) {
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
         expectedModel.setCustomer(expectedModel.getFilteredCustomerList().get(toEdit.getZeroBased()), editedCustomer);
         expectedModel.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
@@ -251,7 +253,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      *
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+    private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
     }
 
@@ -269,7 +271,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
+    private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
         executeCommand(command);
         expectedModel.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
@@ -295,7 +297,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);

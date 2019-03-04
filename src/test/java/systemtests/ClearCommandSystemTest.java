@@ -8,14 +8,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.CustomerManager;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void clear() {
-        final Model defaultModel = getModel();
+        final CustomerModel defaultModel = getModel();
 
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
@@ -32,7 +33,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo clearing address book -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        assertCommandSuccess(command, expectedResultMessage, new CustomerManager());
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in customer list and clears address book -> cleared and no card selected */
@@ -65,7 +66,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
+        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new CustomerManager());
     }
 
     /**
@@ -74,7 +75,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      *
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
-    private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
+    private void assertCommandSuccess(String command, String expectedResultMessage, CustomerModel expectedModel) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
@@ -89,10 +90,10 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);

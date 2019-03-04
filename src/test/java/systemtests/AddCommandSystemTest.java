@@ -35,6 +35,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
@@ -49,7 +50,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() {
-        Model model = getModel();
+        CustomerModel model = getModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
@@ -204,7 +205,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddCommandSystemTest#assertCommandSuccess(Customer)
      */
     private void assertCommandSuccess(String command, Customer toAdd) {
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
         expectedModel.addCustomer(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
@@ -220,7 +221,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      *
      * @see AddCommandSystemTest#assertCommandSuccess(String, Customer)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+    private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
@@ -238,10 +239,10 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
+        CustomerModel expectedModel = getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);

@@ -16,13 +16,13 @@ import seedu.address.model.table.Table;
 /**
  * An Immutable Tables that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "tableList")
 class JsonSerializableTables {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Table list contains duplicate table(s).";
+    public static final String MESSAGE_DUPLICATE_TABLE = "Table list contains duplicate table(s).";
     private final List<JsonAdaptedTable> tableList = new ArrayList<>();
     /**
-     * Constructs a {@code JsonSerializableRestOrRant} with the given persons.
+     * Constructs a {@code JsonSerializableRestOrRant} with the given tables.
      */
     @JsonCreator
     public JsonSerializableTables(@JsonProperty("tableList") List<JsonAdaptedTable> tableList) {
@@ -30,16 +30,16 @@ class JsonSerializableTables {
     }
 
     /**
-     * Converts a given {@code ReadOnlyRestOrRant} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyTables} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableRestOrRant}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableTables}.
      */
     public JsonSerializableTables(ReadOnlyTables source) {
         tableList.addAll(source.getTableList().stream().map(JsonAdaptedTable::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code RestOrRant} object.
+     * Converts this RestOrRant tables into the model's {@code Tables} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -48,7 +48,7 @@ class JsonSerializableTables {
         for (JsonAdaptedTable jsonAdaptedTable : this.tableList) {
             Table table = jsonAdaptedTable.toModelType();
             if (tables.hasTable(table)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TABLE);
             }
             tables.addTable(table);
         }

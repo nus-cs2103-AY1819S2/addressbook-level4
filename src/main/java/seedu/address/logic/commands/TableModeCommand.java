@@ -49,6 +49,7 @@ public class TableModeCommand extends ChangeModeCommand {
         
         model.updateFilteredTableList(Model.PREDICATE_SHOW_ALL_TABLES);
         model.setSelectedTable(tableOptional.get());
+        model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
 
         model.changeMode();
 

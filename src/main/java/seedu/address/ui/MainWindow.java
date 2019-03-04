@@ -183,12 +183,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleChangeMode(Mode mode) { // TODO: insert relevant code for each mode.
+        browserPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().clear();
+        
         switch (mode) {
 
         case RESTAURANT_MODE:
+            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
+            browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
+            
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
                     logic::setSelectedOrderItem);
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
             
             statusBarFooter.updateMode("Restaurant Mode");
@@ -200,7 +205,6 @@ public class MainWindow extends UiPart<Stage> {
 
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
                     logic::setSelectedOrderItem);
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
             
             statusBarFooter.updateMode("Table Mode");
@@ -213,7 +217,6 @@ public class MainWindow extends UiPart<Stage> {
     
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
             
             statusBarFooter.updateMode("Menu Mode");

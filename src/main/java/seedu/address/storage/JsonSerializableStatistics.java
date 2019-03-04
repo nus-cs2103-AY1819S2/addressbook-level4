@@ -16,7 +16,7 @@ import seedu.address.model.statistics.Statistics;
 /**
  * An Immutable RestOrRant that is serializable to JSON format.
  */
-@JsonRootName(value = "statistics")
+@JsonRootName(value = "statsList")
 class JsonSerializableStatistics {
     
     private final List<JsonAdaptedBill> statsList = new ArrayList<>();

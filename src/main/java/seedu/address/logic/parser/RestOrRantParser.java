@@ -65,7 +65,12 @@ public class RestOrRantParser {
                 return new TableModeCommandParser().parse(arguments);
                 
             case AddItemToMenuCommand.COMMAND_WORD:
+                if (mode != Mode.MENU_MODE) throw new ParseException(String.format(MESSAGE_INVALID_MODE));
                 return new AddItemToMenuCommandParser().parse(arguments);
+
+            case AddOrderCommand.COMMAND_WORD:
+                if (mode != Mode.TABLE_MODE) throw new ParseException(String.format(MESSAGE_INVALID_MODE));
+                return new AddOrderCommandParser().parse(arguments);
                 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

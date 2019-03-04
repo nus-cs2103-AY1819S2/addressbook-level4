@@ -95,7 +95,7 @@ public class LogicManager implements Logic {
     @Override
     public void changeMode(Mode mode) {
         this.mode = mode;
-    }
+    } // TODO: add defensive check? mode may be null if mode listener is accidentally triggered
 
     @Override
     public ReadOnlyRestOrRant getRestOrRant() {

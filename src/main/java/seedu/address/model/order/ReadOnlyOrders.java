@@ -1,19 +1,18 @@
-package seedu.address.model;
+package seedu.address.model.order;
 
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.person.Person;
 
 /**
- * Unmodifiable view of RestOrRant
+ * Unmodifiable view of RestOrRant's orders
  */
-public interface ReadOnlyRestOrRant extends Observable {
+public interface ReadOnlyOrders extends Observable {
 
     /**
      * Returns an unmodifiable view of the order items list.
      */
-    ReadOnlyOrders getOrders();
+    ObservableList<OrderItem> getOrderItemList();
 
 }

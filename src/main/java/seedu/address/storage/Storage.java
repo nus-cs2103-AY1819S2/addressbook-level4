@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -12,7 +13,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends RestOrRantStorage, UserPrefsStorage {
+public interface Storage extends RestOrRantStorage, UserPrefsStorage, OrdersStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -23,13 +24,15 @@ public interface Storage extends RestOrRantStorage, UserPrefsStorage {
     @Override
     Path getRestOrRantFilePath();
     // Path getMenuFilePath();
+    Path getOrdersFilePath();
 
     @Override
     Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException;
     // Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
+    Optional<ReadOnlyOrders> readOrders() throws DataConversionException, IOException;
 
     @Override
     void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException;
     // void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
-
+    void saveOrders(ReadOnlyOrders orders) throws IOException;
 }

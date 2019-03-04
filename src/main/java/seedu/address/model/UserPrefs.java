@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path restOrRantFilePath = Paths.get("data" , "restorrant.json");
+    private Path ordersFilePath = Paths.get("data" , "orders.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setRestOrRantFilePath(newUserPrefs.getRestOrRantFilePath());
+        setOrdersFilePath(newUserPrefs.getOrdersFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +58,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.restOrRantFilePath = restOrRantFilePath;
     }
 
+    public Path getOrdersFilePath() {
+        return ordersFilePath;
+    }
+
+    public void setOrdersFilePath(Path ordersFilePath) {
+        requireNonNull(ordersFilePath);
+        this.ordersFilePath = ordersFilePath;
+    }
+    
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,12 +79,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && restOrRantFilePath.equals(o.restOrRantFilePath);
+                && restOrRantFilePath.equals(o.restOrRantFilePath)
+                && ordersFilePath.equals(o.ordersFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, restOrRantFilePath);
+        return Objects.hash(guiSettings, restOrRantFilePath, ordersFilePath);
     }
 
     @Override
@@ -81,6 +93,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + restOrRantFilePath);
+        sb.append("\nLocal data file location for orders: " + ordersFilePath);
         return sb.toString();
     }
 

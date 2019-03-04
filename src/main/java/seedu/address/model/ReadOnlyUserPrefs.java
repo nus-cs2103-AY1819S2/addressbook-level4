@@ -12,5 +12,7 @@ public interface ReadOnlyUserPrefs {
     GuiSettings getGuiSettings();
 
     Path getRestOrRantFilePath();
+    
+    Path getOrdersFilePath();
 
 }

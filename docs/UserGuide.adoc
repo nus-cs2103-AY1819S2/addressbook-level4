@@ -457,19 +457,20 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *memberAdd* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `memberadd n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *memberClear* : `clear`
-* *memberDelete* : `delete INDEX` +
-e.g. `memberdelete 3`
-* *memberEdit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `memberedit 2 n/James Lee e/jameslee@example.com`
-* *memberFind* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `memberfind James Jake`
+* *memberAdd* : `memberAdd n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+ +
+e.g. `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`
+* *memberClear* : `memberClear`
+* *memberDelete* : `memberDelete INDEX` +
+e.g. `memberDelete 3`
+* *memberEdit* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
+* *memberFind* : `memberFind KEYWORD [MORE_KEYWORDS]` +
+e.g. `memberFind John`
 * *memberList* : `list`
-* *Help* : `help`
-* *memberSelect* : `select INDEX` +
-e.g.`memberselect 2`
+* *help* : `help`
+* *memberSelect* : `memberSelect INDEX` +
+e.g.`memberSelect 2`
 * *activityAdd* : `activityAdd n/ACTIVITYNAME d/DATE t/TAG...` +
 e.g. `activityAdd n/Sentosa Outing d/16022019 t/cohesion`
 * *activityList* : `activityList`

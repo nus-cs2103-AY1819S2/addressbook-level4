@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Statistics.ReadOnlyStatistics;
+import seedu.address.model.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
-import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.menu.ReadOnlyMenu;
@@ -23,14 +23,17 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private MenuStorage menuStorage;
     private OrdersStorage ordersStorage;
+    private TablesStorage tablesStorage;
     private StatisticsStorage statsStorage;
 
-    public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage, MenuStorage menuStorage, StatisticsStorage statsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage, MenuStorage menuStorage,
+                          StatisticsStorage statsStorage, TablesStorage tablesStorage) {
         super();
         this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.ordersStorage = ordersStorage;
         this.statsStorage = statsStorage;
+        this.tablesStorage = tablesStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -117,6 +120,40 @@ public class StorageManager implements Storage {
     @Override
     public void backupOrders(ReadOnlyOrders orders) throws IOException {
         ordersStorage.backupOrders(orders);
+    }
+
+    // ============= Tables methods ===============================
+
+    @Override
+    public Path getTableFilePath() {
+        return tablesStorage.getTableFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTables> readTables() throws DataConversionException, IOException {
+        return readTables(tablesStorage.getTableFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTables> readTables(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read fata from file: " + filePath);
+        return tablesStorage.readTables(filePath);
+    }
+
+    @Override
+    public void saveTables(ReadOnlyTables tables) throws IOException {
+        saveTables(tables, tablesStorage.getTableFilePath());
+    }
+
+    @Override
+    public void saveTables(ReadOnlyTables tables, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        tablesStorage.saveTables(tables, filePath);
+    }
+
+    @Override
+    public void backupTables(ReadOnlyTables tables) throws IOException {
+        tablesStorage.backupTables(tables);
     }
 
     // ================ Statistics methods ==============================

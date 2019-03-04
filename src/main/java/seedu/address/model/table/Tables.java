@@ -98,7 +98,7 @@ public class Tables implements ReadOnlyTables {
     
     @Override
     public ObservableList<Table> getTableList() {
-        return null;
+        return tableList.asUnmodifiableObservableList();
     }
 
     @Override
@@ -116,5 +116,10 @@ public class Tables implements ReadOnlyTables {
         return other == this // short circuit if same object
                 || (other instanceof Tables // instanceof handles nulls
                 && tableList.equals(((Tables) other).tableList));
+    }
+    
+    @Override
+    public int hashCode() {
+        return tableList.hashCode();
     }
 }

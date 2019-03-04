@@ -14,7 +14,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonRestOrRantStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;

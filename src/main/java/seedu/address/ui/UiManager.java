@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.Mode;
 
 /**
  * The manager of the UI component.
@@ -24,6 +25,9 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    public boolean isMenuMode = false;
+    public boolean isRestaurantMode = true;
+    public boolean isTableMode = false;
 
     public UiManager(Logic logic) {
         super();
@@ -48,6 +52,12 @@ public class UiManager implements Ui {
         }
     }
 
+//    @Override
+//    public String changeMode(Mode mode) {
+//        mainWindow.fillInnerParts(mode);
+//        return mainWindow.currentMode;
+//    }
+    
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
@@ -15,6 +16,7 @@ import seedu.address.model.table.Table;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
+    Predicate<MenuItem> PREDICATE_SHOW_ALL_MENU_ITEMS = unused -> true;
     Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
@@ -44,6 +46,11 @@ public interface Model {
      * Returns the user prefs' Orders file path.
      */
     Path getOrdersFilePath();
+    /**
+     * Returns the user pref's Menu file path.
+     */
+    Path getMenuFilePath();
+    // TODO: add get file path for each feature
 
     /**
      * Returns the user prefs' Tables file path.
@@ -54,6 +61,12 @@ public interface Model {
      * Sets the user prefs' Orders file path.
      */
     void setOrdersFilePath(Path restOrRantFilePath);
+
+    /**
+     * Sets the user pref's Menu file path.
+     */
+    void setMenuFilePath(Path menuFilePath);
+    // TODO: add set file path for each feature
 
     /**
      * Replaces RestOrRant data with the data in {@code restOrRant}.
@@ -123,6 +136,11 @@ public interface Model {
      * Returns true if an order item with the same identity as {@code orderItem} exists in the RestOrRant's Orders.
      */
     boolean hasOrderItem(OrderItem orderItem);
+    
+    /**
+     * Returns true if a menu item with the same identity as {@code menuItem} exists in the menu.
+     */
+    boolean hasMenuItem(MenuItem menuItem);
 
     /**
      * Deletes the given order item from Orders.
@@ -131,10 +149,22 @@ public interface Model {
     void deleteOrderItem(OrderItem target);
 
     /**
+     * Deletes the given menu item.
+     * The menu item must exist in the menu.
+     */
+    void deleteMenuItem(MenuItem menuItem);
+
+    /**
      * Adds the given order item to Orders.
      * {@code orderItem} must not already exist in the RestOrRant's Orders.
      */
     void addOrderItem(OrderItem orderItem);
+    
+    /**
+     * Adds the given menu item to the menu.
+     * {@code menuItem} must not already exist in the menu.
+     */
+    void addMenuItem(MenuItem menuItem);
 
     /**
      * Replaces the given order item {@code target} with {@code editedOrderItem}.
@@ -143,20 +173,42 @@ public interface Model {
      */
     void setOrderItem(OrderItem target, OrderItem editedOrderItem);
 
+    /**
+     * Replaces the given menu item {@code target} with {@code editedItem}.
+     * {@code target} must exist in the menu.
+     * The item identity of {@code editedItem} must not be the same as another existing menu item in the menu.
+     */
+    void setMenuItem(MenuItem target, MenuItem editedItem);
+
     /** Returns an unmodifiable view of the filtered order item list */
     ObservableList<OrderItem> getFilteredOrderItemList();
+
+    /** Returns an unmodifiable view of the filtered menu item list */
+    ObservableList<MenuItem> getFilteredMenuItemList();
 
     /**
      * Updates the filter of the filtered order item list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOrderItemList(Predicate<OrderItem> predicate);
+    
+    /**
+     * Updates the filter of the filtered menu item list to filter by the given {@code predicate}
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMenuItemList(Predicate<MenuItem> predicate);
 
     /**
      * Selected person in the filtered order item list.
      * null if no order item is selected.
      */
     ReadOnlyProperty<OrderItem> selectedOrderItemProperty();
+    
+    /**
+     * Selected menu item in the menu item list.
+     * null if no menu item is selected.
+     */
+    ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
 
     /**
      * Returns the selected order item in the filtered order item list.
@@ -165,17 +217,34 @@ public interface Model {
     OrderItem getSelectedOrderItem();
 
     /**
+     * Returns the selected menu item in the filtered menu item list.
+     * null if no person is selected.
+     */
+    MenuItem getSelectedMenuItem();
+
+    /**
      * Sets the selected order item in the filtered order item list.
      */
     void setSelectedOrderItem(OrderItem orderItem);
 
     /**
+     * Sets the selected menu item in the filtered menu item list.
+     */
+    void setSelectedMenuItem(MenuItem menuItem);
+
+    /** 
      * Notifies the listeners that the RestOrRant orders has been modified.
      */
     void updateOrders();
 
     /**
+     * Calculate the bill of the specified table.
+     */
+    int calculateBill(Table table);
+
+    /**
      * Changes the current mode of the RestOrRant.
      */
     void changeMode();
+
 }

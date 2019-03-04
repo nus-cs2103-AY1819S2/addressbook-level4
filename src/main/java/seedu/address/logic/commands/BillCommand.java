@@ -1,19 +1,24 @@
-/**
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLENUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Statistics.Day;
+import seedu.address.model.Statistics.Month;
+import seedu.address.model.Statistics.Year;
+import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
 
 /**
  * Retrieves the Bill for a Table.
  */
-/**
 public class BillCommand extends Command {
 
     public static final String COMMAND_WORD = "bill";
@@ -22,21 +27,29 @@ public class BillCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the Bill for a Table. "
             + "Parameters: "
             + PREFIX_TABLENUMBER + "TABLE NUMBER "
+            + PREFIX_DAY + "DAY "
+            + PREFIX_MONTH + "MONTH "
+            + PREFIX_YEAR + "YEAR "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TABLENUMBER + "1 ";
+            + PREFIX_TABLENUMBER + "1 "
+            + PREFIX_DAY + "30 "
+            + PREFIX_MONTH + "12 "
+            + PREFIX_YEAR + "2019 ";
 
     public static final String MESSAGE_SUCCESS = "Bill Calculated: %1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
 
-    private final Table toBill;
+    private final TableNumber toBill;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates a BillCommand to find the total bill of the specified {@code Table}
      */
-/**
-    public BillCommand(Table table) {
-        requireNonNull(table);
-        toBill = table;
+    public BillCommand(TableNumber tableNumber, Day day, Month month, Year year) {
+        requireNonNull(tableNumber);
+        requireNonNull(day);
+        requireNonNull(month);
+        requireNonNull(year);
+        toBill = tableNumber;
     }
 
     @Override
@@ -51,6 +64,5 @@ public class BillCommand extends Command {
         model.updateRestOrRant();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBill));
     }
-    
+
 }
-**/

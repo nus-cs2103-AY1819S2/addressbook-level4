@@ -5,12 +5,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.table.TableNumber;
 
 /**
  * Adds an order to Orders.
@@ -49,7 +52,7 @@ public class AddOrderCommand extends Command {
             if (!itemOptional.isPresent()) {
                 throw new CommandException(String.format(MESSAGE_INVALID_ITEM_CODE, itemCodes.get(i)));
             }
-            OrderItem orderItem = new OrderItem(1, itemOptional.get(), itemQuantities.get(i));
+            OrderItem orderItem = new OrderItem(new TableNumber("1"), itemOptional.get(), itemQuantities.get(i));
             if (model.hasOrderItem(orderItem)) {
                 throw new CommandException(MESSAGE_DUPLICATE_ORDER_ITEM);
             }

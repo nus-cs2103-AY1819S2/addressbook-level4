@@ -97,7 +97,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedCustomer = new CustomerBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedCustomer);
 
-        /* Case: edit a customer with new values same as another customer's values but with different phone, email and id
+        /* Case: edit a customer with new values same as another customer's values but with different phone, email, id
          * -> edited
          */
         index = INDEX_SECOND_CUSTOMER;

@@ -23,7 +23,7 @@ import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
 
-public class EquipmentListPanelTest extends GuiUnitTest {
+public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Equipment> TYPICAL_EQUIPMENTS =
             FXCollections.observableList(getTypicalPersons());
 

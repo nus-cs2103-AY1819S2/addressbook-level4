@@ -12,6 +12,7 @@ import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.Orders;
 import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Tables;
 
 /**

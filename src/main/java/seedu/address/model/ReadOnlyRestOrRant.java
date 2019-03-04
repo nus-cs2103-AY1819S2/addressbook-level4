@@ -4,6 +4,7 @@ import javafx.beans.Observable;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.table.ReadOnlyTables;
 
 /**
  * Unmodifiable view of RestOrRant

@@ -17,7 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTables;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;

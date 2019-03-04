@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
 
 /**
@@ -29,10 +30,10 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getRestOrRant()
      */
-    ReadOnlyRestOrRant getAddressBook();
+    ReadOnlyRestOrRant getRestOrRant();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of order items */
+    ObservableList<OrderItem> getFilteredOrderItemList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -41,9 +42,9 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' RestOrRant orders file path.
      */
-    Path getAddressBookFilePath();
+    Path getOrdersFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,19 +57,19 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected order item in the filtered order item list.
+     * null if no order item is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedOrderItemProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<OrderItem> selectedOrderItemProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected order item in the filtered order item list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @see seedu.address.model.Model#setSelectedOrderItem(OrderItem)
      */
-    void setSelectedPerson(Person person);
+    void setSelectedOrderItem(OrderItem orderItem);
 
     /**
      * Changes current mode of RestOrRant.

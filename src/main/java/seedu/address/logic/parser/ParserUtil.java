@@ -156,7 +156,6 @@ public class ParserUtil {
         }
         return new Rating(trimmedRating);
     }
-    
     /** Parses a {@code String cuisine} into a {@code Cuisine}.
      * Leading and trailing whitespaces will be trimmed.
      *

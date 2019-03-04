@@ -74,6 +74,9 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Major} of the {@code EditPersonDescriptor} that we are building.
+     */
     public EditPersonDescriptorBuilder withMajor(String major) {
         descriptor.setMajor(new Major(major));
         return this;

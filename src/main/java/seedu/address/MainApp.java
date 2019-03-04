@@ -59,8 +59,8 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample deck will be used instead if {@code storage}'s address book is not found,
+     * Returns a {@code ModelManager} with the data from {@code storage}'s top deck and {@code userPrefs}. <br>
+     * The data from the sample deck will be used instead if {@code storage}'s top deck is not found,
      * or an empty deck will be used instead if errors occur when reading {@code storage}'s deck.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {

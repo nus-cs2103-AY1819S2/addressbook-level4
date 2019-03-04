@@ -17,6 +17,7 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Card[] getSampleCards() {
         return new Card[] {
+                new Card("What layer is HTTP at?", "Application", getTagSet("CS2105")),
                 new Card("What transport does HTTP use?", "TCP", getTagSet("CS2105")),
                 new Card("How many sides does a triangle have?", "3", getTagSet("Geometry")),
                 new Card("How many seconds are there in 1 millisecond?", "1 * 10^-3", null)

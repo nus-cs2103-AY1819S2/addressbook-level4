@@ -14,7 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_ADDITI
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.MULTIPLICATION;
 import static seedu.address.testutil.TypicalCards.NO_TAG;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
@@ -88,7 +88,7 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the card list before adding -> added */
-        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         assertCommandSuccess(HELLO_WORLD);
 
         /* ------------------------ Perform add operation while a card card is selected --------------------------- */

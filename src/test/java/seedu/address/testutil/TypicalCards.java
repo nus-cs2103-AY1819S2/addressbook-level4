@@ -29,7 +29,13 @@ public class TypicalCards {
     public static final Card NO_TAG = new CardBuilder().withQuestion("Is there any tag?")
             .withAnswer("No").build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "What";
+    public static final Card LAYER = new CardBuilder().withQuestion("What layer is HTTP at?")
+            .withAnswer("Application").withTags("CS2105").build();
+
+    public static final Card TRANSPORT = new CardBuilder().withQuestion("What transport does HTTP use?")
+            .withAnswer("TCP").withTags("CS2105").build();
+
+    public static final String KEYWORD_MATCHING_HTTP = "HTTP";
 
     private TypicalCards() {} // prevents instantiation
 

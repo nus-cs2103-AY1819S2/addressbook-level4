@@ -1,12 +1,12 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
+import static seedu.address.testutil.TypicalCards.LAYER;
+import static seedu.address.testutil.TypicalCards.NO_TAG;
+import static seedu.address.testutil.TypicalCards.TRANSPORT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,48 +25,48 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
-         * -> 2 persons found
+        /* Case: find multiple cards in deck, command with leading spaces and trailing spaces
+         * -> 2 cards found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, LAYER, TRANSPORT); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where card list is displaying the persons we are finding
-         * -> 2 persons found
+        /* Case: repeat previous find command where card list is displaying the cards we are finding
+         * -> 2 cards found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find card where card list is not displaying the card we are finding -> 1 card found */
-        command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        command = FindCommand.COMMAND_WORD + " tag";
+        ModelHelper.setFilteredList(expectedModel, NO_TAG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 keywords -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        /* Case: find multiple cards in deck, 2 keywords -> 2 cards found */
+        command = FindCommand.COMMAND_WORD + " transport layer";
+        ModelHelper.setFilteredList(expectedModel, TRANSPORT, LAYER);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 keywords in reversed order -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson";
+        /* Case: find multiple cards in deck, 2 keywords in reversed order -> 2 cards found */
+        command = FindCommand.COMMAND_WORD + " layer transport";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 keywords with 1 repeat -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
+        /* Case: find multiple cards in deck, 2 keywords with 1 repeat -> 2 cards found */
+        command = FindCommand.COMMAND_WORD + " transport layer transport";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
-         * -> 2 persons found
+        /* Case: find multiple cards in deck, 2 matching keywords and 1 non-matching keyword
+         * -> 2 cards found
          */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " transport layer NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -80,54 +80,44 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in address book after deleting 1 of them -> 1 card found */
+        /* Case: find same cards in deck after deleting 1 of them -> 1 card found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getTopDeck().getPersonList().contains(BENSON));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getTopDeck().getCardList().contains(LAYER));
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, TRANSPORT);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find card in address book, keyword is same as name but of different case -> 1 card found */
-        command = FindCommand.COMMAND_WORD + " MeIeR";
+        /* Case: find card in deck, keyword is same as name but of different case -> 1 card found */
+        command = FindCommand.COMMAND_WORD + " HttP";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find card in address book, keyword is substring of name -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " Mei";
+        /* Case: find card in deck, keyword is substring of name -> 0 cards found */
+        command = FindCommand.COMMAND_WORD + " HT";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find card in address book, name is substring of keyword -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " Meiers";
+        /* Case: find card in deck, name is substring of keyword -> 0 cards found */
+        command = FindCommand.COMMAND_WORD + " Transpo";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find card not in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " Mark";
+        /* Case: find card not in deck -> 0 cards found */
+        command = FindCommand.COMMAND_WORD + " NotInBook";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of card in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        /* Case: find answer of card in deck -> 0 cards found */
+        command = FindCommand.COMMAND_WORD + " " + TRANSPORT.getAnswer();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of card in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find email of card in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find tags of card in address book -> 0 persons found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
+        /* Case: find tags of card in deck -> 0 cards found */
+        List<Tag> tags = new ArrayList<>(TRANSPORT.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -135,22 +125,22 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
         /* Case: find while a card is selected -> selected card deselected */
         showAllCards();
         selectCard(Index.fromOneBased(1));
-        assertFalse(getCardListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
-        command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertFalse(getCardListPanel().getHandleToSelectedCard().getQuestion().equals(TRANSPORT.getQuestion()));
+        command = FindCommand.COMMAND_WORD + " transport";
+        ModelHelper.setFilteredList(expectedModel, TRANSPORT);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find card in empty address book -> 0 persons found */
+        /* Case: find card in empty deck -> 0 cards found */
         deleteAllCards();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, TRANSPORT);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Meier";
+        command = "FiNd HTTP";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 
@@ -166,7 +156,7 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredCardList().size());
+                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCardList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

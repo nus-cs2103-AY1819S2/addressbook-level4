@@ -3,33 +3,24 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_ADDITION;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SUBTRACTION;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITION;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_HELLO;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRACTION;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SUBJECT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_HELLO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_SUBTRACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
+import static seedu.address.testutil.TypicalCards.ADDITION;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -39,13 +30,9 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.CardUtil;
 
 public class EditCommandSystemTest extends TopDeckSystemTest {
@@ -60,10 +47,10 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_SUBJECT + " ";
-        Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertCommandSuccess(command, index, editedPerson);
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_ADDITION + "  "
+                + ANSWER_DESC_ADDITION + " " + TAG_DESC_MATH + " " + TAG_DESC_SUBJECT + " ";
+        Card editedCard = new CardBuilder(ADDITION).withTags(VALID_TAG_SUBJECT).build();
+        assertCommandSuccess(command, index, editedCard);
 
         /* Case: undo editing the last card in the list -> last card restored */
         command = UndoCommand.COMMAND_WORD;
@@ -73,57 +60,57 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         /* Case: redo editing the last card in the list -> last card edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setCard(getModel().getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
+        model.setCard(getModel().getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased()), editedCard);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a card with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_MOD + TAG_DESC_SUBJECT;
-        assertCommandSuccess(command, index, BOB);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+                + TAG_DESC_MATH + " " + TAG_DESC_SUBJECT;
+        assertCommandSuccess(command, index, ADDITION);
 
         /* Case: edit a card with new values same as another card's values but with different name -> edited */
-        assertTrue(getModel().getTopDeck().getPersonList().contains(BOB));
+        assertTrue(getModel().getTopDeck().getCardList().contains(ADDITION));
         index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredCardList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_MOD + TAG_DESC_SUBJECT;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
-        assertCommandSuccess(command, index, editedPerson);
+        assertNotEquals(getModel().getFilteredCardList().get(index.getZeroBased()), ADDITION);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_ADDITION
+                + TAG_DESC_MOD + TAG_DESC_SUBJECT;
+        editedCard = new CardBuilder(ADDITION).withQuestion(VALID_QUESTION_SUBTRACTION).build();
+        assertCommandSuccess(command, index, editedCard);
 
-        /* Case: edit a card with new values same as another card's values but with different phone and email
+        /* Case: edit a card with new values same as another card's question but with answer
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_MOD + TAG_DESC_SUBJECT;
-        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
-        assertCommandSuccess(command, index, editedPerson);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_SUBTRACTION
+                + TAG_DESC_MOD + TAG_DESC_SUBJECT;
+        editedCard = new CardBuilder(ADDITION).withAnswer(ANSWER_DESC_SUBTRACTION).build();
+        assertCommandSuccess(command, index, editedCard);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Person personToEdit = getModel().getFilteredCardList().get(index.getZeroBased());
-        editedPerson = new PersonBuilder(personToEdit).withTags().build();
-        assertCommandSuccess(command, index, editedPerson);
+        Card cardToEdit = getModel().getFilteredCardList().get(index.getZeroBased());
+        editedCard = new CardBuilder(cardToEdit).withTags().build();
+        assertCommandSuccess(command, index, editedCard);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered card list, edit index within bounds of address book and card list -> edited */
-        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
+        /* Case: filtered card list, edit index within bounds of the deck and card list -> edited */
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        personToEdit = getModel().getFilteredCardList().get(index.getZeroBased());
-        editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
-        assertCommandSuccess(command, index, editedPerson);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_HELLO;
+        cardToEdit = getModel().getFilteredCardList().get(index.getZeroBased());
+        editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_HELLO).build();
+        assertCommandSuccess(command, index, editedCard);
 
-        /* Case: filtered card list, edit index within bounds of address book but out of bounds of card list
+        /* Case: filtered card list, edit index within bounds of the deck but out of bounds of card list
          * -> rejected
          */
-        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getTopDeck().getPersonList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        int invalidIndex = getModel().getTopDeck().getCardList().size();
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_HELLO,
+                Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a card card is selected -------------------------- */
 
@@ -133,107 +120,82 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         showAllCards();
         index = INDEX_FIRST_PERSON;
         selectCard(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_MOD;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+                + TAG_DESC_MOD;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new card's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, ADDITION, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + QUESTION_DESC_SUBTRACTION,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + QUESTION_DESC_SUBTRACTION,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredCardList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_SUBTRACTION,
+                Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + QUESTION_DESC_SUBTRACTION,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
-
-        /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
-                Phone.MESSAGE_CONSTRAINTS);
-
-        /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
-                Email.MESSAGE_CONSTRAINTS);
-
-        /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a card with new values same as another card's values -> rejected */
-        executeCommand(CardUtil.getAddCommand(BOB));
-        assertTrue(getModel().getTopDeck().getPersonList().contains(BOB));
+        executeCommand(CardUtil.getAddCommand(ADDITION));
+        assertTrue(getModel().getTopDeck().getCardList().contains(ADDITION));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredCardList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_MOD + TAG_DESC_SUBJECT;
+        assertFalse(getModel().getFilteredCardList().get(index.getZeroBased()).equals(ADDITION));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+                + TAG_DESC_MATH;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_SUBJECT;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+                + TAG_DESC_SUBJECT;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: edit a card with new values same as another card's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + TAG_DESC_MOD + TAG_DESC_SUBJECT;
+        /* Case: edit a card with new values same as another card's question but with different answer -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_SUBTRACTION
+                + TAG_DESC_MATH;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: edit a card with new values same as another card's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_MOD + TAG_DESC_SUBJECT;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
-
-        /* Case: edit a card with new values same as another card's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_MOD + TAG_DESC_SUBJECT;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Person, Index)
+     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, Person editedPerson) {
-        assertCommandSuccess(command, toEdit, editedPerson, null);
+    private void assertCommandSuccess(String command, Index toEdit, Card editedCard) {
+        assertCommandSuccess(command, toEdit, editedCard, null);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the card at index {@code toEdit} being
-     * updated to values specified {@code editedPerson}.<br>
+     * updated to values specified {@code editedCard}.<br>
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, Person editedPerson,
-            Index expectedSelectedCardIndex) {
+    private void assertCommandSuccess(String command, Index toEdit, Card editedCard,
+                                      Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setCard(expectedModel.getFilteredCardList().get(toEdit.getZeroBased()), editedPerson);
-        expectedModel.updateFilteredCardList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.setCard(expectedModel.getFilteredCardList().get(toEdit.getZeroBased()), editedCard);
+        expectedModel.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedPerson), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard), expectedSelectedCardIndex);
     }
 
     /**
@@ -261,7 +223,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredCardList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

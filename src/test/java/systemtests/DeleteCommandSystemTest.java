@@ -8,7 +8,7 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getCard;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 
 import org.junit.Test;
 
@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered card list, delete index within bounds of address book and card list -> deleted */
-        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
         /* Case: filtered card list, delete index within bounds of address book but out of bounds of card list
          * -> rejected
          */
-        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         int invalidIndex = getModel().getTopDeck().getCardList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);

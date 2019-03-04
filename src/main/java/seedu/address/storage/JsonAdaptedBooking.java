@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.ServiceType;
@@ -18,7 +19,7 @@ import seedu.address.model.util.TimeRange;
  */
 class JsonAdaptedBooking {
 
-    private final static String MISSING_FIELD_MESSAGE_FORMAT = "Booking's %s field is missing!";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Booking's %s field is missing!";
 
     private final JsonAdaptedServiceType service;
     private final JsonAdaptedTimeRange timing;

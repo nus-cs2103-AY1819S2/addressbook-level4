@@ -16,7 +16,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 

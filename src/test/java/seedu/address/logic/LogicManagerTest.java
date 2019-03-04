@@ -27,7 +27,6 @@ import seedu.address.model.BookingManager;
 import seedu.address.model.BookingModel;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;

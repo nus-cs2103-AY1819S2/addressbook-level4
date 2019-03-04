@@ -17,7 +17,6 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {

@@ -16,7 +16,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test

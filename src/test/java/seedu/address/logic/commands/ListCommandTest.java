@@ -10,7 +10,6 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 
 /**

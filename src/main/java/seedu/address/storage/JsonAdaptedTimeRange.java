@@ -13,7 +13,7 @@ import seedu.address.model.util.TimeRange;
  */
 class JsonAdaptedTimeRange {
 
-    private final static String MISSING_FIELD_MESSAGE_FORMAT = "Time Range's %s field is missing!";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Time Range's %s field is missing!";
 
     private final LocalTime startTime;
     private final LocalTime endTime;

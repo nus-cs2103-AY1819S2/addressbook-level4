@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -85,7 +86,8 @@ public class PersonListPanelTest extends GuiUnitTest {
             Email email = new Email("a@aa");
             Address address = new Address("a");
             School school = new School("n");
-            Person person = new Person(name, phone, email, address, school, Collections.emptySet());
+            Major major = new Major("ME");
+            Person person = new Person(name, phone, email, address, school, major, Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

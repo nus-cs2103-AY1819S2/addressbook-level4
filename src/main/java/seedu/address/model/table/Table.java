@@ -9,7 +9,7 @@ public class Table {
     private TableNumber tableNumber;
     private TableStatus tableStatus;
 
-    public Table(int tableNumber, int numberOfSeats) {
+    public Table(String tableNumber, int numberOfSeats) {
         this.tableNumber = new TableNumber(tableNumber);
         this.tableStatus = new TableStatus(numberOfSeats);
     }
@@ -18,7 +18,7 @@ public class Table {
         return tableStatus;
     }
 
-    public int getTableNumber() {
+    public String getTableNumber() {
         return tableNumber.getTableNumber();
     }
 

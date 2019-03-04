@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -270,6 +271,16 @@ public class AddCommandTest {
 
         @Override
         public void diagnosePatient(Diagnosis diagnosis) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkConsultation() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void prescribeMedicine(ArrayList<Prescription> prescriptions) {
             throw new AssertionError("This method should not be called.");
         }
 

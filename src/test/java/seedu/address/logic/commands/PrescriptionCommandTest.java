@@ -1,18 +1,16 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import jdk.nashorn.api.tree.CatchTree;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.consultation.Assessment;
-import seedu.address.model.consultation.Diagnosis;
-import seedu.address.model.consultation.Symptom;
+import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -24,7 +22,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
-public class DiagnosePatientCommandTest {
+public class PrescriptionCommandTest {
 
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
@@ -44,35 +42,37 @@ public class DiagnosePatientCommandTest {
     }
 
     @Test
-    public void diagnosePatient() {
-        // no consultation session
-        String input = " a/migrane s/constant headache s/blurred vision";
-        Assessment assessment = new Assessment("migrane");
-        ArrayList<Symptom> symptoms = new ArrayList<>();
-        symptoms.add(new Symptom("constant headache"));
-        symptoms.add(new Symptom("blurred vision"));
-
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                modelManager.diagnosePatient(new Diagnosis(assessment, symptoms)));
-    }
-
-    @Test
     public void executeTest() {
-        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
-        Assessment assessment = new Assessment("migrane");
-        ArrayList<Symptom> symptoms = new ArrayList<>();
-        symptoms.add(new Symptom("constant headache"));
-        symptoms.add(new Symptom("blurred vision"));
+        // no consultation
+        ArrayList<String> medList = new ArrayList<>();
+        ArrayList<Integer> qtyList = new ArrayList<>();
+        medList.add("antibiotics");
+        qtyList.add(1);
 
-        Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
-        DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
-
-        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
+        PrescriptionCommand prescriptionCommand;
 
         try {
-            assertEquals(command.execute(modelManager, history).getFeedbackToUser(), diagnosis.toString());
-        } catch (CommandException ce) {
+            prescriptionCommand = new PrescriptionCommand(medList, qtyList);
+
+        } catch (Exception ex) {
+            org.junit.Assert.assertEquals(ex.toString(),
+                    "There is no ongoing consultation to prescribe medicine to");
+        }
+
+        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
+        try {
+            prescriptionCommand = new PrescriptionCommand(medList, qtyList);
+            StringBuilder sb = new StringBuilder();
+            sb.append("prescription:\n");
+            sb.append("==============================\n");
+            sb.append(new Prescription(medList.get(0), qtyList.get(0)));
+            org.junit.Assert.assertEquals(prescriptionCommand.execute(modelManager, history).getFeedbackToUser(),
+                    sb.toString());
+        } catch (Exception ex) {
             org.junit.Assert.fail();
         }
+
+
     }
+
 }

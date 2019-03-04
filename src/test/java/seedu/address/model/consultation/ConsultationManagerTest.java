@@ -61,4 +61,13 @@ public class ConsultationManagerTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> consultationManager.diagnosePatient(diagnosis));
     }
 
+    @Test
+    public void checkConsultation() {
+        org.junit.Assert.assertFalse(consultationManager.checkConsultation());
+
+        Patient patient = patientManager.getPatientAtIndex(1);
+        consultationManager.createConsultation(patient);
+        org.junit.Assert.assertTrue(consultationManager.checkConsultation());
+    }
+
 }

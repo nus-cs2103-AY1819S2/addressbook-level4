@@ -36,6 +36,7 @@ import seedu.address.logic.commands.ListAppCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
+import seedu.address.logic.commands.PrescriptionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -263,6 +264,18 @@ public class AddressBookParserTest {
         symptoms.add(new Symptom("blurred vision"));
         DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
         assertEquals(command, parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void parseCommand_prescriptioncommand() throws Exception {
+        String userInput = "prescribe m/antibiotics q/1";
+        ArrayList<String> meds = new ArrayList<>();
+        meds.add("antibiotics");
+        ArrayList<Integer> qtys = new ArrayList<>();
+        qtys.add(1);
+        PrescriptionCommand command = new PrescriptionCommand(meds, qtys);
+        assertEquals(command, parser.parseCommand(userInput));
+
     }
 
     @Test

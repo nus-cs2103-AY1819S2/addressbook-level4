@@ -31,4 +31,17 @@ public class Prescription {
     public int getQuantity() {
         return quantity;
     }
+
+    @Override
+    public String toString() {
+        return "Medicine: " + getMedicine() + " quantity: " + getQuantity() + "\n";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof Prescription
+                && getQuantity() == ((Prescription) other).getQuantity()
+                && getMedicine().equals(((Prescription) other).getMedicine()));
+    }
 }

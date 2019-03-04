@@ -19,6 +19,13 @@ public class ConsultationManager {
     // add diagnosis methods
 
     /**
+     * Check if there is an ongoing consultation session
+     */
+    public boolean checkConsultation() {
+        return currentConsultation != null;
+    }
+
+    /**
      * Create a consultation session with the patient indicated
      */
     public void createConsultation(Patient patient) {
@@ -36,5 +43,9 @@ public class ConsultationManager {
             throw new IllegalArgumentException("There is no ongoing consultation session");
         }
         currentConsultation.setDiagnosis(diagnosis);
+    }
+
+    public void prescribeMedicine(ArrayList<Prescription> prescriptions) {
+        currentConsultation.setPrescriptions(prescriptions);
     }
 }

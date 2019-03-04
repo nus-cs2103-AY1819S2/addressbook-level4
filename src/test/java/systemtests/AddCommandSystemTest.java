@@ -6,13 +6,15 @@ import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SUBTRACTI
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITION;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRACTION;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_UNIQUE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SUBJECT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_ADDITION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_ADDITION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_UNIQUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalCards.ADDITION;
+import static seedu.address.testutil.TypicalCards.DIVISION;
 import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.MULTIPLICATION;
@@ -43,32 +45,32 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
         /* Case: add a card without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Card toAdd = ADDITION;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_ADDITION + "  " + ANSWER_DESC_ADDITION
+        Card toAdd = SUBTRACTION;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_SUBTRACTION + "  " + ANSWER_DESC_SUBTRACTION
                 + "   " + TAG_DESC_MATH + " ";
         assertCommandSuccess(command, toAdd);
 
-        /* Case: undo adding Amy to the list -> Amy deleted */
+        /* Case: undo adding Subtraction card to the list -> Subtraction card deleted */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: redo adding Amy to the list -> Amy added again */
+        /* Case: redo adding Subtraction card to the list -> Subtraction card added again */
         command = RedoCommand.COMMAND_WORD;
         model.addCard(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a card with all fields same as another card in the deck except question -> added */
-        toAdd = new CardBuilder(SUBTRACTION).withQuestion(VALID_QUESTION_ADDITION).build();
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_SUBTRACTION
+        toAdd = new CardBuilder(ADDITION).withQuestion(VALID_QUESTION_UNIQUE).build();
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_UNIQUE + ANSWER_DESC_ADDITION
                 + TAG_DESC_MATH;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a card with question same as another card in the deck but different answer
          * -> added
          */
-        toAdd = new CardBuilder(SUBTRACTION).withAnswer(VALID_ANSWER_ADDITION).build();
+        toAdd = new CardBuilder(DIVISION).withAnswer(VALID_ANSWER_ADDITION).build();
         command = CardUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -78,8 +80,7 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: add a card with tags, command with parameters in random order -> added */
         toAdd = SUBTRACTION;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_MOD + ANSWER_DESC_SUBTRACTION + QUESTION_DESC_SUBTRACTION
-                + TAG_DESC_SUBJECT;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_MATH + ANSWER_DESC_SUBTRACTION + QUESTION_DESC_SUBTRACTION;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a card, missing tags -> added */
@@ -125,7 +126,7 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + QUESTION_DESC_ADDITION + INVALID_TAG_DESC;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }
 

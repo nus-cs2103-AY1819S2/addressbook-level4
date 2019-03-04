@@ -21,14 +21,14 @@ public class CardListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
 
     @FXML
-    private ListView<Card> personListView;
+    private ListView<Card> cardListView;
 
     public CardListPanel(ObservableList<Card> cardList, ObservableValue<Card> selectedCard,
                          Consumer<Card> onSelectedCardChange) {
         super(FXML);
-        personListView.setItems(cardList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        cardListView.setItems(cardList);
+        cardListView.setCellFactory(listView -> new PersonListViewCell());
+        cardListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in card list panel changed to : '" + newValue + "'");
             onSelectedCardChange.accept(newValue);
         });
@@ -37,16 +37,16 @@ public class CardListPanel extends UiPart<Region> {
 
             // Don't modify selection if we are already selecting the selected card,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(cardListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                personListView.getSelectionModel().clearSelection();
+                cardListView.getSelectionModel().clearSelection();
             } else {
-                int index = personListView.getItems().indexOf(newValue);
-                personListView.scrollTo(index);
-                personListView.getSelectionModel().clearAndSelect(index);
+                int index = cardListView.getItems().indexOf(newValue);
+                cardListView.scrollTo(index);
+                cardListView.getSelectionModel().clearAndSelect(index);
             }
         });
     }

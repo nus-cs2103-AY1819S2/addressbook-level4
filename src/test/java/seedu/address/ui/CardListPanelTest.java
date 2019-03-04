@@ -55,7 +55,7 @@ public class CardListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code CardListPanel} requires lesser than
+     * Verifies that creating and deleting large number of cards in {@code CardListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test

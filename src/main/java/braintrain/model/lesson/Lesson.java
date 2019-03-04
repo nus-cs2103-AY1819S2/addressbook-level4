@@ -121,10 +121,10 @@ public class Lesson {
      * @param optionalHeaders {@link Card} objects added to this lesson can have isVisibleOptionals corresponding to
      * these headers.
      */
-    public Lesson(String name, List<String> coreHeaders, List<String> optionalHeaders, int questionCoreIndex,
-                  int answerCoreIndex, List<Card> cards) throws MissingCoreException {
+    public Lesson(String name, List<String> coreHeaders, List<String> optionalHeaders, int question, int answer,
+                  List<Card> cards) throws MissingCoreException {
         this(name, coreHeaders, optionalHeaders);
-
+        setQuestionAnswerIndices(question, answer);
         addCards(cards);
     }
 

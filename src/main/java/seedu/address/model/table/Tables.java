@@ -90,7 +90,7 @@ public class Tables implements ReadOnlyTables {
     
     @Override
     public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
-        return Optional.of(tableList.getTable(tableNumber));
+        return Optional.ofNullable(tableList.getTable(tableNumber));
     }
 
     /**

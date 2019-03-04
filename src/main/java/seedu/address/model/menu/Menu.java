@@ -114,7 +114,7 @@ public class Menu implements ReadOnlyMenu {
      * Given the menu item's {@code String code}, returns the MenuItem with the corresponding code.
      */
     @Override
-    public Optional<MenuItem> itemCodeIsValid(String code) {
+    public Optional<MenuItem> getItemFromCode(String code) {
         Iterator<MenuItem> iterator = menuItems.iterator();
         while (iterator.hasNext()) {
             MenuItem menuItem = iterator.next();

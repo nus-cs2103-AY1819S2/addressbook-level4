@@ -16,6 +16,6 @@ public interface ReadOnlyMenu extends Observable{
      */
     ObservableList<MenuItem> getMenuItemList();
 
-    Optional<MenuItem> itemCodeIsValid(String code);
+    Optional<MenuItem> getItemFromCode(String code);
 
 }

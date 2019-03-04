@@ -18,8 +18,6 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<MenuItem> PREDICATE_SHOW_ALL_MENU_ITEMS = unused -> true;
     Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
-
-    /** {@code Predicate} that always evaluate to true */
     Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
 
     /**

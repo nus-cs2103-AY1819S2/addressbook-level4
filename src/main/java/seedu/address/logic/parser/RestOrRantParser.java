@@ -41,20 +41,25 @@ public class RestOrRantParser {
             throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
         }
 
-        //        FUTURE USAGE
+        // General commands that work in all modes
         switch (commandWord) {
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
+                
             case HelpCommand.COMMAND_ALIAS:
                 return new HelpCommand();
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+                
             case ExitCommand.COMMAND_ALIAS:
                 return new ExitCommand();
                 
             case MenuModeCommand.COMMAND_WORD:
                 return new MenuModeCommand();
+                
+            case TableModeCommand.COMMAND_WORD:
+                return new TableModeCommandParser().parse(arguments);
                 
             case AddItemToMenuCommand.COMMAND_WORD:
                 return new AddItemToMenuCommandParser().parse(arguments);

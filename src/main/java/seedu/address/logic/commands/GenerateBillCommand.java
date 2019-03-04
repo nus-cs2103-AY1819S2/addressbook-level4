@@ -8,13 +8,14 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 
 /**
  * Generates the bill for a customer who is identified using displayed index from address book
  */
-public class GenerateBillCommand extends Command {
+public class GenerateBillCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "gb";
     public static final String COMMAND_WORD = "generatebill";
@@ -33,7 +34,7 @@ public class GenerateBillCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(CustomerModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 

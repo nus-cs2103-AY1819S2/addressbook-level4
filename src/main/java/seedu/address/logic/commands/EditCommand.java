@@ -189,6 +189,7 @@ public class EditCommand extends CustomerCommand {
 
         public void setEmail(Email email) {
             this.email = email;
+        }
 
         public void setIdNum(IdentificationNo idnum) {
             this.idnum = idnum;

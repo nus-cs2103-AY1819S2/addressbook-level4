@@ -21,9 +21,10 @@ import seedu.address.model.customer.exceptions.DuplicateCustomerException;
 import seedu.address.testutil.CustomerBuilder;
 
 public class UniqueCustomerListTest {
-    private final UniqueCustomerList uniqueCustomerList = new UniqueCustomerList();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final UniqueCustomerList uniqueCustomerList = new UniqueCustomerList();
 
     @Test
     public void containsNullCustomerThrowsNullPointerException() {

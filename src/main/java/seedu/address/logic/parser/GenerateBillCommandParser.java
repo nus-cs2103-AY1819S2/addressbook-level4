@@ -14,6 +14,7 @@ public class GenerateBillCommandParser implements Parser<GenerateBillCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public GenerateBillCommand parse(String args) throws ParseException {
@@ -25,5 +26,4 @@ public class GenerateBillCommandParser implements Parser<GenerateBillCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenerateBillCommand.MESSAGE_USAGE), pe);
         }
     }
-
 }

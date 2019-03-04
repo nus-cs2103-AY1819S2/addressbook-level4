@@ -50,24 +50,17 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-<<<<<<< HEAD
-<<<<<<< HEAD
-     * Returns the user prefs' tables file path.
-=======
-=======
      * Returns the user pref's menu file path.
      */
     Path getMenuFilePath();
 
     /**
->>>>>>> f09e89b35e0fd1d55f70b154c5de5bbb1d8b9555
      * Returns the user prefs' RestOrRant orders file path.
      */
     Path getOrdersFilePath();
 
     /**
      * Returns the user prefs' RestOrRant tables file path.
->>>>>>> a9326e5917135013892d2456349106d7ed4eeaab
      */
     Path getTablesFilePath();
 

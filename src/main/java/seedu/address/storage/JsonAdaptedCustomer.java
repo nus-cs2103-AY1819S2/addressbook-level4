@@ -38,7 +38,8 @@ class JsonAdaptedCustomer {
     @JsonCreator
     public JsonAdaptedCustomer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email, @JsonProperty("idnum") String idnum,
-                               @JsonProperty("address") String address, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                               @JsonProperty("address") String address,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -59,8 +60,8 @@ class JsonAdaptedCustomer {
         idnum = source.getIdNum().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -120,7 +121,8 @@ class JsonAdaptedCustomer {
 
     private IdentificationNo getIdNum() throws IllegalValueException {
         if (idnum == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, IdentificationNo.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                IdentificationNo.class.getSimpleName()));
         }
         if (!IdentificationNo.isValidIdNum(idnum)) {
             throw new IllegalValueException(IdentificationNo.MESSAGE_CONSTRAINTS);

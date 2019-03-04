@@ -1,22 +1,19 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
 import java.util.Objects;
 
 import javafx.beans.InvalidationListener;
-import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.order.OrderItem;
+import seedu.address.model.menu.Menu;
+import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.Orders;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.order.UniqueOrderItemList;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.Tables;
 import seedu.address.model.table.UniqueTableList;
-import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
-import seedu.address.model.person.UniquePersonList; // TODO: remove once the other components stop relying on person methods
 
 /**
  * Wraps all data at the address-book level
@@ -24,6 +21,7 @@ import seedu.address.model.person.UniquePersonList; // TODO: remove once the oth
  */
 public class RestOrRant implements ReadOnlyRestOrRant {
 
+    private final Menu menu;
     private final Orders orders;
     private final Tables tables;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -36,6 +34,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      *   among constructors.
      */
     {
+        menu = new Menu();
         orders = new Orders();
         tables = new Tables();
     }
@@ -47,25 +46,25 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      */
     public RestOrRant(ReadOnlyRestOrRant toBeCopied) {
         this();
-        resetData(toBeCopied.getOrders());
-    }
-
-    /**
-     * Creates an RestOrRant using the data specified in {@code copyOrders} // TODO: add more parameters
-     */
-    public RestOrRant(ReadOnlyOrders copyOrders) {
-        this();
-        resetData(copyOrders);
+        resetData(toBeCopied.getOrders(), toBeCopied.getMenu());
     }
     
     /**
-     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders}. // TODO: add more parameters
+     * Creates an RestOrRant using the data specified in {@code copyOrders, copyMenu} // TODO: add more parameters
      */
-    public void resetData(ReadOnlyOrders newOrders) {
-        requireNonNull(newOrders);
+    public RestOrRant(ReadOnlyOrders copyOrders, ReadOnlyMenu copyMenu) {
+        this();
+        resetData(copyOrders, copyMenu);
+    }
 
+    /**
+     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu}. // TODO: add more parameters
+     */
+    public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu) {
+        requireAllNonNull(newOrders, newMenu);
         orders.setOrderItems(newOrders.getOrderItemList());
         // TODO: add more lines to set all the variables
+        menu.setMenuItems(newMenu.getMenuItemList());
     }
 
     public void changeMode() {
@@ -93,13 +92,17 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     @Override
     public String toString() {
-        return orders.getOrderItemList().size() + " order items";
+        return orders.getOrderItemList().size() + " order items" + "\n" + 
+                menu.getMenuItemList().size() + " menu items";
         // TODO: refine later
     }
 
-    @Override
     public Orders getOrders() {
         return orders;
+    }
+
+    public Menu getMenu() {
+        return menu;
     }
 
     @Override
@@ -111,11 +114,13 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
-                && orders.equals(((RestOrRant) other).orders));
+                && orders.equals(((RestOrRant) other).orders)
+                && menu.equals(((RestOrRant) other).menu));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orders);
+        return Objects.hash(orders, menu);
     }
+
 }

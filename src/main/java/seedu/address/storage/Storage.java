@@ -9,11 +9,12 @@ import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.ReadOnlyMenu;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends RestOrRantStorage, UserPrefsStorage, OrdersStorage {
+public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,17 +23,21 @@ public interface Storage extends RestOrRantStorage, UserPrefsStorage, OrdersStor
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getRestOrRantFilePath();
-    // Path getMenuFilePath();
+    Path getMenuFilePath();
+    
+    @Override
     Path getOrdersFilePath();
 
     @Override
-    Optional<ReadOnlyRestOrRant> readRestOrRant() throws DataConversionException, IOException;
-    // Optional<ReadOnlyRestOrRant> readMenu() throws DataConversionException, IOException;
+    Optional<ReadOnlyMenu> readMenu() throws DataConversionException, IOException;
+    
+    @Override
     Optional<ReadOnlyOrders> readOrders() throws DataConversionException, IOException;
 
     @Override
-    void saveRestOrRant(ReadOnlyRestOrRant restOrRant) throws IOException;
-    // void saveMenu(ReadOnlyRestOrRant menu) throws IOException;
+    void saveMenu(ReadOnlyMenu menu) throws IOException;
+    
+    @Override
     void saveOrders(ReadOnlyOrders orders) throws IOException;
+
 }

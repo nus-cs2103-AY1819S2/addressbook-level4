@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private Path menuFilePath = Paths.get("data", "menu.json");
     private Path restOrRantFilePath = Paths.get("data" , "restorrant.json");
     private Path ordersFilePath = Paths.get("data" , "orders.json");
     private Path tablesFilePath = Paths.get("data", "tables.json");
@@ -53,11 +54,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getRestOrRantFilePath() {
         return restOrRantFilePath;
+    } // TODO: remove and add each feature's file path
+    
+    public Path getMenuFilePath() {
+        return menuFilePath;
     }
-
-    public void setRestOrRantFilePath(Path restOrRantFilePath) {
+    
+    public void setRestOrRantFilePath(Path restOrRantFilePath) { // TODO: remove and add each feature's file path
         requireNonNull(restOrRantFilePath);
         this.restOrRantFilePath = restOrRantFilePath;
+    }
+    public void setMenuFilePath(Path menuFilePath) {
+        requireNonNull(menuFilePath);
+        this.menuFilePath = menuFilePath;
     }
 
     public Path getOrdersFilePath() {

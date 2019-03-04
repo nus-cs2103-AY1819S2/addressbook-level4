@@ -37,7 +37,7 @@ Responsibilities: Data
 
 '''
 
-image::Kyler.png[width="200", align="left"]
+image::kylerwsm.png[width="200", align="left"]
 {nbsp} +
 *Kyler Wong Shen Meng*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, Portfolio>>``
 {nbsp} +

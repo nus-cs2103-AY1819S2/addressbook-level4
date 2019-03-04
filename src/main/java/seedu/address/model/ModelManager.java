@@ -115,7 +115,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
-        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu());
+        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu(), restOrRant.getTables());
     }
 
     @Override

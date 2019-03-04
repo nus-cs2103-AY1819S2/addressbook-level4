@@ -5,12 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Base64;
-
 import javax.imageio.ImageIO;
-
-import org.apache.commons.io.FileUtils;
-
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
@@ -27,7 +22,6 @@ public class Image {
     private String name;
     private int height;
     private int width;
-    private String encodedImage;
 
     /**
      * Every field must be present and not null.
@@ -46,11 +40,10 @@ public class Image {
         }
     }
 
-    public Image(String name, int height, int width, String encodedImage) {
+    public Image(String name, int height, int width) {
         this.name = name;
         this.height = height;
         this.width = width;
-        this.encodedImage = encodedImage;
     }
 
     public int getWidth() {
@@ -65,16 +58,9 @@ public class Image {
         return name;
     }
 
-    public String getEncodedImage() {
-        return encodedImage;
-    }
-
-
-    public String encode(String url) throws IOException {
-        byte[] fileContent = FileUtils.readFileToByteArray(new File(url));
-        return Base64.getEncoder().encodeToString(fileContent);
-    }
-
+    /**
+     * Prints the metadata for any given image.
+     */
     public void printMetadata() throws IOException, ImageProcessingException {
         Metadata metadata = ImageMetadataReader.readMetadata(new File("src/main/resources/assets/" + this.name));
         for (Directory directory : metadata.getDirectories()) {

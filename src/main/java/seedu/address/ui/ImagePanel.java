@@ -29,6 +29,10 @@ public class ImagePanel extends UiPart<Region> implements PropertyChangeListener
         imageView.setPreserveRatio(true);
     }
 
+    /**
+     * Updates the imageview based on incoming event parameter.
+     * @param event url of new image to display.
+     */
     public void propertyChange(PropertyChangeEvent event) {
         if (event.getPropertyName().equals("import")) {
             File f = new File("src/main/resources/assets/" + event.getNewValue().toString());

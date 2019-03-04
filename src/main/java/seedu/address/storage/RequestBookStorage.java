@@ -15,7 +15,7 @@ public interface RequestBookStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getRequestBookFilePath();
 
     /**
      * Returns RequestBook data as a {@link ReadOnlyRequestBook}.

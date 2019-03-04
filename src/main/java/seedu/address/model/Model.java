@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.image.Image;
 import seedu.address.model.person.Person;
 
 /**
@@ -69,6 +70,11 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Imports a given image.
+     */
+    void importImage(Image image);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

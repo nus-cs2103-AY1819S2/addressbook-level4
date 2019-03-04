@@ -1,5 +1,5 @@
+/**
 package seedu.address.logic.parser;
-
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLENUMBER;
@@ -14,6 +14,7 @@ import seedu.address.model.table.TableNumber;
 /**
  * Parses input arguments and creates a new BillCommand object
  */
+/**
 public class BillCommandParser implements Parser<BillCommand> {
 
     /**
@@ -21,6 +22,7 @@ public class BillCommandParser implements Parser<BillCommand> {
      * and returns a BillCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+/**
     public BillCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TABLENUMBER);
@@ -41,8 +43,10 @@ public class BillCommandParser implements Parser<BillCommand> {
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
+/**
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
+**/

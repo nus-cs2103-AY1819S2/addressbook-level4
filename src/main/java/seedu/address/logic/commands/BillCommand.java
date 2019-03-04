@@ -1,3 +1,4 @@
+/**
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -12,6 +13,7 @@ import seedu.address.model.table.TableNumber;
 /**
  * Retrieves the Bill for a Table.
  */
+/**
 public class BillCommand extends Command {
 
     public static final String COMMAND_WORD = "bill";
@@ -31,6 +33,7 @@ public class BillCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
+/**
     public BillCommand(Table table) {
         requireNonNull(table);
         toBill = table;
@@ -50,3 +53,4 @@ public class BillCommand extends Command {
     }
     
 }
+**/

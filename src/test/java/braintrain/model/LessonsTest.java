@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import braintrain.model.card.exceptions.MissingCoreException;
 import braintrain.model.lesson.Lesson;
 
 public class LessonsTest {
@@ -76,7 +77,7 @@ public class LessonsTest {
     }
 
     @Test
-    public void setLesson_validData_updatesLesson() {
+    public void setLesson_validData_updatesLesson() throws MissingCoreException {
         addTestLesson();
         Lesson newLesson = getTestLesson();
         newLesson.addCard(Arrays.asList("test1", "test2"));

@@ -37,31 +37,25 @@ public class LessonTest {
 
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
-        Assert.assertThrows(IllegalArgumentException.class,
-                () -> new Lesson("", DEFAULT_CORE_COUNT, DEFAULT_FIELDS));
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new Lesson("", DEFAULT_CORE_COUNT, DEFAULT_FIELDS));
 
-        Assert.assertThrows(IllegalArgumentException.class,
-                () -> new Lesson(null, DEFAULT_CORE_COUNT, DEFAULT_FIELDS));
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new Lesson(null, DEFAULT_CORE_COUNT, DEFAULT_FIELDS));
     }
 
     @Test
     public void constructor_invalidCoreCount_throwsIllegalArgumentException() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            new Lesson(DEFAULT_NAME, 0, DEFAULT_FIELDS);
-        });
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            new Lesson(DEFAULT_NAME, 1, DEFAULT_FIELDS);
-        });
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Lesson(DEFAULT_NAME, 0, DEFAULT_FIELDS));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Lesson(DEFAULT_NAME, 1, DEFAULT_FIELDS));
     }
 
     @Test
     public void constructor_invalidFields_throwsIllegalArgumentException() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            new Lesson(DEFAULT_NAME, DEFAULT_CORE_COUNT, new ArrayList<>());
-        });
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            new Lesson(DEFAULT_NAME, DEFAULT_CORE_COUNT, Arrays.asList("Country"));
-        });
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new Lesson(DEFAULT_NAME, DEFAULT_CORE_COUNT, new ArrayList<>()));
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new Lesson(DEFAULT_NAME, DEFAULT_CORE_COUNT, Arrays.asList("Country")));
     }
 
     @Test
@@ -69,56 +63,47 @@ public class LessonTest {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
         List<String> invalidList = Arrays.asList("Japan", "Tokyo", "Starts with T", "JP");
         StringBuilder sb = new StringBuilder();
-        invalidList.forEach(s -> {
-            sb.append(s + ",");
-        });
+        invalidList.forEach(s -> sb.append(s + ","));
+
         Assert.assertThrows(IllegalArgumentException.class,
-            "Line: " + sb.toString() + " does not match lesson format", () -> {
-                lesson.addCard(invalidList);
-            });
+                "Line: " + sb.toString() + " does not match lesson format", () -> lesson.addCard(invalidList));
     }
 
     @Test
     public void addCard_invalidIndex_throwsMissingCoreException() {
         Lesson lesson = new Lesson(DEFAULT_NAME, DEFAULT_CORE_COUNT, DEFAULT_FIELDS);
-        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () -> {
-            lesson.addCard(Arrays.asList("", "Tokyo"));
-        });
-        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(1), () -> {
-            lesson.addCard(Arrays.asList("Japan", ""));
-        });
+        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () ->
+                lesson.addCard(Arrays.asList("", "Tokyo")));
+        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(1), () ->
+                lesson.addCard(Arrays.asList("Japan", "")));
     }
 
     @Test
     public void addCard() throws MissingCoreException {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
-        assertEquals(lesson.getCards(), 0);
+        assertEquals(lesson.getCards().size(), 0);
         lesson.addCard(List.of("China", "Beijing"));
-        assertEquals(lesson.getCards(), 1);
+        assertEquals(lesson.getCards().size(), 1);
     }
 
     @Test
     public void setQuestionAnswerIndices_invalidQuestionIndex_throwsIllegalArgumentException() {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
 
-        Assert.assertThrows(IllegalArgumentException.class, "Question index: -1 out of bounds", () -> {
-            lesson.setQuestionAnswerIndices(-1, 1);
-        });
-        Assert.assertThrows(IllegalArgumentException.class, "Question index: 2 out of bounds", () -> {
-            lesson.setQuestionAnswerIndices(2, 1);
-        });
+        Assert.assertThrows(IllegalArgumentException.class, "Question index: -1 out of bounds", () ->
+                lesson.setQuestionAnswerIndices(-1, 1));
+        Assert.assertThrows(IllegalArgumentException.class, "Question index: 2 out of bounds", () ->
+                lesson.setQuestionAnswerIndices(2, 1));
     }
 
     @Test
     public void setQuestionAnswerIndices_invalidAnswerIndex_throwsIllegalArgumentException() {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
 
-        Assert.assertThrows(IllegalArgumentException.class, "Answer index: -1 out of bounds", () -> {
-            lesson.setQuestionAnswerIndices(0, -1);
-        });
-        Assert.assertThrows(IllegalArgumentException.class, "Answer index: 2 out of bounds", () -> {
-            lesson.setQuestionAnswerIndices(0, 2);
-        });
+        Assert.assertThrows(IllegalArgumentException.class, "Answer index: -1 out of bounds", () ->
+                lesson.setQuestionAnswerIndices(0, -1));
+        Assert.assertThrows(IllegalArgumentException.class, "Answer index: 2 out of bounds", () ->
+                lesson.setQuestionAnswerIndices(0, 2));
     }
 
     @Test
@@ -136,13 +121,11 @@ public class LessonTest {
     public void setOptionalShown_invalidIndex() {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
 
-        Assert.assertThrows(IllegalArgumentException.class, EXCEPTION_INVALID_INDEX, () -> {
-            lesson.setIsVisibleOptional(-1, true);
-        });
+        Assert.assertThrows(IllegalArgumentException.class, EXCEPTION_INVALID_INDEX, ()->
+                lesson.setIsVisibleOptional(-1, true));
 
-        Assert.assertThrows(IllegalArgumentException.class, EXCEPTION_INVALID_INDEX, () -> {
-            lesson.setIsVisibleOptional(100, true);
-        });
+        Assert.assertThrows(IllegalArgumentException.class, EXCEPTION_INVALID_INDEX, () ->
+                lesson.setIsVisibleOptional(100, true));
     }
 
     @Test
@@ -161,6 +144,6 @@ public class LessonTest {
     public void getCards() {
         Lesson lesson = new LessonBuilder().build();
         assertTrue(lesson.isInitialized());
-        assertTrue(lesson.getCards().size() == 0);
+        assertEquals(0, lesson.getCards().size());
     }
 }

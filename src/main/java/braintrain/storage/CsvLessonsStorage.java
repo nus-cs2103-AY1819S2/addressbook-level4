@@ -1,5 +1,6 @@
 package braintrain.storage;
 
+import static braintrain.model.card.Card.MIN_CORE_COUNT;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
@@ -14,8 +15,8 @@ import java.util.logging.Logger;
 import braintrain.commons.core.LogsCenter;
 import braintrain.commons.util.CsvUtil;
 import braintrain.model.Lessons;
+import braintrain.model.card.exceptions.MissingCoreException;
 import braintrain.model.lesson.Lesson;
-import braintrain.model.lesson.exceptions.MissingCoreValueException;
 
 /**
  * A class to access Lessons stored in the hard disk as a csv file
@@ -87,7 +88,7 @@ public class CsvLessonsStorage implements LessonsStorage {
                 readingCores = false;
             }
         }
-        if (coreCount < Lesson.CORE_COUNT_MINIMUM) {
+        if (coreCount < MIN_CORE_COUNT) {
             return Optional.empty();
         }
 
@@ -101,7 +102,7 @@ public class CsvLessonsStorage implements LessonsStorage {
                 newLesson.addCard(Arrays.asList(data.get(i)));
             } catch (IllegalArgumentException e) {
                 continue;
-            } catch (MissingCoreValueException e) {
+            } catch (MissingCoreException e) {
                 continue;
             }
         }
@@ -119,9 +120,8 @@ public class CsvLessonsStorage implements LessonsStorage {
         List<Path> paths = new ArrayList<>();
         Lessons lessons = new Lessons();
         try {
-            Files.walk(folderPath).filter(path -> {
-                return path.toString().endsWith(".csv");
-            }).forEach(paths::add);
+            Files.walk(folderPath).filter(path ->
+                    path.toString().endsWith(".csv")).forEach(paths::add);
         } catch (IOException e) {
             return Optional.empty();
         }

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.Statistics.Bill;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
@@ -58,6 +59,11 @@ public interface Model {
     Path getTablesFilePath();
 
     /**
+     * Returns the user prefs' Statistics file path.
+     */
+    Path getStatisticsFilePath();
+
+    /**
      * Sets the user prefs' Orders file path.
      */
     void setOrdersFilePath(Path restOrRantFilePath);
@@ -67,6 +73,11 @@ public interface Model {
      */
     void setMenuFilePath(Path menuFilePath);
     // TODO: add set file path for each feature
+
+    /**
+     * Sets the user pref's Statistics file path.
+     */
+    void setStatisticsFilePath(Path statisticsFilePath);
 
     /**
      * Replaces RestOrRant data with the data in {@code restOrRant}.
@@ -167,6 +178,11 @@ public interface Model {
     void addMenuItem(MenuItem menuItem);
 
     /**
+     * Adds the given bill to the bill list.
+     */
+    void addBill(Bill bill);
+
+    /**
      * Replaces the given order item {@code target} with {@code editedOrderItem}.
      * {@code target} must exist in the RestOrRant's orders.
      * The order item identity of {@code editedOrderItem} must not be the same as another existing order item in Orders.
@@ -180,11 +196,20 @@ public interface Model {
      */
     void setMenuItem(MenuItem target, MenuItem editedItem);
 
+    /**
+     * Replaces the given bill {@code target} with {@code editedItem}.
+     * {@code target} must exist in the bill list.
+     */
+    void setBill(Bill target, Bill editedItem);
+
     /** Returns an unmodifiable view of the filtered order item list */
     ObservableList<OrderItem> getFilteredOrderItemList();
 
     /** Returns an unmodifiable view of the filtered menu item list */
     ObservableList<MenuItem> getFilteredMenuItemList();
+    
+    /** Returns an unmodifiable view of the filtered bill list */
+    ObservableList<Bill> getFilteredBillList();
 
     /**
      * Updates the filter of the filtered order item list to filter by the given {@code predicate}.
@@ -199,6 +224,12 @@ public interface Model {
     void updateFilteredMenuItemList(Predicate<MenuItem> predicate);
 
     /**
+     * Updates the filter of the filtered bill list to filter by the given {@code predicate}
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredBillList(Predicate<Bill> predicate);
+
+    /**
      * Selected person in the filtered order item list.
      * null if no order item is selected.
      */
@@ -210,6 +241,12 @@ public interface Model {
      */
     ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
 
+    /**
+     * Selected bill in the bill list.
+     * null if no bill is selected.
+     */
+    ReadOnlyProperty<Bill> selectedBillProperty();
+    
     /**
      * Returns the selected order item in the filtered order item list.
      * null if no order item is selected.
@@ -223,6 +260,12 @@ public interface Model {
     MenuItem getSelectedMenuItem();
 
     /**
+     * Returns the selected bill in the filtered bill list.
+     * null if no bill is selected.
+     */
+    Bill getSelectedBill();
+
+    /**
      * Sets the selected order item in the filtered order item list.
      */
     void setSelectedOrderItem(OrderItem orderItem);
@@ -232,10 +275,19 @@ public interface Model {
      */
     void setSelectedMenuItem(MenuItem menuItem);
 
+    /**
+     * Sets the selected bill in the filtered bill list.
+     */
+    void setSelectedBill(Bill bill);
     /** 
      * Notifies the listeners that the RestOrRant orders has been modified.
      */
     void updateOrders();
+
+    /**
+     * Get the Bill list
+     */
+    ObservableList<Bill> getBillList ();
 
     /**
      * Changes the current mode of the RestOrRant.

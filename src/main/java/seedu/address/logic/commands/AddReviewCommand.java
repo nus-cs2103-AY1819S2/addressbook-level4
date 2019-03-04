@@ -1,8 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -12,10 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.review.Review;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Adds a restaurant to the food diary.
  */
@@ -23,7 +24,8 @@ public class AddReviewCommand extends Command {
 
     public static final String COMMAND_WORD = "addreview";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review tagged to a restaurant to the food diary. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review tagged to a restaurant to the food "
+            + "diary.\n"
             + "Parameters: "
             + "INDEX (Must be a positive integer) "
             + PREFIX_REVIEWENTRY + "REVIEW "
@@ -76,14 +78,18 @@ public class AddReviewCommand extends Command {
                 && targetIndex.equals(((AddReviewCommand) other).targetIndex));
     }
 
-    private static Restaurant createRestaurantWithNewReview(Restaurant restaurantReviewed, Review reviewToAdd){
+    /**
+     * Creates a new Restaurant with the newly added specified {@code Review}
+     */
+    private static Restaurant createRestaurantWithNewReview(Restaurant restaurantReviewed, Review reviewToAdd) {
         assert restaurantReviewed != null;
 
         Set<Review> newReviews = new HashSet<>();
         newReviews.addAll(restaurantReviewed.getReviews());
         newReviews.add(reviewToAdd);
 
-        return new Restaurant(restaurantReviewed.getName(), restaurantReviewed.getPhone(), restaurantReviewed.getEmail(),
+        return new Restaurant(restaurantReviewed.getName(), restaurantReviewed.getPhone(),
+                restaurantReviewed.getEmail(),
                 restaurantReviewed.getAddress(), restaurantReviewed.getTags(), restaurantReviewed.getCuisine(),
                 restaurantReviewed.getWeblink(), newReviews);
     }

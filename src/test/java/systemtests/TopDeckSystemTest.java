@@ -35,7 +35,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.testutil.TypicalCards;
@@ -43,10 +42,10 @@ import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for TopDeck, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class TopDeckSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -100,7 +99,7 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public CardListPanelHandle getPersonListPanel() {
+    public CardListPanelHandle getCardListPanel() {
         return mainWindowHandle.getPersonListPanel();
     }
 
@@ -136,35 +135,35 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all cards in the deck.
      */
-    protected void showAllPersons() {
+    protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getTopDeck().getPersonList().size(), getModel().getFilteredCardList().size());
+        assertEquals(getModel().getTopDeck().getCardList().size(), getModel().getFilteredCardList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all cards with any parts of their questions matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showCardsWithQuestion(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCardList().size() < getModel().getTopDeck().getPersonList().size());
+        assertTrue(getModel().getFilteredCardList().size() < getModel().getTopDeck().getCardList().size());
     }
 
     /**
      * Selects the card at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectCard(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getCardListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all cards in the deck.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllCards() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getTopDeck().getPersonList().size());
+        assertEquals(0, getModel().getTopDeck().getCardList().size());
     }
 
     /**
@@ -176,8 +175,8 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getTopDeck()), testApp.readStorageTopDeck());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredCardList());
+        assertEquals(new TopDeck(expectedModel.getTopDeck()), testApp.readStorageTopDeck());
+        assertListMatching(getCardListPanel(), expectedModel.getFilteredCardList());
     }
 
     /**
@@ -190,7 +189,7 @@ public abstract class AddressBookSystemTest {
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberTotalPersonsStatus();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedCardDisplay();
+        getCardListPanel().rememberSelectedCardDisplay();
     }
 
     /**
@@ -200,7 +199,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getCardListPanel().isAnyCardSelected());
     }
 
     /**
@@ -210,17 +209,17 @@ public abstract class AddressBookSystemTest {
      * @see CardListPanelHandle#isSelectedCardDisplayChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getCardListPanel().navigateToCard(getCardListPanel().getSelectedCardIndex());
+        String selectedCardQuestion = getCardListPanel().getHandleToSelectedCard().getQuestion();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardQuestion.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getCardListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -230,7 +229,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedCardDisplayChanged());
+        assertFalse(getCardListPanel().isSelectedCardDisplayChanged());
     }
 
     /**
@@ -283,7 +282,7 @@ public abstract class AddressBookSystemTest {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
 
-        final int totalPersons = testApp.getModel().getTopDeck().getPersonList().size();
+        final int totalPersons = testApp.getModel().getTopDeck().getCardList().size();
         assertEquals(String.format(TOTAL_CARDS_STATUS, totalPersons), handle.getTotalPersonsStatus());
 
         assertFalse(handle.isSaveLocationChanged());
@@ -295,12 +294,12 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredCardList());
+        assertListMatching(getCardListPanel(), getModel().getFilteredCardList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-        assertEquals(String.format(TOTAL_CARDS_STATUS, getModel().getTopDeck().getPersonList().size()),
+        assertEquals(String.format(TOTAL_CARDS_STATUS, getModel().getTopDeck().getCardList().size()),
                 getStatusBarFooter().getTotalPersonsStatus());
     }
 

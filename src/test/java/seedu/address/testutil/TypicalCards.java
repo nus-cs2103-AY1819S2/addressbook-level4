@@ -26,6 +26,11 @@ public class TypicalCards {
     public static final Card HELLO_WORLD = new CardBuilder().withQuestion("Hello?")
             .withAnswer("World").withTags("Simple", "CS").build();
 
+    public static final Card NO_TAG = new CardBuilder().withQuestion("Is there any tag?")
+            .withAnswer("No").build();
+
+    public static final String KEYWORD_MATCHING_MEIER = "What";
+
     private TypicalCards() {} // prevents instantiation
 
     /**
@@ -41,7 +46,7 @@ public class TypicalCards {
 
 
     public static List<Card> getTypicalCards() {
-        return new ArrayList<>(Arrays.asList(ADDITION, SUBTRACTION, HELLO_WORLD));
+        return new ArrayList<>(Arrays.asList(ADDITION, SUBTRACTION, MULTIPLICATION, HELLO_WORLD));
     }
 
 }

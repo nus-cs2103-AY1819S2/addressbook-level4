@@ -32,6 +32,7 @@ public class CommandTestUtil {
     public static final String VALID_ANSWER_SUBTRACTION = "0";
     public static final String VALID_TAG_MOD = "CS2103T";
     public static final String VALID_TAG_SUBJECT = "Computer Science";
+    public static final String VALID_TAG_MATH = "Math";
 
     public static final String QUESTION_DESC_HELLO = " " + PREFIX_QUESTION + VALID_QUESTION_HELLO;
     public static final String QUESTION_DESC_MOD = " " + PREFIX_QUESTION + VALID_QUESTION_MOD;
@@ -43,6 +44,7 @@ public class CommandTestUtil {
     public static final String ANSWER_DESC_SUBTRACTION = " " + PREFIX_ANSWER + VALID_ANSWER_SUBTRACTION;
     public static final String TAG_DESC_MOD = " " + PREFIX_TAG + VALID_TAG_MOD;
     public static final String TAG_DESC_SUBJECT = " " + PREFIX_TAG + VALID_TAG_SUBJECT;
+    public static final String TAG_DESC_MATH = " " + PREFIX_TAG + VALID_TAG_MATH;
 
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 

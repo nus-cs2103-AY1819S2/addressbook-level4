@@ -84,6 +84,7 @@ public class AddReviewCommand extends Command {
         newReviews.add(reviewToAdd);
 
         return new Restaurant(restaurantReviewed.getName(), restaurantReviewed.getPhone(), restaurantReviewed.getEmail(),
-                restaurantReviewed.getAddress(), restaurantReviewed.getTags(), newReviews);
+                restaurantReviewed.getAddress(), restaurantReviewed.getTags(), restaurantReviewed.getCuisine(),
+                restaurantReviewed.getWeblink(), newReviews);
     }
 }

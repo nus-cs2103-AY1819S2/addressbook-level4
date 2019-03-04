@@ -32,7 +32,7 @@ public class DescriptionCommand extends Command {
             + PREFIX_DESCRIPTION + "Father's birthday present.";
 
     public static final String MESSAGE_ADD_DESCRIPTION_SUCCESS = "Added description to Person: %1$s";
-    public static final String MESSAGE_DELETE_DESCRIPTION_SUCCESS = "Removed description from Person: %1$s";
+    public static final String MESSAGE_REMOVE_DESCRIPTION_SUCCESS = "Removed description from Person: %1$s";
 
     private final Index index;
     private final Description description;
@@ -75,7 +75,7 @@ public class DescriptionCommand extends Command {
      */
     private String makeSuccessMessage(Person personToEdit) {
 
-        String message = !description.value.isEmpty() ? MESSAGE_ADD_DESCRIPTION_SUCCESS : MESSAGE_DELETE_DESCRIPTION_SUCCESS;
+        String message = !description.value.isEmpty() ? MESSAGE_ADD_DESCRIPTION_SUCCESS : MESSAGE_REMOVE_DESCRIPTION_SUCCESS;
         return String.format(message, personToEdit);
     }
 

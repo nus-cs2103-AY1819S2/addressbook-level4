@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.PrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.consultation.Prescription;
 
 /**
  * parse arguments from user entered command to prescribe a list of medicine

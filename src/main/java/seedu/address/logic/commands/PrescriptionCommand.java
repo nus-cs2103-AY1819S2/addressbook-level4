@@ -63,6 +63,10 @@ public class PrescriptionCommand extends Command {
             && checkAttributes((PrescriptionCommand) other));
     }
 
+    /**
+     * Check whether the content of medicine list and quantity list is the same for two
+     * prescription commands
+     */
     public boolean checkAttributes(PrescriptionCommand other) {
         return Arrays.equals(getMedicineList().toArray(), other.getMedicineList().toArray())
                 && getQuantityList().equals(other.getQuantityList());

@@ -16,8 +16,11 @@ public class Tables implements ReadOnlyTables {
 
     private final UniqueTableList tableList;
 
+    private int nextTableNumber;
+
     {
-        tableList = new UniqueTableList(); 
+        tableList = new UniqueTableList();
+        nextTableNumber = 1;
     }
     
     public Tables() {}
@@ -70,6 +73,16 @@ public class Tables implements ReadOnlyTables {
     }
 
     /**
+     * Adds a table to the UniqueTableList.
+     * The table must not already exist in the UniqueTableList.
+     */
+    public void addTable(TableNumber tableNumber) {
+        tableList.add(new Table(tableNumber, new TableStatus(String.valueOf(nextTableNumber))));
+        indicateModified();
+        nextTableNumber++;
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -92,6 +105,10 @@ public class Tables implements ReadOnlyTables {
     
     public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
         return Optional.of(tableList.getTable(tableNumber));
+    }
+
+    public int getNextTableNumber() {
+        return nextTableNumber;
     }
 
     /**

@@ -2,13 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
+import seedu.address.model.table.TableStatus;
 
 /**
  * Adds a table to Tables.
@@ -36,10 +38,18 @@ public class AddTableCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Mode mode, Model model, CommandHistory history) {
+    public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        return null;
+        for (TableNumber tableNumber : tableNumberList) {
+            if (model.getRestOrRant().getTables().getTableList()
+                    .contains(new Table(tableNumber, new TableStatus("1")))) {
+                throw new CommandException(String.format(MESSAGE_INVALID_TABLE_NUMBER, tableNumber.getTableNumber()));
+            }
+            model.addTable(tableNumber);
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, tableNumberList));
     }
     
     @Override

@@ -20,6 +20,7 @@ import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
@@ -144,6 +145,12 @@ public class ModelManager implements Model {
     @Override
     public void addTable(Table table) {
         restOrRant.getTables().addTable(table);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
+    }
+
+    @Override
+    public void addTable(TableNumber tableNumber) {
+        restOrRant.getTables().addTable(tableNumber);
         updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
 

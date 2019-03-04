@@ -17,6 +17,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InitialiseMapCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagsCommand;
+import seedu.address.logic.commands.PutShipCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StatsCommand;
@@ -95,6 +96,10 @@ public class AddressBookParser {
         case InitialiseMapCommand.COMMAND_WORD:
         case InitialiseMapCommand.COMMAND_ALIAS:
             return new InitialiseMapCommandParser().parse(arguments);
+
+        case PutShipCommand.COMMAND_WORD:
+        case PutShipCommand.COMMAND_ALIAS:
+            return new PutShipCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

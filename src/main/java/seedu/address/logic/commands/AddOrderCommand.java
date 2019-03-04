@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.TableNumber;
@@ -30,13 +31,13 @@ public class AddOrderCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ORDER_ITEM = "This order item already exists in the table's order";
     public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid";
 
-    private final List<String> itemCodes;
+    private final List<Code> itemCodes;
     private final List<Integer> itemQuantities;
 
     /**
      * Creates an AddOrderCommand to add order items specified by the item codes and quantities.
      */
-    public AddOrderCommand(List<String> itemCodes, List<Integer> itemQuantities) {
+    public AddOrderCommand(List<Code> itemCodes, List<Integer> itemQuantities) {
         requireAllNonNull(itemCodes, itemQuantities);
         this.itemCodes = itemCodes;
         this.itemQuantities = itemQuantities;
@@ -52,7 +53,7 @@ public class AddOrderCommand extends Command {
             if (!itemOptional.isPresent()) {
                 throw new CommandException(String.format(MESSAGE_INVALID_ITEM_CODE, itemCodes.get(i)));
             }
-            OrderItem orderItem = new OrderItem(new TableNumber("1"), itemOptional.get(), itemQuantities.get(i));
+            OrderItem orderItem = new OrderItem(new TableNumber("1"), itemCodes.get(i), itemQuantities.get(i));
             if (model.hasOrderItem(orderItem)) {
                 throw new CommandException(MESSAGE_DUPLICATE_ORDER_ITEM);
             }

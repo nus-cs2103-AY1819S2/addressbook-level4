@@ -111,7 +111,7 @@ public class Menu implements ReadOnlyMenu {
     }
     
     /**
-     * Given the menu item's {@code String code}, returns the MenuItem with the corresponding code.
+     * Given the menu item's {@code Code code}, returns the MenuItem with the corresponding code.
      */
     @Override
     public Optional<MenuItem> getItemFromCode(Code code) {

@@ -103,7 +103,7 @@ public class MainApp extends Application {
                 logger.info("Menu data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
             } else if (!tablesOptional.isPresent()) {
-                logger.info("Tables data file ont found. Will be starting with an empty RestOrRant");
+                logger.info("Tables data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
             } else {
                 initialData = new RestOrRant(ordersOptional.get(), menuOptional.get(), tablesOptional.get());

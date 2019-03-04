@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EquipmentBuilder;
 
 public class UniqueEquipmentListTest {
     @Rule
@@ -46,7 +46,7 @@ public class UniqueEquipmentListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueEquipmentList.add(ALICE);
-        Equipment editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Equipment editedAlice = new EquipmentBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueEquipmentList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueEquipmentListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueEquipmentList.add(ALICE);
-        Equipment editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Equipment editedAlice = new EquipmentBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueEquipmentList.setEquipment(ALICE, editedAlice);
         UniqueEquipmentList expectedUniqueEquipmentList = new UniqueEquipmentList();

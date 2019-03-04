@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Equipment.
  */
-public class PersonUtil {
+public class EquipmentUtil {
 
     /**
      * Returns an add command string for adding the {@code equipment}.

@@ -81,7 +81,7 @@ class JsonAdaptedBooking {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "payer"));
         }
         return new Booking(service.toModelType(), timing.toModelType(), payer.toModelType(), Optional.of(others),
-            comment.equals("") ? Optional.empty() : Optional.of(comment));
+            "".equals(comment) ? Optional.empty() : Optional.of(comment));
     }
 
 }

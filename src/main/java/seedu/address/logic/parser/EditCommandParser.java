@@ -56,7 +56,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editCustomerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).isPresent()) {
-            editCustomerDescriptor.setIdNum(ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()));
+            editCustomerDescriptor.setIdNum(ParserUtil.parseIdNum
+                (argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editCustomerDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));

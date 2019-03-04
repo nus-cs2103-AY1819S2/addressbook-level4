@@ -15,7 +15,9 @@ import seedu.address.logic.parser.RestOrRantParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;
 
 /**
@@ -31,6 +33,7 @@ public class LogicManager implements Logic {
     private final RestOrRantParser restOrRantParser;
     private boolean addressBookModified;
     private boolean modeModified;
+    private boolean ordersModified;
     private Mode mode;
 
     public LogicManager(Model model, Storage storage) {
@@ -44,6 +47,8 @@ public class LogicManager implements Logic {
         model.getRestOrRant().addListener(observable -> addressBookModified = true);
         // Set modeModified to true whenever the models' mode is modified.
         model.getRestOrRant().addListener(observable -> modeModified = true);
+        // Set ordersModified to true whenever the models' RestOrRant's orders is modified.
+        model.getRestOrRant().getOrders().addListener(observable -> ordersModified = true);
     }
 
     @Override
@@ -51,6 +56,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
         modeModified = false;
+        ordersModified = false;
 
         CommandResult commandResult;
         try {
@@ -73,6 +79,15 @@ public class LogicManager implements Logic {
             logger.info("Application mode modified, changing UI");
         }
 
+        if (ordersModified) {
+            logger.info("Orders modified, saving to file.");
+            try {
+                storage.saveOrders(model.getRestOrRant().getOrders());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
         return commandResult;
     }
 
@@ -82,13 +97,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyRestOrRant getAddressBook() {
+    public ReadOnlyRestOrRant getRestOrRant() {
         return model.getRestOrRant();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<OrderItem> getFilteredOrderItemList() {
+        return model.getFilteredOrderItemList();
+    }
+    
+    @Override
+    public ObservableList<Table> getFilteredTableList() {
+        return model.getFilteredTableList();
     }
 
     @Override
@@ -97,8 +117,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getRestOrRantFilePath();
+    public Path getOrdersFilePath() {
+        return model.getOrdersFilePath();
+    }
+
+    public Path getTablesFilePath() {
+        return model.getTablesFilePath();
     }
 
     @Override
@@ -112,12 +136,22 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
+        return model.selectedOrderItemProperty();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public void setSelectedOrderItem(OrderItem orderItem) {
+        model.setSelectedOrderItem(orderItem);
+    }
+    
+    @Override
+    public ReadOnlyProperty<Table> selectedTableProperty() {
+        return model.selectedTableProperty();
+    }
+
+    @Override
+    public void setSelectedTable(Table table) {
+        model.setSelectedTable(table);
     }
 }

@@ -17,6 +17,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
+import seedu.address.model.table.Table;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -28,6 +30,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<OrderItem> filteredOrderItems;
     private final SimpleObjectProperty<OrderItem> selectedOrderItem = new SimpleObjectProperty<>();
+    private final FilteredList<Table> filteredTableList;
+    private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -42,6 +46,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOrderItems = new FilteredList<>(this.restOrRant.getOrders().getOrderItemList());
         filteredOrderItems.addListener(this::ensureSelectedOrderItemIsValid);
+        filteredTableList = new FilteredList<>(this.restOrRant.getTables().getTableList());
+        filteredTableList.addListener(this::ensureSelectedTableIsValid);
     }
 
     public ModelManager() {
@@ -76,6 +82,11 @@ public class ModelManager implements Model {
     public Path getOrdersFilePath() {
         return userPrefs.getOrdersFilePath();
     }
+    
+    @Override 
+    public Path getTablesFilePath() {
+        return userPrefs.getTablesFilePath();
+    }
 
     @Override
     public void setOrdersFilePath(Path ordersFilePath) {
@@ -99,7 +110,99 @@ public class ModelManager implements Model {
     public void updateRestOrRant() { // change mode
         restOrRant.indicateModified();
     }
+
+    //=========== Tables =====================================================================================
     
+    @Override
+    public boolean hasTable(Table table) {
+        requireNonNull(table);
+        return restOrRant.getTables().hasTable(table);
+    }
+
+    @Override
+    public void deleteTable(Table table) {
+        restOrRant.getTables().removeTable(table);
+    }
+    
+    @Override
+    public void addTable(Table table) {
+        restOrRant.getTables().addTable(table);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
+    }
+
+    @Override
+    public void setTable(Table target, Table editedTable) {
+        requireAllNonNull(target, editedTable);
+        
+        restOrRant.getTables().setTable(target, editedTable);
+    }
+
+    //=========== Filtered Table List Accessors ==============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Table} backed by the internal list of {@code Tables}
+     */
+    @Override
+    public ObservableList<Table> getFilteredTableList() {
+        return filteredTableList;
+    }
+
+    @Override
+    public void updateFilteredTableList(Predicate<Table> predicate) {
+        requireNonNull(predicate);
+        filteredTableList.setPredicate(predicate);
+    }
+
+
+    //=========== Selected table =============================================================================
+    
+    @Override
+    public ReadOnlyProperty<Table> selectedTableProperty() {
+        return selectedTable;
+    }
+
+    @Override
+    public Table getSelectedTable() {
+        return selectedTable.getValue();
+    }
+
+    @Override
+    public void setSelectedTable(Table table) {
+        if (table != null && !filteredTableList.contains(table)) {
+            throw new TableNotFoundException();
+        }
+        selectedTable.setValue(table);
+    }
+
+    /**
+     * Ensures {@code selectedTable} is a valid table in {@code filteredTable}.
+     */
+    private void ensureSelectedTableIsValid(ListChangeListener.Change<? extends Table> change) {
+        while (change.next()) {
+            if (selectedTable.getValue() == null) {
+                //null is always a valid selected order item, so we do not need to check that it is valid anymore
+                return;
+            }
+
+            boolean wasSelectedTableReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedTable.getValue());
+            if (wasSelectedTableReplaced) {
+                //Update selectedTable to its new value.
+                int index = change.getRemoved().indexOf(selectedTable.getValue());
+                selectedTable.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedTableRemoved = change.getRemoved().stream()
+                    .anyMatch(removedTable -> selectedTable.getValue().isSameTable(removedTable));
+            if (wasSelectedTableRemoved) {
+                // Select the table taht came before it in the list,
+                // or clear the selection if there is no such table.
+                selectedTable.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
     //=========== Order ======================================================================================
 
     @Override
@@ -124,6 +227,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedOrderItem);
 
         restOrRant.getOrders().setOrderItem(target, editedOrderItem);
+    }
+
+    @Override
+    public void updateOrders() {
+        restOrRant.getOrders().indicateModified();
     }
 
     //=========== Filtered Order Item List Accessors =============================================================
@@ -164,7 +272,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedOrderItem} is a valid person in {@code filteredOrderItems}.
+     * Ensures {@code selectedOrderItem} is a valid order item in {@code filteredOrderItems}.
      */
     private void ensureSelectedOrderItemIsValid(ListChangeListener.Change<? extends OrderItem> change) {
         while (change.next()) {
@@ -209,7 +317,9 @@ public class ModelManager implements Model {
         return restOrRant.equals(other.restOrRant)
                 && userPrefs.equals(other.userPrefs)
                 && filteredOrderItems.equals(other.filteredOrderItems)
-                && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get());
+                && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get())
+                && filteredTableList.equals(other.filteredTableList)
+                && Objects.equals(selectedTable.get(), other.selectedTable.get());
     }
 
     @Override

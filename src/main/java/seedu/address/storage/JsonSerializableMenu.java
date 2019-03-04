@@ -18,32 +18,32 @@ import seedu.address.model.person.Person;
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableMenu {
-
+/*
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedPerson> persons = new ArrayList<>(); */
     /**
      * Constructs a {@code JsonSerializableRestOrRant} with the given persons.
      */
-    @JsonCreator
+/*    @JsonCreator
     public JsonSerializableMenu(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
-    }
+    } */
 
     /**
      * Converts a given {@code ReadOnlyRestOrRant} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableRestOrRant}.
      */
-    public JsonSerializableMenu(ReadOnlyRestOrRant source) {
+ /*   public JsonSerializableMenu(ReadOnlyRestOrRant source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-    }
+    } */
 
     /**
      * Converts this address book into the model's {@code RestOrRant} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public RestOrRant toModelType() throws IllegalValueException {
+/*    public RestOrRant toModelType() throws IllegalValueException {
         RestOrRant restOrRant = new RestOrRant();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
@@ -53,6 +53,6 @@ class JsonSerializableMenu {
             restOrRant.addPerson(person);
         }
         return restOrRant;
-    }
+    } */
 
 }

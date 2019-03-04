@@ -89,8 +89,10 @@ public class MainApp extends Application {
             ordersOptional = storage.readOrders();
             if (!ordersOptional.isPresent()) {
                 logger.info("Orders data file not found. Will be starting with sample Orders");
+                initialData = new RestOrRant();
+            } else {
+                initialData = new RestOrRant(ordersOptional.get());
             }
-            initialData = new RestOrRant(ordersOptional.get());
             // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");

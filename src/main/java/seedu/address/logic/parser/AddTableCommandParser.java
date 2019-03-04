@@ -7,7 +7,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.table.TableNumber;
+import seedu.address.model.table.TableStatus;
 
 /**
  * Parses input arguments and creates a new AddTableCommand object
@@ -21,17 +21,17 @@ public class AddTableCommandParser implements Parser<AddTableCommand> {
      */
     public AddTableCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        String[] tableNumbersInString = trimmedArgs.split("\\s+");
-        if (trimmedArgs.isEmpty() || tableNumbersInString.length == 0) {
+        String[] numberOfSeatsInString = trimmedArgs.split("\\s+");
+        if (trimmedArgs.isEmpty() || numberOfSeatsInString.length == 0) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
         }
 
-        List<TableNumber> tableNumberList = new ArrayList<>();
-        for (int i = 0; i < tableNumbersInString.length; i++) {
-            tableNumberList.add(new TableNumber(tableNumbersInString[i]));
+        List<TableStatus> numberOfSeatsList = new ArrayList<>();
+        for (int i = 0; i < numberOfSeatsInString.length; i++) {
+            numberOfSeatsList.add(new TableStatus(numberOfSeatsInString[i]));
         }
 
-        return new AddTableCommand(tableNumberList);
+        return new AddTableCommand(numberOfSeatsList);
     }
 }

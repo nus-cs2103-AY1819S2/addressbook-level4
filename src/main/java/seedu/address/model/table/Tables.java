@@ -76,8 +76,8 @@ public class Tables implements ReadOnlyTables {
      * Adds a table to the UniqueTableList.
      * The table must not already exist in the UniqueTableList.
      */
-    public void addTable(TableNumber tableNumber) {
-        tableList.add(new Table(tableNumber, new TableStatus(String.valueOf(nextTableNumber))));
+    public void addTable(TableStatus tableStatus) {
+        tableList.add(new Table(new TableNumber(String.valueOf(nextTableNumber)), tableStatus));
         indicateModified();
         nextTableNumber++;
     }

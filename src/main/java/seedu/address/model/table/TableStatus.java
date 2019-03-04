@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class TableStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Table status should only contain numbers and the number of seats taken is less than number of seats";
+            "Table status should only contain numbers and the number of seats taken is less than number of seats.";
 
     public final String numberOfSeats;
     public String numberOfTakenSeats;

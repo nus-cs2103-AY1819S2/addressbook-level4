@@ -8,9 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.TableNumber;
+import seedu.address.model.table.TableStatus;
 
 /**
  * The API of the Model component.
@@ -103,7 +102,7 @@ public interface Model {
      * Adds the table with given TableNumber to Tables.
      * {@code table} must not already exist in Tables
      */
-    void addTable(TableNumber tableNumber);
+    void addTable(TableStatus tableStatus);
 
     /**
      * Replaces the given table {@code target} with {@code editedTable}.

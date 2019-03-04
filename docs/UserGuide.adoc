@@ -162,6 +162,7 @@ Format: `quit`
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::quiz[]
 === Quiz Mode
 
 ==== Viewing help: `\help`
@@ -190,6 +191,7 @@ Format: `[*]`
 
 Quits the current quiz session and switches back to Management Mode. +
 Format: `\quit`
+// end::quiz[]
 
 == Address Book 4 Features
 *Features here will be replaced by equivalent features in BrainTrain document above.*

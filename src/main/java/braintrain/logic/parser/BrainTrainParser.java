@@ -10,6 +10,7 @@ import braintrain.logic.commands.Command;
 import braintrain.logic.commands.ExitCommand;
 import braintrain.logic.commands.HelpCommand;
 import braintrain.logic.commands.HistoryCommand;
+import braintrain.logic.commands.StartCommand;
 import braintrain.logic.parser.exceptions.ParseException;
 
 /**
@@ -41,6 +42,9 @@ public class BrainTrainParser {
 
         //        case FindCommand.COMMAND_WORD:
         //            return new FindCommandParser().parse(arguments);
+        // TODO use parser here
+        case StartCommand.COMMAND_WORD:
+            return new StartCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

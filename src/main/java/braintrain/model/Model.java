@@ -1,6 +1,9 @@
 package braintrain.model;
 
+import java.util.List;
+
 import braintrain.commons.core.GuiSettings;
+import braintrain.model.lesson.Lesson;
 
 /**
  * The API of the Model component.
@@ -25,4 +28,31 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+
+    /**
+     * Gets the lesson by index.
+     */
+    Lesson getLesson(int index);
+
+    /**
+     * Gets the entire list of lessons.
+     */
+    List<Lesson> getLessons();
+
+    /**
+     * Adds the lesson.
+     */
+    void addLesson(Lesson lesson);
+
+    /**
+     * Updates the lesson at the given index.
+     */
+    void setLesson(int index, Lesson updatedLesson);
+
+    /**
+     * Removes the lesson at the given index from memory, and deletes its corresponding file.
+     * @param index w
+     */
+    void deleteLesson(int index);
 }

@@ -67,4 +67,22 @@ public class QuizModelManager implements QuizModel {
     public List<List<Integer>> end() {
         return quiz.end();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof QuizModelManager)) {
+            return false;
+        }
+
+        // state check
+        QuizModelManager other = (QuizModelManager) obj;
+        return quiz.equals(other.quiz);
+    }
+
 }

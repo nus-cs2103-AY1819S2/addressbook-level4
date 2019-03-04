@@ -17,13 +17,14 @@ public class QuizCardTest {
 
     private static final String QUESTION = "Japan";
     private static final String ANSWER = "Tokyo";
+    private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
 
     private static final List<String> FIELDS_OPTIONALS = Arrays.asList("JP", "Asia");
     private static final List<String> FIELDS_OPTIONALS_EMPTY = Arrays.asList("", "");
 
     private static final QuizCard VALID_QUIZCARD_NO_OPT = new QuizCard(QUESTION, ANSWER);
     private static final QuizCard VALID_QUIZCARD = new QuizCard(QUESTION, ANSWER, FIELDS_OPTIONALS);
-    private static final QuizCard VALID_QUIZCARD_INDEX = new QuizCard(1, QUESTION, ANSWER);
+    private static final QuizCard VALID_QUIZCARD_INDEX = new QuizCard(1, QUESTION, ANSWER, Quiz.Mode.PREVIEW);
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -43,10 +44,10 @@ public class QuizCardTest {
             new QuizCard(QUESTION, ANSWER, null));
 
         Assert.assertThrows(NullPointerException.class, () ->
-            new QuizCard(0, null, null));
+            new QuizCard(0, null, null, MODE));
 
         Assert.assertThrows(NullPointerException.class, () ->
-            new QuizCard(0, QUESTION, null));
+            new QuizCard(0, QUESTION, null, MODE));
     }
 
     @Test
@@ -75,13 +76,13 @@ public class QuizCardTest {
             new QuizCard(QUESTION, invalidAns, FIELDS_OPTIONALS_EMPTY));
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
-            new QuizCard(0, invalidQn, invalidAns));
+            new QuizCard(0, invalidQn, invalidAns, MODE));
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
-            new QuizCard(1, "     ", ANSWER));
+            new QuizCard(1, "     ", ANSWER, MODE));
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
-            new QuizCard(2, invalidQn, ANSWER));
+            new QuizCard(2, invalidQn, ANSWER, MODE));
 
     }
 
@@ -125,6 +126,17 @@ public class QuizCardTest {
     }
 
     @Test
+    public void getQuizMode_invalidQuizMode_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () ->
+            VALID_QUIZCARD.getQuizMode());
+    }
+
+    @Test
+    public void getQuizMode() {
+        assertEquals(MODE, VALID_QUIZCARD_INDEX.getQuizMode());
+    }
+
+    @Test
     public void isCorrect() {
         assertTrue(VALID_QUIZCARD.isCorrect(ANSWER));
 
@@ -138,7 +150,7 @@ public class QuizCardTest {
 
     @Test
     public void updateTotalAttemptsAndStreak() {
-        QuizCard quizCardWithIndex = VALID_QUIZCARD_INDEX;
+        QuizCard quizCardWithIndex = VALID_QUIZCARD;
 
         quizCardWithIndex.updateTotalAttemptsAndStreak(true);
         assertEquals(1, quizCardWithIndex.getTotalAttempts());
@@ -158,7 +170,7 @@ public class QuizCardTest {
     public void equals() {
         final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
         final QuizCard quizCardWithAb = new QuizCard("A", "B");
-        final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER);
+        final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER, MODE);
 
         // same object
         assertTrue(VALID_QUIZCARD.equals(VALID_QUIZCARD));
@@ -183,7 +195,7 @@ public class QuizCardTest {
     public void hashcode() {
         final QuizCard anotherValidQuizCard = new QuizCard(QUESTION, ANSWER);
         final QuizCard quizCardWithAb = new QuizCard("A", "B");
-        final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER);
+        final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER, MODE);
 
         // same value
         assertEquals(VALID_QUIZCARD_NO_OPT.hashCode(), anotherValidQuizCard.hashCode());

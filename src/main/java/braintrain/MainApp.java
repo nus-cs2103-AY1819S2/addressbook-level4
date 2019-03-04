@@ -13,19 +13,26 @@ import braintrain.commons.util.ConfigUtil;
 import braintrain.commons.util.StringUtil;
 import braintrain.logic.Logic;
 import braintrain.logic.LogicManager;
+import braintrain.model.Lessons;
 import braintrain.model.Model;
 import braintrain.model.ModelManager;
 import braintrain.model.ReadOnlyUserPrefs;
 import braintrain.model.UserPrefs;
+import braintrain.quiz.QuizModel;
+import braintrain.quiz.QuizModelManager;
+import braintrain.storage.CsvLessonImportExport;
+import braintrain.storage.CsvLessonsStorage;
 import braintrain.storage.JsonUserPrefsStorage;
+import braintrain.storage.LessonImportExport;
+import braintrain.storage.LessonsStorage;
 import braintrain.storage.Storage;
 import braintrain.storage.StorageManager;
 import braintrain.storage.UserPrefsStorage;
 import braintrain.ui.Ui;
 import braintrain.ui.UiManager;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 /**
  * The main entry point to the application.
  */
@@ -39,6 +46,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected QuizModel quizModel;
     protected Config config;
 
     @Override
@@ -51,13 +59,17 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        storage = new StorageManager(userPrefsStorage);
+        LessonsStorage lessonsStorage = new CsvLessonsStorage(userPrefs.getLessonsFolderPath());
+        Lessons lessons = initLessons(lessonsStorage);
+        LessonImportExport lessonImportExport = new CsvLessonImportExport(userPrefs.getLessonImportExportFilePath());
+        storage = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
 
         initLogging(config);
 
-        model = initModelManager(userPrefs);
+        model = initModelManager(userPrefs, lessons);
+        quizModel = initQuizModelManager();
 
-        logic = new LogicManager(model);
+        logic = new LogicManager(model, quizModel);
 
         ui = new UiManager(logic);
     }
@@ -65,8 +77,15 @@ public class MainApp extends Application {
     /**
      * Returns a {@code ModelManager} with the data from {@code userPrefs}.
      */
-    private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
-        return new ModelManager(userPrefs);
+    private Model initModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
+        return new ModelManager(userPrefs, lessons);
+    }
+
+    /**
+     * Returns an empty {@code QuizModelManager}.
+     */
+    private QuizModelManager initQuizModelManager() {
+        return new QuizModelManager();
     }
 
     private void initLogging(Config config) {
@@ -139,6 +158,37 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
+    }
+
+
+    /**
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * reading from the file.
+     */
+    protected Lessons initLessons(LessonsStorage storage) {
+        Path lessonsFolderPath = storage.getLessonsFolderPath();
+        logger.info("Using lessons folder : " + lessonsFolderPath);
+
+        Lessons initializedLessons = null;
+        try {
+            Optional<Lessons> prefsOptional = storage.readLessons();
+            initializedLessons = prefsOptional.orElse(new Lessons());
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with a empty BrainTrain");
+            initializedLessons = new Lessons();
+        }
+        /*
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            storage.saveUserPrefs(initializedPrefs);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+        */
+
+        logger.info(initializedLessons.getLessons().size() + " lessons loaded.");
+        return initializedLessons;
     }
 
     @Override

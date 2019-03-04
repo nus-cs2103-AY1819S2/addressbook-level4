@@ -15,6 +15,7 @@ import org.junit.rules.ExpectedException;
 import braintrain.testutil.Assert;
 
 public class QuizModelManagerTest {
+    private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
     private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);
@@ -37,10 +38,13 @@ public class QuizModelManagerTest {
         modelManager.init(quiz);
 
         // get first card
-        assertEquals(new QuizCard(0, QUIZCARD_1.getQuestion(), QUIZCARD_1.getAnswer()), modelManager.getNextCard());
+        assertEquals(new QuizCard(0, QUIZCARD_1.getQuestion(), QUIZCARD_1.getAnswer(), MODE),
+            modelManager.getNextCard());
 
         // get the rest
         assertTrue(modelManager.hasCardLeft());
+        modelManager.getNextCard();
+        modelManager.getNextCard();
         modelManager.getNextCard();
         modelManager.getNextCard();
         modelManager.getNextCard();
@@ -58,7 +62,7 @@ public class QuizModelManagerTest {
         modelManager.init(new Quiz(quizCards, Quiz.Mode.LEARN));
         QuizCard expected = modelManager.getNextCard();
 
-        assertEquals(new QuizCard(0, "Japan", "Tokyo"), modelManager.getCurrentQuizCard());
+        assertEquals(new QuizCard(0, "Japan", "Tokyo", MODE), modelManager.getCurrentQuizCard());
         assertEquals(expected, modelManager.getCurrentQuizCard());
     }
 
@@ -92,6 +96,12 @@ public class QuizModelManagerTest {
 
         // after quiz end still can ask for next card, keeps track of previous entry
         assertTrue(modelManager.hasCardLeft());
+
+        // preview questions and answer
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+
+        // start the actual quiz
         modelManager.getNextCard();
         modelManager.updateTotalAttemptsAndStreak(0, "Tokyo");
         modelManager.getNextCard();
@@ -106,5 +116,26 @@ public class QuizModelManagerTest {
         expected.add(Arrays.asList(1, 2, 2));
 
         assertEquals(expected, modelManager.end());
+    }
+
+    @Test
+    public void equals() {
+        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+
+        // same values -> returns true
+        modelManager = new QuizModelManager();
+        modelManager.init(quiz);
+        QuizModelManager modelManagerCopy = new QuizModelManager();
+        modelManagerCopy.init(quiz);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
+        // same object -> returns true
+        assertTrue(modelManager.equals(modelManager));
+
+        // null -> returns false
+        assertFalse(modelManager == null);
+
+        // different types -> returns false
+        assertFalse(modelManager.equals(5));
     }
 }

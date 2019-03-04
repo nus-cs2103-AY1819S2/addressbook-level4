@@ -109,7 +109,7 @@ public class MainApp extends Application {
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
+            logger.info("Custom config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }
 

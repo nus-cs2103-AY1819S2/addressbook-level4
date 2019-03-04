@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.exceptions.DuplicateTableException;
@@ -36,6 +37,17 @@ public class UniqueTableList implements Iterable<Table> {
     public boolean contains(Table toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameTable);
+    }
+
+    /**
+     * Returns table if table exists in UniqueTableList and is occupied.
+     */
+    public Table getTable(TableNumber tableNumber) {
+        FilteredList<Table> filteredList = internalList.filtered(table -> tableNumber.equals(table.getTableNumber()));
+        if (filteredList.isEmpty()) {
+            return null;
+        }
+        return filteredList.get(0);
     }
 
     /**

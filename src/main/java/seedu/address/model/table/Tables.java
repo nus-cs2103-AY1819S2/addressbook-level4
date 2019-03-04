@@ -3,6 +3,7 @@ package seedu.address.model.table;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -87,6 +88,10 @@ public class Tables implements ReadOnlyTables {
     public void removeTable(Table key) {
         tableList.remove(key);
         indicateModified();
+    }
+    
+    public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
+        return Optional.of(tableList.getTable(tableNumber));
     }
 
     /**

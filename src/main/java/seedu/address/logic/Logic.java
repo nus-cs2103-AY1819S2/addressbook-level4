@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
 
@@ -30,10 +31,15 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getRestOrRant()
      */
-    ReadOnlyRestOrRant getAddressBook();
+    ReadOnlyRestOrRant getRestOrRant();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+
+    /** Returns an unmodifiable view of the filtered list of order items */
+    ObservableList<OrderItem> getFilteredOrderItemList();
+
+    /** Returns an unmodifiable view of the filtered list of tables */
     ObservableList<Table> getFilteredTableList();
+
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -42,7 +48,16 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
+<<<<<<< HEAD
      * Returns the user prefs' tables file path.
+=======
+     * Returns the user prefs' RestOrRant orders file path.
+     */
+    Path getOrdersFilePath();
+
+    /**
+     * Returns the user prefs' RestOrRant tables file path.
+>>>>>>> a9326e5917135013892d2456349106d7ed4eeaab
      */
     Path getTablesFilePath();
 
@@ -57,6 +72,14 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Selected order item in the filtered order item list.
+     * null if no order item is selected.
+     *
+     * @see seedu.address.model.Model#selectedOrderItemProperty()
+     */
+    ReadOnlyProperty<OrderItem> selectedOrderItemProperty();
+
+    /**
      * Selected table in the filtered table list.
      * null if no table is selected.
      *
@@ -65,7 +88,14 @@ public interface Logic {
     ReadOnlyProperty<Table> selectedTableProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected order item in the filtered order item list.
+     *
+     * @see seedu.address.model.Model#setSelectedOrderItem(OrderItem)
+     */
+    void setSelectedOrderItem(OrderItem orderItem);
+
+    /**
+     * Sets the selected order item in the filtered table list.
      *
      * @see seedu.address.model.Model#setSelectedTable(Table)
      */

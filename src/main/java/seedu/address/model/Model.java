@@ -170,6 +170,11 @@ public interface Model {
     void setSelectedOrderItem(OrderItem orderItem);
 
     /**
+     * Notifies the listeners that the RestOrRant orders has been modified.
+     */
+    void updateOrders();
+
+    /**
      * Changes the current mode of the RestOrRant.
      */
     void changeMode();

@@ -59,3 +59,19 @@ Role: Developer +
 Responsibilities: Records Managament
 
 '''
+
+=== Lim Jia Hao
+image::LimJiaHao.png[width="150", align="left"]
+{empty}[https://github.com/JiaHaoLim[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Records IO
+
+'''
+
+=== Wang Debang
+image::wsemis.JPG[width="150", aligh="left"]
+{empty}[https://github.com/wSemis[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Resposibilities: Record proseccessing

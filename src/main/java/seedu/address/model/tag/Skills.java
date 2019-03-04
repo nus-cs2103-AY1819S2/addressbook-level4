@@ -72,9 +72,9 @@ public class Skills {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Skills: ");
         for (Specialisation specialisation : this.skills) {
             stringBuilder.append(specialisation.name());
+            stringBuilder.append(" ");
         }
 
         return stringBuilder.toString();

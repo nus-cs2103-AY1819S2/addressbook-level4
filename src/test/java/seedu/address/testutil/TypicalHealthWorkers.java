@@ -7,12 +7,9 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.HealthWorker;
-<<<<<<< HEAD
-=======
+
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
-
->>>>>>> 87e54c4f504c62ce07a7be3761ed0b2e041dbbe7
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.

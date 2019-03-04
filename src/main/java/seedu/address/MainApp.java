@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
@@ -24,11 +25,13 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonOrdersStorage;
+import seedu.address.storage.JsonTableStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.MenuStorage;
 import seedu.address.storage.OrdersStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TableStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -64,7 +67,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         OrdersStorage ordersStorage = new JsonOrdersStorage(userPrefs.getOrdersFilePath());
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
-        storage = new StorageManager(userPrefsStorage, ordersStorage, menuStorage);
+        TableStorage tablesStorage = new JsonTableStorage(userPrefs.getTablesFilePath());
+        storage = new StorageManager(userPrefsStorage, ordersStorage, menuStorage, tablesStorage);
         
 
         initLogging(config);
@@ -85,16 +89,21 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyOrders> ordersOptional;
         Optional<ReadOnlyMenu> menuOptional;
+        Optional<ReadOnlyTables> tablesOptional; 
         RestOrRant initialData;
         try {
             // addressBookOptional = storage.readRestOrRant();
             ordersOptional = storage.readOrders();
             menuOptional = storage.readMenu();
+            tablesOptional = storage.readTable();
             if (!ordersOptional.isPresent()) {
                 logger.info("Orders data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
             } else if (!menuOptional.isPresent()) {
                 logger.info("Menu data file not found. Will be starting with an empty RestOrRant");
+                initialData = new RestOrRant();
+            } else if (!tablesOptional.isPresent()) {
+                logger.info("Tables data file ont found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
             } else {
                 initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());

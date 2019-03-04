@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -14,7 +15,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 /**
  * API of the Storage component
  */
-public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage {
+public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, TableStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -24,20 +25,32 @@ public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage {
 
     @Override
     Path getMenuFilePath();
-    
+
     @Override
     Path getOrdersFilePath();
 
     @Override
     Optional<ReadOnlyMenu> readMenu() throws DataConversionException, IOException;
-    
+
     @Override
     Optional<ReadOnlyOrders> readOrders() throws DataConversionException, IOException;
 
     @Override
     void saveMenu(ReadOnlyMenu menu) throws IOException;
-    
+
     @Override
     void saveOrders(ReadOnlyOrders orders) throws IOException;
+
+    @Override
+    Path getTableFilePath();
+
+    @Override
+    Optional<ReadOnlyTables> readTable() throws DataConversionException, IOException;
+
+    @Override 
+    void saveTable(ReadOnlyTables tables) throws IOException;
+    
+    @Override
+    void backupTables(ReadOnlyTables tables) throws IOException;
 
 }

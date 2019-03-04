@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -22,14 +23,17 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private MenuStorage menuStorage;
     private OrdersStorage ordersStorage;
+    private TableStorage tablesStorage;
 
 
-    public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage, MenuStorage menuStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage,
+                          MenuStorage menuStorage, TableStorage tablesStorage) {
         super();
         this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.ordersStorage = ordersStorage;
         this.menuStorage = menuStorage;
+        this.tablesStorage = tablesStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -118,4 +122,37 @@ public class StorageManager implements Storage {
         ordersStorage.backupOrders(orders);
     }
 
+    // ============= Tables methods ===============================
+
+    @Override
+    public Path getTableFilePath() {
+        return tablesStorage.getTableFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTables> readTable() throws DataConversionException, IOException {
+        return readTable(tablesStorage.getTableFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTables> readTable(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read fata from file: " + filePath);
+        return tablesStorage.readTable(filePath);
+    }
+
+    @Override
+    public void saveTable(ReadOnlyTables tables) throws IOException {
+        saveTable(tables, tablesStorage.getTableFilePath());
+    }
+
+    @Override
+    public void saveTable(ReadOnlyTables tables, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        tablesStorage.saveTable(tables, filePath);
+    }
+
+    @Override
+    public void backupTables(ReadOnlyTables tables) throws IOException {
+        tablesStorage.backupTables(tables);
+    }
 }

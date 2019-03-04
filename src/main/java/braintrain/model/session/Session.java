@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import braintrain.model.card.SrsCard;
+import braintrain.model.card.exceptions.MissingCoreException;
+import braintrain.quiz.Quiz;
 import braintrain.quiz.QuizCard;
 
 
@@ -14,31 +16,20 @@ public class Session {
     private static final int CARD_COUNT_MINIMUM = 5;
 
     private String name;
-    private Mode mode;
+    private Quiz.Mode mode;
     private int cardCount;
     private List<QuizCard> quizCards;
     private List<SrsCard> srsCards;
 
-    /**
-     * Pass different types of mode supported in Quiz.
-     * Learn: sees both the question and answer first then get tested.
-     * Review: only get tested.
-     * Preview: sees both question and answer but not tested.
-     */
-    enum Mode {
-        LEARN,
-        REVIEW,
-        PREVIEW
-    }
 
-    public Session(String name, int cardCount, Mode mode, List<SrsCard> srsCards) {
+    public Session(String name, int cardCount, Quiz.Mode mode, List<SrsCard> srsCards) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Invalid name");
         }
         if (cardCount < CARD_COUNT_MINIMUM) {
             throw new IllegalArgumentException("CardCount should not be less than five in a single session");
         }
-        if ((mode != Mode.LEARN) & (mode != Mode.REVIEW) & (mode != Mode.PREVIEW)) {
+        if ((mode != Quiz.Mode.LEARN) & (mode != Quiz.Mode.REVIEW) & (mode != Quiz.Mode.PREVIEW)) {
             throw new IllegalArgumentException("Invalid mode");
         }
 
@@ -50,11 +41,11 @@ public class Session {
         this.srsCards = srsCards;
     }
 
-    public Session(String name, Mode mode, List<SrsCard> srsCards) {
+    public Session(String name, Quiz.Mode mode, List<SrsCard> srsCards) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Invalid name");
         }
-        if ((mode != Mode.LEARN) & (mode != Mode.REVIEW) & (mode != Mode.PREVIEW)) {
+        if ((mode != Quiz.Mode.LEARN) & (mode != Quiz.Mode.REVIEW) & (mode != Quiz.Mode.PREVIEW)) {
             throw new IllegalArgumentException("Invalid mode");
         }
 
@@ -69,7 +60,7 @@ public class Session {
     /**
      * Generate a list of quizCards that will pass to quiz system.
      */
-    public List<QuizCard> generate() {
+    public List<QuizCard> generateSession() throws MissingCoreException {
         SrsCard currentCard;
         for (int i = 0; i < cardCount; i++) {
             currentCard = srsCards.get(i);
@@ -78,7 +69,7 @@ public class Session {
         return quizCards;
     }
 
-    public Mode getMode() {
+    public Quiz.Mode getMode() {
         return mode;
     }
     public String getName() {

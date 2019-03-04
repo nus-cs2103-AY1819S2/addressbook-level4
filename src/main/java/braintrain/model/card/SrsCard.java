@@ -2,6 +2,7 @@ package braintrain.model.card;
 
 import java.time.Instant;
 
+import braintrain.model.card.exceptions.MissingCoreException;
 import braintrain.model.lesson.Lesson;
 import braintrain.model.user.CardData;
 
@@ -20,17 +21,17 @@ public class SrsCard {
         this.cardData = cardData;
         this.lesson = lesson;
 
-        questionIndex = lesson.getQuestionIndex();
-        answerIndex = lesson.getAnswerIndex();
+        questionIndex = lesson.getQuestionCoreIndex();
+        answerIndex = lesson.getAnswerCoreIndex();
     }
     public SrsCard() {
 
     }
 
-    public String getQuestion() {
+    public String getQuestion() throws MissingCoreException {
         return card.getCore(questionIndex);
     }
-    public String getAnswer() {
+    public String getAnswer() throws MissingCoreException {
         return card.getCore(answerIndex);
     }
     public Instant getSrsDueDate() {

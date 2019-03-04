@@ -1,7 +1,9 @@
 package braintrain.model.session;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import braintrain.model.card.Card;
@@ -30,7 +32,7 @@ public class SrsCardsManager {
     /**
      * Sorts all cards in this lesson based on their srsDueDate.
      */
-    public List<SrsCard> generate() {
+    public List<SrsCard> sort() {
         List<Card> cards = lesson.getCards();
         List<SrsCard> srsCards = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
@@ -59,15 +61,41 @@ public class SrsCardsManager {
     /**
      * Updates fields of each cardData class based on the result of quiz system.
      */
-    public List<CardData> update() {
+    public List<CardData> updateCardData() {
         List<CardData> updatedCardData = new ArrayList<>();
-        for (int i = 0; i < srsCards.size(); i++) { //terminal value to be changed
+        HashMap<SrsCard, Integer> memoryBoxes = new HashMap<>();
+        for (int i = 0; i < quizInformation.size(); i++) { //terminal value to be changed
             int currentHashCode = srsCards.get(i).getHashcode();
             int currentNumOfAttempts = srsCards.get(i).getNumOfAttempts() + quizInformation.get(i).get(1);
             int currentStreak = srsCards.get(i).getStreak() + quizInformation.get(i).get(2);
-            //TODO: update srsduedate. put the unchanged value for now.
+
+            Instant currentSrsDueDate = Instant.now();
+            int currentLevel = memoryBoxes.get(srsCards.get(i));
+            if (quizInformation.get(i).get(1).equals(quizInformation.get(i).get(2))) {
+                if (currentLevel != 5) {
+                    memoryBoxes.put(srsCards.get(i), currentLevel + 1);
+                }
+            } else if (quizInformation.get(i).get(1) > quizInformation.get(i).get(2)) {
+                if (currentLevel != 1) {
+                    memoryBoxes.put(srsCards.get(i), currentLevel - 1);
+                }
+            }
+
+            if (memoryBoxes.get(srsCards.get(i)) == 1) {
+                currentSrsDueDate.plus(Duration.ofHours(1));
+            } else if (memoryBoxes.get(srsCards.get(i)) == 2) {
+                currentSrsDueDate.plus(Duration.ofHours(5));
+            } else if (memoryBoxes.get(srsCards.get(i)) == 3) {
+                currentSrsDueDate.plus(Duration.ofHours(12));
+            } else if (memoryBoxes.get(srsCards.get(i)) == 4) {
+                currentSrsDueDate.plus(Duration.ofHours(24));
+            } else if (memoryBoxes.get(srsCards.get(i)) == 5) {
+                currentSrsDueDate.plus(Duration.ofHours(48));
+            }
+
+
             updatedCardData.add(new CardData(currentHashCode, currentNumOfAttempts, currentStreak,
-                    srsCards.get(i).getSrsDueDate()));
+                    currentSrsDueDate));
         }
 
         return updatedCardData;

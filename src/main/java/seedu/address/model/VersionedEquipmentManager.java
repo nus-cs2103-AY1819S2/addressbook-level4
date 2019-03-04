@@ -6,12 +6,12 @@ import java.util.List;
 /**
  * {@code AddressBook} that keeps track of its own history.
  */
-public class VersionedAddressBook extends AddressBook {
+public class VersionedEquipmentManager extends AddressBook {
 
     private final List<ReadOnlyAddressBook> addressBookStateList;
     private int currentStatePointer;
 
-    public VersionedAddressBook(ReadOnlyAddressBook initialState) {
+    public VersionedEquipmentManager(ReadOnlyAddressBook initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
@@ -78,16 +78,16 @@ public class VersionedAddressBook extends AddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedAddressBook)) {
+        if (!(other instanceof VersionedEquipmentManager)) {
             return false;
         }
 
-        VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
+        VersionedEquipmentManager otherVersionedEquipmentManager = (VersionedEquipmentManager) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedEquipmentManager)
+                && addressBookStateList.equals(otherVersionedEquipmentManager.addressBookStateList)
+                && currentStatePointer == otherVersionedEquipmentManager.currentStatePointer;
     }
 
     /**

@@ -25,7 +25,7 @@ import seedu.address.model.tag.Tag;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedEquipmentManager versionedEquipmentManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Equipment> filteredEquipments;
     private final SimpleObjectProperty<Equipment> selectedPerson = new SimpleObjectProperty<>();
@@ -39,9 +39,9 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedEquipmentManager = new VersionedEquipmentManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEquipments = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
     }
 
@@ -88,28 +88,28 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+        versionedEquipmentManager.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+        return versionedEquipmentManager;
     }
 
     @Override
     public boolean hasPerson(Equipment equipment) {
         requireNonNull(equipment);
-        return versionedAddressBook.hasPerson(equipment);
+        return versionedEquipmentManager.hasPerson(equipment);
     }
 
     @Override
     public void deletePerson(Equipment target) {
-        versionedAddressBook.removePerson(target);
+        versionedEquipmentManager.removePerson(target);
     }
 
     @Override
     public void addPerson(Equipment equipment) {
-        versionedAddressBook.addPerson(equipment);
+        versionedEquipmentManager.addPerson(equipment);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -117,21 +117,21 @@ public class ModelManager implements Model {
     public void setPerson(Equipment target, Equipment editedEquipment) {
         requireAllNonNull(target, editedEquipment);
 
-        versionedAddressBook.setPerson(target, editedEquipment);
+        versionedEquipmentManager.setPerson(target, editedEquipment);
     }
 
     @Override
     public void updatePerson(Equipment target, Equipment editedEquipment) {
         requireAllNonNull(target, editedEquipment);
 
-        versionedAddressBook.updatePerson(target, editedEquipment);
+        versionedEquipmentManager.updatePerson(target, editedEquipment);
     }
 
     //=========== Filtered Equipment List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Equipment} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedEquipmentManager}
      */
     @Override
     public ObservableList<Equipment> getFilteredPersonList() {
@@ -148,27 +148,27 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+        return versionedEquipmentManager.canUndo();
     }
 
     @Override
     public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+        return versionedEquipmentManager.canRedo();
     }
 
     @Override
     public void undoAddressBook() {
-        versionedAddressBook.undo();
+        versionedEquipmentManager.undo();
     }
 
     @Override
     public void redoAddressBook() {
-        versionedAddressBook.redo();
+        versionedEquipmentManager.redo();
     }
 
     @Override
     public void commitAddressBook() {
-        versionedAddressBook.commit();
+        versionedEquipmentManager.commit();
     }
 
     //=========== Selected equipment ===========================================================================
@@ -193,7 +193,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTag(Tag tag) {
-        versionedAddressBook.removeTag(tag);
+        versionedEquipmentManager.removeTag(tag);
     }
 
     /**
@@ -239,7 +239,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedEquipmentManager.equals(other.versionedEquipmentManager)
                 && userPrefs.equals(other.userPrefs)
                 && filteredEquipments.equals(other.filteredEquipments)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

@@ -19,4 +19,9 @@ public class TableStatus {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "[" + numberOfTakenSeats + "/" + numberOfSeats + "]";
+    }
 }

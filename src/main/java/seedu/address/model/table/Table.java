@@ -14,7 +14,7 @@ public class Table {
         this.tableStatus = new TableStatus(numberOfSeats);
     }
 
-    public TableStatus getOccupancy() {
+    public TableStatus getTableStatus() {
         return tableStatus;
     }
 
@@ -29,6 +29,6 @@ public class Table {
 
         return otherTable != null
                 && otherTable.getTableNumber() == getTableNumber()
-                && otherTable.getOccupancy().equals(getOccupancy());
+                && otherTable.getTableStatus().equals(getTableStatus());
     }
 }

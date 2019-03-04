@@ -33,8 +33,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all tables
-* **`addTables`**`1 2 3` : adds 3 tables of size1, 2 and 3 respectively in the restaurant.
+* *`list`* : lists all tableList
+* **`addTables`**`1 2 3` : adds 3 tableList of size1, 2 and 3 respectively in the restaurant.
 * **`removeTables`**`3` : deletes the table with the table number 3.
 * *`exit`* : exits the application.
 
@@ -55,9 +55,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding tables : `addTables`
+=== Adding tableList : `addTables`
 
-Adds tables to the restaurant. +
+Adds tableList to the restaurant. +
 Format: `addTables NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
 
 Examples:
@@ -65,9 +65,9 @@ Examples:
 * `addTables 4`
 * `addTables 4 2 4`
 
-=== Listing all tables in the restaurant : `listTables`
+=== Listing all tableList in the restaurant : `listTables`
 
-Shows a list of all tables in the restaurant as well as their current occupancy. +
+Shows a list of all tableList in the restaurant as well as their current occupancy. +
 Format: `listTables`
 
 === Updating the table: `updateTable`
@@ -367,13 +367,13 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add tables* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
+* *Add tableList* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
 e.g. `addTables 2 4 6 8`
 * *Remove table* : `removeTable TABLE_NUMBER` +
 e.g. `removeTable 3`
 * *Update table* : `updateTable TABLE_NUMBER NEW_OCCUPANCY` +
 e.g. `updateTable 3 2`
-* *List tables* : `listTables`
+* *List tableList* : `listTables`
 * *Add items to order* : `addToOrder TABLE_NUMBER ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` +
 e.g. `addToOrder 5 W09 1 N01 1 C04 2`
 * *Add note to order* : `addNote TABLE_NUMBER ITEM_CODE NOTE` +

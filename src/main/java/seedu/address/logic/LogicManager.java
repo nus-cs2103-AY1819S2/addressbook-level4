@@ -32,6 +32,7 @@ public class LogicManager implements Logic {
     private final RestOrRantParser restOrRantParser;
     private boolean restOrRantModified;
     private boolean modeModified;
+    private boolean menuModified;
     private Mode mode;
 
     public LogicManager(Model model, Storage storage) {
@@ -45,6 +46,7 @@ public class LogicManager implements Logic {
         model.getRestOrRant().addListener(observable -> restOrRantModified = true);
         // Set modeModified to true whenever the models' mode is modified.
         model.getRestOrRant().addListener(observable -> modeModified = true);
+        model.getRestOrRant().getMenu().addListener(observable -> menuModified = true);
     }
 
     @Override
@@ -52,6 +54,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         restOrRantModified = false;
         modeModified = false;
+        menuModified = false;
 
         CommandResult commandResult;
         try {
@@ -74,11 +77,13 @@ public class LogicManager implements Logic {
 
         if (modeModified) {
             logger.info("Application mode modified, changing UI");
+            changeMode(commandResult.newModeStatus());
         }
 
         return commandResult;
     }
 
+    @Override
     public void changeMode(Mode mode) {
         this.mode = mode;
     }

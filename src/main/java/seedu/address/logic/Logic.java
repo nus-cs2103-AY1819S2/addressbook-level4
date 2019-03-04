@@ -85,6 +85,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
+
     void setSelectedPerson(Person person); // TODO: remove
     
     /**
@@ -93,5 +94,10 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
      */
     void setSelectedMenuItem(MenuItem menuItem);
+
+    /**
+     * Changes current mode of RestOrRant.
+     */
+    void changeMode(Mode mode);
 
 }

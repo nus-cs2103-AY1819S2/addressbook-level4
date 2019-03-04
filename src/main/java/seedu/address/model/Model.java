@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.person.Person;
 
 /**
@@ -66,6 +67,8 @@ public interface Model {
 
     /** Returns the RestOrRant */
     ReadOnlyRestOrRant getRestOrRant();
+    
+    ReadOnlyMenu getMenu();
 
     /**
      * Notifies the listeners that the RestOrRant has been modified.

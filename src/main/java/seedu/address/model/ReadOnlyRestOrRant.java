@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
+import seedu.address.model.menu.Menu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.person.Person;
@@ -21,7 +22,10 @@ public interface ReadOnlyRestOrRant extends Observable {
      */
     ObservableList<MenuItem> getMenuItemList();
     
+    // get item given code RETURN OPTIONAL<MENUITEM> INSTEAD
     MenuItem checkItemExists(String code);
+    
+    Menu getMenu();
 
     ObservableList<Person> getPersonList(); // TODO: remove
 

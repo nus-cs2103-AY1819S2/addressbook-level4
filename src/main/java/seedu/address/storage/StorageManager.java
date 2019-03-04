@@ -100,4 +100,5 @@ public class StorageManager implements Storage {
     public void backupMenu(ReadOnlyRestOrRant menu) throws IOException {
          menuStorage.backupMenu(menu);
     }
+
 }

@@ -3,7 +3,14 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -118,6 +125,10 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Creates a {@code Person} based on the variables sepcificed.
+     * @return Person with fields specified by Class
+     */
     public Person build() {
         return new Person(name, phone, email, address, amount, date,
                 description, tags);

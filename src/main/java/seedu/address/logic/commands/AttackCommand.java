@@ -9,8 +9,6 @@ import seedu.address.model.cell.Coordinates;
 
 /**
  * Attacks a cell on the board.
- *
- *
  */
 public class AttackCommand extends Command {
 

@@ -34,9 +34,8 @@ public abstract class ChangeModeCommand {
         }
 
         model.changeMode();
-        changeMode();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return generateCommandResult();
     }
 
     /**
@@ -50,6 +49,6 @@ public abstract class ChangeModeCommand {
     /**
      * Changes the mode of the RestOrRant.
      */
-    abstract void changeMode(); // Calls change mode in LogicManager
+    abstract CommandResult generateCommandResult(); // Calls change mode in LogicManager
 
 }

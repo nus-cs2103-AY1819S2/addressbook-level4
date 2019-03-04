@@ -13,7 +13,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.menu.MenuItem;
 import seedu.address.model.person.Person;
 
 /**
@@ -31,25 +30,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     @FXML
     private WebView browser;
-
-    // TODO: constructors for different modes
-    public BrowserPanel(ObservableValue<MenuItem> selectedMenuItem) {
-        super(FXML);
-
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
-
-        // Load person page when selected person changes.
-        selectedMenuItem.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                loadDefaultPage();
-                return;
-            }
-            loadMenuItemPage(newValue);
-        });
-
-        loadDefaultPage();
-    }
     
     public BrowserPanel(ObservableValue<Person> selectedPerson) {
         super(FXML);
@@ -74,11 +54,6 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
-    // TODO: methods for different modes
-    private void loadMenuItemPage(MenuItem menuItem) {
-        loadPage(SEARCH_PAGE_URL + menuItem.getName().itemName);
-    }
-    
     private void loadPersonPage(Person person) {
         loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }

@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    public String currentMode;
+    private MenuBrowserPanel menuBrowserPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -121,12 +121,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        
-//            browserPanel = new BrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
-//            browserPlaceholder.getChildren().add(browserPanel.getRoot());
-//            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
-//                    logic::setSelectedMenuItem);
-//            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -184,6 +178,50 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Changes application mode.
+     */
+    @FXML
+    private void handleChangeMode(Mode mode) { // TODO: insert relevant code for each mode.
+        switch (mode) {
+
+        case RESTAURANT_MODE:
+            browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                    logic::setSelectedPerson);
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    
+            break;
+
+        case TABLE_MODE:
+            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                    logic::setSelectedPerson);
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            break;
+
+        case MENU_MODE:
+            browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    
+            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                    logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    public PersonListPanel getPersonListPanel() {
+        return personListPanel;
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -193,6 +231,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            Mode newMode = commandResult.newModeStatus();
+
+            if (newMode != null) {
+                handleChangeMode(newMode);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

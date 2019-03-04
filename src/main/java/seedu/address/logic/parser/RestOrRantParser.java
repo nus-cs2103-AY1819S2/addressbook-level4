@@ -8,11 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.Mode;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.MenuMode;
-import seedu.address.logic.commands.AddItemToMenuCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -57,8 +53,8 @@ public class RestOrRantParser {
             case ExitCommand.COMMAND_ALIAS:
                 return new ExitCommand();
                 
-            case MenuMode.COMMAND_WORD:
-                return new MenuMode();
+            case MenuModeCommand.COMMAND_WORD:
+                return new MenuModeCommand();
                 
             case AddItemToMenuCommand.COMMAND_WORD:
                 return new AddItemToMenuCommandParser().parse(arguments);

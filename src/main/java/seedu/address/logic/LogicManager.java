@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;
 
 /**
@@ -104,6 +105,11 @@ public class LogicManager implements Logic {
     public ObservableList<OrderItem> getFilteredOrderItemList() {
         return model.getFilteredOrderItemList();
     }
+    
+    @Override
+    public ObservableList<Table> getFilteredTableList() {
+        return model.getFilteredTableList();
+    }
 
     @Override
     public ObservableList<String> getHistory() {
@@ -113,6 +119,10 @@ public class LogicManager implements Logic {
     @Override
     public Path getOrdersFilePath() {
         return model.getOrdersFilePath();
+    }
+
+    public Path getTablesFilePath() {
+        return model.getTablesFilePath();
     }
 
     @Override
@@ -133,5 +143,15 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedOrderItem(OrderItem orderItem) {
         model.setSelectedOrderItem(orderItem);
+    }
+    
+    @Override
+    public ReadOnlyProperty<Table> selectedTableProperty() {
+        return model.selectedTableProperty();
+    }
+
+    @Override
+    public void setSelectedTable(Table table) {
+        model.setSelectedTable(table);
     }
 }

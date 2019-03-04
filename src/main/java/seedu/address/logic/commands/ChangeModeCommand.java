@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public abstract class ChangeModeCommand {
+public abstract class ChangeModeCommand extends Command {
 
     // TODO: include and update in individual classes, remove once all change mode classes done.
     public static final String MESSAGE_SUCCESS = "Mode changed to ___________";
@@ -26,6 +26,7 @@ public abstract class ChangeModeCommand {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
+    @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
@@ -34,9 +35,8 @@ public abstract class ChangeModeCommand {
         }
 
         model.changeMode();
-        changeMode();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return generateCommandResult();
     }
 
     /**
@@ -48,8 +48,8 @@ public abstract class ChangeModeCommand {
     abstract boolean isSameMode(Mode mode);
 
     /**
-     * Changes the mode of the RestOrRant.
+     * Generate CommandResult specific to each changeModeCommand.
      */
-    abstract void changeMode(); // Calls change mode in LogicManager
+    abstract CommandResult generateCommandResult(); // TODO: for each mode change command insert here
 
 }

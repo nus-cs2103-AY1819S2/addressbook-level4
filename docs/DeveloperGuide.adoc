@@ -827,9 +827,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |waiter |view the status of the tables |know which tables are free/occupied and which tables are waiting for orders/has received their orders
+|`* * *` |waiter |view the status of the tableList |know which tableList are free/occupied and which tableList are waiting for orders/has received their orders
 
-|`* * *` |waiter |change status of tables |update the availability of tables
+|`* * *` |waiter |change status of tableList |update the availability of tableList
 
 |`* * *` |waiter |add orders to a table |know which orders to serve to each table
 
@@ -845,7 +845,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |chef |review the statistics of the dishes' popularity |determine how much ingredients to allocate to the popular dishes
 
-|`*` |waiter |reserve tables |see which tables can be provided to other subsequent customers
+|`*` |waiter |reserve tableList |see which tableList can be provided to other subsequent customers
 |=======================================================================
 
 _{More to be added}_
@@ -856,12 +856,12 @@ _{More to be added}_
 (For all use cases below, the *System* is `RestOrRant` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Checking for available tables
+=== Use case: Checking for available tableList
 
 *MSS*
 
-1.  User enters command to list all tables in the restaurant.
-2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tables in the restaurant.
+1.  User enters command to list all tableList in the restaurant.
+2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tableList in the restaurant.
 +
 Use case ends.
 
@@ -871,7 +871,7 @@ Use case ends.
 * 2a. The list is empty.
 +
 [none]
-** 2a1. RestOrRant Program returns an error message that there are no tables in the restaurant.
+** 2a1. RestOrRant Program returns an error message that there are no tableList in the restaurant.
 +
 Use case ends.
 

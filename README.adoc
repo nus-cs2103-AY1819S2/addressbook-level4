@@ -24,8 +24,8 @@ Hence, our target users are restaurant waiters and managers who can type fast an
 It can...
 
 * Display the current status of the restaurant at any time.
-* Manage the use of tables in the restaurant.
-* Track all orders for all tables in the restaurant.
+* Manage the use of tableList in the restaurant.
+* Track all orders for all tableList in the restaurant.
 * Consolidate statistics of the restaurant.
 ** Total revenue
 ** Total number of customers

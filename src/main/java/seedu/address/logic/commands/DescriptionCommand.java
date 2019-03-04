@@ -2,12 +2,17 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.Person;
 
 
 /**
@@ -26,7 +31,8 @@ public class DescriptionCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_DESCRIPTION + "Father's birthday present.";
 
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Description: %2$s";
+    public static final String MESSAGE_ADD_DESCRIPTION_SUCCESS = "Added description to Person: %1$s";
+    public static final String MESSAGE_REMOVE_DESCRIPTION_SUCCESS = "Removed description from Person: %1$s";
 
     private final Index index;
     private final Description description;
@@ -44,7 +50,32 @@ public class DescriptionCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, index.getOneBased(), description));
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), this.description, personToEdit.getTags());
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitAddressBook();
+
+        return new CommandResult(makeSuccessMessage(editedPerson));
+    }
+
+    /**
+     * Makes a command execution succcess message based on whether the descrption is added to or removed form
+     * {@personToEdit}.
+     */
+    private String makeSuccessMessage(Person personToEdit) {
+
+        String message = !description.value.isEmpty() ? MESSAGE_ADD_DESCRIPTION_SUCCESS
+                : MESSAGE_REMOVE_DESCRIPTION_SUCCESS;
+        return String.format(message, personToEdit);
     }
 
     @Override

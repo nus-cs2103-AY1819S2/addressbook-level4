@@ -32,7 +32,7 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),new ModuleInfoList());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 

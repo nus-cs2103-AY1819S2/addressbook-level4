@@ -18,6 +18,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -84,8 +86,11 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
+            Amount amount = new Amount("123");
+            Date date = new Date("12/12/2018");
             Description description = new Description ("");
-            Person person = new Person(name, phone, email, address, description, Collections.emptySet());
+            Person person = new Person(name, phone, email, address,
+                    amount, date, description, Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

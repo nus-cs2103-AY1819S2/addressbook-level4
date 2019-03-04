@@ -49,7 +49,8 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonEquipmentManagerStorage addressBookStorage = new JsonEquipmentManagerStorage(temporaryFolder.newFile().toPath());
+        JsonEquipmentManagerStorage addressBookStorage = new JsonEquipmentManagerStorage(
+                temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -169,7 +170,8 @@ public class LogicManagerTest {
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
-            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
+            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.",
+                    e);
         }
     }
 

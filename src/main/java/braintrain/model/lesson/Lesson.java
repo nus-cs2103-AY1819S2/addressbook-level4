@@ -187,11 +187,7 @@ public class Lesson {
             throw new IllegalArgumentException("Question index: " + question + " out of bounds");
         }
 
-        try {
-            if (answer < 0 || answer >= optionalHeaders.size()) {
-                throw new IllegalArgumentException("Answer index: " + answer + " out of bounds");
-            }
-        } catch (NullPointerException e) {
+        if (answer < 0 || answer >= coreHeaders.size()) {
             throw new IllegalArgumentException("Answer index: " + answer + " out of bounds");
         }
 

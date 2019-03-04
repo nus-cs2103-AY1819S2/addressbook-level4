@@ -70,14 +70,15 @@ public class LessonBuilder {
     public Lesson build() {
         Lesson lesson = new Lesson(name, coreCount, cardFields);
 
-        try {
-            for (Card card : cards) {
-                ArrayList<String> fields = card.getCores();
-                fields.addAll(card.getOptionals());
+        for (Card card : cards) {
+            ArrayList<String> fields = card.getCores();
+            fields.addAll(card.getOptionals());
+
+            try {
                 lesson.addCard(fields);
+            } catch (MissingCoreException e) {
+                return null;
             }
-        } catch (MissingCoreException e) {
-            throw new RuntimeException("LessonBuilder failed due to invalid Card");
         }
 
         return lesson;

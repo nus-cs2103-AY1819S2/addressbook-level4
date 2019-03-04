@@ -59,7 +59,7 @@ public class Cell {
      */
     public Cell(Battleship battleship) {
         this.battleship = Optional.of(battleship);
-        this.name = new Name("This has a hidden ship");
+        this.name = battleship.getName();
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");

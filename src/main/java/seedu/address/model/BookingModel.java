@@ -10,7 +10,7 @@ import java.util.function.Predicate;
  * The API of the Model component.
  */
 public interface BookingModel extends Model {
-    
+
     /**
      * Selected booking in the filtered booking list.
      * null if no booking is selected.
@@ -28,11 +28,14 @@ public interface BookingModel extends Model {
      */
     void setSelectedBooking(Booking booking);
 
-    /** Returns an unmodifiable view of the filtered booking list */
+    /**
+     * Returns an unmodifiable view of the filtered booking list
+     */
     ObservableList<Booking> getFilteredBookingList();
 
     /**
      * Updates the filter of the filtered booking list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBookingList(Predicate<Booking> predicate);

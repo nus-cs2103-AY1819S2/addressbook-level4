@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.ServiceType;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.util.TimeRange;
 
 /**
  * Jackson-friendly version of {@link Customer}.
@@ -21,10 +20,7 @@ class JsonAdaptedServiceType {
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedServiceType(@JsonProperty("capacity") int capacity,
-                                  @JsonProperty("timing") JsonAdaptedTimeRange timing,
-                                  @JsonProperty("name") String name,
-                                  @JsonProperty("ratePerHour") double ratePerHour) {
+    public JsonAdaptedServiceType(@JsonProperty("name") String name) {
         this.name = name;
     }
 

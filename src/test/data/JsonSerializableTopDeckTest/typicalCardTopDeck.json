@@ -3,14 +3,14 @@
   "cards" : [ {
     "question": "Solve 1 + 1.",
     "answer": "2",
-    "tagged": "Math"
+    "tagged": [ "Math" ]
   }, {
     "question": "Are there any tag?",
     "answer": "No",
-    "tagged": []
+    "tagged": [  ]
   }, {
     "question": "Which layer is HTTP at?",
-    "answer": "TCP",
+    "answer": "Application",
     "tagged": [ "CS2105" ]
   }, {
     "question": "Hello?",

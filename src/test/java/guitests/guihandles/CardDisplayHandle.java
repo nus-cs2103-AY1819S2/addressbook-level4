@@ -16,7 +16,7 @@ import seedu.address.model.deck.Card;
 public class CardDisplayHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String QUESTION_FIELD_ID = "#question";
-    private static final String ANSWER_FIELD_ID = "#answers";
+    private static final String ANSWER_FIELD_ID = "#answer";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;

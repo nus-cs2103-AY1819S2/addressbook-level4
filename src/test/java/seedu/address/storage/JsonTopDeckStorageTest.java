@@ -52,7 +52,7 @@ public class JsonTopDeckStorageTest {
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readTopDeck("notJsonFormatAddressBook.json");
+        readTopDeck("notJsonFormatTopDeck.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
@@ -67,7 +67,7 @@ public class JsonTopDeckStorageTest {
     @Test
     public void readTopDeck_invalidAndValidCardTopDeck_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readTopDeck("invalidAndValidPersonAddressBook.json");
+        readTopDeck("invalidAndValidCardTopDeck.json");
     }
 
     @Test

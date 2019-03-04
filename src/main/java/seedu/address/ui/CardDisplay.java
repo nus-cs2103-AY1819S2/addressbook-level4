@@ -12,7 +12,7 @@ import seedu.address.model.deck.Card;
  */
 public class CardDisplay extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "CardListDisplayCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "red", "yellow", "blue", "green", "grey", "magenta", "pink" };
 
     /**

@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.ReadOnlyOrders;
 
 /**
  * A class to access order data stored as a json file on the hard disk.
@@ -35,7 +35,7 @@ public class JsonOrdersStorage implements OrdersStorage {
     }
 
     @Override
-    public Optional<ReadOnlyRestOrRant> readOrders() throws DataConversionException {
+    public Optional<ReadOnlyOrders> readOrders() throws DataConversionException {
         return readOrders(filePath);
     }
 
@@ -45,7 +45,7 @@ public class JsonOrdersStorage implements OrdersStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyRestOrRant> readOrders(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyOrders> readOrders(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableOrders> jsonOrders = JsonUtil.readJsonFile(
@@ -63,26 +63,26 @@ public class JsonOrdersStorage implements OrdersStorage {
     }
 
     @Override
-    public void saveOrders(ReadOnlyRestOrRant restOrRant) throws IOException {
-        saveOrders(restOrRant, filePath);
+    public void saveOrders(ReadOnlyOrders orders) throws IOException {
+        saveOrders(orders, filePath);
     }
 
     /**
-     * Similar to {@link #saveOrders(ReadOnlyRestOrRant)}.
+     * Similar to {@link #saveOrders(ReadOnlyOrders)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveOrders(ReadOnlyRestOrRant restOrRant, Path filePath) throws IOException {
-        requireNonNull(restOrRant);
+    public void saveOrders(ReadOnlyOrders orders, Path filePath) throws IOException {
+        requireNonNull(orders);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableOrders(restOrRant), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableOrders(orders), filePath);
     }
 
     @Override
-    public void backupOrders(ReadOnlyRestOrRant restOrRant) throws IOException {
-        saveOrders(restOrRant, backupFilePath);
+    public void backupOrders(ReadOnlyOrders orders) throws IOException {
+        saveOrders(orders, backupFilePath);
     }
 
 }

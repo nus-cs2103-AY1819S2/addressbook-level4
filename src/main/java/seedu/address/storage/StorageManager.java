@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -111,29 +112,29 @@ public class StorageManager implements Storage {
 
 
     @Override
-    public Optional<ReadOnlyRestOrRant> readOrders() throws DataConversionException, IOException {
+    public Optional<ReadOnlyOrders> readOrders() throws DataConversionException, IOException {
         return readOrders(ordersStorage.getOrdersFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyRestOrRant> readOrders(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyOrders> readOrders(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return ordersStorage.readOrders(filePath);
     }
     
     @Override
-    public void saveOrders(ReadOnlyRestOrRant restOrRant) throws IOException {
-        saveRestOrRant(restOrRant, ordersStorage.getOrdersFilePath());
+    public void saveOrders(ReadOnlyOrders orders) throws IOException {
+        saveOrders(orders, ordersStorage.getOrdersFilePath());
     }
 
     @Override
-    public void saveOrders(ReadOnlyRestOrRant restOrRant, Path filePath) throws IOException {
+    public void saveOrders(ReadOnlyOrders orders, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        ordersStorage.saveOrders(restOrRant, filePath);
+        ordersStorage.saveOrders(orders, filePath);
     }
 
     @Override
-    public void backupOrders(ReadOnlyRestOrRant restOrRant) throws IOException {
-        ordersStorage.backupOrders(restOrRant);
+    public void backupOrders(ReadOnlyOrders orders) throws IOException {
+        ordersStorage.backupOrders(orders);
     }
 }

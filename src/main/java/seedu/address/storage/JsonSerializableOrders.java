@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Orders;
+import seedu.address.model.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.order.OrderItem;
@@ -33,30 +35,30 @@ class JsonSerializableOrders {
     }
 
     /**
-     * Converts a given {@code ReadOnlyRestOrRant} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyOrders} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableOrders}.
      */
-    public JsonSerializableOrders(ReadOnlyRestOrRant source) {
+    public JsonSerializableOrders(ReadOnlyOrders source) {
         orderItems.addAll(source.getOrderItemList().stream().map(JsonAdaptedOrderItem::new)
             .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this order list into the model's {@code RestOrRant} object.
+     * Converts this order list into the model's {@code Orders} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public RestOrRant toModelType() throws IllegalValueException {
-        RestOrRant restOrRant = new RestOrRant();
+    public Orders toModelType() throws IllegalValueException {
+        Orders orders = new Orders();
         for (JsonAdaptedOrderItem jsonAdaptedOrderItem : orderItems) {
             OrderItem orderItem = jsonAdaptedOrderItem.toModelType();
-            /*if (restOrRant.hasOrderItem(orderItem)) {
+            if (orders.hasOrderItem(orderItem)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ORDER_ITEMS);
             }
-            restOrRant.addOrderItem(orderItem);*/
+            orders.addOrderItem(orderItem);
         }
-        return restOrRant; // TODO: for now, returns an empty RestOrRant
+        return orders;
     }
 
 }

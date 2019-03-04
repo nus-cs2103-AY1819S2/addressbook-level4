@@ -9,7 +9,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.consultation.Assessment;
-import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.consultation.Prescription;
 import seedu.address.model.consultation.Symptom;

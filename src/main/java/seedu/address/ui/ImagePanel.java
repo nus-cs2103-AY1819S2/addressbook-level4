@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.Notifier;
 
@@ -21,10 +22,11 @@ public class ImagePanel extends UiPart<Region> implements PropertyChangeListener
     @FXML
     private ImageView imageView;
 
-    public ImagePanel() {
+    public ImagePanel(Pane pane) {
         super(FXML);
         Notifier.addPropertyChangeListener(this);
         imageView.setImage(new Image("/assets/sample.png"));
+        imageView.setPreserveRatio(true);
     }
 
     public void propertyChange(PropertyChangeEvent event) {

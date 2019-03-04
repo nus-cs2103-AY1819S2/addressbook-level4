@@ -1,12 +1,12 @@
 package braintrain.model.lesson;
 
+import static braintrain.model.lesson.Lesson.EXCEPTION_INVALID_INDEX;
 import static braintrain.testutil.LessonBuilder.DEFAULT_CORE_COUNT;
 import static braintrain.testutil.LessonBuilder.DEFAULT_FIELDS;
 import static braintrain.testutil.LessonBuilder.DEFAULT_NAME;
 import static braintrain.testutil.TypicalLessons.LESSON_ONE_OPT;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -76,14 +76,16 @@ public class LessonTest {
     }
 
     @Test
-    public void addCard() {
+    public void addCard() throws MissingCoreException {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
-        assertTrue(lesson.addCard(Arrays.asList("China", "Beijing")));
+        assertEquals(lesson.getCards(), 0);
+        lesson.addCard(List.of("China", "Beijing"));
+        assertEquals(lesson.getCards(), 1);
     }
 
     @Test
     public void setQuestionAnswerIndices_invalidQuestionIndex_throwsIllegalArgumentException() {
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();;
+        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
         Assert.assertThrows(IllegalArgumentException.class, "Question index: -1 out of bounds", () -> {
             lesson.setQuestionAnswerIndices(-1, 1);
         });
@@ -94,7 +96,7 @@ public class LessonTest {
 
     @Test
     public void setQuestionAnswerIndices_invalidAnswerIndex_throwsIllegalArgumentException() {
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();;
+        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
         Assert.assertThrows(IllegalArgumentException.class, "Answer index: -1 out of bounds", () -> {
             lesson.setQuestionAnswerIndices(0, -1);
         });
@@ -105,39 +107,44 @@ public class LessonTest {
 
     @Test
     public void setQuestionAnswerIndices() {
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();;
-        assertEquals(lesson.getQuestionIndex(), 0);
-        assertEquals(lesson.getAnswerIndex(), 0);
+        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
+        assertEquals(lesson.getQuestionCoreIndex(), 0);
+        assertEquals(lesson.getAnswerCoreIndex(), 0);
         lesson.setQuestionAnswerIndices(1, 1);
-        assertEquals(lesson.getQuestionIndex(), 1);
-        assertEquals(lesson.getAnswerIndex(), 1);
+        assertEquals(lesson.getQuestionCoreIndex(), 1);
+        assertEquals(lesson.getAnswerCoreIndex(), 1);
 
     }
 
     @Test
     public void setOptionalShown_invalidIndex() {
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();;
+        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
 
-        assertFalse(lesson.setOptionalShown(-1, true));
-        assertFalse(lesson.setOptionalShown(2, true));
+        Assert.assertThrows(IllegalArgumentException.class, EXCEPTION_INVALID_INDEX, () -> {
+            lesson.setIsVisibleOptional(-1, true);
+        });
+
+        Assert.assertThrows(IllegalArgumentException.class, EXCEPTION_INVALID_INDEX, () -> {
+            lesson.setIsVisibleOptional(100, true);
+        });
     }
 
     @Test
     public void getCoreCount() {
-        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();;
+        Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
         assertEquals(lesson.getCoreCount(), DEFAULT_CORE_COUNT);
     }
 
     @Test
     public void getCardFields() {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
-        assertEquals(lesson.getCardFields(), DEFAULT_FIELDS);
+        assertEquals(lesson.getCoreHeaders(), DEFAULT_FIELDS);
     }
 
     @Test
     public void getCards() {
         Lesson lesson = new LessonBuilder().build();
-        assertTrue(lesson.isInitalized());
+        assertTrue(lesson.isInitialized());
         assertTrue(lesson.getCards().size() == 0);
     }
 }

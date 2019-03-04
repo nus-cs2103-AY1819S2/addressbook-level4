@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import braintrain.model.card.Card;
+import braintrain.model.card.exceptions.MissingCoreException;
 import braintrain.model.lesson.Lesson;
 
 /**
@@ -33,7 +34,7 @@ public class LessonBuilder {
     public LessonBuilder(Lesson lessonToCopy) {
         name = lessonToCopy.getName();
         cards = lessonToCopy.getCards();
-        cardFields = lessonToCopy.getCardFields();
+        cardFields = lessonToCopy.getCoreHeaders();
         coreCount = lessonToCopy.getCoreCount();
     }
 
@@ -56,8 +57,8 @@ public class LessonBuilder {
     /**
      * Parses the {@code cores} into a {@code List<cores>} and set it to the {@code Card} which we are building.
      */
-    public LessonBuilder withFields(List<String> fields) {
-        this.cardFields = fields;
+    public LessonBuilder withFields(List<String> cardFields) {
+        this.cardFields = cardFields;
         return this;
     }
 
@@ -68,10 +69,15 @@ public class LessonBuilder {
      */
     public Lesson build() {
         Lesson lesson = new Lesson(name, coreCount, cardFields);
-        for (Card card : cards) {
-            ArrayList<String> fields = card.getCores();
-            fields.addAll(card.getOptionals());
-            lesson.addCard(fields);
+
+        try {
+            for (Card card : cards) {
+                ArrayList<String> fields = card.getCores();
+                fields.addAll(card.getOptionals());
+                lesson.addCard(fields);
+            }
+        } catch (MissingCoreException e) {
+            throw new RuntimeException("LessonBuilder failed due to invalid Card");
         }
 
         return lesson;

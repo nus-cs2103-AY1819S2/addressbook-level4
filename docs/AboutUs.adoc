@@ -69,6 +69,15 @@ Responsibilities: Records IO
 
 '''
 
+=== Jonathan Choo
+image::cchj1995.jpg[width="150", align="left"]
+{empty}[http://github.com/cchj1995[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Login
+
+'''
+
 === Wang Debang
 image::wsemis.JPG[width="150", aligh="left"]
 {empty}[https://github.com/wSemis[github]] [<<johndoe#, portfolio>>]

@@ -111,6 +111,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
+
     public void fillInnerParts() {
         // TODO: set restaurant mode defaults
         menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
@@ -119,7 +120,6 @@ public class MainWindow extends UiPart<Stage> {
         menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                 logic::setSelectedMenuItem);
         listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

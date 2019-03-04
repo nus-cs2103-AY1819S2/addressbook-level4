@@ -10,6 +10,10 @@ import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.Orders;
 import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.order.UniqueOrderItemList;
+import seedu.address.model.table.Table;
+import seedu.address.model.table.Tables;
+import seedu.address.model.table.UniqueTableList;
 
 /**
  * Wraps all data at the address-book level
@@ -19,6 +23,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     private final Menu menu;
     private final Orders orders;
+    private final Tables tables;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -31,7 +36,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     {
         menu = new Menu();
         orders = new Orders();
-
+        tables = new Tables();
     }
 
     public RestOrRant() {}
@@ -77,7 +82,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     }
 
     /**
-     * Notifies listeners that the restOrRant has been modified.
+     * Notifies listeners that the RestOrRant has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -98,6 +103,11 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    @Override
+    public Tables getTables() {
+        return tables;
     }
 
     @Override

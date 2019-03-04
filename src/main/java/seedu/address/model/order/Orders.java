@@ -111,7 +111,7 @@ public class Orders implements ReadOnlyOrders {
     /**
      * Notifies listeners that the orders have been modified.
      */
-    protected void indicateModified() {
+    public void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 

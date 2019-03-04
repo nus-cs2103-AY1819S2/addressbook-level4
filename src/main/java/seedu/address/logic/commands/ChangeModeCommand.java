@@ -26,6 +26,7 @@ public abstract class ChangeModeCommand extends Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
+    @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
@@ -47,8 +48,8 @@ public abstract class ChangeModeCommand extends Command {
     abstract boolean isSameMode(Mode mode);
 
     /**
-     * Changes the mode of the RestOrRant.
+     * Generate CommandResult specific to each changeModeCommand.
      */
-    abstract CommandResult generateCommandResult(); // Calls change mode in LogicManager
+    abstract CommandResult generateCommandResult(); // TODO: for each mode change command insert here
 
 }

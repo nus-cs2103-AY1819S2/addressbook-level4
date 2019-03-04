@@ -1,5 +1,8 @@
 package seedu.address.model.order;
 
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.table.TableNumber;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -10,26 +13,26 @@ import java.util.Objects;
  */
 public class OrderItem {
 
-    private final int tableNumber;
-    private final String menuItem; // TODO: implement MenuItem and change type
+    private final TableNumber tableNumber;
+    private final MenuItem menuItem;
     private final int quantityOrdered; // TODO: implement ItemStatus and change type, quantity part of status
 
     /**
      * Every field must be present and not null.
      * TODO: create constructor with default status as unserved
      */
-    public OrderItem(int tableNumber, String menuItem, int quantityOrdered) {
+    public OrderItem(TableNumber tableNumber, MenuItem menuItem, int quantityOrdered) {
         requireAllNonNull(tableNumber, menuItem, quantityOrdered);
         this.tableNumber = tableNumber;
         this.menuItem = menuItem;
         this.quantityOrdered = quantityOrdered;
     }
 
-    public int getTableNumber() {
+    public TableNumber getTableNumber() {
         return tableNumber;
     }
 
-    public String getMenuItem() {
+    public MenuItem getMenuItem() {
         return menuItem;
     } // TODO: get the individual menu item details
 
@@ -72,7 +75,7 @@ public class OrderItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tableNumber, menuItem, quantityOrdered);
+        return Objects.hash(tableNumber, menuItem, String.valueOf(quantityOrdered));
     }
 
     @Override

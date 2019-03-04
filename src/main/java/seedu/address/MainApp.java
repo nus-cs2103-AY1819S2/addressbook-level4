@@ -89,16 +89,18 @@ public class MainApp extends Application {
         try {
             // addressBookOptional = storage.readRestOrRant();
             ordersOptional = storage.readOrders();
-            if (!ordersOptional.isPresent()) {
-                logger.info("Orders data file not found. Will be starting with sample Orders");
-            }
-            
             menuOptional = storage.readMenu();
-            if (!menuOptional.isPresent()) {
-                logger.info("Menu data file not found. Will be starting with sample Menu");
+            if (!ordersOptional.isPresent()) {
+                logger.info("Orders data file not found. Will be starting with an empty RestOrRant");
+                initialData = new RestOrRant();
+            } else if (!menuOptional.isPresent()) {
+                logger.info("Menu data file not found. Will be starting with an empty RestOrRant");
+                initialData = new RestOrRant();
+            } else {
+                initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
             }
-            initialData = new RestOrRant();
             //initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
+
             // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");

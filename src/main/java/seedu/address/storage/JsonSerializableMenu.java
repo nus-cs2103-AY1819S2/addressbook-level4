@@ -24,6 +24,7 @@ class JsonSerializableMenu {
 
     public static final String MESSAGE_DUPLICATE_ITEM = "Menu list contains duplicate items(s).";
     private final List<JsonAdaptedMenu> items = new ArrayList<>();
+
     /**
      * Constructs a {@code JsonSerializableMenu} with the given persons.
      */

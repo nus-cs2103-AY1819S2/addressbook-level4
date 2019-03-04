@@ -1,15 +1,15 @@
 package seedu.address.model.request;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.request.exceptions.DuplicateRequestException;
-import seedu.address.model.request.exceptions.RequestNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.request.exceptions.DuplicateRequestException;
+import seedu.address.model.request.exceptions.RequestNotFoundException;
 
 /**
  * A list of requests that enforces uniqueness between its elements and does not allow nulls.
@@ -72,17 +72,6 @@ public class UniqueRequestList implements Iterable<Request> {
         internalList.setAll(replacement.internalList);
     }
 
-    private boolean requestsAreUnique(List<Request> requests) {
-        for (int i = 0; i < requests.size() - 1; i++) {
-            for (int j = i + 1; j < requests.size(); j++) {
-                if (requests.get(i).isSameRequest(requests.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     /**
      * Replaces the contents of this list with {@code requests}.
      * {@code requests} must not contain duplicate persons.
@@ -93,6 +82,20 @@ public class UniqueRequestList implements Iterable<Request> {
             throw new DuplicateRequestException();
         }
         internalList.setAll(requests);
+    }
+
+    /**
+     * Returns true if all the contents in {@code requests} are unique, false otherwise.
+     */
+    private boolean requestsAreUnique(List<Request> requests) {
+        for (int i = 0; i < requests.size() - 1; i++) {
+            for (int j = i + 1; j < requests.size(); j++) {
+                if (requests.get(i).isSameRequest(requests.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**

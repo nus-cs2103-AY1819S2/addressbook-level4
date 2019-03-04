@@ -3,7 +3,6 @@ package seedu.address.model.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 

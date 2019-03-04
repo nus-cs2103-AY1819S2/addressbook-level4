@@ -2,10 +2,10 @@ package seedu.address.logic.commands.request;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -55,13 +55,12 @@ public class CreateCommand extends RequestCommand {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
-//        if (model.hasRequest(this.newRequest)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
-//        }
-//
-//        model.addRequest(newRequest);
-//        model.commitRequestBook();
+        // TODO write created request into the JSON file
+        //  if (model.hasRequest(this.newRequest)) {
+        //      throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
+        //  }
+        //  model.addRequest(newRequest);
+        //  model.commitRequestBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, newRequest));
     }
 }

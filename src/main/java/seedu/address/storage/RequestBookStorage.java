@@ -1,11 +1,11 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyRequestBook;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyRequestBook;
 
 /**
  * Represents a storage for {@link seedu.address.model.RequestBook}.
@@ -38,7 +38,7 @@ public interface RequestBookStorage {
     void saveRequestBook(ReadOnlyRequestBook requestBook) throws IOException;
 
     /**
-     * @see #saveRequestBook(ReadOnlyAddressBook)
+     * @see #saveRequestBook(ReadOnlyRequestBook)
      */
     void saveRequestBook(ReadOnlyRequestBook readOnlyRequestBook, Path filePath) throws IOException;
 }

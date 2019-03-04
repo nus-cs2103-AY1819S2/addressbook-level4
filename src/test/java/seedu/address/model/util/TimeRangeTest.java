@@ -10,11 +10,11 @@ public class TimeRangeTest {
     @Test
     public void withinTiming() {
         TimeRange serviceTiming = new TimeRange(10, 20);
-        assertTrue(serviceTiming.withinTiming(new TimeRange(11, 19)));
-        assertFalse(serviceTiming.withinTiming(new TimeRange(9, 21)));
-        assertFalse(serviceTiming.withinTiming(new TimeRange(11, 21)));
-        assertFalse(serviceTiming.withinTiming(new TimeRange(9, 19)));
-        assertTrue(serviceTiming.withinTiming(new TimeRange(10, 20)));
+        assertTrue(new TimeRange(11, 19).withinTiming(serviceTiming));
+        assertFalse(new TimeRange(9, 21).withinTiming(serviceTiming));
+        assertFalse(new TimeRange(11, 21).withinTiming(serviceTiming));
+        assertFalse(new TimeRange(9, 19).withinTiming(serviceTiming));
+        assertTrue(new TimeRange(10, 20).withinTiming(serviceTiming));
         assertTrue(serviceTiming.withinTiming(serviceTiming));
     }
 }

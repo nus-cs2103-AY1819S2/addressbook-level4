@@ -38,7 +38,7 @@ public class Directory {
      */
     public void addMedicine(Medicine medicine) {
         requireNonNull(medicine);
-        checkArgument(isValidMedicine(medicine), "medicine with the same name already in list");
+        checkArgument(isValidMedicine(medicine), "medicine with the same name already in directory");
         listOfMedicine.add(medicine);
         listOfMedicine.sort(Comparator.comparing((Medicine med) -> (med.name)));
     }

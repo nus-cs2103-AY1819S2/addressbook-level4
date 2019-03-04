@@ -17,6 +17,8 @@ import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_PROFESSOR;
+import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_SDE;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -64,37 +66,37 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + VALID_PASTJOB_PROFESSSOR
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + VALID_PASTJOB_PROFESSSOR
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + VALID_PASTJOB_PROFESSSOR
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + VALID_PASTJOB_PROFESSSOR
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + VALID_PASTJOB_PROFESSSOR
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple schools - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + SCHOOL_DESC_AMY + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + VALID_PASTJOB_PROFESSSOR
+                + SCHOOL_DESC_AMY + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         //multiple majors - last major accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + SCHOOL_DESC_BOB + MAJOR_DESC_AMY + MAJOR_DESC_BOB + VALID_PASTJOB_PROFESSSOR
+                + SCHOOL_DESC_BOB + MAJOR_DESC_AMY + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB)
@@ -103,7 +105,8 @@ public class AddCommandParserTest {
             .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+                + PASTJOB_DESC_PROFESSOR + PASTJOB_DESC_SDE + TAG_DESC_HUSBAND
+                + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
     }
 
     @Test
@@ -111,7 +114,7 @@ public class AddCommandParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + SCHOOL_DESC_AMY + MAJOR_DESC_AMY,
+                + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + PASTJOB_DESC_PROFESSOR,
                 new AddCommand(expectedPerson));
     }
 
@@ -189,12 +192,13 @@ public class AddCommandParserTest {
 
         // invalid past job
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-            + SCHOOL_DESC_BOB + INVALID_MAJOR_DESC
-            + INVALID_PASTJOB_DESC + VALID_TAG_FRIEND, PastJob.MESSAGE_CONSTRAINTS);
+            + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+            + INVALID_PASTJOB_DESC + TAG_DESC_FRIEND, PastJob.MESSAGE_CONSTRAINTS);
+
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+                + INVALID_TAG_DESC + TAG_DESC_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB

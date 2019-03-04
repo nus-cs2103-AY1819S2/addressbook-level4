@@ -7,7 +7,7 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "school" : "NUS",
     "major": "CS",
-    "pastjobed" : [ "SDE" ],
+    "pastjobed" : [ "Professor" ],
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -16,7 +16,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "school" : "NTU",
     "major": "CS",
-    "pastjobed" : [ "Lawyer" ],
+    "pastjobed" : [ "Lawyer", "SDE" ],
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -43,7 +43,7 @@
     "address" : "michegan ave",
     "school" : "SUTD",
     "major": "CS",
-    "pastjobed" : [ "Professor" ],
+    "pastjobed" : [ "SDE" ],
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",

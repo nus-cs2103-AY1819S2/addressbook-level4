@@ -21,6 +21,9 @@ public class Person {
     private final Phone phone;
     private final Email email;
 
+    // Mutable fields
+    private Teeth teeth;
+
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();

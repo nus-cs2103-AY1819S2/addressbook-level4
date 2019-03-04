@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.exceptions.DuplicatePersonException;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
 
@@ -116,5 +118,9 @@ public class Row implements Iterable<Cell> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    public void putShipAtIndex(Index index, Battleship battleship) {
+        internalList.get(index.getZeroBased()).putShip(battleship);
     }
 }

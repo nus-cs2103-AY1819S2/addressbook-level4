@@ -18,7 +18,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
@@ -53,6 +55,11 @@ public class ModelManager implements Model {
     }
 
     //=========== UserPrefs ==================================================================================
+
+    @Override
+    public void putShip(Coordinates coordinates, Battleship battleship) {
+        versionedAddressBook.putShip(coordinates, battleship);
+    }
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {

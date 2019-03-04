@@ -5,11 +5,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's gender in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidgender(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidGender(String)}
  */
 public class Gender {
 
-    public static final String MESSgender_CONSTRAINTS =
+    public static final String MESSAGE_CONSTRAINTS =
             "Gender should only contain character, and it should only be Male or Female";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     public final String value;
@@ -21,14 +21,14 @@ public class Gender {
      */
     public Gender(String gender) {
         requireNonNull(gender);
-        checkArgument(isValidgender(gender), MESSgender_CONSTRAINTS);
+        checkArgument(isValidGender(gender), MESSAGE_CONSTRAINTS);
         value = gender;
     }
 
     /**
      * Returns true if a given string is a valid gender number.
      */
-    public static boolean isValidgender(String test) {
+    public static boolean isValidGender(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

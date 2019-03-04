@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -52,6 +53,30 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /**
+     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
+     */
+    boolean hasPatient(Patient patient);
+
+    /**
+     * Deletes the given patient.
+     * The patient must exist in the address book.
+     */
+    void deletePatient(Patient target);
+
+    /**
+     * Adds the given patient.
+     * {@code patient} must not already exist in the address book.
+     */
+    void addPatient(Patient patient);
+
+    /**
+     * Replaces the given person {@code target} with {@code editedPatient}.
+     * {@code target} must exist in the address book.
+     * The patient identity of {@code editedPatient} must not be the same as another existing patient in the address book.
+     */
+    void setPatient(Patient target, Patient editedPatient);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

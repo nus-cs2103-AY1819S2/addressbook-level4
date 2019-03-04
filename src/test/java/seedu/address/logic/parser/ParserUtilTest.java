@@ -114,23 +114,23 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseId_null_throwsNullPointerException() {
+    public void parseIdNullThrowsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseIdNum((String) null));
     }
 
     @Test
-    public void parseId_invalidValue_throwsParseException() {
+    public void parseIdInvalidValueThrowsParseException() {
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseIdNum(INVALID_ID));
     }
 
     @Test
-    public void parseId_validValueWithoutWhitespace_returnsId() throws Exception {
+    public void parseIdValidValueWithoutWhitespaceReturnsId() throws Exception {
         IdentificationNo expectedId = new IdentificationNo(VALID_ID);
         assertEquals(expectedId, ParserUtil.parseIdNum(VALID_ID));
     }
 
     @Test
-    public void parseId_validValueWithWhitespace_returnsTrimmedId() throws Exception {
+    public void parseIdValidValueWithWhitespaceReturnsTrimmedId() throws Exception {
         String IdWithWhitespace = WHITESPACE + VALID_ID + WHITESPACE;
         IdentificationNo expectedId = new IdentificationNo(VALID_ID);
         assertEquals(expectedId, ParserUtil.parseIdNum(IdWithWhitespace));

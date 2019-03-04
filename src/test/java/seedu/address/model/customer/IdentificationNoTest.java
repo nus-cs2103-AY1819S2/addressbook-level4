@@ -10,12 +10,12 @@ import seedu.address.testutil.Assert;
 public class IdentificationNoTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructorNullThrowsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new IdentificationNo(null));
     }
 
     @Test
-    public void constructor_invalidId_throwsIllegalArgumentException() {
+    public void constructorInvalidIdThrowsIllegalArgumentException() {
         String invalidIdentificationNo = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new IdentificationNo(invalidIdentificationNo));
     }

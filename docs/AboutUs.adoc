@@ -12,46 +12,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ho Boon Wee Addison
-image::addison.jpeg[width="150", align="left"]
+image::Carrein.png[width="150", align="left"]
 {empty}[https://github.com/Carrein[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Scheduling and Tracking, UI
 
 '''
 
 === Tan Qun Wei Randy
-image::randy.jpeg[width="150", align="left"]
+image::randytqw.png[width="150", align="left"]
 {empty}[https://github.com/randytqw[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Image State Management (undo, redo)
+Responsibilities: Integration, Image State Management (undo, redo)
 
 '''
 
 === Tay Zhan Peng
-image::zack.jpeg[width="150", align="left"]
+image::itszp.png[width="150", align="left"]
 {empty}[https://github.com/itszp[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Import/Export
+Responsibilities: Code quality, Import/Export
 
 '''
 
 === Tham Si Mun
-image::simun.jpeg[width="150", align="left"]
+image::thamsimun.png[width="150", align="left"]
 {empty}[https://github.com/thamsimun[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Image Filters
+Responsibilities: Testing, Image Filters
 
 '''
 
 === Chong Kay Heen
-image::kayheen.jpg[width="150", align="left"]
+image::kayheen.png[width="150", align="left"]
 {empty}[https://github.com/kayheen[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Image Manipulation
+Responsibilities: Documentation, Image Manipulation
 
 '''

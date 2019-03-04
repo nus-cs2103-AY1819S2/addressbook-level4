@@ -39,7 +39,7 @@ Responsibilities: Deliverables and deadlines
 
 === Evan Tay
 image::digipie.png[width="150", align="left"]
-{empty}[http://www.evantay.com[homepage]] [http://github.com/DigiPie[github]] [<<DigiPie#, portfolio>>]
+{empty}[http://www.evantay.com[homepage]] [http://github.com/DigiPie[github]] [<<digipie#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Management System and Documentation

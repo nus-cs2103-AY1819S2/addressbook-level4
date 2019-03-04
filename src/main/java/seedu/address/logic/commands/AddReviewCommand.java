@@ -51,6 +51,14 @@ public class AddReviewCommand extends Command {
         this.reviewToAdd = review;
     }
 
+    public Review getReviewToAdd() {
+        return reviewToAdd;
+    }
+
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -74,8 +82,8 @@ public class AddReviewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddReviewCommand // instanceof handles nulls
-                && reviewToAdd.equals(((AddReviewCommand) other).reviewToAdd)
-                && targetIndex.equals(((AddReviewCommand) other).targetIndex));
+                && reviewToAdd.equals(((AddReviewCommand) other).getReviewToAdd())
+                && targetIndex.equals(((AddReviewCommand) other).getTargetIndex()));
     }
 
     /**

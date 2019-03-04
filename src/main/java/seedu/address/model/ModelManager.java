@@ -95,6 +95,7 @@ public class ModelManager implements Model {
         return versionedAddressBook;
     }
 
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);

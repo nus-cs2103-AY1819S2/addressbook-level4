@@ -17,6 +17,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -41,6 +44,11 @@ public interface Model {
      * Returns the user prefs' Orders file path.
      */
     Path getOrdersFilePath();
+
+    /**
+     * Returns the user prefs' Tables file path.
+     */
+    Path getTablesFilePath();
 
     /**
      * Sets the user prefs' Orders file path.

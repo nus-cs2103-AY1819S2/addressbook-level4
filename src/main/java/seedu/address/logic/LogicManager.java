@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;
 
 /**
@@ -87,8 +88,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Table> getFilteredTableList() {
+        return model.getFilteredTableList();
     }
 
     @Override
@@ -97,8 +98,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getRestOrRantFilePath();
+    public Path getTablesFilePath() {
+        return model.getOrdersFilePath();
     }
 
     @Override
@@ -112,12 +113,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Table> selectedTableProperty() {
+        return model.selectedTableProperty();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public void setSelectedTable(Table table) {
+        model.setSelectedTable(table);
     }
 }

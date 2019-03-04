@@ -30,8 +30,8 @@ public class Coordinates {
     private static final String VALIDATION_REGEX = ROW_PART_REGEX + COL_PART_REGEX;
 
     public final String value;
-    private final Index rowValue;
-    private final Index colValue;
+    private final Index rowIndex;
+    private final Index colIndex;
 
     /**
      * Constructs an {@code Coordinates}.
@@ -59,8 +59,8 @@ public class Coordinates {
         int rowNum = convertAlphabetToNumber(row);
         int colNum = Integer.parseInt(col);
 
-        this.rowValue = Index.fromOneBased(rowNum);
-        this.colValue = Index.fromOneBased(colNum);
+        this.rowIndex = Index.fromOneBased(rowNum);
+        this.colIndex = Index.fromOneBased(colNum);
     }
 
     /**
@@ -77,15 +77,15 @@ public class Coordinates {
     /**
      * Returns Index for rowNum
      */
-    public Index getRowValue() {
-        return this.rowValue;
+    public Index getRowIndex() {
+        return this.rowIndex;
     }
 
     /**
      * Return Index for colNum
      */
-    public Index getColValue() {
-        return this.colValue;
+    public Index getColIndex() {
+        return this.colIndex;
 
     }
 

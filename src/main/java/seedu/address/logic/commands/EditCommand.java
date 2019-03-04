@@ -49,18 +49,28 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_SCHOOL + "SCHOOL] "
             + "[" + PREFIX_MAJOR + "MAJOR] "
             + "[" + PREFIX_SCHOOL + "SCHOOL] "
             + "[" + PREFIX_PASTJOB + "PASTJOB] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com\n"
+            + PREFIX_EMAIL + "johndoe@example.com"
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science "
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "owesMoney\n"
             + "The alias \"ed\" can be used instead.\n"
             + "Example: " + COMMAND_ALIAS + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com"
-            + PREFIX_MAJOR + "Computer Science";
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science"
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "owesMoney\n";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

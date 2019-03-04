@@ -22,14 +22,14 @@ public class SchoolTest {
 
     @Test
     public void isValidSchool() {
-        // null address
+        // null school
         Assert.assertThrows(NullPointerException.class, () -> School.isValidSchool(null));
 
-        // invalid addresses
+        // invalid school
         assertFalse(Address.isValidAddress("")); // empty string
         assertFalse(Address.isValidAddress(" ")); // spaces only
 
-        // valid addresses
+        // valid school
         assertTrue(Address.isValidAddress("NUS"));
         assertTrue(Address.isValidAddress("-")); // one character
         assertTrue(Address.isValidAddress("National University of Singapore")); // long School

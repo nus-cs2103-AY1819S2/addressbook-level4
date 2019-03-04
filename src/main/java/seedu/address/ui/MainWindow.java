@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MenuBrowserPanel menuBrowserPanel;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -123,8 +124,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        // TODO: refine later (this correct??)
-        StatusBarFooter statusBarFooter = new StatusBarFooter();
+        // TODO: refine later
+        statusBarFooter = new StatusBarFooter("Restaurant Mode");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -183,6 +184,7 @@ public class MainWindow extends UiPart<Stage> {
         switch (mode) {
 
         case RESTAURANT_MODE:
+            statusBarFooter.updateMode("Restaurant Mode");
             break;
 
         case TABLE_MODE:
@@ -193,6 +195,7 @@ public class MainWindow extends UiPart<Stage> {
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+            statusBarFooter.updateMode("Table Mode");
             break;
 
         case MENU_MODE:
@@ -203,6 +206,7 @@ public class MainWindow extends UiPart<Stage> {
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+            statusBarFooter.updateMode("Menu Mode");
             break;
 
         default:

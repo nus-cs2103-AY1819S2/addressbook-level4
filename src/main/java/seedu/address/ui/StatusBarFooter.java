@@ -33,18 +33,26 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label syncStatus;
     @FXML
-    private Label saveLocationStatus;
+    private Label currentMode;
 
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyRestOrRant addressBook) {
+    public StatusBarFooter(String mode) {
         super(FXML);
-        addressBook.addListener(observable -> updateSyncStatus());
-        syncStatus.setText(SYNC_STATUS_INITIAL);
-        saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+        currentMode.setText(mode);
+        //restOrRant.addListener(observable -> updateSyncStatus());
+        //syncStatus.setText(SYNC_STATUS_INITIAL);
+        //saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
     
     public StatusBarFooter() {
         super(FXML);
+    }
+
+    /**
+     * Updates the current mode display to the specified mode.
+     */
+    public void updateMode(String newMode) {
+        currentMode.setText(newMode);
     }
 
     /**

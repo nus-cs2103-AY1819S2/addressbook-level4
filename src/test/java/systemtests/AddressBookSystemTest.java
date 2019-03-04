@@ -1,6 +1,6 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
+//import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,8 +8,9 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+//import java.net.MalformedURLException;
+//import java.net.URL;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -195,10 +196,10 @@ public abstract class AddressBookSystemTest {
      * default page.
      * @see BrowserPanelHandle#isUrlChanged()
      */
-/*    protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
-    }*/
+    /*    protected void assertSelectedCardDeselected() {
+            assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+            assertFalse(getPersonListPanel().isAnyCardSelected());
+        }*/
 
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
@@ -206,19 +207,19 @@ public abstract class AddressBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-/*    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+    /*    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+            getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
+            String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+            URL expectedUrl;
+            try {
+                expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            } catch (MalformedURLException mue) {
+                throw new AssertionError("URL expected to be valid.", mue);
+            }
+            assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
-    }*/
+            assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        }*/
 
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.

@@ -37,7 +37,7 @@ see what programs you need to have installed in order for OurTeeth to
 work properly. Once that’s settled, or you’re confident in your computer
 set-up, jump to section 3 [Quick Start] to begin!
 
-==  Prerequisites 
+==  Prerequisites
 
 Before downloading and installing OurTeeth, please check that you have
 the following programs installed:

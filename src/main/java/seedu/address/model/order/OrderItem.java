@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.table.TableNumber;
+
 /**
  * Represents an order item in an Order from the RestOrRant.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -66,7 +68,7 @@ public class OrderItem {
         }
 
         OrderItem otherOrderItem = (OrderItem) other;
-        return isSameOrderItem(otherOrderItem) && otherOrderItem.getTableNumber() == getTableNumber();
+        return isSameOrderItem(otherOrderItem) && otherOrderItem.getTableNumber().equals(getTableNumber());
     }
 
     @Override

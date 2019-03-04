@@ -15,19 +15,33 @@ import java.util.List;
 
 import org.junit.Test;
 
+import braintrain.model.card.Card;
 import braintrain.model.card.exceptions.MissingCoreException;
 import braintrain.testutil.Assert;
 import braintrain.testutil.LessonBuilder;
 
 public class LessonTest {
+    private static final String NAME_DEFAULT = "Test Lesson";
+
+    private static final int CORE_COUNT_DEFAULT = 2;
+
+    private static final List<String> FIELDS_DEFAULT = Arrays.asList("Country", "Capital");
+    private static final List<String> FIELDS_OPTIONALS = Arrays.asList("Country", "Capital", "Hint", "Country Code");
+    private static final List<String> CARD_STRINGS_DEFAULT = Arrays.asList("Japan", "Tokyo");
+    private static final List<String> CARD_STRINGS_OPTIONALS = Arrays.asList("Japan", "Tokyo", "Starts with T", "JP");
+    private static final Card CARD_JAPAN =
+        new Card(Arrays.asList("Japan", "Tokyo"), Arrays.asList("Starts with T", "JP"));
+
+    private final Lesson lesson = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_DEFAULT);
+    private final Lesson lessonOptional = new Lesson(NAME_DEFAULT, CORE_COUNT_DEFAULT, FIELDS_OPTIONALS);
+
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            new Lesson("", DEFAULT_CORE_COUNT, DEFAULT_FIELDS);
-        });
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            new Lesson(null, DEFAULT_CORE_COUNT, DEFAULT_FIELDS);
-        });
+        Assert.assertThrows(IllegalArgumentException.class,
+                () -> new Lesson("", DEFAULT_CORE_COUNT, DEFAULT_FIELDS));
+
+        Assert.assertThrows(IllegalArgumentException.class,
+                () -> new Lesson(null, DEFAULT_CORE_COUNT, DEFAULT_FIELDS));
     }
 
     @Test
@@ -86,6 +100,7 @@ public class LessonTest {
     @Test
     public void setQuestionAnswerIndices_invalidQuestionIndex_throwsIllegalArgumentException() {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
+
         Assert.assertThrows(IllegalArgumentException.class, "Question index: -1 out of bounds", () -> {
             lesson.setQuestionAnswerIndices(-1, 1);
         });
@@ -97,6 +112,7 @@ public class LessonTest {
     @Test
     public void setQuestionAnswerIndices_invalidAnswerIndex_throwsIllegalArgumentException() {
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
+
         Assert.assertThrows(IllegalArgumentException.class, "Answer index: -1 out of bounds", () -> {
             lesson.setQuestionAnswerIndices(0, -1);
         });
@@ -107,13 +123,13 @@ public class LessonTest {
 
     @Test
     public void setQuestionAnswerIndices() {
+
         Lesson lesson = new LessonBuilder(LESSON_ONE_OPT).build();
         assertEquals(lesson.getQuestionCoreIndex(), 0);
         assertEquals(lesson.getAnswerCoreIndex(), 0);
         lesson.setQuestionAnswerIndices(1, 1);
         assertEquals(lesson.getQuestionCoreIndex(), 1);
         assertEquals(lesson.getAnswerCoreIndex(), 1);
-
     }
 
     @Test

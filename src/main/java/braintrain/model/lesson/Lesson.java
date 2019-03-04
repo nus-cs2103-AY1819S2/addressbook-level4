@@ -5,6 +5,7 @@ import static braintrain.model.card.Card.MIN_CORE_COUNT;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import braintrain.model.card.Card;
 import braintrain.model.card.exceptions.MissingCoreException;
@@ -188,7 +189,7 @@ public class Lesson {
 
         cards.add(card);
     }
-
+    
     /**
      * Adds a {@link Card} object to the lesson.
      *
@@ -255,5 +256,24 @@ public class Lesson {
     public String toString() {
         StringBuilder sb = new StringBuilder().append(name);
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Lesson)) {
+            return false;
+        }
+
+        Lesson otherLesson = (Lesson) other;
+        return otherLesson.hashCode() == this.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, coreHeaders, optionalHeaders, cards);
     }
 }

@@ -15,7 +15,7 @@ public class QuizCard {
 
     public static final String MESSAGE_CONSTRAINTS = "Question/answer can take any values, and it"
         + " should not be blank or contain only whitespaces";
-
+    private Quiz.Mode quizMode;
     private String question;
     private String answer;
     private List<String> opt;
@@ -46,13 +46,14 @@ public class QuizCard {
         this.streak = 0;
     }
 
-    public QuizCard(int index, String question, String answer) {
-        requireAllNonNull(index, question, answer);
+    public QuizCard(int index, String question, String answer, Quiz.Mode quizMode) {
+        requireAllNonNull(index, question, answer, quizMode);
         checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.index = index;
         this.question = question;
         this.answer = answer;
+        this.quizMode = quizMode;
     }
 
     public String getQuestion() {
@@ -68,7 +69,7 @@ public class QuizCard {
     }
 
     public int getIndex() throws NotInitialisedException {
-        if (index > 0) {
+        if (index > -1) {
             return index;
         }
 
@@ -83,13 +84,18 @@ public class QuizCard {
         return streak;
     }
 
+    public Quiz.Mode getQuizMode() {
+        requireAllNonNull(quizMode);
+        return quizMode;
+    }
+
     /**
      * Check if the given answer is the same as the answer of the card.
      * @param answer user's input answer.
      * @return the result after checking.
      */
     public boolean isCorrect(String answer) throws NullPointerException {
-        return answer.equals(this.answer);
+        return answer.equalsIgnoreCase(this.answer);
     }
 
     /**
@@ -97,13 +103,14 @@ public class QuizCard {
      * @param isCorrect the output of isCorrect method
      */
     public void updateTotalAttemptsAndStreak(boolean isCorrect) {
-        if (isCorrect) {
-            streak += 1;
-        } else {
-            streak = 0;
+        if (quizMode != Quiz.Mode.PREVIEW) {
+            if (isCorrect) {
+                streak += 1;
+            } else {
+                streak = 0;
+            }
+            totalAttempts += 1;
         }
-
-        totalAttempts += 1;
     }
 
     @Override

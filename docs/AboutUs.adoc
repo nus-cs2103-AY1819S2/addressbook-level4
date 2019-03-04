@@ -38,7 +38,7 @@ Responsibilities: Deliverables and deadlines
 '''
 
 === Evan Tay
-image::DigiPie.png[width="150", align="left"]
+image::digipie.png[width="150", align="left"]
 {empty}[http://www.evantay.com[homepage]] [http://github.com/DigiPie[github]] [<<DigiPie#, portfolio>>]
 
 Role: Developer +

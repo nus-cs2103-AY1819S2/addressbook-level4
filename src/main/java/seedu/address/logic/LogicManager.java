@@ -31,10 +31,10 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final RestOrRantParser restOrRantParser;
-    private boolean restOrRantModified;
     private boolean modeModified;
     private boolean menuModified;
     private boolean ordersModified;
+    private boolean tablesModified;
     private Mode mode;
 
     public LogicManager(Model model, Storage storage) {
@@ -44,19 +44,19 @@ public class LogicManager implements Logic {
         restOrRantParser = new RestOrRantParser();
         mode = Mode.RESTAURANT_MODE;
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getRestOrRant().addListener(observable -> restOrRantModified = true);
         // Set modeModified to true whenever the models' mode is modified.
         model.getRestOrRant().addListener(observable -> modeModified = true);
+        // Set menuModified to true whenever the models' RestOrRant's menu is modified.
         model.getRestOrRant().getMenu().addListener(observable -> menuModified = true);
         // Set ordersModified to true whenever the models' RestOrRant's orders is modified.
         model.getRestOrRant().getOrders().addListener(observable -> ordersModified = true);
+        // Set tablesModified to true whenever the models' RestOrRant's tables is modified.
+        model.getRestOrRant().getTables().addListener(observable -> tablesModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        restOrRantModified = false;
         modeModified = false;
         menuModified = false;
         ordersModified = false;
@@ -69,12 +69,28 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (restOrRantModified) {
-            logger.info("RestOrRant modified, saving to file.");
+        if (menuModified) {
+            logger.info("Menu modified, saving to file.");
             try {
                 storage.saveMenu(model.getRestOrRant().getMenu());
-                // TODO: add save <each feature> instead of saveRestOrRant
-                // storage.saveRestOrRant(model.getRestOrRant());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        if (ordersModified) {
+            logger.info("Orders modified, saving to file.");
+            try {
+                storage.saveOrders(model.getRestOrRant().getOrders());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        if (tablesModified) {
+            logger.info("Tables modified, saving to file.");
+            try {
+                storage.saveTables(model.getRestOrRant().getTables());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

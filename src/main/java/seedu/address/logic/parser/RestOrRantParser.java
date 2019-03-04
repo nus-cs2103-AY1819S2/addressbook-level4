@@ -48,40 +48,38 @@ public class RestOrRantParser {
             case ExitCommand.COMMAND_ALIAS:
                 return new ExitCommand();
 
+            case RestaurantModeCommand.COMMAND_WORD:
+                return new RestaurantModeCommand();
+
             case MenuModeCommand.COMMAND_WORD:
                 return new MenuModeCommand();
+
+            case TableModeCommand.COMMAND_WORD:
+                return new TableModeCommand();
                 
+            case AddTableCommand.COMMAND_WORD:
+                if (mode != Mode.RESTAURANT_MODE) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+                }
+                return new AddTableCommandParser().parse(arguments);
+
+            case AddItemToMenuCommand.COMMAND_WORD:
+                if (mode != Mode.MENU_MODE) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+                }
+                return new AddItemToMenuCommandParser().parse(arguments);
+
+            case AddOrderCommand.COMMAND_WORD:
+                if (mode != Mode.TABLE_MODE) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+                }
+                return new AddOrderCommandParser().parse(arguments);
+
             default:
                 break;
         }
 
-        if (mode == Mode.RESTAURANT_MODE) {
-            switch (commandWord) {
-                case AddTableCommand.COMMAND_WORD:
-                    return new AddTableCommandParser().parse(arguments);
-
-//                case UpdateTableCommand.COMMAND_WORD:
-//                    return new UpdateTableCommandParser().parse(arguments);
-
-                default:
-                    break;
-            }
-        } else if (mode == Mode.MENU_MODE) {
-            switch (commandWord) {
-                case AddItemToMenuCommand.COMMAND_WORD:
-                    return new AddItemToMenuCommandParser().parse(arguments);
-
-                default:
-                    break;
-            }
-        } else if (mode == Mode.TABLE_MODE) {
-            switch (commandWord) {
-                case AddOrderCommand.COMMAND_WORD:
-                    return new AddOrderCommandParser().parse(arguments);
-            }
-        }
-
-        throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+        throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
 
     }
     

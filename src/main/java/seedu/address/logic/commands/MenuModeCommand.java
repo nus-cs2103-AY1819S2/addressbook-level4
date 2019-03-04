@@ -1,12 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Change the RestOrRant's mode to {@code Mode.MENU_MODE}.

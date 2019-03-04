@@ -4,15 +4,17 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+OurTeeth was developed by the W17-02 Team
+
+The basis of our product, AddressBook - Level 4, was developed by the https://se-edu.github.io/docs/Team.html[se-edu]
+team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 {nbsp} +
 
-image::kylerwsm.png[width="200", align="left"]
+image::kylerwsm.png[width="150", align="left"]
 {nbsp} +
 *Kyler Wong Shen Meng*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, Portfolio>>``
 {nbsp} +
@@ -27,7 +29,7 @@ Responsibilities::
 '''
 
 === Keith Sim
-image::kthSim.png[width="150", align="left"]
+image::kthsim.png[width="150", align="left"]
 {empty}[https://github.com/kthSim[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -36,7 +38,7 @@ Responsibilities: Records Managament
 '''
 
 === Lim Jia Hao
-image::LimJiaHao.png[width="150", align="left"]
+image::jiahaolim.png[width="150", align="left"]
 {empty}[https://github.com/JiaHaoLim[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -58,4 +60,4 @@ image::wsemis.JPG[width="150", aligh="left"]
 {empty}[https://github.com/wSemis[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Resposibilities: Record proseccessing
+Responsibilities: Record processing

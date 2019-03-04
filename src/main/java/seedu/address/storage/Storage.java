@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTables;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;

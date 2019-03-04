@@ -1,12 +1,10 @@
-package seedu.address.model.Statistics;
+package seedu.address.model.statistics;
 
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
-import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.Person;
 
 /**
- * Unmodifiable view of Statistics
+ * Unmodifiable view of statistics
  */
 public interface ReadOnlyStatistics extends Observable {
 

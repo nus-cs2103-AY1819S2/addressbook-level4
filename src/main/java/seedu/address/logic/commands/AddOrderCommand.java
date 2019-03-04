@@ -47,21 +47,24 @@ public class AddOrderCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<OrderItem> orderItems = new ArrayList<>();
+        TableNumber tableNumber = model.getSelectedTable().getTableNumber();
         
         for (int i = 0; i < itemCodes.size(); i++) {
             Optional<MenuItem> itemOptional = model.getRestOrRant().getMenu().getItemFromCode(itemCodes.get(i));
             if (!itemOptional.isPresent()) {
                 throw new CommandException(String.format(MESSAGE_INVALID_ITEM_CODE, itemCodes.get(i)));
             }
-            OrderItem orderItem = new OrderItem(new TableNumber("1"), itemCodes.get(i), itemQuantities.get(i));
+            OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i), itemQuantities.get(i));
             if (model.hasOrderItem(orderItem)) {
                 throw new CommandException(MESSAGE_DUPLICATE_ORDER_ITEM);
             }
+            orderItems.add(orderItem);
         }
 
         for (OrderItem orderItem : orderItems) {
             model.addOrderItem(orderItem);
         }
+        model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
         model.updateOrders();
         return new CommandResult(String.format(MESSAGE_SUCCESS, orderItems));
     }

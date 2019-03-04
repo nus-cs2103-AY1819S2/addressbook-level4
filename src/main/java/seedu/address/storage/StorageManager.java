@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Statistics.ReadOnlyStatistics;
-import seedu.address.model.ReadOnlyTables;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -156,7 +156,7 @@ public class StorageManager implements Storage {
         tablesStorage.backupTables(tables);
     }
 
-    // ================ Statistics methods ==============================
+    // ================ statistics methods ==============================
 
     @Override
     public Path getStatisticsFilePath() {

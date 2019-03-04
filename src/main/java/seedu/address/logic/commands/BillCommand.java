@@ -9,10 +9,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.Statistics.Bill;
-import seedu.address.model.Statistics.Day;
-import seedu.address.model.Statistics.Month;
-import seedu.address.model.Statistics.Year;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.Day;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Year;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
@@ -40,7 +40,7 @@ public class BillCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Bill Calculated: %1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
 
-    private final Table toBill;
+    //private final Table toBill;
     private Bill bill;
 
     /**
@@ -51,18 +51,18 @@ public class BillCommand extends Command {
         requireNonNull(day);
         requireNonNull(month);
         requireNonNull(year);
-        toBill = Table.getTableFromNumber(tableNumber);
+        // toBill = Table.getTableFromNumber(tableNumber);
     }
 
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasTable(toBill)) {
-            throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
-        }
+        //if (!model.hasTable(toBill)) {
+        //    throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
+        //}
 
-        bill = calculateBill(toBill);
+        //bill = calculateBill(toBill);
         model.updateRestOrRant();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }

@@ -14,6 +14,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class MenuModeCommand extends ChangeModeCommand {
     public static final String COMMAND_WORD = "menuMode"; // change to standardize with other modes
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Menu Mode.\n"
+            + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Mode changed to Menu Mode";
     
     @Override

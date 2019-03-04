@@ -51,7 +51,7 @@ public class AddItemToMenuCommand extends Command {
         }
         
         model.addMenuItem(toAdd);
-        model.updateRestOrRant();
+        //model.updateRestOrRant();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

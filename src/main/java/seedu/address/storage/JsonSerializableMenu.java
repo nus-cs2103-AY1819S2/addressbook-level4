@@ -30,15 +30,6 @@ class JsonSerializableMenu {
     }
 
     /**
-     * Converts a given {@code ReadOnlyRestOrRant} into this class for Jackson use.
-     *
-     * @param source future changes to this will not affect the created {@code JsonSerializableRestOrRant}.
-     */
-    public JsonSerializableMenu(ReadOnlyRestOrRant source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-    }
-
-    /**
      * Converts this address book into the model's {@code RestOrRant} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.

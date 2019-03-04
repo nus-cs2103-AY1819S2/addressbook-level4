@@ -13,6 +13,7 @@ import seedu.address.model.order.Orders;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.order.UniqueOrderItemList;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.Tables;
 import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.person.Person; // TODO: remove once the other components stop relying on person methods
 import seedu.address.model.person.UniquePersonList; // TODO: remove once the other components stop relying on person methods
@@ -24,6 +25,7 @@ import seedu.address.model.person.UniquePersonList; // TODO: remove once the oth
 public class RestOrRant implements ReadOnlyRestOrRant {
 
     private final Orders orders;
+    private final Tables tables;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -35,6 +37,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      */
     {
         orders = new Orders();
+        tables = new Tables();
     }
 
     public RestOrRant() {}
@@ -97,6 +100,11 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     @Override
     public Orders getOrders() {
         return orders;
+    }
+
+    @Override
+    public Tables getTables() {
+        return tables;
     }
 
     @Override

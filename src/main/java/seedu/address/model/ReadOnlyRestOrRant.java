@@ -17,4 +17,9 @@ public interface ReadOnlyRestOrRant extends Observable {
      */
     ReadOnlyOrders getOrders();
 
+    /**
+     * Returns an unmodifiable view of the table list.
+     */
+    ReadOnlyTables getTables();
+
 }

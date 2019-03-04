@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.table;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,9 +7,7 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.table.Table;
-import seedu.address.model.table.UniqueTableList;
+import seedu.address.model.ReadOnlyTables;
 
 public class Tables implements ReadOnlyTables {
 
@@ -86,7 +84,7 @@ public class Tables implements ReadOnlyTables {
      * Removes {@code key} from this {@code RestOrRant}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Table key) {
+    public void removeTable(Table key) {
         tableList.remove(key);
         indicateModified();
     }

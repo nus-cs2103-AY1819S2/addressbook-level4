@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 
 /**
  * The API of the Model component.
@@ -58,6 +59,57 @@ public interface Model {
      * Notifies the listeners that the RestOrRant (mode) has been modified.
      */
     void updateRestOrRant();
+
+    /**
+     * Returns true if a table with the same identity as {@code table} exists in the RestOrRant's Tables.
+     */
+    boolean hasTable(Table table);
+
+    /**
+     * Deletes the given table from Tables.
+     * The table must  exist in the RestOrRant's Tables.
+     */
+    void deleteTable(Table table);
+
+    /**
+     * Adds the given table to Tables.
+     * {@code table} must not already exist in the RestOrRant's Tables.
+     */
+    void addTable(Table table);
+
+    /**
+     * Replaces the given table {@code target} with {@code editedTable}.
+     * {@code target} must exisdt in the RestOrRant's Tables.
+     * The table identity og {@code editedTable} must not be the same as  another existing table in Tables.
+     */
+    void setTable(Table target, Table editedTable);
+
+    /** Returns an unmodifiable view of the filtered table list */
+    ObservableList<Table> getFilteredTableList();
+
+    /**
+     * Updates the filter of the filtered table list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null/
+     */
+    void updateFilteredTableList(Predicate<Table> predicate);
+
+    /**
+     * Selected person in the filtered table list.
+     * null if no table is selected.
+     */
+    ReadOnlyProperty<Table> selectedTableProperty();
+
+    /**
+     * Returns the selected table in the filtered table list.
+     * null if no table is selected.
+     */
+    Table getSelectedTable();
+
+    /**
+     * Sets the selected table in the filtered table list.
+     * @param table
+     */
+    void setSelectedTable(Table table);
 
     /**
      * Returns true if an order item with the same identity as {@code orderItem} exists in the RestOrRant's Orders.

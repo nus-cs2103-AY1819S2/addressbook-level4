@@ -33,7 +33,7 @@ public class Table {
         }
 
         return otherTable != null
-                && otherTable.getTableNumber() == getTableNumber()
+                && otherTable.getTableNumber().equals(getTableNumber())
                 && otherTable.getTableStatus().equals(getTableStatus());
     }
 }

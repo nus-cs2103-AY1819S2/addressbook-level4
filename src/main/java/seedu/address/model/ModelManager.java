@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
+import seedu.address.model.table.Table;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -99,7 +100,20 @@ public class ModelManager implements Model {
     public void updateRestOrRant() { // change mode
         restOrRant.indicateModified();
     }
+
+    //=========== Tables =====================================================================================
     
+    @Override
+    public boolean hasTable(Table table) {
+        requireNonNull(table);
+        return restOrRant.getTables().hasTable(table);
+    }
+
+    @Override
+    public void deleteTable(Table table) {
+        restOrRant.getTables().removeTable(table);
+    }
+
     //=========== Order ======================================================================================
 
     @Override

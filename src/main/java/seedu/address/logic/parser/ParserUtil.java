@@ -3,8 +3,6 @@ package seedu.address.logic.parser;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.apparel.Color;
-import seedu.address.model.apparel.Type;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -124,22 +122,22 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static Color parseColor(String color) throws ParseException {
-        requireNonNull(color);
-        String trimmedColor = color.trim();
-        if (!Phone.isValidPhone(trimmedColor)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Color(trimmedColor);
-    }
-
-    public static Type parseType(String type) throws ParseException {
-        requireNonNull(type);
-        String trimmedType = type.trim();
-        if (!Phone.isValidPhone(trimmedType)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Type(trimmedType);
-    }
+//    public static Color parseColor(String color) throws ParseException {
+//        requireNonNull(color);
+//        String trimmedColor = color.trim();
+//        if (!Phone.isValidPhone(trimmedColor)) {
+//            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Color(trimmedColor);
+//    }
+//
+//    public static Type parseType(String type) throws ParseException {
+//        requireNonNull(type);
+//        String trimmedType = type.trim();
+//        if (!Phone.isValidPhone(trimmedType)) {
+//            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Type(trimmedType);
+//    }
 
 }

@@ -8,7 +8,7 @@ import seedu.address.model.CustomerModel;
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     //    @Test
     //    public void select() {
-    //        /* ------------------------ Perform select operations on the shown unfiltered list 
+    //        /* ------------------------ Perform select operations on the shown unfiltered list
     //        -------------------------- */
     //
     //        /* Case: select the first card in the customer list, command with leading spaces and trailing spaces

@@ -17,7 +17,7 @@ public class AttackCommandParser implements Parser<AttackCommand> {
             return new AttackCommand(new Coordinates(userInput));
         } else {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttackCommand.MESSAGE_USAGE));
         }
     }
 }

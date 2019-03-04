@@ -37,4 +37,14 @@ public class AttackCommand extends Command {
         return new CommandResult(
                 String.format("Attacked cell %s", coord.toString()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other != null && other instanceof AttackCommand) {
+            AttackCommand o = (AttackCommand) other;
+            return (this == o) || (this.coord.equals(o.coord));
+        } else {
+            return false;
+        }
+    }
 }

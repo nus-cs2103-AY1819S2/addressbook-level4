@@ -31,9 +31,12 @@ public class Fleet {
     }
 
     public int getSize() {
-        return this.size; }
+        return this.size;
+    }
+
     public ArrayList getFleetContents() {
-        return this.fleetContents; }
+        return this.fleetContents;
+    }
 
     @Override
     public String toString() {

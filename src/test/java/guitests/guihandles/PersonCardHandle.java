@@ -20,6 +20,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String SCHOOL_FIELD_ID = "#school";
+    private static final String PASTJOBS_FIELD_ID = "#pastjobs";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -28,6 +29,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label phoneLabel;
     private final Label emailLabel;
     private final Label schoolLabel;
+    private final List<Label> pastjobLabels;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -39,6 +41,13 @@ public class PersonCardHandle extends NodeHandle<Node> {
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
         schoolLabel = getChildNode(SCHOOL_FIELD_ID);
+
+        Region pastjobsContainer = getChildNode(PASTJOBS_FIELD_ID);
+        pastjobLabels = pastjobsContainer
+                .getChildrenUnmodifiable()
+                .stream()
+                .map(Label.class::cast)
+                .collect(Collectors.toList());
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -72,6 +81,13 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return schoolLabel.getText();
     }
 
+    public List<String> getPastJobs() {
+        return pastjobLabels
+                .stream()
+                .map(Label::getText)
+                .collect(Collectors.toList());
+    }
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -88,8 +104,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getSchool().equals(person.getSchool().value)
+                && ImmutableMultiset.copyOf(getPastJobs()).equals(ImmutableMultiset.copyOf(person.getPastJobs().stream()
+                .map(pastjob -> pastjob.value)
+                .collect(Collectors.toList())))
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+                .map(tag -> tag.tagName)
+                .collect(Collectors.toList())));
+
     }
 }

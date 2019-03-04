@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
@@ -26,6 +27,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -110,6 +112,33 @@ public class ParserUtil {
             throw new ParseException(School.MESSAGE_CONSTRAINTS);
         }
         return new School(trimmedSchool);
+    }
+
+    /**
+     * Parses a {@code String pastjob} into a {@code PastJob}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code pastjob} is invalid.
+     */
+    public static PastJob parsePastJob(String pastjob) throws ParseException {
+        requireNonNull(pastjob);
+        String trimmedPastJob = pastjob.trim();
+        if (!PastJob.isValidPastJob(trimmedPastJob)) {
+            throw new ParseException(PastJob.MESSAGE_CONSTRAINTS);
+        }
+        return new PastJob(trimmedPastJob);
+    }
+
+    /**
+     * Parses {@code Collection<String> pastjobs} into a {@code Set<PastJob>}.
+     */
+    public static Set<PastJob> parsePastJobs(Collection<String> pastjobs) throws ParseException {
+        requireNonNull(pastjobs);
+        final Set<PastJob> pastjobSet = new HashSet<>();
+        for (String pastjobName : pastjobs) {
+            pastjobSet.add(parsePastJob(pastjobName));
+        }
+        return pastjobSet;
     }
 
     /**

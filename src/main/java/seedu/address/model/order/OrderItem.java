@@ -1,5 +1,8 @@
 package seedu.address.model.order;
 
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.table.TableNumber;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;

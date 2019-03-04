@@ -15,8 +15,8 @@ import seedu.address.logic.parser.RestOrRantParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;
 
@@ -31,8 +31,9 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final RestOrRantParser restOrRantParser;
-    private boolean addressBookModified;
+    private boolean restOrRantModified;
     private boolean modeModified;
+    private boolean menuModified;
     private boolean ordersModified;
     private Mode mode;
 
@@ -44,9 +45,10 @@ public class LogicManager implements Logic {
         mode = Mode.RESTAURANT_MODE;
 
         // Set addressBookModified to true whenever the models' address book is modified.
-        model.getRestOrRant().addListener(observable -> addressBookModified = true);
+        model.getRestOrRant().addListener(observable -> restOrRantModified = true);
         // Set modeModified to true whenever the models' mode is modified.
         model.getRestOrRant().addListener(observable -> modeModified = true);
+        model.getRestOrRant().getMenu().addListener(observable -> menuModified = true);
         // Set ordersModified to true whenever the models' RestOrRant's orders is modified.
         model.getRestOrRant().getOrders().addListener(observable -> ordersModified = true);
     }
@@ -54,8 +56,9 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        restOrRantModified = false;
         modeModified = false;
+        menuModified = false;
         ordersModified = false;
 
         CommandResult commandResult;
@@ -66,10 +69,12 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (restOrRantModified) {
+            logger.info("RestOrRant modified, saving to file.");
             try {
-                storage.saveRestOrRant(model.getRestOrRant());
+                storage.saveMenu(model.getRestOrRant().getMenu());
+                // TODO: add save <each feature> instead of saveRestOrRant
+                // storage.saveRestOrRant(model.getRestOrRant());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -77,6 +82,7 @@ public class LogicManager implements Logic {
 
         if (modeModified) {
             logger.info("Application mode modified, changing UI");
+            changeMode(commandResult.newModeStatus());
         }
 
         if (ordersModified) {
@@ -100,8 +106,15 @@ public class LogicManager implements Logic {
     public ReadOnlyRestOrRant getRestOrRant() {
         return model.getRestOrRant();
     }
+    //    public ReadOnlyRestOrRant getAddressBook() {
+    //        return model.getRestOrRant();
+    //    }
 
     @Override
+    public ObservableList<MenuItem> getFilteredMenuItemList() {
+        return model.getFilteredMenuItemList();
+    }
+
     public ObservableList<OrderItem> getFilteredOrderItemList() {
         return model.getFilteredOrderItemList();
     }
@@ -117,6 +130,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Path getMenuFilePath() {
+        return model.getMenuFilePath();
+    }
+
     public Path getOrdersFilePath() {
         return model.getOrdersFilePath();
     }
@@ -136,6 +153,15 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<MenuItem> selectedMenuItemProperty() {
+        return model.selectedMenuItemProperty();
+    }
+
+    @Override
+    public void setSelectedMenuItem(MenuItem item) {
+        model.setSelectedMenuItem(item);
+    }
+
     public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
         return model.selectedOrderItemProperty();
     }
@@ -154,4 +180,5 @@ public class LogicManager implements Logic {
     public void setSelectedTable(Table table) {
         model.setSelectedTable(table);
     }
+
 }

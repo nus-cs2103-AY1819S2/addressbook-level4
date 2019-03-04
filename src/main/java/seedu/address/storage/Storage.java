@@ -7,7 +7,6 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
-import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.menu.ReadOnlyMenu;
@@ -15,7 +14,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 /**
  * API of the Storage component
  */
-public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, TableStorage {
+public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, TablesStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -45,10 +44,10 @@ public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, T
     Path getTableFilePath();
 
     @Override
-    Optional<ReadOnlyTables> readTable() throws DataConversionException, IOException;
+    Optional<ReadOnlyTables> readTables() throws DataConversionException, IOException;
 
     @Override 
-    void saveTable(ReadOnlyTables tables) throws IOException;
+    void saveTables(ReadOnlyTables tables) throws IOException;
     
     @Override
     void backupTables(ReadOnlyTables tables) throws IOException;

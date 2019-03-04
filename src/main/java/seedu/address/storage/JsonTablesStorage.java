@@ -13,20 +13,19 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyTables;
 
 /**
  * A class to access RestOrRant data stored as a json file on the hard disk.
  */
-public class JsonTableStorage implements TableStorage {
+public class JsonTablesStorage implements TablesStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonMenuStorage.class);
 
     private final Path filePath;
     private final Path backupFilePath;
 
-    public JsonTableStorage(Path filePath) {
+    public JsonTablesStorage(Path filePath) {
         this.filePath = filePath;
         backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
@@ -36,17 +35,17 @@ public class JsonTableStorage implements TableStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTables> readTable() throws DataConversionException {
-        return readTable(filePath);
+    public Optional<ReadOnlyTables> readTables() throws DataConversionException {
+        return readTables(filePath);
     }
 
     /**
-     * Similar to {@link #readTable()}.
+     * Similar to {@link #readTables()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTables> readTable(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyTables> readTables(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableTables> jsonTables = JsonUtil.readJsonFile(
@@ -64,17 +63,17 @@ public class JsonTableStorage implements TableStorage {
     }
 
     @Override
-    public void saveTable(ReadOnlyTables tables) throws IOException {
-        saveTable(tables, filePath);
+    public void saveTables(ReadOnlyTables tables) throws IOException {
+        saveTables(tables, filePath);
     }
 
 
     /**
-     * Similar to {@link #saveTable(ReadOnlyTables)}.
+     * Similar to {@link #saveTables(ReadOnlyTables)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveTable(ReadOnlyTables tables, Path filePath) throws IOException {
+    public void saveTables(ReadOnlyTables tables, Path filePath) throws IOException {
         requireNonNull(tables);
         requireNonNull(filePath);
 
@@ -84,7 +83,7 @@ public class JsonTableStorage implements TableStorage {
 
     @Override
     public void backupTables(ReadOnlyTables tables) throws IOException {
-        saveTable(tables, backupFilePath);
+        saveTables(tables, backupFilePath);
     }
 
 }

@@ -14,7 +14,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 /**
  * API of the Storage component
  */
-public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, TablesStorage {
+public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, TablesStorage, StatisticsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

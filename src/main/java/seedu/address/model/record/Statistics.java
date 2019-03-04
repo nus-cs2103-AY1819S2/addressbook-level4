@@ -1,6 +1,7 @@
 package seedu.address.model.record;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -24,6 +25,12 @@ public class Statistics {
         this.revenue = revenue;
         this.expenditure = expenditure;
         this.profit = revenue.subtract(expenditure);
+    }
+    public Statistics(Statistics stats) {
+        this.noOfConsultations = stats.getNoOfConsultations();
+        this.revenue = stats.getRevenue();
+        this.expenditure = stats.getExpenditure();
+        this.profit = stats.getProfit();
     }
     public int getNoOfConsultations() {
         return noOfConsultations;
@@ -68,8 +75,33 @@ public class Statistics {
     public static void setConsultationFee(BigDecimal cost) {
         Statistics.consultationFee = cost;
     }
+
+    /**
+     * Function to format BigDecimal objects to the locale's currency format.
+     * Adapted from
+     * <a href="https://stackoverflow.com/questions/3395825/how-to-print-formatted-bigdecimal-values/8581941">
+     *     https://stackoverflow.com/questions/3395825/how-to-print-formatted-bigdecimal-values/8581941</a>
+     * @param money BigDecimal object representing any amount of money.
+     * @return A String representation of the money formatted to the locale's currency format.
+     */
+    public static String currencyFormat(BigDecimal money) {
+        return NumberFormat.getCurrencyInstance().format(money);
+    }
     @Override
     public String toString() {
-        return super.toString(); // TODO
+        StringBuilder sb = new StringBuilder();
+        sb.append("Number of consultations: ")
+                .append(getNoOfConsultations())
+                .append("\n")
+                .append("Revenue: ")
+                .append(Statistics.currencyFormat(getRevenue()))
+                .append("\n")
+                .append("Expenditure: ")
+                .append(Statistics.currencyFormat(getExpenditure()))
+                .append("\n")
+                .append("Profit: ")
+                .append(Statistics.currencyFormat(getProfit()))
+                .append("\n\n");
+        return sb.toString();
     }
 }

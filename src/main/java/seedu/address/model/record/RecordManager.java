@@ -10,21 +10,23 @@ import java.util.List;
  * Manager for the Record objects, segmented in months
  */
 public class RecordManager {
-    public static final YearMonth START_DATE = YearMonth.of(2019, 1);
+    private static final YearMonth START_DATE = YearMonth.of(2019, 1);
     private List<MonthRecord> monthRecords;
 
     public RecordManager() {
         monthRecords = new ArrayList<>();
     }
-    public RecordManager(RecordManager toBeCopied) { monthRecords = toBeCopied.copyRecords(); }
-    public List<MonthRecord> copyRecords() {
+    public RecordManager(RecordManager toBeCopied) {
+        monthRecords = toBeCopied.copyRecords();
+    }
+    private List<MonthRecord> copyRecords() {
         return this.monthRecords;
     }
 
     /**
      * Records the record into the system records, according to months.
-     * @param record
-     * @param clock
+     * @param record Record object for storage
+     * @param clock Clock object to obtain the month and year of when the record is recorded.
      */
     public void record(Record record, Clock clock) {
         int idx = getYearMonthIndex(YearMonth.now(clock));
@@ -52,21 +54,26 @@ public class RecordManager {
             }
         }
     }
-    public Statistics getStatisticOfYearMonth(YearMonth yearMonth) {
-        MonthRecord monthRecord = monthRecords.get(getYearMonthIndex(yearMonth));
-        return monthRecord.getStatistics();
-    }
     public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
+        Statistics stats = new Statistics();
+        int fromIdx = getYearMonthIndex(from);
+        int toIdx = getYearMonthIndex(to);
+        for (int idx = fromIdx; idx <= toIdx; idx++) {
+            stats = stats.merge(monthRecords.get(idx).getStatistics());
+        }
+        Statistics toReturn;
         switch (topic) {
         case "finances":
-            return new Statistics();
+            toReturn = new FinancesStatistics(stats);
+            break;
         case "consultations":
-            return new Statistics();
+            toReturn = new ConsultationStatistics(stats);
+            break;
         case "all":
         default:
-            return new Statistics();
+            toReturn = stats;
         }
-        // TODO
+        return toReturn;
     }
     public void setConsultationFee(BigDecimal cost) {
         Statistics.setConsultationFee(cost);

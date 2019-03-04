@@ -20,8 +20,8 @@ public class StatisticsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays the statistics of the queried topic from the"
             + "given date range.\n"
             + "Parameters: TOPIC MMYY [MMYY]\n"
-            + "List of TOPICS: finances, consultations"
-            + "Example: " + COMMAND_WORD + " expenditure 0119";
+            + "List of TOPICS: finances, consultations, all"
+            + "Example: " + COMMAND_WORD + " all 0119";
 
     private final String topic;
     private final YearMonth fromYearMonth;
@@ -40,8 +40,16 @@ public class StatisticsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         Statistics stats = model.getStatistics(this.topic, this.fromYearMonth, this.toYearMonth);
-        return new CommandResult(
-                String.format(stats.toString()));
+        StringBuilder sb = new StringBuilder();
+        sb.append("Displaying result for ")
+                .append(this.topic)
+                .append(" from ")
+                .append(this.fromYearMonth.toString())
+                .append(" to ")
+                .append(this.toYearMonth.toString())
+                .append(".\n")
+                .append(stats.toString());
+        return new CommandResult(sb.toString());
     }
 
     @Override

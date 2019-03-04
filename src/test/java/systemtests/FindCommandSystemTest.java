@@ -13,7 +13,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
     //         */
     //        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
     //        CustomerModel expectedModel = getModel();
-    //        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+    //        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are
+    //        "Meier"
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
@@ -24,7 +25,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find customer where customer list is not displaying the customer we are finding -> 1 customer found */
+    //        /* Case: find customer where customer list is not displaying the customer we are finding -> 1 customer
+    //        found */
     //        command = FindCommand.COMMAND_WORD + " Carl";
     //        ModelHelper.setFilteredList(expectedModel, CARL);
     //        assertCommandSuccess(command, expectedModel);
@@ -72,7 +74,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find customer in address book, keyword is same as name but of different case -> 1 customer found */
+    //        /* Case: find customer in address book, keyword is same as name but of different case -> 1 customer
+    //        found */
     //        command = FindCommand.COMMAND_WORD + " MeIeR";
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();

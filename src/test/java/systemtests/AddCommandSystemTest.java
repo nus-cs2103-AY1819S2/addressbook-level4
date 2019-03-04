@@ -11,7 +11,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //    public void add() {
     //        CustomerModel model = getModel();
     //
-    //        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
+    //        /* ------------------------ Perform add operations on the shown unfiltered list
+    //        ----------------------------- */
     //
     //        /* Case: add a customer without tags to a non-empty address book, command with leading spaces and trailing
     //         * spaces
@@ -33,13 +34,15 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
     //        assertCommandSuccess(command, model, expectedResultMessage);
     //
-    //        /* Case: add a customer with all fields same as another customer in the address book except name -> added */
+    //        /* Case: add a customer with all fields same as another customer in the address book except name ->
+    //        added */
     //        toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
     //        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
     //            + TAG_DESC_FRIEND;
     //        assertCommandSuccess(command, toAdd);
     //
-    //        /* Case: add a customer with all fields same as another customer in the address book except phone and email
+    //        /* Case: add a customer with all fields same as another customer in the address book except phone and
+    //        email
     //         * -> added
     //         */
     //        toAdd = new CustomerBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
@@ -59,19 +62,23 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //        /* Case: add a customer, missing tags -> added */
     //        assertCommandSuccess(HOON);
     //
-    //        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
+    //        /* -------------------------- Perform add operation on the shown filtered list
+    //        ------------------------------ */
     //
     //        /* Case: filters the customer list before adding -> added */
     //        showCustomersWithName(KEYWORD_MATCHING_MEIER);
     //        assertCommandSuccess(IDA);
     //
-    //        /* ------------------------ Perform add operation while a customer card is selected ------------------------- */
+    //        /* ------------------------ Perform add operation while a customer card is selected
+    //        ------------------------- */
     //
-    //        /* Case: selects first card in the customer list, add a customer -> added, card selection remains unchanged */
+    //        /* Case: selects first card in the customer list, add a customer -> added, card selection remains
+    //        unchanged */
     //        selectCustomer(Index.fromOneBased(1));
     //        assertCommandSuccess(CARL);
     //
-    //        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
+    //        /* ----------------------------------- Perform invalid add operations
+    //        --------------------------------------- */
     //
     //        /* Case: add a duplicate customer -> rejected */
     //        command = CustomerUtil.getAddCommand(HOON);
@@ -117,19 +124,23 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
     //
     //        /* Case: invalid name -> rejected */
-    //        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+    //        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY +
+    //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid phone -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY +
+    //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid email -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC +
+    //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid address -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY +
+    //        INVALID_ADDRESS_DESC;
     //        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid tag -> rejected */

@@ -237,7 +237,7 @@ public class ModelManager implements Model {
             boolean wasSelectedTableRemoved = change.getRemoved().stream()
                     .anyMatch(removedTable -> selectedTable.getValue().isSameTable(removedTable));
             if (wasSelectedTableRemoved) {
-                // Select the table taht came before it in the list,
+                // Select the table that came before it in the list,
                 // or clear the selection if there is no such table.
                 selectedTable.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }

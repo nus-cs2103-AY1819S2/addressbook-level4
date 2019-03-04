@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Email;
+import seedu.address.model.customer.IdentificationNo;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.tag.Tag;
@@ -63,6 +64,21 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String idnum} into a {@code IdentificationNo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code idnum} is invalid.
+     */
+    public static IdentificationNo parseIdNum(String idnum) throws ParseException {
+        requireNonNull(idnum);
+        String trimmedIdNum = idnum.trim();
+        if (!IdentificationNo.isValidIdNum(trimmedIdNum)) {
+            throw new ParseException(IdentificationNo.MESSAGE_CONSTRAINTS);
+        }
+        return new IdentificationNo(trimmedIdNum);
     }
 
     /**

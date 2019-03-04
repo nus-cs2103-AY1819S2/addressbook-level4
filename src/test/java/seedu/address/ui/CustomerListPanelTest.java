@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.Email;
+import seedu.address.model.customer.IdentificationNo;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 
@@ -82,8 +83,9 @@ public class CustomerListPanelTest extends GuiUnitTest {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
+            IdentificationNo idnum = new IdentificationNo("1234");
             Address address = new Address("a");
-            Customer customer = new Customer(name, phone, email, address, Collections.emptySet());
+            Customer customer = new Customer(name, phone, email, idnum, address, Collections.emptySet());
             backingList.add(customer);
         }
         return backingList;

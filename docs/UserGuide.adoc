@@ -101,6 +101,19 @@ List all entries by user +
 Shows the summary of user's previous expenditures, with statistics on how one's spending habits are like in the different categories. It also displays the remaining budget amount for each category. +
 *Format*: `summary`
 
+=== Editing description of entries: `description`
+
+Edits the description of an existing entry in records. +
+*Format*: `description INDEX [d/DESCRIPTION]`
+
+Examples:
+
+* `description 1 d/Father's birthday present` +
+Changes the description of entry at index 1 to "Father's birthday present"
+
+* `description 1 d/` +
+Removes the description of entry at index 1
+
 === Editing entries : `edit`
 
 Edits an existing entry in the records. +
@@ -110,7 +123,10 @@ Edits an existing entry in the records. +
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
+Examples:
 
+* `search Transport Wednesday` +
+Returns an entry that has Transport as category and is entered on Wednesday
 === Locating entry based on category/date: `search`
 
 Search for an entry using a category name or a date/day/week/month/year as keyword.

@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.Email;
+import seedu.address.model.customer.IdentificationNo;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.tag.Tag;
@@ -27,6 +28,7 @@ class JsonAdaptedCustomer {
     private final String name;
     private final String phone;
     private final String email;
+    private final String idnum;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -35,11 +37,13 @@ class JsonAdaptedCustomer {
      */
     @JsonCreator
     public JsonAdaptedCustomer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                               @JsonProperty("email") String email, @JsonProperty("address") String address,
+                               @JsonProperty("email") String email, @JsonProperty("idnum") String idnum,
+                               @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.idnum = idnum;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -53,6 +57,7 @@ class JsonAdaptedCustomer {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        idnum = source.getIdNum().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
@@ -76,10 +81,12 @@ class JsonAdaptedCustomer {
 
         final Email modelEmail = getEmail();
 
+        final IdentificationNo modelIdNum = getIdNum();
+
         final Address modelAddress = getAddress();
 
         final Set<Tag> modelTags = new HashSet<>(customerTags);
-        return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Customer(modelName, modelPhone, modelEmail, modelIdNum, modelAddress, modelTags);
     }
 
     private Address getAddress() throws IllegalValueException {
@@ -110,6 +117,17 @@ class JsonAdaptedCustomer {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(phone);
+    }
+
+    private IdentificationNo getIdNum() throws IllegalValueException {
+        if (idnum == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                IdentificationNo.class.getSimpleName()));
+        }
+        if (!IdentificationNo.isValidIdNum(idnum)) {
+            throw new IllegalValueException(IdentificationNo.MESSAGE_CONSTRAINTS);
+        }
+        return new IdentificationNo(idnum);
     }
 
     private Name getName() throws IllegalValueException {

@@ -19,6 +19,7 @@ public class Customer {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final IdentificationNo idnum;
 
     // Data fields
     private final Address address;
@@ -27,11 +28,12 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Customer(Name name, Phone phone, Email email, IdentificationNo idnum, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, idnum, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.idnum = idnum;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -46,6 +48,10 @@ public class Customer {
 
     public Email getEmail() {
         return email;
+    }
+
+    public IdentificationNo getIdNum() {
+        return idnum;
     }
 
     public Address getAddress() {
@@ -75,7 +81,8 @@ public class Customer {
 
         return otherCustomer != null
             && otherCustomer.getName().equals(getName())
-            && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail()));
+            && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail())
+            || otherCustomer.getIdNum().equals(getIdNum()));
     }
 
     /**
@@ -96,6 +103,7 @@ public class Customer {
         return otherCustomer.getName().equals(getName())
             && otherCustomer.getPhone().equals(getPhone())
             && otherCustomer.getEmail().equals(getEmail())
+            && otherCustomer.getIdNum().equals(getIdNum())
             && otherCustomer.getAddress().equals(getAddress())
             && otherCustomer.getTags().equals(getTags());
     }
@@ -103,7 +111,7 @@ public class Customer {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, idnum, address, tags);
     }
 
     @Override
@@ -114,6 +122,8 @@ public class Customer {
             .append(getPhone())
             .append(" Email: ")
             .append(getEmail())
+            .append(" Idnum: ")
+            .append(getIdNum())
             .append(" Address: ")
             .append(getAddress())
             .append(" VIP Status: ")

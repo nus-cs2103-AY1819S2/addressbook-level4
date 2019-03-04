@@ -209,7 +209,8 @@ public class VersionedEquipmentManagerTest {
 
     @Test
     public void equals() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
+        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(addressBookWithAmy,
+                addressBookWithBob);
 
         // same values -> returns true
         VersionedEquipmentManager copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
@@ -225,7 +226,8 @@ public class VersionedEquipmentManagerTest {
         assertFalse(versionedEquipmentManager.equals(1));
 
         // different state list -> returns false
-        VersionedEquipmentManager differentAddressBookList = prepareAddressBookList(addressBookWithBob, addressBookWithCarl);
+        VersionedEquipmentManager differentAddressBookList = prepareAddressBookList(addressBookWithBob,
+                addressBookWithCarl);
         assertFalse(versionedEquipmentManager.equals(differentAddressBookList));
 
         // different current pointer index -> returns false
@@ -237,8 +239,9 @@ public class VersionedEquipmentManagerTest {
 
     /**
      * Asserts that {@code versionedEquipmentManager} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedEquipmentManager#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedEquipmentManager#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * states before {@code versionedEquipmentManager#currentStatePointer} is equal to
+     * {@code expectedStatesBeforePointer}, and states after {@code versionedEquipmentManager#currentStatePointer}
+     * is equal to {@code expectedStatesAfterPointer}.
      */
     private void assertAddressBookListStatus(VersionedEquipmentManager versionedEquipmentManager,
                                              List<ReadOnlyAddressBook> expectedStatesBeforePointer,

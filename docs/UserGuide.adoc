@@ -184,6 +184,21 @@ Examples:
 `editRestaurant 2 n/MACS  ` +
 Change the name of the second restaurant in the list to MACS.
 
+=== Setting the cuisine of a restaurant : `setCuisine`
+
+Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
+Format: `setCuisine INDEX [c/CUISINE]`
+
+****
+* The index refers to the index number show in the displayed restaurants list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `listRestaurants` +
+`setCuisine 1 c/Fast Food` +
+Set the cuisine of the first restaurant in the list to Fast Food
 
 
 === Exiting the program : `exit`

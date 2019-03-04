@@ -34,7 +34,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // associated web page of a customer
         guiRobot.interact(() -> selectedCustomer.set(ALICE));
         URL expectedCustomerUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + ALICE.getName().fullName.replaceAll(" ", "%20"));
+            + ALICE.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedCustomerUrl, browserPanelHandle.getLoadedUrl());

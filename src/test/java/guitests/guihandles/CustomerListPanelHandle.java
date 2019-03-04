@@ -25,7 +25,8 @@ public class CustomerListPanelHandle extends NodeHandle<ListView<Customer>> {
     /**
      * Returns a handle to the selected {@code CustomerCardHandle}.
      * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
+     *
+     * @throws AssertionError        if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public CustomerCardHandle getHandleToSelectedCard() {
@@ -36,10 +37,10 @@ public class CustomerListPanelHandle extends NodeHandle<ListView<Customer>> {
         }
 
         return getAllCardNodes().stream()
-                .map(CustomerCardHandle::new)
-                .filter(handle -> handle.equals(selectedCustomerList.get(0)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
+            .map(CustomerCardHandle::new)
+            .filter(handle -> handle.equals(selectedCustomerList.get(0)))
+            .findFirst()
+            .orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -99,14 +100,15 @@ public class CustomerListPanelHandle extends NodeHandle<ListView<Customer>> {
 
     /**
      * Returns the customer card handle of a customer associated with the {@code index} in the list.
+     *
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public CustomerCardHandle getCustomerCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(CustomerCardHandle::new)
-                .filter(handle -> handle.equals(getCustomer(index)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
+            .map(CustomerCardHandle::new)
+            .filter(handle -> handle.equals(getCustomer(index)))
+            .findFirst()
+            .orElseThrow(IllegalStateException::new);
     }
 
     private Customer getCustomer(int index) {
@@ -146,7 +148,7 @@ public class CustomerListPanelHandle extends NodeHandle<ListView<Customer>> {
             return lastRememberedSelectedCustomerCard.isPresent();
         } else {
             return !lastRememberedSelectedCustomerCard.isPresent()
-                    || !lastRememberedSelectedCustomerCard.get().equals(selectedItems.get(0));
+                || !lastRememberedSelectedCustomerCard.get().equals(selectedItems.get(0));
         }
     }
 

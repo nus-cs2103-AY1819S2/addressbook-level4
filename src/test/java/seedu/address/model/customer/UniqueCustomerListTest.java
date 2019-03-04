@@ -21,10 +21,9 @@ import seedu.address.model.customer.exceptions.DuplicateCustomerException;
 import seedu.address.testutil.CustomerBuilder;
 
 public class UniqueCustomerListTest {
+    private final UniqueCustomerList uniqueCustomerList = new UniqueCustomerList();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private final UniqueCustomerList uniqueCustomerList = new UniqueCustomerList();
 
     @Test
     public void containsNullCustomerThrowsNullPointerException() {
@@ -47,7 +46,7 @@ public class UniqueCustomerListTest {
     public void containsCustomerWithSameIdentityFieldsInListReturnsTrue() {
         uniqueCustomerList.add(ALICE);
         Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+            .build();
         assertTrue(uniqueCustomerList.contains(editedAlice));
     }
 
@@ -95,7 +94,7 @@ public class UniqueCustomerListTest {
     public void setCustomerEditedCustomerHasSameIdentitySuccess() {
         uniqueCustomerList.add(ALICE);
         Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+            .build();
         uniqueCustomerList.setCustomer(ALICE, editedAlice);
         UniqueCustomerList expectedUniqueCustomerList = new UniqueCustomerList();
         expectedUniqueCustomerList.add(editedAlice);

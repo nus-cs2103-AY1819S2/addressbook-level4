@@ -17,7 +17,7 @@ import seedu.address.model.customer.exceptions.DuplicateCustomerException;
  * updating of customers uses Customer#isSameCustomer(Customer) for equality so as to ensure that the customer being
  * added or updated is unique in terms of identity in the UniqueCustomerList. However, the removal of a customer uses
  * Customer#equals(Object) so as to ensure that the customer with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Customer#isSameCustomer(Customer)
@@ -26,7 +26,7 @@ public class UniqueCustomerList implements Iterable<Customer> {
 
     private final ObservableList<Customer> internalList = FXCollections.observableArrayList();
     private final ObservableList<Customer> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent customer as the given argument.
@@ -112,8 +112,8 @@ public class UniqueCustomerList implements Iterable<Customer> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueCustomerList // instanceof handles nulls
-                        && internalList.equals(((UniqueCustomerList) other).internalList));
+            || (other instanceof UniqueCustomerList // instanceof handles nulls
+            && internalList.equals(((UniqueCustomerList) other).internalList));
     }
 
     @Override

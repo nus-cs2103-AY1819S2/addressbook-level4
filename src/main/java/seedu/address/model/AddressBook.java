@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingList;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.UniqueCustomerList;
 
@@ -16,10 +18,11 @@ import seedu.address.model.customer.UniqueCustomerList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final BookingList bookings;
     private final UniqueCustomerList customers;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    /*
+    /**
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
@@ -27,10 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        bookings = new BookingList();
         customers = new UniqueCustomerList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Customers in the {@code toBeCopied}
@@ -52,12 +57,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the booking list with {@code bookings}.
+     */
+    public void setBookings(List<Booking> bookings) {
+        this.bookings.setBookings(bookings);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setCustomers(newData.getCustomerList());
+        setBookings(newData.getBookingList());
     }
 
     //// customer-level operations
@@ -101,6 +115,36 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    //// booking-level operations
+
+    /**
+     * Adds a booking to the address book.
+     */
+    public void addBooking(Booking p) {
+        bookings.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the booking at the given {@code bookingIndex} in the list with {@code editedBooking}.
+     * {@code bookingIndex} must be within the list of bookings.
+     */
+    public void setBooking(int bookingIndex, Booking editedBooking) {
+        requireNonNull(editedBooking);
+
+        bookings.setBooking(bookingIndex, editedBooking);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeBooking(int removeIndex) {
+        bookings.remove(removeIndex);
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -121,6 +165,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// util methods
 
     @Override
+    public ObservableList<Booking> getBookingList() {
+        return bookings.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Return a string to represent the address book.
+     */
     public String toString() {
         return customers.asUnmodifiableObservableList().size() + " customers";
         // TODO: refine later
@@ -134,8 +185,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && customers.equals(((AddressBook) other).customers));
+            || (other instanceof AddressBook // instanceof handles nulls
+            && customers.equals(((AddressBook) other).customers)
+            && bookings.equals(((AddressBook) other).bookings));
     }
 
     @Override

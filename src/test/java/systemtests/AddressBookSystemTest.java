@@ -35,7 +35,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
+import seedu.address.model.CustomerModel;
 import seedu.address.testutil.TypicalCustomers;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -45,13 +45,11 @@ import seedu.address.ui.CommandBox;
  * for test verification.
  */
 public abstract class AddressBookSystemTest {
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
-
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
-
+        Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+    @ClassRule
+    public static ClockRule clockRule = new ClockRule();
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
@@ -171,7 +169,7 @@ public abstract class AddressBookSystemTest {
      * and the customer list panel displays the customers in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     CustomerModel expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
@@ -193,6 +191,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
      * default page.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
@@ -203,6 +202,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the browser's url is changed to display the details of the customer in the customer list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CustomerListPanelHandle#isSelectedCustomerCardChanged()
      */
@@ -222,6 +222,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the customer list panel remain unchanged.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CustomerListPanelHandle#isSelectedCustomerCardChanged()
      */
@@ -274,14 +275,14 @@ public abstract class AddressBookSystemTest {
         assertListMatching(getCustomerListPanel(), getModel().getFilteredCustomerList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
+            getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     /**
      * Returns a defensive copy of the current model.
      */
-    protected Model getModel() {
+    protected CustomerModel getModel() {
         return testApp.getModel();
     }
 }

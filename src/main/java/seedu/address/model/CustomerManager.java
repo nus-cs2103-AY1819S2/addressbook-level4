@@ -19,10 +19,10 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.exceptions.CustomerNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory customer of the address book data.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+public class CustomerManager implements CustomerModel {
+    private static final Logger logger = LogsCenter.getLogger(CustomerManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
@@ -30,35 +30,35 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Customer> selectedCustomer = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a CustomerManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public CustomerManager(VersionedAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAddressBook = addressBook;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCustomers = new FilteredList<>(versionedAddressBook.getCustomerList());
         filteredCustomers.addListener(this::ensureSelectedCustomerIsValid);
     }
 
-    public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+    public CustomerManager() {
+        this(new VersionedAddressBook(new AddressBook()), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -86,13 +86,13 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return versionedAddressBook;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        versionedAddressBook.resetData(addressBook);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedCustomerReplaced =
-                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedCustomer.getValue());
             if (wasSelectedCustomerReplaced) {
                 // Update selectedCustomer to its new value.
@@ -204,7 +204,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedCustomerRemoved = change.getRemoved().stream()
-                    .anyMatch(removedCustomer -> selectedCustomer.getValue().isSameCustomer(removedCustomer));
+                .anyMatch(removedCustomer -> selectedCustomer.getValue().isSameCustomer(removedCustomer));
             if (wasSelectedCustomerRemoved) {
                 // Select the customer that came before it in the list,
                 // or clear the selection if there is no such customer.
@@ -221,16 +221,16 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
+        if (!(obj instanceof CustomerManager)) {
             return false;
         }
 
         // state check
-        ModelManager other = (ModelManager) obj;
+        CustomerManager other = (CustomerManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredCustomers.equals(other.filteredCustomers)
-                && Objects.equals(selectedCustomer.get(), other.selectedCustomer.get());
+            && userPrefs.equals(other.userPrefs)
+            && filteredCustomers.equals(other.filteredCustomers)
+            && Objects.equals(selectedCustomer.get(), other.selectedCustomer.get());
     }
 
 }

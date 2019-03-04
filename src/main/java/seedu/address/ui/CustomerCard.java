@@ -68,6 +68,6 @@ public class CustomerCard extends UiPart<Region> {
         // state check
         CustomerCard card = (CustomerCard) other;
         return id.getText().equals(card.id.getText())
-                && customer.equals(card.customer);
+            && customer.equals(card.customer);
     }
 }

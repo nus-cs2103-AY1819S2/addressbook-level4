@@ -26,7 +26,7 @@ import seedu.address.model.customer.Phone;
 
 public class CustomerListPanelTest extends GuiUnitTest {
     private static final ObservableList<Customer> TYPICAL_CUSTOMERS =
-            FXCollections.observableList(getTypicalCustomers());
+        FXCollections.observableList(getTypicalCustomers());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
@@ -43,7 +43,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
             CustomerCardHandle actualCard = customerListPanelHandle.getCustomerCardHandle(i);
 
             assertCardDisplaysCustomer(expectedCustomer, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }
 
@@ -54,7 +54,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedCustomer.set(secondCustomer));
         guiRobot.pauseForHuman();
         CustomerCardHandle expectedCustomer =
-                customerListPanelHandle.getCustomerCardHandle(INDEX_SECOND_CUSTOMER.getZeroBased());
+            customerListPanelHandle.getCustomerCardHandle(INDEX_SECOND_CUSTOMER.getZeroBased());
         CustomerCardHandle selectedCustomer = customerListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedCustomer, selectedCustomer);
     }
@@ -97,10 +97,10 @@ public class CustomerListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Customer> backingList) {
         CustomerListPanel customerListPanel =
-                new CustomerListPanel(backingList, selectedCustomer, selectedCustomer::set);
+            new CustomerListPanel(backingList, selectedCustomer, selectedCustomer::set);
         uiPartRule.setUiPart(customerListPanel);
 
         customerListPanelHandle = new CustomerListPanelHandle(getChildNode(customerListPanel.getRoot(),
-                CustomerListPanelHandle.CUSTOMER_LIST_VIEW_ID));
+            CustomerListPanelHandle.CUSTOMER_LIST_VIEW_ID));
     }
 }

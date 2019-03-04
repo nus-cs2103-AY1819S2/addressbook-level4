@@ -2,6 +2,8 @@ package seedu.address.model.util;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,13 +21,14 @@ public class TimeRange {
 
     /**
      * Returns whether the other timing is inside this timing.
+     *
      * @param other The timing to check if exists inside this timing or not.
      */
     public boolean withinTiming(TimeRange other) {
-        return (other.getStartTime().isAfter(this.startTime)
-            || other.getStartTime().equals(this.startTime))
-            && (other.getEndTime().isBefore(this.endTime)
-            || other.getEndTime().equals(this.endTime));
+        return (this.startTime.isAfter(other.getStartTime())
+            || this.startTime.equals(other.getStartTime()))
+            && (this.endTime.isBefore(other.getEndTime())
+            || this.endTime.equals(other.getEndTime()));
     }
 
     public LocalTime getStartTime() {
@@ -60,5 +63,17 @@ public class TimeRange {
     @Override
     public int hashCode() {
         return Objects.hash(getStartTime(), getEndTime());
+    }
+
+    public Iterable<TimeRange> getHourlySlots() {
+        List<TimeRange> hourlySlots = new ArrayList<TimeRange>();
+        for (int i = this.startTime.getHour(); i < this.endTime.getHour(); i++) {
+            hourlySlots.add(new TimeRange(i, i + 1));
+        }
+        return hourlySlots;
+    }
+
+    public int numOfHours() {
+        return this.endTime.getHour() - this.startTime.getHour();
     }
 }

@@ -37,7 +37,7 @@ public class EditCustomerDescriptorTest {
 
         // different name -> returns false
         EditCommand.EditCustomerDescriptor editedAmy =
-                new EditCustomerDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+            new EditCustomerDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false

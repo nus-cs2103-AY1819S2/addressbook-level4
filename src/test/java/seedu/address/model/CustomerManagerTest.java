@@ -25,24 +25,24 @@ import seedu.address.model.customer.exceptions.CustomerNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CustomerBuilder;
 
-public class ModelManagerTest {
+public class CustomerManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager modelManager = new ModelManager();
+    private CustomerManager customerManager = new CustomerManager();
 
     @Test
     public void constructor() {
-        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
-        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedCustomer());
+        assertEquals(new UserPrefs(), customerManager.getUserPrefs());
+        assertEquals(new GuiSettings(), customerManager.getGuiSettings());
+        assertEquals(new AddressBook(), new AddressBook(customerManager.getAddressBook()));
+        assertEquals(null, customerManager.getSelectedCustomer());
     }
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setUserPrefs(null);
+        customerManager.setUserPrefs(null);
     }
 
     @Test
@@ -50,103 +50,103 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        modelManager.setUserPrefs(userPrefs);
-        assertEquals(userPrefs, modelManager.getUserPrefs());
+        customerManager.setUserPrefs(userPrefs);
+        assertEquals(userPrefs, customerManager.getUserPrefs());
 
-        // Modifying userPrefs should not modify modelManager's userPrefs
+        // Modifying userPrefs should not modify customerManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
-        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
+        assertEquals(oldUserPrefs, customerManager.getUserPrefs());
     }
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setGuiSettings(null);
+        customerManager.setGuiSettings(null);
     }
 
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        modelManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, modelManager.getGuiSettings());
+        customerManager.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, customerManager.getGuiSettings());
     }
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        customerManager.setAddressBookFilePath(null);
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        customerManager.setAddressBookFilePath(path);
+        assertEquals(path, customerManager.getAddressBookFilePath());
     }
 
     @Test
     public void hasCustomer_nullCustomer_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasCustomer(null);
+        customerManager.hasCustomer(null);
     }
 
     @Test
     public void hasCustomer_customerNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasCustomer(ALICE));
+        assertFalse(customerManager.hasCustomer(ALICE));
     }
 
     @Test
     public void hasCustomer_customerInAddressBook_returnsTrue() {
-        modelManager.addCustomer(ALICE);
-        assertTrue(modelManager.hasCustomer(ALICE));
+        customerManager.addCustomer(ALICE);
+        assertTrue(customerManager.hasCustomer(ALICE));
     }
 
     @Test
     public void deleteCustomer_customerIsSelectedAndFirstCustomerInFilteredCustomerList_selectionCleared() {
-        modelManager.addCustomer(ALICE);
-        modelManager.setSelectedCustomer(ALICE);
-        modelManager.deleteCustomer(ALICE);
-        assertEquals(null, modelManager.getSelectedCustomer());
+        customerManager.addCustomer(ALICE);
+        customerManager.setSelectedCustomer(ALICE);
+        customerManager.deleteCustomer(ALICE);
+        assertEquals(null, customerManager.getSelectedCustomer());
     }
 
     @Test
     public void deleteCustomer_customerIsSelectedAndSecondCustomerInFilteredCustomerList_firstCustomerSelected() {
-        modelManager.addCustomer(ALICE);
-        modelManager.addCustomer(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredCustomerList());
-        modelManager.setSelectedCustomer(BOB);
-        modelManager.deleteCustomer(BOB);
-        assertEquals(ALICE, modelManager.getSelectedCustomer());
+        customerManager.addCustomer(ALICE);
+        customerManager.addCustomer(BOB);
+        assertEquals(Arrays.asList(ALICE, BOB), customerManager.getFilteredCustomerList());
+        customerManager.setSelectedCustomer(BOB);
+        customerManager.deleteCustomer(BOB);
+        assertEquals(ALICE, customerManager.getSelectedCustomer());
     }
 
     @Test
     public void setCustomer_customerIsSelected_selectedCustomerUpdated() {
-        modelManager.addCustomer(ALICE);
-        modelManager.setSelectedCustomer(ALICE);
+        customerManager.addCustomer(ALICE);
+        customerManager.setSelectedCustomer(ALICE);
         Customer updatedAlice = new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        modelManager.setCustomer(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedCustomer());
+        customerManager.setCustomer(ALICE, updatedAlice);
+        assertEquals(updatedAlice, customerManager.getSelectedCustomer());
     }
 
     @Test
     public void getFilteredCustomerList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredCustomerList().remove(0);
+        customerManager.getFilteredCustomerList().remove(0);
     }
 
     @Test
     public void setSelectedCustomer_customerNotInFilteredCustomerList_throwsCustomerNotFoundException() {
         thrown.expect(CustomerNotFoundException.class);
-        modelManager.setSelectedCustomer(ALICE);
+        customerManager.setSelectedCustomer(ALICE);
     }
 
     @Test
     public void setSelectedCustomer_customerInFilteredCustomerList_setsSelectedCustomer() {
-        modelManager.addCustomer(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCustomerList());
-        modelManager.setSelectedCustomer(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedCustomer());
+        customerManager.addCustomer(ALICE);
+        assertEquals(Collections.singletonList(ALICE), customerManager.getFilteredCustomerList());
+        customerManager.setSelectedCustomer(ALICE);
+        assertEquals(ALICE, customerManager.getSelectedCustomer());
     }
 
     @Test
@@ -156,33 +156,33 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        customerManager = new CustomerManager(addressBook, userPrefs);
+        CustomerManager customerManagerCopy = new CustomerManager(addressBook, userPrefs);
+        assertTrue(customerManager.equals(customerManagerCopy));
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertTrue(customerManager.equals(customerManager));
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertFalse(customerManager == null);
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertFalse(customerManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(customerManager.equals(new CustomerManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        customerManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(customerManager.equals(new CustomerManager(addressBook, userPrefs)));
 
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
+        // resets customerManager to initial state for upcoming tests
+        customerManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(customerManager.equals(new CustomerManager(addressBook, differentUserPrefs)));
     }
 }

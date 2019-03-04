@@ -20,7 +20,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.Email;
@@ -32,7 +32,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing customer in the address book.
  */
-public class EditCommand extends Command {
+public class EditCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "ed";
     public static final String COMMAND_WORD = "edit";
@@ -89,7 +89,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(CustomerModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 
@@ -167,29 +167,28 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setName(Name name) {
-            this.name = name;
-        }
-
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setPhone(Phone phone) {
+            this.phone = phone;
         }
 
         public Optional<IdentificationNo> getIdNum() {
             return Optional.ofNullable(idnum);
         }
+
+        public void setEmail(Email email) {
+            this.email = email;
 
         public void setIdNum(IdentificationNo idnum) {
             this.idnum = idnum;

@@ -27,9 +27,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-
-    private StatusBarFooterHandle statusBarFooterHandle;
     private final AddressBook addressBook = new AddressBook();
+    private StatusBarFooterHandle statusBarFooterHandle;
 
     @BeforeClass
     public static void setUpBeforeClass() {
@@ -59,7 +58,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // after address book is updated
         guiRobot.interact(() -> addressBook.addCustomer(ALICE));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+            String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }
 
     /**

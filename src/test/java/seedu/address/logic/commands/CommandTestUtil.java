@@ -17,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
@@ -83,7 +84,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-                                            CommandResult expectedCommandResult, Model expectedModel) {
+                                            CommandResult expectedCommandResult, CustomerModel expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -100,7 +101,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-                                            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, CustomerModel expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
@@ -112,7 +113,8 @@ public class CommandTestUtil {
      * - the address book, filtered customer list and selected customer in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandFailure(Command command, CustomerModel actualModel,
+                                            CommandHistory actualCommandHistory,
                                             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
@@ -138,7 +140,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showCustomerAtIndex(Model model, Index targetIndex) {
+    public static void showCustomerAtIndex(CustomerModel model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
 
         Customer customer = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
@@ -151,7 +153,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first customer in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstCustomer(Model model) {
+    public static void deleteFirstCustomer(CustomerModel model) {
         Customer firstCustomer = model.getFilteredCustomerList().get(0);
         model.deleteCustomer(firstCustomer);
         model.commitAddressBook();

@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -23,7 +24,7 @@ public class Fleet {
         this.size = size;
 
         for (int i = 1; i <= size; i++) {
-            HashSet tags = new HashSet();
+            HashSet<Tag> tags = new HashSet<>();
             Name shipName = new Name("ship" + i);
             Battleship newShip = new Battleship(shipName, tags);
             this.fleetContents.add(newShip);

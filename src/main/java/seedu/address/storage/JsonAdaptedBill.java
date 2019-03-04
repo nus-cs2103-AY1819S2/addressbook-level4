@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Statistics.Bill;
-import seedu.address.model.Statistics.Statistics;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * Jackson-friendly version of {@link Statistics}.

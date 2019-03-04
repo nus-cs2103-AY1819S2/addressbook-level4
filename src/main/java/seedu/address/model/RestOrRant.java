@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import javafx.beans.InvalidationListener;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.Statistics.ReadOnlyStatistics;
-import seedu.address.model.Statistics.Statistics;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.Orders;

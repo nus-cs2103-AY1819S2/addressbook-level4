@@ -18,6 +18,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTables;
+import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
@@ -25,10 +26,12 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonOrdersStorage;
+import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.MenuStorage;
 import seedu.address.storage.OrdersStorage;
+import seedu.address.storage.StatisticsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TablesStorage;
@@ -67,8 +70,9 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         OrdersStorage ordersStorage = new JsonOrdersStorage(userPrefs.getOrdersFilePath());
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
+        StatisticsStorage statisticsStorage = new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
         TablesStorage tablesStorage = new JsonTablesStorage(userPrefs.getTablesFilePath());
-        storage = new StorageManager(userPrefsStorage, ordersStorage, menuStorage, tablesStorage);
+        storage = new StorageManager(userPrefsStorage, ordersStorage, menuStorage, statisticsStorage, tablesStorage);
         
 
         initLogging(config);
@@ -90,12 +94,14 @@ public class MainApp extends Application {
         Optional<ReadOnlyOrders> ordersOptional;
         Optional<ReadOnlyMenu> menuOptional;
         Optional<ReadOnlyTables> tablesOptional; 
+        Optional<ReadOnlyStatistics> statisticsOptional;
         RestOrRant initialData;
         try {
             // addressBookOptional = storage.readRestOrRant();
             ordersOptional = storage.readOrders();
             menuOptional = storage.readMenu();
             tablesOptional = storage.readTables();
+            statisticsOptional = storage.readStatistics();
             if (!ordersOptional.isPresent()) {
                 logger.info("Orders data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
@@ -105,10 +111,13 @@ public class MainApp extends Application {
             } else if (!tablesOptional.isPresent()) {
                 logger.info("Tables data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
+            } else if (!statisticsOptional.isPresent()) {
+                logger.info("statistics data file not found. Will be starting with an empty RestOrRant");
+                initialData = new RestOrRant();
             } else {
-                initialData = new RestOrRant(ordersOptional.get(), menuOptional.get(), tablesOptional.get());
+                initialData = new RestOrRant(ordersOptional.get(), menuOptional.get(), 
+                        tablesOptional.get(), statisticsOptional.get());
             }
-            //initialData = new RestOrRant(ordersOptional.get(), menuOptional.get());
 
             // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {

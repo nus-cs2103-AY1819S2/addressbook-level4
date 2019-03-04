@@ -9,10 +9,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.Statistics.Bill;
-import seedu.address.model.Statistics.Day;
-import seedu.address.model.Statistics.Month;
-import seedu.address.model.Statistics.Year;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.Day;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Year;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 

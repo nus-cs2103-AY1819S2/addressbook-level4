@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Statistics.Bill;
-import seedu.address.model.Statistics.ReadOnlyStatistics;
-import seedu.address.model.Statistics.Statistics;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * An Immutable RestOrRant that is serializable to JSON format.
  */
-@JsonRootName(value = "Statistics")
+@JsonRootName(value = "statistics")
 class JsonSerializableStatistics {
     
     private final List<JsonAdaptedBill> statsList = new ArrayList<>();

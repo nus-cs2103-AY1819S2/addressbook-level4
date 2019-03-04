@@ -15,14 +15,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.Statistics.Bill;
-import seedu.address.model.Statistics.exception.BillNotFoundException;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.exception.BillNotFoundException;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
@@ -425,7 +424,7 @@ public class ModelManager implements Model {
         }
     }
 
-    //=========== Statistics =====================================================================================
+    //=========== statistics =====================================================================================
 
     @Override
     public void addBill(Bill bill) {

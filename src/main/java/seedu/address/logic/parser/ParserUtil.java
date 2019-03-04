@@ -16,9 +16,9 @@ import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Price;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.Statistics.Year;
-import seedu.address.model.Statistics.Month;
-import seedu.address.model.Statistics.Day;
+import seedu.address.model.statistics.Year;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Day;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

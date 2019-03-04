@@ -1,14 +1,14 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -57,9 +57,9 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
         /* Case: filtered card list, select index within bounds of address book but out of bounds of card list
          * -> rejected
          */
-        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getTopDeck().getPersonList().size();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        int invalidIndex = getModel().getTopDeck().getCardList().size();
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: filtered card list, select index within bounds of address book and card list -> selected */
         Index validIndex = Index.fromOneBased(1);
@@ -79,7 +79,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredCardList().size() + 1;
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
@@ -95,7 +95,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
         /* Case: select from empty address book -> rejected */
         deleteAllCards();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
 
     /**

@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITIO
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SUBJECT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_ADDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_ADDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_HELLO;
@@ -119,7 +120,7 @@ public class EditCommandParserTest {
 
         // answer
         userInput = targetIndex.getOneBased() + ANSWER_DESC_ADDITION;
-        descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_QUESTION_ADDITION).build();
+        descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_ADDITION).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

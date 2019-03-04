@@ -17,7 +17,7 @@ import seedu.address.model.deck.Card;
  * Panel containing the list of persons.
  */
 public class CardListPanel extends UiPart<Region> {
-    private static final String FXML = "CardListPanel.fxml";
+    private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
 
     @FXML

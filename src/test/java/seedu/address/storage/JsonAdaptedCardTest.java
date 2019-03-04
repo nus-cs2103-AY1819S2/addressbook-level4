@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.JsonAdaptedCard.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 
 import java.util.ArrayList;

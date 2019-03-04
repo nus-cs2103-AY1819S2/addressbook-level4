@@ -11,7 +11,7 @@ import seedu.address.model.deck.Card;
  * A utility class containing a list of {@code Card} objects to be used in tests.
  */
 public class TypicalCards {
-    public static final Card ADDITION = new CardBuilder().withQuestion("What is 1 + 1?")
+    public static final Card ADDITION = new CardBuilder().withQuestion("Solve 1 + 1.")
             .withAnswer("2").withTags("Math").build();
 
     public static final Card SUBTRACTION = new CardBuilder().withQuestion("What is 10 - 10?")
@@ -26,10 +26,10 @@ public class TypicalCards {
     public static final Card HELLO_WORLD = new CardBuilder().withQuestion("Hello?")
             .withAnswer("World").withTags("Simple", "CS").build();
 
-    public static final Card NO_TAG = new CardBuilder().withQuestion("Is there any tag?")
+    public static final Card NO_TAG = new CardBuilder().withQuestion("Are there any tag?")
             .withAnswer("No").build();
 
-    public static final Card LAYER = new CardBuilder().withQuestion("What layer is HTTP at?")
+    public static final Card LAYER = new CardBuilder().withQuestion("Which layer is HTTP at?")
             .withAnswer("Application").withTags("CS2105").build();
 
     public static final Card TRANSPORT = new CardBuilder().withQuestion("What transport does HTTP use?")
@@ -52,7 +52,8 @@ public class TypicalCards {
 
 
     public static List<Card> getTypicalCards() {
-        return new ArrayList<>(Arrays.asList(ADDITION, SUBTRACTION, MULTIPLICATION, HELLO_WORLD));
+        //The cards must start with different words
+        return new ArrayList<>(Arrays.asList(ADDITION, NO_TAG, LAYER, HELLO_WORLD));
     }
 
 }

@@ -38,6 +38,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
+
         EditCommand.EditCardDescriptor editPersonDescriptor = new EditCardDescriptor();
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
             editPersonDescriptor.setQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
@@ -51,6 +52,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         // Abbreviated version of the command is given, expand full command in the text box
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             return new EditCommand(index);
+
         }
 
         return new EditCommand(index, editPersonDescriptor);

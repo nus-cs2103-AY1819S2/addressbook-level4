@@ -16,7 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Card;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.deck.exceptions.CardNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -178,7 +178,7 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedCard(Card card) {
         if (card != null && !filteredPersons.contains(card)) {
-            throw new PersonNotFoundException();
+            throw new CardNotFoundException();
         }
         selectedPerson.setValue(card);
     }

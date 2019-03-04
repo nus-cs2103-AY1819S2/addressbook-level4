@@ -17,7 +17,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.CardBuilder;
 
 public class UniqueCardListTest {
@@ -58,9 +57,9 @@ public class UniqueCardListTest {
     }
 
     @Test
-    public void add_duplicateCard_throwsDuplicatePersonException() {
+    public void add_duplicateCard_throwsDuplicateCardException() {
         uniqueCardList.add(ADDITION);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateCardException.class);
         uniqueCardList.add(ADDITION);
     }
 

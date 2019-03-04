@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class SampleDataUtil {
                 new Card("What layer is HTTP at?", "Application", getTagSet("CS2105")),
                 new Card("What transport does HTTP use?", "TCP", getTagSet("CS2105")),
                 new Card("How many sides does a triangle have?", "3", getTagSet("Geometry")),
-                new Card("How many seconds are there in 1 millisecond?", "1 * 10^-3", null)
+                new Card("How many seconds are there in 1 millisecond?", "1 * 10^-3", new HashSet<Tag>())
         };
     }
 

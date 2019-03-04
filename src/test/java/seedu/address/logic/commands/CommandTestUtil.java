@@ -24,14 +24,14 @@ public class CommandTestUtil {
 
     public static final String VALID_QUESTION_HELLO = "Hello?";
     public static final String VALID_QUESTION_MOD = "What module is this?";
-    public static final String VALID_QUESTION_ADDITION = "What is 1 + 1?";
+    public static final String VALID_QUESTION_ADDITION = "Solve 1 + 1.";
     public static final String VALID_QUESTION_SUBTRACTION = "What is 10 - 10?";
     public static final String VALID_ANSWER_HELLO = "World";
     public static final String VALID_ANSWER_MOD = "CS2103T";
     public static final String VALID_ANSWER_ADDITION = "2";
     public static final String VALID_ANSWER_SUBTRACTION = "0";
     public static final String VALID_TAG_MOD = "CS2103T";
-    public static final String VALID_TAG_SUBJECT = "Computer Science";
+    public static final String VALID_TAG_SUBJECT = "CS";
     public static final String VALID_TAG_MATH = "Math";
 
     public static final String QUESTION_DESC_HELLO = " " + PREFIX_QUESTION + VALID_QUESTION_HELLO;
@@ -53,12 +53,15 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditCardDescriptor DESC_HELLO;
     public static final EditCommand.EditCardDescriptor DESC_MOD;
+    public static final EditCommand.EditCardDescriptor DESC_ADDITION;
 
     static {
         DESC_HELLO = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_HELLO)
                 .withAnswer(VALID_ANSWER_HELLO).withTags(VALID_TAG_MOD).build();
         DESC_MOD = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_MOD)
                 .withAnswer(VALID_ANSWER_MOD).withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT).build();
+        DESC_ADDITION = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_ADDITION)
+                .withAnswer(VALID_ANSWER_ADDITION).withTags(VALID_TAG_MATH).build();
     }
 
     /**
@@ -130,6 +133,7 @@ public class CommandTestUtil {
         final String[] splitName = card.getQuestion().split("\\s+");
         model.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
+        //Gets all the question that starts with what
         assertEquals(1, model.getFilteredCardList().size());
     }
 

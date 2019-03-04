@@ -68,12 +68,12 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleCardsFound() {
-        String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 1);
         NameContainsKeywordsPredicate predicate = preparePredicate("+ - *");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredCardList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ADDITION, SUBTRACTION, MULTIPLICATION), model.getFilteredCardList());
+        assertEquals(Arrays.asList(ADDITION), model.getFilteredCardList());
     }
 
     /**

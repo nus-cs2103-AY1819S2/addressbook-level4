@@ -92,7 +92,7 @@ public class EditCommand extends Command {
             for (Tag tag : tags) {
                 builder.append(" ").append(PREFIX_TAG).append(tag.tagName);
             }
-            String updatedText = String.format("%s %d %s%s %s%s %s%s %s%s%s",
+            String updatedText = String.format("%s %d %s%s %s%s %s",
                     COMMAND_WORD,
                     index.getOneBased(),
                     PREFIX_QUESTION, question,

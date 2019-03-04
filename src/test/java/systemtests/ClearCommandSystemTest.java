@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: filters the card list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

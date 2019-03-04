@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_MOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MOD;
 
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class EditCardDescriptorTest {
         assertFalse(DESC_HELLO.equals(editedHello));
 
         // different tags -> returns false
-        editedHello = new EditCardDescriptorBuilder(DESC_HELLO).withTags(VALID_TAG_MOD).build();
+        editedHello = new EditCardDescriptorBuilder(DESC_HELLO).withTags(VALID_TAG_MATH).build();
         assertFalse(DESC_HELLO.equals(editedHello));
     }
 }

@@ -134,11 +134,10 @@ public class DeleteCommandTest {
         // delete -> deletes second card in unfiltered card list / first card in filtered card list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts topdeck back to previous state and filtered card list to show all persons
+        // undo -> reverts topdeck back to previous state and filtered card list to show all cards
         expectedModel.undoTopDeck();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(cardToDelete, model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second card in unfiltered card list
         expectedModel.redoTopDeck();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

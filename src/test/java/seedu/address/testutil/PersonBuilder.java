@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
@@ -23,12 +24,14 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_SCHOOL = "NUS";
+    public static final String DEFAULT_MAJOR = "CS";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private School school;
+    private Major major;
     private Set<PastJob> pastjobs;
     private Set<Tag> tags;
 
@@ -38,6 +41,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         school = new School(DEFAULT_SCHOOL);
+        major = new Major(DEFAULT_MAJOR);
         pastjobs = new HashSet<>();
         tags = new HashSet<>();
     }
@@ -51,6 +55,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         school = personToCopy.getSchool();
+        major = personToCopy.getMajor();
         pastjobs = new HashSet<>(personToCopy.getPastJobs());
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -111,8 +116,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Major} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMajor(String major) {
+        this.major = new Major(major);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, school, pastjobs, tags);
+        return new Person(name, phone, email, address, school, major, pastjobs, tags);
     }
 
 }

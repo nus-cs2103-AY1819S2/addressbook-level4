@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
@@ -31,6 +32,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String school;
+    private final String major;
     private final List<JsonAdaptedPastJob> pastjobed = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -40,13 +42,16 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("school") String school, @JsonProperty("pastjobed") List<JsonAdaptedPastJob> pastjobed,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("school") String school, @JsonProperty("major") String major,
+                             @JsonProperty("pastjobed") List<JsonAdaptedPastJob> pastjobed,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.school = school;
+        this.major = major;
         if (pastjobed != null) {
             this.pastjobed.addAll(pastjobed);
         }
@@ -64,6 +69,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         school = source.getSchool().value;
+        major = source.getMajor().value;
         pastjobed.addAll(source.getPastJobs().stream()
                 .map(JsonAdaptedPastJob::new)
                 .collect(Collectors.toList()));
@@ -127,9 +133,17 @@ class JsonAdaptedPerson {
         }
         final School modelSchool = new School(school);
 
+        if (major == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Major.class.getSimpleName()));
+        }
+        if (!Major.isValidMajor(major)) {
+            throw new IllegalValueException(Major.MESSAGE_CONSTRAINTS);
+        }
+        final Major modelMajor = new Major(major);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<PastJob> modelPastJobs = new HashSet<>(personPastJobs);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSchool, modelPastJobs, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+            modelSchool, modelMajor, modelPastJobs, modelTags);
     }
 
 }

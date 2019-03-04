@@ -15,6 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.Table;
@@ -29,7 +31,9 @@ public class ModelManager implements Model {
     private final RestOrRant restOrRant;
     private final UserPrefs userPrefs;
     private final FilteredList<OrderItem> filteredOrderItems;
+    private final FilteredList<MenuItem> filteredMenuItems;
     private final SimpleObjectProperty<OrderItem> selectedOrderItem = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<MenuItem> selectedMenuItem = new SimpleObjectProperty<>();
     private final FilteredList<Table> filteredTableList;
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
 
@@ -40,12 +44,14 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(restOrRant, userPrefs);
 
-        logger.fine("Initializing with RestOrRant: " + restOrRant + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Menu: " + restOrRant + " and user prefs " + userPrefs);
 
         this.restOrRant = new RestOrRant(restOrRant);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOrderItems = new FilteredList<>(this.restOrRant.getOrders().getOrderItemList());
         filteredOrderItems.addListener(this::ensureSelectedOrderItemIsValid);
+        filteredMenuItems = new FilteredList<>(this.restOrRant.getMenu().getMenuItemList());
+        filteredMenuItems.addListener(this::ensureSelectedMenuItemIsValid);
         filteredTableList = new FilteredList<>(this.restOrRant.getTables().getTableList());
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
     }
@@ -83,6 +89,11 @@ public class ModelManager implements Model {
         return userPrefs.getOrdersFilePath();
     }
     
+    @Override
+    public Path getMenuFilePath() {
+        return userPrefs.getMenuFilePath(); 
+    }
+    
     @Override 
     public Path getTablesFilePath() {
         return userPrefs.getTablesFilePath();
@@ -93,12 +104,18 @@ public class ModelManager implements Model {
         requireNonNull(ordersFilePath);
         userPrefs.setOrdersFilePath(ordersFilePath);
     }
+    
+    @Override
+    public void setMenuFilePath(Path menuFilePath) {
+        requireNonNull(menuFilePath);
+        userPrefs.setMenuFilePath(menuFilePath); 
+    }
 
     //=========== RestOrRant ================================================================================
 
     @Override
     public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
-        this.restOrRant.resetData(restOrRant.getOrders());
+        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu());
     }
 
     @Override
@@ -225,8 +242,32 @@ public class ModelManager implements Model {
     @Override
     public void setOrderItem(OrderItem target, OrderItem editedOrderItem) {
         requireAllNonNull(target, editedOrderItem);
-
         restOrRant.getOrders().setOrderItem(target, editedOrderItem);
+    }
+    
+    //=========== Menu ======================================================================================
+    @Override
+    public boolean hasMenuItem(MenuItem menuItem) {
+        requireNonNull(menuItem);
+        return restOrRant.getMenu().hasMenuItem(menuItem);
+    }
+    
+    @Override
+    public void deleteMenuItem(MenuItem target) {
+        restOrRant.getMenu().removeMenuItem(target);
+    }
+    
+    @Override
+    public void addMenuItem(MenuItem menuItem) {
+        restOrRant.getMenu().addMenuItem(menuItem);
+        updateFilteredMenuItemList(PREDICATE_SHOW_ALL_MENU_ITEMS);
+    }
+    
+    @Override
+    public void setMenuItem(MenuItem target, MenuItem editedItem) {
+        requireAllNonNull(target, editedItem);
+        
+        restOrRant.getMenu().setMenuItem(target, editedItem);
     }
 
     @Override
@@ -250,6 +291,23 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredOrderItems.setPredicate(predicate);
     }
+    
+    //=========== Filtered MenuItem List Accessors =============================================================
+    
+    /**
+     * Returns an unmodifiable view of the list of {@code MenuItem} backed by the internal list of
+     * {@code restOrRant}
+     */
+    @Override
+    public ObservableList<MenuItem> getFilteredMenuItemList() {
+        return filteredMenuItems;
+    }
+    
+    @Override
+    public void updateFilteredMenuItemList(Predicate<MenuItem> predicate) {
+        requireNonNull(predicate);
+        filteredMenuItems.setPredicate(predicate);
+    }
 
     //=========== Selected order item ===========================================================================
 
@@ -269,6 +327,26 @@ public class ModelManager implements Model {
             throw new OrderItemNotFoundException();
         }
         selectedOrderItem.setValue(orderItem);
+    }
+
+    //=========== Selected menu item ===========================================================================
+    
+    @Override
+    public ReadOnlyProperty<MenuItem> selectedMenuItemProperty() {
+        return selectedMenuItem;
+    }
+    
+    @Override
+    public MenuItem getSelectedMenuItem() {
+        return selectedMenuItem.getValue();
+    }
+    
+    @Override
+    public void setSelectedMenuItem(MenuItem menuItem) {
+        if (menuItem != null && !filteredMenuItems.contains(menuItem)) {
+            throw new MenuItemNotFoundException();
+        }
+        selectedMenuItem.setValue(menuItem);
     }
 
     /**
@@ -300,6 +378,35 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Ensures {@code selectedMenuItem} is a valid menu item in {@code filteredMenuItems}.
+     */
+    private void ensureSelectedMenuItemIsValid(ListChangeListener.Change<? extends  MenuItem> change) {
+        while (change.next()) {
+            if (selectedMenuItem.getValue() == null) {
+                // null is always a valid selected menu item, so we do not need to check that it is valid anymore.
+                return;
+            }
+            
+            boolean wasSelectedMenuItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedMenuItem.getValue());
+            if (wasSelectedMenuItemReplaced) {
+                // Update selectedMenuItem to its new value.
+                int index = change.getRemoved().indexOf(selectedMenuItem.getValue());
+                selectedMenuItem.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+            
+            boolean wasSelectedMenuItemRemoved = change.getRemoved().stream()
+                    .anyMatch(removedMenuItem -> selectedMenuItem.getValue().isSameMenuItem(removedMenuItem));
+            if (wasSelectedMenuItemRemoved) {
+                // Select the menu item that came before it in the list,
+                // or clear the selection if there is no such menu item.
+                selectedMenuItem.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -318,6 +425,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredOrderItems.equals(other.filteredOrderItems)
                 && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get())
+                && filteredMenuItems.equals(other.filteredMenuItems)
+                && Objects.equals(selectedMenuItem.get(), other.selectedMenuItem.get())
                 && filteredTableList.equals(other.filteredTableList)
                 && Objects.equals(selectedTable.get(), other.selectedTable.get());
     }

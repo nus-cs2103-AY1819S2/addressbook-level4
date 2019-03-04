@@ -36,7 +36,8 @@ public class EquipmentTest {
         assertFalse(ALICE.isSameEquipment(null));
 
         // different phone and email -> returns false
-        Equipment editedAlice = new EquipmentBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        Equipment editedAlice = new EquipmentBuilder(ALICE).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameEquipment(editedAlice));
 
         // different name -> returns false

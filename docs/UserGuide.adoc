@@ -278,15 +278,15 @@ Generates a custom MC
 
 === Inventory - add medicine into storage: `addMed`
 
-Add a new medicine under directory specified by the path.
-Format: `addMed [Path] [Medicine_Name] (Optional)[Quantity]
+Add a new medicine under directory specified by the path. +
+Format: `addMed [Path] [Medicine_Name] (Optional)[Quantity]`
 
 Example: +
 * `addMed root\TCM healroot 50` Add a new medicine with name "healroot" and quantity 50 at directory root\TCM
 
 === Inventory - view medicine storage: `viewMed`
 
-view the specific information about the directory or medicine specified by the path
+view the specific information about the directory or medicine specified by the path +
 Format: `medstorage [Path]`
 
 Example: +

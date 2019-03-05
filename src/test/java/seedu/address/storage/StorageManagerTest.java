@@ -15,9 +15,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.EquipmentManager;
 import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonEquipmentManagerStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
 
 public class StorageManagerTest {
 

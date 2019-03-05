@@ -20,7 +20,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonEquipmentManagerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.ui.MainWindow;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.

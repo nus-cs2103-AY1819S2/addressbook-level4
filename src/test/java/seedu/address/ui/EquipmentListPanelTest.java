@@ -53,7 +53,8 @@ public class EquipmentListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondEquipment));
         guiRobot.pauseForHuman();
 
-        EquipmentCardHandle expectedPerson = equipmentListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        EquipmentCardHandle expectedPerson = equipmentListPanelHandle.getPersonCardHandle(
+                INDEX_SECOND_PERSON.getZeroBased());
         EquipmentCardHandle selectedPerson = equipmentListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }

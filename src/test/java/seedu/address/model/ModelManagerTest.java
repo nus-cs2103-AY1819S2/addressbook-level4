@@ -23,9 +23,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.EquipmentManager;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.NameContainsKeywordsPredicate;
 import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
@@ -195,7 +192,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteTag_nonExistentTag_modelUnchanged() throws Exception {
+    public void deleteTag_nonExistentTag_modelUnchanged() {
         EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(AMY).withPerson(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -206,7 +203,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteTag_tagUsedByMultiplePersons_tagRemoved() throws Exception {
+    public void deleteTag_tagUsedByMultiplePersons_tagRemoved() {
         EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(AMY).withPerson(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 

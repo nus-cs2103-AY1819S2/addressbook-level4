@@ -24,8 +24,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.EquipmentManager;
-import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.address.testutil.EquipmentBuilder;

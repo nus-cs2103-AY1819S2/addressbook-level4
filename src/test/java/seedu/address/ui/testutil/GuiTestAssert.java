@@ -64,7 +64,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code equipmentListPanelHandle} displays the details of {@code equipment} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(EquipmentListPanelHandle equipmentListPanelHandle, List<Equipment> equipment) {
+    public static void assertListMatching(EquipmentListPanelHandle equipmentListPanelHandle,
+                                          List<Equipment> equipment) {
         assertListMatching(equipmentListPanelHandle, equipment.toArray(new Equipment[0]));
     }
 

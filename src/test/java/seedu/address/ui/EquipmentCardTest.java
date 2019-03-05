@@ -16,7 +16,7 @@ public class EquipmentCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Equipment equipmentWithNoTags = new EquipmentBuilder().withTags(new String[0]).build();
+        Equipment equipmentWithNoTags = new EquipmentBuilder().withTags().build();
         EquipmentCard equipmentCard = new EquipmentCard(equipmentWithNoTags, 1);
         uiPartRule.setUiPart(equipmentCard);
         assertCardDisplay(equipmentCard, equipmentWithNoTags, 1);

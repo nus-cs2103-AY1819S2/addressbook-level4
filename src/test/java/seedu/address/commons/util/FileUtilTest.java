@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.commons.util.FileUtil;
 import seedu.address.testutil.Assert;
 
 public class FileUtilTest {

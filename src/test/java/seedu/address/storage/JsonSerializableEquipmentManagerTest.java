@@ -12,7 +12,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.EquipmentManager;
-import seedu.address.storage.JsonSerializableEquipmentManager;
 import seedu.address.testutil.TypicalEquipments;
 
 public class JsonSerializableEquipmentManagerTest {

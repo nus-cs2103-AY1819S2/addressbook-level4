@@ -42,4 +42,7 @@ public class MonthRecord {
         this.records.add(record);
         this.updateStatistics();
     }
+    public int getNoOfRecords() {
+        return this.records.size();
+    }
 }

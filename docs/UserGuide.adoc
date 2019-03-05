@@ -78,12 +78,12 @@ Format: `report FOLDER_INDEX`
 
 === Enter folder : `change`
 
-Changes to the folder specified by index. +
+Changes to the folder specified by index. Left panel will display the list of cards in that folder. +
 Format: `change FOLDER_INDEX`
 
 === Exit folder : `change ..`
 
-Return to the root directory (exit the current folder). +
+Return to the root directory (exit the current folder). Left panel will display the list of folders. +
 Format: `change ..`
 
 === Test flashcards in a folder : `test`
@@ -117,7 +117,7 @@ Format: `end`
 
 === Sort cards by level within a folder : sort
 
-Displays all flashcards sorted such that the lowest level cards are at the top. +
+Displays all flashcards sorted such that the lowest user performing cards are at the top temporarily. +
 Format: `sort`
 
 === Search by keywords : `search`
@@ -132,12 +132,12 @@ Format: `list`
 
 === Import flashcards : `import`
 
-Searches for a file with the specified filename in the program directory and parses the file to generate a flashcard folder. +
+Searches for a json file with the specified filename in the program directory and parses the file to generate a flashcard folder. +
 Format: `import FILENAME`
 
 === Export flashcards : `export`
 
-Creates a file containing the flashcards from the specified folder, which can later be imported. +
+Creates a json file containing the flashcards from the specified folder, which can later be imported. +
 Format: `export FOLDER_INDEX FILENAME`
 
 === Exiting the program : `exit`

@@ -3,9 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -25,6 +28,24 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    // for add-doctor testing (initial addition of add-doctor)
+    public static final String VALID_NAME_JOHN = "John Doe&";
+    public static final String VALID_GENDER_JOHN = "M";
+    public static final String VALID_AGE_JOHN = "21";
+    public static final String VALID_PHONE_JOHN = "99999999";
+    public static final String VALID_SPECIALISATION_ACUPUNCTURE = "acupuncture";
+    public static final String VALID_SPECIALISATION_MASSAGE = "massage";
+
+    public static final String NAME_DESC_JOHN = " " + PREFIX_NAME + VALID_NAME_JOHN;
+    public static final String GENDER_DESC_JOHN = " " + PREFIX_GENDER + VALID_GENDER_JOHN;
+    public static final String AGE_DESC_JOHN = " " + PREFIX_AGE + VALID_AGE_JOHN;
+    public static final String PHONE_DESC_JOHN = " " + PREFIX_PHONE + VALID_PHONE_JOHN;
+    public static final String SPECIALISATION_DESC_ACUPUNCTURE = " " + PREFIX_SPECIALISATION
+            + VALID_SPECIALISATION_ACUPUNCTURE;
+    public static final String SPECIALISATION_DESC_MASSAGE = " " + PREFIX_SPECIALISATION
+            + VALID_SPECIALISATION_MASSAGE;
+    // end of add-doctor testing
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";

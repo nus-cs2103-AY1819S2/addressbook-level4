@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDoctorCommandTest;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -39,6 +40,11 @@ public class AddressBookParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final AddressBookParser parser = new AddressBookParser();
+
+    @Test
+    public void parseCommand_addDoctor() throws Exception {
+        AddDoctorCommandTest.execute();
+    }
 
     @Test
     public void parseCommand_add() throws Exception {

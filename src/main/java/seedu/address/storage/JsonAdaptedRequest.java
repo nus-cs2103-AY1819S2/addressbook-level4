@@ -101,12 +101,21 @@ class JsonAdaptedRequest {
                     RequestDate.class.getSimpleName()));
         }
 
+        if (!RequestDate.isValidDate(requestDate)) {
+            throw new IllegalValueException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+
         final RequestDate modelrequestDate = new RequestDate(this.requestDate);
 
         if (requestStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     RequestStatus.class.getSimpleName()));
         }
+
+        if (!RequestStatus.isValidStatus(requestStatus)) {
+            throw new IllegalValueException(RequestStatus.MESSAGE_STATUS_CONSTRAINTS);
+        }
+
         final RequestStatus modelrequestStatus = new RequestStatus(this.requestStatus);
 
         final Set<Tag> modelConditions = new HashSet<>(requestConditions);

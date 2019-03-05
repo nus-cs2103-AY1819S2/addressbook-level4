@@ -1,7 +1,5 @@
 package seedu.address.model.record;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.math.BigDecimal;
 
 import org.junit.Assert;

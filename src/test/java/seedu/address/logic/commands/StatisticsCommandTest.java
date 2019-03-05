@@ -18,12 +18,11 @@ import seedu.address.model.consultation.Prescription;
 import seedu.address.model.record.ConsultationRecord;
 import seedu.address.model.record.MedicinePurchaseRecord;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.RecordManager;
 import seedu.address.model.record.Statistics;
 
 class StatisticsCommandTest {
 
-    public ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
     private YearMonth from = YearMonth.of(2019, 1);
     private YearMonth to = YearMonth.of(2019, 2);
@@ -34,6 +33,9 @@ class StatisticsCommandTest {
     private Clock clock;
 
     @BeforeEach
+    /**
+     * Initializer for all the test cases
+     */
     void init() {
         String topic = "all";
         record1 = new ConsultationRecord(new Prescription("test", 1));

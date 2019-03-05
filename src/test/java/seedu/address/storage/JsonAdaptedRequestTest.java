@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalRequests.BENSON_ID;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
@@ -46,8 +46,6 @@ public class JsonAdaptedRequestTest {
         JsonAdaptedRequest request = new JsonAdaptedRequest(BENSON_REQUEST);
         Request req = request.toModelType();
         assertEquals(req, BENSON_REQUEST);
-//        assertTrue(BENSON_REQUEST.toString().equals((request.toModelType().toString())));
-//        assertEquals(request.toModelType(), BENSON_REQUEST);
     }
 
     @Test

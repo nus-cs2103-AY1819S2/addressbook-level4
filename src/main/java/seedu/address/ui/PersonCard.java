@@ -50,7 +50,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         initTags(person);
-//        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        // person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     /**
@@ -62,7 +62,11 @@ public class PersonCard extends UiPart<Region> {
         return TAG_COLOUR_STYLES[Math.abs(tagName.hashCode())% TAG_COLOUR_STYLES.length];
     }
 
-    private void initTags(Person person){
+    /**
+     * Initialises the Tags
+     * @param person
+     */
+    private void initTags(Person person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
             tagLabel.getStyleClass().add(getTagColourStyleFor(tag.tagName));

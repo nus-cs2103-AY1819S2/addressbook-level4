@@ -9,37 +9,35 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-public class PurchaseMedicineViaPathCommandTest {
+public class PurchaseMedicineWoPathCommandTest {
 
     private Model model;
     private CommandHistory commandHistory;
 
     @Before
     public void init() {
-        model = new ModelManager();
-        commandHistory = new CommandHistory();
+        this.model = new ModelManager();
+        this.commandHistory = new CommandHistory();
         model.addDirectory("TCM", new String[] {"root"});
-        model.addMedicine("Panaddol", 50, new String[] {"root", "TCM"});
+        model.addMedicine("Pannadol", new String[] {"root", "TCM"});
     }
 
     @Test
     public void purchaseValidMedicine() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineViaPathCommand(new String[] {"root", "TCM", "Panaddol"}, 50, 500)
-                    .execute(model, commandHistory);
+                    new PurchaseMedicineWoPathCommand("Pannadol", 50, 500).execute(model, commandHistory);
             Assert.assertEquals("Purchase successful.", commandResult.getFeedbackToUser());
-        } catch (CommandException ex) {
+        } catch (Exception ex) {
             Assert.fail();
         }
     }
 
     @Test
-    public void invalidMedicinePath_throwCommandException() {
+    public void purchaseNonExistingMedicine_throwCommandException() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineViaPathCommand(new String[] {"root", "Panaddol"}, 50, 500)
-                    .execute(model, commandHistory);
+                    new PurchaseMedicineWoPathCommand("Pannadoll", 50, 500).execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
             Assert.assertEquals("No such medicine found.", ex.getMessage());
@@ -47,11 +45,10 @@ public class PurchaseMedicineViaPathCommandTest {
     }
 
     @Test
-    public void invalidChangeAmount_throwCommandException() {
+    public void purchaseNegativeQuantity_throwCommandException() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineViaPathCommand(new String[] {"root", "TCM", "Panaddol"}, -50, 500)
-                    .execute(model, commandHistory);
+                    new PurchaseMedicineWoPathCommand("Pannadol", -10, 500).execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
             Assert.assertEquals("Change amount must be positive", ex.getMessage());

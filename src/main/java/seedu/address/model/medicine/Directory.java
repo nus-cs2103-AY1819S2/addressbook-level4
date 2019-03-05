@@ -156,7 +156,7 @@ public class Directory {
         if (!listOfMedicine.isEmpty()) {
             sb.append("List of Medicine under this directory: \n");
             for (Medicine medicine : listOfMedicine) {
-                sb.append(medicine.toString() + "\n");
+                sb.append(medicine.viewDetail() + "\n");
             }
         }
         if (listOfMedicine.isEmpty() && listOfDirectory.isEmpty()) {

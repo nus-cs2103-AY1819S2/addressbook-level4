@@ -1,13 +1,12 @@
 package seedu.address.logic.commands;
 
-//import java.util.Optional;
 import java.util.Arrays;
+import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-
-//import seedu.address.model.medicine.Directory;
-//import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.Directory;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * A Command to view the detail of directory/medicine at the given path
@@ -23,9 +22,9 @@ public class ViewStorageCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "root\\TCM";
 
-    public static final String MESSAGE_SUCCESS_DIRECTORY = "Directory found at %1$s";
+    public static final String MESSAGE_SUCCESS_DIRECTORY = "Directory found at %1$s\n%2$s";
 
-    public static final String MESSAGE_SUCCESS_MEDICINE = "Medicine found at %1$s";
+    public static final String MESSAGE_SUCCESS_MEDICINE = "Medicine found at %1$s\n%2$s";
 
     private String[] path;
 
@@ -40,16 +39,31 @@ public class ViewStorageCommand extends Command {
      * @return The CommandResult including the details of directory/medicine
      */
     public CommandResult execute(Model model, CommandHistory commandHistory) {
-        //Optional<Directory> directory = model.findDirectory(path);
-        //if (!directory.isPresent()) {
-        //    Optional<Medicine> medicine = model.findMedicine(path);
-        //    if (!medicine.isPresent()) {
-        //        return new CommandResult("No directory/medicine found at the given path\n");
-        //}
-        //    return new CommandResult(String.format(MESSAGE_SUCCESS_MEDICINE,medicine.get().viewDetail() + "\n"));
-        //}
-        //return new CommandResult(String.format(MESSAGE_SUCCESS_DIRECTORY, directory.get().viewDetail() + "\n"));
-        return new CommandResult("");
+        Optional<Directory> directory = model.findDirectory(path);
+        if (!directory.isPresent()) {
+            Optional<Medicine> medicine = model.findMedicine(path);
+            if (!medicine.isPresent()) {
+                return new CommandResult("No directory/medicine found at the given path\n");
+            }
+            return new CommandResult(String.format(MESSAGE_SUCCESS_MEDICINE, fromPathToString(path),
+                    medicine.get().viewDetail() + "\n"));
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS_DIRECTORY, fromPathToString(path),
+                directory.get().viewDetail()));
+    }
+
+    /**
+     * Convert path to a String to display to User
+     * @param path the path field
+     * @return A string representation of the path
+     */
+    private String fromPathToString(String[] path) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < path.length - 1; i++) {
+            sb.append(path[i] + "\\");
+        }
+        sb.append(path[path.length - 1]);
+        return sb.toString();
     }
 
     @Override

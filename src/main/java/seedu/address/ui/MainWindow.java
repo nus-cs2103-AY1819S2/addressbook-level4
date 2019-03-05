@@ -188,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
         switch (mode) {
 
         case RESTAURANT_MODE:
-            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
+            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to tables
             browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
             
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
@@ -199,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case TABLE_MODE:
-            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
+            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
             browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
 
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),

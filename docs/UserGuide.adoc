@@ -340,38 +340,26 @@ newly created teeth layout.
 indicate personalised note describing more detail on the patient’s teeth
 health.
 
-=== Export
-Exports the entire records into the specified file path with the
-specified file name.
+=== Importing records: `import`
 
-Format: `export FILE_PATH FILE_NAME`
-
-Example:
-
-
-* `export /mnt/ext_drive/ clinicRecords.txt` +
-Creates a file named clinicRecords.txt in the /mnt/ext_drive/ folder
-
-
-=== Import
-Imports data into the program from the specified file path and
-overwrites current data.
-
-Format: `import FILE_PATH [append]`
-
-Note: The optional “append” adds the file data onto the current records
-rather than overwriting.
+Reads all entries from a specified text file and overwrites the address book. +
+Format: `import FILENAME`
 
 Examples:
 
+* `import records1.json` +
+Reads all entries from a records1.json and overwrites the address book. +
 
-* `import /mnt/sample/newData` +
-Replaces the current records with the ones in the newData file
+=== Exporting records: `export`
 
+Writes all entries from the address book to a specified text file. +
+If no file exists, a new one will be created.
+Format: `export FILENAME`
 
-* `import /mnt/sample/extraData append` +
-Appends the records within extraData onto the current program’s records.
+Examples:
 
+* `Export records2.json` +
+Writes all entries from the address book to records2.json. +
 
 === List
 Shows a list of all personnel or medical stored in the application

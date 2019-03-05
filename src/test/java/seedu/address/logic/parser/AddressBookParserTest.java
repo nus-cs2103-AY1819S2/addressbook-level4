@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddDoctorCommand;
 import seedu.address.logic.commands.AddDoctorCommandTest;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;

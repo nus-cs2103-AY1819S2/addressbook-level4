@@ -44,7 +44,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 1, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -112,7 +112,7 @@ public class MainApp extends Application {
                 logger.info("Tables data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
             } else if (!statisticsOptional.isPresent()) {
-                logger.info("statistics data file not found. Will be starting with an empty RestOrRant");
+                logger.info("Statistics data file not found. Will be starting with an empty RestOrRant");
                 initialData = new RestOrRant();
             } else {
                 initialData = new RestOrRant(ordersOptional.get(), menuOptional.get(), 

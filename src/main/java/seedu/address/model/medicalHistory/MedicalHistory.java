@@ -16,17 +16,17 @@ public class MedicalHistory {
     private Name name;
     private WriteUp writeUp;
     /*
-        // Data field
-        private Date time;
+    // Data field
+    private Date time;
     */
     //Constructor
     public MedicalHistory(/*Patient patient, Doctor doctor, */Name name, WriteUp writeUp /* Date time*/) {
-    /*
+        /*
         this.patient = patient;
         this.doctor = doctor;
         this.writeup = note;
         this.time = time;
-    */
+        */
         this.name = name;
         this.writeUp = writeUp;
     }

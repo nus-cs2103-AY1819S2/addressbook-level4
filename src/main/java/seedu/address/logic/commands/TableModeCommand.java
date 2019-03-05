@@ -22,7 +22,7 @@ public class TableModeCommand extends ChangeModeCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Table Mode for the specified table. "
             + "Parameters: TABLE_NUMBER\n"
             + "Example: " + COMMAND_WORD + " 3";
-    public static final String MESSAGE_SUCCESS = "Mode changed to Table Mode";
+    public static final String MESSAGE_SUCCESS = "Mode changed to Table Mode!\nCurrently on Table %1$s";
 
     private final TableNumber tableNumber;
 
@@ -58,7 +58,7 @@ public class TableModeCommand extends ChangeModeCommand {
     
     @Override
     public CommandResult generateCommandResult() {
-        return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.TABLE_MODE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, tableNumber), false, false, Mode.TABLE_MODE);
     }
 
     @Override

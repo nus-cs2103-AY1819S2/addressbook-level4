@@ -58,6 +58,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Switching to Restaurant Mode : `restaurantMode`
+
+Changes RestOrRant to Restaurant Mode which allows the user to add tables and update the tables' statuses.
+Format: `restaurantMode`
+
+****
+* The RestOrRant application's default mode is Restaurant Mode. At start up, the application is already in Restaurant Mode.
+****
+
+Examples:
+
+* `restaurantMode`
+
 === Switching to Table Mode : `tableMode`
 
 Changes RestOrRant to Table Mode for the table given by the specified table number and displays the list of order items from that table.
@@ -86,6 +99,12 @@ Format: `menuMode`
 Adds tableList to the restaurant. +
 Format: `addTables NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
 
+****
+* Command can only be used in Restaurant Mode.
+* Table number increases from the last added table number.
+* There is no limit to the number of tables that can be added.
+****
+
 Examples:
 
 * `addTables 4`
@@ -96,12 +115,17 @@ Examples:
 Shows a list of all tableList in the restaurant as well as their current occupancy. +
 Format: `listTables`
 
+****
+* Command can only be used in Restaurant Mode.
+****
+
 === Updating the table: `updateTable`
 
 Updates the status of the table. +
 Format: `updateTable TABLE_NUMBER NEW_OCCUPANCY`
 
 ****
+* Command can only be used in Restaurant Mode.
 * Checks if the specified table exists before updating.
 * Checks if the specified `NEW_OCCUPANCY` is greater than 0 and not more than the capacity of the table.
 ****
@@ -117,6 +141,7 @@ Removes an existing table in the restaurant. +
 Format: `removeTable TABLE_NUMBER`
 
 ****
+* Command can only be used in Restaurant Mode.
 * Checks that the table exists.
 * Checks that the table is not occupied.
 ****
@@ -205,13 +230,14 @@ Checks if all menu items on the order has been served. +
 Format: `isTableServed`
 
 ****
+* Command can only be used in Table Mode.
 * Checks if the table exists.
 ****
 
 Examples:
 
 * `isTableServed` +
-Returns `Table is fully served` or `Table is not fully served`
+Returns `Table is fully served`, `Table is not fully served` or `Table is empty`
 
 === Listing all items in menu : `printMenu`
 
@@ -388,6 +414,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
+* *Changing to RestaurantMode* : `restaurantMode`
 * *Add tableList* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
 e.g. `addTables 2 4 6 8`
 * *Remove table* : `removeTable TABLE_NUMBER` +

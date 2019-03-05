@@ -16,17 +16,18 @@ import seedu.address.model.table.TableStatus;
 public class UpdateTableCommandParser implements Parser<UpdateTableCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTableCommand
-     * and returns an AddTableCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the UpdateTableCommand
+     * and returns an UpdateTableCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public UpdateTableCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        String[] splitArgs = trimmedArgs.split("\\s+");
+        if (trimmedArgs.isEmpty() || splitArgs.length != 2) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
         }
 
-        return new UpdateTableCommand(trimmedArgs);
+        return new UpdateTableCommand(splitArgs);
     }
 }

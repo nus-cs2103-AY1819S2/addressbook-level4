@@ -68,7 +68,13 @@ public class RestOrRantParser {
                     throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddTableCommandParser().parse(arguments);
-            
+
+            case UpdateTableCommand.COMMAND_WORD:
+                if (mode != Mode.RESTAURANT_MODE) {
+                    throw new ParseException(MESSAGE_INVALID_MODE);
+                }
+                return new UpdateTableCommandParser().parse(arguments);
+
             // Commands that work in Menu Mode
             case AddItemToMenuCommand.COMMAND_WORD:
                 if (mode != Mode.MENU_MODE) {
@@ -82,18 +88,12 @@ public class RestOrRantParser {
                     throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddOrderCommandParser().parse(arguments);
-
+                
             case BillCommand.COMMAND_WORD:
                 if (mode != Mode.TABLE_MODE) {
                     throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new BillCommandParser().parse(arguments);
-
-            case UpdateTableCommand.COMMAND_WORD:
-                if (mode != Mode.TABLE_MODE) {
-                    throw new ParseException(MESSAGE_INVALID_MODE);
-                }
-                return new UpdateTableCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Equipment}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedEquipment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Equipment's %s field is missing!";
 
@@ -31,12 +31,12 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given equipment details.
+     * Constructs a {@code JsonAdaptedEquipment} with the given equipment details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedEquipment(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                                @JsonProperty("email") String email, @JsonProperty("address") String address,
+                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -49,8 +49,8 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Equipment} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Equipment source) {
-        name = source.getName().fullName;
+    public JsonAdaptedEquipment(Equipment source) {
+        name = source.getName().serialNumber;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -73,7 +73,7 @@ class JsonAdaptedPerson {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValidSerialNumber(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);

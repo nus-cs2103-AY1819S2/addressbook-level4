@@ -33,7 +33,7 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedEquipment}.
      */
     public static void assertCardDisplaysPerson(Equipment expectedEquipment, EquipmentCardHandle actualCard) {
-        assertEquals(expectedEquipment.getName().fullName, actualCard.getName());
+        assertEquals(expectedEquipment.getName().serialNumber, actualCard.getName());
         assertEquals(expectedEquipment.getPhone().value, actualCard.getPhone());
         assertEquals(expectedEquipment.getEmail().value, actualCard.getEmail());
         assertEquals(expectedEquipment.getAddress().value, actualCard.getAddress());

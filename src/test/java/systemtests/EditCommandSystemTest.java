@@ -4,21 +4,29 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_ADDITION;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SUBTRACTION;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITION;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRACTION;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_UNIQUE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MOD;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SIMPLE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SUBJECT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_SUBTRACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_SUBTRACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_UNIQUE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.TypicalCards.ADDITION;
+import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
+import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -48,8 +56,8 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
          */
         Index index = INDEX_FIRST_PERSON;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_ADDITION + "  "
-                + ANSWER_DESC_ADDITION + " " + TAG_DESC_MATH + " " + TAG_DESC_SUBJECT + " ";
-        Card editedCard = new CardBuilder(ADDITION).withTags(VALID_TAG_SUBJECT).build();
+                + ANSWER_DESC_ADDITION + " " + TAG_DESC_MATH + " ";
+        Card editedCard = new CardBuilder(ADDITION).withTags(VALID_TAG_MATH).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: undo editing the last card in the list -> last card restored */
@@ -65,25 +73,16 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: edit a card with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
-                + TAG_DESC_MATH + " " + TAG_DESC_SUBJECT;
+                + TAG_DESC_MATH;
         assertCommandSuccess(command, index, ADDITION);
 
-        /* Case: edit a card with new values same as another card's values but with different name -> edited */
+        /* Case: edit a card with new answer same as another card's answer but with different question -> edited */
         assertTrue(getModel().getTopDeck().getCardList().contains(ADDITION));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredCardList().get(index.getZeroBased()), ADDITION);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_ADDITION
-                + TAG_DESC_MOD + TAG_DESC_SUBJECT;
+                + TAG_DESC_MATH;
         editedCard = new CardBuilder(ADDITION).withQuestion(VALID_QUESTION_SUBTRACTION).build();
-        assertCommandSuccess(command, index, editedCard);
-
-        /* Case: edit a card with new values same as another card's question but with answer
-         * -> edited
-         */
-        index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_SUBTRACTION
-                + TAG_DESC_MOD + TAG_DESC_SUBJECT;
-        editedCard = new CardBuilder(ADDITION).withAnswer(ANSWER_DESC_SUBTRACTION).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: clear tags -> cleared */
@@ -99,9 +98,9 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_HELLO;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_UNIQUE;
         cardToEdit = getModel().getFilteredCardList().get(index.getZeroBased());
-        editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_HELLO).build();
+        editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_UNIQUE).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: filtered card list, edit index within bounds of the deck but out of bounds of card list
@@ -121,7 +120,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         index = INDEX_FIRST_PERSON;
         selectCard(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
-                + TAG_DESC_MOD;
+                + TAG_DESC_MATH;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new card's name
         assertCommandSuccess(command, index, ADDITION, index);
@@ -153,19 +152,19 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         executeCommand(CardUtil.getAddCommand(ADDITION));
         assertTrue(getModel().getTopDeck().getCardList().contains(ADDITION));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredCardList().get(index.getZeroBased()).equals(ADDITION));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
-                + TAG_DESC_MATH;
+        assertFalse(getModel().getFilteredCardList().get(index.getZeroBased()).equals(HELLO_WORLD));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
+                + TAG_DESC_SUBJECT + TAG_DESC_SIMPLE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
                 + TAG_DESC_SUBJECT;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's question but with different answer -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_SUBTRACTION
-                + TAG_DESC_MATH;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_SUBTRACTION
+                + TAG_DESC_SUBJECT + TAG_DESC_SIMPLE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
     }

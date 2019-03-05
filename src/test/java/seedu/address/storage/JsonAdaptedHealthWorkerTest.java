@@ -5,17 +5,19 @@ import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORM
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Organization;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Skills;
-import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedHealthWorkerTest {

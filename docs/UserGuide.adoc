@@ -305,10 +305,10 @@ Example: +
 
 Purchase of medicine can be recorded and the storage amount will be consequently updated +
 Format: `buyMed [MEDICINE_NAME] [AMOUNT] [EXPENDITURE]` +
-Alternative Format: `buyMed [PATH_OF_MEDICINE] [AMOUNT] [EXPENDITURE]` 
+Alternative Format: `buyMed [PATH_OF_MEDICINE] [AMOUNT] [EXPENDITURE]`
 
 Example: +
-* `buyMed panadol 10 400` 
+* `buyMed panadol 10 400`
 * `buyMed root\panadol 10 400`
 
 === Inventory - view past record of medicine purchase: `purchaserecord`

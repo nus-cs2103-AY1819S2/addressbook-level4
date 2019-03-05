@@ -107,6 +107,7 @@ class JsonAdaptedRequest {
             throw new IllegalValueException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
         }
 
+        final RequestDate modelrequestDate = new RequestDate(this.requestDate);
 
         if (requestStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

@@ -135,7 +135,7 @@ Examples:
 * `list` +
 `memberDelete 2` +
 Deletes the 2nd member in ClubManager.
-* `find Betsy` +
+* `memberFind Betsy` +
 `memberDelete 1` +
 Deletes the 1st member in the results of the `find` command.
 

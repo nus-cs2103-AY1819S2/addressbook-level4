@@ -19,7 +19,7 @@ public class UpdateTableCommand extends Command {
     public static final String COMMAND_WORD = "updateTable";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the status of the table."
-            + "Parameters: TABLE_NUMBER NEW_STATUS\n"
+            + "Parameters: TABLE_NUMBER NEW_OCCUPANCY\n"
             + "Example: " + COMMAND_WORD + " 2 0";
 
     public static final String MESSAGE_SUCCESS = "Table status updated: \nTable%1$s: %2$s";

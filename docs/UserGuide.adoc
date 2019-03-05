@@ -58,6 +58,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Switching to Restaurant Mode : `restaurantMode`
+
+Changes RestOrRant to Restaurant Mode which allows the user to add tables and update the tables' statuses.
+Format: `restaurantMode`
+
+****
+* The RestOrRant application's default mode is Restaurant Mode. At start up, the application is already in Restaurant Mode.
+****
+
+Examples:
+
+* `restaurantMode`
+
 === Switching to Table Mode : `tableMode`
 
 Changes RestOrRant to Table Mode for the table given by the specified table number and displays the list of order items from that table.

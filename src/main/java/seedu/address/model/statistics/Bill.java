@@ -3,12 +3,12 @@ package seedu.address.model.statistics;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.UniqueOrderItemList;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
@@ -18,23 +18,24 @@ import seedu.address.model.table.TableNumber;
  */
 public class Bill {
 
-    private final Table table;
+    private final ObservableList<OrderItem> orderItemList;
     private final TableNumber tableNumber;
     private final Day day;
     private final Month month;
     private final Year year;
-    private final int totalBill;
+    private int totalBill;
 
     /**
      * Every field must be present and not null.
      */
-    public Bill(Table table, Day day, Month month, Year year) {
+    public Bill(Table table, ObservableList<OrderItem> orderItemList, Day day, Month month, Year year) {
         requireAllNonNull(table);
+        requireAllNonNull(orderItemList);
         requireAllNonNull(day);
         requireAllNonNull(month);
         requireAllNonNull(year);
-        this.table = table;
         this.tableNumber = table.getTableNumber();
+        this.orderItemList = orderItemList;
         this.day = day;
         this.month = month;
         this.year = year;
@@ -42,25 +43,24 @@ public class Bill {
     }
 
     public void calculateBill() {
-        // TODO: iterate through the UniqueOrderList from the Table
-        // Use getMenuItem().getPrice() after merging with the rest
-        //for each orderItem in the UniqueOrderItemList
-        //if the table
         Menu menu = new Menu();
         MenuItem menuItem;
-        ObservableList<OrderItem> orderItemList = table.getUniqueOrderItemList().asUnmodifiableObservableList();
+        Optional<MenuItem> opt;
         for (OrderItem orderItem : orderItemList) {
-            if (orderItem.getTableNumber() == tableNumber) {
-                menuItem = menu.getItemFromCode(orderItem.getMenuItemCode()).get();
-                totalBill += Integer.parseInt(menuItem.getPrice().itemPrice) * orderItem.getQuantity();
+            if (tableNumber.equals(orderItem.getTableNumber())) {
+                opt = menu.getItemFromCode(orderItem.getMenuItemCode());
+                if (opt.isPresent()) {
+                    menuItem = opt.get();
+                    totalBill += Integer.parseInt(menuItem.getPrice().itemPrice) * orderItem.getQuantity();
+                }
             }
         }
     }
 
-    public Table getTable() {
-        return table;
+    public ObservableList<OrderItem> getOrderItemList() {
+        return orderItemList;
     }
-    
+
     public TableNumber getTableNumber() {
         return tableNumber;
     }
@@ -68,7 +68,7 @@ public class Bill {
     public int getTotalBill() {
         return totalBill;
     }
-    
+
     public Day getDay() {
         return day;
     }
@@ -84,7 +84,7 @@ public class Bill {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(table, day, month, year, totalBill);
+        return Objects.hash(orderItemList, tableNumber, day, month, year, totalBill);
     }
 
     @Override

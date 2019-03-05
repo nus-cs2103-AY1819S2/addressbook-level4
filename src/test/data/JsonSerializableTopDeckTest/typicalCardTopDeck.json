@@ -5,12 +5,20 @@
     "answer": "2",
     "tagged": [ "Math" ]
   }, {
+    "question": "Evaluate 1024 / 2.",
+    "answer": "512",
+    "tagged": [ "Math" ]
+  }, {
     "question": "Are there any tag?",
     "answer": "No",
     "tagged": [  ]
   }, {
     "question": "Which layer is HTTP at?",
     "answer": "Application",
+    "tagged": [ "CS2105" ]
+  }, {
+    "question": "What is the status code for OK in HTTP?",
+    "answer": "200",
     "tagged": [ "CS2105" ]
   }, {
     "question": "Hello?",

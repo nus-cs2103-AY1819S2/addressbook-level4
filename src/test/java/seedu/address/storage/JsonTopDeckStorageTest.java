@@ -14,7 +14,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.TopDeck;
 
@@ -89,7 +88,7 @@ public class JsonTopDeckStorageTest {
         assertEquals(original, new TopDeck(readBack));
 
         // Save and read without specifying file path
-        original.addCard(DIVISION);
+        original.addCard(UNIQUE);
         jsontopDeckStorage.saveTopDeck(original); // file path not specified
         readBack = jsontopDeckStorage.readTopDeck().get(); // file path not specified
         assertEquals(original, new TopDeck(readBack));

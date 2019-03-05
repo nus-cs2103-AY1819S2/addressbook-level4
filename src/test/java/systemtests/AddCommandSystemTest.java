@@ -8,13 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITIO
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRACTION;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_UNIQUE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MOD;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SUBJECT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_ADDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_UNIQUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalCards.ADDITION;
-import static seedu.address.testutil.TypicalCards.DIVISION;
 import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.MULTIPLICATION;

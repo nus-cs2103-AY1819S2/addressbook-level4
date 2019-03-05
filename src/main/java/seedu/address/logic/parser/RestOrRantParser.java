@@ -37,9 +37,9 @@ public class RestOrRantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        if (mode != Mode.RESTAURANT_MODE) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
-        }
+//        if (mode != Mode.RESTAURANT_MODE) {
+//            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
+//        }
 
         //        FUTURE USAGE
         switch (commandWord) {

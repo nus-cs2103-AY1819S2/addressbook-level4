@@ -7,6 +7,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.menu.MenuItem;
 
+import java.util.logging.Logger;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
@@ -41,7 +43,7 @@ public class AddItemToMenuCommand extends Command {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model);
-        System.out.println(mode.toString()); //WHY IS IT IN RESTAURANT MODE FFS
+
         if (!mode.equals(Mode.MENU_MODE)) {
             throw new CommandException(MESSAGE_INCORRECT_MODE);
         }

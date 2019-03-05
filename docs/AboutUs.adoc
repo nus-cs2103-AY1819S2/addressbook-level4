@@ -11,42 +11,34 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lau Wei Tang
-image::weitanglau.jpg[width="150", align="left"]
+image::weitanglau.png[width="150", align="left"]
 {empty}[https://github.com/WeiTangLau[github]]
-//[<<johndoe#, portfolio>>]
-//{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]]
 
 Role: Developer
 
 '''
 
 === Prithivi Raj
-image::ptvrajsk.jpg[width="150", align="left"]
+image::ptvrajsk.png[width="150", align="left"]
 {empty}[https://github.com/ptvrajsk/[github]]
-//[<<johndoe#, portfolio>>]
 
 Role: Developer
-//Responsibilities: UI
 
 '''
 
 === Jet Kan Yip Keng
-image::jetkan-yk.jpg[width="150", align="left"]
+image::jetkan-yk.png[width="150", align="left"]
 {empty}[http://github.com/jetkan-yk[github]]
-//[<<johndoe#, portfolio>>]
 
 Role: Developer
-//Responsibilities: Data
 
 '''
 
 === Jeremy Yiren Low
-image::lormee94.jpg[width="150", align="left"]
+image::lormee94.png[width="150", align="left"]
 {empty}[http://github.com/lormee94[github]]
-//[<<johndoe#, portfolio>>]
 
 Role: Developer
-//Responsibilities: Dev Ops + Threading
 
 '''
 

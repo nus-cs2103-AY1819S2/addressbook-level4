@@ -24,6 +24,7 @@ public class SrsCardsManager {
         this.lesson = lesson;
         this.cardData = cardData;
     }
+
     public SrsCardsManager(List<SrsCard> srsCards, List<List<Integer>> quizInformation) {
         this.quizInformation = quizInformation;
         this.srsCards = srsCards;
@@ -88,7 +89,6 @@ public class SrsCardsManager {
             } else if (memoryBoxes.get(srsCards.get(i)) == 5) {
                 currentSrsDueDate.plus(Duration.ofHours(48));
             }
-
 
             updatedCardData.add(new CardData(currentHashCode, currentNumOfAttempts, currentStreak,
                     currentSrsDueDate));

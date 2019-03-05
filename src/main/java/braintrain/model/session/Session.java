@@ -13,7 +13,7 @@ import braintrain.quiz.QuizCard;
  * Represents a session that stores cards based on srs data.
  */
 public class Session {
-    private static final int CARD_COUNT_MINIMUM = 5;
+    public static final int CARD_COUNT_MINIMUM = 5;
 
     private String name;
     private Quiz.Mode mode;
@@ -72,6 +72,7 @@ public class Session {
     public Quiz.Mode getMode() {
         return mode;
     }
+
     public String getName() {
         return name;
     }

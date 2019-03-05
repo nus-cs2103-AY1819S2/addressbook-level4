@@ -76,6 +76,7 @@ Format: `start n/NAME [c/COUNT] m/MODE`
 Usage rules:
 
 * The count field is optional. It represents the number of cards the user wants in the session. By default, it sets to be 10.
+* The number of cards should be at least 5. Otherwise, the start command will fail.
 
 Examples:
 

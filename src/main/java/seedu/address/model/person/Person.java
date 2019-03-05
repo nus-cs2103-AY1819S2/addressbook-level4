@@ -58,7 +58,9 @@ public class Person {
         return email;
     }
 
-    public Race getRace() { return race; }
+    public Race getRace() {
+        return race;
+    }
 
     public Address getAddress() {
         return address;

@@ -223,9 +223,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setRace(Race race) { this.race = race;}
+        public void setRace(Race race) {
+            this.race = race;
+        }
 
-        public Optional<Race> getRace() {return Optional.ofNullable(race); }
+        public Optional<Race> getRace() {
+            return Optional.ofNullable(race);
+        }
 
         public void setAddress(Address address) {
             this.address = address;

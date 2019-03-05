@@ -10,6 +10,7 @@ import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -27,6 +28,7 @@ public class RestaurantBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Set<Review> reviews;
     private Set<Tag> tags;
     private Cuisine cuisine;
 
@@ -35,6 +37,7 @@ public class RestaurantBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        reviews = new HashSet<>();
         tags = new HashSet<>();
         cuisine = null;
     }
@@ -47,6 +50,7 @@ public class RestaurantBuilder {
         phone = restaurantToCopy.getPhone();
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
+        reviews = restaurantToCopy.getReviews();
         tags = new HashSet<>(restaurantToCopy.getTags());
         cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
     }
@@ -88,6 +92,14 @@ public class RestaurantBuilder {
      */
     public RestaurantBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withReview(Review review) {
+        this.reviews.add(review);
         return this;
     }
 

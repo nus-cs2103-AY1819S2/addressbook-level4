@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= docX - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU and AY1819S2 W13-1`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -811,13 +811,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* receptionist in a small to medium sized clinic
+* has a need to manage a significant number of patients and doctors
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage patients and doctors faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -829,15 +830,44 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new patient/doctor |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |list all existing patient/doctor |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |edit an existing patient/doctor |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |search all existing patient/doctor |locate details of patients/doctors without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |add a new medical history to a patient |
+
+|`* * *` |user |list all existing medical history of a patient |
+
+|`* * *` |user |edit an existing medical history of a patient |
+
+|`* * *` |user |view an existing medical history of a patient |
+
+|`* * *` |user |search for an existing medical history of a patient |
+
+|`* * *` |user |add appointment |
+
+|`* * *` |user |complete appointment |the appointment has elapsed, mark as completed or missed
+
+|`* * *` |user |cancel appointment | the appointment has been cancelled
+
+|`* *` |user |list all appointments of a doctor |
+
+|`* *` |user |list available timings of a doctor |
+
+|`* *` |user |list available appointments of all doctors |
+
+|`* *` |user |add a new prescription |
+
+|`* *` |user |edit an existing prescription |
+
+|`* *` |user |delete an existing prescription |
+
+|`* *` |user |list entered commands |list a history of previously entered commands
+
 |=======================================================================
 
 _{More to be added}_
@@ -845,33 +875,497 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `docX` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Patient/Doctor
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User adds a new patient/doctor.
+2.  docX shows details of the new patient/doctor added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The patient/doctor to be added is in the wrong format.
++
+[none]
+** 1a1. docX shows an error message, prompting user to re-enter the data.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: List All Existing Patients/Doctors
+
+*MSS*
+
+1.  User requests to list all existing patients/doctors.
+2.  docX shows a list of patients/doctors.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 2a. There are no existing patients/doctors.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. docX shows an empty list.
 +
-Use case resumes at step 2.
+Use case ends.
+
+
+[discrete]
+=== Use case: Edit an Existing Patient/Doctor
+
+*MSS*
+
+1.  User enters the new details for a patient/doctor with the given ID.
+2.  docX shows a success message and the new details of the patient/doctor.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given ID for a patient/doctor is not found.
++
+[none]
+** 1a1. docX shows an error message and prompts for a valid ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The new details is in an invalid format.
++
+[none]
+** 1b1. docX prompts user to re-enter the details.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Search All Existing Patient/Doctor
+
+*MSS*
+
+1.  User searches for patients using name or phone number.
+2.  docX shows a list of patients/doctors with the name or phone number.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The search terms are in an invalid format.
++
+[none]
+** 1a1. docX shows an error message and prompts users to re-enter the search terms.
++
+Use case resumes at step 1.
+
+[none]
+* 2a. There are no patients/doctors that match the given search terms.
++
+[none]
+** 2a1. docX shows an empty list.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Delete an Existing Patient/Doctor
+*MSS*
+
+1. User enters the patient/doctor ID to be deleted.
+2. docX shows the patient/doctor is deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient/doctor ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid patient/doctor ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Add New Medical History to Patient
+
+*MSS*
+
+1.  User add a new medical history entry to a patient ID.
+2.  docX shows the details of the new medical history entry added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The medical history is in the wrong format.
++
+[none]
+** 1a1. docX shows an error message and prompts users to re-enter the medical history.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The given patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts for a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: List All Existing Medical History of a Patient
+
+*MSS*
+
+1. User requests to list all existing medical history of a given patient ID.
+2. docX shows all the medical history entries belonging to the patient ID.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and prompts user to re-enter patient ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The patient does not have any medical history.
++
+[none]
+** 1b1. docX shows the patient does not have any medical history.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Edit An Existing Medical History of a Patient
+
+*MSS*
+
+1. User enter the new details for a medical history entry, given a medical history ID and patient ID.
+2. docX shows a success message and the new details for the medical history.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The new details is not in a valid format.
++
+[none]
+** 1a1. docX shows an error message and prompts user to re-enter details.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The medical history ID for the given patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts user to enter a valid medical history ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The patient ID does not exist.
++
+[none]
+** 1c1. docX shows an error message and prompts user to enter a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: View An Existing Medical History of a Patient
+
+*MSS*
+
+1. User enters the medical history ID and the patient ID.
+2. docX shows the full details of the medical history.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The medical history ID is not valid for the given patient ID.
++
+[none]
+** 1a1. docX shows an error message and prompts user to re-enter the medical history ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts user to enter a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Search All Existing Medical History of a Patient
+
+*MSS*
+
+1. User enters the search terms and the patient ID.
+2. docX shows medical history entries belonging to the particular patient ID whose write up contains the matching search terms.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no medical history whose write up matches the search terms for the patient ID.
++
+[none]
+** 1a1. docX shows an empty search result.
++
+Use case ends.
+
+[none]
+* 1b. The patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts user to enter a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Add Appointment
+
+*MSS*
+
+1. User enters the patient ID, doctor ID and start and end times for the appointment.
+2. docX shows the appointment details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient ID or doctor ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid patient/doctor ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The doctor is not available in the specified duration.
++
+[none]
+** 1b1. docX shows the doctor is not available and request user to enter a different time.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Complete Appointment
+
+*MSS*
+
+1. User enters appointment ID and whether the patient attended the appointment.
+2. docX shows the appointment details as completed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The appointment ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid appointment ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Cancel Appointment
+
+*MSS*
+
+1. User enters appointment ID.
+2. docX marks the appointment as cancelled.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The appointment ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid appointment ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The appointment is in the past or has already been completed.
++
+[none]
+** 1b1. docX shows an error message and request the user to give a valid appointment ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: List All Appointments of a Doctor
+
+*MSS*
+
+1. User enters doctor ID
+2. docX shows a list of all the appointment of the doctor ID.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The doctor ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid doctor ID.
++
+Use case resumes at step 1.
+
+[none]
+* 2a. The doctor has no appointments.
++
+[none]
+** 2a1. docX shows the doctor has no appointments.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: List All Available Timing of a Doctor
+
+*MSS*
+
+1. User enters doctor ID and date
+2. docX shows a list of all the available time slots of the doctor ID on a particular date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The doctor ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid doctor ID.
++
+Use case resumes at step 1.
+
+[none]
+* 2a. The doctor has no appointments.
++
+[none]
+** 2a1. docX shows the doctor has no appointments.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: List All Available Timings of Doctors on a Date
+
+*MSS*
+
+1. User enters date.
+2. docX shows a list of all the available time slots of all the doctors on a particular date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no doctors with available time slots on the date.
++
+[none]
+** 1a1. docX shows there are no available doctors and suggests the nearest date with doctors who are available.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Add a Prescription
+
+*MSS*
+
+1. User enters the prescription details, patient ID and medical history ID.
+2. docX shows the prescription created for the associated patient ID and medical history ID.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient ID or medical history ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid patient ID/medical history ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Edit an Existing Prescription
+
+*MSS*
+
+1. User enters the new prescription detail and prescription ID.
+2. docX shows the new details for that prescription.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The prescription ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid prescription ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Delete an Existing Prescription
+
+*MSS*
+
+1. User enters the prescription ID to be deleted.
+2. docX shows the prescription is deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The prescription ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid prescription ID.
++
+Use case resumes at step 1.
+
 
 _{More to be added}_
 
@@ -879,7 +1373,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 patients/doctors without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

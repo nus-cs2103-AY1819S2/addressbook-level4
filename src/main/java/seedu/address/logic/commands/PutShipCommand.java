@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -37,7 +38,7 @@ public class PutShipCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Puts ship in cell that is identified "
             + "by the row number provided by the user. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_COORDINATES + "COORDINATES]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -74,9 +75,7 @@ public class PutShipCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-
         Cell cellToEdit = lastShownList.get(index.getZeroBased());
-
 
         if (cellToEdit.hasBattleShip()) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
@@ -84,7 +83,6 @@ public class PutShipCommand extends Command {
             EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
             editPersonDescriptor.setName(battleship.getName());
             editPersonDescriptor.setBattleship(battleship);
-
             try {
                 Cell cellToUpdate = createEditedPerson(cellToEdit, editPersonDescriptor);
                 model.setPerson(cellToEdit, cellToUpdate);
@@ -93,7 +91,7 @@ public class PutShipCommand extends Command {
             }
         }
 
-        model.updateFilteredPersonList(x -> true);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
     }

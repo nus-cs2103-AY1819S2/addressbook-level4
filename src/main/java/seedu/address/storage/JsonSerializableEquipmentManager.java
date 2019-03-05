@@ -21,7 +21,7 @@ class JsonSerializableEquipmentManager {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate equipment(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedEquipment> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableEquipmentManager} with the given persons.
@@ -29,7 +29,7 @@ class JsonSerializableEquipmentManager {
     @JsonCreator
 
 
-    public JsonSerializableEquipmentManager(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableEquipmentManager(@JsonProperty("persons") List<JsonAdaptedEquipment> persons) {
         this.persons.addAll(persons);
     }
 
@@ -39,7 +39,7 @@ class JsonSerializableEquipmentManager {
      * @param source future changes to this will not affect the created {@code JsonSerializableEquipmentManager}.
      */
     public JsonSerializableEquipmentManager(ReadOnlyEquipmentManager source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getPersonList().stream().map(JsonAdaptedEquipment::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,8 +49,8 @@ class JsonSerializableEquipmentManager {
      */
     public EquipmentManager toModelType() throws IllegalValueException {
         EquipmentManager equipmentManager = new EquipmentManager();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Equipment equipment = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedEquipment jsonAdaptedEquipment : persons) {
+            Equipment equipment = jsonAdaptedEquipment.toModelType();
             if (equipmentManager.hasPerson(equipment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }

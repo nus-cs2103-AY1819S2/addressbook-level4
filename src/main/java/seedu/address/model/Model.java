@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
@@ -133,4 +134,9 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Clears asset folder
+     */
+    void clearAssetFolder(File directory);
 }

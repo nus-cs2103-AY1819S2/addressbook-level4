@@ -60,7 +60,7 @@ public class EquipmentListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of persons in {@code EquipmentListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -75,7 +75,7 @@ public class EquipmentListPanelTest extends GuiUnitTest {
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * {@code EquipmentListPanel}.
      */
     private ObservableList<Equipment> createBackingList(int personCount) {
         ObservableList<Equipment> backingList = FXCollections.observableArrayList();
@@ -91,15 +91,15 @@ public class EquipmentListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code equipmentListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code equipmentListPanelHandle} with a {@code EquipmentListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code EquipmentListPanel}.
      */
     private void initUi(ObservableList<Equipment> backingList) {
-        PersonListPanel personListPanel =
-                new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
-        uiPartRule.setUiPart(personListPanel);
+        EquipmentListPanel equipmentListPanel =
+                new EquipmentListPanel(backingList, selectedPerson, selectedPerson::set);
+        uiPartRule.setUiPart(equipmentListPanel);
 
-        equipmentListPanelHandle = new EquipmentListPanelHandle(getChildNode(personListPanel.getRoot(),
+        equipmentListPanelHandle = new EquipmentListPanelHandle(getChildNode(equipmentListPanel.getRoot(),
                 EquipmentListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

@@ -61,7 +61,7 @@ Format: `help`
 === Adding a customer : `addcustomer`, `addc`, `ac`
 
 Effect: Adds a customer to the customer database. +
-Format: `{addcustomer/addc/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+Format: `{addcustomer/addc/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -79,7 +79,7 @@ Format: `{listcustomers/listc/lc}`
 === Editing a customer : `editcustomer`, `editc`, `ec`
 
 Effect: Edits the fields of an existing customer in the customer database. +
-Format: `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+Format: `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
 
 ****
 * Edits the customer at the specified INDEX. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
@@ -368,9 +368,9 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Help* : `help`
-* *Add Customer* : `{addcustomer/addc/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+* *Add Customer* : `{addcustomer/addc/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL]  [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
 * *List Customers* : `{listcustomers/listc/lc}`
-* *Edit Customer* : `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+* *Edit Customer* : `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
 * *Find Customer by name* : `{findname/findn/fn} KEYWORD [MORE_KEYWORDS]`
 * *Delete Customer* : `deletecustomer INDEX` +
 * *Add booking* : `{addbooking/addb/ab} r/ROOM_TYPE d/START_DATE-END_DATE i/INDEX_OF_CUSTOMER [i/MORE_INDICIES]… [c/COMMENTS]`

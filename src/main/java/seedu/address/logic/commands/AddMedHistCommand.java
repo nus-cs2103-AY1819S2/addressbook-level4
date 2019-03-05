@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.medicalHistory.MedicalHistory;
+import seedu.address.model.medicalhistory.MedicalHistory;
 
 /**
  * Adds a medical history.

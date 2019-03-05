@@ -14,6 +14,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.School;
@@ -32,6 +33,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String school;
     private final String major;
+    private final List<JsonAdaptedPastJob> pastjobed = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -41,7 +43,8 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("school") String school, @JsonProperty("major") String major,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("pastjobed") List<JsonAdaptedPastJob> pastjobed,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
 
         this.name = name;
         this.phone = phone;
@@ -49,6 +52,9 @@ class JsonAdaptedPerson {
         this.address = address;
         this.school = school;
         this.major = major;
+        if (pastjobed != null) {
+            this.pastjobed.addAll(pastjobed);
+        }
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -64,6 +70,9 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         school = source.getSchool().value;
         major = source.getMajor().value;
+        pastjobed.addAll(source.getPastJobs().stream()
+                .map(JsonAdaptedPastJob::new)
+                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -76,8 +85,12 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final List<PastJob> personPastJobs = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+        for (JsonAdaptedPastJob pastjob : pastjobed) {
+            personPastJobs.add(pastjob.toModelType());
         }
 
         if (name == null) {
@@ -127,9 +140,10 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Major.MESSAGE_CONSTRAINTS);
         }
         final Major modelMajor = new Major(major);
-
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSchool, modelMajor, modelTags);
+        final Set<PastJob> modelPastJobs = new HashSet<>(personPastJobs);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+            modelSchool, modelMajor, modelPastJobs, modelTags);
     }
 
 }

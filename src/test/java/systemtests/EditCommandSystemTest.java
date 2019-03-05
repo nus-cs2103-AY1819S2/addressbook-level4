@@ -18,6 +18,7 @@ import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_PROFESSOR;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_AMY;
@@ -27,6 +28,8 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PASTJOB_PROFESSSOR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PASTJOB_SDE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -71,7 +74,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
                 + SCHOOL_DESC_BOB + "  " + MAJOR_DESC_BOB + "  " + TAG_DESC_HUSBAND + " ";
-        Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Person editedPerson = new PersonBuilder(BOB).withPastJobs(VALID_PASTJOB_SDE)
+                .withPastJobs(VALID_PASTJOB_PROFESSSOR).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: undo editing the last person in the list -> last person restored */
@@ -95,7 +99,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + PASTJOB_DESC_PROFESSOR;
         editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 

@@ -1,12 +1,12 @@
 package seedu.address.model;
 
+import java.util.List;
+
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.UniqueCardList;
-
-import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 

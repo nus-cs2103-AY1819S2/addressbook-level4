@@ -9,11 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
-import seedu.address.model.person.Person;
 
 /**
  * An Immutable TopDeck that is serializable to JSON format.

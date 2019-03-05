@@ -67,8 +67,7 @@ public interface Logic {
     /**
      * Sets the selected card in the filtered card list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
-     * @param card
+     * @see seedu.address.model.Model#setSelectedCard(Card)
      */
     void setSelectedCard(Card card);
 }

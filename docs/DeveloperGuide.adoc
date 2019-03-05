@@ -861,62 +861,61 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1. User enter select command followed by search criteria
-2. Quickdocs show prompt that indicates to user that he or she is currently editing a consultation report
-3. User enter symptoms
-4. Quickdocs indicate to user that the symptom is recorded
-5. User enters “end”
-6. Quickdocs shows prompt to indicate user that he or she is now editing the prescription for this session.
-7. User enter medicine administered followed by frequency of use
-8. Quickdocs indicate to user medicine is added
-9. User enters end
-10. Quickdocs indicate to user that the consultation has ended.
+1. User enter consultation command followed by NRIC
+2. Quickdocs show prompt that indicates to user that consultation for that patient started
+3. User enter diagnosis command with symptoms and assessment
+4. Quickdocs indicate to user that the symptoms and assessment are recorded
+5. User enter prescription command with medicine and quantity
+6. Quickdocs indicate to user the medicine and quantity to be administered for current patient
+7. User enter end consultation command
+8. Quickdocs indicate that consultation for current patient ended
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. User enter invalid index
+* 1a. User enter invalid NRIC
 [none]
-** 1a1. Quickdocs alert user that the index is invalid
+** 1a1. Quickdocs alert user that no patient with entered NRIC exist to start a consultation session with
 +
 Use case ends here.
 [none]
-* 1b. No patient records created yet
+* 3a. User left out symptoms or assessment when diagnosis patient
 [none]
-** 1b1. Quickdocs alert user that no patient is created yet, suggest to create a new patient record first
+** 3a1. Quickdocs alert user that some details are left out and prompt user to modify command
++
+Use case resumes from step 3.
+[none]
+* 5a. User left out quantities for certain medicine
+[none]
+** 5a1.  Quickdocs alert user that some medicine do not have quantities and prompt them to reenter command
++
+Use case resumes from step 5.
++
+[none]
+* 5b. User left out quantities for certain medicine
+[none]
+** 5b1.  Quickdocs alert user that additional quantities are provided and prompt user to reenter command
++
+Use case resumes from step 5.
++
+[none]
+* 7a. User end consultation when diagnosis is not completed
+[none]
+** 7a1.  Quickdocs alert user that the session is missing a diagnosis
+** 7a2.  User will resume perform step 3 and 4 since they were skipped
 +
 Use case ends here.
-[none]
-* 1c. User enter a patient’s name that is unique in the storage
-+
-Use case resumes from step 1.
-[none]
-* 1d. User enter a non unique patient’s name
-[none]
-** 1d1.  Quickdocs show list of patients with the same name, and prompt index
-** 1d2.  User refine search criteria, either by entering index or full name of the patient
-+
-Use case resumes from step 1.
-[none]
-
-* 3a. User enter “undo”
 +
 [none]
-** 3a1. Quickdocs display message to user that last symptom added is undone.
-** 3a2. Quickdocs prompts user to reenter symptom.
-** 3a3. User re-enter symptom
-+
-Use case resumes at step 3.
+* 7b. User end consultation when prescription is not given
 [none]
-* 7a. User enters “undo”
-[none]
-** 7a1. Quickdocs display message to user that last prescribed medicine is removed.
-** 7a2. Quickdocs prompts user to reenter medicine.
-** 7a3. User re-enter medicine
+** 7b1.  Quickdocs alert user that the session is missing a prescription
+** 7b2.  User will resume perform step 5 and 6 since they were skipped
 +
-Use case resumes at step 7.
+Use case ends here.
++
 
 [discrete]
 === Use case: View patient medical record

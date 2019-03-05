@@ -32,10 +32,10 @@ class StatisticsCommandTest {
     private Record record2;
     private Clock clock;
 
-    @BeforeEach
     /**
      * Initializer for all the test cases
      */
+    @BeforeEach
     void init() {
         String topic = "all";
         record1 = new ConsultationRecord(new Prescription("test", 1));

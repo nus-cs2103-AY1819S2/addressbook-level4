@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,6 +33,8 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.record.RecordManager;
+import seedu.address.model.record.Statistics;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.tag.Tag;
@@ -57,6 +60,7 @@ public class ModelManager implements Model {
     private final ConsultationManager consultationManager;
     private final AppointmentManager appointmentManager;
     private final ReminderManager reminderManager;
+    private final RecordManager recordManager;
 
 
     /**
@@ -77,6 +81,7 @@ public class ModelManager implements Model {
         this.consultationManager = new ConsultationManager();
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
+        this.recordManager = new RecordManager();
         iniQuickDocs();
     }
 
@@ -464,5 +469,10 @@ public class ModelManager implements Model {
 
     public String listRem() {
         return reminderManager.list();
+    }
+
+    //==========Record module================================================================================
+    public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
+        return recordManager.getStatistics(topic, from, to);
     }
 }

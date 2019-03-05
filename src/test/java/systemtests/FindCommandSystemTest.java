@@ -3,6 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.LAYER;
 import static seedu.address.testutil.TypicalCards.NO_TAG;
@@ -42,8 +43,8 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find card where card list is not displaying the card we are finding -> 1 card found */
-        command = FindCommand.COMMAND_WORD + " tag";
-        ModelHelper.setFilteredList(expectedModel, NO_TAG);
+        command = FindCommand.COMMAND_WORD + " Hello?";
+        ModelHelper.setFilteredList(expectedModel, HELLO_WORLD);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

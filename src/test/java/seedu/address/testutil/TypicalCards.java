@@ -35,6 +35,9 @@ public class TypicalCards {
     public static final Card TRANSPORT = new CardBuilder().withQuestion("What transport does HTTP use?")
             .withAnswer("TCP").withTags("CS2105").build();
 
+    public static final Card OK_STATUS = new CardBuilder().withQuestion("What is the status code for OK in HTTP?")
+            .withAnswer("200").withTags("CS2105").build();
+
     public static final String KEYWORD_MATCHING_HTTP = "HTTP";
 
     private TypicalCards() {} // prevents instantiation
@@ -53,7 +56,7 @@ public class TypicalCards {
 
     public static List<Card> getTypicalCards() {
         //The cards must start with different words
-        return new ArrayList<>(Arrays.asList(ADDITION, NO_TAG, LAYER, HELLO_WORLD));
+        return new ArrayList<>(Arrays.asList(ADDITION, DIVISION, NO_TAG, LAYER, OK_STATUS, HELLO_WORLD));
     }
 
 }

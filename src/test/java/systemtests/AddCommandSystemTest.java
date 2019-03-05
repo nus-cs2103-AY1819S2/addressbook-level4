@@ -67,13 +67,6 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
                 + TAG_DESC_MATH;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a card with question same as another card in the deck but different answer
-         * -> added
-         */
-        toAdd = new CardBuilder(DIVISION).withAnswer(VALID_ANSWER_ADDITION).build();
-        command = CardUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add to empty address book -> added */
         deleteAllCards();
         assertCommandSuccess(ADDITION);
@@ -104,7 +97,7 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
         command = CardUtil.getAddCommand(NO_TAG);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: add a duplicate card except with different phone -> rejected */
+        /* Case: add a duplicate card except with different answer -> rejected */
         toAdd = new CardBuilder(NO_TAG).withAnswer(VALID_ANSWER_ADDITION).build();
         command = CardUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);

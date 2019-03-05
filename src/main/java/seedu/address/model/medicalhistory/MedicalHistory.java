@@ -1,4 +1,4 @@
-package seedu.address.model.medicalHistory;
+package seedu.address.model.medicalhistory;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
@@ -22,7 +22,7 @@ public class MedicalHistory {
     private Date time;
     */
     //Constructor
-    public MedicalHistory(/*Patient patient, Doctor doctor, */Patient patient, Name name, WriteUp writeUp /* Date time*/) {
+    public MedicalHistory(/*Doctor doctor, */Patient patient, Name name, WriteUp writeUp /* Date time*/) {
         /*
         this.patient = patient;
         this.doctor = doctor;

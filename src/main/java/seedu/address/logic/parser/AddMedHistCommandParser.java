@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.medicalHistory.MedicalHistory;
-import seedu.address.model.medicalHistory.WriteUp;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 

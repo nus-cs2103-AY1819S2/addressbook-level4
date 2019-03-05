@@ -33,7 +33,8 @@ public class MapPanelTest extends GuiUnitTest {
 
         // associated web page of a person
         guiRobot.interact(() -> selectedPerson.set(ALICE));
-        //Before: URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        //Before: URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL +
+        //ALICE.getName().fullName.replaceAll(" ", "%20"));
 
         URL expectedPersonUrl = new URL(MapPanel.GOOGLE_MAPS_URL);
         waitUntilBrowserLoaded(mapPanelHandle);

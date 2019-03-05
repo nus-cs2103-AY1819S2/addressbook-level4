@@ -24,11 +24,11 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
-    private final String name;
-    private final String phone;
-    private final String email;
-    private final String address;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    final String name;
+    final String phone;
+    final String email;
+    final String address;
+    final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.

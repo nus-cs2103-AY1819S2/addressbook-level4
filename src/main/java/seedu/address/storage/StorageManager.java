@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -19,12 +20,21 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private RequestBookStorage requestBookStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefStorage,
+                          RequestBookStorage requestBookStorage) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefStorage;
+        this.requestBookStorage = requestBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -50,6 +60,36 @@ public class StorageManager implements Storage {
     @Override
     public Path getAddressBookFilePath() {
         return addressBookStorage.getAddressBookFilePath();
+    }
+
+    /**
+     * Returns the file path of the data file.
+     */
+    @Override
+    public Path getRequestBookFilePath() {
+        return requestBookStorage.getRequestBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyRequestBook> readRequestBook() throws DataConversionException, IOException {
+        return readRequestBook(requestBookStorage.getRequestBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyRequestBook> readRequestBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return requestBookStorage.readRequestBook(filePath);
+    }
+
+    @Override
+    public void saveRequestBook(ReadOnlyRequestBook requestBook) throws IOException {
+        saveRequestBook(requestBook, requestBookStorage.getRequestBookFilePath());
+    }
+
+    @Override
+    public void saveRequestBook(ReadOnlyRequestBook readOnlyRequestBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        requestBookStorage.saveRequestBook(readOnlyRequestBook, filePath);
     }
 
     @Override

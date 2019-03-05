@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import seedu.address.model.person.Nric;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
@@ -83,7 +84,8 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Person person = new Person(name, phone, email, address, Collections.emptySet());
+            Nric nric = new Nric("S1234567A");
+            Person person = new Person(name, phone, email, nric, address, Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

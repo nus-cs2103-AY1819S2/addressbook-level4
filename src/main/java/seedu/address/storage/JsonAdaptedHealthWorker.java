@@ -114,12 +114,12 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
                     Organization.class.getSimpleName()));
         }
 
-        final Organization modelOrganisation = new Organization(organization);
-
         if (!Organization.isValidOrgName(organization)) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Organization.class.getSimpleName()));
         }
+
+        final Organization modelOrganisation = new Organization(organization);
 
         if (skills == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Skills.class.getSimpleName()));

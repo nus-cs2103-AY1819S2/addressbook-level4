@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -238,6 +239,16 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+    }
+
+    @Override
+    public void clearAssetFolder(File dir) {
+        for (File file: dir.listFiles()) {
+            if (file.getName().equals("sample.png")) {
+                continue;
+            }
+            file.delete();
+        }
     }
 
 }

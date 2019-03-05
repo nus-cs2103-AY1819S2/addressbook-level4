@@ -71,6 +71,11 @@ Format: `addfolder FOLDER_NAME`
 Removes the flashcard folder specified by index. +
 Format: `removefolder FOLDER_INDEX`
 
+=== Report user performance for folder : `report`
+
+Displays user performance on the right panel for the folder specified by index. +
+Format: `report FOLDER_INDEX`
+
 === Enter folder : `change`
 
 Changes to the folder specified by index. +

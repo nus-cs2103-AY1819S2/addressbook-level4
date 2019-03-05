@@ -856,7 +856,7 @@ _{More to be added}_
 (For all use cases below, the *System* is `RestOrRant` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Changing to Restaurant Mode
+=== Use case: Switching to Restaurant Mode
 
 *MSS*
 
@@ -866,7 +866,6 @@ _{More to be added}_
 User case ends.
 
 *Extensions*
-
 [none]
 * 2a. The program is already in Restaurant Mode.
 +
@@ -876,14 +875,34 @@ User case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Switching to Menu Mode
+
+*MSS*
+
+1. User enters the menuMode command to switch mode to menu mode
+2. RestOrRant Program changes the UI to show the menu in the list panel, and allows addToMenu command.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The program mode is already in Menu Mode.
++
+[none]
+** 1a1. RestOrRant Program returns an message that program is already in menu mode.
++
+Use case ends.
+
+
+[discrete]
 === Use case: Adding tables to the RestOrRant Program
 
 *MSS*
 
 1. User enters command to add a table to the restaurant
 2. RestOrRant Program returns success message that the table is added, providing the table number and table status.
-+
-Use case ends.
+
+[discrete]
 
 [discrete]
 === Use case: Checking for available tableList
@@ -928,7 +947,7 @@ Use case resumes from step 2.
 [discrete]
 === Use case: Adding Items to Menu
 
-*Preconditions:* Item to be added cannot exist in the menu.
+*Preconditions:* Program mode should be in Menu Mode. Item to be added cannot exist in the menu.
 
 *MSS*
 

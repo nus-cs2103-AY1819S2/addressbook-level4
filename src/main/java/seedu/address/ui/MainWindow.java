@@ -114,7 +114,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-
     public void fillInnerParts() {
         // TODO: set restaurant mode defaults
         tableFlowPanel = new TableFlowPanel(logic.getRestOrRant().getTables().getTableList(),
@@ -202,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case TABLE_MODE:
-            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty()); // TODO: change to app logo
+            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
             browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
 
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),

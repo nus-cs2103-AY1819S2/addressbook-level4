@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Item prices should be in the format <double digit integer><.><double digit integer>" +
+            "Item prices should be in the format <integer><.><double digit integer>" +
                     ", and it should not be blank";
 
     /*
@@ -15,7 +15,7 @@ public class Price {
      * None of the characters must contain alphabets or symbols (except the period)
      * else is not a valid price input.
      */
-    public static final String VALIDATION_REGEX = "[0-9][0-9].[0-9][0-9]";
+    public static final String VALIDATION_REGEX = "(\\d+\\.\\d{1,2})";
 
     public final String itemPrice;
 

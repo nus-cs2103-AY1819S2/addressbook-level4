@@ -5,10 +5,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLENUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
+
+import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
@@ -25,6 +28,13 @@ public class BillCommand extends Command {
     public static final String COMMAND_WORD = "bill";
     public static final String COMMAND_ALIAS = "b";
 
+    private final TableNumber tableNumber;
+    private Table toBill;
+    private static Bill bill;
+    private final Day day;
+    private final Month month;
+    private final Year year;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the Bill for a Table. "
             + "Parameters: "
             + PREFIX_TABLENUMBER + "TABLE NUMBER "
@@ -37,11 +47,9 @@ public class BillCommand extends Command {
             + PREFIX_MONTH + "12 "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Bill Calculated: %1$s";
+    public static final String MESSAGE_SUCCESS = "Bill Calculated: $" + bill.getTotalBill();
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
-
-    //private final Table toBill;
-    private Bill bill;
+    public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
 
     /**
      * Creates a BillCommand to find the total bill of the specified {@code Table}
@@ -51,26 +59,43 @@ public class BillCommand extends Command {
         requireNonNull(day);
         requireNonNull(month);
         requireNonNull(year);
-        // toBill = Table.getTableFromNumber(tableNumber);
+        this.tableNumber = tableNumber;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        toBill = model.getSelectedTable();
 
-        //if (!model.hasTable(toBill)) {
-        //    throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
-        //}
+        if (!model.hasTable(toBill)) {
+            throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
+        }
 
-        //bill = calculateBill(toBill);
+        if (!tableNumber.equals(toBill.getTableNumber())) {
+            throw new CommandException(MESSAGE_TABLE_MISMATCH);
+        }
+
+        ObservableList<OrderItem> orderItemList = model.getFilteredOrderItemList();
+
+        bill = calculateBill(toBill, orderItemList);
+
         model.updateRestOrRant();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }
-    /**
-    Bill calculateBill(Table table) {
-        Bill bill = new Bill(table.getTableNumber(), );
-        return 
-    }
-     **/
 
+    private Bill calculateBill(Table table, ObservableList<OrderItem> orderItemList) {
+        Bill bill = new Bill(table, orderItemList, day, month, year);
+        bill.calculateBill();
+        return bill;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BillCommand // instanceof handles nulls
+                && toBill.equals(((BillCommand) other).toBill));
+    }
 }

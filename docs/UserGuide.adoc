@@ -85,6 +85,15 @@ Examples:
 * `tableMode` 2 +
 Switches to Table Mode for table 2 and displays the list of order items from table 2.
 
+=== Switching to Menu Mode : `menuMode`
+
+Changes RestOrRant to Menu Mode in order to edit the menu.
+Format: `menuMode`
+
+****
+* RestOrRant should not already be in Menu Mode.
+****
+
 === Adding tableList : `addTables`
 
 Adds tableList to the restaurant. +
@@ -244,6 +253,11 @@ Format: `printMenu`
 Adds the specified item to the menu. +
 Format: `addToMenu ITEM_CODE ITEM_NAME ITEM_PRICE`
 
+****
+* RestOrRant has to be in Mable Mode to use this command (can switch using `menuMode`).
+* Item code, name and price must be valid (follow the format specified).
+****
+
 Examples:
 
 * `addToMenu c/A02 n/French Fries p/2.00` +
@@ -272,11 +286,16 @@ Checks if item with code A02 exists in the menu.
 === Calculating the bill of an order : `bill`
 
 Calculates the bill of an order from the specified table. +
-Format: `bill TABLE_NUMBER`
+Format: `bill TABLE_NUMBER YEAR MONTH DAY`
+
+****
+* Only works in TableMode.
+* `YEAR`, `MONTH`, `DAY` has to be valid.
+****
 
 Examples:
 
-* `bill 1` +
+* `bill tn/1 y/2019 m/12 d/30` +
 Returns the total price of the order from table 1.
 
 === Getting the most popular item ordered: `getMostPopularItem`
@@ -304,11 +323,11 @@ Examples:
 
 * `getTotalCustomers` +
 Returns the total number of customers of the current day `21`
-* `getTotalCustomers 2019 01 01` +
+* `getTotalCustomers y/2019 m/01 d/01` +
 Returns the total number of customers on the specific day 01/01/2019 `21`
-* `getTotalCustomers 2019 02` +
+* `getTotalCustomers y/2019 m/02` +
 Returns the total number of customers of the month February 2019 `600`
-* `getTotalCustomers 2019` +
+* `getTotalCustomers y/2019` +
 Returns the total number of customers of the year 2019 `1200`
 
 === Getting the total revenue : `getTotalRevenue`
@@ -326,11 +345,11 @@ Examples:
 
 * `getTotalRevenue` +
 Returns the total revenue of the current day `$45`
-* `getTotalCustomers 2019 01 01` +
+* `getTotalCustomers y/2019 m/01 d/01` +
 Returns the total revenue on the specific day 01/01/2019 `$45`
-* `getTotalCustomers 2019 02` +
+* `getTotalCustomers y/2019 m/02` +
 Returns the total revenue of the month February 2019 `$7000`
-* `getTotalCustomers 2019` +
+* `getTotalCustomers y/2019` +
 Returns the total revenue of the year 2019 `15000`
 
 === Getting all the statistics : `getStatistics`

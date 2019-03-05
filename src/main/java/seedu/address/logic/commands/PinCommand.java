@@ -40,8 +40,6 @@ public class PinCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
         Person personToPin = lastShownList.get(targetIndex.getZeroBased());
 
-        model.pinPerson(personToPin);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_PIN_PERSON_SUCCESS, personToPin));
     }
 }

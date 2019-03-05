@@ -167,6 +167,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
+    /**
+     * Returns an unmodifiable view of the healthworkers list.
+     * This list will not contain any duplicate healthworkers
+     */
+    public ObservableList<HealthWorker> getHealthWorkerList() {
+        return healthWorkers.asUnmodifiableObservableList();
+    }
 
     @Override
     public String toString() {

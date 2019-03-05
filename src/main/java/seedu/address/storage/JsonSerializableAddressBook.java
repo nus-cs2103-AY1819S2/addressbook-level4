@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,6 +25,7 @@ class JsonSerializableAddressBook {
 
     private static HashMap<String, Person> personHashMap = new HashMap<>();
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+//    private final List<JsonAdaptedHealthWorker> healthWorkers = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -40,6 +42,8 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+//        healthWorkers.addAll(source.getHealthWorkerList().stream()
+//                .map(JsonAdaptedHealthWorker::new).collect(Collectors.toList()));
     }
 
     /**
@@ -57,6 +61,12 @@ class JsonSerializableAddressBook {
             addressBook.addPerson(person);
             personHashMap.put(person.getNric().toString(), person);
         }
+//        for (JsonAdaptedHealthWorker jsonAdaptedHealthWorker: healthWorkers) {
+//            HealthWorker healthWorker = jsonAdaptedHealthWorker.toModelType();
+//            if (addressBook.hasHealthWorker(healthWorker)) {
+//                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+//            }
+//        }
         return addressBook;
     }
 

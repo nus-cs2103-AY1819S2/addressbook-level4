@@ -31,11 +31,14 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  The application has three modes: Restaurant Mode, Table Mode and Menu Mode. RestOrRant starts in Restaurant Mode by default. You can switch between the modes using the *`xxxMode` commands. Each mode comes with a set of commands to perform mode-specific operations.
 .  Some example commands you can try:
 
-* *`list`* : lists all tableList
-* **`addTables`**`1 2 3` : adds 3 tableList of size1, 2 and 3 respectively in the restaurant.
-* **`removeTables`**`3` : deletes the table with the table number 3.
+* *`addTables 2 1 4`* (in Restaurant Mode): adds 3 tables to the restaurant with 2, 1 and 4 seats respectively.
+* *`menuMode`: switches RestOrRant to Menu Mode and displays the list of menu items for the restaurant.
+* *`addToMenu c/W09 n/Chicken Wings p/12.50`* (in Menu Mode): adds a new item "W09 Chicken Wings - $12.50" to the menu.
+* *`tableMode 2`*: switches RestOrRant to Table Mode for the table with table number 2 and displays the list of order items for table 2.
+* *`addToOrder W09 1`* (in Table Mode): adds an order of 1x W09 to table 2.
 * *`exit`* : exits the application.
 
 .  Refer to <<Features>> for details of each command.
@@ -54,6 +57,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 
 Format: `help`
+
+=== Switching to Table Mode : `tableMode`
+
+Changes RestOrRant to Table Mode for the table given by the specified table number and displays the list of order items from that table.
+Format: `tableMode TABLE_NUMBER`
+
+****
+* The table with the specified table number must already exist in the restaurant (can be created in Restaurant Mode).
+****
+
+Examples:
+
+* `tableMode` 2 +
+Switches to Table Mode for table 2 and displays the list of order items from table 2.
 
 === Adding tableList : `addTables`
 
@@ -99,21 +116,22 @@ Examples:
 
 * `removeTable 3`
 
-=== Adding an item to an order: `addToOrder`
+=== Adding item(s) to an order: `addToOrder`
 
-Adds the specified item to the order of the specified table and displays the new order list. +
-Format: `addToOrder TABLE_NUMBER ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…`
+Adds the specified item(s) to the order of the current selected table and displays the new list of order items. +
+Format: `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…`
 
 ****
-* Item has to exist in the menu (i.e. item code has to be valid).
+* RestOrRant has to be in Table Mode to use this command (can switch using `tableMode`).
+* Item has to exist in the menu, i.e. item code has to be valid (can be created in Menu Mode).
 * If the item is already in the order, the quantity for that item is increased.
 * There is no limit to the number of items added.
 ****
 
 Examples:
 
-* `addToOrder 1 W09 2`
-* `addToOrder 5 W09 1 N01 1 C04 2`
+* `addToOrder W09 2`
+* `addToOrder W09 1 N01 1 C04 2`
 
 === Adding a note to an item in an order: `addNote`
 
@@ -144,22 +162,6 @@ Examples:
 Deletes all W09 Chicken Wings from table 1’s order.
 * `deleteFromOrder 1 W09 1` +
 Reduces the quantity of W09 Chicken Wings by 1 in table 1’s order.
-
-=== Viewing all the items in an order: `viewOrder`
-
-Shows a list of items ordered by the specified table. +
-Format: `viewOrder TABLE_NUMBER`
-
-Examples:
-
-* `viewOrder 1` +
-Returns +
-`----------------------------------------` +
-`Order from Table 1` +
-`----------------------------------------` +
-`1. W09 Chicken Wings [1/2 served]` +
-  `Less spicy` +
-`2. A02 French Fries [0/1 served]`
 
 === Clearing all the items in an order: `clearOrder`
 

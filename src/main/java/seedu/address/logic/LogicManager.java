@@ -60,6 +60,7 @@ public class LogicManager implements Logic {
         modeModified = false;
         menuModified = false;
         ordersModified = false;
+        tablesModified = false;
 
         CommandResult commandResult;
         try {
@@ -67,6 +68,11 @@ public class LogicManager implements Logic {
             commandResult = command.execute(mode, model, history);
         } finally {
             history.add(commandText);
+        }
+        
+        if (modeModified) {
+            logger.info("Application mode modified, changing UI");
+            changeMode(commandResult.newModeStatus());
         }
 
         if (menuModified) {
@@ -96,36 +102,19 @@ public class LogicManager implements Logic {
             }
         }
 
-        if (modeModified) {
-            logger.info("Application mode modified, changing UI");
-            changeMode(commandResult.newModeStatus());
-        }
-
-        if (ordersModified) {
-            logger.info("Orders modified, saving to file.");
-            try {
-                storage.saveOrders(model.getRestOrRant().getOrders());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
-        }
-
         return commandResult;
     }
 
     @Override
     public void changeMode(Mode mode) {
         this.mode = mode;
-    }
+    } // TODO: add defensive check? mode may be null if mode listener is accidentally triggered
 
     @Override
     public ReadOnlyRestOrRant getRestOrRant() {
         return model.getRestOrRant();
     }
-    //    public ReadOnlyRestOrRant getAddressBook() {
-    //        return model.getRestOrRant();
-    //    }
-
+  
     @Override
     public ObservableList<MenuItem> getFilteredMenuItemList() {
         return model.getFilteredMenuItemList();

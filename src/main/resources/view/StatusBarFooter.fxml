@@ -9,5 +9,5 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10" halignment="RIGHT" />
   </columnConstraints>
   <Label fx:id="syncStatus" />
-  <Label fx:id="saveLocationStatus" GridPane.columnIndex="1" />
+  <Label fx:id="currentMode" GridPane.columnIndex="1" />
 </GridPane>

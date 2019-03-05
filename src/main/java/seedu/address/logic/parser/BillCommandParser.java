@@ -10,11 +10,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Statistics.Bill;
-import seedu.address.model.Statistics.Day;
-import seedu.address.model.Statistics.Month;
-import seedu.address.model.Statistics.Year;
-import seedu.address.model.table.Table;
+import seedu.address.model.statistics.Day;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Year;
 import seedu.address.model.table.TableNumber;
 
 /**

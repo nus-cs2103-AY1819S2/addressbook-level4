@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Statistics.Bill;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.Table;
@@ -19,8 +19,6 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<MenuItem> PREDICATE_SHOW_ALL_MENU_ITEMS = unused -> true;
     Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
-
-    /** {@code Predicate} that always evaluate to true */
     Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
 
     /**
@@ -59,7 +57,7 @@ public interface Model {
     Path getTablesFilePath();
 
     /**
-     * Returns the user prefs' Statistics file path.
+     * Returns the user prefs' statistics file path.
      */
     Path getStatisticsFilePath();
 
@@ -75,7 +73,7 @@ public interface Model {
     // TODO: add set file path for each feature
 
     /**
-     * Sets the user pref's Statistics file path.
+     * Sets the user pref's statistics file path.
      */
     void setStatisticsFilePath(Path statisticsFilePath);
 

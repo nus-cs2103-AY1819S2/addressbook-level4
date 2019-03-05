@@ -34,8 +34,8 @@ class JsonAdaptedTable {
      * Converts a given {@code MenuItem} into this class for Jackson use.
      */
     public JsonAdaptedTable(Table table) {
-        tableNumber = table.getTableNumber();
-        tableStatus = table.getTableStatus().toString();
+        tableNumber = table.getTableNumber().toString();
+        tableStatus = table.getTableStatus().numberOfSeats;
     }
 
     /**

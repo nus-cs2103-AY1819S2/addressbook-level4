@@ -216,30 +216,17 @@ Sends an auto-email reminder to patients regarding an approaching appointment da
 
 Views the statistics of the clinic. +
 Alias: `stats` +
-Format: `statistics [TOPIC] [FROM_MONTH] [TO_MONTH] [FROM_YEAR] [TO_YEAR] [GRAPHICAL]`
+Format: `statistics TOPIC FROM_MONTHYEAR [TO_MONTHYEAR]`
 
-* If there are no optional arguments, the application will prompt the user for each of them. +
-* Views the statistics of the topic specified at `TOPIC`. Allowed arguments: `patients`, `revenue`, `expenditures`, `profits`, `medicines`.  +
-* If `FROM_MONTH` or `TO_MONTH` are not specified, it will be defaulted to current month. +
-* If `FROM_YEAR` or `TO_YEAR` are not specified, it will be defaulted to current year. +
-* Options to view the statistics in graphical form if `GRAPHICAL` is specified true. Else, the output will be in text form. +
+* Views the statistics of the topic specified at `TOPIC`. Allowed arguments: `consultations`, `finances`, `all`.  +
+* If `TO_MONTHYEAR` is not specified, it will be defaulted to be equal to `FROM_MONTHYEAR`. +
 
 Examples:
 
-* `statistics` +
-View the prompts for topic, range of date, and display preference. +
-* `statistics all` +
-View all the stats of the current month, current year. +
-* `statistics 1` +
-View all the stats of Jan, current year. +
-* `statistics 1 3` +
-View all the stats from Jan to March of current year. +
-* `statistics medicines 2018 true` +
-View graphical statistics of medicines for the year 2018. +
-* `statistics expenditures Jan 2018 2019` +
-View statistics of expenditures for Jan 2018. +
-* `statistics profits 1 6 2017 2018` +
-View statistics of profit from Jan 2017 to June 2018. +
+* `statistics all 0119` +
+View all the statistics for the January 2019. +
+* `stats finances 0119 0219` +
+View the financial statistics from January 2019 to February 2019. +
 
 === Administration - locking the application: `lock`
 Locks the application, requires the user to login again with the password +
@@ -248,10 +235,6 @@ Format: `lock`
 === Administration - resetting password: `resetpass`
 Resets the password, either from within the application, or lock screen. Authenticated with security question. +
 Format: `RESETPASS`
-
-=== Administration - viewing medical license duration: `license`
-Views the medical license duration +
-Format: `license`
 
 === Administration - generate medical certificate: [coming in V2.0]
 

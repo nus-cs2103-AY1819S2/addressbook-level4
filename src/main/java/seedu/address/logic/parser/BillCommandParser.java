@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.BillCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
@@ -25,7 +26,7 @@ public class BillCommandParser implements Parser<BillCommand> {
      * and returns a BillCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public BillCommand parse(String args) throws ParseException {
+    public BillCommand parse(String args) throws ParseException, CommandException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TABLENUMBER, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR);
 

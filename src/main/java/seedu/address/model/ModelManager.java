@@ -117,7 +117,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void importImage(Image image) {
+    public void displayImage(Image image) {
         Notifier.firePropertyChangeListener("import", null, image.getName());
     }
 

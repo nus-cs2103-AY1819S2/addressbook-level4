@@ -33,7 +33,7 @@ public class OpenCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.importImage(toOpen);
+        model.displayImage(toOpen);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toOpen));
     }
 }

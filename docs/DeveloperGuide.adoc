@@ -817,17 +817,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |student |track the modules I am taking |know what I need to complete my graduation requirement
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |student |add a module for the current semester|
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |delete a module |remove modules that I am not taking
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |student |find a module by name |locate details of modules without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |student |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |student |view pre-requisites for a module |take the pre-requisites ahead of time
+
+|`* *` |student |add my modules in future semesters |plan ahead
+
+|`* *` |student |know my CAP |pull up my CAP
+
+|`*` |student with many modules |sort module by name |locate a module easily
 |=======================================================================
 
 _{More to be added}_
@@ -835,33 +843,143 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `GT` (GradTrak) and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Initialising
+
+Precondition: User uses GT for the first time
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User starts GT.
+2.  GT displays courses.
+3.  GT prompts for user to set choice of course.
+4.  User selects course.
+5.  GT sets choice of course by user.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 4a. User selects course that has specialisation.
++
+[none]
+** 4a1. GT displays specialisation.
+** 4a2. GT prompts user to select specialisation.
+** 4a3. GT sets choice of course and specialisation by user.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Adding to completed list of modules
+
+Precondition: Student has already initialised GT
+
+*MSS*
+
+1.  User enters command to add modules with module code, semester completed and grades.
+2.  System records module code, semester completed and grades.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student enters invalid grade.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. GT prompts user that grade is invalid.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
+
+[none]
+* 1b. Student enters invalid module code.
++
+[none]
+** 1b1. GT prompts user that module code is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. Student enters invalid semester.
++
+[none]
+** 1c1. GT prompts user that semester is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1d. Student enters module that is already in list of completed modules.
++
+[none]
+** 1d1. GT prompts user that there is a repeat of module code.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete module
+
+Precondition: Student has already intialised GT
+
+*MSS*
+
+1.  User enters command to remove modules by giving module code.
+2.  System removes module from list of completed / planned modules.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student enters module code that is correct but not in list of modules completed or planned.
++
+Use case ends.
+
+* 1b. Student enters module code that is wrong.
++
+[none]
+** 1b1. GT shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Modify details of modules taken
+
+*MSS*
+
+1.  User enters command to edit modules indicated by module code and gives grades and semester taken / planning to take.
+2.  System edits relevant details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Module code correct but not in the list of modules completed or planned.
++
+[none]
+** 1a1. GT prompts user that module is not being taken.
++
+Use case ends.
+
+* 1b. Student enters invalid module code.
++
+[none]
+** 1b1. GT shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display module info
+
+*MSS*
+
+1.  Student keys command to find module code or keywords in the title of module.
+2.  System returns module given module code or keywords.
++
+Use case ends.
 
 _{More to be added}_
 

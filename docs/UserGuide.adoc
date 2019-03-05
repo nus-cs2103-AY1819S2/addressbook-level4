@@ -1,4 +1,4 @@
-= social Circle - User Guide
+= slaveFinder() - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-social Circle is for those who *prefer to use a desktop app for managing contacts*. More importantly, social Circle is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, social Circle can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+slaveFinder() is for those who *prefer to use a desktop app for managing contacts*. More importantly, social Circle is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, social Circle can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -59,16 +59,16 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS m/MAJOR c/COMPANY [mo/MOUDLE] [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
-A person can have any number of moudules (including 0)
+* A person can have any number of tags (including 0)
+* A person can have any number of past jobs (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, m/CS c/Amazon #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal m/ME c/Facebook mo/CS2103 mo/CS2105`
+* `add n/John Doe g/Male p/98765432 e/johnd@example.com a/John street, block 123, r/Chinese m/CS s/NUS`
+* `add n/Betsy Crowe g/Polygender p/12345678 t/friend e/betsycrowe@example.com a/Newgate Prison r/Indian p/1234567 t/criminal m/ME s/NTU pj/Hacker`
 
 === Listing all persons : `list`
 
@@ -78,7 +78,7 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/COMPANY] [mo/MOUDLE] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -118,8 +118,8 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Searching persons by personal information: `search`
 
-Searchs persons whose personal information exactly is the given keywords in specific field. +
-Format: `search [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE] [t/TAG]`
+Search persons whose personal information exactly to the given keywords in the specific fields. +
+Format: `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
 
 ****
 * The search is case insensitive. e.g `cs` will match `CS`
@@ -132,8 +132,8 @@ Examples:
 
 * `search m/CS` +
 Returns people whose major is `CS`
-* `search m/CS c/Facebook` +
-Returns any person whose major is `CS` and company is `Facebook`
+* `search m/CS s/NUS` +
+Returns any person whose major is `CS` and school is `NUS`
 
 === Adding tags base on personal information : `addtag`
 
@@ -281,15 +281,20 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665
+g/Male r/Chinese m/MATH s/NUS pj/Professor t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Search* : `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+e.g. `search s/NUS`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +

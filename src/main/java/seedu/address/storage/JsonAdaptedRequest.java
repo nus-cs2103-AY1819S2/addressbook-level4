@@ -30,6 +30,7 @@ class JsonAdaptedRequest {
     private final String requestDate;
     private final List<JsonAdaptedTag> conditions = new ArrayList<>();
     private final JsonAdaptedHealthWorker healthWorker;
+
     private final String requestStatus;
 
     /**
@@ -40,6 +41,7 @@ class JsonAdaptedRequest {
                               @JsonProperty("patient") JsonAdaptedPerson patient,
                               @JsonProperty("requestdate") String requestDate,
                               @JsonProperty("healthstaff") JsonAdaptedHealthWorker healthWorker,
+
                               @JsonProperty("conditions") List<JsonAdaptedTag> conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;
@@ -105,7 +107,6 @@ class JsonAdaptedRequest {
             throw new IllegalValueException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
         }
 
-        final RequestDate modelrequestDate = new RequestDate(this.requestDate);
 
         if (requestStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

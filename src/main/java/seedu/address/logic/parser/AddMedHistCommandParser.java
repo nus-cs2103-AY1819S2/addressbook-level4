@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
 
 import java.util.stream.Stream;
@@ -11,8 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalHistory.MedicalHistory;
 import seedu.address.model.medicalHistory.WriteUp;
 import seedu.address.model.person.Name;
-
-
+import seedu.address.model.person.Patient;
+import seedu.address.model.person.Phone;
 
 
 /**
@@ -34,10 +35,11 @@ public class AddMedHistCommandParser implements Parser<AddMedHistCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedHistCommand.MESSAGE_USAGE));
         }
 
+        Patient patient = null;
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         WriteUp writeUp = ParserUtil.parseWriteUp(argMultimap.getValue(PREFIX_WRITEUP).get());
 
-        MedicalHistory medicalHistory = new MedicalHistory(name, writeUp);
+        MedicalHistory medicalHistory = new MedicalHistory(patient, name, writeUp);
 
         return new AddMedHistCommand(medicalHistory);
     }

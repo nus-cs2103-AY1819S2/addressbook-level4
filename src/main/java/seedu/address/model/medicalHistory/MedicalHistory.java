@@ -1,6 +1,7 @@
 package seedu.address.model.medicalHistory;
 
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Patient;
 
 /**
  * Represents a Medical History in the address book.
@@ -13,6 +14,7 @@ public class MedicalHistory {
     private Patient patient;
     private Doctor doctor;
     */
+    private Patient patient;
     private Name name;
     private WriteUp writeUp;
     /*
@@ -20,13 +22,14 @@ public class MedicalHistory {
     private Date time;
     */
     //Constructor
-    public MedicalHistory(/*Patient patient, Doctor doctor, */Name name, WriteUp writeUp /* Date time*/) {
+    public MedicalHistory(/*Patient patient, Doctor doctor, */Patient patient, Name name, WriteUp writeUp /* Date time*/) {
         /*
         this.patient = patient;
         this.doctor = doctor;
         this.writeup = note;
         this.time = time;
         */
+        this.patient = patient;
         this.name = name;
         this.writeUp = writeUp;
     }

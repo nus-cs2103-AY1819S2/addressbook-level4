@@ -18,6 +18,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
+    private static final String RACE_FIELD_ID = "#race";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String SCHOOL_FIELD_ID = "#school";
     private static final String MAJOR_FIELD_ID = "#major";
@@ -29,6 +30,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label addressLabel;
     private final Label phoneLabel;
     private final Label emailLabel;
+    private final Label raceLabel;
     private final Label schoolLabel;
     private final Label majorLabel;
     private final List<Label> pastjobLabels;
@@ -44,6 +46,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         emailLabel = getChildNode(EMAIL_FIELD_ID);
         schoolLabel = getChildNode(SCHOOL_FIELD_ID);
         majorLabel = getChildNode(MAJOR_FIELD_ID);
+        raceLabel = getChildNode(RACE_FIELD_ID);
 
         Region pastjobsContainer = getChildNode(PASTJOBS_FIELD_ID);
         pastjobLabels = pastjobsContainer
@@ -70,6 +73,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     public String getAddress() {
         return addressLabel.getText();
+    }
+
+    public String getRace() {
+        return raceLabel.getText();
     }
 
     public String getPhone() {
@@ -109,6 +116,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getAddress().equals(person.getAddress().value)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
+                && getRace().equals(person.getRace().value)
                 && getSchool().equals(person.getSchool().value)
                 && ImmutableMultiset.copyOf(getPastJobs()).equals(ImmutableMultiset.copyOf(person.getPastJobs().stream()
                 .map(pastjob -> pastjob.value)

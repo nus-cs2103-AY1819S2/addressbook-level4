@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Race;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
@@ -30,6 +31,7 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String email;
+    private final String race;
     private final String address;
     private final String school;
     private final String major;
@@ -41,14 +43,15 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("school") String school, @JsonProperty("major") String major,
-                             @JsonProperty("pastjobed") List<JsonAdaptedPastJob> pastjobed,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("email") String email, @JsonProperty("race") String race,
+            @JsonProperty("address") String address, @JsonProperty("school") String school,
+            @JsonProperty("major") String major, @JsonProperty("pastjobed") List<JsonAdaptedPastJob> pastjobed,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
 
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.race = race;
         this.address = address;
         this.school = school;
         this.major = major;
@@ -67,6 +70,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        race = source.getRace().value;
         address = source.getAddress().value;
         school = source.getSchool().value;
         major = source.getMajor().value;
@@ -117,6 +121,14 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (race == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Race.class.getSimpleName()));
+        }
+        if (!Race.isValidRace(race)) {
+            throw new IllegalValueException(Race.MESSAGE_CONSTRAINTS);
+        }
+        final Race modelRace = new Race(race);
+
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
@@ -142,7 +154,7 @@ class JsonAdaptedPerson {
         final Major modelMajor = new Major(major);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<PastJob> modelPastJobs = new HashSet<>(personPastJobs);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+        return new Person(modelName, modelPhone, modelEmail, modelRace, modelAddress,
             modelSchool, modelMajor, modelPastJobs, modelTags);
     }
 

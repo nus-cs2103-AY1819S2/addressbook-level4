@@ -3,6 +3,7 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
+    "race": "Others",
     "address": "123, Jurong West Ave 6, #08-111",
     "school": "NUS",
     "major": "CS",
@@ -11,6 +12,7 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "race": "Others",
     "address": "4th street",
     "school": "NUS",
     "major": "CS"

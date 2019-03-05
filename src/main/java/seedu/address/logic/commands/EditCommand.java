@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -30,6 +31,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Race;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
@@ -48,6 +50,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_RACE + "RACE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SCHOOL + "SCHOOL] "
             + "[" + PREFIX_MAJOR + "MAJOR] "
@@ -57,6 +60,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com"
+            + PREFIX_RACE + "Indian "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
@@ -66,6 +70,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_ALIAS + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_RACE + "Indian "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science"
@@ -123,12 +128,13 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Race updatedRace = editPersonDescriptor.getRace().orElse(personToEdit.getRace());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         School updatedSchool = editPersonDescriptor.getSchool().orElse(personToEdit.getSchool());
         Major updatedMajor = editPersonDescriptor.getMajor().orElse(personToEdit.getMajor());
         Set<PastJob> updatedPastJobs = editPersonDescriptor.getPastJobs().orElse(personToEdit.getPastJobs());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedRace, updatedAddress,
                 updatedSchool, updatedMajor, updatedPastJobs, updatedTags);
 
     }
@@ -159,6 +165,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Race race;
         private Address address;
         private School school;
         private Major major;
@@ -177,6 +184,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setRace(toCopy.race);
             setAddress(toCopy.address);
             setSchool(toCopy.school);
             setPastJobs(toCopy.pastjobs);
@@ -188,7 +196,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, school, major, pastjobs, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school, major, pastjobs, tags);
         }
 
         public void setName(Name name) {
@@ -213,6 +221,14 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setRace(Race race) {
+            this.race = race;
+        }
+
+        public Optional<Race> getRace() {
+            return Optional.ofNullable(race);
         }
 
         public void setAddress(Address address) {
@@ -291,6 +307,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getRace().equals(e.getRace())
                     && getAddress().equals(e.getAddress())
                     && getSchool().equals(e.getSchool())
                     && getPastJobs().equals(e.getPastJobs())

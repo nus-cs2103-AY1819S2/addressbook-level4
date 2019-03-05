@@ -24,6 +24,12 @@ public class Tag {
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
     }
+    /**
+     * Returns tag name
+     */
+    public String getName() {
+        return tagName;
+    }
 
     /**
      * Returns true if a given string is a valid tag name.
@@ -31,6 +37,7 @@ public class Tag {
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
 
     @Override
     public boolean equals(Object other) {

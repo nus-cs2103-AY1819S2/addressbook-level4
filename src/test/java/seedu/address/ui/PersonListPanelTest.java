@@ -23,6 +23,7 @@ import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Race;
 import seedu.address.model.person.School;
 
 public class PersonListPanelTest extends GuiUnitTest {
@@ -84,10 +85,11 @@ public class PersonListPanelTest extends GuiUnitTest {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
+            Race race = new Race("Indian");
             Address address = new Address("a");
             School school = new School("n");
             Major major = new Major("ME");
-            Person person = new Person(name, phone, email, address, school,
+            Person person = new Person(name, phone, email, race, address, school,
                 major, Collections.emptySet(), Collections.emptySet());
             backingList.add(person);
         }

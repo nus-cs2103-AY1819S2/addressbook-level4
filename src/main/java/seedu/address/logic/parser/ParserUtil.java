@@ -15,6 +15,7 @@ import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Race;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
@@ -112,6 +113,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String race} into an {@code Race}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code race} is invalid.
+     */
+    public static Race parseRace(String race) throws ParseException {
+        requireNonNull(race);
+        String trimmedRace = race.trim();
+        if (!Race.isValidRace(trimmedRace)) {
+            throw new ParseException(Race.MESSAGE_CONSTRAINTS);
+        }
+        return new Race(trimmedRace);
     }
 
     /**

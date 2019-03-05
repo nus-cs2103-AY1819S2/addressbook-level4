@@ -21,6 +21,7 @@ public class Person {
     private final Email email;
 
     // Data fields
+    private final Race race;
     private final Address address;
     private final School school;
     private final Major major;
@@ -30,13 +31,14 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address,
+    public Person(Name name, Phone phone, Email email, Race race, Address address,
             School school, Major major, Set<PastJob> pastjobs, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, school, major, pastjobs, tags);
 
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.race = race;
         this.address = address;
         this.school = school;
         this.major = major;
@@ -54,6 +56,10 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Race getRace() {
+        return race;
     }
 
     public Address getAddress() {
@@ -116,6 +122,7 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getRace().equals(getRace())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getSchool().equals(getSchool())
                 && otherPerson.getPastJobs().equals(getPastJobs())
@@ -126,7 +133,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, school, major, pastjobs, tags);
+        return Objects.hash(name, phone, email, race, address, school, major, pastjobs, tags);
     }
 
     @Override
@@ -137,6 +144,8 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Race: ")
+                .append(getRace())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" School: ")

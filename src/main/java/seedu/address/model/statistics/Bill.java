@@ -18,7 +18,7 @@ import seedu.address.model.table.TableNumber;
  */
 public class Bill {
 
-    private final ObservableList<OrderItem> orderItemList;
+    private ObservableList<OrderItem> orderItemList;
     private final TableNumber tableNumber;
     private final Day day;
     private final Month month;
@@ -40,6 +40,19 @@ public class Bill {
         this.month = month;
         this.year = year;
         this.totalBill = 0;
+    }
+
+    public Bill(TableNumber tableNumber, Day day, Month month, Year year, int bill) {
+        requireAllNonNull(tableNumber);
+        requireAllNonNull(day);
+        requireAllNonNull(month);
+        requireAllNonNull(year);
+        requireAllNonNull(bill);
+        this.tableNumber = tableNumber;
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.totalBill = bill;
     }
 
     public void calculateBill() {

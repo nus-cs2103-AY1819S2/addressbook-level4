@@ -108,6 +108,11 @@ public class AddCommandTest {
         public int getSize() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public int getNumReviews() {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");

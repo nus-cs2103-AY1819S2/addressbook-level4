@@ -56,4 +56,8 @@ public class Course {
     public List<CourseRequirement> getCourseRequirements() {
         return courseRequirements;
     }
+
+    public static Course getCourseByName(CourseName name) {
+        return new Course(name, new CourseDescription("TODO"), null);
+    }
 }

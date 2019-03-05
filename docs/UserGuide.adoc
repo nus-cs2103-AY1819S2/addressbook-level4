@@ -72,6 +72,15 @@ Examples:
 * `tableMode` 2 +
 Switches to Table Mode for table 2 and displays the list of order items from table 2.
 
+=== Switching to Menu Mode : `menuMode`
+
+Changes RestOrRant to Menu Mode in order to edit the menu.
+Format: `menuMode`
+
+****
+* RestOrRant should not already be in Menu Mode.
+****
+
 === Adding tableList : `addTables`
 
 Adds tableList to the restaurant. +
@@ -217,6 +226,11 @@ Format: `printMenu`
 
 Adds the specified item to the menu. +
 Format: `addToMenu ITEM_CODE ITEM_NAME ITEM_PRICE`
+
+****
+* RestOrRant has to be in Mable Mode to use this command (can switch using `menuMode`).
+* Item code, name and price must be valid (follow the format specified).
+****
 
 Examples:
 

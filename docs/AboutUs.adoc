@@ -22,7 +22,7 @@ Role: Code quality, Team lead
 image::geezlouisee.png[width="150", align="left"]
 {empty}[http://github.com/geezlouisee[github]]
 
-Role: Deliverables and deadlines, integration
+Role: Deliverables and deadlines, Integration
 
 '''
 

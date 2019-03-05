@@ -1,12 +1,12 @@
 package seedu.address.model.statistics;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+
 
 /**
  * Wraps all order-related data

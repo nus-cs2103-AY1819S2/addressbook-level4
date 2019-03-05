@@ -78,13 +78,17 @@ public class RestOrRantParser {
                     throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddOrderCommandParser().parse(arguments);
-            
+
+            case UpdateTableCommand.COMMAND_WORD:
+                if (mode != Mode.TABLE_MODE) {
+                    throw new ParseException(MESSAGE_INVALID_MODE);
+                }
+                return new UpdateTableCommandParser().parse(arguments);
+
             default:
-                break;
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-
-        throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-
+        
     }
     
 }

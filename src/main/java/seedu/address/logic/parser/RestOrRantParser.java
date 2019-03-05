@@ -37,87 +37,53 @@ public class RestOrRantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        if (mode != Mode.RESTAURANT_MODE) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MODE, HelpCommand.MESSAGE_USAGE));
-        }
-
-        //        FUTURE USAGE
+        // General commands that work in all modes
         switch (commandWord) {
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
+                
             case HelpCommand.COMMAND_ALIAS:
                 return new HelpCommand();
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+                
             case ExitCommand.COMMAND_ALIAS:
                 return new ExitCommand();
-                
+
+            case RestaurantModeCommand.COMMAND_WORD:
+                return new RestaurantModeCommand();
+
             case MenuModeCommand.COMMAND_WORD:
                 return new MenuModeCommand();
+
+            case TableModeCommand.COMMAND_WORD:
+                return new TableModeCommandParser().parse(arguments);
                 
+            case AddTableCommand.COMMAND_WORD:
+                if (mode != Mode.RESTAURANT_MODE) {
+                    throw new ParseException(MESSAGE_INVALID_MODE);
+                }
+                return new AddTableCommandParser().parse(arguments);
+
             case AddItemToMenuCommand.COMMAND_WORD:
+                if (mode != Mode.MENU_MODE) {
+                    throw new ParseException(MESSAGE_INVALID_MODE);
+                }
                 return new AddItemToMenuCommandParser().parse(arguments);
-                
+
+            case AddOrderCommand.COMMAND_WORD:
+                if (mode != Mode.TABLE_MODE) {
+                    throw new ParseException(MESSAGE_INVALID_MODE);
+                }
+                return new AddOrderCommandParser().parse(arguments);
+            
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                break;
         }
 
-        //        switch (commandWord) {
-        //
-        //        case AddCommand.COMMAND_WORD:
-        //            return new AddCommandParser().parse(arguments);
-        //
-        //        case AddCommand.COMMAND_ALIAS:
-        //            return new AddCommandParser().parse(arguments);
-        //
-        //        case EditCommand.COMMAND_WORD:
-        //            return new EditCommandParser().parse(arguments);
-        //
-        //        case EditCommand.COMMAND_ALIAS:
-        //            return new EditCommandParser().parse(arguments);
-        //
-        //        case SelectCommand.COMMAND_WORD:
-        //            return new SelectCommandParser().parse(arguments);
-        //
-        //        case SelectCommand.COMMAND_ALIAS:
-        //            return new SelectCommandParser().parse(arguments);
-        //
-        //        case DeleteCommand.COMMAND_WORD:
-        //            return new DeleteCommandParser().parse(arguments);
-        //
-        //        case DeleteCommand.COMMAND_ALIAS:
-        //            return new DeleteCommandParser().parse(arguments);
-        //
-        //        case ClearCommand.COMMAND_WORD:
-        //            return new ClearCommand();
-        //
-        //        case ClearCommand.COMMAND_ALIAS:
-        //            return new ClearCommand();
-        //
-        //        case FindCommand.COMMAND_WORD:
-        //            return new FindCommandParser().parse(arguments);
-        //
-        //        case FindCommand.COMMAND_ALIAS:
-        //            return new FindCommandParser().parse(arguments);
-        //
-        //        case ListCommand.COMMAND_WORD:
-        //            return new ListCommand();
-        //
-        //        case ListCommand.COMMAND_ALIAS:
-        //            return new ListCommand();
-        //
-        //        case HistoryCommand.COMMAND_WORD:
-        //            return new HistoryCommand();
-        //
-        //        case HistoryCommand.COMMAND_ALIAS:
-        //            return new HistoryCommand();
-        //
-        //        case ExitCommand.COMMAND_WORD:
-        //            return new ExitCommand();
-        //
-        //        case ExitCommand.COMMAND_ALIAS:
-        //            return new ExitCommand();
-    }
+        throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
 
+    }
+    
 }

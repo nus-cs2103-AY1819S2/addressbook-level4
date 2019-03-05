@@ -1,4 +1,4 @@
-package seedu.address.model.Statistics;
+package seedu.address.model.statistics;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.Statistics.exception.BillNotFoundException;
+import seedu.address.model.statistics.exception.BillNotFoundException;
 
 /**
  * A list of bills

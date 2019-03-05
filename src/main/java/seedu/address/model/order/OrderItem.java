@@ -44,7 +44,7 @@ public class OrderItem {
     }
 
     /**
-     * Returns true if both order items have the same menu item code and quantity ordered.
+     * Returns true if both order items have the same menu item code and table number.
      * This defines a weaker notion of equality between two order items.
      */
     public boolean isSameOrderItem(OrderItem otherOrderItem) {
@@ -53,7 +53,7 @@ public class OrderItem {
         }
 
         return otherOrderItem != null
-                && otherOrderItem.getQuantity() == getQuantity()
+                && otherOrderItem.getTableNumber().equals(getTableNumber())
                 && otherOrderItem.getMenuItemCode().equals(getMenuItemCode());
     }
 
@@ -72,7 +72,7 @@ public class OrderItem {
         }
 
         OrderItem otherOrderItem = (OrderItem) other;
-        return isSameOrderItem(otherOrderItem) && otherOrderItem.getTableNumber().equals(getTableNumber());
+        return isSameOrderItem(otherOrderItem) && otherOrderItem.getQuantity() == getQuantity();
     }
 
     @Override

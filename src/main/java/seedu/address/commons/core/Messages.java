@@ -12,5 +12,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_PATH = "Invalid path given.";
     public static final String MESSAGE_INVALID_TYPE = "File is not a valid type.";
     public static final String MESSAGE_DUPLICATE_FILE = "File already exists in assets folder.";
+    public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist in assets folder.";
 
 }

@@ -29,7 +29,7 @@ public class AddTableCommandParser implements Parser<AddTableCommand> {
 
         List<TableStatus> numberOfSeatsList = new ArrayList<>();
         for (int i = 0; i < numberOfSeatsInString.length; i++) {
-            numberOfSeatsList.add(new TableStatus(numberOfSeatsInString[i]));
+            numberOfSeatsList.add(new TableStatus("0/" + numberOfSeatsInString[i]));
         }
 
         return new AddTableCommand(numberOfSeatsList);

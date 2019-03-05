@@ -114,6 +114,13 @@ public class UniqueTableList implements Iterable<Table> {
     }
 
     /**
+     * Returns the number of tables in the UniqueTableList
+     */
+    public int getSize() {
+        return internalList.size();
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Table> asUnmodifiableObservableList() {

@@ -60,19 +60,22 @@ public class RestOrRantParser {
 
             case TableModeCommand.COMMAND_WORD:
                 return new TableModeCommandParser().parse(arguments);
-                
+
+            // Commands that work in Restaurant Mode
             case AddTableCommand.COMMAND_WORD:
                 if (mode != Mode.RESTAURANT_MODE) {
                     throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddTableCommandParser().parse(arguments);
-
+            
+            // Commands that work in Menu Mode
             case AddItemToMenuCommand.COMMAND_WORD:
                 if (mode != Mode.MENU_MODE) {
                     throw new ParseException(MESSAGE_INVALID_MODE);
                 }
                 return new AddItemToMenuCommandParser().parse(arguments);
-
+                
+            // Commands that work in Table Mode
             case AddOrderCommand.COMMAND_WORD:
                 if (mode != Mode.TABLE_MODE) {
                     throw new ParseException(MESSAGE_INVALID_MODE);

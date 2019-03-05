@@ -39,6 +39,7 @@ public class Tables implements ReadOnlyTables {
      */
     public void setTables(List<Table> tableList) {
         this.tableList.setTables(tableList);
+        nextTableNumber = this.tableList.getSize() + 1;
         indicateModified();
     }
 

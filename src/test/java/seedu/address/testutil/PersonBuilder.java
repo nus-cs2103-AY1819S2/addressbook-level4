@@ -10,6 +10,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Race;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -22,6 +23,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_RACE = "Chinese";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_SCHOOL = "NUS";
     public static final String DEFAULT_MAJOR = "CS";
@@ -29,6 +31,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
+    private Race race;
     private Address address;
     private School school;
     private Major major;
@@ -39,6 +42,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        race = new Race(DEFAULT_RACE);
         address = new Address(DEFAULT_ADDRESS);
         school = new School(DEFAULT_SCHOOL);
         major = new Major(DEFAULT_MAJOR);
@@ -53,6 +57,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        race = personToCopy.getRace();
         address = personToCopy.getAddress();
         school = personToCopy.getSchool();
         major = personToCopy.getMajor();
@@ -109,6 +114,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Race} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRace(String race) {
+        this.race = new Race(race);
+        return this;
+    }
+
+    /**
      * Sets the {@code School} of the {@code Person} that we are building.
      */
     public PersonBuilder withSchool(String school) {
@@ -125,7 +138,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, school, major, pastjobs, tags);
+        return new Person(name, phone, email, race, address, school, major, pastjobs, tags);
     }
 
 }

@@ -16,6 +16,7 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.medicalHistory.WriteUp;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -152,5 +153,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String writeUp} into a {@code WriteUp}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code writeUp} is invalid.
+     */
+    public static WriteUp parseWriteUp(String writeUp) throws ParseException {
+        requireNonNull(writeUp);
+        String trimmedName = writeUp.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new WriteUp(trimmedName);
     }
 }

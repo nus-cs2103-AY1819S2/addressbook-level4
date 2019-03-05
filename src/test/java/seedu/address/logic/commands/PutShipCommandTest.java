@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.COORDINATES_LAST_CELL;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.MapGrid;
 import seedu.address.model.Model;

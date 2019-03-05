@@ -51,7 +51,8 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_nullId_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(null, new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), VALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
+                VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS),
+                VALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
                 VALID_STATUS);
         String expectedMessage = String.format(JsonAdaptedRequest.MISSING_FIELD_MESSAGE_FORMAT, "id");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, request::toModelType);
@@ -60,7 +61,8 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_invalidPatient_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(VALID_ID, new JsonAdaptedPerson(VALID_NAME, INVALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), VALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
+                VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS),
+                VALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
                 VALID_STATUS);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, request::toModelType);
@@ -78,7 +80,8 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(VALID_ID, new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), INVALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
+                VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS),
+                INVALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
                 VALID_STATUS);
         String expectedMessage = RequestDate.MESSAGE_DATE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, request::toModelType);
@@ -87,7 +90,8 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(VALID_ID, new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), null, new JsonAdaptedHealthWorker(BETTY),
+                VALID_EMAIL, VALID_NRIC,
+                VALID_ADDRESS, VALID_TAGS), null, new JsonAdaptedHealthWorker(BETTY),
                 VALID_TAGS, VALID_STATUS);
         String expectedMessage = String.format(JsonAdaptedRequest.MISSING_FIELD_MESSAGE_FORMAT,
                 RequestDate.class.getSimpleName());
@@ -99,7 +103,7 @@ public class JsonAdaptedRequestTest {
         JsonAdaptedHealthWorker person = new JsonAdaptedHealthWorker(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NRIC,
                 VALID_ADDRESS, VALID_TAGS, null, VALID_SKILLS);
         JsonAdaptedRequest request = new JsonAdaptedRequest(VALID_ID, new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), VALID_DATE, person, VALID_TAGS,
+                VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS), VALID_DATE, person, VALID_TAGS,
                 VALID_STATUS);
         String expectedMessage = String.format(JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT,
                 Organization.class.getSimpleName());
@@ -111,7 +115,8 @@ public class JsonAdaptedRequestTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedRequest request = new JsonAdaptedRequest(VALID_ID, new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), VALID_DATE, new JsonAdaptedHealthWorker(BETTY), invalidTags,
+                VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS),
+                VALID_DATE, new JsonAdaptedHealthWorker(BETTY), invalidTags,
                 VALID_STATUS);
         Assert.assertThrows(IllegalValueException.class, request::toModelType);
     }
@@ -119,7 +124,8 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_invalidStatus_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(VALID_ID, new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), VALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
+                VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS),
+                VALID_DATE, new JsonAdaptedHealthWorker(BETTY), VALID_TAGS,
                 INVALID_STATUS);
         String expectedMessage = RequestStatus.MESSAGE_STATUS_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, request::toModelType);
@@ -128,7 +134,7 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_nullStatus_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(VALID_ID, new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS), VALID_DATE, new JsonAdaptedHealthWorker(BETTY),
+                VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS), VALID_DATE, new JsonAdaptedHealthWorker(BETTY),
                 VALID_TAGS, null);
         String expectedMessage = String.format(JsonAdaptedRequest.MISSING_FIELD_MESSAGE_FORMAT,
                 RequestStatus.class.getSimpleName());

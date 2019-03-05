@@ -114,7 +114,7 @@ Adds CS2103T into list of modules completed with a grade of B-.
 === Delete modules : `delete`
 
 Removes module based on module code. +
-Format: `delete m/MODULE_CODE` or `delete n/number`
+Format: `delete m/MODULE_CODE` or `delete n/courseReqCredits`
 
 ****
 * Gives message if the module code of the module to be deleted is not found.
@@ -167,7 +167,7 @@ Format: `displayu o/OPTIONS [MORE_ARGUMENTS]`
 
 * `o/req [n/NUMBER]`
 ** Display all requirements for the course of study.
-** If number is specified: Displays information about n-th requirement in the order which it is displayed
+** If courseReqCredits is specified: Displays information about n-th requirement in the order which it is displayed
 
 * `o/req [c/BOOLEAN]`
 ** Displays completed or incomplete requirements.

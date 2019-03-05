@@ -63,13 +63,22 @@ public class FilterCommand extends Command{
     private void ProcessCommand(Model model){
 
         // or statement will be processed
-        if(processNum == 1)  model.filterOr(name, phone, email, address, tagList);
+        if(processNum == 1)  {
+            isFilterCleared = false;
+            model.filterOr(name, phone, email, address, tagList);
+        }
 
         // and statement will be processed
-        else if(processNum == 2)  model.filterAnd(name, phone, email, address, tagList);
+        else if(processNum == 2)  {
+            isFilterCleared = false;
+            model.filterAnd(name, phone, email, address, tagList);
+        }
 
         // clear statement will be processed
-        else  model.clearFilter();
+        else {
+            isFilterCleared = true;
+            model.clearFilter();
+        }
     }
 
 

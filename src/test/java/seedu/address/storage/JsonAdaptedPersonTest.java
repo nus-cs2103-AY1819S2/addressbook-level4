@@ -162,7 +162,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidRace_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 INVALID_RACE, VALID_ADDRESS, VALID_SCHOOL, INVALID_MAJOR, VALID_PASTJOBS, VALID_TAGS);
-        String expectedMessage = Major.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Race.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -170,7 +170,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullRace_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 null, VALID_ADDRESS, VALID_SCHOOL, VALID_MAJOR, VALID_PASTJOBS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Major.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Race.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
     @Test

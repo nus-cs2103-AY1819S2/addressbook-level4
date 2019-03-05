@@ -86,13 +86,13 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRace(VALID_RACE_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withSchool(VALID_SCHOOL_AMY).withMajor(VALID_MAJOR_AMY).withPastJobs(VALID_PASTJOB_PROFESSSOR)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRace(VALID_RACE_AMY)
+                .withAddress(VALID_ADDRESS_AMY).withSchool(VALID_SCHOOL_AMY).withMajor(VALID_MAJOR_AMY)
+                .withPastJobs(VALID_PASTJOB_PROFESSSOR).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRace(VALID_RACE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withSchool(VALID_SCHOOL_BOB).withMajor(VALID_MAJOR_BOB).withPastJobs(VALID_PASTJOB_SDE)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRace(VALID_RACE_BOB)
+                .withAddress(VALID_ADDRESS_BOB).withSchool(VALID_SCHOOL_BOB).withMajor(VALID_MAJOR_BOB)
+                .withPastJobs(VALID_PASTJOB_SDE).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     }
 

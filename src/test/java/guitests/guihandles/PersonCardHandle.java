@@ -75,7 +75,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return addressLabel.getText();
     }
 
-    public String getRace() { return raceLabel.getText(); }
+    public String getRace() {
+        return raceLabel.getText();
+    }
 
     public String getPhone() {
         return phoneLabel.getText();

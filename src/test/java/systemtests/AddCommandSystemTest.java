@@ -227,7 +227,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid race -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + INVALID_RACE_DESC
             + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY;
-        assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(command, Race.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY

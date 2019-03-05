@@ -10,6 +10,7 @@ import seedu.address.model.module.Module;
  *  Represents course of the user that is enrolled in
  */
 public class Course {
+
     private CourseName courseName;
     private CourseDescription courseDescription;
     private List<CourseRequirement> courseRequirements;

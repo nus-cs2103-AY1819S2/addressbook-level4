@@ -17,8 +17,8 @@ image::minernchan.PNG[width="150", align="left"]
 Role: Developer +
 Responsibilities:
 
-* In charge of Model
-* Working on Activity Management feature
+* In charge of Model.
+* Working on Activity Management feature.
 
 '''
 
@@ -33,8 +33,8 @@ Responsibilities:
 
 Other Roles
 
-* In charge of UI
-* Working on Member Management feature
+* In charge of UI.
+* Working on Member Management feature.
 
 
 '''
@@ -47,7 +47,7 @@ Role: Developer +
 Responsibilities:
 
 * In charge of UI.
-* Working on mode change feature and import/export feature
+* Working on mode change feature and import/export feature.
 
 '''
 
@@ -58,7 +58,7 @@ image::melissakhoo.jpg[width="150", align="left"]
 Role: Developer +
 Responsibilities:
 
-* In charge of Logic
+* In charge of Logic.
 * Working on Member Management feature.
 
 '''
@@ -70,7 +70,7 @@ image::ivyyangyq.png[width="150", align="left"]
 Role: Team Lead +
 Responsibilities:
 
-* In charge of Storage
+* In charge of Storage.
 * Working on Activity Management feature.
 
 '''

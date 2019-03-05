@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,8 +20,10 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Email;
 import seedu.address.model.cell.Phone;
+import seedu.address.model.cell.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,19 +48,19 @@ public class PutShipCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This ship already exists on the map.";
     public static final String MESSAGE_BATTLESHIP_PRESENT = "There is already a ship on the coordinate.";
 
-    private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final Coordinates coordinates;
+    private final Battleship battleship;
 
     /**
-     * @param index of the cell in the filtered cell list to edit
-     * @param editPersonDescriptor details to edit the cell with
+     * @param coordinates of the cell in the filtered cell list to edit
+     * @param battleship battleship to place in the cell
      */
-    public PutShipCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+    public PutShipCommand(Coordinates coordinates, Battleship battleship) {
+        requireNonNull(coordinates);
+        requireNonNull(battleship);
 
-        this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.coordinates = coordinates;
+        this.battleship = battleship;
     }
 
     @Override
@@ -67,23 +68,34 @@ public class PutShipCommand extends Command {
         requireNonNull(model);
         List<Cell> lastShownList = model.getFilteredPersonList();
 
+        Index index = coordinates.getRowIndex();
+
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Cell cellToEdit = lastShownList.get(index.getZeroBased());
-        Cell editedCell = createEditedPerson(cellToEdit, editPersonDescriptor);
 
-        if ((!cellToEdit.isSamePerson(editedCell) && model.hasPerson(editedCell))) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (cellToEdit.hasBattleShip()) {
+        Cell cellToEdit = lastShownList.get(index.getZeroBased());
+
+
+        if (cellToEdit.hasBattleShip()) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+        } else {
+            EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+            editPersonDescriptor.setName(battleship.getName());
+            editPersonDescriptor.setBattleship(battleship);
+
+            try {
+                Cell cellToUpdate = createEditedPerson(cellToEdit, editPersonDescriptor);
+                model.setPerson(cellToEdit, cellToUpdate);
+            } catch (DuplicatePersonException dpe) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
         }
 
-        model.setPerson(cellToEdit, editedCell);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(x -> true);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCell));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
     }
 
     /**
@@ -118,8 +130,8 @@ public class PutShipCommand extends Command {
 
         // state check
         PutShipCommand e = (PutShipCommand) other;
-        return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+        return battleship.equals(e.battleship)
+                && coordinates.equals(e.coordinates);
     }
 
     /**

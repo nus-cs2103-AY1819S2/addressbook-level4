@@ -25,6 +25,7 @@ import seedu.address.model.course.Course;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
 import seedu.address.testutil.PersonBuilder;
@@ -233,6 +234,16 @@ public class AddCommandTest {
         @Override
         public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ModuleInfo> getDisplayList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void updateDisplayList(Predicate<ModuleInfo> predicate) {
+            throw new AssertionError("This method should not be called");
         }
     }
 

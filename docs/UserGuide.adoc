@@ -64,6 +64,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/S
 [TIP]
 * A person can have any number of tags (including 0)
 * A person can have any number of past jobs (including 0)
+* A person can only have "CS", "ME", "MATH", "ECON", "Computer Science" as their majors (case sensitive)
 
 Examples:
 

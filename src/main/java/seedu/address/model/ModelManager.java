@@ -198,6 +198,14 @@ public class ModelManager implements Model {
         selectedRestaurant.setValue(restaurant);
     }
 
+    @Override
+    public int getNumReviews() {
+        int size = 0;
+        for (Restaurant restaurant : versionedFoodDiary.getRestaurantList()) {
+            size += restaurant.getReviews().size();
+        }
+        return size;
+    }
     /**
      * Ensures {@code selectedRestaurant} is a valid restaurant in {@code filteredRestaurants}.
      */

@@ -12,13 +12,16 @@ public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_SUCCESS = "View your personalised statistics";
+    public static final String MESSAGE_SUCCESS = "View personalised statistics for ";
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         int size = model.getSize();
-        return new CommandResult(MESSAGE_SUCCESS + size);
+        String name = model.getName();
+        int numReviews = model.getNumReviews();
+        return new CommandResult(MESSAGE_SUCCESS + name + ". You have a total of "
+                + numReviews + " reviews and " + size + " restaurants.");
     }
 }

@@ -70,4 +70,8 @@ public class StatusBarFooter extends UiPart<Region> {
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 
+    private void updateName(String name) {
+        profileName.setText(name);
+    }
+
 }

@@ -142,4 +142,9 @@ public interface Model {
      * Sets the selected restaurant in the filtered restaurant list.
      */
     void setSelectedRestaurant(Restaurant restaurant);
+
+    /**
+     * Get the total number of reviews
+     */
+    int getNumReviews();
 }

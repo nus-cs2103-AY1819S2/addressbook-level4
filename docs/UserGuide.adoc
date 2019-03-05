@@ -297,11 +297,11 @@ Universal Numbering System.
 ==== The Universal Numbering System
 
 ifdef::env-github[]
-image::docs/images/image1.png[image,width=200,height=294]
+image::images/image1.png[image,width=200,height=294]
 endif::[]
 
 ifndef::env-github[]
-image::images/image1.png[image,width=200,height=294]
+image::image1.png[image,width=200,height=294]
 endif::[]
 
 The uppercase letters A through T are used for primary teeth and the

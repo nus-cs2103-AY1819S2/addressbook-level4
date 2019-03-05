@@ -97,6 +97,20 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+== Design
+
+=== Architecture
+
+=== UI component
+
+=== Logic component
+
+=== Model component
+
+=== Storage component
+
+=== Common classes
+
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.

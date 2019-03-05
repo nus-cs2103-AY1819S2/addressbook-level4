@@ -3,6 +3,13 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Age;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+
+import java.util.Set;
 
 /**
  * Adds a doctor to the address book.
@@ -10,24 +17,24 @@ import seedu.address.model.Model;
 public class AddDoctorCommand extends Command {
 
     public static final String COMMAND_WORD = "add-doctor";
-    public int index;
-    public String name;
-    public String gender;
-    public int age;
-    public String number;
-    public String specialisation;
 
     public AddDoctorCommand() {
 
     }
 
-    public static void equals() {
+    public AddDoctorCommand(Name name, Gender gender, Age age, Phone phone, Set<Tag> specialisation) {
 
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this; // short circuit if same object
+    }
+
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return new CommandResult(index + " " + name + " " + gender + " " + age + " " +
-                number + " " + specialisation);
+
+        return new CommandResult("test");
+
     }
 }

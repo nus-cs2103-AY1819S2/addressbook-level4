@@ -31,7 +31,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MemberListCommand;
 import seedu.address.logic.commands.MemberFindCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
@@ -138,7 +138,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(MemberListCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 

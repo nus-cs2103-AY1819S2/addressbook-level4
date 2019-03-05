@@ -1,5 +1,7 @@
 package seedu.address.model.table;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+
 /**
  * Represents a table in RestOrRant.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -25,6 +27,10 @@ public class Table {
 
     public TableNumber getTableNumber() {
         return tableNumber;
+    }
+
+    public void setTableStatus(String newTableStatus) throws CommandException {
+        tableStatus.setTableStatus(newTableStatus);
     }
 
     public boolean isSameTable(Table otherTable) {

@@ -22,14 +22,11 @@ public class UpdateTableCommandParser implements Parser<UpdateTableCommand> {
      */
     public UpdateTableCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        String[] numberOfSeatsInString = trimmedArgs.split("\\s+");
-        if (trimmedArgs.isEmpty() || numberOfSeatsInString.length != 2) {
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
         }
 
-        
-
-        return new UpdateTableCommand(numberOfSeatsList);
+        return new UpdateTableCommand(trimmedArgs);
     }
 }

@@ -74,5 +74,4 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         equipmentManagerStorage.saveAddressBook(addressBook, filePath);
     }
-
 }

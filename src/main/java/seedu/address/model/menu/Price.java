@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Item prices should be in the format <double digit integer><.><double digit integer>" +
+            "Item prices should be in the format <integer><.><double digit integer>" +
                     ", and it should not be blank";
 
     /*

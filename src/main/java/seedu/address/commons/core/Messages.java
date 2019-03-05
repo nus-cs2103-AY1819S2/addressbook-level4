@@ -16,5 +16,7 @@ public class Messages {
     public static final String MESSAGE_ROTATE_DEGREE_ERROR = "Argument given is an invalid integer or rotating degree.";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist.";
     public static final String MESSAGE_FILE_NAME_UNSPECIFIED = "File name to be specified after keying in degree.";
+    public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist in assets folder.";
+
 
 }

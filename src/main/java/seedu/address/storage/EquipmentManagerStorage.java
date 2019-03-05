@@ -42,7 +42,4 @@ public interface EquipmentManagerStorage {
      * @see #saveAddressBook(ReadOnlyEquipmentManager)
      */
     void saveAddressBook(ReadOnlyEquipmentManager addressBook, Path filePath) throws IOException;
-
-    void backupAddressBook(ReadOnlyEquipmentManager addressBook) throws IOException;
-
 }

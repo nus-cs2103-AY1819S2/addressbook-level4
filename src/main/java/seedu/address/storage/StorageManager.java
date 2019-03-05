@@ -74,10 +74,4 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         equipmentManagerStorage.saveAddressBook(addressBook, filePath);
     }
-
-    @Override
-    public void backupAddressBook(ReadOnlyEquipmentManager addressBoook) throws IOException {
-        equipmentManagerStorage.backupAddressBook(addressBoook);
-    }
-
 }

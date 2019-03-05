@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -22,13 +21,10 @@ public class JsonEquipmentManagerStorage implements EquipmentManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonEquipmentManagerStorage.class);
 
-    private final Path filePath;
-
-    private final Path backupFilePath;
+    private Path filePath;
 
     public JsonEquipmentManagerStorage(Path filePath) {
         this.filePath = filePath;
-        this.backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
     public Path getAddressBookFilePath() {
@@ -61,11 +57,6 @@ public class JsonEquipmentManagerStorage implements EquipmentManagerStorage {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
-    }
-
-    @Override
-    public void backupAddressBook(ReadOnlyEquipmentManager addressBook) throws IOException {
-        saveAddressBook(addressBook, backupFilePath);
     }
 
     @Override

@@ -38,6 +38,7 @@ public class RestOrRantParser {
         final String arguments = matcher.group("arguments");
 
         // General commands that work in all modes
+
         switch (commandWord) {
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();

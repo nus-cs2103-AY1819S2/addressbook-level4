@@ -254,33 +254,38 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Arrange Interview Dates : `arrange_interviews`
+=== Arrange Interview Dates : `arrange_interviews` `Coming in v1.4`
 
 Arrange interview dates for applicant based on relevance to the job opening and
-sends the applicants their respective interview timings to the email they provided based on their relevance to the role.
+sends the applicants their respective interview timings to the email they provided based on their relevance to the role. +
+Format : `arrange_interviews`
 
-=== Read to slaveFinder() : `readAll`
+=== Read to slaveFinder() : `readAll` `Coming in v1.4`
 
 Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
+Format : `readAll`
 
-=== Get ranked list : `getRankedList`
+=== Get ranked list : `getRankedList` `Coming in v1.4`
 
 Returns a ranked list of applicants with the applicants better suited for the job based on his/her resume submitted
-displayed at the top
+displayed at the top. +
+Format : `getRankedList`
 
-=== Filter search results : `filter`
+=== Filter search results : `filter` `Coming in v1.4`
 
-Based on the search results returned from `search` returns a new list with the filter applied.
+Based on the search results returned from `search` returns a new list with the filter applied. +
 Format: `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
 
-=== Display Hiring process for a specific role : `displayProcess`
+=== Display Hiring process for a specific role : `displayProcess` `Coming in v1.4`
 
 Shows 3 categories of applicants for a specific role:
-"Applied", "(KIV) Keep in View", "Interviewed", "To be sent to boss".
+"Applied", "(KIV) Keep in View", "Interviewed", "To be sent to boss". +
+Format : `displayProcess`
 
-=== Display Analytics : `displayAnalytics`
+=== Display Analytics : `displayAnalytics` `Coming in v1.4`
 
-Display the analytics of applicants the company has hired
+Display the analytics of applicants the company has hired +
+Format : `displayAnalytics`
 
 === Clearing all entries : `clear`
 
@@ -296,12 +301,6 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -331,3 +330,11 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Arrange Interviews* : `arrangeInterviews`
+* *Read to slaveFinder()* : `readAll`
+* *Get ranked list* : `getRankedList`
+* *Filter search results* : `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+e.g. `filter r/Chinese`
+* *Display Hiring Process* : `displayProcess`
+* *Display Analytics* : `displayAnalytics`

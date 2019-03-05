@@ -158,59 +158,95 @@ Generates the invoice for a given prescription. After selecting the patient, sel
 
 === Appointment and reminders - adding appointments: `appadd`
 
-Create an appointment with a patient to add to your schedule. You will be prompted for the start and end time of the appointment.
+Create an appointment with a patient to add to your schedule. A reminder will be automatically created.
 
-Format: appadd INDEX DATE
-
-Example: +
-*`appadd 145 230719` +
-* (shows free slots for the specified DATE) +
-* (Enter Start Time) `1600` +
-* (Enter End Time) `1700`
-
-=== Appointment and reminders - listing appointments: `applist`
-Displays a list of appointments made, ordered by time and date. Can be filtered using dates and tags. Keyword can be either day, week, month or patient.
-
-Format: applist KEYWORD [DATE/INDEX]
-
-Example: +
-* 	`applist` Lists all appointments on the current day (by default with no tags). +
-* 	`applist day 230719` Lists all appointments on 23rd July 2019. +
-* 	`applist month 230719` Lists all appointments in the month of the given date, July 2019. +
-*	`applist patient 145` Lists all appointments made with patient index 145. +
-
-=== Appointment and reminders - deleting appointments: `appdelete`
-Delete an appointment previously created. A confirmation have to be made before appointment is deleted.
-
-Format: appdelete DATE TIME
+Format: `appadd r/NRIC d/DATE s/START e/END c/COMMENT`
 
 Example:
-* `appdelete 230719 1600` +
-(Are you sure you want to delete appointment with Gary Goh on 230719 from 1600 to 1700?) `YES`
+
+* `appadd r/S9123456A d/2019-10-23 s/16:00 e/17:00 c/Weekly checkup` +
+
+=== Appointment and reminders - listing appointments: `applist`
+Displays a list of appointments made, ordered by time and date. Can be filtered using dates or by patient's NRIC. Format can be day, week or month.
+
+Format: +
+`applist f/FORMAT d/DATE` +
+
+or
+
+`applist r/NRIC` +
+
+Example:
+
+* `applist` Lists all appointments on the current day (by default with no tags). +
+* `applist f/day d/2019-07-19` Lists all appointments on 23rd July 2019. +
+* `applist f/month d/2019-07-19` Lists all appointments in the month of the given date, July 2019. +
+* `applist r/S9123456A` Lists all appointments made with patient with NRIC S9123456A. +
+
+=== Appointment and reminders - deleting appointments: `appdelete`
+Delete an appointment previously created.
+
+Format: `appdelete d/DATE s/START`
+
+Example:
+
+* `appdelete d/2019-10-23 s/16:00` Deletes appointment created on 23rd July 2019, at 4pm.
 
 === Appointment and reminders - list free appointment slots: `appfree`
 
-Displays a list of free slots, ordered by time and date. Can be filtered using dates and tags. Keyword can be either day, week or month.
+Displays a list of free slots, ordered by time and date. Can be filtered using dates and tags. Format can be day, week or month.
 
-Format: appfree KEYWORD DATE
-
-Example: +
-*   `appfree` Lists all free slots in the current week. (By default without any tags) +
-* 	`appfree day 230719` Lists all free slots on 23rd July 2019. +
-*	`appfree month 230719` Lists all free slots in the month of the given date, July 2019.
-
-=== Appointment and reminders - timing of reminders: `remtime`
-
-Adjust how long before the actual appointment time to receive the reminder.
-
-Format: remtime TIME
+Format: `appfree f/FORMAT d/DATE`
 
 Example: +
-*   `remtime 30` Receives reminders 30 minutes before the actual appointment time.
+
+* `appfree` Lists all free slots in the current week. (By default without any tags) +
+* `appfree f/day d/2019-07-23` Lists all free slots on 23rd July 2019. +
+* `appfree f/month d/2019-07-23` Lists all free slots in the month of the given date, July 2019.
+
+=== Appointment and reminders - adding reminders: `remadd`
+
+Create a reminder to add to your reminder sidebar. End time and comments are optional.
+
+Format: `remadd t/TITLE d/DATE s/START e/END c/COMMENT`
+
+Example:
+
+* `remadd t/Purchase Medicine ABC d/2019-5-20 s/12:00 e/13:00 c/Urgent` +
+
+=== Appointment and reminders - listing reminders: `remlist`
+Displays a list of reminders made, ordered by time and date. Can be filtered using dates. Format can be day, week or month.
+
+Format: `remlist f/FORMAT d/DATE`
+
+Example:
+
+* `remlist` Lists all reminders on the current day (by default with no tags). +
+* `remlist f/day d/2019-07-19` Lists all reminders on 23rd July 2019. +
+* `remlist f/month d/2019-07-19` Lists all reminders in the month of the given date, July 2019. +
+
+=== Appointment and reminders - deleting reminders: `remdelete`
+Delete a reminder previously created.
+
+Format: `remdelete i/INDEX`
+
+Example:
+
+* `remdelete i/3` Deletes the third reminder listed.
+
+=== Appointment and reminders - timing of notification: `ntime`
+
+Adjust how long before the actual reminder start time to receive the notification, in minutes.
+
+Format: `ntime t/TIME`
+
+Example: +
+
+* `ntime t/30` Receives notifications 30 minutes before the actual reminder start time.
 
 === Appointment and reminders - sending email reminders to patients: [coming in v2.0]
 
-Sends an auto-email reminder to patients regarding an approaching appointment date.
+Sends an auto-generated email reminder to patients regarding an approaching appointment date.
 
 === Administration - viewing statistics: `statistics`
 

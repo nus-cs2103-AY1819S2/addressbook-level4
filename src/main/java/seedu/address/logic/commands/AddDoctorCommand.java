@@ -4,6 +4,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Adds a doctor to the address book.
+ */
 public class AddDoctorCommand extends Command {
     public static final String COMMAND_WORD = "add-doctor";
 

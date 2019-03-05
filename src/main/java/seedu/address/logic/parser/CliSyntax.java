@@ -12,10 +12,13 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_DATE = new Prefix("dt/");
+    public static final Prefix PREFIX_HEALTHWORKER = new Prefix("hw/");
+    public static final Prefix PREFIX_STATUS = new Prefix("st/");
+    public static final Prefix PREFIX_CONDITION = new Prefix("o/");
 
     // Additional prefixes for HealthWorker and Patient class
     public static final Prefix PREFIX_ORGANIZATION = new Prefix("o/");
-    public static final Prefix PREFIX_CONDITION = new Prefix("c/");
     public static final Prefix PREFIX_SKILLS = new Prefix("s/");
 
     // Prefixes for Add/Edit/Delete Command modes

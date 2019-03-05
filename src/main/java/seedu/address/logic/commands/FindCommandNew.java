@@ -108,8 +108,12 @@ public class FindCommandNew extends Command {
 
         @Override
         public boolean equals(Object object) {
-            if (object == this) { return true; }
-            if (!(object instanceof FindModuleDescriptor)) { return false; }
+            if (object == this) {
+                return true;
+            }
+            if (!(object instanceof FindModuleDescriptor)) {
+                return false;
+            }
 
             FindModuleDescriptor other = (FindModuleDescriptor) object;
             return (code.equals(other.code) && title.equals(other.title)

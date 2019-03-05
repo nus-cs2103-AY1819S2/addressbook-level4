@@ -8,9 +8,11 @@ class StatisticsCommandTest {
 
     @Test
     void execute() {
+        //TODO
     }
 
     @Test
     void equals() {
+        //TODO
     }
 }

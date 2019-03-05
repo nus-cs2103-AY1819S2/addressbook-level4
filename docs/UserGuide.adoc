@@ -115,7 +115,7 @@ Examples:
 Quits the current test session. +
 Format: `end`
 
-=== Sort cards by level within a folder : sort
+=== Sort cards by level within a folder : `sort`
 
 Displays all flashcards sorted such that the lowest user performing cards are at the top temporarily. +
 Format: `sort`

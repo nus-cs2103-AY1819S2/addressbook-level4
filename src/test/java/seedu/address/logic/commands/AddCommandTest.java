@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
+import java.time.Clock;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +35,7 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.record.Statistics;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
@@ -361,6 +363,11 @@ public class AddCommandTest {
 
         @Override
         public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRecord(Record record, Clock clock) {
             throw new AssertionError("This method should not be called.");
         }
         public void addMedicine(String medicineName, String[] path) {

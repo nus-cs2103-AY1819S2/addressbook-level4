@@ -915,7 +915,6 @@ Use case ends here.
 ** 7b2.  User will resume perform step 5 and 6 since they were skipped
 +
 Use case ends here.
-+
 
 [discrete]
 === Use case: View patient medical record
@@ -973,20 +972,15 @@ Use case resumes from step 3.
 Use case resumes from step 5.
 
 [discrete]
-=== Use case: Choosing an appointment slot
+=== Use case: Allocating an appointment slot
 
 *MSS*
 
 1. User enter command to list all free slots, specifying the date and viewing format
 2. User discusses and agrees on an appointment slot with patient
-3. User search for patient’s index by viewing patient records with search criteria
-4. User enter command to add appointment slot and specifies date
-5. Quickdocs displays free slots for the chosen date
-6. Quickdocs prompts the user for the start time of the appointment slot
-7. User enters start time
-8. Quickdocs prompts the user for the end time of the appointment slot
-9. User enters end time
-10. Quickdocs displays a successful message, showing the details of the newly created appointment slot
+3. User search for patient’s NRIC by viewing patient records with search criteria
+4. User enter command to add appointment slot, specifying patient's NRIC, date, start and end time
+5. Quickdocs displays a successful message, showing the details of the newly created appointment slot
 +
 Use case ends
 
@@ -1005,23 +999,22 @@ Use case resumes from step 1.
 +
 Use case resumes from step 2.
 [none]
-* 4a. User enters invalid index or date
+* 4a. User enters invalid NRIC, date or time
 [none]
 ** 4a1. Quickdocs displays an error message
 +
 Use case resumes from step 4.
 [none]
-* 10a. Quickdocs displays an error message, showing clashes in timing with another appointment slot
+* 5a. Quickdocs displays an error message, showing clashes in timing with another appointment slot
 +
 Use case ends here.
 [none]
-* 10b. Patient wants to change appointment slot timing
+* 5b. Patient wants to change appointment slot timing
 [none]
-** 10b1. User enter command to delete appointment slot, specifying date and time
-** 10b2. Quickdocs prompts user with a confirmation message to delete the appointment slot (Y/N)
-** 10b3. User enters Y and appointment slot is removed
+** 5b1. User enter command to delete appointment slot, specifying date and start time
+** 5b2. Appointment specified deleted
 +
-Use case ends here.
+Use case resumes from step 1.
 
 [discrete]
 === Use case: Viewing clinic statistics

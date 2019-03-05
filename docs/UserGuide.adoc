@@ -254,6 +254,34 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+=== Arrange Interview Dates : `arrange_interviews`
+
+Arrange interview dates for applicant based on relevance to the job opening and
+sends the applicants their respective interview timings to the email they provided based on their relevance to the role.
+
+=== Read to slaveFinder() : `readAll`
+
+Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
+
+=== Get ranked list : `getRankedList`
+
+Returns a ranked list of applicants with the applicants better suited for the job based on his/her resume submitted
+displayed at the top
+
+=== Filter search results : `filter`
+
+Based on the search results returned from `search` returns a new list with the filter applied.
+Format: `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+
+=== Display Hiring process for a specific role : `displayProcess`
+
+Shows 3 categories of applicants for a specific role:
+"Applied", "(KIV) Keep in View", "Interviewed", "To be sent to boss".
+
+=== Display Analytics : `displayAnalytics`
+
+Display the analytics of applicants the company has hired
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +

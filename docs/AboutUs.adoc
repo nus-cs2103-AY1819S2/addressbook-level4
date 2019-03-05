@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lau Wei Tang
-image::weitanglau.jpg[width="150", align="left"]
+image::weitanglau.png[width="150", align="left"]
 {empty}[https://github.com/WeiTangLau[github]]
 
 Role: Developer
@@ -19,7 +19,7 @@ Role: Developer
 '''
 
 === Prithivi Raj
-image::ptvrajsk.jpg[width="150", align="left"]
+image::ptvrajsk.png[width="150", align="left"]
 {empty}[https://github.com/ptvrajsk/[github]]
 
 Role: Developer
@@ -27,7 +27,7 @@ Role: Developer
 '''
 
 === Jet Kan Yip Keng
-image::jetkan-yk.jpg[width="150", align="left"]
+image::jetkan-yk.png[width="150", align="left"]
 {empty}[http://github.com/jetkan-yk[github]]
 
 Role: Developer
@@ -35,7 +35,7 @@ Role: Developer
 '''
 
 === Jeremy Yiren Low
-image::lormee94.jpg[width="150", align="left"]
+image::lormee94.png[width="150", align="left"]
 {empty}[http://github.com/lormee94[github]]
 
 Role: Developer

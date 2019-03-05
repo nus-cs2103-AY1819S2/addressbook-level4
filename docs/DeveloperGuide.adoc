@@ -856,6 +856,36 @@ _{More to be added}_
 (For all use cases below, the *System* is `RestOrRant` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: Changing to Restaurant Mode
+
+*MSS*
+
+1. User enters command to change to Restaurant Mode.
+2. RestOrRant programs changes mode and indicates the mode it has changed to.
++
+User case ends.
+
+*Extensions*
+
+[none]
+* 2a. The program is already in Restaurant Mode.
++
+[none]
+** 2a1. RestOrRant Program returns an error message that it is already in Restaurant Mode.
++
+Use case ends.
+
+[discrete]
+=== Use case: Adding tables to the RestOrRant Program
+
+*MSS*
+
+1. User enters command to add a table to the restaurant
+2. RestOrRant Program returns success message that the table is added, providing the table number and table status.
++
+Use case ends.
+
+[discrete]
 === Use case: Checking for available tableList
 
 *MSS*

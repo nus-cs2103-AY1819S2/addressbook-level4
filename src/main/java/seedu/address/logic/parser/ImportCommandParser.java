@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FILE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TYPE;
 
@@ -54,7 +53,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 System.out.println(e.toString());
             }
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_PATH, ImportCommand.MESSAGE_USAGE));
+             throw new ParseException(String.format(MESSAGE_INVALID_PATH, ImportCommand.MESSAGE_USAGE));
         }
         return new ImportCommand(image);
     }

@@ -28,6 +28,7 @@ public class RestaurantBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Set<Review> reviews;
     private Set<Tag> tags;
     private Set<Review> reviews;
     private Cuisine cuisine;
@@ -37,6 +38,7 @@ public class RestaurantBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        reviews = new HashSet<>();
         tags = new HashSet<>();
         reviews = new HashSet<>();
         cuisine = null;
@@ -50,6 +52,7 @@ public class RestaurantBuilder {
         phone = restaurantToCopy.getPhone();
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
+        reviews = restaurantToCopy.getReviews();
         tags = new HashSet<>(restaurantToCopy.getTags());
         reviews = new HashSet<>(restaurantToCopy.getReviews());
         cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
@@ -100,6 +103,14 @@ public class RestaurantBuilder {
      */
     public RestaurantBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withReview(Review review) {
+        this.reviews.add(review);
         return this;
     }
 

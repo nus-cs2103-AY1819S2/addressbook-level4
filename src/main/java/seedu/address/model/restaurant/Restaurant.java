@@ -149,6 +149,24 @@ public class Restaurant {
         this.weblink = Weblink.makeDefaultWeblink();
     }
 
+    /**
+     * Constructor for Restaurant without Reviews.
+     * Every field must be present and not null.
+     * This constructor is used for AddReviewCommand.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
+                      Weblink weblink, Set<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, tags, weblink, reviews);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.weblink = weblink;
+        this.cuisine = cuisine;
+        this.reviews.addAll(reviews);
+    }
+
     public Name getName() {
         return name;
     }

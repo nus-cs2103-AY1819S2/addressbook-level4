@@ -162,7 +162,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different race -> rejected */
-        toAdd = new PersonBuilder(HOON).withMajor(VALID_RACE_BOB).build();
+        toAdd = new PersonBuilder(HOON).withRace(VALID_RACE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
@@ -225,7 +225,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid race -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + INVALID_RACE_DESC
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_RACE_DESC
             + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY;
         assertCommandFailure(command, Race.MESSAGE_CONSTRAINTS);
 

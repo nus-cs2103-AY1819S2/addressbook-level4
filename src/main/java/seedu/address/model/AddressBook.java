@@ -100,6 +100,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Pins a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void pinPerson(Person key) {
+        persons.pin(key);
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

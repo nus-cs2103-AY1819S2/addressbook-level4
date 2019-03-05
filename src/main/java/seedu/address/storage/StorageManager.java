@@ -75,7 +75,7 @@ public class StorageManager implements Storage {
         equipmentManagerStorage.saveAddressBook(addressBook, filePath);
     }
 
-    @override
+    @Override
     public void backupAddressBook(ReadOnlyEquipmentManager addressBoook) throws IOException {
         equipmentManagerStorage.backupAddressBook(addressBoook);
     }

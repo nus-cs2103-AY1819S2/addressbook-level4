@@ -23,7 +23,7 @@ Hotel Management System (HMS) is for hotels that want to use a single, integrate
 == Quick Start ***NEEDS REVAMP***
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `hms.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com id/887 a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -58,7 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Effect: Displays a help list, which lists all the commands that can be used. +
 Format: `help`
 
-=== Adding a customer : `addcustomer`, `addc`, `ac`
+=== Adding a customer : `addcustomer`, `ac`
 
 Effect: Adds a customer to the customer database. +
 Format: `{addcustomer/addc/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
@@ -68,15 +68,15 @@ A person can have any number of tags (including 0)
 
 Examples:
 
-* `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `addc n/Betsy Crowe t/vip e/betsy.crowe@example.com a/Orchard Road p/1234567`
+* `addc n/John Doe p/98765432 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
+* `addc n/Betsy Crowe t/vip e/betsy.crowe@example.com a/Orchard Road p/123456 id/345252`
 
-=== Listing all customers : `listcustomers`, `listc`, `lc`
+=== Listing all customers : `listcustomers`, `lc`
 
 Effect: Displays a customer list, which lists all customers in the customer database. +
 Format: `{listcustomers/listc/lc}`
 
-=== Editing a customer : `editcustomer`, `editc`, `ec`
+=== Editing a customer : `editcustomer`, `ec`
 
 Effect: Edits the fields of an existing customer in the customer database. +
 Format: `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
@@ -96,7 +96,7 @@ Edits the phone number and email address of the 1st customer to be 91234567 and 
 * `listc`, then `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
 
-=== Finding customers by name: `findname`, `findn`, `fn`
+=== Finding customers by name: `findname`, `fn`
 
 Effect: Displays a customer list, which consists of customers whose names contain any of the given keywords. +
 Format: `{findname/findn/fn} KEYWORD [MORE_KEYWORDS]`
@@ -115,7 +115,7 @@ Returns John Cena and John Doe
 * `find Betsy Tim John` +
 Returns any person having names Betsy, Tim, or John
 
-=== Deleting a customer : `deletecustomer`
+=== Deleting a customer : `deletecustomer`, `deletec`
 
 Effect: Deletes a customer from the customer database. +
 Format: `deletecustomer INDEX`
@@ -373,18 +373,18 @@ _{explain how the user can enable/disable data encryption}_
 * *Edit Customer* : `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
 * *Find Customer by name* : `{findname/findn/fn} KEYWORD [MORE_KEYWORDS]`
 * *Delete Customer* : `deletecustomer INDEX` +
-* *Add booking* : `{addbooking/addb/ab} r/ROOM_TYPE d/START_DATE-END_DATE i/INDEX_OF_CUSTOMER [i/MORE_INDICIES]… [c/COMMENTS]`
-* *List bookings* : `{listbookings/listb/lb} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
-* *Edit booking* : `{editbooking/editb/eb} INDEX [r/ROOM_TYPE] [d/START_DATE-END_DATE] [c/COMMENTS]`
-* *Delete booking* : `deletebooking INDEX`
-* *Add room service* : `{addservice/adds/as} s/SERVICE_TYPE h/START_TIME-END_TIME i/INDEX [i/MORE_INDICES] [c/COMMENTS]`
-* *List room services* : `{listservices/lists/ls} [i/INDEX_OF_CUSTOMER]… [h/START_TIME - END_TIME]`
-* *Edit room service* : `{editservice/edits/es} INDEX [s/SERVICE_TYPE] [h/START_TIME - END_TIME] [c/COMMENTS]`
-* *Delete room service* : `deleteservice INDEX`
+* *Reserve room* : `{addservice/adds/as} s/SERVICE_TYPE h/START_TIME-END_TIME i/INDEX [i/MORE_INDICES] [c/COMMENTS]`
+* *List room reservations* : `{listservices/lists/ls} [i/INDEX_OF_CUSTOMER]… [h/START_TIME - END_TIME]`
+* *Edit room reservaitons* : `{editservice/edits/es} INDEX [s/SERVICE_TYPE] [h/START_TIME - END_TIME] [c/COMMENTS]`
+* *Delete room reservation* : `deleteservice INDEX`
+* *Book services of hotel* : `{addbooking/addb/ab} r/ROOM_TYPE d/START_DATE-END_DATE i/INDEX_OF_CUSTOMER [i/MORE_INDICIES]… [c/COMMENTS]`
+* *List services already booked* : `{listbookings/listb/lb} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
+* *Edit services already booked* : `{editbooking/editb/eb} INDEX [r/ROOM_TYPE] [d/START_DATE-END_DATE] [c/COMMENTS]`
+* *Delete service already booked* : `deletebooking INDEX`
 * *Generate bill* : `{generatebill/gb} INDEX`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Clear customers* : `clearcustomers`
-* *Clear bookings* : `clearbookings`
-* *Clear room services* : `clearservices`
+* *Clear room reservations* : `clearreservations`
+* *Clear room services* : `clearbookings`

@@ -31,7 +31,7 @@ public class CourseReqNameTest {
         //contains characters and special characters
         assertFalse(CourseReqName.isValidCourseReqName("IT & Pr0Fe3551onalism"));
         //contains characters and numbers
-        assertFalse(CourseReqName.isValidCourseReqName("212313"));//only numbers
+        assertFalse(CourseReqName.isValidCourseReqName("212313")); //only numbers
 
         // valid course requirement names
         assertTrue(CourseReqName.isValidCourseReqName("Mathematics and Sciences")); //two words with one space

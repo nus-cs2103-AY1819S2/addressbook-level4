@@ -55,6 +55,22 @@ public class CourseRequirement {
                 .collect(Collectors.toList());
     }
 
+    public CourseReqCredits getCourseReqCredits() {
+        return courseReqCredits;
+    }
+
+    public CourseReqDesc getCourseReqDesc() {
+        return courseReqDesc;
+    }
+
+    public CourseReqName getCourseReqName() {
+        return courseReqName;
+    }
+
+    public List<Module> getModules() {
+        return modules;
+    }
+
     @Override
     public String toString() {
         return courseReqName.toString() + ": " + courseReqDesc.toString();

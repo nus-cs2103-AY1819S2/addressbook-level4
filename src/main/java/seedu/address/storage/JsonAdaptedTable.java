@@ -35,7 +35,7 @@ class JsonAdaptedTable {
      */
     public JsonAdaptedTable(Table table) {
         tableNumber = table.getTableNumber().toString();
-        tableStatus = table.getTableStatus().numberOfSeats;
+        tableStatus = table.getTableStatus().toString();
     }
 
     /**

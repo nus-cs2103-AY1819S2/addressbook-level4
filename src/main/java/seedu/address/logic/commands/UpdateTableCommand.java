@@ -30,8 +30,9 @@ public class UpdateTableCommand extends Command {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         Table selectedTable = model.getSelectedTable();
-        selectedTable.setTableStatus(newTableStatus);
-
+        Table updatedTable = model.getSelectedTable();
+        updatedTable.setTableStatus(newTableStatus);
+        model.setTable(selectedTable, updatedTable);
         return new CommandResult(String.format(MESSAGE_SUCCESS, selectedTable.getTableStatus()));
     }
 

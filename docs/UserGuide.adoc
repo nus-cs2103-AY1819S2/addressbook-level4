@@ -276,7 +276,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-
 === Adding an activity : `activityAdd`
 Adds a new activity to the activity list
 Format: `activityAdd n/ACTIVITYNAME d/DATE t/TAG...`
@@ -429,7 +428,6 @@ Examples:
 
 * `activityDelete 1` +
 Deletes the first activity in the displayed activity list
-
 
 === Clearing all entries : `clear`
 

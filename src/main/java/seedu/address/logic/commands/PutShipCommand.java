@@ -80,8 +80,6 @@ public class PutShipCommand extends Command {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
         } else {
             cellToEdit.putShip(battleship);
-
-            model.setPerson(cellToEdit, cellToEdit);
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -12,5 +12,4 @@ public class SortCommand extends  Command {
     public CommandResult execute(Model model, CommandHistory history) {
         return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
-
 }

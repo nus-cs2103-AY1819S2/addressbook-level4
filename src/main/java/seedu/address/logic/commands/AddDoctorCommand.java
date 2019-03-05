@@ -28,7 +28,9 @@ public class AddDoctorCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+
         return other == this; // short circuit if same object
+
     }
 
     @Override

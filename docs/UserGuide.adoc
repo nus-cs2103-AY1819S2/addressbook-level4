@@ -135,13 +135,13 @@ Examples:
 * `list` +
 `memberDelete 2` +
 Deletes the 2nd member in ClubManager.
-* `find Betsy` +
+* `memberFind Betsy` +
 `memberDelete 1` +
 Deletes the 1st member in the results of the `find` command.
 
-=== Set member as Active : `memberSetActive Index`
+=== Set member as Active : `memberSetActive`
 Sets a member who was inactive, back to active.
-Format: `memberSetActive Index`
+Format: `memberSetActive INDEX`
 
 ****
 * Sets the status for the member at the specified `INDEX` as active.
@@ -152,11 +152,11 @@ Format: `memberSetActive Index`
 Example:
 
 * `list` +
-* `memberSetActive Index`
+* `memberSetActive 3`
 
-=== Set member as Active : `memberSetInactive Index`
+=== Set member as Active : `memberSetInactive`
 Sets a member who was active, to inactive. Recommended for students who have graduated.
-Format: `memberSetInactive Index`
+Format: `memberSetInactive INDEX`
 
 ****
 * Sets the status for the member at the specified `INDEX` as active.
@@ -167,7 +167,7 @@ Format: `memberSetInactive Index`
 Example:
 
 * `list` +
-* `memberSetInactive Index`
+* `memberSetInactive 3`
 
 === Sort members’ list : `memberSort`
 
@@ -456,40 +456,57 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
+This section provides a comprehensive list of commands that ClubManager offers.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+=== General Commands
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *activityAdd* : `activityAdd n/ACTIVITYNAME d/DATE t/TAG...` +
-e.g. `activityAdd n/Sentosa Outing d/16022019 t/cohesion`
-* *activityList* : `activityList`
-* *activitySelect* : `activitySelect ACTIVITY_INDEX` +
-e.g. `activitySelect 2`
-* *activityFind* : `activityFind KEYWORD [MORE_KEYWORDS]` +
-e.g. `activityFind Workshop`
-* *activityArchive* : `activityArchive ACTIVITY_INDEX` +
-e.g. `activityArchive 1`
-* *activityUnarchive* : `activityUnarchive ACTIVITY_INDEX` +
-e.g. `activityUnarchive 1`
 * *History* : `history`
-* *Undo* : `undo`
 * *Redo* : `redo`
-* *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
-e.g. `activityEdit 1 d/13022019`
-* *Sort all activities by date* : `activitySort`
+* *Undo* : `undo`
+
+=== Member Management Commands
+
+* *Add member* : `memberAdd n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...` +
+e.g. `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`
+* *Clear member list* : `memberClear`
+* *Delete a member* : `memberDelete INDEX` +
+e.g. `memberDelete 3`
+* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
+* *Find a member* : `memberFind KEYWORD [MORE_KEYWORDS]` +
+e.g. `memberFind John`
+
+* *List all members* : `list`
+* *Select a member* : `memberSelect INDEX` +
+e.g.`memberSelect 2`
+* *Set a member as active* :  `memberSetActive INDEX` +
+e.g. `memberSetActive 3`
+* *Set a member as inactive* : `memberSetInactive INDEX` +
+e.g. `memberSetInactive 3`
+* *Sort the member list* : `memberSort n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR` +
+e.g. `memberSort NAME`
+
+=== Activity Management Commands
+* *Add a activity* : `activityAdd n/ACTIVITYNAME d/DATE t/TAG...` +
+e.g. `activityAdd n/Sentosa Outing d/16022019 t/cohesion`
 * *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NO` +
 e.g. `activityAddMember 1 A1234567N`
-* *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NO` +
-e.g. `activityDeleteMember 1 A1234567N`
+* *Archive an activity* : `activityArchive ACTIVITY_INDEX` +
+e.g. `activityArchive 1`
 * *Delete an activity* : ``activityDelete ACTIVITY_INDEX`` +
 e.g. `activityDelete 1`
+* *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NO` +
+e.g. `activityDeleteMember 1 A1234567N`
+* *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
+e.g. `activityEdit 1 d/13022019`
+* *Find an activity* : `activityFind KEYWORD [MORE_KEYWORDS]` +
+e.g. `activityFind Workshop`
+* *List all the activities* : `activityList`
+* *Select an activity* : `activitySelect ACTIVITY_INDEX` +
+e.g. `activitySelect 2`
+* *Sort all activities by date* : `activitySort`
+* *Unarchive an activity* : `activityUnarchive ACTIVITY_INDEX` +
+e.g. `activityUnarchive 1`
+
+
+

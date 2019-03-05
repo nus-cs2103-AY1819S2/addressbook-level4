@@ -24,8 +24,14 @@ Responsibilities: Data
 image::joel0111.png[width="150", align="left"]
 {empty}[http://github.com/joel0111[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer (Documentation) +
+Responsibilities:
+
+* Responsible for the quality of the various project documents.
+
+Other Roles
+
+* Working on Member Management feature
 
 '''
 

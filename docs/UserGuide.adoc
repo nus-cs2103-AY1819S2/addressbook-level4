@@ -53,7 +53,7 @@ Format: `edit i/INDEX [q/QUESTION] [a/ANSWER]`
 
 === Selecting a flashcard : `select`
 
-Displays flashcard (both question and answer) on the right panel on selection by index. +
+Displays flashcard details(question, answer, hint, user performance) on the right panel on selection by index. +
 Format: `select INDEX`
 
 === Deleting a flashcard : `delete`

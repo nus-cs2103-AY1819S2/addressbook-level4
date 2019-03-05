@@ -12,9 +12,11 @@ import java.util.List;
 public class RecordManager {
     private static final YearMonth START_DATE = YearMonth.of(2019, 1);
     private List<MonthRecord> monthRecords;
+    private int totalNoOfRecords;
 
     public RecordManager() {
         monthRecords = new ArrayList<>();
+        totalNoOfRecords = 0;
     }
     public RecordManager(RecordManager toBeCopied) {
         monthRecords = toBeCopied.copyRecords();
@@ -33,10 +35,14 @@ public class RecordManager {
         this.updateListSize(clock);
         MonthRecord monthRecord = monthRecords.get(idx);
         monthRecord.addRecord(record);
+        totalNoOfRecords++;
     }
     private int getYearMonthIndex(YearMonth now) {
         return ((now.getYear() - START_DATE.getYear()) * 12)
                 + (now.getMonthValue() - START_DATE.getMonthValue());
+    }
+    public int getTotalNoOfRecords() {
+        return totalNoOfRecords;
     }
 
     /**

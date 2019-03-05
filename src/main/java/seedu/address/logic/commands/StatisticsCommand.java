@@ -62,7 +62,7 @@ public class StatisticsCommand extends Command {
         }
         StatisticsCommand sc = (StatisticsCommand) other;
         return this.topic.equals(sc.topic)
-                && this.toYearMonth.equals(sc.fromYearMonth)
+                && this.toYearMonth.equals(sc.toYearMonth)
                 && this.fromYearMonth.equals(sc.fromYearMonth);
     }
 }

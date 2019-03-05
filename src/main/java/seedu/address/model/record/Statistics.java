@@ -9,7 +9,7 @@ import java.util.List;
  * A Statistics object is immutable.
  */
 public class Statistics {
-    private static BigDecimal consultationFee = BigDecimal.valueOf(30);
+    private static BigDecimal consultationFee = BigDecimal.valueOf(30.00);
     private int noOfConsultations;
     private BigDecimal revenue;
     private BigDecimal expenditure;
@@ -103,5 +103,19 @@ public class Statistics {
                 .append(Statistics.currencyFormat(getProfit()))
                 .append("\n\n");
         return sb.toString();
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Statistics)) {
+            return false;
+        }
+        Statistics stats = (Statistics) other;
+        return this.getNoOfConsultations() == stats.getNoOfConsultations()
+                && this.getRevenue().equals(stats.getRevenue())
+                && this.getExpenditure().equals(stats.getExpenditure())
+                && this.getProfit().equals(stats.getProfit());
     }
 }

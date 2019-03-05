@@ -1,0 +1,39 @@
+package seedu.address.model.record;
+
+import java.math.BigDecimal;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.YearMonth;
+import java.time.ZoneId;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class RecordManagerTest {
+    private final RecordManager recordManager = new RecordManager();
+    private Record record1;
+    private Record record2;
+    private Clock clock;
+
+    @BeforeEach
+    void setUp() {
+        record1 = new MedicinePurchaseRecord("test", 1, BigDecimal.valueOf(10.00));
+        clock = Clock.fixed(Instant.parse("2019-01-01T10:15:30.00Z"), ZoneId.systemDefault());
+    }
+
+    @Test
+    void record() {
+        recordManager.record(record1, clock);
+        Assert.assertEquals(recordManager.getTotalNoOfRecords(), 1);
+    }
+
+    @Test
+    void getStatistics() {
+        String topic = "finances";
+        Statistics stats = new FinancesStatistics(new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(10.00)));
+        recordManager.record(record1, clock);
+        Statistics testStats = recordManager.getStatistics(topic, YearMonth.of(2019, 1), YearMonth.of(2019, 1));
+        Assert.assertEquals(testStats, stats);
+    }
+}

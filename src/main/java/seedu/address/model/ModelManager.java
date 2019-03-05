@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.Clock;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -33,6 +34,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordManager;
 import seedu.address.model.record.Statistics;
 import seedu.address.model.reminder.Reminder;
@@ -474,5 +476,9 @@ public class ModelManager implements Model {
     //==========Record module================================================================================
     public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
         return recordManager.getStatistics(topic, from, to);
+    }
+
+    public void addRecord(Record record, Clock clock) {
+        recordManager.record(record, clock);
     }
 }

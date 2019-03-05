@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddDoctorCommand;
-
 import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.SPECIALISATION_DESC_ACUPUNCTURE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import seedu.address.logic.commands.AddDoctorCommand;
 
 import org.junit.Test;
 

@@ -3,7 +3,7 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-//import java.util.Optional;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,12 +11,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-//import seedu.address.model.person.Address;
-//import seedu.address.model.person.Email;
 import seedu.address.model.person.HealthWorker;
-//import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-//import seedu.address.model.person.Phone;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
@@ -30,10 +26,11 @@ class JsonAdaptedRequest {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Request's %s field is missing!";
 
     private final String id;
-    private final String patient;
+    private final JsonAdaptedPerson patient;
     private final String requestDate;
     private final List<JsonAdaptedTag> conditions = new ArrayList<>();
-    private final String healthWorker;
+    private final JsonAdaptedHealthWorker healthWorker;
+
     private final String requestStatus;
 
     /**
@@ -41,9 +38,10 @@ class JsonAdaptedRequest {
      */
     @JsonCreator
     public JsonAdaptedRequest(@JsonProperty("id") String id,
-                              @JsonProperty("patient") String patient,
+                              @JsonProperty("patient") JsonAdaptedPerson patient,
                               @JsonProperty("requestdate") String requestDate,
-                              @JsonProperty("healthstaff") String healthWorker,
+                              @JsonProperty("healthstaff") JsonAdaptedHealthWorker healthWorker,
+
                               @JsonProperty("conditions") List<JsonAdaptedTag> conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;
@@ -61,13 +59,14 @@ class JsonAdaptedRequest {
      */
     public JsonAdaptedRequest(Request source) {
         this.id = source.getId();
-        this.patient = source.getPatient().getNric().toString();
+        this.patient = new JsonAdaptedPerson(source.getPatient());
         this.conditions.addAll(source.getConditions().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
-        this.healthWorker = source.getHealthStaff().toString();
+        Optional<HealthWorker> hw = source.getHealthStaff();
+        this.healthWorker = hw.map(JsonAdaptedHealthWorker::new).orElse(null);
     }
 
     /**
@@ -92,10 +91,10 @@ class JsonAdaptedRequest {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
         }
 
-        final Person modelPatient = JsonSerializableAddressBook.obtainPersonFromHashmap(patient);
+        final Person modelPatient = this.patient.toModelType();
         final HealthWorker modelHealthStaff;
         if (healthWorker != null) {
-            modelHealthStaff = (HealthWorker) JsonSerializableAddressBook.obtainPersonFromHashmap(healthWorker);
+            modelHealthStaff = this.healthWorker.toModelType();
         } else {
             modelHealthStaff = null;
         }
@@ -104,15 +103,24 @@ class JsonAdaptedRequest {
                     RequestDate.class.getSimpleName()));
         }
 
-        final RequestDate modelrequestDate = new RequestDate(this.requestDate);
+        if (!RequestDate.isValidDate(requestDate)) {
+            throw new IllegalValueException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+
 
         if (requestStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     RequestStatus.class.getSimpleName()));
         }
+
+        if (!RequestStatus.isValidStatus(requestStatus)) {
+            throw new IllegalValueException(RequestStatus.MESSAGE_STATUS_CONSTRAINTS);
+        }
+
         final RequestStatus modelrequestStatus = new RequestStatus(this.requestStatus);
 
         final Set<Tag> modelConditions = new HashSet<>(requestConditions);
+
         if (modelHealthStaff == null) {
             return new Request(modelId, modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
         }

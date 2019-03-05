@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-//import java.util.stream.Collectors;
+
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,8 +16,9 @@ import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Organization;
-//import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,6 +29,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String organization;
+    private final String skills;
 
     /**
      * Constructs a {@code JsonAdaptedHealthWorker} with the given person details.
@@ -39,9 +41,11 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
                                    @JsonProperty("nric") String nric,
                                    @JsonProperty("address") String address,
                                    @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                                   @JsonProperty String organisation) {
+                                   @JsonProperty("organisation") String organisation,
+                                   @JsonProperty("skills") String skills) {
         super(name, phone, email, nric, address, tagged);
         this.organization = organisation;
+        this.skills = skills;
     }
 
     /**
@@ -50,7 +54,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
     public JsonAdaptedHealthWorker(HealthWorker source) {
         super(source);
         this.organization = source.getOrganization().getOrgName();
-
+        this.skills = source.getSkills().toString();
     }
 
     /**
@@ -97,21 +101,37 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
-        if (!Nric.isValidNric(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Nric.isValidNric(nric)) {
+            throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
         }
         final Nric modelNric = new Nric(nric);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        if (!Organization.isValidOrgName(organization)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+
+        if (organization == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Organization.class.getSimpleName()));
         }
+
         final Organization modelOrganisation = new Organization(organization);
 
+        if (skills == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Skills.class.getSimpleName()));
+        }
+
+        Set<Specialisation> set = new HashSet<>();
+        String[] skillsArr = this.skills.split(" ");
+        for (String skill : skillsArr) {
+            Specialisation spec = Specialisation.parseString(skill);
+            set.add(spec);
+        }
+        final Skills modelSkills = new Skills(set);
+
         return new HealthWorker(modelName, modelPhone, modelEmail,
-                modelNric, modelAddress, modelTags, modelOrganisation);
+                modelNric, modelAddress, modelTags, modelOrganisation, modelSkills);
+
     }
 
 }

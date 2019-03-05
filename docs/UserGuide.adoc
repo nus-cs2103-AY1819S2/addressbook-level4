@@ -81,26 +81,6 @@ Format: `change FOLDER_INDEX`
 Return to the root directory (exit the current folder). +
 Format: `change ..`
 
-=== View flashcards in a folder : `view`
-
-Begins a view session, where the display area enters a fullscreen and flashcards in a folder are queued to be displayed one by one. Both questions and answers for the flashcard can be seen. +
-Format: `view [FOLDER_INDEX]`
-
-==== Go to previous flashcard : `prev`
-
-Goes back to the previous flashcard in this current view session. +
-Format: `prev`
-
-==== Go to next flashcard : `next`
-
-Presents the next flashcard in this current view session. +
-Format: `next`
-
-==== End the current session : `end`
-
-Quits the current view session. +
-Format: `end`
-
 === Test flashcards in a folder : `test`
 
 Begins a test session, where the display area enters a fullscreen and flashcards in a folder are queued to be displayed one by one. Only questions are presented and users are required to either input an attempt or the command to reveal the answer. +

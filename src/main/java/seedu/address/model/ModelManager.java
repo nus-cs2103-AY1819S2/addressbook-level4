@@ -16,7 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PDFNotFoundException;
+import seedu.address.model.person.exceptions.PdfNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -178,7 +178,7 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedPerson(Person person) {
         if (person != null && !filteredPersons.contains(person)) {
-            throw new PDFNotFoundException();
+            throw new PdfNotFoundException();
         }
         selectedPerson.setValue(person);
     }

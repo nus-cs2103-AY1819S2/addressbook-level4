@@ -30,7 +30,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     // for add-doctor testing (initial addition of add-doctor)
-    public static final String VALID_NAME_JOHN = "John Doe";
+    public static final String VALID_NAME_JOHN = "John Doe&";
     public static final String VALID_GENDER_JOHN = "M";
     public static final String VALID_AGE_JOHN = "21";
     public static final String VALID_PHONE_JOHN = "99999999";

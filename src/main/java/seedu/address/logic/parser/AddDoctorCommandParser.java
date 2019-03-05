@@ -27,7 +27,8 @@ import seedu.address.model.tag.Tag;
 public class AddDoctorCommandParser implements Parser<AddDoctorCommand> {
 
     /**
-     *
+     * Parses the given {@code String} of arguments in the context of the AddDoctorCommand
+     * and returns an AddDoctorCommand object for execution.
      * @param args
      * @return
      * @throws ParseException

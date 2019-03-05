@@ -17,15 +17,14 @@ public class CommandHistory {
     public CommandHistory() {
         this.startTime = System.nanoTime();
     }
+    public CommandHistory(CommandHistory commandHistory) {
+        userInputHistory.addAll(commandHistory.userInputHistory);
+    }
 
     public long getElapsedTime(long endTime) {
         long elapsedTimeSeconds = (endTime - this.startTime) / (1000000000);
         return elapsedTimeSeconds;
     }
-    public CommandHistory(CommandHistory commandHistory) {
-        userInputHistory.addAll(commandHistory.userInputHistory);
-    }
-
     /**
      * Appends {@code userInput} to the list of user input entered.
      */

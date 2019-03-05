@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
 import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
 import org.junit.Test;
 
@@ -30,8 +30,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
@@ -52,10 +52,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showCardAtIndex(model, INDEX_FIRST_PERSON);
+        showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
@@ -69,9 +69,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showCardAtIndex(model, INDEX_FIRST_PERSON);
+        showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTopDeck().getCardList().size());
 
@@ -82,8 +82,8 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
@@ -122,11 +122,11 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
 
-        showCardAtIndex(model, INDEX_SECOND_PERSON);
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
+        showCardAtIndex(model, INDEX_SECOND_CARD);
+        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
 
@@ -144,14 +144,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_CARD);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_CARD);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_CARD);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

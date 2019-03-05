@@ -75,7 +75,7 @@ public class TestApp extends MainApp {
         try {
             return new TopDeck(storage.readTopDeck().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the TopDeck format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }

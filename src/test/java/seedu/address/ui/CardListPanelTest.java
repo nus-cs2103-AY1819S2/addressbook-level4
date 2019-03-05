@@ -4,7 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplayEquals;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCardObject;
 
@@ -45,11 +45,11 @@ public class CardListPanelTest extends GuiUnitTest {
     @Test
     public void selection_modelSelectedPersonChanged_selectionChanges() {
         initUi(TYPICAL_CARDS);
-        Card secondCard = TYPICAL_CARDS.get(INDEX_SECOND_PERSON.getZeroBased());
+        Card secondCard = TYPICAL_CARDS.get(INDEX_SECOND_CARD.getZeroBased());
         guiRobot.interact(() -> selectedPerson.set(secondCard));
         guiRobot.pauseForHuman();
 
-        CardDisplayHandle expectedPerson = cardListPanelHandle.getCardDiplayHandle(INDEX_SECOND_PERSON.getZeroBased());
+        CardDisplayHandle expectedPerson = cardListPanelHandle.getCardDiplayHandle(INDEX_SECOND_CARD.getZeroBased());
         CardDisplayHandle selectedPerson = cardListPanelHandle.getHandleToSelectedCard();
         assertCardDisplayEquals(expectedPerson, selectedPerson);
     }

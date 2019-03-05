@@ -8,7 +8,7 @@ import static seedu.address.testutil.TestUtil.getCard;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
@@ -31,8 +31,8 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: delete the first card in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Card deletedCard = removeCard(expectedModel, INDEX_FIRST_PERSON);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_CARD.getOneBased() + "       ";
+        Card deletedCard = removeCard(expectedModel, INDEX_FIRST_CARD);
         String expectedResultMessage = String.format(MESSAGE_DELETE_CARD_SUCCESS, deletedCard);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
@@ -60,7 +60,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: filtered card list, delete index within bounds of address book and card list -> deleted */
         showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
         assertCommandSuccess(index);
 

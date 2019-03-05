@@ -26,8 +26,8 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredPersons;
-    private final SimpleObjectProperty<Card> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Card> filteredCards;
+    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,8 +40,8 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<Card>(versionedTopDeck.getCardList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredCards = new FilteredList<Card>(versionedTopDeck.getCardList());
+        filteredCards.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
@@ -127,13 +127,13 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
-        return filteredPersons;
+        return filteredCards;
     }
 
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredCards.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -167,47 +167,47 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyProperty<Card> selectedCardProperty() {
-        return selectedPerson;
+        return selectedCard;
     }
 
     @Override
     public Card getSelectedCard() {
-        return selectedPerson.getValue();
+        return selectedCard.getValue();
     }
 
     @Override
     public void setSelectedCard(Card card) {
-        if (card != null && !filteredPersons.contains(card)) {
+        if (card != null && !filteredCards.contains(card)) {
             throw new CardNotFoundException();
         }
-        selectedPerson.setValue(card);
+        selectedCard.setValue(card);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid card in {@code filteredPersons}.
+     * Ensures {@code selectedCard} is a valid card in {@code filteredCards}.
      */
     private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Card> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
+            if (selectedCard.getValue() == null) {
                 // null is always a valid selected card, so we do not need to check that it is valid anymore.
                 return;
             }
 
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
+                    && change.getRemoved().contains(selectedCard.getValue());
             if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+                // Update selectedCard to its new value.
+                int index = change.getRemoved().indexOf(selectedCard.getValue());
+                selectedCard.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameCard(removedPerson));
+                    .anyMatch(removedPerson -> selectedCard.getValue().isSameCard(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -228,8 +228,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedTopDeck.equals(other.versionedTopDeck)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredCards.equals(other.filteredCards)
+                && Objects.equals(selectedCard.get(), other.selectedCard.get());
     }
 
 }

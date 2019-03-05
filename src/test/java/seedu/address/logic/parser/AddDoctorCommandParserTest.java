@@ -7,9 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.SPECIALISATION_DESC_ACUPUNCTURE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import seedu.address.logic.commands.AddDoctorCommand;
-
 import org.junit.Test;
+
+import seedu.address.logic.commands.AddDoctorCommand;
 
 public class AddDoctorCommandParserTest {
     private AddDoctorCommandParser parser = new AddDoctorCommandParser();

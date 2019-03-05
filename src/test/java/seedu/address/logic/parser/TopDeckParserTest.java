@@ -29,9 +29,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditCardDescriptorBuilder;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.CardUtil;
+import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class TopDeckParserTest {
     @Rule

@@ -12,21 +12,16 @@ import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRACTION;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_UNIQUE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SIMPLE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SUBJECT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_SUBTRACTION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_SUBTRACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_UNIQUE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
-import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -55,8 +50,8 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_ADDITION + "  "
-                + ANSWER_DESC_ADDITION + " " + TAG_DESC_MATH + " ";
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  "
+            + QUESTION_DESC_ADDITION + "  " + ANSWER_DESC_ADDITION + " " + TAG_DESC_MATH + " ";
         Card editedCard = new CardBuilder(ADDITION).withTags(VALID_TAG_MATH).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -80,8 +75,8 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         assertTrue(getModel().getTopDeck().getCardList().contains(ADDITION));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredCardList().get(index.getZeroBased()), ADDITION);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_ADDITION
-                + TAG_DESC_MATH;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SUBTRACTION
+            + ANSWER_DESC_ADDITION + TAG_DESC_MATH;
         editedCard = new CardBuilder(ADDITION).withQuestion(VALID_QUESTION_SUBTRACTION).build();
         assertCommandSuccess(command, index, editedCard);
 

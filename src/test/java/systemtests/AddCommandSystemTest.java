@@ -43,8 +43,8 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
          * -> added
          */
         Card toAdd = SUBTRACTION;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_SUBTRACTION + "  " + ANSWER_DESC_SUBTRACTION
-                + "   " + TAG_DESC_MATH + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_SUBTRACTION + "  "
+            + ANSWER_DESC_SUBTRACTION + "   " + TAG_DESC_MATH + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Subtraction card to the list -> Subtraction card deleted */
@@ -133,7 +133,6 @@ public class AddCommandSystemTest extends TopDeckSystemTest {
      * Verifications 1, 3 and 4 are performed by
      * {@code TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @param toAdd
      */
     private void assertCommandSuccess(Card toAdd) {
         assertCommandSuccess(CardUtil.getAddCommand(toAdd), toAdd);

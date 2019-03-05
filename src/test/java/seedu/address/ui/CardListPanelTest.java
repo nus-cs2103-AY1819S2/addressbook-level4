@@ -5,15 +5,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCardObject;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplayEquals;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCardObject;
 
 import java.util.Collections;
 
-import guitests.guihandles.CardDisplayHandle;
-import guitests.guihandles.CardListPanelHandle;
 import org.junit.Test;
 
+import guitests.guihandles.CardDisplayHandle;
+import guitests.guihandles.CardListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

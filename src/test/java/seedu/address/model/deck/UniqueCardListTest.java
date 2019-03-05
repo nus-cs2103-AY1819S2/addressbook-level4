@@ -3,7 +3,9 @@ package seedu.address.model.deck;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_HELLO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_MOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MOD;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 

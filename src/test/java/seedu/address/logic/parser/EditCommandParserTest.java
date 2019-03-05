@@ -78,8 +78,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO + TAG_DESC_SUBJECT +
-                TAG_DESC_MOD;
+        String userInput = targetIndex.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO + TAG_DESC_SUBJECT
+            + TAG_DESC_MOD;
 
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_HELLO)
                 .withAnswer(VALID_ANSWER_HELLO).withTags(VALID_TAG_SUBJECT, VALID_TAG_MOD).build();
@@ -93,7 +93,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_HELLO;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_HELLO).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+            .withAnswer(VALID_ANSWER_HELLO).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -114,7 +115,8 @@ public class EditCommandParserTest {
         // question
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + QUESTION_DESC_ADDITION;
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_ADDITION).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+            .withQuestion(VALID_QUESTION_ADDITION).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -134,8 +136,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + ANSWER_DESC_ADDITION + ANSWER_DESC_SUBTRACTION + ANSWER_DESC_HELLO
-                + TAG_DESC_MOD + TAG_DESC_SUBJECT;
+        String userInput = targetIndex.getOneBased() + ANSWER_DESC_ADDITION + ANSWER_DESC_SUBTRACTION
+            + ANSWER_DESC_HELLO + TAG_DESC_MOD + TAG_DESC_SUBJECT;
 
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_HELLO)
                 .withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT).build();

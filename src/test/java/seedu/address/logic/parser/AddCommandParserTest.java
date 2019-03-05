@@ -37,22 +37,22 @@ public class AddCommandParserTest {
         Card expectedCard = new CardBuilder(SUBTRACTION).withTags(VALID_TAG_MOD).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_SUBTRACTION  +
-                TAG_DESC_MOD, new AddCommand(expectedCard));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_SUBTRACTION
+            + TAG_DESC_MOD, new AddCommand(expectedCard));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, QUESTION_DESC_HELLO + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_SUBTRACTION +
-                TAG_DESC_MOD, new AddCommand(expectedCard));
+        assertParseSuccess(parser, QUESTION_DESC_HELLO + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_SUBTRACTION
+            + TAG_DESC_MOD, new AddCommand(expectedCard));
 
         // multiple phones - last phone accepted
-        assertParseSuccess(parser, QUESTION_DESC_SUBTRACTION + ANSWER_DESC_HELLO + ANSWER_DESC_SUBTRACTION +
-                TAG_DESC_MOD, new AddCommand(expectedCard));
+        assertParseSuccess(parser, QUESTION_DESC_SUBTRACTION + ANSWER_DESC_HELLO + ANSWER_DESC_SUBTRACTION
+            + TAG_DESC_MOD, new AddCommand(expectedCard));
 
         // multiple tags - all accepted
         Card expectedCardMultipleTags = new CardBuilder(HELLO_WORLD).withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT)
                 .build();
-        assertParseSuccess(parser, QUESTION_DESC_HELLO + ANSWER_DESC_HELLO + TAG_DESC_MOD +
-                TAG_DESC_SUBJECT, new AddCommand(expectedCardMultipleTags));
+        assertParseSuccess(parser, QUESTION_DESC_HELLO + ANSWER_DESC_HELLO + TAG_DESC_MOD
+            + TAG_DESC_SUBJECT, new AddCommand(expectedCardMultipleTags));
     }
 
     @Test
@@ -83,8 +83,8 @@ public class AddCommandParserTest {
                 Tag.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO +
-                        TAG_DESC_SUBJECT + TAG_DESC_MOD,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
+                + TAG_DESC_SUBJECT + TAG_DESC_MOD,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

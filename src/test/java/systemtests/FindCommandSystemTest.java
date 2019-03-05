@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.LAYER;
-import static seedu.address.testutil.TypicalCards.NO_TAG;
 import static seedu.address.testutil.TypicalCards.TRANSPORT;
 
 import java.util.ArrayList;

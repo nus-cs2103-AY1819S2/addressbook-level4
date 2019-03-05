@@ -4,6 +4,8 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,8 +18,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
 
@@ -70,14 +72,14 @@ public class TopDeckTest {
     @Test
     public void hasCard_cardInTopDeck_returnsTrue() {
         topDeck.addCard(ADDITION);
-        assertTrue(topDeck.hasCard(ADDITION));
+        Assert.assertTrue(topDeck.hasCard(ADDITION));
     }
 
     @Test
     public void hasCard_cardWithSameIdentityInTopDeck_returnsTrue() {
         topDeck.addCard(ADDITION);
         Card editedAddition = new CardBuilder(ADDITION).withAnswer("Different answer").build();
-        assertTrue(topDeck.hasCard(editedAddition));
+        Assert.assertTrue(topDeck.hasCard(editedAddition));
     }
 
     @Test

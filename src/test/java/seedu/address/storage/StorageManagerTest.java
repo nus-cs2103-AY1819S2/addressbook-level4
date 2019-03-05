@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.TopDeck;
 import seedu.address.model.ReadOnlyTopDeck;
+import seedu.address.model.TopDeck;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {

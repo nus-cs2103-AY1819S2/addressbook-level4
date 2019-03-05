@@ -26,7 +26,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Prescription;
+import seedu.address.model.medicine.Directory;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -276,6 +280,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean checkConsultation() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void prescribeMedicine(ArrayList<Prescription> prescriptions) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Consultation getCurrentConsultation() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void endConsultation() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }
@@ -339,7 +363,44 @@ public class AddCommandTest {
         public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
             throw new AssertionError("This method should not be called.");
         }
+        public void addMedicine(String medicineName, String[] path) {
+            throw new AssertionError("This method should not be called");
+        }
 
+        @Override
+        public void addMedicine(String medicineName, int quantity, String[] path) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void addDirectory(String directoryName, String[] path) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public Optional<Medicine> findMedicine(String medicineName) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public Optional<Medicine> findMedicine(String[] path) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void purchaseMedicine(String[] path, int quantity) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void purchaseMedicine(String medicineName, int quantity) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public Optional<Directory> findDirectory(String[] path) {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**
@@ -381,6 +442,11 @@ public class AddCommandTest {
         @Override
         public void commitAddressBook() {
             // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public Optional<Directory> findDirectory(String[] path) {
+            return Optional.empty();
         }
 
         @Override

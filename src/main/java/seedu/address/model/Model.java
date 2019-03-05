@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -9,7 +10,11 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Prescription;
+import seedu.address.model.medicine.Directory;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -155,21 +160,23 @@ public interface Model {
      * Removes the given {@code tag} from all {@code Person}s.
      */
     void deleteTag(Tag tag);
-    //void addMedicine(String medicineName, String[] path);
 
-    //void addMedicine(String medicineName, int quantity, String[] path);
+    //===========Medicine Storage =====================================
+    void addMedicine(String medicineName, String[] path);
 
-    //void addDirectory(String directoryName, String[] path);
+    void addMedicine(String medicineName, int quantity, String[] path);
 
-    //Optional<Medicine> findMedicine(String medicineName);
+    void addDirectory(String directoryName, String[] path);
 
-    //Optional<Medicine> findMedicine(String[] path);
+    Optional<Medicine> findMedicine(String medicineName);
 
-    //void purchaseMedicine(String[] path, int quantity);
+    Optional<Medicine> findMedicine(String[] path);
 
-    //void purchaseMedicine(String medicineName, int quantity);
+    void purchaseMedicine(String[] path, int quantity);
 
-    //Optional<Directory> findDirectory(String[] path);
+    void purchaseMedicine(String medicineName, int quantity);
+
+    Optional<Directory> findDirectory(String[] path);
 
     //===========Patient module operations============================
     boolean duplicatePatient(Patient patient);
@@ -203,6 +210,14 @@ public interface Model {
     Optional<Patient> getPatientWithNric(Nric nric);
 
     void diagnosePatient(Diagnosis diagnosis);
+
+    boolean checkConsultation();
+
+    void prescribeMedicine(ArrayList<Prescription> prescriptions);
+
+    Consultation getCurrentConsultation();
+
+    void endConsultation();
 
     //===========Appointment module operations========================
     boolean duplicateApp(Appointment app);

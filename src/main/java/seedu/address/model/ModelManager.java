@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -20,8 +21,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentManager;
+import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.ConsultationManager;
 import seedu.address.model.consultation.Diagnosis;
+import seedu.address.model.consultation.Prescription;
 import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
@@ -105,7 +108,6 @@ public class ModelManager implements Model {
     }
 
 
-
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -147,42 +149,42 @@ public class ModelManager implements Model {
     }
 
     //=========== MedicineManager ============================================================================
-    //@Override
+    @Override
     public void addMedicine(String medicineName, String[] path) {
         medicineManager.addMedicine(medicineName, path);
     }
 
-    //@Override
+    @Override
     public void addMedicine(String medicineName, int quantity, String[] path) {
         medicineManager.addMedicine(medicineName, quantity, path);
     }
 
-    //@Override
+    @Override
     public void addDirectory(String directoryName, String[] path) {
         medicineManager.addDirectory(directoryName, path);
     }
 
-    //@Override
+    @Override
     public Optional<Medicine> findMedicine(String medicineName) {
         return medicineManager.findMedicine(medicineName);
     }
 
-    //@Override
+    @Override
     public Optional<Medicine> findMedicine(String[] path) {
         return medicineManager.findMedicine(path);
     }
 
-    //@Override
+    @Override
     public void purchaseMedicine(String[] path, int quantity) {
         medicineManager.purchaseMedicine(path, quantity);
     }
 
-    //@Override
+    @Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
     }
 
-    //@Override
+    @Override
     public Optional<Directory> findDirectory(String[] path) {
         return medicineManager.findDirectory(path);
     }
@@ -420,6 +422,22 @@ public class ModelManager implements Model {
         this.consultationManager.diagnosePatient(diagnosis);
     }
 
+    public boolean checkConsultation() {
+        return this.consultationManager.checkConsultation();
+    }
+
+    public void prescribeMedicine(ArrayList<Prescription> prescriptions) {
+        this.consultationManager.prescribeMedicine(prescriptions);
+    }
+
+    public void endConsultation() {
+        this.consultationManager.endConsultation();
+    }
+
+    public Consultation getCurrentConsultation() {
+        return this.consultationManager.getCurrentConsultation();
+    }
+
     //==========Appointment module===========================================================================
     public boolean duplicateApp(Appointment app) {
         return appointmentManager.duplicateApp(app);
@@ -427,6 +445,7 @@ public class ModelManager implements Model {
 
     /**
      * Adds an {@code Appointment} and its {@code Reminder} to their corresponding managers
+     *
      * @param app the {@code Appointment} to add
      */
     public void addApp(Appointment app) {

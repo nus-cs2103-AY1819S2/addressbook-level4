@@ -6,9 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -18,12 +17,10 @@ import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.Assert;
 
-public class ConsultationCommandTest {
+public class PrescriptionCommandTest {
 
-    private Model modelManager = new ModelManager();
-    //private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
 
     @Before
@@ -41,29 +38,37 @@ public class ConsultationCommandTest {
     }
 
     @Test
-    public void createConsultation() {
+    public void executeTest() {
+        // no consultation
+        ArrayList<String> medList = new ArrayList<>();
+        ArrayList<Integer> qtyList = new ArrayList<>();
+        medList.add("antibiotics");
+        qtyList.add(1);
+
+        PrescriptionCommand prescriptionCommand;
+
+        try {
+            prescriptionCommand = new PrescriptionCommand(medList, qtyList);
+
+        } catch (Exception ex) {
+            org.junit.Assert.assertEquals(ex.toString(),
+                    "There is no ongoing consultation to prescribe medicine to");
+        }
 
         modelManager.createConsultation(modelManager.getPatientAtIndex(1));
-
-        // command exception thrown when consultation is recreated with a ongoing session
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                modelManager.createConsultation(modelManager.getPatientAtIndex(1)));
-    }
-
-    @Test
-    public void executeTest() {
-        ConsultationCommand cr = new ConsultationCommand("S9123456B");
-        Assert.assertThrows(CommandException.class, ()->cr.execute(modelManager, history));
-
-        ConsultationCommand cr2 = new ConsultationCommand("S9123456A");
         try {
-            String consultationResult = "Consultation session for: " + "S9123456A" + " started\n";
-            org.junit.Assert.assertEquals(cr2.execute(modelManager, history).getFeedbackToUser(),
-                    new CommandResult(consultationResult).getFeedbackToUser());
-        } catch (CommandException ce) {
+            prescriptionCommand = new PrescriptionCommand(medList, qtyList);
+            StringBuilder sb = new StringBuilder();
+            sb.append("prescription:\n");
+            sb.append("==============================\n");
+            sb.append(new Prescription(medList.get(0), qtyList.get(0)));
+            org.junit.Assert.assertEquals(prescriptionCommand.execute(modelManager, history).getFeedbackToUser(),
+                    sb.toString());
+        } catch (Exception ex) {
             org.junit.Assert.fail();
         }
-    }
 
+
+    }
 
 }

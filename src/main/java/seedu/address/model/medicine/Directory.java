@@ -38,7 +38,7 @@ public class Directory {
      */
     public void addMedicine(Medicine medicine) {
         requireNonNull(medicine);
-        checkArgument(isValidMedicine(medicine), "medicine with the same name already in list");
+        checkArgument(isValidMedicine(medicine), "medicine with the same name already in directory");
         listOfMedicine.add(medicine);
         listOfMedicine.sort(Comparator.comparing((Medicine med) -> (med.name)));
     }
@@ -156,7 +156,7 @@ public class Directory {
         if (!listOfMedicine.isEmpty()) {
             sb.append("List of Medicine under this directory: \n");
             for (Medicine medicine : listOfMedicine) {
-                sb.append(medicine.toString() + "\n");
+                sb.append(medicine.viewDetail() + "\n");
             }
         }
         if (listOfMedicine.isEmpty() && listOfDirectory.isEmpty()) {

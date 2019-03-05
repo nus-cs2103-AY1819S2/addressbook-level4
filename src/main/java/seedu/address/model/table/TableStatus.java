@@ -55,6 +55,6 @@ public class TableStatus {
 
     @Override
     public String toString() {
-        return "[" + numberOfTakenSeats + "/" + numberOfSeats + "]";
+        return numberOfTakenSeats + "/" + numberOfSeats;
     }
 }

@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;
 
@@ -35,6 +36,7 @@ public class LogicManager implements Logic {
     private boolean menuModified;
     private boolean ordersModified;
     private boolean tablesModified;
+    private boolean statisticsModified;
     private Mode mode;
 
     public LogicManager(Model model, Storage storage) {
@@ -52,6 +54,8 @@ public class LogicManager implements Logic {
         model.getRestOrRant().getOrders().addListener(observable -> ordersModified = true);
         // Set tablesModified to true whenever the models' RestOrRant's tables is modified.
         model.getRestOrRant().getTables().addListener(observable -> tablesModified = true);
+        // Set billsModified to true whenever the models' RestOrRant's bills is modified.
+        model.getRestOrRant().getStatistics().addListener(observable -> statisticsModified = true);
     }
 
     @Override
@@ -61,6 +65,7 @@ public class LogicManager implements Logic {
         menuModified = false;
         ordersModified = false;
         tablesModified = false;
+        statisticsModified = false;
 
         CommandResult commandResult;
         try {
@@ -102,6 +107,14 @@ public class LogicManager implements Logic {
             }
         }
 
+        if (statisticsModified) {
+            logger.info("Statistics modified, saving to file.");
+            try {
+                storage.saveStatistics(model.getRestOrRant().getStatistics());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
         return commandResult;
     }
 
@@ -130,6 +143,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Bill> getFilteredBillList() {
+        return model.getFilteredBillList();
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
@@ -145,6 +163,10 @@ public class LogicManager implements Logic {
 
     public Path getTablesFilePath() {
         return model.getTablesFilePath();
+    }
+
+    public Path getStatisticsFilePath() {
+        return model.getStatisticsFilePath();
     }
 
     @Override
@@ -184,6 +206,16 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedTable(Table table) {
         model.setSelectedTable(table);
+    }
+
+    @Override
+    public ReadOnlyProperty<Bill> selectedBillProperty() {
+        return model.selectedBillProperty();
+    }
+
+    @Override
+    public void setSelectedBill(Bill bill) {
+        model.setSelectedBill(bill);
     }
 
 }

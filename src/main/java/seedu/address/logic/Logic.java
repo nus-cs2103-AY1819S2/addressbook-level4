@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.table.Table;
 
 /**
@@ -43,6 +44,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of tables */
     ObservableList<Table> getFilteredTableList();
 
+    /** Returns an unmodifiable view of the filtered list of bills */
+    ObservableList<Bill> getFilteredBillList();
+
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.
@@ -65,6 +69,11 @@ public interface Logic {
     Path getTablesFilePath();
 
     /**
+     * Returns the user prefs' RestOrRant statistics file path.
+     */
+    Path getStatisticsFilePath();
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
@@ -83,13 +92,6 @@ public interface Logic {
     ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
 
     /**
-     * Sets the selected menu item in the filtered menu item list.
-     * 
-     * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
-     */
-    void setSelectedMenuItem(MenuItem menuItem);
-
-    /**
      * Selected order item in the filtered order item list.
      * null if no order item is selected.
      *
@@ -106,6 +108,21 @@ public interface Logic {
     ReadOnlyProperty<Table> selectedTableProperty();
 
     /**
+     * Selected bill in the filtered bill list.
+     * null if no bill is selected.
+     *
+     * @see seedu.address.model.Model#selectedBillProperty()
+     */
+    ReadOnlyProperty<Bill> selectedBillProperty();
+    
+    /**
+     * Sets the selected menu item in the filtered menu item list.
+     * 
+     * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
+     */
+    void setSelectedMenuItem(MenuItem menuItem);
+    
+    /**
      * Sets the selected order item in the filtered order item list.
      *
      * @see seedu.address.model.Model#setSelectedOrderItem(OrderItem)
@@ -118,6 +135,13 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedTable(Table)
      */
     void setSelectedTable(Table table);
+
+    /**
+     * Sets the selected bill in the filtered bill list.
+     *
+     * @see seedu.address.model.Model#setSelectedBill(Bill)
+     */
+    void setSelectedBill(Bill bill);
 
     /**
      * Changes current mode of RestOrRant.

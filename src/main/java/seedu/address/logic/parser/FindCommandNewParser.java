@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.*;
-
 import seedu.address.logic.commands.FindCommandNew;
+import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.FindCommandPredicate;
-import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODCODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**

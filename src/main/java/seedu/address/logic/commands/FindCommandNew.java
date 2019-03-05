@@ -48,6 +48,9 @@ public class FindCommandNew extends Command {
                 && predicate.equals(((FindCommandNew) other).predicate)); // state check
     }
 
+    /**
+     * Stores the details for finding a module. Each field can be empty.
+     */
     public static class FindModuleDescriptor {
         private String code; // can be substring of exact code
         private String title; // can be substring of exact title
@@ -67,23 +70,41 @@ public class FindCommandNew extends Command {
             setGrade(toCopy.grade);
         }
 
-        public boolean isAnyFieldEntered() { return CollectionUtil.isAnyNonNull(code, title, semester, grade); }
+        public boolean isAnyFieldEntered() {
+            return CollectionUtil.isAnyNonNull(code, title, semester, grade);
+        }
 
-        public void setCode(String code) { this.code = code; }
+        public void setCode(String code) {
+            this.code = code;
+        }
 
-        public Optional<String> getCode() { return Optional.ofNullable(code); }
+        public Optional<String> getCode() {
+            return Optional.ofNullable(code);
+        }
 
-        public void setTitle(String title) { this.title = title; }
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
-        public Optional<String> getTitle() { return Optional.ofNullable(title); }
+        public Optional<String> getTitle() {
+            return Optional.ofNullable(title);
+        }
 
-        public void setSemester(Semester semester) { this.semester = semester; }
+        public void setSemester(Semester semester) {
+            this.semester = semester;
+        }
 
-        public Optional<Semester> getSemester() { return Optional.ofNullable(semester); }
+        public Optional<Semester> getSemester() {
+            return Optional.ofNullable(semester);
+        }
 
-        public void setGrade(Grade grade) { this.grade = grade; }
+        public void setGrade(Grade grade) {
+            this.grade = grade;
+        }
 
-        public Optional<Grade> getGrade() { return Optional.ofNullable(grade); }
+        public Optional<Grade> getGrade() {
+            return Optional.ofNullable(grade);
+        }
 
         @Override
         public boolean equals(Object object) {

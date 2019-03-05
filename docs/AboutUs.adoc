@@ -12,8 +12,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chan Ming En Minern
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+image::minernchan.PNG[width="150", align="left"]
+{empty}[http://github.com/minernchan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
@@ -21,17 +21,23 @@ Responsibilities: Data
 '''
 
 === Joel Ng Zhi Hao
-image::joel0111.jpg[width="150", align="left"]
+image::joel0111.png[width="150", align="left"]
 {empty}[http://github.com/joel0111[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer (Documentation) +
+Responsibilities:
+
+* Responsible for the quality of the various project documents.
+
+Other Roles
+
+* Working on Member Management feature
 
 '''
 
 === Kevin Yeong Yu Heng
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::A0143487X-Kevin.png[width="150", align="left"]
+{empty}[http://github.com/A0143487X-Kevin[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
@@ -39,8 +45,8 @@ Responsibilities: Data
 '''
 
 === Melissa Khoo Wan Xuan
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::melissakhoo.jpg[width="150", align="left"]
+{empty}[http://github.com/melkwx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
@@ -48,7 +54,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Yang Yiqing
-image::ivyyangyq.jpg[width="150", align="left"]
+image::ivyyangyq.png[width="150", align="left"]
 {empty}[http://github.com/ivyyangyq[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +

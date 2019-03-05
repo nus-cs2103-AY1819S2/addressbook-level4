@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w13-2/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -977,8 +977,75 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: List Members
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list persons
+2.  Club Manager shows a list of members
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
 
 [discrete]
+=== Use case: Select Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to select a specific member in the list by the index number.
+2.  Club Manager shows the details of the specific person in the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
+* 2b. Member does not exist in the list.
++
+** 2b1. Club Manager shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to find a specific member.
+2.  Club Manager shows the specific member.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
+* 2b. Member does not exist in the list.
++
+** 2b1. Club Manager shows an error message.
++
+Use case ends.
+
+* 2c. The search index is not unique.
++
+** 2c1. Club Manager shows a list of all members who match the search index.
++
+Use case resumes at step 1.
+
 === Use case: Add Activity
 
 *Main Success Scenario (MSS)*
@@ -992,10 +1059,298 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The given index is invalid.
+* 2a. The given input is invalid.
 +
 ** 2a1. Club Manager shows an error message.
 Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Edit Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to edit details of an activity in the displayed list
+4.  Club Manager edits the details of the specified member with given information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index or parameters is/are invalid.
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Sort Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to sort the activity list
+2.  Club Manager sorts the activity list according to date
+3.  Club Manager shows the sorted list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 2b. The given parameter is invalid.
++
+[none]
+** 2b1. Club Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add Member to Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to add a member to the attendance list of an activity
+4.  Club Manager adds the member to the activity's attendance list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3b. The specified member does not exist.
++
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3c. The specified member is already in the attendance list.
++
+** 3c1. Club Manager shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Remove Member from Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to remove a member from the attendance list of an activity
+4.  Club Manager removes the member to the activity's attendance list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3b. The specified member does not exist.
++
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3c. The specified member is not in the attendance list.
++
+** 3c1. Club Manager shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to permanently delete an activity from the activity list
+4.  Club Manager deletes the activity.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: List Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Select Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
+3. User request to select an activity from the displayed list
+4. Club Manager shows the details of the selected activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to find activities based on keywords
+2. Club Manager finds the activities with the given keywords
+3. Club Manager displays the list of activities that matches the keywords
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Keyword input is invalid
++[none]
+** 1a1. Club Manager shows an error message.
++
+Use case ends.
+
+
+
+* 3a. The list is empty
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Archive Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
+3. User request to archive an activity from the displayed list
+4. Club Manager archives the selected activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The activity at the given index is already archived.
++
+[none]
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Unarchive Activity
+
+* Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
+3. User request to unarchive an activity from the displayed list
+4. Club Manager unarchives the selected activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The activity at the given index is not archived.
++
+[none]
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
 
 _{More to be added}_
 
@@ -1011,28 +1366,52 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+This section is designed to provide you with definitions for
+terms that are used in this document below.
+
+[horizontal]
+
+[[CLI]] CLI::
+Command Line Interface
+
+[[CCA]] CCA::
+Co-Curricular Activities
+
+[[crud]] Create, Read, Update and Delete (CRUD)::
+Basic functions of a database
+
+[[GUI]] GUI::
+Graphical User Interface
+
+[[Main-Committee-Member]] Main Committee Member::
+A person who is in the core team of organisers for the CCA.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[Sub-Committee-Member]] Sub-Committee Member::
+A person who is an active member of the CCA, but do not play any organiser role.
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Product Name:* EventBank
 
-Author: ...
+Author: Joel Ng
 
 Pros:
 
-* ...
-* ...
+* Has necessary relevant features to a member management system
+* Available in Desktop and Mobile Platforms.
+* Easy to use and set up activities for members.
 
 Cons:
 
-* ...
-* ...
+* Does not clearly differentiate the Users application and the managers application well. This caused managers to download the users application.
+
+* Interface could be more intuitive e.g. allowing preview of corporate members.
+
+* No training document provided. Users have to contact the support manager for “how to” questions.
 
 [appendix]
 == Instructions for Manual Testing

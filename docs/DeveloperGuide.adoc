@@ -858,13 +858,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
 
+|`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
+
 |`* *` |real estate agent |add and update financial information of properties that can be bought/sold/rented |use the information to better determine which properties to buy/sell based on price, and match customers who are looking for certain prices
 
 |`* *` |efficient user |search and filter by financial information of properties |see which properties can meet my customers' expectation, as well as my own, in terms of price
 
-|`* *` |forgetful user |add lease period information for lessees |be reminded when the lease agreement in expiring
+|`* *` |forgetful user |add rental period information for tenants |be reminded when the rental agreement is expiring
 
 |`* *` |efficient user |check all my properties sorted in ascending or descending order by price or size |compare across my properties to buy/sell based on price or size
+
+|`* *` |real estate agent |link sellers to buyers, and landlords to tenants through properties |see all customers linked to a certain property
 
 |`* *` |efficient user |search for properties with address within a 1 km radius of a specific address |filter out properties near a given location
 
@@ -872,7 +876,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |responsible user |password-protect the app and/or encrypt individual data |protect my contacts' personal information from access by unauthorised people
 
-|`*` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
+|`*` |detailed user |add a remark to a contact |record more miscellaneous details about a contact
+
+|`*` |efficient user |link multiple properties for each contact |keep track of all the properties linked to a contact
 
 |`*` |lazy user |send automated email and/or SMS reminder notifications to my customers |do not have to send individual notifications manually
 
@@ -886,35 +892,378 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TheRealApp` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add contact
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add contact, with any additional information.
+2. TheRealApp adds contact into the contact list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. A field is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Archive contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to archive a specific contact in the list.
+4. TheRealApp archives the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
 +
 Use case ends.
 
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TheRealApp shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
-_{More to be added}_
+[discrete]
+=== Use case: Display archived contact list
+
+*MSS*
+
+1. User requests to list archived contacts.
+2. TheRealApp shows a list of archived contacts.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The archived contact list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find archived contact
+
+*MSS*
+
+1. User requests to find an archived contact by entering keyword(s).
+2. TheRealApp shows a list of archived contacts containing the keywords(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The keyword(s) is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: Clear contact list
+
+*MSS*
+
+1. User requests to clear the contact list.
+2. TheRealApp requests for confirmation.
+3. User confirms the request.
+4. TheRealApp clears the entire contact list.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to delete a specific contact in the list.
+4. TheRealApp deletes the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Edit contact
+
+*MSS*
+
+1. User requests to edit a contact, with new information.
+2. TheRealApp edits the contact in the contact list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. A field is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes at step 1.
+* 1b. The given index is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Exit app
+
+*MSS*
+
+1. User requests to exit the app.
+2. TheRealApp requests to confirm the exit.
+3. User confirms the exit.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find contact
+
+*MSS*
+
+1. User requests to find a contact by entering keyword(s).
+2. TheRealApp shows a list of contacts containing the keywords(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The keyword(s) is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: View help
+
+*MSS*
+
+1. User requests to view help.
+2. TheRealApp displays the User Guide.
++
+Use case ends.
+
+[discrete]
+=== Use case: View history
+
+*MSS*
+
+1. User requests to view the history of previous commands.
+2. TheRealApp displays a history of previous commands in reverse chronological order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The history list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display contact list
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The contact list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Pin contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to pin a specific contact in the list.
+4. TheRealApp pins the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Redo
+
+*MSS*
+
+1. User requests to redo the previous undo.
+2. TheRealApp redoes the undo.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous undo command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Select contact
+
+*MSS*
+
+1. User requests to select a contact.
+2. TheRealApp selects the contact and shows the information of the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
+[none]
+** 1a1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Display contact list sorted in a specific category
+
+*MSS*
+
+1. User requests to list contacts sorted in a specific category.
+2. TheRealApp shows a list of contacts sorted in the requested category.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The contact list is empty.
++
+Use case ends.
+
+* 1b. The category is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Unarchive contact
+
+*MSS*
+
+1. User requests to list archived contacts.
+2. TheRealApp shows a list of archived contacts.
+3. User requests to unarchive a specific contact in the archived list.
+4. TheRealApp unarchives the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The archived contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Undo
+
+*MSS*
+
+1. User requests to undo the previous undoable command.
+2. TheRealApp undoes the previous undoable command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous undoable command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Unpin contact
+
+*MSS*
+
+1. User requests to unpin a specific pinned contact in the pinned list.
+2. TheRealApp unpins the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The pinned list is empty.
++
+Use case ends.
+
+* 1b. The given index is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
 
 [appendix]
 == Non Functional Requirements
@@ -932,23 +1281,6 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 _{More to be added}_
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

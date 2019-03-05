@@ -15,11 +15,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.exception.BillNotFoundException;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableStatus;
+
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
@@ -31,11 +35,13 @@ public class ModelManager implements Model {
     private final RestOrRant restOrRant;
     private final UserPrefs userPrefs;
     private final FilteredList<OrderItem> filteredOrderItems;
-    private final FilteredList<MenuItem> filteredMenuItems;
     private final SimpleObjectProperty<OrderItem> selectedOrderItem = new SimpleObjectProperty<>();
+    private final FilteredList<MenuItem> filteredMenuItems;
     private final SimpleObjectProperty<MenuItem> selectedMenuItem = new SimpleObjectProperty<>();
     private final FilteredList<Table> filteredTableList;
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
+    private final FilteredList<Bill> filteredBillList;
+    private final SimpleObjectProperty<Bill> selectedBill = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -54,6 +60,8 @@ public class ModelManager implements Model {
         filteredMenuItems.addListener(this::ensureSelectedMenuItemIsValid);
         filteredTableList = new FilteredList<>(this.restOrRant.getTables().getTableList());
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
+        filteredBillList = new FilteredList<>(this.restOrRant.getStatistics().getBillList());
+        filteredBillList.addListener(this::ensureSelectedBillIsValid);
     }
 
     public ModelManager() {
@@ -100,6 +108,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getStatisticsFilePath() {
+        return userPrefs.getStatisticsFilePath();
+    }
+
+    @Override
     public void setOrdersFilePath(Path ordersFilePath) {
         requireNonNull(ordersFilePath);
         userPrefs.setOrdersFilePath(ordersFilePath);
@@ -111,11 +124,17 @@ public class ModelManager implements Model {
         userPrefs.setMenuFilePath(menuFilePath); 
     }
 
+    @Override
+    public void setStatisticsFilePath(Path statsFilePath) {
+        requireNonNull(statsFilePath);
+        userPrefs.setStatisticsFilePath(statsFilePath);
+    }
+
     //=========== RestOrRant ================================================================================
 
     @Override
     public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
-        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu(), restOrRant.getTables());
+        this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu(), restOrRant.getTables(), restOrRant.getStatistics());
     }
 
     @Override
@@ -126,6 +145,11 @@ public class ModelManager implements Model {
     @Override
     public void updateRestOrRant() { // change mode
         restOrRant.indicateModified();
+    }
+    
+    @Override
+    public void changeMode() {
+        restOrRant.changeMode();
     }
 
     //=========== Tables =====================================================================================
@@ -144,6 +168,12 @@ public class ModelManager implements Model {
     @Override
     public void addTable(Table table) {
         restOrRant.getTables().addTable(table);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
+    }
+
+    @Override
+    public void addTable(TableStatus tableStatus) {
+        restOrRant.getTables().addTable(tableStatus);
         updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
 
@@ -213,7 +243,7 @@ public class ModelManager implements Model {
             boolean wasSelectedTableRemoved = change.getRemoved().stream()
                     .anyMatch(removedTable -> selectedTable.getValue().isSameTable(removedTable));
             if (wasSelectedTableRemoved) {
-                // Select the table taht came before it in the list,
+                // Select the table that came before it in the list,
                 // or clear the selection if there is no such table.
                 selectedTable.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
@@ -245,6 +275,43 @@ public class ModelManager implements Model {
         restOrRant.getOrders().setOrderItem(target, editedOrderItem);
     }
     
+    //=========== Filtered Order Item List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code OrderItem} backed by the internal list of
+     * {@code Orders}
+     */
+    @Override
+    public ObservableList<OrderItem> getFilteredOrderItemList() {
+        return filteredOrderItems;
+    }
+
+    @Override
+    public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
+        requireNonNull(predicate);
+        filteredOrderItems.setPredicate(predicate);
+    }
+    
+    //=========== Selected order item ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
+        return selectedOrderItem;
+    }
+
+    @Override
+    public OrderItem getSelectedOrderItem() {
+        return selectedOrderItem.getValue();
+    }
+
+    @Override
+    public void setSelectedOrderItem(OrderItem orderItem) {
+        if (orderItem != null && !filteredOrderItems.contains(orderItem)) {
+            throw new OrderItemNotFoundException();
+        }
+        selectedOrderItem.setValue(orderItem);
+    }
+    
     //=========== Menu ======================================================================================
     @Override
     public boolean hasMenuItem(MenuItem menuItem) {
@@ -274,23 +341,6 @@ public class ModelManager implements Model {
     public void updateOrders() {
         restOrRant.getOrders().indicateModified();
     }
-
-    //=========== Filtered Order Item List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code OrderItem} backed by the internal list of
-     * {@code Orders}
-     */
-    @Override
-    public ObservableList<OrderItem> getFilteredOrderItemList() {
-        return filteredOrderItems;
-    }
-
-    @Override
-    public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
-        requireNonNull(predicate);
-        filteredOrderItems.setPredicate(predicate);
-    }
     
     //=========== Filtered MenuItem List Accessors =============================================================
     
@@ -307,26 +357,6 @@ public class ModelManager implements Model {
     public void updateFilteredMenuItemList(Predicate<MenuItem> predicate) {
         requireNonNull(predicate);
         filteredMenuItems.setPredicate(predicate);
-    }
-
-    //=========== Selected order item ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
-        return selectedOrderItem;
-    }
-
-    @Override
-    public OrderItem getSelectedOrderItem() {
-        return selectedOrderItem.getValue();
-    }
-
-    @Override
-    public void setSelectedOrderItem(OrderItem orderItem) {
-        if (orderItem != null && !filteredOrderItems.contains(orderItem)) {
-            throw new OrderItemNotFoundException();
-        }
-        selectedOrderItem.setValue(orderItem);
     }
 
     //=========== Selected menu item ===========================================================================
@@ -407,6 +437,82 @@ public class ModelManager implements Model {
         }
     }
 
+    //=========== Statistics =====================================================================================
+
+    @Override
+    public void addBill(Bill bill) {
+        requireNonNull(bill);
+        restOrRant.getStatistics().addBill(bill);
+    }
+    
+    @Override
+    public ObservableList<Bill> getBillList () {
+        return restOrRant.getStatistics().getBillList();
+    }
+    
+    @Override
+    public void setBill(Bill target, Bill editedItem) {
+        requireAllNonNull(target, editedItem);
+
+        restOrRant.getStatistics().setBills(target, editedItem);
+    }
+    
+    //=========== Filtered Bill List Accessors ==============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Bill} backed by the internal list of {@code BillList}
+     */
+    @Override
+    public ObservableList<Bill> getFilteredBillList() {
+        return filteredBillList;
+    }
+
+    @Override
+    public void updateFilteredBillList(Predicate<Bill> predicate) {
+        requireNonNull(predicate);
+        filteredBillList.setPredicate(predicate);
+    }
+    
+    //=========== Selected bill =============================================================================
+
+    @Override
+    public ReadOnlyProperty<Bill> selectedBillProperty() {
+        return selectedBill;
+    }
+
+    @Override
+    public Bill getSelectedBill() {
+        return selectedBill.getValue();
+    }
+
+    @Override
+    public void setSelectedBill(Bill bill) {
+        if (bill != null && !filteredBillList.contains(bill)) {
+            throw new BillNotFoundException();
+        }
+        selectedBill.setValue(bill);
+    }
+
+    /**
+     * Ensures {@code selectedTable} is a valid table in {@code filteredTable}.
+     */
+    private void ensureSelectedBillIsValid(ListChangeListener.Change<? extends Bill> change) {
+        while (change.next()) {
+            if (selectedBill.getValue() == null) {
+                //null is always a valid selected bill, so we do not need to check that it is valid anymore
+                return;
+            }
+
+            boolean wasSelectedBillReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedBill.getValue());
+            if (wasSelectedBillReplaced) {
+                //Update selectedBill to its new value.
+                int index = change.getRemoved().indexOf(selectedBill.getValue());
+                selectedBill.setValue(change.getAddedSubList().get(index));
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -428,11 +534,8 @@ public class ModelManager implements Model {
                 && filteredMenuItems.equals(other.filteredMenuItems)
                 && Objects.equals(selectedMenuItem.get(), other.selectedMenuItem.get())
                 && filteredTableList.equals(other.filteredTableList)
-                && Objects.equals(selectedTable.get(), other.selectedTable.get());
-    }
-
-    @Override
-    public void changeMode() {
-        restOrRant.changeMode();
+                && Objects.equals(selectedTable.get(), other.selectedTable.get())
+                && filteredBillList.equals(other.filteredBillList)
+                && Objects.equals(selectedBill.get(), other.selectedBill.get());
     }
 }

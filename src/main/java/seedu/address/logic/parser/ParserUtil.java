@@ -15,7 +15,11 @@ import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Price;
 import seedu.address.model.person.Phone;
+import seedu.address.model.table.TableNumber;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.statistics.Year;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Day;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -80,7 +84,7 @@ public class ParserUtil {
         }
         return new Code(trimmedCode);
     }
-    
+
     /**
      * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
@@ -97,18 +101,63 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String day} into a {@code Day}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code day} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Day parseDay(String day) throws ParseException {
+        requireNonNull(day);
+        String trimmedDay = day.trim();
+        if (!Day.isValidDay(trimmedDay)) {
+            throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Day(trimmedDay);
+    }
+
+    /**
+     * Parses a {@code String month} into a {@code Month}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code month} is invalid.
+     */
+    public static Month parseMonth(String month) throws ParseException {
+        requireNonNull(month);
+        String trimmedMonth = month.trim();
+        if (!Month.isValidMonth(trimmedMonth)) {
+            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
+        }
+        return new Month(trimmedMonth);
+    }
+
+    /**
+     * Parses a {@code String year} into a {@code Year}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        if (!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
+    }
+
+    /**
+     * Parses a {@code String tableNumber} into a {@code TableNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tableNumber} is invalid.
+     */
+    public static TableNumber parseTableNumber(String tableNumber) throws ParseException {
+        requireNonNull(tableNumber);
+        String trimmedTableNumber = tableNumber.trim();
+        if (!TableNumber.isValidTableNumber(trimmedTableNumber)) {
+            throw new ParseException(TableNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new TableNumber(trimmedTableNumber);
     }
 
     /**

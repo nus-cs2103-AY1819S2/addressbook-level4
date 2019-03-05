@@ -6,14 +6,14 @@ import java.util.Objects;
 
 import javafx.beans.InvalidationListener;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.Orders;
 import seedu.address.model.order.ReadOnlyOrders;
-import seedu.address.model.order.UniqueOrderItemList;
-import seedu.address.model.table.Table;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Tables;
-import seedu.address.model.table.UniqueTableList;
 
 /**
  * Wraps all data at the address-book level
@@ -24,6 +24,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     private final Menu menu;
     private final Orders orders;
     private final Tables tables;
+    private final Statistics statistics;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -37,6 +38,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         menu = new Menu();
         orders = new Orders();
         tables = new Tables();
+        statistics = new Statistics();
     }
 
     public RestOrRant() {}
@@ -46,25 +48,26 @@ public class RestOrRant implements ReadOnlyRestOrRant {
      */
     public RestOrRant(ReadOnlyRestOrRant toBeCopied) {
         this();
-        resetData(toBeCopied.getOrders(), toBeCopied.getMenu(), toBeCopied.getTables());
+        resetData(toBeCopied.getOrders(), toBeCopied.getMenu(), toBeCopied.getTables(), toBeCopied.getStatistics());
     }
     
     /**
      * Creates an RestOrRant using the data specified in {@code copyOrders, copyMenu, copyTables} // TODO: add more parameters
      */
-    public RestOrRant(ReadOnlyOrders copyOrders, ReadOnlyMenu copyMenu, ReadOnlyTables copyTables) {
+    public RestOrRant(ReadOnlyOrders copyOrders, ReadOnlyMenu copyMenu, ReadOnlyTables copyTables, ReadOnlyStatistics copyStatistics) {
         this();
-        resetData(copyOrders, copyMenu, copyTables);
+        resetData(copyOrders, copyMenu, copyTables, copyStatistics);
     }
 
     /**
      * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu, newTables}. //TODO: add more parameters 
      */
-    public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu, ReadOnlyTables newTables) {
-        requireAllNonNull(newOrders, newMenu, newTables);
+    public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu, ReadOnlyTables newTables, ReadOnlyStatistics newStatistics) {
+        requireAllNonNull(newOrders, newMenu, newTables, newStatistics);
         orders.setOrderItems(newOrders.getOrderItemList());
         menu.setMenuItems(newMenu.getMenuItemList());
         tables.setTables(newTables.getTableList());
+        statistics.setBills(newStatistics.getBillList());
     }
 
     public void changeMode() {
@@ -92,8 +95,9 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     @Override
     public String toString() {
-        return orders.getOrderItemList().size() + " order items" + "\n" + 
-                menu.getMenuItemList().size() + " menu items";
+        return orders.getOrderItemList().size() + " order items" + "\n" +
+                menu.getMenuItemList().size() + " menu items" + "\n" +
+                statistics.getBillList().size() + " bills";
         // TODO: refine later
     }
 
@@ -103,6 +107,10 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     public Menu getMenu() {
         return menu;
+    }
+    
+    public Statistics getStatistics() {
+        return statistics;
     }
 
     @Override

@@ -13,49 +13,49 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.table.ReadOnlyTables;
+import seedu.address.model.statistics.ReadOnlyStatistics;
 
 /**
  * A class to access RestOrRant data stored as a json file on the hard disk.
  */
-public class JsonTablesStorage implements TablesStorage {
+public class JsonStatisticsStorage implements StatisticsStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonMenuStorage.class);
 
     private final Path filePath;
     private final Path backupFilePath;
 
-    public JsonTablesStorage(Path filePath) {
+    public JsonStatisticsStorage(Path filePath) {
         this.filePath = filePath;
         backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
-    public Path getTableFilePath() {
+    public Path getStatisticsFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyTables> readTables() throws DataConversionException {
-        return readTables(filePath);
+    public Optional<ReadOnlyStatistics> readStatistics() throws DataConversionException {
+        return readStatistics(filePath);
     }
 
     /**
-     * Similar to {@link #readTables()}.
+     * Similar to {@link #readStatistics()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTables> readTables(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyStatistics> readStatistics(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableTables> jsonTables = JsonUtil.readJsonFile(
-                filePath, JsonSerializableTables.class);
-        if (!jsonTables.isPresent()) {
+        Optional<JsonSerializableStatistics> jsonStats = JsonUtil.readJsonFile(
+                filePath, JsonSerializableStatistics.class);
+        if (!jsonStats.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonTables.get().toModelType());
+            return Optional.of(jsonStats.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -63,27 +63,26 @@ public class JsonTablesStorage implements TablesStorage {
     }
 
     @Override
-    public void saveTables(ReadOnlyTables tables) throws IOException {
-        saveTables(tables, filePath);
+    public void saveStatistics(ReadOnlyStatistics stats) throws IOException {
+        saveStatistics(stats, filePath);
     }
 
-
     /**
-     * Similar to {@link #saveTables(ReadOnlyTables)}.
+     * Similar to {@link #saveStatistics(ReadOnlyStatistics)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveTables(ReadOnlyTables tables, Path filePath) throws IOException {
-        requireNonNull(tables);
+    public void saveStatistics(ReadOnlyStatistics stats, Path filePath) throws IOException {
+        requireNonNull(stats);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableTables(tables), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableStatistics(stats), filePath);
     }
 
     @Override
-    public void backupTables(ReadOnlyTables tables) throws IOException {
-        saveTables(tables, backupFilePath);
+    public void backupStatistics(ReadOnlyStatistics stats) throws IOException {
+        saveStatistics(stats, backupFilePath);
     }
 
 }

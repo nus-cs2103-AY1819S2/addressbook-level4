@@ -15,9 +15,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path menuFilePath = Paths.get("data", "menu.json");
-    private Path restOrRantFilePath = Paths.get("data" , "restorrant.json");
     private Path ordersFilePath = Paths.get("data" , "orders.json");
     private Path tablesFilePath = Paths.get("data", "tables.json");
+    private Path statisticsFilePath = Paths.get("data", "statistics.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,9 +38,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setRestOrRantFilePath(newUserPrefs.getRestOrRantFilePath());
+        setMenuFilePath(newUserPrefs.getMenuFilePath());
         setOrdersFilePath(newUserPrefs.getOrdersFilePath());
         setTablesFilePath(newUserPrefs.getTablesFilePath());
+        setStatisticsFilePath(newUserPrefs.getStatisticsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -51,26 +52,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
     }
-
-    public Path getRestOrRantFilePath() {
-        return restOrRantFilePath;
-    } // TODO: remove and add each feature's file path
     
     public Path getMenuFilePath() {
         return menuFilePath;
     }
     
-    public void setRestOrRantFilePath(Path restOrRantFilePath) { // TODO: remove and add each feature's file path
-        requireNonNull(restOrRantFilePath);
-        this.restOrRantFilePath = restOrRantFilePath;
+    public Path getOrdersFilePath() {
+        return ordersFilePath;
     }
+
+    public Path getTablesFilePath() {
+        return tablesFilePath;
+    }
+
+    public Path getStatisticsFilePath() {
+        return statisticsFilePath;
+    }
+
     public void setMenuFilePath(Path menuFilePath) {
         requireNonNull(menuFilePath);
         this.menuFilePath = menuFilePath;
-    }
-
-    public Path getOrdersFilePath() {
-        return ordersFilePath;
     }
 
     public void setOrdersFilePath(Path ordersFilePath) {
@@ -78,13 +79,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.ordersFilePath = ordersFilePath;
     }
 
-    public Path getTablesFilePath() {
-        return tablesFilePath;
-    }
-
     public void setTablesFilePath(Path tablesFilePath) {
         requireNonNull(tablesFilePath);
         this.tablesFilePath = tablesFilePath;
+    }
+
+    public void setStatisticsFilePath(Path statsFilePath) {
+        requireNonNull(statsFilePath);
+        this.statisticsFilePath = statsFilePath;
     }
 
     @Override
@@ -99,23 +101,25 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && restOrRantFilePath.equals(o.restOrRantFilePath)
+                && menuFilePath.equals(o.menuFilePath)
                 && ordersFilePath.equals(o.ordersFilePath)
-                && tablesFilePath.equals(o.tablesFilePath);
+                && tablesFilePath.equals(o.tablesFilePath)
+                && statisticsFilePath.equals(o.statisticsFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, restOrRantFilePath, ordersFilePath, tablesFilePath);
+        return Objects.hash(guiSettings, menuFilePath, ordersFilePath, tablesFilePath, statisticsFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + restOrRantFilePath);
+        sb.append("\nLocal data file location for menu : " + menuFilePath);
         sb.append("\nLocal data file location for orders: " + ordersFilePath);
         sb.append("\nLocal data file location for tables: " + tablesFilePath);
+        sb.append("\nLocal data file lovation for statistics: " + statisticsFilePath);
         return sb.toString();
     }
 

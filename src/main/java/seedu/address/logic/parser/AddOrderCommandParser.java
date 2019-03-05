@@ -37,7 +37,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
         List<Code> itemCodes = new ArrayList<>();
         List<Integer> itemQuantities = new ArrayList<>();
         for (int i = 0; i < itemDetails.length - 1; i += 2) {
-            itemCodes.add(new Code(itemDetails[i])); // TODO: check for valid code?
+            itemCodes.add(ParserUtil.parseCode(itemDetails[i]));
             itemQuantities.add(ParserUtil.parseQuantity(itemDetails[i + 1]));
         }
 

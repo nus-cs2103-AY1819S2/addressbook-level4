@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTables;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -23,15 +24,15 @@ public class StorageManager implements Storage {
     private MenuStorage menuStorage;
     private OrdersStorage ordersStorage;
     private TablesStorage tablesStorage;
+    private StatisticsStorage statsStorage;
 
-
-    public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage,
-                          MenuStorage menuStorage, TablesStorage tablesStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage, MenuStorage menuStorage,
+                          StatisticsStorage statsStorage, TablesStorage tablesStorage) {
         super();
         this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.ordersStorage = ordersStorage;
-        this.menuStorage = menuStorage;
+        this.statsStorage = statsStorage;
         this.tablesStorage = tablesStorage;
     }
 
@@ -154,4 +155,39 @@ public class StorageManager implements Storage {
     public void backupTables(ReadOnlyTables tables) throws IOException {
         tablesStorage.backupTables(tables);
     }
+
+    // ================ statistics methods ==============================
+
+    @Override
+    public Path getStatisticsFilePath() {
+        return statsStorage.getStatisticsFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyStatistics> readStatistics() throws DataConversionException, IOException {
+        return readStatistics(statsStorage.getStatisticsFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyStatistics> readStatistics(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return statsStorage.readStatistics(filePath);
+    }
+
+    @Override
+    public void saveStatistics(ReadOnlyStatistics stats) throws IOException {
+        saveStatistics(stats, ordersStorage.getOrdersFilePath());
+    }
+
+    @Override
+    public void saveStatistics(ReadOnlyStatistics stats, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        statsStorage.saveStatistics(stats, filePath);
+    }
+
+    @Override
+    public void backupStatistics(ReadOnlyStatistics stats) throws IOException {
+        statsStorage.backupStatistics(stats);
+    }
+
 }

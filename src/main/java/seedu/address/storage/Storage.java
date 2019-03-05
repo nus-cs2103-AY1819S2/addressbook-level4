@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTables;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -14,7 +14,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 /**
  * API of the Storage component
  */
-public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, TablesStorage {
+public interface Storage extends UserPrefsStorage, OrdersStorage, MenuStorage, TablesStorage, StatisticsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

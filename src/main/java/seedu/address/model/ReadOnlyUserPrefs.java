@@ -11,10 +11,12 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getRestOrRantFilePath();
+    Path getMenuFilePath();
     
     Path getOrdersFilePath();
 
     Path getTablesFilePath();
+    
+    Path getStatisticsFilePath();
 
 }

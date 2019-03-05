@@ -23,8 +23,8 @@ public class Table {
         return tableStatus;
     }
 
-    public String getTableNumber() {
-        return tableNumber.getTableNumber();
+    public TableNumber getTableNumber() {
+        return tableNumber;
     }
 
     public boolean isSameTable(Table otherTable) {
@@ -33,7 +33,6 @@ public class Table {
         }
 
         return otherTable != null
-                && otherTable.getTableNumber().equals(getTableNumber())
-                && otherTable.getTableStatus().equals(getTableStatus());
+                && otherTable.getTableNumber().equals(getTableNumber());
     }
 }

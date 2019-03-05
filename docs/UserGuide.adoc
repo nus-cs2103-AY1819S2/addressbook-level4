@@ -276,14 +276,21 @@ Format: `RESETPASS`
 
 Generates a custom MC
 
-=== Inventory - view medicine storage: `medstorage`
+=== Inventory - add medicine into storage: `addMed`
 
-Show the amount of medicine storage in the clinic. The storage amount for individual medicine could also be viewed.
-Format: `medstorage`
+Add a new medicine under directory specified by the path.
+Format: `addMed [Path] [Medicine_Name] (Optional)[Quantity]
 
 Example: +
-* `medstorage` Shows a list of all medicine and their storage amount +
-* `medstorage panadol` Shows the storage amount of panadol in the clinic
+* `addMed root\TCM healroot 50` Add a new medicine with name "healroot" and quantity 50 at directory root\TCM
+
+=== Inventory - view medicine storage: `viewMed`
+
+view the specific information about the directory or medicine specified by the path
+Format: `medstorage [Path]`
+
+Example: +
+* `medstorage root\TCM` Shows the sub-directories and medicines stored under the directory root\TCM
 
 === Inventory - setting notification for low stock: `setalert`
 
@@ -294,12 +301,15 @@ Format: `setalert [MEDICINE] [AMOUNT]`
 Example: +
 * `setalert panadol 50` the alert level of panadol storage is set to 50. A notification will appear when panadol storage falls below 50.
 
-=== Inventory - recording purchases of medicine: `purchase`
+=== Inventory - recording purchases of medicine: `buyMed`
 
 Purchase of medicine can be recorded and the storage amount will be consequently updated +
-Format: `purchase [MEDICINE] [AMOUNT] [EXPENDITURE]` +
+Format: `buyMed [MEDICINE_NAME] [AMOUNT] [EXPENDITURE]` +
+Alternative Format: `buyMed [PATH_OF_MEDICINE] [AMOUNT] [EXPENDITURE]` 
 
-Example: `purchase panadol 10 400`
+Example: +
+* `buyMed panadol 10 400` 
+* `buyMed root\panadol 10 400`
 
 === Inventory - view past record of medicine purchase: `purchaserecord`
 View the past record of medicine purchase +

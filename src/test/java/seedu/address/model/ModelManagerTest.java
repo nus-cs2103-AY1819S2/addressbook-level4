@@ -5,9 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
+import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,8 +22,10 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
@@ -113,10 +116,10 @@ public class ModelManagerTest {
     @Test
     public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
         modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
+        modelManager.addPerson(BETTY);
+        assertEquals(Arrays.asList(ALICE, BETTY), modelManager.getFilteredPersonList());
+        modelManager.setSelectedPerson(BETTY);
+        modelManager.deletePerson(BETTY);
         assertEquals(ALICE, modelManager.getSelectedPerson());
     }
 
@@ -148,6 +151,68 @@ public class ModelManagerTest {
         modelManager.setSelectedPerson(ALICE);
         assertEquals(ALICE, modelManager.getSelectedPerson());
     }
+
+    // Added tests for added supporting operations on UniqueHealthWorkerList
+    // @author: Lookaz
+    // TODO: Update tests accordingly after adding further operations supporting HealthWorker
+
+    @Test
+    public void addHealthWorker() {
+        // add null health worker
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .addHealthWorker(null));
+
+        // health worker already in addressbook
+        modelManager.addHealthWorker(ANDY);
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                modelManager.addHealthWorker(ANDY));
+    }
+
+    @Test
+    public void hasHealthWorker() {
+        // null health worker
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .hasHealthWorker(null));
+
+        // health worker does not exist -> return false
+        assertFalse(modelManager.hasHealthWorker(ANDY));
+
+        // health worker exists -> return true
+        modelManager.addHealthWorker(ANDY);
+        assertTrue(modelManager.hasHealthWorker(ANDY));
+    }
+
+    @Test
+    public void deleteHealthWorker() {
+        // null health worker
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .deleteHealthWorker(null));
+
+        // delete non existent person
+        Assert.assertThrows(PersonNotFoundException.class, () -> modelManager
+                .deleteHealthWorker(ANDY));
+    }
+
+    @Test
+    public void setHealthWorker() {
+        // setting null health worker
+        modelManager.addHealthWorker(ANDY);
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .setHealthWorker(ANDY, null));
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .setHealthWorker(null, ANDY));
+
+        // setting non existent health worker
+        Assert.assertThrows(PersonNotFoundException.class, () -> modelManager
+                .setHealthWorker(BETTY, ANDY));
+
+        // setting to duplicate health worker
+        modelManager.addHealthWorker(BETTY);
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                modelManager.setHealthWorker(BETTY, ANDY));
+    }
+
+    // ======================================================================
 
     @Test
     public void equals() {

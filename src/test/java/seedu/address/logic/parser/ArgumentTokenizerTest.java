@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.testutil.Assert;
+
 public class ArgumentTokenizerTest {
 
     private final Prefix unknownPrefix = new Prefix("--u");
@@ -145,6 +147,49 @@ public class ArgumentTokenizerTest {
 
         assertNotEquals(aaa, "aaa");
         assertNotEquals(aaa, new Prefix("aab"));
+    }
+
+    @Test
+    public void checkMode() {
+        // Empty String
+        Assert.assertThrows(StringIndexOutOfBoundsException.class, () ->
+                ArgumentTokenizer.checkMode(""));
+
+        // String too short
+        Assert.assertThrows(StringIndexOutOfBoundsException.class, () ->
+                ArgumentTokenizer.checkMode("1"));
+
+        // null string
+        Assert.assertThrows(NullPointerException.class, () ->
+                ArgumentTokenizer.checkMode(null));
+
+        // 1 -> HealthWorker command mode
+        assertTrue(ArgumentTokenizer.checkMode("1 n/")
+                .equals(CommandMode.HEALTH_WORKER));
+
+        // 2 -> Patient command mode
+        assertTrue(ArgumentTokenizer.checkMode("2 n/")
+                .equals(CommandMode.PATIENT));
+
+        // 3 -> Request command mode
+        assertTrue(ArgumentTokenizer.checkMode("3 n/")
+                .equals(CommandMode.REQUEST));
+
+        // 4 -> Others command mode
+        assertTrue(ArgumentTokenizer.checkMode("4 n/")
+                .equals(CommandMode.OTHERS));
+
+        // Invalid number
+        assertTrue(ArgumentTokenizer.checkMode("0 n/")
+                .equals(CommandMode.INVALID));
+
+        // actual Health Worker, expected invalid -> return false
+        assertFalse(ArgumentTokenizer.checkMode("1 n/")
+                .equals(CommandMode.INVALID));
+
+        // actual Patient, expected Health Worker -> return false
+        assertFalse(ArgumentTokenizer.checkMode("2 n/")
+                .equals(CommandMode.HEALTH_WORKER));
     }
 
 }

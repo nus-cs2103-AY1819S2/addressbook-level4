@@ -2,24 +2,12 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_HW_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_HW_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HW_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HW_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_HW_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_HW_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_HW_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_HW_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_HW_B;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -28,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
 
 /**
@@ -67,20 +54,6 @@ public class TypicalPersons {
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
-
-    // =============================================
-    // Default HealthWorker objects for use in tests
-    // =============================================
-    public static final HealthWorker TEST_HW_A = new HealthWorkerBuilder()
-            .withName(VALID_NAME_HW_A).withNric(VALID_NRIC_HW_A)
-            .withPhone(VALID_PHONE_HW_A).withEmail(VALID_EMAIL_HW_A)
-            .withAddress(VALID_ADDRESS_HW_A)
-            .withOrganization(VALID_ORGANIZATION_HW_A).build();
-    public static final HealthWorker TEST_HW_B = new HealthWorkerBuilder()
-            .withName(VALID_NAME_HW_B).withNric(VALID_NRIC_HW_B)
-            .withPhone(VALID_PHONE_HW_B).withEmail(VALID_EMAIL_HW_B)
-            .withAddress(VALID_ADDRESS_HW_B)
-            .withOrganization(VALID_ORGANIZATION_HW_B).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

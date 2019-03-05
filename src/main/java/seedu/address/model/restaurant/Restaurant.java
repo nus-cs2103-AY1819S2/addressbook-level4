@@ -51,7 +51,7 @@ public class Restaurant {
     }
 
     /**
-     * Constructor for Restaurant without Reviews.
+     * Constructor for Restaurant without Reviews but with Optional Cuisine field.
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
@@ -68,7 +68,7 @@ public class Restaurant {
     }
 
     /**
-     * Constructor for Restaurant class with Reviews.
+     * Constructor for Restaurant class with Reviews but without Optional Cuisine field.
      * Every field except reviews must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
@@ -85,6 +85,22 @@ public class Restaurant {
         this.cuisine = Optional.empty();
     }
 
+    /**
+     * Create new restaurant with Optional cuisine field and Reviews.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+                      OpeningHours openingHours, Optional<Cuisine> cuisine, Set<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, tags, cuisine);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.weblink = weblink;
+        this.openingHours = openingHours;
+        this.reviews.addAll(reviews);
+        this.cuisine = cuisine;
+    }
 
     /**
      * Creates a new restaurant from an existing restaurant with cuisine set.

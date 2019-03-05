@@ -36,6 +36,14 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     *
+     * Returns the name of the user
+     */
+    String getName();
+
+    void setName(String name);
+
+    /**
      * Returns the user prefs' food diary file path.
      */
     Path getFoodDiaryFilePath();
@@ -88,6 +96,12 @@ public interface Model {
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
     /**
+     *
+     * Returns the number of Restaurants in the Food Diary
+     */
+    int getSize();
+
+    /**
      * Returns true if the model has previous food diary states to restore.
      */
     boolean canUndoFoodDiary();
@@ -128,4 +142,9 @@ public interface Model {
      * Sets the selected restaurant in the filtered restaurant list.
      */
     void setSelectedRestaurant(Restaurant restaurant);
+
+    /**
+     * Get the total number of reviews
+     */
+    int getNumReviews();
 }

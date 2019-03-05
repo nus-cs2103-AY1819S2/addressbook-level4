@@ -14,7 +14,9 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private String name = "Annon";
     private Path foodDiaryFilePath = Paths.get("data" , "fooddiary.json");
+
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setFoodDiaryFilePath(newUserPrefs.getFoodDiaryFilePath());
+        setName(newUserPrefs.getName());
     }
 
     public GuiSettings getGuiSettings() {
@@ -51,9 +54,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return foodDiaryFilePath;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setFoodDiaryFilePath(Path foodDiaryFilePath) {
         requireNonNull(foodDiaryFilePath);
         this.foodDiaryFilePath = foodDiaryFilePath;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -81,6 +92,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + foodDiaryFilePath);
+        sb.append("\nName" + name);
         return sb.toString();
     }
 

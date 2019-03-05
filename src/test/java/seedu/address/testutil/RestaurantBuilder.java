@@ -12,6 +12,7 @@ import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -34,6 +35,7 @@ public class RestaurantBuilder {
     private Set<Tag> tags;
     private Weblink weblink;
     private OpeningHours openingHours;
+    private Set<Review> reviews;
     private Cuisine cuisine;
 
     public RestaurantBuilder() {
@@ -41,9 +43,11 @@ public class RestaurantBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        reviews = new HashSet<>();
         tags = new HashSet<>();
         weblink = new Weblink(DEFAULT_WEBLINK);
         openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
+        reviews = new HashSet<>();
         cuisine = null;
     }
 
@@ -55,9 +59,11 @@ public class RestaurantBuilder {
         phone = restaurantToCopy.getPhone();
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
+        reviews = restaurantToCopy.getReviews();
         tags = new HashSet<>(restaurantToCopy.getTags());
         weblink = restaurantToCopy.getWeblink();
         openingHours = restaurantToCopy.getOpeningHours();
+        reviews = new HashSet<>(restaurantToCopy.getReviews());
         cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
     }
 
@@ -74,6 +80,14 @@ public class RestaurantBuilder {
      */
     public RestaurantBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code reviews} into a {@code Set<Review>} and set it to the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withReviews(String ... reviews) {
+        this.reviews = SampleDataUtil.getReviewSet(reviews);
         return this;
     }
 
@@ -125,7 +139,11 @@ public class RestaurantBuilder {
         return this;
     }
 
+    /**
+     * Builds a Restaurant
+     */
     public Restaurant build() {
-        return new Restaurant(name, phone, email, address, tags, weblink, openingHours, Optional.ofNullable(cuisine));
+        return new Restaurant(name, phone, email, address, tags, weblink, openingHours,
+                Optional.ofNullable(cuisine), reviews);
     }
 }

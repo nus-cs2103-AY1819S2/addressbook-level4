@@ -21,6 +21,7 @@ public class Review {
 
     /**
      * Every field must be present and not null.
+     * This is the constructor for new Reviews.
      */
     public Review(Entry entry, Rating rating) {
         Date date = new Date();
@@ -28,6 +29,17 @@ public class Review {
         this.entry = entry;
         this.rating = rating;
         requireAllNonNull(timeStamp, entry, rating);
+    }
+
+    /**
+     * Every field must be present and not null.
+     * This is the constructor for SampleDataUtil & JsonAdaptedReview models.
+     */
+    public Review(Entry entry, Rating rating, Timestamp timeStamp) {
+        requireAllNonNull(timeStamp, entry, rating);
+        this.timeStamp = timeStamp;
+        this.entry = entry;
+        this.rating = rating;
     }
 
     public Timestamp getTimeStamp() {
@@ -72,6 +84,7 @@ public class Review {
 
         Review otherReview = (Review) other;
         return otherReview.getEntry().equals(getEntry())
+                && otherReview.getRating().equals(getRating())
                 && otherReview.getTimeStamp().equals(getTimeStamp());
     }
 

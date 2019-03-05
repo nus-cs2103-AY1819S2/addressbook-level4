@@ -16,6 +16,8 @@ import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.review.Entry;
+import seedu.address.model.review.Rating;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -126,7 +128,36 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String cuisine} into a {@code Cuisine}.
+<<<<<<< HEAD
+     * Parses a {@code String entry} into a {@code Entry}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rating} is invalid.
+     */
+    public static Entry parseEntry(String entry) throws ParseException {
+        requireNonNull(entry);
+        String trimmedEntry = entry.trim();
+        if (!Entry.isValidEntry(trimmedEntry)) {
+            throw new ParseException(Entry.MESSAGE_CONSTRAINTS);
+        }
+        return new Entry(trimmedEntry);
+    }
+
+    /**
+     * Parses a {@code String rating} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rating} is invalid.
+     */
+    public static Rating parseRating(String rating) throws ParseException {
+        requireNonNull(rating);
+        String trimmedRating = rating.trim();
+        if (!Rating.isValidRating(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        return new Rating(trimmedRating);
+    }
+    /** Parses a {@code String cuisine} into a {@code Cuisine}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code cuisine} is invalid.

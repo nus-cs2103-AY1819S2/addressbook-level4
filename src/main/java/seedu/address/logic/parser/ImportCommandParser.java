@@ -53,7 +53,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 System.out.println(e.toString());
             }
         } else {
-             throw new ParseException(String.format(MESSAGE_INVALID_PATH, ImportCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_PATH, ImportCommand.MESSAGE_USAGE));
         }
         return new ImportCommand(image);
     }

@@ -39,6 +39,7 @@ public class Tables implements ReadOnlyTables {
      */
     public void setTables(List<Table> tableList) {
         this.tableList.setTables(tableList);
+        nextTableNumber = this.tableList.getSize() + 1;
         indicateModified();
     }
 
@@ -74,10 +75,11 @@ public class Tables implements ReadOnlyTables {
      * Adds a table to the UniqueTableList.
      * The table must not already exist in the UniqueTableList.
      */
-    public void addTable(TableStatus tableStatus) {
+    public TableNumber addTable(TableStatus tableStatus) {
         tableList.add(new Table(new TableNumber(String.valueOf(nextTableNumber)), tableStatus));
         indicateModified();
         nextTableNumber++;
+        return new TableNumber(String.valueOf(nextTableNumber - 1));
     }
 
     /**

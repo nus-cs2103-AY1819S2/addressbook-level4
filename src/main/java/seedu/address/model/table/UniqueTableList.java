@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.exceptions.DuplicateTableException;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
  * A list of tables that enforces uniqueness between its elements and does not allow nulls.
@@ -73,11 +74,11 @@ public class UniqueTableList implements Iterable<Table> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new OrderItemNotFoundException();
+            throw new TableNotFoundException();
         }
 
         if (!target.isSameTable(editedTable) && contains(editedTable)) {
-            throw new DuplicateOrderItemException();
+            throw new DuplicateTableException();
         }
 
         internalList.set(index, editedTable);
@@ -110,6 +111,13 @@ public class UniqueTableList implements Iterable<Table> {
         }
 
         internalList.setAll(tables);
+    }
+
+    /**
+     * Returns the number of tables in the UniqueTableList
+     */
+    public int getSize() {
+        return internalList.size();
     }
 
     /**

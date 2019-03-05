@@ -10,6 +10,7 @@ import seedu.address.model.statistics.Bill;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 
 /**
@@ -110,8 +111,9 @@ public interface Model {
     /**
      * Adds the table with given TableNumber to Tables.
      * {@code table} must not already exist in Tables
+     * Returns TableNumber of table added.
      */
-    void addTable(TableStatus tableStatus);
+    TableNumber addTable(TableStatus tableStatus);
 
     /**
      * Replaces the given table {@code target} with {@code editedTable}.

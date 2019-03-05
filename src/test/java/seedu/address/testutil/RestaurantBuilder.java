@@ -28,7 +28,6 @@ public class RestaurantBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Review> reviews;
     private Set<Tag> tags;
     private Set<Review> reviews;
     private Cuisine cuisine;
@@ -103,14 +102,6 @@ public class RestaurantBuilder {
      */
     public RestaurantBuilder withEmail(String email) {
         this.email = new Email(email);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code Restaurant} that we are building.
-     */
-    public RestaurantBuilder withReview(Review review) {
-        this.reviews.add(review);
         return this;
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Pdf;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -43,11 +43,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the pdf list with {@code pdfs}.
+     * {@code pdfs} must not contain duplicate pdfs.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Pdf> pdfs) {
+        this.persons.setPersons(pdfs);
         indicateModified();
     }
 
@@ -60,34 +60,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// pdf-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a pdf with the same identity as {@code pdf} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Pdf pdf) {
+        requireNonNull(pdf);
+        return persons.contains(pdf);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a pdf to the address book.
+     * The pdf must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Pdf p) {
         persons.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given pdf {@code target} in the list with {@code editedPdf}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The pdf identity of {@code editedPdf} must not be the same as another existing pdf in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Pdf target, Pdf editedPdf) {
+        requireNonNull(editedPdf);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedPdf);
         indicateModified();
     }
 
@@ -95,7 +95,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Pdf key) {
         persons.remove(key);
         indicateModified();
     }
@@ -126,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Pdf> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

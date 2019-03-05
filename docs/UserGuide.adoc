@@ -196,10 +196,20 @@ Format: `setCuisine INDEX [c/CUISINE]`
 
 Examples:
 
-* `listRestaurants` +
-`setCuisine 1 c/Fast Food` +
-Set the cuisine of the first restaurant in the list to Fast Food
+* `view` +
+`view` +
+Displays your personalised profile and Food Diary statistics
 
+=== View your profile and usage statistics : 'view'
+
+Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
+Format: `view'
+
+
+Examples:
+
+`view` +
+'View personalised statistics for IAMAwesome. You have a total of 0 reviews and a total of 1 restaurants.'
 
 === Exiting the program : `exit`
 

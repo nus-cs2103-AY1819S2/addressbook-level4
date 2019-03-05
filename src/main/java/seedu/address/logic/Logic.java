@@ -45,6 +45,7 @@ public interface Logic {
      */
     Path getFoodDiaryFilePath();
 
+    String getName();
     /**
      * Returns the user prefs' GUI settings.
      */

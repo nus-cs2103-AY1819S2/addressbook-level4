@@ -29,19 +29,23 @@ public class StatusBarFooter extends UiPart<Region> {
     private static Clock clock = Clock.systemDefaultZone();
 
     private static final String FXML = "StatusBarFooter.fxml";
+    private static final String PROFILE = "Name: ";
 
     @FXML
     private Label syncStatus;
     @FXML
     private Label saveLocationStatus;
+    @FXML
+    private Label profileName;
 
-
-    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary) {
+    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary, String name) {
         super(FXML);
         foodDiary.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
+        profileName.setText(PROFILE + name);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
+
 
     /**
      * Sets the clock used to determine the current time.
@@ -64,6 +68,10 @@ public class StatusBarFooter extends UiPart<Region> {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+    }
+
+    private void updateName(String name) {
+        profileName.setText(name);
     }
 
 }

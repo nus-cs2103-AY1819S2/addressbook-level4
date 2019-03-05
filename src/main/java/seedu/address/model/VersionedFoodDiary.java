@@ -19,6 +19,9 @@ public class VersionedFoodDiary extends FoodDiary {
         currentStatePointer = 0;
     }
 
+    public int getSize() {
+        return foodDiaryStateList.get(currentStatePointer).getRestaurantList().size();
+    }
     /**
      * Saves a copy of the current {@code FoodDiary} state at the end of the state list.
      * Undone states are removed from the state list.

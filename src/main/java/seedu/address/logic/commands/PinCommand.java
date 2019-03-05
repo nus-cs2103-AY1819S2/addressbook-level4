@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 /**
  * Pins specific persons in the address book to the user.
  */
-public class PinCommand extends Command{
+public class PinCommand extends Command {
 
     public static final String COMMAND_WORD = "pin";
 

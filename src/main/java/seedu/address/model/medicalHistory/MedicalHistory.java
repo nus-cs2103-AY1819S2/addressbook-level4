@@ -14,8 +14,8 @@ public class MedicalHistory {
     private Patient patient;
     private Doctor doctor;
     */
-    private Patient patient;
     private Name name;
+    private Patient patient;
     private WriteUp writeUp;
     /*
     // Data field
@@ -29,8 +29,8 @@ public class MedicalHistory {
         this.writeup = note;
         this.time = time;
         */
-        this.patient = patient;
         this.name = name;
+        this.patient = patient;
         this.writeUp = writeUp;
     }
 

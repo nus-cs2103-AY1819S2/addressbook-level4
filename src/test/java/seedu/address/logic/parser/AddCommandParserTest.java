@@ -115,7 +115,7 @@ public class AddCommandParserTest {
             .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
             .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + RACE_DESC_BOB
-                + ADDRESS_DESC_BOB + RACE_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
                 + PASTJOB_DESC_PROFESSOR + PASTJOB_DESC_SDE + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
     }
@@ -169,8 +169,8 @@ public class AddCommandParserTest {
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB
-                + VALID_RACE_BOB + VALID_SCHOOL_BOB + VALID_MAJOR_BOB,
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_RACE_BOB
+                + VALID_ADDRESS_BOB + VALID_SCHOOL_BOB + VALID_MAJOR_BOB,
                 expectedMessage);
     }
 
@@ -197,7 +197,7 @@ public class AddCommandParserTest {
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
 
         // invalid school
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB  + RACE_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + RACE_DESC_BOB
                 + ADDRESS_DESC_BOB + INVALID_SCHOOL_DESC + MAJOR_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, School.MESSAGE_CONSTRAINTS);
 
@@ -209,7 +209,8 @@ public class AddCommandParserTest {
         // invalid race
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_RACE_DESC
                 + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Race.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Race.
+                        MESSAGE_CONSTRAINTS);
 
         // invalid past job
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + RACE_DESC_BOB

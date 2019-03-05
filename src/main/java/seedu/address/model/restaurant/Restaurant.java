@@ -28,6 +28,7 @@ public class Restaurant {
     private final Set<Tag> tags = new HashSet<>();
     private final Weblink weblink;
     private final Set<Review> reviews = new HashSet<>();
+    private final OpeningHours openingHours;
 
     // Category fields
     private final Optional<Cuisine> cuisine;
@@ -36,14 +37,16 @@ public class Restaurant {
      * Constructor for Restaurant class without Reviews and Cuisine
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink) {
-        requireAllNonNull(name, phone, email, address, tags, weblink);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+                      OpeningHours openingHours) {
+        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.openingHours = openingHours;
         this.cuisine = Optional.empty();
     }
 
@@ -51,49 +54,25 @@ public class Restaurant {
      * Constructor for Restaurant without Reviews but with Optional Cuisine field.
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
-                      Weblink weblink) {
-        requireAllNonNull(name, phone, email, address, tags, weblink);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                      Weblink weblink, OpeningHours openingHours, Optional<Cuisine> cuisine) {
+        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.openingHours = openingHours;
         this.cuisine = cuisine;
     }
 
     /**
-     * Constructor for Restaurant with Reviews and Optional Cuisine field.
-     * This constructor is used for AddReviewCommand.
-     * Every field must be present and not null.
-     */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
-                      Weblink weblink, Set<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags, weblink);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.weblink = weblink;
-        this.cuisine = cuisine;
-        this.reviews.addAll(reviews);
-    }
-
-    /**
-     * Every field must be present and not null.
-     */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, tags, Weblink.makeDefaultWeblink());
-    }
-
-    /**
-     * Constructor for Restaurant class with Reviews and without Cuisine.
+     * Constructor for Restaurant class with Reviews but without Optional Cuisine field.
      * Every field except reviews must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      Set<Review> reviews) {
+                      OpeningHours openingHours, Set<Review> reviews) {
         requireAllNonNull(name, phone, email, address, weblink, tags);
         this.name = name;
         this.phone = phone;
@@ -101,37 +80,26 @@ public class Restaurant {
         this.address = address;
         this.tags.addAll(tags);
         this.weblink = weblink;
+        this.openingHours = openingHours;
         this.reviews.addAll(reviews);
         this.cuisine = Optional.empty();
     }
 
     /**
-     * Create new restaurant with Optional cuisine field, without Reviews.
-     */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine) {
-        requireAllNonNull(name, phone, email, address, tags, cuisine);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.cuisine = cuisine;
-        this.weblink = Weblink.makeDefaultWeblink();
-    }
-
-    /**
      * Create new restaurant with Optional cuisine field and Reviews.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                      Optional<Cuisine> cuisine, Set<Review> reviews) {
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+                      OpeningHours openingHours, Optional<Cuisine> cuisine, Set<Review> reviews) {
         requireAllNonNull(name, phone, email, address, tags, cuisine);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.weblink = weblink;
+        this.openingHours = openingHours;
+        this.reviews.addAll(reviews);
         this.cuisine = cuisine;
-        this.weblink = Weblink.makeDefaultWeblink();
     }
 
     /**
@@ -147,7 +115,8 @@ public class Restaurant {
         this.address = restaurant.address;
         this.tags.addAll(restaurant.tags);
         this.cuisine = Optional.of(cuisine);
-        this.weblink = Weblink.makeDefaultWeblink();
+        this.weblink = restaurant.weblink;
+        this.openingHours = restaurant.openingHours;
     }
 
     public Name getName() {
@@ -168,6 +137,10 @@ public class Restaurant {
 
     public Weblink getWeblink() {
         return weblink;
+    }
+
+    public OpeningHours getOpeningHours() {
+        return openingHours;
     }
 
     public Optional<Cuisine> getCuisine() {
@@ -225,13 +198,14 @@ public class Restaurant {
                 && otherRestaurant.getAddress().equals(getAddress())
                 && otherRestaurant.getTags().equals(getTags())
                 && otherRestaurant.getWeblink().equals(getWeblink())
+                && otherRestaurant.getOpeningHours().equals(getOpeningHours())
                 && otherRestaurant.getReviews().equals(getReviews());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, reviews);
+        return Objects.hash(name, phone, email, address, tags, weblink, openingHours, reviews);
     }
 
     @Override
@@ -246,6 +220,8 @@ public class Restaurant {
                 .append(getAddress())
                 .append(" Weblink: ")
                 .append(getWeblink())
+                .append(" Opening Hours: ")
+                .append(getOpeningHours())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
 

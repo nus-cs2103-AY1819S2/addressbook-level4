@@ -5,8 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +38,9 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_WEBLINK_AMY = "amy.com";
+    public static final String VALID_WEBLINK_BOB = "bob.com";
+    public static final String VALID_OPENING_HOURS = "0900 to 2300";
     public static final String VALID_CUISINE_FAST_FOOD = "Fast Food";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -46,6 +51,9 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String WEBLINK_DESC_AMY = " " + PREFIX_WEBLINK + VALID_WEBLINK_AMY;
+    public static final String WEBLINK_DESC_BOB = " " + PREFIX_WEBLINK + VALID_WEBLINK_BOB;
+    public static final String OPENING_HOURS_DESC = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -64,10 +72,12 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditRestaurantDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_FRIEND).withWeblink(VALID_WEBLINK_AMY)
+                .withOpeningHours(VALID_OPENING_HOURS).build();
         DESC_BOB = new EditRestaurantDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withWeblink(VALID_WEBLINK_AMY)
+                .withOpeningHours(VALID_OPENING_HOURS).build();
     }
 
     /**

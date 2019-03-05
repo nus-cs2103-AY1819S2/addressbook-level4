@@ -6,7 +6,8 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "friends" ],
-    "weblink" : "www.default.com.sg",
+    "weblink" : "kfc.com.sg",
+    "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
     "name" : "Benson Meier",
@@ -14,7 +15,8 @@
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ],
-    "weblink" : "www.default.com.sg",
+    "weblink" : "kfc.com.sg",
+    "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
     "name" : "Carl Kurz",
@@ -22,7 +24,8 @@
     "email" : "heinz@example.com",
     "address" : "wall street",
     "tagged" : [ ],
-    "weblink" : "www.default.com.sg",
+    "weblink" : "kfc.com.sg",
+    "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -30,7 +33,8 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tagged" : [ "friends" ],
-    "weblink" : "www.default.com.sg",
+    "weblink" : "kfc.com.sg",
+    "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
     "name" : "Elle Meyer",
@@ -38,7 +42,8 @@
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tagged" : [ ],
-    "weblink" : "www.default.com.sg",
+    "weblink" : "kfc.com.sg",
+    "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -46,7 +51,8 @@
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "tagged" : [ ],
-    "weblink" : "www.default.com.sg",
+    "weblink" : "kfc.com.sg",
+    "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
     "name" : "George Best",
@@ -54,7 +60,8 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tagged" : [ ],
-    "weblink" : "www.default.com.sg",
+    "weblink" : "kfc.com.sg",
+    "openingHours" : "0930 to 2130",
     "review" : [ ]
   } ]
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
@@ -24,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
@@ -46,7 +48,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_WEBLINK + "WEBLINK]\n"
+            + "[" + PREFIX_WEBLINK + "WEBLINK] "
+            + "[" + PREFIX_OPENING_HOURS + "OPENING HOURS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -106,11 +109,13 @@ public class EditCommand extends Command {
         Address updatedAddress = editRestaurantDescriptor.getAddress().orElse(restaurantToEdit.getAddress());
         Set<Tag> updatedTags = editRestaurantDescriptor.getTags().orElse(restaurantToEdit.getTags());
         Weblink updatedWeblink = editRestaurantDescriptor.getWeblink().orElse(restaurantToEdit.getWeblink());
+        OpeningHours updatedOpeninghours = editRestaurantDescriptor.getOpeningHours()
+                .orElse(restaurantToEdit.getOpeningHours());
 
         Optional<Cuisine> updatedCuisine = restaurantToEdit.getCuisine();
 
-        return new Restaurant(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedCuisine,
-                updatedWeblink);
+        return new Restaurant(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                updatedWeblink, updatedOpeninghours, updatedCuisine);
     }
 
     @Override
@@ -142,6 +147,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
         private Weblink weblink;
+        private OpeningHours openingHours;
 
         public EditRestaurantDescriptor() {}
 
@@ -156,6 +162,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setWeblink(toCopy.weblink);
+            setOpeningHours(toCopy.openingHours);
         }
 
         /**
@@ -222,6 +229,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(weblink);
         }
 
+        public void setOpeningHours(OpeningHours openingHours) {
+            this.openingHours = openingHours;
+        }
+
+        public Optional<OpeningHours> getOpeningHours() {
+            return Optional.ofNullable(openingHours);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -244,5 +259,6 @@ public class EditCommand extends Command {
                     && getTags().equals(e.getTags())
                     && getWeblink().equals(e.getWeblink());
         }
+
     }
 }

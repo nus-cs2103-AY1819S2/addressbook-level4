@@ -12,6 +12,7 @@ import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
@@ -28,30 +29,32 @@ public class SampleDataUtil {
         return new Restaurant[] {
             new Restaurant(new Name("Astons"), new Phone("66123024"), new Email("astons@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("Western"), new Weblink("astons.com.sg"),
-                getReviewSet("I love the chicken here! Great service too!", "5.0", "2019-03-04T13:32:20.323")),
+                getTagSet("Western"), new Weblink("astons.com.sg"), new OpeningHours("1100 to 2130"),
+                    getReviewSet("I love the chicken here! Great service too!",
+                            "5.0", "2019-03-04T13:32:20.323")),
             new Restaurant(new Name("Bangkok Jam"), new Phone("65272758"), new Email("bangkokjam@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("Thai"), new Weblink("bangkokjam.com.sg"),
-                getReviewSet("Love the ambience. Food can be better though.", "3.5", "2019-03-04T13:35:20.321")),
+                getTagSet("Thai"), new Weblink("bangkokjam.com.sg"), new OpeningHours("1100 to 2200"),
+                    getReviewSet("Love the ambience. Food can be better though.",
+                            "3.5", "2019-03-04T13:35:20.321")),
             new Restaurant(new Name("Chilis"), new Phone("63210283"), new Email("chilis@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("Mexican"), new Weblink("chilis.com.sg"),
-                getReviewSet("Love the food.", "4.9", "2019-03-04T13:40:21.323")),
+                getTagSet("Mexican"), new Weblink("chilis.com.sg"), new OpeningHours("0900 to 2100"),
+                    getReviewSet("Love the food.", "4.9", "2019-03-04T13:40:21.323")),
             new Restaurant(new Name("Ding Tai Fung"), new Phone("61031282"), new Email("dingtaifung@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("Chinese"), new Weblink("bangkokjam.com.sg"),
-                getReviewSet("Many great options.", "3.9", "2019-03-04T13:36:19.223",
-                        "Commendable service.", "4.5", "2019-03-04T13:37:20.323")),
+                getTagSet("Chinese"), new Weblink("bangkokjam.com.sg"), new OpeningHours("1000 to 2200"),
+                    getReviewSet("Many great options.", "3.9", "2019-03-04T13:36:19.223",
+                            "Commendable service.", "4.5", "2019-03-04T13:37:20.323")),
             new Restaurant(new Name("Itacho"), new Phone("62492021"), new Email("itacho@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("Japanese", "Ramen"), new Weblink("itacho.com.sg"),
-                getReviewSet("Lovely staff, great tender chicken.", "4.8", "2019-03-04T13:38:10.100",
-                        "Amazing delivery. 10/10 service.", "5.0", "2019-03-04T13:39:25.421")),
+                getTagSet("Japanese", "Ramen"), new Weblink("itacho.com.sg"), new OpeningHours("1200 to 0000"),
+                    getReviewSet("Lovely staff, great tender chicken.", "4.8", "2019-03-04T13:38:10.100",
+                            "Amazing delivery. 10/10 service.", "5.0", "2019-03-04T13:39:25.421")),
             new Restaurant(new Name("McDonalds"), new Phone("62624417"), new Email("mcdonalds@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("FastFood"), new Weblink("mcdonalds.com.sg"),
-                getReviewSet("Love the waiters. Food looks great too.", "4", "2019-03-04T13:41:20.323")),
+                getTagSet("FastFood"), new Weblink("mcdonalds.com.sg"), new OpeningHours("24hrs"),
+                    getReviewSet("Love the waiters. Food looks great too.", "4", "2019-03-04T13:41:20.323"))
         };
     }
 

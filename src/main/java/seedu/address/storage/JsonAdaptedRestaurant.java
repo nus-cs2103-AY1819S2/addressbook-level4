@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
@@ -35,6 +36,7 @@ class JsonAdaptedRestaurant {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedReview> reviewed = new ArrayList<>();
     private final String weblink;
+    private final String openingHours;
     private final String cuisine;
 
     /**
@@ -46,6 +48,7 @@ class JsonAdaptedRestaurant {
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("cuisine") String cuisine,
             @JsonProperty("weblink") String weblink,
+            @JsonProperty("openinghours") String openingHours,
             @JsonProperty("reviewed") List<JsonAdaptedReview> reviewed) {
 
         this.name = name;
@@ -54,6 +57,7 @@ class JsonAdaptedRestaurant {
         this.address = address;
         this.cuisine = cuisine;
         this.weblink = weblink;
+        this.openingHours = openingHours;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -84,6 +88,7 @@ class JsonAdaptedRestaurant {
         }
 
         weblink = source.getWeblink().value;
+        openingHours = source.getOpeningHours().value;
     }
 
     /**
@@ -152,12 +157,21 @@ class JsonAdaptedRestaurant {
         }
         final Weblink modelWeblink = new Weblink(weblink);
 
+        if (openingHours == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    OpeningHours.class.getSimpleName()));
+        }
+        if (!OpeningHours.isValidOpeningHour(openingHours)) {
+            throw new IllegalValueException(OpeningHours.MESSAGE_CONSTRAINTS);
+        }
+        final OpeningHours modelOpeningHours = new OpeningHours(openingHours);
+
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
 
         final Set<Review> modelReviews = new HashSet<>(restaurantReviews);
 
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-                modelCuisine, modelWeblink, modelReviews);
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink,
+                modelOpeningHours, modelCuisine, modelReviews);
     }
 
 }

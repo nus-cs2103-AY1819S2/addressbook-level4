@@ -8,8 +8,10 @@ import seedu.address.logic.commands.EditCommand.EditRestaurantDescriptor;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -81,7 +83,24 @@ public class EditRestaurantDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Weblink} of the {@code EditRestaurantDescriptor} that we are building.
+     */
+    public EditRestaurantDescriptorBuilder withWeblink(String weblink) {
+        descriptor.setWeblink(new Weblink(weblink));
+        return this;
+    }
+
+    /**
+     * Sets the {@code OpeningHours} of the {@code EditRestaurantDescriptor} that we are building.
+     */
+    public EditRestaurantDescriptorBuilder withOpeningHours(String openingHours) {
+        descriptor.setOpeningHours(new OpeningHours(openingHours));
+        return this;
+    }
+
     public EditRestaurantDescriptor build() {
         return descriptor;
     }
+
 }

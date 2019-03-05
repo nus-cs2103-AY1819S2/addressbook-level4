@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Cuisine;
@@ -180,8 +181,23 @@ public class ParserUtil {
         requireNonNull(weblink);
         String trimmedWeblink = weblink.trim();
         if (!Weblink.isValidWeblink(trimmedWeblink)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }
         return new Weblink(trimmedWeblink);
+    }
+
+    /**
+     * Parses a {@code String openingHours} into an {@code OpeningHours}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code OpeningHours} is invalid.
+     */
+    public static OpeningHours parseOpeningHours(String openingHours) throws ParseException {
+        requireNonNull(openingHours);
+        String trimmedOpeningHours = openingHours.trim();
+        if (!OpeningHours.isValidOpeningHour(trimmedOpeningHours)) {
+            throw new ParseException(OpeningHours.MESSAGE_CONSTRAINTS);
+        }
+        return new OpeningHours(trimmedOpeningHours);
     }
 }

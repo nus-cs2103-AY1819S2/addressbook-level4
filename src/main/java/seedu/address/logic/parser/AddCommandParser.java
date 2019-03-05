@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
@@ -34,7 +36,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
-                        PREFIX_WEBLINK);
+                        PREFIX_WEBLINK, PREFIX_OPENING_HOURS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -47,14 +49,22 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Restaurant restaurant;
+        Weblink weblink;
+        OpeningHours openingHours;
+
         if (!arePrefixesPresent(argMultimap, PREFIX_WEBLINK)) {
-            restaurant = new Restaurant(name, phone, email, address, tagList);
+            weblink = Weblink.makeDefaultWeblink();
         } else {
-            Weblink weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
-            restaurant = new Restaurant(name, phone, email, address, tagList, weblink);
+            weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
         }
 
+        if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
+            openingHours = OpeningHours.makeDefaultOpening();
+        } else {
+            openingHours = ParserUtil.parseOpeningHours(argMultimap.getValue(PREFIX_OPENING_HOURS).get());
+        }
+
+        Restaurant restaurant = new Restaurant(name, phone, email, address, tagList, weblink, openingHours);
         return new AddCommand(restaurant);
     }
 

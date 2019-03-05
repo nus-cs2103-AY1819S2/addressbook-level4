@@ -38,7 +38,7 @@ public class EquipmentManagerParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final EquipmentManagerParser parser = new EquipmentManagerParser();
 
     @Test
     public void parseCommand_add() throws Exception {

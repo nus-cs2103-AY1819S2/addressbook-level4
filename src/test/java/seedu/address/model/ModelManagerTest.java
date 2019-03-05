@@ -192,7 +192,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteTag_nonExistentTag_modelUnchanged() throws Exception {
+    public void deleteTag_nonExistentTag_modelUnchanged() {
         EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(AMY).withPerson(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -203,7 +203,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteTag_tagUsedByMultiplePersons_tagRemoved() throws Exception {
+    public void deleteTag_tagUsedByMultiplePersons_tagRemoved() {
         EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(AMY).withPerson(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 

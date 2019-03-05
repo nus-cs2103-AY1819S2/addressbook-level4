@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.EquipmentCardHandle;
+import guitests.guihandles.EquipmentListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.equipment.Equipment;
 
@@ -19,7 +19,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
+    public static void assertCardEquals(EquipmentCardHandle expectedCard, EquipmentCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
@@ -32,7 +32,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedEquipment}.
      */
-    public static void assertCardDisplaysPerson(Equipment expectedEquipment, PersonCardHandle actualCard) {
+    public static void assertCardDisplaysPerson(Equipment expectedEquipment, EquipmentCardHandle actualCard) {
         assertEquals(expectedEquipment.getName().fullName, actualCard.getName());
         assertEquals(expectedEquipment.getPhone().value, actualCard.getPhone());
         assertEquals(expectedEquipment.getEmail().value, actualCard.getEmail());
@@ -43,36 +43,37 @@ public class GuiTestAssert {
      * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedEquipment} with the correct
      * color.
      */
-    private static void assertTagsEqual(Equipment expectedEquipment, PersonCardHandle actualCard) {
+    private static void assertTagsEqual(Equipment expectedEquipment, EquipmentCardHandle actualCard) {
         List<String> expectedTags = expectedEquipment.getTags().stream()
                 .map(tag -> tag.tagName).collect(Collectors.toList());
         assertEquals(expectedTags, actualCard.getTags());
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code equipment} correctly and
+     * Asserts that the list in {@code equipmentListPanelHandle} displays the details of {@code equipment} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Equipment... equipment) {
+    public static void assertListMatching(EquipmentListPanelHandle equipmentListPanelHandle, Equipment... equipment) {
         for (int i = 0; i < equipment.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(equipment[i], personListPanelHandle.getPersonCardHandle(i));
+            equipmentListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPerson(equipment[i], equipmentListPanelHandle.getPersonCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code equipment} correctly and
+     * Asserts that the list in {@code equipmentListPanelHandle} displays the details of {@code equipment} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Equipment> equipment) {
-        assertListMatching(personListPanelHandle, equipment.toArray(new Equipment[0]));
+    public static void assertListMatching(EquipmentListPanelHandle equipmentListPanelHandle,
+                                          List<Equipment> equipment) {
+        assertListMatching(equipmentListPanelHandle, equipment.toArray(new Equipment[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code equipmentListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(EquipmentListPanelHandle equipmentListPanelHandle, int size) {
+        int numberOfPeople = equipmentListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

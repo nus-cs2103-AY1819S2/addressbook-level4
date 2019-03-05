@@ -12,8 +12,8 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.EquipmentCardHandle;
+import guitests.guihandles.EquipmentListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,16 +30,16 @@ public class EquipmentListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private final SimpleObjectProperty<Equipment> selectedPerson = new SimpleObjectProperty<>();
-    private PersonListPanelHandle personListPanelHandle;
+    private EquipmentListPanelHandle equipmentListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_EQUIPMENTS);
 
         for (int i = 0; i < TYPICAL_EQUIPMENTS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_EQUIPMENTS.get(i));
+            equipmentListPanelHandle.navigateToCard(TYPICAL_EQUIPMENTS.get(i));
             Equipment expectedEquipment = TYPICAL_EQUIPMENTS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            EquipmentCardHandle actualCard = equipmentListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedEquipment, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -53,8 +53,9 @@ public class EquipmentListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondEquipment));
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        EquipmentCardHandle expectedPerson = equipmentListPanelHandle.getPersonCardHandle(
+                INDEX_SECOND_PERSON.getZeroBased());
+        EquipmentCardHandle selectedPerson = equipmentListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
@@ -90,7 +91,7 @@ public class EquipmentListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
+     * Initializes {@code equipmentListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
     private void initUi(ObservableList<Equipment> backingList) {
@@ -98,7 +99,7 @@ public class EquipmentListPanelTest extends GuiUnitTest {
                 new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
         uiPartRule.setUiPart(personListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        equipmentListPanelHandle = new EquipmentListPanelHandle(getChildNode(personListPanel.getRoot(),
+                EquipmentListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

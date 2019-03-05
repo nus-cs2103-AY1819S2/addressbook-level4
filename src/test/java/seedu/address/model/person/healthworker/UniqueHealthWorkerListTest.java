@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.person.healthworker;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,6 +17,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.UniqueHealthWorkerList;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBuilder;
 

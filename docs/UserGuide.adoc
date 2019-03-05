@@ -15,11 +15,15 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `BrainTrain Team`      Since: `Jan 2019`      Licence: `MIT`
+By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*BrainTrain* is an open-source spaced repetition flashcard application which makes memorizing easy and efficient. Research has shown that the *Spaced-Repetition System (SRS) is more effective* than traditional memorization techniques. With it, you will be able to *learn more with less time*.
+
+*BrainTrain* is a desktop flashcard program and does not consume Internet bandwidth and can be used offline. It is also a *Command Line Interface (CLI)* program with none of the visual distractions Graphical User Interface (GUI) applications have. Furthermore, if you can type fast, you will spend *less time navigating the application and more time memorizing*.
+
+Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -67,6 +71,16 @@ Switches to Quiz Mode and starts a new quiz session. +
 ====
 Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
 ====
+Format: `start n/NAME [c/COUNT] m/MODE`
+
+Usage rules:
+
+* The count field is optional. It represents the number of cards the user wants in the session. By default, it sets to be 10.
+* The number of cards should be at least 5. Otherwise, the start command will fail.
+
+Examples:
+
+* `start n/02-03-LEARN c/15 m/LEARN`
 
 [[list_cards]]
 ==== Listing all flashcards: `list cards`
@@ -124,7 +138,7 @@ Deletes the 2nd flashcard.
 Imports the selected `.csv` file and loads the current progress of the user. +
 Format: `import user FILEPATH`
 
-==== Exporting user profile : 'export user'
+==== Exporting user profile : `export user`
 Exports the current progress of the user into a `.csv` file. +
 Format: `export user FILEPATH`
 
@@ -149,6 +163,7 @@ Format: `quit`
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::quiz[]
 === Quiz Mode
 
 ==== Viewing help: `\help`
@@ -177,6 +192,7 @@ Format: `[*]`
 
 Quits the current quiz session and switches back to Management Mode. +
 Format: `\quit`
+// end::quiz[]
 
 == Address Book 4 Features
 *Features here will be replaced by equivalent features in BrainTrain document above.*

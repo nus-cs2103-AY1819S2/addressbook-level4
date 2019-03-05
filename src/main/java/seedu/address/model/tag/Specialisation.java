@@ -19,6 +19,8 @@ public enum Specialisation {
     OCCUPATIONAL_THERAPY,
     ANAESTHESIOLOGY;
 
+    public static final String MESSAGE_CONSTRAINTS = getMessageConstraints();
+
     /**
      * Displays a list of available specialisations.
      * @return String describing all available specialisations.
@@ -59,5 +61,19 @@ public enum Specialisation {
         return Specialisation.valueOf(input);
     }
 
+    /**
+     * Formulates the String representing the valid specialisations and
+     * constraints.
+     * @return String containing the valid specialisations to be added.
+     */
+    private static String getMessageConstraints() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Valid specialisations: \n");
+        for (Specialisation specialisation : Specialisation.values()) {
+            stringBuilder.append(specialisation.name()).append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
 
 }

@@ -113,7 +113,8 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         if (organization == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Organization.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Organization.class.getSimpleName()));
         }
 
         if (!Organization.isValidOrgName(organization)) {
@@ -121,7 +122,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
         }
         final Organization modelOrganisation = new Organization(organization);
 
-        if (skills == null) {;
+        if (skills == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Skills.class.getSimpleName()));
         }
 

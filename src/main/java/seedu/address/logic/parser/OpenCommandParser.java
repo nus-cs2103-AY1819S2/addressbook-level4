@@ -4,10 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
-import org.apache.commons.io.FileUtils;
 
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

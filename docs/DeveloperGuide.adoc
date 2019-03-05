@@ -1064,7 +1064,6 @@ Use case ends.
 ** 2a1. Club Manager shows an error message.
 Use case resumes at step 1.
 
-
 [discrete]
 === Use case: Edit Activity
 

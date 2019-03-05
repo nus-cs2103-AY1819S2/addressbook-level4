@@ -2,11 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableNumber;
 
 /**
  * Updates the status of the table.
@@ -21,11 +24,13 @@ public class UpdateTableCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Table status updated: \nTable%1$s: %2$s";
 
-    private final String newTableStatus;
+    public static final String MESSAGE_INVALID_TABLE_NUMBER = "Table %1$s does not exist";
+
+    private final String[] newTableStatus;
     /**
      * Creates an UpdateTableCommand to update the status of the table specified by the table number.
      */
-    public UpdateTableCommand(String newTableStatusInString) {
+    public UpdateTableCommand(String[] newTableStatusInString) {
         this.newTableStatus = newTableStatusInString;
     }
 
@@ -33,12 +38,16 @@ public class UpdateTableCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        Table selectedTable = model.getSelectedTable();
-        Table updatedTable = model.getSelectedTable();
-        updatedTable.setTableStatus(newTableStatus);
-        model.setTable(selectedTable, updatedTable);
+        TableNumber tableNumber = new TableNumber(newTableStatus[0]);
+        Optional<Table> optionalTable = model.getRestOrRant().getTables().getTableFromNumber(tableNumber);
+        if (!optionalTable.isPresent()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_TABLE_NUMBER, tableNumber));
+        }
+        Table updatedTable = optionalTable.get();
+        updatedTable.setTableStatus(newTableStatus[1]);
+        model.setTable(optionalTable.get(), updatedTable);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                updatedTable.getTableNumber(),selectedTable.getTableStatus()));
+                updatedTable.getTableNumber(),optionalTable.get().getTableStatus()));
     }
 
     @Override

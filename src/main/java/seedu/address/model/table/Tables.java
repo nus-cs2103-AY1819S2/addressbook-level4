@@ -8,12 +8,15 @@ import java.util.Optional;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 public class Tables implements ReadOnlyTables {
 
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     private final UniqueTableList tableList;
+
+    public static final String MESSAGE_INVALID_TABLE = "Table %1$s does not exist";
 
     private int nextTableNumber;
     {
@@ -106,6 +109,13 @@ public class Tables implements ReadOnlyTables {
     @Override
     public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
         return Optional.ofNullable(tableList.getTable(tableNumber));
+    }
+
+    public boolean isOccupied(TableNumber tableNumber) throws CommandException {
+        if (tableList.getTable(tableNumber) == null) {
+            throw new CommandException(String.format(MESSAGE_INVALID_TABLE, tableNumber));
+        }
+        return tableList.getTable(tableNumber).isOccupied();
     }
 
     public int getNextTableNumber() {

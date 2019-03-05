@@ -48,7 +48,7 @@ public class Restaurant {
     }
 
     /**
-     * Constructor for Restaurant without Reviews.
+     * Constructor for Restaurant without Reviews but with Optional Cuisine field.
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
@@ -64,6 +64,24 @@ public class Restaurant {
     }
 
     /**
+     * Constructor for Restaurant with Reviews and Optional Cuisine field.
+     * This constructor is used for AddReviewCommand.
+     * Every field must be present and not null.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
+                      Weblink weblink, Set<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, tags, weblink);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.weblink = weblink;
+        this.cuisine = cuisine;
+        this.reviews.addAll(reviews);
+    }
+
+    /**
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
@@ -71,7 +89,7 @@ public class Restaurant {
     }
 
     /**
-     * Constructor for Restaurant class with Reviews.
+     * Constructor for Restaurant class with Reviews and without Cuisine.
      * Every field except reviews must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
@@ -88,9 +106,24 @@ public class Restaurant {
     }
 
     /**
-     * Create new restaurant with Optional cuisine field.
+     * Create new restaurant with Optional cuisine field, without Reviews.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine) {
+        requireAllNonNull(name, phone, email, address, tags, cuisine);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.cuisine = cuisine;
+        this.weblink = Weblink.makeDefaultWeblink();
+    }
+
+    /**
+     * Create new restaurant with Optional cuisine field and Reviews.
+     */
+    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                      Optional<Cuisine> cuisine, Set<Review> reviews) {
         requireAllNonNull(name, phone, email, address, tags, cuisine);
         this.name = name;
         this.phone = phone;
@@ -115,24 +148,6 @@ public class Restaurant {
         this.tags.addAll(restaurant.tags);
         this.cuisine = Optional.of(cuisine);
         this.weblink = Weblink.makeDefaultWeblink();
-    }
-
-    /**
-     * Constructor for Restaurant without Reviews.
-     * Every field must be present and not null.
-     * This constructor is used for AddReviewCommand.
-     */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<Cuisine> cuisine,
-                      Weblink weblink, Set<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags, weblink, reviews);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.weblink = weblink;
-        this.cuisine = cuisine;
-        this.reviews.addAll(reviews);
     }
 
     public Name getName() {

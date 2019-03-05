@@ -1,5 +1,7 @@
 package seedu.address.model.util;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,28 +29,29 @@ public class SampleDataUtil {
             new Restaurant(new Name("Astons"), new Phone("66123024"), new Email("astons@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("Western"), new Weblink("astons.com.sg"),
-                    getReviewSet("I love the chicken here! Great service too! # 5.0")),
+                getReviewSet("I love the chicken here! Great service too!", "5.0", "2019-03-04T13:32:20.323")),
             new Restaurant(new Name("Bangkok Jam"), new Phone("65272758"), new Email("bangkokjam@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("Thai"), new Weblink("bangkokjam.com.sg"),
-                    getReviewSet("Love the ambience. Food can be better though. # 3.5")),
+                getReviewSet("Love the ambience. Food can be better though.", "3.5", "2019-03-04T13:35:20.321")),
             new Restaurant(new Name("Chilis"), new Phone("63210283"), new Email("chilis@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("Mexican"), new Weblink("chilis.com.sg"),
-                    getReviewSet("Love the food. # 4.9")),
+                getReviewSet("Love the food.", "4.9", "2019-03-04T13:40:21.323")),
             new Restaurant(new Name("Ding Tai Fung"), new Phone("61031282"), new Email("dingtaifung@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("Chinese"), new Weblink("bangkokjam.com.sg"),
-                    getReviewSet("Many great options. # 3.9", "Commendable service. # 4.5")),
+                getReviewSet("Many great options.", "3.9", "2019-03-04T13:36:19.223",
+                        "Commendable service.", "4.5", "2019-03-04T13:37:20.323")),
             new Restaurant(new Name("Itacho"), new Phone("62492021"), new Email("itacho@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("Japanese", "Ramen"), new Weblink("itacho.com.sg"),
-                    getReviewSet("Lovely staff, great tender chicken. # 4.8", "Amazing delivery. "
-                            + "10/10 service. # 5.0")),
+                getReviewSet("Lovely staff, great tender chicken.", "4.8", "2019-03-04T13:38:10.100",
+                        "Amazing delivery. 10/10 service.", "5.0", "2019-03-04T13:39:25.421")),
             new Restaurant(new Name("McDonalds"), new Phone("62624417"), new Email("mcdonalds@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("FastFood"), new Weblink("mcdonalds.com.sg"),
-                    getReviewSet("Love the waiters. Food looks great too. # 4"))
+                getReviewSet("Love the waiters. Food looks great too.", "4", "2019-03-04T13:41:20.323")),
         };
     }
 
@@ -74,10 +77,15 @@ public class SampleDataUtil {
      */
     public static Set<Review> getReviewSet(String... strings) {
         Set<Review> reviews = new HashSet<>();
-        for (String string : strings) {
-            String[] data = string.split("( # )");
-            reviews.add(new Review(new Entry(data[0]), new Rating(data[1])));
+
+        for (int i = 0; i < strings.length; i += 3) {
+            Entry newEntry = new Entry(strings[i]);
+            Rating newRating = new Rating(strings[i + 1]);
+            Timestamp newTimestamp = Timestamp.valueOf(LocalDateTime.parse(strings[i + 2]));
+            Review newReview = new Review(newEntry, newRating, newTimestamp);
+            reviews.add(newReview);
         }
+
         return reviews;
     }
 }

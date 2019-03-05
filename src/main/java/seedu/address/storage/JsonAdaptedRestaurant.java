@@ -18,6 +18,7 @@ import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,8 +33,8 @@ class JsonAdaptedRestaurant {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedReview> reviewed = new ArrayList<>();
     private final String weblink;
-
     private final String cuisine;
 
     /**
@@ -42,17 +43,23 @@ class JsonAdaptedRestaurant {
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("cuisine") String cuisine,
-                                 @JsonProperty("weblink") String weblink) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+            @JsonProperty("cuisine") String cuisine,
+            @JsonProperty("weblink") String weblink,
+            @JsonProperty("reviewed") List<JsonAdaptedReview> reviewed) {
+
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.cuisine = cuisine;
+        this.weblink = weblink;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-        this.cuisine = cuisine;
-        this.weblink = weblink;
+        if (reviewed != null) {
+            this.reviewed.addAll(reviewed);
+        }
     }
 
     /**
@@ -66,12 +73,16 @@ class JsonAdaptedRestaurant {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        reviewed.addAll(source.getReviews().stream()
+                .map(JsonAdaptedReview::new)
+                .collect(Collectors.toList()));
 
         if (source.getCuisine().isPresent()) {
             cuisine = source.getCuisine().get().value;
         } else {
             cuisine = null;
         }
+
         weblink = source.getWeblink().value;
     }
 
@@ -84,6 +95,11 @@ class JsonAdaptedRestaurant {
         final List<Tag> restaurantTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             restaurantTags.add(tag.toModelType());
+        }
+
+        final List<Review> restaurantReviews = new ArrayList<>();
+        for (JsonAdaptedReview review : reviewed) {
+            restaurantReviews.add(review.toModelType());
         }
 
         if (name == null) {
@@ -137,7 +153,11 @@ class JsonAdaptedRestaurant {
         final Weblink modelWeblink = new Weblink(weblink);
 
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelCuisine, modelWeblink);
+
+        final Set<Review> modelReviews = new HashSet<>(restaurantReviews);
+
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags,
+                modelCuisine, modelWeblink, modelReviews);
     }
 
 }

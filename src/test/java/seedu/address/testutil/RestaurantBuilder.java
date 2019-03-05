@@ -28,8 +28,8 @@ public class RestaurantBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Review> reviews;
     private Set<Tag> tags;
+    private Set<Review> reviews;
     private Cuisine cuisine;
 
     public RestaurantBuilder() {
@@ -39,6 +39,7 @@ public class RestaurantBuilder {
         address = new Address(DEFAULT_ADDRESS);
         reviews = new HashSet<>();
         tags = new HashSet<>();
+        reviews = new HashSet<>();
         cuisine = null;
     }
 
@@ -52,6 +53,7 @@ public class RestaurantBuilder {
         address = restaurantToCopy.getAddress();
         reviews = restaurantToCopy.getReviews();
         tags = new HashSet<>(restaurantToCopy.getTags());
+        reviews = new HashSet<>(restaurantToCopy.getReviews());
         cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
     }
 
@@ -68,6 +70,14 @@ public class RestaurantBuilder {
      */
     public RestaurantBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code reviews} into a {@code Set<Review>} and set it to the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withReviews(String ... reviews) {
+        this.reviews = SampleDataUtil.getReviewSet(reviews);
         return this;
     }
 
@@ -96,14 +106,6 @@ public class RestaurantBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Restaurant} that we are building.
-     */
-    public RestaurantBuilder withReview(Review review) {
-        this.reviews.add(review);
-        return this;
-    }
-
-    /**
      * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
      */
     public RestaurantBuilder withCuisine(String cuisine) {
@@ -112,7 +114,7 @@ public class RestaurantBuilder {
     }
 
     public Restaurant build() {
-        return new Restaurant(name, phone, email, address, tags, Optional.ofNullable(cuisine));
+        return new Restaurant(name, phone, email, address, tags, Optional.ofNullable(cuisine), reviews);
     }
 
 }

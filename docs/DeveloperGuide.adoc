@@ -854,11 +854,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |cancel appointment | the appointment has been cancelled
 
-|`* *` |user |list all appointments of a doctor | 
+|`* *` |user |list all appointments of a doctor |
 
-|`* *` |user |list available timings of a doctor | 
+|`* *` |user |list available timings of a doctor |
 
-|`* *` |user |list available appointments of all doctors | 
+|`* *` |user |list available appointments of all doctors |
 
 |`* *` |user |add a new prescription |
 
@@ -1060,7 +1060,7 @@ Use case ends.
 *MSS*
 
 1. User enter the new details for a medical history entry, given a medical history ID and patient ID.
-2. docX shows a success message and the new details for the medical history. 
+2. docX shows a success message and the new details for the medical history.
 +
 Use case ends.
 
@@ -1196,7 +1196,7 @@ Use case ends.
 [none]
 ** 1a1. docX shows an error message and request the user to give a valid appointment ID.
 +
-Use case resumes at step 1. 
+Use case resumes at step 1.
 
 
 [discrete]
@@ -1217,7 +1217,7 @@ Use case ends.
 [none]
 ** 1a1. docX shows an error message and request the user to give a valid appointment ID.
 +
-Use case resumes at step 1. 
+Use case resumes at step 1.
 
 [none]
 * 1b. The appointment is in the past or has already been completed.
@@ -1225,7 +1225,7 @@ Use case resumes at step 1.
 [none]
 ** 1b1. docX shows an error message and request the user to give a valid appointment ID.
 +
-Use case resumes at step 1. 
+Use case resumes at step 1.
 
 
 [discrete]
@@ -1246,7 +1246,7 @@ Use case ends.
 [none]
 ** 1a1. docX shows an error message and request the user to give a valid doctor ID.
 +
-Use case resumes at step 1. 
+Use case resumes at step 1.
 
 [none]
 * 2a. The doctor has no appointments.
@@ -1275,7 +1275,7 @@ Use case ends.
 [none]
 ** 1a1. docX shows an error message and request the user to give a valid doctor ID.
 +
-Use case resumes at step 1. 
+Use case resumes at step 1.
 
 [none]
 * 2a. The doctor has no appointments.

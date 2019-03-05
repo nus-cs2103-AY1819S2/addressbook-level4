@@ -32,10 +32,12 @@ public class LogicManager implements Logic {
     private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
+
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);

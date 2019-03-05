@@ -26,6 +26,9 @@ public class StatsCommand extends Command {
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
         ArrayList<String> onlyCommands = new ArrayList<>();
         ArrayList<String> outputStatistics = new ArrayList<>();
+        long elapsedTime = history.getElapsedTime(System.nanoTime());
+        // to be integrated to stats results
+        System.out.println("Duration: " + elapsedTime + " seconds");
 
         if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);

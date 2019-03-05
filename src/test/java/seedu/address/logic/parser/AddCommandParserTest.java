@@ -101,12 +101,12 @@ public class AddCommandParserTest {
 
         //multiple majors - last major accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + RACE_DESC_BOB
-                + ADDRESS_DESC_BOB + RACE_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_AMY + MAJOR_DESC_BOB
+                + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_AMY + MAJOR_DESC_BOB
                 + PASTJOB_DESC_PROFESSOR + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         //multiple race - last race accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + RACE_DESC_AMY
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_AMY + PASTJOB_DESC_PROFESSOR
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + PASTJOB_DESC_PROFESSOR
                 + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
@@ -209,8 +209,7 @@ public class AddCommandParserTest {
         // invalid race
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_RACE_DESC
                 + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Race.
-                        MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Race.MESSAGE_CONSTRAINTS);
 
         // invalid past job
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + RACE_DESC_BOB

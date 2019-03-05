@@ -3,8 +3,10 @@ package seedu.address.logic.commands;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+
 
 public class AddAppointmentCommandTest {
 
@@ -16,7 +18,7 @@ public class AddAppointmentCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void testThrowException() throws CommandException{
+    public void testThrowException() throws CommandException {
         thrown.expect(CommandException.class);
         new AddAppointmentCommand().execute(null, commandHistory);
     }

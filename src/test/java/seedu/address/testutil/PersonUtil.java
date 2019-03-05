@@ -68,7 +68,7 @@ public class PersonUtil {
         if (descriptor.getPastJobs().isPresent()) {
             Set<PastJob> pastjobs = descriptor.getPastJobs().get();
             if (pastjobs.isEmpty()) {
-                sb.append(PREFIX_PASTJOB);
+                sb.append(PREFIX_PASTJOB).append(" ");
             } else {
                 pastjobs.forEach(s -> sb.append(PREFIX_PASTJOB).append(s.value).append(" "));
             }
@@ -76,7 +76,7 @@ public class PersonUtil {
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(PREFIX_TAG).append(" ");
             } else {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }

@@ -144,42 +144,42 @@ public class ModelManager implements Model {
     }
 
     //=========== MedicineManager ============================================================================
-    //@Override
+    @Override
     public void addMedicine(String medicineName, String[] path) {
         medicineManager.addMedicine(medicineName, path);
     }
 
-    //@Override
+    @Override
     public void addMedicine(String medicineName, int quantity, String[] path) {
         medicineManager.addMedicine(medicineName, quantity, path);
     }
 
-    //@Override
+    @Override
     public void addDirectory(String directoryName, String[] path) {
         medicineManager.addDirectory(directoryName, path);
     }
 
-    //@Override
+    @Override
     public Optional<Medicine> findMedicine(String medicineName) {
         return medicineManager.findMedicine(medicineName);
     }
 
-    //@Override
+    @Override
     public Optional<Medicine> findMedicine(String[] path) {
         return medicineManager.findMedicine(path);
     }
 
-    //@Override
+    @Override
     public void purchaseMedicine(String[] path, int quantity) {
         medicineManager.purchaseMedicine(path, quantity);
     }
 
-    //@Override
+    @Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
     }
 
-    //@Override
+    @Override
     public Optional<Directory> findDirectory(String[] path) {
         return medicineManager.findDirectory(path);
     }

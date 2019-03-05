@@ -44,9 +44,13 @@ public class AddMedicineCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        //model.addMedicine(name, quantity, path);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, name, quantity));
+        try {
+            model.addMedicine(name, quantity, path);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name, quantity));
+        } catch (Exception ex) {
+            throw new CommandException(ex.getMessage());
+        }
     }
 
     @Override

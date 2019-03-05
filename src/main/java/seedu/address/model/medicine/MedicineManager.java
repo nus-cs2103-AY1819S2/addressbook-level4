@@ -32,7 +32,7 @@ public class MedicineManager {
     public void addMedicine(String medicineName, int quantity, String[] path) {
         Optional<Directory> directory = root.findDirectory(path, 0);
         if (!directory.isPresent()) {
-            throw new IllegalArgumentException("Invalid Path");
+            throw new IllegalArgumentException("Invalid path");
         }
         Medicine medicine = new Medicine(medicineName, quantity);
         listOfMedicine.add(medicine);

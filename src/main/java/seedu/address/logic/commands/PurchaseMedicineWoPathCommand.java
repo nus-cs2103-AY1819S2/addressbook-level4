@@ -2,9 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * A command to record purchase of a medicine without a path
@@ -24,8 +27,15 @@ public class PurchaseMedicineWoPathCommand extends PurchaseMedicineCommand {
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
-        //model handle purchase
-        //model records purchase
+        Optional<Medicine> medicine = model.findMedicine(medicineName);
+        if (!medicine.isPresent()) {
+            throw new CommandException("No such medicine found.");
+        }
+        try {
+            medicine.get().addQuantity(quantity);
+        } catch (Exception ex) {
+            throw new CommandException(ex.getMessage());
+        }
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

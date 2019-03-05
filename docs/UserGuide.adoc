@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w11-1/main/
 
-By: `W11-1`      Since: `Feb 2018`      Licence: `MIT`
+By: `W11-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -26,7 +26,7 @@ have been looking for, then jump to <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `topdeck.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -37,8 +37,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`index`* : lists all cards
-* **`add`**`add card f/Capital of Hawaii b/Honolulu` : creates a card for this trivia and adds it onto the Deck.
-* **`delete`**`3` : deletes the 3rd card shown in the current list
+* **`deck add`**`Capitals`  creates a deck entitled "Capitals"
+* **`deck delete`**`3` : deletes the 3rd deck shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -49,61 +49,70 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add f/QUESTION b/ANSWER`, `QUESTION` is a parameter which can be used as `add f/Powerhouse of the cell b/Mitochondria`.
-* Items in square brackets are optional e.g `f/QUESTION b/ANSWER [t/TAG]` can be used as `f/Powerhouse of the cell b/Mitochondria t/biology` or as `f/Powerhouse of the cell b/Mitochondria`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `f/QUESTION b/ANSWER`, `f/QUESTION b/ANSWER` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add q/QUESTION a/ANSWER`, `QUESTION` is a parameter which can be used as `add q/Honduras a/Tegucigalpa`.
+* Items in square brackets are optional e.g `f/QUESTION b/ANSWER [t/TAG]` can be used as `q/China a/Beijing t/Asia` or as `q/China a/Beijing`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
+* Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
 ====
 
 === Viewing help : `help`
 
-Format: `help`
+**Format**: `help`
+
+**Outcome**: Information regarding commands is displayed.
 
 === Creating a deck: `deck new`
 
-Format: `deck new DECK_NAME`
+**Format**: `deck new DECK_NAME`
+
+**Outcome**: A new deck called DECK_NAME is created.
 
 === Deleting a deck: `deck delete`
 
-Format: `deck delete DECK_NAME`
+**Format**: `deck delete DECK_INDEX`
+
+**Outcome**: The deck at index DECK_INDEX is deleted.
 
 === Listing all decks: `list`
 
-Shows a list of all decks in TopDeck +
-Format: `list`
+**Format**: `list`
+
+**Outcome**: A list of all decks is displayed.
 
 === Selecting a deck: `select`
 
-Selects a deck and lists its card in the right pane. +
-Format: `select INDEX`
+**Format**: `select DECK_INDEX`
+
+**Outcome**: A deck is selected. This enables you to manage the cards inside.
 
 ****
-* Selects the deck at the specified `INDEX`. The index refers to the index number shown in the displayed deck list. The index *must be a positive integer* 1, 2, 3...
+* The index refers to the index number shown in the displayed deck list. The index *must be a positive integer* 1, 2, 3...
 ****
 
-=== Adding card to selected deck: `add card`
+=== Adding card to selected deck: `card add`
 
-Creates and adds a card to selected deck. +
-Format: `card add f/FRONT_TEXT b/BACK_TEXT`
+**Format**: `card add q/QUESTION a/ANSWER`
+
+**Outcome**: A new card containing QUESTION in front and ANSWER at the back is created and added onto selected deck.
 
 [NOTE]
 ====
 A deck must be selected before this command is called.
 ====
 
-Examples:
-
-* `add card f/Are you curious about the app b/yes!`
 
 === Deleting card in the selected deck: `card delete`
 
-Deletes a card in the selected deck. +
-Format: `card delete INDEX`
+
+**Format**: `card delete CARD_INDEX`
+
+**Outcome**: The card at index CARD_INDEX is deleted.
 
 === Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+**Format**: `history`
+
+**Outcome**: All the commands that you have entered are listed in reverse chronological order.
 
 [NOTE]
 ====

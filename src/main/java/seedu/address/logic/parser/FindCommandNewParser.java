@@ -6,7 +6,8 @@ import seedu.address.logic.commands.FindCommandNew;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.FindCommandPredicate;
 import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 /**
  * Parses input arguments and creates a new FindCommand object
  */
@@ -20,24 +21,24 @@ public class FindCommandNewParser implements Parser<FindCommandNew> {
     public FindCommandNew parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new FindCommandNew(PREDICATE_SHOW_ALL_MODULES);
+            return new FindCommandNew(PREDICATE_SHOW_ALL_PERSONS);
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CODE, PREFIX_TITLE, PREFIX_SEMESTER, PREFIX_GRADE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODCODE, PREFIX_MODNAME, PREFIX_SEMESTER, PREFIX_GRADE);
 
         FindModuleDescriptor findModuleDescriptor = new FindModuleDescriptor();
-        if (argMultimap.getValue(PREFIX_CODE).isPresent()) {
-            findModuleDescriptor.setCode(argMultimap.getValue(PREFIX_CODE).get());
+        if (argMultimap.getValue(PREFIX_MODCODE).isPresent()) {
+            findModuleDescriptor.setCode(argMultimap.getValue(PREFIX_MODCODE).get());
         }
-        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            findModuleDescriptor.setTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        if (argMultimap.getValue(PREFIX_MODNAME).isPresent()) {
+            findModuleDescriptor.setTitle(argMultimap.getValue(PREFIX_MODNAME).get());
         }
         if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
             findModuleDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
         }
         if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
-            findModuleDescriptor.setGrade(ParserUtil.parseGrade(argMultimap.getGrade(PREFIX_GRADE).get()));
+            findModuleDescriptor.setGrade(ParserUtil.parseExpectedMinGrade(argMultimap.getValue(PREFIX_GRADE).get()));
         }
 
         return new FindCommandNew(new FindCommandPredicate(findModuleDescriptor));

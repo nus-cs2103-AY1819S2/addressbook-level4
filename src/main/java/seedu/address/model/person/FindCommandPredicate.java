@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
 
-public class FindCommandPredicate implements Predicate<Module> {
+public class FindCommandPredicate implements Predicate<Person> {
     private final FindModuleDescriptor findModuleDescriptor;
 
     public FindCommandPredicate(FindModuleDescriptor findModuleDescriptor) {
@@ -16,9 +16,9 @@ public class FindCommandPredicate implements Predicate<Module> {
     }
 
     @Override
-    public boolean test(Module module) {
+    public boolean test(Person module) {
         requireNonNull(module);
-        ModuleInfo moduleInfo = module.getModuleInfo();
+        Name moduleInfo = module.getModuleInfo();
 
         Optional<String> code = findModuleDescriptor.getCode();
         Optional<String> title = findModuleDescriptor.getTitle();
@@ -26,11 +26,11 @@ public class FindCommandPredicate implements Predicate<Module> {
         Optional<Grade> grade = findModuleDescriptor.getGrade();
 
         if (code.isPresent() &&
-                !(moduleInfo.getModuleCode().toString().contains(code.get()))) {
+                !(moduleInfo.toString().contains(code.get()))) { //to change
             return false;
         }
         if (title.isPresent() &&
-                !(moduleInfo.getModuleTitle().toString().contains(title.get()))) {
+                !(moduleInfo.toString().contains(title.get()))) { //to change
             return false;
         }
         if (semester.isPresent() &&
@@ -38,7 +38,7 @@ public class FindCommandPredicate implements Predicate<Module> {
             return false;
         };
         if (grade.isPresent() &&
-                !(module.getGrade().equals(grade.get()))) {
+                !(module.getExpectedMinGrade().equals(grade.get()))) {
             return false;
         }
 

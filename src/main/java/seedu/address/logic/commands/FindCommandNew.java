@@ -3,17 +3,18 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.FindCommandPredicate;
 import seedu.address.model.person.Grade;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
 
 /**
- * Finds and lists modules in user plan matching all given code, title, semester or grade.
+ * Finds and lists modules in user plan matching all given code, name, semester or grade.
  * Keyword matching is case insensitive.
  */
 public class FindCommandNew extends Command {
@@ -21,14 +22,14 @@ public class FindCommandNew extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds modules matching all given code, "
-            + "title, semester or grade (case-insensitive) and displays them as a list with index numbers.\n"
+            + "name, semester or grade (case-insensitive) and displays them as a list with index numbers.\n"
             + "Code and title can be entered partially, semester and grade must be exact.\n"
-            + "Parameters: [m/CODE] [t/TITLE] [s/SEMESTER] [g/GRADE]\n"
-            + "Example: " + COMMAND_WORD + " s/y1s1 m/cs g/A";
+            + "Parameters: [c/CODE] [n/NAME] [s/SEMESTER] [g/GRADE]\n"
+            + "Example: " + COMMAND_WORD + " s/y1s1 n/cs g/A";
 
-    private final FindCommandPredicate predicate;
+    private final Predicate<Person> predicate;
 
-    public FindCommandNew(FindCommandPredicate predicate) {
+    public FindCommandNew(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 

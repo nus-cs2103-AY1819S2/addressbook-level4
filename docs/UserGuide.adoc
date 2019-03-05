@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Book Squirrel - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W11-04`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+BookSquirrel is for those who *want to keep record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `booksquirrel.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listBook`* : lists all books
+* **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record.
+* **`deleteBook`**`n/Alice` : deletes the record of books whose name contains 'Alice'
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,112 +47,130 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Alice in Wonderland t/fantasy` or as `n/Alice in Wonderland`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/fairy tale` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a book: `addBook`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Adds a book to the book list +
+Format: `addBook n/BOOK NAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
+* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
 
-=== Listing all persons : `list`
+=== Adding a book review: `addReview`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Adds a book review to a certain book in the book list +
+Format: `addReview n/BOOK NAME r/review`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
+* `addReview n/Structure and Interpretation of Computer Programs r/A very difficult book:(`
 
-=== Locating persons by name: `find`
+=== Listing book entries : `listBook`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Shows a list of all book entries, with the specified TAG and RATING. +
+Format: `listBook [n/NAME] [t/TAG] [m/RATING]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only books match all the search criteria will be returned
+* For name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `listBook t/textbook m/5`
+* `listBook n/CS2104T t/textbook`
+* `listBook m/5`
 
-=== Deleting a person : `delete`
+=== Listing book reviews of a certain book : `listReview`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Shows a list of all review entries of a book. +
+Format: `listReview n/BOOKNAME`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The book name need to match exactly
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `listReview n/Alice in Wonderland`
 
-=== Selecting a person : `select`
+=== Editing book entry : `editBook`
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Edits an existing book entry (eg. edit the mark, author or tag). +
+Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Edits the book entry with exact name BOOKNAME.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `edit n/Alice in Wonderland a/some author` +
+Change the author of book called “Alice in Wonderland” to some author.
+
+=== Editing tags of a certain book: `editTag`
+
+Edit tags of the book specified by BOOKNAME.
+Format: `editTag n/BOOKNAME [ta/TAG TO ADD] [td/TAG TO DELETE]`
+
+****
+* At least one of the optional fields must be provided.
+* [t/TAG] replaces all existing tags of the book
+* [ta/TAG TO ADD] adds the tag to the book
+* [td/TAG TO DELETE] deletes the tag
+****
+
+Examples:
+
+* `editTag n/Alice in Wonderland ta/horror td/fantasy.`
+
+=== Deleting a book : `deleteBook`
+
+Deletes the specified book from the book list. +
+Format: `deleteBook n/BOOKNAME`
+
+****
+* Deletes the book of the specified `BOOKNAME`.
+* The `BOOKNAME` refers to the name of the book.
+****
+
+Examples:
+
+* `deleteBook n/Alice in Wonderland` +
+Deletes the entry of Alice in Wonderland.
+
+=== Deleting a book review: `deleteReview`
+
+Deletes the review of the specified book from the review list. +
+Format: ` deleteReview INDEX`
+
+****
+* Deletes of the book at the specified `INDEX`.
+* The index refers to the index number shown in the displayed review list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+Examples:
+
+* `listReview n/Alice in Wonderland` +
+`deleteReview 2` +
+Deletes the 2nd review of Alice in Wonderland.
 
 === Listing entered commands : `history`
 
@@ -167,29 +185,28 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the records to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the records content (`addBook`, `addReview`, ``deleteBook`, `deleteReview`, `editTag` and `clear`).
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `deleteBook Computer Security` +
+`listBook` +
+`undo` (reverses the `deleteBook Computer Security` command) +
 
-* `select 1` +
-`list` +
+* `listBook` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `deleteBook Alice` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `deleteBook Alice` command) +
 
 === Redoing the previously undone command : `redo`
 
@@ -198,21 +215,23 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `deleteBook Alice` +
+`undo` (reverses the `deleteBook Alice` command) +
+`redo` (reapplies the `deleteBook Alice` command) +
 
-* `delete 1` +
+* `deleteBook Hello World` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+=== Give a summary of all the books read : `summary`
+
+Generate a summary of all the books read so far. +
+Format: `summary`
+
+Examples:
+
+* `summary`
+An example of a summary `You have read 100 books so far. Your favourite book is Alice in Wonderland. You wrote 13 reviews for it. The tag you use most commonly is “textbook.” Your favourite author is “John Doe”, you read 11 books written by him. The book that you gave the lowest rating is “Algorithms”`
 
 === Clearing all entries : `clear`
 
@@ -226,7 +245,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Book review data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -238,23 +257,29 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Book Squirrel folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *AddBook* `addBook n/BOOK NAME a/author m/RATING(0-10) [t/TAG]…` +
+e.g. `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
+* *AddReview* `aaddReview n/BOOK NAME r/review` +
+e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *DeleteBook* : `deleteBook n/BOOKNAME` +
+e.g. `deleteBook n/Alice in Wonderland`
+* *DeleteReview* : `deleteReview INDEX`
+* *EditBook* : `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...` +
+e.g. `edit n/Alice in Wonderland a/some author`
+* *EditTag* : `editTag n/BOOKNAME [ta/TAG TO ADD] [td/TAG TO DELETE]` +
+e.g. `editTag n/Alice in Wonderland ta/horror td/fantasy.`
+* *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING]` +
+e.g. `listBook t/textbook m/5`
+* *ListReview* : `listReview n/BOOKNAME` +
+e.g. `listReview n/Alice in Wonderland`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Summary* : `summary`
+* *Exit* : `exit`

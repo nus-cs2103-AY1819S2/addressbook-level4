@@ -2,13 +2,16 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -99,6 +102,31 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
         indicateModified();
     }
+
+    /**
+     * Removes {@code tag} from a {@code person}
+     */
+    private void removeTagFromPerson(Tag tag, Person person) {
+        Set<Tag> tags = new HashSet<Tag>(person.getTags());
+        if (!tags.remove(tag)) {
+            return;
+        }
+
+        Person newPerson = new Person(person.getName(), person.getPhone(),
+                person.getEmail(), person.getAddress(), tags);
+
+        setPerson(person, newPerson);
+    }
+
+    /**
+     * Remove {@code tag} from all person in the list
+     */
+    public void removeTag(Tag tag) {
+        for (Person p: persons) {
+            removeTagFromPerson(tag, p);
+        }
+    }
+
 
     @Override
     public void addListener(InvalidationListener listener) {

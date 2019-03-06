@@ -24,7 +24,7 @@ Hotel Management System (HMS) is for hotels that want to use a single, integrate
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `hms.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your Hotel Management System.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]

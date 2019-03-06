@@ -5,6 +5,7 @@ image:https://api.codacy.com/project/badge/Grade/9a712b09ec8f4acbb39586d28ba4b74
 image:https://travis-ci.org/cs2103-ay1819s2-t12-1/main.svg?branch=master[link="https://travis-ci.org/cs2103-ay1819s2-t12-1/main.svg?branch=master"]
 image:https://coveralls.io/repos/github/cs2103-ay1819s2-t12-1/main/badge.svg?branch=master[link="https://coveralls.io/repos/github/cs2103-ay1819s2-t12-1/main/badge.svg?branch=master"]
 
+<<<<<<< HEAD
 ifdef::env-github[]
 image::docs/images/Ui.png[width="1010"]
 endif::[]
@@ -16,6 +17,12 @@ endif::[]
 * This is a hotel management system. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+=======
+* This is a Hotel Management System. Hotels can use this system as a one stop application for all their management work.
+* It has features to show customer details, and the respective customer's room reservations and service bookings along with it.
+* This application has been made keeping in mind that the user is more comfortable with typing commands and is a fast typer. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+
+>>>>>>> 821e748bbb03ec32d02fa2782f01e0faa44feb2d
 
 == Site Map
 

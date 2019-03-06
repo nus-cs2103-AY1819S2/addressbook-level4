@@ -26,7 +26,6 @@ public class FilterCommand extends Command{
     private String email;
     private String[] tagList;
     private String address;
-    
     private boolean isFilterCleared;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " clear/or/and " + "[prefix/text/prefix] \n"
@@ -87,7 +86,6 @@ public class FilterCommand extends Command{
 
         try {
             ProcessCommand(model);
-            
             if(isFilterCleared) {
                 isFilterCleared = false;
                 return new CommandResult(MESSAGE_CLEAR_FILTER_PERSON_SUCCESS);

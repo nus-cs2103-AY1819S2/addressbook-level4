@@ -829,15 +829,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new flashcard |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a flashcard |remove cards that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |edit a flashcard |update the information of a card without needing to delete and add a new one
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a flashcard by keyword |locate flashcards without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |enter quiz mode |test my knowledge on a collection of flashcards
+
+|`* * *` |user |view my statistics |analyse my understanding of specific flashcards
+
+|`* * *` |sociable user |share a collection of flashcards |help other users
+
+|`* * *` |sociable user |upload flashcards shared with me |view, edit and be quizzed on these cards locally
+
+|`* *` |inexperienced user |have an intuitive GUI  |use the App without the command line
+
 |=======================================================================
 
 _{More to be added}_

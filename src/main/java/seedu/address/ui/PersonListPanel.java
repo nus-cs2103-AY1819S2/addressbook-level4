@@ -31,9 +31,10 @@ public class PersonListPanel extends UiPart<Region> {
     private VBox grid;
 
     public PersonListPanel(ObservableList<Cell> cellList, ObservableValue<Cell> selectedPerson,
-                           Consumer<Cell> onSelectedPersonChange, ObservableBooleanValue modelUpdateObservable, MapGrid mapGrid) {
+                           Consumer<Cell> onSelectedPersonChange, ObservableBooleanValue modelUpdateObservable,
+                           MapGrid mapGrid) {
         super(FXML);
-        modelUpdateObservable.addListener( observable -> {
+        modelUpdateObservable.addListener(observable -> {
             int size = mapGrid.getMapSize();
             System.out.println(size);
             grid.getChildren().clear();
@@ -60,16 +61,16 @@ public class PersonListPanel extends UiPart<Region> {
      */
     Color getColor(Cell cell) {
         Status status = cell.getStatus();
-        switch(status){
+        switch(status) {
         case SHIP:
             return Color.BLACK;
         case EMPTY:
             return Color.LIGHTBLUE;
         case HIT:
             return Color.RED;
+        default:
+            return Color.WHITE;
         }
-
-        return Color.WHITE;
     }
 
     /**

@@ -56,6 +56,9 @@ public class MapGrid implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    /**
+     * Initialises the 2D Map to the given size
+     */
     public void initialise(int size) {
         this.size = size;
         cellGrid = new Cell[size][size];
@@ -89,9 +92,9 @@ public class MapGrid implements ReadOnlyAddressBook {
      * Change the ObservableValue to trigger the UI change
      */
     public void updateUi() {
-        if(uiUpdateSwitch.getValue() == false) {
+        if (uiUpdateSwitch.getValue() == false) {
             uiUpdateSwitch.setValue(true);
-        }else {
+        } else {
             uiUpdateSwitch.setValue(false);
         }
     }

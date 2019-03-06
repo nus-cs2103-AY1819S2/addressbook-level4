@@ -15,7 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIMING = new Prefix(":/");
     public static final Prefix PREFIX_PAYER = new Prefix("$/");
     public static final Prefix PREFIX_CUSTOMERS = new Prefix("c/");
-    public static final Prefix PREFIX_COMMENT = new Prefix("f/");
+    public static final Prefix PREFIX_COMMENT = new Prefix("com/");
     public static final Prefix PREFIX_IDENTIFICATION_NUMBER = new Prefix("id/");
 
 }

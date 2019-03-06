@@ -14,7 +14,7 @@ public class AddPersonCommand extends AddCommand implements PersonCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: " + ADD_COMMAND_PARAMETERS + "\n"
-            + "Example: " + COMMAND_WORD + " " + COMMAND_EXAMPLE;
+            + "Example: " + COMMAND_WORD + " " + ADD_COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 

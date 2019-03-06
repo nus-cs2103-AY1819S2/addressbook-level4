@@ -2,6 +2,8 @@ package seedu.address.model.statistics;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 import seedu.address.model.table.TableNumber;
 
@@ -12,25 +14,23 @@ import seedu.address.model.table.TableNumber;
 public class Bill {
 
     private final TableNumber tableNumber;
-    private final Day day;
-    private final Month month;
-    private final Year year;
     private float totalBill;
+    private Date date;
 
     /**
      * Every field must be present and not null.
      */
-    public Bill(TableNumber tableNumber, Day day, Month month, Year year, float totalBill) {
+    public Bill(TableNumber tableNumber, float totalBill) {
         requireAllNonNull(tableNumber);
-        requireAllNonNull(day);
-        requireAllNonNull(month);
-        requireAllNonNull(year);
         requireAllNonNull(totalBill);
         this.tableNumber = tableNumber;
-        this.day = day;
-        this.month = month;
-        this.year = year;
         this.totalBill = totalBill;
+        date = new Date();
+    }
+
+    public  String getFormattedDate() {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+        return dateFormatter.format(date);
     }
 
     public TableNumber getTableNumber() {
@@ -41,22 +41,10 @@ public class Bill {
         return totalBill;
     }
 
-    public Day getDay() {
-        return day;
-    }
-
-    public Month getMonth() {
-        return month;
-    }
-
-    public Year getYear() {
-        return year;
-    }
-
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tableNumber, day, month, year, totalBill);
+        return Objects.hash(tableNumber, date, totalBill);
     }
 
     @Override
@@ -64,14 +52,10 @@ public class Bill {
         final StringBuilder builder = new StringBuilder();
         builder.append("[Table ")
                 .append(getTableNumber())
-                .append("] [Date: ")
-                .append(getDay())
-                .append("/")
-                .append(getMonth())
-                .append("/")
-                .append(getYear())
                 .append("] [Total Cost of the Bill: $")
                 .append(getTotalBill())
+                .append("] [Date: ")
+                .append(getFormattedDate())
                 .append("] ");
         return builder.toString();
     }

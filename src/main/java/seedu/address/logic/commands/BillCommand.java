@@ -6,11 +6,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.Day;
@@ -34,6 +38,7 @@ public class BillCommand extends Command {
     private final Day day;
     private final Month month;
     private final Year year;
+    private float totalBill;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the Bill for a Table. "
             + "Parameters: "
@@ -47,9 +52,10 @@ public class BillCommand extends Command {
             + PREFIX_MONTH + "12 "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Bill Calculated: $" + bill.getTotalBill();
+    public static final String MESSAGE_SUCCESS = "Bill Calculated: $ %1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
     public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
+    public static final String MESSAGE_MENUITEM_NOT_PRESENT ="MenuItem is not received."; 
 
     /**
      * Creates a BillCommand to find the total bill of the specified {@code Table}
@@ -80,16 +86,28 @@ public class BillCommand extends Command {
 
         ObservableList<OrderItem> orderItemList = model.getFilteredOrderItemList();
 
-        bill = calculateBill(toBill, orderItemList);
+        bill = calculateBill(orderItemList, model.getRestOrRant().getMenu());
 
         model.updateRestOrRant();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }
 
-    private Bill calculateBill(Table table, ObservableList<OrderItem> orderItemList) {
-        Bill bill = new Bill(table, orderItemList, day, month, year);
-        bill.calculateBill();
-        return bill;
+    private Bill calculateBill(ObservableList<OrderItem> orderItemList, ReadOnlyMenu menu) throws CommandException {
+        MenuItem menuItem;
+        Optional<MenuItem> opt;
+        for (OrderItem orderItem : orderItemList) {
+            if (!tableNumber.equals(orderItem.getTableNumber())) {
+                throw new CommandException(MESSAGE_TABLE_MISMATCH);
+            }
+            opt = menu.getItemFromCode(orderItem.getMenuItemCode());
+            if (!opt.isPresent()) {
+                throw new CommandException(MESSAGE_MENUITEM_NOT_PRESENT);
+            }
+            menuItem = opt.get();
+            //menu.updateMenuItemQuantity(orderItem.getMenuItemCode(), orderItem.getQuantity());
+            totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
+        }
+        return new Bill(tableNumber, day, month, year, totalBill);
     }
 
     @Override

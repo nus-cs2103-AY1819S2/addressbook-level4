@@ -3,13 +3,6 @@ package seedu.address.model.statistics;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
-import java.util.Optional;
-
-import javafx.collections.ObservableList;
-import seedu.address.model.menu.Menu;
-import seedu.address.model.menu.MenuItem;
-import seedu.address.model.order.OrderItem;
-import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -18,67 +11,33 @@ import seedu.address.model.table.TableNumber;
  */
 public class Bill {
 
-    private ObservableList<OrderItem> orderItemList;
     private final TableNumber tableNumber;
     private final Day day;
     private final Month month;
     private final Year year;
-    private int totalBill;
+    private float totalBill;
 
     /**
      * Every field must be present and not null.
      */
-    public Bill(Table table, ObservableList<OrderItem> orderItemList, Day day, Month month, Year year) {
-        requireAllNonNull(table);
-        requireAllNonNull(orderItemList);
-        requireAllNonNull(day);
-        requireAllNonNull(month);
-        requireAllNonNull(year);
-        this.tableNumber = table.getTableNumber();
-        this.orderItemList = orderItemList;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.totalBill = 0;
-    }
-
-    public Bill(TableNumber tableNumber, Day day, Month month, Year year, int bill) {
+    public Bill(TableNumber tableNumber, Day day, Month month, Year year, float totalBill) {
         requireAllNonNull(tableNumber);
         requireAllNonNull(day);
         requireAllNonNull(month);
         requireAllNonNull(year);
-        requireAllNonNull(bill);
+        requireAllNonNull(totalBill);
         this.tableNumber = tableNumber;
         this.day = day;
         this.month = month;
         this.year = year;
-        this.totalBill = bill;
-    }
-
-    public void calculateBill() {
-        Menu menu = new Menu();
-        MenuItem menuItem;
-        Optional<MenuItem> opt;
-        for (OrderItem orderItem : orderItemList) {
-            if (tableNumber.equals(orderItem.getTableNumber())) {
-                opt = menu.getItemFromCode(orderItem.getMenuItemCode());
-                if (opt.isPresent()) {
-                    menuItem = opt.get();
-                    totalBill += Integer.parseInt(menuItem.getPrice().itemPrice) * orderItem.getQuantity();
-                }
-            }
-        }
-    }
-
-    public ObservableList<OrderItem> getOrderItemList() {
-        return orderItemList;
+        this.totalBill = totalBill;
     }
 
     public TableNumber getTableNumber() {
         return tableNumber;
     }
 
-    public int getTotalBill() {
+    public float getTotalBill() {
         return totalBill;
     }
 
@@ -97,7 +56,7 @@ public class Bill {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(orderItemList, tableNumber, day, month, year, totalBill);
+        return Objects.hash(tableNumber, day, month, year, totalBill);
     }
 
     @Override

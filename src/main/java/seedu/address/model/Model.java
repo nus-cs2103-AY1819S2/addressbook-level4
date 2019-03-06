@@ -25,6 +25,11 @@ public interface Model {
     void putShip(Coordinates coordinates, Battleship battleship);
 
     /**
+     * Returns the map grid
+     */
+    VersionedMapGrid getMapGrid();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);

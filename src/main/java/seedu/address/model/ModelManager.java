@@ -62,6 +62,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public VersionedMapGrid getMapGrid() {
+        return versionedAddressBook;
+    }
+
+    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);

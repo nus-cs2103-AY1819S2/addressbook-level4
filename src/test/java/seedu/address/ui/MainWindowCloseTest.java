@@ -11,16 +11,16 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.testfx.api.FxToolkit;
 
-import seedu.address.logic.LogicManager;
-import seedu.address.model.ModelManager;
-import seedu.address.quiz.QuizModelManager;
-import seedu.address.storage.JsonUserPrefsStorage;
-
 import guitests.guihandles.HelpWindowHandle;
 import guitests.guihandles.StageHandle;
 
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import seedu.address.logic.LogicManager;
+import seedu.address.model.ModelManager;
+import seedu.address.quiz.QuizModelManager;
+import seedu.address.storage.JsonUserPrefsStorage;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.

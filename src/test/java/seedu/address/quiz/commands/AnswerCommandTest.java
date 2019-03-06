@@ -1,8 +1,8 @@
 package seedu.address.quiz.commands;
 
-import static seedu.address.quiz.commands.QuizCommandTestUtil.assertCommandSuccess;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.quiz.commands.QuizCommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import seedu.address.model.card.exceptions.MissingCoreException;
 import seedu.address.model.card.exceptions.MissingOptionalException;
-import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Represents a flash card which minimally contains {@value #MIN_CORE_COUNT} {@link java.lang.String} objects in
@@ -50,7 +49,7 @@ public class Card {
      * @param optionals {@link #optionals} a {@code Card} can have.
      */
     public Card(List<String> cores, List<String> optionals) {
-        CollectionUtil.requireAllNonNull(cores, optionals);
+        requireAllNonNull(cores, optionals);
 
         this.cores = new ArrayList<>();
         this.optionals = new ArrayList<>();
@@ -66,7 +65,7 @@ public class Card {
      * @param cores {@link #cores} a {@code Card} must have.
      */
     public Card(List<String> cores) {
-        CollectionUtil.requireAllNonNull(cores);
+        requireAllNonNull(cores);
 
         this.cores = new ArrayList<>();
         this.optionals = new ArrayList<>();
@@ -99,7 +98,7 @@ public class Card {
      * @param newCores the new list of {@link #cores}
      */
     public void setCores(List<String> newCores) {
-        CollectionUtil.requireAllNonNull(newCores);
+        requireAllNonNull(newCores);
         this.cores.clear();
         this.cores.addAll(newCores);
         hashCode = generateHashCode();
@@ -111,7 +110,7 @@ public class Card {
      * @param newOptionals the new list of {@link #optionals}
      */
     public void setOptionals(List<String> newOptionals) {
-        CollectionUtil.requireAllNonNull(newOptionals);
+        requireAllNonNull(newOptionals);
         this.optionals.clear();
         this.optionals.addAll(newOptionals);
         hashCode = generateHashCode();

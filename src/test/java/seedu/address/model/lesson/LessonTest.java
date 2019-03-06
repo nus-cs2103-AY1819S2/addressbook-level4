@@ -1,13 +1,13 @@
 package seedu.address.model.lesson;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_COUNT;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_FIELDS;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.TypicalLessons.LESSON_ONE_OPT;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

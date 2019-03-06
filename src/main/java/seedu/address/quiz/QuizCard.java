@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.quiz.exceptions.NotInitialisedException;
-import seedu.address.commons.util.AppUtil;
-import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Represents a partial of Card, only contains the necessary information for Quiz.
@@ -26,8 +24,8 @@ public class QuizCard {
     private int streak;
 
     public QuizCard(String question, String answer) {
-        CollectionUtil.requireAllNonNull(question, answer);
-        AppUtil.checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
+        requireAllNonNull(question, answer);
+        checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.question = question;
         this.answer = answer;
@@ -37,8 +35,8 @@ public class QuizCard {
     }
 
     public QuizCard(String question, String answer, List<String> opt) {
-        CollectionUtil.requireAllNonNull(question, answer, opt);
-        AppUtil.checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
+        requireAllNonNull(question, answer, opt);
+        checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.question = question;
         this.answer = answer;
@@ -49,8 +47,8 @@ public class QuizCard {
     }
 
     public QuizCard(int index, String question, String answer, Quiz.Mode quizMode) {
-        CollectionUtil.requireAllNonNull(index, question, answer, quizMode);
-        AppUtil.checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
+        requireAllNonNull(index, question, answer, quizMode);
+        checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.index = index;
         this.question = question;

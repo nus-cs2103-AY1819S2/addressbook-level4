@@ -2,6 +2,8 @@ package seedu.address.logic;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -14,8 +16,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.quiz.QuizModel;
 import seedu.address.quiz.commands.QuizCommand;
-
-import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

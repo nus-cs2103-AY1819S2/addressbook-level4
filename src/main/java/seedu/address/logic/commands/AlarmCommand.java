@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
@@ -57,5 +58,13 @@ public class AlarmCommand extends Command {
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this || (
+                other instanceof AlarmCommand
+                && Arrays.equals(this.path, ((AlarmCommand) other).path)
+                && this.alarmLevel == ((AlarmCommand) other).alarmLevel);
     }
 }

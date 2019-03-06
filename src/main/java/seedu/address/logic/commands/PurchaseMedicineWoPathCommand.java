@@ -50,7 +50,6 @@ public class PurchaseMedicineWoPathCommand extends PurchaseMedicineCommand {
                 other instanceof PurchaseMedicineWoPathCommand
                 && medicineName.equals(((PurchaseMedicineWoPathCommand) other).medicineName)
                 && quantity == ((PurchaseMedicineWoPathCommand) other).quantity
-                && cost == ((PurchaseMedicineWoPathCommand) other).cost
-                );
+                && cost.equals(((PurchaseMedicineWoPathCommand) other).cost));
     }
 }

@@ -76,7 +76,7 @@ public class AddMedicineCommand extends Command {
                     findDirectory.get().addMedicine(findMedicine.get());
                     model.commitAddressBook();
                     return new CommandResult(String.format(MESSAGE_SUCCESS_EXISTING_MED,
-                            findMedicine.toString(), fromPathToString(path)));
+                            findMedicine.get().toString(), fromPathToString(path)));
                 }
             }
             model.addMedicine(name, quantity, path);

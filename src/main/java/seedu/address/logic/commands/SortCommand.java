@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.util.Comparator;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;

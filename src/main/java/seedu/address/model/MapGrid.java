@@ -47,6 +47,13 @@ public class MapGrid implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    /**
+     * Returns the cell in the given coordinates
+     */
+    public Cell getCell(Coordinates coordinates) {
+        return persons.asUnmodifiableObservableList().get(coordinates.getRowIndex().getZeroBased());
+    }
+
     //// list overwrite operations
 
     /**

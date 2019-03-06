@@ -38,7 +38,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
-        CustomerManager expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+        CustomerManager expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
             new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitAddressBook();
@@ -63,7 +63,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
-        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
             new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitAddressBook();
@@ -129,7 +129,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameCustomerDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CUSTOMER);
-        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
             new UserPrefs());
 
         showCustomerAtIndex(model, INDEX_SECOND_CUSTOMER);

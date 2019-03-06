@@ -121,6 +121,13 @@ public class BookingList implements Iterable<Booking> {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BookingList // instanceof handles nulls
+                && internalList.equals(((BookingList) other).internalList));
+    }
+
+    @Override
     public Iterator<Booking> iterator() {
         return internalList.iterator();
     }

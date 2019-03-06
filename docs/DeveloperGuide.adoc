@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= HMS+ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-t12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `cs2103-ay1819s2-t12-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -71,16 +71,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -141,15 +131,15 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::logic-class-diagram.png
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deletecustomer 1`.
 
-.Component interactions for `delete 1` command
-image::SDforDeleteCustomer.png[width="800"]
+.Component interactions for `deletecustomer 1` command
+image::LogicComponentSequenceDiagram[width="800"]
 
 The sections below give more details of each component.
 
@@ -157,7 +147,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::ui-class-diagram.png[width:"1200"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -175,27 +165,27 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::logic-class-diagram.png[width:"800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a customer).
+.  The command execution can affect the `CustomerModel` or `BookingModel` (e.g. adding a customer).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletecustomer 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deletecustomer 1` Command
 image::DeleteCustomerSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::model-class-diagram.png[width:"1200"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -203,7 +193,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Customer/Booking>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -215,7 +205,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::storage-class-diagram.png[width="1200"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -312,13 +302,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -684,7 +667,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `HMS+`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a customer specified in the `INDEX`. +
@@ -845,35 +828,88 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `HMS+` and the *Actor* is the Hotel Staff, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete customer
+=== Use case: Delete reservation
 
 *MSS*
 
-1.  User requests to list customers
-2.  AddressBook shows a list of customers
-3.  User requests to delete a specific customer in the list
-4.  AddressBook deletes the customer
+1.  Staff requests all the reservations a customer has
+2.  HMS lists the reservations requested
+3.  Staff requests to delete one reservation
+4.  HMS deletes the reservation
 +
-Use case ends.
+Use case resumes at step 3
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The customer has no reservations.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2b. The staff requests to stop editing the reservation.
++
+Use case ends.
+
+* 3a. The index that the staff selected is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. HMS+ shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The staff requests to stop editing the reservation.
++
+Use case ends.
+
+* 4a. The commands given by the staff to edit the fields are invalid.
++
+[none]
+** 4a1. HMS shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete reservation
+
+*MSS*
+
+1.  Staff requests all the reservations a customer has
+2.  HMS lists the reservations requested
+3.  Staff selects one reservation
+4.  Staff edits one or more fields in the reservation
+5.  HMS updates the reservation
++
+Use case resumes at step 2.
+
+*Extensions*
+
+[none]
+* 2a. The customer has no reservations.
++
+Use case ends.
+
+* 2b. The staff requests to stop editing the reservation.
++
+Use case ends.
+
+* 3a. The index that the staff selected is invalid.
+[none]
+** 3a1. HMS shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The staff requests to stop editing the reservation.
++
+Use case ends.
+
+* 4a. The commands given by the staff to edit the fields are invalid.
+[none]
+** 4a1. HMS shows an error message.
++
+Use case resumes at step 3.
 
 [appendix]
 == Non Functional Requirements
@@ -938,12 +974,12 @@ _{ more test cases ... }_
 
 . Deleting a customer while all customers are listed
 
-.. Prerequisites: List all customers using the `list` command. Multiple customers in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all customers using the `listcustomers` command. Multiple customers in the list.
+.. Test case: `deletecustomer 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `deletecustomer 0` +
    Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `deletecustomer`, `deletecustomer x` (where x is larger than the list size)... +
    Expected: Similar to previous.
 
 _{ more test cases ... }_

@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddBookingCommand;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
@@ -48,7 +47,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_SERVICE, PREFIX_TIMING, PREFIX_PAYER)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookingCommand.MESSAGE_USAGE));
         }
 
         ServiceType serviceType = ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get());

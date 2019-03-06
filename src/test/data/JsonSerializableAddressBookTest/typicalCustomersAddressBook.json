@@ -49,5 +49,8 @@
     "idnum": "1233999",
     "address" : "4th street",
     "tagged" : [ ]
-  } ]
+  } ],
+  "bookings": [
+
+  ]
 }

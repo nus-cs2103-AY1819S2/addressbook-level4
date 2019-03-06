@@ -1,9 +1,7 @@
 package seedu.address.quiz;
 
-import seedu.address.commons.util.AppUtil;
-
-import static seedu.address.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +41,7 @@ public class Quiz {
      */
     public Quiz(List<QuizCard> session, Mode mode) {
         requireNonNull(session);
-        AppUtil.checkArgument(mode != null, MESSAGE_CONSTRAINTS);
+        checkArgument(mode != null, MESSAGE_CONSTRAINTS);
 
         this.currentSession = session;
         this.mode = mode;

@@ -10,10 +10,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import javafx.fxml.FXML;
+
 import seedu.address.MainApp;
 import seedu.address.testutil.Assert;
 
-import javafx.fxml.FXML;
 
 public class UiPartTest {
 

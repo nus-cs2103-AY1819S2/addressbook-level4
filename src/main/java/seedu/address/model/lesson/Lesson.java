@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.MissingCoreException;
-import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Represents a lesson which stores multiple {@link Card} objects.
@@ -61,7 +60,7 @@ public class Lesson {
      * these headers.
      */
     public Lesson(String name, List<String> coreHeaders, List<String> optionalHeaders) {
-        CollectionUtil.requireAllNonNull(coreHeaders);
+        requireAllNonNull(coreHeaders);
 
         setName(name);
         setCoreHeaders(coreHeaders);
@@ -83,7 +82,7 @@ public class Lesson {
      * these headers.
      */
     public Lesson(String name, int coreCount, List<String> cardFields) {
-        CollectionUtil.requireAllNonNull(cardFields);
+        requireAllNonNull(cardFields);
 
         List<String> cores;
         List<String> optionals;
@@ -142,7 +141,7 @@ public class Lesson {
     }
 
     public void setCoreHeaders(List<String> coreHeaders) {
-        CollectionUtil.requireAllNonNull(coreHeaders);
+        requireAllNonNull(coreHeaders);
 
         if (coreHeaders.size() < MIN_CORE_COUNT) {
             throw new IllegalArgumentException(EXCEPTION_INVALID_CORE_SIZE);
@@ -230,7 +229,7 @@ public class Lesson {
      */
     public void addCard(List<String> cardFields) throws MissingCoreException,
             IllegalArgumentException {
-        CollectionUtil.requireAllNonNull(cardFields);
+        requireAllNonNull(cardFields);
 
         List<String> cores;
 

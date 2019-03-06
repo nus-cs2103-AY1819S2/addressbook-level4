@@ -4,11 +4,12 @@ import java.util.Optional;
 
 import org.junit.Rule;
 
-import seedu.address.ui.testutil.UiPartRule;
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 
 import javafx.scene.Node;
+
+import seedu.address.ui.testutil.UiPartRule;
 
 /**
  * A GUI unit test class for AddressBook.

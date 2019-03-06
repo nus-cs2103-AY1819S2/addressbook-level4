@@ -2,6 +2,9 @@ package seedu.address;
 
 import java.nio.file.Path;
 
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Lessons;
@@ -10,9 +13,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
-
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for

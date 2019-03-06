@@ -106,11 +106,11 @@ public abstract class AddressBookSystemTest {
         waitUntilBrowserLoaded(getBrowserPanel());
     }
 
-    //    /**
-    //     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-    //     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-    //     * and the person list panel displays the persons in the model correctly.
-    //     */
+    //  /**
+    //   * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+    //   * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
+    //   * and the person list panel displays the persons in the model correctly.
+    //   */
     //    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
     //            Model expectedModel) {
     //        assertEquals(expectedCommandInput, getCommandBox().getInput());

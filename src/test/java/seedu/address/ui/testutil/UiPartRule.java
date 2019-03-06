@@ -4,10 +4,10 @@ import java.util.concurrent.TimeoutException;
 
 import org.testfx.api.FxToolkit;
 
-import seedu.address.ui.UiPart;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import seedu.address.ui.UiPart;
 
 
 /**

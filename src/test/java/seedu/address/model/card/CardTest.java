@@ -1,15 +1,15 @@
 package seedu.address.model.card;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE1;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE2;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_OPT1;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

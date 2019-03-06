@@ -7,8 +7,8 @@ import seedu.address.model.Model;
  * Label a PDF file.
  */
 public class LabelCommand extends Command {
-    public static final String COMMAND_WORD = "label";
 
+    public static final String COMMAND_WORD = "label";
     public static final String MESSAGE_SUCCESS = "Label success!";
 
     @Override

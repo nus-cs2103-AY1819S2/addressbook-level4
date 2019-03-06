@@ -95,7 +95,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void importImage(Image image) {
+        public void displayImage(Image image) {
             throw new AssertionError("This method should not be called.");
         }
 

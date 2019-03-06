@@ -24,6 +24,7 @@ import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.VersionedMapGrid;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
@@ -99,6 +100,11 @@ public class AddCommandTest {
         @Override
         public void putShip(Coordinates coordinates, Battleship battleship) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public VersionedMapGrid getMapGrid() {
+            return null;
         }
 
         @Override

@@ -86,11 +86,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another
+     * existing person in the address book.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
         indicateModified();
     }
@@ -167,6 +167,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
+    /**
+     * Returns an unmodifiable view of the healthworkers list.
+     * This list will not contain any duplicate healthworkers
+     */
+    public ObservableList<HealthWorker> getHealthWorkerList() {
+        return healthWorkers.asUnmodifiableObservableList();
+    }
 
     @Override
     public String toString() {

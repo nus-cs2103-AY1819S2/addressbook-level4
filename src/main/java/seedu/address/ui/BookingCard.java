@@ -3,7 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+//import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.customer.Customer;
@@ -26,8 +26,8 @@ public class BookingCard extends UiPart<Region> {
     public final Booking booking;
     public final Customer payer;
 
-    @FXML
-    private HBox cardPane;
+    //@FXML
+    //private HBox cardPane;
     @FXML
     private Label serviceType;
     @FXML

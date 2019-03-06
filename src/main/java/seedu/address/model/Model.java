@@ -13,7 +13,7 @@ import seedu.address.model.person.Pdf;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Pdf> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Pdf> PREDICATE_SHOW_ALL_PDFS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

@@ -101,12 +101,13 @@ public class Request {
         }
 
         Request otherRequest = (Request) other;
+
         return otherRequest.getId().equals(this.id)
                 && otherRequest.getPatient().equals(this.patient)
                 && (otherRequest.getRequestDate().equals(this.requestDate))
                 && (otherRequest.getConditions().equals(this.conditions))
                 && otherRequest.getHealthStaff().equals(this.healthWorker)
-                && (otherRequest.getRequestStatus() == this.requestStatus);
+                && (otherRequest.getRequestStatus().equals(this.requestStatus));
     }
 
     public Set<Tag> getConditions() {

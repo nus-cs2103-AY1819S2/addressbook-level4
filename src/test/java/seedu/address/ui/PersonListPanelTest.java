@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
@@ -83,7 +84,8 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Person person = new Person(name, phone, email, address, Collections.emptySet());
+            Nric nric = new Nric("S1234567A");
+            Person person = new Person(name, phone, email, nric, address, Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

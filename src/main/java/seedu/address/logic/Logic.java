@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.MapGrid;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cell.Cell;
 
@@ -69,6 +70,8 @@ public interface Logic {
      * Used for the Ui to listen to and trigger changes.
      */
     ObservableBooleanValue getModelUpdateObservable();
+
+    MapGrid getMapGrid();
 
     /**
      * Sets the selected cell in the filtered cell list.

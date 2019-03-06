@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -14,6 +15,10 @@ import seedu.address.model.person.Pdf;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Pdf> PREDICATE_SHOW_ALL_PDFS = unused -> true;
+
+    /** {@code Comparator} that compares two PDFs alphabetically based on name */
+    Comparator<Pdf> COMPARATOR_ASCENDING_NAME_PDFS = Comparator.comparing(Pdf::getName);
+    Comparator<Pdf> COMPARATOR_DESCENDING_NAME_PDFS = COMPARATOR_ASCENDING_NAME_PDFS.reversed();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

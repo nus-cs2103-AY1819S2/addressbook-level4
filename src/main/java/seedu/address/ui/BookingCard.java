@@ -26,8 +26,8 @@ public class BookingCard extends UiPart<Region> {
     public final Booking booking;
     public final Customer payer;
 
-    @FXML
-    private HBox cardPane;
+    //@FXML
+    //private HBox cardPane;
     @FXML
     private Label serviceType;
     @FXML

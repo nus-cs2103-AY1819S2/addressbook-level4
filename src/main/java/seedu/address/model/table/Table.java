@@ -33,6 +33,10 @@ public class Table {
         tableStatus.setTableStatus(newTableStatus);
     }
 
+    public boolean isOccupied() {
+        return tableStatus.isOccupied();
+    }
+
     public boolean isSameTable(Table otherTable) {
         if (otherTable == this) {
             return true;

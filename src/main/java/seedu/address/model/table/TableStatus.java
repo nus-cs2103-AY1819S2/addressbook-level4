@@ -11,7 +11,7 @@ public class TableStatus {
             "Table status should only contain numbers\nand the number of seats taken is less than number of seats.";
 
     public static final String MESSAGE_INVALID_NUMBER_OF_CUSTOMERS = 
-            "Table unable to accommodate number of customers provided.";
+            "Table unable to accommodate number of customers provided.\nNumber of seats table has is: %1$s";
 
     public final String numberOfSeats;
     public String numberOfTakenSeats;
@@ -33,9 +33,13 @@ public class TableStatus {
     public void setTableStatus(String newNumberOfTakenSeats) throws CommandException {
         checkArgument(isValidNumberOfSeats(newNumberOfTakenSeats), MESSAGE_CONSTRAINTS);
         if (Integer.parseInt(newNumberOfTakenSeats) > Integer.parseInt(numberOfSeats)) {
-            throw new CommandException(MESSAGE_INVALID_NUMBER_OF_CUSTOMERS);
+            throw new CommandException(String.format(MESSAGE_INVALID_NUMBER_OF_CUSTOMERS, numberOfSeats));
         }
         this.numberOfTakenSeats = newNumberOfTakenSeats;
+    }
+
+    public boolean isOccupied() {
+        return Integer.parseInt(numberOfTakenSeats) == 0;
     }
 
     /**

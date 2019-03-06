@@ -67,7 +67,6 @@ public class BillList implements Iterable<Bill>{
         internalList.setAll(billList);
     }
 
-
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

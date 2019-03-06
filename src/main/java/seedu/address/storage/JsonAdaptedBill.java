@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,6 +13,7 @@ import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.Year;
+import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -21,10 +24,7 @@ class JsonAdaptedBill {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Bill item's %s field is missing!";
 
     private final String tableNumber;
-    private final String orderItemList;
-    private final String day;
-    private final String month;
-    private final String year;
+    //private final String date;
     private final String totalBill;
 
     /**
@@ -32,16 +32,10 @@ class JsonAdaptedBill {
      */
     @JsonCreator
     public JsonAdaptedBill(@JsonProperty("tableNumber") String tableNumber,
-                           @JsonProperty("day") String orderItemList,
-                                @JsonProperty("day") String day,
-                           @JsonProperty("month") String month,
-                           @JsonProperty("year") String year,
+                           //@JsonProperty("date") String date,
                            @JsonProperty("totalBill") String totalBill) {
         this.tableNumber = tableNumber;
-        this.orderItemList = orderItemList;
-        this.day = day;
-        this.month = month;
-        this.year = year;
+        //this.date = date;
         this.totalBill = totalBill;
     }
 
@@ -50,10 +44,7 @@ class JsonAdaptedBill {
      */
     public JsonAdaptedBill(Bill source) {
         tableNumber = String.valueOf(source.getTableNumber());
-        orderItemList = String.valueOf(source.getOrderItemList());
-        day = String.valueOf(source.getDay());
-        month = String.valueOf(source.getMonth());
-        year = String.valueOf(source.getYear());
+        //date = String.valueOf(source.getFormattedDate());
         totalBill = String.valueOf(source.getTotalBill());
     }
 
@@ -66,22 +57,16 @@ class JsonAdaptedBill {
         if (tableNumber == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tableNumber"));
         }
-        // TODO: check if table number is valid
+
         if (!TableNumber.isValidTableNumber(tableNumber)) {
             throw new IllegalValueException(TableNumber.MESSAGE_CONSTRAINTS);
         }
 
-        if (day == null && month == null && year == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "date"));
-        }
-
         final TableNumber modelTableNumber = new TableNumber(tableNumber);
-        final Day modelDay = new Day(day); 
-        final Month modelMonth = new Month(month);
-        final Year modelYear = new Year(year);
-        final int modelBill = Integer.parseInt(totalBill);
+        //final Date modelDate = new Date(); 
+        final float modelBill = Float.parseFloat(totalBill);
 
-        return new Bill(modelTableNumber, modelDay, modelMonth, modelYear, modelBill);
+        return new Bill(modelTableNumber, modelBill);
     }
     
 }

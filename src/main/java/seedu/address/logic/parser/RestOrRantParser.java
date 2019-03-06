@@ -93,7 +93,7 @@ public class RestOrRantParser {
                 if (mode != Mode.TABLE_MODE) {
                     throw new ParseException(MESSAGE_INVALID_MODE);
                 }
-                return new BillCommandParser().parse(arguments);
+                return new BillCommand();
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

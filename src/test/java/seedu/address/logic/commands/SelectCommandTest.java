@@ -24,8 +24,10 @@ import seedu.address.model.VersionedAddressBook;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private CustomerModel model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
-    private CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+    private CustomerModel model = new CustomerManager(
+            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+    private CustomerModel expectedModel = new CustomerManager(
+            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

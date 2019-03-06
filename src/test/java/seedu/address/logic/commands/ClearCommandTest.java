@@ -29,7 +29,8 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         CustomerModel model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
-        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+        CustomerModel expectedModel = new CustomerManager(
+                new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();
 

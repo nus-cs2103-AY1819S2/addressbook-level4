@@ -16,8 +16,10 @@ import seedu.address.model.VersionedAddressBook;
 
 public class UndoCommandTest {
 
-    private final CustomerModel model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
-    private final CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+    private final CustomerModel model = new CustomerManager(
+            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+    private final CustomerModel expectedModel = new CustomerManager(
+            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

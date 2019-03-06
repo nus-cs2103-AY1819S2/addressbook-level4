@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +21,7 @@ public class PurchaseMedicineCommandParser implements Parser<PurchaseMedicineCom
     private static final Pattern PurchaseMedicineWOPathCommand_Argument_Format =
             Pattern.compile("(?<medicineName>[^(\\s)(\\\\)]+)(?:\\s+)(?<purchaseInformation>\\d.+)");
     private static final Pattern PurchaseInformation_Format =
-            Pattern.compile("(?<quantity>\\d+)(?:\\s+)(?<cost>\\d.+)");
+            Pattern.compile("(?<quantity>\\d+)(?:\\s+)(?<cost>\\d+\\.?\\d+)");
 
     /**
      * Parse the input string to form a PurchaseMedicineCommand
@@ -46,7 +47,7 @@ public class PurchaseMedicineCommandParser implements Parser<PurchaseMedicineCom
             }
             String quantity = quantityCost.group("quantity");
             String cost = quantityCost.group("cost");
-            return new PurchaseMedicineWoPathCommand(medicineName, Integer.parseInt(quantity), Integer.parseInt(cost));
+            return new PurchaseMedicineWoPathCommand(medicineName, Integer.parseInt(quantity), new BigDecimal(cost));
         } else if (medicinePurchaseViaPath.matches()) {
             final String rawPath = medicinePurchaseViaPath.group("rawPath");
             final String purchaseInfo = medicinePurchaseViaPath.group("purchaseInformation");
@@ -58,7 +59,7 @@ public class PurchaseMedicineCommandParser implements Parser<PurchaseMedicineCom
             }
             String quantity = quantityCost.group("quantity");
             String cost = quantityCost.group("cost");
-            return new PurchaseMedicineViaPathCommand(path, Integer.parseInt(quantity), Integer.parseInt(cost));
+            return new PurchaseMedicineViaPathCommand(path, Integer.parseInt(quantity), new BigDecimal(cost));
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PurchaseMedicineCommand.MESSAGE_USAGE));

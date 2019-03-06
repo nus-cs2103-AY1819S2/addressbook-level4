@@ -99,6 +99,14 @@ public class Medicine {
         }
     }
 
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public boolean isThresholdIsDefault() {
+        return thresholdIsDefault;
+    }
+
     public void setThreshold(int threshold) {
         if (threshold < 0) {
             throw new IllegalArgumentException("threshold must be non-negative");

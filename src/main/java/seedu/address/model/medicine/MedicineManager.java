@@ -19,6 +19,12 @@ public class MedicineManager {
         listOfMedicine = new ArrayList<>();
     }
 
+    /**
+     * To add a medicine into a directory. If medicine with same name already exist, add that medicine to the directory.
+     * If no medicine with same name exists, add a new medicine
+     * @param medicineName name of medicine
+     * @param path path the madicine to be added to
+     */
     public void addMedicine(String medicineName, String[] path) {
         this.addMedicine(medicineName, 0, path);
     }
@@ -30,6 +36,10 @@ public class MedicineManager {
      * @param path the path to store to
      */
     public void addMedicine(String medicineName, int quantity, String[] path) {
+        Optional<Medicine> findMedicine = findMedicine(medicineName);
+        if (findMedicine.isPresent()) {
+            throw new IllegalArgumentException("Medicine with same name has already existed");
+        }
         Optional<Directory> directory = root.findDirectory(path, 0);
         if (!directory.isPresent()) {
             throw new IllegalArgumentException("Invalid path");

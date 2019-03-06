@@ -10,6 +10,8 @@ import seedu.address.logic.commands.PurchaseMedicineCommand;
 import seedu.address.logic.commands.PurchaseMedicineViaPathCommand;
 import seedu.address.logic.commands.PurchaseMedicineWoPathCommand;
 
+import java.math.BigDecimal;
+
 public class PurchaseMedicineCommandParserTest {
 
     private Parser<PurchaseMedicineCommand> parser = new PurchaseMedicineCommandParser();
@@ -19,14 +21,14 @@ public class PurchaseMedicineCommandParserTest {
         assertParseSuccess(parser,
                 "root\\test1\\test2\\med 40 500",
                 new PurchaseMedicineViaPathCommand(
-                        new String[] {"root", "test1", "test2", "med"}, 40, 500));
+                        new String[] {"root", "test1", "test2", "med"}, 40, BigDecimal.valueOf(500)));
     }
 
     @Test
     public void validWoPathArgument_returnsPurchaseMedicineWoPathCommand() {
         assertParseSuccess(parser,
                 "med 40 500",
-                new PurchaseMedicineWoPathCommand("med", 40, 500));
+                new PurchaseMedicineWoPathCommand("med", 40, BigDecimal.valueOf(500)));
     }
 
     @Test

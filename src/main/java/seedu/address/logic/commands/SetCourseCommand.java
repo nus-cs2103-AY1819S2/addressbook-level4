@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Course;
 import seedu.address.model.Model;
+import seedu.address.model.course.Course;
 
 /**
  * Adds a person to the address book.

@@ -210,7 +210,7 @@ Format: `displayu o/OPTIONS [MORE_ARGUMENTS]`
 
 * `o/req [INDEX]`
 ** Display all requirements for the course of study.
-** If number is specified: Displays information about n-th requirement in the order which it is displayed
+** If courseReqCredits is specified: Displays information about n-th requirement in the order which it is displayed
 
 * `o/req [c/BOOLEAN]`
 ** Displays completed or incomplete requirements.

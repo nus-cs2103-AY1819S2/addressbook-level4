@@ -82,6 +82,10 @@ public class Cell {
         return address;
     }
 
+    public Status getStatus() {
+        return this.status;
+    }
+
     /**
      * Returns true if this cell has a battleship, otherwise returns false
      */

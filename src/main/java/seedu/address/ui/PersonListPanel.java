@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.MapGrid;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Status;
 
 /**
  * Panel containing the list of persons.
@@ -40,8 +41,10 @@ public class PersonListPanel extends UiPart<Region> {
                 HBox row = new HBox();
                 for (int j = 0; j < size; j++) {
                     Rectangle cell = new Rectangle(30, 30);
+                    Cell mapCell = mapGrid.getCell(i, j);
+                    Color color = getColor(mapCell);
                     cell.setStroke(Color.BLACK);
-                    cell.setFill(Color.WHITE);
+                    cell.setFill(color);
                     Text text = new Text("");
                     StackPane sp = new StackPane();
                     sp.getChildren().addAll(cell, text);
@@ -50,6 +53,23 @@ public class PersonListPanel extends UiPart<Region> {
                 grid.getChildren().add(row);
             }
         });
+    }
+
+    /**
+     * Determine color of cell from the status of cell
+     */
+    Color getColor(Cell cell) {
+        Status status = cell.getStatus();
+        switch(status){
+        case SHIP:
+            return Color.BLACK;
+        case EMPTY:
+            return Color.LIGHTBLUE;
+        case HIT:
+            return Color.RED;
+        }
+
+        return Color.WHITE;
     }
 
     /**

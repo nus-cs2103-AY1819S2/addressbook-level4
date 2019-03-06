@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.PersonCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -14,7 +13,7 @@ import seedu.address.model.person.Person;
 public class AddPersonCommand extends AddCommand implements PersonCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: " + COMMAND_PARAMETERS + "\n"
+            + "Parameters: " + ADD_COMMAND_PARAMETERS + "\n"
             + "Example: " + COMMAND_WORD + " " + COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";

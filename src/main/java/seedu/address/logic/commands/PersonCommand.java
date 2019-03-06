@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 public interface PersonCommand {
 
-    String COMMAND_PARAMETERS = PREFIX_NAME + "NAME "
+    String ADD_COMMAND_PARAMETERS = PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "

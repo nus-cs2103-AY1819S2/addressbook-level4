@@ -156,8 +156,8 @@ public class CustomerManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        customerManager = new CustomerManager((VersionedAddressBook) addressBook, userPrefs);
-        CustomerManager customerManagerCopy = new CustomerManager((VersionedAddressBook) addressBook, userPrefs);
+        customerManager = new CustomerManager(new VersionedAddressBook(addressBook), userPrefs);
+        CustomerManager customerManagerCopy = new CustomerManager(new VersionedAddressBook(addressBook), userPrefs);
         assertTrue(customerManager.equals(customerManagerCopy));
 
         // same object -> returns true
@@ -170,13 +170,13 @@ public class CustomerManagerTest {
         assertFalse(customerManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(customerManager.equals(new CustomerManager((VersionedAddressBook) differentAddressBook,
+        assertFalse(customerManager.equals(new CustomerManager(new VersionedAddressBook(differentAddressBook),
             userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         customerManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(customerManager.equals(new CustomerManager((VersionedAddressBook) addressBook, userPrefs)));
+        assertFalse(customerManager.equals(new CustomerManager(new VersionedAddressBook(addressBook), userPrefs)));
 
         // resets customerManager to initial state for upcoming tests
         customerManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
@@ -184,7 +184,7 @@ public class CustomerManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(customerManager.equals(new CustomerManager((VersionedAddressBook) addressBook,
+        assertFalse(customerManager.equals(new CustomerManager(new VersionedAddressBook(addressBook),
             differentUserPrefs)));
     }
 }

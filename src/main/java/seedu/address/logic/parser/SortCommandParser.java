@@ -1,11 +1,11 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.model.Model.COMPARATOR_ASCENDING_NAME_PDFS;
 import static seedu.address.model.Model.COMPARATOR_DESCENDING_NAME_PDFS;
+
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new SortCommand object
@@ -23,12 +23,13 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String args) throws ParseException {
         try {
             String parseArgs = args.trim();
-            if (parseArgs.equals(ascending))
+            if (parseArgs.equals(ascending)) {
                 return new SortCommand(COMPARATOR_ASCENDING_NAME_PDFS);
-            else if (parseArgs.equals(descending))
+            } else if (parseArgs.equals(descending)) {
                 return new SortCommand(COMPARATOR_DESCENDING_NAME_PDFS);
-            else
+            } else {
                 throw new ParseException(SortCommand.MESSAGE_USAGE);
+            }
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);

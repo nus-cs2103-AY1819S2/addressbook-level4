@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.util.Comparator;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Pdf;
 
-import java.util.Comparator;
 
 /**
  * Sorts all PDF files in alphabetical order.
@@ -22,7 +22,7 @@ public class SortCommand extends Command {
 
     private final Comparator<Pdf> pdfComparator;
 
-    public SortCommand(Comparator<Pdf> cm){
+    public SortCommand(Comparator<Pdf> cm) {
         this.pdfComparator = cm;
     }
 

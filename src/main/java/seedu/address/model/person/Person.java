@@ -14,11 +14,11 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    private final Email email;
 
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
     private final Nric nric;
 
     // Data fields

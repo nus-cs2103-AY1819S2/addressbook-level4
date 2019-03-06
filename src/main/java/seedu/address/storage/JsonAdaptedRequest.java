@@ -30,6 +30,7 @@ class JsonAdaptedRequest {
     private final String requestDate;
     private final List<JsonAdaptedTag> conditions = new ArrayList<>();
     private final JsonAdaptedHealthWorker healthWorker;
+
     private final String requestStatus;
 
     /**
@@ -40,6 +41,7 @@ class JsonAdaptedRequest {
                               @JsonProperty("patient") JsonAdaptedPerson patient,
                               @JsonProperty("requestdate") String requestDate,
                               @JsonProperty("healthstaff") JsonAdaptedHealthWorker healthWorker,
+
                               @JsonProperty("conditions") List<JsonAdaptedTag> conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;

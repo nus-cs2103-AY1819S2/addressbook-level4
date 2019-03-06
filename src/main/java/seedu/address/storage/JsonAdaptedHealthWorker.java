@@ -28,7 +28,6 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String organization;
-    private final String nric;
     private final String skills;
 
     /**
@@ -43,8 +42,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
                                    @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                                    @JsonProperty("organisation") String organisation,
                                    @JsonProperty("skills") String skills) {
-        super(name, phone, email, address, tagged);
-        this.nric = nric;
+        super(name, phone, email, nric, address, tagged);
         this.organization = organisation;
         this.skills = skills;
     }
@@ -55,7 +53,6 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
     public JsonAdaptedHealthWorker(HealthWorker source) {
         super(source);
         this.organization = source.getOrganization().getOrgName();
-        this.nric = source.getNric().toString();
         this.skills = source.getSkills().toString();
     }
 
@@ -118,8 +115,10 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
         }
 
         if (!Organization.isValidOrgName(organization)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Organization.class.getSimpleName()));
         }
+
         final Organization modelOrganisation = new Organization(organization);
 
         if (skills == null) {
@@ -136,6 +135,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
 
         return new HealthWorker(modelName, modelPhone, modelEmail,
                 modelNric, modelAddress, modelTags, modelOrganisation, modelSkills);
+
     }
 
 }

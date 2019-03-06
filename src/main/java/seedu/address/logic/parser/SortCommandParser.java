@@ -22,14 +22,13 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         try {
-            switch (args){
-                case ascending:
-                    return new SortCommand(COMPARATOR_ASCENDING_NAME_PDFS);
-                case descending:
-                    return new SortCommand(COMPARATOR_DESCENDING_NAME_PDFS);
-                default:
-                    throw new ParseException(SortCommand.MESSAGE_USAGE);
-            }
+            String parseArgs = args.trim();
+            if (parseArgs.equals(ascending))
+                return new SortCommand(COMPARATOR_ASCENDING_NAME_PDFS);
+            else if (parseArgs.equals(descending))
+                return new SortCommand(COMPARATOR_DESCENDING_NAME_PDFS);
+            else
+                throw new ParseException(SortCommand.MESSAGE_USAGE);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);

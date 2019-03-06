@@ -69,7 +69,7 @@ public class MapGrid implements ReadOnlyAddressBook {
      * Returns the cell in the given coordinates
      */
     public Cell getCell(Coordinates coordinates) {
-        return persons.asUnmodifiableObservableList().get(coordinates.getRowIndex().getZeroBased());
+        return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()];
     }
 
     public Cell getCell(int row, int column) {

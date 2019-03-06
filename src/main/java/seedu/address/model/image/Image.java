@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import com.drew.imaging.ImageMetadataReader;
@@ -23,6 +24,7 @@ public class Image {
     private String name;
     private int height;
     private int width;
+    private BufferedImage buffer;
 
     /**
      * Every field must be present and not null.
@@ -31,7 +33,7 @@ public class Image {
         requireAllNonNull(url);
         try {
             File file = new File(url);
-            BufferedImage buffer = ImageIO.read(file);
+            buffer = ImageIO.read(file);
             this.name = file.getName();
             this.height = buffer.getHeight();
             this.width = buffer.getWidth();
@@ -59,6 +61,8 @@ public class Image {
         return name;
     }
 
+    public BufferedImage getBufferedImage() {
+        return buffer; }
     /**
      * Prints the metadata for any given image.
      */

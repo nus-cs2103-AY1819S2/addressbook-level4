@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chiu Yu Hua
-image::yuhua.png[width="150", align="left"]
+image::chiuyuhua.png[width="150", align="left"]
 {empty}[http://www.chiuyuhua.com[homepage]] [https://github.com/chiuyuhua[github]] [<<chiuyuhua#, portfolio>>]
 
 Role: Project Advisor
@@ -28,7 +28,7 @@ Responsibilities: UI
 '''
 
 === Ong Suyi
-image::thecognitiveaspie.png[width="150", align="left"]
+image::cognitiveaspian.png[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

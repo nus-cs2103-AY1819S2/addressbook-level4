@@ -10,7 +10,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.battleship.Battleship;
@@ -27,7 +26,8 @@ import seedu.address.model.tag.Tag;
  */
 public class MapGrid implements ReadOnlyAddressBook {
 
-    private final Cell[][] cellGrid;
+    private Cell[][] cellGrid;
+    private int size;
     private final Row persons;
     private BooleanProperty uiUpdateSwitch = new SimpleBooleanProperty();
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -44,6 +44,7 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     public MapGrid() {
+        this.size = 0;
         cellGrid = new Cell[0][0];
     }
 
@@ -55,11 +56,24 @@ public class MapGrid implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    public void initialise(int size) {
+        this.size = size;
+        cellGrid = new Cell[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+    }
     /**
      * Returns the cell in the given coordinates
      */
     public Cell getCell(Coordinates coordinates) {
         return persons.asUnmodifiableObservableList().get(coordinates.getRowIndex().getZeroBased());
+    }
+
+    public Cell getCell(int row, int column) {
+        return cellGrid[row][column];
     }
 
     /**
@@ -187,7 +201,7 @@ public class MapGrid implements ReadOnlyAddressBook {
      * Returns map size
      */
     public int getMapSize() {
-        return persons.getMapSize();
+        return this.size;
     }
 
     @Override

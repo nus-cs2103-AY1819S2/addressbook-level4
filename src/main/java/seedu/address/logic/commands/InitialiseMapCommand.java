@@ -46,14 +46,9 @@ public class InitialiseMapCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_MAP_SIZE, MINIMUM_MAP_SIZE, MAXIMUM_MAP_SIZE));
         }
 
-        model.setAddressBook(new MapGrid());
+        model.getMapGrid().initialise(mapSize);
         model.updateUi();
 
-        for (int i = 0; i < mapSize; i++) {
-            model.addPerson(new Cell());
-        }
-
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
     }
 

@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.PurchaseMedicineCommand;
@@ -19,14 +21,14 @@ public class PurchaseMedicineCommandParserTest {
         assertParseSuccess(parser,
                 "root\\test1\\test2\\med 40 500",
                 new PurchaseMedicineViaPathCommand(
-                        new String[] {"root", "test1", "test2", "med"}, 40, 500));
+                        new String[] {"root", "test1", "test2", "med"}, 40, BigDecimal.valueOf(500)));
     }
 
     @Test
     public void validWoPathArgument_returnsPurchaseMedicineWoPathCommand() {
         assertParseSuccess(parser,
                 "med 40 500",
-                new PurchaseMedicineWoPathCommand("med", 40, 500));
+                new PurchaseMedicineWoPathCommand("med", 40, BigDecimal.valueOf(500)));
     }
 
     @Test

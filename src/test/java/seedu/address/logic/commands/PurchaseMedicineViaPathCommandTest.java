@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +28,8 @@ public class PurchaseMedicineViaPathCommandTest {
     public void purchaseValidMedicine() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineViaPathCommand(new String[] {"root", "TCM", "Panaddol"}, 50, 500)
+                    new PurchaseMedicineViaPathCommand(
+                            new String[] {"root", "TCM", "Panaddol"}, 50, BigDecimal.valueOf(500))
                     .execute(model, commandHistory);
             Assert.assertEquals("Purchase successful.", commandResult.getFeedbackToUser());
         } catch (CommandException ex) {
@@ -38,7 +41,8 @@ public class PurchaseMedicineViaPathCommandTest {
     public void invalidMedicinePath_throwCommandException() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineViaPathCommand(new String[] {"root", "Panaddol"}, 50, 500)
+                    new PurchaseMedicineViaPathCommand(
+                            new String[] {"root", "Panaddol"}, 50, BigDecimal.valueOf(500))
                     .execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
@@ -50,7 +54,8 @@ public class PurchaseMedicineViaPathCommandTest {
     public void invalidChangeAmount_throwCommandException() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineViaPathCommand(new String[] {"root", "TCM", "Panaddol"}, -50, 500)
+                    new PurchaseMedicineViaPathCommand(
+                            new String[] {"root", "TCM", "Panaddol"}, -50, BigDecimal.valueOf(500))
                     .execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {

@@ -1,8 +1,10 @@
 package seedu.address.model.medicine;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -16,7 +18,8 @@ public class MedicineManagerTest {
     /**
      * initialize a typical storage
      */
-    private void initializeTypicalStorage() {
+    @Before
+    public void initializeTypicalStorage() {
         typicalMedicineManager = new MedicineManager();
         for (String c : directoriesNames) {
             typicalMedicineManager.addDirectory(c, new String[] {"root"});
@@ -25,7 +28,6 @@ public class MedicineManagerTest {
 
     @Test
     public void addMedicine_wrongPath_throwsIllegalStateException() {
-        initializeTypicalStorage();
         Assert.assertThrows(
                 IllegalStateException.class, ()
                 -> typicalMedicineManager.addMedicine(medicineNames[0], new String[]{"RRR"}));
@@ -40,17 +42,30 @@ public class MedicineManagerTest {
 
     @Test
     public void addMedicine_searchThroughWrongPath() {
-        initializeTypicalStorage();
         typicalMedicineManager.addMedicine(medicineNames[0], new String[] {"root", "test2"});
         assertFalse(typicalMedicineManager.findMedicine(new String[] {"root", "test1", medicineNames[0]}).isPresent());
     }
 
     @Test
     public void addMedicine_searchThroughRightPath() {
-        initializeTypicalStorage();
         typicalMedicineManager.addMedicine(medicineNames[0], new String[] {"root", "test2"});
         assertTrue(
                 typicalMedicineManager.findMedicine(
                         new String[] {"root", "test2", medicineNames[0]}).get().name == medicineNames[0]);
+    }
+
+    @Test
+    public void purchaseMedicine_viaPath() {
+        typicalMedicineManager.addMedicine(medicineNames[0], 20, new String[] {"root", "test2"});
+        typicalMedicineManager.purchaseMedicine(new String[] {"root", "test2", medicineNames[0]}, 50);
+        assertEquals(70, typicalMedicineManager.findMedicine(
+                new String[] {"root", "test2", medicineNames[0]}).get().getQuantity());
+    }
+
+    @Test
+    public void purchaseMedicine_woPath() {
+        typicalMedicineManager.addMedicine(medicineNames[0], 20, new String[] {"root", "test2"});
+        typicalMedicineManager.purchaseMedicine(medicineNames[0], 50);
+        assertEquals(70, typicalMedicineManager.findMedicine(medicineNames[0]).get().getQuantity());
     }
 }

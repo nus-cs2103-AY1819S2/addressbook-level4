@@ -20,6 +20,7 @@ public class Directory {
     private ArrayList<Medicine> listOfMedicine;
     private final String name;
     private ArrayList<Directory> listOfDirectory;
+    private Optional<Integer> threshold;
 
     public Directory(String name) {
         requireNonNull(name);
@@ -27,6 +28,7 @@ public class Directory {
         this.name = name;
         this.listOfDirectory = new ArrayList<>();
         this.listOfMedicine = new ArrayList<>();
+        this.threshold = Optional.empty();
     }
 
     private boolean isValidDirectory(String test) {
@@ -39,6 +41,9 @@ public class Directory {
     public void addMedicine(Medicine medicine) {
         requireNonNull(medicine);
         checkArgument(isValidMedicine(medicine), "medicine with the same name already in directory");
+        if (threshold.isPresent()) {
+            medicine.setThreshold(threshold.get());
+        }
         listOfMedicine.add(medicine);
         listOfMedicine.sort(Comparator.comparing((Medicine med) -> (med.name)));
     }
@@ -163,5 +168,20 @@ public class Directory {
             sb.append("Empty directory\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * set a default alarm level for all medicine under this directory and all medicine under its sub-directories
+     * and so on
+     * @param thres the alarm level
+     */
+    public void setThresholdForAll(int thres) {
+        this.threshold = Optional.of(thres);
+        for (Medicine medicine : listOfMedicine) {
+            medicine.setThreshold(thres);
+        }
+        for (Directory directory : listOfDirectory) {
+            directory.setThresholdForAll(thres);
+        }
     }
 }

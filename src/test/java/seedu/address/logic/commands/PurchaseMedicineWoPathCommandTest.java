@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +28,8 @@ public class PurchaseMedicineWoPathCommandTest {
     public void purchaseValidMedicine() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineWoPathCommand("Pannadol", 50, 500).execute(model, commandHistory);
+                    new PurchaseMedicineWoPathCommand("Pannadol", 50,
+                            BigDecimal.valueOf(500)).execute(model, commandHistory);
             Assert.assertEquals("Purchase successful.", commandResult.getFeedbackToUser());
         } catch (Exception ex) {
             Assert.fail();
@@ -37,7 +40,8 @@ public class PurchaseMedicineWoPathCommandTest {
     public void purchaseNonExistingMedicine_throwCommandException() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineWoPathCommand("Pannadoll", 50, 500).execute(model, commandHistory);
+                    new PurchaseMedicineWoPathCommand("Pannadoll", 50,
+                            BigDecimal.valueOf(500)).execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
             Assert.assertEquals("No such medicine found.", ex.getMessage());
@@ -48,7 +52,8 @@ public class PurchaseMedicineWoPathCommandTest {
     public void purchaseNegativeQuantity_throwCommandException() {
         try {
             CommandResult commandResult =
-                    new PurchaseMedicineWoPathCommand("Pannadol", -10, 500).execute(model, commandHistory);
+                    new PurchaseMedicineWoPathCommand("Pannadol", -10,
+                            BigDecimal.valueOf(500)).execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
             Assert.assertEquals("Change amount must be positive", ex.getMessage());

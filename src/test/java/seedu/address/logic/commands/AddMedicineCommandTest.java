@@ -29,7 +29,7 @@ public class AddMedicineCommandTest {
         try {
             CommandResult commandResult =
                     new AddMedicineCommand(path, medicineName, quantity).execute(modelManager, history);
-            Assert.assertEquals("New Medicine added: panaddol with quantity at 50",
+            Assert.assertEquals("New Medicine added: panaddol with quantity at 50\n",
                     commandResult.getFeedbackToUser());
         } catch (CommandException ex) {
             Assert.fail();
@@ -43,7 +43,7 @@ public class AddMedicineCommandTest {
                     new AddMedicineCommand(invalidPath, medicineName, quantity).execute(modelManager, history);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("Invalid path", ex.getMessage());
+            Assert.assertEquals("No Directory found at given path", ex.getMessage());
         }
     }
 
@@ -55,7 +55,21 @@ public class AddMedicineCommandTest {
                     new AddMedicineCommand(path, medicineName, quantity).execute(modelManager, history);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("medicine with the same name already in directory", ex.getMessage());
+            Assert.assertEquals("Medicine with same name has already existed", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void addDuplicateMedicineWoQuanity_success() {
+        addValidMedicine();
+        try {
+            modelManager.addDirectory("test", new String[] {"root"});
+            CommandResult commandResult =
+                    new AddMedicineCommand(new String[] {"root", "test"}, medicineName).execute(modelManager, history);
+            Assert.assertEquals("Existing Medicine: " + medicineName + ", Quantity: 50, added to root\\test\n",
+                    commandResult.getFeedbackToUser());
+        } catch (Exception ex) {
+            Assert.fail();
         }
     }
 }

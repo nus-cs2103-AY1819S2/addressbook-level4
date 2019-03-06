@@ -1,5 +1,7 @@
 package seedu.address.model.medicine;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -46,4 +48,10 @@ public class MedicineTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> medicineTest.setThreshold(-60));
     }
 
+    @Test
+    public void setValidThreshold() {
+        Medicine medicineTest = new Medicine("test");
+        medicineTest.setThreshold(100);
+        assertTrue(medicineTest.getThreshold() == 100 && !medicineTest.isThresholdIsDefault());
+    }
 }

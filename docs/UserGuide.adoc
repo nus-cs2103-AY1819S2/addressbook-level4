@@ -1,4 +1,7 @@
 = Hotel Management System - User Guide
+
+Welcome to the `HMS+ User Guide`. Hope you are as excited as we were when we developed this guide for you.
+
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -16,11 +19,13 @@ endif::[]
 
 By: `cs2103-ay1819s2-t12-1`      Since: `Feb 2019`      Licence: `MIT`
 
-== Introduction
+== Introducing HMS+
 
-Hotel Management System (HMS) is for hotels that want to use a single, integrated system to *manage all aspects of their service*. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Hotel Management System (HMS) is for hotels that want to use a single, integrated system to *manage all aspects of their service*. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing.
 
-== Quick Start ***NEEDS REVAMP***
+This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
+
+== Getting Started
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `hms.jar` link:{repoURL}/releases[here].
@@ -33,9 +38,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com id/887 a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listcustomers`* : lists all customers
+* **`addcustomer`**`n/John Doe p/98765432 e/johnd@example.com id/887 a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
+* **`deletecustomer`**`3` : deletes the 3rd customer  shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -48,7 +53,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items in curly brackets separated by a slash (`/`) are interchangeable (entering either of those items have the same effect) e.g. `{addcustomer/addc/ac}` are three aliases of the same command.
+* Items in curly brackets separated by a slash (`/`) are interchangeable (entering either of those items have the same effect) e.g. `{addcustomer/ac}` are three aliases of the same command.
 * Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
@@ -61,7 +66,7 @@ Format: `help`
 === Adding a customer : `addcustomer`, `ac`
 
 Effect: Adds a customer to the customer database. +
-Format: `{addcustomer/addc/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
+Format: `{addcustomer/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -74,12 +79,12 @@ Examples:
 === Listing all customers : `listcustomers`, `lc`
 
 Effect: Displays a customer list, which lists all customers in the customer database. +
-Format: `{listcustomers/listc/lc}`
+Format: `{listcustomers/lc}`
 
 === Editing a customer : `editcustomer`, `ec`
 
 Effect: Edits the fields of an existing customer in the customer database. +
-Format: `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
+Format: `{editcustomer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
 
 ****
 * Edits the customer at the specified INDEX. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
@@ -99,7 +104,7 @@ Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing 
 === Finding customers by name: `findname`, `fn`
 
 Effect: Displays a customer list, which consists of customers whose names contain any of the given keywords. +
-Format: `{findname/findn/fn} KEYWORD [MORE_KEYWORDS]`
+Format: `{findname/fn} KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive, e.g `hans` will match Hans
@@ -118,7 +123,7 @@ Returns any person having names Betsy, Tim, or John
 === Deleting a customer : `deletecustomer`, `deletec`
 
 Effect: Deletes a customer from the customer database. +
-Format: `deletecustomer INDEX`
+Format: `{deletecustome/deletec} INDEX`
 
 ****
 * Deletes the customer at the specified index. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
@@ -151,7 +156,7 @@ Adds a booking of Room Type 3, two customers from the search result of Jack and 
 
 === Listing all reservations : `list-reservations`, `lr`
 Effect: Displays a booking list, which lists one of: 1. all the bookings in the booking database; 2. the bookings associated with certain customers; 3. the bookings that contains a certain date. +
-Format: `{listb-reservations/lr} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
+Format: `{list-reservations/lr} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
 
 ****
 * If the indices are provided, the command shows only the bookings associated with any of the customers. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
@@ -169,7 +174,7 @@ Lists all the bookings that spans across the date 12 May.
 === Editing a room reservation : `edit-reservation`, `er`
 
 Effect: Edits the fields of an existing booking in the booking database. +
-Format: `{editbooking/editb/eb} INDEX [r/ROOM_TYPE] [d/START_DATE-END_DATE] [c/COMMENTS]`
+Format: `{edit-reservation/er} INDEX [r/ROOM_TYPE] [d/START_DATE-END_DATE] [c/COMMENTS]`
 
 ****
 * Edits the booking at the specified index. The index refers to the index number shown in the displayed booking list. The index must be a positive integer.
@@ -190,7 +195,7 @@ Edits the date of the 2nd booking to be from 14 Feb to 14 Mar and clears all exi
 === Deleting reservations: `delete-reservation`, `dr`
 
 Effect: Deletes a booking from the booking database. +
-Format: `delete-reservation INDEX`
+Format: `{delete-reservation/dr} INDEX`
 
 ****
 * Deletes the reservation at the specified index. The index refers to the index number shown in the displayed booking list. The index must be a positive integer.
@@ -222,7 +227,7 @@ Adds a booking for service GYM, for the 15th customer from the complete customer
 Adds a booking of service GYM for customer index 2 payed customer index 1, from 14:20 to 15:20.
 
 === Listing all booked services: `list-bookings`,`lb`
-Effect: Displays a room service list, which lists one of: 1. all the room services in the booking database; 2. the services associated with certain customers; 3. the room that are booked inside the time range. +
+Effect: Displays a service list, which lists one of: 1. all the room services in the booking database; 2. the services associated with certain customers; 3. the room that are booked inside the time range. +
 Format: `{list-booking/lb} [i/INDEX_OF_CUSTOMER]… [t/START_TIME-END_TIME]`
 
 ****
@@ -269,7 +274,7 @@ Deletes the 1st booking in the results of the `lists` command.
 
 === Generate customer's bill : `generatebill`, `gb`
 
-Effect: Generates the bill for the customer based on his bookings +
+Effect: Generates the bill for the customer based on his room reservations plus service bookings less the amount the customer has already paid+
 Format: `{generatebill/gb} INDEX`
 
 ****
@@ -351,7 +356,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+The HMS+ data file is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]

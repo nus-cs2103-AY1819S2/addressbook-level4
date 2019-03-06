@@ -115,7 +115,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson, logic.getModelUpdateObservable());
+                logic::setSelectedPerson, logic.getModelUpdateObservable(),logic.getMapGrid());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

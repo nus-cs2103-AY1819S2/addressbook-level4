@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
  */
 public class MapGrid implements ReadOnlyAddressBook {
 
+    private final Cell[][] cellGrid;
     private final Row persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -37,7 +38,9 @@ public class MapGrid implements ReadOnlyAddressBook {
         persons = new Row();
     }
 
-    public MapGrid() {}
+    public MapGrid() {
+        cellGrid = new Cell[0][0];
+    }
 
     /**
      * Creates an MapGrid using the Persons in the {@code toBeCopied}

@@ -102,6 +102,7 @@ public class Cell {
     public void putShip(Battleship battleship) {
         this.battleship = Optional.of(battleship);
         this.name = battleship.getName();
+        this.status = Status.SHIP;
     }
 
     /**

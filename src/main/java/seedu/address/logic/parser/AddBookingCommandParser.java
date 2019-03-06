@@ -48,7 +48,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_SERVICE, PREFIX_TIMING, PREFIX_PAYER)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookingCommand.MESSAGE_USAGE));
         }
 
         ServiceType serviceType = ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get());

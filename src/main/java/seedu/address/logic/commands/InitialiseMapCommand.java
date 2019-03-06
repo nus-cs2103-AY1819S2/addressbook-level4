@@ -47,6 +47,7 @@ public class InitialiseMapCommand extends Command {
         }
 
         model.setAddressBook(new MapGrid());
+        model.updateUi();
 
         for (int i = 0; i < mapSize; i++) {
             model.addPerson(new Cell());

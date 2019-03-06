@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.battleship.Battleship;
@@ -25,6 +29,7 @@ public class MapGrid implements ReadOnlyAddressBook {
 
     private final Cell[][] cellGrid;
     private final Row persons;
+    private BooleanProperty uiUpdateSwitch = new SimpleBooleanProperty();
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -55,6 +60,26 @@ public class MapGrid implements ReadOnlyAddressBook {
      */
     public Cell getCell(Coordinates coordinates) {
         return persons.asUnmodifiableObservableList().get(coordinates.getRowIndex().getZeroBased());
+    }
+
+    /**
+     * Used to Update the UI.
+     * A listener will be added to this observable value in the UI.
+     * Once this value changes the UI will be updated.
+     */
+    public ObservableBooleanValue getObservableValue() {
+        return uiUpdateSwitch;
+    }
+
+    /**
+     * Change the ObservableValue to trigger the UI change
+     */
+    public void updateUi() {
+        if(uiUpdateSwitch.getValue() == false) {
+            uiUpdateSwitch.setValue(true);
+        }else {
+            uiUpdateSwitch.setValue(false);
+        }
     }
 
     //// list overwrite operations

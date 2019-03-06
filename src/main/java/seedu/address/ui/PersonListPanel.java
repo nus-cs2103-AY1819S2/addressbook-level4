@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,8 +25,9 @@ public class PersonListPanel extends UiPart<Region> {
     private ListView<Cell> personListView;
 
     public PersonListPanel(ObservableList<Cell> cellList, ObservableValue<Cell> selectedPerson,
-                           Consumer<Cell> onSelectedPersonChange) {
+                           Consumer<Cell> onSelectedPersonChange, ObservableBooleanValue modelUpdateObservable) {
         super(FXML);
+        
         personListView.setItems(cellList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

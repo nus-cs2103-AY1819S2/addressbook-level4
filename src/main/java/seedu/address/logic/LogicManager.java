@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -104,6 +106,11 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyProperty<Cell> selectedPersonProperty() {
         return model.selectedPersonProperty();
+    }
+
+    @Override
+    public ObservableBooleanValue getModelUpdateObservable() {
+        return model.getModelUpdateObservable();
     }
 
     @Override

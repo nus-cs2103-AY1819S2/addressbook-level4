@@ -20,6 +20,7 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+    public static final String DEFAULT_NULL = "-";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -40,8 +41,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).orElse("S1234567A"));
-        int yearOfBirth = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).orElse("1995"));
+        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).orElse(DEFAULT_NULL));
+        int yearOfBirth = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).orElse(DEFAULT_NULL));
 
         Patient patient = new Patient(name, phone, email, address, tagList, nric, yearOfBirth);
 

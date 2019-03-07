@@ -8,8 +8,6 @@ class Tooth {
     private boolean isOnStatus = false;
     private Status status;
 
-    Tooth() { }
-
     Tooth(boolean isPresent) {
         this.isPresent = isPresent;
     }

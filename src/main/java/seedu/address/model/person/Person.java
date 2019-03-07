@@ -17,15 +17,15 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    protected final Name name;
+    protected final Phone phone;
+    protected final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
-    private CopyTag copyInfo;
-    private int copyCount;
+    protected final Address address;
+    protected final Set<Tag> tags = new HashSet<>();
+    protected CopyTag copyInfo;
+    protected int copyCount;
 
     /**
      * Every field must be present and not null.

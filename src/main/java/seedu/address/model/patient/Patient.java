@@ -38,14 +38,16 @@ public class Patient extends Person {
         requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        inferTeethBuild();
     }
 
-    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+    private Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                    Person personToCopy, int copyCount, Nric nric, Date dateOfBirth) {
         super(name, phone, email, address, tags, personToCopy, copyCount);
         requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        inferTeethBuild();
     }
 
     /**
@@ -102,6 +104,19 @@ public class Patient extends Person {
         cal.setTime(dateOfBirth);
         int birthYear = cal.get(Calendar.DAY_OF_YEAR);
         return currentYear - birthYear;
+    }
+
+    /**
+     * @return another instance of the same person
+     * {@code Tag} Copy is added
+     */
+    @Override
+    public Patient copy() {
+        if (isCopy()) {
+            super.copy();
+        }
+        copyCount++;
+        return new Patient(name, phone, email, address, tags, this, copyCount, nric, dateOfBirth);
     }
 
     public Teeth getTeeth() {

@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -94,6 +95,26 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String nric} into an {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Nric parseNric(String nric) {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        return new Nric(trimmedNric);
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static int parseYear(String year) {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        return Integer.parseInt(trimmedYear);
     }
 
     /**

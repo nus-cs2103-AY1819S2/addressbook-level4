@@ -33,7 +33,7 @@ public class Nric {
      */
     private static boolean isValidNric(String test) {
         requireNonNull(test);
-        if (test.equals(AddCommandParser.DEFAULT_NULL)) {
+        if (test.equals(AddCommandParser.DEFAULT_NRIC)) {
             return true;
         } else {
             return test.matches(VALIDATION_REGEX);

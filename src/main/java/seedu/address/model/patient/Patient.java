@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
-import seedu.address.model.patient.exceptions.TeethLayoutException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -91,22 +90,8 @@ public class Patient extends Person {
      * Build a default none/child/adult teeth layout, according to the parameters.
      */
     private void specifyBuild(String teethLayout) {
-        switch (teethLayout) {
-        case NONE:
-            teeth = null; // Stub
-            buildSpecified = true;
-            break;
-        case CHILD:
-            teeth = null; // Stub
-            buildSpecified = true;
-            break;
-        case ADULT:
-            teeth = null; // Stub
-            buildSpecified = true;
-            break;
-        default:
-            throw new TeethLayoutException();
-        }
+        buildSpecified = true;
+        teeth = new Teeth(teethLayout);
     }
 
     private int getPatientAge() {

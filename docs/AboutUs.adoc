@@ -12,8 +12,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 
 === Tejas Bhuwania
-image::tejas.png[width="150", align="left"]
-{empty}[http://github.com/tejas[github]] [<<johndoe#, portfolio>>]
+image::tejas2805.png[width="150", align="left"]
+{empty}[http://github.com/tejas2805[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Bill feature
@@ -21,8 +21,8 @@ Responsibilities: Bill feature
 '''
 
 === Sipani Sreyans
-image::sreyans.png[width="150", align="left"]
-{empty}[http://github.com/sreyans[github]] [<<johndoe#, portfolio>>]
+image::sreycodes.png[width="150", align="left"]
+{empty}[http://github.com/sreycodes[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Service booking feature

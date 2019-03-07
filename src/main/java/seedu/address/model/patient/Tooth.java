@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.patient;
 
 /**
  * Represents a tooth of a Person.

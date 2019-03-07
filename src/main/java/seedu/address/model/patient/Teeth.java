@@ -10,12 +10,12 @@ import seedu.address.model.patient.exceptions.TeethLayoutException;
 public class Teeth {
     private static final String NONE = "none";
     private static final String CHILD = "child";
-    private static final int CHILDTEETHCOUNT = 20;
+    private static final int PRIMARYTEETHCOUNT = 20;
     private static final String ADULT = "adult";
-    private static final int ADULTTEETHCOUNT = 32;
+    private static final int PERMANENTTEETHCOUNT = 32;
 
-    private ArrayList<Tooth> permanentTeeth = new ArrayList<>();
-    private ArrayList<Tooth> primaryTeeth = new ArrayList<>();
+    private ArrayList<Tooth> permanentTeeth;
+    private ArrayList<Tooth> primaryTeeth;
 
     Teeth(String teethLayout) {
         switch (teethLayout) {
@@ -28,6 +28,28 @@ public class Teeth {
         default:
             throw new TeethLayoutException();
         }
+    }
+
+    /**
+     * Initialises a set of good primary teeth.
+     */
+    private void buildPrimaryTeeth() {
+        ArrayList<Tooth> primaryTeeth = new ArrayList<>();
+        for (int i = 0; i < PRIMARYTEETHCOUNT; i++) {
+            primaryTeeth.add(new Tooth());
+        }
+        this.primaryTeeth = primaryTeeth;
+    }
+
+    /**
+     * Initialises a set of good permanent teeth.
+     */
+    private void buildPermanentTeeth() {
+        ArrayList<Tooth> permanentTeeth = new ArrayList<>();
+        for (int i = 0; i < PERMANENTTEETHCOUNT; i++) {
+            permanentTeeth.add(new Tooth());
+        }
+        this.permanentTeeth = permanentTeeth;
     }
 
     /**

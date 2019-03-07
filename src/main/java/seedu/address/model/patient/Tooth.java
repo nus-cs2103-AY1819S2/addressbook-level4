@@ -3,19 +3,23 @@ package seedu.address.model.patient;
 /**
  * Represents a tooth of a Person.
  */
-public class Tooth {
+class Tooth {
     private boolean isPresent = true;
     private boolean isOnStatus = false;
     private Status status;
 
-    public Tooth() { }
+    Tooth() { }
 
-    public Tooth(Status status) {
+    Tooth(boolean isPresent) {
+        this.isPresent = isPresent;
+    }
+
+    Tooth(Status status) {
         this.isOnStatus = true;
         this.status = status;
     }
 
-    public Tooth(boolean isPresent, boolean hasStatus) {
+    Tooth(boolean isPresent, boolean hasStatus) {
         this.isPresent = isPresent;
         this.isOnStatus = hasStatus;
     }

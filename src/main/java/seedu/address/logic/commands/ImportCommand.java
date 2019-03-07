@@ -13,10 +13,9 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Imports the image specified to the assets directory.\n"
-            + ": Specified path must be an absolute path.\n"
-            + "Parameters: FILENAME\n"
-            + "Example: " + COMMAND_WORD + " paris.jpg";
+            + ": Imports the image specified to the assets directory. "
+            + "Parameters: <absolute path of file>\n"
+            + "Example: " + COMMAND_WORD + " C:/Users/Fomo/Pictures/sample.jpg";
 
     public static final String MESSAGE_SUCCESS = "Image successfully imported.";
 
@@ -33,7 +32,7 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.importImage(toImport);
+        model.displayImage(toImport);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
     }
 }

@@ -69,7 +69,7 @@ public class RotateCommand extends Command {
         }
 
         Image finalImage = new Image("src/main/resources/assets/sampleRotate.jpg");
-        model.importImage(finalImage);
+        model.displayImage(finalImage);
 
         return new CommandResult(Messages.MESSAGE_ROTATE_SUCCESS);
 

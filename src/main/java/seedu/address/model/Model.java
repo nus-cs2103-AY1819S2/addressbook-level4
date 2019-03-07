@@ -75,7 +75,7 @@ public interface Model {
     /**
      * Imports a given image.
      */
-    void importImage(Image image);
+    void displayImage(Image image);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

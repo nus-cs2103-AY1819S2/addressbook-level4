@@ -22,25 +22,20 @@ public class BillCommand extends Command {
 
     public static final String COMMAND_WORD = "bill";
     public static final String COMMAND_ALIAS = "b";
-    
-    private Table toBill;
-    private static Bill bill;
-    private float totalBill;
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the Bill for a Table. "
-            + "No Parameters. "
-            + "Example: " + COMMAND_WORD
-            + "or " + COMMAND_ALIAS;
-
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the Bill for a Table. " + "No Parameters. "
+            + "Example: " + COMMAND_WORD + "or " + COMMAND_ALIAS;
     public static final String MESSAGE_SUCCESS = "Bill Calculated: $ %1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
     public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
-    public static final String MESSAGE_MENUITEM_NOT_PRESENT ="MenuItem is not received."; 
+    public static final String MESSAGE_MENUITEM_NOT_PRESENT = "MenuItem is not received.";
+    private static Bill bill;
+    private Table toBill;
+    private float totalBill;
 
     /**
      * Creates a BillCommand to find the total bill of the specified {@code Table}
      */
-    public BillCommand(){
+    public BillCommand() {
 
     }
 

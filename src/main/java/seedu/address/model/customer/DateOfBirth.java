@@ -5,31 +5,31 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Customer's identification number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidIdNum(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDob(String)}
  */
-public class IdentificationNo {
+public class DateOfBirth {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Identification numbers should only contain numbers, and it should be at least 3 digits long";
+        "Date of Birth should be of the format dd/mm/yyyy ";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
     /**
-     * Constructs a {@code IdentificationNo}.
+     * Constructs a {@code DateOfBirth}.
      *
-     * @param idnum A valid identification number.
+     * @param dob A valid identification number.
      */
-    public IdentificationNo(String idnum) {
-        requireNonNull(idnum);
-        checkArgument(isValidIdNum(idnum), MESSAGE_CONSTRAINTS);
-        value = idnum;
+    public DateOfBirth(String dob) {
+        requireNonNull(dob);
+        checkArgument(isValidDob(dob), MESSAGE_CONSTRAINTS);
+        value = dob;
     }
 
     /**
-     * Returns true if a given string is a valid identification number.
+     * Returns true if a given string is a valid date of birth.
      */
-    public static boolean isValidIdNum(String test) {
+    public static boolean isValidDob(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -41,8 +41,8 @@ public class IdentificationNo {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof IdentificationNo // instanceof handles nulls
-            && value.equals(((IdentificationNo) other).value)); // state check
+            || (other instanceof DateOfBirth // instanceof handles nulls
+            && value.equals(((DateOfBirth) other).value)); // state check
     }
 
     @Override

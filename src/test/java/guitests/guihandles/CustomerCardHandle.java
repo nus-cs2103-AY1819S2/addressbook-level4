@@ -18,6 +18,7 @@ public class CustomerCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String IDENTIFICATION_NO_FIELD_ID = "#identificationNo";
+    private static final String DATE_OF_BIRTH_FIELD_ID = "#dob";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
@@ -25,6 +26,7 @@ public class CustomerCardHandle extends NodeHandle<Node> {
     private final Label idLabel;
     private final Label nameLabel;
     private final Label addressLabel;
+    private final Label dobLabel;
     private final Label identificationNoLabel;
     private final Label phoneLabel;
     private final Label emailLabel;
@@ -36,6 +38,7 @@ public class CustomerCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         identificationNoLabel = getChildNode(IDENTIFICATION_NO_FIELD_ID);
+        dobLabel = getChildNode(DATE_OF_BIRTH_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
@@ -59,6 +62,8 @@ public class CustomerCardHandle extends NodeHandle<Node> {
     public String getAddress() {
         return addressLabel.getText();
     }
+
+    public String getDateOfBirth() { return dobLabel.getText(); }
 
     public String getIdNum() {
         return identificationNoLabel.getText();
@@ -85,6 +90,7 @@ public class CustomerCardHandle extends NodeHandle<Node> {
     public boolean equals(Customer customer) {
         return getName().equals(customer.getName().fullName)
             && getAddress().equals(customer.getAddress().value)
+            && getDateOfBirth().equals(customer.getDateOfBirth().value)
             && getPhone().equals(customer.getPhone().value)
             && getEmail().equals(customer.getEmail().value)
             && getIdNum().equals(customer.getIdNum().value)

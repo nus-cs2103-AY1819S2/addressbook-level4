@@ -11,7 +11,7 @@ public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Nric should only contain numbers, and it should be between 2 to 3 digits long";
-    public static final String VALIDATION_REGEX = "^([S,T])(\\d {7})(A-Z)$";
+    public static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
     public final String value;
 
     /**
@@ -21,7 +21,7 @@ public class Nric {
      */
     public Nric(String nric) {
         requireNonNull(nric);
-        checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS + " , provided: " + nric);
         value = nric;
     }
 

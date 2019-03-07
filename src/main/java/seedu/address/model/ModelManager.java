@@ -110,7 +110,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Pdf pdf) {
         versionedAddressBook.addPerson(pdf);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PDFS);
     }
 
     @Override

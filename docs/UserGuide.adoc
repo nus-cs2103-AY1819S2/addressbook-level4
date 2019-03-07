@@ -27,7 +27,7 @@ PDF++ takes your typical PDF experience to the next level. It strives to be the 
 .  Copy the file to the folder you want to use as the home folder for your PDF++.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="600"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -47,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `open FILENAME`, `FILENAME` is a parameter which can be used as `open myfile`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `LABEL...` can be used as `{nbsp}` (i.e. 0 times), `LABEL`, `LABEL1 LABEL2 LABEL3` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `LABEL...` can be used as `{nbsp}` (i.e. 0 times), `MyLabel`, `LabelA LabelB LabelC` etc.
 ====
 
 === Viewing help : `help`

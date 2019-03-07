@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Rachel Tan Xue Qi
-image::rachel_dp.png[width="150", align="left"]
+image::e0191632.png[width="150", align="left"]
 {empty}[https://github.com/e0191632[github]]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: In-progress
 '''
 
 === Tan Mei Yen
-image::meiyen_dp.png[width="150", align="left"]
+image::bendymochi.png[width="150", align="left"]
 {empty}[https://github.com/bendymochi[github]]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: In-progress
 '''
 
 === Liu Xuan
-image::liuxuan_dp.png[width="150", align="left"]
+image::liuxuanian.png[width="150", align="left"]
 {empty}[https://github.com/liuxuanian[github]]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: In-progress
 '''
 
 === Sun Yiqun
-image::yiqun_dp.png[width="150", align="left"]
+image::dukesun99.png[width="150", align="left"]
 {empty}[https://github.com/dukesun99[github]]
 
 Role: Developer +

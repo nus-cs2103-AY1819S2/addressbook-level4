@@ -76,6 +76,26 @@ public class Teeth {
     }
 
     /**
+     * For permanent tooth.
+     * Sets a status for a tooth.
+     * @param index the tooth alphabet.
+     * @param status the status of the tooth.
+     */
+    public void setToothStatus(char index, Status status) {
+        getTooth(index).setStatus(status);
+    }
+
+    /**
+     * For primary tooth.
+     * Sets a status for a tooth.
+     * @param index the tooth number.
+     * @param status the status of the tooth.
+     */
+    public void setToothStatus(int index, Status status) {
+        getTooth(index).setStatus(status);
+    }
+
+    /**
      * For primary tooth.
      * Returns a Tooth representing a patient's tooth using a tooth alphabet.
      * @param index the tooth alphabet of tooth to be retrieved.
@@ -97,4 +117,27 @@ public class Teeth {
         return permanentTeeth.get(adjustedIndex);
     }
 
+    /**
+     * Exports the format of the teeth. (For permanent teeth).
+     * Used mainly to print the preview of the teeth layout on GUI to user.
+     * 0 - Absent. (Red).
+     * 1 - Present, on status. (Yellow).
+     * 2 - Present, healthy. (White).
+     * @return an Integer array consisting of current teeth layout information.
+     */
+    public ArrayList<Integer> exportTeeth() {
+        ArrayList<Integer> exportFormat = new ArrayList<>();
+
+        for (Tooth tooth : permanentTeeth) {
+            if (!tooth.isPresent()) {
+                exportFormat.add(0);
+            } else if (tooth.isOnStatus()) {
+                exportFormat.add(1);
+            } else {
+                exportFormat.add(2);
+            }
+        }
+
+        return exportFormat;
+    }
 }

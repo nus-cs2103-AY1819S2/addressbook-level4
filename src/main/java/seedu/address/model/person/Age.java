@@ -16,14 +16,14 @@ public class Age {
     public final String value;
 
     /**
-     * Constructs a {@code Age}.
+     * Constructs a {@code age}.
      *
-     * @param Age A valid Age.
+     * @param age A valid age.
      */
-    public Age(String Age) {
-        requireNonNull(Age);
-        checkArgument(isValidAge(Age), MESSAGE_CONSTRAINTS);
-        value = Age;
+    public Age(String age) {
+        requireNonNull(age);
+        checkArgument(isValidAge(age), MESSAGE_CONSTRAINTS);
+        value = age;
     }
 
     /**

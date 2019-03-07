@@ -27,7 +27,8 @@ public class Record {
     private final Name doctorName;
     private final Description description;
 
-    public Record(Person person, Procedure procedure, DateCustom date, TimeCustom time, Name docName, Description desc) {
+    public Record(Person person, Procedure procedure, DateCustom date, TimeCustom time, Name docName,
+                  Description desc) {
         requireAllNonNull(person, procedure, date, time, docName, desc);
         this.person = person;
         this.procedure = procedure;

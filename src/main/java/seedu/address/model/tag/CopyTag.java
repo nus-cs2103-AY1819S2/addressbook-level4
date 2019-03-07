@@ -37,7 +37,9 @@ public class CopyTag {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public Person getOriginalPerson() { return originalPerson; }
+    public Person getOriginalPerson() {
+        return originalPerson;
+    }
 
     @Override
     public boolean equals(Object other) {

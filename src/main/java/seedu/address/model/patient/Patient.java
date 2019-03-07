@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -138,4 +139,19 @@ public class Patient extends Person {
     public boolean isBuildSpecified() {
         return buildSpecified;
     }
+
+    /**
+     * Returns true if both patients of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two patients.
+     */
+    public boolean isSamePatient(Person otherPerson) {
+        return super.isSamePerson(otherPerson);
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, phone, email, address, tags, nric, dateOfBirth, records);
+    }
+
 }

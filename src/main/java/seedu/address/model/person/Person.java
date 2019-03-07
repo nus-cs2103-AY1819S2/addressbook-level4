@@ -73,9 +73,13 @@ public class Person {
         return address;
     }
 
-    public int getCopyCount() { return copyCount; }
+    public int getCopyCount() {
+        return copyCount;
+    }
 
-    public boolean hasCopy() { return copyCount > 0; }
+    public boolean hasCopy() {
+        return copyCount > 0;
+    }
 
     /**
      *
@@ -90,11 +94,17 @@ public class Person {
         return false;
     }
 
-    public boolean isCopy() { return copyInfo != null || copyInTag(); }
+    public boolean isCopy() {
+        return copyInfo != null || copyInTag();
+    }
 
-    public void editCopy() { copyInfo.getOriginalPerson().edittedCopy(); }
+    public void editCopy() {
+        copyInfo.getOriginalPerson().edittedCopy();
+    }
 
-    private void edittedCopy() { copyCount -= 1; }
+    private void edittedCopy() {
+        copyCount -= 1;
+    }
 
     /**
      * @return another instance of the same person

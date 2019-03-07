@@ -43,6 +43,8 @@ public class TableFlowPanel extends UiPart<Region> {
         tableFlowPane.setHgap(0);
         tableFlowPane.setVgap(0);
         tableFlowPane.setAlignment(Pos.TOP_LEFT);
+
+        // Creates a FlowPane for each Table and adds to the list of FLowPane 
         for (Table table : tableObservableList) {
             tableFlowPane.getChildren().add(new TableFlowPane(table));
         }

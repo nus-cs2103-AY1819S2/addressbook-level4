@@ -5,6 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Represents the current status of a {@code Table}.
+ */
 public class TableStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -13,8 +16,8 @@ public class TableStatus {
     public static final String MESSAGE_INVALID_NUMBER_OF_CUSTOMERS = 
             "Table unable to accommodate number of customers provided.\nNumber of seats table has is: %1$s";
 
+    private String numberOfTakenSeats;
     public final String numberOfSeats;
-    public String numberOfTakenSeats;
     public static final String SEATS_VALIDATION_REGEX = "\\d+";
     public static final String STATUS_VALIDATION_REGEX = "\\d+/\\d+";
 
@@ -39,7 +42,7 @@ public class TableStatus {
     }
 
     public boolean isOccupied() {
-        return Integer.parseInt(numberOfTakenSeats) == 0;
+        return Integer.parseInt(numberOfTakenSeats) > 0;
     }
 
     /**
@@ -54,15 +57,6 @@ public class TableStatus {
      */
     public static boolean isValidNumberOfSeats(String test) {
         return test.matches(SEATS_VALIDATION_REGEX);
-    }
-
-    public boolean equals(TableStatus otherTableStatus) {
-        if (numberOfSeats.equals(otherTableStatus.numberOfSeats)
-                && numberOfTakenSeats.equals(otherTableStatus.numberOfTakenSeats)) {
-            return true;
-        }
-
-        return false;
     }
 
     @Override

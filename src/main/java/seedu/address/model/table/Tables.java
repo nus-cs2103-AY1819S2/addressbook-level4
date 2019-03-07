@@ -10,6 +10,10 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Wraps all table-related data.
+ * Duplicates are not allowed by (.isSameTable method)
+ */
 public class Tables implements ReadOnlyTables {
 
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -37,8 +41,8 @@ public class Tables implements ReadOnlyTables {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code tableList}.
-     * {@code tableList} must not contain duplicate persons.
+     * Replaces the contents of the table list with {@code tableList}.
+     * {@code tableList} must not contain duplicate tables.
      */
     public void setTables(List<Table> tableList) {
         this.tableList.setTables(tableList);
@@ -111,6 +115,7 @@ public class Tables implements ReadOnlyTables {
         return Optional.ofNullable(tableList.getTable(tableNumber));
     }
 
+    @Override
     public boolean isOccupied(TableNumber tableNumber) throws CommandException {
         if (tableList.getTable(tableNumber) == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_TABLE, tableNumber));

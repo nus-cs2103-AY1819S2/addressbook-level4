@@ -37,12 +37,15 @@ public class Table {
         return tableStatus.isOccupied();
     }
 
+    /**
+     * Checks if the current table is the same as table provided
+     * 
+     * @param otherTable other table  to be checked against
+     * @return true if tables have the same TableNumber; false otherwise
+     */
     public boolean isSameTable(Table otherTable) {
-        if (otherTable == this) {
-            return true;
-        }
-
-        return otherTable != null
+        return otherTable == this
+                ||otherTable != null
                 && otherTable.getTableNumber().equals(getTableNumber());
     }
 }

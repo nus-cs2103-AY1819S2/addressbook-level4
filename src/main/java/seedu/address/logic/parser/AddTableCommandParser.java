@@ -29,6 +29,10 @@ public class AddTableCommandParser implements Parser<AddTableCommand> {
 
         List<TableStatus> numberOfSeatsList = new ArrayList<>();
         for (int i = 0; i < numberOfSeatsInString.length; i++) {
+            if (!TableStatus.isValidNumberOfSeats(numberOfSeatsInString[i])) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
+            }
             numberOfSeatsList.add(new TableStatus("0/" + numberOfSeatsInString[i]));
         }
 

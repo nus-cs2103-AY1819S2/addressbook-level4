@@ -4,8 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.datetime.Date;
-import seedu.address.model.datetime.Time;
+import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
 import seedu.address.model.description.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -22,12 +22,13 @@ public class Record {
 
     // Data field
     private final Procedure procedure;
-    private final Date date;
-    private final Time time;
+    private final DateCustom date;
+    private final TimeCustom time;
     private final Name doctorName;
     private final Description description;
 
-    public Record(Person person, Procedure procedure, Date date, Time time, Name docName, Description desc) {
+    public Record(Person person, Procedure procedure, DateCustom date, TimeCustom time, Name docName,
+                  Description desc) {
         requireAllNonNull(person, procedure, date, time, docName, desc);
         this.person = person;
         this.procedure = procedure;
@@ -45,11 +46,11 @@ public class Record {
         return procedure;
     }
 
-    public Date getDate() {
+    public DateCustom getDate() {
         return date;
     }
 
-    public Time getTime() {
+    public TimeCustom getTime() {
         return time;
     }
 
@@ -85,9 +86,9 @@ public class Record {
         builder.append(person.getName())
                 .append(" Procedure: ")
                 .append(getProcedure())
-                .append(" Date: ")
+                .append(" DateCustom: ")
                 .append(getDate())
-                .append(" Time: ")
+                .append(" TimeCustom: ")
                 .append(getTime())
                 .append(" Doctor: ")
                 .append(getDoctorName())

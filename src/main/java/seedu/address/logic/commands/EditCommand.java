@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -23,6 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.DateOfBirth;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.IdentificationNo;
 import seedu.address.model.customer.Name;
@@ -43,8 +45,9 @@ public class EditCommand extends CustomerCommand {
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATIONNO] "
+        + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NO] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
@@ -80,12 +83,13 @@ public class EditCommand extends CustomerCommand {
 
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
         Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
+        DateOfBirth updatedDob = editCustomerDescriptor.getDateOfBirth().orElse(customerToEdit.getDateOfBirth());
         Email updatedEmail = editCustomerDescriptor.getEmail().orElse(customerToEdit.getEmail());
         IdentificationNo updatedIdNum = editCustomerDescriptor.getIdNum().orElse(customerToEdit.getIdNum());
         Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
         Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
 
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedIdNum, updatedAddress, updatedTags);
+        return new Customer(updatedName, updatedPhone, updatedDob, updatedEmail, updatedIdNum, updatedAddress, updatedTags);
     }
 
     @Override
@@ -135,6 +139,7 @@ public class EditCommand extends CustomerCommand {
     public static class EditCustomerDescriptor {
         private Name name;
         private Phone phone;
+        private DateOfBirth dob;
         private Email email;
         private IdentificationNo idnum;
         private Address address;
@@ -150,6 +155,7 @@ public class EditCommand extends CustomerCommand {
         public EditCustomerDescriptor(EditCustomerDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
+            setDateOfBirth(toCopy.dob);
             setEmail(toCopy.email);
             setIdNum(toCopy.idnum);
             setAddress(toCopy.address);
@@ -160,7 +166,7 @@ public class EditCommand extends CustomerCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, idnum, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, dob, email, idnum, address, tags);
         }
 
         public Optional<Name> getName() {
@@ -181,6 +187,12 @@ public class EditCommand extends CustomerCommand {
 
         public void setPhone(Phone phone) {
             this.phone = phone;
+        }
+
+        public Optional<DateOfBirth> getDateOfBirth() { return Optional.ofNullable(dob); }
+
+        public void setDateOfBirth(DateOfBirth dob) {
+            this.dob = dob;
         }
 
         public Optional<IdentificationNo> getIdNum() {
@@ -237,6 +249,7 @@ public class EditCommand extends CustomerCommand {
 
             return getName().equals(e.getName())
                 && getPhone().equals(e.getPhone())
+                && getDateOfBirth().equals(e.getDateOfBirth())
                 && getEmail().equals(e.getEmail())
                 && getIdNum().equals(e.getIdNum())
                 && getAddress().equals(e.getAddress())

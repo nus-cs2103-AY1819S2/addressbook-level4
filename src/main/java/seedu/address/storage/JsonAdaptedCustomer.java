@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.DateOfBirth;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.IdentificationNo;
 import seedu.address.model.customer.Name;
@@ -27,6 +28,7 @@ class JsonAdaptedCustomer {
 
     private final String name;
     private final String phone;
+    private final String dob;
     private final String email;
     private final String idnum;
     private final String address;
@@ -36,12 +38,13 @@ class JsonAdaptedCustomer {
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedCustomer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedCustomer(@JsonProperty("name") String name, @JsonProperty("phone") String phone, @JsonProperty("dob") String dob,
                                @JsonProperty("email") String email, @JsonProperty("idnum") String idnum,
                                @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
+        this.dob = dob;
         this.email = email;
         this.idnum = idnum;
         this.address = address;
@@ -56,6 +59,7 @@ class JsonAdaptedCustomer {
     public JsonAdaptedCustomer(Customer source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
+        dob = source.getDob().value;
         email = source.getEmail().value;
         idnum = source.getIdNum().value;
         address = source.getAddress().value;
@@ -79,6 +83,8 @@ class JsonAdaptedCustomer {
 
         final Phone modelPhone = getPhone();
 
+        final DateOfBirth modelDob = getDateOfBirth();
+
         final Email modelEmail = getEmail();
 
         final IdentificationNo modelIdNum = getIdNum();
@@ -86,7 +92,7 @@ class JsonAdaptedCustomer {
         final Address modelAddress = getAddress();
 
         final Set<Tag> modelTags = new HashSet<>(customerTags);
-        return new Customer(modelName, modelPhone, modelEmail, modelIdNum, modelAddress, modelTags);
+        return new Customer(modelName, modelPhone, modelDob, modelEmail, modelIdNum, modelAddress, modelTags);
     }
 
     private Address getAddress() throws IllegalValueException {
@@ -107,6 +113,16 @@ class JsonAdaptedCustomer {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(email);
+    }
+
+    private DateOfBirth getDateOfBirth() throws IllegalValueException {
+        if (dob == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateOfBirth.class.getSimpleName()));
+        }
+        if (!DateOfBirth.isValidDob(dob)) {
+            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfBirth(dob);
     }
 
     private Phone getPhone() throws IllegalValueException {

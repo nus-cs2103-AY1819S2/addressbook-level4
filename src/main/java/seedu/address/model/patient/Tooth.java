@@ -22,19 +22,28 @@ class Tooth {
         this.isOnStatus = hasStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setPresent(boolean present) {
+        isPresent = present;
     }
 
-    public Status getStatus() {
-        return status;
+    public void setOnStatus(boolean onStatus) {
+        isOnStatus = onStatus;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public boolean isPresent() {
         return isPresent;
     }
 
-    public boolean isStatus() {
+    public boolean isOnStatus() {
         return isOnStatus;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
 }

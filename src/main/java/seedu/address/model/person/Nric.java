@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.logic.parser.AddCommandParser;
+
 /**
  * Represents a Person's Nric in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidNric(String)}
@@ -10,7 +12,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Nric should only contain numbers, and it should be between 2 to 3 digits long";
+        "Nric should contain only \"-\" or \"XdddddddX\"";
     public static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
     public final String value;
 
@@ -26,10 +28,16 @@ public class Nric {
     }
 
     /**
-     * Returns true if a given string is a valid Nric number.
+     * Returns true if a given string is a valid Nric number, or intentionally left empty (-).
+     * @param test the string to be tested.
      */
-    public static boolean isValidNric(String test) {
-        return test.matches(VALIDATION_REGEX);
+    private static boolean isValidNric(String test) {
+        requireNonNull(test);
+        if (test.equals(AddCommandParser.DEFAULT_NULL)) {
+            return true;
+        } else {
+            return test.matches(VALIDATION_REGEX);
+        }
     }
 
     @Override

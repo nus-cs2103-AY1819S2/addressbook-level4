@@ -106,7 +106,7 @@ Shows a list of all clients in the Equipment Manager +
 Format: `list-w`
 
 === View equipment details: `view-e`
-View and retrieve more information on thhe equipment with the equipment id +
+View and retrieve more information on the equipment +
 Format: `view-e /[equipment name]`
 
 Example:

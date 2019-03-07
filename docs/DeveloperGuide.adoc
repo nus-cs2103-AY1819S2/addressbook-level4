@@ -552,6 +552,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |delete worklist |remove worklist which indicates work completed and no longer need it for tracking progress
 
 |`* * *` |user |have a worklist where I can store the equipments I am working on |keep track of all the equipments that I am assigned to
+
+|`* * *` |user |want to view details of an equipment | so that i can retrieve more details information about a particular equipment
+
 |=======================================================================
 
 [discrete]
@@ -577,9 +580,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* *` |user |know how to get to the location where the equipment is at |navigate to the address of the equipment easily
 
+|`* *` |user |have a visual representation of areas I am visiting |have quick overview on information
+
 |`*` |user |plan efficient routes between multiple locations |increase productivity, cut transportation costs, improve maintenance services
 
-|`*` |user |have a visual representation of areas I am visiting |have quick overview on information
 |=======================================================================
 
 [discrete]

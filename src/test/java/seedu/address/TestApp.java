@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
@@ -29,13 +29,13 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyBookShelf> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyBookShelf> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -71,11 +71,11 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the address book data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public BookShelf readStorageAddressBook() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new BookShelf(storage.readAddressBook().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the BookShelf format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -92,7 +92,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getBookShelf()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

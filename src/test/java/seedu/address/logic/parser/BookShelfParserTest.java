@@ -14,6 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddBookCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -28,8 +29,11 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.book.Book;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.testutil.BookBuilder;
+import seedu.address.testutil.BookUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -43,8 +47,15 @@ public class BookShelfParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
-        AddBookCommand command = (AddBookCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddBookCommand(person), command);
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_addBook() throws Exception {
+        Book book = new BookBuilder().build();
+        AddBookCommand command = (AddBookCommand) parser.parseCommand(BookUtil.getAddBookCommand(book));
+        assertEquals(new AddBookCommand(book), command);
     }
 
     @Test

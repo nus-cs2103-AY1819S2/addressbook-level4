@@ -59,7 +59,7 @@ Format: `help`
 === Adding a book: `addBook`
 
 Adds a book to the book list +
-Format: `addBook n/BOOK NAME a/AUTHOR m/RATING(0-10) [t/TAG]…​`
+Format: `addBook n/BOOK NAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
 
@@ -69,7 +69,7 @@ Examples:
 === Adding a book review: `addReview`
 
 Adds a book review to a certain book in the book list +
-Format: `addReview n/BOOK NAME r/REVIEW`
+Format: `addReview n/BOOK NAME r/review`
 
 Examples:
 
@@ -98,7 +98,7 @@ Examples:
 === Listing book reviews of a certain book : `listReview`
 
 Shows a list of all review entries of a book. +
-Format: `listReview n/BOOK NAME`
+Format: `listReview n/BOOKNAME`
 
 ****
 * The book name need to match exactly
@@ -143,12 +143,11 @@ Examples:
 === Deleting a book : `deleteBook`
 
 Deletes the specified book from the book list. +
-Format: `deleteBook n/BOOK NAME`
+Format: `deleteBook n/BOOKNAME`
 
 ****
-* Deletes the book of the specified `BOOK NAME`.
-* The `BOOK NAME` refers to the name of the book.
-* The `BOOK NAME` refers to the name of the book.
+* Deletes the book of the specified `BOOKNAME`.
+* The `BOOKNAME` refers to the name of the book.
 ****
 
 Examples:

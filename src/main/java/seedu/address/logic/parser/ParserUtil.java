@@ -9,6 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.book.Author;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.Rating;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -50,6 +53,24 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    public static BookName parseBookName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new BookName(trimmedName);
+    }
+
+    public static Author parseAuthor(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Author.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Author(trimmedName);
+    }
+
     /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
@@ -63,6 +84,15 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    public static Rating parseRating(String rating) throws ParseException {
+        requireNonNull(rating);
+        String trimmedRating = rating.trim();
+        if (!Rating.isValidRating(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        return new Rating(trimmedRating);
     }
 
     /**

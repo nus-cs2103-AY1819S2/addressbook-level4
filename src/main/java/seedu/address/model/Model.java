@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.book.Book;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -15,6 +16,7 @@ import seedu.address.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,46 +39,70 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' book shelf file path.
      */
-    Path getAddressBookFilePath();
+    Path getBookShelfFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' book shelf file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setBookShelfFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces book shelf data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setBookShelf(ReadOnlyBookShelf addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the BookShelf */
+    ReadOnlyBookShelf getBookShelf();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the book shelf.
      */
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a book with the same identity as {@code book} exists in the book shelf.
+     */
+    boolean hasBook(Book book);
+
+    /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the book shelf.
      */
     void deletePerson(Person target);
 
     /**
+     * Deletes the given book.
+     * The book must exist in the book shelf.
+     */
+    void deleteBook(Book target);
+
+    /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the book shelf.
      */
     void addPerson(Person person);
 
     /**
+     * Adds the given book.
+     * {@code book} must not already exist in the book shelf.
+     */
+    void addBook(Book book);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the book shelf.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the book shelf.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * Replaces the given book {@code target} with {@code editedBook}.
+     * {@code target} must exist in the book shelf.
+     * The book identity of {@code editedBook} must not be the same as another existing book in the book shelf.
+     */
+    void setBook(Book target, Book editedBook);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -88,27 +114,27 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous book shelf states to restore.
      */
     boolean canUndoAddressBook();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone book shelf states to restore.
      */
     boolean canRedoAddressBook();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's book shelf to its previous state.
      */
     void undoAddressBook();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's book shelf to its previously undone state.
      */
     void redoAddressBook();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current book shelf state for undo/redo.
      */
     void commitAddressBook();
 

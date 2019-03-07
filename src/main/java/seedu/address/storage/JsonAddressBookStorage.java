@@ -13,10 +13,10 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBookShelf;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access BookShelf data stored as a json file on the hard disk.
  */
 public class JsonAddressBookStorage implements AddressBookStorage {
 
@@ -36,7 +36,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
+    public Optional<ReadOnlyBookShelf> readAddressBook() throws DataConversionException {
         return readAddressBook(filePath);
     }
 
@@ -46,7 +46,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyBookShelf> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
@@ -64,16 +64,16 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyBookShelf addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveAddressBook(ReadOnlyBookShelf)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyBookShelf addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
@@ -82,7 +82,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void backupAddressBook(ReadOnlyBookShelf addressBook) throws IOException {
         saveAddressBook(addressBook, backupFilePath);
     }
 

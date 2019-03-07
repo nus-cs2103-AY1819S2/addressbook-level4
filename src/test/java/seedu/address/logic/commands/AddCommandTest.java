@@ -19,15 +19,16 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.book.Book;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddBookCommandTest {
+public class AddCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -39,7 +40,7 @@ public class AddBookCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddBookCommand(null);
+        new AddCommand(null);
     }
 
     @Test
@@ -47,9 +48,9 @@ public class AddBookCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddBookCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddBookCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -57,26 +58,26 @@ public class AddBookCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
-        AddBookCommand addBookCommand = new AddBookCommand(validPerson);
+        AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddBookCommand.MESSAGE_DUPLICATE_PERSON);
-        addBookCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddBookCommand addAliceCommand = new AddBookCommand(alice);
-        AddBookCommand addBobCommand = new AddBookCommand(bob);
+        AddCommand addAliceCommand = new AddCommand(alice);
+        AddCommand addBobCommand = new AddCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddBookCommand addAliceCommandCopy = new AddBookCommand(alice);
+        AddCommand addAliceCommandCopy = new AddCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -114,12 +115,12 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getBookShelfFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setBookShelfFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -127,14 +128,18 @@ public class AddBookCommandTest {
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
-
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void addBook(Book book) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void setBookShelf(ReadOnlyBookShelf newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyBookShelf getBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -144,12 +149,25 @@ public class AddBookCommandTest {
         }
 
         @Override
+        public boolean hasBook(Book book) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void deleteBook(Book book) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBook(Book target, Book editedBook) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -247,12 +265,12 @@ public class AddBookCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddBookCommand#execute()}
+            // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyBookShelf getBookShelf() {
+            return new BookShelf();
         }
     }
 

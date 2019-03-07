@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.BookShelf;
+import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -13,8 +13,13 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+import seedu.address.model.book.Author;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.Rating;
+
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code BookShelf} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -40,10 +45,24 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static Book[] getSampleBooks() {
+        return new Book[] {
+                new Book(new BookName("Alice in Wonderland"), new Author("Lewis Carroll"), new Rating("5"),
+                        getTagSet("fantasy")),
+                new Book(new BookName("Structure and Interpretation of Computer Programs"),
+                        new Author("Hal Abelson Jerry Sussman"), new Rating("4"),
+                        getTagSet("textbook", "boring")),
+        };
+    }
+
+    public static ReadOnlyBookShelf getSampleBookShelf() {
+        BookShelf sampleAb = new BookShelf();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+
+        for (Book sampleBook : getSampleBooks()) {
+            sampleAb.addBook(sampleBook);
         }
         return sampleAb;
     }

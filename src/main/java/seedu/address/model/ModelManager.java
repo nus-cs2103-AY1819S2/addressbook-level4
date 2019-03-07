@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.book.Book;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
@@ -25,28 +26,30 @@ import seedu.address.model.tag.Tag;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedBookShelf versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Book> filteredBooks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBookShelf addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAddressBook = new VersionedBookShelf(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredBooks = new FilteredList<>(versionedAddressBook.getBookList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new BookShelf(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -74,25 +77,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getBookShelfFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setBookShelfFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== BookShelf ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setBookShelf(ReadOnlyBookShelf addressBook) {
         versionedAddressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyBookShelf getBookShelf() {
         return versionedAddressBook;
     }
 
@@ -103,8 +106,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasBook(Book book) {
+        requireNonNull(book);
+        return versionedAddressBook.hasBook(book);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+    }
+    public void deleteBook(Book target) {
+        versionedAddressBook.removeBook(target);
     }
 
     @Override
@@ -114,9 +126,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addBook(Book book) {
+        versionedAddressBook.addBook(book);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_BOOKS);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public void setBook(Book target, Book editedBook) {
+        requireAllNonNull(target, editedBook);
+        versionedAddressBook.setBook(target, editedBook);
     }
 
     @Override

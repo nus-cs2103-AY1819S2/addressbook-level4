@@ -52,6 +52,14 @@ public class Patient extends Person {
     }
 
     /**
+     * Adds a new medical record to a patient.
+     * @param record the medical record to be added.
+     */
+    public void addRecord(Record record) {
+        this.records.add(record);
+    }
+
+    /**
      * Takes in the age of the patient and infers the teeth build he/she has.
      */
     private void inferTeethBuild() {
@@ -124,6 +132,10 @@ public class Patient extends Person {
         return new Patient(name, phone, email, address, tags, this, copyCount, nric, dateOfBirth);
     }
 
+    public void setRecords(ArrayList<Record> records) {
+        this.records = records;
+    }
+
     public Teeth getTeeth() {
         return teeth;
     }
@@ -138,6 +150,10 @@ public class Patient extends Person {
 
     public boolean isBuildSpecified() {
         return buildSpecified;
+    }
+
+    public ArrayList<Record> getRecords() {
+        return records;
     }
 
     /**

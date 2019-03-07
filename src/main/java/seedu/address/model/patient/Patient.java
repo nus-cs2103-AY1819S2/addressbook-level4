@@ -60,48 +60,33 @@ public class Patient extends Person {
     }
 
     /**
+     * Age inferred teeth layout.
      * Takes in the age of the patient and infers the teeth build he/she has.
      */
     private void inferTeethBuild() {
         int age = getPatientAge();
         if (age < 2) {
-            specifyBuild(NONE);
+            buildTeeth(NONE);
         } else if (age < 13) {
-            specifyBuild(CHILD);
+            buildTeeth(CHILD);
         } else {
-            specifyBuild(ADULT);
+            buildTeeth(ADULT);
         }
     }
 
     /**
-     * Builds a default no teeth layout.
-     * Which represents a baby with no teeth.
+     * User specified teeth layout.
+     * Build a default none/child/adult teeth layout, according to the parameters.
      */
-    public void specifyNone() {
-        specifyBuild(NONE);
-    }
-
-    /**
-     * Builds a default child teeth layout.
-     * Which represents a child with child teeth.
-     */
-    public void specifyChild() {
-        specifyBuild(CHILD);
-    }
-
-    /**
-     * Builds a default adult teeth layout.
-     * Which represents a teenager/adult with permanent teeth.
-     */
-    public void specifyAdult() {
-        specifyBuild(ADULT);
+    private void specifyBuild(String teethLayout) {
+        buildSpecified = true;
+        buildTeeth(teethLayout);
     }
 
     /**
      * Build a default none/child/adult teeth layout, according to the parameters.
      */
-    private void specifyBuild(String teethLayout) {
-        buildSpecified = true;
+    private void buildTeeth(String teethLayout) {
         teeth = new Teeth(teethLayout);
     }
 
@@ -117,19 +102,6 @@ public class Patient extends Person {
         cal.setTime(dateOfBirth);
         int birthYear = cal.get(Calendar.DAY_OF_YEAR);
         return currentYear - birthYear;
-    }
-
-    /**
-     * @return another instance of the same person
-     * {@code Tag} Copy is added
-     */
-    @Override
-    public Patient copy() {
-        if (isCopy()) {
-            super.copy();
-        }
-        copyCount++;
-        return new Patient(name, phone, email, address, tags, this, copyCount, nric, dateOfBirth);
     }
 
     public void setRecords(ArrayList<Record> records) {
@@ -157,11 +129,10 @@ public class Patient extends Person {
     }
 
     /**
-     * Returns true if both patients of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two patients.
+     * Returns true if both patients has the same NRIC.
      */
-    public boolean isSamePatient(Person otherPerson) {
-        return super.isSamePerson(otherPerson);
+    public boolean isSamePatient(Patient otherPerson) {
+        return nric.equals(otherPerson.getNric());
     }
 
     @Override

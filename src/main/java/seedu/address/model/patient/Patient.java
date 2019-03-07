@@ -15,9 +15,11 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Patient extends Person {
+    private static final String NONE = "none";
     private static final String CHILD = "child";
     private static final String ADULT = "adult";
     private Teeth teeth = null;
+    private boolean buildSpecified = false;
 
     /**
      * Every field must be present and not null.
@@ -32,7 +34,30 @@ public class Patient extends Person {
     }
 
     /**
+     * Takes in the age of the patient and infers the teeth build he/she has.
+     * @param age the age of the patient.
+     */
+    private void inferTeethBuild(int age) {
+        if (age < 2) {
+            specifyBuild(NONE);
+        } else if (age < 13) {
+            specifyBuild(CHILD);
+        } else {
+            specifyBuild(ADULT);
+        }
+    }
+
+    /**
+     * Builds a default no teeth layout.
+     * Which represents a baby with no teeth.
+     */
+    public void specifyNone() {
+        specifyBuild(NONE);
+    }
+
+    /**
      * Builds a default child teeth layout.
+     * Which represents a child with child teeth.
      */
     public void specifyChild() {
         specifyBuild(CHILD);
@@ -40,21 +65,28 @@ public class Patient extends Person {
 
     /**
      * Builds a default adult teeth layout.
+     * Which represents a teenager/adult with permanent teeth.
      */
     public void specifyAdult() {
         specifyBuild(ADULT);
     }
 
     /**
-     * Build a default child/adult teeth layout, according to the parameters.
+     * Build a default none/child/adult teeth layout, according to the parameters.
      */
     private void specifyBuild(String teethLayout) {
         switch (teethLayout) {
+        case NONE:
+            teeth = null; // Stub
+            buildSpecified = true;
+            break;
         case CHILD:
-            teeth = null;
+            teeth = null; // Stub
+            buildSpecified = true;
             break;
         case ADULT:
-            teeth = null;
+            teeth = null; // Stub
+            buildSpecified = true;
             break;
         default:
             throw new TeethLayoutException();
@@ -63,5 +95,9 @@ public class Patient extends Person {
 
     public Teeth getTeeth() {
         return teeth;
+    }
+
+    public boolean isBuildSpecified() {
+        return buildSpecified;
     }
 }

@@ -7,7 +7,11 @@ package seedu.address.model.patient;
 public class Status {
     private String description;
 
-    public Status(String description) {
+    Status() {
+        this.description = null;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 

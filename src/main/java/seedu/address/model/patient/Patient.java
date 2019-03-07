@@ -96,6 +96,10 @@ public class Patient extends Person {
         teeth = new Teeth(teethLayout);
     }
 
+    /**
+     * Using the patient's year of birth and the current year, derive his or her age.
+     * @return the age of the patient.
+     */
     private int getPatientAge() {
         Date today = new Date();
         Calendar cal = Calendar.getInstance();

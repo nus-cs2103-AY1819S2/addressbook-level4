@@ -132,7 +132,7 @@ public class ModelManager implements Model {
     @Override
     public void addBook(Book book) {
         versionedAddressBook.addBook(book);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_BOOKS);
+        updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
     }
 
     @Override

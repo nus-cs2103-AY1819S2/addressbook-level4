@@ -17,13 +17,13 @@ import seedu.address.model.ReadOnlyRequestBook;
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonRequestListStorage implements RequestBookStorage {
+public class JsonRequestBookStorage implements RequestBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonRequestListStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonRequestBookStorage.class);
 
     private Path filePath;
 
-    public JsonRequestListStorage(Path filePath) {
+    public JsonRequestBookStorage(Path filePath) {
         this.filePath = filePath;
     }
 

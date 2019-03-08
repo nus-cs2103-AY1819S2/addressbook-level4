@@ -37,10 +37,14 @@ public class DateOfBirth {
     public static boolean isValidDob(String test) {
         requireNonNull(test);
         String[] temp = test.split("-");
-        String day = temp[0].trim();
-        String month = temp[1].trim();
-        String year = temp[2].trim();
-        return year.length() == 4 && month.length() == 2 && day.length() == 2;
+        if (temp.length != 3) {
+            return false;
+        } else {
+            String day = temp[0].trim();
+            String month = temp[1].trim();
+            String year = temp[2].trim();
+            return year.length() == 4 && month.length() == 2 && day.length() == 2;
+        }
     }
 
     /**

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.HealthWorker;
-import seedu.address.model.person.Organization;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
 

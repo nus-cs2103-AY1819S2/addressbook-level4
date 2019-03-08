@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.model.RequestBook;
 import seedu.address.model.request.Request;
 
 /**
@@ -38,7 +43,7 @@ public class TypicalRequests {
             .withStatus("PENDING")
             .build();
 
-    public static final Request DANIEL = new RequestBuilder()
+    public static final Request DANIEL_REQUEST = new RequestBuilder()
             .withId(DANIEL_ID)
             .withPatient(TypicalPatients.DANIEL)
             .withConditions("Palliative")
@@ -46,4 +51,21 @@ public class TypicalRequests {
             .withHealthStaff(TypicalHealthWorkers.PANIEL)
             .withStatus("COMPLETED")
             .build();
+
+    /**
+     * Returns an {@code AddressBook} with all the typical persons.
+     */
+    public static RequestBook getTypicalRequestBook() {
+        RequestBook requestBook = new RequestBook();
+        for (Request request : getTypicalRequests()) {
+            requestBook.addRequest(request);
+        }
+        return requestBook;
+    }
+
+    public static List<Request> getTypicalRequests() {
+        return new ArrayList<>(Arrays.asList(ALICE_REQUEST, BENSON_REQUEST, CARL_REQUEST,
+            DANIEL_REQUEST));
+    }
+
 }

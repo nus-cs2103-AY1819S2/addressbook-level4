@@ -40,8 +40,7 @@ class JsonAdaptedRequest {
     public JsonAdaptedRequest(@JsonProperty("id") String id,
                               @JsonProperty("patient") JsonAdaptedPerson patient,
                               @JsonProperty("requestdate") String requestDate,
-                              @JsonProperty("healthstaff") JsonAdaptedHealthWorker healthWorker,
-
+                              @JsonProperty("healthworker") JsonAdaptedHealthWorker healthWorker,
                               @JsonProperty("conditions") List<JsonAdaptedTag> conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;

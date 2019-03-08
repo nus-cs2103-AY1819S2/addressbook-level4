@@ -1,0 +1,33 @@
+{
+  "requests": [
+    {
+      "id": "aslkdjaslaskd",
+      "patient": {
+        "email": "alice@example.com",
+        "name": "Alice Pauline",
+        "phone": "94351253",
+        "nric": "S1234567A",
+        "address": "123, Jurong West Ave 6, #08-111",
+        "tagged": [
+          "Physiotherapy",
+          "Dialysis"
+        ]
+      },
+      "requestDate": "an invalid date!",
+      "conditions": [
+        "Physiotherapy"
+      ],
+      "healthWorker": {
+        "email": "andye@example.com",
+        "name": "Andy Tan",
+        "phone": "94358253",
+        "nric": "S8312942G",
+        "address": "125, Jurong West Ave 6, #08-111",
+        "tagged": [],
+        "organization": "NUH",
+        "skills": "PHYSIOTHERAPY GENERAL_PRACTICE"
+      },
+      "requestStatus": "PENDING"
+    }
+  ]
+}

@@ -46,11 +46,11 @@ public class SampleDataUtil {
 
     public static Book[] getSampleBooks() {
         return new Book[] {
-             new Book(new BookName("Alice in Wonderland"), new Author("Lewis Carroll"), new Rating("5"),
-                 getTagSet("fantasy")),
-             new Book(new BookName("Structure and Interpretation of Computer Programs"),
-                 new Author("Hal Abelson Jerry Sussman"), new Rating("4"),
-                 getTagSet("textbook", "boring")),
+            new Book(new BookName("Alice in Wonderland"), new Author("Lewis Carroll"), new Rating("5"),
+                getTagSet("fantasy")),
+            new Book(new BookName("Structure and Interpretation of Computer Programs"),
+                new Author("Hal Abelson Jerry Sussman"), new Rating("4"),
+                getTagSet("textbook", "boring")),
         };
     }
 

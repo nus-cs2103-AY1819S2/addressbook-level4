@@ -83,6 +83,9 @@ public class BookShelf implements ReadOnlyBookShelf {
         return persons.contains(person);
     }
 
+    /**
+     * Returns true if a book with the same identity as {@code book} exists in the book shelf.
+     */
     public boolean hasBook(Book book) {
         requireNonNull(book);
         return books.contains(book);

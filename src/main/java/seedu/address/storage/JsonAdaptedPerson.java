@@ -106,7 +106,6 @@ class JsonAdaptedPerson {
                     DateOfBirth.class.getSimpleName()));
         }
         if (!DateOfBirth.isValidDob(dateOfBirth)) {
-            System.out.println("invalid");
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         final DateOfBirth modelDob = new DateOfBirth(dateOfBirth);

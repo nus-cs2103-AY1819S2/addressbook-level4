@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Person;
 
 /**
@@ -47,11 +48,25 @@ public class AddCommand extends Command {
     private final Patient toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Patient}
+     * @param patient the patient to be added.
      */
     public AddCommand(Patient patient) {
         requireNonNull(patient);
         toAdd = patient;
+    }
+
+    /**
+     * Creates an AddCommand to add the specified {@code Person}
+     * @param person the person to be added.
+     */
+    public AddCommand(Person person) {
+        requireNonNull(person);
+        if (person instanceof Patient) {
+            toAdd = (Patient) person;
+        } else {
+            throw new PersonIsNotPatient();
+        }
     }
 
     @Override

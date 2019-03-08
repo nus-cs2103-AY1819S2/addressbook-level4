@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -33,7 +35,11 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        if (toCheck instanceof Patient) {
+            return internalList.stream().anyMatch(toCheck::isSamePerson);
+        } else {
+            throw new PersonIsNotPatient();
+        }
     }
 
     /**

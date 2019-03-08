@@ -45,7 +45,6 @@ public class ParserUtil {
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
-        System.out.println("Parsed name = " + name);
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
@@ -104,7 +103,6 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      */
     public static Nric parseNric(String nric) throws ParseException {
-        System.out.println("Parsed NRIC = " + nric);
         requireNonNull(nric);
         String trimmedNric = nric.trim();
         if (!Nric.isValidNric(trimmedNric)) {
@@ -118,7 +116,6 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      */
     public static DateOfBirth parseDob(String dob) throws ParseException {
-        System.out.println("Parsed DOB = " + dob);
         requireNonNull(dob);
         String trimmedDob = dob.trim();
         if (!DateOfBirth.isValidDob(dob)) {

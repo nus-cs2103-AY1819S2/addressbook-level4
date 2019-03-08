@@ -38,9 +38,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String VALID_BOOKNAME_ALICE = "Alice in Wonderland";
-    public static final String VALID_BOOKNAME_CS = "CS2103";
+    public static final String VALID_BOOKNAME_CS = "Structure and Interpretation of Computer Programs";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
-    public static final String VALID_AUTHOR_CS = "Sussman";
+    public static final String VALID_AUTHOR_CS = "Hal Abelson Jerry Sussman";
     public static final String VALID_RATING_ALICE = "5";
     public static final String VALID_RATING_CS = "4";
     public static final String VALID_TAG_FANTASY = "fantasy";

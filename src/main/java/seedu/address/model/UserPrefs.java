@@ -12,10 +12,9 @@ import seedu.address.commons.core.GuiSettings;
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
-
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-
+    private Path lessonsFolderPath = Paths.get("data");
+    private Path lessonImportExportFilePath = Paths.get("import", "test-lesson.csv");
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -35,7 +34,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setLessonsFolderPath(newUserPrefs.getLessonsFolderPath());
+        setLessonImportExportFilePath(newUserPrefs.getLessonImportExportFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,14 +47,24 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getLessonsFolderPath() {
+        return lessonsFolderPath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setLessonsFolderPath(Path lessonsFolderPath) {
+        requireNonNull(lessonsFolderPath);
+        this.lessonsFolderPath = lessonsFolderPath;
     }
+
+    public Path getLessonImportExportFilePath() {
+        return lessonImportExportFilePath;
+    }
+
+    public void setLessonImportExportFilePath(Path lessonImportExportFilePath) {
+        requireNonNull(lessonImportExportFilePath);
+        this.lessonImportExportFilePath = lessonImportExportFilePath;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -67,21 +77,22 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+        return this.hashCode() == o.hashCode();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, lessonsFolderPath, lessonImportExportFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + lessonsFolderPath);
+        sb.append("\nLocal import/export file location : " + lessonsFolderPath);
         return sb.toString();
     }
+
 
 }

@@ -9,17 +9,16 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.menu.Code;
+import seedu.address.model.menu.Name;
+import seedu.address.model.menu.Price;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.menu.Name;
-import seedu.address.model.menu.Code;
-import seedu.address.model.menu.Price;
-import seedu.address.model.person.Phone;
+import seedu.address.model.statistics.Day;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Year;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.statistics.Year;
-import seedu.address.model.statistics.Month;
-import seedu.address.model.statistics.Day;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -32,6 +31,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -45,6 +45,7 @@ public class ParserUtil {
     /**
      * Parses {@code quantity} into an integer and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified quantity is invalid (not non-zero unsigned integer).
      */
     public static int parseQuantity(String quantity) throws ParseException {
@@ -69,11 +70,11 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
-    
+
     /**
      * Parses a {@code String code} into a {@code Code}.
      * Leading and trailing whitespaces will be trimmed.
-     * 
+     *
      * @throws ParseException if the given {@code code} is invalid.
      */
     public static Code parseCode(String code) throws ParseException {
@@ -88,7 +89,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
-     * 
+     *
      * @throws ParseException if the given {@code price} is invalid.
      */
     public static Price parsePrice(String price) throws ParseException {

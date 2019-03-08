@@ -1,11 +1,5 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,9 +24,9 @@ class JsonAdaptedOrderItem {
      * Constructs a {@code JsonAdaptedOrderItem} with the given order item details.
      */
     @JsonCreator
-    public JsonAdaptedOrderItem(@JsonProperty("tableNumber") String tableNumber, 
+    public JsonAdaptedOrderItem(@JsonProperty("tableNumber") String tableNumber,
                                 @JsonProperty("menuItemCode") String menuItem,
-                                @JsonProperty("ordered") String quantityOrdered, 
+                                @JsonProperty("ordered") String quantityOrdered,
                                 @JsonProperty("unserved") String quantityUnserved) {
         this.tableNumber = tableNumber;
         this.menuItemCode = menuItem;
@@ -83,7 +77,7 @@ class JsonAdaptedOrderItem {
         if (quantityUnserved == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "unserved"));
         }
-        
+
         return new OrderItem(modelTableNumber, modelMenuItemCode, modelQuantityOrdered);
     }
 

@@ -177,7 +177,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Book> getFilteredBookList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBookList(Predicate<Book> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -212,12 +222,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<Book> selectedBookProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Person getSelectedPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public Book getSelectedBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedBook(Book book) {
             throw new AssertionError("This method should not be called.");
         }
 

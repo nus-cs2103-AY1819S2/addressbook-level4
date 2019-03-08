@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Person> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
+    Predicate<Book> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -107,11 +107,20 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered book list */
+    ObservableList<Book> getFilteredBookList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered book list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredBookList(Predicate<Book> predicate);
 
     /**
      * Returns true if the model has previous book shelf states to restore.
@@ -145,15 +154,32 @@ public interface Model {
     ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
+     * Selected book in the filtered book list.
+     * null if no book is selected.
+     */
+    ReadOnlyProperty<Book> selectedBookProperty();
+
+    /**
      * Returns the selected person in the filtered person list.
      * null if no person is selected.
      */
     Person getSelectedPerson();
 
     /**
+     * Returns the selected book in the filtered person list.
+     * null if no book is selected.
+     */
+    Book getSelectedBook();
+
+    /**
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sets the selected book in the filtered person list.
+     */
+    void setSelectedBook(Book book);
 
     /**
      * Delete the tag{@code tag} of all contacts in the phone book

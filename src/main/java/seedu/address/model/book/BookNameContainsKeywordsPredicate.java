@@ -27,5 +27,4 @@ public class BookNameContainsKeywordsPredicate implements Predicate<Book> {
                 || (other instanceof BookNameContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((BookNameContainsKeywordsPredicate) other).keywords)); // state check
     }
-
 }

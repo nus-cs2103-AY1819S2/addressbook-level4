@@ -10,10 +10,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.DateOfBirth;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -44,6 +45,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
+        System.out.println("Parsed name = " + name);
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
@@ -101,20 +103,28 @@ public class ParserUtil {
      * Parses a {@code String nric} into an {@code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Nric parseNric(String nric) {
+    public static Nric parseNric(String nric) throws ParseException {
+        System.out.println("Parsed NRIC = " + nric);
         requireNonNull(nric);
         String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
+        }
         return new Nric(trimmedNric);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String dob} into an {@code Dob}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static int parseYear(String year) {
-        requireNonNull(year);
-        String trimmedYear = year.trim();
-        return Integer.parseInt(trimmedYear);
+    public static DateOfBirth parseDob(String dob) throws ParseException {
+        System.out.println("Parsed DOB = " + dob);
+        requireNonNull(dob);
+        String trimmedDob = dob.trim();
+        if (!DateOfBirth.isValidDob(dob)) {
+            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfBirth(trimmedDob);
     }
 
     /**

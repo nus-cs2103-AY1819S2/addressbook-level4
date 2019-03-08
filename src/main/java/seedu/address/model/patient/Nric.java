@@ -1,9 +1,7 @@
-package seedu.address.model.person;
+package seedu.address.model.patient;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
-import seedu.address.logic.parser.AddCommandParser;
 
 /**
  * Represents a Person's Nric in the address book.
@@ -12,7 +10,7 @@ import seedu.address.logic.parser.AddCommandParser;
 public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Nric should contain only \"-\" or \"XdddddddX\"";
+        "Nric is compulsory, denoted by \\nric and should be in standard format.";
     public static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
     public final String value;
 
@@ -31,13 +29,13 @@ public class Nric {
      * Returns true if a given string is a valid Nric number, or intentionally left empty (-).
      * @param test the string to be tested.
      */
-    private static boolean isValidNric(String test) {
+    public static boolean isValidNric(String test) {
         requireNonNull(test);
-        if (test.equals(AddCommandParser.DEFAULT_NRIC)) {
-            return true;
-        } else {
-            return test.matches(VALIDATION_REGEX);
-        }
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getNric() {
+        return value;
     }
 
     @Override

@@ -3,15 +3,13 @@ package seedu.address.model.patient;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.record.Record;
@@ -26,7 +24,7 @@ public class Patient extends Person {
     private static final String CHILD = "child";
     private static final String ADULT = "adult";
     private Nric nric;
-    private Integer yearOfBirth;
+    private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
     private boolean buildSpecified = false;
     private ArrayList<Record> records = new ArrayList<>();
@@ -35,20 +33,20 @@ public class Patient extends Person {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   Integer yearOfBirth) {
+                   DateOfBirth dateOfBirth) {
         super(name, phone, email, address, tags);
-        requireAllNonNull(nric, yearOfBirth);
+        requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
-        this.yearOfBirth = yearOfBirth;
+        this.dateOfBirth = dateOfBirth;
         inferTeethBuild();
     }
 
     private Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                   Person personToCopy, int copyCount, Nric nric, int yearOfBirth) {
+                   Person personToCopy, int copyCount, Nric nric, DateOfBirth dateOfBirth) {
         super(name, phone, email, address, tags, personToCopy, copyCount);
-        requireAllNonNull(nric, yearOfBirth);
+        requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
-        this.yearOfBirth = yearOfBirth;
+        this.dateOfBirth = dateOfBirth;
         inferTeethBuild();
     }
 
@@ -96,11 +94,7 @@ public class Patient extends Person {
      * @return the age of the patient.
      */
     private int getPatientAge() {
-        Date today = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(today);
-        int currentYear = cal.get(Calendar.DAY_OF_YEAR);
-        return currentYear - yearOfBirth;
+        return dateOfBirth.getAge();
     }
 
     public void setRecords(ArrayList<Record> records) {
@@ -115,8 +109,8 @@ public class Patient extends Person {
         return nric;
     }
 
-    public Integer getYearOfBirth() {
-        return yearOfBirth;
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public boolean isBuildSpecified() {
@@ -130,18 +124,38 @@ public class Patient extends Person {
     /**
      * Returns true if both patients has the same NRIC.
      */
-    public boolean isSamePatient(Patient otherPerson) {
-        if (nric != null) {
-            return nric.equals(otherPerson.getNric());
+    @Override
+    public boolean isSamePerson(Person otherPerson) {
+        if (otherPerson instanceof Patient) {
+            return nric.equals(((Patient) otherPerson).getNric());
         } else {
-            return false;
+            System.out.println(otherPerson);
+            throw new PersonIsNotPatient();
         }
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, nric, yearOfBirth, records);
+        return Objects.hash(name, phone, email, address, tags, nric, dateOfBirth, records);
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" NRIC: ")
+                .append(nric.getNric())
+                .append(" Date of Birth: ")
+                .append(dateOfBirth.getDate())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 }

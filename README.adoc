@@ -1,9 +1,9 @@
 = The Real App
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.com/cs2103-ay1819s2-w16-2/main[image:https://travis-ci.com/cs2103-ay1819s2-w16-2/main.svg?branch=master[Build Status]]
+https://travis-ci.org/CS2103-AY1819S2-W16-2/main[image:https://travis-ci.org/CS2103-AY1819S2-W16-2/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/yongxiang1095/main/branch/master[image:https://ci.appveyor.com/api/projects/status/qjxla0kska4hc070/branch/master?svg=true[Build status]]
-https://coveralls.io/github/cs2103-ay1819s2-w16-2/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w16-2/main/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/CS2103-AY1819S2-W16-2/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W16-2/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/yongxiang1095/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cs2103-ay1819s2-w16-2/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/4e412b43cb64473c9df43ea2283cbf23[Codacy Badge]]
 
 ifdef::env-github[]

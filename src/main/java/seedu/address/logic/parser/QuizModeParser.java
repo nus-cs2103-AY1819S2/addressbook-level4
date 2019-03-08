@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.quiz.commands.QuizAnswerCommand;
-import seedu.address.quiz.commands.QuizCommand;
+import seedu.address.logic.commands.QuizAnswerCommand;
+import seedu.address.logic.commands.QuizCommand;
 
 /**
  * Parses user input in QuizMode

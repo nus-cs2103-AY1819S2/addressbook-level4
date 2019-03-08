@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.quiz.QuizModel;
 

@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.QuizAnswerCommand;
 import seedu.address.quiz.Quiz;
 import seedu.address.quiz.QuizCard;
 import seedu.address.quiz.QuizModel;

@@ -1,9 +1,8 @@
-package seedu.address.quiz.commands;
+package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.quiz.Quiz;
 import seedu.address.quiz.QuizCard;

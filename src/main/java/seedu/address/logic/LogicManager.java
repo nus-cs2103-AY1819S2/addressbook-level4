@@ -15,7 +15,7 @@ import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.quiz.QuizModel;
-import seedu.address.quiz.commands.QuizCommand;
+import seedu.address.logic.commands.QuizCommand;
 
 /**
  * The main LogicManager of the app.

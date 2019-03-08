@@ -42,9 +42,11 @@ public class VersionedHealthWorkerBook extends HealthWorkerBook implements Versi
     }
 
     @Override
-    public void redo() {if (!canRedo()) {
-        throw new NoRedoableStateException();
-    }
+    public void redo() {
+        if (!canRedo()) {
+            throw new NoRedoableStateException();
+        }
+
         this.currStatePointer++;
         resetData(this.healthWorkerBookStateList.get(this.currStatePointer));
     }

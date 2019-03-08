@@ -24,7 +24,7 @@ import seedu.address.model.tag.Tag;
  * @author Lookaz
  * Edits the details of an existing HealthWorker object in the addressbook.
  */
-public class EditHealthWorkerCommand extends EditCommand implements HealthWorkerCommand{
+public class EditHealthWorkerCommand extends EditCommand implements HealthWorkerCommand {
 
     public static final String MESSAGE_EDIT_HEALTHWORKER_SUCCESS = "Edited Health Worker: %1$s";
 
@@ -50,6 +50,10 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         return null;
     }
 
+    /**
+     * Creates and returns a {@code HealthWorker} with the details of {@code toEdit}
+     * edited with {@code editHealthWorkerDescriptor}.
+     */
     private static HealthWorker createEditedHealthWorker(HealthWorker toEdit,
                                                          EditHealthWorkerDescriptor editHealthWorkerDescriptor) {
         assert toEdit != null;
@@ -93,7 +97,8 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
 
         public EditHealthWorkerDescriptor() {}
 
-        public EditHealthWorkerDescriptor(EditPersonCommand.EditPersonDescriptor toCopy, Organization organization, Skills skills) {
+        public EditHealthWorkerDescriptor(EditPersonCommand.EditPersonDescriptor toCopy,
+                                          Organization organization, Skills skills) {
             super(toCopy);
             this.organization = organization;
             this.skills = skills;

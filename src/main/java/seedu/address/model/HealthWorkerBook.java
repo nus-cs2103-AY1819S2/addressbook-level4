@@ -89,9 +89,9 @@ public class HealthWorkerBook implements ReadOnlyHealthWorkerBook {
         indicateModified();
     }
 
-        /**
-         * Notifies listeners that HealthWorkerBook has been modified.
-         */
+    /**
+     * Notifies listeners that HealthWorkerBook has been modified.
+     */
     protected void indicateModified() {
         this.invalidationListenerManager.callListeners(this);
     }

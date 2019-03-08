@@ -40,7 +40,7 @@ public class TypicalBooks {
             .build();
     public static final Book LIFEWAO = new BookBuilder()
             .withName("The Brief Wondrous Life of Oscar Wao")
-            .withAuthor("Junot Díaz")
+            .withAuthor("Junot Diaz")
             .withRating("4").build();
     public static final Book MIDDLESEX = new BookBuilder()
             .withName("Middlesex")

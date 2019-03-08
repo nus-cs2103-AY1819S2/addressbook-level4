@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class BookBuilder {
 
     public static final String DEFAULT_NAME = "Harry Potter and the Deathly Hallows";
-    public static final String DEFAULT_AUTHOR = "J.K. Rowling  ";
+    public static final String DEFAULT_AUTHOR = "JK Rowling";
     public static final String DEFAULT_RATING = "7";
 
     private BookName bookName;

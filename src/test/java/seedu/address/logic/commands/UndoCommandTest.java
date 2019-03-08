@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
@@ -17,7 +18,8 @@ public class UndoCommandTest {
 
     // TODO: Fix HealthWorkerBook portion
     private final Model model = new ModelManager(getTypicalAddressBook(), new HealthWorkerBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new HealthWorkerBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new HealthWorkerBook(),
+            new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

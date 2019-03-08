@@ -24,7 +24,7 @@ public class AuthorTest {
     public void isValidAuthor() {
         // null author
         Assert.assertThrows(NullPointerException.class, () -> Author.isValidAuthor(null));
-        
+
         // invalid author
         assertFalse(Author.isValidAuthor("")); // empty string
         assertFalse(Author.isValidAuthor(" ")); // spaces only

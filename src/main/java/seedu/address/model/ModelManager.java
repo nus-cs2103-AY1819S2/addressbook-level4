@@ -147,6 +147,11 @@ public class ModelManager implements Model {
         this.versionedAddressBook.setHealthWorker(target, editedWorker);
     }
 
+    @Override
+    public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
+        return null;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

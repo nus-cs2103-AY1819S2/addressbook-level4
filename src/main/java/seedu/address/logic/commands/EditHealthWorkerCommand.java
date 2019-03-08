@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,6 +32,7 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
 
     public EditHealthWorkerCommand(Index index, EditHealthWorkerDescriptor editHealthWorkerDescriptor) {
         super(index);
+        requireNonNull(editHealthWorkerDescriptor);
 
         this.editHealthWorkerDescriptor = editHealthWorkerDescriptor;
     }
@@ -63,6 +66,20 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
 
         return new HealthWorker(updatedName, updatedPhone, updatedEmail, updatedNric, updatedAddress, updatedTags,
                 updatedOrganization, updatedSkills);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof EditHealthWorkerCommand)) {
+            return false;
+        }
+
+        EditHealthWorkerCommand e = (EditHealthWorkerCommand) other;
+        return index.equals(e.index) && editHealthWorkerDescriptor.equals(e.editHealthWorkerDescriptor);
     }
 
     /**

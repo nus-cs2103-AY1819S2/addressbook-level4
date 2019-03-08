@@ -113,6 +113,9 @@ public interface Model {
      */
     void setHealthWorker(HealthWorker target, HealthWorker editedWorker);
 
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<HealthWorker> getFilteredHealthWorkerList();
+
     // =======================================================================
 
     /** Returns an unmodifiable view of the filtered person list */

@@ -20,13 +20,13 @@ public class DateOfBirth {
 
     /**
      * Default constructor that takes in a birth day.
-     * @param dob the dob in yyyy-mm-dd format.
+     * @param dob the dob in dd-mm-yyyy format.
      */
     public DateOfBirth(String dob) {
         String[] temp = dob.split("-");
-        int year = Integer.parseInt(temp[0].trim());
+        int day = Integer.parseInt(temp[0].trim());
         int month = Integer.parseInt(temp[1].trim());
-        int day = Integer.parseInt(temp[2].trim());
+        int year = Integer.parseInt(temp[2].trim());
         setTo(day, month, year);
     }
 
@@ -38,9 +38,9 @@ public class DateOfBirth {
         requireNonNull(test);
         try {
             String[] temp = test.split("-");
-            String year = temp[0].trim();
+            String day = temp[0].trim();
             String month = temp[1].trim();
-            String day = temp[2].trim();
+            String year = temp[2].trim();
             assert year.length() == 4 : "Year length is not 4";
             assert month.length() == 2 : "Month length is not 2";
             assert day.length() == 2 : "Day length is not 2";
@@ -68,6 +68,17 @@ public class DateOfBirth {
      */
     public String getDate() {
         return day + " " + MONTHS[month] + " " + year;
+    }
+
+    /**
+     * Gets the birth day of the patient in dd-mm-yyyy format.
+     * @return the birth day in the specified format.
+     */
+    public String getRawFormat() {
+        String formattedDay = String.format("%02d", day);
+        String formattedMonth = String.format("%02d", month);
+        String formattedYear = String.format("%04d", year);
+        return formattedDay + "-" + formattedMonth + "-" + formattedYear;
     }
 
     /**

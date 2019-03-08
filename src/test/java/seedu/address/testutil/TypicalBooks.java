@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
@@ -31,9 +31,9 @@ public class TypicalBooks {
             .withTags("textbook").build();
 
     // Manually added
-    public static final Book bookA = new BookBuilder().withName("bookA").withAuthor("a")
+    public static final Book BOOKA = new BookBuilder().withName("bookA").withAuthor("a")
             .withRating("1").build();
-    public static final Book bookB = new BookBuilder().withName("bookB").withAuthor("b")
+    public static final Book BOOKB = new BookBuilder().withName("bookB").withAuthor("b")
             .withRating("2").build();
 
     // Manually added - Book's details found in {@code CommandTestUtil}

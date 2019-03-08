@@ -4,15 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalBooks.ALI;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
-import static seedu.address.testutil.TypicalBooks.ALI;
-import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -33,8 +31,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TypicalBooks;
-import seedu.address.testutil.TypicalPersons;
 
 public class AddressBookTest {
 
@@ -56,7 +52,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        BookShelf newData = TypicalPersons.getTypicalAddressBook();
+        BookShelf newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -64,7 +60,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         BookShelfStub newData = new BookShelfStub(newPersons);
@@ -76,7 +74,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateBooks_throwsDuplicateBookException() {
         // Two books with the same identity fields
-        Book editedAlice = new BookBuilder(ALI).withAuthor(VALID_AUTHOR_ALICE).withName(VALID_BOOKNAME_ALICE).withTags(VALID_TAG_FANTASY)
+        Book editedAlice = new BookBuilder(ALI).withAuthor(VALID_AUTHOR_ALICE)
+                .withName(VALID_BOOKNAME_ALICE)
+                .withTags(VALID_TAG_FANTASY)
                 .build();
         List<Book> newBooks = Arrays.asList(ALI, editedAlice);
         BookShelfStub newData = new BookShelfStub(newBooks, 1);

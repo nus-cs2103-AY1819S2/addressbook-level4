@@ -15,6 +15,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.QuizAnswerCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,7 +27,6 @@ import seedu.address.quiz.Quiz;
 import seedu.address.quiz.QuizCard;
 import seedu.address.quiz.QuizModel;
 import seedu.address.quiz.QuizModelManager;
-import seedu.address.logic.commands.QuizAnswerCommand;
 import seedu.address.storage.CsvLessonImportExport;
 import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;

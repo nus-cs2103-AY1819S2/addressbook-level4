@@ -53,7 +53,7 @@ public class TypicalRequests {
             .build();
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code RequestBook} with all the typical persons.
      */
     public static RequestBook getTypicalRequestBook() {
         RequestBook requestBook = new RequestBook();

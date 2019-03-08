@@ -16,9 +16,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    //    /** {@code Predicate} that always evaluate to true */
-    //    Predicate<HealthWorker> PREDICATE_SHOW_ALL_HEALTHWORKERS = unused -> true;
-    //
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<HealthWorker> PREDICATE_SHOW_ALL_HEALTHWORKERS = unused -> true;
+
     //    /** {@code Predicate} that always evaluate to true */
     //    Predicate<Request> PREDICATE_SHOW_ALL_REQUESTS = unused -> true;
 
@@ -112,6 +112,15 @@ public interface Model {
      * another existing HealthWorker in the address book.
      */
     void setHealthWorker(HealthWorker target, HealthWorker editedWorker);
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<HealthWorker> getFilteredHealthWorkerList();
+
+    /**
+     * Updates the filter of the filtered HealthWorker list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate);
 
     // =======================================================================
 

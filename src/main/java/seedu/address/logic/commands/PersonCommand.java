@@ -24,5 +24,14 @@ public interface PersonCommand {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
+    String EDIT_COMMAND_PARAMETERS = "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_TAG + "TAG]...";
+
+    String EDIT_COMMAND_EXAMPLE = PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com";
+
     String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 }

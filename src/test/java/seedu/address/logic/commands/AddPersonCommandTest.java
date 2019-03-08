@@ -176,6 +176,17 @@ public class AddPersonCommandTest {
         public void setHealthWorker(HealthWorker target, HealthWorker editedWorker) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // ===================================================================
 
         @Override

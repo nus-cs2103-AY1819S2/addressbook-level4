@@ -28,7 +28,8 @@ public class Orders implements ReadOnlyOrders {
         orderItems = new UniqueOrderItemList();
     }
 
-    public Orders() {}
+    public Orders() {
+    }
 
     /**
      * Creates a new instance of RestOrRant orders using the order items in the {@code toBeCopied}

@@ -8,7 +8,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.Mode;
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddItemToMenuCommand;
+import seedu.address.logic.commands.AddOrderCommand;
+import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.BillCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.MenuModeCommand;
+import seedu.address.logic.commands.RestaurantModeCommand;
+import seedu.address.logic.commands.TableModeCommand;
+import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -41,68 +51,70 @@ public class RestOrRantParser {
         // General commands that work in all modes
 
         switch (commandWord) {
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
-                
-            case HelpCommand.COMMAND_ALIAS:
-                return new HelpCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-                
-            case ExitCommand.COMMAND_ALIAS:
-                return new ExitCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case RestaurantModeCommand.COMMAND_WORD:
-                return new RestaurantModeCommand();
+        case HelpCommand.COMMAND_ALIAS:
+            return new HelpCommand();
 
-            case MenuModeCommand.COMMAND_WORD:
-                return new MenuModeCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case TableModeCommand.COMMAND_WORD:
-                return new TableModeCommandParser().parse(arguments);
+        case ExitCommand.COMMAND_ALIAS:
+            return new ExitCommand();
 
-            // Commands that work in Restaurant Mode
-            case AddTableCommand.COMMAND_WORD:
-                if (mode != Mode.RESTAURANT_MODE) {
-                    throw new ParseException(MESSAGE_INVALID_MODE);
-                }
-                return new AddTableCommandParser().parse(arguments);
+        case RestaurantModeCommand.COMMAND_WORD:
+            return new RestaurantModeCommand();
 
-            case UpdateTableCommand.COMMAND_WORD:
-                if (mode != Mode.RESTAURANT_MODE) {
-                    throw new ParseException(MESSAGE_INVALID_MODE);
-                }
-                return new UpdateTableCommandParser().parse(arguments);
+        case MenuModeCommand.COMMAND_WORD:
+            return new MenuModeCommand();
 
-            // Commands that work in Menu Mode
-            case AddItemToMenuCommand.COMMAND_WORD:
-                if (mode != Mode.MENU_MODE) {
-                    throw new ParseException(MESSAGE_INVALID_MODE);
-                }
-                return new AddItemToMenuCommandParser().parse(arguments);
-                
-            // Commands that work in Table Mode
-            case AddOrderCommand.COMMAND_WORD:
-                if (mode != Mode.TABLE_MODE) {
-                    throw new ParseException(MESSAGE_INVALID_MODE);
-                }
-                return new AddOrderCommandParser().parse(arguments);
-                
-            case BillCommand.COMMAND_WORD:
-                if (mode != Mode.TABLE_MODE) {
-                    throw new ParseException(MESSAGE_INVALID_MODE);
-                }
-                return new BillCommand();
+        case TableModeCommand.COMMAND_WORD:
+            return new TableModeCommandParser().parse(arguments);
 
-            case BillCommand.COMMAND_ALIAS:
-                if (mode != Mode.TABLE_MODE) {
-                    throw new ParseException(MESSAGE_INVALID_MODE);
-                }
-                return new BillCommand();
+        // Commands that work in Restaurant Mode
+        case AddTableCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new AddTableCommandParser().parse(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        case UpdateTableCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new UpdateTableCommandParser().parse(arguments);
+
+        // Commands that work in Menu Mode
+        case AddItemToMenuCommand.COMMAND_WORD:
+            if (mode != Mode.MENU_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new AddItemToMenuCommandParser().parse(arguments);
+
+        // Commands that work in Table Mode
+        case AddOrderCommand.COMMAND_WORD:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new AddOrderCommandParser().parse(arguments);
+
+        case BillCommand.COMMAND_WORD:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new BillCommand();
+
+        case BillCommand.COMMAND_ALIAS:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new BillCommand();
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
         }
 
     }

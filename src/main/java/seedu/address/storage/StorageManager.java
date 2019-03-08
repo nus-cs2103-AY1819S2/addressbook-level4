@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.statistics.ReadOnlyStatistics;
-import seedu.address.model.table.ReadOnlyTables;
-import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.table.ReadOnlyTables;
 
 /**
  * Manages storage of RestOrRant data in local storage.
@@ -84,7 +84,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void backupMenu(ReadOnlyMenu menu) throws IOException {
-         menuStorage.backupMenu(menu);
+        menuStorage.backupMenu(menu);
     }
 
     // ================ Orders methods ==============================
@@ -105,7 +105,7 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to read data from file: " + filePath);
         return ordersStorage.readOrders(filePath);
     }
-    
+
     @Override
     public void saveOrders(ReadOnlyOrders orders) throws IOException {
         saveOrders(orders, ordersStorage.getOrdersFilePath());

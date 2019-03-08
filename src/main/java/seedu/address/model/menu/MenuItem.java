@@ -62,9 +62,7 @@ public class MenuItem {
             return true;
         }
 
-        return otherItem != null
-                && otherItem.getName().equals(getName())
-                && (otherItem.getCode().equals(getCode()));
+        return otherItem != null && otherItem.getName().equals(getName()) && (otherItem.getCode().equals(getCode()));
     }
 
     /**
@@ -82,9 +80,8 @@ public class MenuItem {
         }
 
         MenuItem otherItem = (MenuItem) other;
-        return otherItem.getName().equals(getName())
-                && otherItem.getCode().equals(getCode())
-                && otherItem.getPrice().equals(getPrice());
+        return otherItem.getName().equals(getName()) && otherItem.getCode().equals(getCode()) && otherItem.getPrice()
+                .equals(getPrice());
     }
 
     @Override

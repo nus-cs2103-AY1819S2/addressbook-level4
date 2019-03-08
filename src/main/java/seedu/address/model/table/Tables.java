@@ -12,19 +12,18 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 public class Tables implements ReadOnlyTables {
 
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-
-    private final UniqueTableList tableList;
-
     public static final String MESSAGE_INVALID_TABLE = "Table %1$s does not exist";
-
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final UniqueTableList tableList;
     private int nextTableNumber;
+
     {
         tableList = new UniqueTableList();
         nextTableNumber = 1;
     }
-    
-    public Tables() {}
+
+    public Tables() {
+    }
 
     /**
      * Creates a Tables using the tableList in the {@code toBeCopied}
@@ -105,7 +104,7 @@ public class Tables implements ReadOnlyTables {
         tableList.remove(key);
         indicateModified();
     }
-    
+
     @Override
     public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
         return Optional.ofNullable(tableList.getTable(tableNumber));
@@ -128,7 +127,7 @@ public class Tables implements ReadOnlyTables {
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
-    
+
     @Override
     public ObservableList<Table> getTableList() {
         return tableList.asUnmodifiableObservableList();
@@ -150,7 +149,7 @@ public class Tables implements ReadOnlyTables {
                 || (other instanceof Tables // instanceof handles nulls
                 && tableList.equals(((Tables) other).tableList));
     }
-    
+
     @Override
     public int hashCode() {
         return tableList.hashCode();

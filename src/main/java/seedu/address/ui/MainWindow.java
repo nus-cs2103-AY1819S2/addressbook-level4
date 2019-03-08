@@ -83,6 +83,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -119,11 +120,11 @@ public class MainWindow extends UiPart<Stage> {
         tableFlowPanel = new TableFlowPanel(logic.getRestOrRant().getTables().getTableList(),
                 logic.getRestOrRant().getTables());
         browserPlaceholder.getChildren().addAll(tableFlowPanel.getRoot());
-            
+
         orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
                 logic::setSelectedOrderItem);
         listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
-        
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -186,17 +187,18 @@ public class MainWindow extends UiPart<Stage> {
     private void handleChangeMode(Mode mode) { // TODO: insert relevant code for each mode.
         browserPlaceholder.getChildren().clear();
         listPanelPlaceholder.getChildren().clear();
-        
+
         switch (mode) {
 
         case RESTAURANT_MODE:
-            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), logic.getRestOrRant().getTables()); // TODO: change to app logo
+            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(),
+                    logic.getRestOrRant().getTables()); // TODO: change to app logo
             browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
-            
+
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),
                     logic.selectedOrderItemProperty(), logic::setSelectedOrderItem);
             listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
-            
+
             statusBarFooter.updateMode("Restaurant Mode");
             break;
 
@@ -207,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),
                     logic.selectedOrderItemProperty(), logic::setSelectedOrderItem);
             listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
-            
+
             statusBarFooter.updateMode("Table Mode");
             break;
 
@@ -215,11 +217,11 @@ public class MainWindow extends UiPart<Stage> {
             // TODO: change to browser panel to app logo in future versions (for now keep the tables?)
             tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), logic.getRestOrRant().getTables());
             browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
-    
+
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
-            
+
             statusBarFooter.updateMode("Menu Mode");
             break;
 
@@ -227,7 +229,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         }
     }
-    
+
     /**
      * Executes the command and returns the result.
      *

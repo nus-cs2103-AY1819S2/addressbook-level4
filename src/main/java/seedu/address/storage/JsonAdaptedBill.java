@@ -1,19 +1,11 @@
 package seedu.address.storage;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.Day;
-import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Statistics;
-import seedu.address.model.statistics.Year;
-import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -63,10 +55,10 @@ class JsonAdaptedBill {
         }
 
         final TableNumber modelTableNumber = new TableNumber(tableNumber);
-        //final Date modelDate = new Date(); 
+        //final Date modelDate = new Date();
         final float modelBill = Float.parseFloat(totalBill);
 
         return new Bill(modelTableNumber, modelBill);
     }
-    
+
 }

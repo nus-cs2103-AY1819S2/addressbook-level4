@@ -9,12 +9,12 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
-import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;

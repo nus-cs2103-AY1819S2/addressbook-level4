@@ -17,8 +17,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.healthworker.UniqueHealthWorkerList;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBuilder;
 

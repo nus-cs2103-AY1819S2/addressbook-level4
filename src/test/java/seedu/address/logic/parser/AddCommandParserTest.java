@@ -54,21 +54,21 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddHealthWorkerCommand;
+import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.HealthWorkerBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddPersonCommandParserTest {
+public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test

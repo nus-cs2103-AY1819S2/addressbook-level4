@@ -36,18 +36,11 @@ public class DateOfBirth {
      */
     public static boolean isValidDob(String test) {
         requireNonNull(test);
-        try {
-            String[] temp = test.split("-");
-            String day = temp[0].trim();
-            String month = temp[1].trim();
-            String year = temp[2].trim();
-            assert year.length() == 4 : "Year length is not 4";
-            assert month.length() == 2 : "Month length is not 2";
-            assert day.length() == 2 : "Day length is not 2";
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        String[] temp = test.split("-");
+        String day = temp[0].trim();
+        String month = temp[1].trim();
+        String year = temp[2].trim();
+        return year.length() == 4 && month.length() == 2 && day.length() == 2;
     }
 
     /**

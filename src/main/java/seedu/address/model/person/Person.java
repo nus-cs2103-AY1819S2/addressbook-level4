@@ -22,6 +22,8 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Amount amount;
+    private final Date date;
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -29,12 +31,14 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address,
-                  Description description, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+                  Amount amount, Date date, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, amount, date, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.amount = amount;
+        this.date = date;
         this.description = description;
         this.tags.addAll(tags);
     }
@@ -53,6 +57,14 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Amount getAmount() {
+        return amount;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public Description getDescription() {
@@ -119,6 +131,10 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Amount: ")
+                .append(getAmount())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -14,7 +14,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W10-3/main.git
 
 By: `Team W10-3`      Since: `Feb 2019`      Licence: `MIT`
 

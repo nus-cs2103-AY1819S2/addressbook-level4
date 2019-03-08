@@ -3,28 +3,30 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.Lesson;
 
 /**
  * Manages storage of AddressBook data in local storage.
  */
 public class StorageManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private LessonsStorage lessonsStorage;
+    private LessonImportExport lessonImportExport;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage,
+                          LessonsStorage lessonsStorage,
+                          LessonImportExport lessonImportExport) {
         super();
-        this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.lessonsStorage = lessonsStorage;
+        this.lessonImportExport = lessonImportExport;
     }
 
     // ================ UserPrefs methods ==============================
@@ -44,34 +46,52 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
-    // ================ AddressBook methods ==============================
+    // ================ Lessons methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getLessonsFolderPath() {
+        return lessonsStorage.getLessonsFolderPath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public void setLessonsFolderPath(Path folderPath) {
+        lessonsStorage.setLessonsFolderPath(folderPath);
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+    public Optional<Lessons> readLessons() throws IOException {
+        return lessonsStorage.readLessons();
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public Optional<Lessons> readLessons(Path filePath) throws IOException {
+        return lessonsStorage.readLessons(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+    public void saveLessons(Lessons lessons) throws IOException {
+
     }
+
+    @Override
+    public void saveLessons(Lessons lessons, Path filePath) throws IOException {
+
+    }
+
+    @Override
+    public Path getImportExportFilePath() {
+        return lessonImportExport.getImportExportFilePath();
+    }
+
+    @Override
+    public Optional<Lesson> importLesson(Path filePath) throws IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void exportLesson(Lesson lesson, Path filePath) throws IOException {
+
+    }
+
 
 }

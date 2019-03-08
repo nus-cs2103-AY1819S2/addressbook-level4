@@ -13,7 +13,7 @@ import seedu.address.quiz.exceptions.NotInitialisedException;
 /**
  * Execute User answer
  */
-public class AnswerCommand extends QuizCommand {
+public class QuizAnswerCommand extends QuizCommand {
     public static final String MESSAGE_QUESTION = "Question: %1$s";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
     public static final String MESSAGE_CORRECT = "Your answer is correct.\n";
@@ -22,7 +22,7 @@ public class AnswerCommand extends QuizCommand {
 
     private String answer;
 
-    public AnswerCommand(String answer) {
+    public QuizAnswerCommand(String answer) {
         requireNonNull(answer);
         this.answer = answer;
     }
@@ -82,7 +82,7 @@ public class AnswerCommand extends QuizCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AnswerCommand // instanceof handles nulls
-            && answer.equals(((AnswerCommand) other).answer)); // state check
+            || (other instanceof QuizAnswerCommand // instanceof handles nulls
+            && answer.equals(((QuizAnswerCommand) other).answer)); // state check
     }
 }

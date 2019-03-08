@@ -18,7 +18,7 @@ import seedu.address.quiz.QuizCard;
 import seedu.address.quiz.QuizModel;
 import seedu.address.quiz.QuizModelManager;
 
-public class AnswerCommandTest {
+public class QuizAnswerCommandTest {
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
     private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);
@@ -32,7 +32,7 @@ public class AnswerCommandTest {
     @Test
     public void constructor_nullAnswer_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AnswerCommand(null);
+        new QuizAnswerCommand(null);
     }
 
     @Test
@@ -49,15 +49,15 @@ public class AnswerCommandTest {
         actual.init(QUIZ);
         actual.getNextCard();
 
-        AnswerCommand answerCommand = new AnswerCommand(answer);
+        QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);
         expectedModel.getNextCard();
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(answer);
 
-        String expectedMessage = String.format(AnswerCommand.MESSAGE_QUESTION_ANSWER, card.getQuestion(),
+        String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_QUESTION_ANSWER, card.getQuestion(),
             card.getAnswer());
 
-        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -74,23 +74,23 @@ public class AnswerCommandTest {
         actual.init(new Quiz(quizCards, Quiz.Mode.PREVIEW));
         actual.getNextCard();
 
-        AnswerCommand answerCommand = new AnswerCommand(answer);
+        QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);
         expectedModel.getNextCard();
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(answer);
 
-        String expectedMessage = String.format(AnswerCommand.MESSAGE_QUESTION_ANSWER, card.getQuestion(),
+        String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_QUESTION_ANSWER, card.getQuestion(),
             card.getAnswer());
 
-        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
 
         // complete preview quiz
-        answerCommand = new AnswerCommand("Budapest");
+        quizAnswerCommand = new QuizAnswerCommand("Budapest");
         expectedModel.end();
 
-        expectedMessage = AnswerCommand.MESSAGE_COMPLETE;
+        expectedMessage = QuizAnswerCommand.MESSAGE_COMPLETE;
 
-        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -108,15 +108,15 @@ public class AnswerCommandTest {
         actual.getNextCard();
         actual.getNextCard();
 
-        AnswerCommand answerCommand = new AnswerCommand(answer);
+        QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(answer);
 
-        String expectedMessage = String.format(AnswerCommand.MESSAGE_QUESTION, card.getQuestion());
+        String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
 
-        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -138,61 +138,61 @@ public class AnswerCommandTest {
         actual.getNextCard();
         actual.getNextCard();
 
-        AnswerCommand answerCommand = new AnswerCommand(correctAns);
+        QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(correctAns);
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(correctAns);
 
-        String expectedMessage = AnswerCommand.MESSAGE_CORRECT
-            + String.format(AnswerCommand.MESSAGE_QUESTION, card.getQuestion());
+        String expectedMessage = QuizAnswerCommand.MESSAGE_CORRECT
+            + String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
 
-        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
 
         // wrong
-        answerCommand = new AnswerCommand(wrongAns);
+        quizAnswerCommand = new QuizAnswerCommand(wrongAns);
         actual.getNextCard();
         card = expectedModel.getNextCard();
         card.isCorrect(wrongAns);
 
-        expectedMessage = String.format(AnswerCommand.MESSAGE_WRONG, card.getAnswer())
-            + String.format(AnswerCommand.MESSAGE_QUESTION, card.getQuestion());
+        expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, card.getAnswer())
+            + String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
 
-        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
 
         // complete the quiz
-        answerCommand = new AnswerCommand("Hungary");
+        quizAnswerCommand = new QuizAnswerCommand("Hungary");
         actual.getNextCard();
         card = expectedModel.getNextCard();
         card.isCorrect(wrongAns);
         expectedModel.end();
 
-        expectedMessage = AnswerCommand.MESSAGE_CORRECT + AnswerCommand.MESSAGE_COMPLETE;
+        expectedMessage = QuizAnswerCommand.MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_COMPLETE;
 
-        assertCommandSuccess(answerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
 
     }
 
     @Test
     public void equals() {
-        AnswerCommand answerCommand = new AnswerCommand("Tokyo");
-        AnswerCommand answerCommandDiff = new AnswerCommand("Something");
+        QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand("Tokyo");
+        QuizAnswerCommand quizAnswerCommandDiff = new QuizAnswerCommand("Something");
 
         // same object -> returns true
-        assertTrue(answerCommand.equals(answerCommand));
+        assertTrue(quizAnswerCommand.equals(quizAnswerCommand));
 
         // same values -> returns true
-        AnswerCommand answerCommandCopy = new AnswerCommand("Tokyo");
-        assertTrue(answerCommand.equals(answerCommandCopy));
+        QuizAnswerCommand quizAnswerCommandCopy = new QuizAnswerCommand("Tokyo");
+        assertTrue(quizAnswerCommand.equals(quizAnswerCommandCopy));
 
         // different answer -> returns false
-        assertFalse(answerCommand.equals(answerCommandDiff));
+        assertFalse(quizAnswerCommand.equals(quizAnswerCommandDiff));
 
         // null -> returns false
-        assertFalse(answerCommand == null);
+        assertFalse(quizAnswerCommand == null);
 
         // differnt type -> returns false
-        assertFalse(answerCommand.equals(5));
+        assertFalse(quizAnswerCommand.equals(5));
     }
 }

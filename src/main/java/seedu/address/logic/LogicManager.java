@@ -1,22 +1,21 @@
 package seedu.address.logic;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.BrainTrainParser;
+import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.storage.Storage;
+import seedu.address.quiz.QuizModel;
+import seedu.address.quiz.commands.QuizCommand;
 
 /**
  * The main LogicManager of the app.
@@ -26,64 +25,50 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Storage storage;
+    private final QuizModel quizModel;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final BrainTrainParser addressBookParser;
+    private final QuizModeParser quizModeParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, QuizModel quizModel) {
         this.model = model;
-        this.storage = storage;
+        this.quizModel = quizModel;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
-
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        addressBookParser = new BrainTrainParser();
+        quizModeParser = new QuizModeParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(model, history);
+            Command command = null;
+            if (quizModel.isDone()) {
+                command = addressBookParser.parseCommand(commandText);
+                commandResult = command.execute(model, history);
+            } else {
+                QuizCommand quizCommand = quizModeParser.parse(commandText);
+                commandResult = quizCommand.execute(quizModel, history);
+            }
+
+            // very ugly way
+            if (command instanceof StartCommand) {
+                StartCommand startCommand = (StartCommand) command;
+                commandResult = startCommand.executeActual(quizModel, history);
+            }
+
         } finally {
             history.add(commandText);
-        }
-
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
         }
 
         return commandResult;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override
@@ -94,15 +79,5 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
-    }
-
-    @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
     }
 }

@@ -2,28 +2,21 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.card.exceptions.MissingCoreException;
+import seedu.address.model.lesson.Lesson;
 
 public class ModelManagerTest {
     @Rule
@@ -31,12 +24,24 @@ public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
 
+    private void addTestLesson() {
+        modelManager.addLesson(getTestLesson());
+    }
+
+    private Lesson getTestLesson() {
+        ArrayList<String> testFields = new ArrayList<>();
+        testFields.add("test 1");
+        testFields.add("test 2");
+        Lesson lesson = new Lesson("test", 2, testFields);
+
+        return lesson;
+    }
+
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(new Lessons().getLessons(), modelManager.getLessons());
     }
 
     @Test
@@ -48,15 +53,9 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
-
-        // Modifying userPrefs should not modify modelManager's userPrefs
-        UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
-        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
     @Test
@@ -73,116 +72,95 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void getLessons_lessonsNotNull_getsLessonsList() {
+        assertNotNull(modelManager.getLessons());
+    }
+
+    @Test
+    public void getLesson_indexOutOfBounds_throwsIndexOutOfBoundsException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        modelManager.getLesson(0);
+        modelManager.getLesson(-1);
+        modelManager.getLesson(999);
+    }
+
+    @Test
+    public void getLesson_validLesson_getsLesson() {
+        addTestLesson();
+        Assert.assertEquals(getTestLesson(), modelManager.getLesson(0));
+    }
+
+    @Test
+    public void addLesson_validLesson_addsLesson() {
+        addTestLesson();
+        assertEquals(1, modelManager.getLessons().size());
+    }
+
+    @Test
+    public void addLesson_nullLesson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.addLesson(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
-    }
-
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void setLesson_nullLesson_throwsNullPointerException() {
+        addTestLesson();
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.setLesson(0, null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void setLesson_invalidIndex_throwsIndexOutOfBoundsException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        modelManager.setLesson(0, getTestLesson());
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void setLesson_validData_updatesLesson() throws MissingCoreException {
+        addTestLesson();
+        Lesson newLesson = getTestLesson();
+        newLesson.addCard(Arrays.asList("test1", "test2"));
+        assertNotEquals(newLesson, getTestLesson());
+        modelManager.setLesson(0, newLesson);
+        Assert.assertEquals(newLesson, modelManager.getLesson(0));
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
-        assertEquals(null, modelManager.getSelectedPerson());
+    public void deleteLesson_invalidIndex_throwsIndexOutOfBoundsException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        modelManager.deleteLesson(0);
+        modelManager.deleteLesson(-1);
+        modelManager.deleteLesson(1);
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
-    }
-
-    @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        modelManager.setPerson(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedPerson());
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
-    }
-
-    @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
-    }
-
-    @Test
-    public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+    public void deleteLesson_validIndex_deletesLesson() {
+        addTestLesson();
+        assertEquals(1, modelManager.getLessons().size());
+        Assert.assertEquals(getTestLesson(), modelManager.getLesson(0));
+        modelManager.deleteLesson(0);
+        assertEquals(0, modelManager.getLessons().size());
+        thrown.expect(IndexOutOfBoundsException.class);
+        modelManager.getLesson(0);
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
+        Lessons lessons = new Lessons();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(userPrefs, lessons);
+        ModelManager modelManagerCopy = new ModelManager(userPrefs, lessons);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
         assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertFalse(modelManager == null);
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));
-
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
 }

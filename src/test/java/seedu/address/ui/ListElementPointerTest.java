@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class ListElementPointerTest {
     private static final String FIRST_ELEMENT = "first";
     private static final String SECOND_ELEMENT = "second";
@@ -93,7 +94,7 @@ public class ListElementPointerTest {
         assertFalse(firstPointer.equals(1));
 
         // null -> returns false
-        assertFalse(firstPointer.equals(null));
+        assertFalse(firstPointer == null);
 
         // different elements -> returns false
         ListElementPointer differentElementPointer = new ListElementPointer(Collections.singletonList(SECOND_ELEMENT));

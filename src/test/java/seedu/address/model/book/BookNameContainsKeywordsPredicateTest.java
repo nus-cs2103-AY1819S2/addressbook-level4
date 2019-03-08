@@ -18,14 +18,17 @@ public class BookNameContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        BookNameContainsKeywordsPredicate firstPredicate = new BookNameContainsKeywordsPredicate(firstPredicateKeywordList);
-        BookNameContainsKeywordsPredicate secondPredicate = new BookNameContainsKeywordsPredicate(secondPredicateKeywordList);
+        BookNameContainsKeywordsPredicate firstPredicate =
+                new BookNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        BookNameContainsKeywordsPredicate secondPredicate =
+                new BookNameContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        BookNameContainsKeywordsPredicate firstPredicateCopy = new BookNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        BookNameContainsKeywordsPredicate firstPredicateCopy =
+                new BookNameContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +44,8 @@ public class BookNameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        BookNameContainsKeywordsPredicate predicate = new BookNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        BookNameContainsKeywordsPredicate predicate =
+                new BookNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new BookBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
@@ -60,7 +64,8 @@ public class BookNameContainsKeywordsPredicateTest {
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        BookNameContainsKeywordsPredicate predicate = new BookNameContainsKeywordsPredicate(Collections.emptyList());
+        BookNameContainsKeywordsPredicate predicate =
+                new BookNameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new BookBuilder().withName("Alice").build()));
 
         // Non-matching keyword

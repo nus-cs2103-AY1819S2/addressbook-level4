@@ -18,10 +18,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.book.Book;
-import seedu.address.model.book.UniqueBookList;
-import seedu.address.model.book.exceptions.DuplicateBookException;
 import seedu.address.model.book.exceptions.BookNotFoundException;
+import seedu.address.model.book.exceptions.DuplicateBookException;
 import seedu.address.testutil.BookBuilder;
 
 public class UniqueBookListTest {

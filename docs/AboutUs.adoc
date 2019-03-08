@@ -28,16 +28,16 @@ Role: Developer
 '''
 
 === Yang Sihan
-image::EleenYang.png[width="150", align="left"]
-{empty}[https://github.com/EleenYang[github]]
+image::eleenyang.png[width="150", align="left"]
+{empty}[https://github.com/eleenyang[github]]
 
 Role: Developer
 
 '''
 
 === Tieze
-image::Miaaaaa97.png[width="150", align="left"]
-{empty}[https://github.com/Miaaaaa97[github]]
+image::miaaaaa97.png[width="150", align="left"]
+{empty}[https://github.com/miaaaaa97[github]]
 
 Role: Developer
 

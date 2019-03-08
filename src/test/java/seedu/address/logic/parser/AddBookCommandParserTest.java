@@ -53,17 +53,17 @@ public class AddBookCommandParserTest {
                 + TAG_DESC_TEXTBOOK, new AddBookCommand(expectedBook));
 
         // multiple author - last author accepted
-        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_ALICE + AUTHOR_DESC_CS  + RATING_DESC_CS
+        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_ALICE + AUTHOR_DESC_CS + RATING_DESC_CS
                 + TAG_DESC_TEXTBOOK, new AddBookCommand(expectedBook));
 
         // multiple ratings - last rating accepted
-        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_CS  + RATING_DESC_ALICE + RATING_DESC_CS
+        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_ALICE + RATING_DESC_CS
                 + TAG_DESC_TEXTBOOK, new AddBookCommand(expectedBook));
 
         // multiple tags - all accepted
         Book expectedBookMultipleTags = new BookBuilder(CS).withTags(VALID_TAG_TEXTBOOK, VALID_TAG_INTERESTING)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_CS  + RATING_DESC_CS
+        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
                 + TAG_DESC_TEXTBOOK + TAG_DESC_INTERESTING, new AddBookCommand(expectedBookMultipleTags));
     }
 
@@ -80,7 +80,7 @@ public class AddBookCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + AUTHOR_DESC_CS  + RATING_DESC_CS,
+        assertParseFailure(parser, VALID_NAME_BOB + AUTHOR_DESC_CS + RATING_DESC_CS,
                 expectedMessage);
 
         // missing author prefix
@@ -88,7 +88,7 @@ public class AddBookCommandParserTest {
                 expectedMessage);
 
         // missing rating prefix
-        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_CS  + VALID_RATING_CS,
+        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_CS + VALID_RATING_CS,
                 expectedMessage);
 
         // all prefixes missing
@@ -99,7 +99,7 @@ public class AddBookCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_BOOKNAME_DESC + AUTHOR_DESC_CS  + RATING_DESC_CS
+        assertParseFailure(parser, INVALID_BOOKNAME_DESC + AUTHOR_DESC_CS + RATING_DESC_CS
                 + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK, BookName.MESSAGE_CONSTRAINTS);
 
         // invalid author
@@ -107,19 +107,19 @@ public class AddBookCommandParserTest {
                 + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK, Author.MESSAGE_CONSTRAINTS);
 
         // invalid rating
-        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_CS  + INVALID_RATING_DESC
+        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_CS + INVALID_RATING_DESC
                 + TAG_DESC_INTERESTING + TAG_DESC_TEXTBOOK, Rating.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_CS  + RATING_DESC_CS
+        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
                 + INVALID_TAG_DESC + VALID_TAG_FANTASY, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_BOOKNAME_DESC + AUTHOR_DESC_CS  + RATING_DESC_CS,
+        assertParseFailure(parser, INVALID_BOOKNAME_DESC + AUTHOR_DESC_CS + RATING_DESC_CS,
                 BookName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_CS + AUTHOR_DESC_CS  + RATING_DESC_CS
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
                         + TAG_DESC_INTERESTING + TAG_DESC_TEXTBOOK,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE));
     }

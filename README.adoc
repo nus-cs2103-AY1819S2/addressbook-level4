@@ -3,7 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/cs2103-ay1819s2-w11-4/main[image:https://travis-ci.org/cs2103-ay1819s2-w11-4/main.svg?branch=master[Build Status]]
 https://https://coveralls.io/github/cs2103-ay1819s2-w11-4/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w11-4/main/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+https://app.codacy.com/project/0blivious/main/dashboard[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -27,7 +27,7 @@ endif::[]
 
 == Acknowledgements
 
-* This application is developed from the codebase of https://github.com/se-edu/addressbook-level4 [AddressBook-level 4]
+* This application is developed from the codebase of https://github.com/se-edu/addressbook-level4[AddressBook-level 4]
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]

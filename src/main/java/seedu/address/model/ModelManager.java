@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -31,6 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Book> filteredBooks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,6 +48,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredBooks = new FilteredList<>(versionedAddressBook.getBookList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredBooks.addListener(this::ensureSelectedBookIsValid);
     }
 
     public ModelManager() {
@@ -115,6 +118,7 @@ public class ModelManager implements Model {
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
     }
+
     public void deleteBook(Book target) {
         versionedAddressBook.removeBook(target);
     }
@@ -160,9 +164,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Book> getFilteredBookList() {
+        return filteredBooks;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredBookList(Predicate<Book> predicate) {
+        requireNonNull(predicate);
+        filteredBooks.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -200,8 +215,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyProperty<Book> selectedBookProperty() {
+        return selectedBook;
+    }
+
+    @Override
     public Person getSelectedPerson() {
         return selectedPerson.getValue();
+    }
+
+    @Override
+    public Book getSelectedBook() {
+        return selectedBook.getValue();
     }
 
     @Override
@@ -210,6 +235,14 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+    }
+
+    @Override
+    public void setSelectedBook(Book book) {
+        if (book != null && !filteredBooks.contains(book)) {
+            throw new BookNotFoundException();
+        }
+        selectedBook.setValue(book);
     }
 
     /**
@@ -241,6 +274,35 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Ensures {@code selectedBook} is a valid book in {@code filteredBooks}.
+     */
+    private void ensureSelectedBookIsValid(ListChangeListener.Change<? extends Book> change) {
+        while (change.next()) {
+            if (selectedBook.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedBookReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedBook.getValue());
+            if (wasSelectedBookReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedBook.getValue());
+                selectedBook.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedBookRemoved = change.getRemoved().stream()
+                    .anyMatch(removedBook -> selectedBook.getValue().isSameBook(removedBook));
+            if (wasSelectedBookRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedBook.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -260,5 +322,4 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
-
 }

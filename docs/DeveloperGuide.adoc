@@ -6,7 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:sourceDir: https://cs2103-ay1819s2-w10-3.github.io/main/
+:sourceDir: https://github.com/nus-cs2103-AY1819S2/addressbook-level4.git
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:

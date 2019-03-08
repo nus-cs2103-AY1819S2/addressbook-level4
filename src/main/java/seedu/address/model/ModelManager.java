@@ -26,27 +26,34 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+    private final VersionedHealthWorkerBook versionedHealthWorkerBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<HealthWorker> filteredHealthWorkers;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyHealthWorkerBook healthWorkerBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedHealthWorkerBook = new VersionedHealthWorkerBook(healthWorkerBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        // TODO: listener for healthworker
+        filteredHealthWorkers.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new HealthWorkerBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -120,13 +127,13 @@ public class ModelManager implements Model {
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
-    // ============= Implemented methods through Model Interface =============
+    // ======================== Implemented methods for HealthWorker through Model Interface =========================
     // @author: Lookaz
 
     @Override
     public boolean hasHealthWorker(HealthWorker healthWorker) {
         requireNonNull(healthWorker);
-        return this.versionedAddressBook.hasHealthWorker(healthWorker);
+        return this.versionedHealthWorkerBook.hasHealthWorker(healthWorker);
     }
 
     @Override
@@ -136,20 +143,26 @@ public class ModelManager implements Model {
 
     @Override
     public void addHealthWorker(HealthWorker healthWorker) {
-        this.versionedAddressBook.addHealthWorker(healthWorker);
-        // TODO: Create HealthWorker version of {@code updateFilteredPersonList}
+        this.versionedHealthWorkerBook.addHealthWorker(healthWorker);
+        updateFilteredHealthWorkerList(PREDICATE_SHOW_ALL_HEALTHWORKERS);
     }
 
     @Override
     public void setHealthWorker(HealthWorker target, HealthWorker editedWorker) {
         requireAllNonNull(target, editedWorker);
 
-        this.versionedAddressBook.setHealthWorker(target, editedWorker);
+        this.versionedHealthWorkerBook.setHealthWorker(target, editedWorker);
     }
 
     @Override
     public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
-        return null;
+        return this.filteredHealthWorkers;
+    }
+
+    @Override
+    public void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate) {
+        requireNonNull(predicate);
+        this.filteredHealthWorkers.setPredicate(predicate);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -170,6 +183,7 @@ public class ModelManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
+    // TODO: Modify to do redo/undo for HealthWorkerBook. Suggestion: Use a state to maintain previous type of op.
 
     @Override
     public boolean canUndoAddressBook() {
@@ -260,6 +274,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
+                && versionedHealthWorkerBook.equals(other.versionedHealthWorkerBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

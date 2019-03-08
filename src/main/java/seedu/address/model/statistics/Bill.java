@@ -51,8 +51,13 @@ public class Bill {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("[Table ").append(getTableNumber()).append("] [Total Cost of the Bill: $").append(getTotalBill())
-                .append("] [Date: ").append(getFormattedDate()).append("] ");
+        builder.append("[Table ")
+                .append(getTableNumber())
+                .append("] [Total Cost of the Bill: $")
+                .append(getTotalBill())
+                .append("] [Date: ")
+                .append(getFormattedDate())
+                .append("] ");
         return builder.toString();
     }
 

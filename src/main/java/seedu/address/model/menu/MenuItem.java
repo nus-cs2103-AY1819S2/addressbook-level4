@@ -93,7 +93,11 @@ public class MenuItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" Code: ").append(getCode()).append(" Price: ").append(getPrice());
+        builder.append(getName())
+                .append(" Code: ")
+                .append(getCode())
+                .append(" Price: ")
+                .append(getPrice());
         return builder.toString();
     }
 

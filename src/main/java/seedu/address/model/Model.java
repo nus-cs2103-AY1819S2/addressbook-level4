@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
 import seedu.address.model.book.Book;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**

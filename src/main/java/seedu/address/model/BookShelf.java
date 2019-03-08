@@ -9,10 +9,10 @@ import java.util.Set;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
 import seedu.address.model.book.Book;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.book.UniqueBookList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -97,6 +97,10 @@ public class BookShelf implements ReadOnlyBookShelf {
         indicateModified();
     }
 
+    /**
+     * Adds a book to the book shelf.
+     * The book must not already exist in the book shelf.
+     */
     public void addBook(Book b) {
         books.add(b);
         indicateModified();
@@ -114,6 +118,11 @@ public class BookShelf implements ReadOnlyBookShelf {
         indicateModified();
     }
 
+    /**
+     * Replaces the given book {@code target} in the list with {@code editedBook}.
+     * {@code target} must exist in the book shelf.
+     * The book identity of {@code editedBook} must not be the same as another existing book in the book shelf.
+     */
     public void setBook(Book target, Book editedBook) {
         requireNonNull(editedBook);
 
@@ -130,6 +139,10 @@ public class BookShelf implements ReadOnlyBookShelf {
         indicateModified();
     }
 
+    /**
+     * Removes {@code key} from this {@code BookShelf}.
+     * {@code key} must exist in the book shelf.
+     */
     public void removeBook(Book key) {
         books.remove(key);
         indicateModified();

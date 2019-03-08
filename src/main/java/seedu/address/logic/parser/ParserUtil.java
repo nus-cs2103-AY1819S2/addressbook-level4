@@ -53,6 +53,12 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    /**
+     * Parses a {@code String name} into a {@code BookName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code BookName} is invalid.
+     */
     public static BookName parseBookName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
@@ -62,6 +68,12 @@ public class ParserUtil {
         return new BookName(trimmedName);
     }
 
+    /**
+     * Parses a {@code String name} into a {@code BookName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code BookName} is invalid.
+     */
     public static Author parseAuthor(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
@@ -72,10 +84,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String name} into a {@code Author}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code name} is invalid.
      */
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
@@ -86,6 +98,12 @@ public class ParserUtil {
         return new Phone(trimmedPhone);
     }
 
+    /**
+     * Parses a {@code String rating} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Rating} is invalid.
+     */
     public static Rating parseRating(String rating) throws ParseException {
         requireNonNull(rating);
         String trimmedRating = rating.trim();

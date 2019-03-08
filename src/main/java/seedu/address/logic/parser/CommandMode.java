@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 /**
- * Represents the mode for AddCommand, EditCommand and DeleteCommand.
+ * Represents the mode for AddPersonCommand, EditCommand and DeleteCommand.
  * @author Lookaz
  */
 public enum CommandMode {

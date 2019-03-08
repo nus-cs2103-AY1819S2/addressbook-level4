@@ -12,29 +12,32 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAddressBook;
-
+import seedu.address.model.ReadOnlyRequestBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonRequestListStorage implements AddressBookStorage {
+public class JsonRequestBookStorage implements RequestBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonRequestListStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonRequestBookStorage.class);
 
     private Path filePath;
 
-    public JsonRequestListStorage(Path filePath) {
+    public JsonRequestBookStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    /**
+     * Returns the file path of the data file.
+     */
+    @Override
+    public Path getRequestBookFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyRequestBook> readRequestBook() throws DataConversionException {
+        return readRequestBook(filePath);
     }
 
     /**
@@ -43,17 +46,17 @@ public class JsonRequestListStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyRequestBook> readRequestBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableRequestBook> jsonRequestBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableRequestBook.class);
+        if (!jsonRequestBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonRequestBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,21 +64,21 @@ public class JsonRequestListStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveRequestBook(ReadOnlyRequestBook requestBook) throws IOException {
+        saveRequestBook(requestBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveRequestBook(ReadOnlyRequestBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveRequestBook(ReadOnlyRequestBook requestBook, Path filePath) throws IOException {
+        requireNonNull(requestBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableRequestBook(requestBook), filePath);
     }
 
 }

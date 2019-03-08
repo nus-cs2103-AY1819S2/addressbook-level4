@@ -201,6 +201,9 @@ public class AddCommandTest {
         public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean checkNoCopy() { throw new AssertionError("This method should not be called."); }
     }
 
     /**

@@ -82,17 +82,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a person with all fields same as another person in the address book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        /* Case: add a person with all fields same as another person in the address book except nric
+        and name -> added */
+        toAdd = new PersonBuilder(AMY).withNric("S1111111A").withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add a person with all fields same as another person in the address book except phone and email
-         * -> added
-         */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */

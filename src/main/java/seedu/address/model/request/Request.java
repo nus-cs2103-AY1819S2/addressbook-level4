@@ -6,8 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Tag;
 
 /**

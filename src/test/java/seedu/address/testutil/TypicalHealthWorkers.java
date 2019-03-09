@@ -6,8 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.HealthWorker;
-
+import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
 

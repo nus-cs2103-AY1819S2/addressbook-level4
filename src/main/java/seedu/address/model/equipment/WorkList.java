@@ -32,9 +32,13 @@ public class WorkList {
         return date;
     }
 
-    public String getAssignee () { return assignee; }
+    public String getAssignee () {
+        return assignee;
+    }
 
-    public Set<Equipment> getEquipments() { return Collections.unmodifiableSet(equipments); }
+    public Set<Equipment> getEquipments() {
+        return Collections.unmodifiableSet(equipments);
+    }
 
     //Add an equipment to the work list.
     public void addEquipment (Equipment e) {

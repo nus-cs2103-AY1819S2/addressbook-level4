@@ -15,11 +15,11 @@ import org.junit.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.HealthWorker;
+import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBuilder;
 
-public class AddHealthWorkerCommandTest extends AddCommandTest {
+public class AddHealthWorkerCommandTest extends AddPersonCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {

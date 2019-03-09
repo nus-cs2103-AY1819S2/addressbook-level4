@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
@@ -30,6 +30,7 @@ class JsonAdaptedRequest {
     private final String requestDate;
     private final List<JsonAdaptedTag> conditions = new ArrayList<>();
     private final JsonAdaptedHealthWorker healthWorker;
+
     private final String requestStatus;
 
     /**
@@ -39,7 +40,7 @@ class JsonAdaptedRequest {
     public JsonAdaptedRequest(@JsonProperty("id") String id,
                               @JsonProperty("patient") JsonAdaptedPerson patient,
                               @JsonProperty("requestdate") String requestDate,
-                              @JsonProperty("healthstaff") JsonAdaptedHealthWorker healthWorker,
+                              @JsonProperty("healthworker") JsonAdaptedHealthWorker healthWorker,
                               @JsonProperty("conditions") List<JsonAdaptedTag> conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;

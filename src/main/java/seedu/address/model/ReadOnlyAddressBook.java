@@ -14,5 +14,4 @@ public interface ReadOnlyAddressBook extends Observable {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
-
 }

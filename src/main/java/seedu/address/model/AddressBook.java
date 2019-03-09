@@ -7,10 +7,10 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniqueHealthWorkerList;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.UniqueHealthWorkerList;
 
 /**
  * Wraps all data at the address-book level
@@ -86,11 +86,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another
+     * existing person in the address book.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
         indicateModified();
     }
@@ -167,6 +167,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
+    /**
+     * Returns an unmodifiable view of the healthworkers list.
+     * This list will not contain any duplicate healthworkers
+     */
+    public ObservableList<HealthWorker> getHealthWorkerList() {
+        return healthWorkers.asUnmodifiableObservableList();
+    }
 
     @Override
     public String toString() {

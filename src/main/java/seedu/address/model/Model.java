@@ -171,5 +171,5 @@ public interface Model extends Observable {
     /**
      * Checks whether list of card folder names specified is found inside model
      */
-    boolean checkValidCardFolders(List<String> cardFolers);
+    List<ReadOnlyCardFolder> returnValidCardFolders(List<String> cardFolers);
 }

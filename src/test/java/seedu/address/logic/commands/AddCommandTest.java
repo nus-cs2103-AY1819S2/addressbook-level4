@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean checkValidCardFolders(List<String> cardFolers) {
+        public List<ReadOnlyCardFolder> checkValidCardFolders(List<String> cardFolers) {
             return false;
         }
 

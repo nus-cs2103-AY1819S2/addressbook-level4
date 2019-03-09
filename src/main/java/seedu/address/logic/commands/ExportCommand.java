@@ -7,7 +7,9 @@ import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyCardFolder;
 
 /**
  * Exports single or multiple card folders into a .json file. Users must specify file name to export card folders to.
@@ -38,11 +40,13 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        // check whether model contains the card folders desired
-        if (!model.checkValidCardFolders(cardFolders)) {
+        // check whether model contains the card folders desired. Catch exception thrown
+        try {
+            List<ReadOnlyCardFolder> cardFolderObject = model.returnValidCardFolders(this.cardFolders);
+        } catch (CardFolderNotFoundException e) {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS);
         }
-        // Retrieve card folders from model to be passed on to storage
-        return null;
+        return null; 
     }
+
 }

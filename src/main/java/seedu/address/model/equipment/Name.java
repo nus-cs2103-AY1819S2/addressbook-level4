@@ -25,10 +25,10 @@ public class Name {
      *
      * @param serial_number A valid serial_number number.
      */
-    public Name(String serial_number) {
-        requireNonNull(serial_number);
-        checkArgument(isValidSerialNumber(serial_number), MESSAGE_CONSTRAINTS);
-        serialNumber = serial_number;
+    public Name(String serialNmber) {
+        requireNonNull(serialNmber);
+        checkArgument(isValidSerialNumber(serialNmber), MESSAGE_CONSTRAINTS);
+        serialNumber = serialNmber;
     }
 
     /**

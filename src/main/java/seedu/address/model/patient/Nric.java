@@ -11,8 +11,8 @@ public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Nric is compulsory, denoted by \\nric and should be in standard format.";
-    public static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
-    public final String value;
+    private static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
+    private final String value;
 
     /**
      * Constructs a {@code Nric}.

@@ -34,7 +34,8 @@ public class PutShipCommandTest {
 
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship);
 
-        assertCommandFailure(putShipCommand, model, commandHistory, PutShipCommand.MESSAGE_BATTLESHIP_PRESENT);
+        assertCommandFailure(putShipCommand, model, commandHistory,
+                PutShipCommand.MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
     }
 
     @Test

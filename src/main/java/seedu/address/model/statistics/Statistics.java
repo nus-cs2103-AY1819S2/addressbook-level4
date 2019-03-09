@@ -8,7 +8,6 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 
-
 /**
  * Wraps all order-related data
  * Duplicates are not allowed (by .isSameOrderItem comparison)

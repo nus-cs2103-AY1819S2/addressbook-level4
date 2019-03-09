@@ -39,7 +39,7 @@ public class PutShipCommandParser implements Parser<PutShipCommand> {
         Coordinates coordinates = ParserUtil.parseCoordinates(argMultimap.getValue(PREFIX_COORDINATES).get());
 
         // Default 1 by 1 battleship
-        Battleship battleship = new Battleship(name, 1, 1, new HashSet<Tag>());
+        Battleship battleship = new Battleship(name);
         return new PutShipCommand(coordinates, battleship);
     }
 

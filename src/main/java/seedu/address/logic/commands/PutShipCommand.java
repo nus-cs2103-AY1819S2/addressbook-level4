@@ -3,11 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -66,13 +64,8 @@ public class PutShipCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Cell> lastShownList = model.getFilteredPersonList();
 
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
-
-        if ((rowIndex.getZeroBased() >= model.getMapSize())
-            || colIndex.getZeroBased() >= model.getMapSize()) {
+        if (!isWithinBounds(model, coordinates)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -84,9 +77,25 @@ public class PutShipCommand extends Command {
             cellToEdit.putShip(battleship);
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
+    }
+
+    /**
+     * Checks if given coordinates falls within the MapGrid.
+     * @param model
+     * @param coordinates
+     * @return true or false whether the coordinates fall within the MapGrid
+     */
+    public static boolean isWithinBounds(Model model, Coordinates coordinates) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        if ((rowIndex.getZeroBased() >= model.getMapSize())
+                || colIndex.getZeroBased() >= model.getMapSize()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

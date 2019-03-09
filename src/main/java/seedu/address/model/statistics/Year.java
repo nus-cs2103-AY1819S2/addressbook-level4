@@ -3,10 +3,16 @@ package seedu.address.model.statistics;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Calendar;
+
+/**
+ * Year of the stored statistics (mostly for calculation for total revenue).
+ * Year has to be 4 digits and must not be more than the current year.
+ */
 public class Year {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Year should be in the format <four digit integer>, and it should not be blank";
+            "Year should be in the format <four digit integer>, it should not be blank or larger than current year";
 
     /*
      * The first character of the item code must not be a whitespace,
@@ -15,6 +21,8 @@ public class Year {
     public static final String VALIDATION_REGEX = "[0-9][0-9][0-9][0-9]";
 
     public final String year;
+
+    public static boolean isInvalid = false;
 
     /**
      * Constructs a {@code Year}.
@@ -31,6 +39,10 @@ public class Year {
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidYear(String test) {
+        Calendar calendar = Calendar.getInstance();
+        if (Integer.parseInt(test) > calendar.get(Calendar.YEAR)) {
+            return isInvalid;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

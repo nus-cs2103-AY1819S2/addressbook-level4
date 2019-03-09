@@ -126,7 +126,9 @@ public class Patient extends Person {
      */
     @Override
     public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson instanceof Patient) {
+        if (otherPerson == null) {
+            return false;
+        } else if (otherPerson instanceof Patient) {
             return nric.equals(((Patient) otherPerson).getNric());
         } else {
             System.out.println(otherPerson);

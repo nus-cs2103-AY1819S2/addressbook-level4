@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.lang.reflect.Array;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 

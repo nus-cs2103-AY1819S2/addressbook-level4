@@ -55,7 +55,8 @@ public class StringUtil {
 
         String preppedRating = rating.trim();
         checkArgument(!preppedRating.isEmpty(), "Rating parameter cannot be empty");
-        checkArgument(preppedRating.split("\\s+").length == 1, "Rating parameter should be a single value");
+        checkArgument(preppedRating.split("\\s+").length == 1,
+                "Rating parameter should be a single value from 1 to 5");
 
         String preppedRatingsList = ratingsList;
         String[] ratingsInPreppedRatingsList = preppedRatingsList.split("\\s+");

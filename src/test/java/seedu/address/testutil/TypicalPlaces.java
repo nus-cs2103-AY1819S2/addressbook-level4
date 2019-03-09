@@ -134,6 +134,8 @@ public class TypicalPlaces {
 
     public static final String KEYWORD_MATCHING_SINGAPORE = "Singapore"; // A keyword that matches SINGAPORE
 
+    public static final String KEYWORD_MATCHING_FOUR = "4"; // A keyword that matches 4
+
     private TypicalPlaces() {} // prevents instantiation
 
     /**

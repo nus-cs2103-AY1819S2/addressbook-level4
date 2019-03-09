@@ -13,6 +13,7 @@ import seedu.address.quiz.exceptions.NotInitialisedException;
  * Execute User answer
  */
 public class QuizAnswerCommand extends QuizCommand {
+    public static final String MESSAGE_USAGE = "* any character except word that starts with \\";
     public static final String MESSAGE_QUESTION = "Question: %1$s";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
     public static final String MESSAGE_CORRECT = "Your answer is correct.\n";

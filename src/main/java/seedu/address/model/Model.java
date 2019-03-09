@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.battleship.Battleship;
@@ -23,6 +24,13 @@ public interface Model {
      * Put battleship in the given coordinates
      */
     void putShip(Coordinates coordinates, Battleship battleship);
+
+    /**
+     * Update the UI
+     */
+    void updateUi();
+
+    ObservableBooleanValue getModelUpdateObservable();
 
     /**
      * Returns the map grid

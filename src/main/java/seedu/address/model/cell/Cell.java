@@ -82,6 +82,10 @@ public class Cell {
         return address;
     }
 
+    public Status getStatus() {
+        return this.status;
+    }
+
     /**
      * Returns true if this cell has a battleship, otherwise returns false
      */
@@ -98,6 +102,7 @@ public class Cell {
     public void putShip(Battleship battleship) {
         this.battleship = Optional.of(battleship);
         this.name = battleship.getName();
+        this.status = Status.SHIP;
     }
 
     /**

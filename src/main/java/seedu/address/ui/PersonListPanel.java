@@ -1,17 +1,24 @@
 package seedu.address.ui;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.MapGrid;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Status;
 
 /**
  * Panel containing the list of persons.
@@ -21,34 +28,49 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Cell> personListView;
+    private VBox grid;
 
     public PersonListPanel(ObservableList<Cell> cellList, ObservableValue<Cell> selectedPerson,
-                           Consumer<Cell> onSelectedPersonChange) {
+                           Consumer<Cell> onSelectedPersonChange, ObservableBooleanValue modelUpdateObservable,
+                           MapGrid mapGrid) {
         super(FXML);
-        personListView.setItems(cellList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in cell list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
-        });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected cell changed to: " + newValue);
-
-            // Don't modify selection if we are already selecting the selected cell,
-            // otherwise we would have an infinite loop.
-            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
-                return;
-            }
-
-            if (newValue == null) {
-                personListView.getSelectionModel().clearSelection();
-            } else {
-                int index = personListView.getItems().indexOf(newValue);
-                personListView.scrollTo(index);
-                personListView.getSelectionModel().clearAndSelect(index);
+        modelUpdateObservable.addListener(observable -> {
+            int size = mapGrid.getMapSize();
+            System.out.println(size);
+            grid.getChildren().clear();
+            for (int i = 0; i < size; i++) {
+                HBox row = new HBox();
+                for (int j = 0; j < size; j++) {
+                    Rectangle cell = new Rectangle(30, 30);
+                    Cell mapCell = mapGrid.getCell(i, j);
+                    Color color = getColor(mapCell);
+                    cell.setStroke(Color.BLACK);
+                    cell.setFill(color);
+                    Text text = new Text("");
+                    StackPane sp = new StackPane();
+                    sp.getChildren().addAll(cell, text);
+                    row.getChildren().add(sp);
+                }
+                grid.getChildren().add(row);
             }
         });
+    }
+
+    /**
+     * Determine color of cell from the status of cell
+     */
+    Color getColor(Cell cell) {
+        Status status = cell.getStatus();
+        switch(status) {
+        case SHIP:
+            return Color.BLACK;
+        case EMPTY:
+            return Color.LIGHTBLUE;
+        case HIT:
+            return Color.RED;
+        default:
+            return Color.WHITE;
+        }
     }
 
     /**

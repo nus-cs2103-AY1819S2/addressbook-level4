@@ -5,9 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MAP_SIZE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
-import seedu.address.model.cell.Cell;
 
 /**
  * Initialise map to size input by user.
@@ -46,13 +44,9 @@ public class InitialiseMapCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_MAP_SIZE, MINIMUM_MAP_SIZE, MAXIMUM_MAP_SIZE));
         }
 
-        model.setAddressBook(new MapGrid());
+        model.getMapGrid().initialise(mapSize);
+        model.updateUi();
 
-        for (int i = 0; i < mapSize; i++) {
-            model.addPerson(new Cell());
-        }
-
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
     }
 

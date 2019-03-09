@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.battleship.Battleship;
@@ -23,7 +26,10 @@ import seedu.address.model.tag.Tag;
  */
 public class MapGrid implements ReadOnlyAddressBook {
 
+    private Cell[][] cellGrid;
+    private int size;
     private final Row persons;
+    private BooleanProperty uiUpdateSwitch = new SimpleBooleanProperty();
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -37,7 +43,10 @@ public class MapGrid implements ReadOnlyAddressBook {
         persons = new Row();
     }
 
-    public MapGrid() {}
+    public MapGrid() {
+        this.size = 0;
+        cellGrid = new Cell[0][0];
+    }
 
     /**
      * Creates an MapGrid using the Persons in the {@code toBeCopied}
@@ -48,10 +57,46 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     /**
+     * Initialises the 2D Map to the given size
+     */
+    public void initialise(int size) {
+        this.size = size;
+        cellGrid = new Cell[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+    }
+    /**
      * Returns the cell in the given coordinates
      */
     public Cell getCell(Coordinates coordinates) {
-        return persons.asUnmodifiableObservableList().get(coordinates.getRowIndex().getZeroBased());
+        return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()];
+    }
+
+    public Cell getCell(int row, int column) {
+        return cellGrid[row][column];
+    }
+
+    /**
+     * Used to Update the UI.
+     * A listener will be added to this observable value in the UI.
+     * Once this value changes the UI will be updated.
+     */
+    public ObservableBooleanValue getObservableValue() {
+        return uiUpdateSwitch;
+    }
+
+    /**
+     * Change the ObservableValue to trigger the UI change
+     */
+    public void updateUi() {
+        if (uiUpdateSwitch.getValue() == false) {
+            uiUpdateSwitch.setValue(true);
+        } else {
+            uiUpdateSwitch.setValue(false);
+        }
     }
 
     //// list overwrite operations
@@ -159,7 +204,7 @@ public class MapGrid implements ReadOnlyAddressBook {
      * Returns map size
      */
     public int getMapSize() {
-        return persons.getMapSize();
+        return this.size;
     }
 
     @Override

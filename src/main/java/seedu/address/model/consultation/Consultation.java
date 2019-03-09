@@ -61,4 +61,21 @@ public class Consultation {
     public void setPrescriptions(ArrayList<Prescription> prescriptions) {
         this.prescriptions = prescriptions;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Consultation for: " + getPatient().getNric().getNric()
+                + " NRIC: " + getPatient().getName().getName() + "\n");
+        sb.append("====================\n");
+        sb.append("\n");
+        sb.append(getDiagnosis());
+        sb.append("\n");
+        sb.append("prescription:\n");
+        sb.append("====================\n");
+        for (Prescription prescription : prescriptions) {
+            sb.append(prescription);
+        }
+        return sb.toString();
+    }
 }

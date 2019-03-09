@@ -66,7 +66,7 @@ public class PrescriptionCommandTest {
             prescriptionCommand = new PrescriptionCommand(medList, qtyList);
             StringBuilder sb = new StringBuilder();
             sb.append("prescription:\n");
-            sb.append("==============================\n");
+            sb.append("====================\n");
             sb.append(new Prescription(med, qtyList.get(0)));
             org.junit.Assert.assertEquals(prescriptionCommand.execute(modelManager, history).getFeedbackToUser(),
                     sb.toString());

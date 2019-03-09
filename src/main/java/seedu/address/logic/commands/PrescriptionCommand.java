@@ -70,7 +70,7 @@ public class PrescriptionCommand extends Command {
         // model will call the addPrescription method in consultationmanager
         StringBuilder sb = new StringBuilder();
         sb.append("prescription:\n");
-        sb.append("==============================\n");
+        sb.append("====================\n");
         for (Prescription prescription : prescriptions) {
             sb.append(prescription.toString());
         }

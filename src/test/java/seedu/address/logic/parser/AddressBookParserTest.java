@@ -34,6 +34,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAppCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.PrescriptionCommand;
@@ -267,6 +268,13 @@ public class AddressBookParserTest {
     public void parseCommand_endconsultation() throws Exception {
         String userInput = "endconsult";
         org.junit.Assert.assertTrue(parser.parseCommand(userInput) instanceof EndConsultationCommand);
+    }
+
+    @Test
+    public void parseCommand_listconsultation() throws Exception {
+        String userInput = "listconsult r/S1234567A";
+        ListConsultationCommand command = new ListConsultationCommand("S1234567A");
+        assertEquals(command, parser.parseCommand(userInput));
     }
 
     @Test

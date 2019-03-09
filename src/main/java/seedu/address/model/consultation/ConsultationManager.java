@@ -53,6 +53,10 @@ public class ConsultationManager {
         return currentConsultation;
     }
 
+    public ArrayList<Consultation> getConsultationList() {
+        return consultationList;
+    }
+
     /**
      * End the current consultation and store it into the list
      */
@@ -61,4 +65,27 @@ public class ConsultationManager {
         consultationList.add(currentConsultation);
         currentConsultation = null;
     }
+
+    /**
+     * List consultation by name or nric
+     */
+    public ArrayList<Consultation> listConsultation(String value) {
+
+        ArrayList<Consultation> consultationsFound = new ArrayList<>();
+
+        for (Consultation consult : consultationList) {
+            if (consult.getPatient().getNric().getNric().equals(value)) {
+                consultationsFound.add(consult);
+            }
+        }
+        return consultationsFound;
+    }
+
+    /**
+     * return consultation session based on index
+     */
+    public Consultation listConsultation(int index) {
+        return consultationList.get(index - 1);
+    }
+
 }

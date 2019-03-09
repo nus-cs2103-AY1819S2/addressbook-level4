@@ -24,6 +24,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAppCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.PrescriptionCommand;
@@ -124,11 +125,16 @@ public class AddressBookParser {
         case StatisticsCommand.COMMAND_WORD:
         case StatisticsCommand.COMMAND_ALIAS:
             return new StatisticsCommandParser().parse(arguments);
+
         case PrescriptionCommand.COMMAND_WORD:
             return new PrescriptionCommandParser().parse(arguments);
 
         case EndConsultationCommand.COMMAND_WORD:
             return new EndConsultationCommand();
+
+        case ListConsultationCommand.ALIAS_WORD:
+        case ListConsultationCommand.COMMAND_WORD:
+            return new ListConsultationCommandParser().parse(arguments);
 
         case AddMedicineCommand.COMMAND_WORD:
             return new AddMedicineCommandParser().parse(arguments);

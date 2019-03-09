@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.patient.exceptions.*;
 import seedu.address.model.tag.CopyTag;
 import seedu.address.model.tag.Tag;
 
@@ -128,14 +129,7 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()))
-                && !(isCopy() || otherPerson.isCopy());
+        throw new PersonIsNotPatient();
     }
 
     /**

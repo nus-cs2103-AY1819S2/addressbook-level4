@@ -12,9 +12,13 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Battleship {
+    // Default fields
+    private static final int DEFAULT_LENGTH = 2;
+    private static final int DEFAULT_LIFE = 2;
 
     // Identity fields
-    private static int id;
+    private static int counter = 0;
+    private final int id;
     private final Name name;
 
     // Data fields
@@ -26,7 +30,7 @@ public class Battleship {
      * Every field must be present and not null.
      */
     public Battleship(Name name, int length, int life, Set<Tag> tags) {
-        this.id = ++id;
+        this.id = counter++;
         this.name = name;
         this.length = length;
         this.life = life;
@@ -38,7 +42,14 @@ public class Battleship {
      * Default size is length = 2, life = 1
      */
     public Battleship(Name name, Set<Tag> tags) {
-        this(name, 2, 1, tags);
+        this(name, DEFAULT_LENGTH, DEFAULT_LIFE, tags);
+    }
+
+    /**
+     * Constructor for Battleship with only name.
+     */
+    public Battleship(Name name) {
+        this(name, DEFAULT_LENGTH, DEFAULT_LIFE, new HashSet<Tag>());
     }
 
     /**
@@ -46,7 +57,7 @@ public class Battleship {
      * To prepare with refactoring Battleship to a Cell.
      */
     public Battleship() {
-        this(new Name("placeholder"), 2, 1, new HashSet<Tag>());
+        this(new Name("placeholder"), DEFAULT_LENGTH, DEFAULT_LIFE, new HashSet<Tag>());
     }
 
     public Name getName() {
@@ -98,7 +109,8 @@ public class Battleship {
         }
 
         return otherBattleship != null
-                && otherBattleship.getName().equals(getName());
+                && otherBattleship.getName().equals(getName())
+                && otherBattleship.getId() == getId();
     }
 
     /**
@@ -116,8 +128,7 @@ public class Battleship {
         }
 
         Battleship otherBattleship = (Battleship) other;
-        return otherBattleship.getName().equals(getName())
-                && otherBattleship.getId() == getId();
+        return otherBattleship.getName().equals(getName());
     }
 
     @Override

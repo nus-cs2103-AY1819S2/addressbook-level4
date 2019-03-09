@@ -25,7 +25,7 @@ public class InitialiseMapCommandTest {
         CommandResult commandResult = initialiseMapCommand.execute(model, history);
 
         assertEquals(String.format(InitialiseMapCommand.MESSAGE_SUCCESS, validSize), commandResult.getFeedbackToUser());
-        assertEquals(validSize, model.getFilteredPersonList().size());
+        assertEquals(validSize, model.getMapSize());
     }
 
     @Test

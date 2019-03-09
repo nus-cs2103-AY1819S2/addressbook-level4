@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -59,6 +60,16 @@ public class ModelManager implements Model {
     @Override
     public void putShip(Coordinates coordinates, Battleship battleship) {
         versionedAddressBook.putShip(coordinates, battleship);
+    }
+
+    @Override
+    public void updateUi() {
+        versionedAddressBook.updateUi();
+    }
+
+    @Override
+    public ObservableBooleanValue getModelUpdateObservable() {
+        return versionedAddressBook.getObservableValue();
     }
 
     @Override

@@ -3,11 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -45,8 +43,11 @@ public class PutShipCommand extends Command {
             + PREFIX_COORDINATES + "c1";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Put ship in cell: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This ship already exists on the map.";
     public static final String MESSAGE_BATTLESHIP_PRESENT = "There is already a ship on the coordinate.";
+    public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL =
+            "There is already a ship along the vertical coordinates";
+    public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL =
+            "There is already a ship along the vertical coordinates";
 
     private final Coordinates coordinates;
     private final Battleship battleship;
@@ -66,25 +67,156 @@ public class PutShipCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Cell> lastShownList = model.getFilteredPersonList();
 
-        Index index = coordinates.getRowIndex();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (!isHeadWithinBounds(model, coordinates)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } else if (!isBodyWithinBounds(model, coordinates, battleship)) {
+            throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+        } else if (!isVerticalClear(model, coordinates, battleship)) {
+            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
+        } else if (!isHorizontalClear(model, coordinates, battleship)) {
+            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
         }
 
-        Cell cellToEdit = lastShownList.get(index.getZeroBased());
+        Cell cellToEdit = model.getMapGrid().getCell(coordinates);
 
         if (cellToEdit.hasBattleShip()) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
         } else {
-            cellToEdit.putShip(battleship);
+            try {
+                putAlongHorizontal(model, coordinates, battleship);
+            } catch (Exception e) {
+                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
+            }
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
+    }
+
+    /**
+     * Checks if given coordinates falls within the MapGrid.
+     * @return true or false whether the coordinates fall within the MapGrid
+     */
+    public static boolean isHeadWithinBounds(Model model, Coordinates coordinates) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        if ((rowIndex.getZeroBased() >= model.getMapSize())
+                || colIndex.getZeroBased() >= model.getMapSize()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the body is within bounds of the map grid.
+     * @return boolean of whether body of battleship is within bounds of map grid.
+     */
+    public static boolean isBodyWithinBounds(Model model, Coordinates coordinates, Battleship battleship) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        if ((rowIndex.getZeroBased() + length >= model.getMapSize())
+                || colIndex.getZeroBased() + length >= model.getMapSize()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if vertical length is clear, i.e., there are no other battleship objects.
+     * @return boolean of whether vertical length is clear.
+     */
+    public static boolean isVerticalClear(Model model, Coordinates coordinates, Battleship battleship) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
+                    colIndex.getZeroBased());
+
+            if (cellToInspect.hasBattleShip()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if horizontal length is clear, i.e., there are no other battleship objects.
+     * @return boolean of whether horizontal length is clear.
+     */
+    public static boolean isHorizontalClear(Model model, Coordinates coordinates, Battleship battleship) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
+                    colIndex.getZeroBased() + i);
+
+            if (cellToInspect.hasBattleShip()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Puts the *same* battleship object along vertical length.
+     * Pre-conditions: there are NO existing battleships along the vertical length, else will throw
+     * and exception.
+     */
+    public static void putAlongVertical(Model model, Coordinates coordinates, Battleship battleship)
+            throws Exception {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
+                    colIndex.getZeroBased());
+
+            if (cellToInspect.hasBattleShip()) {
+                throw new Exception();
+            } else {
+                cellToInspect.putShip(battleship);
+            }
+        }
+    }
+
+    /**
+     * Puts the *same* battleship object along horizontal length.
+     * Pre-conditions: there are NO existing battleships along the horizontal length, else will throw
+     * and exception.
+     */
+    public static void putAlongHorizontal(Model model, Coordinates coordinates, Battleship battleship)
+            throws Exception {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
+                    colIndex.getZeroBased() + i);
+
+            if (cellToInspect.hasBattleShip()) {
+                throw new Exception();
+            } else {
+                cellToInspect.putShip(battleship);
+            }
+        }
     }
 
     /**

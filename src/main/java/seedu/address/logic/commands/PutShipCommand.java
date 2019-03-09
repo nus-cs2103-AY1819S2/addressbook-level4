@@ -46,6 +46,8 @@ public class PutShipCommand extends Command {
     public static final String MESSAGE_BATTLESHIP_PRESENT = "There is already a ship on the coordinate.";
     public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL =
             "There is already a ship along the vertical coordinates";
+    public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL =
+            "There is already a ship along the vertical coordinates";
 
     private final Coordinates coordinates;
     private final Battleship battleship;
@@ -72,6 +74,8 @@ public class PutShipCommand extends Command {
             throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
         } else if (!isVerticalClear(model, coordinates, battleship)) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
+        } else if (!isHorizontalClear(model, coordinates, battleship)) {
+            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
         }
 
         Cell cellToEdit = model.getMapGrid().getCell(coordinates);
@@ -126,6 +130,24 @@ public class PutShipCommand extends Command {
         for (int i = 0; i < length; i++) {
             Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
+
+            if (cellToInspect.hasBattleShip()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isHorizontalClear(Model model, Coordinates coordinates, Battleship battleship) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
+                    colIndex.getZeroBased() + i);
 
             if (cellToInspect.hasBattleShip()) {
                 return false;

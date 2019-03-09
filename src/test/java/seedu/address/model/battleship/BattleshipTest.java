@@ -22,6 +22,18 @@ public class BattleshipTest {
     }
 
     @Test
+    public void testIsSameBattleship() {
+        // create variables
+        Battleship battleshipOne = new Battleship(new Name("one"));
+        Battleship battleshipTwo = new Battleship(new Name("one"));
+        Battleship battleshipThree = battleshipOne;
+
+        // test equality
+        assertFalse(battleshipOne.isSameBattleship(battleshipTwo));
+        assertTrue(battleshipOne.isSameBattleship(battleshipThree));
+    }
+
+    @Test
     public void testDifferentNameDifferentBattleship() {
 
         // create variables
@@ -40,7 +52,7 @@ public class BattleshipTest {
         Battleship battleshipTwo = new Battleship(new Name("one"));
 
         // test equality
-        assertFalse(battleshipOne.equals(battleshipTwo));
+        assertTrue(battleshipOne.equals(battleshipTwo));
     }
 
     @Test

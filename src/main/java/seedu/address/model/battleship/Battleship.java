@@ -109,7 +109,8 @@ public class Battleship {
         }
 
         return otherBattleship != null
-                && otherBattleship.getName().equals(getName());
+                && otherBattleship.getName().equals(getName())
+                && otherBattleship.getId() == getId();
     }
 
     /**
@@ -127,8 +128,7 @@ public class Battleship {
         }
 
         Battleship otherBattleship = (Battleship) other;
-        return otherBattleship.getName().equals(getName())
-                && otherBattleship.getId() == getId();
+        return otherBattleship.getName().equals(getName());
     }
 
     @Override

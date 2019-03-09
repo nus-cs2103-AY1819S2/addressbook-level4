@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODCODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODDEPT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODTITLE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,11 +25,11 @@ public class DisplaymodCommand extends Command {
             + "parameters. "
             + "Parameters: "
             + PREFIX_MODCODE + "MODULE CODE"
-            + PREFIX_MODNAME + "MODULE NAME"
+            + PREFIX_MODTITLE + "MODULE TITLE"
             + PREFIX_MODDEPT + "MODULE DEPARTMENT"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODCODE + "CS2103T"
-            + PREFIX_MODNAME + "Software Engineering"
+            + PREFIX_MODTITLE + "Software Engineering"
             + PREFIX_MODDEPT + "Computer Science";
 
     public static final String MESSAGE_SUCCESS = "Module Found : \n"

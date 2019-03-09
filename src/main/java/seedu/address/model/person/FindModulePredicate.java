@@ -10,10 +10,10 @@ import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
 /**
  * Tests that a module matches all of the description given.
  */
-public class FindCommandPredicate implements Predicate<Person> {
+public class FindModulePredicate implements Predicate<Person> {
     private final FindModuleDescriptor findModuleDescriptor;
 
-    public FindCommandPredicate(FindModuleDescriptor findModuleDescriptor) {
+    public FindModulePredicate(FindModuleDescriptor findModuleDescriptor) {
         requireNonNull(findModuleDescriptor);
         this.findModuleDescriptor = findModuleDescriptor;
     }
@@ -43,7 +43,7 @@ public class FindCommandPredicate implements Predicate<Person> {
         if (grade.isPresent()
                 && !(module.getExpectedMinGrade().equals(grade.get()))) {
             return false;
-        }
+        } //to check whether mod has been taken
 
         return true;
     }
@@ -51,7 +51,7 @@ public class FindCommandPredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommandPredicate // instanceof handles nulls
-                && findModuleDescriptor.equals(((FindCommandPredicate) other).findModuleDescriptor)); // state check
+                || (other instanceof FindModulePredicate // instanceof handles nulls
+                && findModuleDescriptor.equals(((FindModulePredicate) other).findModuleDescriptor)); // state check
     }
 }

@@ -52,8 +52,8 @@ public class BillCommand extends Command {
 
         bill = calculateBill(orderItemList, model.getRestOrRant().getMenu());
 
-        model.updateRestOrRant();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
+        model.changeMode();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
     }
 
     private Bill calculateBill(ObservableList<OrderItem> orderItemList, ReadOnlyMenu menu) throws CommandException {

@@ -24,6 +24,8 @@ public class UiManager implements Ui {
     public boolean isMenuMode = false;
     public boolean isRestaurantMode = true;
     public boolean isTableMode = false;
+    public boolean isBillMode = false;
+    public boolean isStatisticsMode = false;
     private Logic logic;
     private MainWindow mainWindow;
 

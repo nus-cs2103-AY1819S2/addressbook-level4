@@ -64,8 +64,10 @@ public class PutShipCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!isWithinBounds(model, coordinates)) {
+        if (!isHeadWithinBounds(model, coordinates)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } else if (!isBodyWithinBounds(model, coordinates, battleship)) {
+            throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
         }
 
         Cell cellToEdit = model.getMapGrid().getCell(coordinates);
@@ -85,12 +87,26 @@ public class PutShipCommand extends Command {
      * @param coordinates
      * @return true or false whether the coordinates fall within the MapGrid
      */
-    public static boolean isWithinBounds(Model model, Coordinates coordinates) {
+    public static boolean isHeadWithinBounds(Model model, Coordinates coordinates) {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
         if ((rowIndex.getZeroBased() >= model.getMapSize())
                 || colIndex.getZeroBased() >= model.getMapSize()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isBodyWithinBounds(Model model, Coordinates coordinates, Battleship battleship) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        if ((rowIndex.getZeroBased() + length >= model.getMapSize())
+                || colIndex.getZeroBased() + length >= model.getMapSize()) {
             return false;
         }
 

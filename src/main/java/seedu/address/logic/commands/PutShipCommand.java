@@ -83,7 +83,11 @@ public class PutShipCommand extends Command {
         if (cellToEdit.hasBattleShip()) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
         } else {
-            cellToEdit.putShip(battleship);
+            try {
+                putAlongHorizontal(model, coordinates, battleship);
+            } catch (Exception e) {
+                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
@@ -165,6 +169,54 @@ public class PutShipCommand extends Command {
         }
 
         return true;
+    }
+
+    /**
+     * Puts the *same* battleship object along vertical length.
+     * Pre-conditions: there are NO existing battleships along the vertical length, else will throw
+     * and exception.
+     */
+    public static void putAlongVertical(Model model, Coordinates coordinates, Battleship battleship)
+            throws Exception {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
+                    colIndex.getZeroBased());
+
+            if (cellToInspect.hasBattleShip()) {
+                throw new Exception();
+            } else {
+                cellToInspect.putShip(battleship);
+            }
+        }
+    }
+
+    /**
+     * Puts the *same* battleship object along horizontal length.
+     * Pre-conditions: there are NO existing battleships along the horizontal length, else will throw
+     * and exception.
+     */
+    public static void putAlongHorizontal(Model model, Coordinates coordinates, Battleship battleship)
+            throws Exception {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
+                    colIndex.getZeroBased() + i);
+
+            if (cellToInspect.hasBattleShip()) {
+                throw new Exception();
+            } else {
+                cellToInspect.putShip(battleship);
+            }
+        }
     }
 
     /**

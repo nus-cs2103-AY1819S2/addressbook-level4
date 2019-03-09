@@ -17,12 +17,12 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports single or multiple card folders into"
-            + "a .json file. "
-            + "Users must include the .json extension.\n"
+            + "a .csv file. "
+            + "Users must include the .csv extension.\n"
             + "Parameters: "
             + PREFIX_FOLDERNAME + "CARD_FOLDER_NAME [MORE CARD_FOLDER_NAMES]..."
-            + PREFIX_FILENAME + "Filename.json\n"
-            + "Example: " + COMMAND_WORD + "f/Human_anatomy f/Bone_structure n/myfilename.json";
+            + PREFIX_FILENAME + "Filename.csv\n"
+            + "Example: " + COMMAND_WORD + "f/Human_anatomy f/Bone_structure n/myfilename.csv";
 
     public static final String MESSAGE_SUCCESS = "Successfully exported card folders to: $1%s";
 

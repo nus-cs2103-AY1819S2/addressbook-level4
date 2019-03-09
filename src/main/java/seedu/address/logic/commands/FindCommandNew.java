@@ -9,8 +9,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.module.Module;
 import seedu.address.model.module.Grade;
+import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
 
 /**

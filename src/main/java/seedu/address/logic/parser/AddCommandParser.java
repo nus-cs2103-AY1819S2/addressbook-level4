@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Grade;
+import seedu.address.model.module.Semester;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
 
 /**

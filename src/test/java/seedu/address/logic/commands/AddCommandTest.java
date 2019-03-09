@@ -25,10 +25,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.course.Course;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.person.Person;
-import seedu.address.model.module.Semester;
-import seedu.address.model.module.Module;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {

@@ -1,7 +1,5 @@
 package seedu.address.model.module;
 
-import java.util.Comparator;
-
 /**
  * Represents grade of a module taken
  */

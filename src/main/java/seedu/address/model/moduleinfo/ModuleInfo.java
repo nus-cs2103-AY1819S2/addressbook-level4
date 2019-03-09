@@ -2,8 +2,6 @@ package seedu.address.model.moduleinfo;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.module.Module;
-
 /**
  * Represents Module Information about a particular module available in NUS.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -86,7 +84,7 @@ public class ModuleInfo {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder .append(" Module Code: ")
+        builder.append(" Module Code: ")
                 .append(getCode())
                 .append(" Module Title: ")
                 .append(getTitle())

@@ -2,13 +2,13 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_EWL;
 
 import org.junit.Test;
 
@@ -20,39 +20,39 @@ public class EditPlaceDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditPlaceDescriptor descriptorWithSameValues = new EditPlaceDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditPlaceDescriptor descriptorWithSameValues = new EditPlaceDescriptor(DESC_AMK);
+        assertTrue(DESC_AMK.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_AMK.equals(DESC_AMK));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_AMK.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_AMK.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_AMK.equals(DESC_BEDOK));
 
         // different name -> returns false
-        EditPlaceDescriptor editedAmy = new EditPlaceDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditPlaceDescriptor editedAmy = new EditPlaceDescriptorBuilder(DESC_AMK).withName(VALID_NAME_BEDOK).build();
+        assertFalse(DESC_AMK.equals(editedAmy));
 
         // different rating -> returns false
-        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMY).withRating(VALID_RATING_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMK).withRating(VALID_RATING_BEDOK).build();
+        assertFalse(DESC_AMK.equals(editedAmy));
 
         // different description -> returns false
-        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMY).withDescription(VALID_DESCRIPTION_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMK).withDescription(VALID_DESCRIPTION_BEDOK).build();
+        assertFalse(DESC_AMK.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMK).withAddress(VALID_ADDRESS_BEDOK).build();
+        assertFalse(DESC_AMK.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMK).withTags(VALID_TAG_EWL).build();
+        assertFalse(DESC_AMK.equals(editedAmy));
     }
 }

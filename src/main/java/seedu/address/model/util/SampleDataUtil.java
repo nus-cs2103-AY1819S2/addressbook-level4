@@ -19,24 +19,36 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Place[] getSamplePlaces() {
         return new Place[] {
-            new Place(new Name("Alex Yeoh"), new Rating("1"), new Description("No description"),
-                    new Address("Blk 30 Geylang Street 29, #06-40"),
-                    getTagSet("friends")),
-            new Place(new Name("Bernice Yu"), new Rating("5"), new Description("I love this place"),
-                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("colleagues", "friends")),
-            new Place(new Name("Charlotte Oliveiro"), new Rating("3"), new Description("I love the coffee here"),
-                    new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("neighbours")),
-            new Place(new Name("David Li"), new Rating("4"), new Description("I love the ambience here"),
-                    new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getTagSet("family")),
-            new Place(new Name("Irfan Ibrahim"), new Rating("4"), new Description("I love the night life here"),
-                    new Address("Blk 47 Tampines Street 20, #17-35"),
-                    getTagSet("classmates")),
-            new Place(new Name("Roy Balakrishnan"), new Rating("3"),
-                    new Description("This place exudes luxury"), new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    getTagSet("colleagues"))
+            new Place(new Name("VivoCity"), new Rating("1"),
+                    new Description("Expansive, modern shopping center "
+                            + "hosting a wide range of retailers, restaurants & theaters."),
+                    new Address("1 Harbourfront Walk, Singapore 098585"),
+                    getTagSet("shoppingMall")),
+            new Place(new Name("Changi Airport Singapore"), new Rating("5"),
+                    new Description("Passenger & cargo hub with 4 modern terminals "
+                            + "plus buses & trains to the city center."),
+                    new Address("Airport Boulevard"),
+                    getTagSet("airport", "shoppingMall")),
+            new Place(new Name("Japanese Cemetery Park"), new Rating("3"),
+                    new Description("The Japanese Cemetery Park serves as the burial ground for Japanese soldiers "
+                            + "and civilians who lived in the early 20th century."),
+                    new Address("22 Chuan Hoe Ave, Singapore 549854"),
+                    getTagSet("cemetery", "placeOfInterest")),
+            new Place(new Name("Universal Studios Singapore"), new Rating("4"),
+                    new Description("Movie amusement park with sets & rides on themes from Hollywood to sci-fi,"
+                            + " plus live entertainment."),
+                    new Address("8 Sentosa Gateway, 0982693"),
+                    getTagSet("amusementPark", "recreation")),
+            new Place(new Name("National University of Singapore"), new Rating("4"),
+                    new Description("The National University of Singapore is an "
+                            + "autonomous research university in Singapore."),
+                    new Address("21 Lower Kent Ridge Rd, Singapore 119077"),
+                    getTagSet("school")),
+            new Place(new Name("Singapore Zoo"), new Rating("3"),
+                    new Description("Rainforest zoo with tram rides, trails & viewing platforms "
+                            + "to see wildlife habitats & exhibits."),
+                    new Address("80 Mandai Lake Rd, Singapore 729826"),
+                    getTagSet("zoo", "animals"))
         };
     }
 

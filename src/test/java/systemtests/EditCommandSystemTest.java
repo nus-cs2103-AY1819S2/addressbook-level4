@@ -3,36 +3,36 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_DICK;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DICK;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_DG;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DG;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CODY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_DICK;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_DICK;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CODY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CLEMENTI;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_DG;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_DG;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_EWL;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CLEMENTI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_EWL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPlaces.BOB;
-import static seedu.address.testutil.TypicalPlaces.DICK;
-import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaces.BEDOK;
+import static seedu.address.testutil.TypicalPlaces.DG;
+import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_SINGAPORE;
 
 import org.junit.Test;
 
@@ -63,9 +63,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + RATING_DESC_BOB + " " + DESCRIPTION_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Place editedPlace = new PlaceBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BEDOK + "  "
+                + RATING_DESC_BEDOK + " " + DESCRIPTION_BEDOK + "  " + ADDRESS_DESC_BEDOK + " " + TAG_DESC_EWL + " ";
+        Place editedPlace = new PlaceBuilder(BEDOK).withTags(VALID_TAG_EWL).build();
         assertCommandSuccess(command, index, editedPlace);
 
         /* Case: undo editing the last place in the list -> last place restored */
@@ -80,25 +80,25 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a place with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + RATING_DESC_BOB
-                + DESCRIPTION_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandSuccess(command, index, BOB);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + RATING_DESC_BEDOK
+                + DESCRIPTION_BEDOK + ADDRESS_DESC_BEDOK + TAG_DESC_MRT + TAG_DESC_EWL;
+        assertCommandSuccess(command, index, BEDOK);
 
         /* Case: edit a place with new values same as another place's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPlaceList().contains(BOB));
+        assertTrue(getModel().getAddressBook().getPlaceList().contains(BEDOK));
         index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPlaceList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + RATING_DESC_BOB
-                + DESCRIPTION_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPlace = new PlaceBuilder(BOB).withName(VALID_NAME_AMY).build();
+        assertNotEquals(getModel().getFilteredPlaceList().get(index.getZeroBased()), BEDOK);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMK + RATING_DESC_BEDOK
+                + DESCRIPTION_BEDOK + ADDRESS_DESC_BEDOK + TAG_DESC_MRT + TAG_DESC_EWL;
+        editedPlace = new PlaceBuilder(BEDOK).withName(VALID_NAME_AMK).build();
         assertCommandSuccess(command, index, editedPlace);
 
         /* Case: edit a place with new values same as another place's values but with different rating and email
          * -> rejected
          */
         index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + RATING_DESC_AMY
-                + DESCRIPTION_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + RATING_DESC_AMK
+                + DESCRIPTION_AMK + ADDRESS_DESC_BEDOK + TAG_DESC_MRT + TAG_DESC_EWL;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: clear tags -> cleared */
@@ -111,20 +111,20 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered place list, edit index within bounds of address book and place list -> edited */
-        showPlacesWithName(KEYWORD_MATCHING_MEIER);
+        showPlacesWithName(KEYWORD_MATCHING_SINGAPORE);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPlaceList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_CODY;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_CLEMENTI;
         placeToEdit = getModel().getFilteredPlaceList().get(index.getZeroBased());
-        editedPlace = new PlaceBuilder(placeToEdit).withName(VALID_NAME_CODY).build();
+        editedPlace = new PlaceBuilder(placeToEdit).withName(VALID_NAME_CLEMENTI).build();
         assertCommandSuccess(command, index, editedPlace);
 
         /* Case: filtered place list, edit index within bounds of address book but out of bounds of place list
          * -> rejected
          */
-        showPlacesWithName(KEYWORD_MATCHING_MEIER);
+        showPlacesWithName(KEYWORD_MATCHING_SINGAPORE);
         int invalidIndex = getModel().getAddressBook().getPlaceList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BEDOK,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a place card is selected -------------------------- */
@@ -135,29 +135,29 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showAllPlaces();
         index = INDEX_FIRST_PERSON;
         selectPlace(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_DICK + RATING_DESC_DICK
-                + DESCRIPTION_DICK + ADDRESS_DESC_DICK;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_DG + RATING_DESC_DG
+                + DESCRIPTION_DG + ADDRESS_DESC_DG;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new place's name
-        assertCommandSuccess(command, index, DICK, index);
+        assertCommandSuccess(command, index, DG, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BEDOK,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BEDOK,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredPlaceList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BEDOK,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BEDOK,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
@@ -185,33 +185,33 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a place with new values same as another place's values -> rejected */
-        executeCommand(PlaceUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPlaceList().contains(BOB));
+        executeCommand(PlaceUtil.getAddCommand(BEDOK));
+        assertTrue(getModel().getAddressBook().getPlaceList().contains(BEDOK));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPlaceList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + RATING_DESC_BOB
-                + DESCRIPTION_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertFalse(getModel().getFilteredPlaceList().get(index.getZeroBased()).equals(BEDOK));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + RATING_DESC_BEDOK
+                + DESCRIPTION_BEDOK + ADDRESS_DESC_BEDOK + TAG_DESC_MRT + TAG_DESC_EWL;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a place with new values same as another place's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + RATING_DESC_BOB
-                + DESCRIPTION_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + RATING_DESC_BEDOK
+                + DESCRIPTION_BEDOK + ADDRESS_DESC_BEDOK + TAG_DESC_EWL;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a place with new values same as another place's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + RATING_DESC_BOB
-                + DESCRIPTION_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + RATING_DESC_BEDOK
+                + DESCRIPTION_BEDOK + ADDRESS_DESC_AMK + TAG_DESC_MRT + TAG_DESC_EWL;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a place with new values same as another place's values but with different rating -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + RATING_DESC_AMY
-                + DESCRIPTION_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + RATING_DESC_AMK
+                + DESCRIPTION_BEDOK + ADDRESS_DESC_BEDOK + TAG_DESC_MRT + TAG_DESC_EWL;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a place with new values same as another place's values but with different description ->
         rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + RATING_DESC_BOB
-                + DESCRIPTION_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + RATING_DESC_BEDOK
+                + DESCRIPTION_AMK + ADDRESS_DESC_BEDOK + TAG_DESC_MRT + TAG_DESC_EWL;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

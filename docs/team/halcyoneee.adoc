@@ -3,20 +3,32 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: BrainTrain
 
----
+This project portfolio page showcases my contributions to the BrainTrain project.
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+BrainTrain is a spaced repetition flashcard application which makes memorizing easy and efficient.
+Research has shown that the Spaced-Repetition System (SRS) is more effective than traditional
+memorization techniques. With it, you will be able to learn more with less time. User interaction
+happens through Command Line Interface (CLI) and it has a minimal Graphical User Interface (GUI)
+created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+* *Major enhancement*: Quiz mode
+
+** *What it does*: Quiz mode manages user interaction during a quiz. It comprises of 4 commands
+only available in quiz mode and takes in all other inputs as answer.
+
+** *Justification*: To ensure that answers are not limited or excluded of certain keywords,
+BrainTrain supports two different modes, management and quiz mode. To differentiate the
+commands between the two modes, quiz mode commands start with a backslash `\`, whereas management
+commands are not.
+
+** *Highlights*: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/32[#32],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/43[#42]
 
 * *Minor enhancement*:
 
@@ -25,6 +37,8 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 * *Other contributions*:
 
 ** Project management:
+*** Managed release `v1.1` on GitHub
+*** Integrated `AddressBook` features with `BrainTrain` ( https://github.com/CS2103-AY1819S2-W14-1/main/pull/33[#33])
 
 == Contributions to the User Guide
 
@@ -42,5 +56,3 @@ include::../UserGuide.adoc[tag=quiz]
 |===
 
 include::../DeveloperGuide.adoc[tag=quiz]
-
-

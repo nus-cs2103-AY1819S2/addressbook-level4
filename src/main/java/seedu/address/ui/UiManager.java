@@ -21,11 +21,11 @@ public class UiManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
-    public boolean isMenuMode = false;
-    public boolean isRestaurantMode = true;
-    public boolean isTableMode = false;
-    public boolean isBillMode = false;
-    public boolean isStatisticsMode = false;
+    private boolean isMenuMode = false;
+    private boolean isRestaurantMode = true;
+    private boolean isTableMode = false;
+    private boolean isBillMode = false;
+    private boolean isStatisticsMode = false;
     private Logic logic;
     private MainWindow mainWindow;
 

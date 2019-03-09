@@ -10,7 +10,6 @@ import seedu.address.commons.util.InvalidationListenerManager;
 
 /**
  * Wraps all order-related data
- * Duplicates are not allowed (by .isSameOrderItem comparison)
  */
 public class Statistics implements ReadOnlyStatistics {
 
@@ -28,11 +27,14 @@ public class Statistics implements ReadOnlyStatistics {
         billList = new BillList();
     }
 
+    /**
+     * Creates a Statistics
+     */
     public Statistics() {
     }
 
     /**
-     * Creates an RestOrRant using the Persons in the {@code toBeCopied}
+     * Creates a Statistics using the Bill in the {@code toBeCopied}
      */
     public Statistics(ReadOnlyStatistics toBeCopied) {
         this();
@@ -42,9 +44,8 @@ public class Statistics implements ReadOnlyStatistics {
     //// list overwrite operations
 
     /**
-     * Replaces the given menu item {@code target} in the list with {@code editedItem}.
-     * {@code target} must exist in the address book.
-     * The item identity of {@code editedItem} must not be the same as another existing menu item in the address book.
+     * Replaces the given bill {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the RestOrRant.
      */
     public void setBills(Bill target, Bill editedItem) {
         requireNonNull(editedItem);

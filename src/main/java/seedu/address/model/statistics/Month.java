@@ -18,9 +18,9 @@ public class Month {
      */
     public static final String VALIDATION_REGEX = "[0-9][0-9]";
 
-    public final String month;
+    private static boolean isInvalid = false;
 
-    public static boolean isInvalid = false;
+    public final String month;
 
     /**
      * Constructs a {@code Month}.

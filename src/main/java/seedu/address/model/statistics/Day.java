@@ -18,9 +18,10 @@ public class Day {
      */
     public static final String VALIDATION_REGEX = "[0-9][0-9]";
 
+    private static boolean isInvalid = false;
+
     public final String day;
 
-    public static boolean isInvalid = false;
 
     /**
      * Constructs a {@code Day}.

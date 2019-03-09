@@ -126,11 +126,12 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-QuizModel,*`QuizModel`*>>: Holds the data of the Quiz in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -180,9 +181,13 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  `Logic` uses either the `BrainTrainParser` or `QuizModeParser` class to parse the user command.
+..  If `BrainTrainParser` is used to parse the user command:
+...  This results in a `Command` object which is executed by the `LogicManager`.
+...  The command execution can affect the `Model` (e.g. adding a person).
+..  If `QuizModeParser` is used to parse the user command:
+...  This results in a `QuizCommand` object which is executed by the `LogicManager`.
+...  The command execution can affect the `QuizModel` (e.g. answering a question).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -204,12 +209,22 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* does not depend on any of the other four components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+[[Design-QuizModel]]
+=== QuizModel component
+
+.Structure of the QuizModel Component
+image::QuizModelClassDiagram.png[width="500"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/quiz/QuizModel.java[`QuizModel.java`]
+
+The `QuizModel`,
+
+* stores a `Quiz` object that represents the list of `QuizCard`.
+* stores the Address Book data.
+* does not depend on any of the other four components.
+
 
 [[Design-Storage]]
 === Storage component
@@ -325,10 +340,10 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::quiz[]
 === Quiz feature
-The Quiz feature allows users to enter quiz related commands and answer.
+Quiz feature allows users to enter quiz related commands and answer.
 
 ==== Current Implementation
-The Quiz feature currently contains 4 commands to xxxxxxxxxxxxxx and answer input.
+The quiz feature implements the following commands and processes answer:
 
 * `\quit` - Quits a quiz session.
 * `\help` - Lists all commands in quiz and inputs the program will accept.
@@ -336,12 +351,25 @@ The Quiz feature currently contains 4 commands to xxxxxxxxxxxxxx and answer inpu
 * `\status` - Lists current status and lesson progress of user.
 * `Answer [*]` - Enters any character without escape character \ is treated as an answer.
 
+==== Answer [*]
+The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
+as answer to be processed later.
+
+The following sequence diagram shows the interaction between the various classes when the user
+answers a question:
+
+.Sequence diagram for answer feature
+image::QuizAnswerCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
-
 ===== Aspect: How Quiz executes
-
-
+* **Alternative 1 (current choice):** Run quiz in a different mode
+** Pros: Answer can be anything excluding word starting with a backslash `\` (e.g. `\help`)
+** Cons: Tedious to implement
+* **Alternative 2:** Run quiz in the same mode as the rest of the management commands
+** Pros: Easier to implement compared to alternative 1
+** Cons: Answer cannot start with those from the list of management commands (e.g. `start`)
 // end::quiz[]
 
 // tag::dataencryption[]
@@ -887,9 +915,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |start a lesson |I can start to memorise
 
-|`* * *` |user |view correct answer and explanation if I answered wrongly|I can understand and
-remember
- it better
+|`* * *` |user |view correct answer and explanation if I answered wrongly |I can understand and
+remember it better
 
 |`* *` |user |see a hint if I am not sure about the answer |I can have a deeper impression
 

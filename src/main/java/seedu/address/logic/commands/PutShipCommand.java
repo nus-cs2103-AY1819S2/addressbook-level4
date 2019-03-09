@@ -172,6 +172,30 @@ public class PutShipCommand extends Command {
     }
 
     /**
+     * Puts the *same* battleship object along vertical length.
+     * Pre-conditions: there are NO existing battleships along the vertical length, else will throw
+     * and exception.
+     */
+    public static void putAlongVertical(Model model, Coordinates coordinates, Battleship battleship)
+            throws Exception {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        int length = battleship.getLength();
+
+        for (int i = 0; i < length; i++) {
+            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
+                    colIndex.getZeroBased());
+
+            if (cellToInspect.hasBattleShip()) {
+                throw new Exception();
+            } else {
+                cellToInspect.putShip(battleship);
+            }
+        }
+    }
+
+    /**
      * Puts the *same* battleship object along horizontal length.
      * Pre-conditions: there are NO existing battleships along the horizontal length, else will throw
      * and exception.

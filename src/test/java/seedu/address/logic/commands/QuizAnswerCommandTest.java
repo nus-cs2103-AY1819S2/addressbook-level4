@@ -1,8 +1,8 @@
-package seedu.address.quiz.commands;
+package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.quiz.commands.QuizCommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.QuizCommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.QuizAnswerCommand;
 import seedu.address.quiz.Quiz;
 import seedu.address.quiz.QuizCard;
 import seedu.address.quiz.QuizModel;

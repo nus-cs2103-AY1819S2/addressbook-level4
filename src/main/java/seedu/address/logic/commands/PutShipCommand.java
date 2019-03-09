@@ -76,7 +76,7 @@ public class PutShipCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Cell cellToEdit = lastShownList.get(rowIndex.getZeroBased());
+        Cell cellToEdit = model.getMapGrid().getCell(coordinates);
 
         if (cellToEdit.hasBattleShip()) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);

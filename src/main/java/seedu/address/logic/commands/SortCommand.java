@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortMethods.SortAlphabetical;
+import seedu.address.logic.commands.sortMethods.SortSkills;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.logic.parser.SortWord;
@@ -33,8 +34,6 @@ public class SortCommand extends Command {
 
     private List<Person> sortedPersons;
 
-    //private final SortResultPredicate predicate;
-
     public SortCommand(SortWord method) {
         this.method = method;
     }
@@ -51,12 +50,16 @@ public class SortCommand extends Command {
             sortedPersons = sorted.getList();
         }
 
+        else if (this.method.getSortWord().equals("skills")) {
+            SortSkills sorted = new SortSkills(lastShownList);
+            sortedPersons = sorted.getList();
+        }
+
 
         for (Person personToDelete : sortedPersons) {
             model.deletePerson(personToDelete);
         }
         for (Person newPerson : sortedPersons) {
-            System.out.println("Should be adding");
             model.addPerson(newPerson);
         }
         model.commitAddressBook();

@@ -13,6 +13,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("skill/");
 
     /* Sort-Word definitions*/
-    public static final SortWord SORTWORD_AGE = new SortWord("age");
+    public static final SortWord SORTWORD_SKILLS = new SortWord("skills");
     public static final SortWord SORTWORD_ALPHABETICAL = new SortWord("alphabetical");
 }

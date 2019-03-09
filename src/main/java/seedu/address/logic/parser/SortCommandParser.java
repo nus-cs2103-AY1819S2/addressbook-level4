@@ -6,7 +6,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.util.Arrays;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_AGE;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_ALPHABETICAL;
 
 /**
@@ -21,7 +21,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         String word = args;
-        String[] possibleSortWords = {SORTWORD_AGE.toString(), SORTWORD_ALPHABETICAL.toString()};
+        String[] possibleSortWords = {SORTWORD_SKILLS.toString(), SORTWORD_ALPHABETICAL.toString()};
         if (!areSortWordsPresent(word, possibleSortWords)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }

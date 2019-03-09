@@ -2,10 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.model.tag.SkillsTag;
 
@@ -22,7 +19,7 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Set<SkillsTag> tags = new HashSet<>();
+    private final LinkedHashSet<SkillsTag> tags = new LinkedHashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -117,4 +114,11 @@ public class Person {
         return builder.toString();
     }
 
+    public String tagsToString() {
+        return getTags().toString();
+    }
+
+    public String namesToString() {
+        return getName().toString();
+    }
 }

@@ -66,7 +66,6 @@ public class JsonTablesStorage implements TablesStorage {
         saveTables(tables, filePath);
     }
 
-
     /**
      * Similar to {@link #saveTables(ReadOnlyTables)}.
      *

@@ -1,28 +1,28 @@
 package seedu.address.model.record;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+//import java.math.BigDecimal;
+//import java.util.ArrayList;
+//import java.util.List;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
+//import org.junit.Assert;
+//import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.consultation.Prescription;
+//import seedu.address.model.consultation.Prescription;
 
 class StatisticsTest {
     private Statistics stats;
     private Record record1;
     private Record record2;
 
+
     //@BeforeEach
-    public void init() {
-        /*
-        record1 = new ConsultationRecord(new Prescription("test", 1));
-        record2 = new MedicinePurchaseRecord("test", 1, BigDecimal.valueOf(10.00));
-        stats = new Statistics(1, BigDecimal.valueOf(30.00), BigDecimal.valueOf(10.00));
-        */
-    }
+    //public void init() {
+    //    record1 = new ConsultationRecord(new Prescription("test", 1));
+    //    record2 = new MedicinePurchaseRecord("test", 1, BigDecimal.valueOf(10.00));
+    //    stats = new Statistics(1, BigDecimal.valueOf(30.00), BigDecimal.valueOf(10.00));
+    //}
 
     @Test
     void merge() {

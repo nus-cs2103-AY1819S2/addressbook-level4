@@ -1,24 +1,24 @@
 package seedu.address.logic.commands;
 
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 import java.time.Clock;
-import java.time.Duration;
-import java.time.Instant;
+//import java.time.Duration;
+//import java.time.Instant;
 import java.time.YearMonth;
-import java.time.ZoneId;
+//import java.time.ZoneId;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+//import org.junit.Assert;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
+//import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.consultation.Prescription;
-import seedu.address.model.record.ConsultationRecord;
-import seedu.address.model.record.MedicinePurchaseRecord;
+//import seedu.address.model.consultation.Prescription;
+//import seedu.address.model.record.ConsultationRecord;
+//import seedu.address.model.record.MedicinePurchaseRecord;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.Statistics;
+//import seedu.address.model.record.Statistics;
 
 class StatisticsCommandTest {
 

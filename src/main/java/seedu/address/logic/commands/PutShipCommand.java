@@ -68,13 +68,15 @@ public class PutShipCommand extends Command {
         requireNonNull(model);
         List<Cell> lastShownList = model.getFilteredPersonList();
 
-        Index index = coordinates.getRowIndex();
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if ((rowIndex.getZeroBased() >= model.getMapSize())
+            || colIndex.getZeroBased() >= model.getMapSize()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Cell cellToEdit = lastShownList.get(index.getZeroBased());
+        Cell cellToEdit = model.getMapGrid().getCell(coordinates);
 
         if (cellToEdit.hasBattleShip()) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);

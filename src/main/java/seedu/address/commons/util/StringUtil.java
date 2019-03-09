@@ -39,6 +39,32 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code ratingsList} contains the {@code rating}.
+     *   A valid rating match from 1 to 5 is required.
+     *   <br>examples:<pre>
+     *       containsRating("1 4", "1") == true
+     *       containsRating("1 4", "4") == true
+     *       containsRating("1 4", "5") == false //not a valid match
+     *       </pre>
+     * @param ratingsList cannot be null
+     * @param rating cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsRating(String ratingsList, String rating) {
+        requireNonNull(ratingsList);
+        requireNonNull(rating);
+
+        String preppedRating = rating.trim();
+        checkArgument(!preppedRating.isEmpty(), "Rating parameter cannot be empty");
+        checkArgument(preppedRating.split("\\s+").length == 1, "Rating parameter should be a single value");
+
+        String preppedRatingsList = ratingsList;
+        String[] ratingsInPreppedRatingsList = preppedRatingsList.split("\\s+");
+
+        return Arrays.stream(ratingsInPreppedRatingsList)
+                .anyMatch(preppedRating::equalsIgnoreCase);
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

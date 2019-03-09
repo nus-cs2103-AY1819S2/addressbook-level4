@@ -166,6 +166,8 @@ public class ModelManager implements Model {
             for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
                 if (readOnlyCardFolder.getFolderName().equals(cardFolderName)) {
                     returnCardFolder.add(readOnlyCardFolder);
+                } else {
+                    throw new CardNotFoundException()
                 }
             }
         }

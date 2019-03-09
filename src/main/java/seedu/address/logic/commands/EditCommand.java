@@ -20,6 +20,10 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.patient.DateOfBirth;
+import seedu.address.model.patient.Nric;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -100,13 +104,21 @@ public class EditCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        if (personToEdit instanceof Patient) {
+            Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+            Nric updatedNric = editPersonDescriptor.getNric().orElse(((Patient) personToEdit).getNric());
+            DateOfBirth updatedDob = editPersonDescriptor.getDateOfBirth().orElse(((Patient) personToEdit)
+                    .getDateOfBirth());
+            Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+            Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+            Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+            Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+            return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedNric,
+                    updatedDob);
+        } else {
+            throw new PersonIsNotPatient();
+        }
     }
 
     @Override
@@ -133,6 +145,8 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
+        private Nric nric;
+        private DateOfBirth dateOfBirth;
         private Phone phone;
         private Email email;
         private Address address;
@@ -146,6 +160,8 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
+            setNric(toCopy.nric);
+            setDateOfBirth(toCopy.dateOfBirth);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -165,6 +181,22 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setNric(Nric nric) {
+            this.nric = nric;
+        }
+
+        public Optional<Nric> getNric() {
+            return Optional.ofNullable(nric);
+        }
+
+        public void setDateOfBirth(DateOfBirth dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+        }
+
+        public Optional<DateOfBirth> getDateOfBirth() {
+            return Optional.ofNullable(dateOfBirth);
         }
 
         public void setPhone(Phone phone) {

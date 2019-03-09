@@ -1,20 +1,23 @@
 package seedu.address.model.consultation;
 
+import seedu.address.model.medicine.Medicine;
+
 /**
  * Indicate the drug and the quantity administered to the person
  */
 public class Prescription {
 
     public static final String MEDICINE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
-    public static final String MEDICINE_REGEX = "[^\\s].*";
+    //public static final String MEDICINE_REGEX = "[^\\s].*";
 
-    private String medicine;
+    private Medicine medicine;
     private int quantity;
 
-    public Prescription(String medicine, int quantity) {
-        if (!medicine.matches(MEDICINE_REGEX)) {
-            throw new IllegalArgumentException(MEDICINE_CONSTRAINTS);
-        }
+    public Prescription(Medicine medicine, int quantity) {
+
+        //if (!medicine.matches(MEDICINE_REGEX)) {
+        //    throw new IllegalArgumentException(MEDICINE_CONSTRAINTS);
+        //}
 
         if (quantity < 1) {
             throw new IllegalArgumentException("Amount administered must be a non-zero positive number");
@@ -24,7 +27,7 @@ public class Prescription {
         this.quantity = quantity;
     }
 
-    public String getMedicine() {
+    public Medicine getMedicine() {
         return medicine;
     }
 
@@ -34,7 +37,7 @@ public class Prescription {
 
     @Override
     public String toString() {
-        return "Medicine: " + getMedicine() + " quantity: " + getQuantity() + "\n";
+        return "Medicine: " + getMedicine().name + " quantity: " + getQuantity() + "\n";
     }
 
     @Override

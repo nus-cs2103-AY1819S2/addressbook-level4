@@ -8,6 +8,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ModelManager;
 import seedu.address.model.consultation.Prescription;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -35,6 +36,10 @@ public class PrescriptionCommandTest {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         modelManager.addPatient(patient1);
+
+        // to store medicine
+        String[] paths = {"root"};
+        modelManager.addMedicine("antibiotics", 2, paths);
     }
 
     @Test
@@ -57,11 +62,12 @@ public class PrescriptionCommandTest {
 
         modelManager.createConsultation(modelManager.getPatientAtIndex(1));
         try {
+            Medicine med = new Medicine("antibiotics", 2);
             prescriptionCommand = new PrescriptionCommand(medList, qtyList);
             StringBuilder sb = new StringBuilder();
             sb.append("prescription:\n");
             sb.append("==============================\n");
-            sb.append(new Prescription(medList.get(0), qtyList.get(0)));
+            sb.append(new Prescription(med, qtyList.get(0)));
             org.junit.Assert.assertEquals(prescriptionCommand.execute(modelManager, history).getFeedbackToUser(),
                     sb.toString());
         } catch (Exception ex) {

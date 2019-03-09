@@ -46,7 +46,7 @@ public class RootLayoutController {
             try {
                 inputFeedback.setText("");
                 CommandResult result = logicManager.execute(userInput.getText());
-                display.appendText(userInput.getText() + "\n");
+                display.appendText(">" + userInput.getText() + "\n");
                 display.appendText(result.getFeedbackToUser());
                 display.appendText("\n");
                 userInput.setText("");

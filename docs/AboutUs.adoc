@@ -20,7 +20,7 @@ Responsibilities: Patient Management
 '''
 
 === Tan Wenjian
-image::tanwenjian.png[width="150", align="left"]
+image::bentwj.png[width="150", align="left"]
 {empty}[http://github.com/bentwj[github]] [<<johndoe#, portfolio>>]
 
 Role: Code Quality and Documentation +
@@ -38,7 +38,7 @@ Responsibilities: Appointment and Reminder Features
 '''
 
 === Xue Chenyang
-image::xue-chenyang.jpg[width="150", align="left"]
+image::xue-chenyang.png[width="150", align="left"]
 {empty}[http://github.com/Xue-Chenyang[github]] [<<johndoe#, portfolio>>]
 
 Role: Scheduling and Tracking +

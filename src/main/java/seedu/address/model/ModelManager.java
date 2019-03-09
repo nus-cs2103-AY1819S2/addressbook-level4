@@ -160,8 +160,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean checkValidCardFolders(List<String> cardFolers) {
-        return false;
+    public List<ReadOnlyCardFolder> checkValidCardFolders(List<String> cardFolders) {
+        List<ReadOnlyCardFolder>  returnCardFolder = new ArrayList<ReadOnlyCardFolder>();
+        for (String cardFolderName : cardFolders) {
+            for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
+                if (readOnlyCardFolder.getFolderName().equals(cardFolderName)) {
+                    returnCardFolder.add(readOnlyCardFolder);
+                }
+            }
+        }
+        return returnCardFolder;
     }
 
     @Override

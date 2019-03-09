@@ -91,8 +91,6 @@ public class PutShipCommand extends Command {
 
     /**
      * Checks if given coordinates falls within the MapGrid.
-     * @param model
-     * @param coordinates
      * @return true or false whether the coordinates fall within the MapGrid
      */
     public static boolean isHeadWithinBounds(Model model, Coordinates coordinates) {
@@ -107,6 +105,10 @@ public class PutShipCommand extends Command {
         return true;
     }
 
+    /**
+     * Checks if the body is within bounds of the map grid.
+     * @return boolean of whether body of battleship is within bounds of map grid.
+     */
     public static boolean isBodyWithinBounds(Model model, Coordinates coordinates, Battleship battleship) {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
@@ -121,6 +123,10 @@ public class PutShipCommand extends Command {
         return true;
     }
 
+    /**
+     * Checks if vertical length is clear, i.e., there are no other battleship objects.
+     * @return boolean of whether vertical length is clear.
+     */
     public static boolean isVerticalClear(Model model, Coordinates coordinates, Battleship battleship) {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
@@ -139,6 +145,10 @@ public class PutShipCommand extends Command {
         return true;
     }
 
+    /**
+     * Checks if horizontal length is clear, i.e., there are no other battleship objects.
+     * @return boolean of whether horizontal length is clear.
+     */
     public static boolean isHorizontalClear(Model model, Coordinates coordinates, Battleship battleship) {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();

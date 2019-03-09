@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.HashSet;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.PutShipCommand;
@@ -13,7 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new PutShipCommand object

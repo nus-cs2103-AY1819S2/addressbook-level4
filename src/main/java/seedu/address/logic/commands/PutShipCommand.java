@@ -43,7 +43,6 @@ public class PutShipCommand extends Command {
             + PREFIX_COORDINATES + "c1";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Put ship in cell: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This ship already exists on the map.";
     public static final String MESSAGE_BATTLESHIP_PRESENT = "There is already a ship on the coordinate.";
 
     private final Coordinates coordinates;

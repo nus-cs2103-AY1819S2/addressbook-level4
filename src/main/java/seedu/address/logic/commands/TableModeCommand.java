@@ -20,9 +20,8 @@ import seedu.address.model.table.TableNumber;
 public class TableModeCommand extends ChangeModeCommand {
     public static final String COMMAND_WORD = "tableMode"; // change to standardize with other modes
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Table Mode for the specified table. "
-            + "Parameters: TABLE_NUMBER\n"
-            + "Example: " + COMMAND_WORD + " 3";
-    public static final String MESSAGE_SUCCESS = "Mode changed to Table Mode";
+            + "Parameters: TABLE_NUMBER\n" + "Example: " + COMMAND_WORD + " 3";
+    public static final String MESSAGE_SUCCESS = "Mode changed to Table Mode!\nCurrently on Table %1$s";
 
     private final TableNumber tableNumber;
 
@@ -37,16 +36,16 @@ public class TableModeCommand extends ChangeModeCommand {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        
+
         if (isSameMode(mode) && model.getSelectedTable().getTableNumber().equals(tableNumber)) {
             throw new CommandException(MESSAGE_INVALID_MODE_CHANGE);
         }
-        
+
         Optional<Table> tableOptional = model.getRestOrRant().getTables().getTableFromNumber(tableNumber);
         if (!tableOptional.isPresent()) {
             throw new CommandException(MESSAGE_INVALID_TABLE_NUMBER);
         }
-        
+
         model.updateFilteredTableList(Model.PREDICATE_SHOW_ALL_TABLES);
         model.setSelectedTable(tableOptional.get());
         model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
@@ -55,10 +54,10 @@ public class TableModeCommand extends ChangeModeCommand {
 
         return generateCommandResult();
     }
-    
+
     @Override
     public CommandResult generateCommandResult() {
-        return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.TABLE_MODE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, tableNumber), false, false, Mode.TABLE_MODE);
     }
 
     @Override

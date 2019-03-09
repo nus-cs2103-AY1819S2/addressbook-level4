@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.order.OrderItem;
+import seedu.address.model.table.Table;
 
 /**
  * An UI component that displays information of a {@code MenuItem}.
  */
-public class OrderItemCard extends UiPart<Region> {
+public class TableCard extends UiPart<Region> {
 
-    private static final String FXML = "OrderItemListCard.fxml";
+    private static final String FXML = "TableCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,7 +21,7 @@ public class OrderItemCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on RestOrRant level 4</a>
      */
 
-    public final OrderItem item;
+    public final Table table;
 
     @FXML
     private HBox cardPane;
@@ -30,18 +30,14 @@ public class OrderItemCard extends UiPart<Region> {
     @FXML
     private Label tableNumber;
     @FXML
-    private Label menuItemCode;
-    @FXML
-    private Label quantity;
+    private Label tableStatus;
 
-    public OrderItemCard(OrderItem item, int displayedIndex) {
+    public TableCard(Table table) {
         super(FXML);
-        this.item = item;
-        id.setText(displayedIndex + ". ");
+        this.table = table;
 
-        tableNumber.setText("Table " + item.getTableNumber().tableNumber);
-        menuItemCode.setText(item.getMenuItemCode().itemCode);
-        quantity.setText("Qty: " + item.getQuantity());
+        tableNumber.setText("Table " + this.table.getTableNumber());
+        tableStatus.setText("Status: " + this.table.getTableStatus());
     }
 
     @Override
@@ -52,12 +48,13 @@ public class OrderItemCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof OrderItemCard)) {
+        if (!(other instanceof TableCard)) {
             return false;
         }
 
         // state check
-        OrderItemCard card = (OrderItemCard) other;
-        return id.getText().equals(card.id.getText()) && item.equals(card.item);
+        TableCard card = (TableCard) other;
+        return id.getText().equals(card.id.getText()) && table.equals(card.table);
     }
+
 }

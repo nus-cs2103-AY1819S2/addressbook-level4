@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -17,7 +16,8 @@ public class DisplayCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display the locations of equipments shown on left."
             + "Example: " + COMMAND_WORD;
 
-    public DisplayCommand() { }
+    public DisplayCommand() {
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

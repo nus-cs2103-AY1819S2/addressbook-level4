@@ -144,13 +144,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateRestOrRant() { // change mode
+    public void updateMode() { // change mode
         restOrRant.indicateModified();
-    }
-
-    @Override
-    public void changeMode() {
-        restOrRant.changeMode();
     }
 
     //=========== Tables =====================================================================================
@@ -184,6 +179,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTable);
 
         restOrRant.getTables().setTable(target, editedTable);
+    }
+
+    @Override
+    public void updateTables() {
+        restOrRant.getTables().indicateModified();
     }
 
     //=========== Filtered Table List Accessors ==============================================================
@@ -277,6 +277,11 @@ public class ModelManager implements Model {
         restOrRant.getOrders().setOrderItem(target, editedOrderItem);
     }
 
+    @Override
+    public void updateOrders() {
+        restOrRant.getOrders().indicateModified();
+    }
+
     //=========== Filtered Order Item List Accessors =============================================================
 
     /**
@@ -340,8 +345,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateOrders() {
-        restOrRant.getOrders().indicateModified();
+    public void updateMenu() {
+        restOrRant.getMenu().indicateModified();
     }
 
     //=========== Filtered MenuItem List Accessors =============================================================

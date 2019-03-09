@@ -46,7 +46,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new RestOrRant(model.getRestOrRant()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-        expectedModel.updateRestOrRant();
+        expectedModel.updateMode();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -68,7 +68,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new RestOrRant(model.getRestOrRant()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
-        expectedModel.updateRestOrRant();
+        expectedModel.updateMode();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,7 +81,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new RestOrRant(model.getRestOrRant()), new UserPrefs());
-        expectedModel.updateRestOrRant();
+        expectedModel.updateMode();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -99,7 +99,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new RestOrRant(model.getRestOrRant()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-        expectedModel.updateRestOrRant();
+        expectedModel.updateMode();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }

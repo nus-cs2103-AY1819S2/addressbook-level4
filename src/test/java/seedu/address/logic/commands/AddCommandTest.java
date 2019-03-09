@@ -140,7 +140,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateRestOrRant() {
+        public void updateMode() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -225,7 +225,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateRestOrRant() {
+        public void updateMode() {
             // called by {@code AddCommand#execute()}
         }
 

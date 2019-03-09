@@ -94,7 +94,7 @@ public interface Model {
     /**
      * Notifies the listeners that the RestOrRant (mode) has been modified.
      */
-    void updateRestOrRant();
+    void updateMode();
 
     /**
      * Returns true if a table with the same identity as {@code table} exists in the RestOrRant's Tables.
@@ -305,7 +305,17 @@ public interface Model {
     void setSelectedBill(Bill bill);
 
     /**
-     * Notifies the listeners that the RestOrRant orders has been modified.
+     * Notifies the listeners that the RestOrRant tables has been modified to update the storage.
+     */
+    void updateTables();
+
+    /**
+     * Notifies the listeners that the RestOrRant menu has been modified to update the storage.
+     */
+    void updateMenu();
+
+    /**
+     * Notifies the listeners that the RestOrRant orders has been modified to update the storage.
      */
     void updateOrders();
 
@@ -313,10 +323,5 @@ public interface Model {
      * Get the Bill list
      */
     ObservableList<Bill> getBillList();
-
-    /**
-     * Changes the current mode of the RestOrRant.
-     */
-    void changeMode();
 
 }

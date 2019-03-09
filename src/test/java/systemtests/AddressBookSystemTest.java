@@ -30,10 +30,10 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ClearCustomerCommand;
+import seedu.address.logic.commands.FindNameCommand;
+import seedu.address.logic.commands.ListCustomerCommand;
+import seedu.address.logic.commands.SelectCustomerCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.CustomerModel;
 import seedu.address.testutil.TypicalCustomers;
@@ -137,7 +137,7 @@ public abstract class AddressBookSystemTest {
      * Displays all customers in the address book.
      */
     protected void showAllCustomers() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ListCustomerCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getCustomerList().size(), getModel().getFilteredCustomerList().size());
     }
 
@@ -145,7 +145,7 @@ public abstract class AddressBookSystemTest {
      * Displays all customers with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showCustomersWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindNameCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredCustomerList().size() < getModel().getAddressBook().getCustomerList().size());
     }
 
@@ -153,7 +153,7 @@ public abstract class AddressBookSystemTest {
      * Selects the customer at {@code index} of the displayed list.
      */
     protected void selectCustomer(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(SelectCustomerCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getCustomerListPanel().getSelectedCardIndex());
     }
 
@@ -161,7 +161,7 @@ public abstract class AddressBookSystemTest {
      * Deletes all customers in the address book.
      */
     protected void deleteAllCustomers() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        executeCommand(ClearCustomerCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getCustomerList().size());
     }
 

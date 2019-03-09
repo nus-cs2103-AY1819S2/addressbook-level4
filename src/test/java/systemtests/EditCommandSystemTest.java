@@ -39,7 +39,7 @@ package systemtests;
 //
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.EditCommand;
+//import seedu.address.logic.commands.EditCustomerCommand;
 //import seedu.address.logic.commands.RedoCommand;
 //import seedu.address.logic.commands.UndoCommand;
 //import seedu.address.model.CustomerModel;
@@ -66,7 +66,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     // * -> edited
     // */
     //Index index = INDEX_FIRST_CUSTOMER;
-    //String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
+    //String command = " " + EditCustomerCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
     //    + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
     //    + TAG_DESC_HUSBAND + " ";
     //Customer editedCustomer = new CustomerBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
@@ -85,16 +85,16 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     //assertCommandSuccess(command, model, expectedResultMessage);
     //
     ///* Case: edit a customer with new values same as existing values -> edited */
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-    //    + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+    // + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
     //assertCommandSuccess(command, index, BOB);
     //
     ///* Case: edit a customer with new values same as another customer's values but with different name -> edited */
     //assertTrue(getModel().getAddressBook().getCustomerList().contains(BOB));
     //index = INDEX_SECOND_CUSTOMER;
     //assertNotEquals(getModel().getFilteredCustomerList().get(index.getZeroBased()), BOB);
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-    //    + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB
+    // + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
     //editedCustomer = new CustomerBuilder(BOB).withName(VALID_NAME_AMY).build();
     //assertCommandSuccess(command, index, editedCustomer);
     //
@@ -102,15 +102,15 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     // * -> edited
     // */
     //index = INDEX_SECOND_CUSTOMER;
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-    //    + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
+    // + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
     //editedCustomer = new CustomerBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
     //    .withIdNum(VALID_ID_AMY).build();
     //assertCommandSuccess(command, index, editedCustomer);
     //
     ///* Case: clear tags -> cleared */
     //index = INDEX_FIRST_CUSTOMER;
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
     //Customer customerToEdit = getModel().getFilteredCustomerList().get(index.getZeroBased());
     //editedCustomer = new CustomerBuilder(customerToEdit).withTags().build();
     //assertCommandSuccess(command, index, editedCustomer);
@@ -121,7 +121,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     //showCustomersWithName(KEYWORD_MATCHING_MEIER);
     //index = INDEX_FIRST_CUSTOMER;
     //assertTrue(index.getZeroBased() < getModel().getFilteredCustomerList().size());
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
     //customerToEdit = getModel().getFilteredCustomerList().get(index.getZeroBased());
     //editedCustomer = new CustomerBuilder(customerToEdit).withName(VALID_NAME_BOB).build();
     //assertCommandSuccess(command, index, editedCustomer);
@@ -131,7 +131,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     // */
     //showCustomersWithName(KEYWORD_MATCHING_MEIER);
     //int invalidIndex = getModel().getAddressBook().getCustomerList().size();
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
     //    Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //
     ///* --------------------- Performing edit operation while a customer card is selected ------------------------ */
@@ -143,8 +143,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     //showAllCustomers();
     //index = INDEX_FIRST_CUSTOMER;
     //selectCustomer(index);
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-    //    + ID_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
+    // + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
     //// this can be misleading: card selection actually remains unchanged but the
     //// browser's url is updated to reflect the new customer's name
     //assertCommandSuccess(command, index, AMY, index);
@@ -152,53 +152,53 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     ///* --------------------------------- Performing invalid edit operation -------------------------------------- */
     //
     ///* Case: invalid index (0) -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
-    //    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+    //    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE));
     //
     ///* Case: invalid index (-1) -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
-    //    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+    //    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE));
     //
     ///* Case: invalid index (size + 1) -> rejected */
     //invalidIndex = getModel().getFilteredCustomerList().size() + 1;
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
     //    Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //
     ///* Case: missing index -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
-    //    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + NAME_DESC_BOB,
+    //    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE));
     //
     ///* Case: missing all fields -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
-    //    EditCommand.MESSAGE_NOT_EDITED);
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+    //    EditCustomerCommand.MESSAGE_NOT_EDITED);
     //
     ///* Case: invalid name -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
     //        + INVALID_NAME_DESC,
     //    Name.MESSAGE_CONSTRAINTS);
     //
     ///* Case: invalid phone -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
     //        + INVALID_PHONE_DESC,
     //    Phone.MESSAGE_CONSTRAINTS);
     //
     ///* Case: invalid email -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
     //        + INVALID_EMAIL_DESC,
     //    Email.MESSAGE_CONSTRAINTS);
     //
     ///* Case: invalid id -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
     //        + INVALID_ID_DESC,
     //    IdentificationNo.MESSAGE_CONSTRAINTS);
     //
     ///* Case: invalid address -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
     //        + INVALID_ADDRESS_DESC,
     //    Address.MESSAGE_CONSTRAINTS);
     //
     ///* Case: invalid tag -> rejected */
-    //assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+    //assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
     //        + INVALID_TAG_DESC,
     //    Tag.MESSAGE_CONSTRAINTS);
     //
@@ -207,38 +207,38 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     //assertTrue(getModel().getAddressBook().getCustomerList().contains(BOB));
     //index = INDEX_FIRST_CUSTOMER;
     //assertFalse(getModel().getFilteredCustomerList().get(index.getZeroBased()).equals(BOB));
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-    //    + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-    //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+    // + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     ///* Case: edit a customer with new values same as another customer's values but with different tags -> rejected*/
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-    //    + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-    //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+    // + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+    //assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     ///* Case: edit a customer with new values same as another customer's values but with different address ->
     // * rejected */
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-    //    + ID_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-    //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+    // + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     ///* Case: edit a customer with new values same as another customer's values but with different phone ->
     // * rejected */
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-    //    + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-    //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
+    // + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     ///* Case: edit a customer with new values same as another customer's values but with different email ->
     // * rejected */
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-    //    + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-    //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+    // + EMAIL_DESC_AMY + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     ///* Case: edit a customer with new values same as another customer's values but with different id ->
     // * rejected */
-    //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-    //    + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-    //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+    // + EMAIL_DESC_BOB + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+    //assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //}
     //
     ///**
@@ -254,7 +254,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     //
     ///**
     // * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and, <br>
-    // * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
+    // * 1. Asserts that result display box displays the success message of executing {@code EditCustomerCommand}.<br>
     // * 2. Asserts that the model related components are updated to reflect the customer at index {@code toEdit} being
     // * updated to values specified {@code editedCustomer}.<br>
     // *
@@ -268,7 +268,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     //    expectedModel.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     //
     //    assertCommandSuccess(command, expectedModel,
-    //        String.format(EditCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer), expectedSelectedCardIndex);
+    //        String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer),
+    // expectedSelectedCardIndex);
     //}
     //
     ///**

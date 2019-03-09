@@ -7,19 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddBookingCommand;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.AddCustomerCommand;
+import seedu.address.logic.commands.ClearCustomerCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindNameCommand;
 import seedu.address.logic.commands.GenerateBillCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListCustomerCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectCustomerCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BookingModel;
@@ -53,43 +53,43 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parse(arguments);
+        case AddCustomerCommand.COMMAND_WORD:
+        case AddCustomerCommand.COMMAND_ALIAS:
+            return new AddCustomerCommandParser().parse(arguments);
 
         case AddBookingCommand.COMMAND_WORD:
         case AddBookingCommand.COMMAND_ALIAS:
             System.out.println("Here");
             return new AddBookingCommandParser().parse(arguments, customerModel);
 
-        case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_ALIAS:
-            return new EditCommandParser().parse(arguments);
+        case EditCustomerCommand.COMMAND_WORD:
+        case EditCustomerCommand.COMMAND_ALIAS:
+            return new EditCustomerCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ALIAS:
-            return new SelectCommandParser().parse(arguments);
+        case SelectCustomerCommand.COMMAND_WORD:
+        case SelectCustomerCommand.COMMAND_ALIAS:
+            return new SelectCustomerCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteCustomerCommand.COMMAND_WORD:
+        case DeleteCustomerCommand.COMMAND_ALIAS:
+            return new DeleteCustomerCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-        case ClearCommand.COMMAND_ALIAS:
-            return new ClearCommand();
+        case ClearCustomerCommand.COMMAND_WORD:
+        case ClearCustomerCommand.COMMAND_ALIAS:
+            return new ClearCustomerCommand();
 
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
-            return new FindCommandParser().parse(arguments);
+        case FindNameCommand.COMMAND_WORD:
+        case FindNameCommand.COMMAND_ALIAS:
+            return new FindNameCommandParser().parse(arguments);
 
         case GenerateBillCommand.COMMAND_WORD:
         case GenerateBillCommand.COMMAND_ALIAS:
             return new GenerateBillCommandParser().parse(arguments);
 
 
-        case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_ALIAS:
-            return new ListCommand();
+        case ListCustomerCommand.COMMAND_WORD:
+        case ListCustomerCommand.COMMAND_ALIAS:
+            return new ListCustomerCommand();
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:

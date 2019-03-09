@@ -95,7 +95,7 @@ public class Directory {
      * else return Optional.empty()
      */
     public Optional<Medicine> findMedicine(String[] path, int pointer) {
-        if (path[pointer] != this.name) {
+        if (!path[pointer].equals(this.name)) {
             throw new IllegalStateException("path not corresponding to current directory");
         }
         if (path.length == pointer + 2) {
@@ -116,7 +116,7 @@ public class Directory {
      * else return Optional.empty()
      */
     public Optional<Directory> findDirectory(String[] path, int pointer) {
-        if (path[pointer] != this.name) {
+        if (!path[pointer].equals(this.name)) {
             throw new IllegalStateException("path not corresponding to current directory");
         }
         if (path.length == pointer + 1) {

@@ -12,6 +12,7 @@ import seedu.address.model.consultation.Assessment;
 import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.consultation.Prescription;
 import seedu.address.model.consultation.Symptom;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -44,6 +45,7 @@ public class EndConsultationTest {
 
     @Test
     public void endConsultation() {
+
         modelManager.createConsultation(modelManager.getPatientAtIndex(1));
 
         EndConsultationCommand command = new EndConsultationCommand();
@@ -59,7 +61,8 @@ public class EndConsultationTest {
         Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
 
         ArrayList<Prescription> prescriptions = new ArrayList<>();
-        prescriptions.add(new Prescription("migrane medicine", 1));
+        Medicine med1 = new Medicine("migrane medicine", 1);
+        prescriptions.add(new Prescription(med1, 1));
         modelManager.prescribeMedicine(prescriptions);
 
         try {
@@ -69,6 +72,7 @@ public class EndConsultationTest {
         } catch (CommandException ce) {
             org.junit.Assert.fail();
         }
+
     }
 
 }

@@ -219,7 +219,13 @@ public interface Model {
 
     Consultation getCurrentConsultation();
 
+    ArrayList<Consultation> getConsultationList();
+
     void endConsultation();
+
+    ArrayList<Consultation> listConsultation(String value);
+
+    Consultation listConsultation(int index);
 
     //===========Appointment module operations========================
     boolean duplicateApp(Appointment app);

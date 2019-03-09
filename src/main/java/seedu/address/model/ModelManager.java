@@ -440,6 +440,18 @@ public class ModelManager implements Model {
         return this.consultationManager.getCurrentConsultation();
     }
 
+    public ArrayList<Consultation> getConsultationList() {
+        return this.consultationManager.getConsultationList();
+    }
+
+    public ArrayList<Consultation> listConsultation(String value) {
+        return this.consultationManager.listConsultation(value);
+    }
+
+    public Consultation listConsultation(int index) {
+        return this.consultationManager.listConsultation(index);
+    }
+
     //==========Appointment module===========================================================================
     public boolean duplicateApp(Appointment app) {
         return appointmentManager.duplicateApp(app);

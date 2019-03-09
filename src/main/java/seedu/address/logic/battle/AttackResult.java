@@ -2,16 +2,17 @@ package seedu.address.logic.battle;
 
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
+import seedu.address.model.player.Player;
 
 /**
  * An AttackResult represents the end result of an attack.
  */
 public abstract class AttackResult {
-    protected int attacker;
-    protected int target;
+    protected Player attacker;
+    protected Player target;
     protected Coordinates coords;
 
-    protected AttackResult(int attacker, int target, Coordinates coords) {
+    protected AttackResult(Player attacker, Player target, Coordinates coords) {
         this.attacker = attacker;
         this.target = target;
         this.coords = coords;
@@ -20,14 +21,14 @@ public abstract class AttackResult {
     /**
      * Returns the player ID of the attacker.
      */
-    public int getAttacker() {
+    public Player getAttacker() {
         return attacker;
     }
 
     /**
      * Returns the player ID of the attacked.
      */
-    public int getTarget() {
+    public Player getTarget() {
         return target;
     }
 

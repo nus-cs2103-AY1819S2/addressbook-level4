@@ -2,12 +2,13 @@ package seedu.address.logic.battle;
 
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
+import seedu.address.model.player.Player;
 
 /**
  * AttackMissed represents the result of an attack that missed.
  */
 public class AttackMissed extends AttackResult {
-    public AttackMissed(int attacker, int target, Coordinates cell) {
+    public AttackMissed(Player attacker, Player target, Coordinates cell) {
         super(attacker, target, cell);
     }
 
@@ -18,7 +19,7 @@ public class AttackMissed extends AttackResult {
 
     @Override
     public String toString() {
-        return String.format("Attack by player %d on cell %s of player %d missed",
+        return String.format("Attack by player %s on cell %s of player %s missed",
             attacker, coords, target);
     }
 }

@@ -32,10 +32,10 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.person.Grade;
+import seedu.address.model.module.Grade;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Semester;
+import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 

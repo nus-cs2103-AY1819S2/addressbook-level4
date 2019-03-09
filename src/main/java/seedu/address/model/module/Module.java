@@ -3,6 +3,9 @@ package seedu.address.model.module;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
+
+import seedu.address.model.moduleinfo.ModuleInfo;
 
 /**
  * Represents a module in Graduation Tracker
@@ -10,48 +13,42 @@ import java.util.Objects;
  */
 public class Module {
 
-    private final ModuleCode moduleCode;
-    private final ModuleTitle moduleTitle;
-    private final ModuleDescription moduleDescription;
-    private final ModulePrereq modulePrereq;
-    private final ModuleDepartment moduleDepartment;
-    private final ModuleCredits moduleCredits;
+    private final ModuleInfo moduleInfo;
+    private final Semester takenSem;
+    private final GradeRange gradeRange;
+    private final Grade obtainedGrade;
 
-    public Module(ModuleCode moduleCode, ModuleTitle moduleTitle,
-                  ModuleDescription moduleDescription, ModulePrereq modulePrereq,
-                  ModuleDepartment moduleDepartment, ModuleCredits moduleCredits) {
-        requireAllNonNull(moduleCode, moduleTitle, moduleDescription,
-                moduleDepartment, moduleCredits);
-        this.moduleCode = moduleCode;
-        this.moduleTitle = moduleTitle;
-        this.moduleDescription = moduleDescription;
-        this.modulePrereq = modulePrereq;
-        this.moduleDepartment = moduleDepartment;
-        this.moduleCredits = moduleCredits;
+    public Module(ModuleInfo moduleInfo, Semester semester, GradeRange gradeRange,
+                  Grade obtainedGrade) {
+        requireAllNonNull(moduleInfo, semester);
+        this.moduleInfo = moduleInfo;
+        this.takenSem = semester;
+        this.gradeRange = gradeRange;
+        this.obtainedGrade = obtainedGrade;
     }
 
-    public ModuleCode getModuleCode() {
-        return moduleCode;
+    public ModuleInfo getModuleInfo() {
+        return moduleInfo;
     }
 
-    public ModuleTitle getModuleTitle() {
-        return moduleTitle;
+    public Semester getTakenSem() {
+        return takenSem;
     }
 
-    public ModuleDescription getModuleDescription() {
-        return moduleDescription;
+    public Optional<GradeRange> getGradeRange() {
+        return Optional.ofNullable(gradeRange);
     }
 
-    public ModulePrereq getModulePrereq() {
-        return modulePrereq;
+    public Optional<Grade> getObtainedGrade() {
+        return Optional.ofNullable(obtainedGrade);
     }
 
-    public ModuleDepartment getModuleDepartment() {
-        return moduleDepartment;
+    public boolean isTaken() {
+        return obtainedGrade != null;
     }
 
-    public ModuleCredits getModuleCredits() {
-        return moduleCredits;
+    public boolean isPassed() {
+        return isTaken() && obtainedGrade.isPassingGrade();
     }
 
     /**
@@ -64,29 +61,12 @@ public class Module {
         }
 
         return other != null
-                && (other.getModuleCode().equals(getModuleCode())
-                || other.getModuleTitle().equals(getModuleTitle()));
+                && (other.getModuleInfo().getCode().equals(getModuleInfo().getCode())
+                || other.getModuleInfo().getTitle().equals(getModuleInfo().getTitle()));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, moduleTitle, moduleDescription, moduleDepartment,
-                modulePrereq, moduleCredits);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getModuleTitle())
-                .append(" Module Code: ")
-                .append(getModuleCode())
-                .append(" Module Description: ")
-                .append(getModuleDescription())
-                .append(" Department: ")
-                .append(getModuleDepartment())
-                .append(" Module Credits")
-                .append(getModuleCredits());
-        return builder.toString();
+        return Objects.hash(moduleInfo, takenSem);
     }
 }

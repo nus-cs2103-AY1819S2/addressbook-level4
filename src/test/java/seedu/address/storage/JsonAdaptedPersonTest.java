@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Grade;
+import seedu.address.model.module.Grade;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Semester;
+import seedu.address.model.module.Semester;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedPersonTest {

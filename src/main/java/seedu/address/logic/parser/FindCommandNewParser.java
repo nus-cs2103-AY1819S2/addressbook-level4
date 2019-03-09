@@ -4,12 +4,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODCODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODTITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import seedu.address.logic.commands.FindCommandNew;
 import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.FindModulePredicate;
+import seedu.address.model.module.FindModulePredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -24,7 +24,7 @@ public class FindCommandNewParser implements Parser<FindCommandNew> {
     public FindCommandNew parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) { // list all
-            return new FindCommandNew(PREDICATE_SHOW_ALL_PERSONS);
+            return new FindCommandNew(PREDICATE_SHOW_ALL_MODULES);
         }
 
         ArgumentMultimap argMultimap =

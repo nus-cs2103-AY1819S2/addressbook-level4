@@ -10,9 +10,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.person.Grade;
+import seedu.address.model.module.Grade;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Semester;
+import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
 
 /**

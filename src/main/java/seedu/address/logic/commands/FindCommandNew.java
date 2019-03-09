@@ -9,9 +9,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Semester;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.Grade;
+import seedu.address.model.module.Semester;
 
 /**
  * Finds and lists module(s) in module plan matching all given module code, module title,
@@ -27,16 +27,16 @@ public class FindCommandNew extends Command {
             + "Parameters: [c/MODULE_CODE] [t/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]\n"
             + "Example: " + COMMAND_WORD + " s/y1s1 n/cs g/A";
 
-    private final Predicate<Person> predicate;
+    private final Predicate<Module> predicate;
 
-    public FindCommandNew(Predicate<Person> predicate) {
+    public FindCommandNew(Predicate<Module> predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredModuleList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
@@ -61,7 +61,6 @@ public class FindCommandNew extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public FindModuleDescriptor(FindModuleDescriptor toCopy) {
             setCode(toCopy.code);

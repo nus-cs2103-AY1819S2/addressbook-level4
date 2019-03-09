@@ -7,9 +7,10 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Semester;
 
 /**
  * The API of the Model component.
@@ -17,6 +18,7 @@ import seedu.address.model.person.Semester;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
      * Replaces course data with the data in {@code course}.
@@ -118,6 +120,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    void updateFilteredModuleList(Predicate<Module> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

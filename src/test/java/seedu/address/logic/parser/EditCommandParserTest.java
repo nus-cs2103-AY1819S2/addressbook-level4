@@ -36,9 +36,9 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Grade;
+import seedu.address.model.module.Grade;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Semester;
+import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 

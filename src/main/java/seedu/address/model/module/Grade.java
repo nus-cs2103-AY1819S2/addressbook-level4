@@ -1,4 +1,6 @@
-package seedu.address.model.person;
+package seedu.address.model.module;
+
+import java.util.Comparator;
 
 /**
  * Represents grade of a module taken
@@ -118,4 +120,6 @@ public enum Grade {
     public String toString() {
         return this.printedGrade;
     }
+
+    //TODO: implement comparator (Grades below F should not be comparable)
 }

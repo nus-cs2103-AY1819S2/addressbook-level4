@@ -32,9 +32,9 @@ public class CourseRequirement {
      * @return true if requirement is satisfied, false otherwise
      */
     public boolean isFulfilled(List<Module> modulesTaken) {
-        int satisfied = modulesTaken.stream()
+        double satisfied = modulesTaken.stream()
                                     .filter(x -> modules.contains(x))
-                                    .mapToInt(x -> x.getModuleCredits().getCredits())
+                                    .mapToDouble(x -> x.getModuleInfo().getCredits())
                                     .sum();
         return satisfied >= courseReqCredits.getCourseReqCredits();
     }

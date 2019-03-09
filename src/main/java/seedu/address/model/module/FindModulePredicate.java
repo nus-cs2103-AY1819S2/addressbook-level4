@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.module;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,11 +6,12 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
+import seedu.address.model.moduleinfo.ModuleInfo;
 
 /**
  * Tests that a module matches all of the description given.
  */
-public class FindModulePredicate implements Predicate<Person> {
+public class FindModulePredicate implements Predicate<Module> {
     private final FindModuleDescriptor findModuleDescriptor;
 
     public FindModulePredicate(FindModuleDescriptor findModuleDescriptor) {
@@ -19,9 +20,9 @@ public class FindModulePredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person module) {
+    public boolean test(Module module) {
         requireNonNull(module);
-        Name moduleInfo = module.getModuleInfo();
+        ModuleInfo moduleInfo = module.getModuleInfo();
 
         Optional<String> code = findModuleDescriptor.getCode();
         Optional<String> title = findModuleDescriptor.getTitle();
@@ -29,22 +30,22 @@ public class FindModulePredicate implements Predicate<Person> {
         Optional<Grade> grade = findModuleDescriptor.getGrade();
 
         if (code.isPresent()
-                && !(moduleInfo.toString().contains(code.get()))) { //to change
+                && !(moduleInfo.getCode().toString().contains(code.get()))) {
             return false;
         }
         if (title.isPresent()
-                && !(moduleInfo.toString().contains(title.get()))) { //to change
+                && !(moduleInfo.getTitle().toString().contains(title.get()))) {
             return false;
         }
         if (semester.isPresent()
-                && !(module.getSemester().equals(semester.get()))) {
+                && !(module.getTakenSem().equals(semester.get()))) {
             return false;
         }
-        if (grade.isPresent()
-                && !(module.getExpectedMinGrade().equals(grade.get()))) {
-            return false;
-        } //to check whether mod has been taken
-
+        if (grade.isPresent()) {
+            if (!(module.isTaken() && module.getObtainedGrade().get().equals(grade.get()))) {
+                return false;
+            }
+        }
         return true;
     }
 

@@ -85,7 +85,7 @@ public class DisplaymodCommand extends Command {
                     model.getDisplayList().get(i).getDepartment(),
                     Double.toString(model.getDisplayList().get(i).getCredits()),
                     model.getDisplayList().get(i).getDescription(),
-                    model.getDisplayList().get(i).getWorkLoad(),
+                    model.getDisplayList().get(i).getWorkload(),
                     model.getDisplayList().get(i).getPreclusions(),
                     model.getDisplayList().get(i).getPrerequisites());
         }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_FIRST_CELL;
+import static seedu.address.testutil.TypicalIndexes.COORDINATES_FIRST_CELL_NEXT_HORIZONTAL;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_LAST_CELL;
 import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -29,10 +30,20 @@ public class PutShipCommandTest {
     public void execute_battleshipAlreadyPresent_failure() {
         model.getMapGrid().initialise(MAP_SIZE_TEN);
         Battleship battleship = new Battleship();
-        model.putShip(COORDINATES_FIRST_CELL, battleship);
         model.getMapGrid().getCell(COORDINATES_FIRST_CELL).putShip(battleship);
 
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship);
+
+        assertCommandFailure(putShipCommand, model, commandHistory,
+                PutShipCommand.MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
+    }
+
+    @Test
+    public void execute_putBattleshipHorizontal_failure() {
+        model.getMapGrid().initialise(MAP_SIZE_TEN);
+        Battleship battleship = new Battleship();
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship);
+        model.getMapGrid().getCell(COORDINATES_FIRST_CELL_NEXT_HORIZONTAL).putShip(battleship);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
                 PutShipCommand.MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);

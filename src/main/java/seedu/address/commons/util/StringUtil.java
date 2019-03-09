@@ -65,4 +65,18 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Convert path to a String to display to User
+     * @param path the path field
+     * @return A string representation of the path
+     */
+    public static String fromPathToString(String[] path) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < path.length - 1; i++) {
+            sb.append(path[i] + "\\");
+        }
+        sb.append(path[path.length - 1]);
+        return sb.toString();
+    }
 }

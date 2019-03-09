@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.StringUtil.fromPathToString;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -19,11 +20,13 @@ public class AddMedicineCommand extends Command {
 
     public static final String COMMAND_WORD = "addMed";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the medicine storage. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the specified directory.\n"
+            + "If no quantity specified and medicine with the same name already exists in the storage, "
+            + "add this medicine to the directory specified."
             + "Parameters: "
-            + "Directory path separated by \\ "
-            + "Name of Medicine "
-            + "(Optional)Amount of Medicine\n"
+            + "[Directory path separated by \\] "
+            + "[Name of Medicine] "
+            + "[(Optional)Amount of Medicine]\n"
             + "Example: " + COMMAND_WORD + " "
             + "root\\TCM\\herbs "
             + "Healroot "
@@ -85,20 +88,6 @@ public class AddMedicineCommand extends Command {
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }
-    }
-
-    /**
-     * Convert path to a String to display to User
-     * @param path the path field
-     * @return A string representation of the path
-     */
-    private String fromPathToString(String[] path) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < path.length - 1; i++) {
-            sb.append(path[i] + "\\");
-        }
-        sb.append(path[path.length - 1]);
-        return sb.toString();
     }
 
     @Override

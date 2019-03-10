@@ -15,6 +15,7 @@ import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.equipment.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,6 +29,7 @@ class JsonAdaptedEquipment {
     private final String phone;
     private final String email;
     private final String address;
+    private final String serialNumber;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,11 +38,13 @@ class JsonAdaptedEquipment {
     @JsonCreator
     public JsonAdaptedEquipment(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                 @JsonProperty("email") String email, @JsonProperty("address") String address,
+                                @JsonProperty("serial number") String serialNumber,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.serialNumber = serialNumber;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,10 +54,11 @@ class JsonAdaptedEquipment {
      * Converts a given {@code Equipment} into this class for Jackson use.
      */
     public JsonAdaptedEquipment(Equipment source) {
-        name = source.getName().serialNumber;
+        name = source.getName().name;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        serialNumber = source.getSerialNumber().serialNumber;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -73,7 +78,7 @@ class JsonAdaptedEquipment {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidSerialNumber(name)) {
+        if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
@@ -102,8 +107,17 @@ class JsonAdaptedEquipment {
         }
         final Address modelAddress = new Address(address);
 
+        if (serialNumber == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    SerialNumber.class.getSimpleName()));
+        }
+        if (!SerialNumber.isValidSerialNumber(serialNumber)) {
+            throw new IllegalValueException(SerialNumber.MESSAGE_CONSTRAINTS);
+        }
+        final SerialNumber modelSerialNumber = new SerialNumber(serialNumber);
+
         final Set<Tag> modelTags = new HashSet<>(equipmentTags);
-        return new Equipment(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Equipment(modelName, modelPhone, modelEmail, modelAddress, modelSerialNumber, modelTags);
     }
 
 }

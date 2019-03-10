@@ -85,7 +85,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code equipment}.
      */
     public boolean equals(Equipment equipment) {
-        return getName().equals(equipment.getName().serialNumber)
+        return getName().equals(equipment.getName().name)
                 && getAddress().equals(equipment.getAddress().value)
                 && getPhone().equals(equipment.getPhone().value)
                 && getEmail().equals(equipment.getEmail().value)

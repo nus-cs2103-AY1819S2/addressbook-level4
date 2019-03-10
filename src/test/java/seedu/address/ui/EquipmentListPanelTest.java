@@ -22,6 +22,7 @@ import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.equipment.SerialNumber;
 
 public class EquipmentListPanelTest extends GuiUnitTest {
     private static final ObservableList<Equipment> TYPICAL_EQUIPMENTS =
@@ -84,7 +85,8 @@ public class EquipmentListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Equipment equipment = new Equipment(name, phone, email, address, Collections.emptySet());
+            SerialNumber serialNumber = new SerialNumber("aaaaaa");
+            Equipment equipment = new Equipment(name, phone, email, address, serialNumber, Collections.emptySet());
             backingList.add(equipment);
         }
         return backingList;

@@ -79,7 +79,6 @@ public class BrowserPanel extends UiPart<Region> {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         } finally {
-
             System.out.println("Loading page: " + url);
             loadPage(url);
         }

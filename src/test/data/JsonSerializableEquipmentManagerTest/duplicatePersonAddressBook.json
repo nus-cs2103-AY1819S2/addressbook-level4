@@ -4,11 +4,13 @@
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
+    "serial number": "A008844L",
     "tagged": [ "west" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "serial number": "A008844L",
     "address": "4th street"
   } ]
 }

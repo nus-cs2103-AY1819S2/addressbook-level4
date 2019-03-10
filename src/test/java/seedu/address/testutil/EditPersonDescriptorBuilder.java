@@ -10,6 +10,7 @@ import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.equipment.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,6 +37,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(equipment.getPhone());
         descriptor.setEmail(equipment.getEmail());
         descriptor.setAddress(equipment.getAddress());
+        descriptor.setSerialNumber(equipment.getSerialNumber());
         descriptor.setTags(equipment.getTags());
     }
 
@@ -68,6 +70,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code SerialNumber} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withSerialNumber(String serialNumber) {
+        descriptor.setSerialNumber(new SerialNumber(serialNumber));
         return this;
     }
 

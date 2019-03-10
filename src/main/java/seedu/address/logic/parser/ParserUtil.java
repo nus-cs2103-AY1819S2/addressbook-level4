@@ -13,6 +13,7 @@ import seedu.address.model.equipment.Address;
 import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.equipment.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,7 +45,7 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidSerialNumber(trimmedName)) {
+        if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
@@ -93,6 +94,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String serialNumber} into an {@code SerialNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code serialNumber} is invalid.
+     */
+    public static SerialNumber parseSerialNumber(String serialNumber) throws ParseException {
+        requireNonNull(serialNumber);
+        String trimmedSerialNumber = serialNumber.trim();
+        if (!SerialNumber.isValidSerialNumber(trimmedSerialNumber)) {
+            throw new ParseException(SerialNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new SerialNumber(trimmedSerialNumber);
     }
 
     /**

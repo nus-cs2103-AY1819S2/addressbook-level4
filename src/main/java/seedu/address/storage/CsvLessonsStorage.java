@@ -110,6 +110,12 @@ public class CsvLessonsStorage implements LessonsStorage {
         return Optional.of(newLesson);
     }
 
+    private void saveLessonToFile(Lesson lesson) {
+        List<String[]> data = new ArrayList<>();
+        int headerSize = lesson.getCoreHeaders().size() + lesson.getOptionalHeaders().size();
+        String[] header = new String[headerSize];
+    }
+
     @Override
     public Optional<Lessons> readLessons() {
         return readLessons(folderPath);
@@ -134,12 +140,19 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     @Override
-    public void saveLessons(Lessons lessons) throws IOException {
-
+    public void saveLessons(Lessons lessons) {
+        saveLessons(lessons, folderPath);
     }
 
     @Override
-    public void saveLessons(Lessons lessons, Path filePath) throws IOException {
+    public void saveLessons(Lessons lessons, Path filePath) {
+        requireNonNull(lessons);
+        requireNonNull(filePath);
 
+        List<Lesson> allLessons = lessons.getLessons();
+
+        for (Lesson lesson : allLessons) {
+            saveLessonToFile(lesson);
+        }
     }
 }

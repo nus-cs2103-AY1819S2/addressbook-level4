@@ -104,5 +104,6 @@ public class PatientTest {
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
                 .withAddress(VALID_ADDRESS_BENSON)).build();
         assertFalse(ALICE.equals(editedAlice));
+
     }
 }

@@ -55,8 +55,7 @@ public class TableCard extends UiPart<Region> {
 
         // state check
         TableCard card = (TableCard) other;
-        return id.getText().equals(card.id.getText())
-                && table.equals(card.table);
+        return id.getText().equals(card.id.getText()) && table.equals(card.table);
     }
-    
+
 }

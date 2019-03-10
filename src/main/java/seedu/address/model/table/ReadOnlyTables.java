@@ -6,7 +6,6 @@ import java.util.Optional;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.table.Table;
 
 /**
  * Unmodifiable view of the RestOrRant's Tables.
@@ -17,7 +16,7 @@ public interface ReadOnlyTables extends Observable {
      * Returns an unmodifiable view of the tables list.
      */
     ObservableList<Table> getTableList();
-
+    
     /**
      * Takes in a TableNumber and returns the Optional of a Table if table exists, else an empty Optional.
      */

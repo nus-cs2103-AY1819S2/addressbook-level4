@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -28,7 +29,7 @@ public class Bill {
         date = new Date();
     }
 
-    public  String getFormattedDate() {
+    public String getFormattedDate() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
         return dateFormatter.format(date);
     }

@@ -47,7 +47,7 @@ public class EditBookCommand extends Command {
 
     public static final String MESSAGE_EDIT_BOOK_SUCCESS = "Edited Book: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to editBook must be provided.";
-    public static final String MESSAGE_DUPLICATE_BOOK = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_BOOK = "This book already exists in the book shelf.";
 
     private final BookNameContainsExactKeywordsPredicate predicate;
     private final EditBookDescriptor editBookDescriptor;

@@ -28,7 +28,8 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        this.name = name;    }
+        this.name = name;
+    }
 
     /**
      * Returns true if a given string is a valid name.

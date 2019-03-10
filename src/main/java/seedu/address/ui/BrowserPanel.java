@@ -52,7 +52,7 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
-  /**
+    /**
      * Load the equipment page of a equipment.
      * @param equipment The equipment to load.
      */

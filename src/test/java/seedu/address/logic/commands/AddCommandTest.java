@@ -146,9 +146,20 @@ public class AddCommandTest {
         }
 
         @Override
-        public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Card getCurrentTestedCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentTestedCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public boolean checkIfInsideTestSession() {
@@ -161,7 +172,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean checkValidCardFolders(List<String> cardFolers) {
+        public boolean markAttemptedAnswer(String attemptedAnswer) { throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public boolean checkValidCardFolders(List<String> cardFolders) {
             return false;
         }
 

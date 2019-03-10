@@ -44,7 +44,7 @@ public class AddDirectoryCommandTest {
                             .execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("path not corresponding to current directory" , ex.getMessage());
+            Assert.assertEquals("Path not corresponding to current directory." , ex.getMessage());
         } catch (Exception ex) {
             Assert.fail();
         }

@@ -40,7 +40,7 @@ public class BookTest {
         assertFalse(ALI.isSameBook(editedAlice));
 
         // different name -> returns false
-        editedAlice = new BookBuilder(ALI).withName(VALID_BOOKNAME_CS).build();
+        editedAlice = new BookBuilder(ALI).withBookName(VALID_BOOKNAME_CS).build();
         assertFalse(ALI.isSameBook(editedAlice));
 
         // same name, same author, different attributes -> returns true
@@ -72,7 +72,7 @@ public class BookTest {
         assertFalse(ALI.equals(CS));
 
         // different name -> returns false
-        Book editedAlice = new BookBuilder(ALI).withName(VALID_BOOKNAME_CS).build();
+        Book editedAlice = new BookBuilder(ALI).withBookName(VALID_BOOKNAME_CS).build();
         assertFalse(ALI.equals(editedAlice));
 
         // different author -> returns false

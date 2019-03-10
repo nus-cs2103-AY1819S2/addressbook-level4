@@ -1,5 +1,7 @@
 package seedu.address.model.book;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.function.Predicate;
 
 /**
@@ -8,8 +10,9 @@ import java.util.function.Predicate;
 public class BookNameContainsExactKeywordsPredicate implements Predicate<Book> {
     private final String keywords;
 
-    public BookNameContainsExactKeywordsPredicate(String keywords) {
-        this.keywords = keywords;
+    public BookNameContainsExactKeywordsPredicate(BookName bookName) {
+        requireNonNull(bookName);
+        this.keywords = bookName.fullName;
     }
 
     @Override

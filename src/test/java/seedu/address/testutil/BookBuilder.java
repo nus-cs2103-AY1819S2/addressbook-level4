@@ -44,7 +44,7 @@ public class BookBuilder {
     /**
      * Sets the {@code BookName} of the {@code Book} that we are building.
      */
-    public BookBuilder withName(String name) {
+    public BookBuilder withBookName(String name) {
         this.bookName = new BookName(name);
         return this;
     }

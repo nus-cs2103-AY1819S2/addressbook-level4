@@ -16,11 +16,13 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -83,8 +85,11 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final EditBookDescriptor DESC_ALI;
+    public static final EditBookDescriptor DESC_CS;
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -93,6 +98,12 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ALI = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_ALICE)
+                .withAuthor(VALID_AUTHOR_ALICE).withRating(VALID_RATING_ALICE)
+                .withTags(VALID_TAG_FANTASY).build();
+        DESC_CS = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS)
+                .withAuthor(VALID_AUTHOR_CS).withRating(VALID_RATING_CS)
+                .withTags(VALID_TAG_TEXTBOOK).build();
     }
 
     /**

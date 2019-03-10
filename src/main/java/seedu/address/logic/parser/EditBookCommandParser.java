@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
@@ -14,6 +15,8 @@ import java.util.Set;
 import seedu.address.logic.commands.EditBookCommand;
 import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,9 +35,14 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_RATING, PREFIX_TAG);
 
         EditBookDescriptor editBookDescriptor = new EditBookDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editBookDescriptor.setName(ParserUtil.parseBookName(argMultimap.getValue(PREFIX_NAME).get()));
+
+        if (!argMultimap.getValue(PREFIX_NAME).isPresent() || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookCommand.MESSAGE_USAGE));
         }
+
+        BookName bookName = ParserUtil.parseBookName(argMultimap.getValue(PREFIX_NAME).get());
+        editBookDescriptor.setName(bookName);
+
         if (argMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
             editBookDescriptor.setAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get()));
         }
@@ -47,7 +55,7 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
             throw new ParseException(EditBookCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditBookCommand(editBookDescriptor);
+        return new EditBookCommand(new BookNameContainsExactKeywordsPredicate(bookName), editBookDescriptor);
     }
 
     /**

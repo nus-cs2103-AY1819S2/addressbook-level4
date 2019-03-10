@@ -11,8 +11,8 @@ public class BookNameContainsExactKeywordsPredicateTest {
 
     @Test
     public void equals() {
-        String firstPredicateKeywordList = "first";
-        String secondPredicateKeywordList = "first second";
+        BookName firstPredicateKeywordList = new BookName("first");
+        BookName secondPredicateKeywordList = new BookName("second");
 
         BookNameContainsExactKeywordsPredicate firstPredicate =
                 new BookNameContainsExactKeywordsPredicate(firstPredicateKeywordList);
@@ -41,32 +41,27 @@ public class BookNameContainsExactKeywordsPredicateTest {
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
         BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate("Alice");
-        assertTrue(predicate.test(new BookBuilder().withName("Alice").build()));
+                new BookNameContainsExactKeywordsPredicate(new BookName("Alice"));
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice").build()));
 
         // Multiple keywords
-        predicate = new BookNameContainsExactKeywordsPredicate("Alice in Wonderland");
-        assertTrue(predicate.test(new BookBuilder().withName("Alice in Wonderland").build()));
+        predicate = new BookNameContainsExactKeywordsPredicate(new BookName("Alice in Wonderland"));
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice in Wonderland").build()));
 
         // Mixed-case keywords
-        predicate = new BookNameContainsExactKeywordsPredicate("Alice In WONDERLAND");
-        assertTrue(predicate.test(new BookBuilder().withName("Alice In Wonderland").build()));
+        predicate = new BookNameContainsExactKeywordsPredicate(new BookName("Alice In WONDERLAND"));
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice In Wonderland").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate("");
-        assertFalse(predicate.test(new BookBuilder().withName("Alice").build()));
-
         // Non-matching keyword
-        predicate = new BookNameContainsExactKeywordsPredicate("Carol");
-        assertFalse(predicate.test(new BookBuilder().withName("Alice Bob").build()));
+        BookNameContainsExactKeywordsPredicate predicate = new BookNameContainsExactKeywordsPredicate(new BookName("Carol"));
+        assertFalse(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
 
         // Keywords match author and rating, but does not match name
-        predicate = new BookNameContainsExactKeywordsPredicate("Rollin 9");
-        assertFalse(predicate.test(new BookBuilder().withName("Alice").withAuthor("Rollin")
+        predicate = new BookNameContainsExactKeywordsPredicate(new BookName("Rollin 9"));
+        assertFalse(predicate.test(new BookBuilder().withBookName("Alice").withAuthor("Rollin")
                 .withRating("9").build()));
     }
 
@@ -74,15 +69,15 @@ public class BookNameContainsExactKeywordsPredicateTest {
     public void test_nameContainsSomeKeywords_returnsFalse() {
         // Some keywords
         BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate("Bob Carol");
-        assertFalse(predicate.test(new BookBuilder().withName("Alice Carol").build()));
+                new BookNameContainsExactKeywordsPredicate(new BookName("Bob Carol"));
+        assertFalse(predicate.test(new BookBuilder().withBookName("Alice Carol").build()));
 
         // Some non-matching keyword
-        predicate = new BookNameContainsExactKeywordsPredicate("Carol");
-        assertFalse(predicate.test(new BookBuilder().withName("Carol Bob").build()));
+        predicate = new BookNameContainsExactKeywordsPredicate(new BookName("Carol"));
+        assertFalse(predicate.test(new BookBuilder().withBookName("Carol Bob").build()));
 
         // Keywords in wrong order
-        predicate = new BookNameContainsExactKeywordsPredicate("Bob Carol");
-        assertFalse(predicate.test(new BookBuilder().withName("Carol Bob").build()));
+        predicate = new BookNameContainsExactKeywordsPredicate(new BookName("Bob Carol"));
+        assertFalse(predicate.test(new BookBuilder().withBookName("Carol Bob").build()));
     }
 }

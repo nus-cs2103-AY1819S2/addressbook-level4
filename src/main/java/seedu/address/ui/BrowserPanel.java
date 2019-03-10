@@ -28,7 +28,7 @@ import seedu.address.model.equipment.Equipment;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayMap";
+    public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap";
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -70,12 +70,9 @@ public class BrowserPanel extends UiPart<Region> {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             if (results.length > 0) {
                 System.out.println();
-                url = "https://www.google.com/maps";
-                /*
                 url = MAP_PAGE_BASE_URL + "?coordinates=[[" + results[0].geometry.location.lng + ","
                         + results[0].geometry.location.lat + "]]&title=[\"" + equipment.getName()
                         + "\"]&icon=[\"monument\"]";
-                        */
             }
         } catch (ApiException e) {
             System.err.println(e.getMessage());

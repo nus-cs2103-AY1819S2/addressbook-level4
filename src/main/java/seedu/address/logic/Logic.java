@@ -34,6 +34,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of medicines for medicine pane*/
     ObservableList<Medicine> getFilteredMedicineList();
 
+    /** Returns an unmodifiable view of the filtered list of medicines that are expiring for warning pane*/
+    ObservableList<Medicine> getExpiringMedicinesList();
+
     /** Returns an unmodifiable view of the filtered list of medicines with low quantity for warning pane*/
     ObservableList<Medicine> getLowQuantityMedicinesList();
 

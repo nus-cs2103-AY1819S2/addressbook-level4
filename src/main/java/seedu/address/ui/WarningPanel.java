@@ -20,24 +20,24 @@ public class WarningPanel extends UiPart<Region> {
     @FXML
     private VBox warningVBox;
 
-    public WarningPanel(ObservableList<Medicine> medicineList) {
+    public WarningPanel(ObservableList<Medicine> expiringMedicineList, ObservableList<Medicine> lowQuantityMedicineList) {
         super(FXML);
 
-        createVBox(medicineList);
+        createVBox(expiringMedicineList, lowQuantityMedicineList);
 
     }
 
     /**
      * Creates the VBox which holds the lists.
      */
-    private void createVBox(ObservableList<Medicine> medicineList) {
-        String[] listTitles= {"Expiring Soon", "Low in Stock"};
+    private void createVBox(ObservableList<Medicine> expiringMedicineList, ObservableList<Medicine> lowQuantityMedicineList) {
+        Label expiringListTitle = new Label("Expiring Soon");
+        expiringListTitle.getStyleClass().add("label-bright");
+        warningVBox.getChildren().addAll(expiringListTitle, new WarningListView(expiringMedicineList).getRoot());
 
-        for (String title : listTitles) {
-            Label listTitle = new Label(title);
-            listTitle.getStyleClass().add("label-bright");
-            warningVBox.getChildren().addAll(listTitle, new WarningListView(medicineList).getRoot());
-        }
+        Label lowQuantityListTitle = new Label("Low in Stock");
+        lowQuantityListTitle.getStyleClass().add("label-bright");
+        warningVBox.getChildren().addAll(lowQuantityListTitle, new WarningListView(lowQuantityMedicineList).getRoot());
 
     }
 

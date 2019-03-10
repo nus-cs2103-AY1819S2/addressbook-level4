@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -137,6 +139,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Medicine> getExpiringMedicinesList() {
+        return medicinesExpiring;
+    }
+
+    @Override
     public ObservableList<Medicine> getLowQuantityMedicinesList() {
         return medicinesLowQuantity;
     }
@@ -148,7 +155,13 @@ public class ModelManager implements Model {
     }
 
     private void setPredicates() {
+        filteredMedicines.setPredicate(PREDICATE_SHOW_ALL_MEDICINES);
         medicinesLowQuantity.setPredicate(medicine -> medicine.getQuantity().getNumericValue() < 20);
+        medicinesExpiring.setPredicate(medicine -> calculateDaysToExpiry(medicine) < 10);
+    }
+
+    private float calculateDaysToExpiry(Medicine medicine) {
+        return ChronoUnit.DAYS.between(LocalDate.now(), medicine.getExpiry().getExpiryDate());
     }
 
     //=========== Undo/Redo =================================================================================

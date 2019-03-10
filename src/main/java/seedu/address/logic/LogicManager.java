@@ -77,6 +77,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Medicine> getExpiringMedicinesList() {
+        return model.getExpiringMedicinesList();
+    }
+
+    @Override
     public ObservableList<Medicine> getLowQuantityMedicinesList() {
         return model.getLowQuantityMedicinesList();
     }

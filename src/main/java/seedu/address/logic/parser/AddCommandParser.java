@@ -25,7 +25,7 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
-    public static final Expiry INITIAL_EXPIRY = new Expiry("01/01/2019");
+    public static final Expiry INITIAL_EXPIRY = new Expiry("01/12/2019");
     public static final Quantity INITIAL_QUANTITY = new Quantity("0");
     public static final Map<BatchNumber, Batch> INITIAL_BATCHES = Collections.emptyMap();
 

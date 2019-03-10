@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedMedicine);
         medicineListPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
 
-        warningPanel = new WarningPanel(logic.getFilteredMedicineList());
+        warningPanel = new WarningPanel(logic.getLowQuantityMedicinesList());
         warningPanelPlaceholder.getChildren().add(warningPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

@@ -85,7 +85,7 @@ public class UpdateCommand extends Command {
         Batch batchToUpdate = batchesToUpdate.get(toUpdate.getBatchNumber());
         Batch updatedBatch;
 
-        if (toUpdate.getExpiry().value.equals("-")) {
+        if (toUpdate.getExpiry().toString().equals("-")) {
             try {
                 updatedBatch = new Batch(toUpdate.getBatchNumber(), batchToUpdate.getExpiry(), toUpdate.getQuantity());
             } catch (NullPointerException e) {

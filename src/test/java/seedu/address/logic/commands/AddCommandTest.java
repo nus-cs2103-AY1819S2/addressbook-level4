@@ -198,6 +198,9 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Medicine> getLowQuantityMedicinesList() { throw new AssertionError("This method should not be called."); }
+
+        @Override
         public void setSelectedMedicine(Medicine medicine) {
             throw new AssertionError("This method should not be called.");
         }

@@ -61,7 +61,7 @@ class JsonAdaptedMedicine {
     public JsonAdaptedMedicine(Medicine source) {
         name = source.getName().fullName;
         quantity = source.getQuantity().value;
-        expiry = source.getExpiry().value;
+        expiry = source.getExpiry().toString();
         company = source.getCompany().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

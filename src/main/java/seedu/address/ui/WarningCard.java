@@ -35,7 +35,7 @@ public class WarningCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(medicine.getName().fullName);
         quantity.setText(medicine.getQuantity().value);
-        expiry.setText(medicine.getExpiry().value);
+        expiry.setText(medicine.getExpiry().toString());
         setStyle(new ArrayList<>(Arrays.asList(id, name, quantity, expiry)));
     }
 

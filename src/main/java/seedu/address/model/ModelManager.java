@@ -27,6 +27,8 @@ public class ModelManager implements Model {
     private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
     private final FilteredList<Medicine> filteredMedicines;
+    private final FilteredList<Medicine> medicinesExpiring;
+    private final FilteredList<Medicine> medicinesLowQuantity;
     private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
 
     /**
@@ -42,6 +44,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMedicines = new FilteredList<>(versionedInventory.getMedicineList());
         filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
+        medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
+        medicinesLowQuantity = new FilteredList<>(versionedInventory.getMedicineList());
+        setPredicates();
+
     }
 
     public ModelManager() {
@@ -131,9 +137,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Medicine> getLowQuantityMedicinesList() {
+        return medicinesLowQuantity;
+    }
+
+    @Override
     public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
         requireNonNull(predicate);
         filteredMedicines.setPredicate(predicate);
+    }
+
+    private void setPredicates() {
+        medicinesLowQuantity.setPredicate(medicine -> medicine.getQuantity().getNumericValue() < 20);
     }
 
     //=========== Undo/Redo =================================================================================

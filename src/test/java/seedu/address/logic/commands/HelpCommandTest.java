@@ -10,13 +10,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class HelpCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private Model model = new ModelManager(this.getClass().getName());
+    private Model expectedModel = new ModelManager(this.getClass().getName());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false, null);
+        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false, null, false);
         assertCommandSuccess(new HelpCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 }

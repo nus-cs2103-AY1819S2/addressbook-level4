@@ -53,7 +53,7 @@ Format: `edit i/INDEX [q/QUESTION] [a/ANSWER]`
 
 === Selecting a flashcard : `select`
 
-Displays flashcard (question only) upon selection by index. +
+Displays flashcard details(question, answer, hint, user performance) on the right panel on selection by index. +
 Format: `select INDEX`
 
 === Deleting a flashcard : `delete`
@@ -71,35 +71,20 @@ Format: `addfolder FOLDER_NAME`
 Removes the flashcard folder specified by index. +
 Format: `removefolder FOLDER_INDEX`
 
+=== Report user performance for folder : `report`
+
+Displays user performance on the right panel for the folder specified by index. +
+Format: `report FOLDER_INDEX`
+
 === Enter folder : `change`
 
-Changes to the folder specified by index. +
+Changes to the folder specified by index. Left panel will display the list of cards in that folder. +
 Format: `change FOLDER_INDEX`
 
 === Exit folder : `change ..`
 
-Return to the root directory (exit the current folder). +
+Return to the root directory (exit the current folder). Left panel will display the list of folders. +
 Format: `change ..`
-
-=== View flashcards in a folder : `view`
-
-Begins a view session, where the display area enters a fullscreen and flashcards in a folder are queued to be displayed one by one. Both questions and answers for the flashcard can be seen. +
-Format: `view [FOLDER_INDEX]`
-
-==== Go to previous flashcard : `prev`
-
-Goes back to the previous flashcard in this current view session. +
-Format: `prev`
-
-==== Go to next flashcard : `next`
-
-Presents the next flashcard in this current view session. +
-Format: `next`
-
-==== End the current session : `end`
-
-Quits the current view session. +
-Format: `end`
 
 === Test flashcards in a folder : `test`
 
@@ -130,9 +115,9 @@ Examples:
 Quits the current test session. +
 Format: `end`
 
-=== Sort cards by level within a folder : sort
+=== Sort cards by level within a folder : `sort`
 
-Displays all flashcards sorted such that the lowest level cards are at the top. +
+Displays all flashcards sorted such that the lowest user performing cards are at the top temporarily. +
 Format: `sort`
 
 === Search by keywords : `search`
@@ -147,12 +132,12 @@ Format: `list`
 
 === Import flashcards : `import`
 
-Searches for a file with the specified filename in the program directory and parses the file to generate a flashcard folder. +
+Searches for a json file with the specified filename in the program directory and parses the file to generate a flashcard folder. +
 Format: `import FILENAME`
 
 === Export flashcards : `export`
 
-Creates a file containing the flashcards from the specified folder, which can later be imported. +
+Creates a json file containing the flashcards from the specified folder, which can later be imported. +
 Format: `export FOLDER_INDEX FILENAME`
 
 === Exiting the program : `exit`

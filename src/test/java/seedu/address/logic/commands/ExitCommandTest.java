@@ -10,13 +10,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class ExitCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private Model model = new ModelManager(this.getClass().getName());
+    private Model expectedModel = new ModelManager(this.getClass().getName());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_exit_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, null);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, null, false);
         assertCommandSuccess(new ExitCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 }

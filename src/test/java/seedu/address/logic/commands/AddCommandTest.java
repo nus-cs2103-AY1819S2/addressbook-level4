@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 
@@ -150,6 +151,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean checkIfInsideTestSession() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void endTestSession() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkValidCardFolders(List<String> cardFolers) {
+            return false;
+        }
+
+        @Override
         public boolean hasCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
@@ -165,6 +181,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteFolder(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addFolder(CardFolder cardFolder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getActiveCardFolderIndex() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Card> getFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }
@@ -175,27 +206,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoCardFolder() {
+        public boolean canUndoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoCardFolder() {
+        public boolean canRedoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoCardFolder() {
+        public void undoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoCardFolder() {
+        public void redoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitCardFolder() {
+        public void commitActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -211,6 +242,16 @@ public class AddCommandTest {
 
         @Override
         public void setSelectedCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -252,13 +293,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitCardFolder() {
+        public void commitActiveCardFolder() {
             // called by {@code AddCommand#execute()}
-        }
-
-        @Override
-        public ReadOnlyCardFolder getActiveCardFolder() {
-            return new CardFolder();
         }
     }
 

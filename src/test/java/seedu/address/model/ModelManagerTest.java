@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.BENSON;
@@ -29,13 +29,12 @@ public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager = new ModelManager(this.getClass().getName());
 
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new CardFolder(), new CardFolder(modelManager.getActiveCardFolder()));
         assertEquals(null, modelManager.getSelectedCard());
     }
 
@@ -124,7 +123,7 @@ public class ModelManagerTest {
     public void setCard_cardIsSelected_selectedCardUpdated() {
         modelManager.addCard(ALICE);
         modelManager.setSelectedCard(ALICE);
-        Card updatedAlice = new CardBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Card updatedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_BOB).build();
         modelManager.setCard(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedCard());
     }
@@ -152,7 +151,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         CardFolder cardFolder = new CardFolderBuilder().withCard(ALICE).withCard(BENSON).build();
-        CardFolder differentCardFolder = new CardFolder();
+        CardFolder differentCardFolder = new CardFolder(this.getClass().getName());
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

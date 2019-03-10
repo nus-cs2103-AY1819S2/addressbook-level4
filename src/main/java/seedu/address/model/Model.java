@@ -155,18 +155,18 @@ public interface Model extends Observable {
     /**
      * Enters a test session using the specified card folder.
      */
-    Card testCardFolder(ReadOnlyCardFolder cardFolder);
+    void testCardFolder(ReadOnlyCardFolder cardFolder);
 
     /**
      * Sets the current card in the test session.
      */
-    public void setCurrentTestedCard(Card card);
+    void setCurrentTestedCard(Card card);
 
     /**
      * Returns the current card in the test session
      * null if there is no cards in folder or user is not in a test session.
      */
-    public Card getCurrentTestedCard();
+    Card getCurrentTestedCard();
 
     /**
      * Returns true if user is in a test session
@@ -183,7 +183,7 @@ public interface Model extends Observable {
      * Returns true if the given answer is right
      * false if answer is wrong
      */
-    public boolean markAttemptedAnswer(String attemptedAnswer);
+    boolean markAttemptedAnswer(String attemptedAnswer);
 
     /**
      * Checks whether list of card folder names specified is found inside model

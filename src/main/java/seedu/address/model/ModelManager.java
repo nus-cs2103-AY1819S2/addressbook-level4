@@ -143,12 +143,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
         //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
         Card cardToTest = cardFolderToTest.getCardList().get(0);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
-        return cardToTest;
     }
 
     @Override
@@ -172,6 +171,7 @@ public class ModelManager implements Model {
     @Override
     public void endTestSession() {
         insideTestSession = false;
+        setCurrentTestedCard(null);
     }
 
     @Override

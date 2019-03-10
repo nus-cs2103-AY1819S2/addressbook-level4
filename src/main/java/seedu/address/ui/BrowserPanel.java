@@ -50,13 +50,17 @@ public class BrowserPanel extends UiPart<Region> {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+            loadEquipmentPage(newValue);
         });
 
         loadDefaultPage();
     }
 
-    private void loadPersonPage(Equipment equipment) {
+    /**
+     * Load the equipment page of a equipment.
+     * @param equipment The equipment to load.
+     */
+    private void loadEquipmentPage(Equipment equipment) {
 
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")

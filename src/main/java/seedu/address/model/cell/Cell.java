@@ -123,18 +123,6 @@ public class Cell {
     }
 
     /**
-     * Attack the battleship present in this cell
-     */
-    public void receiveAttack() {
-        if (!this.battleship.isPresent()) {
-            throw new BattleshipNotPresentException();
-        }
-
-        this.battleship.get().reduceLife();
-        this.status = Status.HIT;
-    }
-
-    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

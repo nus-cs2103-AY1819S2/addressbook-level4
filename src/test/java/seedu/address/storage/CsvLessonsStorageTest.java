@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -19,23 +20,25 @@ import seedu.address.model.lesson.Lesson;
 
 public class CsvLessonsStorageTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest");
-    private static final Path SINGLE_TEST_DATA_FOLDER = Paths.get("src", "test", "data",
-        "CsvLessonsStorageTest", "singleTestLessons");
-    private static final Path INVALID_CORE_CHAR_FIELD_DATA_FOLDER = Paths.get("src", "test", "data",
-        "CsvLessonsStorageTest", "invalidCoreCharInField");
-    private static final Path NO_VALID_FILES_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
-        "noValidFiles");
     private static final Path EMPTY_LESSON_FILE_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
         "emptyLessonFile");
+    private static final Path INVALID_CORE_CHAR_FIELD_DATA_FOLDER = Paths.get("src", "test", "data",
+        "CsvLessonsStorageTest", "invalidCoreCharInField");
     private static final Path INVALID_CORE_COUNT_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
         "invalidCoreCount");
-    private static final Path MISSING_CORE_VALUE_FOLDER = Paths.get("src", "test", "data",
-        "CsvLessonsStorageTest", "missingCoreValues");
     private static final Path INVALID_VALUES_FOLDER = Paths.get("src", "test", "data",
         "CsvLessonsStorageTest", "invalidValues");
+    private static final Path MISSING_CORE_VALUE_FOLDER = Paths.get("src", "test", "data",
+        "CsvLessonsStorageTest", "missingCoreValues");
+    private static final Path NO_VALID_FILES_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
+        "noValidFiles");
+    private static final Path NON_DEFAULT_QUESTION_ANSWER_INDEX_FOLDER = Paths.get("src", "test", "data",
+        "CsvLessonsStorageTest", "nonDefaultQuestionAnswerIndex");
     private static final Path READ_ONLY_FILE_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
         "readOnlyFile");
+    private static final Path SINGLE_TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+        "CsvLessonsStorageTest", "singleTestLessons");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -130,6 +133,13 @@ public class CsvLessonsStorageTest {
     public void readLessons_missingData_cardIgnored() {
         Lessons lessons = readLessons(MISSING_CORE_VALUE_FOLDER).get();
         assertEquals(0, lessons.getLesson(0).getCards().size());
+    }
+
+    @Test
+    public void readLessons_nonDefaultQuestionAnswerIndex_successIndexSet() {
+        Lessons actual = readLessons(NON_DEFAULT_QUESTION_ANSWER_INDEX_FOLDER).get();
+        assertNotEquals(Lesson.DEFAULT_INDEX_QUESTION, actual.getLesson(0).getQuestionCoreIndex());
+        assertNotEquals(Lesson.DEFAULT_INDEX_ANSWER, actual.getLesson(0).getAnswerCoreIndex());
     }
 
     @Test

@@ -15,6 +15,9 @@ import seedu.address.model.card.exceptions.MissingCoreException;
  */
 public class Lesson {
     // Static fields
+    public static final int DEFAULT_INDEX_QUESTION = 0;
+    public static final int DEFAULT_INDEX_ANSWER = 1;
+
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid coreHeaders size.";
     public static final String EXCEPTION_INVALID_NAME = "Invalid name. Name must be specified.";
     public static final String EXCEPTION_INVALID_INDEX = "Invalid index.";
@@ -38,11 +41,11 @@ public class Lesson {
     /**
      * The index of the Question in {@link Card} objects' cores.
      */
-    private int questionCoreIndex;
+    private int questionCoreIndex = DEFAULT_INDEX_QUESTION;
     /**
      * The index of the Answer in {@link Card} objects' cores.
      */
-    private int answerCoreIndex;
+    private int answerCoreIndex = DEFAULT_INDEX_ANSWER;
     private List<Card> cards;
     /**
      * Controls the visibility of optionals. If {@code isVisibleOptionals[i]} is set to {@code true}, it is shown.

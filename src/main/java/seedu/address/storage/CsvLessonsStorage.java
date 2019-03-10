@@ -25,6 +25,8 @@ public class CsvLessonsStorage implements LessonsStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
 
     private static final String CORE_ESCAPE = "*";
+    private static final String QUESTION_ESCAPE = "?";
+    private static final String ANSWER_ESCAPE = "@";
 
     private static final String READ_WARNING_CORE_LABEL = "Core escape character [ "
             + CORE_ESCAPE
@@ -68,14 +70,20 @@ public class CsvLessonsStorage implements LessonsStorage {
         try {
             data = CsvUtil.readCsvFile(filePath);
         } catch (IOException e) {
+            logger.warning("Unable to read file at: " + filePath.toString());
             return Optional.empty();
         }
         if (data == null) {
+            logger.warning("Empty/invalid file at: " + filePath.toString());
             return Optional.empty();
         }
+
         String[] header = data.get(0);
         int coreCount = 0;
+        int questionIndex = Lesson.DEFAULT_INDEX_QUESTION;
+        int answerIndex = Lesson.DEFAULT_INDEX_ANSWER;
         boolean readingCores = true;
+
         for (int i = 0; i < header.length; i++) {
             String value = header[i];
             if (value.startsWith(CORE_ESCAPE)) {
@@ -85,6 +93,15 @@ public class CsvLessonsStorage implements LessonsStorage {
                 }
                 coreCount++;
                 header[i] = value.substring(CORE_ESCAPE.length());
+
+                String substring = header[i];
+                if (substring.startsWith(QUESTION_ESCAPE)) {
+                    header[i] = substring.substring(QUESTION_ESCAPE.length());
+                    questionIndex = i;
+                } else if (substring.startsWith(ANSWER_ESCAPE)) {
+                    header[i] = substring.substring(ANSWER_ESCAPE.length());
+                    answerIndex = i;
+                }
             } else {
                 readingCores = false;
             }
@@ -97,7 +114,9 @@ public class CsvLessonsStorage implements LessonsStorage {
         int extensionPos = lessonName.lastIndexOf(".");
         lessonName = lessonName.substring(0, extensionPos);
         List<String> fields = Arrays.asList(header);
+
         Lesson newLesson = new Lesson(lessonName, coreCount, fields);
+        newLesson.setQuestionAnswerIndices(questionIndex, answerIndex);
         for (int i = 1; i < data.size(); i++) {
             try {
                 newLesson.addCard(Arrays.asList(data.get(i)));

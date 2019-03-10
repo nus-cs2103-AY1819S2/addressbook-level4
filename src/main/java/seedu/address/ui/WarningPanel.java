@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * A ui for the warning panel that is displayed at the right of the application.
@@ -18,19 +20,25 @@ public class WarningPanel extends UiPart<Region> {
     @FXML
     private VBox warningVBox;
 
-    public WarningPanel() {
+    public WarningPanel(ObservableList<Medicine> medicineList) {
         super(FXML);
 
-        createVBox();
+        createVBox(medicineList);
 
     }
 
     /**
      * Creates the VBox which holds the lists.
      */
-    private void createVBox() {
-        warningVBox.getChildren().addAll(new Label("Expiring Soon"), new WarningContentCell().getRoot());
-        warningVBox.getChildren().addAll(new Label("Low in Stock"), new WarningContentCell().getRoot());
+    private void createVBox(ObservableList<Medicine> medicineList) {
+        String[] listTitles= {"Expiring Soon", "Low in Stock"};
+
+        for (String title : listTitles) {
+            Label listTitle = new Label(title);
+            listTitle.getStyleClass().add("label-bright");
+            warningVBox.getChildren().addAll(listTitle, new WarningListView(medicineList).getRoot());
+        }
+
     }
 
 }

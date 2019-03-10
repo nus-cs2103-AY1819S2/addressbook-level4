@@ -1,11 +1,8 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.address.model.medicine.Medicine;
 
@@ -22,7 +19,7 @@ public class WarningCard extends UiPart<Region> {
     public final Medicine medicine;
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
     @FXML
     private Text name;
     @FXML
@@ -39,9 +36,12 @@ public class WarningCard extends UiPart<Region> {
         name.setText(medicine.getName().fullName);
         quantity.setText(medicine.getQuantity().value);
         expiry.setText(medicine.getExpiry().value);
+        setStyle(new ArrayList<>(Arrays.asList(id, name, quantity, expiry)));
+    }
 
+    private void setStyle(ArrayList<Text> textHolders) {
         // temporary fix to increase visibility
-        for (Text text : new ArrayList<>(Arrays.asList(id, name, quantity, expiry))) {
+        for (Text text : textHolders) {
             text.setId("warningPanel");
         }
     }

@@ -1,12 +1,8 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
@@ -22,7 +18,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.equipment.Equipment;
 
@@ -31,14 +26,30 @@ import seedu.address.model.equipment.Equipment;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static URL DEFAULT_PAGE = null;
     public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap";
+    public static final URL DEFAULT_PAGE = processDefaultPage(MAP_PAGE_BASE_URL);
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView browser;
+
+    /**
+     * Process the default url String.
+     * @param urlString the default url string
+     * @return the URL object
+     */
+    private static URL processDefaultPage(String urlString) {
+        try{
+            URL url = new URL(MAP_PAGE_BASE_URL);
+            return url;
+        } catch (MalformedURLException mue) {
+            System.err.println("Fatal error: Default url cannot be formatted.");
+        } finally {
+            return null;
+        }
+    }
 
     public BrowserPanel(ObservableValue<Equipment> selectedPerson) {
         super(FXML);
@@ -54,11 +65,6 @@ public class BrowserPanel extends UiPart<Region> {
             }
             loadEquipmentPage(newValue);
         });
-        try {
-            DEFAULT_PAGE = new URL(MAP_PAGE_BASE_URL);
-        } catch (MalformedURLException e) {
-            System.err.println("Fatal error: Base URL not formatted.");
-        }
         loadDefaultPage();
     }
 

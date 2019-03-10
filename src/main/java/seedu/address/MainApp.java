@@ -78,6 +78,7 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
 
@@ -87,7 +88,12 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            // TODO: Implement storage reading for HealthWorkerBook
+            healthWorkerBookOptional = storage.readHealthWorkerBook();
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample HealthWorkerBook");
+            }
+            //initialHealthWorkerBook = healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            //will uncomment when the Sample DataUtil is done
             initialHealthWorkerBook = new HealthWorkerBook();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");

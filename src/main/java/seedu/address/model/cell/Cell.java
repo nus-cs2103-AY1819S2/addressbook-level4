@@ -10,7 +10,6 @@ import java.util.Set;
 
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
-import seedu.address.model.cell.exceptions.BattleshipNotPresentException;
 import seedu.address.model.tag.Tag;
 
 /**

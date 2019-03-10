@@ -158,6 +158,11 @@ public interface Model extends Observable {
     Card testCardFolder(ReadOnlyCardFolder cardFolder);
 
     /**
+     * Sets the current card in the test session.
+     */
+    public void setCurrentTestedCard(Card card);
+
+    /**
      * Returns true if user is in a test session
      * false user is not.
      */

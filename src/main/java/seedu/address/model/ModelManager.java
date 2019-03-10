@@ -35,6 +35,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -145,8 +146,17 @@ public class ModelManager implements Model {
     public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
         //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
         Card cardToTest = cardFolderToTest.getCardList().get(0);
+        setCurrentTestedCard(cardToTest);
         insideTestSession = true;
         return cardToTest;
+    }
+
+    @Override
+    public void setCurrentTestedCard(Card card) {
+        if (card != null && !getActiveFilteredCards().contains(card)) {
+            throw new CardNotFoundException();
+        }
+        currentTestedCard.setValue(card);
     }
 
     @Override

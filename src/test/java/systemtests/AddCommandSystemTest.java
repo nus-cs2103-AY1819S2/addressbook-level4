@@ -62,8 +62,8 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
          */
         Equipment toAdd = AMY;
         String command = " " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SERIAL_NUMBER_DESC_AMY + "   "
-                + TAG_DESC_FRIEND + " ";
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SERIAL_NUMBER_DESC_AMY + "   " + TAG_DESC_FRIEND
+                + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -82,13 +82,6 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + SERIAL_NUMBER_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
-
-//     /* Case: add a equipment with all fields same as another equipment in the address book except phone and email
-//      * -> added
-//      */
-//      toAdd = new EquipmentBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-//      command = EquipmentUtil.getAddCommand(toAdd);
-//      assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
@@ -168,31 +161,6 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
-
-//        /* Case: invalid phone -> rejected */
-//        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY
-//                + ADDRESS_DESC_AMY;
-//        assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
-
-//        /* Case: invalid email -> rejected */
-//        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC
-//                + ADDRESS_DESC_AMY;
-//        assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
-
-//        /* Case: invalid address -> rejected */
-//        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-//                + INVALID_ADDRESS_DESC;
-//        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
-//
-//        /* Case: invalid serial number -> rejected */
-//        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-//                + ADDRESS_DESC_AMY + INVALID_SERIAL_NUMBER_DESC;
-//        assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
-//
-//        /* Case: invalid tag -> rejected */
-//////        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-//////                + INVALID_TAG_DESC;
-//////        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }
 
     /**

@@ -248,6 +248,8 @@ public abstract class EquipmentManagerSystemTest {
             throw new AssertionError("URL expected to be valid.", mue);
         }
         waitUntilBrowserLoaded(getBrowserPanel());
+        System.out.println(expectedUrl);
+        System.out.println(getBrowserPanel().getLoadedUrl());
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());

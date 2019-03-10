@@ -18,10 +18,10 @@ public class ActivityAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an activity to the address book. "
             + "Parameters: "
-            + PREFIX_ACTIVITYNAME + "ACTIVITY_NAME"
-            + PREFIX_DATETIME + "ACTIVITY_DATETIME"
+            + PREFIX_ACTIVITYNAME + "ACTIVITY_NAME "
+            + PREFIX_DATETIME + "ACTIVITY_DATETIME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ACTIVITYNAME + "CSS Workshop"
+            + PREFIX_ACTIVITYNAME + "CSS Workshop "
             + PREFIX_DATETIME + "ACTIVITY_DATETIME"; // to be updated
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";

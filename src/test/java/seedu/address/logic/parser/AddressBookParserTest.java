@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.util.StringUtil.fromPathToString;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddAppCommand;
+import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -319,5 +321,18 @@ public class AddressBookParserTest {
     public void parseCommand_listReminder() throws Exception {
         assertTrue(parser.parseCommand(ListRemCommand.COMMAND_WORD) instanceof ListRemCommand);
         assertTrue(parser.parseCommand(ListRemCommand.COMMAND_WORD + " 3") instanceof ListRemCommand);
+    }
+
+    @Test
+    public void parseCommand_addMedicine() throws Exception {
+        String[] path = new String[] {"root", "TCM", "Herbs"};
+        String rawPath = fromPathToString(path);
+        String name = "panaddol";
+        StringBuilder sb = new StringBuilder();
+        sb.append(AddMedicineCommand.COMMAND_WORD + " " + rawPath + " ");
+        sb.append(name + " ");
+        int quantity = 60;
+        sb.append(quantity);
+        assertTrue(new AddMedicineCommand(path, name, quantity).equals(parser.parseCommand(sb.toString())));
     }
 }

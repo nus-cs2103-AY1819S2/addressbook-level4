@@ -96,6 +96,7 @@ public class AddMedicineCommand extends Command {
                 || (other instanceof AddMedicineCommand
                 && name.equals(((AddMedicineCommand) other).name)
                 && quantity == ((AddMedicineCommand) other).quantity
-                && Arrays.equals(path, ((AddMedicineCommand) other).path));
+                && Arrays.equals(path, ((AddMedicineCommand) other).path)
+                && possibleExisting == ((AddMedicineCommand) other).possibleExisting);
     }
 }

@@ -23,12 +23,12 @@ public class Name {
     /**
      * Constructs a {@code Name}.
      *
-     * @param serial_number A valid serial_number number.
+     * @param serialNumber A valid serial_number number.
      */
-    public Name(String serial_number) {
-        requireNonNull(serial_number);
-        checkArgument(isValidSerialNumber(serial_number), MESSAGE_CONSTRAINTS);
-        serialNumber = serial_number;
+    public Name(String serialNumber) {
+        requireNonNull(serialNumber);
+        checkArgument(isValidSerialNumber(serialNumber), MESSAGE_CONSTRAINTS);
+        this.serialNumber = serialNumber;
     }
 
     /**

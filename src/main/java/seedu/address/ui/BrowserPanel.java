@@ -28,9 +28,7 @@ import seedu.address.model.equipment.Equipment;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final URL DEFAULT_PAGE =
-            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
+    public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayMap";
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -65,20 +63,30 @@ public class BrowserPanel extends UiPart<Region> {
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
                 .build();
+        String url = MAP_PAGE_BASE_URL;
         try {
             GeocodingResult[] results = GeocodingApi.geocode(context,
                     equipment.getAddress().toString()).await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            //System.out.println(gson.toJson(results[0].geometry.location));
-
+            if (results.length > 0) {
+                System.out.println();
+                url = "https://www.google.com/maps";
+                /*
+                url = MAP_PAGE_BASE_URL + "?coordinates=[[" + results[0].geometry.location.lng + ","
+                        + results[0].geometry.location.lat + "]]&title=[\"" + equipment.getName()
+                        + "\"]&icon=[\"monument\"]";
+                        */
+            }
         } catch (ApiException e) {
             System.err.println(e.getMessage());
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
         } catch (IOException e) {
             System.err.println(e.getMessage());
+        } finally {
+            System.out.println("Loading page: " + url);
+            loadPage(url);
         }
-        loadPage(SEARCH_PAGE_URL + equipment.getName().serialNumber);
     }
 
     public void loadPage(String url) {
@@ -89,7 +97,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
+        loadPage(MAP_PAGE_BASE_URL);
     }
 
 }

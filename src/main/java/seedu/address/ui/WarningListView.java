@@ -21,8 +21,12 @@ public class WarningListView extends UiPart<Region> {
     @FXML
     private ListView<Medicine> warningListView;
 
-    public WarningListView(ObservableList<Medicine> medicineList) {
+    private String listType;
+
+    public WarningListView(ObservableList<Medicine> medicineList, String listType) {
         super(FXML);
+
+        this.listType = listType;
 
         // placeholder if the list is empty
         warningListView.setPlaceholder(new Label("Nothing to show"));
@@ -43,7 +47,7 @@ public class WarningListView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new WarningCard(medicine, getIndex() + 1).getRoot());
+                setGraphic(new WarningCard(medicine, getIndex() + 1, listType).getRoot());
             }
         }
     }

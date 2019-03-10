@@ -25,18 +25,23 @@ public class WarningCard extends UiPart<Region> {
     @FXML
     private Text id;
     @FXML
-    private Text quantity;
-    @FXML
-    private Text expiry;
+    private Text filter;
 
-    public WarningCard(Medicine medicine, int displayedIndex) {
+    public WarningCard(Medicine medicine, int displayedIndex, String listType) {
         super(FXML);
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         name.setText(medicine.getName().fullName);
-        quantity.setText(medicine.getQuantity().value);
-        expiry.setText(medicine.getExpiry().toString());
-        setStyle(new ArrayList<>(Arrays.asList(id, name, quantity, expiry)));
+
+        if (listType.equals("expiry")) {
+            // filtered by expiry date
+            filter.setText("Exp: " + medicine.getExpiry().toString());
+        } else {
+            // filtered by quantity
+            filter.setText("Qty: " + medicine.getQuantity().value);
+        }
+
+        setStyle(new ArrayList<>(Arrays.asList(id, name, filter)));
     }
 
     private void setStyle(ArrayList<Text> textHolders) {

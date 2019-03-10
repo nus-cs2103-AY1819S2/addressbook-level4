@@ -32,6 +32,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.TestCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.CardBuilder;
@@ -73,10 +74,10 @@ public class CommandParserTest {
 
     @Test
     public void parseCommand_answer() throws Exception {
-        String attemptedAnswer = "foo";
+        String attemptedAnswerInput = "foo";
         AnswerCommand command = (AnswerCommand) parser.parseCommand(
-                AnswerCommand.COMMAND_WORD + " " + attemptedAnswer);
-        assertEquals(new AnswerCommand(attemptedAnswer), command);
+                AnswerCommand.COMMAND_WORD + " " + attemptedAnswerInput);
+        assertEquals(new AnswerCommand(new Answer(attemptedAnswerInput)), command);
     }
 
     @Test

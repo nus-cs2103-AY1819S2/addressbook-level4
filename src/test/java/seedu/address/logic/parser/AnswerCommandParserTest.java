@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.AnswerCommand;
+import seedu.address.model.card.Answer;
 
 public class AnswerCommandParserTest {
 
@@ -21,7 +22,7 @@ public class AnswerCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         AnswerCommand expectedAnswerCommand =
-                new AnswerCommand("Golgi apparatus");
+                new AnswerCommand(new Answer("Golgi apparatus"));
         assertParseSuccess(parser, "Golgi apparatus ", expectedAnswerCommand);
     }
 

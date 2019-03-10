@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.card.Answer;
 
 /**
  * Finds and lists all cards in card folder whose question contains any of the argument keywords.
@@ -20,9 +21,9 @@ public class AnswerCommand extends Command {
             + "Parameters: ANSWER \n"
             + "Example: " + COMMAND_WORD + " Mitochondrion";
 
-    private final String attemptedAnswer;
+    private final Answer attemptedAnswer;
 
-    public AnswerCommand(String attemptedAnswer) {
+    public AnswerCommand(Answer attemptedAnswer) {
         this.attemptedAnswer = attemptedAnswer;
     }
 

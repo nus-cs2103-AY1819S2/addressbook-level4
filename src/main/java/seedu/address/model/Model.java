@@ -169,6 +169,12 @@ public interface Model extends Observable {
     void endTestSession();
 
     /**
+     * Returns true if the given answer is right
+     * false if answer is wrong
+     */
+    public boolean markAttemptedAnswer(String attemptedAnswer);
+
+    /**
      * Checks whether list of card folder names specified is found inside model
      */
     boolean checkValidCardFolders(List<String> cardFolers);

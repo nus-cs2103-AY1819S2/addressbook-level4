@@ -160,6 +160,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean markAttemptedAnswer(String attemptedAnswer) {
+
+        return false;
+    }
+
+    @Override
     public boolean checkValidCardFolders(List<String> cardFolers) {
         return false;
     }

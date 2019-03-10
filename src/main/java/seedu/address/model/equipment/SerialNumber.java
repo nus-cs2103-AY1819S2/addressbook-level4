@@ -55,5 +55,4 @@ public class SerialNumber {
     public int hashCode() {
         return serialNumber.hashCode();
     }
-
 }

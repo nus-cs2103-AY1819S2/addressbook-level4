@@ -8,6 +8,7 @@ import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.equipment.SerialNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,11 +21,13 @@ public class EquipmentBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_SERIALNUMBER = "A008842X";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private SerialNumber serialNumber;
     private Set<Tag> tags;
 
     public EquipmentBuilder() {
@@ -32,6 +35,7 @@ public class EquipmentBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        serialNumber = new SerialNumber(DEFAULT_SERIALNUMBER);
         tags = new HashSet<>();
     }
 
@@ -43,6 +47,7 @@ public class EquipmentBuilder {
         phone = equipmentToCopy.getPhone();
         email = equipmentToCopy.getEmail();
         address = equipmentToCopy.getAddress();
+        serialNumber = equipmentToCopy.getSerialNumber();
         tags = new HashSet<>(equipmentToCopy.getTags());
     }
 
@@ -86,8 +91,16 @@ public class EquipmentBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code SerialNumber} of the {@code Equipment} that we are building.
+     */
+    public EquipmentBuilder withSerialNumber(String serialNumber) {
+        this.serialNumber = new SerialNumber(serialNumber);
+        return this;
+    }
+
     public Equipment build() {
-        return new Equipment(name, phone, email, address, tags);
+        return new Equipment(name, phone, email, address, serialNumber, tags);
     }
 
 }

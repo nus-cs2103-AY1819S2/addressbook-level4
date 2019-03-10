@@ -21,17 +21,19 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_PHONE + "PHONE "
             + CliSyntax.PREFIX_EMAIL + "EMAIL "
             + CliSyntax.PREFIX_ADDRESS + "ADDRESS "
+            + CliSyntax.PREFIX_SERIALNUMBER + "SERIAL NUMBER "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "John Doe "
             + CliSyntax.PREFIX_PHONE + "98765432 "
             + CliSyntax.PREFIX_EMAIL + "johnd@example.com "
             + CliSyntax.PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + CliSyntax.PREFIX_SERIALNUMBER + "A008866X "
             + CliSyntax.PREFIX_TAG + "west "
             + CliSyntax.PREFIX_TAG + "urgent";
 
     public static final String MESSAGE_SUCCESS = "New equipment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This equipment already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This equipment already exists in the equipment manager";
 
     private final Equipment toAdd;
 

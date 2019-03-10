@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EquipmentManager implements ReadOnlyEquipmentManager {
 
-    private final UniqueEquipmentList persons;
+    private final UniqueEquipmentList equipment;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -30,7 +30,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      *   among constructors.
      */
     {
-        persons = new UniqueEquipmentList();
+        equipment = new UniqueEquipmentList();
     }
 
     public EquipmentManager() {}
@@ -49,8 +49,8 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      * Replaces the contents of the equipment list with {@code equipment}.
      * {@code equipment} must not contain duplicate equipment.
      */
-    public void setPersons(List<Equipment> equipment) {
-        this.persons.setEquipments(equipment);
+    public void setEquipment(List<Equipment> equipment) {
+        this.equipment.setEquipments(equipment);
         indicateModified();
     }
 
@@ -60,7 +60,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     public void resetData(ReadOnlyEquipmentManager newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setEquipment(newData.getPersonList());
     }
 
     //// equipment-level operations
@@ -70,7 +70,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public boolean hasPerson(Equipment equipment) {
         requireNonNull(equipment);
-        return persons.contains(equipment);
+        return this.equipment.contains(equipment);
     }
 
     /**
@@ -78,7 +78,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      * The equipment must not already exist in the address book.
      */
     public void addPerson(Equipment p) {
-        persons.add(p);
+        equipment.add(p);
         indicateModified();
     }
 
@@ -91,7 +91,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     public void setPerson(Equipment target, Equipment editedEquipment) {
         requireNonNull(editedEquipment);
 
-        persons.setEquipment(target, editedEquipment);
+        equipment.setEquipment(target, editedEquipment);
         indicateModified();
     }
 
@@ -100,7 +100,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Equipment key) {
-        persons.remove(key);
+        equipment.remove(key);
         indicateModified();
     }
 
@@ -113,7 +113,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     public void updatePerson(Equipment target, Equipment editedEquipment) {
         requireNonNull(editedEquipment);
 
-        persons.setEquipment(target, editedEquipment);
+        equipment.setEquipment(target, editedEquipment);
     }
 
     /**
@@ -128,16 +128,16 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
 
         Equipment newEquipment =
                 new Equipment(equipment.getName(), equipment.getPhone(),
-                        equipment.getEmail(), equipment.getAddress(), newTags);
+                        equipment.getEmail(), equipment.getAddress(), equipment.getSerialNumber(), newTags);
 
         updatePerson(equipment, newEquipment);
     }
 
     /**
-     * Removes {@code tag} from all persons in this {@code EquipmentManager}.
+     * Removes {@code tag} from all equipment in this {@code EquipmentManager}.
      */
     public void removeTag(Tag tag) {
-        persons.forEach(person -> removeTagFromPerson(tag, person));
+        equipment.forEach(person -> removeTagFromPerson(tag, person));
     }
 
     @Override
@@ -161,24 +161,24 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return equipment.asUnmodifiableObservableList().size() + " equipment";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Equipment> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return equipment.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EquipmentManager // instanceof handles nulls
-                && persons.equals(((EquipmentManager) other).persons));
+                && equipment.equals(((EquipmentManager) other).equipment));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return equipment.hashCode();
     }
 }

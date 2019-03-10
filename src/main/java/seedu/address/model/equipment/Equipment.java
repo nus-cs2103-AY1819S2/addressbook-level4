@@ -19,6 +19,7 @@ public class Equipment {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final SerialNumber serialNumber;
 
     // Data fields
     private final Address address;
@@ -27,11 +28,12 @@ public class Equipment {
     /**
      * Every field must be present and not null.
      */
-    public Equipment(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Equipment(Name name, Phone phone, Email email, Address address, SerialNumber serialNumber, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.serialNumber = serialNumber;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -48,6 +50,10 @@ public class Equipment {
         return email;
     }
 
+    public SerialNumber getSerialNumber() {
+        return serialNumber;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -61,8 +67,8 @@ public class Equipment {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both equipments of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two equipments.
      */
     public boolean isSameEquipment(Equipment otherEquipment) {
         if (otherEquipment == this) {
@@ -71,7 +77,8 @@ public class Equipment {
 
         return otherEquipment != null
                 && otherEquipment.getName().equals(getName())
-                && (otherEquipment.getPhone().equals(getPhone()) || otherEquipment.getEmail().equals(getEmail()));
+                && (otherEquipment.getPhone().equals(getPhone()) || otherEquipment.getEmail()
+                    .equals(getEmail()) || otherEquipment.getSerialNumber().equals(getSerialNumber()));
     }
 
     /**
@@ -93,13 +100,14 @@ public class Equipment {
                 && otherEquipment.getPhone().equals(getPhone())
                 && otherEquipment.getEmail().equals(getEmail())
                 && otherEquipment.getAddress().equals(getAddress())
+                && otherEquipment.getSerialNumber().equals(getSerialNumber())
                 && otherEquipment.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, serialNumber, tags);
     }
 
     @Override
@@ -112,6 +120,8 @@ public class Equipment {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Serial Number: ")
+                .append(getSerialNumber())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

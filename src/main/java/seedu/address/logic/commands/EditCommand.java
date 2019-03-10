@@ -21,6 +21,7 @@ import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.equipment.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,6 +39,7 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
             + "[" + CliSyntax.PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + CliSyntax.PREFIX_SERIALNUMBER + "SERIAL NUMBER] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 "
@@ -95,9 +97,11 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(equipmentToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(equipmentToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(equipmentToEdit.getAddress());
+        SerialNumber updatedSerialNumber = editPersonDescriptor.getSerialNumber()
+                .orElse(equipmentToEdit.getSerialNumber());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(equipmentToEdit.getTags());
 
-        return new Equipment(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Equipment(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSerialNumber, updatedTags);
     }
 
     @Override
@@ -127,6 +131,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private SerialNumber serialNumber;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -140,6 +145,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setSerialNumber(toCopy.serialNumber);
             setTags(toCopy.tags);
         }
 
@@ -147,7 +153,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, serialNumber, tags);
         }
 
         public void setName(Name name) {
@@ -180,6 +186,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setSerialNumber(SerialNumber serialNumber) {
+            this.serialNumber = serialNumber;
+        }
+
+        public Optional<SerialNumber> getSerialNumber() {
+            return Optional.ofNullable(serialNumber);
         }
 
         /**
@@ -218,6 +232,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getSerialNumber().equals(e.getSerialNumber())
                     && getTags().equals(e.getTags());
         }
     }

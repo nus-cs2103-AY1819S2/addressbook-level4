@@ -20,6 +20,7 @@ import seedu.address.model.equipment.Address;
 import seedu.address.model.equipment.Email;
 import seedu.address.model.equipment.Name;
 import seedu.address.model.equipment.Phone;
+import seedu.address.model.equipment.SerialNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
@@ -28,12 +29,14 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_SERIAL_NUMBER = "A0@9484";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_SERIAL_NUMBER = "A008866L";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -108,6 +111,24 @@ public class ParserUtilTest {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Phone expectedPhone = new Phone(VALID_PHONE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    }
+
+    @Test
+    public void parseSerialNumber_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseSerialNumber(INVALID_SERIAL_NUMBER));
+    }
+
+    @Test
+    public void parseSerialNumber_validValueWithoutWhitespace_returnsSerialNumber() throws Exception {
+        SerialNumber expectedSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER);
+        assertEquals(expectedSerialNumber, ParserUtil.parseSerialNumber(VALID_SERIAL_NUMBER));
+    }
+
+    @Test
+    public void parseSerialNumber_validValueWithWhitespace_returnsTrimmedSerialNumber() throws Exception {
+        String serialNumberWithWhitespace = WHITESPACE + VALID_SERIAL_NUMBER + WHITESPACE;
+        SerialNumber expectedSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER);
+        assertEquals(expectedSerialNumber, ParserUtil.parseSerialNumber(serialNumberWithWhitespace));
     }
 
     @Test

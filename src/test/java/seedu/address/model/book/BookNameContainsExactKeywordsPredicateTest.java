@@ -56,7 +56,7 @@ public class BookNameContainsExactKeywordsPredicateTest {
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Non-matching keyword
-        BookNameContainsExactKeywordsPredicate predicate = 
+        BookNameContainsExactKeywordsPredicate predicate =
                 new BookNameContainsExactKeywordsPredicate(new BookName("Carol"));
         assertFalse(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
 

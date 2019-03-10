@@ -2,12 +2,10 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.patient.Patient;
-import seedu.address.model.tag.Conditions;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.

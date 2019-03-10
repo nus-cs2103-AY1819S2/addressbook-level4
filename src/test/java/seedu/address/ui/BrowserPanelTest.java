@@ -52,7 +52,8 @@ public class BrowserPanelTest extends GuiUnitTest {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             if (results.length > 0) {
                 System.out.println();
-                expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[[" + results[0].geometry.location.lng + ","
+                expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[["
+                        + results[0].geometry.location.lng + ","
                         + results[0].geometry.location.lat + "]]&title=[\""
                         + ALICE.getName()
                         + "\"]&icon=[\"monument\"]";

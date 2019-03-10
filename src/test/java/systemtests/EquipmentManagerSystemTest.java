@@ -9,10 +9,8 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -230,7 +228,8 @@ public abstract class EquipmentManagerSystemTest {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 if (results.length > 0) {
                     System.out.println();
-                    expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[[" + results[0].geometry.location.lng + ","
+                    expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[["
+                            + results[0].geometry.location.lng + ","
                             + results[0].geometry.location.lat + "]]&title=[\""
                             + getPersonListPanel().getHandleToSelectedCard().getName()
                             + "\"]&icon=[\"monument\"]";

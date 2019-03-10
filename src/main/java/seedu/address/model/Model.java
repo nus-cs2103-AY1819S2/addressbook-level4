@@ -161,7 +161,8 @@ public interface Model {
     /**
      * Replaces the given activity {@code target} with {@code editedActivity}.
      * {@code target} must exist in the address book.
-     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the address book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity
+     * in the address book.
      */
     void setActivity(Activity target, Activity editedActivity);
 }

@@ -100,7 +100,6 @@ public class BrowserPanel extends UiPart<Region> {
             return null;
         }
     }
-    
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
     }

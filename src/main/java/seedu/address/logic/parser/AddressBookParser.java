@@ -141,14 +141,14 @@ public class AddressBookParser {
         case ViewStorageCommand.COMMAND_WORD:
             return new ViewStorageCommandParser().parse(arguments);
 
+        case AlarmCommand.COMMAND_WORD:
+            return new AlarmCommandParser().parse(arguments);
+
         case AddDirectoryCommand.COMMAND_WORD:
             return new AddDirectoryCommandParser().parse(arguments);
 
         case PurchaseMedicineCommand.COMMAND_WORD:
             return new PurchaseMedicineCommandParser().parse(arguments);
-
-        case AlarmCommand.COMMAND_WORD:
-            return new AlarmCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

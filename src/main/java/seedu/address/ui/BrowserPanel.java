@@ -3,7 +3,10 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
@@ -28,6 +31,7 @@ import seedu.address.model.equipment.Equipment;
  */
 public class BrowserPanel extends UiPart<Region> {
 
+    public static URL DEFAULT_PAGE = null;
     public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap";
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -50,7 +54,11 @@ public class BrowserPanel extends UiPart<Region> {
             }
             loadEquipmentPage(newValue);
         });
-
+        try {
+            DEFAULT_PAGE = new URL(MAP_PAGE_BASE_URL);
+        } catch (MalformedURLException e) {
+            System.err.println("Fatal error: Base URL not formatted.");
+        }
         loadDefaultPage();
     }
 
@@ -81,6 +89,7 @@ public class BrowserPanel extends UiPart<Region> {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         } finally {
+
             System.out.println("Loading page: " + url);
             loadPage(url);
         }

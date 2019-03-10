@@ -8,8 +8,11 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -20,6 +23,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -208,13 +218,36 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            GeoApiContext context = new GeoApiContext.Builder()
+                    .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
+                    .build();
+            String expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL;
+            try {
+                GeocodingResult[] results = GeocodingApi.geocode(context,
+                        getPersonListPanel().getHandleToSelectedCard().getAddress().toString()).await();
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                if (results.length > 0) {
+                    System.out.println();
+                    expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[[" + results[0].geometry.location.lng + ","
+                            + results[0].geometry.location.lat + "]]&title=[\""
+                            + getPersonListPanel().getHandleToSelectedCard().getName()
+                            + "\"]&icon=[\"monument\"]";
+                }
+            } catch (ApiException e) {
+                System.err.println(e.getMessage());
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            } finally {
+                expectedUrl = new URL(expectedUrlString.replace("\"", "%22").replace(" ", "%20"));
+            }
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
+
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());

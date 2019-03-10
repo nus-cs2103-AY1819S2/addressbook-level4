@@ -75,7 +75,7 @@ public class AddressBookTest {
     public void resetData_withDuplicateBooks_throwsDuplicateBookException() {
         // Two books with the same identity fields
         Book editedAlice = new BookBuilder(ALI).withAuthor(VALID_AUTHOR_ALICE)
-                .withName(VALID_BOOKNAME_ALICE)
+                .withBookName(VALID_BOOKNAME_ALICE)
                 .withTags(VALID_TAG_FANTASY)
                 .build();
         List<Book> newBooks = Arrays.asList(ALI, editedAlice);

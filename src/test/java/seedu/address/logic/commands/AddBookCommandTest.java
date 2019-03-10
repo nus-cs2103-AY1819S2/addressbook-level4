@@ -68,8 +68,8 @@ public class AddBookCommandTest {
 
     @Test
     public void equals() {
-        Book alice = new BookBuilder().withName("Alice").build();
-        Book bob = new BookBuilder().withName("Bob").build();
+        Book alice = new BookBuilder().withBookName("Alice").build();
+        Book bob = new BookBuilder().withBookName("Bob").build();
         AddBookCommand addAliceCommand = new AddBookCommand(alice);
         AddBookCommand addBobCommand = new AddBookCommand(bob);
 

@@ -46,19 +46,19 @@ public class BookNameContainsKeywordsPredicateTest {
         // One keyword
         BookNameContainsKeywordsPredicate predicate =
                 new BookNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new BookBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
 
         // Multiple keywords
         predicate = new BookNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new BookBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
 
         // Only one matching keyword
         predicate = new BookNameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new BookBuilder().withName("Alice Carol").build()));
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice Carol").build()));
 
         // Mixed-case keywords
         predicate = new BookNameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new BookBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
     }
 
     @Test
@@ -66,15 +66,15 @@ public class BookNameContainsKeywordsPredicateTest {
         // Zero keywords
         BookNameContainsKeywordsPredicate predicate =
                 new BookNameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new BookBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new BookBuilder().withBookName("Alice").build()));
 
         // Non-matching keyword
         predicate = new BookNameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new BookBuilder().withName("Alice Bob").build()));
+        assertFalse(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
 
         // Keywords match author and rating, but does not match name
         predicate = new BookNameContainsKeywordsPredicate(Arrays.asList("Rollin", "9"));
-        assertFalse(predicate.test(new BookBuilder().withName("Alice").withAuthor("Rollin")
+        assertFalse(predicate.test(new BookBuilder().withBookName("Alice").withAuthor("Rollin")
                 .withRating("9").build()));
     }
 }

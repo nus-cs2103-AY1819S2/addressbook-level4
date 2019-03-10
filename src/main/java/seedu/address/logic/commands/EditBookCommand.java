@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.book.Rating;
 import seedu.address.model.tag.Tag;
 
@@ -46,25 +47,28 @@ public class EditBookCommand extends Command {
 
     public static final String MESSAGE_EDIT_BOOK_SUCCESS = "Edited Book: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to editBook must be provided.";
-    public static final String MESSAGE_DUPLICATE_BOOK = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_BOOK = "This book already exists in the book shelf.";
 
+    private final BookNameContainsExactKeywordsPredicate predicate;
     private final EditBookDescriptor editBookDescriptor;
 
     /**
      * @param editBookDescriptor details to editBook the person with
      */
-    public EditBookCommand(EditBookDescriptor editBookDescriptor) {
+    public EditBookCommand(BookNameContainsExactKeywordsPredicate predicate, EditBookDescriptor editBookDescriptor) {
         requireNonNull(editBookDescriptor);
 
+        this.predicate = predicate;
         this.editBookDescriptor = new EditBookDescriptor(editBookDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        model.updateFilteredBookList(predicate);
         List<Book> lastShownList = model.getFilteredBookList();
 
-        if (lastShownList.size() != 1) {
+        if (lastShownList.isEmpty()) {
             throw new CommandException(MESSAGE_INVALID_BOOK);
         }
 
@@ -110,7 +114,7 @@ public class EditBookCommand extends Command {
 
         // state check
         EditBookCommand e = (EditBookCommand) other;
-        return editBookDescriptor.equals(e.editBookDescriptor);
+        return predicate.equals(e.predicate) && editBookDescriptor.equals(e.editBookDescriptor);
     }
 
     /**
@@ -140,7 +144,7 @@ public class EditBookCommand extends Command {
          * Returns true if at least one field is editBooked.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, author, rating, tags);
+            return CollectionUtil.isAnyNonNull(author, rating, tags);
         }
 
         public void setName(BookName name) {

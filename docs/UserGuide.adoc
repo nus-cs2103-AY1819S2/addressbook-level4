@@ -113,7 +113,7 @@ Examples:
 === Editing book entry : `editBook`
 
 Edits an existing book entry (eg. edit the mark, author or tag). +
-Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...`
+Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
 * Edits the book entry with exact name BOOKNAME.
@@ -125,27 +125,8 @@ Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...`
 
 Examples:
 
-* `edit n/Alice in Wonderland a/some author` +
-Change the author of book called “Alice in Wonderland” to some author.
-
-=== Editing tags of a certain book: `editTag`
-
-Edit tags of the book specified by BOOKNAME.
-Format: `editTag n/BOOKNAME [ta/TAG TO ADD] [td/TAG TO DELETE]`
-
-****
-* Edits the book's tag with exact name BOOKNAME.
-* The search by book name is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does matter. e.g. `Alice Wonderland` will not match `Wonderland Alice`
-* At least one of the optional fields must be provided.
-* [t/TAG] replaces all existing tags of the book
-* [ta/TAG TO ADD] adds the tag to the book
-* [td/TAG TO DELETE] deletes the tag
-****
-
-Examples:
-
-* `editTag n/Alice in Wonderland ta/horror td/fantasy.`
+* `edit n/Alice in Wonderland a/some author t/some tag` +
+Change the author of book called “Alice in Wonderland” to some author and some tags.
 
 === Deleting a book : `deleteBook`
 

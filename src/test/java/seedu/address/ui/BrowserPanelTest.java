@@ -4,10 +4,18 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalEquipments.ALICE;
 
+import java.io.IOException;
 import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
 
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
@@ -33,10 +41,33 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a equipment
         guiRobot.interact(() -> selectedPerson.set(ALICE));
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().serialNumber
-                .replaceAll(" ", "%20"));
-
+        GeoApiContext context = new GeoApiContext.Builder()
+                .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
+                .build();
+        String expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL;
+        URL expectedUrl;
+        try {
+            GeocodingResult[] results = GeocodingApi.geocode(context,
+                    ALICE.getAddress().toString()).await();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            if (results.length > 0) {
+                System.out.println();
+                expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[["
+                        + results[0].geometry.location.lng + ","
+                        + results[0].geometry.location.lat + "]]&title=[\""
+                        + ALICE.getName()
+                        + "\"]&icon=[\"monument\"]";
+            }
+        } catch (ApiException e) {
+            System.err.println(e.getMessage());
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            expectedUrl = new URL(expectedUrlString.replace("\"", "%22").replace(" ", "%20"));
+        }
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedUrl, browserPanelHandle.getLoadedUrl());
     }
 }

@@ -96,7 +96,6 @@ public class BrowserPanel extends UiPart<Region> {
             return url;
         } catch (MalformedURLException mue) {
             System.err.println("Fatal error: Default url cannot be formatted.");
-        } finally {
             return null;
         }
     }

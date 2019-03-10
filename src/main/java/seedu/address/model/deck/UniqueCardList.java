@@ -26,7 +26,7 @@ import seedu.address.model.deck.exceptions.DuplicateCardException;
  */
 public class UniqueCardList implements Iterable<Card> {
 
-    private final ObservableList<Card> internalList = FXCollections.observableArrayList();
+    public final ObservableList<Card> internalList = FXCollections.observableArrayList();
     private final ObservableList<Card> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 

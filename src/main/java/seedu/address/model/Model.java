@@ -8,6 +8,7 @@ import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 
 /**
@@ -183,7 +184,7 @@ public interface Model extends Observable {
      * Returns true if the given answer is right
      * false if answer is wrong
      */
-    boolean markAttemptedAnswer(String attemptedAnswer);
+    boolean markAttemptedAnswer(Answer attemptedAnswer);
 
     /**
      * Checks whether list of card folder names specified is found inside model

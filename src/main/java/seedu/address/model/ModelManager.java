@@ -21,6 +21,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 
@@ -175,7 +176,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean markAttemptedAnswer(String attemptedAnswer) {
+    public boolean markAttemptedAnswer(Answer attemptedAnswer) {
+        Answer correctAnswer = currentTestedCard.getValue().getAnswer();
+        String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
+        String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
+
+        //LOOSEN MORE CRITERIAS?
+
+        if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
+            return true;
+        }
 
         return false;
     }

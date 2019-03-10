@@ -26,6 +26,7 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.testutil.CardBuilder;
 
@@ -172,7 +173,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean markAttemptedAnswer(String attemptedAnswer) { throw new AssertionError("This method should not be called."); }
+        public boolean markAttemptedAnswer(Answer attemptedAnswer) { throw new AssertionError("This method should not be called."); }
 
         @Override
         public boolean checkValidCardFolders(List<String> cardFolders) {

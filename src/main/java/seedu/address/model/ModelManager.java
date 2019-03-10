@@ -181,7 +181,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean checkValidCardFolders(List<String> cardFolers) {
+    public boolean checkValidCardFolders(List<String> cardFolders) {
         return false;
     }
 

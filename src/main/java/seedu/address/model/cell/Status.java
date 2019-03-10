@@ -19,7 +19,11 @@ public enum Status {
     /**
      * This cell has been hit before, and the ship here has been destroyed.
      */
-    DESTROYED
+    DESTROYED,
+    /**
+     * This cell has a ship in it.
+     */
+    SHIP
 
 
 }

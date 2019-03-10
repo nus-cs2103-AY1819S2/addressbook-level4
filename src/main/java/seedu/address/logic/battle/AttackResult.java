@@ -1,7 +1,6 @@
 package seedu.address.logic.battle;
 
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.cell.Status;
 import seedu.address.model.player.Player;
 
 /**
@@ -38,11 +37,6 @@ public abstract class AttackResult {
     public Coordinates getCoords() {
         return coords;
     }
-
-    /**
-     * Returns the status of the attacked cell.
-     */
-    public abstract Status getStatus();
 
     /**
      * Returns a String representation of the attack result.

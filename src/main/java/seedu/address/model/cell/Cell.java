@@ -98,6 +98,17 @@ public class Cell {
     }
 
     /**
+     * Returns the status of this cell
+     */
+    public Status getStatus() {
+        if (battleship.isPresent()) {
+            return Status.SHIP;
+        } else {
+            return Status.EMPTY;
+        }
+    }
+
+    /**
      * Performs an attack on this current cell.
      * @return <code>true</code> if the attack hit a ship, <code>false</code> otherwise.
      */

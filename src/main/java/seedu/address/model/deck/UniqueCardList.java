@@ -3,6 +3,7 @@ package seedu.address.model.deck;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -98,6 +99,21 @@ public class UniqueCardList implements Iterable<Card> {
 
         internalList.setAll(cards);
     }
+
+    /**
+     * Clears all cards.
+     */
+    public void clear() {
+        internalList.clear();
+    }
+
+    /**
+     * Sort all cards in the list in alphabetical order according to the question.
+     */
+    public void sort() {
+        internalList.sort(Comparator.comparing(o -> o.getQuestion().toString().toLowerCase()));
+    }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

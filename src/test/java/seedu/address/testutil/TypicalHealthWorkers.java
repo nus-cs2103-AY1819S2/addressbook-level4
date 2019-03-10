@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
@@ -76,12 +76,12 @@ public class TypicalHealthWorkers {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalHealthStaffBook() {
-        AddressBook ab = new AddressBook();
-        for (HealthWorker person : getTypicalHealthStaff()) {
-            ab.addPerson(person);
+    public static HealthWorkerBook getTypicalHealthWorkerBook() {
+        HealthWorkerBook healthWorkerBook = new HealthWorkerBook();
+        for (HealthWorker healthWorker : getTypicalHealthStaff()) {
+            healthWorkerBook.addHealthWorker(healthWorker);
         }
-        return ab;
+        return healthWorkerBook;
     }
 
     public static List<HealthWorker> getTypicalHealthStaff() {

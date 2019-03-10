@@ -16,8 +16,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.ActivityDateTime;
+//import seedu.address.model.activity.Activity;
+//import seedu.address.model.activity.ActivityDateTime;
 import seedu.address.model.activity.ActivityName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -126,12 +126,12 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseActivityDateTime__validValueWithoutWhitespace_returnsDateTime() throws Exception {
+    public void parseActivityDateTime_validValueWithoutWhitespace_returnsDateTime() throws Exception {
         // To be updated
     }
 
     @Test
-    public void parseActivityDateTime__validValueWithWhitespace_returnsDateTime() throws Exception {
+    public void parseActivityDateTime_validValueWithWhitespace_returnsDateTime() throws Exception {
         // To be updated
     }
 

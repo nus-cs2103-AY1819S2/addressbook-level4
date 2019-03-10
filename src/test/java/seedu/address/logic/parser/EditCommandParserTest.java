@@ -172,11 +172,11 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-//        // serial number
-//        userInput = targetIndex.getOneBased() + SERIAL_NUMBER_DESC_AMY;
-//        descriptor = new EditPersonDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_AMY).build();
-//        expectedCommand = new EditCommand(targetIndex, descriptor);
-//        assertParseSuccess(parser, userInput, expectedCommand);
+        // serial number
+        userInput = targetIndex.getOneBased() + SERIAL_NUMBER_DESC_AMY;
+        descriptor = new EditPersonDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;

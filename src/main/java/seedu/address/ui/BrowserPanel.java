@@ -35,22 +35,6 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    /**
-     * Process the default url String.
-     * @param urlString the default url string
-     * @return the URL object
-     */
-    private static URL processDefaultPage(String urlString) {
-        try{
-            URL url = new URL(MAP_PAGE_BASE_URL);
-            return url;
-        } catch (MalformedURLException mue) {
-            System.err.println("Fatal error: Default url cannot be formatted.");
-        } finally {
-            return null;
-        }
-    }
-
     public BrowserPanel(ObservableValue<Equipment> selectedPerson) {
         super(FXML);
 
@@ -101,6 +85,22 @@ public class BrowserPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Process the default url String.
+     * @param urlString the default url string
+     * @return the URL object
+     */
+    private static URL processDefaultPage(String urlString) {
+        try {
+            URL url = new URL(MAP_PAGE_BASE_URL);
+            return url;
+        } catch (MalformedURLException mue) {
+            System.err.println("Fatal error: Default url cannot be formatted.");
+        } finally {
+            return null;
+        }
+    }
+    
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
     }

@@ -57,7 +57,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Equipment equipment) {
-        /**
+
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
                 .build();
@@ -65,7 +65,7 @@ public class BrowserPanel extends UiPart<Region> {
             GeocodingResult[] results = GeocodingApi.geocode(context,
                     equipment.getAddress().toString()).await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            System.out.println(gson.toJson(results[0].geometry.location));
+            //System.out.println(gson.toJson(results[0].geometry.location));
 
         } catch (ApiException e) {
             System.err.println(e.getMessage());
@@ -73,7 +73,7 @@ public class BrowserPanel extends UiPart<Region> {
             System.err.println(e.getMessage());
         } catch (IOException e) {
             System.err.println(e.getMessage());
-        }*/
+        }
         loadPage(SEARCH_PAGE_URL + equipment.getName().serialNumber);
     }
 

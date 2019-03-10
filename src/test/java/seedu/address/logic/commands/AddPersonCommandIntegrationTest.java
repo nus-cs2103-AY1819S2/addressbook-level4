@@ -2,13 +2,12 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -25,15 +24,14 @@ public class AddPersonCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        // TODO: Fix HealthWorkerBook implementation
-        model = new ModelManager(getTypicalAddressBook(), new HealthWorkerBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new HealthWorkerBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 

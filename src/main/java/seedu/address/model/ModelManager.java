@@ -165,6 +165,11 @@ public class ModelManager implements Model {
         this.filteredHealthWorkers.setPredicate(predicate);
     }
 
+    @Override
+    public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+        return this.versionedHealthWorkerBook;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

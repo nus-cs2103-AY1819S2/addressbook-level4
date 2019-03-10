@@ -168,6 +168,18 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Opens the map window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleDisplayMap() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
     public EquipmentListPanel getEquipmentListPanel() {
         return equipmentListPanel;
     }
@@ -189,6 +201,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isDisplayMap()) {
+                handleDisplayMap();
             }
 
             return commandResult;

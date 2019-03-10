@@ -113,6 +113,28 @@ Example:
 
 * `view equipment 12839`
 
+=== Selecting an equipment or work list: `select`
+Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. +
+Format: `select INDEX`
+
+* Selects the equipment and loads the equipment at the specified INDEX. +
+* The index refers to the index number shown in the displayed equipment list. +
+* The index must be a positive integer 1, 2, 3, …​ +
+
+Examples:
+
+* `list-e` +
+`select 2` +
+Selects the 2nd equipment in the equipment manager.
+
+* `list-w` +
+`select 1` +
+Selects the 1st worklist in the equipment manager.
+
+* `find Betsy` +
+`select 1` +
+Selects the 1st equipment in the results of the find command.
+
 === Locating equipment by location: `find`
 Finds equipment whose location contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`

@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -36,7 +37,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(),
+                new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         expectedModel.commitAddressBook();
 

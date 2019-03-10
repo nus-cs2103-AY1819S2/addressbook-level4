@@ -16,7 +16,9 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import org.junit.Test;
+
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;

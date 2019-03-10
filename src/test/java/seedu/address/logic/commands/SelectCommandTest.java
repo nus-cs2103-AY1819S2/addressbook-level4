@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -24,7 +25,8 @@ import seedu.address.model.UserPrefs;
  */
 public class SelectCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+            new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

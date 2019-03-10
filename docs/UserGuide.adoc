@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456` : adds a contact named `James Ho` to the Address Book.
+* **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com a/123, Clementi Rd, S123456` : adds a contact named `James Ho` and the associated property information to the address book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -60,22 +60,33 @@ Format: `help`
 
 === Adding a contact : `add`
 
-Adds a contact with property information to the address book +
-Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE OF PROPERTY] [t/TAG]...`
+Adds a contact to the address book, with 4 variants of customer types. Adds the associated property information for sellers and landlords.
 
 [NOTE]
 ====
-Acceptable `CUSTOMER_TYPE`: `Buyer`, `Seller`, `Lessor`, `Lessee`
+Accepted customer types: `seller`, `buyer`, `landlord`, `tenant` +
+`ADDRESS` of property is compulsory for sellers and landlords.
 ====
 
 [TIP]
-A contact can have any number of tags (including 0)
+A *contact* can only have one `REMARK` or none. +
+A *property* can have any number of `TAG` (including 0).
 
-Examples:
+* *Seller:* +
+Format: `add c/seller n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
+Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/123, Clementi Rd, S123456 sp/500000 t/MRT t/newlyRenovated`
 
-* `add n/Tan Ah Beng p/87654321 e/tab@example.com a/Blk 456 Woodlands Ave 1, #10-10, S789456 c/Lessor t/nearSupermarket`
-* `add n/Ricky Young e/rickyyoung@example.com c/Buyer a/10 Ocean Dr, S000010 p/1234567 f/12000000 t/landed`
-* `add n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456 f/500000 t/MRT t/newlyRenovated`
+* *Buyer:* +
+Format: `add c/buyer n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARK]` +
+Example: `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+
+* *Landlord:* +
+Format: `add c/landlord n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
+Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/123, Clementi Rd, S123456 rp/1500 t/MRT t/newlyRenovated`
+
+* *Tenant:* +
+Format: `add c/tenant n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
 
 === Listing all contacts : `list`
 
@@ -85,53 +96,81 @@ Format: `list`
 === Displaying a sorted list of contacts by specified category : `sort`
 
 Shows a list of all contacts in the address book, sorted according to a specified category. +
-Format: `sort CATEGORY`
+Format: `sort CATEGORY ORDER`
 
 [NOTE]
 ====
-`CATEGORY` List: `NAME`, `CUSTOMER_TYPE`, `PRICE_OF_PROPERTY`
+`CATEGORY` List: `n`, `sp`, `rp`
+`ORDER` List: `increasing`, `decreasing`
 ====
 
 ****
 * Sort methods:
-** Sort by name in alphabetical order
-** Sort by customer type
-** Sort by property price in increasing order
+** Sort by contact name `n` in increasing/decreasing alphabetical order
+** Sort by selling price of property `sp` in increasing/decreasing order
+** Sort by rental price of property `rp` in increasing/decreasing order
 ****
 
-Example: `sort CUSTOMER_TYPE`
+Example: `sort n increasing` +
+Displays the contact list sorted by name in forward alphabetical order.
 
 === Editing a contact : `edit`
 
-Edits an existing contact in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE_OF_PROPERTY] [t/TAG]...`
+Edits an existing contact and/or associated property (if any) in the address book, with 4 variants of customer types.
 
 ****
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
-* You can remove all the contact's tags by typing `t/` without specifying any tags after it.
+* You can remove any optional field by typing `n/`, `p/`, `e/`, `r/`, `sp/` or `rp/` for its respective field without specifying any parameters after it.
+* You can remove all the property's tags by typing `t/` without specifying any tags after it.
 ****
 
-Examples:
+* *Seller:* +
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
+Example: `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
+** Edits the name and email address of the 2nd contact to be `James Lee` and `jameslee@example.com` respectively. Edits selling price of the associated property to be `450000` and clears all existing tags.
 
-* `edit 1 p/91234567 e/abtan@example.com` +
-Edits the phone number and email address of the 1st contact to be `91234567` and `abtan@example.com` respectively.
-* `edit 2 n/Nicky Young t/` +
-Edits the name of the 2nd contact to be `Nicky Young` and clears all existing tags.
-* `edit 3 n/James Lee e/jameslee@example.com` +
-Edits the name and email address of the 3rd contact to be `James Lee` and `jameslee@example.com` respectively.
+* *Buyer:* +
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+Example: `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands` +
+** Edits the name, email address and remarks of the 2nd contact to be `James Lee`, `jameslee@example.com` and `looking for houses in Woodlands` respectively.
+
+* *Landlord:* +
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
+Example: `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
+** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively. Edits rental price of the associated property to be `1700`, clears all existing tags and adds new tags `MRT` and `Park`.
+
+* *Tenant:* +
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+Example: `edit 2 n/James Lee p/87654321 r/`
+** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively and clears existing remarks.
+
+=== Matching a contact to a property: `match`
+
+Matches a buyer to a seller’s property or a tenant to a landlord’s property. +
+Both buyer and seller, or both tenant and landlord, must be listed prior to matching.
+
+* *Buyer:* +
+Format: `match INDEX_BUYER INDEX_SELLER` +
+Example: `match 1 8`
+** Matches the buyer listed as index 1 to the property listed with the seller as index 8.
+
+* *Tenant:* +
+Format: `match INDEX_TENANT INDEX_LANDLORD ` +
+Example: `match 3 10`
+** Matches the tenant listed as index 3 to the property listed with the landlord as index 10.
 
 === Finding contact(s) by keyword(s) : `find`
 
 Finds contact(s) whose information contains any of the keyword(s). +
 e.g. search by name, search by address, search by tags etc. +
-Format: `find KEYWORD [KEYWORDS]...`
+Format: `find KEYWORD [KEYWORD]...`
 
 [NOTE]
 ====
-`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+`KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
 ====
 
 ****
@@ -148,8 +187,8 @@ Examples:
 Returns `James Lee` and `John James`
 * `find n/James n/Tan n/Young` +
 Returns any contact having names `James`, `Tan`, or `Young`
-* `find a/Woodlands c/Lessor` +
-Returns any contact with address `Woodlands` and customer type `Lessor`
+* `find a/Woodlands c/Landlord` +
+Returns any contact with address `Woodlands` and customer type `Landlord`
 
 === Deleting a contact : `delete`
 
@@ -278,7 +317,7 @@ Format: `archivefind KEYWORD [KEYWORD]...`
 
 [NOTE]
 ====
-`KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+`KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
 ====
 
 Example:
@@ -403,34 +442,66 @@ User can set a password, which will be required when logging into the app.
 [[Summary]]
 == Command Summary
 
-* *Add* : `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE OF PROPERTY] [t/TAG]...`
-** e.g. `add n/James Ho p/98765432 e/jamesho@example.com c/Seller a/123, Clementi Rd, S123456 f/500000 t/MRT t/newlyRenovated`
+[none]
+* *Add* :
+[none]
+** Seller: +
+*** `add c/seller n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
+*** e.g. `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/123, Clementi Rd, S123456 sp/500000 t/MRT t/newlyRenovated`
+** Buyer: +
+*** `add c/buyer n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARK]` +
+*** e.g. `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+** Landlord: +
+*** `add c/landlord n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
+*** e.g. `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/123, Clementi Rd, S123456 rp/1500 t/MRT t/newlyRenovated`
+** Tenant: +
+*** `add c/tenant n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+*** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
 * *Archive* : `archive INDEX`
 ** e.g. `archive 1`
 * *Archive list* : `archivelist`
 * *Archive search* : `archivefind KEYWORD [KEYWORD]...`
-** `KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+** `KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
 ** e.g. `archivefind n/James c/Seller`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX`
 ** e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [c/CUSTOMER_TYPE] [a/ADDRESS] [f/PRICE_OF_PROPERTY] [t/TAG]...`
-** e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Exit*: `exit`
+* *Edit* :
+** Seller: +
+*** `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
+*** e.g. `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
+** Buyer: +
+*** `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+*** e.g. `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands`
+** Landlord: +
+*** `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
+*** e.g. `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
+** Tenant: +
+*** `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+*** e.g. `edit 2 n/James Lee p/87654321 r/`
+* *Exit* : `exit`
 * *Find* : `find KEYWORD [KEYWORD]...`
-** `KEYWORD` List: `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `c/CUSTOMER_TYPE`, `a/ADDRESS`, `f/PRICE_OF_PROPERTY`, `t/TAG`
+** `KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
 ** e.g. `find n/James n/Tan n/Young`
 * *Help* : `help`
 * *History* : `history`
+* *Match* :
+** Buyer: +
+*** `match INDEX_BUYER INDEX_SELLER` +
+*** e.g. `match 1 8`
+** Tenant: +
+*** `match INDEX_TENANT INDEX_LANDLORD` +
+*** e.g. `match 3 10`
 * *List* : `list`
 * *Pin* : `pin INDEX`
 ** e.g. `pin 3`
 * *Redo* : `redo`
 * *Select* : `select INDEX`
 ** e.g.`select 2`
-* *Sort* : `sort CATEGORY`
-** `CATEGORY` List: `NAME`, `CUSTOMER_TYPE`, `PRICE_OF_PROPERTY`
-** e.g. `sort CUSTOMER_TYPE`
+* *Sort* : `sort CATEGORY ORDER`
+** `CATEGORY` List: `n`, `sp`, `rp`
+** `ORDER` List: `increasing`, `decreasing`
+** e.g. `sort n increasing`
 * *Unarchive* : `unarchive INDEX`
 ** e.g. `unarchive 1`
 * *Undo* : `undo`

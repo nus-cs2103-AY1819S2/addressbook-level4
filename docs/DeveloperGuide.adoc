@@ -852,7 +852,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |lazy user |search for contacts by tags |find all the contacts with the same tag(s), e.g. search for "Landed" should return all contacts with "Landed" tag
 
-|`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, lessors, lessees) |keep track of my customers better
+|`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
 
 |`* * *` |clean user who wants to keep contacts for later use |hide or archive contacts when I currently do not need them |retrieve them when I need them again much later
 
@@ -884,7 +884,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |lazy user |have the app start on boot up and minimise to tray |have the app open at all times without having to open it manually all the time
 
-|`*` |real estate agent |search online for current market trends and prices of properties similar to mine |so that I can check the competitiveness of my properties to make improvements on my properties and make adjustments to my prices
+|`*` |real estate agent |search online for current market trends and prices of properties similar to mine |check the competitiveness of my properties to make improvements on my properties and make adjustments to my prices
 
 |`*` |user who prefers visuals |upload and store photos of a specific property |view the property on-the-go
 |=======================================================================
@@ -1111,6 +1111,39 @@ Use case ends.
 * 1a. The contact list is empty.
 +
 Use case ends.
+
+[discrete]
+=== Use case: Match contacts
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to match 2 contacts in the list.
+4. TheRealApp links the 2 contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The 2 contacts are not matchable.
++
+[none]
+** 3b1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: Pin contact

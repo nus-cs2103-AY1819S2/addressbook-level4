@@ -52,9 +52,6 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
-    private void loadPersonPage(Equipment equipment) {
-        loadPage(SEARCH_PAGE_URL + equipment.getName().name);
-
   /**
      * Load the equipment page of a equipment.
      * @param equipment The equipment to load.

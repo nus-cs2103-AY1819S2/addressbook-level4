@@ -60,14 +60,14 @@ public class EditBookCommandParserTest {
         // invalid book name
         assertParseFailure(parser, INVALID_BOOKNAME_DESC, BookName.MESSAGE_CONSTRAINTS);
         // invalid author
-        assertParseFailure(parser, NAME_DESC_ALICE + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS); 
+        assertParseFailure(parser, NAME_DESC_ALICE + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS);
         // invalid rating
         assertParseFailure(parser, NAME_DESC_ALICE + INVALID_RATING_DESC, Rating.MESSAGE_CONSTRAINTS);
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_ALICE + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); 
+        assertParseFailure(parser, NAME_DESC_ALICE + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
 
         // invalid author followed by valid rating
-        assertParseFailure(parser, NAME_DESC_ALICE + INVALID_AUTHOR_DESC + RATING_DESC_ALICE, 
+        assertParseFailure(parser, NAME_DESC_ALICE + INVALID_AUTHOR_DESC + RATING_DESC_ALICE,
                 Author.MESSAGE_CONSTRAINTS);
 
         // valid author followed by invalid author. The test case for invalid author followed by valid author

@@ -112,7 +112,7 @@ class JsonAdaptedEquipment {
                     SerialNumber.class.getSimpleName()));
         }
         if (!SerialNumber.isValidSerialNumber(serialNumber)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(SerialNumber.MESSAGE_CONSTRAINTS);
         }
         final SerialNumber modelSerialNumber = new SerialNumber(serialNumber);
 

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.equipment.Equipment;
 
 /**
- * Selects a equipment identified using it's displayed index from the address book.
+ * Selects an equipment identified using it's displayed index from the equipment manager.
  */
 public class SelectCommand extends Command {
 
@@ -23,7 +23,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Equipment: %1$s";
+    public static final String MESSAGE_SELECT_EQUIPMENT_SUCCESS = "Selected Equipment: %1$s";
 
     private final Index targetIndex;
 
@@ -42,7 +42,7 @@ public class SelectCommand extends Command {
         }
 
         model.setSelectedPerson(filteredEquipmentList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_EQUIPMENT_SUCCESS, targetIndex.getOneBased()));
 
     }
 

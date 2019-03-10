@@ -137,7 +137,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyHealthWorkerBook> readHealthWorkerBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyHealthWorkerBook> readHealthWorkerBook(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return healthWorkerBookStorage.readHealthWorkerBook(filePath);
     }

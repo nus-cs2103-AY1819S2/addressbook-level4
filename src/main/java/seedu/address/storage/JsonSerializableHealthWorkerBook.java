@@ -20,7 +20,8 @@ import seedu.address.model.person.healthworker.HealthWorker;
 @JsonRootName(value = "healthWorkerBook")
 class JsonSerializableHealthWorkerBook {
 
-    public static final String MESSAGE_DUPLICATE_HEALTHWORKER = "HealthWorkers list contains duplicate healthWorker(s).";
+    public static final String MESSAGE_DUPLICATE_HEALTHWORKER =
+            "HealthWorkers list contains duplicate healthWorker(s).";
 
 
     private final List<JsonAdaptedHealthWorker> healthWorkers = new ArrayList<>();
@@ -29,7 +30,8 @@ class JsonSerializableHealthWorkerBook {
      * Constructs a {@code JsonSerializableHealthWorkerBook} with the given healthWorkers.
      */
     @JsonCreator
-    public JsonSerializableHealthWorkerBook(@JsonProperty("healthWorkers") List<JsonAdaptedHealthWorker> healthWorkers) {
+    public JsonSerializableHealthWorkerBook(@JsonProperty("healthWorkers")
+                                                        List<JsonAdaptedHealthWorker> healthWorkers) {
         this.healthWorkers.addAll(healthWorkers);
     }
 
@@ -39,7 +41,8 @@ class JsonSerializableHealthWorkerBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableHealthWorkerBook}.
      */
     public JsonSerializableHealthWorkerBook(ReadOnlyHealthWorkerBook source) {
-        healthWorkers.addAll(source.getHealthWorkerList().stream().map(JsonAdaptedHealthWorker::new).collect(Collectors.toList()));
+        healthWorkers.addAll(source.getHealthWorkerList().stream()
+                .map(JsonAdaptedHealthWorker::new).collect(Collectors.toList()));
 
     }
 

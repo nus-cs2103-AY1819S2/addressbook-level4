@@ -7,9 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddAppCommand;
+import seedu.address.logic.commands.AddDirectoryCommand;
 import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.AddRemCommand;
+import seedu.address.logic.commands.AlarmCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConsultationCommand;
@@ -27,6 +29,7 @@ import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.PrescriptionCommand;
+import seedu.address.logic.commands.PurchaseMedicineCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StatisticsCommand;
@@ -137,6 +140,15 @@ public class AddressBookParser {
 
         case ViewStorageCommand.COMMAND_WORD:
             return new ViewStorageCommandParser().parse(arguments);
+
+        case AlarmCommand.COMMAND_WORD:
+            return new AlarmCommandParser().parse(arguments);
+
+        case AddDirectoryCommand.COMMAND_WORD:
+            return new AddDirectoryCommandParser().parse(arguments);
+
+        case PurchaseMedicineCommand.COMMAND_WORD:
+            return new PurchaseMedicineCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

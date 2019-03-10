@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.StringUtil.fromPathToString;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -50,20 +52,6 @@ public class ViewStorageCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS_DIRECTORY, fromPathToString(path),
                 directory.get().viewDetail()));
-    }
-
-    /**
-     * Convert path to a String to display to User
-     * @param path the path field
-     * @return A string representation of the path
-     */
-    private String fromPathToString(String[] path) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < path.length - 1; i++) {
-            sb.append(path[i] + "\\");
-        }
-        sb.append(path[path.length - 1]);
-        return sb.toString();
     }
 
     @Override

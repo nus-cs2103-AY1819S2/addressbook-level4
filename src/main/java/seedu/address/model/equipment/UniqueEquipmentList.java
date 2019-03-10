@@ -3,8 +3,7 @@ package seedu.address.model.equipment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,6 +77,14 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
         if (!internalList.remove(toRemove)) {
             throw new EquipmentNotFoundException();
         }
+    }
+
+    /**
+     * Sorts the equipment list by name.
+     */
+    public void sortByName() {
+        Comparator<Equipment> byName = Comparator.comparing(equipment -> equipment.getName().toString());
+        internalList.sort(byName);
     }
 
     public void setEquipments(UniqueEquipmentList replacement) {

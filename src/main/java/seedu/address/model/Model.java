@@ -134,4 +134,7 @@ public interface Model {
     void deleteTag(Tag tag);
 
     void updatePerson(Equipment target, Equipment editedEquipment);
+
+    /** Sorts the equipment list by name. */
+    void sortByName();
 }

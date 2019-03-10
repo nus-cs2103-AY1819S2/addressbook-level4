@@ -96,6 +96,13 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     /**
+     *
+     */
+    public void sortByName() {
+        persons.sortByName();
+    }
+
+    /**
      * Removes {@code key} from this {@code EquipmentManager}.
      * {@code key} must exist in the address book.
      */

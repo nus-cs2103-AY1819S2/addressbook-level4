@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
+import seedu.address.model.cell.exceptions.BattleshipNotPresentException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -119,6 +120,18 @@ public class Cell {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Attack the battleship present in this cell
+     */
+    public void receiveAttack() {
+        if (!this.battleship.isPresent()) {
+            throw new BattleshipNotPresentException();
+        }
+
+        this.battleship.get().reduceLife();
+        this.status = Status.HIT;
     }
 
     /**

@@ -98,11 +98,11 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: edit a equipment with new values same as another equipment's values but with different phone
          * and email -> edited
          */
-//      index = INDEX_SECOND_PERSON;
-//      command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-//              + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-//      editedEquipment = new EquipmentBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
-//      assertCommandSuccess(command, index, editedEquipment);
+        //      index = INDEX_SECOND_PERSON;
+        //      command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
+        //              + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        //      editedEquipment = new EquipmentBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        //      assertCommandSuccess(command, index, editedEquipment);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;

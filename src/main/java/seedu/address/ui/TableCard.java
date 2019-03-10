@@ -3,11 +3,12 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.model.table.Table;
 
 /**
- * An UI component that displays information of a {@code MenuItem}.
+ * An UI component that displays information of a {@code Table}.
  */
 public class TableCard extends UiPart<Region> {
 

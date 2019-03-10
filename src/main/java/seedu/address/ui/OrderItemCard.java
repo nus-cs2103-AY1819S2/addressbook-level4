@@ -8,7 +8,7 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 
 /**
- * An UI component that displays information of a {@code MenuItem}.
+ * An UI component that displays information of a {@code OrderItem}.
  */
 public class OrderItemCard extends UiPart<Region> {
     

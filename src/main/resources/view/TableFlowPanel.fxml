@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-    <FlowPane fx:id="tableFlowPane" VBox.vgrow="ALWAYS" />
-</VBox>
+<FlowPane fx:id="tableFlowPane" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" />

@@ -133,15 +133,15 @@ public class EditBookCommandParserTest {
 
         // rating
         userInput = NAME_DESC_ALICE + RATING_DESC_CS;
-        descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_ALICE).
-                withRating(VALID_RATING_CS).build();
+        descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_ALICE)
+                .withRating(VALID_RATING_CS).build();
         expectedCommand = new EditBookCommand(predicate, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = NAME_DESC_ALICE + TAG_DESC_TEXTBOOK;
-        descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_ALICE).
-                withTags(VALID_TAG_TEXTBOOK).build();
+        descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_ALICE)
+                .withTags(VALID_TAG_TEXTBOOK).build();
         expectedCommand = new EditBookCommand(predicate, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

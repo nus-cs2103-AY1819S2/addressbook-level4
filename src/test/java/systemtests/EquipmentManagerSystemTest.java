@@ -244,6 +244,7 @@ public abstract class EquipmentManagerSystemTest {
                 expectedUrl = new URL(expectedUrlString.replace("\"", "%22").replace(" ", "%20"));
             }
         } catch (MalformedURLException mue) {
+            System.out.println("SHOULD NOT BE ERROR AH");
             throw new AssertionError("URL expected to be valid.", mue);
         }
 

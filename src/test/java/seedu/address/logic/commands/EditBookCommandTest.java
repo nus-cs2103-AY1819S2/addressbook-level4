@@ -23,11 +23,12 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
-import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.BookBuilder;
+import seedu.address.testutil.EditBookDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditBookCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for EditBookCommand.
  */
 public class EditBookCommandTest {
 

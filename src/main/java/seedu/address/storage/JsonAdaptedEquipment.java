@@ -50,7 +50,7 @@ class JsonAdaptedEquipment {
      * Converts a given {@code Equipment} into this class for Jackson use.
      */
     public JsonAdaptedEquipment(Equipment source) {
-        name = source.getName().serialNumber;
+        name = source.getName().name;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -73,7 +73,7 @@ class JsonAdaptedEquipment {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidSerialNumber(name)) {
+        if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);

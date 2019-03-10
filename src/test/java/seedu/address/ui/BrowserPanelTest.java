@@ -33,7 +33,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a equipment
         guiRobot.interact(() -> selectedPerson.set(ALICE));
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().serialNumber
+        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().name
                 .replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);

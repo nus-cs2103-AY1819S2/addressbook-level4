@@ -4,10 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.AMY;
+import static seedu.address.testutil.TypicalEquipments.BENSON;
+import static seedu.address.testutil.TypicalEquipments.BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,11 +23,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.NameContainsKeywordsPredicate;
+import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
+import seedu.address.model.tag.Tag;
+import seedu.address.testutil.EquipmentBuilder;
+import seedu.address.testutil.EquipmentManagerBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -35,7 +40,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new EquipmentManager(), new EquipmentManager(modelManager.getAddressBook()));
         assertEquals(null, modelManager.getSelectedPerson());
     }
 
@@ -124,7 +129,7 @@ public class ModelManagerTest {
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Equipment updatedAlice = new EquipmentBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setPerson(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPerson());
     }
@@ -137,7 +142,7 @@ public class ModelManagerTest {
 
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(EquipmentNotFoundException.class);
         modelManager.setSelectedPerson(ALICE);
     }
 
@@ -151,13 +156,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        EquipmentManager differentEquipmentManager = new EquipmentManager();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(equipmentManager, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(equipmentManager, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -169,13 +174,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different equipmentManager -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentEquipmentManager, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = ALICE.getName().serialNumber.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(equipmentManager, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -183,6 +188,34 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(equipmentManager, differentUserPrefs)));
+    }
+
+    @Test
+    public void deleteTag_nonExistentTag_modelUnchanged() {
+        EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(AMY).withPerson(BOB).build();
+        UserPrefs userPrefs = new UserPrefs();
+
+        ModelManager modelManager = new ModelManager(equipmentManager, userPrefs);
+        modelManager.deleteTag(new Tag(VALID_TAG_UNUSED));
+
+        assertEquals(new ModelManager(equipmentManager, userPrefs), modelManager);
+    }
+
+    @Test
+    public void deleteTag_tagUsedByMultiplePersons_tagRemoved() {
+        EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(AMY).withPerson(BOB).build();
+        UserPrefs userPrefs = new UserPrefs();
+
+        ModelManager modelManager = new ModelManager(equipmentManager, userPrefs);
+        modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
+
+        ModelManager expectedModelManager = new ModelManager(equipmentManager, userPrefs);
+        Equipment amyWithoutFriendTag = new EquipmentBuilder(AMY).withTags().build();
+        Equipment bobWithoutFriendTag = new EquipmentBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        expectedModelManager.updatePerson(AMY, amyWithoutFriendTag);
+        expectedModelManager.updatePerson(BOB, bobWithoutFriendTag);
+
+        assertEquals(expectedModelManager, modelManager);
     }
 }

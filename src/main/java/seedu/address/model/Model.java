@@ -6,14 +6,15 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Equipment> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -48,43 +49,44 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyEquipmentManager addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the EquipmentManager */
+    ReadOnlyEquipmentManager getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a equipment with the same identity as {@code equipment} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Equipment equipment);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given equipment.
+     * The equipment must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePerson(Equipment target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given equipment.
+     * {@code equipment} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPerson(Equipment equipment);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given equipment {@code target} with {@code editedEquipment}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another
+     * existing equipment in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPerson(Equipment target, Equipment editedEquipment);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered equipment list */
+    ObservableList<Equipment> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered equipment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Equipment> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -112,19 +114,24 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected equipment in the filtered equipment list.
+     * null if no equipment is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Equipment> selectedPersonProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected equipment in the filtered equipment list.
+     * null if no equipment is selected.
      */
-    Person getSelectedPerson();
+    Equipment getSelectedPerson();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected equipment in the filtered equipment list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedPerson(Equipment equipment);
+
+    /** Removes the given {@code tag} from all {@code Equipment}s. */
+    void deleteTag(Tag tag);
+
+    void updatePerson(Equipment target, Equipment editedEquipment);
 }

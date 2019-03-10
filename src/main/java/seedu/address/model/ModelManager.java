@@ -160,6 +160,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Card getCurrentTestedCard() {
+        return currentTestedCard.getValue();
+    }
+
+    @Override
     public boolean checkIfInsideTestSession() {
         return insideTestSession;
     }

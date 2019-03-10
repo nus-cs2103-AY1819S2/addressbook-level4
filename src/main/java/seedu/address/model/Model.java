@@ -163,6 +163,12 @@ public interface Model extends Observable {
     public void setCurrentTestedCard(Card card);
 
     /**
+     * Returns the current card in the test session
+     * null if there is no cards in folder or user is not in a test session.
+     */
+    public Card getCurrentTestedCard();
+
+    /**
      * Returns true if user is in a test session
      * false user is not.
      */

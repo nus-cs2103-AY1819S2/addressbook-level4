@@ -13,7 +13,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.record.Record;
+import seedu.address.model.tag.StatusTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TeethTag;
+import seedu.address.model.tag.TemplateTags;
 
 /**
  * Represents a patient which is extend from the Person class.
@@ -26,7 +29,6 @@ public class Patient extends Person {
     private Nric nric;
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
-    private boolean buildSpecified = false;
     private ArrayList<Record> records = new ArrayList<>();
 
     /**
@@ -78,7 +80,6 @@ public class Patient extends Person {
      * Build a default none/child/adult teeth layout, according to the parameters.
      */
     private void specifyBuild(String teethLayout) {
-        buildSpecified = true;
         buildTeeth(teethLayout);
     }
 
@@ -87,6 +88,35 @@ public class Patient extends Person {
      */
     private void buildTeeth(String teethLayout) {
         teeth = new Teeth(teethLayout);
+        if (teethLayout.equals(CHILD)) {
+            editTags(new TeethTag(TemplateTags.CHILD));
+        } else {
+            editTags(new TeethTag(TemplateTags.ADULT));
+        }
+        editTags(new StatusTag(TemplateTags.HEALTHY));
+    }
+
+    /**
+     * Adds or replace similar tags of the patient.
+     * @param tag the tag to be added or overwrite the existing.
+     */
+    private void editTags(Tag tag) {
+        if (tag instanceof TeethTag) {
+            for (Tag t : tags) {
+                if (t instanceof TeethTag) {
+                    tags.remove(t);
+                    break;
+                }
+            }
+        } else if (tag instanceof StatusTag) {
+            for (Tag t : tags) {
+                if (t instanceof StatusTag) {
+                    tags.remove(t);
+                    break;
+                }
+            }
+        }
+        tags.add(tag);
     }
 
     /**
@@ -111,10 +141,6 @@ public class Patient extends Person {
 
     public DateOfBirth getDateOfBirth() {
         return dateOfBirth;
-    }
-
-    public boolean isBuildSpecified() {
-        return buildSpecified;
     }
 
     public ArrayList<Record> getRecords() {

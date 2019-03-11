@@ -13,6 +13,7 @@ public class Teeth {
     private static final String ADULT = "adult";
     private static final int PRIMARYTEETHCOUNT = 20;
     private static final int PERMANENTTEETHCOUNT = 32;
+    private String teethLayout;
 
     private ArrayList<Tooth> permanentTeeth;
     private ArrayList<Tooth> primaryTeeth;
@@ -22,6 +23,8 @@ public class Teeth {
      * @param teethLayout the teeth layout specified by the user.
      */
     Teeth(String teethLayout) {
+        this.teethLayout = teethLayout;
+
         buildNoTeeth();
         switch (teethLayout) {
         case NONE:
@@ -93,6 +96,15 @@ public class Teeth {
      */
     public void setToothStatus(int index, Status status) {
         getTooth(index).setStatus(status);
+    }
+
+    /**
+     * Returns the type of teeth the patient has.
+     * Either primary or permanent.
+     * @return the teeth type.
+     */
+    public String getTeethType() {
+        return teethLayout;
     }
 
     /**

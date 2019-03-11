@@ -10,15 +10,17 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.medicine.Medicine;
+
 class RecordManagerTest {
     private final RecordManager recordManager = new RecordManager();
     private Record record1;
-    private Record record2;
     private Clock clock;
 
     @BeforeEach
     void setUp() {
-        record1 = new MedicinePurchaseRecord("test", 1, BigDecimal.valueOf(10.00));
+        Medicine medicine = new Medicine("test");
+        record1 = new MedicinePurchaseRecord(medicine, 1, BigDecimal.valueOf(10.00));
         clock = Clock.fixed(Instant.parse("2019-01-01T10:15:30.00Z"), ZoneId.systemDefault());
     }
 

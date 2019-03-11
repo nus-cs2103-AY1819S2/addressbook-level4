@@ -2,15 +2,24 @@ package seedu.address.model.record;
 
 import java.math.BigDecimal;
 
+import seedu.address.model.medicine.Medicine;
+
 /**
  * Record representation of a MedicinePurchase
  */
 public class MedicinePurchaseRecord extends Record {
-    private final String medicineName;
+    private final Medicine medicine;
     private final int quantity;
     private final BigDecimal cost;
-    public MedicinePurchaseRecord(String medicineName, int quantity, BigDecimal cost) {
-        this.medicineName = medicineName;
+    /* TODO
+    public MedicinePurchaseRecord(Medicine medicine, int quantity) {
+        this.medicine = medicine;
+        this.quantity = quantity;
+        this.cost = medicine.getPrice();
+    }
+    */
+    public MedicinePurchaseRecord(Medicine medicine, int quantity, BigDecimal cost) {
+        this.medicine = medicine;
         this.quantity = quantity;
         this.cost = cost;
     }

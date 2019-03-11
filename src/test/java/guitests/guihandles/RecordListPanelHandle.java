@@ -18,8 +18,8 @@ public class RecordListPanelHandle extends NodeHandle<ListView<Record>> {
 
     private Optional<Record> lastRememberedSelectedRecordCard;
 
-    public RecordListPanelHandle(ListView<Record> RecordListPanelNode) {
-        super(RecordListPanelNode);
+    public RecordListPanelHandle(ListView<Record> recordListPanelNode) {
+        super(recordListPanelNode);
     }
 
     /**

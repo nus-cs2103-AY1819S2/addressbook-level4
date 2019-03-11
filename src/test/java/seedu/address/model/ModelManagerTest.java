@@ -121,7 +121,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setRecord_RecordIsSelected_selectedRecordUpdated() {
+    public void setRecord_recordIsSelected_selectedRecordUpdated() {
         modelManager.addRecord(ALICE);
         modelManager.setSelectedRecord(ALICE);
         Record updatedAlice = new RecordBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();

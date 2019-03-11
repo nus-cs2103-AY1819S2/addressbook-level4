@@ -42,7 +42,7 @@ public class SpendCommandTest {
     }
 
     @Test
-    public void execute_RecordAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_recordAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingRecordAdded modelStub = new ModelStubAcceptingRecordAdded();
         Record validRecord = new RecordBuilder().build();
 

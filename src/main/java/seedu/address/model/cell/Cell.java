@@ -10,7 +10,6 @@ import java.util.Set;
 
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
-import seedu.address.model.cell.exceptions.BattleshipNotPresentException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,7 +27,6 @@ public class Cell {
     private Optional<Battleship> battleship;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private Status status;
 
     /**
      * Every field must be present and not null.
@@ -53,7 +51,6 @@ public class Cell {
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");
-        this.status = Status.EMPTY;
     }
     /**
      * Constructor for cell that contains battleship
@@ -64,7 +61,6 @@ public class Cell {
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");
-        this.status = Status.HIDDEN;
     }
 
     public Name getName() {
@@ -83,10 +79,6 @@ public class Cell {
         return address;
     }
 
-    public Status getStatus() {
-        return this.status;
-    }
-
     /**
      * Returns true if this cell has a battleship, otherwise returns false
      */
@@ -103,19 +95,30 @@ public class Cell {
     public void putShip(Battleship battleship) {
         this.battleship = Optional.of(battleship);
         this.name = battleship.getName();
-        this.status = Status.SHIP;
     }
 
     /**
-     * Attack the battleship present in this cell
+     * Returns the status of this cell
      */
-    public void receiveAttack() {
-        if (!this.battleship.isPresent()) {
-            throw new BattleshipNotPresentException();
+    public Status getStatus() {
+        if (battleship.isPresent()) {
+            return Status.SHIP;
+        } else {
+            return Status.EMPTY;
         }
+    }
 
-        this.battleship.get().reduceLife();
-        this.status = Status.HIT;
+    /**
+     * Performs an attack on this current cell.
+     * @return <code>true</code> if the attack hit a ship, <code>false</code> otherwise.
+     */
+    public boolean receiveAttack() {
+        if (battleship.isPresent()) {
+            battleship.ifPresent(Battleship::reduceLife);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

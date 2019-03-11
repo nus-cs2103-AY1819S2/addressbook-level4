@@ -833,7 +833,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |adjust the contrast of my photo |
 
-|`* * *` |user |resize my photo | 
+|`* * *` |user |resize my photo |
 
 |`* * *` |user |crop my photo |trim it into my desired dimensions
 
@@ -845,11 +845,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |import my photo |store a copy of the photo in the application for editing
 
-|`* * *` |user |export my photo|save my edited photos to my computer  
+|`* * *` |user |export my photo|save my edited photos to my computer
 
 |`* * *` |user |open a photo stored in the application for editing |
 
-|`* * ` |user |list the names of the photos stored in the application |know what photos are currently stored inside    
+|`* * ` |user |list the names of the photos stored in the application |know what photos are currently stored inside
 
 |=======================================================================
 

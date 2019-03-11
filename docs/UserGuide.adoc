@@ -79,7 +79,7 @@ Examples:
 === Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
-Format: `listBook [n/BOOKNAME] [t/TAG] [m/RATING]`
+Format: `listBook [t/TAG] [m/RATING]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`

@@ -8,8 +8,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class Table {
 
-    private TableNumber tableNumber;
-    private TableStatus tableStatus;
+    private final TableNumber tableNumber;
+    private final TableStatus tableStatus;
 
     public Table(String tableNumber, String numberOfSeats) {
         this.tableNumber = new TableNumber(tableNumber);

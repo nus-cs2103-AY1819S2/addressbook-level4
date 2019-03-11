@@ -62,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private ScrollPane scrollPane;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -122,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
     public void fillInnerParts() {
         // TODO: set restaurant mode defaults
         tableFlowPanel = new TableFlowPanel(logic.getRestOrRant().getTables().getTableList(),
-                logic.getRestOrRant().getTables());
+                logic.getRestOrRant().getTables(), scrollPane);
         browserPlaceholder.getChildren().addAll(tableFlowPanel.getRoot());
 
         orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
@@ -196,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
 
         case RESTAURANT_MODE:
             tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(),
-                    logic.getRestOrRant().getTables()); // TODO: change to app logo
+                    logic.getRestOrRant().getTables(), scrollPane); // TODO: change to app logo
             browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),
@@ -219,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
 
         case MENU_MODE:
             // TODO: change to browser panel to app logo in future versions (for now keep the tables?)
-            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), logic.getRestOrRant().getTables());
+            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), logic.getRestOrRant().getTables(), scrollPane);
             browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),

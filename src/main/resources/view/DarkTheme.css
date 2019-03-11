@@ -307,9 +307,21 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#scrollPane {
+    -fx-background-color: #383838;
+}
+
+#tableCard {
+    -fx-background-color: #515658;
+    -fx-border-color: #3c3e3f;
+}
+
+#tableCard .label {
+    -fx-text-fill: white;
+}
+
+#tableFlowPane {
     -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-width: 0;
 }
 
 #commandTypeLabel {
@@ -349,49 +361,4 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
-}
-
-#tags .red {
-    -fx-background-color: red;
-    -fx-text-fill: black;
-}
-
-#tags .yellow {
-    -fx-background-color: yellow;
-    -fx-text-fill: black;
-}
-
-#tags .orange {
-    -fx-background-color: orange;
-    -fx-text-fill: black;
-}
-
-#tags .green {
-    -fx-background-color: green;
-    -fx-text-fill: black;
-}
-
-#tags .blue {
-    -fx-background-color: blue;
-    -fx-text-fill: black;
-}
-
-#tags .indigo {
-    -fx-background-color: indigo;
-    -fx-text-fill: black;
-}
-
-#tags .violet {
-    -fx-background-color: violet;
-    -fx-text-fill: black;
-}
-
-#tags .pink {
-    -fx-background-color: pink;
-    -fx-text-fill: black;
-}
-
-#tags .purple {
-    -fx-background-color: purple;
-    -fx-text-fill: black;
 }

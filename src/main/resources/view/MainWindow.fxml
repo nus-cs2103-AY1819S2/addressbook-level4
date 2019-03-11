@@ -55,12 +55,12 @@
                     <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                   </VBox>
         
-                  <StackPane fx:id="browserPanel" minWidth="460" prefWidth="460" SplitPane.resizableWithParent="false">
+                  <StackPane fx:id="flowPanel" minWidth="442" prefWidth="442" SplitPane.resizableWithParent="true">
                     <padding>
                       <Insets top="10" right="10" bottom="10" left="10" />
                     </padding>
-                    <ScrollPane fx:id="scrollPane">
-                      <StackPane fx:id="browserPlaceholder" />
+                    <ScrollPane fx:id="scrollPane" >
+                      <StackPane fx:id="browserPlaceholder" SplitPane.resizableWithParent="true"/>
                     </ScrollPane>
                   </StackPane>
                 </SplitPane>

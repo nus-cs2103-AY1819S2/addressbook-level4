@@ -77,8 +77,14 @@ public interface Model {
      */
     void setMedicine(Medicine target, Medicine editedMedicine);
 
-    /** Returns an unmodifiable view of the filtered medicine list */
+    /** Returns an unmodifiable view of the filtered medicine list to be used for the medicine panel */
     ObservableList<Medicine> getFilteredMedicineList();
+
+    /** Returns an unmodifiable view of the filtered medicine list for expiry date warning */
+    ObservableList<Medicine> getExpiringMedicinesList();
+
+    /** Returns an unmodifiable view of the filtered medicine list for low stock warning */
+    ObservableList<Medicine> getLowQuantityMedicinesList();
 
     /**
      * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.

@@ -123,7 +123,7 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find expiry date of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getExpiry().value;
+        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getExpiry().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

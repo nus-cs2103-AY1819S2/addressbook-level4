@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MediTabs" minWidth="500" minHeight="700" onCloseRequest="#handleExit">
+         title="MediTabs" minWidth="960" minHeight="700" onCloseRequest="#handleExit">
   <icons>
 <<<<<<< HEAD
     <Image url="@/images/MediTabs.png" />

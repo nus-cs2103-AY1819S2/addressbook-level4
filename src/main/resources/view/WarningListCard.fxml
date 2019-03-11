@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="warningCardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox>
+        <Text fx:id="id" />
+        <Text fx:id="name" text="\$name" />
+    </HBox>
+    <Text fx:id="filter" text="\$filter" />
+</VBox>

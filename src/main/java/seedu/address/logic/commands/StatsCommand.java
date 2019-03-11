@@ -11,7 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
-
+import seedu.address.ui.StatWindow;
 
 
 /**
@@ -55,7 +55,7 @@ public class StatsCommand extends Command {
             Patient patientToStat = extractPatientFromIndex(lastShownList);
             this.toStat = patientToStat;
         }
-
+        StatWindow.setStatPatient(this.toStat);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toStat.getName()), true);
     }

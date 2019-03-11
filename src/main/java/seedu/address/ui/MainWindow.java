@@ -159,6 +159,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStat() {
+        if (statWindow.isShowing()) {
+            statWindow.close();
+        }
+        statWindow.populateData();
         statWindow.show();
     }
 

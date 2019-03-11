@@ -187,6 +187,17 @@ public interface Model extends Observable {
     boolean markAttemptedAnswer(Answer attemptedAnswer);
 
     /**
+     * Set cardAlreadyAnswered variable to true to indicate current card as answered
+     */
+    void setCardAsAnswered();
+
+    /**
+     * Returns true if the answer has already been input for that card
+     * false if otherwise
+     */
+    boolean checkIfCardAlreadyAnswered();
+
+    /**
      * Checks whether list of card folder names specified is found inside model
      */
     boolean checkValidCardFolders(List<String> cardFolders);

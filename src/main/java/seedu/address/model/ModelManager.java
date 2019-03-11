@@ -38,6 +38,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
+    private boolean cardAlreadyAnswered = false;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
@@ -182,12 +183,20 @@ public class ModelManager implements Model {
         String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
 
         //LOOSEN MORE CRITERIAS?
-
         if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
             return true;
         }
-
         return false;
+    }
+
+    @Override
+    public void setCardAsAnswered() {
+        cardAlreadyAnswered = true;
+    }
+
+    @Override
+    public boolean checkIfCardAlreadyAnswered() {
+        return cardAlreadyAnswered;
     }
 
     @Override

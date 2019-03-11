@@ -176,6 +176,12 @@ public class AddCommandTest {
         public boolean markAttemptedAnswer(Answer attemptedAnswer) { throw new AssertionError("This method should not be called."); }
 
         @Override
+        public void setCardAsAnswered() { throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public boolean checkIfCardAlreadyAnswered() { throw new AssertionError("This method should not be called."); }
+
+        @Override
         public boolean checkValidCardFolders(List<String> cardFolders) {
             return false;
         }

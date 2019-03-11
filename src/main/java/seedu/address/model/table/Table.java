@@ -1,7 +1,5 @@
 package seedu.address.model.table;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-
 /**
  * Represents a table in RestOrRant.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -35,13 +33,13 @@ public class Table {
 
     /**
      * Checks if the current table is the same as table provided
-     * 
+     *
      * @param otherTable other table  to be checked against
      * @return true if tables have the same TableNumber; false otherwise
      */
     public boolean isSameTable(Table otherTable) {
         return otherTable == this
-                ||otherTable != null
+                || otherTable != null
                 && otherTable.getTableNumber().equals(getTableNumber());
     }
 }

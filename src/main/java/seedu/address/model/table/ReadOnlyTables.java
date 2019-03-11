@@ -16,7 +16,7 @@ public interface ReadOnlyTables extends Observable {
      * Returns an unmodifiable view of the tables list.
      */
     ObservableList<Table> getTableList();
-    
+
     /**
      * Takes in a TableNumber and returns the Optional of a Table if table exists, else an empty Optional.
      */

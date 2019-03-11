@@ -2,9 +2,6 @@ package seedu.address.model.table;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Represents the current status of a {@code Table}.
@@ -17,10 +14,10 @@ public class TableStatus {
     public static final String MESSAGE_INVALID_NUMBER_OF_CUSTOMERS =
             "Table unable to accommodate number of customers provided.\nNumber of seats table has is: %1$s";
 
-    private String numberOfTakenSeats;
-    public final String numberOfSeats;
     public static final String SEATS_VALIDATION_REGEX = "\\d+";
     public static final String STATUS_VALIDATION_REGEX = "\\d+/\\d+";
+    public final String numberOfSeats;
+    private String numberOfTakenSeats;
 
     /**
      * Constructs a {@code TableStatus}/
@@ -33,13 +30,21 @@ public class TableStatus {
         this.numberOfSeats = tableStatus.substring(2);
         this.numberOfTakenSeats = "0";
     }
-    
+
+    /**
+     * Changes the number of seats taken in the {@code TableStatus}.
+     */
     public void changeOccupancy(String numberOfTakenSeats) {
         requireNonNull(numberOfTakenSeats);
         checkArgument(isValidNumberOfSeats(numberOfTakenSeats));
         this.numberOfTakenSeats = numberOfTakenSeats;
     }
 
+    /**
+     * Checks if table is occupied.
+     *
+     * @return true if table is occupied, false otherwise.
+     */
     public boolean isOccupied() {
         return Integer.parseInt(numberOfTakenSeats) > 0;
     }
@@ -61,9 +66,8 @@ public class TableStatus {
     public boolean equals(TableStatus otherTableStatus) {
         return numberOfSeats.equals(otherTableStatus.numberOfSeats) && numberOfTakenSeats
                 .equals(otherTableStatus.numberOfTakenSeats);
-
     }
-    
+
     @Override
     public String toString() {
         return numberOfTakenSeats + "/" + numberOfSeats;

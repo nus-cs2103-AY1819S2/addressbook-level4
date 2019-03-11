@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Stack;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -12,9 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;

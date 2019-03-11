@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,9 +28,13 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
+//    private final VersionedRequest
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<HealthWorker> filteredHealthWorkers;
+    // TODO make the relevant changes to the model manager
+    // TODO get versionedAddressBook tests to pass
+//    private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
@@ -228,6 +233,89 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+    }
+
+    /**
+     * Returns the user prefs' request book file path.
+     */
+    @Override
+    public Path getRequestBookFilePath() {
+        return null;
+    }
+
+    /**
+     * Sets the user prefs' request book file path.
+     *
+     * @param requestBookFilePath
+     */
+    @Override
+    public void setRequestBookFilePath(Path requestBookFilePath) {
+
+    }
+
+    /**
+     * Replaces request book data with the data in {@code requestBook}.
+     *
+     * @param requestBook
+     */
+    @Override
+    public void setRequestBook(ReadOnlyRequestBook requestBook) {
+
+    }
+
+    /**
+     * Returns the RequestBook
+     */
+    @Override
+    public ReadOnlyRequestBook getRequestBook() {
+        return null;
+    }
+
+    /**
+     * Returns true if a request with the same identity as {@code request} exists in the address
+     * book.
+     *
+     * @param request
+     */
+    @Override
+    public boolean hasRequest(Request request) {
+        return false;
+    }
+
+    /**
+     * Deletes the given request.
+     * The request must exist in the request book.
+     *
+     * @param target
+     */
+    @Override
+    public void deleteRequest(Request target) {
+
+    }
+
+    /**
+     * Adds the given request.
+     * {@code request} must not already exist in the request book.
+     *
+     * @param request
+     */
+    @Override
+    public void addRequest(Request request) {
+
+    }
+
+    /**
+     * Replaces the given request {@code target} with {@code editedRequest}.
+     * {@code target} must exist in the request book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
+     *
+     * @param target
+     * @param editedRequest
+     */
+    @Override
+    public void setRequest(Request target, Request editedRequest) {
+
     }
 
     /**

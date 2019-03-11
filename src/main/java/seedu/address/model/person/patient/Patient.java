@@ -26,6 +26,12 @@ public class Patient extends Person {
         this.conditions = new Conditions();
     }
 
+    public Patient(Name name, Phone phone, Email email, Nric nric, Address
+            address, Set<Tag> tags, Conditions conditions) {
+        super(name, phone, email, nric, address, tags);
+        this.conditions = conditions;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

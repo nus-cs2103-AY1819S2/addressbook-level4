@@ -32,14 +32,18 @@ public class Expiry implements Comparable<Expiry> {
         requireNonNull(expiry);
 
         checkArgument(isValidDate(expiry), MESSAGE_CONSTRAINTS);
-        this.expiryDate = parseRawDate(expiry);
+        if (expiry == "-") {
+            this.expiryDate = null;
+        } else {
+            this.expiryDate = parseRawDate(expiry);
+        }
     }
 
     /**
      * Returns if a given string is a valid expiry.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) || test.equals("-");
     }
 
     private LocalDate parseRawDate(String expiry) {
@@ -52,14 +56,24 @@ public class Expiry implements Comparable<Expiry> {
 
     @Override
     public int compareTo(Expiry o) {
-        LocalDate date1 = this.getExpiryDate();
+        LocalDate date1 = this.expiryDate;
         LocalDate date2 = o.getExpiryDate();
-        return date1.compareTo(date2);
+        if (date1 == null) {
+            return -1;
+        } else if (date2 == null) {
+            return 1;
+        } else {
+            return date1.compareTo(date2);
+        }
     }
 
     @Override
     public String toString() {
-        return expiryDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if (this.expiryDate == null) {
+            return "-";
+        } else {
+            return expiryDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
     }
 
     @Override

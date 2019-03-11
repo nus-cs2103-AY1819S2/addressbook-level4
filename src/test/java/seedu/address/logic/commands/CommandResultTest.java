@@ -8,11 +8,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.logic.AnswerCommandResultType;
+import seedu.address.model.card.Card;
+import seedu.address.testutil.CardBuilder;
 
 public class CommandResultTest {
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
+        Card sampleTestCard = new CardBuilder().build();
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
@@ -36,11 +39,26 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true, null, false,
                 AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+
+        // different testSessionCard value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, sampleTestCard, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+
+        // different endTestSession value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, null, true,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+
+        // different AnswerCommandResult value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, null, false,
+                AnswerCommandResultType.ANSWER_CORRECT)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, null, false,
+                AnswerCommandResultType.ANSWER_WRONG)));
     }
 
     @Test
     public void hashcode() {
         CommandResult commandResult = new CommandResult("feedback");
+        Card sampleTestCard = new CardBuilder().build();
 
         // same values -> returns same hashcode
         assertEquals(commandResult.hashCode(), new CommandResult("feedback").hashCode());
@@ -55,5 +73,19 @@ public class CommandResultTest {
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, null, false,
                 AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
+
+        // different testSessionCard value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, sampleTestCard, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
+
+        // different endTestSession value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, null, true,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
+
+        // different AnswerCommandResult value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, null, false,
+                AnswerCommandResultType.ANSWER_CORRECT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, null, false,
+                AnswerCommandResultType.ANSWER_WRONG).hashCode());
     }
 }

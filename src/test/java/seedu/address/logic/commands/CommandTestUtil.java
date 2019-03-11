@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
@@ -42,10 +43,12 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_SCHOOL_AMY = "NUS";
     public static final String VALID_SCHOOL_BOB = "NTU";
-    public static final String VALID_PASTJOB_PROFESSSOR = "Professor";
-    public static final String VALID_PASTJOB_SDE = "SDE";
     public static final String VALID_MAJOR_AMY = "Computer Science";
     public static final String VALID_MAJOR_BOB = "MATH";
+    public static final String VALID_KNOWNPROGLANG_PYTHON = "Python";
+    public static final String VALID_KNOWNPROGLANG_JAVA = "Java";
+    public static final String VALID_PASTJOB_PROFESSSOR = "Professor";
+    public static final String VALID_PASTJOB_SDE = "SDE";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -61,6 +64,8 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String SCHOOL_DESC_AMY = " " + PREFIX_SCHOOL + VALID_SCHOOL_AMY;
     public static final String SCHOOL_DESC_BOB = " " + PREFIX_SCHOOL + VALID_SCHOOL_BOB;
+    public static final String KNOWNPROGLANG_DESC_PYTHON = " " + PREFIX_KNOWNPROGLANG + VALID_KNOWNPROGLANG_PYTHON;
+    public static final String KNOWNPROGLANG_DESC_JAVA = " " + PREFIX_KNOWNPROGLANG + VALID_KNOWNPROGLANG_JAVA;
     public static final String PASTJOB_DESC_PROFESSOR = " " + PREFIX_PASTJOB + VALID_PASTJOB_PROFESSSOR;
     public static final String PASTJOB_DESC_SDE = " " + PREFIX_PASTJOB + VALID_PASTJOB_SDE;
     public static final String MAJOR_DESC_AMY = " " + PREFIX_MAJOR + VALID_MAJOR_AMY;
@@ -76,6 +81,7 @@ public class CommandTestUtil {
     public static final String INVALID_SCHOOL_DESC = " " + PREFIX_SCHOOL; // empty string not allowed for school
     public static final String INVALID_PASTJOB_DESC = " " + PREFIX_PASTJOB; // empty string not allowed for past job
     public static final String INVALID_MAJOR_DESC = " " + PREFIX_MAJOR + "12345"; //numbers not allowed
+    public static final String INVALID_KNOWNPROGLANG_DESC = " " + PREFIX_KNOWNPROGLANG + "  "; //blank not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -88,11 +94,13 @@ public class CommandTestUtil {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRace(VALID_RACE_AMY)
                 .withAddress(VALID_ADDRESS_AMY).withSchool(VALID_SCHOOL_AMY).withMajor(VALID_MAJOR_AMY)
-                .withPastJobs(VALID_PASTJOB_PROFESSSOR).withTags(VALID_TAG_FRIEND).build();
+                .withPastJobs(VALID_PASTJOB_PROFESSSOR).withKnownProgLang(VALID_KNOWNPROGLANG_PYTHON)
+                .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRace(VALID_RACE_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withSchool(VALID_SCHOOL_BOB).withMajor(VALID_MAJOR_BOB)
-                .withPastJobs(VALID_PASTJOB_SDE).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withPastJobs(VALID_PASTJOB_SDE).withKnownProgLang(VALID_KNOWNPROGLANG_JAVA)
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     }
 

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
@@ -35,6 +36,7 @@ public class PersonBuilder {
     private Address address;
     private School school;
     private Major major;
+    private Set<KnownProgLang> knownProgLangs;
     private Set<PastJob> pastjobs;
     private Set<Tag> tags;
 
@@ -46,6 +48,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         school = new School(DEFAULT_SCHOOL);
         major = new Major(DEFAULT_MAJOR);
+        knownProgLangs = new HashSet<>();
         pastjobs = new HashSet<>();
         tags = new HashSet<>();
     }
@@ -61,6 +64,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         school = personToCopy.getSchool();
         major = personToCopy.getMajor();
+        knownProgLangs = new HashSet<>(personToCopy.getKnownProgLangs());
         pastjobs = new HashSet<>(personToCopy.getPastJobs());
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -70,6 +74,15 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Parses the {@code knownProgLangs} into a {@code Set<KnowProgLang>} and set it to the {@code Person}
+     * that we are building.
+     */
+    public PersonBuilder withKnownProgLangs(String ... knownProgLangs) {
+        this.knownProgLangs = SampleDataUtil.getKnownProgLangSet(knownProgLangs);
         return this;
     }
 
@@ -138,7 +151,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, race, address, school, major, pastjobs, tags);
+        return new Person(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
     }
 
 }

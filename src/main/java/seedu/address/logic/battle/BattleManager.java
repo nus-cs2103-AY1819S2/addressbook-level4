@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
+import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
 
@@ -31,7 +32,7 @@ public class BattleManager implements Battle {
     }
 
     @Override
-    public AttackResult humanAttackAI(Player p, Coordinates coord) {
+    public AttackResult humanAttackAI(Name enemyName, Coordinates coord) {
         return null;
     }
 

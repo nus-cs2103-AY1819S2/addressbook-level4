@@ -2,6 +2,7 @@ package seedu.address.logic.battle;
 
 import java.util.List;
 
+import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
 
@@ -18,7 +19,7 @@ public interface Battle {
      * Handles the human player attacking another player.
      * @return Result of the player attack.
      */
-    public AttackResult humanAttackAI(Player p, Coordinates coord);
+    public AttackResult humanAttackAI(Name enemyName, Coordinates coord);
 
     /**
      * Ends the player turn and causes all AIs to make attacks.

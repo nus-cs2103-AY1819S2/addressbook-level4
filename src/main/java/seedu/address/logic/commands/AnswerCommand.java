@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Answer;
 
@@ -31,11 +32,13 @@ public class AnswerCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (!model.checkIfInsideTestSession()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+        }
 
         boolean isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
-
         if (isAttemptCorrect) {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null, false, AnswerCommandResultType.ANSWER_CORRECT);
         } else {

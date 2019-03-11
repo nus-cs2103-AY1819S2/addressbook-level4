@@ -233,6 +233,8 @@ public abstract class EquipmentManagerSystemTest {
                             + results[0].geometry.location.lat + "]]&title=[\""
                             + getPersonListPanel().getHandleToSelectedCard().getName()
                             + "\"]&icon=[\"monument\"]";
+                } else {
+                    expectedUrlString = getBrowserPanel().getLoadedUrl().toString();
                 }
             } catch (ApiException e) {
                 System.err.println(e.getMessage());

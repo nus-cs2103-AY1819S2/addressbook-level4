@@ -68,6 +68,22 @@ public class TypicalHealthWorkers {
             .withAddress("4th street")
             .withTags("Cancer")).withOrganization("NUH").build();
 
+    // Manually added
+    public static final HealthWorker HOOK = ((HealthWorkerBuilder) new HealthWorkerBuilder()
+            .withName("Hoon Meier")
+            .withPhone("8482424")
+            .withNric("S1234567A")
+            .withEmail("stefan@example.com")
+            .withAddress("little india")
+            .withTags("Cancer")).withOrganization("NUH").build();
+    public static final HealthWorker IVAN = ((HealthWorkerBuilder)new HealthWorkerBuilder()
+            .withName("Ida Mueller")
+            .withPhone("8482131")
+            .withNric("S1234567A")
+            .withEmail("hans@example.com")
+            .withAddress("chicago ave")
+            .withTags("KidneyFailure")).withOrganization("NUH").build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalHealthWorkers() {

@@ -12,15 +12,15 @@ import org.junit.rules.TemporaryFolder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import seedu.address.model.HealthWorkerBook;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
+import static seedu.address.testutil.TypicalHealthWorkers.HOOK;
+import static seedu.address.testutil.TypicalHealthWorkers.IVAN;
+import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 
 public class JsonHealthWorkerBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonHealthWorkerBookStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -29,13 +29,13 @@ public class JsonHealthWorkerBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readHealthWorkerBook_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readHealthWorkerBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyHealthWorkerBook> readHealthWorkerBook(String filePath) throws Exception {
+        return new JsonHealthWorkerBookStorage(Paths.get(filePath)).readHealthWorkerBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -46,78 +46,78 @@ public class JsonHealthWorkerBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readHealthWorkerBook("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("notJsonFormatAddressBook.json");
+        readHealthWorkerBook("notJsonFormatHealthWorkerBook.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readHealthWorkerBook_invalidPersonHealthWorkerBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.json");
+        readHealthWorkerBook("invalidPersonHealthWorkerBook.json");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readHealthWorkerBook_invalidAndValidPersonHealthWorkerBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.json");
+        readHealthWorkerBook("invalidAndValidPersonHealthWorkerBook.json");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
-        AddressBook original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+    public void readAndSaveHealthWorkerBook_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempHealthWorkerBook.json");
+        HealthWorkerBook original = getTypicalHealthWorkerBook();
+        JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage = new JsonHealthWorkerBookStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        jsonHealthWorkerBookStorage.saveHealthWorkerBook(original, filePath);
+        ReadOnlyHealthWorkerBook readBack = jsonHealthWorkerBookStorage.readHealthWorkerBook(filePath).get();
+        assertEquals(original, new HealthWorkerBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        original.addHealthWorker(HOOK);
+        original.removeHealthWorker(ANDY);
+        jsonHealthWorkerBookStorage.saveHealthWorkerBook(original, filePath);
+        readBack = jsonHealthWorkerBookStorage.readHealthWorkerBook(filePath).get();
+        assertEquals(original, new HealthWorkerBook(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        original.addHealthWorker(IVAN);
+        jsonHealthWorkerBookStorage.saveHealthWorkerBook(original); // file path not specified
+        readBack = jsonHealthWorkerBookStorage.readHealthWorkerBook().get(); // file path not specified
+        assertEquals(original, new HealthWorkerBook(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveHealthWorkerBook_nullHealthWorkerBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.json");
+        saveHealthWorkerBook(null, "SomeFile.json");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code healthWorkerBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveHealthWorkerBook(ReadOnlyHealthWorkerBook healthWorkerBook, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonHealthWorkerBookStorage(Paths.get(filePath))
+                    .saveHealthWorkerBook(healthWorkerBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveHealthWorkerBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveHealthWorkerBook(new HealthWorkerBook(), null);
     }
 }

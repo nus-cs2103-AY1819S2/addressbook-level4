@@ -52,8 +52,8 @@ public class BillCommand extends Command {
 
         bill = calculateBill(orderItemList, model.getRestOrRant().getMenu());
 
-        model.changeMode();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
+        model.updateMode();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }
 
     /**

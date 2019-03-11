@@ -50,7 +50,7 @@ public class TableModeCommand extends ChangeModeCommand {
         model.setSelectedTable(tableOptional.get());
         model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
 
-        model.changeMode();
+        model.updateMode();
 
         return generateCommandResult();
     }

@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.HealthWorker;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.healthworker.HealthWorker;
 
 /**
  * The API of the Model component.

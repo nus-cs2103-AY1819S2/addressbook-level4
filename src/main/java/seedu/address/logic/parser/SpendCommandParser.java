@@ -14,7 +14,13 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SpendCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.record.*;
+import seedu.address.model.record.Address;
+import seedu.address.model.record.Amount;
+import seedu.address.model.record.Date;
+import seedu.address.model.record.Description;
+import seedu.address.model.record.Email;
+import seedu.address.model.record.Name;
+import seedu.address.model.record.Phone;
 import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
 

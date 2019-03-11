@@ -26,6 +26,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.Assert;
+import seedu.address.testutil.HealthWorkerBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
@@ -216,9 +217,9 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        //TODO: include testing for HealthWorkerBook
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        HealthWorkerBook healthWorkerBook = new HealthWorkerBook(); // TODO: Change with HealthWorkerBookBuilder
+        HealthWorkerBook healthWorkerBook = new HealthWorkerBookBuilder().withHealthWorker(ANDY)
+                .withHealthWorker(BETTY).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

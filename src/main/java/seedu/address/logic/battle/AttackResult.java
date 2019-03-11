@@ -39,6 +39,12 @@ public abstract class AttackResult {
     }
 
     /**
+     * Checks if this AttackResult is a hit or a miss
+     * (guess they never miss, huh?)
+     */
+    public abstract boolean isHit();
+
+    /**
      * Returns a String representation of the attack result.
      */
     @Override

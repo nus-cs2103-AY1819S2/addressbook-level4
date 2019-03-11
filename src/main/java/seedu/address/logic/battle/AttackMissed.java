@@ -12,6 +12,11 @@ public class AttackMissed extends AttackResult {
     }
 
     @Override
+    public boolean isHit() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return String.format("Attack by player %s on cell %s of player %s missed",
             attacker, coords, target);

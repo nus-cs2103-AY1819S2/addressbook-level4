@@ -14,14 +14,14 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SpendCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.record.Address;
+import seedu.address.model.record.Amount;
+import seedu.address.model.record.Date;
+import seedu.address.model.record.Description;
+import seedu.address.model.record.Email;
+import seedu.address.model.record.Name;
+import seedu.address.model.record.Phone;
+import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -54,9 +54,9 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         Description description = new Description("");
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, amount, date, description, tagList);
+        Record record = new Record(name, phone, email, address, amount, date, description, tagList);
 
-        return new SpendCommand(person);
+        return new SpendCommand(record);
     }
 
     /**

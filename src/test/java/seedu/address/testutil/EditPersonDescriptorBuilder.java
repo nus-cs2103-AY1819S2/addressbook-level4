@@ -43,6 +43,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setRace(person.getRace());
         descriptor.setAddress(person.getAddress());
         descriptor.setSchool(person.getSchool());
+        descriptor.setKnownProgLangs(person.getKnownProgLangs());
         descriptor.setPastJobs(person.getPastJobs());
         descriptor.setTags(person.getTags());
     }

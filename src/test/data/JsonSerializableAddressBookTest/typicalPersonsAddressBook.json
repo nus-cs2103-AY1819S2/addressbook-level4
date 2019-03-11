@@ -8,7 +8,7 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "school" : "NUS",
     "major": "CS",
-    "knownProgLang" : [ "python" ],
+    "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "Professor" ],
     "tagged" : [ "friends" ]
   }, {
@@ -19,7 +19,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "school" : "NTU",
     "major": "CS",
-    "knownProgLang" : [ "python" ],
+    "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "Lawyer", "SDE" ],
     "tagged" : [ "owesMoney", "friends" ]
   }, {
@@ -30,7 +30,7 @@
     "address" : "wall street",
     "school" : "SMU",
     "major": "CS",
-    "knownProgLang" : [ "python" ],
+    "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "Professor" ],
     "tagged" : [ ]
   }, {
@@ -41,7 +41,7 @@
     "address" : "10th street",
     "school" : "SIM",
     "major": "CS",
-    "knownProgLang" : [ "python" ],
+    "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "Professor" ],
     "tagged" : [ "friends" ]
   }, {
@@ -52,7 +52,7 @@
     "address" : "michegan ave",
     "school" : "SUTD",
     "major": "CS",
-    "knownProgLang" : [ "python" ],
+    "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "SDE" ],
     "tagged" : [ ]
   }, {
@@ -63,7 +63,7 @@
     "address" : "little tokyo",
     "school" : "SIT",
     "major": "CS",
-    "knownProgLang" : [ "python" ],
+    "knownProgLang" : [ "Python" ],
     "pastjobed": [ ],
     "tagged" : [ ]
   }, {
@@ -74,7 +74,7 @@
     "address" : "4th street",
     "school" : "SUSS",
     "major": "CS",
-    "knownProgLang" : [ "python" ],
+    "knownProgLang" : [ "Python" ],
     "pastjobed": [ ],
     "tagged" : [ ]
   } ]

@@ -24,8 +24,8 @@ public class StatsCommand extends Command {
         + " : Shows statistics for the identified patient. Patient can be identified either by the index number in "
         + "the displayed person list OR by keyword.\n"
         + "Parameters: INDEX (must be positive integer) or KEYWORD \n"
-        + "Example 1: " + COMMAND_WORD + "3\n"
-        + "Example 2: " + COMMAND_WORD + "alice\n";
+        + "Example 1: " + COMMAND_WORD + " 3\n"
+        + "Example 2: " + COMMAND_WORD + " alice\n";
 
     public static final String MESSAGE_SUCCESS = "Statistic for patient %1$s printed!";
 
@@ -33,13 +33,13 @@ public class StatsCommand extends Command {
     private Index index;
     private boolean isIndex;
 
-    StatsCommand(Patient person) {
+    public StatsCommand(Patient person) {
         requireNonNull(person);
         toStat = person;
         this.isIndex = false;
     }
 
-    StatsCommand(Index index) {
+    public StatsCommand(Index index) {
         requireNonNull(index);
         this.index = index;
         this.isIndex = true;
@@ -47,21 +47,29 @@ public class StatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        //TODO: Implement proper stat execution
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        if (index != null) {
+            Patient patientToStat = extractPatientFromIndex(lastShownList);
+            this.toStat = patientToStat;
+        }
+
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toStat.getName()), true);
+    }
+
+    /**
+     * Returns the patient who corresponds to the inputted index.
+     */
+    private Patient extractPatientFromIndex(List<Person> lastShownList) throws CommandException {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        Patient patientToStat = (Patient) lastShownList.get(index.getZeroBased());
-
-
-
-
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toStat.getName()));
+        return (Patient) lastShownList.get(index.getZeroBased());
     }
+
 
     @Override
     public boolean equals(Object other) {

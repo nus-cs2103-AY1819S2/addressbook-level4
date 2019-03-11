@@ -13,6 +13,7 @@ import seedu.address.logic.Logic;
  */
 public class StatWindow extends UiPart<Stage> {
 
+    //TODO: Proper statistic report formatting and data
     static final String FXML = "StatWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -34,8 +35,8 @@ public class StatWindow extends UiPart<Stage> {
         primaryStage.setWidth(guiSettings.getWindowWidth());
 
         if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX() + 50);
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY() - 50);
         }
     }
 
@@ -52,5 +53,16 @@ public class StatWindow extends UiPart<Stage> {
 
     void close() {
         primaryStage.close();
+    }
+
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+            (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
+        primaryStage.hide();
     }
 }

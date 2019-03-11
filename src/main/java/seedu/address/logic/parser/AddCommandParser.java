@@ -58,10 +58,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         School school = ParserUtil.parseSchool(argMultimap.getValue(PREFIX_SCHOOL).get());
         Major major = ParserUtil.parseMajor(argMultimap.getValue(PREFIX_MAJOR).get());
-        Set<KnownProgLang> knownProgLangsList = ParserUtil.parseKnownProgLangs(argMultimap.getAllValues(PREFIX_KNOWNPROGLANG));
+        Set<KnownProgLang> knownProgLangsList = ParserUtil.parseKnownProgLangs(argMultimap
+                .getAllValues(PREFIX_KNOWNPROGLANG));
         Set<PastJob> pastjobList = ParserUtil.parsePastJobs(argMultimap.getAllValues(PREFIX_PASTJOB));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Person person = new Person(name, phone, email, race, address, school, major, knownProgLangsList, pastjobList, tagList);
+        Person person = new Person(name, phone, email, race, address, school, major,
+                knownProgLangsList, pastjobList, tagList);
 
         return new AddCommand(person);
     }

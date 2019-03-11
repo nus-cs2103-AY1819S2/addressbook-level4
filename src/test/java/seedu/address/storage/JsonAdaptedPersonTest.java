@@ -149,7 +149,8 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidMajor_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, INVALID_MAJOR, VALID_KNOWNPROGLANG, VALID_PASTJOBS, VALID_TAGS);
+                VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, INVALID_MAJOR,
+                VALID_KNOWNPROGLANG, VALID_PASTJOBS, VALID_TAGS);
         String expectedMessage = Major.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -157,7 +158,8 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullMajor_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, null, VALID_KNOWNPROGLANG, VALID_PASTJOBS, VALID_TAGS);
+                VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, null, VALID_KNOWNPROGLANG,
+                VALID_PASTJOBS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Major.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -165,7 +167,8 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidRace_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                INVALID_RACE, VALID_ADDRESS, VALID_SCHOOL, INVALID_MAJOR, VALID_KNOWNPROGLANG, VALID_PASTJOBS, VALID_TAGS);
+                INVALID_RACE, VALID_ADDRESS, VALID_SCHOOL, INVALID_MAJOR, VALID_KNOWNPROGLANG,
+                VALID_PASTJOBS, VALID_TAGS);
         String expectedMessage = Race.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -183,7 +186,8 @@ public class JsonAdaptedPersonTest {
         invalidKnownProgLang.add(new JsonAdaptedKnownProgLang(INVALID_KNOWNPROGLANG));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, VALID_MAJOR, invalidKnownProgLang, VALID_PASTJOBS, VALID_TAGS);
+                        VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, VALID_MAJOR, invalidKnownProgLang,
+                        VALID_PASTJOBS, VALID_TAGS);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
     @Test
@@ -192,7 +196,8 @@ public class JsonAdaptedPersonTest {
         invalidPastJobs.add(new JsonAdaptedPastJob(INVALID_PASTJOB));
         JsonAdaptedPerson person =
             new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                    VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, VALID_MAJOR, VALID_KNOWNPROGLANG, invalidPastJobs, VALID_TAGS);
+                    VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, VALID_MAJOR, VALID_KNOWNPROGLANG, invalidPastJobs,
+                    VALID_TAGS);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
     @Test
@@ -201,7 +206,8 @@ public class JsonAdaptedPersonTest {
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, VALID_MAJOR, VALID_KNOWNPROGLANG, VALID_PASTJOBS, invalidTags);
+                        VALID_RACE, VALID_ADDRESS, VALID_SCHOOL, VALID_MAJOR, VALID_KNOWNPROGLANG,
+                        VALID_PASTJOBS, invalidTags);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 

@@ -73,7 +73,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
             editPersonDescriptor.setMajor(ParserUtil.parseMajor(argMultimap.getValue(PREFIX_MAJOR).get()));
         }
-        parseKnownProgLangsForEdit(argMultimap.getAllValues(PREFIX_KNOWNPROGLANG)).ifPresent(editPersonDescriptor::setKnownProgLangs);
+        parseKnownProgLangsForEdit(argMultimap.getAllValues(PREFIX_KNOWNPROGLANG))
+                .ifPresent(editPersonDescriptor::setKnownProgLangs);
         parsePastJobsForEdit(argMultimap.getAllValues(PREFIX_PASTJOB)).ifPresent(editPersonDescriptor::setPastJobs);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
@@ -89,7 +90,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code pastjobs} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<PastJob>} containing zero past jobs.
      */
-    private Optional<Set<KnownProgLang>> parseKnownProgLangsForEdit(Collection<String> knownProjLang) throws ParseException {
+    private Optional<Set<KnownProgLang>> parseKnownProgLangsForEdit(Collection<String> knownProjLang)
+            throws ParseException {
         assert knownProjLang != null;
 
         if (knownProjLang.isEmpty()) {

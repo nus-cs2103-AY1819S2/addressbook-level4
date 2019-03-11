@@ -109,7 +109,8 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withKnownProgLang(String... knownProgLang) {
-        Set<KnownProgLang> knownProgLangSet = Stream.of(knownProgLang).map(KnownProgLang::new).collect(Collectors.toSet());
+        Set<KnownProgLang> knownProgLangSet = Stream.of(knownProgLang).map(KnownProgLang::new)
+                .collect(Collectors.toSet());
         descriptor.setKnownProgLangs(knownProgLangSet);
         return this;
     }

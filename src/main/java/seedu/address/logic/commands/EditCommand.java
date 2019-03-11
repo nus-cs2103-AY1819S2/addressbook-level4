@@ -135,8 +135,8 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         School updatedSchool = editPersonDescriptor.getSchool().orElse(personToEdit.getSchool());
         Major updatedMajor = editPersonDescriptor.getMajor().orElse(personToEdit.getMajor());
-        Set<KnownProgLang> updatedKnownProgLangs = editPersonDescriptor.getKnownProgLangs().
-                orElse(personToEdit.getKnownProgLangs());
+        Set<KnownProgLang> updatedKnownProgLangs = editPersonDescriptor.getKnownProgLangs()
+                .orElse(personToEdit.getKnownProgLangs());
         Set<PastJob> updatedPastJobs = editPersonDescriptor.getPastJobs().orElse(personToEdit.getPastJobs());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRace, updatedAddress,
@@ -203,7 +203,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school,
+                    major, knownProgLangs, pastjobs, tags);
         }
 
         public void setName(Name name) {
@@ -276,7 +277,8 @@ public class EditCommand extends Command {
          * Returns {@code Optional#empty()} if {@code pastjobs} is null.
          */
         public Optional<Set<KnownProgLang>> getKnownProgLangs() {
-            return (knownProgLangs != null) ? Optional.of(Collections.unmodifiableSet(knownProgLangs)) : Optional.empty();
+            return (knownProgLangs != null) ? Optional.of(Collections
+                    .unmodifiableSet(knownProgLangs)) : Optional.empty();
         }
 
         /**

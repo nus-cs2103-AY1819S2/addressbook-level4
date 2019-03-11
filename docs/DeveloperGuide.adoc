@@ -856,6 +856,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clean user who wants to keep contacts for later use |hide or archive contacts when I currently do not need them |retrieve them when I need them again much later
 
+|`* *` |detailed user |add a remark to a contact |record more miscellaneous details about a contact
+
 |`* *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
 
 |`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
@@ -874,9 +876,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user who prefers visuals |select a contact and see the address (if any) of the contact on the Google Map applet within the app |visualise the location of the property and search for directions to the location
 
-|`* *` |responsible user |password-protect the app and/or encrypt individual data |protect my contacts' personal information from access by unauthorised people
-
-|`*` |detailed user |add a remark to a contact |record more miscellaneous details about a contact
+|`*` |responsible user |password-protect the app and/or encrypt individual data |protect my contacts' personal information from access by unauthorised people
 
 |`*` |efficient user |link multiple properties for each contact |keep track of all the properties linked to a contact
 

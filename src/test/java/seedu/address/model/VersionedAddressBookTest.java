@@ -290,9 +290,9 @@ public class VersionedAddressBookTest {
     /**
      * Shifts the {@code versionedAddressBook#currentStatePointer} by {@code count} to the left of its list.
      */
-    private void shiftCurrentStatePointerLeftwards(VersionedAddressBook versionedAddressBook, int count) {
+    public static void shiftCurrentStatePointerLeftwards(VersionedBook versionedBook, int count) {
         for (int i = 0; i < count; i++) {
-            versionedAddressBook.undo();
+            versionedBook.undo();
         }
     }
 }

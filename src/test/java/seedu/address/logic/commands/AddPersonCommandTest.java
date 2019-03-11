@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
@@ -176,6 +177,22 @@ public class AddPersonCommandTest {
         public void setHealthWorker(HealthWorker target, HealthWorker editedWorker) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // ===================================================================
 
         @Override

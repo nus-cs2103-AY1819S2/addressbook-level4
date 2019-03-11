@@ -10,6 +10,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -92,7 +93,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        // TODO: Fix HealthWorkerBook implementation
+        Model copy = new ModelManager((model.getAddressBook()), new HealthWorkerBook(), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

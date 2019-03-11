@@ -49,7 +49,6 @@ public class DateOfBirth {
             Calendar cal = Calendar.getInstance();
             cal.setTime(today);
             int currentYear = cal.get(Calendar.YEAR);
-            System.out.println(currentYear);
             boolean contentCheck = Integer.parseInt(year) <= currentYear && Integer.parseInt(month) <= 12;
 
             int dayOfMonth = Integer.parseInt(day);
@@ -72,7 +71,6 @@ public class DateOfBirth {
                 daysCheck = dayOfMonth <= 30;
                 break;
             }
-            System.out.println(lengthCheck + " " + contentCheck + " " + daysCheck);
             return lengthCheck && contentCheck && daysCheck;
         }
     }

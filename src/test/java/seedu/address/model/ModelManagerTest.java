@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPlaces.ALICE;
+import static seedu.address.testutil.TypicalPlaces.BEDOK;
 import static seedu.address.testutil.TypicalPlaces.BENSON;
-import static seedu.address.testutil.TypicalPlaces.BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -113,10 +113,10 @@ public class ModelManagerTest {
     @Test
     public void deletePlace_placeIsSelectedAndSecondPlaceInFilteredPlaceList_firstPlaceSelected() {
         modelManager.addPlace(ALICE);
-        modelManager.addPlace(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPlaceList());
-        modelManager.setSelectedPlace(BOB);
-        modelManager.deletePlace(BOB);
+        modelManager.addPlace(BEDOK);
+        assertEquals(Arrays.asList(ALICE, BEDOK), modelManager.getFilteredPlaceList());
+        modelManager.setSelectedPlace(BEDOK);
+        modelManager.deletePlace(BEDOK);
         assertEquals(ALICE, modelManager.getSelectedPlace());
     }
 
@@ -124,7 +124,7 @@ public class ModelManagerTest {
     public void setPlace_placeIsSelected_selectedPlaceUpdated() {
         modelManager.addPlace(ALICE);
         modelManager.setSelectedPlace(ALICE);
-        Place updatedAlice = new PlaceBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
+        Place updatedAlice = new PlaceBuilder(ALICE).withDescription(VALID_DESCRIPTION_BEDOK).build();
         modelManager.setPlace(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPlace());
     }

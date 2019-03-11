@@ -160,11 +160,11 @@ Returns a list of places tagged with `temple` or `school`
 
 === Searching places by ratings: `searchr`
 
-Finds places whose ratings match the specified rating from 0 to 5. +
-Format: `searchr INDEX`
+Finds places whose ratings match the specified rating from 1 to 5. +
+Format: `searchr INDEX [MORE_INDICES]`
 
 ****
-* The search rating is from a range of 0 to 5. e.g `5` will return places with 5 star ratings.
+* The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
 * Only the ratings are searched.
 ****
 
@@ -172,8 +172,8 @@ Examples:
 
 * `searchr 5` +
 Returns a list of places with rating of `5`
-* `searchr 3` +
-Returns a list of places with rating of `3`
+* `searchr 4 5` +
+Returns a list of places with ratings of `4` or `5`
 
 === Deleting a person : `delete`
 

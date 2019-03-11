@@ -137,6 +137,88 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
+    //---------------- Tests for containsRating --------------------------------------
+
+    /*
+     * Invalid equivalence partitions for rating: null, empty, multiple ratings
+     * Invalid equivalence partitions for ratingsList: null, characters outside of range 1 to 5
+     * The four test cases below test one invalid input at a time.
+     */
+
+    @Test
+    public void containsRating_nullWord_throwsNullPointerException() {
+        assertExceptionForRatingThrown(NullPointerException.class, "4 5", null, Optional.empty());
+    }
+
+    private void assertExceptionForRatingThrown(Class<? extends Throwable> exceptionClass, String ratingsList,
+                                                String rating, Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
+        StringUtil.containsRating(ratingsList, rating);
+    }
+
+    @Test
+    public void containsRating_emptyWord_throwsIllegalArgumentException() {
+        assertExceptionForRatingThrown(IllegalArgumentException.class, "4 5", "  ",
+                Optional.of("Rating parameter cannot be empty"));
+    }
+
+    @Test
+    public void containsRating_multipleRatings_throwsIllegalArgumentException() {
+        assertExceptionForRatingThrown(IllegalArgumentException.class, "4 5", "2 5",
+                Optional.of("Rating parameter should be a single value from 1 to 5"));
+    }
+
+    @Test
+    public void containsRatingIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertExceptionForRatingThrown(NullPointerException.class, null, "2", Optional.empty());
+    }
+
+    /*
+     * Valid equivalence partitions for rating:
+     *   - any value between 1 to 5 inclusive
+     *   - value from 1 to 5 inclusive with leading/trailing spaces
+     *
+     * Valid equivalence partitions for ratingsList:
+     *   - empty string
+     *   - one rating
+     *   - multiple ratings
+     *   - ratingsList with extra spaces
+     *
+     * Possible scenarios returning true:
+     *   - matches first rating in ratingsList
+     *   - last rating in ratingsList
+     *   - middle rating in ratingsList
+     *   - matches multiple ratings
+     *
+     * Possible scenarios returning false:
+     *   - query rating not found in ratingsList
+     *
+     * The test method below tries to verify all above with a reasonably low number of test cases.
+     */
+
+    @Test
+    public void containsRating_validInputs_correctResult() {
+
+        // Empty ratingsList
+        assertFalse(StringUtil.containsRating("", "4")); // Boundary case
+        assertFalse(StringUtil.containsRating("    ", "5"));
+
+        // Query rating not in ratingsList
+        assertFalse(StringUtil.containsRating("3 4 5", "2"));
+        assertFalse(StringUtil.containsRating("1 2 3", "5"));
+
+        // Matches rating in the ratingsList
+        assertTrue(StringUtil.containsRating("1 2 3", "1")); // First rating (boundary case)
+        assertTrue(StringUtil.containsRating("2 3 4", "4")); // Last rating (boundary case)
+        assertTrue(StringUtil.containsRating("  1   3   4  ", "1")); // ratingsList has extra spaces
+        assertTrue(StringUtil.containsRating("2", "2")); // One rating in ratingsList (boundary case)
+        assertTrue(StringUtil.containsRating("1 4 5", "  5  ")); // Leading/trailing spaces in rating
+
+        // Matches multiple ratings in ratingsList
+        assertTrue(StringUtil.containsRating("1 2 3  2", "2"));
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*

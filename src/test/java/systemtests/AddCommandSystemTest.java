@@ -1,33 +1,33 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_EWL;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPlaces.ALICE;
-import static seedu.address.testutil.TypicalPlaces.AMY;
-import static seedu.address.testutil.TypicalPlaces.BOB;
+import static seedu.address.testutil.TypicalPlaces.AMK;
+import static seedu.address.testutil.TypicalPlaces.BEDOK;
 import static seedu.address.testutil.TypicalPlaces.CARL;
 import static seedu.address.testutil.TypicalPlaces.HOON;
 import static seedu.address.testutil.TypicalPlaces.IDA;
-import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_SINGAPORE;
 
 import org.junit.Test;
 
@@ -57,9 +57,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a place without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Place toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + RATING_DESC_AMY + " "
-                + DESCRIPTION_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        Place toAdd = AMK;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMK + "  " + RATING_DESC_AMK + " "
+                + DESCRIPTION_AMK + "   " + ADDRESS_DESC_AMK + "   " + TAG_DESC_MRT + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -74,9 +74,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a place with all fields same as another place in the address book except name -> added */
-        toAdd = new PlaceBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + RATING_DESC_AMY + DESCRIPTION_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+        toAdd = new PlaceBuilder(AMK).withName(VALID_NAME_BEDOK).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BEDOK + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK
+                + TAG_DESC_MRT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
@@ -84,9 +84,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(ALICE);
 
         /* Case: add a place with tags, command with parameters in random order -> added */
-        toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + RATING_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + DESCRIPTION_BOB;
+        toAdd = BEDOK;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_MRT + RATING_DESC_BEDOK + ADDRESS_DESC_BEDOK + NAME_DESC_BEDOK
+                + TAG_DESC_EWL + DESCRIPTION_BEDOK;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a place, missing tags -> added */
@@ -95,7 +95,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the place list before adding -> added */
-        showPlacesWithName(KEYWORD_MATCHING_MEIER);
+        showPlacesWithName(KEYWORD_MATCHING_SINGAPORE);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a place card is selected --------------------------- */
@@ -111,17 +111,17 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate place except with different rating -> rejected */
-        toAdd = new PlaceBuilder(HOON).withRating(VALID_RATING_BOB).build();
+        toAdd = new PlaceBuilder(HOON).withRating(VALID_RATING_BEDOK).build();
         command = PlaceUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate place except with different description -> rejected */
-        toAdd = new PlaceBuilder(HOON).withDescription(VALID_DESCRIPTION_BOB).build();
+        toAdd = new PlaceBuilder(HOON).withDescription(VALID_DESCRIPTION_BEDOK).build();
         command = PlaceUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate place except with different address -> rejected */
-        toAdd = new PlaceBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        toAdd = new PlaceBuilder(HOON).withAddress(VALID_ADDRESS_BEDOK).build();
         command = PlaceUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
@@ -130,19 +130,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + RATING_DESC_AMY + DESCRIPTION_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing rating -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DESCRIPTION_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing description -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + RATING_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + RATING_DESC_AMY + DESCRIPTION_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -150,23 +150,23 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + RATING_DESC_AMY + DESCRIPTION_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid rating -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_RATING_DESC + DESCRIPTION_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + INVALID_RATING_DESC + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, Rating.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + RATING_DESC_AMY + INVALID_DESCRIPTION + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + INVALID_DESCRIPTION + ADDRESS_DESC_AMK;
         assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + RATING_DESC_AMY + DESCRIPTION_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + RATING_DESC_AMY + DESCRIPTION_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }

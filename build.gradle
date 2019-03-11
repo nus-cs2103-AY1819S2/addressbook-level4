@@ -224,6 +224,13 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
+// Copies static pages into the docs directory.
+task copyStaticPages(type: Copy) {
+    from "${asciidoctor.sourceDir}/staticpages"
+    into "${asciidoctor.outputDir}/html5"
+}
+asciidoctor.dependsOn copyStaticPages
+
 task deployOfflineDocs(type: Copy) {
     into('src/main/resources/docs')
 

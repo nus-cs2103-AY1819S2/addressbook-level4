@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,6 +13,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 public class EditHealthWorkerDescriptorBuilder {
@@ -87,6 +92,27 @@ public class EditHealthWorkerDescriptorBuilder {
      */
     public EditHealthWorkerDescriptorBuilder withNric(String nric) {
         this.descriptor.setNric(new Nric(nric));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Organization} of the {@code EditHealthWorkerDescriptorBuilder} that we are building.
+     */
+    public EditHealthWorkerDescriptorBuilder withOrganization(String organization) {
+        this.descriptor.setOrganization(new Organization(organization));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Organization} of the {@code EditHealthWorkerDescriptorBuilder} that we are building.
+     */
+    public EditHealthWorkerDescriptorBuilder withSkills(String... specialisation) {
+        List<Specialisation> specialisations = new ArrayList<>();
+        for (String s : specialisation) {
+            specialisations.add(Specialisation.valueOf(s));
+        }
+        Skills skills = new Skills(specialisations);
+        this.descriptor.setSkills(skills);
         return this;
     }
 

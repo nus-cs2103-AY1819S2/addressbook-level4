@@ -20,10 +20,13 @@ public class WarningCard extends UiPart<Region> {
 
     @FXML
     private VBox cardPane;
+
     @FXML
     private Text name;
+
     @FXML
     private Text id;
+
     @FXML
     private Text filter;
 
@@ -44,6 +47,10 @@ public class WarningCard extends UiPart<Region> {
         setStyle(new ArrayList<>(Arrays.asList(id, name, filter)));
     }
 
+    /**
+     * Set style id for Text object(s).
+     * @param textHolders
+     */
     private void setStyle(ArrayList<Text> textHolders) {
         // temporary fix to increase visibility
         for (Text text : textHolders) {

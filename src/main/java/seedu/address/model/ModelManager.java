@@ -154,12 +154,20 @@ public class ModelManager implements Model {
         filteredMedicines.setPredicate(predicate);
     }
 
+    /**
+     * Sets initial predicates for all filtered lists.
+     */
     private void setPredicates() {
         filteredMedicines.setPredicate(PREDICATE_SHOW_ALL_MEDICINES);
         medicinesLowQuantity.setPredicate(medicine -> medicine.getQuantity().getNumericValue() < 20);
         medicinesExpiring.setPredicate(medicine -> medicine.getExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < 10);
     }
 
+    /**
+     * Calculates and returns number of days from medicine's expiry date to today.
+     * @param medicine
+     * @return
+     */
     private float calculateDaysToExpiry(Medicine medicine) {
         return ChronoUnit.DAYS.between(LocalDate.now(), medicine.getExpiry().getExpiryDate());
     }

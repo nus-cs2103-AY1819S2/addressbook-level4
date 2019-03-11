@@ -41,7 +41,7 @@ public class Expiry implements Comparable<Expiry> {
 
     /**
      * Returns if a given string is a valid expiry.
-     */
+     * */
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX) || test.equals("-");
     }
@@ -92,10 +92,6 @@ public class Expiry implements Comparable<Expiry> {
         }
 
         return false;
-//        return other == this // short circuit if same object
-//                || (other instanceof Expiry // instanceof handles nulls
-//                && ((expiryDate == null && ((Expiry) other).getExpiryDate() == null)
-//                    || expiryDate.equals(((Expiry) other).getExpiryDate()))); // state check
     }
 
     @Override

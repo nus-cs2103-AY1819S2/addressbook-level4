@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.image.Image;
 
 /**
- * Parses input arguments and creates a new ImportImage object
+ * Parses input arguments and creates a new OpenCommand object
  */
 public class OpenCommandParser implements Parser<OpenCommand> {
     /**

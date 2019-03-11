@@ -244,10 +244,22 @@ public class ModelManager implements Model {
     @Override
     public void clearAssetFolder(File dir) {
         for (File file: dir.listFiles()) {
-            if (file.getName().equals("sample.png")) {
+            if (file.getName().equals("sample.png") || file.getName().equals("sample1.png")) {
                 continue;
             }
             file.delete();
+        }
+    }
+
+    @Override
+    public void listAllImages() {
+        File file = new File("src/main/resources/assets/");
+        String[] imageNames = file.list();
+
+        System.out.println("Files in Assets Folder: \n");
+
+        for (String str : imageNames) {
+            System.out.println(str + " ");
         }
     }
 

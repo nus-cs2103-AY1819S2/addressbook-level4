@@ -208,8 +208,14 @@ public class AddCommandTest {
         public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void clearAssetFolder(File dir) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void listAllImages() {
             throw new AssertionError("This method should not be called.");
         }
     }

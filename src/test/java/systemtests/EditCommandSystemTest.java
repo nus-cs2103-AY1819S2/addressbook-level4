@@ -184,7 +184,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a person with new values same as another person's values but with different date -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB + DATE_DESC_AMY+ TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + AMOUNT_DESC_BOB + DATE_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

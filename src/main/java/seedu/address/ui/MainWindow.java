@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -175,7 +175,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleDisplayMap() {
-        //browserPanel.loadPage("https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap?coordinates=[[103.8860088,1.3144872]]&title=[\"Alex Yeoh\"]&icon=[\"monument\"]");
         List<Equipment> equipmentList = logic.getFilteredPersonList();
         String coordiantesString = "[";
         for (Equipment equipment:equipmentList) {

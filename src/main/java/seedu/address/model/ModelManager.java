@@ -194,6 +194,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasFolder(CardFolder cardFolder) {
+        requireNonNull(cardFolder);
+
+        for (VersionedCardFolder versionedCardFolder : filteredFoldersList) {
+            if (versionedCardFolder.hasSameFolderName(cardFolder)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     public void deleteFolder(int index) {
         filteredFoldersList.remove(index);
         indicateModified();

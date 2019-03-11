@@ -90,6 +90,11 @@ public class VersionedCardFolder extends CardFolder {
                 && currentStatePointer == otherVersionedCardFolder.currentStatePointer;
     }
 
+    // TODO: Javdoc comment
+    public boolean hasSameFolderName(CardFolder other) {
+        return cardFolderStateList.get(cardFolderStateList.size() - 1).getFolderName().equals(other.getFolderName());
+    }
+
     /**
      * Thrown when trying to {@code undo()} but can't.
      */

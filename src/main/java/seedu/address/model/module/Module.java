@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 
 /**
@@ -18,6 +20,8 @@ public class Module {
     public Module(ModuleCode moduleCode, ModuleTitle moduleTitle,
                   ModuleDescription moduleDescription, ModulePrereq modulePrereq,
                   ModuleDepartment moduleDepartment, ModuleCredits moduleCredits) {
+        requireAllNonNull(moduleCode, moduleTitle, moduleDescription,
+                moduleDepartment, moduleCredits);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.moduleDescription = moduleDescription;

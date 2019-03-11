@@ -32,7 +32,9 @@ public class WorkList {
         return date;
     }
 
-    public String getAssignee () { return assignee; }
+    public String getAssignee () {
+        return assignee;
+    }
 
     public Set<Equipment> getEquipments() { return Collections.unmodifiableSet(equipments); }
 

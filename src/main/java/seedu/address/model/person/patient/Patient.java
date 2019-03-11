@@ -37,7 +37,9 @@ public class Patient extends Person {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append(" Conditions: ")
+                .append(getConditions());
         return builder.toString();
     }
 
@@ -79,5 +81,9 @@ public class Patient extends Person {
     public int hashCode() {
         return Objects.hash(getName(), getNric(), getAddress(), getPhone(),
                 getEmail(), getTags());
+    }
+
+    public Conditions getConditions(){
+        return this.conditions;
     }
 }

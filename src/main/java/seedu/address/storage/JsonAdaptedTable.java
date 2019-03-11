@@ -59,6 +59,7 @@ class JsonAdaptedTable {
             throw new IllegalValueException(TableStatus.MESSAGE_CONSTRAINTS);
         }
         final TableStatus modelTableStatus = new TableStatus(tableStatus);
+        modelTableStatus.changeOccupancy(tableStatus.split("/")[0]);
 
         return new Table(modelTableNumber, modelTableStatus);
     }

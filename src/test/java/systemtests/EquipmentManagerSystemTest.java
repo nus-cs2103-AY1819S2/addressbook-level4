@@ -236,10 +236,13 @@ public abstract class EquipmentManagerSystemTest {
                 }
             } catch (ApiException e) {
                 System.err.println(e.getMessage());
+                expectedUrlString = getBrowserPanel().getLoadedUrl().toString();
             } catch (InterruptedException e) {
                 System.err.println(e.getMessage());
+                expectedUrlString = getBrowserPanel().getLoadedUrl().toString();
             } catch (IOException e) {
                 System.err.println(e.getMessage());
+                expectedUrlString = getBrowserPanel().getLoadedUrl().toString();
             } finally {
                 expectedUrl = new URL(expectedUrlString.replace("\"", "%22").replace(" ", "%20"));
             }

@@ -16,11 +16,13 @@ public class DateBase {
     protected int month;
     protected int year;
 
+    protected DateBase() { }
+
     /**
      * Default constructor that takes in a birth day.
      * @param dob the dob in dd-mm-yyyy format.
      */
-    public DateBase(String dob) {
+    protected DateBase(String dob) {
         String[] temp = dob.split("-");
         int day = Integer.parseInt(temp[0].trim());
         int month = Integer.parseInt(temp[1].trim());
@@ -102,5 +104,34 @@ public class DateBase {
         String formattedMonth = String.format("%02d", month);
         String formattedYear = String.format("%04d", year);
         return formattedDay + "-" + formattedMonth + "-" + formattedYear;
+    }
+
+    /**
+     * Get today's date in a DateBase instance form.
+     * @return today's date in DateBase.
+     */
+    public static DateBase getToday() {
+        Date today = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(today);
+        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        int currentMonth = cal.get(Calendar.MONTH);
+        int currentYear = cal.get(Calendar.YEAR);
+        String formattedDay = String.format("%02d", currentDay);
+        String formattedMonth = String.format("%02d", currentMonth);
+        String formattedYear = String.format("%04d", currentYear);
+        return new DateBase(formattedDay + "-" + formattedMonth + "-" + formattedYear);
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
     }
 }

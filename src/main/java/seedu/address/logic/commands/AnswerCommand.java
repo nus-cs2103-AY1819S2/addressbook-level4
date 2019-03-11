@@ -18,8 +18,7 @@ public class AnswerCommand extends Command {
     public static final String COMMAND_WORD = "ans";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": User inputs an answer for the"
-            + " currently displayed card. This command is valid only in an active test session"
-            + " and a card is currently being displayed.\n"
+            + " currently displayed card.\n"
             + "Parameters: ANSWER \n"
             + "Example: " + COMMAND_WORD + " Mitochondrion";
 
@@ -37,6 +36,10 @@ public class AnswerCommand extends Command {
         if (!model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
         }
+        if (model.checkIfCardAlreadyAnswered()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
+        }
+        model.setCardAsAnswered();
 
         boolean isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
         if (isAttemptCorrect) {

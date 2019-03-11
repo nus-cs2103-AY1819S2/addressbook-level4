@@ -10,11 +10,6 @@ import seedu.address.model.player.Player;
  */
 public interface Battle {
     /**
-     * Adds a Player into the game.
-     */
-    public void addPlayer(Player p);
-
-    /**
      * Begins the game and gives all players a Map View.
      */
     public void beginGame();

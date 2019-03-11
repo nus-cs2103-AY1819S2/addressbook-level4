@@ -31,8 +31,14 @@ public interface Logic {
      */
     ReadOnlyInventory getInventory();
 
-    /** Returns an unmodifiable view of the filtered list of medicines */
+    /** Returns an unmodifiable view of the filtered list of medicines for medicine pane*/
     ObservableList<Medicine> getFilteredMedicineList();
+
+    /** Returns an unmodifiable view of the filtered list of medicines that are expiring for warning pane*/
+    ObservableList<Medicine> getExpiringMedicinesList();
+
+    /** Returns an unmodifiable view of the filtered list of medicines with low quantity for warning pane*/
+    ObservableList<Medicine> getLowQuantityMedicinesList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

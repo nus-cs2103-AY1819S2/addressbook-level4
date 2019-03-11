@@ -3,10 +3,8 @@ package seedu.address.model.medicine;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.DateFormat;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the expiry date of a batch Medicine in the inventory.
@@ -19,7 +17,7 @@ public class Expiry implements Comparable<Expiry> {
             + "Month should not be more than 12. Year should begin with 20";
     public static final String VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((20)\\d\\d)";
 
-    public final String value;
+    private final LocalDate expiryDate;
 
     /**
      * Constructs an {@code Expiry}.
@@ -30,39 +28,71 @@ public class Expiry implements Comparable<Expiry> {
         requireNonNull(expiry);
 
         checkArgument(isValidDate(expiry), MESSAGE_CONSTRAINTS);
-        value = expiry;
+        if (expiry.equals("-")) {
+            this.expiryDate = null;
+        } else {
+            this.expiryDate = parseRawDate(expiry);
+        }
     }
 
     /**
      * Returns if a given string is a valid expiry.
-     */
+     * */
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX) || test.equals("-");
     }
 
+    private LocalDate parseRawDate(String expiry) {
+        return LocalDate.parse(expiry, DateTimeFormatter.ofPattern("dd/M/yyyy"));
+    }
+
+    public LocalDate getExpiryDate() {
+        return this.expiryDate;
+    }
+
     @Override
     public int compareTo(Expiry o) {
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
-        Date date1 = format.parse(this.value, new ParsePosition(0));
-        Date date2 = format.parse(o.value, new ParsePosition(0));
-        return date1.compareTo(date2);
+        LocalDate date1 = this.expiryDate;
+        LocalDate date2 = o.getExpiryDate();
+        if (date1 == null) {
+            return -1;
+        } else if (date2 == null) {
+            return 1;
+        } else {
+            return date1.compareTo(date2);
+        }
     }
 
     @Override
     public String toString() {
-        return value;
+        if (this.expiryDate == null) {
+            return "-";
+        } else {
+            return expiryDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Expiry // instanceof handles nulls
-                && value.equals(((Expiry) other).value)); // state check
+        if (other == this) {
+            // short circuit if same object
+            return true;
+        }
+
+        if (other instanceof Expiry) {
+            if (expiryDate == null) {
+                return ((Expiry) other).getExpiryDate() == null;
+            } else {
+                return expiryDate.equals(((Expiry) other).getExpiryDate());
+            }
+        }
+
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return expiryDate.hashCode();
     }
 
 }

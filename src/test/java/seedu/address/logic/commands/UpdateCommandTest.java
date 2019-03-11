@@ -152,8 +152,8 @@ public class UpdateCommandTest {
 
         String updatedExpiry;
         if (batches.size() > 0) {
-            updatedExpiry = batches.values().stream().min(Comparator.comparing(Batch::getExpiry)).get().getExpiry()
-                    .value;
+            updatedExpiry = batches.values().stream()
+                    .min(Comparator.comparing(Batch::getExpiry)).get().getExpiry().toString();
         } else {
             updatedExpiry = "-";
         }
@@ -309,8 +309,8 @@ public class UpdateCommandTest {
 
         String updatedExpiry;
         if (batches.size() > 0) {
-            updatedExpiry = batches.values().stream().min(Comparator.comparing(Batch::getExpiry)).get().getExpiry()
-                    .value;
+            updatedExpiry = batches.values().stream()
+                    .min(Comparator.comparing(Batch::getExpiry)).get().getExpiry().toString();
         } else {
             updatedExpiry = "-";
         }

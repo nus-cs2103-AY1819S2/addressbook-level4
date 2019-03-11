@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -27,6 +29,8 @@ public class ModelManager implements Model {
     private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
     private final FilteredList<Medicine> filteredMedicines;
+    private final FilteredList<Medicine> medicinesExpiring;
+    private final FilteredList<Medicine> medicinesLowQuantity;
     private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
 
     /**
@@ -42,6 +46,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMedicines = new FilteredList<>(versionedInventory.getMedicineList());
         filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
+        medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
+        medicinesLowQuantity = new FilteredList<>(versionedInventory.getMedicineList());
+        setPredicates();
+
     }
 
     public ModelManager() {
@@ -131,9 +139,38 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Medicine> getExpiringMedicinesList() {
+        return medicinesExpiring;
+    }
+
+    @Override
+    public ObservableList<Medicine> getLowQuantityMedicinesList() {
+        return medicinesLowQuantity;
+    }
+
+    @Override
     public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
         requireNonNull(predicate);
         filteredMedicines.setPredicate(predicate);
+    }
+
+    /**
+     * Sets initial predicates for all filtered lists.
+     */
+    private void setPredicates() {
+        filteredMedicines.setPredicate(PREDICATE_SHOW_ALL_MEDICINES);
+        medicinesLowQuantity.setPredicate(medicine -> medicine.getQuantity().getNumericValue() < 20);
+        medicinesExpiring.setPredicate(medicine ->
+                medicine.getExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < 10);
+    }
+
+    /**
+     * Calculates and returns number of days from medicine's expiry date to today.
+     * @param medicine
+     * @return
+     */
+    private float calculateDaysToExpiry(Medicine medicine) {
+        return ChronoUnit.DAYS.between(LocalDate.now(), medicine.getExpiry().getExpiryDate());
     }
 
     //=========== Undo/Redo =================================================================================

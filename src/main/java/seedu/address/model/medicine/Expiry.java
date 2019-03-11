@@ -32,7 +32,7 @@ public class Expiry implements Comparable<Expiry> {
         requireNonNull(expiry);
 
         checkArgument(isValidDate(expiry), MESSAGE_CONSTRAINTS);
-        if (expiry == "-") {
+        if (expiry.equals("-")) {
             this.expiryDate = null;
         } else {
             this.expiryDate = parseRawDate(expiry);
@@ -47,11 +47,11 @@ public class Expiry implements Comparable<Expiry> {
     }
 
     private LocalDate parseRawDate(String expiry) {
-        return LocalDate.parse(expiry, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return LocalDate.parse(expiry, DateTimeFormatter.ofPattern("dd/M/yyyy"));
     }
 
     public LocalDate getExpiryDate() {
-        return expiryDate;
+        return this.expiryDate;
     }
 
     @Override
@@ -78,9 +78,24 @@ public class Expiry implements Comparable<Expiry> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Expiry // instanceof handles nulls
-                && expiryDate.equals(((Expiry) other).expiryDate)); // state check
+        if (other == this) {
+            // short circuit if same object
+            return true;
+        }
+
+        if (other instanceof Expiry) {
+            if (expiryDate == null) {
+                return ((Expiry) other).getExpiryDate() == null;
+            } else {
+                return expiryDate.equals(((Expiry) other).getExpiryDate());
+            }
+        }
+
+        return false;
+//        return other == this // short circuit if same object
+//                || (other instanceof Expiry // instanceof handles nulls
+//                && ((expiryDate == null && ((Expiry) other).getExpiryDate() == null)
+//                    || expiryDate.equals(((Expiry) other).getExpiryDate()))); // state check
     }
 
     @Override

@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MenuBrowserPanel menuBrowserPanel;
+    private BillBrowserPanel billBrowserPanel;
     private TableFlowPanel tableFlowPanel;
     private StatusBarFooter statusBarFooter;
 
@@ -230,6 +231,13 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
 
             statusBarFooter.updateMode("Menu Mode");
+            break;
+
+        case BILL_MODE:
+            billBrowserPanel = new BillBrowserPanel(logic.selectedBillProperty());
+            browserPlaceholder.getChildren().add(billBrowserPanel.getRoot());
+
+            statusBarFooter.updateMode("Bill Mode");
             break;
 
         default:

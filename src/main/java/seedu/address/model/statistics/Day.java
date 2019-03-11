@@ -3,10 +3,14 @@ package seedu.address.model.statistics;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Day of the stored statistics (mostly for calculation for total revenue).
+ * Day has to be limited to digits 1 to 31
+ */
 public class Day {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Day should be in the format <double digit integer>, and it should not be blank";
+            "Day should be in the format <double digit integer>, it should not be blank and should be a valid day";
 
     /*
      * The first character of the item code must not be a whitespace,
@@ -14,7 +18,10 @@ public class Day {
      */
     public static final String VALIDATION_REGEX = "[0-9][0-9]";
 
+    private static boolean isInvalid = false;
+
     public final String day;
+
 
     /**
      * Constructs a {@code Day}.
@@ -31,9 +38,11 @@ public class Day {
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidDay(String test) {
+        if (Integer.parseInt(test) < 1 || Integer.parseInt(test) > 31) {
+            return isInvalid;
+        }
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
@@ -51,5 +60,4 @@ public class Day {
     public int hashCode() {
         return day.hashCode();
     }
-
 }

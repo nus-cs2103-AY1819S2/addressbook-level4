@@ -3,7 +3,6 @@ package seedu.address.model.statistics;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 
-
 /**
  * Unmodifiable view of statistics
  */

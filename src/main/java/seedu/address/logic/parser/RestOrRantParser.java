@@ -51,6 +51,7 @@ public class RestOrRantParser {
         // General commands that work in all modes
 
         switch (commandWord) {
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
@@ -114,8 +115,15 @@ public class RestOrRantParser {
             }
             return new BillCommand();
 
+        case BillCommand.COMMAND_ALIAS:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new BillCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
         }
 
     }

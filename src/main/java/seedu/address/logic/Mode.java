@@ -4,5 +4,5 @@ package seedu.address.logic;
  * Enum to define current Mode of the Application
  */
 public enum Mode {
-    RESTAURANT_MODE, TABLE_MODE, MENU_MODE
+    RESTAURANT_MODE, TABLE_MODE, MENU_MODE, BILL_MODE, STATISTICS_MODE
 }

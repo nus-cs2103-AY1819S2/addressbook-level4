@@ -92,7 +92,7 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override // TODO: add for the other storages
+    @Override
     public Path getOrdersFilePath() {
         return userPrefs.getOrdersFilePath();
     }
@@ -120,6 +120,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setTablesFilePath(Path tablesFilePath) {
+        requireNonNull(tablesFilePath);
+        userPrefs.setTablesFilePath(tablesFilePath);
+    }
+
+    @Override
     public Path getStatisticsFilePath() {
         return userPrefs.getStatisticsFilePath();
     }
@@ -144,13 +150,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateRestOrRant() { // change mode
+    public void updateMode() { // change mode
         restOrRant.indicateModified();
-    }
-
-    @Override
-    public void changeMode() {
-        restOrRant.changeMode();
     }
 
     //=========== Tables =====================================================================================
@@ -186,6 +187,11 @@ public class ModelManager implements Model {
         restOrRant.getTables().setTable(target, editedTable);
     }
     
+    @Override
+    public void updateTables() {
+        restOrRant.getTables().indicateModified();
+    }
+
     @Override
     public void updateTables() {
         restOrRant.getTables().indicateModified();
@@ -282,6 +288,11 @@ public class ModelManager implements Model {
         restOrRant.getOrders().setOrderItem(target, editedOrderItem);
     }
 
+    @Override
+    public void updateOrders() {
+        restOrRant.getOrders().indicateModified();
+    }
+
     //=========== Filtered Order Item List Accessors =============================================================
 
     /**
@@ -345,8 +356,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateOrders() {
-        restOrRant.getOrders().indicateModified();
+    public void updateMenu() {
+        restOrRant.getMenu().indicateModified();
     }
 
     //=========== Filtered MenuItem List Accessors =============================================================

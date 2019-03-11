@@ -1,9 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MAP_SIZE;
-
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.InitialiseMapCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,23 +17,18 @@ public class InitialiseMapCommandParser implements Parser<InitialiseMapCommand> 
      */
     public InitialiseMapCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MAP_SIZE);
+                ArgumentTokenizer.tokenize(args);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MAP_SIZE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InitialiseMapCommand.MESSAGE_USAGE));
+        int mapSize;
+        try {
+            mapSize = ParserUtil.parseMapSize(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    InitialiseMapCommand.MESSAGE_USAGE), pe);
         }
 
-        int mapSize = ParserUtil.parseMapSize(argMultimap.getValue(PREFIX_MAP_SIZE).get());
 
         return new InitialiseMapCommand(mapSize);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }

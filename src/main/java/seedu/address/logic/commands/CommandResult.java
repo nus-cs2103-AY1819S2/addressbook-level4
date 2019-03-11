@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.model.card.Card;
 
 /**
@@ -25,16 +26,20 @@ public class CommandResult {
     /** The current test session should end. */
     private final boolean endTestSession;
 
+    /** The application should show to user whether answer attempted is correct or wrong. */
+    private final AnswerCommandResultType answerCommandResult;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Card testSessionCard,
-                         boolean endTestSession) {
+                         boolean endTestSession, AnswerCommandResultType answerCommandResult) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.testSessionCard = testSessionCard;
         this.endTestSession = endTestSession;
+        this.answerCommandResult = answerCommandResult;
     }
 
     /**
@@ -42,7 +47,7 @@ public class CommandResult {
      * and other fields set to their default fullAnswer.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, null, false);
+        this(feedbackToUser, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     public String getFeedbackToUser() {
@@ -90,12 +95,15 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && testSessionCard == otherCommandResult.testSessionCard
+                && endTestSession == otherCommandResult.endTestSession
+                && answerCommandResult == otherCommandResult.answerCommandResult;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, testSessionCard, endTestSession);
+        return Objects.hash(feedbackToUser, showHelp, exit, testSessionCard, endTestSession, answerCommandResult);
     }
 
 }

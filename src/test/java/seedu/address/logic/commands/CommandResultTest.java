@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.logic.AnswerCommandResultType;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -14,7 +16,7 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, null, false)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -28,10 +30,12 @@ public class CommandResultTest {
         // different feedbackToUser fullAnswer -> returns false
         assertFalse(commandResult.equals(new CommandResult("different")));
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, null, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, null, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, null, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, null, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND)));
     }
 
     @Test
@@ -45,9 +49,11 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, null, false).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, null, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, null, false).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, null, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
     }
 }

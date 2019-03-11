@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -48,7 +49,8 @@ public class TestCommand extends Command {
         ReadOnlyCardFolder cardFolderToTest = cardFoldersList.get(targetIndex.getZeroBased());
         model.testCardFolder(cardFolderToTest);
         Card cardToTest = model.getCurrentTestedCard();
-        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, cardToTest, false);
+        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, cardToTest, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     @Override

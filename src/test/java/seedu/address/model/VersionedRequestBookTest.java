@@ -44,6 +44,17 @@ class VersionedRequestBookTest {
         assertTrue(versionedRequestBook.canUndo());
     }
 
+    @org.junit.jupiter.api.Test
+    public void prepareRequestBookList_equals_returnsTrue() {
+        VersionedRequestBook versionedRequestBook = prepareRequestBookList(
+            emptyRequestBook, requestBookWithAlice, requestBookWithBenson);
+
+        VersionedRequestBook secondBook = prepareRequestBookList(
+            emptyRequestBook, requestBookWithAlice, requestBookWithBenson);
+
+        assertTrue(versionedRequestBook.equals(secondBook));
+    }
+
     @Test
     public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
         VersionedRequestBook versionedRequestBook = prepareRequestBookList(

@@ -143,5 +143,5 @@ public interface Model {
     /**
      * List all file names in assets folder
      */
-    void listAllImages();
+    String[] listFiles();
 }

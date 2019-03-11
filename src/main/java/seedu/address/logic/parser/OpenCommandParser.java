@@ -16,8 +16,7 @@ public class OpenCommandParser implements Parser<OpenCommand> {
     /**
      * Parses the given {@code String} of arguments in the context
      * of the OpenCommand and returns an OpenCommand object for execution.
-     *
-     * @throws ParseException   if the user input does not conform the expected format.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public OpenCommand parse(String args) throws ParseException {
         args = args.trim();

@@ -215,7 +215,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void listAllImages() {
+        public void listFiles() {
             throw new AssertionError("This method should not be called.");
         }
     }

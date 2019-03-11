@@ -99,7 +99,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      *
      */
     public void sortByName() {
-        persons.sortByName();
+        equipment.sortByName();
     }
 
     /**

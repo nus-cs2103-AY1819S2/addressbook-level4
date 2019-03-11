@@ -29,7 +29,7 @@ public class BillCommand extends Command {
     public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
     public static final String MESSAGE_MENUITEM_NOT_PRESENT = "MenuItem is not received.";
     private static Bill bill;
-    private Table toBill;
+    private Table tableToBill;
     private float totalBill;
 
     /**
@@ -42,9 +42,9 @@ public class BillCommand extends Command {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        toBill = model.getSelectedTable();
+        tableToBill = model.getSelectedTable();
 
-        if (!model.hasTable(toBill)) {
+        if (!model.hasTable(tableToBill)) {
             throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
         }
 
@@ -56,11 +56,18 @@ public class BillCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }
 
+    /**
+     * Calculates the total bill from the order item list and updates the popularity of a menu item.
+     * @param orderItemList
+     * @param menu
+     * @return new Bill with the calculated total bill.
+     * @throws CommandException
+     */
     private Bill calculateBill(ObservableList<OrderItem> orderItemList, ReadOnlyMenu menu) throws CommandException {
         MenuItem menuItem;
         Optional<MenuItem> opt;
         for (OrderItem orderItem : orderItemList) {
-            if (!toBill.getTableNumber().equals(orderItem.getTableNumber())) {
+            if (!tableToBill.getTableNumber().equals(orderItem.getTableNumber())) {
                 throw new CommandException(MESSAGE_TABLE_MISMATCH);
             }
             opt = menu.getItemFromCode(orderItem.getMenuItemCode());
@@ -71,13 +78,13 @@ public class BillCommand extends Command {
             //menu.updateMenuItemQuantity(orderItem.getMenuItemCode(), orderItem.getQuantity());
             totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
         }
-        return new Bill(toBill.getTableNumber(), totalBill);
+        return new Bill(tableToBill.getTableNumber(), totalBill);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BillCommand // instanceof handles nulls
-                && toBill.equals(((BillCommand) other).toBill));
+                && tableToBill.equals(((BillCommand) other).tableToBill));
     }
 }

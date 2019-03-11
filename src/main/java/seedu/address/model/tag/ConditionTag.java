@@ -32,6 +32,10 @@ public class ConditionTag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public static ConditionTag parseString(String input) {
+        return new ConditionTag(input);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

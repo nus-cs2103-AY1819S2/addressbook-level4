@@ -9,6 +9,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,9 +18,12 @@ import seedu.address.model.tag.Tag;
  */
 public class Patient extends Person {
 
+    private Conditions conditions;
+
     public Patient(Name name, Phone phone, Email email, Nric nric, Address
             address, Set<Tag> tags) {
         super(name, phone, email, nric, address, tags);
+        this.conditions = new Conditions();
     }
 
     @Override

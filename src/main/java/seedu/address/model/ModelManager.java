@@ -185,6 +185,11 @@ public class ModelManager implements Model {
 
         restOrRant.getTables().setTable(target, editedTable);
     }
+    
+    @Override
+    public void updateTables() {
+        restOrRant.getTables().indicateModified();
+    }
 
     //=========== Filtered Table List Accessors ==============================================================
 

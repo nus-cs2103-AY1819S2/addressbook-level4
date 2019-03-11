@@ -2,6 +2,7 @@ package seedu.address.model.table;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -33,12 +34,10 @@ public class TableStatus {
         this.numberOfTakenSeats = "0";
     }
     
-    public void setTableStatus(String newNumberOfTakenSeats) throws CommandException {
-        checkArgument(isValidNumberOfSeats(newNumberOfTakenSeats), MESSAGE_CONSTRAINTS);
-        if (Integer.parseInt(newNumberOfTakenSeats) > Integer.parseInt(numberOfSeats)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_NUMBER_OF_CUSTOMERS, numberOfSeats));
-        }
-        this.numberOfTakenSeats = newNumberOfTakenSeats;
+    public void changeOccupancy(String numberOfTakenSeats) {
+        requireNonNull(numberOfTakenSeats);
+        checkArgument(isValidNumberOfSeats(numberOfTakenSeats));
+        this.numberOfTakenSeats = numberOfTakenSeats;
     }
 
     public boolean isOccupied() {

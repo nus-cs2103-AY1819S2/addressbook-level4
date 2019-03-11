@@ -25,10 +25,6 @@ public class Table {
         return tableStatus;
     }
 
-    public void setTableStatus(String newTableStatus) throws CommandException {
-        tableStatus.setTableStatus(newTableStatus);
-    }
-
     public TableNumber getTableNumber() {
         return tableNumber;
     }

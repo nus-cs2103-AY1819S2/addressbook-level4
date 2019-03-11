@@ -129,7 +129,7 @@ public class Tables implements ReadOnlyTables {
     /**
      * Notifies listeners that the RestOrRant has been modified.
      */
-    protected void indicateModified() {
+    public void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 

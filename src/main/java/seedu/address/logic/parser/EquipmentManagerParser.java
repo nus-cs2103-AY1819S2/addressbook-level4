@@ -8,6 +8,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -82,8 +83,13 @@ public class EquipmentManagerParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
         case SortCommand.COMMAND_WORD:
             return new SortCommand();
+
+        case DisplayCommand.COMMAND_WORD:
+            return new DisplayCommand();
+
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }

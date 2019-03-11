@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.equipment.Equipment;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -173,11 +175,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleDisplayMap() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        List<Equipment> equipmentList = logic.getFilteredPersonList();
+        String coordiantesString = "[";
+        for (Equipment equipment:equipmentList) {
+            double[] coordinates = equipment.getCoordiantes();
+            coordiantesString += "[" + coordinates[0] + "," + coordinates[1] + "],";
         }
+        coordiantesString = coordiantesString.replaceAll(",$", "");
+        coordiantesString += "]";
+        String url = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=" + coordiantesString;
+        System.out.println("Loading page: " + url);
+        browserPanel.loadPage(url);
     }
 
     public EquipmentListPanel getEquipmentListPanel() {

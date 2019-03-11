@@ -16,8 +16,6 @@ import seedu.address.model.person.Person;
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
     private static final String AMOUNT_FIELD_ID = "#amount";
     private static final String DATE_FIELD_ID = "#date";
     private static final String DESCRIPTION_FIELD_ID = "#description";
@@ -25,7 +23,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label phoneLabel;
     private final Label amountLabel;
     private final Label dateLabel;
     private final Label descriptionLabel;
@@ -37,7 +34,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         amountLabel = getChildNode(AMOUNT_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
         dateLabel = getChildNode(DATE_FIELD_ID);
         descriptionLabel = getChildNode(DESCRIPTION_FIELD_ID);
 
@@ -59,10 +55,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     public String getAmount() {
         return amountLabel.getText();
-    }
-
-    public String getPhone() {
-        return phoneLabel.getText();
     }
 
     public String getDate() {
@@ -100,7 +92,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
                 && getAmount().equals(person.getAmount().value)
-                && getPhone().equals(person.getPhone().value)
                 && getDate().equals(person.getDate().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                         .map(tag -> tag.tagName)

@@ -25,7 +25,6 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getAmount(), actualCard.getAmount());
         assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
 
         expectedCard.getTags().forEach(tag -> assertEquals(expectedCard.getTagStyleClasses(tag),
@@ -37,7 +36,6 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getAmount().value, actualCard.getAmount());
         assertEquals(expectedPerson.getDate().value, actualCard.getDate());
         assertEquals(expectedPerson.getDescription().value, actualCard.getDescription());

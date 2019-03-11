@@ -57,8 +57,7 @@ public class DescriptionCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getAmount(), personToEdit.getDate(),
+        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getAmount(), personToEdit.getDate(),
                 this.description, personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);

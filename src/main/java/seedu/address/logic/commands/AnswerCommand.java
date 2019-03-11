@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.card.Answer;
@@ -21,6 +22,8 @@ public class AnswerCommand extends Command {
             + "Parameters: ANSWER \n"
             + "Example: " + COMMAND_WORD + " Mitochondrion";
 
+    public static final String MESSAGE_ANSWER_SUCCESS = "Answer sent successfully";
+
     private final Answer attemptedAnswer;
 
     public AnswerCommand(Answer attemptedAnswer) {
@@ -30,9 +33,14 @@ public class AnswerCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        //Change implementation later
-        return new CommandResult(
-                String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, model.getFilteredCards().size()));
+
+        boolean isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
+
+        if (isAttemptCorrect) {
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null, false, AnswerCommandResultType.ANSWER_CORRECT);
+        } else {
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null, false, AnswerCommandResultType.ANSWER_WRONG);
+        }
     }
 
     @Override

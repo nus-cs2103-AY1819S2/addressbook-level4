@@ -92,7 +92,7 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override // TODO: add for the other storages
+    @Override
     public Path getOrdersFilePath() {
         return userPrefs.getOrdersFilePath();
     }
@@ -117,6 +117,12 @@ public class ModelManager implements Model {
     @Override
     public Path getTablesFilePath() {
         return userPrefs.getTablesFilePath();
+    }
+
+    @Override
+    public void setTablesFilePath(Path tablesFilePath) {
+        requireNonNull(tablesFilePath);
+        userPrefs.setTablesFilePath(tablesFilePath);
     }
 
     @Override

@@ -71,10 +71,14 @@ public interface Model {
     Path getTablesFilePath();
 
     /**
+     * Sets the user pref's Tables file path.
+     */
+    void setTablesFilePath(Path tablesFilePath);
+
+    /**
      * Returns the user prefs' statistics file path.
      */
     Path getStatisticsFilePath();
-    // TODO: add set file path for each feature
 
     /**
      * Sets the user pref's statistics file path.

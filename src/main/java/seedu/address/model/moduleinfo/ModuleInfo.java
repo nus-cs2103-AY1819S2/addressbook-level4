@@ -5,43 +5,43 @@ package seedu.address.model.moduleinfo;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ModuleInfo {
-    private String code;
-    private String title;
-    private double credits;
-    private String description;
+    private ModuleInfoCode code;
+    private ModuleInfoTitle title;
+    private ModuleInfoCredits credits;
+    private ModuleInfoDescription description;
     private String workLoad;
     private String preclusions;
-    private String department;
+    private ModuleInfoDepartment department;
     private String prerequisites;
 
     public ModuleInfo(String code, String title, double credits, String description, String workLoad,
                       String preclusions, String department, String prerequisites) {
-        this.code = code;
-        this.title = title;
-        this.credits = credits;
-        this.description = description;
+        this.code = new ModuleInfoCode(code);
+        this.title = new ModuleInfoTitle(title);
+        this.credits = new ModuleInfoCredits(credits);
+        this.description = new ModuleInfoDescription(description);
         this.workLoad = workLoad;
         this.preclusions = preclusions;
-        this.department = department;
+        this.department = new ModuleInfoDepartment(department);
         this.prerequisites = prerequisites;
 
         System.out.println("Module:" + code + " has been created");
     }
 
     public String getCode() {
-        return this.code;
+        return this.code.toString();
     }
 
     public String getTitle() {
-        return this.title;
+        return this.title.toString();
     }
 
     public double getCredits() {
-        return this.credits;
+        return this.credits.getCredits();
     }
 
     public String getDescription() {
-        return this.description;
+        return this.description.toString();
     }
 
     public String getWorkLoad() {
@@ -53,7 +53,7 @@ public class ModuleInfo {
     }
 
     public String getDepartment() {
-        return this.department;
+        return this.department.toString();
     }
 
     public String getPrerequisites() {

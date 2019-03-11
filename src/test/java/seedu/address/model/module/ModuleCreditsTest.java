@@ -35,7 +35,7 @@ public class ModuleCreditsTest {
         // valid addresses
         assertTrue(ModuleCredits.isValidModuleCredits("4"));
         assertTrue(ModuleCredits.isValidModuleCredits("0")); //minimum
-        assertTrue(ModuleCredits.isValidModuleCredits("20")); //maximum
+        assertTrue(ModuleCredits.isValidModuleCredits("40")); //maximum
     }
 
 }

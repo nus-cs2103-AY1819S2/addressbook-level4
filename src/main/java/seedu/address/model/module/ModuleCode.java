@@ -11,7 +11,7 @@ public class ModuleCode {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Module codes should start with at least 2 alphabets, followed by 4 numbers and a suffix";
-    public static final String VALIDATION_REGEX = "[A-Z]{2,3}\\d{4}[A-Z]?";
+    public static final String VALIDATION_REGEX = "[A-Z]{2,3}\\d{4}[A-Z]{0,3}";
     public final String value;
 
     public ModuleCode(String moduleCode) {

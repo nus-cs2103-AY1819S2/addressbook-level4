@@ -20,7 +20,7 @@ public class JsonAdaptedModuleInfo {
     private final String title;
     private final double credits;
     private final String description;
-    private final String workLoad;
+    private final String workload;
     private final String preclusions;
     private final String department;
     private final String prerequisites;
@@ -55,9 +55,9 @@ public class JsonAdaptedModuleInfo {
         }
 
         if (workLoad == null) {
-            this.workLoad = "No work load information provided";
+            this.workload = "No work load information provided";
         } else {
-            this.workLoad = workLoad;
+            this.workload = workLoad;
         }
 
         if (preclusions == null) {
@@ -84,6 +84,6 @@ public class JsonAdaptedModuleInfo {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, " module department"));
         }
 
-        return new ModuleInfo(code, title, credits, description, workLoad, preclusions, department, prerequisites);
+        return new ModuleInfo(code, title, credits, description, workload, preclusions, department, prerequisites);
     }
 }

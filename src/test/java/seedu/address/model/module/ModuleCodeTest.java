@@ -30,10 +30,10 @@ public class ModuleCodeTest {
         assertFalse(ModuleCode.isValidModuleCode("AAA11111")); //more than 5 digits
         assertFalse(ModuleCode.isValidModuleCode("haha1234")); //prefix more than 3 letters
         assertFalse(ModuleCode.isValidModuleCode("a1231")); //less than 2 letters prefix
-        assertFalse(ModuleCode.isValidModuleCode("CS1231SS")); //more than 2 letters suffix
         // valid addresses
         assertTrue(ModuleCode.isValidModuleCode("LSM1301"));
         assertTrue(ModuleCode.isValidModuleCode("CS2103T")); // one character
         assertTrue(ModuleCode.isValidModuleCode("ACC1007X")); // long address
+        assertTrue(ModuleCode.isValidModuleCode("CS1231SS")); //more than 2 letters suffix
     }
 }

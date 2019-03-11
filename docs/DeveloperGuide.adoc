@@ -840,9 +840,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |real estate agent |add a new contact with contact and associated property details |record an entry of the contact and the associated property
 
-|`* * *` |clean user |delete a person |remove entries that I no longer need
+|`* * *` |clean user |delete a contact |remove entries that I no longer need
 
-|`* * *` |efficient user  |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |efficient user |find a contact by name |locate details of contacts without having to go through the entire list
 
 |`* * *` |sloppy user |add a contact into the app without having to specify all the contact information (i.e. all fields are optional) |add a contact even if I do not have the complete contact information
 

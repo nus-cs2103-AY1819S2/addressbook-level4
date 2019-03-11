@@ -314,11 +314,6 @@ public interface Model {
     void setSelectedBill(Bill bill);
 
     /**
-     * Notifies the listeners that the RestOrRant tables has been modified to update the storage.
-     */
-    void updateTables();
-
-    /**
      * Notifies the listeners that the RestOrRant menu has been modified to update the storage.
      */
     void updateMenu();

@@ -44,6 +44,10 @@ public class Tag {
         return tagName.hashCode();
     }
 
+    public String toStringUpperCase() {
+        return '[' + tagName.toUpperCase() + ']';
+    }
+
     /**
      * Format state as text for viewing.
      */

@@ -6,6 +6,7 @@ import seedu.address.commons.util.FileName;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.storage.csv.CsvWrapper;
 
 
 /**
@@ -37,6 +38,8 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         // TODO: 12/2/2019 Export to CSV implementation
+        CsvWrapper csvWrapper = new CsvWrapper(fileName, model);
+        csvWrapper.export();
         return new CommandResult(String.format(MESSAGE_SUCCESS, fileName));
     }
 

@@ -15,7 +15,7 @@ image::jonathanleewh.png[width="150", align="left"]
 {empty} [https://github.com/JonathanLeeWH[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-      Responsibilities: UI
+      Responsibilities: Storage
 
 '''
 
@@ -24,7 +24,7 @@ image::jtankw3.png[width="150", align="left"]
 {empty}[https://github.com/jtankw3[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Model
 
 '''
 
@@ -33,16 +33,7 @@ image::flxffy.png[width="150", align="left"]
 {empty}[https://github.com/flxffy[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Storage
-
-'''
-
-=== Law Yong Khan, Kevin
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Model
+Responsibilities: UI
 
 '''
 

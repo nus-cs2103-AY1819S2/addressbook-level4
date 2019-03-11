@@ -95,9 +95,6 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         indicateModified();
     }
 
-    /**
-     *
-     */
     public void sortByName() {
         equipment.sortByName();
     }

@@ -163,6 +163,11 @@ public interface Model {
     void setSelectedTable(Table table);
 
     /**
+     * Notifies the listeners that the RestOrRant's tables has been modified
+     */
+    void updateTables();
+
+    /**
      * Returns true if an order item with the same identity as {@code orderItem} exists in the RestOrRant's Orders.
      */
     boolean hasOrderItem(OrderItem orderItem);
@@ -307,11 +312,6 @@ public interface Model {
      * Sets the selected bill in the filtered bill list.
      */
     void setSelectedBill(Bill bill);
-
-    /**
-     * Notifies the listeners that the RestOrRant tables has been modified to update the storage.
-     */
-    void updateTables();
 
     /**
      * Notifies the listeners that the RestOrRant menu has been modified to update the storage.

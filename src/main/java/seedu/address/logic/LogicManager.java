@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -120,8 +122,9 @@ public class LogicManager implements Logic {
 
     @Override
     public void changeMode(Mode mode) {
+        requireNonNull(mode);
         this.mode = mode;
-    } // TODO: add defensive check? mode may be null if mode listener is accidentally triggered
+    }
 
     @Override
     public ReadOnlyRestOrRant getRestOrRant() {

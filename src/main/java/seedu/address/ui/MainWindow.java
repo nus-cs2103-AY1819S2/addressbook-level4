@@ -1,10 +1,13 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -58,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -117,9 +123,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        // TODO: set restaurant mode defaults
-        tableFlowPanel = new TableFlowPanel(logic.getRestOrRant().getTables().getTableList(),
-                logic.getRestOrRant().getTables());
+        tableFlowPanel = new TableFlowPanel(logic.getRestOrRant().getTables().getTableList(), scrollPane);
         browserPlaceholder.getChildren().addAll(tableFlowPanel.getRoot());
 
         orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
@@ -129,7 +133,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        // TODO: refine later
         statusBarFooter = new StatusBarFooter("Restaurant Mode");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -185,15 +188,15 @@ public class MainWindow extends UiPart<Stage> {
      * Changes application mode.
      */
     @FXML
-    private void handleChangeMode(Mode mode) { // TODO: insert relevant code for each mode.
+    private void handleChangeMode(Mode mode) {
+        requireNonNull(mode);
         browserPlaceholder.getChildren().clear();
         listPanelPlaceholder.getChildren().clear();
 
         switch (mode) {
 
         case RESTAURANT_MODE:
-            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(),
-                    logic.getRestOrRant().getTables()); // TODO: change to app logo
+            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
             browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),
@@ -204,6 +207,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case TABLE_MODE:
+            // TODO: actual menuBrowserPanel
             menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
             browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
 
@@ -216,7 +220,7 @@ public class MainWindow extends UiPart<Stage> {
 
         case MENU_MODE:
             // TODO: change to browser panel to app logo in future versions (for now keep the tables?)
-            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), logic.getRestOrRant().getTables());
+            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
             browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),

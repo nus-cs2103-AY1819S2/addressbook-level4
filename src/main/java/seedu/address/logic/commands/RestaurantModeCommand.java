@@ -14,6 +14,7 @@ import seedu.address.model.Model;
  */
 public class RestaurantModeCommand extends ChangeModeCommand {
     public static final String COMMAND_WORD = "restaurantMode"; // change to standardize with other modes
+    public static final String COMMAND_ALIAS = "RM";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Restaurant Mode.\n" + "Example: "
             + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Mode changed to Restaurant Mode";
@@ -25,6 +26,8 @@ public class RestaurantModeCommand extends ChangeModeCommand {
         if (isSameMode(mode)) {
             throw new CommandException(MESSAGE_INVALID_MODE_CHANGE);
         }
+
+        model.setSelectedTable(null);
 
         model.updateFilteredTableList(Model.PREDICATE_SHOW_ALL_TABLES);
         model.updateFilteredOrderItemList(Model.PREDICATE_SHOW_ALL_ORDER_ITEMS);

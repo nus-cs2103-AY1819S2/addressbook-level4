@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.order.OrderItem;
 
 /**
- * An UI component that displays information of a {@code MenuItem}.
+ * An UI component that displays information of a {@code OrderItem}.
  */
 public class OrderItemCard extends UiPart<Region> {
 

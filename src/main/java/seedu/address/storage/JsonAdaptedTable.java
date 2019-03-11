@@ -44,7 +44,8 @@ class JsonAdaptedTable {
      */
     public Table toModelType() throws IllegalValueException {
         if (tableNumber == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TableNumber.MESSAGE_CONSTRAINTS));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TableNumber.MESSAGE_CONSTRAINTS));
         }
         if (!TableNumber.isValidTableNumber(tableNumber)) {
             throw new IllegalValueException(TableNumber.MESSAGE_CONSTRAINTS);
@@ -59,6 +60,7 @@ class JsonAdaptedTable {
             throw new IllegalValueException(TableStatus.MESSAGE_CONSTRAINTS);
         }
         final TableStatus modelTableStatus = new TableStatus(tableStatus);
+        modelTableStatus.changeOccupancy(tableStatus.split("/")[0]);
 
         return new Table(modelTableNumber, modelTableStatus);
     }

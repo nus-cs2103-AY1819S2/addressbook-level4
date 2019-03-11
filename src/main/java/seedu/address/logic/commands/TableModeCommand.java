@@ -19,6 +19,7 @@ import seedu.address.model.table.TableNumber;
  */
 public class TableModeCommand extends ChangeModeCommand {
     public static final String COMMAND_WORD = "tableMode"; // change to standardize with other modes
+    public static final String COMMAND_ALIAS = "TM";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Table Mode for the specified table. "
             + "Parameters: TABLE_NUMBER\n" + "Example: " + COMMAND_WORD + " 3";
     public static final String MESSAGE_SUCCESS = "Mode changed to Table Mode!\nCurrently on Table %1$s";

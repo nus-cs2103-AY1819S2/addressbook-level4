@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.table.Table;
 
 /**
- * An UI component that displays information of a {@code MenuItem}.
+ * An UI component that displays information of a {@code Table}.
  */
 public class TableCard extends UiPart<Region> {
 

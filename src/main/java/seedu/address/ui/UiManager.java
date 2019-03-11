@@ -21,11 +21,6 @@ public class UiManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
-    private boolean isMenuMode = false;
-    private boolean isRestaurantMode = true;
-    private boolean isTableMode = false;
-    private boolean isBillMode = false;
-    private boolean isStatisticsMode = false;
     private Logic logic;
     private MainWindow mainWindow;
 
@@ -53,12 +48,6 @@ public class UiManager implements Ui {
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
-
-    //    @Override
-    //    public String changeMode(Mode mode) {
-    //        mainWindow.fillInnerParts(mode);
-    //        return mainWindow.currentMode;
-    //    }
 
     @Override
     public void start(Stage primaryStage) {

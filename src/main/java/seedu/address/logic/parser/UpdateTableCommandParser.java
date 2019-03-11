@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -21,7 +20,8 @@ public class UpdateTableCommandParser implements Parser<UpdateTableCommand> {
         String trimmedArgs = args.trim();
         String[] splitArgs = trimmedArgs.split("\\s+");
         if (trimmedArgs.isEmpty() || splitArgs.length != 2) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateTableCommand.MESSAGE_USAGE));
         }
 
         return new UpdateTableCommand(splitArgs);

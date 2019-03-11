@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import com.fasterxml.jackson.core.Versioned;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +85,8 @@ public class VersionedRequestBook extends RequestBook implements VersionedBook {
         VersionedRequestBook otherVersionedRequestBook = (VersionedRequestBook) other;
 
         // state check
-        return super.equals(otherVersionedRequestBook) && requestBookStateList.equals(otherVersionedRequestBook.requestBookStateList)
+        return super.equals(otherVersionedRequestBook) && requestBookStateList
+            .equals(otherVersionedRequestBook.requestBookStateList)
             && currentStatePointer == otherVersionedRequestBook.currentStatePointer;
     }
 }

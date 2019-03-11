@@ -55,7 +55,7 @@ public class Book {
     }
 
     /**
-     * Returns true if both persons of the same bookName have at least one other identity field that is the same.
+     * Returns true if both books of the same bookName have the same author.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSameBook(Book otherBook) {

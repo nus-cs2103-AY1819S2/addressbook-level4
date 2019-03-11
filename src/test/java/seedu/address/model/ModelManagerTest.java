@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALICE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalBooks.ALI;
+import static seedu.address.testutil.TypicalBooks.CS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -19,10 +22,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
@@ -92,7 +98,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasBook_nullBook_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasBook(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasBook_bookNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
@@ -103,11 +120,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasBook_bookInAddressBook_returnsTrue() {
+        modelManager.addBook(ALI);
+        assertTrue(modelManager.hasBook(ALI));
+    }
+
+    @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
         modelManager.deletePerson(ALICE);
         assertEquals(null, modelManager.getSelectedPerson());
+    }
+
+    @Test
+    public void deleteBook_bookIsSelectedAndFirstBookInFilteredBookList_selectionCleared() {
+        modelManager.addBook(ALI);
+        modelManager.setSelectedBook(ALI);
+        modelManager.deleteBook(ALI);
+        assertEquals(null, modelManager.getSelectedBook());
     }
 
     @Test
@@ -121,6 +152,16 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void deleteBook_bookIsSelectedAndSecondBookInFilteredBookList_firstBookSelected() {
+        modelManager.addBook(ALI);
+        modelManager.addBook(CS);
+        assertEquals(Arrays.asList(ALI, CS), modelManager.getFilteredBookList());
+        modelManager.setSelectedBook(CS);
+        modelManager.deleteBook(CS);
+        assertEquals(ALI, modelManager.getSelectedBook());
+    }
+
+    @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
@@ -130,9 +171,24 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setBook_bookIsSelected_selectedBookUpdated() {
+        modelManager.addBook(ALI);
+        modelManager.setSelectedBook(ALI);
+        Book updatedAlice = new BookBuilder(ALI).withRating(VALID_RATING_ALICE).build();
+        modelManager.setBook(ALI, updatedAlice);
+        assertEquals(updatedAlice, modelManager.getSelectedBook());
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
+    }
+
+    @Test
+    public void getFilteredBookList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredBookList().remove(0);
     }
 
     @Test
@@ -142,11 +198,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setSelectedBook_bookNotInFilteredBookList_throwsBookNotFoundException() {
+        thrown.expect(BookNotFoundException.class);
+        modelManager.setSelectedBook(ALI);
+    }
+
+    @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
         modelManager.addPerson(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
         modelManager.setSelectedPerson(ALICE);
         assertEquals(ALICE, modelManager.getSelectedPerson());
+    }
+
+    @Test
+    public void setSelectedBook_bookInFilteredBookList_setsSelectedBook() {
+        modelManager.addBook(ALI);
+        assertEquals(Collections.singletonList(ALI), modelManager.getFilteredBookList());
+        modelManager.setSelectedBook(ALI);
+        assertEquals(ALI, modelManager.getSelectedBook());
     }
 
     @Test

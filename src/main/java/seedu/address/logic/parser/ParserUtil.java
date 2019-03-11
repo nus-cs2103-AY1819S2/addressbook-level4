@@ -63,7 +63,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(BookName.MESSAGE_CONSTRAINTS);
         }
         return new BookName(trimmedName);
     }
@@ -77,8 +77,8 @@ public class ParserUtil {
     public static Author parseAuthor(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Author.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!Author.isValidAuthor(trimmedName)) {
+            throw new ParseException(Author.MESSAGE_CONSTRAINTS);
         }
         return new Author(trimmedName);
     }

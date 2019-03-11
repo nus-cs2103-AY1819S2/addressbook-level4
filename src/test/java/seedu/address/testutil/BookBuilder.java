@@ -15,9 +15,9 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class BookBuilder {
 
-    public static final String DEFAULT_NAME = "validBook";
-    public static final String DEFAULT_AUTHOR = "validAuthor";
-    public static final String DEFAULT_RATING = "5";
+    public static final String DEFAULT_NAME = "Harry Potter and the Deathly Hallows";
+    public static final String DEFAULT_AUTHOR = "JK Rowling";
+    public static final String DEFAULT_RATING = "7";
 
     private BookName bookName;
     private Author author;
@@ -44,7 +44,7 @@ public class BookBuilder {
     /**
      * Sets the {@code BookName} of the {@code Book} that we are building.
      */
-    public BookBuilder withName(String name) {
+    public BookBuilder withBookName(String name) {
         this.bookName = new BookName(name);
         return this;
     }

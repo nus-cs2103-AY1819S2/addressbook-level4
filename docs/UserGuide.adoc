@@ -59,7 +59,7 @@ Format: `help`
 === Adding a book: `addBook`
 
 Adds a book to the book list +
-Format: `addBook n/BOOK NAME a/author m/RATING(0-10) [t/TAG]…​`
+Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
 
@@ -69,7 +69,7 @@ Examples:
 === Adding a book review: `addReview`
 
 Adds a book review to a certain book in the book list +
-Format: `addReview n/BOOK NAME r/review`
+Format: `addReview n/BOOKNAME r/review`
 
 Examples:
 
@@ -79,7 +79,7 @@ Examples:
 === Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
-Format: `listBook [n/NAME] [t/TAG] [m/RATING]`
+Format: `listBook [n/BOOKNAME] [t/TAG] [m/RATING]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -102,6 +102,8 @@ Format: `listReview n/BOOKNAME`
 
 ****
 * The book name need to match exactly
+* The search by book name is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does matter. e.g. `Alice Wonderland` will not match `Wonderland Alice`
 ****
 
 Examples:
@@ -111,34 +113,20 @@ Examples:
 === Editing book entry : `editBook`
 
 Edits an existing book entry (eg. edit the mark, author or tag). +
-Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...`
+Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
 * Edits the book entry with exact name BOOKNAME.
+* The search by book name is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does matter. e.g. `Alice Wonderland` will not match `Wonderland Alice`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
 
 Examples:
 
-* `edit n/Alice in Wonderland a/some author` +
-Change the author of book called “Alice in Wonderland” to some author.
-
-=== Editing tags of a certain book: `editTag`
-
-Edit tags of the book specified by BOOKNAME.
-Format: `editTag n/BOOKNAME [ta/TAG TO ADD] [td/TAG TO DELETE]`
-
-****
-* At least one of the optional fields must be provided.
-* [t/TAG] replaces all existing tags of the book
-* [ta/TAG TO ADD] adds the tag to the book
-* [td/TAG TO DELETE] deletes the tag
-****
-
-Examples:
-
-* `editTag n/Alice in Wonderland ta/horror td/fantasy.`
+* `edit n/Alice in Wonderland a/some author t/some tag` +
+Change the author of book called “Alice in Wonderland” to some author and some tags.
 
 === Deleting a book : `deleteBook`
 
@@ -147,6 +135,9 @@ Format: `deleteBook n/BOOKNAME`
 
 ****
 * Deletes the book of the specified `BOOKNAME`.
+* Edits the book entry with exact name BOOKNAME.
+* The search by book name is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does matter. e.g. `Alice Wonderland` will not match `Wonderland Alice`
 * The `BOOKNAME` refers to the name of the book.
 ****
 
@@ -158,7 +149,7 @@ Deletes the entry of Alice in Wonderland.
 === Deleting a book review: `deleteReview`
 
 Deletes the review of the specified book from the review list. +
-Format: ` deleteReview INDEX`
+Format: `deleteReview INDEX`
 
 ****
 * Deletes of the book at the specified `INDEX`.
@@ -261,9 +252,9 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *AddBook* `addBook n/BOOK NAME a/author m/RATING(0-10) [t/TAG]…` +
+* *AddBook* `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…` +
 e.g. `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
-* *AddReview* `aaddReview n/BOOK NAME r/review` +
+* *AddReview* `aaddReview n/BOOKNAME r/review` +
 e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * *Clear* : `clear`
 * *DeleteBook* : `deleteBook n/BOOKNAME` +

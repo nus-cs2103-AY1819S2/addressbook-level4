@@ -20,12 +20,16 @@ class MonthRecordTest {
         Medicine medicine = new Medicine("test");
         monthRecord = new MonthRecord(YearMonth.of(2019, 1));
         consultationRecord = new ConsultationRecord(new Prescription(medicine, 1));
+
         medicinePurchaseRecord = new MedicinePurchaseRecord(medicine, 1, BigDecimal.valueOf(10.00));
     }
 
+
     @Test
+
     void getStatistics() {
         monthRecord.addRecord(consultationRecord);
+
         monthRecord.addRecord(medicinePurchaseRecord);
         Statistics stats = new Statistics(1, BigDecimal.valueOf(30.00), BigDecimal.valueOf(10.00));
         Assert.assertEquals(monthRecord.getStatistics(), stats);

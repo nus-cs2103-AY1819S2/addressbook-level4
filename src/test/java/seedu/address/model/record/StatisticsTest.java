@@ -17,7 +17,9 @@ class StatisticsTest {
     private Record record1;
     private Record record2;
 
-
+    /**
+     * Setup before each test
+     */
     @BeforeEach
     public void init() {
         Medicine medicine = new Medicine("test");

@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
@@ -144,6 +145,33 @@ public class ParserUtil {
             throw new ParseException(School.MESSAGE_CONSTRAINTS);
         }
         return new School(trimmedSchool);
+    }
+
+    /**
+     * Parses a {@code String knownproglang} into a {@code KnownProgLang}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code knownproglang} is invalid.
+     */
+    public static KnownProgLang parseKnownProgLang(String knownProgLang) throws ParseException {
+        requireNonNull(knownProgLang);
+        String trimmedKnownProgLang = knownProgLang.trim();
+        if (!KnownProgLang.isValidKnownProgLang(trimmedKnownProgLang)) {
+            throw new ParseException(KnownProgLang.MESSAGE_CONSTRAINTS);
+        }
+        return new KnownProgLang(trimmedKnownProgLang);
+    }
+
+    /**
+     * Parses {@code Collection<String> knownproglangs} into a {@code Set<KnownProgLang>}.
+     */
+    public static Set<KnownProgLang> parseKnownProgLangs(Collection<String> knownProgLangs) throws ParseException {
+        requireNonNull(knownProgLangs);
+        final Set<KnownProgLang> knownProgLangSet = new HashSet<>();
+        for (String knownProgLangName : knownProgLangs) {
+            knownProgLangSet.add(parseKnownProgLang(knownProgLangName));
+        }
+        return knownProgLangSet;
     }
 
     /**

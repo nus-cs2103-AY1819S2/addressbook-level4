@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DescriptionCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -30,12 +29,12 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SpendCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.model.record.Description;
+import seedu.address.model.record.NameContainsKeywordsPredicate;
+import seedu.address.model.record.Record;
+import seedu.address.testutil.EditRecordDescriptorBuilder;
+import seedu.address.testutil.RecordBuilder;
+import seedu.address.testutil.RecordUtil;
 
 public class AddressBookParserTest {
     @Rule
@@ -45,17 +44,17 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        SpendCommand command = (SpendCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new SpendCommand(person), command);
+        Record record = new RecordBuilder().build();
+        SpendCommand command = (SpendCommand) parser.parseCommand(RecordUtil.getAddCommand(record));
+        assertEquals(new SpendCommand(record), command);
     }
 
     @Test
     public void parseCommand_addAlias() throws Exception {
-        Person person = new PersonBuilder().build();
+        Record record = new RecordBuilder().build();
         SpendCommand command = (SpendCommand) parser.parseCommand(
-                SpendCommand.COMMAND_ALIAS + " " + PersonUtil.getPersonDetails(person));
-        assertEquals(new SpendCommand(person), command);
+                SpendCommand.COMMAND_ALIAS + " " + RecordUtil.getRecordDetails(record));
+        assertEquals(new SpendCommand(record), command);
     }
 
     @Test
@@ -78,48 +77,48 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
 
     @Test
     public void parseCommand_deleteAlias() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_RECORD.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
 
     @Test
     public void parseCommand_deleteAlias2() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_ALIAS2 + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_ALIAS2 + " " + INDEX_FIRST_RECORD.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
 
     @Test
     public void parseCommand_description() throws Exception {
         final Description description = new Description("Some description.");
         DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
-        assertEquals(new DescriptionCommand(INDEX_FIRST_PERSON, description), command);
+                + INDEX_FIRST_RECORD.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
+        assertEquals(new DescriptionCommand(INDEX_FIRST_RECORD, description), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Record record = new RecordBuilder().build();
+        EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder(record).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_RECORD.getOneBased() + " " + RecordUtil.getEditRecordDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_RECORD, descriptor), command);
     }
 
     @Test
     public void parseCommand_editAlias() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Record record = new RecordBuilder().build();
+        EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder(record).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_RECORD.getOneBased() + " " + RecordUtil.getEditRecordDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_RECORD, descriptor), command);
     }
 
     @Test
@@ -196,22 +195,22 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_RECORD), command);
     }
 
     @Test
     public void parseCommand_selectAlias() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_RECORD.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_RECORD), command);
     }
 
     @Test
     public void parseCommand_selectAlias2() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_ALIAS2 + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_ALIAS2 + " " + INDEX_FIRST_RECORD.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_RECORD), command);
     }
 
     @Test

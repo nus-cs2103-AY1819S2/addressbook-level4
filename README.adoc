@@ -18,7 +18,7 @@ Is the above statement something that you asked yourself on a daily basis? Do yo
 
 In-Credit-Ble's key features:
 
-* Intuitive and easy to use user interface allowing you to add new records fast.
+* Intuitive and easy to use user interface allowing you to add new people fast.
 * Easily record the transaction to track where all your transactions.
 * Overall view of on your financial transaction through pie chart which shows how much of your budget you have spent.
 

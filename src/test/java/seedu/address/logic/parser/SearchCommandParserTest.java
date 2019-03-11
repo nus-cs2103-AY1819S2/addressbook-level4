@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.address.logic.commands.SearchCommand;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.record.NameContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {
 

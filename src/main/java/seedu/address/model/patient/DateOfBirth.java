@@ -43,7 +43,37 @@ public class DateOfBirth {
             String day = temp[0].trim();
             String month = temp[1].trim();
             String year = temp[2].trim();
-            return year.length() == 4 && month.length() == 2 && day.length() == 2;
+            boolean lengthCheck = year.length() == 4 && month.length() == 2 && day.length() == 2;
+
+            Date today = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(today);
+            int currentYear = cal.get(Calendar.YEAR);
+            System.out.println(currentYear);
+            boolean contentCheck = Integer.parseInt(year) <= currentYear && Integer.parseInt(month) <= 12;
+
+            int dayOfMonth = Integer.parseInt(day);
+            boolean daysCheck;
+
+            switch (Integer.parseInt(month)) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                daysCheck = dayOfMonth <= 31;
+                break;
+            case 2:
+                daysCheck = dayOfMonth <= 29;
+                break;
+            default:
+                daysCheck = dayOfMonth <= 30;
+                break;
+            }
+            System.out.println(lengthCheck + " " + contentCheck + " " + daysCheck);
+            return lengthCheck && contentCheck && daysCheck;
         }
     }
 
@@ -86,7 +116,7 @@ public class DateOfBirth {
         Date today = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(today);
-        int currentYear = cal.get(Calendar.DAY_OF_YEAR);
+        int currentYear = cal.get(Calendar.YEAR);
         return currentYear - year;
     }
 }

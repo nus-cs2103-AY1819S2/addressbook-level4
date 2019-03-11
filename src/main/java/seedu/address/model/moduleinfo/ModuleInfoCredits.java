@@ -3,7 +3,7 @@ package seedu.address.model.moduleinfo;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a module's module credit
+ * Represents a moduleInfo's credit
  * Guarantees: immutable; is valid as declared in {@link #isValidModuleInfoCredits(double)}
  */
 public class ModuleInfoCredits {

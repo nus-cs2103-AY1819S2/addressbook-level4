@@ -3,7 +3,7 @@ package seedu.address.model.moduleinfo;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a module's module description
+ * Represents a moduleInfo's description
  * Guarantees: immutable;
  * Validity wiil not be checked due to variance of descriptions {@link #isValidModuleInfoDescription(String)}
  */

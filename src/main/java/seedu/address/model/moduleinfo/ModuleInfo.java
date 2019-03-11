@@ -1,5 +1,7 @@
 package seedu.address.model.moduleinfo;
 
+import java.util.Objects;
+
 /**
  * Represents Module Information about a particular module available in NUS.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -9,7 +11,7 @@ public class ModuleInfo {
     private ModuleInfoTitle title;
     private ModuleInfoCredits credits;
     private ModuleInfoDescription description;
-    private String workLoad;
+    private ModuleInfoWorkload workload;
     private String preclusions;
     private ModuleInfoDepartment department;
     private String prerequisites;
@@ -20,7 +22,7 @@ public class ModuleInfo {
         this.title = new ModuleInfoTitle(title);
         this.credits = new ModuleInfoCredits(credits);
         this.description = new ModuleInfoDescription(description);
-        this.workLoad = workLoad;
+        this.workload = new ModuleInfoWorkload(workLoad);
         this.preclusions = preclusions;
         this.department = new ModuleInfoDepartment(department);
         this.prerequisites = prerequisites;
@@ -28,11 +30,13 @@ public class ModuleInfo {
         System.out.println("Module:" + code + " has been created");
     }
 
-    public String getCode() {
+    // ================ Object String Methods ==============================
+
+    public String getCodeString() {
         return this.code.toString();
     }
 
-    public String getTitle() {
+    public String getTitleString() {
         return this.title.toString();
     }
 
@@ -40,23 +44,84 @@ public class ModuleInfo {
         return this.credits.getCredits();
     }
 
-    public String getDescription() {
+    public String getCreditString() {
+        return this.credits.toString();
+    }
+
+    public String getDescriptionString() {
         return this.description.toString();
     }
 
-    public String getWorkLoad() {
-        return this.workLoad;
+    public String getWorkloadString() {
+        return this.workload.toString();
     }
 
-    public String getPreclusions() {
+    public String getPreclusionsString() {
         return this.preclusions;
     }
 
-    public String getDepartment() {
+    public String getDepartmentString() {
         return this.department.toString();
     }
 
-    public String getPrerequisites() {
+    public String getPrerequisitesString() {
         return this.prerequisites;
+    }
+
+    // ================ Object methods ==============================
+
+    public ModuleInfoCode getModuleInfoCode() {
+        return this.code;
+    }
+
+    public ModuleInfoTitle getModuleInfoTitle() {
+        return this.title;
+    }
+
+    public ModuleInfoDescription getModuleInfoDescription() {
+        return this.description;
+    }
+
+    public ModuleInfoCredits getModuleInfoCredits() {
+        return this.credits;
+    }
+
+    public ModuleInfoDepartment getModuleInfoDepartment() {
+        return this.department;
+    }
+
+    public ModuleInfoWorkload getModuleInfoWorkload() {
+        return this.workload;
+    }
+
+    /**
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two ModuleInfo.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ModuleInfo)) {
+            return false;
+        }
+
+        ModuleInfo otherModuleInfo = (ModuleInfo) other;
+        return otherModuleInfo.getModuleInfoCode().equals(getModuleInfoCode())
+                && otherModuleInfo.getModuleInfoTitle().equals(getModuleInfoTitle())
+                && otherModuleInfo.getModuleInfoCredits().equals(getModuleInfoCredits())
+                && otherModuleInfo.getModuleInfoDescription().equals(getModuleInfoDescription())
+                && otherModuleInfo.getModuleInfoDepartment().equals(getModuleInfoDepartment())
+                && otherModuleInfo.getPreclusionsString().equals(getPreclusionsString())
+                && otherModuleInfo.getPrerequisitesString().equals(getPrerequisitesString())
+                && otherModuleInfo.getModuleInfoWorkload().equals(getModuleInfoWorkload());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(code, title, description, department, preclusions, prerequisites, workload);
     }
 }

@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 
 /**
- * Represents a module's module code
+ * Represents a moduleInfo's code
  * Guarantees: immutable; is valid as declared in {@link #isValidModuleInfoCode(String)}
  */
 public class ModuleInfoCode {

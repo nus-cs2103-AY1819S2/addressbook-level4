@@ -2,10 +2,9 @@ package seedu.address.model.moduleinfo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-//import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a module's module title
+ * Represents a moduleInfo's title
  * Guarantees: immutable; is valid as declared in {@link #isValidModuleInfoTitle(String)}
  */
 public class ModuleInfoTitle {

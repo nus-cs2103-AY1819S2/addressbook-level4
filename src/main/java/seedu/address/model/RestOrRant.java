@@ -75,10 +75,6 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         statistics.setBills(newStatistics.getBillList());
     }
 
-    public void changeMode() {
-        indicateModified();
-    }
-
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

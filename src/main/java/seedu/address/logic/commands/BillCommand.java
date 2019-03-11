@@ -52,7 +52,7 @@ public class BillCommand extends Command {
 
         bill = calculateBill(orderItemList, model.getRestOrRant().getMenu());
 
-        model.updateRestOrRant();
+        model.updateMode();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }
 

@@ -1,12 +1,14 @@
 package seedu.address.testutil;
 
 import seedu.address.model.RestOrRant;
-import seedu.address.model.person.Person;
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.order.OrderItem;
+import seedu.address.model.table.Table;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building RestOrRant objects.
  * Example usage: <br>
- *     {@code RestOrRant ab = new RestOrRantBuilder().withPerson("John", "Doe").build();}
+ *     {@code RestOrRant ab = new RestOrRantBuilder().build();}
  */
 public class RestOrRantBuilder {
 
@@ -21,10 +23,26 @@ public class RestOrRantBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code RestOrRant} that we are building.
+     * Adds a new {@code OrderItem} to the {@code RestOrRant} that we are building.
      */
-    public RestOrRantBuilder withPerson(Person person) {
-        restOrRant.addPerson(person);
+    public RestOrRantBuilder withOrderItem(OrderItem orderItem) {
+        restOrRant.getOrders().addOrderItem(orderItem);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code MenuItem} to the {@code RestOrRant} that we are building.
+     */
+    public RestOrRantBuilder withMenuItem(MenuItem menuItem) {
+        restOrRant.getMenu().addMenuItem(menuItem);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Table} to the {@code RestOrRant} that we are building.
+     */
+    public RestOrRantBuilder withTable(Table table) {
+        restOrRant.getTables().addTable(table);
         return this;
     }
 

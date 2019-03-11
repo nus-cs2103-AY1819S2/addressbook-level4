@@ -6,10 +6,13 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.Model;
 import seedu.address.model.book.BookNameContainsKeywordsPredicate;
 
+/**
+ * Finds and lists all books in book shelf whose name contains any of the argument keywords.
+ * Keyword matching is case insensitive.
+ */
 public class FindBookCommand extends Command {
     public static final String COMMAND_WORD = "find";
 

@@ -138,7 +138,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteHealthWorker(HealthWorker target) {
-        this.versionedAddressBook.removeHealthWorker(target);
+        this.versionedHealthWorkerBook.removeHealthWorker(target);
     }
 
     @Override

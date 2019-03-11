@@ -1,62 +1,127 @@
 package seedu.address.model.moduleinfo;
 
+import java.util.Objects;
+
 /**
  * Represents Module Information about a particular module available in NUS.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ModuleInfo {
-    private String code;
-    private String title;
-    private double credits;
-    private String description;
-    private String workLoad;
+    private ModuleInfoCode code;
+    private ModuleInfoTitle title;
+    private ModuleInfoCredits credits;
+    private ModuleInfoDescription description;
+    private ModuleInfoWorkload workload;
     private String preclusions;
-    private String department;
+    private ModuleInfoDepartment department;
     private String prerequisites;
 
     public ModuleInfo(String code, String title, double credits, String description, String workLoad,
                       String preclusions, String department, String prerequisites) {
-        this.code = code;
-        this.title = title;
-        this.credits = credits;
-        this.description = description;
-        this.workLoad = workLoad;
+        this.code = new ModuleInfoCode(code);
+        this.title = new ModuleInfoTitle(title);
+        this.credits = new ModuleInfoCredits(credits);
+        this.description = new ModuleInfoDescription(description);
+        this.workload = new ModuleInfoWorkload(workLoad);
         this.preclusions = preclusions;
-        this.department = department;
+        this.department = new ModuleInfoDepartment(department);
         this.prerequisites = prerequisites;
 
         System.out.println("Module:" + code + " has been created");
     }
 
-    public String getCode() {
-        return this.code;
+    // ================ Object String Methods ==============================
+
+    public String getCodeString() {
+        return this.code.toString();
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getTitleString() {
+        return this.title.toString();
     }
 
     public double getCredits() {
-        return this.credits;
+        return this.credits.getCredits();
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getCreditString() {
+        return this.credits.toString();
     }
 
-    public String getWorkLoad() {
-        return this.workLoad;
+    public String getDescriptionString() {
+        return this.description.toString();
     }
 
-    public String getPreclusions() {
+    public String getWorkloadString() {
+        return this.workload.toString();
+    }
+
+    public String getPreclusionsString() {
         return this.preclusions;
     }
 
-    public String getDepartment() {
+    public String getDepartmentString() {
+        return this.department.toString();
+    }
+
+    public String getPrerequisitesString() {
+        return this.prerequisites;
+    }
+
+    // ================ Object methods ==============================
+
+    public ModuleInfoCode getModuleInfoCode() {
+        return this.code;
+    }
+
+    public ModuleInfoTitle getModuleInfoTitle() {
+        return this.title;
+    }
+
+    public ModuleInfoDescription getModuleInfoDescription() {
+        return this.description;
+    }
+
+    public ModuleInfoCredits getModuleInfoCredits() {
+        return this.credits;
+    }
+
+    public ModuleInfoDepartment getModuleInfoDepartment() {
         return this.department;
     }
 
-    public String getPrerequisites() {
-        return this.prerequisites;
+    public ModuleInfoWorkload getModuleInfoWorkload() {
+        return this.workload;
+    }
+
+    /**
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two ModuleInfo.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ModuleInfo)) {
+            return false;
+        }
+
+        ModuleInfo otherModuleInfo = (ModuleInfo) other;
+        return otherModuleInfo.getModuleInfoCode().equals(getModuleInfoCode())
+                && otherModuleInfo.getModuleInfoTitle().equals(getModuleInfoTitle())
+                && otherModuleInfo.getModuleInfoCredits().equals(getModuleInfoCredits())
+                && otherModuleInfo.getModuleInfoDescription().equals(getModuleInfoDescription())
+                && otherModuleInfo.getModuleInfoDepartment().equals(getModuleInfoDepartment())
+                && otherModuleInfo.getPreclusionsString().equals(getPreclusionsString())
+                && otherModuleInfo.getPrerequisitesString().equals(getPrerequisitesString())
+                && otherModuleInfo.getModuleInfoWorkload().equals(getModuleInfoWorkload());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(code, title, description, department, preclusions, prerequisites, workload);
     }
 }

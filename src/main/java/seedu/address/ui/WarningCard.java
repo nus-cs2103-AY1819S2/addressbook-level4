@@ -1,11 +1,12 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import java.util.ArrayList;
-import java.util.Arrays;
 import seedu.address.model.medicine.Medicine;
 
 /**

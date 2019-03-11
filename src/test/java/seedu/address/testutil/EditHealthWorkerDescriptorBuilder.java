@@ -18,6 +18,9 @@ import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Utility class for building EditHealthWorkerDescriptor objects for testing.
+ */
 public class EditHealthWorkerDescriptorBuilder {
 
     private EditHealthWorkerDescriptor descriptor;

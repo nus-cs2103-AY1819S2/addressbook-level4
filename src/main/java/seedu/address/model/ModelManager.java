@@ -160,7 +160,8 @@ public class ModelManager implements Model {
     private void setPredicates() {
         filteredMedicines.setPredicate(PREDICATE_SHOW_ALL_MEDICINES);
         medicinesLowQuantity.setPredicate(medicine -> medicine.getQuantity().getNumericValue() < 20);
-        medicinesExpiring.setPredicate(medicine -> medicine.getExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < 10);
+        medicinesExpiring.setPredicate(medicine ->
+                medicine.getExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < 10);
     }
 
     /**

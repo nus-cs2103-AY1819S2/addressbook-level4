@@ -4,10 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import seedu.address.model.medicine.Medicine;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * An UI component that displays information of a {@code Medicine}.

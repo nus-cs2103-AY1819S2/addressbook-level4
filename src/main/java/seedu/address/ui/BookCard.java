@@ -7,12 +7,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.book.Book;
 
+/**
+ * An UI component that displays information of a {@code Book}.
+ */
 public class BookCard extends UiPart<Region> {
 
     private static final String FXML = "bookListCard.fxml";
 
     private static final String[] TAG_COLOR_STYLES =
-            { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey" };
+        { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

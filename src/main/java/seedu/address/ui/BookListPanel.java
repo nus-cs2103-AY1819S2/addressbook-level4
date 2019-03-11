@@ -27,7 +27,7 @@ public class BookListPanel extends UiPart<Region> {
                            Consumer<Book> onSelectedbookChange) {
         super(FXML);
         bookListView.setItems(bookList);
-        bookListView.setCellFactory(listView -> new bookListViewCell());
+        bookListView.setCellFactory(listView -> new BookListViewCell());
         bookListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in book list panel changed to : '" + newValue + "'");
             onSelectedbookChange.accept(newValue);
@@ -54,7 +54,7 @@ public class BookListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code book} using a {@code bookCard}.
      */
-    class bookListViewCell extends ListCell<Book> {
+    class BookListViewCell extends ListCell<Book> {
         @Override
         protected void updateItem(Book book, boolean empty) {
             super.updateItem(book, empty);

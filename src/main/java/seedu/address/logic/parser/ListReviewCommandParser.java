@@ -8,6 +8,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 
+/**
+ * Parses input arguments and creates a new ListReviewCommand object
+ */
 public class ListReviewCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -22,8 +25,8 @@ public class ListReviewCommandParser {
         }
 
         String name = trimmedArgs;
-        BookNameContainsExactKeywordsPredicate predicate
-            = new BookNameContainsExactKeywordsPredicate(new BookName(name));
+        BookNameContainsExactKeywordsPredicate predicate =
+            new BookNameContainsExactKeywordsPredicate(new BookName(name));
         return new ListReviewCommand(predicate);
     }
 }

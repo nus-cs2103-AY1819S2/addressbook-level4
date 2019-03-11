@@ -11,6 +11,9 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.BookRatingMatchesScorePredicate;
 import seedu.address.model.book.BookTagsContainExactKeywordsPredicate;
 
+/**
+ * Lists all books with the tags and rating desired.
+ */
 public class ListBookCommand extends Command {
 
     public static final String COMMAND_WORD = "listBook";
@@ -45,7 +48,8 @@ public class ListBookCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredBookList(predicate);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(
+                String.format(Messages.MESSAGE_BOOKS_LISTED_OVERVIEW, model.getFilteredBookList().size()));
     }
 
     @Override

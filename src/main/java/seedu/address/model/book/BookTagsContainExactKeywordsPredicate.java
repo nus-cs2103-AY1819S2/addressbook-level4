@@ -13,7 +13,9 @@ public class BookTagsContainExactKeywordsPredicate implements Predicate<Book> {
 
     private final List<String> keywords;
 
-    public BookTagsContainExactKeywordsPredicate(List<String> inputKeywords) { keywords = inputKeywords; }
+    public BookTagsContainExactKeywordsPredicate(List<String> inputKeywords) {
+        keywords = inputKeywords;
+    }
 
     @Override
     public boolean test(Book book) {
@@ -35,6 +37,6 @@ public class BookTagsContainExactKeywordsPredicate implements Predicate<Book> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookTagsContainExactKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((BookTagsContainExactKeywordsPredicate)other).keywords)); // state check
+                && keywords.equals(((BookTagsContainExactKeywordsPredicate) other).keywords)); // state check
     }
 }

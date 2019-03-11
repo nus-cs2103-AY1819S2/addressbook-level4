@@ -1,14 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 
-public class ListReviewCommand extends Command{
+/**
+ * Lists the review of the book.
+ */
+public class ListReviewCommand extends Command {
     public static final String COMMAND_WORD = "listReview";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": list all reviews whose name equals"
@@ -20,7 +22,9 @@ public class ListReviewCommand extends Command{
 
     private final BookNameContainsExactKeywordsPredicate predicate;
 
-    public ListReviewCommand(BookNameContainsExactKeywordsPredicate predicate) { this.predicate = predicate; }
+    public ListReviewCommand(BookNameContainsExactKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

@@ -2,6 +2,9 @@ package seedu.address.model.book;
 
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Book}'s {@code BookRating} match the given score.
+ */
 public class BookRatingMatchesScorePredicate implements Predicate<Book> {
     private final Rating rating;
 

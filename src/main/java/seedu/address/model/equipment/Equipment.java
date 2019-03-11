@@ -2,10 +2,16 @@ package seedu.address.model.equipment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
 
 import seedu.address.model.tag.Tag;
 
@@ -79,6 +85,31 @@ public class Equipment {
                 && otherEquipment.getName().equals(getName())
                 && (otherEquipment.getPhone().equals(getPhone()) || otherEquipment.getEmail()
                     .equals(getEmail()) || otherEquipment.getSerialNumber().equals(getSerialNumber()));
+    }
+
+    public double[] getCoordiantes() {
+        double[] coordiantes = new double[2];
+        try {
+            GeoApiContext context = new GeoApiContext.Builder()
+                    .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
+                    .build();
+            GeocodingResult[] results = GeocodingApi.geocode(context,
+                    this.getAddress().toString()).await();
+            if (results.length > 0) {
+                coordiantes[0] = results[0].geometry.location.lng;
+                coordiantes[1] = results[0].geometry.location.lat;
+            } else {
+                coordiantes = null;
+            }
+        } catch (ApiException e) {
+            System.err.println(e.getMessage());
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            return coordiantes;
+        }
     }
 
     /**

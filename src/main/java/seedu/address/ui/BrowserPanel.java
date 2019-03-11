@@ -57,31 +57,15 @@ public class BrowserPanel extends UiPart<Region> {
      * @param equipment The equipment to load.
      */
     private void loadEquipmentPage(Equipment equipment) {
-
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
-                .build();
         String url = MAP_PAGE_BASE_URL;
-        try {
-            GeocodingResult[] results = GeocodingApi.geocode(context,
-                    equipment.getAddress().toString()).await();
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            if (results.length > 0) {
-                System.out.println();
-                url = MAP_PAGE_BASE_URL + "?coordinates=[[" + results[0].geometry.location.lng + ","
-                        + results[0].geometry.location.lat + "]]&title=[\"" + equipment.getName()
-                        + "\"]&icon=[\"monument\"]";
-            }
-        } catch (ApiException e) {
-            System.err.println(e.getMessage());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        } finally {
-            System.out.println("Loading page: " + url);
-            loadPage(url);
+        double[] coordiantes = equipment.getCoordiantes();
+        if (coordiantes != null) {
+            url = MAP_PAGE_BASE_URL + "?coordinates=[[" + coordiantes[0] + ","
+                    + coordiantes[1] + "]]&title=[\"" + equipment.getName()
+                    + "\"]&icon=[\"monument\"]";
         }
+        System.out.println("Loading page: " + url);
+        loadPage(url);
     }
 
     /**

@@ -311,13 +311,15 @@
     -fx-background-color: #383838;
 }
 
-#tableCard {
+#tableCardPane {
     -fx-background-color: #515658;
     -fx-border-color: #3c3e3f;
+    -fx-scale-shape: false;
 }
 
 #tableCard .label {
     -fx-text-fill: white;
+    -fx-wrap-text: true;
 }
 
 #tableFlowPane {

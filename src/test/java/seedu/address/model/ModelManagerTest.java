@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALICE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalBooks.ALI;
+import static seedu.address.testutil.TypicalBooks.CS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -19,10 +22,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
@@ -35,7 +41,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new BookShelf(), new BookShelf(modelManager.getBookShelf()));
         assertEquals(null, modelManager.getSelectedPerson());
     }
 
@@ -75,14 +81,14 @@ public class ModelManagerTest {
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.setBookShelfFilePath(null);
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setBookShelfFilePath(path);
+        assertEquals(path, modelManager.getBookShelfFilePath());
     }
 
     @Test
@@ -92,7 +98,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasBook_nullBook_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasBook(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasBook_bookNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
@@ -103,11 +120,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasBook_bookInAddressBook_returnsTrue() {
+        modelManager.addBook(ALI);
+        assertTrue(modelManager.hasBook(ALI));
+    }
+
+    @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
         modelManager.deletePerson(ALICE);
         assertEquals(null, modelManager.getSelectedPerson());
+    }
+
+    @Test
+    public void deleteBook_bookIsSelectedAndFirstBookInFilteredBookList_selectionCleared() {
+        modelManager.addBook(ALI);
+        modelManager.setSelectedBook(ALI);
+        modelManager.deleteBook(ALI);
+        assertEquals(null, modelManager.getSelectedBook());
     }
 
     @Test
@@ -121,6 +152,16 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void deleteBook_bookIsSelectedAndSecondBookInFilteredBookList_firstBookSelected() {
+        modelManager.addBook(ALI);
+        modelManager.addBook(CS);
+        assertEquals(Arrays.asList(ALI, CS), modelManager.getFilteredBookList());
+        modelManager.setSelectedBook(CS);
+        modelManager.deleteBook(CS);
+        assertEquals(ALI, modelManager.getSelectedBook());
+    }
+
+    @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
@@ -130,15 +171,36 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setBook_bookIsSelected_selectedBookUpdated() {
+        modelManager.addBook(ALI);
+        modelManager.setSelectedBook(ALI);
+        Book updatedAlice = new BookBuilder(ALI).withRating(VALID_RATING_ALICE).build();
+        modelManager.setBook(ALI, updatedAlice);
+        assertEquals(updatedAlice, modelManager.getSelectedBook());
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
     }
 
     @Test
+    public void getFilteredBookList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredBookList().remove(0);
+    }
+
+    @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
         thrown.expect(PersonNotFoundException.class);
         modelManager.setSelectedPerson(ALICE);
+    }
+
+    @Test
+    public void setSelectedBook_bookNotInFilteredBookList_throwsBookNotFoundException() {
+        thrown.expect(BookNotFoundException.class);
+        modelManager.setSelectedBook(ALI);
     }
 
     @Test
@@ -150,9 +212,17 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setSelectedBook_bookInFilteredBookList_setsSelectedBook() {
+        modelManager.addBook(ALI);
+        assertEquals(Collections.singletonList(ALI), modelManager.getFilteredBookList());
+        modelManager.setSelectedBook(ALI);
+        assertEquals(ALI, modelManager.getSelectedBook());
+    }
+
+    @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        BookShelf addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        BookShelf differentAddressBook = new BookShelf();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

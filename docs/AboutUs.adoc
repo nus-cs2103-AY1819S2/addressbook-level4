@@ -11,8 +11,8 @@ _{The original codebase, AddressBook 4, was developed by the se-edu team.}_ +
 == Project Team
 
 === Liu Yiwen
-image::yiwen.jpg[width="150", align="left"]
-{empty} https://github.com/0blivious[github]]
+image::0blivious.png[width="150", align="left"]
+{empty}[https://github.com/0blivious[github]]
 
 Role: Developer
 
@@ -20,7 +20,7 @@ Role: Developer
 '''
 
 === Jiang Qinhua
-image::qinhua.jpg[width="150", align="left"]
+image::jiangqinhua.png[width="150", align="left"]
 {empty}[https://github.com/jiangqinhua[github]]
 
 Role: Developer
@@ -28,16 +28,16 @@ Role: Developer
 '''
 
 === Yang Sihan
-image::sihan.jpg[width="150", align="left"]
-{empty}[https://github.com/EleenYang[github]]
+image::eleenyang.png[width="150", align="left"]
+{empty}[https://github.com/eleenyang[github]]
 
 Role: Developer
 
 '''
 
 === Tieze
-image::tieze.jpg[width="150", align="left"]
-{empty}[https://github.com/Miaaaaa97[github]]
+image::miaaaaa97.png[width="150", align="left"]
+{empty}[https://github.com/miaaaaa97[github]]
 
 Role: Developer
 

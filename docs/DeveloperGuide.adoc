@@ -146,9 +146,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete \nAlice`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete \nAlice` command
 image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
@@ -186,9 +186,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete \nAlice")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete \nAlice` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -237,54 +237,54 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedBookList`.
-It extends `BookList` with an undo/redo history, stored internally as an `BookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedBookShelf`.
+It extends `BookShelf` with an undo/redo history, stored internally as an `BookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedBookList#commit()` -- Saves the current address book state in its history.
-* `VersionedBookList#undo()` -- Restores the previous address book state from its history.
-* `VersionedBookList#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedBookShelf#commit()` -- Saves the current address book state in its history.
+* `VersionedBookShelf#undo()` -- Restores the previous address book state from its history.
+* `VersionedBookShelf#redo()` -- Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitBookList()`, `Model#undoBookList()` and `Model#redoBookList()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitBookShelf()`, `Model#undoBookShelf()` and `Model#redoBookShelf()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookList` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete Alice` command to delete the book called Alice in the book list. The `delete` command calls `Model#commitBookList()`, causing the modified state of the book list after the `delete Alice` command executes to be saved in the `bookListStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
+Step 2. The user executes `delete \nAlice` command to delete the book called Alice in the book list. The `delete` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `delete \nAlice` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitBookList()`, causing another modified address book state to be saved into the `bookListStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitBookShelf()`, causing another modified address book state to be saved into the `BookShelfStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitBookList()`, so the address book state will not be saved into the `bookListStateList`.
+If a command fails its execution, it will not call `Model#commitBookShelf()`, so the address book state will not be saved into the `BookShelfStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookList()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookShelf()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canundoBookList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canundoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoBookList()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoBookShelf()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `bookListStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canredoBookList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `BookShelfStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canredoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitBookList()`, `Model#undoBookList()` or `Model#redoBookList()`. Thus, the `bookListStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitBookShelf()`, `Model#undoBookShelf()` or `Model#redoBookShelf()`. Thus, the `BookShelfStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitBookList()`. Since the `currentStatePointer` is not pointing at the end of the `bookListStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitBookShelf()`. Since the `currentStatePointer` is not pointing at the end of the `BookShelfStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,7 +307,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 * **Alternative 1 (current choice):** Use a list to store the history of book list states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedBookList`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedBookShelf`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -835,7 +835,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a book by name |locate details of books without having to go through the entire list
 
-|`*` |user with many books in the list |sort books by rating |locate a book easily
+|`* * *` |user |update a book's review |edit base on current content
+
+|`* * *` |user |exist the program |
+
+|`* * *` |user |select a book |
+
+|`* * *` |user |save |able to save data in local
+
+|`* *` |user |show history |able to see what you did
+
+|`* *` |user |undo |able to undo your operation
+
+|`* *` |user |redo |able to redo your undo
+
+|`* *` |user |clear |clear all entires
+
+|`* *` |user |entrypt |entrypt your review
+
+|`* *` |user |detrypt |detrypt your entrypted review
+
+|`* *` |user |guideline |by typing help to show all commands
+
+|`*` |user |sort |sort the list in alphabetical order
 |=======================================================================
 
 _{More to be added}_
@@ -928,7 +950,7 @@ _{ more test cases ... }_
 . Deleting a book by its name
 
 .. Prerequisites: The book is inside the list. User knows the full name of the book.
-.. Test case: `delete Alice` +
+.. Test case: `delete \nAlice` +
    Expected: The book named Alice is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.

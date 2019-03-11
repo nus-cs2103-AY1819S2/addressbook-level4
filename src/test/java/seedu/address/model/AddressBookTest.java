@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalBooks.ALI;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -21,8 +25,11 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.exceptions.DuplicateBookException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -30,7 +37,7 @@ public class AddressBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final BookShelf addressBook = new BookShelf();
 
     @Test
     public void constructor() {
@@ -45,7 +52,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        BookShelf newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -53,12 +60,28 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        BookShelfStub newData = new BookShelfStub(newPersons);
 
         thrown.expect(DuplicatePersonException.class);
+        addressBook.resetData(newData);
+    }
+
+    @Test
+    public void resetData_withDuplicateBooks_throwsDuplicateBookException() {
+        // Two books with the same identity fields
+        Book editedAlice = new BookBuilder(ALI).withAuthor(VALID_AUTHOR_ALICE)
+                .withBookName(VALID_BOOKNAME_ALICE)
+                .withTags(VALID_TAG_FANTASY)
+                .build();
+        List<Book> newBooks = Arrays.asList(ALI, editedAlice);
+        BookShelfStub newData = new BookShelfStub(newBooks, 1);
+
+        thrown.expect(DuplicateBookException.class);
         addressBook.resetData(newData);
     }
 
@@ -113,18 +136,28 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyBookShelf whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class BookShelfStub implements ReadOnlyBookShelf {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Book> books = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        BookShelfStub(Collection<Person> persons) {
             this.persons.setAll(persons);
+        }
+
+        BookShelfStub(Collection<Book> books, int distinguish) {
+            this.books.setAll(books);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Book> getBookList() {
+            return books;
         }
 
         @Override

@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -14,11 +16,13 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -37,6 +41,16 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_BOOKNAME_ALICE = "Alice in Wonderland";
+    public static final String VALID_BOOKNAME_CS = "Structure and Interpretation of Computer Programs";
+    public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
+    public static final String VALID_AUTHOR_CS = "Hal Abelson Jerry Sussman";
+    public static final String VALID_RATING_ALICE = "5";
+    public static final String VALID_RATING_CS = "4";
+    public static final String VALID_TAG_FANTASY = "fantasy";
+    public static final String VALID_TAG_TEXTBOOK = "textbook";
+    public static final String VALID_TAG_INTERESTING = "interesting";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -48,17 +62,34 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_ALICE;
+    public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;
+    public static final String AUTHOR_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_ALICE;
+    public static final String AUTHOR_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_CS;
+    public static final String RATING_DESC_ALICE = " " + PREFIX_RATING + VALID_RATING_ALICE;
+    public static final String RATING_DESC_CS = " " + PREFIX_RATING + VALID_RATING_CS;
+    public static final String TAG_DESC_FANTASY = " " + PREFIX_TAG + VALID_TAG_FANTASY;
+    public static final String TAG_DESC_TEXTBOOK = " " + PREFIX_TAG + VALID_TAG_TEXTBOOK;
+    public static final String TAG_DESC_INTERESTING = " " + PREFIX_TAG + VALID_TAG_INTERESTING;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String INVALID_BOOKNAME_DESC = " " + PREFIX_NAME + "The K&d"; // '&' not allowed in names
+    public static final String INVALID_AUTHOR_DESC = " " + PREFIX_AUTHOR + "J.K"; // '.' not allowed in phones
+    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "11"; // rating should be [1,10]
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final EditBookDescriptor DESC_ALI;
+    public static final EditBookDescriptor DESC_CS;
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -67,6 +98,12 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ALI = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_ALICE)
+                .withAuthor(VALID_AUTHOR_ALICE).withRating(VALID_RATING_ALICE)
+                .withTags(VALID_TAG_FANTASY).build();
+        DESC_CS = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS)
+                .withAuthor(VALID_AUTHOR_CS).withRating(VALID_RATING_CS)
+                .withTags(VALID_TAG_TEXTBOOK).build();
     }
 
     /**
@@ -109,7 +146,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        BookShelf expectedAddressBook = new BookShelf(actualModel.getBookShelf());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
         Person expectedSelectedPerson = actualModel.getSelectedPerson();
 
@@ -120,7 +157,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedAddressBook, actualModel.getBookShelf());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
             assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
             assertEquals(expectedCommandHistory, actualCommandHistory);

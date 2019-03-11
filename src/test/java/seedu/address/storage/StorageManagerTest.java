@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.BookShelf;
+import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -56,10 +56,10 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
+        BookShelf original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ReadOnlyBookShelf retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new BookShelf(retrieved));
     }
 
     @Test

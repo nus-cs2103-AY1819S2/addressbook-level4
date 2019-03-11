@@ -65,12 +65,21 @@ public class RestOrRantParser {
 
         case RestaurantModeCommand.COMMAND_WORD:
             return new RestaurantModeCommand();
+            
+        case RestaurantModeCommand.COMMAND_ALIAS:
+            return new RestaurantModeCommand();
 
         case MenuModeCommand.COMMAND_WORD:
+            return new MenuModeCommand();
+            
+        case MenuModeCommand.COMMAND_ALIAS:
             return new MenuModeCommand();
 
         case TableModeCommand.COMMAND_WORD:
             return new TableModeCommandParser().parse(arguments);
+            
+        case TableModeCommand.COMMAND_ALIAS:
+            return new TableModeCommandParser().parse(arguments);    
 
         // Commands that work in Restaurant Mode
         case AddTableCommand.COMMAND_WORD:

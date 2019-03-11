@@ -8,7 +8,7 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 
 /**
- * Adds a card to the card folder.
+ * Adds a card folder.
  */
 public class AddFolderCommand extends Command {
 

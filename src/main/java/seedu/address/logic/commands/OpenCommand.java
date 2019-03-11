@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.image.Image;
 
 /**
- * Imports a image to FomoFoto.
+ * Opens a previously imported image for editing.
  */
 
 public class OpenCommand extends Command {

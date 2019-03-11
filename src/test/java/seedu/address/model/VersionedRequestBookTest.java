@@ -36,32 +36,7 @@ class VersionedRequestBookTest {
             Collections.emptyList());
     }
 
-    @org.junit.Test
-    public void commit_multipleRequestBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedRequestBook versionedRequestBook = prepareRequestBookList(
-            emptyRequestBook, requestBookWithAlice, requestBookWithBenson);
-
-        versionedRequestBook.commit();
-        assertRequestBookListStatus(versionedRequestBook,
-            Arrays.asList(emptyRequestBook, requestBookWithAlice, requestBookWithBenson),
-            requestBookWithBenson,
-            Collections.emptyList());
-    }
-
-    @Test
-    public void commit_multipleRequestBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedRequestBook versionedRequestBook = prepareRequestBookList(
-            emptyRequestBook, requestBookWithAlice, requestBookWithBenson);
-        shiftCurrentStatePointerLeftwards(versionedRequestBook, 2);
-
-        versionedRequestBook.commit();
-        assertRequestBookListStatus(versionedRequestBook,
-            Collections.singletonList(emptyRequestBook),
-            emptyRequestBook,
-            Collections.emptyList());
-    }
-
-    @Test
+    @org.junit.jupiter.api.Test
     public void canUndo_multipleRequestBookPointerAtEndOfStateList_returnsTrue() {
         VersionedRequestBook versionedRequestBook = prepareRequestBookList(
             emptyRequestBook, requestBookWithAlice, requestBookWithBenson);

@@ -23,6 +23,11 @@ public class VersionedRequestBook extends RequestBook implements VersionedBook {
         requestBookStateList.subList(currentStatePointer + 1, requestBookStateList.size()).clear();
     }
 
+    @Override
+    public String toString() {
+        return "State: " + this.currentStatePointer + "\n" + this.requestBookStateList.toString();
+    }
+
     /**
      * Saves a copy of the current state.
      */

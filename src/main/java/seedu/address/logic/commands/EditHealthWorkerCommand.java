@@ -36,13 +36,13 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         super(index);
         requireNonNull(editHealthWorkerDescriptor);
 
-        this.editHealthWorkerDescriptor = editHealthWorkerDescriptor;
+        this.editHealthWorkerDescriptor = new EditHealthWorkerDescriptor(editHealthWorkerDescriptor);
     }
 
     @Override
     public void edit(Model model, Object toEdit, Object edited) {
         model.setHealthWorker((HealthWorker) toEdit, (HealthWorker) edited);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredHealthWorkerList(Model.PREDICATE_SHOW_ALL_HEALTHWORKERS);
         model.commitAddressBook();
     }
 
@@ -113,11 +113,10 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
 
         public EditHealthWorkerDescriptor() {}
 
-        public EditHealthWorkerDescriptor(EditPersonCommand.EditPersonDescriptor toCopy,
-                                          Organization organization, Skills skills) {
+        public EditHealthWorkerDescriptor(EditHealthWorkerDescriptor toCopy) {
             super(toCopy);
-            this.organization = organization;
-            this.skills = skills;
+            this.organization = toCopy.organization;
+            this.skills = toCopy.skills;
         }
 
         @Override

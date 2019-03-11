@@ -213,6 +213,7 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+        versionedHealthWorkerBook.commit();
     }
 
     //=========== Selected person ===========================================================================

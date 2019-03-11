@@ -117,12 +117,12 @@ public class EditPersonCommand extends EditCommand implements PersonCommand {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Name name;
-        private Nric nric;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+        protected Name name;
+        protected Nric nric;
+        protected Phone phone;
+        protected Email email;
+        protected Address address;
+        protected Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 

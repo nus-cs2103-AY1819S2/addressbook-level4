@@ -25,6 +25,7 @@ public class Person {
     private final Address address;
     private final School school;
     private final Major major;
+    private final Set<KnownProgLang> knownProgLangs = new HashSet<>();
     private final Set<PastJob> pastjobs = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
@@ -32,8 +33,8 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Race race, Address address,
-            School school, Major major, Set<PastJob> pastjobs, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, school, major, pastjobs, tags);
+            School school, Major major, Set<KnownProgLang> knownProgLangs, Set<PastJob> pastjobs, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, school, major, knownProgLangs, pastjobs, tags);
 
         this.name = name;
         this.phone = phone;
@@ -42,6 +43,7 @@ public class Person {
         this.address = address;
         this.school = school;
         this.major = major;
+        this.knownProgLangs.addAll(knownProgLangs);
         this.pastjobs.addAll(pastjobs);
         this.tags.addAll(tags);
     }
@@ -72,6 +74,14 @@ public class Person {
 
     public Major getMajor() {
         return major;
+    }
+
+    /**
+     * Returns an immutable known programming language set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public final Set<KnownProgLang> getKnownProgLangs() {
+        return Collections.unmodifiableSet(knownProgLangs);
     }
 
     /**
@@ -126,6 +136,7 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getSchool().equals(getSchool())
                 && otherPerson.getPastJobs().equals(getPastJobs())
+                && otherPerson.getKnownProgLangs().equals(getKnownProgLangs())
                 && otherPerson.getMajor().equals(getMajor())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -133,7 +144,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, race, address, school, major, pastjobs, tags);
+        return Objects.hash(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
     }
 
     @Override
@@ -151,9 +162,11 @@ public class Person {
                 .append(" School: ")
                 .append(getSchool())
                 .append(" Major: ")
-                .append(getMajor())
-                .append(" Past jobs: ");
+                .append(getMajor());
+        builder.append(" Past jobs: ");
         getPastJobs().forEach(builder::append);
+        builder.append(" Known Programming Languages: ");
+        getKnownProgLangs().forEach(builder::append);
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

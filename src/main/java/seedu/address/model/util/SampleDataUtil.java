@@ -18,21 +18,21 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static final Description EMPTY_DESCRIPTION = new Description("");
+    public static final String STANDARD_DESCRIPTION = "some description";
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Weekly groceries purchase"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("Groceries")),
-            new Person(new Name("H&M Clothes"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("Shopping")),
+                new Description(STANDARD_DESCRIPTION), getTagSet("Shopping")),
+            new Person(new Name("H and M Clothes"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("Shopping")),
             new Person(new Name("Chicken Rice lunch"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("Food")),
+                new Description(STANDARD_DESCRIPTION), getTagSet("Food")),
             new Person(new Name("Haircut"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("Misc")),
+                new Description(STANDARD_DESCRIPTION), getTagSet("entertainment")),
             new Person(new Name("Bus Ride"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("Transport")),
-            new Person(new Name("Laundry"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("Misc"))
+                new Description(STANDARD_DESCRIPTION), getTagSet("Transportation")),
+            new Person(new Name("Cigarettes"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("vices"))
         };
     }
 

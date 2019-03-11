@@ -23,20 +23,23 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAmount("120").withDate("12/02/2017").withTags("friends").build();
+            .withAmount("120").withDate("12/02/2017").withDescription(new Description("some description"))
+            .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAmount("119").withDate("12/02/2015").withDescription(new Description(""))
+            .withAmount("119").withDate("12/02/2015").withDescription(new Description("some description"))
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
+            .withDescription(new Description("some description"))
             .withAmount("130").withDate("12/05/2017").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withAmount("129").withDate("12/02/2007").withTags("friends").build();
+            .withDescription(new Description("some description")).withAmount("129")
+            .withDate("12/02/2007").withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withAmount("150").withDate("12/12/2017").build();
+            .withDescription(new Description("")).withAmount("150").withDate("12/12/2017").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withAmount("520").withDate("02/02/2017").build();
+            .withDescription(new Description("")).withAmount("520").withDate("02/02/2017").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
-            .withAmount("128").withDate("12/02/2027").build();
+            .withDescription(new Description("")).withAmount("128").withDate("12/02/2027").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")

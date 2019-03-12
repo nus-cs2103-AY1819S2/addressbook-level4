@@ -3,7 +3,6 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 
 image:https://travis-ci.org/cs2103-ay1819s2-w13-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/cs2103-ay1819s2-w13-1/main"]
-
 https://ci.appveyor.com/project/wayneswq/main/branch/master[image:https://ci.appveyor.com/api/projects/status/yulbp51x3qkkyrlu/branch/master?svg=true[Build status]]
 https://coveralls.io/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[Coverage Status]]
 https://app.netlify.com/sites/cs2103-ay1819s2-w13-1/deploys[image:https://api.netlify.com/api/v1/badges/affc1f29-4e36-4d55-8249-d91b9f0fc02f/deploy-status[Netlify Status]]

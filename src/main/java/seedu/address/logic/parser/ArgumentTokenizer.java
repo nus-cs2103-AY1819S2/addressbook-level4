@@ -53,12 +53,27 @@ public class ArgumentTokenizer {
      */
     public static CommandMode checkMode(String args) {
         String trimmedArgs = args.trim();
-        if (!Character.toString(trimmedArgs.charAt(MODE_POSITION + 1)).equals(" ")) {
+        try {
+            if (!Character.toString(trimmedArgs.charAt(MODE_POSITION + 1)).equals(" ")) {
+                return CommandMode.INVALID;
+            }
+        } catch (StringIndexOutOfBoundsException e) {
             return CommandMode.INVALID;
         }
 
         return COMMAND_MODES.getOrDefault(Character.toString(trimmedArgs
                         .charAt(MODE_POSITION)), CommandMode.INVALID);
+    }
+
+    /**
+     * @author Lookaz
+     * Trims the argument string from it's command mode in the first two indices.
+     * Precondition: First two indices of argument string must contain a command mode number followed by a space.
+     * @param args argument string to trim
+     * @return trimmed argument string.
+     */
+    public static String trimMode(String args) {
+        return args.substring(2);
     }
 
     /**

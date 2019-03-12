@@ -1,19 +1,21 @@
 {
   "healthworkers": [ {
-    "name": "Valid Person",
-    "phone": "9482424",
+        "email": "andye@example.com",
+        "name": "Andy Tan",
+        "phone": "94358253",
+        "nric": "S8312942G",
+        "address": "125, Jurong West Ave 6, #08-111",
+        "tagged": [],
+        "organization": "NUH",
+        "skills": "PHYSIOTHERAPY GENERAL_PRACTICE"
+      }, {
+    "name": "Person With Invalid Phone Field",
+    "phone": "948asdf2424",
 	"nric": "S1234567Z",
     "email": "hans@example.com",
     "address": "4th street",
-	"tags": "Parkinsons",
-	"organization": "NUH"
-  } , {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-    "phone": "81231234",
-	"nric": "S1234567Z",
-    "email": "hans@example.com",
-    "address": "4th street",
-	"tags": "Parkinsons",
-	"organization": "NUH"
+	"tagged" : [],
+	"organization": "NUH",
+	"skills": "PHYSIOTHERAPY GENERAL_PRACTICE"
   } ]
 }

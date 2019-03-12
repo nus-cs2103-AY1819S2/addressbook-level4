@@ -60,10 +60,11 @@ public class Patient extends Person {
 
         return other != null
                 && other.getName().equals(this.getName())
-                && other.getName().equals(this.getPhone())
-                && other.getName().equals(this.getEmail())
+                && other.getPhone().equals(this.getPhone())
+                && other.getEmail().equals(this.getEmail())
                 && other.getNric().equals(this.getNric())
-                && other.getName().equals(this.getAddress())
+                && other.getAddress().equals(this.getAddress())
+                && other.getTags().equals(this.getTags())
                 && other.getName().equals(this.getConditions());
     }
 
@@ -83,7 +84,8 @@ public class Patient extends Person {
                 && otherPatient.getNric().equals(getNric())
                 && otherPatient.getTags().equals(getTags())
                 && otherPatient.getEmail().equals(getEmail())
-                && otherPatient.getAddress().equals(getAddress());
+                && otherPatient.getAddress().equals(getAddress())
+                && otherPatient.getConditions().equals(getConditions());
     }
 
     @Override

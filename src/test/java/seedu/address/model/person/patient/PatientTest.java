@@ -56,13 +56,13 @@ public class PatientTest {
                 (VALID_EMAIL_BENSON)).build();
         assertTrue(ALICE.isSamePatient(editedAlice));
 
-        /*
-        // same name, phone, same nric, different skills ->
+
+        // same name, phone, same nric, different conditions ->
         // returns true
         editedAlice = new PatientBuilder(ALICE)
-                .withSkills(BENSON.getSkills()).build();
-        assertTrue(ANDY.isSameHealthWorker(editedAndy));
-        */
+                .withConditions(BENSON.getConditions()).build();
+        assertTrue(ALICE.isSamePatient(editedAlice));
+
     }
 
     @Test

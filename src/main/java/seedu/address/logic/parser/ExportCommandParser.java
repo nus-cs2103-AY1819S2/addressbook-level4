@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FOLDERNAME;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.List;
 
 
 /**
@@ -23,6 +24,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
-        return null;
+        List<String> folderNames = argMultimap.getAllValues(PREFIX_FOLDERNAME);
+        String filename = argMultimap.getValue(PREFIX_FILENAME).get();
+        return new ExportCommand(folderNames, filename);
     }
 }

@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyBookShelf;
+import seedu.address.model.book.Book;
 import seedu.address.model.person.Person;
 
 /**
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of books */
+    ObservableList<Book> getFilteredBookList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -64,9 +68,24 @@ public interface Logic {
     ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
+     * Selected person in the filtered books list.
+     * null if no book is selected.
+     *
+     * @see seedu.address.model.Model#selectedBookProperty()
+     */
+    ReadOnlyProperty<Book> selectedBookProperty();
+
+    /**
      * Sets the selected person in the filtered person list.
      *
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sets the selected person in the filtered person list.
+     *
+     * @see seedu.address.model.Model#setSelectedBook(Book)
+     */
+    void setSelectedBook(Book book);
 }

@@ -23,7 +23,7 @@ import seedu.address.model.card.Card;
  *
  * <br><br>The lesson's {@link #coreHeaders} could store "Country" and "Capital" to identify what the
  * questions and answers of the {@link Card} objects are. The lesson's {@link #optionalHeaders} could store
- * "Country Code" to identify what the hints of the {@link Card} objects are.
+ * "Starts with" to identify what the hints of the {@link Card} objects are.
  */
 public class Lesson {
     // Static fields

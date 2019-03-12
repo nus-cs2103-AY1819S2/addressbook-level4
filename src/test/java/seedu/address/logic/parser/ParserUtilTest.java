@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,9 +16,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Name;
+import seedu.address.model.record.Amount;
+import seedu.address.model.record.Date;
+import seedu.address.model.record.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
@@ -55,10 +55,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_RECORD, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_RECORD, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

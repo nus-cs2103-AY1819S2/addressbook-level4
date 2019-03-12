@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Amount;
+import seedu.address.model.record.Date;
+import seedu.address.model.record.Description;
+import seedu.address.model.record.Name;
+import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,27 +19,27 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
 
     public static final String STANDARD_DESCRIPTION = "some description";
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Weekly groceries purchase"), new Amount("100"), new Date("12/02/2018"),
+    public static Record[] getSampleRecords() {
+        return new Record[] {
+            new Record(new Name("Weekly groceries purchase"), new Amount("100"), new Date("12/02/2018"),
                 new Description(STANDARD_DESCRIPTION), getTagSet("Shopping")),
-            new Person(new Name("H and M Clothes"), new Amount("100"), new Date("12/02/2018"),
+            new Record(new Name("H and M Clothes"), new Amount("100"), new Date("12/02/2018"),
                 new Description(STANDARD_DESCRIPTION), getTagSet("Shopping")),
-            new Person(new Name("Chicken Rice lunch"), new Amount("100"), new Date("12/02/2018"),
+            new Record(new Name("Chicken Rice lunch"), new Amount("100"), new Date("12/02/2018"),
                 new Description(STANDARD_DESCRIPTION), getTagSet("Food")),
-            new Person(new Name("Haircut"), new Amount("100"), new Date("12/02/2018"),
+            new Record(new Name("Haircut"), new Amount("100"), new Date("12/02/2018"),
                 new Description(STANDARD_DESCRIPTION), getTagSet("entertainment")),
-            new Person(new Name("Bus Ride"), new Amount("100"), new Date("12/02/2018"),
+            new Record(new Name("Bus Ride"), new Amount("100"), new Date("12/02/2018"),
                 new Description(STANDARD_DESCRIPTION), getTagSet("Transportation")),
-            new Person(new Name("Cigarettes"), new Amount("100"), new Date("12/02/2018"),
+            new Record(new Name("Cigarettes"), new Amount("100"), new Date("12/02/2018"),
                 new Description(STANDARD_DESCRIPTION), getTagSet("vices"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Record sampleRecord : getSampleRecords()) {
+            sampleAb.addRecord(sampleRecord);
         }
         return sampleAb;
     }

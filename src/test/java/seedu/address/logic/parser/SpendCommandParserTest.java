@@ -22,56 +22,56 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalRecords.AMY;
+import static seedu.address.testutil.TypicalRecords.BOB;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.SpendCommand;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Amount;
+import seedu.address.model.record.Date;
+import seedu.address.model.record.Name;
+import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RecordBuilder;
 
 public class SpendCommandParserTest {
     private SpendCommandParser parser = new SpendCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Record expectedRecord = new RecordBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + TAG_DESC_FRIEND, new SpendCommand(expectedPerson));
+                + TAG_DESC_FRIEND, new SpendCommand(expectedRecord));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + TAG_DESC_FRIEND, new SpendCommand(expectedPerson));
+                + TAG_DESC_FRIEND, new SpendCommand(expectedRecord));
 
         // multiple amounts - last amount accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_AMY + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + TAG_DESC_FRIEND, new SpendCommand(expectedPerson));
+                + TAG_DESC_FRIEND, new SpendCommand(expectedRecord));
 
         // multiple dates - last date accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_AMY + DATE_DESC_BOB
-                + TAG_DESC_FRIEND, new SpendCommand(expectedPerson));
+                + TAG_DESC_FRIEND, new SpendCommand(expectedRecord));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Record expectedRecordMultipleTags = new RecordBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
                         + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new SpendCommand(expectedPersonMultipleTags));
+                new SpendCommand(expectedRecordMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Record expectedRecord = new RecordBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY,
-                new SpendCommand(expectedPerson));
+                new SpendCommand(expectedRecord));
     }
 
     @Test

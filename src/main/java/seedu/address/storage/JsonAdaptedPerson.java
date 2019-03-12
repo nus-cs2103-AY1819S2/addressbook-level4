@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
@@ -36,6 +37,7 @@ class JsonAdaptedPerson {
     private final String school;
     private final String major;
     private final List<JsonAdaptedPastJob> pastjobed = new ArrayList<>();
+    private final List<JsonAdaptedKnownProgLang> knownProgLang = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -43,10 +45,12 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("race") String race,
-            @JsonProperty("address") String address, @JsonProperty("school") String school,
-            @JsonProperty("major") String major, @JsonProperty("pastjobed") List<JsonAdaptedPastJob> pastjobed,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("email") String email, @JsonProperty("race") String race,
+                             @JsonProperty("address") String address, @JsonProperty("school") String school,
+                             @JsonProperty("major") String major,
+                             @JsonProperty("knownProgLang") List<JsonAdaptedKnownProgLang> knownProgLang,
+                             @JsonProperty("pastjobed") List<JsonAdaptedPastJob> pastjobed,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
 
         this.name = name;
         this.phone = phone;
@@ -55,6 +59,9 @@ class JsonAdaptedPerson {
         this.address = address;
         this.school = school;
         this.major = major;
+        if (knownProgLang != null) {
+            this.knownProgLang.addAll(knownProgLang);
+        }
         if (pastjobed != null) {
             this.pastjobed.addAll(pastjobed);
         }
@@ -74,6 +81,9 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         school = source.getSchool().value;
         major = source.getMajor().value;
+        knownProgLang.addAll(source.getKnownProgLangs().stream()
+                .map(JsonAdaptedKnownProgLang::new)
+                .collect(Collectors.toList()));
         pastjobed.addAll(source.getPastJobs().stream()
                 .map(JsonAdaptedPastJob::new)
                 .collect(Collectors.toList()));
@@ -90,11 +100,15 @@ class JsonAdaptedPerson {
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         final List<PastJob> personPastJobs = new ArrayList<>();
+        final List<KnownProgLang> personKnownProgLang = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
         for (JsonAdaptedPastJob pastjob : pastjobed) {
             personPastJobs.add(pastjob.toModelType());
+        }
+        for (JsonAdaptedKnownProgLang knownProgLang : knownProgLang) {
+            personKnownProgLang.add(knownProgLang.toModelType());
         }
 
         if (name == null) {
@@ -152,10 +166,11 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Major.MESSAGE_CONSTRAINTS);
         }
         final Major modelMajor = new Major(major);
+        final Set<KnownProgLang> modelKnownProgLang = new HashSet<>(personKnownProgLang);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<PastJob> modelPastJobs = new HashSet<>(personPastJobs);
         return new Person(modelName, modelPhone, modelEmail, modelRace, modelAddress,
-            modelSchool, modelMajor, modelPastJobs, modelTags);
+            modelSchool, modelMajor, modelKnownProgLang, modelPastJobs, modelTags);
     }
 
 }

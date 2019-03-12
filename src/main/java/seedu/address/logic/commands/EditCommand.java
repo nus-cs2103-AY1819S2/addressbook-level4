@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
@@ -26,6 +27,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
@@ -55,6 +57,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_SCHOOL + "SCHOOL] "
             + "[" + PREFIX_MAJOR + "MAJOR] "
             + "[" + PREFIX_SCHOOL + "SCHOOL] "
+            + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG] "
             + "[" + PREFIX_PASTJOB + "PASTJOB] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -132,10 +135,12 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         School updatedSchool = editPersonDescriptor.getSchool().orElse(personToEdit.getSchool());
         Major updatedMajor = editPersonDescriptor.getMajor().orElse(personToEdit.getMajor());
+        Set<KnownProgLang> updatedKnownProgLangs = editPersonDescriptor.getKnownProgLangs()
+                .orElse(personToEdit.getKnownProgLangs());
         Set<PastJob> updatedPastJobs = editPersonDescriptor.getPastJobs().orElse(personToEdit.getPastJobs());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRace, updatedAddress,
-                updatedSchool, updatedMajor, updatedPastJobs, updatedTags);
+                updatedSchool, updatedMajor, updatedKnownProgLangs, updatedPastJobs, updatedTags);
 
     }
 
@@ -169,6 +174,7 @@ public class EditCommand extends Command {
         private Address address;
         private School school;
         private Major major;
+        private Set<KnownProgLang> knownProgLangs;
         private Set<PastJob> pastjobs;
         private Set<Tag> tags;
 
@@ -187,8 +193,9 @@ public class EditCommand extends Command {
             setRace(toCopy.race);
             setAddress(toCopy.address);
             setSchool(toCopy.school);
-            setPastJobs(toCopy.pastjobs);
             setMajor(toCopy.major);
+            setKnownProgLangs(toCopy.knownProgLangs);
+            setPastJobs(toCopy.pastjobs);
             setTags(toCopy.tags);
         }
 
@@ -196,7 +203,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school, major, pastjobs, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school,
+                    major, knownProgLangs, pastjobs, tags);
         }
 
         public void setName(Name name) {
@@ -256,6 +264,24 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code knownProgLangs} to this object's {@code knownProgLangs}.
+         * A defensive copy of {@code knownProgLangs} is used internally.
+         */
+        public void setKnownProgLangs(Set<KnownProgLang> knownProgLangs) {
+            this.knownProgLangs = (knownProgLangs != null) ? new HashSet<>(knownProgLangs) : null;
+        }
+
+        /**
+         * Returns an unmodifiable pastjob set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code pastjobs} is null.
+         */
+        public Optional<Set<KnownProgLang>> getKnownProgLangs() {
+            return (knownProgLangs != null) ? Optional.of(Collections
+                    .unmodifiableSet(knownProgLangs)) : Optional.empty();
+        }
+
+        /**
          * Sets {@code pastjobs} to this object's {@code pastjobs}.
          * A defensive copy of {@code pastjobs} is used internally.
          */
@@ -310,8 +336,9 @@ public class EditCommand extends Command {
                     && getRace().equals(e.getRace())
                     && getAddress().equals(e.getAddress())
                     && getSchool().equals(e.getSchool())
-                    && getPastJobs().equals(e.getPastJobs())
                     && getMajor().equals(e.getMajor())
+                    && getKnownProgLangs().equals(e.getKnownProgLangs())
+                    && getPastJobs().equals(e.getPastJobs())
                     && getTags().equals(e.getTags());
         }
     }

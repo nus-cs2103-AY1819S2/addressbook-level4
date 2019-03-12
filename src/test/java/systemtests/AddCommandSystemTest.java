@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RACE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SCHOOL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.KNOWNPROGLANG_DESC_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -76,8 +77,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Person toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-            + EMAIL_DESC_AMY + "   " + RACE_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SCHOOL_DESC_AMY + "  "
-            + MAJOR_DESC_AMY + "   " + TAG_DESC_FRIEND + " " + PASTJOB_DESC_PROFESSOR + " ";
+                + EMAIL_DESC_AMY + "   " + RACE_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "
+                + SCHOOL_DESC_AMY + "  " + MAJOR_DESC_AMY + "   " + TAG_DESC_FRIEND + " "
+                + PASTJOB_DESC_PROFESSOR + " " + KNOWNPROGLANG_DESC_PYTHON + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -94,7 +96,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the address book except name -> added */
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + TAG_DESC_FRIEND + PASTJOB_DESC_PROFESSOR;
+                + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + TAG_DESC_FRIEND
+                + PASTJOB_DESC_PROFESSOR + KNOWNPROGLANG_DESC_PYTHON;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person with all fields same as another person in the address book except phone and email
@@ -112,7 +115,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB
             + NAME_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + RACE_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
-            + PASTJOB_DESC_PROFESSOR;
+            + PASTJOB_DESC_PROFESSOR + KNOWNPROGLANG_DESC_PYTHON;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person, missing tags -> added */

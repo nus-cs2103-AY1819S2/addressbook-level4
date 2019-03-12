@@ -75,6 +75,7 @@ Increases the budget limit for the month/week by the specified amount. +
 *Format*: `increase a/AMOUNT`
 
 Examples:
+
 * `increase a/10.10`
 * `increase 100`
 

@@ -28,7 +28,9 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +44,7 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredTasks = new FilteredList<>(versionedAddressBook.getTaskList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
     }
 

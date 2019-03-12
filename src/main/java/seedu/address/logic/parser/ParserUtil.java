@@ -149,7 +149,7 @@ public class ParserUtil {
         requireNonNull(title);
         String trimmedTitle = title.trim();
         if (!Title.isValidTitle(title)) {
-            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
         return new Title(trimmedTitle);
     }
@@ -162,7 +162,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!DateCustom.isValidDate(date)) {
-            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
         return new DateCustom(trimmedDate);
     }

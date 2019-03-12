@@ -21,11 +21,11 @@ public class TaskAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
             + PREFIX_TITLE + "NAME "
-            + PREFIX_STARTDATE + "NRIC "
-            + PREFIX_ENDDATE + "DOB \n"
+            + PREFIX_STARTDATE + "START DATE "
+            + PREFIX_ENDDATE + "END DATE \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "Teeth removal surgery"
-            + PREFIX_STARTDATE + "20-12-2019"
+            + PREFIX_TITLE + "Teeth removal surgery "
+            + PREFIX_STARTDATE + "20-12-2019 "
             + PREFIX_ENDDATE + "20-13-2019 ";
 
 

@@ -125,27 +125,27 @@ public interface Model {
     /**
      * Returns true if the model has previous book shelf states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoBookShelf();
 
     /**
      * Returns true if the model has undone book shelf states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoBookShelf();
 
     /**
      * Restores the model's book shelf to its previous state.
      */
-    void undoAddressBook();
+    void undoBookShelf();
 
     /**
      * Restores the model's book shelf to its previously undone state.
      */
-    void redoAddressBook();
+    void redoBookShelf();
 
     /**
      * Saves the current book shelf state for undo/redo.
      */
-    void commitAddressBook();
+    void commitBookShelf();
 
     /**
      * Selected person in the filtered person list.

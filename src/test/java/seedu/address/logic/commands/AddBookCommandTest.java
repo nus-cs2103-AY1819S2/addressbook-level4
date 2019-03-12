@@ -192,27 +192,27 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -290,7 +290,7 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitBookShelf() {
             // called by {@code AddBookCommand#execute()}
         }
 

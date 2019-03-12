@@ -17,7 +17,6 @@ public class ExportCommandParser implements Parser<ExportCommand> {
 
     @Override
     public ExportCommand parse(String userInput) throws ParseException {
-        userInput = userInput.trim();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 userInput, PREFIX_FILENAME, PREFIX_FOLDERNAME);
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_FOLDERNAME, PREFIX_FILENAME)

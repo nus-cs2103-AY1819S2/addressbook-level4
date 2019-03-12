@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.AnswerCommandResultType;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 
 /**
@@ -79,6 +81,23 @@ public class CommandResult {
 
     public Card getTestSessionCard() {
         return testSessionCard;
+    }
+
+    public boolean isAnswerCommand() {
+        if (answerCommandResult == AnswerCommandResultType.NOT_ANSWER_COMMAND) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isAnswerCorrect() throws CommandException {
+        if (answerCommandResult == AnswerCommandResultType.ANSWER_CORRECT) {
+            return true;
+        } else if (answerCommandResult == AnswerCommandResultType.ANSWER_WRONG) {
+            return false;
+        } else {
+            throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
+        }
     }
 
     @Override

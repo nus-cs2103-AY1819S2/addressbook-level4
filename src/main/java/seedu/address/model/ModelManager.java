@@ -116,7 +116,7 @@ public class ModelManager implements Model {
     public void initQuickDocsSampleData() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
         for (Patient patient : samplePatients) {
-           addPatient(patient);
+            addPatient(patient);
         }
         Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
         for (Appointment app : sampleAppointments) {

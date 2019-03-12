@@ -2,14 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.book.Book;
-import seedu.address.model.book.BookRatingMatchesScorePredicate;
-import seedu.address.model.book.BookTagsContainExactKeywordsPredicate;
+import seedu.address.model.book.BookListFilterPredicate;
 
 /**
  * Lists all books with the tags and rating desired.
@@ -25,23 +21,10 @@ public class ListBookCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all persons satisfy the requirement";
 
-    private final Predicate<Book> predicate;
+    private final BookListFilterPredicate predicate;
 
-    public ListBookCommand() {
-        predicate = x -> true;
-    }
-
-    public ListBookCommand(BookRatingMatchesScorePredicate rating) {
-        predicate = rating;
-    }
-
-    public ListBookCommand(BookTagsContainExactKeywordsPredicate tags) {
-        predicate = tags;
-    }
-
-    public ListBookCommand(BookRatingMatchesScorePredicate rating,
-            BookTagsContainExactKeywordsPredicate tags) {
-        predicate = x -> rating.test(x) && tags.test(x);
+    public ListBookCommand(BookListFilterPredicate predicate) {
+        this.predicate = predicate;
     }
 
     @Override

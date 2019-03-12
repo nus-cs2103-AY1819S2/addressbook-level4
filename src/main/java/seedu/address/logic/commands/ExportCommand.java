@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOLDERNAME;
 
+import java.io.IOException;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
@@ -10,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.storage.csv_manager.CsvCardExport;
 
 /**
  * Exports single or multiple card folders into a .json file. Users must specify file name to export card folders to.
@@ -30,6 +32,8 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find the specified folder: ";
 
+    public static final String MESSAGE_FILE_OPS_FAILURE = "Could not export to specified file";
+
     private List<String> cardFolders;
     private String filename;
 
@@ -43,9 +47,13 @@ public class ExportCommand extends Command {
         // check whether model contains the card folders desired. Catch exception thrown
         try {
             List<ReadOnlyCardFolder> cardFolderObject = model.returnValidCardFolders(this.cardFolders);
+            CsvCardExport cardExportManager = new CsvCardExport(cardFolderObject, filename);
+            cardExportManager.writeFoldersToCSV();
         } catch (CardFolderNotFoundException e) {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS + e.getMessage());
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         }
-        return null;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, filename));
     }
 }

@@ -30,7 +30,7 @@ public class CsvCardExport {
     /**
      * Writes card folders as csv file.
      */
-    private void writeFoldersToCSV() throws IOException {
+    public void writeFoldersToCSV() throws IOException {
         String filepath = getFilePath();
         FileWriter fileWriter = new FileWriter(filepath);
 

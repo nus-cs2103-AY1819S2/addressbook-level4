@@ -17,42 +17,42 @@ import seedu.finance.model.ReadOnlyFinanceTracker;
 /**
  * A class to access FinanceTracker data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonFinanceTrackerStorage implements FinanceTrackerStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonFinanceTrackerStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getFinanceTrackerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyFinanceTracker> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyFinanceTracker> readFinanceTracker() throws DataConversionException {
+        return readFinanceTracker(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readFinanceTracker()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyFinanceTracker> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyFinanceTracker> readFinanceTracker(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableFinanceTracker> jsonFinanceTracker = JsonUtil.readJsonFile(
+                filePath, JsonSerializableFinanceTracker.class);
+        if (!jsonFinanceTracker.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonFinanceTracker.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,8 +60,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveFinanceTracker(ReadOnlyFinanceTracker addressBook) throws IOException {
-        saveFinanceTracker(addressBook, filePath);
+    public void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker) throws IOException {
+        saveFinanceTracker(financeTracker, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveFinanceTracker(ReadOnlyFinanceTracker addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker, Path filePath) throws IOException {
+        requireNonNull(financeTracker);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFinanceTracker(financeTracker), filePath);
     }
 
 }

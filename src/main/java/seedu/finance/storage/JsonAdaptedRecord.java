@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.finance.storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.record.Amount;
-import seedu.address.model.record.Date;
-import seedu.address.model.record.Description;
-import seedu.address.model.record.Name;
-import seedu.address.model.record.Record;
-import seedu.address.model.tag.Tag;
+import seedu.finance.commons.exceptions.IllegalValueException;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.record.Record;
+import seedu.finance.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Record}.

@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.commons.exceptions.DataConversionException;
-import seedu.finance.model.ReadOnlyAddressBook;
+import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.ReadOnlyUserPrefs;
 import seedu.finance.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of FinanceTracker data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private FinanceTrackerStorage financeTrackerStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(FinanceTrackerStorage financeTrackerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.financeTrackerStorage = financeTrackerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ FinanceTracker methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getFinanceTrackerFilePath() {
+        return financeTrackerStorage.getFinanceTrackerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyFinanceTracker> readFinanceTracker() throws DataConversionException, IOException {
+        return readFinanceTracker(financeTrackerStorage.getFinanceTrackerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyFinanceTracker> readFinanceTracker(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return financeTrackerStorage.readFinanceTracker(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker) throws IOException {
+        saveFinanceTracker(financeTracker, financeTrackerStorage.getFinanceTrackerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        financeTrackerStorage.saveFinanceTracker(financeTracker, filePath);
     }
 
 }

@@ -11,12 +11,12 @@ import seedu.finance.model.ReadOnlyFinanceTracker;
 /**
  * Represents a storage for {@link FinanceTracker}.
  */
-public interface AddressBookStorage {
+public interface FinanceTrackerStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getFinanceTrackerFilePath();
 
     /**
      * Returns FinanceTracker data as a {@link ReadOnlyFinanceTracker}.
@@ -24,23 +24,23 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyFinanceTracker> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyFinanceTracker> readFinanceTracker() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getFinanceTrackerFilePath()
      */
-    Optional<ReadOnlyFinanceTracker> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyFinanceTracker> readFinanceTracker(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyFinanceTracker} to the storage.
-     * @param addressBook cannot be null.
+     * @param financeTracker cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveFinanceTracker(ReadOnlyFinanceTracker addressBook) throws IOException;
+    void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker) throws IOException;
 
     /**
      * @see #saveFinanceTracker(ReadOnlyFinanceTracker)
      */
-    void saveFinanceTracker(ReadOnlyFinanceTracker addressBook, Path filePath) throws IOException;
+    void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker, Path filePath) throws IOException;
 
 }

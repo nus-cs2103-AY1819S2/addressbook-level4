@@ -16,32 +16,32 @@ import seedu.finance.model.record.Record;
 /**
  * An Immutable FinanceTracker that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "financetracker")
+class JsonSerializableFinanceTracker {
 
     public static final String MESSAGE_DUPLICATE_RECORD = "Records list contains duplicate record(s).";
 
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given records.
+     * Constructs a {@code JsonSerializableFinanceTracker} with the given records.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("records") List<JsonAdaptedRecord> records) {
+    public JsonSerializableFinanceTracker(@JsonProperty("records") List<JsonAdaptedRecord> records) {
         this.records.addAll(records);
     }
 
     /**
      * Converts a given {@code ReadOnlyFinanceTracker} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableFinanceTracker}.
      */
-    public JsonSerializableAddressBook(ReadOnlyFinanceTracker source) {
+    public JsonSerializableFinanceTracker(ReadOnlyFinanceTracker source) {
         records.addAll(source.getRecordList().stream().map(JsonAdaptedRecord::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this finance book into the model's {@code FinanceTracker} object.
+     * Converts this finance tracker into the model's {@code FinanceTracker} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

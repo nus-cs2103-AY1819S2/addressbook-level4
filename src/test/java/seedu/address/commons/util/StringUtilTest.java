@@ -7,10 +7,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.address.model.tag.Tag;
 
 public class StringUtilTest {
 
@@ -51,7 +54,6 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("1")); // Boundary value
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
-
 
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 
@@ -135,6 +137,92 @@ public class StringUtilTest {
 
         // Matches multiple words in sentence
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
+    }
+
+    //---------------- Tests for containsTagIgnoreCase --------------------------------------
+
+    /*
+     * Invalid equivalence partitions for tag: null, empty, multiple tags
+     * Invalid equivalence partitions for tagsList: null
+     * The four test cases below test one invalid input at a time.
+     */
+
+    @Test
+    public void containsTagIgnoreCase_nullWord_throwsNullPointerException() {
+        assertExceptionForTagsThrown(NullPointerException.class,
+                Set.of(new Tag("school"), new Tag("temple")), null, Optional.empty());
+    }
+
+    private void assertExceptionForTagsThrown(Class<? extends Throwable> exceptionClass, Set<Tag> tagsList, String tag,
+                                              Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
+        StringUtil.containsTagIgnoreCase(tagsList, tag);
+    }
+
+    @Test
+    public void containsTagIgnoreCase_emptyWord_throwsIllegalArgumentException() {
+        assertExceptionForTagsThrown(IllegalArgumentException.class,
+                Set.of(new Tag("school"), new Tag("temple")),
+                "  ", Optional.of("Tag parameter cannot be empty"));
+    }
+
+    @Test
+    public void containsTagIgnoreCase_multipleWords_throwsIllegalArgumentException() {
+        assertExceptionForTagsThrown(IllegalArgumentException.class,
+                Set.of(new Tag("school"), new Tag("temple")), "aaa BBB",
+                Optional.of("Tag parameter should be a single word"));
+    }
+
+    @Test
+    public void containsTagIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertExceptionForTagsThrown(NullPointerException.class, null, "abc", Optional.empty());
+    }
+
+    /*
+     * Valid equivalence partitions for tag:
+     *   - any tag
+     *   - word with leading/trailing spaces
+     *
+     * Valid equivalence partitions for tagsList:
+     *   - empty string
+     *   - one tag
+     *   - multiple tags
+     *
+     * Possible scenarios returning true:
+     *   - matches first word in sentence
+     *   - last word in sentence
+     *   - middle word in sentence
+     *   - matches multiple words
+     *
+     * Possible scenarios returning false:
+     *   - query word matches part of a sentence word
+     *   - sentence word matches part of the query word
+     *
+     * The test method below tries to verify all above with a reasonably low number of test cases.
+     */
+
+    @Test
+    public void containsTagIgnoreCase_validInputs_correctResult() {
+
+        // Empty tagsList
+        assertFalse(StringUtil.containsTagIgnoreCase(Set.of(), "abc")); // Boundary case
+
+        // Matches a partial tag only
+        assertFalse(StringUtil.containsTagIgnoreCase(Set.of(new Tag("school"), new Tag("temple"),
+                new Tag("zoo")), "temp")); // tagsList tag bigger than query tag
+        assertFalse(StringUtil.containsTagIgnoreCase(Set.of(new Tag("school"), new Tag("temple"),
+                new Tag("zoo")), "temples")); // Query word bigger than sentence word
+
+        // Matches word in the sentence, different upper/lower case letters
+        assertTrue(StringUtil.containsTagIgnoreCase(Set.of(new Tag("school"), new Tag("temple"),
+                new Tag("zoo")), "School")); // First word (boundary case)
+        assertTrue(StringUtil.containsTagIgnoreCase(Set.of(new Tag("school"), new Tag("temple"),
+                new Tag("zoo")), "ZoO")); // Last word (boundary case)
+        assertTrue(StringUtil.containsTagIgnoreCase(Set.of(new Tag("school")),
+                "sChoOl")); // Only one word in sentence (boundary case)
+        assertTrue(StringUtil.containsTagIgnoreCase(Set.of(new Tag("school"), new Tag("temple"),
+                new Tag("zoo")), "   scHoOL   ")); // Leading/trailing spaces
     }
 
     //---------------- Tests for containsRating --------------------------------------

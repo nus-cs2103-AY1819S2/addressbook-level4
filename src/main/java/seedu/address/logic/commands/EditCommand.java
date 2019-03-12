@@ -23,8 +23,8 @@ import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Description;
 import seedu.address.model.record.Name;
-import seedu.address.model.record.Record;
 import seedu.address.model.category.Category;
+import seedu.address.model.record.Record;
 
 /**
  * Edits the details of an existing record in the address book.

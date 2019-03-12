@@ -24,6 +24,16 @@ public class Conditions {
         this.conditions = new HashSet<>(conditions.getConditions());
     }
 
+    /**
+     * Constructs a Skills object from existing {@code skills} Set of
+     * Specialisations.
+     * TODO: Consider using variable argument list.
+     * @param conditions Set object containing Specialisation to construct from.
+     */
+    public Conditions(Collection<ConditionTag> conditions) {
+        this.conditions = new HashSet<>(conditions);
+    }
+
     public Set<ConditionTag> getConditions() {
         return this.conditions;
     }

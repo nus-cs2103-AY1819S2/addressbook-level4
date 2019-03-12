@@ -7,34 +7,44 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.menu.Name;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    //    private static final String INVALID_NAME = "R@chel";
+    //    private static final String INVALID_PHONE = "+651234";
+    //    private static final String INVALID_ADDRESS = " ";
+    //    private static final String INVALID_EMAIL = "example.com";
+    //    private static final String INVALID_TAG = "#friend";
+    //
+    //    private static final String VALID_NAME = "Rachel Walker";
+    //    private static final String VALID_PHONE = "123456";
+    //    private static final String VALID_ADDRESS = "123 Main Street #0505";
+    //    private static final String VALID_EMAIL = "rachel@example.com";
+    //    private static final String VALID_TAG_1 = "friend";
+    //    private static final String VALID_TAG_2 = "neighbour";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String INVALID_NAME = " McSpicy";
+    private static final String INVALID_CODE = "09W";
+    private static final String INVALID_PRICE = "1.3a";
+    private static final String INVALID_DAY = "35";
+    private static final String INVALID_MONTH = "13";
+    private static final String INVALID_YEAR = "2103";
+    private static final String INVALID_TABLE_NUMBER = "abc";
+
+    private static final String VALID_NAME = "McSpicy Burger";
+    private static final String VALID_CODE = "A11";
+    private static final String VALID_PRICE = "4.70";
+    private static final String VALID_DAY = "29";
+    private static final String VALID_MONTH = "10";
+    private static final String VALID_YEAR = "2019";
+    private static final String VALID_TABLE_NUMBER = "4";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -65,7 +75,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -79,12 +89,12 @@ public class ParserUtilTest {
         assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
     }
 
-    @Test
-    public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
-    }
+    //    @Test
+    //    public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+    //        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
+    //        Name expectedName = new Name(VALID_NAME);
+    //        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    //    }
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {

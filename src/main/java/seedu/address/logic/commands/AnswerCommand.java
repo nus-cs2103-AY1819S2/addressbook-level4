@@ -39,7 +39,6 @@ public class AnswerCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Card> lastShownList = model.getFilteredCards();
 
         if (!model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
@@ -48,7 +47,7 @@ public class AnswerCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
         }
         model.setCardAsAnswered();
-        Card cardToMark = lastShownList.get(0);
+        Card cardToMark = model.getCurrentTestedCard();
 
         boolean isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
 

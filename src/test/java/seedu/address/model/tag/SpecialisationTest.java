@@ -1,8 +1,9 @@
 package seedu.address.model.tag;
 
+import org.junit.Test;
+
 import seedu.address.testutil.Assert;
 
-import org.junit.Test;
 
 public class SpecialisationTest {
 

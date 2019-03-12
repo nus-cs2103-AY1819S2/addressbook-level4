@@ -19,6 +19,6 @@ public class AttackHit extends AttackResult {
     @Override
     public String toString() {
         return String.format(ATTACK + "hit",
-            attacker, coords, target);
+            attacker.getName(), coords, target.getName());
     }
 }

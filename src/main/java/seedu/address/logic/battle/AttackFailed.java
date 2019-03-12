@@ -3,12 +3,17 @@ package seedu.address.logic.battle;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
 
+/**
+ * Represents the result of an invalid attack (e.g. to a non-existent player, or an invalid coordinate)
+ */
 public class AttackFailed extends AttackResult {
     private String reason;
+    private String enemyName;
 
-    public AttackFailed(Player attacker, Player target, Coordinates cell, String reason) {
-        super(attacker, target, cell);
+    public AttackFailed(Player attacker, String target, Coordinates cell, String reason) {
+        super(attacker, null, cell);
         this.reason = reason;
+        this.enemyName = target;
     }
     /**
      * Checks if this AttackResult is a hit or a miss
@@ -24,6 +29,6 @@ public class AttackFailed extends AttackResult {
     @Override
     public String toString() {
         return String.format(ATTACK + "failed: %s",
-            attacker, target, coords, reason);
+            attacker.getName(), coords, enemyName, reason);
     }
 }

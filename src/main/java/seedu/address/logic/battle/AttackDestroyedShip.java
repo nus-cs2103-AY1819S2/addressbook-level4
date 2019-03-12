@@ -23,6 +23,6 @@ public class AttackDestroyedShip extends AttackResult {
     @Override
     public String toString() {
         return String.format(ATTACK + "destroyed %s",
-            attacker, coords, target, destroyedShip.getName());
+            attacker.getName(), coords, target.getName(), destroyedShip.getName());
     }
 }

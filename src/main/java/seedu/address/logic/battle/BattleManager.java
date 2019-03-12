@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableBooleanValue;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
@@ -20,7 +20,7 @@ public class BattleManager implements Battle {
     // The list of AI players who are waiting to take a turn.
     private ArrayList<Player> aiPlayers;
 
-    private ObservableBooleanValue isPlayerTurn;
+    private BooleanProperty isPlayerTurn;
 
     public BattleManager(Player humanPlayer, List<Player> aiPlayers) {
         this.humanPlayer = humanPlayer;
@@ -41,7 +41,8 @@ public class BattleManager implements Battle {
         if (target.isPresent()) {
             return performAttack(humanPlayer, target.get(), coord);
         } else {
-            return null;
+            return new AttackFailed(humanPlayer, enemyName, coord,
+                "could not find player with that name");
         }
     }
 
@@ -70,18 +71,23 @@ public class BattleManager implements Battle {
                 return new AttackMissed(attacker, target, coord);
             }
         } catch (IndexOutOfBoundsException ioobe) {
-            return new AttackFailed(attacker, target, coord, "coordinates out of bounds");
+            return new AttackFailed(attacker, target.getName(), coord, "coordinates out of bounds");
         } catch (Exception ex) {
-            return new AttackFailed(attacker, target, coord, ex.getMessage());
+            return new AttackFailed(attacker, target.getName(), coord, ex.getMessage());
         }
     }
 
     @Override
     public List<AttackResult> humanEndTurn() {
+        isPlayerTurn.setValue(false);
+
         ArrayList<AttackResult> results = new ArrayList<>();
         for (Player ai: aiPlayers) {
             // make the AIs take turns
         }
+
+        isPlayerTurn.setValue(true);
+
         return results;
     }
 }

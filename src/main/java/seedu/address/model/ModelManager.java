@@ -252,7 +252,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String[] listFiles() {
+    public String[] getFileNames() {
         File file = new File("src/main/resources/assets/");
         String[] imageNames = file.list();
         return imageNames;

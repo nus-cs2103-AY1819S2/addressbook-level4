@@ -137,7 +137,7 @@ public class PutShipCommand extends Command {
 
         int length = battleship.getLength();
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 1; i < length; i++) {
             Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
 
@@ -159,7 +159,7 @@ public class PutShipCommand extends Command {
 
         int length = battleship.getLength();
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 1; i < length; i++) {
             Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
                     colIndex.getZeroBased() + i);
 

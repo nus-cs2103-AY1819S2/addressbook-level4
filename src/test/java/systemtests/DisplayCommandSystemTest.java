@@ -26,7 +26,7 @@ public class DisplayCommandSystemTest extends EquipmentManagerSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list,
+     * box displays {@code Messages#MESSAGE_EQUIPMENTS_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code EquipmentManagerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

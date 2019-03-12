@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Review {
     public final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

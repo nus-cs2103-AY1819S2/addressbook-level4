@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import javafx.scene.web.HTMLEditorSkin;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -8,8 +7,6 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 public class AddReviewCommand extends Command {
 

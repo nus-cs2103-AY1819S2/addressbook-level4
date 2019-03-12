@@ -11,8 +11,8 @@ public class Title {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Titles should only contain alphanumeric characters, spaces and"
-            + "the following special characters: \"\", @, !, ?, ., -,"
-            + "and it should not be blank.";
+                    + "the following special characters: \"\", @, !, ?, ., -,"
+                    + "and it should not be blank.";
 
     //alphanumeric characters with spaces and certain special characters
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 \"@!?.-]+$";
@@ -33,8 +33,8 @@ public class Title {
     /**
      * Returns true if a given string is a valid title.
      */
-    public static boolean isValidTitle(String title) {
-        return title.matches(VALIDATION_REGEX);
+    public static boolean isValidTitle(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
 

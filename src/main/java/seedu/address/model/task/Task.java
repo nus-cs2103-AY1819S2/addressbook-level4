@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.tag.CopyTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.person.*;
 
 /**
  * Represents a Person in the address book.
@@ -18,7 +19,7 @@ import seedu.address.model.tag.Tag;
 public class Task {
 
     // Identity fields
-    protected final Title title;
+    protected final Name name;
     protected final Phone phone;
     protected final Email email;
 
@@ -42,7 +43,7 @@ public class Task {
         copyCount = 0;
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+    public Task(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                   Person personToCopy, int copyCount) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
@@ -113,7 +114,7 @@ public class Task {
             return copyInfo.getOriginalPerson().copy();
         }
         copyCount++;
-        return new Person(name, phone, email, address, tags, this, copyCount);
+        return new Task(name, phone, email, address, tags, this, copyCount);
     }
 
     /**

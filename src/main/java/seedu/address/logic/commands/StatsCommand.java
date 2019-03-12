@@ -47,7 +47,7 @@ public class StatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //TODO: Implement proper stat execution
+        //TODO: Implement stat execution for keyword
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 

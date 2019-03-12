@@ -2,6 +2,7 @@ package seedu.address.logic.comparators;
 
 import java.util.Comparator;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.Patient;
 
 /**
@@ -69,10 +70,39 @@ public class PatientComparator {
         }
     };
 
-    public static Comparator<Patient> getPatientComparator(String parameterType) {
-        //TODO: Implement parameter checking
+    public static Comparator<Patient> getPatientComparator(String parameterType) throws ParseException {
+        Comparator<Patient> paComp;
+        switch (parameterType.trim()) {
 
-        return null;
+        case "name":
+            paComp = compPatientName;
+            break;
+
+        case "phone":
+            paComp = compPatientPhone;
+            break;
+
+        case "email":
+            paComp = compPatientEmail;
+            break;
+
+        case "address":
+            paComp = compPatientAddress;
+            break;
+
+        case "nric":
+            paComp = compPatientNric;
+            break;
+
+        case "dob":
+            paComp = compPatientDob;
+            break;
+
+        default:
+            throw new ParseException("");
+        }
+
+        return paComp;
     }
-
+    //TODO: Implement reverse sorting
 }

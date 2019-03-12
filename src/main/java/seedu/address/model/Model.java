@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Pdf;
+import seedu.address.model.pdf.Pdf;
 
 /**
  * The API of the Model component.

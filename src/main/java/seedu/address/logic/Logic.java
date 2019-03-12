@@ -9,7 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPdfBook;
-import seedu.address.model.person.Pdf;
+import seedu.address.model.pdf.Pdf;
 
 /**
  * API of the Logic component

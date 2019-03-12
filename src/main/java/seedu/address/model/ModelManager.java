@@ -125,6 +125,15 @@ public class ModelManager implements Model {
         versionedTopDeck.setCard(target, editedCard);
     }
 
+    @Override
+    public void addDeck(Deck deck) {
+        logger.info("Added a new deck to TopDeck.");
+        versionedTopDeck.addDeck(deck);
+        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        commitTopDeck();
+    }
+
+
     //=========== Filtered Deck List Accessors =============================================================
 
     /**

@@ -10,4 +10,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_CARD_DISPLAYED_INDEX = "The card index provided is invalid";
     public static final String MESSAGE_CARDS_LISTED_OVERVIEW = "%1$d cards listed!";
 
+    public static final String MESSAGE_DUPLICATE_DECK = "This deck already exists in TopDeck!";
+
+    public static final String MESSAGE_INVALID_DECK_OPERATION = "This command is invalid, please"
+            + " exit current deck and try again.";
+
+
 }

@@ -11,6 +11,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
+import seedu.address.model.deck.exceptions.DuplicateDeckException;
 
 /**
  * Wraps all data at the TopDeck level
@@ -118,6 +119,16 @@ public class TopDeck implements ReadOnlyTopDeck {
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
+    }
+
+    //// deck operations
+
+    /**
+     * Adds a deck to the TopDeck.
+     * The deck must not already exist in the TopDeck.
+     */
+    public void addDeck(Deck deck) throws DuplicateDeckException {
+        decks.add(deck);
     }
 
     //// util methods

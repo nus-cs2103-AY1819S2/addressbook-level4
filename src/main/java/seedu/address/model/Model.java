@@ -13,6 +13,12 @@ import seedu.address.model.deck.Deck;
  * The API of the Model component.
  */
 public interface Model {
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Deck> PREDICATE_SHOW_ALL_DECKS = unused -> true;
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
@@ -154,4 +160,10 @@ public interface Model {
      * Sets the selected deck in the filtered deck list.
      */
     void setSelectedDeck(Deck deck);
+
+    /**
+     * Adds a new deck in the filtered deck list.
+     * @param deck
+     */
+    void addDeck(Deck deck);
 }

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * {@code AddressBook} that keeps track of its own history.
  */
-public class VersionedAddressBook extends AddressBook {
+public class VersionedAddressBook extends AddressBook implements VersionedBook {
 
     private final List<ReadOnlyAddressBook> addressBookStateList;
     private int currentStatePointer;
@@ -19,10 +19,7 @@ public class VersionedAddressBook extends AddressBook {
         currentStatePointer = 0;
     }
 
-    /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
-     * Undone states are removed from the state list.
-     */
+    @Override
     public void commit() {
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new AddressBook(this));
@@ -34,9 +31,7 @@ public class VersionedAddressBook extends AddressBook {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
 
-    /**
-     * Restores the address book to its previous state.
-     */
+    @Override
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
@@ -45,9 +40,7 @@ public class VersionedAddressBook extends AddressBook {
         resetData(addressBookStateList.get(currentStatePointer));
     }
 
-    /**
-     * Restores the address book to its previously undone state.
-     */
+    @Override
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
@@ -56,16 +49,12 @@ public class VersionedAddressBook extends AddressBook {
         resetData(addressBookStateList.get(currentStatePointer));
     }
 
-    /**
-     * Returns true if {@code undo()} has address book states to undo.
-     */
+    @Override
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
-    /**
-     * Returns true if {@code redo()} has address book states to redo.
-     */
+    @Override
     public boolean canRedo() {
         return currentStatePointer < addressBookStateList.size() - 1;
     }
@@ -88,23 +77,5 @@ public class VersionedAddressBook extends AddressBook {
         return super.equals(otherVersionedAddressBook)
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
-    }
-
-    /**
-     * Thrown when trying to {@code undo()} but can't.
-     */
-    public static class NoUndoableStateException extends RuntimeException {
-        private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
-        }
-    }
-
-    /**
-     * Thrown when trying to {@code redo()} but can't.
-     */
-    public static class NoRedoableStateException extends RuntimeException {
-        private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
-        }
     }
 }

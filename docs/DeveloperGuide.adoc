@@ -32,7 +32,7 @@ In-Credit-Ble ...
 
 This developer guide.. <Ask them go setting up section>
 
-See <<AboutUs.adoc>> and <<ContactUs.adoc>> for more information on how to contact us!
+See <<AboutUs#, AboutUs.adoc>> and <<ContactUs#, ContactUs.adoc>> for more information on how to contact us!
 
 == Setting up
 

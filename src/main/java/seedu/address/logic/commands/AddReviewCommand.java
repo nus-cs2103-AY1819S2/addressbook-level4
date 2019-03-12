@@ -7,6 +7,9 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
 
 public class AddReviewCommand extends Command {
 

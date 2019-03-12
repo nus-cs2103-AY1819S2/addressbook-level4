@@ -83,6 +83,10 @@ public class CommandResult {
         return testSessionCard;
     }
 
+    /**
+     * Check if command is an ans command
+     * @return a boolean variable to state if command is ans or not
+     */
     public boolean isAnswerCommand() {
         if (answerCommandResult == AnswerCommandResultType.NOT_ANSWER_COMMAND) {
             return false;
@@ -90,6 +94,11 @@ public class CommandResult {
         return true;
     }
 
+    /**
+     * Check if attempted answer is correct or wrong
+     * This method should be called only if a valid ans command is called
+     * @return a boolean variable to state if command is ans or not
+     */
     public boolean isAnswerCorrect() throws CommandException {
         if (answerCommandResult == AnswerCommandResultType.ANSWER_CORRECT) {
             return true;

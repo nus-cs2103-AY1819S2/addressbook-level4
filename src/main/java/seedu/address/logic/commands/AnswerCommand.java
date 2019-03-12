@@ -47,9 +47,11 @@ public class AnswerCommand extends Command {
         //TODO: Call method to update score for this card
 
         if (isAttemptCorrect) {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null, false, AnswerCommandResultType.ANSWER_CORRECT);
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null,
+                    false, AnswerCommandResultType.ANSWER_CORRECT);
         } else {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null, false, AnswerCommandResultType.ANSWER_WRONG);
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null,
+                    false, AnswerCommandResultType.ANSWER_WRONG);
         }
     }
 

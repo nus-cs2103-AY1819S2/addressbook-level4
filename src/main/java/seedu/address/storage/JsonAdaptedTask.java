@@ -44,7 +44,7 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(Task source) {
         title = source.getTitle().toString();
         startdate = source.getStartDate().toString();
-        enddate = source.getStartDate().toString();
+        enddate = source.getEndDate().toString();
     }
 
     /**

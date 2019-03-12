@@ -13,14 +13,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class DateCustom {
-    public static final String MESSAGE_CONSTRAINTS = "Date should only contain exactly 8 numbers and a valid date should"
+    public static final String MESSAGE_CONSTRAINTS = "Date should not be before today's date and a valid date should"
                                                    + " be in the form of dd-mm-yyyy";
 
     public static final String VALIDATION_REGEX = "^(((0[1-9]|[1-2][0-9]|3[0,1])-(01|03|05|07|08|10|12))|"
                                                 + "((0[1-9]|[1-2][0-9]|30)-(04|06|09|11))|((0[1-9]|[1-2]["
                                                 + "0-9])-(02)))-(\\d{4})$";
 
-    public static String dateformat = "dd-mm-yyyy";
+    public static String dateformat = "dd-MM-yyyy";
 
     public final String storedDate;
 
@@ -33,6 +33,10 @@ public class DateCustom {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         storedDate = date;
+    }
+
+    public static String getFormat() {
+        return dateformat;
     }
 
     public static boolean isValidDate(String test) {

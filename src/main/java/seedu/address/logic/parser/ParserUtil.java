@@ -164,6 +164,13 @@ public class ParserUtil {
         if (!DateCustom.isValidDate(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
+        try {
+            if (!DateCustom.isDateBeforeToday(DateCustom.getFormat(), date)) {
+                throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+            }
+        } catch (java.text.ParseException e) {
+                throw new ParseException((DateCustom.MESSAGE_CONSTRAINTS));
+        }
         return new DateCustom(trimmedDate);
     }
 

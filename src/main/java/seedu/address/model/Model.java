@@ -8,6 +8,7 @@ import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 
 /**
@@ -153,9 +154,25 @@ public interface Model extends Observable {
     void setSelectedCard(Card card);
 
     /**
+     * Checks whether list of card folder names specified is found inside model
+     */
+    boolean checkValidCardFolders(List<String> cardFolders);
+
+    /**
      * Enters a test session using the specified card folder.
      */
-    Card testCardFolder(ReadOnlyCardFolder cardFolder);
+    void testCardFolder(ReadOnlyCardFolder cardFolder);
+
+    /**
+     * Sets the current card in the test session.
+     */
+    void setCurrentTestedCard(Card card);
+
+    /**
+     * Returns the current card in the test session
+     * null if there is no cards in folder or user is not in a test session.
+     */
+    Card getCurrentTestedCard();
 
     /**
      * Returns true if user is in a test session
@@ -169,7 +186,20 @@ public interface Model extends Observable {
     void endTestSession();
 
     /**
-     * Checks whether list of card folder names specified is found inside model
+     * Returns true if the given answer is right
+     * false if answer is wrong
      */
-    boolean checkValidCardFolders(List<String> cardFolers);
+    boolean markAttemptedAnswer(Answer attemptedAnswer);
+
+    /**
+     * Set cardAlreadyAnswered variable to true to indicate current card as answered
+     */
+    void setCardAsAnswered();
+
+    /**
+     * Returns true if the answer has already been input for that card
+     * false if otherwise
+     */
+    boolean checkIfCardAlreadyAnswered();
+
 }

@@ -21,6 +21,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 
@@ -35,7 +36,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
+    private boolean cardAlreadyAnswered = false;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
@@ -142,25 +145,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
-        Card cardToTest = cardFolderToTest.getCardList().get(0);
-        insideTestSession = true;
-        return cardToTest;
-    }
-
-    @Override
-    public boolean checkIfInsideTestSession() {
-        return insideTestSession;
-    }
-
-    @Override
-    public void endTestSession() {
-        insideTestSession = false;
-    }
-
-    @Override
-    public boolean checkValidCardFolders(List<String> cardFolers) {
+    public boolean checkValidCardFolders(List<String> cardFolders) {
         return false;
     }
 
@@ -274,6 +259,64 @@ public class ModelManager implements Model {
     public void commitActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.commit();
+    }
+
+    //=========== Test Session ===========================================================================
+
+    @Override
+    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
+        Card cardToTest = cardFolderToTest.getCardList().get(0);
+        setCurrentTestedCard(cardToTest);
+        insideTestSession = true;
+    }
+
+    @Override
+    public void setCurrentTestedCard(Card card) {
+        if (card != null && !getActiveFilteredCards().contains(card)) {
+            throw new CardNotFoundException();
+        }
+        currentTestedCard.setValue(card);
+    }
+
+    @Override
+    public Card getCurrentTestedCard() {
+        return currentTestedCard.getValue();
+    }
+
+    @Override
+    public boolean checkIfInsideTestSession() {
+        return insideTestSession;
+    }
+
+    @Override
+    public void endTestSession() {
+        insideTestSession = false;
+        cardAlreadyAnswered = false;
+        setCurrentTestedCard(null);
+    }
+
+    @Override
+    public boolean markAttemptedAnswer(Answer attemptedAnswer) {
+        Answer correctAnswer = currentTestedCard.getValue().getAnswer();
+        String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
+        String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
+
+        //LOOSEN MORE CRITERIAS?
+        if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void setCardAsAnswered() {
+        cardAlreadyAnswered = true;
+    }
+
+    @Override
+    public boolean checkIfCardAlreadyAnswered() {
+        return cardAlreadyAnswered;
     }
 
     //=========== Selected card ===========================================================================

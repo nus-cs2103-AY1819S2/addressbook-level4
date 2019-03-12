@@ -186,6 +186,20 @@ public class MainWindow extends UiPart<Stage> {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
     }
 
+    /**
+     * Show the page with correct answer.
+     */
+    private void handleCorrectAnswer() {
+        //TODO: Change UI to display correct answer
+    }
+
+    /**
+     * Show the page with wrong answer.
+     */
+    private void handleWrongAnswer() {
+        //TODO: Change UI to display wrong answer
+    }
+
     public CardListPanel getCardListPanel() {
         return cardListPanel;
     }
@@ -215,6 +229,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isEndTestSession()) {
                 handleEndTestSession();
+            }
+
+            if (commandResult.isAnswerCommand()) {
+                if (commandResult.isAnswerCorrect()) {
+                    handleCorrectAnswer();
+                } else {
+                    handleWrongAnswer();
+                }
             }
 
             return commandResult;

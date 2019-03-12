@@ -1,12 +1,15 @@
 package seedu.address.model.book;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * A review.
+ */
 public class Review {
     public final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     public final String reviewMessage;
@@ -32,7 +35,8 @@ public class Review {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Rating // instanceof handles nulls
-                && dateCreated.equals(((Review) other).dateCreated) && reviewMessage.equals(((Review) other).reviewMessage)); // state check
+                && dateCreated.equals(((Review) other).dateCreated)
+                && reviewMessage.equals(((Review) other).reviewMessage)); // state check
     }
 
     @Override

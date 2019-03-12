@@ -1,16 +1,19 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
-
+/**
+ * Adds a review to the book.
+ */
 public class AddReviewCommand extends Command {
 
     public static final String COMMAND_WORD = "addReview";
@@ -23,7 +26,7 @@ public class AddReviewCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Alice in Wonderland "
             + PREFIX_AUTHOR + "Lewis Carroll "
-            + PREFIX_REVIEW + "While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.";
+            + PREFIX_REVIEW + "While Lewis Carroll purists will scoff at the aging of his young protagonist...";
 
     public static final String MESSAGE_SUCCESS = "New review added: %1$s";
     public static final String MESSAGE_BOOK_NOT_EXIST = "Add review failed.The book does not exist in the bookshelf.";
@@ -56,6 +59,7 @@ public class AddReviewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddReviewCommand // instanceof handles nulls
-                && toAdd.equals(((AddReviewCommand) other).toAdd) && bookForReview.equals(((AddReviewCommand) other).bookForReview));
+                && toAdd.equals(((AddReviewCommand) other).toAdd)
+                && bookForReview.equals(((AddReviewCommand) other).bookForReview));
     }
 }

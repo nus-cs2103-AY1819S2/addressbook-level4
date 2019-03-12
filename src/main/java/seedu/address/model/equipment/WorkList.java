@@ -38,7 +38,7 @@ public class WorkList {
         return assignee;
     }
 
-    public WorkListID getID() {
+    public WorkListID getId() {
         return this.id;
     }
 

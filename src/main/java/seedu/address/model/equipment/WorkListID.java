@@ -1,10 +1,13 @@
 package seedu.address.model.equipment;
 
+/**
+ * Representing the worklistid and the id is increasing based on the id history.
+ */
 public class WorkListID {
 
-    private static int IDhis = 0;
+    private static int idHito = 0;
 
-    private int thisID;
+    private int thisId;
 
     /**
      * Constructing the class, and pass down the ID number.
@@ -13,7 +16,7 @@ public class WorkListID {
         thisID = IDhis + 1;
     }
 
-    public int getID() {
-        return this.thisID;
+    public int getId() {
+        return this.thisId;
     }
 }

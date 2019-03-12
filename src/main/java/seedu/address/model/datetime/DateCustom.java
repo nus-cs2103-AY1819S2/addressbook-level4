@@ -13,7 +13,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class DateCustom {
-    public static final String MESSAGE_CONSTRAINTS = "Date should not be before today's date and a valid date should"
+    public static final String MESSAGE_CONSTRAINTS = "Date should not be before today's date, End Date should not"
+                                                   + " be before Start Date and a valid date should"
                                                    + " be in the form of dd-mm-yyyy";
 
     public static final String VALIDATION_REGEX = "^(((0[1-9]|[1-2][0-9]|3[0,1])-(01|03|05|07|08|10|12))|"
@@ -44,17 +45,21 @@ public class DateCustom {
     }
 
     public static boolean isDateBeforeToday(String givenFormat, String test) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat(givenFormat);
         String currentDateString = new SimpleDateFormat(givenFormat).format(new Date());
-        Date currentDate =  sdf.parse(currentDateString);
-        Date givenDate = sdf.parse(test);
-        if(currentDate.compareTo(givenDate) > 0) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return dateCompare(givenFormat, test, currentDateString);
     }
+
+    public static boolean isEndDateBeforeStartDate(String givenFormat, String date1, String date2) throws ParseException{
+        return dateCompare(givenFormat, date2, date1);
+    }
+
+    public static boolean dateCompare(String givenFormat, String date1, String date2) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(givenFormat);
+        Date firstDate =  sdf.parse(date1);
+        Date secondDate = sdf.parse(date2);
+        return firstDate.before(secondDate);
+    }
+
     @Override
     public String toString() {
         return storedDate;

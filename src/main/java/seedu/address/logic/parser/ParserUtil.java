@@ -158,20 +158,42 @@ public class ParserUtil {
      * Parses a {@code String date} into an {@code DateCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseDate(String date) throws ParseException {
+    public static DateCustom parseStartDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!DateCustom.isValidDate(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
         try {
-            if (!DateCustom.isDateBeforeToday(DateCustom.getFormat(), date)) {
+            if (DateCustom.isDateBeforeToday(DateCustom.getFormat(), date)) {
                 throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
             }
         } catch (java.text.ParseException e) {
                 throw new ParseException((DateCustom.MESSAGE_CONSTRAINTS));
         }
         return new DateCustom(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseEndDate(String startDate, String endDate) throws ParseException {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        String trimmedStartDate = startDate.trim();
+        String trimmedEndDate = endDate.trim();
+        if (!DateCustom.isValidDate(trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        try {
+            if (!DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+                throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+            }
+        } catch (java.text.ParseException e) {
+            throw new ParseException((DateCustom.MESSAGE_CONSTRAINTS));
+        }
+        return new DateCustom(trimmedEndDate);
     }
 
     /**

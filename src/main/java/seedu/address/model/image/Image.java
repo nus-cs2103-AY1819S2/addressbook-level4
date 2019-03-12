@@ -62,7 +62,9 @@ public class Image {
     }
 
     public BufferedImage getBufferedImage() {
-        return buffer; }
+        return buffer;
+    }
+
     /**
      * Prints the metadata for any given image.
      */

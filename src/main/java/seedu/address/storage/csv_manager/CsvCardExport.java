@@ -27,6 +27,9 @@ public class CsvCardExport {
         this.filename = filename;
     }
 
+    /**
+     * Writes card folders as csv file.
+     */
     private void writeFoldersToCSV() throws IOException {
         String filepath = getFilePath();
         FileWriter fileWriter = new FileWriter(filepath);
@@ -35,7 +38,8 @@ public class CsvCardExport {
         for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
             List<Card> cardList = readOnlyCardFolder.getCardList();
             String foldername = readOnlyCardFolder.getFolderName();
-            fileWriter.append(foldername);
+            fileWriter.append(foldername + NEW_LINE_SEPARATOR);
+            fileWriter.append(CARD_HEADERS + NEW_LINE_SEPARATOR);
             for (Card card : cardList) {
                 String cardRepresentation = getCardString(card);
                 fileWriter.append(cardRepresentation);
@@ -58,9 +62,5 @@ public class CsvCardExport {
                 .append(COMMA_DELIMITTER));
         return stringBuilder.toString();
     }
-
-
-
-
 
 }

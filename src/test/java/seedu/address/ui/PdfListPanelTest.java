@@ -17,11 +17,11 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Pdf;
-import seedu.address.model.person.Phone;
+import seedu.address.model.pdf.Address;
+import seedu.address.model.pdf.Email;
+import seedu.address.model.pdf.Name;
+import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.Phone;
 
 public class PdfListPanelTest extends GuiUnitTest {
     private static final ObservableList<Pdf> TYPICAL_PDFS =

@@ -19,9 +19,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Pdf;
-import seedu.address.model.person.exceptions.PdfNotFoundException;
+import seedu.address.model.pdf.NameContainsKeywordsPredicate;
+import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.exceptions.PdfNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setPdfBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setPdfBookFilePath(Paths.get("address/book/file/value"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setPdfBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setPdfBookFilePath(Paths.get("new/address/book/file/value"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -80,7 +80,7 @@ public class ModelManagerTest {
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("address/book/file/value");
         modelManager.setPdfBookFilePath(path);
         assertEquals(path, modelManager.getPdfBookFilePath());
     }

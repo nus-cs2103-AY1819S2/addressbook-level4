@@ -90,10 +90,10 @@ public class JsonAddressBookStorageTest {
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new PdfBook(readBack));
 
-        // Save and read without specifying file path
+        // Save and read without specifying file value
         original.addPdf(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonAddressBookStorage.saveAddressBook(original); // file value not specified
+        readBack = jsonAddressBookStorage.readAddressBook().get(); // file value not specified
         assertEquals(original, new PdfBook(readBack));
 
     }

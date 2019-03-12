@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.address.model.PdfBook;
-import seedu.address.model.person.Pdf;
+import seedu.address.model.pdf.Pdf;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 

@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Pdf;
+import seedu.address.model.pdf.Pdf;
 
 /**
  * The API of the Model component.
@@ -41,12 +41,12 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' address book file value.
      */
     Path getPdfBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' address book file value.
      */
     void setPdfBookFilePath(Path pdfBookFilePath);
 

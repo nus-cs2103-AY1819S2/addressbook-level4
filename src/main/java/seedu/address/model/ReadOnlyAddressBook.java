@@ -18,6 +18,7 @@ public interface ReadOnlyAddressBook extends Observable {
      */
     ObservableList<Person> getPersonList();
 
+    // quickdocs method to access data of AddressBook
     ArrayList<Patient> getPatients();
 
 }

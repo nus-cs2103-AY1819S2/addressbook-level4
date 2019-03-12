@@ -60,7 +60,8 @@ class JsonSerializableAddressBook {
             addressBook.addPerson(person);
         }
 
-        // for quick docs, write a loop to change jsonadapted class object to normal object to add to ab
+        // Note: for quick docs, write a loop to change jsonadapted class object to normal object to add to ab
+
         for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
             Patient patient = jsonAdaptedPatient.toModelType();
             //if (addressBook.hasPerson(patient)) {
@@ -68,7 +69,6 @@ class JsonSerializableAddressBook {
             //}
             addressBook.addPatient(patient);
         }
-
 
         return addressBook;
     }

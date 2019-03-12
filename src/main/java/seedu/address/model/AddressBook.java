@@ -24,7 +24,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
+    // quickdocs data
     private final ArrayList<Patient> patients;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -49,7 +51,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 
-    //for quickdocs
+    // quickdocs related methods of AddressBook
+
+    // patient and consultation module
     public ArrayList<Patient> getPatients() {
         return patients;
     }
@@ -58,14 +62,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         patients.add(p);
     }
 
-    //// list overwrite operations
-
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void replacePatient(int index, Patient editedPatient) {
+        requireNonNull(editedPatient);
+        patients.set(index - 1, editedPatient);
         indicateModified();
     }
 
@@ -75,6 +79,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPatients(List<Patient> patients) {
         this.patients.addAll(patients);
+        indicateModified();
+    }
+
+    // appointment and reminder module
+
+    // medicine and storage module
+
+    // record and statistics module
+
+    //// list overwrite operations
+
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setPersons(List<Person> persons) {
+        this.persons.setPersons(persons);
         indicateModified();
     }
 

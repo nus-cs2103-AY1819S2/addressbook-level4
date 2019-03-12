@@ -366,7 +366,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Add a patient to the versioned quickdocs
+     * Add a patient to the quickdocs
      */
     public void addPatient(Patient patient) {
         this.patientManager.addPatient(patient);
@@ -391,8 +391,13 @@ public class ModelManager implements Model {
         return this.patientManager.checkDuplicatePatientAfterEdit(index, editedPatient);
     }
 
+    /**
+     * Replace the patient at index with the edited version
+     */
     public void replacePatient(int index, Patient editedPatient) {
         this.patientManager.replacePatient(index, editedPatient);
+        versionedAddressBook.replacePatient(index, editedPatient);
+        versionedAddressBook.indicateModified();
     }
 
     // for listing

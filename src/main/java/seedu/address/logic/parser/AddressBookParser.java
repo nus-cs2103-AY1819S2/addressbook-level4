@@ -98,7 +98,7 @@ public class AddressBookParser {
             return new ExportCommandParser().parse(arguments);
 
         case TaskAddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new TaskAddCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

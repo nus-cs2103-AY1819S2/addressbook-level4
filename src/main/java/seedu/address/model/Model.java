@@ -110,6 +110,9 @@ public interface Model {
 
     //=========== Methods for interacting with Task Object ===========================================================
 
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Task> getFilteredTaskList();
+
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.
      */

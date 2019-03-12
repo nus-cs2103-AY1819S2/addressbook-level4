@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import java.nio.file.Path;
 
@@ -15,6 +15,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.table.ReadOnlyTables;
 
 public class StorageManagerTest {
 
@@ -25,9 +29,15 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonRestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(getTempFilePath("ab"));
+        JsonMenuStorage menuStorage = new JsonMenuStorage(getTempFilePath("menu"));
+        JsonOrdersStorage ordersStorage = new JsonOrdersStorage(getTempFilePath("orders"));
+        JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(getTempFilePath("stats"));
+        JsonTablesStorage tablesStorage = new JsonTablesStorage(getTempFilePath("tables"));
+        //  JsonRestOrRantStorage restOrRantStorage = new JsonRestOrRantStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(restOrRantStorage, userPrefsStorage);
+        storageManager = new StorageManager(userPrefsStorage, ordersStorage, menuStorage,
+                statisticsStorage, tablesStorage);
+        //  storageManager = new StorageManager(restOrRantStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -56,15 +66,35 @@ public class StorageManagerTest {
          * {@link JsonRestOrRantStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonRestOrRantStorageTest} class.
          */
-        RestOrRant original = getTypicalAddressBook();
-        storageManager.saveRestOrRant(original);
-        ReadOnlyRestOrRant retrieved = storageManager.readRestOrRant().get();
-        assertEquals(original, new RestOrRant(retrieved));
+        
+        RestOrRant original = getTypicalRestOrRant();
+        storageManager.saveMenu(original.getMenu());
+        storageManager.saveOrders(original.getOrders());
+        storageManager.saveTables(original.getTables());
+        storageManager.saveStatistics(original.getStatistics());
+    
+        ReadOnlyMenu retrievedMenu = storageManager.readMenu().get();
+        ReadOnlyOrders retrievedOrders = storageManager.readOrders().get();
+        ReadOnlyTables retrievedTables = storageManager.readTables().get();
+        ReadOnlyStatistics retrievedStatistics = storageManager.readStatistics().get();
+        assertEquals(original, new RestOrRant(retrievedOrders, retrievedMenu, retrievedTables, retrievedStatistics));
     }
 
     @Test
-    public void getRestOrRantFilePath() {
-        assertNotNull(storageManager.getRestOrRantFilePath());
+    public void getMenuFilePath() {
+        assertNotNull(storageManager.getMenuFilePath());
+    }
+
+    public void getOrdersFilePath() {
+        assertNotNull(storageManager.getOrdersFilePath());
+    }
+
+    public void getTableFilePath() {
+        assertNotNull(storageManager.getTableFilePath());
+    }
+
+    public void getStatisticsFilePath() {
+        assertNotNull(storageManager.getStatisticsFilePath());
     }
 
 }

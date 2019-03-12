@@ -17,7 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 
 public class TypicalRestOrRant {
-    // Menu Items
+    // Menu Items TODO: add quantity ordered
     public static final MenuItem CHICKEN_WINGS = new MenuItemBuilder().withName("Chicken Wings").withCode("W09")
                                                          .withPrice("3.99").build();
     public static final MenuItem FRENCH_FRIES = new MenuItemBuilder().withName("French Fries").withCode("W12")

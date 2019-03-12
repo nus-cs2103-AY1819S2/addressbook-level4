@@ -17,7 +17,7 @@ import seedu.address.model.task.Title;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<TaskAddCommand> {
+public class TaskAddCommandParser implements Parser<TaskAddCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -33,11 +33,12 @@ public class AddCommandParser implements Parser<TaskAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TaskAddCommand.MESSAGE_USAGE));
         }
 
-        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
-        DateCustom startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_PHONE).get());
-        DateCustom endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_PHONE).get());
+        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        DateCustom startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE).get());
+        DateCustom endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ENDDATE).get());
 
-        return new TaskAddCommand(patient);
+        Task task = new Task(title, startDate, endDate);
+        return new TaskAddCommand(task);
     }
 
     /**

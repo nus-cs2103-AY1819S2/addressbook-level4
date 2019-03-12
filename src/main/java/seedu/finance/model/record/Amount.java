@@ -1,11 +1,11 @@
-package seedu.address.model.record;
+package seedu.finance.model.record;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.finance.commons.util.AppUtil.checkArgument;
 
 
 /**
- * Represents a Entry's amount in the address book.
+ * Represents an Entry's amount in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class Amount {
@@ -18,7 +18,7 @@ public class Amount {
     /**
      * Constructs an {@code Amount}.
      *
-     * @param amount A valid email address.
+     * @param amount A valid amount.
      */
     public Amount(String amount) {
         requireNonNull(amount);
@@ -43,8 +43,8 @@ public class Amount {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.record.Amount // instanceof handles nulls
-                && value.equals(((seedu.address.model.record.Amount) other).value)); // state check
+                || (other instanceof seedu.finance.model.record.Amount // instanceof handles nulls
+                && value.equals(((seedu.finance.model.record.Amount) other).value)); // state check
     }
 
     @Override

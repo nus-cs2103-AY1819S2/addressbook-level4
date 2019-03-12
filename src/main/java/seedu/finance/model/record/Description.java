@@ -3,7 +3,7 @@ package seedu.finance.model.record;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Expense's description in finance book
+ * Represents a record's description in finance tracker
  * Guarantees: immutable; is always valid
  */
 public class Description {

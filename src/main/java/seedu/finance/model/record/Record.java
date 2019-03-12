@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.finance.model.tag.Tag;
 
 /**
- * Represents a Record in the finance book.
+ * Represents a Record in the finance tracker.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Record {
@@ -111,7 +111,7 @@ public class Record {
                 .append(getAmount())
                 .append(" Date: ")
                 .append(getDate())
-                .append("Description: ")
+                .append(" Description: ")
                 .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

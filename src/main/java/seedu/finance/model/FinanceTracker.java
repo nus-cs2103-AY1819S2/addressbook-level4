@@ -11,10 +11,10 @@ import seedu.finance.model.record.Record;
 import seedu.finance.model.record.UniqueRecordList;
 
 /**
- * Wraps all data at the finance-book level
+ * Wraps all data at the finance-tracker level
  * Duplicates are not allowed (by .isSameRecord comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     private final UniqueRecordList records;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -30,12 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         records = new UniqueRecordList();
     }
 
-    public AddressBook() {}
+    public FinanceTracker() {}
 
     /**
-     * Creates an AddressBook using the Records in the {@code toBeCopied}
+     * Creates an FinanceTracker using the Records in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public FinanceTracker(ReadOnlyFinanceTracker toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -43,18 +43,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the record list with {@code people}.
-     * {@code people} must not contain duplicate people.
+     * Replaces the contents of the record list with {@code records}.
+     * {@code records} must not contain duplicate records.
      */
-    public void setRecords(List<Record> people) {
-        this.records.setRecords(people);
+    public void setRecords(List<Record> records) {
+        this.records.setRecords(records);
         indicateModified();
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code FinanceTracker} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyFinanceTracker newData) {
         requireNonNull(newData);
 
         setRecords(newData.getRecordList());
@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// record-level operations
 
     /**
-     * Returns true if a record with the same identity as {@code record} exists in the finance book.
+     * Returns true if a record with the same identity as {@code record} exists in the finance tracker.
      */
     public boolean hasRecord(Record record) {
         requireNonNull(record);
@@ -71,8 +71,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a record to the finance book.
-     * The record must not already exist in the finance book.
+     * Adds a record to the finance tracker.
+     * The record must not already exist in the finance tracker.
      */
     public void addRecord(Record r) {
         records.add(r);
@@ -81,8 +81,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given record {@code target} in the list with {@code editedRecord}.
-     * {@code target} must exist in the finance book.
-     * The record identity of {@code editedRecord} must not be the same as another existing record in the finance book.
+     * {@code target} must exist in the finance tracker.
+     * The record identity of {@code editedRecord} must not be the same as another existing record in the finance tracker.
      */
     public void setRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);
@@ -92,8 +92,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the finance book.
+     * Removes {@code key} from this {@code FinanceTracker}.
+     * {@code key} must exist in the finance tracker.
      */
     public void removeRecord(Record key) {
         records.remove(key);
@@ -111,7 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Notifies listeners that the finance book has been modified.
+     * Notifies listeners that the finance tracker has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -133,8 +133,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && records.equals(((AddressBook) other).records));
+                || (other instanceof FinanceTracker // instanceof handles nulls
+                && records.equals(((FinanceTracker) other).records));
     }
 
     @Override

@@ -4,70 +4,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code AddressBook} that keeps track of its own history.
+ * {@code FinanceTracker} that keeps track of its own history.
  */
-public class VersionedAddressBook extends AddressBook {
+public class VersionedFinanceTracker extends FinanceTracker {
 
-    private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyFinanceTracker> financeTrackerStateList;
     private int currentStatePointer;
 
-    public VersionedAddressBook(ReadOnlyAddressBook initialState) {
+    public VersionedFinanceTracker(ReadOnlyFinanceTracker initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new AddressBook(initialState));
+        financeTrackerStateList = new ArrayList<>();
+        financeTrackerStateList.add(new FinanceTracker(initialState));
         currentStatePointer = 0;
     }
 
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code FinanceTracker} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new AddressBook(this));
+        financeTrackerStateList.add(new FinanceTracker(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        financeTrackerStateList.subList(currentStatePointer + 1, financeTrackerStateList.size()).clear();
     }
 
     /**
-     * Restores the finance book to its previous state.
+     * Restores the finance tracker to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(financeTrackerStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the finance book to its previously undone state.
+     * Restores the finance tracker to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(financeTrackerStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has finance book states to undo.
+     * Returns true if {@code undo()} has finance tracker states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has finance book states to redo.
+     * Returns true if {@code redo()} has finance tracker states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < financeTrackerStateList.size() - 1;
     }
 
     @Override
@@ -78,16 +78,16 @@ public class VersionedAddressBook extends AddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedAddressBook)) {
+        if (!(other instanceof VersionedFinanceTracker)) {
             return false;
         }
 
-        VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
+        VersionedFinanceTracker otherVersionedFinanceTracker = (VersionedFinanceTracker) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedFinanceTracker)
+                && financeTrackerStateList.equals(otherVersionedFinanceTracker.financeTrackerStateList)
+                && currentStatePointer == otherVersionedFinanceTracker.currentStatePointer;
     }
 
     /**
@@ -95,7 +95,7 @@ public class VersionedAddressBook extends AddressBook {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of financeTrackerState list, unable to undo.");
         }
     }
 
@@ -104,7 +104,7 @@ public class VersionedAddressBook extends AddressBook {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of financeTrackerState list, unable to redo.");
         }
     }
 }

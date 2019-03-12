@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.finance.model.AddressBook;
-import seedu.finance.model.ReadOnlyAddressBook;
+import seedu.finance.model.FinanceTracker;
+import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Description;
@@ -14,7 +14,7 @@ import seedu.finance.model.record.Record;
 import seedu.finance.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code FinanceTracker} with sample data.
  */
 public class SampleDataUtil {
 
@@ -36,12 +36,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyFinanceTracker getSampleFinanceTracker() {
+        FinanceTracker sampleFT = new FinanceTracker();
         for (Record sampleRecord : getSampleRecords()) {
-            sampleAb.addRecord(sampleRecord);
+            sampleFT.addRecord(sampleRecord);
         }
-        return sampleAb;
+        return sampleFT;
     }
 
     /**

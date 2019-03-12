@@ -19,33 +19,33 @@ import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 
 /**
- * Represents the in-memory model of the finance book data.
+ * Represents the in-memory model of the finance tracker data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedFinanceTracker versionedFinanceTracker;
     private final UserPrefs userPrefs;
-    private final FilteredList<Record> filteredPeople;
+    private final FilteredList<Record> filteredRecords;
     private final SimpleObjectProperty<Record> selectedRecord = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given financeTracker and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFinanceTracker financeTracker, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(financeTracker, userPrefs);
 
-        logger.fine("Initializing with finance book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with finance tracker: " + financeTracker + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedFinanceTracker = new VersionedFinanceTracker(financeTracker);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPeople = new FilteredList<>(versionedAddressBook.getRecordList());
-        filteredPeople.addListener(this::ensureSelectedRecordIsValid);
+        filteredRecords = new FilteredList<>(versionedFinanceTracker.getRecordList());
+        filteredRecords.addListener(this::ensureSelectedRecordIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new FinanceTracker(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,42 +73,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getFinanceTrackerFilePath() {
+        return userPrefs.getFinanceTrackerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setFinanceTrackerFilePath(Path financeTrackerFilePath) {
+        requireNonNull(financeTrackerFilePath);
+        userPrefs.setFinanceTrackerFilePath(financeTrackerFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== FinanceTracker ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setFinanceTracker(ReadOnlyFinanceTracker financeTracker) {
+        versionedFinanceTracker.resetData(financeTracker);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyFinanceTracker getFinanceTracker() {
+        return versionedFinanceTracker;
     }
 
     @Override
     public boolean hasRecord(Record record) {
         requireNonNull(record);
-        return versionedAddressBook.hasRecord(record);
+        return versionedFinanceTracker.hasRecord(record);
     }
 
     @Override
     public void deleteRecord(Record target) {
-        versionedAddressBook.removeRecord(target);
+        versionedFinanceTracker.removeRecord(target);
     }
 
     @Override
     public void addRecord(Record record) {
-        versionedAddressBook.addRecord(record);
+        versionedFinanceTracker.addRecord(record);
         updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
     }
 
@@ -116,51 +116,51 @@ public class ModelManager implements Model {
     public void setRecord(Record target, Record editedRecord) {
         requireAllNonNull(target, editedRecord);
 
-        versionedAddressBook.setRecord(target, editedRecord);
+        versionedFinanceTracker.setRecord(target, editedRecord);
     }
 
     //=========== Filtered Record List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Record} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedFinanceTracker}
      */
     @Override
     public ObservableList<Record> getFilteredRecordList() {
-        return filteredPeople;
+        return filteredRecords;
     }
 
     @Override
     public void updateFilteredRecordList(Predicate<Record> predicate) {
         requireNonNull(predicate);
-        filteredPeople.setPredicate(predicate);
+        filteredRecords.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoFinanceTracker() {
+        return versionedFinanceTracker.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoFinanceTracker() {
+        return versionedFinanceTracker.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoFinanceTracker() {
+        versionedFinanceTracker.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoFinanceTracker() {
+        versionedFinanceTracker.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitFinanceTracker() {
+        versionedFinanceTracker.commit();
     }
 
     //=========== Selected record ===========================================================================
@@ -177,14 +177,14 @@ public class ModelManager implements Model {
 
     @Override
     public void setSelectedRecord(Record record) {
-        if (record != null && !filteredPeople.contains(record)) {
+        if (record != null && !filteredRecords.contains(record)) {
             throw new RecordNotFoundException();
         }
         selectedRecord.setValue(record);
     }
 
     /**
-     * Ensures {@code selectedRecord} is a valid record in {@code filteredPeople}.
+     * Ensures {@code selectedRecord} is a valid record in {@code filteredRecords}.
      * @param change
      */
     private void ensureSelectedRecordIsValid(ListChangeListener.Change<? extends Record> change) {
@@ -227,9 +227,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedFinanceTracker.equals(other.versionedFinanceTracker)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPeople.equals(other.filteredPeople)
+                && filteredRecords.equals(other.filteredRecords)
                 && Objects.equals(selectedRecord.get(), other.selectedRecord.get());
     }
 

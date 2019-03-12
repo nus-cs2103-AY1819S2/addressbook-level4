@@ -4,20 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Record's finance in the finance book.
+ * Represents a Record's date in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
 
-    public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/mm/yyy and be a valid date";
-    /*
-     */
+    public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/mm/yyyy and be a valid date";
+
     public static final String VALIDATION_REGEX = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$";
 
     public final String value;
 
     /**
-     * Constructs an {@code Date}.
+     * Constructs a {@code Date}.
      *
      * @param date A valid date.
      */

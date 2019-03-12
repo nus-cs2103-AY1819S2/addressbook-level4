@@ -1,12 +1,12 @@
-package seedu.address.model;
+package seedu.finance.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.record.Record;
+import seedu.finance.commons.core.GuiSettings;
+import seedu.finance.model.record.Record;
 
 /**
  * The API of the Model component.
@@ -36,44 +36,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' finance tracker file path.
      */
-    Path getAddressBookFilePath();
+    Path getFinanceTrackerFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' finance tracker file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setFinanceTrackerFilePath(Path financeTrackerFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces finance tracker data with the data in {@code financeTracker}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setFinanceTracker(ReadOnlyFinanceTracker financeTracker);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the FinanceTracker */
+    ReadOnlyFinanceTracker getFinanceTracker();
 
     /**
-     * Returns true if a record with the same identity as {@code record} exists in the address book.
+     * Returns true if a record with the same identity as {@code record} exists in the finance tracker.
      */
     boolean hasRecord(Record record);
 
     /**
      * Deletes the given record.
-     * The record must exist in the address book.
+     * The record must exist in the finance tracker.
      */
     void deleteRecord(Record target);
 
     /**
      * Adds the given record.
-     * {@code record} must not already exist in the address book.
+     * {@code record} must not already exist in the finance tracker.
      */
     void addRecord(Record record);
 
     /**
      * Replaces the given record {@code target} with {@code editedRecord}.
-     * {@code target} must exist in the address book.
-     * The record identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     * {@code target} must exist in the finance tracker.
+     * The record identity of {@code editedRecord} must not be the same as another existing record in the finance tracker.
      */
     void setRecord(Record target, Record editedRecord);
 
@@ -87,29 +87,29 @@ public interface Model {
     void updateFilteredRecordList(Predicate<Record> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous finance tracker states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoFinanceTracker();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone finance tracker states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoFinanceTracker();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's finance tracker to its previous state.
      */
-    void undoAddressBook();
+    void undoFinanceTracker();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's finance tracker to its previously undone state.
      */
-    void redoAddressBook();
+    void redoFinanceTracker();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current finance tracker state for undo/redo.
      */
-    void commitAddressBook();
+    void commitFinanceTracker();
 
     /**
      * Selected record in the filtered record list.

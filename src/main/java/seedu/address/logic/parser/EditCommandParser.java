@@ -19,9 +19,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditHealthWorkerCommand;
+import seedu.address.logic.commands.EditHealthWorkerCommand.EditHealthWorkerDescriptor;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.EditHealthWorkerCommand.EditHealthWorkerDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -41,7 +41,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (commandMode == CommandMode.HEALTH_WORKER) {
             return parseEditHealthWorker(args);
         } else if (commandMode == CommandMode.OTHERS) {
-            // FIXME: Placeholder to handle current testing involving original AB4 Persons by removing the command mode
+            // TODO: Placeholder to handle current testing involving original AB4 Persons by removing the command mode
             args = args.substring(2);
         }
 

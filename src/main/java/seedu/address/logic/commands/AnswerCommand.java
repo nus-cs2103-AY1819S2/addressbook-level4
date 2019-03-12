@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.AnswerCommandResultType;
@@ -8,6 +9,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Answer;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.Score;
 
 /**
  * Allows user to input an answer for the currently displayed card, compares it with the
@@ -34,6 +37,7 @@ public class AnswerCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
         if (!model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
         }
@@ -41,11 +45,14 @@ public class AnswerCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
         }
         model.setCardAsAnswered();
+        Card cardToMark = model.getCurrentTestedCard();
 
         boolean isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
 
-        //TODO: Call method to update score for this card
-
+        Card scoredCard = createScoredCard(cardToMark, isAttemptCorrect);
+        model.setCard(cardToMark, scoredCard);
+        model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
+        model.commitActiveCardFolder();
         if (isAttemptCorrect) {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null,
                     false, AnswerCommandResultType.ANSWER_CORRECT);
@@ -53,6 +60,24 @@ public class AnswerCommand extends Command {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null,
                     false, AnswerCommandResultType.ANSWER_WRONG);
         }
+    }
+
+    /**
+     *
+     * @param cardToMark {@code Card} which is being marked correct or wrong
+     * @param markCorrect Boolean representing if card should be graded correct or wrong
+     * @return Card created with new score
+     */
+    private static Card createScoredCard(Card cardToMark, boolean markCorrect) {
+        Score newScore;
+        if (markCorrect) {
+            newScore = new Score(cardToMark.getScore().correctAttempts + 1,
+                    cardToMark.getScore().totalAttempts + 1);
+        } else {
+            newScore = new Score(cardToMark.getScore().correctAttempts,
+                    cardToMark.getScore().totalAttempts + 1);
+        }
+        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getHints());
     }
 
     @Override

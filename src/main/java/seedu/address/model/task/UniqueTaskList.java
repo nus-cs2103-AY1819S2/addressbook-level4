@@ -20,6 +20,7 @@ import seedu.address.model.task.exceptions.TaskNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
+ * @see Task#isSameTask(Task)
  */
 public class UniqueTaskList implements Iterable<Task> {
 
@@ -60,7 +61,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
 
-        if (!target.equals(editedTask) && contains(editedTask)) {
+        if (!target.isSameTask(editedTask) && contains(editedTask)) {
             throw new DuplicateTaskException();
         }
 
@@ -126,7 +127,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private boolean TasksAreUnique(List<Task> Tasks) {
         for (int i = 0; i < Tasks.size() - 1; i++) {
             for (int j = i + 1; j < Tasks.size(); j++) {
-                if (Tasks.get(i).equals(Tasks.get(j))) {
+                if (Tasks.get(i).isSameTask(Tasks.get(j))) {
                     return false;
                 }
             }

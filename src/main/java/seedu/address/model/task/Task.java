@@ -43,6 +43,20 @@ public class Task {
         return endDate;
     }
 
+    /**
+     * Returns true if both tasks have the exact same title and data fields (subject to change)
+     * This defines a weaker notion of equality between two tasks.
+     */
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return otherTask != null
+                && otherTask.getTitle().equals(getTitle())
+                && otherTask.getStartDate().equals(getStartDate())
+                && otherTask.getEndDate().equals(getEndDate());
+    }
 
     /**
      * Returns true if both tasks have the exact same title and data fields.

@@ -335,13 +335,7 @@ public class Lesson {
     public void addCard(List<String> fields) {
         requireAllNonNull(fields);
 
-        List<String> cores;
-
-        try {
-            cores = fields.subList(0, coreHeaders.size());
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(EXCEPTION_CORE_SIZE_MISMATCH);
-        }
+        List<String> cores = fields.subList(0, coreHeaders.size());
 
         int optionalCount = fields.size() - coreHeaders.size();
 
@@ -386,17 +380,16 @@ public class Lesson {
     }
 
     /**
-     * Two {@code Lesson} objects with the same hashcode are identical when tested in quiz mode.
+     * Two {@code Lesson} objects with the same hashcode are equivalent.
      * They need not have the same {@link #name}.
      *
      * @return the hashcode generated using {@link #coreHeaders}, {@link #optionalHeaders},
-     * {@link #questionCoreIndex}, {@link #answerCoreIndex}, {@link #cards} and {@link #isVisibleOptionals} as
-     * input.
+     * {@link #questionCoreIndex}, {@link #answerCoreIndex} and {@link #cards} as input.
      */
     @Override
     public int hashCode() {
         return Objects.hash(coreHeaders, optionalHeaders, questionCoreIndex, answerCoreIndex,
-                cards, isVisibleOptionals);
+                cards);
     }
 
     @Override

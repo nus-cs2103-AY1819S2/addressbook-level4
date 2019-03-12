@@ -28,11 +28,12 @@ class JsonAdaptedPerson {
     private final String name;
     private final String size;
     private final String location;
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given pdf details.

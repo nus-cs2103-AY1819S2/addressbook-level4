@@ -39,6 +39,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.parser.CommandMode;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -51,6 +52,8 @@ import seedu.address.testutil.PersonUtil;
 
 public class EditPersonCommandSystemTest extends AddressBookSystemTest {
 
+    private static final String MODE_OTHERS = CommandMode.MODE_OTHERS + " ";
+
     @Test
     public void edit() {
         Model model = getModel();
@@ -61,8 +64,9 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditPersonCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+        String command = " " + EditPersonCommand.COMMAND_WORD + "  " + MODE_OTHERS + " " + index.getOneBased() + "  "
+                + NAME_DESC_BOB + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
+                + TAG_DESC_HUSBAND + " ";
         Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -78,7 +82,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a person with new values same as existing values -> edited */
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
@@ -86,8 +90,8 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_AMY
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -95,14 +99,15 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
+                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + " "
+                + PREFIX_TAG.getPrefix();
         Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPerson);
@@ -113,7 +118,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + " " + NAME_DESC_BOB;
         personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
@@ -134,8 +139,8 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         showAllPersons();
         index = INDEX_FIRST_PERSON;
         selectPerson(index);
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_AMY
+                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
         assertCommandSuccess(command, index, AMY, index);
@@ -188,27 +193,27 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as other person's values but with different address -> rejected */
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-        command = EditPersonCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
     }

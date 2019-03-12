@@ -53,11 +53,11 @@ public class ArgumentTokenizer {
      */
     public static CommandMode checkMode(String args) {
         String trimmedArgs = args.trim();
-        try {
-            if (!Character.toString(trimmedArgs.charAt(MODE_POSITION + 1)).equals(" ")) {
-                return CommandMode.INVALID;
-            }
-        } catch (StringIndexOutOfBoundsException e) {
+        if (trimmedArgs.length() < 2) {
+            return CommandMode.INVALID;
+        }
+
+        if (!Character.toString(trimmedArgs.charAt(MODE_POSITION + 1)).equals(" ")) {
             return CommandMode.INVALID;
         }
 

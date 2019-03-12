@@ -14,5 +14,6 @@ public class Messages {
             + " session";
     public static final String MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION = "This command is not valid inside a test"
             + " session";
-    public static final String MESSAGE_INVALID_ANSWER_COMMAND = "Answer Command is valid only when a question is displayed";
+    public static final String MESSAGE_INVALID_ANSWER_COMMAND = "Answer Command is valid only when a question is displayed"
+            + " in a test session";
 }

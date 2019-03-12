@@ -32,6 +32,7 @@ import seedu.address.logic.commands.PrescriptionCommand;
 import seedu.address.logic.commands.PurchaseMedicineCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetPriceCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewStorageCommand;
@@ -149,6 +150,9 @@ public class AddressBookParser {
 
         case PurchaseMedicineCommand.COMMAND_WORD:
             return new PurchaseMedicineCommandParser().parse(arguments);
+
+        case SetPriceCommand.COMMAND_WORD:
+            return new SetPriceCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

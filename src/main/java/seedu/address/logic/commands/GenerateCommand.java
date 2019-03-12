@@ -4,6 +4,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Generates a graph.
+ */
 public class GenerateCommand extends Command {
 
     public static final String COMMAND_ALIAS = "generate";

@@ -13,9 +13,6 @@ import static seedu.address.testutil.TypicalCards.CARD_JAPAN_OPT1;
 
 import org.junit.Test;
 
-import seedu.address.model.card.exceptions.MissingCoreException;
-import seedu.address.model.card.exceptions.MissingOptionalException;
-import seedu.address.testutil.Assert;
 import seedu.address.testutil.CardBuilder;
 
 /**
@@ -77,7 +74,7 @@ public class CardTest {
     }
 
     @Test
-    public void setAndGetCoreAndOptional() throws MissingCoreException, MissingOptionalException {
+    public void setAndGetCoreAndOptional() {
         Card belgiumCopy = new CardBuilder(CARD_BELGIUM).build();
         Card japanCopy = new CardBuilder(CARD_JAPAN).build();
         assertNotEquals(belgiumCopy, japanCopy);
@@ -87,14 +84,6 @@ public class CardTest {
 
         belgiumCopy.setOptional(0, japanCopy.getOptional(0));
         assertEquals(belgiumCopy.getOptional(0), japanCopy.getOptional(0));
-
-        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(-1), () -> {
-            belgiumCopy.getCore(-1);
-        });
-
-        Assert.assertThrows(MissingOptionalException.class, MissingOptionalException.generateMessage(-1), () -> {
-            belgiumCopy.getOptional(-1);
-        });
     }
 
     @Test
@@ -105,23 +94,5 @@ public class CardTest {
         assertEquals(belgiumCopy, newCard);
         // since both cards are identical, their string representation should be the same
         assertEquals(belgiumCopy.toString(), newCard.toString());
-    }
-
-    @Test
-    public void getCore_invalidIndex_throwsMissingCoreException() {
-        Assert.assertThrows(MissingCoreException.class, MissingCoreException.generateMessage(0), () -> {
-            Card testCard = new CardBuilder(CARD_JAPAN).build();
-            testCard.setCore(0, "");
-            testCard.getCore(0);
-        });
-    }
-
-    @Test
-    public void getOptional_invalidIndex_throwsMissingOptionalException() {
-        Assert.assertThrows(MissingOptionalException.class, MissingOptionalException.generateMessage(0), () -> {
-            Card testCard = new CardBuilder(CARD_JAPAN).build();
-            testCard.setOptional(0, "");
-            testCard.getOptional(0);
-        });
     }
 }

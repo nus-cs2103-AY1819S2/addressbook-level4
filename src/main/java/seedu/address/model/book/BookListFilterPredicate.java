@@ -3,6 +3,9 @@ package seedu.address.model.book;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Book}'s {@code BookName, BookTag, BookRating} matches any of the keywords given.
+ */
 public class BookListFilterPredicate implements Predicate<Book> {
     private Predicate<Book> namePredicate;
     private Predicate<Book> tagPredicate;
@@ -16,9 +19,9 @@ public class BookListFilterPredicate implements Predicate<Book> {
 
     @Override
     public boolean test(Book book) {
-        return namePredicate.test(book) &&
-                tagPredicate.test(book) &&
-                ratingPredicate.test(book);
+        return namePredicate.test(book)
+                && tagPredicate.test(book)
+                && ratingPredicate.test(book);
     }
 
     @Override

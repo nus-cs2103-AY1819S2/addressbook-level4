@@ -18,8 +18,8 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
 
-import seedu.address.model.RequestBook;
 import seedu.address.model.ReadOnlyRequestBook;
+import seedu.address.model.RequestBook;
 
 
 

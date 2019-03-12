@@ -65,13 +65,15 @@ public class JsonHealthWorkerBookStorageTest {
     }
 
     @Test
-    public void readHealthWorkerBook_invalidPersonHealthWorkerBook_throwDataConversionException() throws Exception {
+    public void readHealthWorkerBook_invalidPersonHealthWorkerBook_throwDataConversionException()
+            throws Exception {
         thrown.expect(DataConversionException.class);
         readHealthWorkerBook("invalidPersonHealthWorkerBook.json"); //TODO regenerate the json files
     }
 
     @Test
-    public void readHealthWorkerBook_invalidAndValidPersonHealthWorkerBook_throwDataConversionException() throws Exception {
+    public void readHealthWorkerBook_invalidAndValidPersonHealthWorkerBook_throwDataConversionException()
+            throws Exception {
         thrown.expect(DataConversionException.class);
         readHealthWorkerBook("invalidAndValidPersonHealthWorkerBook.json");//TODO regenerate the json files
     }

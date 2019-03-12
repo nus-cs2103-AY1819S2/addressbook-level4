@@ -36,14 +36,15 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Try some of these commands:
+
+Once you have TopDeck set up, here are some commands you can try:
 
 * *`index`* : lists all cards
 * **`deck add`**`Capitals`  creates a deck entitled "Capitals"
 * **`deck delete`**`3` : deletes the 3rd deck shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+For details of each command, please refer to <<Features>>.
 
 [[Features]]
 == Features
@@ -144,54 +145,47 @@ When this command is called while a deck is selected, search results are limited
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
 === Undoing a command : `undo`
 
 
 **Format**: `undo`
 
-**Outcome**: Restores the address book to the state before the previous _undoable_ command was executed.
-
-[NOTE]
-====
-Undoable commands: You are not able to undo a study session.
-====
+**Outcome**: Restores TopDeck to the state before the previous change.
 
 **Example usage**:
 
 * `card delete 1` +
 `list` +
-`undo` (reverses the `card delete 1` command) +
+`undo` (undos `card delete 1`) +
 
 * `card delete 1` +
 `card add q/Russia a/Moscow` +
-`undo` (reverses the `card add` command) +
-`undo` (reverses the `card delete` command) +
+`undo` (undos `card add`) +
+`undo` (undos `card delete`) +
 
 === Redoing a command : `redo`
 
 
 **Format**: `redo`
 
-**Outcome**: Reverses the most recent `undo` command
+**Outcome**: Restores the TopDeck to the state before an `undo`.
 
 Examples:
 
 * `card delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (undos `delete 1`) +
+`redo` (redos `delete 1`) +
 
 * `card delete 1` +
 `redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+The `redo` command fails as there is no undone state to restore.
 
 * `card delete 1` +
 `card add q/Panama a/Panama` +
-`undo` (reverses the `card add` command) +
-`undo` (reverses the `card delete` command) +
-`redo` (reapplies the `card delete` command) +
-`redo` (reapplies the `card add` command) +
-// end::undoredo[]
+`undo` (undos `card add`) +
+`undo` (undos `card delete`) +
+`redo` (redos `card delete`) +
+`redo` (redos `card add`) +
 
 === Importing a deck: `import deck`
 
@@ -253,6 +247,3 @@ _{explain how the user can enable/disable data encryption}_
 **Card**: Cards in TopDeck work like flash cards. Each card has a front and back side. TopDeck assumes the front contains a question and the back contains the answer.
 
 **Deck**: A collection of cards
-
-**Undoable commands**: These are commands that can be undone with the `undo` command. All commands are undoable commands, with the exception of the following: `help`, `study`, `undo`, `redo`
-

@@ -19,10 +19,10 @@ public class UploadCommand extends Command {
     public static final String COMMAND_WORD = "upload";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Uploads flashcards from a data file. "
-            + "Parameters: "
-            + "FILE PATH \n"
-            + "Example: " + COMMAND_WORD + " "
-            + "C:\\Users\\Alice\\Downloads\\spanishCards.txt";
+        + "Parameters: "
+        + "FILE PATH \n"
+        + "Example: " + COMMAND_WORD + " "
+        + "C:\\Users\\Alice\\Downloads\\spanishCards.txt";
 
     public static final String MESSAGE_SUCCESS = "Flashcards successfully uploaded from file: ";
     public static final String MESSAGE_UPLOAD_ERROR = "Unable to upload flashcards from file";

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.Flashcard;
 
 
 /**
@@ -22,7 +22,7 @@ public class CardViewPanel extends UiPart<Region> {
     @FXML
     private StackPane cardPlaceholder;
 
-    public CardViewPanel(ObservableValue<Person> selectedPerson) {
+    public CardViewPanel(ObservableValue<Flashcard> selectedPerson) {
         super(FXML);
 
         // Load person page when selected person changes.
@@ -37,12 +37,13 @@ public class CardViewPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
-    private void loadCardPage(Person person) {
-        loadPage(new PersonCard(person, 0));
+    private void loadCardPage(Flashcard flashcard) {
+        loadPage(new FlashcardCard(flashcard, 0));
     }
 
     /**
      * Loads page given uiPart
+     *
      * @param uiPart the uiPart to show
      */
     public void loadPage(UiPart<Region> uiPart) {

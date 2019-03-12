@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * The Browser Panel of the App.
@@ -21,7 +21,7 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
-            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+        requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
     public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
@@ -31,26 +31,26 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<Person> selectedPerson) {
+    public BrowserPanel(ObservableValue<Flashcard> selectedFlashcard) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Load person page when selected person changes.
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        // Load flashcard page when selected flashcard changes.
+        selectedFlashcard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+            loadFlashcardPage(newValue);
         });
 
         loadDefaultPage();
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void loadFlashcardPage(Flashcard flashcard) {
+        loadPage(SEARCH_PAGE_URL + flashcard.getName().fullName);
     }
 
     public void loadPage(String url) {

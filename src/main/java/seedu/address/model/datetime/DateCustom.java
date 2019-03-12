@@ -43,7 +43,18 @@ public class DateCustom {
         return test.matches(VALIDATION_REGEX);
     }
 
-
+    public static boolean isDateBeforeToday(String givenFormat, String test) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(givenFormat);
+        String currentDateString = new SimpleDateFormat(givenFormat).format(new Date());
+        Date currentDate =  sdf.parse(currentDateString);
+        Date givenDate = sdf.parse(test);
+        if(currentDate.compareTo(givenDate) > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     @Override
     public String toString() {
         return super.toString();

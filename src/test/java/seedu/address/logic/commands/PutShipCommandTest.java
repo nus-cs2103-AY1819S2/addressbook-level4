@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HORIZONTAL_ORIENTATION;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_FIRST_CELL;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_FIRST_CELL_NEXT_HORIZONTAL;
@@ -17,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 
 /**
@@ -33,17 +35,20 @@ public class PutShipCommandTest {
         Battleship battleship = new Battleship();
         model.getMapGrid().getCell(COORDINATES_FIRST_CELL).putShip(battleship);
 
-        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship);
+        Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
-                PutShipCommand.MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
+                PutShipCommand.MESSAGE_BATTLESHIP_PRESENT);
     }
 
     @Test
     public void execute_putBattleshipVertical_failure() {
         model.getMapGrid().initialise(MAP_SIZE_TEN);
         Battleship battleship = new Battleship();
-        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship);
+        Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship, orientation);
         model.getMapGrid().getCell(COORDINATES_FIRST_CELL_NEXT_VERTICAL).putShip(battleship);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
@@ -54,7 +59,8 @@ public class PutShipCommandTest {
     public void execute_putBattleshipHorizontal_failure() {
         model.getMapGrid().initialise(MAP_SIZE_TEN);
         Battleship battleship = new Battleship();
-        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship);
+        Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship, orientation);
         model.getMapGrid().getCell(COORDINATES_FIRST_CELL_NEXT_HORIZONTAL).putShip(battleship);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
@@ -63,10 +69,12 @@ public class PutShipCommandTest {
 
     @Test
     public void equals() {
-        final PutShipCommand standardCommand = new PutShipCommand(COORDINATES_FIRST_CELL, new Battleship());
+        final PutShipCommand standardCommand = new PutShipCommand(COORDINATES_FIRST_CELL,
+                new Battleship(), new Orientation(VALID_HORIZONTAL_ORIENTATION));
 
         // same values -> returns true
-        PutShipCommand commandWithSameValues = new PutShipCommand(new Coordinates("a1"), new Battleship());
+        PutShipCommand commandWithSameValues = new PutShipCommand(
+                new Coordinates("a1"), new Battleship(), new Orientation(VALID_HORIZONTAL_ORIENTATION));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -79,7 +87,8 @@ public class PutShipCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different coordinates -> returns false
-        assertFalse(standardCommand.equals(new PutShipCommand(COORDINATES_LAST_CELL, new Battleship())));
+        assertFalse(standardCommand.equals(new PutShipCommand(
+                COORDINATES_LAST_CELL, new Battleship(), new Orientation(VALID_HORIZONTAL_ORIENTATION))));
 
     }
 

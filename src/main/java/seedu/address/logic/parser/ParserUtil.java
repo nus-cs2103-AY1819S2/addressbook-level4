@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.battleship.Name;
+import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Email;
@@ -124,6 +125,21 @@ public class ParserUtil {
             throw new ParseException(Coordinates.MESSAGE_CONSTRAINTS);
         }
         return new Coordinates(trimmedCoordinate);
+    }
+
+    /**
+     * Parses a {@code String orientation} into a {@code Orientation}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static Orientation parseOrientation(String orientation) throws ParseException {
+        requireNonNull(orientation);
+        String trimmedOrientation = orientation.trim();
+        if (!Orientation.isValidOrientation(trimmedOrientation)) {
+            throw new ParseException(Orientation.MESSAGE_CONSTRAINTS);
+        }
+        return new Orientation(trimmedOrientation);
     }
 
 

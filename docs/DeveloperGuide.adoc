@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= slaveFinder() - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W15-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -831,9 +831,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |HR |delete a person |reject applicants not suited for the job
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+
+|`* * *` |HR |get the best people for a job |please my boss
+
+|`* * *` |HR |look at the analytics of the hired applicants |ensure a fair hiring process
+
+|`* * *` |HR |easily store all txt resumes in slaveFinder() |be more efficient
+
+|`* * *` |HR |arrange interview dates quickly |to be more efficient in finding the right person for the job
+
+|`* *` |HR |look at the list of applicants I have narrowed down |send them to boss for approval
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -845,7 +855,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `slaveFinder()` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -853,9 +863,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  slaveFinder() shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  slaveFinder() deletes the person
 +
 Use case ends.
 
@@ -872,6 +882,28 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Arrange interview dates
+
+*MSS*
+
+1. User requests to arrange interview dates for applicants
+2. slaveFinder() shows a ranked list of interviewees
+3. slaveFinder() asks for confirmation of interviewees
+4. slaveFinder() assigns to each interviewee a date and shows it to user
+5. slaveFinder() asks for confirmation of dates
+6. slaveFinder() ask User for confirmation of interviewees and dates
+7. Email is sent to the interviewees
+
+*Extensions*
+
+* 3a. User is not satisfied with the interviewees
+* 3b. User removes unwanted interviewees +
+Use case resumes at step 4.
+
+* 5a. User is not satisfied with the dates
+* 5b. User rearranges dates +
+Use case resumes at step 6.
 
 _{More to be added}_
 

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= slaveFinder() - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,13 +12,13 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W15-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+slaveFinder() is for those who *prefer to use a desktop app for managing contacts*. More importantly, social Circle is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, social Circle can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -59,15 +59,17 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+* A person can have any number of tags (including 0)
+* A person can have any number of past jobs (including 0)
+* A person can only have "CS", "ME", "MATH", "ECON", "Computer Science" as their majors (case sensitive)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123 g/Male r/Chinese m/CS s/NUS`
+* `add n/Betsy Crowe g/Polygender p/12345678 t/friend e/betsycrowe@example.com a/Newgate Prison r/Indian p/1234567 t/criminal m/ME s/NTU pj/Hacker`
 
 === Listing all persons : `list`
 
@@ -77,7 +79,7 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -85,6 +87,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* You can remove all the person's moudles by typing `mo/` without specifying any moudles after it.
 ****
 
 Examples:
@@ -113,6 +116,43 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+
+=== Searching persons by personal information: `search`
+
+Search persons whose personal information exactly to the given keywords in the specific fields. +
+Format: `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+
+****
+* The search is case insensitive. e.g `cs` will match `CS`
+* Any personal information is searched.
+* Only full information will be matched e.g. `computer` will not match `Computer Science`
+* Persons matching all keywords will be returned (i.e. `AND` search).
+****
+
+Examples:
+
+* `search m/CS` +
+Returns people whose major is `CS`
+* `search m/CS s/NUS` +
+Returns any person whose major is `CS` and school is `NUS`
+
+=== Adding tags base on personal information : `addtag`
+
+Adds tag for people by their personal information. +
+Format: `addtag TAGNAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE]`
+
+****
+* Adds tag for people at the specified field.
+* The TAGNAME refers to the tag name you want to add to people.
+* Persons matching all keywords will be add tag (i.e. `AND` search).
+****
+
+Examples:
+
+* `addtag CS m/CS`
+Add CS tag for all people whose major is `CS`.
+* `addtag Assignment t/friend m/CS`
+Add `Assignment` tag for all people whose major is `CS` and have tag `friend`.
 
 === Deleting a person : `delete`
 
@@ -214,6 +254,39 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+=== Arrange Interview Dates : `arrange_interviews` `Coming in v1.4`
+
+Arrange interview dates for applicant based on relevance to the job opening and
+sends the applicants their respective interview timings to the email they provided based on their relevance to the role. +
+Format : `arrange_interviews`
+
+=== Read to slaveFinder() : `readAll` `Coming in v1.4`
+
+Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
+Format : `readAll`
+
+=== Get ranked list : `getRankedList` `Coming in v1.4`
+
+Returns a ranked list of applicants with the applicants better suited for the job based on his/her resume submitted
+displayed at the top. +
+Format : `getRankedList`
+
+=== Filter search results : `filter` `Coming in v1.4`
+
+Based on the search results returned from `search` returns a new list with the filter applied. +
+Format: `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+
+=== Display Hiring process for a specific role : `displayProcess` `Coming in v1.4`
+
+Shows 3 categories of applicants for a specific role:
+"Applied", "(KIV) Keep in View", "Interviewed", "To be sent to boss". +
+Format : `displayProcess`
+
+=== Display Analytics : `displayAnalytics` `Coming in v1.4`
+
+Display the analytics of applicants the company has hired +
+Format : `displayAnalytics`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -229,12 +302,6 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -242,15 +309,20 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665
+g/Male r/Chinese m/MATH s/NUS pj/Professor t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Search* : `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+e.g. `search s/NUS`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
@@ -258,3 +330,11 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Arrange Interviews* : `arrangeInterviews`
+* *Read to slaveFinder()* : `readAll`
+* *Get ranked list* : `getRankedList`
+* *Filter search results* : `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+e.g. `filter r/Chinese`
+* *Display Hiring Process* : `displayProcess`
+* *Display Analytics* : `displayAnalytics`

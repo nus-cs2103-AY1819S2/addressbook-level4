@@ -3,8 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -22,9 +27,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.KnownProgLang;
+import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Race;
+import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,6 +43,7 @@ import seedu.address.model.tag.Tag;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_ALIAS = "ed";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -41,11 +52,33 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_RACE + "RACE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_SCHOOL + "SCHOOL] "
+            + "[" + PREFIX_MAJOR + "MAJOR] "
+            + "[" + PREFIX_SCHOOL + "SCHOOL] "
+            + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG] "
+            + "[" + PREFIX_PASTJOB + "PASTJOB] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "johndoe@example.com"
+            + PREFIX_RACE + "Indian "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science "
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "owesMoney\n"
+            + "The alias \"ed\" can be used instead.\n"
+            + "Example: " + COMMAND_ALIAS + " 1 "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_RACE + "Indian "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science"
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "owesMoney\n";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -55,7 +88,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -98,10 +131,17 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Race updatedRace = editPersonDescriptor.getRace().orElse(personToEdit.getRace());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        School updatedSchool = editPersonDescriptor.getSchool().orElse(personToEdit.getSchool());
+        Major updatedMajor = editPersonDescriptor.getMajor().orElse(personToEdit.getMajor());
+        Set<KnownProgLang> updatedKnownProgLangs = editPersonDescriptor.getKnownProgLangs()
+                .orElse(personToEdit.getKnownProgLangs());
+        Set<PastJob> updatedPastJobs = editPersonDescriptor.getPastJobs().orElse(personToEdit.getPastJobs());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedRace, updatedAddress,
+                updatedSchool, updatedMajor, updatedKnownProgLangs, updatedPastJobs, updatedTags);
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -130,20 +170,32 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Race race;
         private Address address;
+        private School school;
+        private Major major;
+        private Set<KnownProgLang> knownProgLangs;
+        private Set<PastJob> pastjobs;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.
+         * * A defensive copy of {@code pastjobs} is used internally.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setRace(toCopy.race);
             setAddress(toCopy.address);
+            setSchool(toCopy.school);
+            setMajor(toCopy.major);
+            setKnownProgLangs(toCopy.knownProgLangs);
+            setPastJobs(toCopy.pastjobs);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +203,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school,
+                    major, knownProgLangs, pastjobs, tags);
         }
 
         public void setName(Name name) {
@@ -178,12 +231,71 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
+        public void setRace(Race race) {
+            this.race = race;
+        }
+
+        public Optional<Race> getRace() {
+            return Optional.ofNullable(race);
+        }
+
         public void setAddress(Address address) {
             this.address = address;
         }
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setSchool(School school) {
+            this.school = school;
+        }
+
+        public Optional<School> getSchool() {
+            return Optional.ofNullable(school);
+        }
+
+        public void setMajor(Major major) {
+            this.major = major;
+        }
+
+        public Optional<Major> getMajor() {
+            return Optional.ofNullable(major);
+        }
+
+        /**
+         * Sets {@code knownProgLangs} to this object's {@code knownProgLangs}.
+         * A defensive copy of {@code knownProgLangs} is used internally.
+         */
+        public void setKnownProgLangs(Set<KnownProgLang> knownProgLangs) {
+            this.knownProgLangs = (knownProgLangs != null) ? new HashSet<>(knownProgLangs) : null;
+        }
+
+        /**
+         * Returns an unmodifiable pastjob set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code pastjobs} is null.
+         */
+        public Optional<Set<KnownProgLang>> getKnownProgLangs() {
+            return (knownProgLangs != null) ? Optional.of(Collections
+                    .unmodifiableSet(knownProgLangs)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code pastjobs} to this object's {@code pastjobs}.
+         * A defensive copy of {@code pastjobs} is used internally.
+         */
+        public void setPastJobs(Set<PastJob> pastjobs) {
+            this.pastjobs = (pastjobs != null) ? new HashSet<>(pastjobs) : null;
+        }
+
+        /**
+         * Returns an unmodifiable pastjob set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code pastjobs} is null.
+         */
+        public Optional<Set<PastJob>> getPastJobs() {
+            return (pastjobs != null) ? Optional.of(Collections.unmodifiableSet(pastjobs)) : Optional.empty();
         }
 
         /**
@@ -221,7 +333,12 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getRace().equals(e.getRace())
                     && getAddress().equals(e.getAddress())
+                    && getSchool().equals(e.getSchool())
+                    && getMajor().equals(e.getMajor())
+                    && getKnownProgLangs().equals(e.getKnownProgLangs())
+                    && getPastJobs().equals(e.getPastJobs())
                     && getTags().equals(e.getTags());
         }
     }

@@ -21,18 +21,30 @@ public class Person {
     private final Email email;
 
     // Data fields
+    private final Race race;
     private final Address address;
+    private final School school;
+    private final Major major;
+    private final Set<KnownProgLang> knownProgLangs = new HashSet<>();
+    private final Set<PastJob> pastjobs = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Race race, Address address,
+            School school, Major major, Set<KnownProgLang> knownProgLangs, Set<PastJob> pastjobs, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, school, major, knownProgLangs, pastjobs, tags);
+
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.race = race;
         this.address = address;
+        this.school = school;
+        this.major = major;
+        this.knownProgLangs.addAll(knownProgLangs);
+        this.pastjobs.addAll(pastjobs);
         this.tags.addAll(tags);
     }
 
@@ -48,8 +60,36 @@ public class Person {
         return email;
     }
 
+    public Race getRace() {
+        return race;
+    }
+
     public Address getAddress() {
         return address;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public Major getMajor() {
+        return major;
+    }
+
+    /**
+     * Returns an immutable known programming language set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public final Set<KnownProgLang> getKnownProgLangs() {
+        return Collections.unmodifiableSet(knownProgLangs);
+    }
+
+    /**
+     * Returns an immutable past job set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public final Set<PastJob> getPastJobs() {
+        return Collections.unmodifiableSet(pastjobs);
     }
 
     /**
@@ -92,14 +132,19 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getRace().equals(getRace())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getSchool().equals(getSchool())
+                && otherPerson.getPastJobs().equals(getPastJobs())
+                && otherPerson.getKnownProgLangs().equals(getKnownProgLangs())
+                && otherPerson.getMajor().equals(getMajor())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
     }
 
     @Override
@@ -110,9 +155,19 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Race: ")
+                .append(getRace())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Tags: ");
+                .append(" School: ")
+                .append(getSchool())
+                .append(" Major: ")
+                .append(getMajor());
+        builder.append(" Past jobs: ");
+        getPastJobs().forEach(builder::append);
+        builder.append(" Known Programming Languages: ");
+        getKnownProgLangs().forEach(builder::append);
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

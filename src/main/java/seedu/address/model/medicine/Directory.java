@@ -55,7 +55,11 @@ public class Directory {
     public void addDirectory(String name) {
         requireNonNull(name);
         checkArgument(isValidNewDirectory(name), "Directory with the same name already exists");
-        listOfDirectory.add(new Directory(name));
+        Directory newDirectory = new Directory(name);
+        if (threshold.isPresent()) {
+            newDirectory.setThresholdForAll(threshold.get());
+        }
+        listOfDirectory.add(newDirectory);
         listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name)));
     }
 

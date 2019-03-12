@@ -3,6 +3,8 @@ package seedu.address.model.medicine;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.math.BigDecimal;
+
 /**
  * Represents the name and history of quantities of a particular medicine
  */
@@ -10,7 +12,7 @@ public class Medicine {
 
     public static final String MESSAGE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
     public static final String VALIDATION_REGEX = "[^\\s].*";
-    public static final String TO_STRING = "Medicine: %1$s, Quantity: %2$d";
+    public static final String TO_STRING = "Medicine: %1$s, Quantity: %2$d, Price: %3$s";
 
     private static int defaultThreshold = 50;
 
@@ -18,6 +20,7 @@ public class Medicine {
     private int quantity;
     private boolean thresholdIsDefault = true;
     private int threshold;
+    private BigDecimal price;
 
     /**
      * Constructs a medicine with given name and default quantity 0.
@@ -117,10 +120,18 @@ public class Medicine {
 
     @Override
     public String toString() {
-        return String.format(TO_STRING, name, quantity);
+        return String.format(TO_STRING, name, quantity, price.toString());
     }
 
     public String viewDetail() {
         return this.toString();
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

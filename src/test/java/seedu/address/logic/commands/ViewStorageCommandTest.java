@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +22,8 @@ public class ViewStorageCommandTest {
         model.addDirectory("TCM", new String[]{"root"});
         model.addDirectory("ECM", new String[]{"root"});
         model.addDirectory("Herbs", new String[]{"root", "TCM"});
-        model.addMedicine("test", new String[]{"root"});
-        model.addMedicine("data", 59, new String[]{"root"});
+        model.addMedicine("test", new String[]{"root"}, BigDecimal.valueOf(33));
+        model.addMedicine("data", 59, new String[]{"root"}, BigDecimal.valueOf(97));
     }
 
     @Test
@@ -35,8 +37,8 @@ public class ViewStorageCommandTest {
             sb.append("- ECM\n");
             sb.append("- TCM\n");
             sb.append("List of Medicine under this directory: \n");
-            sb.append("Medicine: data, Quantity: 59\n");
-            sb.append("Medicine: test, Quantity: 0\n");
+            sb.append("Medicine: data, Quantity: 59, Price: 97\n");
+            sb.append("Medicine: test, Quantity: 0, Price: 33\n");
             Assert.assertEquals(sb.toString(), commandResult.getFeedbackToUser());
         } catch (Exception ex) {
             Assert.fail();
@@ -60,7 +62,7 @@ public class ViewStorageCommandTest {
         try {
             CommandResult commandResult =
                     new ViewStorageCommand(new String[] {"root", "data"}).execute(model, commandHistory);
-            Assert.assertEquals("Medicine found at root\\data\nMedicine: data, Quantity: 59\n",
+            Assert.assertEquals("Medicine found at root\\data\nMedicine: data, Quantity: 59, Price: 97\n",
                     commandResult.getFeedbackToUser());
         } catch (Exception ex) {
             Assert.fail();

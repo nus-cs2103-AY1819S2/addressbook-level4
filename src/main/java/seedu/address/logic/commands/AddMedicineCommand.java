@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.StringUtil.fromPathToString;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -26,33 +27,39 @@ public class AddMedicineCommand extends Command {
             + "Parameters: "
             + "[Directory path separated by \\] "
             + "[Name of Medicine] "
+            + "[Price of Medicine] "
             + "[(Optional)Amount of Medicine]\n"
             + "Example: " + COMMAND_WORD + " "
             + "root\\TCM\\herbs "
             + "Healroot "
-            + "50";
+            + "3.41 50";
 
-    public static final String MESSAGE_SUCCESS_NEW_MED = "New Medicine added: %1$s with quantity at %2$d\n";
+    public static final String MESSAGE_SUCCESS_NEW_MED =
+            "New Medicine added: %1$s with quantity at %2$d and price at %3$s\n";
     public static final String MESSAGE_SUCCESS_EXISTING_MED = "Existing %1$s, added to %2$s\n";
+    public static final String MESSAGE_SETPRICE_IGNORED = "Warning: Overriding of price is ignored.\n";
 
     private final String name;
     private final int quantity;
     private final String[] path;
     private boolean possibleExisting;
+    private BigDecimal price;
 
-    public AddMedicineCommand(String[] path, String medicineName) {
-        this(path, medicineName, 0, true);
+    public AddMedicineCommand(String[] path, String medicineName, BigDecimal price) {
+        this(path, medicineName, 0, price, true);
     }
 
-    public AddMedicineCommand(String[] path, String medicineName, int quantity) {
-        this(path, medicineName, quantity, false);
+    public AddMedicineCommand(String[] path, String medicineName, int quantity, BigDecimal price) {
+        this(path, medicineName, quantity, price, false);
     }
 
-    public AddMedicineCommand(String[] path, String medicineName, int quantity, boolean possibleExisting) {
+    public AddMedicineCommand(String[] path, String medicineName, int quantity,
+                              BigDecimal price, boolean possibleExisting) {
         this.name = medicineName;
         this.quantity = quantity;
         this.path = path;
         this.possibleExisting = possibleExisting;
+        this.price = price;
     }
 
     /**
@@ -78,13 +85,17 @@ public class AddMedicineCommand extends Command {
                 if (findMedicine.isPresent()) {
                     findDirectory.get().addMedicine(findMedicine.get());
                     model.commitAddressBook();
-                    return new CommandResult(String.format(MESSAGE_SUCCESS_EXISTING_MED,
-                            findMedicine.get().toString(), fromPathToString(path)));
+                    String feedback = String.format(MESSAGE_SUCCESS_EXISTING_MED,
+                            findMedicine.get().toString(), fromPathToString(path));
+                    if (!findMedicine.get().getPrice().equals(price)) {
+                        feedback += MESSAGE_SETPRICE_IGNORED;
+                    }
+                    return new CommandResult(feedback);
                 }
             }
-            model.addMedicine(name, quantity, path);
+            model.addMedicine(name, quantity, path, price);
             model.commitAddressBook();
-            return new CommandResult(String.format(MESSAGE_SUCCESS_NEW_MED, name, quantity));
+            return new CommandResult(String.format(MESSAGE_SUCCESS_NEW_MED, name, quantity, price.toString()));
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }

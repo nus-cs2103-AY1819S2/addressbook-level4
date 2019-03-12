@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.Clock;
 import java.time.YearMonth;
@@ -164,9 +165,9 @@ public interface Model {
     void deleteTag(Tag tag);
 
     //===========Medicine Storage =====================================
-    void addMedicine(String medicineName, String[] path);
+    void addMedicine(String medicineName, String[] path, BigDecimal price);
 
-    void addMedicine(String medicineName, int quantity, String[] path);
+    void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price);
 
     void addDirectory(String directoryName, String[] path);
 

@@ -51,15 +51,14 @@ public class LessonTest {
 
     @Test
     public void createLessons() {
-        Lesson lesson = new Lesson(LESSON_DEFAULT.getName(),
-                LESSON_DEFAULT.getCoreHeaders().size(), LESSON_DEFAULT.getCoreHeaders());
-
         List<String> headers = new ArrayList<>();
         headers.addAll(LESSON_DEFAULT.getCoreHeaders());
         int noOfCoreHeaders = headers.size();
         headers.addAll(LESSON_DEFAULT.getOptionalHeaders());
 
-        lesson = new Lesson(LESSON_DEFAULT.getName(), noOfCoreHeaders, headers);
+        Lesson newLesson = new Lesson(LESSON_DEFAULT.getName(), noOfCoreHeaders, headers);
+        assertEquals(newLesson.getName(), LESSON_DEFAULT.getName());
+        assertEquals(newLesson.getCoreHeaderSize(), noOfCoreHeaders);
     }
 
     @Test

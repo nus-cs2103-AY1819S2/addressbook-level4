@@ -1,4 +1,4 @@
-= MediTab - Developer Guide
+= MediTabs - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/cs2103-ay1819s2-t12-3/main
+:repoURL: https://github.com/cs2103-ay1819s2-t12-3/main/blob/master/
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -74,9 +74,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the cs2103-ay1819s2-t12-3 branding and refer to the `cs2103-ay1819s2-t12-3/addressbook-level4` repo.
+After forking the repo, the documentation will still have the CS2103-AY1819S2-T12-3 branding and refer to the `CS2103-AY1819S2-T12-3/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `cs2103-ay1819s2-t12-3/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S2-T12-3/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 

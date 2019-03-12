@@ -19,14 +19,14 @@ public class RecordCardHandle extends NodeHandle<Node> {
     private static final String AMOUNT_FIELD_ID = "#amount";
     private static final String DATE_FIELD_ID = "#date";
     private static final String DESCRIPTION_FIELD_ID = "#description";
-    private static final String TAGS_FIELD_ID = "#tags";
+    private static final String CATEGORY_FIELD_ID = "#categories";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label amountLabel;
     private final Label dateLabel;
     private final Label descriptionLabel;
-    private final List<Label> tagLabels;
+    private final List<Label> categoryLabels;
 
     public RecordCardHandle(Node cardNode) {
         super(cardNode);
@@ -37,8 +37,8 @@ public class RecordCardHandle extends NodeHandle<Node> {
         dateLabel = getChildNode(DATE_FIELD_ID);
         descriptionLabel = getChildNode(DESCRIPTION_FIELD_ID);
 
-        Region tagsContainer = getChildNode(TAGS_FIELD_ID);
-        tagLabels = tagsContainer
+        Region categoriesContainer = getChildNode(CATEGORY_FIELD_ID);
+        categoryLabels = categoriesContainer
                 .getChildrenUnmodifiable()
                 .stream()
                 .map(Label.class::cast)
@@ -65,8 +65,8 @@ public class RecordCardHandle extends NodeHandle<Node> {
         return descriptionLabel.getText();
     }
 
-    public List<String> getTags() {
-        return tagLabels
+    public List<String> getCategories() {
+        return categoryLabels
                 .stream()
                 .map(Label::getText)
                 .collect(Collectors.toList());
@@ -75,14 +75,14 @@ public class RecordCardHandle extends NodeHandle<Node> {
     //@@author geezlouisee-reused
     //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0
     //with minor modifications
-    public List<String> getTagStyleClasses(String tag) {
-        return tagLabels
+    public List<String> getCategoryStyleClasses(String category) {
+        return categoryLabels
                 .stream()
-                .filter(label -> label.getText().equals(tag))
+                .filter(label -> label.getText().equals(category))
                 .map(Label::getStyleClass)
                 .findFirst()
                 .orElseThrow(() -> new
-                        IllegalArgumentException("No such tag."));
+                        IllegalArgumentException("No such category."));
     }
     //@@author
 
@@ -95,8 +95,9 @@ public class RecordCardHandle extends NodeHandle<Node> {
                 && getAmount().equals(record.getAmount().value)
                 && getDate().equals(record.getDate().value)
                 && getDate().equals(record.getDate().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(record.getTags().stream()
-                        .map(tag -> tag.tagName)
+                && ImmutableMultiset.copyOf(getCategories())
+                        .equals(ImmutableMultiset.copyOf(record.getCategories().stream()
+                        .map(category -> category.categoryName)
                         .collect(Collectors.toList())));
     }
 }

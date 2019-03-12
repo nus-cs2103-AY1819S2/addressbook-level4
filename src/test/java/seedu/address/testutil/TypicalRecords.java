@@ -2,12 +2,12 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,13 +22,13 @@ import seedu.address.model.record.Record;
 public class TypicalRecords {
 
     public static final Record ALICE = new RecordBuilder().withName("Alice Pauline")
-            .withAmount("120").withDate("12/02/2017").withTags("friends").build();
+            .withAmount("120").withDate("12/02/2017").withCategories("friends").build();
     public static final Record BENSON = new RecordBuilder().withName("Benson Meier")
-            .withAmount("119").withDate("12/02/2015").withTags("owesMoney", "friends").build();
+            .withAmount("119").withDate("12/02/2015").withCategories("owesMoney", "friends").build();
     public static final Record CARL = new RecordBuilder().withName("Carl Kurz")
             .withAmount("130").withDate("12/05/2017").build();
     public static final Record DANIEL = new RecordBuilder().withName("Daniel Meier")
-            .withAmount("129").withDate("12/02/2007").withTags("friends").build();
+            .withAmount("129").withDate("12/02/2007").withCategories("friends").build();
     public static final Record ELLE = new RecordBuilder().withName("Elle Meyer")
             .withAmount("150").withDate("12/12/2017").build();
     public static final Record FIONA = new RecordBuilder().withName("Fiona Kunz")
@@ -44,9 +44,9 @@ public class TypicalRecords {
 
     // Manually added - Record's details found in {@code CommandTestUtil}
     public static final Record AMY = new RecordBuilder().withName(VALID_NAME_AMY).withAmount(VALID_AMOUNT_AMY)
-            .withDate(VALID_DATE_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withDate(VALID_DATE_AMY).withCategories(VALID_CATEGORY_FRIEND).build();
     public static final Record BOB = new RecordBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
-            .withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withDate(VALID_DATE_BOB).withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

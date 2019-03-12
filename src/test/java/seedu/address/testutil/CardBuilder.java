@@ -11,8 +11,8 @@ import seedu.address.model.card.Card;
  */
 public class CardBuilder {
 
-    public static final List<String> DEFAULT_CORE = List.of("What is the capital of Belgium?", "Brussels");
-    public static final List<String> DEFAULT_OPTIONAL = List.of("Starts with B");
+    public static final List<String> DEFAULT_CORE = List.of("Belgium", "Brussels");
+    public static final List<String> DEFAULT_OPTIONAL = List.of("B");
 
     private List<String> cores;
     private List<String> optionals;

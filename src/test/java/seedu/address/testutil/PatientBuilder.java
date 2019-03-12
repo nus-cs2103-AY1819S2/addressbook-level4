@@ -25,7 +25,7 @@ public class PatientBuilder extends PersonBuilder {
     }
 
     /**
-     * Initializes the HealthWorkerBuilder with the data of {@code
+     * Initializes the PatientBuilder with the data of {@code
      * healthWorkerToCopy}
      */
     public PatientBuilder(Patient patientToCopy) {
@@ -34,7 +34,7 @@ public class PatientBuilder extends PersonBuilder {
     }
 
     /**
-     * Sets the {@code Conditions} of the {@code Patient} that we are building.
+     * Sets the {@code conditions} of the {@code Patient} that we are building.
      */
     public PatientBuilder withConditions(Conditions conditions) {
         this.conditions = new Conditions(conditions);

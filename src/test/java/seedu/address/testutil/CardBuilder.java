@@ -15,8 +15,8 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CardBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_ANSWER = "85355255";
+    public static final String DEFAULT_QUESTION = "What is the powerhouse of a cell?";
+    public static final String DEFAULT_ANSWER = "Mitochondrion";
     public static final String DEFAULT_SCORE = "0/0";
 
     private Question question;
@@ -25,7 +25,7 @@ public class CardBuilder {
     private Set<Hint> hints;
 
     public CardBuilder() {
-        question = new Question(DEFAULT_NAME);
+        question = new Question(DEFAULT_QUESTION);
         answer = new Answer(DEFAULT_ANSWER);
         score = new Score(DEFAULT_SCORE);
         hints = new HashSet<>();

@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AnswerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -31,6 +32,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.TestCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.CardBuilder;
@@ -71,6 +73,14 @@ public class CommandParserTest {
     }
 
     @Test
+    public void parseCommand_answer() throws Exception {
+        String attemptedAnswerInput = "foo";
+        AnswerCommand command = (AnswerCommand) parser.parseCommand(
+                AnswerCommand.COMMAND_WORD + " " + attemptedAnswerInput);
+        assertEquals(new AnswerCommand(new Answer(attemptedAnswerInput)), command);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Card card = new CardBuilder().build();
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder(card).build();
@@ -92,7 +102,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_search() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));

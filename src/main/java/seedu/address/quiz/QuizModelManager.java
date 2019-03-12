@@ -14,7 +14,6 @@ public class QuizModelManager implements QuizModel {
     private static final Logger logger = LogsCenter.getLogger(QuizModelManager.class);
 
     private Quiz quiz;
-    private boolean isDone;
 
     /**
      * Initialises empty QuizModelManager
@@ -23,7 +22,6 @@ public class QuizModelManager implements QuizModel {
         super();
 
         logger.fine("Initializing empty constructor");
-        this.isDone = true;
     }
 
     // todo include session
@@ -59,7 +57,7 @@ public class QuizModelManager implements QuizModel {
             return quiz.isDone();
         } catch (NullPointerException e) {
             logger.info("quiz not initialised");
-            return isDone;
+            return true;
         }
     }
 

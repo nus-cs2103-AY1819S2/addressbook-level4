@@ -15,7 +15,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.CsvUtil;
 import seedu.address.model.Lessons;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.exceptions.MissingCoreException;
 import seedu.address.model.lesson.Lesson;
 
 /**
@@ -102,8 +101,6 @@ public class CsvLessonsStorage implements LessonsStorage {
             try {
                 newLesson.addCard(Arrays.asList(data.get(i)));
             } catch (IllegalArgumentException e) {
-                continue;
-            } catch (MissingCoreException e) {
                 continue;
             }
         }

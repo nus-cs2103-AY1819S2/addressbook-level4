@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +26,9 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Pdf's %s field is missing!";
 
     private final String name;
+    private final String size;
+    private final String location;
+
     private final String phone;
     private final String email;
     private final String address;
@@ -44,6 +48,22 @@ class JsonAdaptedPerson {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+    }
+
+    /**
+     * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
+     */
+    @JsonCreator
+    public JsonAdaptedPerson(@JsonProperty("location") String location,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        File newFile = new File(location);
+        this.name = newFile.getName();
+        this.size = Long.toString(newFile.getTotalSpace());
+        this.location = location;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
+
     }
 
     /**

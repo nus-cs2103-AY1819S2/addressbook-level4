@@ -1,10 +1,10 @@
 = BrainTrain
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/cs2103-ay1819s2-w14-1/main[image:https://travis-ci.org/cs2103-ay1819s2-w14-1/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/eugenefdw/main[image:https://ci.appveyor.com/api/projects/status/d9hxx4ix5j6hum82?svg=true[Build status]]
-https://coveralls.io/github/cs2103-ay1819s2-w14-1/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w14-1/main/badge.svg?branch=master[Coverage Status]]
-image:https://api.codacy.com/project/badge/Grade/d236c7af6a71427ebeae2571add1f3f4["Codacy code quality", link="https://www.codacy.com/app/eugenefdw/main?utm_source=github.com&utm_medium=referral&utm_content=cs2103-ay1819s2-w14-1/main&utm_campaign=Badge_Grade"]
+https://travis-ci.org/CS2103-AY1819S2-W14-1/main[image:https://travis-ci.org/CS2103-AY1819S2-W14-1/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/eugenefdw/main[image:https://ci.appveyor.com/api/projects/status/vl6bo937loonr7x3?svg=true[Build status]]
+https://coveralls.io/github/CS2103-AY1819S2-W14-1/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W14-1/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/d236c7af6a71427ebeae2571add1f3f4["Codacy code quality", link="https://www.codacy.com/app/cs2103-w14-1/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S2-w14-1/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

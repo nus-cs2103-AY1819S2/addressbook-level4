@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Task's title in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
 public class Title {
 
@@ -26,14 +26,14 @@ public class Title {
      */
     public Title(String title) {
         requireNonNull(title);
-        checkArgument(isValidName(title), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
         this.title = title;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid title.
      */
-    public static boolean isValidName(String title) {
+    public static boolean isValidTitle(String title) {
         return title.matches(VALIDATION_REGEX);
     }
 

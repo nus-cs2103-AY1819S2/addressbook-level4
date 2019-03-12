@@ -31,6 +31,8 @@ public class CommandTestUtil {
     public static final String VALID_HINT_FRIEND = "friend";
     public static final String VALID_FOLDER_NAME_1 = "Sample Folder 1";
     public static final String VALID_FOLDER_NAME_2 = "Sample Folder 2";
+    public static final String VALID_FILENAME = "sample_folder.csv";
+    public static final String INVALID_FILENAME = "sample_folder.json";
 
     public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_AMY;
     public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_BOB;
@@ -40,7 +42,7 @@ public class CommandTestUtil {
     public static final String HINT_DESC_HUSBAND = " " + PREFIX_HINT + VALID_HINT_HUSBAND;
     public static final String FOLDER_DESC_SAMPLE_1 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_1;
     public static final String FOLDER_DESC_SAMPLE_2 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_2;
-
+    public static final String FILENAME_DESC_SAMPLE = " " + PREFIX_FILENAME + VALID_FILENAME;
 
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for questions
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answers

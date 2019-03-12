@@ -49,8 +49,7 @@ public class ArgumentMultimap {
         if (!argMultimap.containsKey(prefix)) {
             return new ArrayList<>();
         }
-        List<String> values = argMultimap.get(prefix);
-        return new ArrayList<>(values.subList(values.size() - 1, values.size()));
+        return new ArrayList<>(argMultimap.get(prefix));
     }
 
     /**

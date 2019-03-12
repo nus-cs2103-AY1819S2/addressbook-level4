@@ -71,9 +71,9 @@ public class BattleManager implements Battle {
                 return new AttackMissed(attacker, target, coord);
             }
         } catch (IndexOutOfBoundsException ioobe) {
-            return new AttackFailed(attacker, target.getName(), coord, "coordinates out of bounds");
+            return new AttackFailed(attacker, target, coord, "coordinates out of bounds");
         } catch (Exception ex) {
-            return new AttackFailed(attacker, target.getName(), coord, ex.getMessage());
+            return new AttackFailed(attacker, target, coord, ex.getMessage());
         }
     }
 

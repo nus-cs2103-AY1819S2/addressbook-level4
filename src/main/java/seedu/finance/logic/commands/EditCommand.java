@@ -1,11 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORD;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,21 +13,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.record.Amount;
-import seedu.address.model.record.Date;
-import seedu.address.model.record.Description;
-import seedu.address.model.record.Name;
-import seedu.address.model.record.Record;
-import seedu.address.model.tag.Tag;
+import seedu.finance.commons.core.Messages;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.commons.util.CollectionUtil;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.exceptions.CommandException;
+import seedu.finance.model.Model;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.record.Record;
+import seedu.finance.model.tag.Tag;
 
 /**
- * Edits the details of an existing record in the address book.
+ * Edits the details of an existing record in the finance tracker.
  */
 public class EditCommand extends Command {
 
@@ -48,7 +48,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_RECORD_SUCCESS = "Edited Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the finance tracker.";
 
     private final Index index;
     private final EditRecordDescriptor editRecordDescriptor;
@@ -83,7 +83,7 @@ public class EditCommand extends Command {
 
         model.setRecord(recordToEdit, editedRecord);
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
-        model.commitAddressBook();
+        model.commitFinanceTracker();
         return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }
 

@@ -1,18 +1,18 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORD;
+import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.record.Description;
-import seedu.address.model.record.Record;
+import seedu.finance.commons.core.Messages;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.exceptions.CommandException;
+import seedu.finance.model.Model;
+import seedu.finance.model.record.Description;
+import seedu.finance.model.record.Record;
 
 
 /**
@@ -21,11 +21,12 @@ import seedu.address.model.record.Record;
 public class DescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "description";
+    public static final String COMMAND_ALIAS = "descr";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the description of expense entry identified "
-            + "by the index number used in the last expense entry listing. "
-            + "Existing remark will be overwritten by the input.\n"
+            + ": Edits the description of record identified "
+            + "by the index number used in the last record listing. "
+            + "Existing remarks will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DESCRIPTION + "[DESCRIPTION]\n"
             + "Example: " + COMMAND_WORD + " 2 "
@@ -38,8 +39,8 @@ public class DescriptionCommand extends Command {
     private final Description description;
 
     /**
-     * @param index Index of the expense entry in the filtered expense list to edit description
-     * @param description description of the expense entry to be updated to
+     * @param index Index of the record in the filtered records list to edit description
+     * @param description description of the record to be updated to
      */
     public DescriptionCommand(Index index, Description description) {
         requireAllNonNull(index, description);
@@ -62,13 +63,13 @@ public class DescriptionCommand extends Command {
 
         model.setRecord(recordToEdit, editedRecord);
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
-        model.commitAddressBook();
+        model.commitFinanceTracker();
 
         return new CommandResult(makeSuccessMessage(editedRecord));
     }
 
     /**
-     * Makes a command execution succcess message based on whether the descrption is added to or removed form
+     * Makes a command execution success message based on whether the description is added to or removed from
      * {@recordToEdit}.
      * @param recordToEdit
      */

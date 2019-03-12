@@ -1,15 +1,15 @@
-package seedu.address.logic;
+package seedu.finance.logic;
 
 import java.nio.file.Path;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.record.Record;
+import seedu.finance.commons.core.GuiSettings;
+import seedu.finance.logic.commands.CommandResult;
+import seedu.finance.logic.commands.exceptions.CommandException;
+import seedu.finance.logic.parser.exceptions.ParseException;
+import seedu.finance.model.ReadOnlyFinanceTracker;
+import seedu.finance.model.record.Record;
 
 /**
  * API of the Logic component
@@ -25,11 +25,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the FinanceTracker.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.finance.model.Model#getFinanceTracker()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyFinanceTracker getFinanceTracker();
 
     /** Returns an unmodifiable view of the filtered list of Records */
     ObservableList<Record> getFilteredRecordList();
@@ -41,9 +41,9 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' finance tracker file path.
      */
-    Path getAddressBookFilePath();
+    Path getFinanceTrackerFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -59,14 +59,14 @@ public interface Logic {
      * Selected record in the filtered record list.
      * null if no record is selected.
      *
-     * @see seedu.address.model.Model#selectedRecordProperty()
+     * @see seedu.finance.model.Model#selectedRecordProperty()
      */
     ReadOnlyProperty<Record> selectedRecordProperty();
 
     /**
      * Sets the selected record in the filtered record list.
      *
-     * @see seedu.address.model.Model#setSelectedRecord(Record)
+     * @see seedu.finance.model.Model#setSelectedRecord(Record)
      */
     void setSelectedRecord(Record record);
 }

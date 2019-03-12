@@ -1,12 +1,12 @@
-package seedu.address.logic.parser;
+package seedu.finance.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import seedu.address.logic.commands.SearchCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.record.NameContainsKeywordsPredicate;
+import seedu.finance.logic.commands.SearchCommand;
+import seedu.finance.logic.parser.exceptions.ParseException;
+import seedu.finance.model.record.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

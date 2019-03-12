@@ -12,7 +12,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.record.Record;
 
 /**
- * Adds a record to the finance book.
+ * Adds a record to the finance tracker.
  */
 public class SpendCommand extends Command {
 
@@ -20,7 +20,7 @@ public class SpendCommand extends Command {
     public static final String COMMAND_ALIAS = "add";
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a record to the finance book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a record to the finance tracker. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT"
@@ -33,7 +33,7 @@ public class SpendCommand extends Command {
             + PREFIX_TAG + "Food ";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
-    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the finance book";
+    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the finance tracker";
 
     private final Record toSpend;
 
@@ -54,7 +54,7 @@ public class SpendCommand extends Command {
         }
 
         model.addRecord(toSpend);
-        model.commitAddressBook();
+        model.commitFinanceTracker();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toSpend));
     }
 

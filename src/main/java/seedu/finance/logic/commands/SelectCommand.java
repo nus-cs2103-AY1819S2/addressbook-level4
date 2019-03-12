@@ -1,18 +1,18 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.record.Record;
+import seedu.finance.commons.core.Messages;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.exceptions.CommandException;
+import seedu.finance.model.Model;
+import seedu.finance.model.record.Record;
 
 /**
- * Selects a record identified using it's displayed index from the address book.
+ * Selects a record identified using its displayed index from the finance tracker.
  */
 public class SelectCommand extends Command {
 
@@ -25,7 +25,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Record: %1$s";
+    public static final String MESSAGE_SELECT_RECORD_SUCCESS = "Selected Record: %1$s";
 
     private final Index targetIndex;
 
@@ -44,7 +44,7 @@ public class SelectCommand extends Command {
         }
 
         model.setSelectedRecord(filteredRecordList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_RECORD_SUCCESS, targetIndex.getOneBased()));
 
     }
 

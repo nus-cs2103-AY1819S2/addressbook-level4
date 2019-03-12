@@ -1,14 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORD;
+import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.exceptions.CommandException;
+import seedu.finance.model.Model;
 
 /**
- * Reverts the {@code model}'s address book to its previously undone state.
+ * Reverts the {@code model}'s finance tracker to its previously undone state.
  */
 public class RedoCommand extends Command {
 
@@ -21,11 +21,11 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook()) {
+        if (!model.canRedoFinanceTracker()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoAddressBook();
+        model.redoFinanceTracker();
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }

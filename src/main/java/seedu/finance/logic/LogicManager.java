@@ -11,10 +11,10 @@ import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.logic.commands.Command;
 import seedu.finance.logic.commands.CommandResult;
 import seedu.finance.logic.commands.exceptions.CommandException;
-import seedu.finance.logic.parser.AddressBookParser;
+import seedu.finance.logic.parser.FinanceTrackerParser;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.Model;
-import seedu.finance.model.ReadOnlyAddressBook;
+import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.record.Record;
 import seedu.finance.storage.Storage;
 
@@ -28,36 +28,36 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final FinanceTrackerParser financeTrackerParser;
+    private boolean financeTrackerModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        financeTrackerParser = new FinanceTrackerParser();
 
-        // Set addressBookModified to true whenever the models' finance book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set financeTrackerModified to true whenever the models' finance tracker is modified.
+        model.getFinanceTracker().addListener(observable -> financeTrackerModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        financeTrackerModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = financeTrackerParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (financeTrackerModified) {
+            logger.info("Finance tracker modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveFinanceTracker(model.getFinanceTracker());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,8 +67,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyFinanceTracker getFinanceTracker() {
+        return model.getFinanceTracker();
     }
 
     @Override
@@ -82,8 +82,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getFinanceTrackerFilePath() {
+        return model.getFinanceTrackerFilePath();
     }
 
     @Override

@@ -26,7 +26,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class FinanceTrackerParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -51,6 +51,7 @@ public class AddressBookParser {
 
         switch (commandWord) {
         case DescriptionCommand.COMMAND_WORD:
+        case DescriptionCommand.COMMAND_ALIAS:
             return new DescriptionCommandParser().parse(arguments);
 
         case SpendCommand.COMMAND_WORD:
@@ -91,6 +92,7 @@ public class AddressBookParser {
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_ALIAS:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:

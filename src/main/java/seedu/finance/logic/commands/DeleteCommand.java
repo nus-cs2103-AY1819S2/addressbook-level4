@@ -12,7 +12,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.record.Record;
 
 /**
- * Deletes a record identified using it's displayed index from the finance book.
+ * Deletes a record identified using its displayed index from the finance tracker.
  */
 public class DeleteCommand extends Command {
 
@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
 
         Record recordToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRecord(recordToDelete);
-        model.commitAddressBook();
+        model.commitFinanceTracker();
         return new CommandResult(String.format(MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete));
     }
 

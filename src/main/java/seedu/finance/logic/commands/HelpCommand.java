@@ -1,7 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
 
 /**
  * Format full help instructions for every command for display.

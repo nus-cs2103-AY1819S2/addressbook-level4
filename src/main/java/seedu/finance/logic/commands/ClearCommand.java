@@ -1,27 +1,27 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.FinanceTracker;
+import seedu.finance.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the finance tracker.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String COMMAND_ALIAS = "c";
     public static final String COMMAND_ALIAS2 = "clr";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Finance tracker has been cleared!";
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
-        model.commitAddressBook();
+        model.setFinanceTracker(new FinanceTracker());
+        model.commitFinanceTracker();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -2,19 +2,13 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.datetime.DateCustom;
-import seedu.address.model.patient.exceptions.PersonIsNotPatient;
-import seedu.address.model.tag.CopyTag;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.person.*;
+
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {

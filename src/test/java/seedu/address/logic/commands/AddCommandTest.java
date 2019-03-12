@@ -161,8 +161,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public List<ReadOnlyCardFolder> checkValidCardFolders(List<String> cardFolers) {
-            return false;
+        public List<ReadOnlyCardFolder> returnValidCardFolders(List<String> cardFolers) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

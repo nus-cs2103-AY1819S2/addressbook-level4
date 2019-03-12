@@ -1,5 +1,12 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
+import static seedu.address.testutil.TypicalHealthWorkers.HOOK;
+import static seedu.address.testutil.TypicalHealthWorkers.IVAN;
+import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,12 +21,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
-import static seedu.address.testutil.TypicalHealthWorkers.HOOK;
-import static seedu.address.testutil.TypicalHealthWorkers.IVAN;
-import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
+
 
 public class JsonHealthWorkerBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonHealthWorkerBookStorageTest");

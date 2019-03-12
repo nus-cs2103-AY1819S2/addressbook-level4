@@ -1,5 +1,12 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
+import static seedu.address.testutil.TypicalRequests.HOON_REQUEST;
+import static seedu.address.testutil.TypicalRequests.IDA_REQUEST;
+import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,12 +21,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.RequestBook;
 import seedu.address.model.ReadOnlyRequestBook;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
-import static seedu.address.testutil.TypicalRequests.HOON_REQUEST;
-import static seedu.address.testutil.TypicalRequests.IDA_REQUEST;
-import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
+
 
 public class JsonRequestBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonRequestBookStorageTest");

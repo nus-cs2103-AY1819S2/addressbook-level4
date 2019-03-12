@@ -7,14 +7,14 @@ https://coveralls.io/github/CS2103-AY1819S2-W15-3/main?branch=master[image:https
 image:https://api.codacy.com/project/badge/Grade/98250edf8ec845508bf9e8ef17dd2118["Codacy code quality", link="https://www.codacy.com/app/WeeSooJun/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S2-W15-3/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
-image::docs/images/socialCircle.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/socialCircle.png[width="600"]
+image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop HR application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 == Site Map
 

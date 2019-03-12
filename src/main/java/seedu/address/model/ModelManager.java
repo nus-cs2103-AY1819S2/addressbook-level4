@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.task.Task;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -85,6 +86,7 @@ public class ModelManager implements Model {
 
     //=========== AddressBook ================================================================================
 
+    ////Person object specific methods
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         versionedAddressBook.resetData(addressBook);
@@ -118,6 +120,20 @@ public class ModelManager implements Model {
 
         versionedAddressBook.setPerson(target, editedPerson);
     }
+
+    ////Task Object specific methods
+    @Override
+    public boolean hasTask(Task task) {
+        requireAllNonNull(task);
+        return versionedAddressBook.hasTask(task);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        versionedAddressBook.addTask(task);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 

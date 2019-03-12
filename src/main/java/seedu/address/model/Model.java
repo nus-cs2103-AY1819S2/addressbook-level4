@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 /**
  * The API of the Model component.
@@ -53,6 +54,8 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //=========== Methods for interacting with Person Object ===========================================================
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -87,8 +90,39 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Selected person in the filtered person list.
+     * null if no person is selected.
      */
+    ReadOnlyProperty<Person> selectedPersonProperty();
+
+    /**
+     * Returns the selected person in the filtered person list.
+     * null if no person is selected.
+     */
+    Person getSelectedPerson();
+
+    /**
+     * Sets the selected person in the filtered person list.
+     */
+    void setSelectedPerson(Person person);
+
+    boolean checkNoCopy();
+
+    //=========== Methods for interacting with Task Object ===========================================================
+
+    /**
+     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     */
+    boolean hasTask(Task task);
+
+    /**
+     * Adds the given task.
+     * {@code task} must not already exist in the address book.
+     */
+    void addTask(Task task);
+
+    //=========== Undo/Redo/Commit =================================================================================
+
     boolean canUndoAddressBook();
 
     /**
@@ -111,22 +145,4 @@ public interface Model {
      */
     void commitAddressBook();
 
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    Person getSelectedPerson();
-
-    /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedPerson(Person person);
-
-    boolean checkNoCopy();
 }

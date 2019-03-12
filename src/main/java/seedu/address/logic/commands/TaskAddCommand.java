@@ -51,15 +51,15 @@ public class TaskAddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        model.addPerson(toAdd);
+        model.addTask(toAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getTitle()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof TaskAddCommand // instanceof handles nulls
+                && toAdd.equals(((TaskAddCommand) other).toAdd));
     }
 }

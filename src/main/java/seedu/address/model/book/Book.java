@@ -22,6 +22,7 @@ public class Book {
     // Data fields
     private final Rating rating;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Review> reviews = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -52,6 +53,9 @@ public class Book {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+    public Set<Review> getReviews() {
+        return Collections.unmodifiableSet(reviews);
     }
 
     /**
@@ -86,13 +90,14 @@ public class Book {
         return otherBook.getBookName().equals(getBookName())
                 && otherBook.getAuthor().equals(getAuthor())
                 && otherBook.getRating().equals(getRating())
-                && otherBook.getTags().equals(getTags());
+                && otherBook.getTags().equals(getTags())
+                && otherBook.getReviews().equals(getReviews());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(bookName, author, rating, tags);
+        return Objects.hash(bookName, author, rating, tags, reviews);
     }
 
     @Override

@@ -110,8 +110,14 @@ public interface Model {
 
     //=========== Methods for interacting with Task Object ===========================================================
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskList();
+
+    /**
+     * Updates the filter of the filtered task list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTaskList(Predicate<Task> predicate);
 
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.

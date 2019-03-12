@@ -842,7 +842,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clean user |delete a contact |remove entries that I no longer need
 
-|`* * *` |efficient user |find a contact by name |locate details of contacts without having to go through the entire list
+|`* * *` |efficient user |find a contact by using any details (e.g. name/phone/tags etc.) |locate details of contacts without having to go through the entire list
 
 |`* * *` |sloppy user |add a contact into the app without having to specify all the contact information (i.e. all fields are optional) |add a contact even if I do not have the complete contact information
 
@@ -850,15 +850,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |real estate agent |search and filter contacts by the address of their associated property |find all properties within the same area, e.g. search for "Woodlands" should return all contacts with "Woodlands" in their address
 
-|`* * *` |lazy user |search for contacts by tags |find all the contacts with the same tag(s), e.g. search for "Landed" should return all contacts with "Landed" tag
-
 |`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
 
 |`* * *` |clean user who wants to keep contacts for later use |hide or archive contacts when I currently do not need them |retrieve them when I need them again much later
 
-|`* *` |detailed user |add a remark to a contact |record more miscellaneous details about a contact
-
-|`* *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
+|`* * *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
 
 |`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
 

@@ -163,12 +163,15 @@ public class ModelManager implements Model {
     public List<ReadOnlyCardFolder> returnValidCardFolders(List<String> cardFolders) {
         List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
         for (String cardFolderName : cardFolders) {
+            boolean isCardFolderPresent = false;
             for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
                 if (readOnlyCardFolder.getFolderName().equals(cardFolderName)) {
+                    isCardFolderPresent = true;
                     returnCardFolder.add(readOnlyCardFolder);
-                } else {
-                    throw new CardFolderNotFoundException();
                 }
+            }
+            if (!isCardFolderPresent) {
+                throw new CardFolderNotFoundException();
             }
         }
         return returnCardFolder;

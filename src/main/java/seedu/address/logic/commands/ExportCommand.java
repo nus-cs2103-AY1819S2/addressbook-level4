@@ -46,7 +46,6 @@ public class ExportCommand extends Command {
         } catch (CardFolderNotFoundException e) {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS);
         }
-        return null; 
+        return null;
     }
-
 }

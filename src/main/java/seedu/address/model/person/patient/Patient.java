@@ -89,7 +89,7 @@ public class Patient extends Person {
                 getEmail(), getTags());
     }
 
-    public Conditions getConditions(){
+    public Conditions getConditions() {
         return this.conditions;
     }
 }

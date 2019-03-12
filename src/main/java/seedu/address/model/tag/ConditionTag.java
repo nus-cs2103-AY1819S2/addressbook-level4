@@ -51,7 +51,7 @@ public class ConditionTag {
     /**
      * Returns name (string) of Condition Tag
      */
-    public String getName(){
+    public String getName() {
         return conditionTagName;
     }
 

@@ -19,18 +19,16 @@ public class BookTagsContainExactKeywordsPredicate implements Predicate<Book> {
 
     @Override
     public boolean test(Book book) {
-        return keywords.stream()
-                .allMatch(
-                    inputStr -> {
-                        Iterator<Tag> itr = book.getTags().iterator();
-                        while (itr.hasNext()) {
-                            if (inputStr.equalsIgnoreCase(itr.next().tagName)) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
-                );
+        Iterator<Tag> itr = book.getTags().iterator();
+        while (itr.hasNext()) {
+            String tagStr = itr.next().tagName;
+            if (keywords.stream()
+                    .anyMatch(str ->
+                            str.equalsIgnoreCase(tagStr))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

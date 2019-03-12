@@ -43,6 +43,8 @@ public class CommandTestUtil {
 
     public static final String VALID_BOOKNAME_ALICE = "Alice in Wonderland";
     public static final String VALID_BOOKNAME_CS = "Structure and Interpretation of Computer Programs";
+    public static final String VALID_BOOKNAME_PART_ALICE = "Alice";
+    public static final String VALID_BOOKNAME_PART_CS = "Computer";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
     public static final String VALID_AUTHOR_CS = "Hal Abelson Jerry Sussman";
     public static final String VALID_RATING_ALICE = "5";
@@ -64,6 +66,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_ALICE;
     public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;
+    public static final String NAME_PART_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_PART_ALICE;
+    public static final String NAME_PART_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_PART_CS;
     public static final String AUTHOR_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_ALICE;
     public static final String AUTHOR_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_CS;
     public static final String RATING_DESC_ALICE = " " + PREFIX_RATING + VALID_RATING_ALICE;

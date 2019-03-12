@@ -1,6 +1,5 @@
 package seedu.address.model.book;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -8,24 +7,22 @@ import java.util.function.Predicate;
  * Tests that a {@code Book}'s {@code BookRating} match the given score.
  */
 public class BookRatingMatchesScorePredicate implements Predicate<Book> {
-    private final List<Rating> rating;
+    private final List<String> keyWords;
 
-    public BookRatingMatchesScorePredicate(List<String> ratingStr) {
-        rating = new ArrayList<>();
-        for (String str : ratingStr) {
-            rating.add(new Rating(str));
-        }
+    public BookRatingMatchesScorePredicate(List<String> keyWords) {
+        this.keyWords = keyWords;
     }
 
     @Override
     public boolean test(Book book) {
-        return rating.contains(book.getRating());
+        return keyWords.stream()
+                .anyMatch(x -> x.equals(book.getRating().value));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookRatingMatchesScorePredicate // instanceof handles nulls
-                && rating.equals(((BookRatingMatchesScorePredicate) other).rating)); // state check
+                && keyWords.equals(((BookRatingMatchesScorePredicate) other).keyWords)); // state check
     }
 }

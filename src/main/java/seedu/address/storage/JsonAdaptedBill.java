@@ -16,7 +16,6 @@ class JsonAdaptedBill {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Bill item's %s field is missing!";
 
     private final String tableNumber;
-    //private final String date;
     private final String totalBill;
 
     /**
@@ -24,8 +23,7 @@ class JsonAdaptedBill {
      */
     @JsonCreator
     public JsonAdaptedBill(@JsonProperty("tableNumber") String tableNumber,
-                           //@JsonProperty("date") String date,
-                           @JsonProperty("totalBill") String totalBill) {
+            @JsonProperty("totalBill") String totalBill) {
         this.tableNumber = tableNumber;
         //this.date = date;
         this.totalBill = totalBill;

@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.RestOrRant;
+import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.ReadOnlyMenu;
 
 /**
- * Represents a storage for {@link RestOrRant}.
+ * Represents a storage for {@link Menu}.
  */
 public interface MenuStorage {
 

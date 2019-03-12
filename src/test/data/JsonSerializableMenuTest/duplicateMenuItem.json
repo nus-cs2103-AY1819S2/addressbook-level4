@@ -1,0 +1,11 @@
+{
+  "menu": [ {
+    "name": "Chicken Nuggets",
+    "code": "W06",
+    "price": "3.40"
+  }, {
+    "name": "Chicken Nuggets",
+    "code": "W06",
+    "price": "2.30"
+  } ]
+}

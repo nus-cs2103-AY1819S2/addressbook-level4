@@ -6,12 +6,11 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyRestOrRant;
-import seedu.address.model.RestOrRant;
 import seedu.address.model.table.ReadOnlyTables;
+import seedu.address.model.table.Table;
 
 /**
- * s
- * Represents a storage for {@link RestOrRant}.
+ * Represents a storage for {@link Table}.
  */
 public interface TablesStorage {
 

@@ -25,7 +25,7 @@ class JsonAdaptedMenu {
      */
     @JsonCreator
     public JsonAdaptedMenu(@JsonProperty("name") String name, @JsonProperty("code") String code,
-                           @JsonProperty("price") String price) {
+            @JsonProperty("price") String price) {
         this.name = name;
         this.code = code;
         this.price = price;

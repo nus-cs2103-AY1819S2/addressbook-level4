@@ -52,10 +52,6 @@ public class Menu implements ReadOnlyMenu {
         this.menuItems.setMenuItems(menuItems);
         indicateModified();
     }
-    //    public void setPersons(List<Person> persons) {
-    //        this.persons.setPersons(persons);
-    //        indicateModified();
-    //    }
 
     /**
      * Resets the existing data of this {@code RestOrRant} with {@code newData}.
@@ -66,11 +62,12 @@ public class Menu implements ReadOnlyMenu {
         setMenuItems(newData.getMenuItemList());
     }
 
-    //// person-level operations
+    //// menu item-level operations
 
     /**
      * Returns true if a menu item with the same identity as {@code menuItem} exists in the address book.
      */
+    @Override
     public boolean hasMenuItem(MenuItem menuItem) {
         requireNonNull(menuItem);
         return menuItems.contains(menuItem);
@@ -80,6 +77,7 @@ public class Menu implements ReadOnlyMenu {
      * Adds a menu item to the menu.
      * The menu item must not already exist in the address book.
      */
+    @Override
     public void addMenuItem(MenuItem item) {
         menuItems.add(item);
         indicateModified();
@@ -90,6 +88,7 @@ public class Menu implements ReadOnlyMenu {
      * {@code target} must exist in the address book.
      * The item identity of {@code editedItem} must not be the same as another existing menu item in the address book.
      */
+    @Override
     public void setMenuItem(MenuItem target, MenuItem editedItem) {
         requireNonNull(editedItem);
 
@@ -100,6 +99,7 @@ public class Menu implements ReadOnlyMenu {
      * Removes {@code key} from this {@code RestOrRant}.
      * {@code key} must exist in the menu.
      */
+    @Override
     public void removeMenuItem(MenuItem key) {
         menuItems.remove(key);
         indicateModified();
@@ -118,6 +118,21 @@ public class Menu implements ReadOnlyMenu {
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public Name getNameFromItem(MenuItem menuItem) {
+        return menuItem.getName();
+    }
+
+    @Override
+    public Code getCodeFromItem(MenuItem menuItem) {
+        return menuItem.getCode();
+    }
+
+    @Override
+    public Price getPriceFromItem(MenuItem menuItem) {
+        return menuItem.getPrice();
     }
 
     @Override

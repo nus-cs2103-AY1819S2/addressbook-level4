@@ -27,7 +27,7 @@ public class StorageManager implements Storage {
     private StatisticsStorage statsStorage;
 
     public StorageManager(UserPrefsStorage userPrefsStorage, OrdersStorage ordersStorage, MenuStorage menuStorage,
-                          StatisticsStorage statsStorage, TablesStorage tablesStorage) {
+            StatisticsStorage statsStorage, TablesStorage tablesStorage) {
         super();
         this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -93,7 +93,6 @@ public class StorageManager implements Storage {
     public Path getOrdersFilePath() {
         return ordersStorage.getOrdersFilePath();
     }
-
 
     @Override
     public Optional<ReadOnlyOrders> readOrders() throws DataConversionException, IOException {

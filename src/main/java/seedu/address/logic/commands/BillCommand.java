@@ -14,6 +14,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableStatus;
 
 /**
  * Retrieves the Bill for a Table.
@@ -52,20 +53,29 @@ public class BillCommand extends Command {
 
         bill = calculateBill(orderItemList, model.getRestOrRant().getMenu());
 
+        //TODO: Update the status of the table
+        TableStatus updatedTableStatus = tableToBill.getTableStatus();
+        updatedTableStatus.changeOccupancy("0");
+        Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
+        model.setTable(tableToBill, updatedTable);
+
         model.updateMode();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
     }
 
     /**
-     * Calculates the total bill from the order item list and updates the popularity of a menu item.
-     * @param orderItemList
-     * @param menu
-     * @return new Bill with the calculated total bill.
-     * @throws CommandException
+     * Calculates the total bill from the order item list;
+     * Updates the popularity of a menu item;
+     * Updates the status of the table;
+     * Returns a new Bill with a receipt.
      */
     private Bill calculateBill(ObservableList<OrderItem> orderItemList, ReadOnlyMenu menu) throws CommandException {
         MenuItem menuItem;
         Optional<MenuItem> opt;
+
+        final StringBuilder receipt = new StringBuilder();
+        receipt.append("Table ").append(tableToBill.getTableNumber()).append("\n");
+
         for (OrderItem orderItem : orderItemList) {
             if (!tableToBill.getTableNumber().equals(orderItem.getTableNumber())) {
                 throw new CommandException(MESSAGE_TABLE_MISMATCH);
@@ -75,10 +85,21 @@ public class BillCommand extends Command {
                 throw new CommandException(MESSAGE_MENUITEM_NOT_PRESENT);
             }
             menuItem = opt.get();
+            //TODO: Update the quantity of the menu item for its popularity
             //menu.updateMenuItemQuantity(orderItem.getMenuItemCode(), orderItem.getQuantity());
+            receipt.append(menuItem.getCode().itemCode)
+                    .append("  ")
+                    .append(menuItem.getName().itemName)
+                    .append("\n $")
+                    .append(menuItem.getPrice().itemPrice)
+                    .append("   x ")
+                    .append(orderItem.getQuantity())
+                    .append("\n");
             totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
+
         }
-        return new Bill(tableToBill.getTableNumber(), totalBill);
+        receipt.append("Total Bill: $ ").append(totalBill);
+        return new Bill(tableToBill.getTableNumber(), totalBill, receipt.toString());
     }
 
     @Override

@@ -14,7 +14,7 @@ import seedu.address.model.UserPrefs;
 public interface UserPrefsStorage {
 
     /**
-     * Returns the file path of the UserPrefs data file.
+     * Returns the file value of the UserPrefs data file.
      */
     Path getUserPrefsFilePath();
 

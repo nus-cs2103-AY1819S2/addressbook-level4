@@ -20,9 +20,11 @@ endif::[]
 * This is a desktop clinic management application designed for receptionists in clinic. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * Nowadays many clinic receptionists are still using pen and paper to track patients' information, which can be quite troublesome if the number of patients is large. Our patient management application is designed specifically to make this process much easier for them.
 * The features we provide include:
-** Make, edit and delete appointments for patients
-** Keep track of, edit and delete the medical history for each patient
-** Undo or redo the modification you have just made to the system
+** Record all patients coming to the clinic
+** Record all doctors in clinic
+** Record medical histories of patients
+** Make appointments for patients
+** Record all medicines in the clinic and record prescriptions given by doctors
 == Site Map
 
 * <<UserGuide#, User Guide>>

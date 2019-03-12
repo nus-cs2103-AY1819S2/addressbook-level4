@@ -18,6 +18,7 @@ public class MenuItem {
     private final Price price;
     //    private final Address address;
     //    private final Set<Tag> tags = new HashSet<>();
+    //  private int quantity; TODO: update qty method (get from beatrice)
 
     /**
      * Every field must be present and not null.

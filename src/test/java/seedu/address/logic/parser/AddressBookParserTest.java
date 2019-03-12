@@ -14,6 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddDoctorCommandTest;
@@ -50,8 +51,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addAppointment() throws Exception {
-        AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(AddAppointmentCommand.COMMAND_WORD);
+        AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
+                AddAppointmentCommand.COMMAND_WORD + " 1 r/ test");
         assertTrue(command instanceof AddAppointmentCommand);
+        assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), "test"), command);
     }
 
     @Test

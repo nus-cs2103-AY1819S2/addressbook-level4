@@ -1,9 +1,13 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -20,7 +24,28 @@ public class AddAppointmentCommandTest {
     @Test
     public void testThrowException() throws CommandException {
         thrown.expect(CommandException.class);
-        new AddAppointmentCommand().execute(null, commandHistory);
+        new AddAppointmentCommand(Index.fromZeroBased(0), "test").execute(null, commandHistory);
     }
 
+    @Test
+    public void equals() {
+        AddAppointmentCommand command1 = new AddAppointmentCommand(Index.fromZeroBased(0), "test1");
+        AddAppointmentCommand command2 = new AddAppointmentCommand(Index.fromZeroBased(1), "test2");
+
+        // same object -> returns true
+        assertTrue(command1.equals(command1));
+
+        // same values -> returns true
+        AddAppointmentCommand command1Copy = new AddAppointmentCommand(Index.fromZeroBased(0), "test1");
+        assertTrue(command1.equals(command1Copy));
+
+        // different types -> returns false
+        assertFalse(command1.equals(1));
+
+        // null -> returns false
+        assertFalse(command1.equals(null));
+
+        // different person -> returns false
+        assertFalse(command1.equals(command2));
+    }
 }

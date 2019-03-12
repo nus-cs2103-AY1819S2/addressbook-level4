@@ -7,6 +7,8 @@ import seedu.address.model.player.Player;
  * An AttackResult represents the end result of an attack.
  */
 public abstract class AttackResult {
+    protected static final String ATTACK = "Attack by player %s on cell %s of player %s";
+
     protected Player attacker;
     protected Player target;
     protected Coordinates coords;
@@ -37,6 +39,12 @@ public abstract class AttackResult {
     public Coordinates getCoords() {
         return coords;
     }
+
+    /**
+     * Checks if this AttackResult is a hit or a miss
+     * (guess they never miss, huh?)
+     */
+    public abstract boolean isHit();
 
     /**
      * Returns a String representation of the attack result.

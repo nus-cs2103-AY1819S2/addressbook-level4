@@ -4,21 +4,21 @@ import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
 
 /**
- * AttackMissed represents the result of an attack that missed.
+ * Represents the result of an attack that hit, but did not destroy, a ship
  */
-public class AttackMissed extends AttackResult {
-    public AttackMissed(Player attacker, Player target, Coordinates cell) {
+public class AttackHit extends AttackResult {
+    public AttackHit(Player attacker, Player target, Coordinates cell) {
         super(attacker, target, cell);
     }
 
     @Override
     public boolean isHit() {
-        return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        return String.format(ATTACK + "missed",
+        return String.format(ATTACK + "hit",
             attacker.getName(), coords, target.getName());
     }
 }

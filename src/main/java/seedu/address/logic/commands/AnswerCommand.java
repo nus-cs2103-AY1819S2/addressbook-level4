@@ -10,8 +10,9 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Answer;
 
 /**
- * Finds and lists all cards in card folder whose question contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Allows user to input an answer for the currently displayed card, compares it with the
+ * correct answer in that card and tell the user if it is correct or wrong.
+ * Answer matching is case insensitive.
  */
 public class AnswerCommand extends Command {
 
@@ -42,6 +43,9 @@ public class AnswerCommand extends Command {
         model.setCardAsAnswered();
 
         boolean isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
+
+        //TODO: Call method to update score for this card
+
         if (isAttemptCorrect) {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null, false, AnswerCommandResultType.ANSWER_CORRECT);
         } else {

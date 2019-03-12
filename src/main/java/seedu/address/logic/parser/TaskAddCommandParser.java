@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.TaskAddCommand;

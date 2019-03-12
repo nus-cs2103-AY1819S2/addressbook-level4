@@ -103,8 +103,6 @@ public class CsvLessonsStorage implements LessonsStorage {
                 newLesson.addCard(Arrays.asList(data.get(i)));
             } catch (IllegalArgumentException e) {
                 continue;
-            } catch (MissingCoreException e) {
-                continue;
             }
         }
         return Optional.of(newLesson);

@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PDFS);
+        model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

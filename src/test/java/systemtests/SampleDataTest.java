@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.PdfBook;
 import seedu.address.model.person.Pdf;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
@@ -18,7 +18,7 @@ public class SampleDataTest extends AddressBookSystemTest {
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
     @Override
-    protected AddressBook getInitialData() {
+    protected PdfBook getInitialData() {
         return null;
     }
 
@@ -45,7 +45,7 @@ public class SampleDataTest extends AddressBookSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Pdf[] expectedList = SampleDataUtil.getSamplePersons();
+        Pdf[] expectedList = SampleDataUtil.getSamplePdfs();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }

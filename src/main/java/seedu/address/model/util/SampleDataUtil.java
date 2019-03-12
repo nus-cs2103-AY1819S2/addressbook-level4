@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.PdfBook;
+import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -14,10 +14,10 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code PdfBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Pdf[] getSamplePersons() {
+    public static Pdf[] getSamplePdfs() {
         return new Pdf[] {
             new Pdf(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
@@ -40,10 +40,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Pdf samplePdf : getSamplePersons()) {
-            sampleAb.addPerson(samplePdf);
+    public static ReadOnlyPdfBook getSamplePdfBook() {
+        PdfBook sampleAb = new PdfBook();
+        for (Pdf samplePdf : getSamplePdfs()) {
+            sampleAb.addPdf(samplePdf);
         }
         return sampleAb;
     }

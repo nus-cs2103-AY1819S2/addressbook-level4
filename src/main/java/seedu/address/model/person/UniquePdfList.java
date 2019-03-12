@@ -8,21 +8,21 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicatePdfException;
 import seedu.address.model.person.exceptions.PdfNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A pdf is considered unique by comparing using {@code Pdf#isSamePerson(Pdf)}. As such, adding and updating of
- * persons uses Pdf#isSamePerson(Pdf) for equality so as to ensure that the pdf being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a pdf uses Pdf#equals(Object) so
+ * A list of pdfs that enforces uniqueness between its elements and does not allow nulls.
+ * A pdf is considered unique by comparing using {@code Pdf#isSamePdf(Pdf)}. As such, adding and updating of
+ * pdfs uses Pdf#isSamePdf(Pdf) for equality so as to ensure that the pdf being added or updated is
+ * unique in terms of identity in the UniquePdfList. However, the removal of a pdf uses Pdf#equals(Object) so
  * as to ensure that the pdf with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Pdf#isSamePerson(Pdf)
+ * @see Pdf#isSamePdf(Pdf)
  */
-public class UniquePersonList implements Iterable<Pdf> {
+public class UniquePdfList implements Iterable<Pdf> {
 
     private final ObservableList<Pdf> internalList = FXCollections.observableArrayList();
     private final ObservableList<Pdf> internalUnmodifiableList =
@@ -33,7 +33,7 @@ public class UniquePersonList implements Iterable<Pdf> {
      */
     public boolean contains(Pdf toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSamePdf);
     }
 
     /**
@@ -43,7 +43,7 @@ public class UniquePersonList implements Iterable<Pdf> {
     public void add(Pdf toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicatePdfException();
         }
         internalList.add(toAdd);
     }
@@ -61,8 +61,8 @@ public class UniquePersonList implements Iterable<Pdf> {
             throw new PdfNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPdf) && contains(editedPdf)) {
-            throw new DuplicatePersonException();
+        if (!target.isSamePdf(editedPdf) && contains(editedPdf)) {
+            throw new DuplicatePdfException();
         }
 
         internalList.set(index, editedPdf);
@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<Pdf> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPdfs(UniquePdfList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,10 +88,10 @@ public class UniquePersonList implements Iterable<Pdf> {
      * Replaces the contents of this list with {@code pdfs}.
      * {@code pdfs} must not contain duplicate pdfs.
      */
-    public void setPersons(List<Pdf> pdfs) {
+    public void setPdfs(List<Pdf> pdfs) {
         requireAllNonNull(pdfs);
-        if (!personsAreUnique(pdfs)) {
-            throw new DuplicatePersonException();
+        if (!pdfsAreUnique(pdfs)) {
+            throw new DuplicatePdfException();
         }
 
         internalList.setAll(pdfs);
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Pdf> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniquePdfList // instanceof handles nulls
+                        && internalList.equals(((UniquePdfList) other).internalList));
     }
 
     @Override
@@ -124,10 +124,10 @@ public class UniquePersonList implements Iterable<Pdf> {
     /**
      * Returns true if {@code pdfs} contains only unique pdfs.
      */
-    private boolean personsAreUnique(List<Pdf> pdfs) {
+    private boolean pdfsAreUnique(List<Pdf> pdfs) {
         for (int i = 0; i < pdfs.size() - 1; i++) {
             for (int j = i + 1; j < pdfs.size(); j++) {
-                if (pdfs.get(i).isSamePerson(pdfs.get(j))) {
+                if (pdfs.get(i).isSamePdf(pdfs.get(j))) {
                     return false;
                 }
             }

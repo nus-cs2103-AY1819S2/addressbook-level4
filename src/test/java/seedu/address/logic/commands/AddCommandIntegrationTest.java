@@ -31,9 +31,9 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         Pdf validPdf = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPdf);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
+        expectedModel.addPdf(validPdf);
+        expectedModel.commitPdfBook();
 
         assertCommandSuccess(new AddCommand(validPdf), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPdf), expectedModel);
@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Pdf pdfInList = model.getAddressBook().getPersonList().get(0);
+        Pdf pdfInList = model.getPdfBook().getPdfList().get(0);
         assertCommandFailure(new AddCommand(pdfInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

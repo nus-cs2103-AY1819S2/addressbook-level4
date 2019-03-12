@@ -25,28 +25,28 @@ import seedu.address.model.person.exceptions.PdfNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedPdfBook versionedPdfBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Pdf> filteredPdfs;
-    private final SimpleObjectProperty<Pdf> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Pdf> selectedPdf = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given pdfBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPdfBook pdfBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(pdfBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with pdf book: " + pdfBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedPdfBook = new VersionedPdfBook(pdfBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPdfs = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPdfs.addListener(this::ensureSelectedPersonIsValid);
+        filteredPdfs = new FilteredList<>(versionedPdfBook.getPdfList());
+        filteredPdfs.addListener(this::ensureSelectedPdfIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new PdfBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -74,65 +74,65 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getPdfBookFilePath() {
+        return userPrefs.getPdfBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setPdfBookFilePath(Path pdfBookFilePath) {
+        requireNonNull(pdfBookFilePath);
+        userPrefs.setPdfBookFilePath(pdfBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== PdfBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void setPdfBook(ReadOnlyPdfBook pdfBook) {
+        versionedPdfBook.resetData(pdfBook);
     }
 
     @Override
-    public boolean hasPerson(Pdf pdf) {
+    public ReadOnlyPdfBook getPdfBook() {
+        return versionedPdfBook;
+    }
+
+    @Override
+    public boolean hasPdf(Pdf pdf) {
         requireNonNull(pdf);
-        return versionedAddressBook.hasPerson(pdf);
+        return versionedPdfBook.hasPdf(pdf);
     }
 
     @Override
-    public void deletePerson(Pdf target) {
-        versionedAddressBook.removePerson(target);
+    public void deletePdf(Pdf target) {
+        versionedPdfBook.removePdf(target);
     }
 
     @Override
-    public void addPerson(Pdf pdf) {
-        versionedAddressBook.addPerson(pdf);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PDFS);
+    public void addPdf(Pdf pdf) {
+        versionedPdfBook.addPdf(pdf);
+        updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
     }
 
     @Override
-    public void setPerson(Pdf target, Pdf editedPdf) {
+    public void setPdf(Pdf target, Pdf editedPdf) {
         requireAllNonNull(target, editedPdf);
 
-        versionedAddressBook.setPerson(target, editedPdf);
+        versionedPdfBook.setPdf(target, editedPdf);
     }
 
     //=========== Filtered Pdf List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Pdf} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedPdfBook}
      */
     @Override
-    public ObservableList<Pdf> getFilteredPersonList() {
+    public ObservableList<Pdf> getFilteredPdfList() {
         return filteredPdfs;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Pdf> predicate) {
+    public void updateFilteredPdfList(Predicate<Pdf> predicate) {
         requireNonNull(predicate);
         filteredPdfs.setPredicate(predicate);
     }
@@ -140,75 +140,75 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoPdfBook() {
+        return versionedPdfBook.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoPdfBook() {
+        return versionedPdfBook.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoPdfBook() {
+        versionedPdfBook.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoPdfBook() {
+        versionedPdfBook.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitPdfBook() {
+        versionedPdfBook.commit();
     }
 
     //=========== Selected pdf ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Pdf> selectedPersonProperty() {
-        return selectedPerson;
+    public ReadOnlyProperty<Pdf> selectedPdfProperty() {
+        return selectedPdf;
     }
 
     @Override
-    public Pdf getSelectedPerson() {
-        return selectedPerson.getValue();
+    public Pdf getSelectedPdf() {
+        return selectedPdf.getValue();
     }
 
     @Override
-    public void setSelectedPerson(Pdf pdf) {
+    public void setSelectedPdf(Pdf pdf) {
         if (pdf != null && !filteredPdfs.contains(pdf)) {
             throw new PdfNotFoundException();
         }
-        selectedPerson.setValue(pdf);
+        selectedPdf.setValue(pdf);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid pdf in {@code filteredPdfs}.
+     * Ensures {@code selectedPdf} is a valid pdf in {@code filteredPdfs}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Pdf> change) {
+    private void ensureSelectedPdfIsValid(ListChangeListener.Change<? extends Pdf> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
+            if (selectedPdf.getValue() == null) {
                 // null is always a valid selected pdf, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedPdfReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedPdf.getValue());
+            if (wasSelectedPdfReplaced) {
+                // Update selectedPdf to its new value.
+                int index = change.getRemoved().indexOf(selectedPdf.getValue());
+                selectedPdf.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
+            boolean wasSelectedPdfRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedPdf.getValue().isSamePdf(removedPerson));
+            if (wasSelectedPdfRemoved) {
                 // Select the pdf that came before it in the list,
                 // or clear the selection if there is no such pdf.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedPdf.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -227,10 +227,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedPdfBook.equals(other.versionedPdfBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPdfs.equals(other.filteredPdfs)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && Objects.equals(selectedPdf.get(), other.selectedPdf.get());
     }
 
 }

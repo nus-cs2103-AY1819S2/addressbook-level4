@@ -19,9 +19,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.PdfBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Pdf;
 import seedu.address.testutil.PersonBuilder;
@@ -113,92 +113,92 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getPdfBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setPdfBookFilePath(Path pdfBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Pdf pdf) {
+        public void addPdf(Pdf pdf) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setPdfBook(ReadOnlyPdfBook pdfBook) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyPdfBook getPdfBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Pdf pdf) {
+        public boolean hasPdf(Pdf pdf) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Pdf target) {
+        public void deletePdf(Pdf target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Pdf target, Pdf editedPdf) {
+        public void setPdf(Pdf target, Pdf editedPdf) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Pdf> getFilteredPersonList() {
+        public ObservableList<Pdf> getFilteredPdfList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Pdf> predicate) {
+        public void updateFilteredPdfList(Predicate<Pdf> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoPdfBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoPdfBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoPdfBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoPdfBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitPdfBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<Pdf> selectedPersonProperty() {
+        public ReadOnlyProperty<Pdf> selectedPdfProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Pdf getSelectedPerson() {
+        public Pdf getSelectedPdf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Pdf pdf) {
+        public void setSelectedPdf(Pdf pdf) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -215,9 +215,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Pdf pdf) {
+        public boolean hasPdf(Pdf pdf) {
             requireNonNull(pdf);
-            return this.pdf.isSamePerson(pdf);
+            return this.pdf.isSamePdf(pdf);
         }
     }
 
@@ -228,25 +228,25 @@ public class AddCommandTest {
         final ArrayList<Pdf> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Pdf pdf) {
+        public boolean hasPdf(Pdf pdf) {
             requireNonNull(pdf);
-            return personsAdded.stream().anyMatch(pdf::isSamePerson);
+            return personsAdded.stream().anyMatch(pdf::isSamePdf);
         }
 
         @Override
-        public void addPerson(Pdf pdf) {
+        public void addPdf(Pdf pdf) {
             requireNonNull(pdf);
             personsAdded.add(pdf);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitPdfBook() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyPdfBook getPdfBook() {
+            return new PdfBook();
         }
     }
 

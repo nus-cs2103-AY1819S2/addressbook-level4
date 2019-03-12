@@ -61,14 +61,14 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered pdf list, delete index within bounds of address book and pdf list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredPdfList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered pdf list, delete index within bounds of address book but out of bounds of pdf list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getPdfBook().getPdfList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -97,7 +97,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getPersonList().size() + 1);
+                getModel().getPdfBook().getPdfList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private Pdf removePerson(Model model, Index index) {
         Pdf targetPdf = getPerson(model, index);
-        model.deletePerson(targetPdf);
+        model.deletePdf(targetPdf);
         return targetPdf;
     }
 

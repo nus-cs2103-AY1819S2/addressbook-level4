@@ -30,7 +30,7 @@ public class TaskAddCommand extends Command {
 
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "An exact same task is already found in the records";
+    public static final String MESSAGE_DUPLICATE_TASK = "An exact same task is already found in the records";
 
     private final Task toAdd;
 
@@ -48,7 +48,7 @@ public class TaskAddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
         model.addPerson(toAdd);

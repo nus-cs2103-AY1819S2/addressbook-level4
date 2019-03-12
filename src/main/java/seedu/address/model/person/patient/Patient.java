@@ -61,11 +61,7 @@ public class Patient extends Person {
         return other != null
                 && other.getName().equals(this.getName())
                 && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getNric().equals(this.getNric())
-                && other.getAddress().equals(this.getAddress())
-                && other.getTags().equals(this.getTags())
-                && other.getName().equals(this.getConditions());
+                && other.getNric().equals(this.getNric());
     }
 
     @Override
@@ -91,7 +87,7 @@ public class Patient extends Person {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getNric(), getAddress(), getPhone(),
-                getEmail(), getTags());
+                getEmail(), getTags(), getConditions());
     }
 
     public Conditions getConditions() {

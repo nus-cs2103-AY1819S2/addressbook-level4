@@ -1,5 +1,6 @@
 package seedu.address.model.image;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
@@ -67,7 +68,7 @@ public class Image {
      * Prints the metadata for any given image.
      */
     public void printMetadata() throws IOException, ImageProcessingException {
-        Metadata metadata = ImageMetadataReader.readMetadata(new File("src/main/resources/assets/" + this.name));
+        Metadata metadata = ImageMetadataReader.readMetadata(new File(ASSETS_FILEPATH + this.name));
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
                 System.out.println(tag);

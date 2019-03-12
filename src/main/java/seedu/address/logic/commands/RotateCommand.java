@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -56,8 +58,8 @@ public class RotateCommand extends Command {
         }
 
         try {
-            File directory = new File("src/main/resources/assets/");
-            Image initialImage = new Image("src/main/resources/assets/" + fileName);
+            File directory = new File(ASSETS_FILEPATH);
+            Image initialImage = new Image(ASSETS_FILEPATH + fileName);
             BufferedImage bufferImage = Scalr.rotate(initialImage.getBufferedImage(), rotate);
             //hardcoded the result file, have to concatenate in future and have specific ones
             // when we have more than 1 file
@@ -68,7 +70,7 @@ public class RotateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST);
         }
 
-        Image finalImage = new Image("src/main/resources/assets/sampleRotate.jpg");
+        Image finalImage = new Image(ASSETS_FILEPATH + "sampleRotate.jpg");
         model.displayImage(finalImage);
 
         return new CommandResult(Messages.MESSAGE_ROTATE_SUCCESS);

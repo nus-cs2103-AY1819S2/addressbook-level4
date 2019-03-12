@@ -13,7 +13,6 @@ import seedu.address.model.Model;
 
 public class ListFilesCommand extends Command {
     public static final String COMMAND_WORD = "listfiles";
-
     public static final String MESSAGE_LIST_FILES_HEADER = "Files in assets folder: ";
     public static final String MESSAGE_SUCCESS = "Listed all files in assets folder.";
 
@@ -21,7 +20,7 @@ public class ListFilesCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        String[] imageNames = model.listFiles();
-        return new CommandResult(MESSAGE_LIST_FILES_HEADER + Arrays.toString(imageNames) + "\n" + MESSAGE_SUCCESS);
+        String[] fileNames = model.getFileNames();
+        return new CommandResult(MESSAGE_LIST_FILES_HEADER + Arrays.toString(fileNames) + "\n" + MESSAGE_SUCCESS);
     }
 }

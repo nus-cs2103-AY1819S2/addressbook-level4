@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 
 import java.io.File;
 
@@ -22,7 +23,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         model.commitAddressBook();
-        File dir = new File("src/main/resources/assets");
+        File dir = new File(ASSETS_FILEPATH);
         model.clearAssetFolder(dir);
         return new CommandResult(MESSAGE_SUCCESS);
     }

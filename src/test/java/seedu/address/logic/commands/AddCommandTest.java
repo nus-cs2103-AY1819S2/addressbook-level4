@@ -215,7 +215,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public String[] listFiles() {
+        public String[] getFileNames() {
             throw new AssertionError("This method should not be called.");
         }
     }

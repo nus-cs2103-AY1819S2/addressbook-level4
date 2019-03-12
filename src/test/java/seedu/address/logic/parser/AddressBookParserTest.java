@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.util.StringUtil.fromPathToString;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -330,9 +331,10 @@ public class AddressBookParserTest {
         String name = "panaddol";
         StringBuilder sb = new StringBuilder();
         sb.append(AddMedicineCommand.COMMAND_WORD + " " + rawPath + " ");
-        sb.append(name + " ");
+        sb.append(name + " 30 ");
         int quantity = 60;
         sb.append(quantity);
-        assertTrue(new AddMedicineCommand(path, name, quantity).equals(parser.parseCommand(sb.toString())));
+        assertTrue(new AddMedicineCommand(path, name, quantity, new BigDecimal(30))
+                .equals(parser.parseCommand(sb.toString())));
     }
 }

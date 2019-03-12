@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
     private static final Pattern AddMedicineCommand_Argument_Format =
             Pattern.compile("(?<rawPath>\\S+)(?:\\s+)(?<medicineInformation>\\S.+)");
     private static final Pattern MedicineInformation_Format =
-            Pattern.compile("(?<name>\\S+)(?:\\s*)(?<quantity>\\d*)(?:\\s*)");
+            Pattern.compile("(?<name>\\S+)(?:\\s+)(?<price>\\d+\\.?\\d*)(?:\\s*)(?<quantity>\\d*)");
 
     /**
      * parse the given input to produce a AddMedicineCommand
@@ -45,10 +46,11 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
         }
         String medicineName = nameQuantity.group("name");
         String quantity = nameQuantity.group("quantity");
+        String price = nameQuantity.group("price");
         if (quantity.isEmpty()) {
-            return new AddMedicineCommand(path, medicineName);
+            return new AddMedicineCommand(path, medicineName, new BigDecimal(price));
         } else {
-            return new AddMedicineCommand(path, medicineName, Integer.parseInt(quantity));
+            return new AddMedicineCommand(path, medicineName, Integer.parseInt(quantity), new BigDecimal(price));
         }
     }
 }

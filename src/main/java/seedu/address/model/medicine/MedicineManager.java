@@ -2,6 +2,7 @@ package seedu.address.model.medicine;
 
 import static seedu.address.commons.util.CollectionUtil.binarySearch;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
@@ -25,8 +26,8 @@ public class MedicineManager {
      * @param medicineName name of medicine
      * @param path path the madicine to be added to
      */
-    public void addMedicine(String medicineName, String[] path) {
-        this.addMedicine(medicineName, 0, path);
+    public void addMedicine(String medicineName, String[] path, BigDecimal price) {
+        this.addMedicine(medicineName, 0, path, price);
     }
 
     /**
@@ -35,7 +36,7 @@ public class MedicineManager {
      * @param quantity quantity of medicine
      * @param path the path to store to
      */
-    public void addMedicine(String medicineName, int quantity, String[] path) {
+    public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
         Optional<Medicine> findMedicine = findMedicine(medicineName);
         if (findMedicine.isPresent()) {
             throw new IllegalArgumentException("Medicine with same name has already existed");
@@ -45,6 +46,7 @@ public class MedicineManager {
             throw new IllegalArgumentException("Invalid path");
         }
         Medicine medicine = new Medicine(medicineName, quantity);
+        medicine.setPrice(price);
         listOfMedicine.add(medicine);
         listOfMedicine.sort(Comparator.comparing((Medicine x) -> (x.name)));
         directory.get().addMedicine(medicine);

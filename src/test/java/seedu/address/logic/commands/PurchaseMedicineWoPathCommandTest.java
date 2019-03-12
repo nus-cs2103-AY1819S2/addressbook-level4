@@ -21,7 +21,7 @@ public class PurchaseMedicineWoPathCommandTest {
         this.model = new ModelManager();
         this.commandHistory = new CommandHistory();
         model.addDirectory("TCM", new String[] {"root"});
-        model.addMedicine("Pannadol", new String[] {"root", "TCM"});
+        model.addMedicine("Pannadol", new String[] {"root", "TCM"}, BigDecimal.valueOf(233));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class PurchaseMedicineWoPathCommandTest {
             CommandResult commandResult =
                     new PurchaseMedicineWoPathCommand("Pannadol", 50,
                             BigDecimal.valueOf(500)).execute(model, commandHistory);
-            Assert.assertEquals("Purchase successful.", commandResult.getFeedbackToUser());
+            Assert.assertEquals(PurchaseMedicineCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
         } catch (Exception ex) {
             Assert.fail();
         }

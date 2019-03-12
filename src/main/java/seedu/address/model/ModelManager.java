@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.Clock;
 import java.time.YearMonth;
@@ -152,13 +153,13 @@ public class ModelManager implements Model {
 
     //=========== MedicineManager ============================================================================
     @Override
-    public void addMedicine(String medicineName, String[] path) {
-        medicineManager.addMedicine(medicineName, path);
+    public void addMedicine(String medicineName, String[] path, BigDecimal price) {
+        medicineManager.addMedicine(medicineName, path, price);
     }
 
     @Override
-    public void addMedicine(String medicineName, int quantity, String[] path) {
-        medicineManager.addMedicine(medicineName, quantity, path);
+    public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
+        medicineManager.addMedicine(medicineName, quantity, path, price);
     }
 
     @Override

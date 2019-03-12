@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +22,7 @@ public class AlarmCommandTest {
         model = new ModelManager();
         commandHistory = new CommandHistory();
         model.addDirectory("TCM", new String[] {"root"});
-        model.addMedicine("testMed", new String[] {"root", "TCM"});
+        model.addMedicine("testMed", new String[] {"root", "TCM"}, BigDecimal.valueOf(37.0));
     }
 
     @Test
@@ -41,7 +43,7 @@ public class AlarmCommandTest {
             CommandResult commandResult =
                     new AlarmCommand(new String[] {"root", "TCM", "testMed"}, 20).execute(model, commandHistory);
             Assert.assertEquals(String.format(AlarmCommand.MESSAGE_SUCCESS, 20,
-                    String.format(Medicine.TO_STRING, "testMed", 0)), commandResult.getFeedbackToUser());
+                    String.format(Medicine.TO_STRING, "testMed", 0, 37.0)), commandResult.getFeedbackToUser());
         } catch (Exception ex) {
             Assert.fail();
         }

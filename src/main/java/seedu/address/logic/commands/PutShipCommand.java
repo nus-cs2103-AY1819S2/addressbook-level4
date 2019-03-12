@@ -47,7 +47,7 @@ public class PutShipCommand extends Command {
     public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL =
             "There is already a ship along the vertical coordinates";
     public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL =
-            "There is already a ship along the vertical coordinates";
+            "There is already a ship along the horizontal coordinates";
 
     private final Coordinates coordinates;
     private final Battleship battleship;

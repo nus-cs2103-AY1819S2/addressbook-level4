@@ -21,9 +21,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Pdf;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -45,17 +45,17 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPdf);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
+        expectedModel.setPdf(model.getFilteredPdfList().get(0), editedPdf);
+        expectedModel.commitPdfBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Pdf lastPdf = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPdfList().size());
+        Pdf lastPdf = model.getFilteredPdfList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPdf);
         Pdf editedPdf = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
@@ -67,9 +67,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(lastPdf, editedPdf);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
+        expectedModel.setPdf(lastPdf, editedPdf);
+        expectedModel.commitPdfBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -77,12 +77,12 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Pdf editedPdf = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Pdf editedPdf = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
+        expectedModel.commitPdfBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -91,23 +91,23 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Pdf pdfInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Pdf pdfInFilteredList = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
         Pdf editedPdf = new PersonBuilder(pdfInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPdf);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
+        expectedModel.setPdf(model.getFilteredPdfList().get(0), editedPdf);
+        expectedModel.commitPdfBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Pdf firstPdf = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Pdf firstPdf = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
@@ -119,7 +119,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit pdf in filtered list into a duplicate in address book
-        Pdf pdfInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Pdf pdfInList = model.getPdfBook().getPdfList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(pdfInList).build());
 
@@ -128,7 +128,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -144,7 +144,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getPdfBook().getPdfList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -155,28 +155,28 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Pdf editedPdf = new PersonBuilder().build();
-        Pdf pdfToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Pdf pdfToEdit = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(pdfToEdit, editedPdf);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
+        expectedModel.setPdf(pdfToEdit, editedPdf);
+        expectedModel.commitPdfBook();
 
         // edit -> first pdf edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered pdf list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first pdf edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoPdfBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -200,23 +200,23 @@ public class EditCommandTest {
         Pdf editedPdf = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Pdf pdfToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.setPerson(pdfToEdit, editedPdf);
-        expectedModel.commitAddressBook();
+        Pdf pdfToEdit = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
+        expectedModel.setPdf(pdfToEdit, editedPdf);
+        expectedModel.commitPdfBook();
 
         // edit -> edits second pdf in unfiltered pdf list / first pdf in filtered pdf list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered pdf list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), pdfToEdit);
+        assertNotEquals(model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased()), pdfToEdit);
         // redo -> edits same second pdf in unfiltered pdf list
-        expectedModel.redoAddressBook();
+        expectedModel.redoPdfBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

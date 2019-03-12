@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicatePdfException;
 import seedu.address.model.person.exceptions.PdfNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
@@ -24,162 +24,162 @@ public class UniquePdfListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final UniquePersonList uniquePersonList = new UniquePersonList();
+    private final UniquePdfList uniquePdfList = new UniquePdfList();
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.contains(null);
+        uniquePdfList.contains(null);
     }
 
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniquePersonList.contains(ALICE));
+        assertFalse(uniquePdfList.contains(ALICE));
     }
 
     @Test
     public void contains_personInList_returnsTrue() {
-        uniquePersonList.add(ALICE);
-        assertTrue(uniquePersonList.contains(ALICE));
+        uniquePdfList.add(ALICE);
+        assertTrue(uniquePdfList.contains(ALICE));
     }
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniquePersonList.add(ALICE);
+        uniquePdfList.add(ALICE);
         Pdf editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(uniquePersonList.contains(editedAlice));
+        assertTrue(uniquePdfList.contains(editedAlice));
     }
 
     @Test
     public void add_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.add(null);
+        uniquePdfList.add(null);
     }
 
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniquePersonList.add(ALICE);
-        thrown.expect(DuplicatePersonException.class);
-        uniquePersonList.add(ALICE);
+        uniquePdfList.add(ALICE);
+        thrown.expect(DuplicatePdfException.class);
+        uniquePdfList.add(ALICE);
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPerson(null, ALICE);
+        uniquePdfList.setPerson(null, ALICE);
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPerson(ALICE, null);
+        uniquePdfList.setPerson(ALICE, null);
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
         thrown.expect(PdfNotFoundException.class);
-        uniquePersonList.setPerson(ALICE, ALICE);
+        uniquePdfList.setPerson(ALICE, ALICE);
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(ALICE);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniquePdfList.add(ALICE);
+        uniquePdfList.setPerson(ALICE, ALICE);
+        UniquePdfList expectedUniquePdfList = new UniquePdfList();
+        expectedUniquePdfList.add(ALICE);
+        assertEquals(expectedUniquePdfList, uniquePdfList);
     }
 
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
-        uniquePersonList.add(ALICE);
+        uniquePdfList.add(ALICE);
         Pdf editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniquePersonList.setPerson(ALICE, editedAlice);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(editedAlice);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniquePdfList.setPerson(ALICE, editedAlice);
+        UniquePdfList expectedUniquePdfList = new UniquePdfList();
+        expectedUniquePdfList.add(editedAlice);
+        assertEquals(expectedUniquePdfList, uniquePdfList);
     }
 
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, BOB);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniquePdfList.add(ALICE);
+        uniquePdfList.setPerson(ALICE, BOB);
+        UniquePdfList expectedUniquePdfList = new UniquePdfList();
+        expectedUniquePdfList.add(BOB);
+        assertEquals(expectedUniquePdfList, uniquePdfList);
     }
 
     @Test
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.add(BOB);
-        thrown.expect(DuplicatePersonException.class);
-        uniquePersonList.setPerson(ALICE, BOB);
+        uniquePdfList.add(ALICE);
+        uniquePdfList.add(BOB);
+        thrown.expect(DuplicatePdfException.class);
+        uniquePdfList.setPerson(ALICE, BOB);
     }
 
     @Test
     public void remove_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.remove(null);
+        uniquePdfList.remove(null);
     }
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
         thrown.expect(PdfNotFoundException.class);
-        uniquePersonList.remove(ALICE);
+        uniquePdfList.remove(ALICE);
     }
 
     @Test
     public void remove_existingPerson_removesPerson() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.remove(ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniquePdfList.add(ALICE);
+        uniquePdfList.remove(ALICE);
+        UniquePdfList expectedUniquePdfList = new UniquePdfList();
+        assertEquals(expectedUniquePdfList, uniquePdfList);
     }
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPersons((UniquePersonList) null);
+        uniquePdfList.setPdfs((UniquePdfList) null);
     }
 
     @Test
     public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniquePersonList.add(ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        uniquePersonList.setPersons(expectedUniquePersonList);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniquePdfList.add(ALICE);
+        UniquePdfList expectedUniquePdfList = new UniquePdfList();
+        expectedUniquePdfList.add(BOB);
+        uniquePdfList.setPdfs(expectedUniquePdfList);
+        assertEquals(expectedUniquePdfList, uniquePdfList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPersons((List<Pdf>) null);
+        uniquePdfList.setPdfs((List<Pdf>) null);
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
-        uniquePersonList.add(ALICE);
+        uniquePdfList.add(ALICE);
         List<Pdf> pdfList = Collections.singletonList(BOB);
-        uniquePersonList.setPersons(pdfList);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniquePdfList.setPdfs(pdfList);
+        UniquePdfList expectedUniquePdfList = new UniquePdfList();
+        expectedUniquePdfList.add(BOB);
+        assertEquals(expectedUniquePdfList, uniquePdfList);
     }
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Pdf> listWithDuplicatePdfs = Arrays.asList(ALICE, ALICE);
-        thrown.expect(DuplicatePersonException.class);
-        uniquePersonList.setPersons(listWithDuplicatePdfs);
+        thrown.expect(DuplicatePdfException.class);
+        uniquePdfList.setPdfs(listWithDuplicatePdfs);
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        uniquePersonList.asUnmodifiableObservableList().remove(0);
+        uniquePdfList.asUnmodifiableObservableList().remove(0);
     }
 }

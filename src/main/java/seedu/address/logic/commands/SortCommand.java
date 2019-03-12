@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import java.util.Comparator;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.PdfBook;
 import seedu.address.model.person.Pdf;
 
 
@@ -29,9 +29,9 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        AddressBook newBook = new AddressBook();
-        newBook.setPersons(model.getAddressBook().getPersonList().sorted(pdfComparator));
-        model.setAddressBook(newBook);
+        PdfBook newBook = new PdfBook();
+        newBook.setPdfs(model.getPdfBook().getPdfList().sorted(pdfComparator));
+        model.setPdfBook(newBook);
         return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
 

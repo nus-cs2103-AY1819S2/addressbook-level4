@@ -7,12 +7,12 @@ import seedu.address.model.person.Pdf;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook extends Observable {
+public interface ReadOnlyPdfBook extends Observable {
 
     /**
      * Returns an unmodifiable view of the persons list.
      * This list will not contain any duplicate persons.
      */
-    ObservableList<Pdf> getPersonList();
+    ObservableList<Pdf> getPdfList();
 
 }

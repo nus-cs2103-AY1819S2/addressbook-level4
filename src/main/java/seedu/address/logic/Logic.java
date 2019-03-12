@@ -8,7 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.person.Pdf;
 
 /**
@@ -25,11 +25,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the PdfBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getPdfBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyPdfBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Pdf> getFilteredPersonList();
@@ -59,14 +59,14 @@ public interface Logic {
      * Selected pdf in the filtered pdf list.
      * null if no pdf is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedPdfProperty()
      */
     ReadOnlyProperty<Pdf> selectedPersonProperty();
 
     /**
      * Sets the selected pdf in the filtered pdf list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Pdf)
+     * @see seedu.address.model.Model#setSelectedPdf(Pdf)
      */
     void setSelectedPerson(Pdf pdf);
 }

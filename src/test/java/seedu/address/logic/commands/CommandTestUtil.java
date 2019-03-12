@@ -15,8 +15,8 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.PdfBook;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Pdf;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -109,9 +109,9 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Pdf> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        Pdf expectedSelectedPdf = actualModel.getSelectedPerson();
+        PdfBook expectedAddressBook = new PdfBook(actualModel.getPdfBook());
+        List<Pdf> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPdfList());
+        Pdf expectedSelectedPdf = actualModel.getSelectedPdf();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -120,9 +120,9 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedPdf, actualModel.getSelectedPerson());
+            assertEquals(expectedAddressBook, actualModel.getPdfBook());
+            assertEquals(expectedFilteredList, actualModel.getFilteredPdfList());
+            assertEquals(expectedSelectedPdf, actualModel.getSelectedPdf());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -132,22 +132,22 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPdfList().size());
 
-        Pdf pdf = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Pdf pdf = model.getFilteredPdfList().get(targetIndex.getZeroBased());
         final String[] splitName = pdf.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPdfList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredPdfList().size());
     }
 
     /**
      * Deletes the first pdf in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        Pdf firstPdf = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPdf);
-        model.commitAddressBook();
+        Pdf firstPdf = model.getFilteredPdfList().get(0);
+        model.deletePdf(firstPdf);
+        model.commitPdfBook();
     }
 
 }

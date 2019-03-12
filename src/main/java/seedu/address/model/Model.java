@@ -43,93 +43,93 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getPdfBookFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setPdfBookFilePath(Path pdfBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code pdfBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setPdfBook(ReadOnlyPdfBook pdfBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the PdfBook */
+    ReadOnlyPdfBook getPdfBook();
 
     /**
      * Returns true if a pdf with the same identity as {@code pdf} exists in the address book.
      */
-    boolean hasPerson(Pdf pdf);
+    boolean hasPdf(Pdf pdf);
 
     /**
      * Deletes the given pdf.
      * The pdf must exist in the address book.
      */
-    void deletePerson(Pdf target);
+    void deletePdf(Pdf target);
 
     /**
      * Adds the given pdf.
      * {@code pdf} must not already exist in the address book.
      */
-    void addPerson(Pdf pdf);
+    void addPdf(Pdf pdf);
 
     /**
      * Replaces the given pdf {@code target} with {@code editedPdf}.
      * {@code target} must exist in the address book.
      * The pdf identity of {@code editedPdf} must not be the same as another existing pdf in the address book.
      */
-    void setPerson(Pdf target, Pdf editedPdf);
+    void setPdf(Pdf target, Pdf editedPdf);
 
     /** Returns an unmodifiable view of the filtered pdf list */
-    ObservableList<Pdf> getFilteredPersonList();
+    ObservableList<Pdf> getFilteredPdfList();
 
     /**
      * Updates the filter of the filtered pdf list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Pdf> predicate);
+    void updateFilteredPdfList(Predicate<Pdf> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoPdfBook();
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoPdfBook();
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undoAddressBook();
+    void undoPdfBook();
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoPdfBook();
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitPdfBook();
 
     /**
      * Selected pdf in the filtered pdf list.
      * null if no pdf is selected.
      */
-    ReadOnlyProperty<Pdf> selectedPersonProperty();
+    ReadOnlyProperty<Pdf> selectedPdfProperty();
 
     /**
      * Returns the selected pdf in the filtered pdf list.
      * null if no pdf is selected.
      */
-    Pdf getSelectedPerson();
+    Pdf getSelectedPdf();
 
     /**
      * Sets the selected pdf in the filtered pdf list.
      */
-    void setSelectedPerson(Pdf pdf);
+    void setSelectedPdf(Pdf pdf);
 }

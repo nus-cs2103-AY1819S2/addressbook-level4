@@ -28,7 +28,7 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully exported card folders to: $1%s";
 
-    public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find one or more specified card folders";
+    public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find the specified folder: ";
 
     private List<String> cardFolders;
     private String filename;
@@ -44,7 +44,7 @@ public class ExportCommand extends Command {
         try {
             List<ReadOnlyCardFolder> cardFolderObject = model.returnValidCardFolders(this.cardFolders);
         } catch (CardFolderNotFoundException e) {
-            throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS);
+            throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS + e.getMessage());
         }
         return null;
     }

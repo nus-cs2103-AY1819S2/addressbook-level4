@@ -171,7 +171,7 @@ public class ModelManager implements Model {
                 }
             }
             if (!isCardFolderPresent) {
-                throw new CardFolderNotFoundException();
+                throw new CardFolderNotFoundException(cardFolderName);
             }
         }
         return returnCardFolder;

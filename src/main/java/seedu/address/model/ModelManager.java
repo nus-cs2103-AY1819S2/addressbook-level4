@@ -79,7 +79,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         this.medicineManager = new MedicineManager();
-        this.patientManager = new PatientManager();
+        this.patientManager = new PatientManager(addressBook.getPatients());
         this.consultationManager = new ConsultationManager();
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
@@ -96,9 +96,9 @@ public class ModelManager implements Model {
      */
     public void iniQuickDocs() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        for (Patient patient : samplePatients) {
-            addPatient(patient);
-        }
+        //for (Patient patient : samplePatients) {
+        //   addPatient(patient);
+        //}
         Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
         for (Appointment app : sampleAppointments) {
             addApp(app);
@@ -364,8 +364,13 @@ public class ModelManager implements Model {
         return this.patientManager.duplicatePatient(patient);
     }
 
+    /**
+     * Add a patient to the versioned quickdocs
+     */
     public void addPatient(Patient patient) {
         this.patientManager.addPatient(patient);
+        versionedAddressBook.addPatient(patient);
+        versionedAddressBook.indicateModified();
     }
 
     // for editing

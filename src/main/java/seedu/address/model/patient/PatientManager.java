@@ -16,6 +16,10 @@ public class PatientManager {
         this.patientList = new ArrayList<Patient>();
     }
 
+    public PatientManager(ArrayList<Patient> patients) {
+        this.patientList = patients;
+    }
+
     //==========Patient addition methods=================================================
 
     /**

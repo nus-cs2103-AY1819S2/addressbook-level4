@@ -8,6 +8,12 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
+import static seedu.address.testutil.TypicalRestOrRant.CHICKEN_WINGS;
+import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W12;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,19 +24,30 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.table.ReadOnlyTables;
+import seedu.address.model.table.Table;
+import seedu.address.storage.JsonMenuStorage;
+import seedu.address.storage.JsonOrdersStorage;
+import seedu.address.storage.JsonStatisticsStorage;
+import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.OrderItemBuilder;
+import seedu.address.testutil.TableBuilder;
 
 
 public class LogicManagerTest {
@@ -47,9 +64,13 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonRestOrRantStorage addressBookStorage = new JsonRestOrRantStorage(temporaryFolder.newFile().toPath());
+        JsonTablesStorage jsonTablesStorage = new JsonTablesStorage(temporaryFolder.newFile().toPath());
+        JsonOrdersStorage jsonOrdersStorage = new JsonOrdersStorage(temporaryFolder.newFile().toPath());
+        JsonMenuStorage jsonMenuStorage = new JsonMenuStorage(temporaryFolder.newFile().toPath());
+        JsonStatisticsStorage jsonStatisticsStorage = new JsonStatisticsStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, jsonOrdersStorage, jsonMenuStorage,
+                jsonStatisticsStorage, jsonTablesStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -69,36 +90,80 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(listCommand);
+        String addTableCommand = AddTableCommand.COMMAND_WORD;
+        assertCommandSuccess(addTableCommand, AddTableCommand.MESSAGE_SUCCESS, model);
+        assertHistoryCorrect(addTableCommand);
     }
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonRestOrRantIoExceptionThrowingStub
-        JsonRestOrRantStorage addressBookStorage =
-                new JsonRestOrRantIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        //        JsonRestOrRantStorage jsonRestOrRantStorage =
+        //                new JsonRestOrRantIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonOrdersStorage jsonOrdersStorage = new JsonOrdersIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonMenuStorage jsonMenuStorage = new JsonMenuIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonStatisticsStorage jsonStatisticsStorage =
+                new JsonStatisticsIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonTablesStorage jsonTablesStorage = new JsonTablesIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, jsonOrdersStorage, jsonMenuStorage,
+                jsonStatisticsStorage, jsonTablesStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        //        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        //                + ADDRESS_DESC_AMY;
+        //        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        //        expectedModel.addPerson(expectedPerson);
+        //        expectedModel.updateMode();
+        //        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        //        assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
+        //        assertHistoryCorrect(addCommand);
+
+        // Execute addTable command
+        String addTableCommand = AddTableCommand.COMMAND_WORD ;
+        Table expectedTable = new TableBuilder().build();
+        OrderItem expectedOrderItem = new OrderItemBuilder().build();
+        MenuItem expectedMenuItem = new MenuItemBuilder().build();
+        Bill expectedBill = new BillBuilder.build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
-        expectedModel.updateMode();
+        expectedModel.addTable(expectedTable);
+        expectedModel.addOrderItem(expectedOrderItem);
+        expectedModel.addMenuItem(expectedMenuItem);
+        expectedModel.addBill(expectedBill);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(addCommand);
+        assertCommandBehavior(CommandException.class, addTableCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addTableCommand);
+    }
+
+    //    @Test
+    //    public void getFilteredPersonsList_modifyList_throwsUnsupportedOperationException() {
+    //        thrown.expect(UnsupportedOperationException.class);
+    //        logic.getFilteredPersonsList().remove(0);
+    //    }
+
+    @Test
+    public void getFilteredOrderItemList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredOrderItemList().remove(0);
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredMenuItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
+        logic.getFilteredMenuItemList().remove(0);
+    }
+
+    @Test
+    public void getFilteredTableList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredTableList().remove(0);
+    }
+
+    @Test
+    public void getFilteredBillList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredBillList().remove(0);
     }
 
     /**
@@ -171,16 +236,72 @@ public class LogicManagerTest {
         }
     }
 
+    //    /**
+    //     * A stub class to throw an {@code IOException} when the save method is called.
+    //     */
+    //    private static class JsonRestOrRantIoExceptionThrowingStub extends JsonRestOrRantStorage {
+    //        private JsonRestOrRantIoExceptionThrowingStub(Path filePath) {
+    //            super(filePath);
+    //        }
+    //
+    //        @Override
+    //        public void saveRestOrRant(ReadOnlyRestOrRant restOrRant, Path filePath) throws IOException {
+    //            throw DUMMY_IO_EXCEPTION;
+    //        }
+    //    }
+
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonRestOrRantIoExceptionThrowingStub extends JsonRestOrRantStorage {
-        private JsonRestOrRantIoExceptionThrowingStub(Path filePath) {
+    private static class JsonOrdersIoExceptionThrowingStub extends JsonOrdersStorage {
+        private JsonOrdersIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveRestOrRant(ReadOnlyRestOrRant addressBook, Path filePath) throws IOException {
+        public void saveOrders(ReadOnlyOrders orders, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonMenuIoExceptionThrowingStub extends JsonMenuStorage {
+        private JsonMenuIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveMenu(ReadOnlyMenu menu, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonStatisticsIoExceptionThrowingStub extends JsonStatisticsStorage {
+        private JsonStatisticsIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveStatistics(ReadOnlyStatistics statistics, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonTablesIoExceptionThrowingStub extends JsonTablesStorage {
+        private JsonTablesIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveTables(ReadOnlyTables tables, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

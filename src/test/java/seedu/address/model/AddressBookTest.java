@@ -22,7 +22,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Pdf;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicatePdfException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -30,11 +30,11 @@ public class AddressBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final PdfBook addressBook = new PdfBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getPdfList());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        PdfBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -56,41 +56,41 @@ public class AddressBookTest {
         Pdf editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Pdf> newPdfs = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPdfs);
+        PdfBookStub newData = new PdfBookStub(newPdfs);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicatePdfException.class);
         addressBook.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        addressBook.hasPdf(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(addressBook.hasPdf(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        addressBook.addPdf(ALICE);
+        assertTrue(addressBook.hasPdf(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        addressBook.addPdf(ALICE);
         Pdf editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasPdf(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        addressBook.getPdfList().remove(0);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class AddressBookTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         addressBook.addListener(listener);
-        addressBook.addPerson(ALICE);
+        addressBook.addPdf(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -108,22 +108,22 @@ public class AddressBookTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         addressBook.addListener(listener);
         addressBook.removeListener(listener);
-        addressBook.addPerson(ALICE);
+        addressBook.addPdf(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose pdfs list can violate interface constraints.
+     * A stub ReadOnlyPdfBook whose pdfs list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class PdfBookStub implements ReadOnlyPdfBook {
         private final ObservableList<Pdf> pdfs = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Pdf> pdfs) {
+        PdfBookStub(Collection<Pdf> pdfs) {
             this.pdfs.setAll(pdfs);
         }
 
         @Override
-        public ObservableList<Pdf> getPersonList() {
+        public ObservableList<Pdf> getPdfList() {
             return pdfs;
         }
 

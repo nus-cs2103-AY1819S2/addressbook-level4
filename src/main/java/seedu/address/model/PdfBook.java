@@ -8,15 +8,15 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.Pdf;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePdfList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the pdf-book level
+ * Duplicates are not allowed (by .isSamePdf comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class PdfBook implements ReadOnlyPdfBook {
 
-    private final UniquePersonList persons;
+    private final UniquePdfList pdfs;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,15 +27,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        pdfs = new UniquePdfList();
     }
 
-    public AddressBook() {}
+    public PdfBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an PdfBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public PdfBook(ReadOnlyPdfBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -46,18 +46,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the pdf list with {@code pdfs}.
      * {@code pdfs} must not contain duplicate pdfs.
      */
-    public void setPersons(List<Pdf> pdfs) {
-        this.persons.setPersons(pdfs);
+    public void setPdfs(List<Pdf> pdfs) {
+        this.pdfs.setPdfs(pdfs);
         indicateModified();
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code PdfBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyPdfBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPdfs(newData.getPdfList());
     }
 
     //// pdf-level operations
@@ -65,17 +65,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a pdf with the same identity as {@code pdf} exists in the address book.
      */
-    public boolean hasPerson(Pdf pdf) {
+    public boolean hasPdf(Pdf pdf) {
         requireNonNull(pdf);
-        return persons.contains(pdf);
+        return pdfs.contains(pdf);
     }
 
     /**
      * Adds a pdf to the address book.
      * The pdf must not already exist in the address book.
      */
-    public void addPerson(Pdf p) {
-        persons.add(p);
+    public void addPdf(Pdf p) {
+        pdfs.add(p);
         indicateModified();
     }
 
@@ -84,19 +84,19 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The pdf identity of {@code editedPdf} must not be the same as another existing pdf in the address book.
      */
-    public void setPerson(Pdf target, Pdf editedPdf) {
+    public void setPdf(Pdf target, Pdf editedPdf) {
         requireNonNull(editedPdf);
 
-        persons.setPerson(target, editedPdf);
+        pdfs.setPerson(target, editedPdf);
         indicateModified();
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code PdfBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Pdf key) {
-        persons.remove(key);
+    public void removePdf(Pdf key) {
+        pdfs.remove(key);
         indicateModified();
     }
 
@@ -121,24 +121,24 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return pdfs.asUnmodifiableObservableList().size() + " pdfs";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Pdf> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Pdf> getPdfList() {
+        return pdfs.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof PdfBook // instanceof handles nulls
+                && pdfs.equals(((PdfBook) other).pdfs));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return pdfs.hashCode();
     }
 }

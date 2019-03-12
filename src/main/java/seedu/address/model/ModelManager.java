@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final FilteredList<VersionedCardFolder> filteredFoldersList;
+    private ObservableList<VersionedCardFolder> foldersList;
     private int activeCardFolderIndex;
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
@@ -51,7 +52,8 @@ public class ModelManager implements Model {
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             versionedCardFolders.add(new VersionedCardFolder(cardFolder));
         }
-        filteredFoldersList = new FilteredList<>(FXCollections.observableArrayList(versionedCardFolders));
+        foldersList = FXCollections.observableArrayList(versionedCardFolders);
+        filteredFoldersList = new FilteredList<>(foldersList);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
@@ -214,7 +216,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addFolder(CardFolder cardFolder) {
-        filteredFoldersList.add(new VersionedCardFolder(cardFolder));
+        foldersList.add(new VersionedCardFolder(cardFolder));
         indicateModified();
     }
 

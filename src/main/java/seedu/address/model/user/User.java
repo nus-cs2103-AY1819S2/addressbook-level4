@@ -12,7 +12,7 @@ import seedu.address.commons.util.CsvUtil;
  */
 public class User {
     private String name;
-    private List<CardData> cardData; // Contains User-specific data on Cards
+    private List<CardSrsData> cardData; // Contains User-specific data on Cards
 
     /**
      *  returns true if the function is able to write file
@@ -30,9 +30,9 @@ public class User {
      *  attempts to import data
      *  exceptions : Duplicate file, file does not exist
      */
-    public CardData importData(Path filepath) throws DuplicateCardDataException, CardDataImportException {
+    public CardSrsData importData(Path filepath) throws DuplicateCardDataException, CardDataImportException {
         try {
-            CardData importCardData = (CardData) CsvUtil.readCsvFile(filepath);
+            CardSrsData importCardData = (CardSrsData) CsvUtil.readCsvFile(filepath);
 
             if (cardData.contains(importCardData)) {
                 throw new CardDataImportException("Error importing file, there exists a duplicate file");
@@ -52,7 +52,7 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-    public List<CardData> getCardData() {
+    public List<CardSrsData> getCardData() {
         return cardData;
     }
 }

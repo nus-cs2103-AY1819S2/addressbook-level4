@@ -10,7 +10,7 @@ import org.junit.Test;
 public class CardDataTest {
 
     private Instant instant = Instant.ofEpochMilli(123);
-    private CardData cardData = new CardData(1, 1, 1, instant);
+    private CardSrsData cardData = new CardSrsData(1, 1, 1, instant);
 
     @Test
     public void equals() {

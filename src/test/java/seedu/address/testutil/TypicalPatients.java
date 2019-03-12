@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.patient.Patient;
-import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
 
 /**
  * A utility class containing a list of {@code Patient} objects to be used in tests.
@@ -82,7 +81,7 @@ public class TypicalPatients {
             .build();
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPatients() {    } // prevents instantiation
+    private TypicalPatients() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.

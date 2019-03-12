@@ -4,15 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.patient.Patient;
-import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
 
 /**
  * Utility Class for building Patient objects.
  */
 public class PatientBuilder extends PersonBuilder {
 
-    public static final Set<ConditionTag> DEFAULT_CONDITIONS_SET = new HashSet<>(){{
+    public static final Set<ConditionTag> DEFAULT_CONDITIONS_SET = new HashSet<>() {{
         add(new ConditionTag("Physiotherapy"));
         add(new ConditionTag("Dialysis"));
     }};
@@ -20,8 +20,8 @@ public class PatientBuilder extends PersonBuilder {
     private Conditions conditions;
 
     public PatientBuilder() {
-       super();
-       this.conditions = new Conditions((Conditions) DEFAULT_CONDITIONS_SET);
+        super();
+        this.conditions = new Conditions((Conditions) DEFAULT_CONDITIONS_SET);
     }
 
     /**
@@ -40,8 +40,10 @@ public class PatientBuilder extends PersonBuilder {
         this.conditions = new Conditions(conditions);
         return this;
     }
+
     /**
      * Builds a new Patient object for testing.
+     *
      * @return a Patient object with the parameters specified in this
      * object.
      */

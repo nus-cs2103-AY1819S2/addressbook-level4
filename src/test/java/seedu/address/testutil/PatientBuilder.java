@@ -12,10 +12,12 @@ import seedu.address.model.tag.Conditions;
  */
 public class PatientBuilder extends PersonBuilder {
 
-    public static final Set<ConditionTag> DEFAULT_CONDITIONS_SET = new HashSet<>() {{
-        add(new ConditionTag("Physiotherapy"));
-        add(new ConditionTag("Dialysis"));
-    }};
+    public static final Set<ConditionTag> DEFAULT_CONDITIONS_SET = new HashSet<>() {
+        {
+            add(new ConditionTag("Physiotherapy"));
+            add(new ConditionTag("Dialysis"));
+        }
+    };
 
     private Conditions conditions;
 

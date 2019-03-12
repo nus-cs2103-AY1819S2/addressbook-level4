@@ -148,7 +148,7 @@ public class Menu implements ReadOnlyMenu {
     /**
      * Notifies listeners that the restOrRant has been modified.
      */
-    protected void indicateModified() {
+    public void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 

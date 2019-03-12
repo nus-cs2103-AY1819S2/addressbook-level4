@@ -71,10 +71,14 @@ public interface Model {
     Path getTablesFilePath();
 
     /**
+     * Sets the user pref's Tables file path.
+     */
+    void setTablesFilePath(Path tablesFilePath);
+
+    /**
      * Returns the user prefs' statistics file path.
      */
     Path getStatisticsFilePath();
-    // TODO: add set file path for each feature
 
     /**
      * Sets the user pref's statistics file path.
@@ -94,7 +98,7 @@ public interface Model {
     /**
      * Notifies the listeners that the RestOrRant (mode) has been modified.
      */
-    void updateRestOrRant();
+    void updateMode();
 
     /**
      * Returns true if a table with the same identity as {@code table} exists in the RestOrRant's Tables.
@@ -157,6 +161,11 @@ public interface Model {
      * @param table
      */
     void setSelectedTable(Table table);
+
+    /**
+     * Notifies the listeners that the RestOrRant's tables has been modified
+     */
+    void updateTables();
 
     /**
      * Returns true if an order item with the same identity as {@code orderItem} exists in the RestOrRant's Orders.
@@ -305,7 +314,12 @@ public interface Model {
     void setSelectedBill(Bill bill);
 
     /**
-     * Notifies the listeners that the RestOrRant orders has been modified.
+     * Notifies the listeners that the RestOrRant menu has been modified to update the storage.
+     */
+    void updateMenu();
+
+    /**
+     * Notifies the listeners that the RestOrRant orders has been modified to update the storage.
      */
     void updateOrders();
 
@@ -314,9 +328,5 @@ public interface Model {
      */
     ObservableList<Bill> getBillList();
 
-    /**
-     * Changes the current mode of the RestOrRant.
-     */
-    void changeMode();
 
 }

@@ -3,8 +3,9 @@ package seedu.address.model.table;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-
+/**
+ * Represents the current status of a {@code Table}.
+ */
 public class TableStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -12,10 +13,11 @@ public class TableStatus {
 
     public static final String MESSAGE_INVALID_NUMBER_OF_CUSTOMERS =
             "Table unable to accommodate number of customers provided.\nNumber of seats table has is: %1$s";
+
     public static final String SEATS_VALIDATION_REGEX = "\\d+";
     public static final String STATUS_VALIDATION_REGEX = "\\d+/\\d+";
     public final String numberOfSeats;
-    public String numberOfTakenSeats;
+    private String numberOfTakenSeats;
 
     /**
      * Constructs a {@code TableStatus}/
@@ -27,6 +29,24 @@ public class TableStatus {
         checkArgument(isValidTableStatus(tableStatus), MESSAGE_CONSTRAINTS);
         this.numberOfSeats = tableStatus.substring(2);
         this.numberOfTakenSeats = "0";
+    }
+
+    /**
+     * Changes the number of seats taken in the {@code TableStatus}.
+     */
+    public void changeOccupancy(String numberOfTakenSeats) {
+        requireNonNull(numberOfTakenSeats);
+        checkArgument(isValidNumberOfSeats(numberOfTakenSeats));
+        this.numberOfTakenSeats = numberOfTakenSeats;
+    }
+
+    /**
+     * Checks if table is occupied.
+     *
+     * @return true if table is occupied, false otherwise.
+     */
+    public boolean isOccupied() {
+        return Integer.parseInt(numberOfTakenSeats) > 0;
     }
 
     /**
@@ -43,22 +63,12 @@ public class TableStatus {
         return test.matches(SEATS_VALIDATION_REGEX);
     }
 
-    public void setTableStatus(String newNumberOfTakenSeats) throws CommandException {
-        checkArgument(isValidNumberOfSeats(newNumberOfTakenSeats), MESSAGE_CONSTRAINTS);
-        if (Integer.parseInt(newNumberOfTakenSeats) > Integer.parseInt(numberOfSeats)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_NUMBER_OF_CUSTOMERS, numberOfSeats));
-        }
-        this.numberOfTakenSeats = newNumberOfTakenSeats;
-    }
-
-    public boolean isOccupied() {
-        return Integer.parseInt(numberOfTakenSeats) == 0;
-    }
-
+    /**
+     * Checks if two TableStatus objects are equal.
+     */
     public boolean equals(TableStatus otherTableStatus) {
         return numberOfSeats.equals(otherTableStatus.numberOfSeats) && numberOfTakenSeats
                 .equals(otherTableStatus.numberOfTakenSeats);
-
     }
 
     @Override

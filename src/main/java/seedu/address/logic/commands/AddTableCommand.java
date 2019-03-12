@@ -20,7 +20,9 @@ public class AddTableCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds table(s) to the RestOrRant application."
             + "Parameters: NUMBER_OF_SEATS [NUMBER_OF_SEATS]...\n" + "Example: " + COMMAND_WORD + " 2 1 4";
 
-    public static final String MESSAGE_SUCCESS = "New table added:\nTable%1$s: %2$s";
+    public static final String MESSAGE_SUCCESS = "New table added:";
+
+    public static final String MESSAGE_TABLE_ADDED = "\nTable %1$s: %2$s";
 
     private final List<TableStatus> tableStatusList;
 
@@ -35,15 +37,17 @@ public class AddTableCommand extends Command {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) {
         requireNonNull(model);
-        TableNumber addedTableNumber = null;
+        TableNumber addedTableNumber;
+        StringBuilder sbFinalOutput = new StringBuilder(MESSAGE_SUCCESS);
 
         for (TableStatus tableStatus : tableStatusList) {
             addedTableNumber = model.addTable(tableStatus);
+            requireNonNull(addedTableNumber);
+            sbFinalOutput.append(String.format(MESSAGE_TABLE_ADDED, addedTableNumber.toString(),
+                    tableStatus.toString()));
         }
-        requireNonNull(addedTableNumber);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, addedTableNumber.toString(),
-                tableStatusList)); // TODO: Beautify resultDisplay
+        return new CommandResult(sbFinalOutput.toString());
     }
 
     @Override

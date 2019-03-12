@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.CuisineContainsKeywordsPredicate;
-import seedu.address.model.restaurant.categories.Cuisine;
 
 /**
  * Filters and lists all restaurants in food diary whose category matches any of the argument keywords.
@@ -23,7 +22,9 @@ public class FilterCommand extends Command {
 
     private final CuisineContainsKeywordsPredicate predicate;
 
-    public FilterCommand(CuisineContainsKeywordsPredicate predicate) { this.predicate = predicate; }
+    public FilterCommand(CuisineContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

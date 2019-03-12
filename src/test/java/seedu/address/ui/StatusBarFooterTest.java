@@ -2,15 +2,12 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-//TOREMOVE//import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.Date;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,7 +22,6 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
- //TOREMOVE   private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 
     private StatusBarFooterHandle statusBarFooterHandle;
@@ -33,14 +29,12 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     @BeforeClass
     public static void setUpBeforeClass() {
-        // inject fixed clock
-  // TOREMOVE      StatusBarFooter.setClock(injectedClock);
+    // EDIT FOR TESTING
     }
 
     @AfterClass
     public static void tearDownAfterClass() {
-        // restore original clock
-  //TOREMOVE      StatusBarFooter.setClock(originalClock);
+    // EDIT FOR TESTING
     }
 
     @Before
@@ -58,8 +52,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
         // after address book is updated
         guiRobot.interact(() -> mapGrid.addPerson(ALICE));
-//TOREMOVE        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-//                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+        //TOREMOVE        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
+        //                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }
 
     /**

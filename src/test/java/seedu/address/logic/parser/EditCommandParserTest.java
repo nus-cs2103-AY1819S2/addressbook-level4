@@ -306,7 +306,7 @@ public class EditCommandParserTest {
 
         // all fields specified
         input = targetIndex.getOneBased() + NAME_DESC_ANDY + PHONE_DESC_BETTY + EMAIL_DESC_ANDY
-                + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY+ SKILLS_DESC_ANDY;
+                + ADDRESS_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY;
         descriptor = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_ANDY)
                 .withPhone(VALID_PHONE_BETTY).withEmail(VALID_EMAIL_ANDY).withAddress(VALID_ADDRESS_ANDY)
                 .withNric(VALID_NRIC_ANDY).withOrganization(VALID_ORGANIZATION_ANDY).withSkills(

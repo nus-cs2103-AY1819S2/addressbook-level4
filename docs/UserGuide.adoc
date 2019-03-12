@@ -260,7 +260,7 @@ Arrange interview dates for applicant based on relevance to the job opening and
 sends the applicants their respective interview timings to the email they provided based on their relevance to the role. +
 Format : `arrange_interviews`
 
-=== Read to slaveFinder() : `readAll` `Coming in v1.4`
+=== Import Resumes to slaveFinder() : `importResumes` `Coming in v1.4`
 
 Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
 Format : `readAll`

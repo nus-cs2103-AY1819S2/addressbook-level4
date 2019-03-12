@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 public class Task {
 
     // Identity fields
-    protected final Name name;
+    protected final Title title;
     protected final Phone phone;
     protected final Email email;
 

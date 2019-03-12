@@ -14,6 +14,7 @@ public class WorkList {
     //Identity fields
     private final String date;
     private final String assignee;
+    private final WorkListID id;
 
     //Data fields
     private final Set<Equipment> equipments;
@@ -26,14 +27,19 @@ public class WorkList {
         this.date = date;
         this.assignee = name;
         this.equipments = new HashSet<>();
+        this.id = new WorkListID();
     }
 
-    public String getDate () {
+    public String getDate() {
         return date;
     }
 
-    public String getAssignee () {
+    public String getAssignee() {
         return assignee;
+    }
+
+    public WorkListID getID() {
+        return this.id;
     }
 
     public Set<Equipment> getEquipments() {
@@ -41,17 +47,17 @@ public class WorkList {
     }
 
     //Add an equipment to the work list.
-    public void addEquipment (Equipment e) {
+    public void addEquipment(Equipment e) {
         this.equipments.add(e);
     }
 
     //Delete an equipment from the work list.
-    public void deleteEquipment (Equipment e) {
+    public void deleteEquipment(Equipment e) {
         this.equipments.remove(e);
     }
 
     //List all the equipments in the work list.
-    public Equipment[] listEquipment () {
+    public Equipment[] listEquipment() {
         return (Equipment[]) this.equipments.toArray();
     }
 }

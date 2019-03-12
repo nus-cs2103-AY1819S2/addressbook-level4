@@ -22,7 +22,7 @@ public class AttackDestroyedShip extends AttackResult {
 
     @Override
     public String toString() {
-        return String.format("Attack by player %s on cell %s of player %s destroyed %s",
+        return String.format(ATTACK + "destroyed %s",
             attacker, coords, target, destroyedShip.getName());
     }
 }

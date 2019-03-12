@@ -19,7 +19,7 @@ public interface Battle {
      * Handles the human player attacking another player.
      * @return Result of the player attack.
      */
-    public AttackResult humanAttackAI(Name enemyName, Coordinates coord);
+    public AttackResult humanPerformAttack(String enemyName, Coordinates coord);
 
     /**
      * Ends the player turn and causes all AIs to make attacks.

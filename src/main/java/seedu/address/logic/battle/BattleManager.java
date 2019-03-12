@@ -2,10 +2,12 @@ package seedu.address.logic.battle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
-import seedu.address.model.battleship.Name;
+import seedu.address.model.battleship.Battleship;
+import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
 
@@ -32,12 +34,54 @@ public class BattleManager implements Battle {
     }
 
     @Override
-    public AttackResult humanAttackAI(Name enemyName, Coordinates coord) {
-        return null;
+    public AttackResult humanPerformAttack(String enemyName, Coordinates coord) {
+        Optional<Player> target = aiPlayers.stream()
+            .filter((Player p) -> p.getName().equals(enemyName))
+            .findFirst();
+        if (target.isPresent()) {
+            return performAttack(humanPlayer, target.get(), coord);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * The human attacks the default enemy.
+     */
+    public AttackResult humanPerformAttack(Coordinates coord) {
+        return performAttack(humanPlayer, humanPlayer, coord);
+    }
+
+    /**
+     * An Player attacks an enemy.
+     */
+    private AttackResult performAttack(Player attacker, Player target, Coordinates coord) {
+        try {
+            Cell cell = target.getMapGrid().getCell(coord);
+            if (cell.receiveAttack()) {
+                // we hit a ship
+                Battleship hitShip = cell.getBattleship().get();
+                if (hitShip.isDestroyed()) {
+                    return new AttackDestroyedShip(attacker, target, coord, hitShip);
+                } else {
+                    return new AttackHit(attacker, target, coord);
+                }
+            } else {
+                return new AttackMissed(attacker, target, coord);
+            }
+        } catch (IndexOutOfBoundsException ioobe) {
+            return new AttackFailed(attacker, target, coord, "coordinates out of bounds");
+        } catch (Exception ex) {
+            return new AttackFailed(attacker, target, coord, ex.getMessage());
+        }
     }
 
     @Override
     public List<AttackResult> humanEndTurn() {
-        return null;
+        ArrayList<AttackResult> results = new ArrayList<>();
+        for (Player ai: aiPlayers) {
+            // make the AIs take turns
+        }
+        return results;
     }
 }

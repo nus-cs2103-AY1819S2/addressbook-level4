@@ -122,6 +122,13 @@ public class Cell {
     }
 
     /**
+     * Returns the ship in this cell.
+     */
+    public Optional<Battleship> getBattleship() {
+        return battleship;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

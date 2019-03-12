@@ -10,6 +10,7 @@ public abstract class AttackResult {
     protected Player attacker;
     protected Player target;
     protected Coordinates coords;
+    protected final String ATTACK = "Attack by player %s on cell %s of player %s";
 
     protected AttackResult(Player attacker, Player target, Coordinates coords) {
         this.attacker = attacker;

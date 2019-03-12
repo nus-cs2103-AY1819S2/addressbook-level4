@@ -5,7 +5,7 @@ package seedu.address.model.equipment;
  */
 public class WorkListID {
 
-    private static int idHito = 0;
+    private static int idHist = 0;
 
     private int thisId;
 
@@ -13,7 +13,7 @@ public class WorkListID {
      * Constructing the class, and pass down the ID number.
      */
     public WorkListID() {
-        thisID = IDhis + 1;
+        thisId = idHist + 1;
     }
 
     public int getId() {

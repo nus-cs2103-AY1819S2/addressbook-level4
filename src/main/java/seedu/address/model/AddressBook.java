@@ -56,12 +56,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the task list with {@code task}.
+     * {@code task} must not contain duplicate tasks.
+     */
+    public void setTasks(List<Task> tasks) {
+        this.tasks.setTasks(tasks);
+        indicateModified();;
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setTasks(newData.getTaskList());
     }
     //// task-level operations
 
@@ -77,8 +87,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a task to the address book.
      * The task must not already exist in the address book.
      */
-    public void addTask(Task p) {
-        tasks.add(p);
+    public void addTask(Task t) {
+        tasks.add(t);
         indicateModified();
     }
 

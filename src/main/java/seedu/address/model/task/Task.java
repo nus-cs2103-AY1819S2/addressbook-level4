@@ -48,14 +48,13 @@ public class Task {
      * This defines a weaker notion of equality between two tasks.
      */
     public boolean isSameTask(Task otherTask) {
-        if (otherTask == this) {
-            return true;
+        if (otherTask == null) {
+            return false;
+        } else {
+            return otherTask.getTitle().equals(getTitle())
+                    && otherTask.getStartDate().equals(getStartDate())
+                    && otherTask.getEndDate().equals(getEndDate());
         }
-
-        return otherTask != null
-                && otherTask.getTitle().equals(getTitle())
-                && otherTask.getStartDate().equals(getStartDate())
-                && otherTask.getEndDate().equals(getEndDate());
     }
 
     /**

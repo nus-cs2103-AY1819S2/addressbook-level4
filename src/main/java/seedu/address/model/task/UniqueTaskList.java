@@ -33,7 +33,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean contains(Task toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameTask);
     }
 
     /**
@@ -46,6 +46,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        System.out.println(internalList.size());
     }
 
     /**
@@ -124,10 +125,10 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Returns true if {@code Tasks} contains only unique Tasks.
      */
-    private boolean TasksAreUnique(List<Task> Tasks) {
-        for (int i = 0; i < Tasks.size() - 1; i++) {
-            for (int j = i + 1; j < Tasks.size(); j++) {
-                if (Tasks.get(i).isSameTask(Tasks.get(j))) {
+    private boolean TasksAreUnique(List<Task> tasks) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            for (int j = i + 1; j < tasks.size(); j++) {
+                if (tasks.get(i).isSameTask(tasks.get(j))) {
                     return false;
                 }
             }

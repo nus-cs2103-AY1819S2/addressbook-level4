@@ -178,7 +178,7 @@ public class ParserUtil {
      * Parses a {@code String date} into an {@code DateCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseEndDate(String startDate, String endDate) throws ParseException {
+    public static DateCustom parseEndDate(String endDate, String startDate) throws ParseException {
         requireNonNull(startDate);
         requireNonNull(endDate);
         String trimmedStartDate = startDate.trim();
@@ -187,7 +187,7 @@ public class ParserUtil {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
         try {
-            if (!DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+            if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
                 throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
             }
         } catch (java.text.ParseException e) {

@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
+import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
@@ -51,17 +52,19 @@ public class PutShipCommand extends Command {
 
     private final Coordinates coordinates;
     private final Battleship battleship;
+    private final Orientation orientation;
 
     /**
      * @param coordinates of the cell in the filtered cell list to edit
      * @param battleship battleship to place in the cell
      */
-    public PutShipCommand(Coordinates coordinates, Battleship battleship) {
+    public PutShipCommand(Coordinates coordinates, Battleship battleship, Orientation orientation) {
         requireNonNull(coordinates);
         requireNonNull(battleship);
 
         this.coordinates = coordinates;
         this.battleship = battleship;
+        this.orientation = orientation;
     }
 
     @Override
@@ -72,10 +75,10 @@ public class PutShipCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } else if (!isBodyWithinBounds(model, coordinates, battleship)) {
             throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
-        } else if (!isVerticalClear(model, coordinates, battleship)) {
-            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
         } else if (!isHorizontalClear(model, coordinates, battleship)) {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
+        } else if (!isVerticalClear(model, coordinates, battleship)) {
+            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
         }
 
         Cell cellToEdit = model.getMapGrid().getCell(coordinates);
@@ -84,7 +87,13 @@ public class PutShipCommand extends Command {
             throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
         } else {
             try {
-                putAlongHorizontal(model, coordinates, battleship);
+                if (this.orientation.isHorizontal() && !this.orientation.isVertical()) {
+                    putAlongHorizontal(model, coordinates, battleship);
+                } else if (this.orientation.isVertical() && !this.orientation.isHorizontal()) {
+                    putAlongVertical(model, coordinates, battleship);
+                } else {
+                    throw new CommandException(MESSAGE_USAGE);
+                }
             } catch (Exception e) {
                 throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
             }
@@ -135,11 +144,15 @@ public class PutShipCommand extends Command {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
+        model.getMapGrid().getCell(rowIndex.getZeroBased(), colIndex.getZeroBased());
+
         int length = battleship.getLength();
 
         for (int i = 1; i < length; i++) {
             Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
+
+            System.out.println(cellToInspect);
 
             if (cellToInspect.hasBattleShip()) {
                 return false;

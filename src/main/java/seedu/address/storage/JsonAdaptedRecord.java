@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.category.Category;
 import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Description;
 import seedu.address.model.record.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.category.Category;
 
 /**
  * Jackson-friendly version of {@link Record}.

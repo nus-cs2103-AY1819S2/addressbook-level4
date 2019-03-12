@@ -2,21 +2,21 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SpendCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Description;
 import seedu.address.model.record.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.category.Category;
 
 /**
  * Parses input arguments and creates a new AddCommand object

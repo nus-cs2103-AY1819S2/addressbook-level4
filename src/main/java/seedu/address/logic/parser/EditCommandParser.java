@@ -3,9 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -51,7 +51,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editRecordDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
-        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY)).ifPresent(editRecordDescriptor::setCategories);
+        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
+                .ifPresent(editRecordDescriptor::setCategories);
 
         if (!editRecordDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -71,7 +72,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (categories.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> categorySet = categories.size() == 1 && categories.contains("") ? Collections.emptySet() : categories;
+        Collection<String> categorySet = categories.size() == 1
+                && categories.contains("") ? Collections.emptySet() : categories;
         return Optional.of(ParserUtil.parseCategories(categorySet));
     }
 

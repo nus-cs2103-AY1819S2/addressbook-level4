@@ -17,13 +17,10 @@ import guitests.guihandles.RecordListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.record.Address;
 import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Description;
-import seedu.address.model.record.Email;
 import seedu.address.model.record.Name;
-import seedu.address.model.record.Phone;
 import seedu.address.model.record.Record;
 
 public class RecordListPanelTest extends GuiUnitTest {
@@ -83,14 +80,10 @@ public class RecordListPanelTest extends GuiUnitTest {
         ObservableList<Record> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < recordCount; i++) {
             Name name = new Name(i + "a");
-            Phone phone = new Phone("000");
-            Email email = new Email("a@aa");
-            Address address = new Address("a");
             Amount amount = new Amount("123");
             Date date = new Date("12/12/2018");
             Description description = new Description ("");
-            Record record = new Record(name, phone, email, address,
-                    amount, date, description, Collections.emptySet());
+            Record record = new Record(name, amount, date, description, Collections.emptySet());
             backingList.add(record);
         }
         return backingList;

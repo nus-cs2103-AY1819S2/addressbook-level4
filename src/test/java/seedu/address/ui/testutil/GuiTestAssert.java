@@ -25,7 +25,6 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getAmount(), actualCard.getAmount());
         assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
 
         expectedCard.getTags().forEach(tag -> assertEquals(expectedCard.getTagStyleClasses(tag),
@@ -37,7 +36,6 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRecord(Record expectedRecord, RecordCardHandle actualCard) {
         assertEquals(expectedRecord.getName().fullName, actualCard.getName());
-        assertEquals(expectedRecord.getPhone().value, actualCard.getPhone());
         assertEquals(expectedRecord.getAmount().value, actualCard.getAmount());
         assertEquals(expectedRecord.getDate().value, actualCard.getDate());
         assertEquals(expectedRecord.getDescription().value, actualCard.getDescription());
@@ -58,15 +56,17 @@ public class GuiTestAssert {
         case "owesmoney":
             return "yellow";
 
-        case "shopping":
+        case "transportation":
+            return "blue";
+
         case "dining":
             return "teal";
 
-        case "transportation":
         case "family":
             return "black";
 
         case "vices":
+        case "food":
             return "orange";
 
         case "entertainment":
@@ -85,6 +85,7 @@ public class GuiTestAssert {
         case"friends":
             return "pink";
 
+        case "shopping":
         case"husband":
             return "red";
 

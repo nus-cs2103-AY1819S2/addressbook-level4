@@ -33,8 +33,6 @@ public class RecordCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label amount;
     @FXML
     private Label date;
@@ -48,7 +46,6 @@ public class RecordCard extends UiPart<Region> {
         this.record = record;
         id.setText(displayedIndex + ". ");
         name.setText(record.getName().fullName);
-        phone.setText(record.getPhone().value);
         amount.setText(record.getAmount().value);
         date.setText(record.getDate().value);
         description.setText(record.getDescription().value);

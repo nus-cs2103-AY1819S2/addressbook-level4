@@ -1,11 +1,8 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -37,9 +34,6 @@ public class RecordUtil {
     public static String getRecordDetails(Record record) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + record.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + record.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + record.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + record.getAddress().value + " ");
         sb.append(PREFIX_AMOUNT + record.getAmount().value + " ");
         sb.append(PREFIX_DATE + record.getDate().value + " ");
         record.getTags().stream().forEach(
@@ -54,9 +48,6 @@ public class RecordUtil {
     public static String getEditRecordDescriptorDetails(EditRecordDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.value).append(" "));
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.value).append(" "));
         if (descriptor.getTags().isPresent()) {

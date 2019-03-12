@@ -6,13 +6,10 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.record.Address;
 import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Description;
-import seedu.address.model.record.Email;
 import seedu.address.model.record.Name;
-import seedu.address.model.record.Phone;
 import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
 
@@ -21,27 +18,21 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static final Description EMPTY_DESCRIPTION = new Description("");
+    public static final String STANDARD_DESCRIPTION = "some description";
     public static Record[] getSampleRecords() {
         return new Record[] {
-            new Record(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("friends")),
-            new Record(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("colleagues", "friends")),
-            new Record(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("neighbours")),
-            new Record(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("family")),
-            new Record(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("classmates")),
-            new Record(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"), new Amount("100"), new Date("12/02/2018"),
-                EMPTY_DESCRIPTION, getTagSet("colleagues"))
+            new Record(new Name("Weekly groceries purchase"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("Shopping")),
+            new Record(new Name("H and M Clothes"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("Shopping")),
+            new Record(new Name("Chicken Rice lunch"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("Food")),
+            new Record(new Name("Haircut"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("entertainment")),
+            new Record(new Name("Bus Ride"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("Transportation")),
+            new Record(new Name("Cigarettes"), new Amount("100"), new Date("12/02/2018"),
+                new Description(STANDARD_DESCRIPTION), getTagSet("vices"))
         };
     }
 

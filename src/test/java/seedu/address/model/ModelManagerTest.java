@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORD;
 import static seedu.address.testutil.TypicalRecords.ALICE;
 import static seedu.address.testutil.TypicalRecords.BENSON;
@@ -124,7 +124,7 @@ public class ModelManagerTest {
     public void setRecord_recordIsSelected_selectedRecordUpdated() {
         modelManager.addRecord(ALICE);
         modelManager.setSelectedRecord(ALICE);
-        Record updatedAlice = new RecordBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Record updatedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).build();
         modelManager.setRecord(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedRecord());
     }

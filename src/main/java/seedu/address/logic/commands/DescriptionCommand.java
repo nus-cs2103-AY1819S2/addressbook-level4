@@ -57,8 +57,7 @@ public class DescriptionCommand extends Command {
         }
 
         Record recordToEdit = lastShownList.get(index.getZeroBased());
-        Record editedRecord = new Record(recordToEdit.getName(), recordToEdit.getPhone(), recordToEdit.getEmail(),
-                recordToEdit.getAddress(), recordToEdit.getAmount(), recordToEdit.getDate(),
+        Record editedRecord = new Record(recordToEdit.getName(), recordToEdit.getAmount(), recordToEdit.getDate(),
                 this.description, recordToEdit.getTags());
 
         model.setRecord(recordToEdit, editedRecord);

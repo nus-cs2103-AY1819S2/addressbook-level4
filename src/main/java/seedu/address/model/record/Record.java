@@ -17,11 +17,8 @@ public class Record {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
 
     // Data fields
-    private final Address address;
     private final Amount amount;
     private final Date date;
     private final Description description;
@@ -30,13 +27,10 @@ public class Record {
     /**
      * Every field must be present and not null.
      */
-    public Record(Name name, Phone phone, Email email, Address address,
-                  Amount amount, Date date, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, amount, date, tags);
+    public Record(Name name, Amount amount, Date date,
+                  Description description, Set<Tag> tags) {
+        requireAllNonNull(name, amount, date, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -45,18 +39,6 @@ public class Record {
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public Amount getAmount() {
@@ -90,7 +72,7 @@ public class Record {
 
         return otherRecord != null
                 && otherRecord.getName().equals(getName())
-                && (otherRecord.getPhone().equals(getPhone()) || otherRecord.getEmail().equals(getEmail()));
+                && (otherRecord.getAmount().equals(getAmount()) || otherRecord.getDate().equals(getDate()));
     }
 
     /**
@@ -109,32 +91,28 @@ public class Record {
 
         Record otherRecord = (Record) other;
         return otherRecord.getName().equals(getName())
-                && otherRecord.getPhone().equals(getPhone())
-                && otherRecord.getEmail().equals(getEmail())
-                && otherRecord.getAddress().equals(getAddress())
+                && otherRecord.getAmount().equals(getAmount())
+                && otherRecord.getDate().equals(getDate())
+                && otherRecord.getDescription().equals(getDescription())
                 && otherRecord.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, amount, date, description, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Date: ")
                 .append(getDate())
+                .append("Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

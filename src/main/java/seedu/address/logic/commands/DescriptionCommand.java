@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Description;
+import seedu.address.model.record.Record;
 
 
 /**
@@ -31,8 +31,8 @@ public class DescriptionCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_DESCRIPTION + "Father's birthday present.";
 
-    public static final String MESSAGE_ADD_DESCRIPTION_SUCCESS = "Added description to Person: %1$s";
-    public static final String MESSAGE_REMOVE_DESCRIPTION_SUCCESS = "Removed description from Person: %1$s";
+    public static final String MESSAGE_ADD_DESCRIPTION_SUCCESS = "Added description to Record: %1$s";
+    public static final String MESSAGE_REMOVE_DESCRIPTION_SUCCESS = "Removed description from Record: %1$s";
 
     private final Index index;
     private final Description description;
@@ -50,33 +50,33 @@ public class DescriptionCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Record> lastShownList = model.getFilteredRecordList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getAmount(), personToEdit.getDate(),
-                this.description, personToEdit.getTags());
+        Record recordToEdit = lastShownList.get(index.getZeroBased());
+        Record editedRecord = new Record(recordToEdit.getName(), recordToEdit.getAmount(), recordToEdit.getDate(),
+                this.description, recordToEdit.getTags());
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setRecord(recordToEdit, editedRecord);
+        model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
         model.commitAddressBook();
 
-        return new CommandResult(makeSuccessMessage(editedPerson));
+        return new CommandResult(makeSuccessMessage(editedRecord));
     }
 
     /**
      * Makes a command execution succcess message based on whether the descrption is added to or removed form
-     * {@personToEdit}.
+     * {@recordToEdit}.
+     * @param recordToEdit
      */
-    private String makeSuccessMessage(Person personToEdit) {
+    private String makeSuccessMessage(Record recordToEdit) {
 
         String message = !description.value.isEmpty() ? MESSAGE_ADD_DESCRIPTION_SUCCESS
                 : MESSAGE_REMOVE_DESCRIPTION_SUCCESS;
-        return String.format(message, personToEdit);
+        return String.format(message, recordToEdit);
     }
 
     @Override

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +11,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.record.Record;
+import seedu.address.testutil.RecordBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,21 +29,21 @@ public class SpendCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+        Record validRecord = new RecordBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        expectedModel.addRecord(validRecord);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new SpendCommand(validPerson), model, commandHistory,
-                String.format(SpendCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertCommandSuccess(new SpendCommand(validRecord), model, commandHistory,
+                String.format(SpendCommand.MESSAGE_SUCCESS, validRecord), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new SpendCommand(personInList), model, commandHistory,
-                SpendCommand.MESSAGE_DUPLICATE_PERSON);
+        Record recordInList = model.getAddressBook().getRecordList().get(0);
+        assertCommandFailure(new SpendCommand(recordInList), model, commandHistory,
+                SpendCommand.MESSAGE_DUPLICATE_RECORD);
     }
 
 }

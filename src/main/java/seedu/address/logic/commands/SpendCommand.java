@@ -1,21 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 
 /**
- * Adds a person to the address book.
+ * Adds a record to the address book.
  */
 public class SpendCommand extends Command {
 
@@ -23,45 +20,40 @@ public class SpendCommand extends Command {
     public static final String COMMAND_ALIAS = "add";
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a record to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_AMOUNT + "AMOUNT"
             + PREFIX_DATE + "DATE"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_AMOUNT + "123"
+            + PREFIX_DATE + "12/02/2002"
+            + PREFIX_TAG + "Food ";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New record added: %1$s";
+    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the address book";
 
-    private final Person toSpend;
+    private final Record toSpend;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Record}
      */
-    public SpendCommand(Person person) {
-        requireNonNull(person);
-        toSpend = person;
+    public SpendCommand(Record record) {
+        requireNonNull(record);
+        toSpend = record;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toSpend)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasRecord(toSpend)) {
+            throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
 
-        model.addPerson(toSpend);
+        model.addRecord(toSpend);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toSpend));
     }

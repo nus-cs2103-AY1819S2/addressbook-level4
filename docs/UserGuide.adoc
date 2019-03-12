@@ -270,7 +270,7 @@ There is no need to save manually.
 
 === HR Related Features
 
-==== Read to slaveFinder() : `readAll` `Coming in v1.4`
+==== Import Resumes to slaveFinder() : `importResumes` `Coming in v1.4`
 
 Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
 Format : `readAll`

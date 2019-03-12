@@ -36,7 +36,7 @@ class JsonAdaptedBatch {
      * Converts a given {@code Batch} into this class for Jackson use.
      */
     public JsonAdaptedBatch(Batch source) {
-        batchNumber = source.getBatchNumber().number;
+        batchNumber = source.getBatchNumber().batchNumber;
         quantity = source.getQuantity().value;
         expiry = source.getExpiry().toString();
     }

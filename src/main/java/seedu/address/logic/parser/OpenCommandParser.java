@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -21,14 +22,14 @@ public class OpenCommandParser implements Parser<OpenCommand> {
     public OpenCommand parse(String args) throws ParseException {
         args = args.trim();
         Image image;
-        File file = new File("src/main/resources/assets/" + args);
+        File file = new File(ASSETS_FILEPATH + args);
 
         if (args.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenCommand.MESSAGE_USAGE));
         }
 
         if (file.isFile()) {
-            image = new Image("src/main/resources/assets/" + args);
+            image = new Image(ASSETS_FILEPATH + args);
         } else {
             throw new ParseException(String.format(MESSAGE_FILE_NOT_FOUND, OpenCommand.MESSAGE_USAGE));
         }

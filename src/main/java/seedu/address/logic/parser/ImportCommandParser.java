@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FILE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TYPE;
@@ -28,7 +29,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         args = args.trim();
         File file = new File(args);
         Image image = null;
-        File directory = new File("src/main/resources/assets");
+        File directory = new File(ASSETS_FILEPATH);
 
         // File must exist.
         if (file.isFile()) {
@@ -37,7 +38,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 String mime = Files.probeContentType(file.toPath());
                 if (mime != null && mime.split("/")[0].equals("image")) {
                     image = new Image(args);
-                    if (!new File("src/main/resources/assets/" + image.getName()).exists()) {
+                    if (!new File(ASSETS_FILEPATH + image.getName()).exists()) {
                         try {
                             FileUtils.copyFileToDirectory(file, directory);
                         } catch (IOException e) {

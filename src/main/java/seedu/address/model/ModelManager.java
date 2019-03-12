@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.File;
@@ -253,7 +254,7 @@ public class ModelManager implements Model {
 
     @Override
     public String[] getFileNames() {
-        File file = new File("src/main/resources/assets/");
+        File file = new File(ASSETS_FILEPATH);
         String[] imageNames = file.list();
         return imageNames;
     }

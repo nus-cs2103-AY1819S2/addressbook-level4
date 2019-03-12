@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -35,7 +37,7 @@ public class ImagePanel extends UiPart<Region> implements PropertyChangeListener
      */
     public void propertyChange(PropertyChangeEvent event) {
         if (event.getPropertyName().equals("import")) {
-            File f = new File("src/main/resources/assets/" + event.getNewValue().toString());
+            File f = new File(ASSETS_FILEPATH + event.getNewValue().toString());
             try {
                 System.out.println(f.toURI().toURL().toExternalForm());
                 Image i = new Image(f.toURI().toURL().toExternalForm());

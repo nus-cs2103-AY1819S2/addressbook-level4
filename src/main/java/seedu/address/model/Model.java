@@ -154,6 +154,11 @@ public interface Model extends Observable {
     void setSelectedCard(Card card);
 
     /**
+     * Checks whether list of card folder names specified is found inside model
+     */
+    boolean checkValidCardFolders(List<String> cardFolders);
+
+    /**
      * Enters a test session using the specified card folder.
      */
     void testCardFolder(ReadOnlyCardFolder cardFolder);
@@ -197,8 +202,4 @@ public interface Model extends Observable {
      */
     boolean checkIfCardAlreadyAnswered();
 
-    /**
-     * Checks whether list of card folder names specified is found inside model
-     */
-    boolean checkValidCardFolders(List<String> cardFolders);
 }

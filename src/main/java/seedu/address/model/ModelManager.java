@@ -145,61 +145,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
-        Card cardToTest = cardFolderToTest.getCardList().get(0);
-        setCurrentTestedCard(cardToTest);
-        insideTestSession = true;
-    }
-
-    @Override
-    public void setCurrentTestedCard(Card card) {
-        if (card != null && !getActiveFilteredCards().contains(card)) {
-            throw new CardNotFoundException();
-        }
-        currentTestedCard.setValue(card);
-    }
-
-    @Override
-    public Card getCurrentTestedCard() {
-        return currentTestedCard.getValue();
-    }
-
-    @Override
-    public boolean checkIfInsideTestSession() {
-        return insideTestSession;
-    }
-
-    @Override
-    public void endTestSession() {
-        insideTestSession = false;
-        setCurrentTestedCard(null);
-    }
-
-    @Override
-    public boolean markAttemptedAnswer(Answer attemptedAnswer) {
-        Answer correctAnswer = currentTestedCard.getValue().getAnswer();
-        String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
-        String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
-
-        //LOOSEN MORE CRITERIAS?
-        if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void setCardAsAnswered() {
-        cardAlreadyAnswered = true;
-    }
-
-    @Override
-    public boolean checkIfCardAlreadyAnswered() {
-        return cardAlreadyAnswered;
-    }
-
-    @Override
     public boolean checkValidCardFolders(List<String> cardFolders) {
         return false;
     }
@@ -314,6 +259,63 @@ public class ModelManager implements Model {
     public void commitActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.commit();
+    }
+
+    //=========== Test Session ===========================================================================
+
+    @Override
+    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
+        Card cardToTest = cardFolderToTest.getCardList().get(0);
+        setCurrentTestedCard(cardToTest);
+        insideTestSession = true;
+    }
+
+    @Override
+    public void setCurrentTestedCard(Card card) {
+        if (card != null && !getActiveFilteredCards().contains(card)) {
+            throw new CardNotFoundException();
+        }
+        currentTestedCard.setValue(card);
+    }
+
+    @Override
+    public Card getCurrentTestedCard() {
+        return currentTestedCard.getValue();
+    }
+
+    @Override
+    public boolean checkIfInsideTestSession() {
+        return insideTestSession;
+    }
+
+    @Override
+    public void endTestSession() {
+        insideTestSession = false;
+        setCurrentTestedCard(null);
+    }
+
+    @Override
+    public boolean markAttemptedAnswer(Answer attemptedAnswer) {
+        Answer correctAnswer = currentTestedCard.getValue().getAnswer();
+        String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
+        String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
+
+        //LOOSEN MORE CRITERIAS?
+        if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void setCardAsAnswered() {
+        cardAlreadyAnswered = true;
+    }
+
+    @Override
+    public boolean checkIfCardAlreadyAnswered() {
+        return cardAlreadyAnswered;
     }
 
     //=========== Selected card ===========================================================================

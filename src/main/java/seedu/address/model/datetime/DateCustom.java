@@ -53,7 +53,7 @@ public class DateCustom {
     }
     @Override
     public String toString() {
-        return super.toString();
+        return storedDate;
     }
 
     @Override

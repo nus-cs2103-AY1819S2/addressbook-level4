@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+/**
+ * Imports resume txt files from a given directory into slavefinder().
+ */
 public class ImportResumesCommand extends Command {
 
     public static final String COMMAND_WORD = "importResumes";

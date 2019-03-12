@@ -51,12 +51,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
+=== Basic Command 
 
-=== Viewing help : `help`
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Adding a person: `add`
 
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...`
@@ -71,12 +72,12 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123 g/Male r/Chinese m/CS s/NUS`
 * `add n/Betsy Crowe g/Polygender p/12345678 t/friend e/betsycrowe@example.com a/Newgate Prison r/Indian p/1234567 t/criminal m/ME s/NTU pj/Hacker`
 
-=== Listing all persons : `list`
+==== Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+==== Editing a person : `edit`
 
 Edits an existing person in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
@@ -96,124 +97,26 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Searching persons by personal information: `search`
-
-Search persons whose personal information exactly to the given keywords in the specific fields. +
-Format: `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
-
-****
-* The search is case insensitive. e.g `cs` will match `CS`
-* Any personal information is searched.
-* Only full information will be matched e.g. `computer` will not match `Computer Science`
-* Persons matching all keywords will be returned (i.e. `AND` search).
-****
-
-Examples:
-
-* `search m/CS` +
-Returns people whose major is `CS`
-* `search m/CS s/NUS` +
-Returns any person whose major is `CS` and school is `NUS`
-
-=== Adding tags base on personal information : `addtag`
-
-Adds tag for people by their personal information. +
-Format: `addtag TAGNAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE]`
-
-****
-* Adds tag for people at the specified field.
-* The TAGNAME refers to the tag name you want to add to people.
-* Persons matching all keywords will be add tag (i.e. `AND` search).
-****
-
-Examples:
-
-* `addtag CS m/CS`
-Add CS tag for all people whose major is `CS`.
-* `addtag Assignment t/friend m/CS`
-Add `Assignment` tag for all people whose major is `CS` and have tag `friend`.
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
 [NOTE]
-====
+=====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+=====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
-====
+=====
 Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+=====
 
 Examples:
 
@@ -231,7 +134,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -253,54 +156,237 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+==== Locating persons by name: `find`
 
-=== Arrange Interview Dates : `arrange_interviews` `Coming in v1.4`
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-Arrange interview dates for applicant based on relevance to the job opening and
-sends the applicants their respective interview timings to the email they provided based on their relevance to the role. +
-Format : `arrange_interviews`
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
 
-=== Read to slaveFinder() : `readAll` `Coming in v1.4`
+Examples:
 
-Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
-Format : `readAll`
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Get ranked list : `getRankedList` `Coming in v1.4`
+==== Searching persons by personal information: `search`
 
-Returns a ranked list of applicants with the applicants better suited for the job based on his/her resume submitted
-displayed at the top. +
-Format : `getRankedList`
+Search persons whose personal information exactly to the given keywords in the specific fields. +
+Format: `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
 
-=== Filter search results : `filter` `Coming in v1.4`
+****
+* The search is case insensitive. e.g `cs` will match `CS`
+* Any personal information is searched.
+* Only full information will be matched e.g. `computer` will not match `Computer Science`
+* Persons matching all keywords will be returned (i.e. `AND` search).
+****
 
-Based on the search results returned from `search` returns a new list with the filter applied. +
-Format: `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+Examples:
 
-=== Display Hiring process for a specific role : `displayProcess` `Coming in v1.4`
+* `search m/CS` +
+Returns people whose major is `CS`
+* `search m/CS s/NUS` +
+Returns any person whose major is `CS` and school is `NUS`
 
-Shows 3 categories of applicants for a specific role:
-"Applied", "(KIV) Keep in View", "Interviewed", "To be sent to boss". +
-Format : `displayProcess`
+==== Adding tags base on personal information : `addtag`
 
-=== Display Analytics : `displayAnalytics` `Coming in v1.4`
+Adds tag for people by their personal information. +
+Format: `addtag TAGNAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE]`
 
-Display the analytics of applicants the company has hired +
-Format : `displayAnalytics`
+****
+* Adds tag for people at the specified field.
+* The TAGNAME refers to the tag name you want to add to people.
+* Persons matching all keywords will be add tag (i.e. `AND` search).
+****
 
-=== Clearing all entries : `clear`
+Examples:
+
+* `addtag CS m/CS`
+Add CS tag for all people whose major is `CS`.
+* `addtag Assignment t/friend m/CS`
+Add `Assignment` tag for all people whose major is `CS` and have tag `friend`.
+
+==== Deleting a person : `delete`
+
+Deletes the specified person from the address book. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== Selecting a person : `select`
+
+Selects the person identified by the index number used in the displayed person list. +
+Format: `select INDEX`
+
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd person in the address book.
+* `find Betsy` +
+`select 1` +
+Selects the 1st person in the results of the `find` command.
+
+==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== HR Related Features
+
+==== Read to slaveFinder() : `readAll` `Coming in v1.4`
+
+Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
+Format : `readAll`
+
+****
+* All the resume documents should be txt files and strictly follow the format of Company Standard Resume Format. 
+* All the resume documents should be stored in one folder.
+* If the new added people is a new person to our company, slaveFinder will crawl the data from resume and add him/her as ADD command.
+* If the new added people is a person already in our storage, slaveFinder will crawl the data from resume and change his/her data as EDIT command.
+****
+
+==== Create a Job Hiring Process: `createjob` `Coming in v1.4`
+
+Create a Job hiring process with three person lists: "Applied", "Interview", "To be sent to boss". +
+Format : `createjob JOBNAME`
+
+****
+* JOBNAME indicate the job name. For examle: `IOS-Developer`. 
+* All people in the storage who want to apply this job will automatically be added in "Applied" list.
+* All people in "Applied" list will show on the display list after this command.
+* A label with JOBNAME will show on the display board to indicate the current Job Hiring Process.
+****
+
+==== Switch a Job Hiring Process: `switchjob` `Coming in v1.4`
+
+Switch to another Job Hiring Process. +
+Format : `switchjob JOBNAME`
+
+****
+* All people in "Applied" list in the new Job Hiring Process will show on the display list after this command.
+* JOBNAME label will change after this command.
+****
+
+==== Filter search results : `filter` `Coming in v1.4`
+
+Filter the people displayed on the Person List. Each filer has a name and can be delete, diplay result always base on all filter request. +
+Format: `filter FILTERNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+
+****
+* Multiple filters can be added to filter people. All the filter labels will show on the display board.
+* Display board always display people base on all undeleted filters.
+****
+
+==== Delete a filter : `deletefilter` `Coming in v1.4`
+
+Delete a filter showing on the display board and renew the update display people list. +
+Format: `deletefilter FILTERNAME1 FILTERNAME2...`
+
+****
+* Multiple filters can be deleted in one command.
+* Display board always display people base on all undeleted filters.
+****
+
+==== Get ranked list : `rank` `Coming in v1.4`
+
+Rank the people displayed on the Person List base on their information like Name or Grade. Each rank command has a name and priority and can be delete, diplay result always base on all filter request. +
+Format : `rank`
+
+==== Delete a rank command : `deleterank` `Coming in v1.4`
+
+Delete a rank command showing on the display board and renew the update display people list. +
+Format: `deleterank RANKNAME1 RANKNAME2...`
+
+==== Display Analytics : `displayAnalytics` `Coming in v1.4`
+
+Display the analytics of applicants on the display person borad +
+Format : `displayAnalytics`
+
+==== Select people into "Interview" List: `selectInterview` `Coming in v1.4`
+
+Select people from display board to the Job Hiring Process's "Interviewed" list +
+Format : `selectInterview [INDEX] [INDEX-INDEX] [all]` 
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* You can add all people on the Person Display List to the "Interview" list by using `all` parameter.
+****
+
+Examples:
+
+* `selectInterview 2-10` +
+Selects the 2nd person to 10th people to the "Interview" list.
+* `selectInterview 2 4`
+Selects the 2nd person and 4th people to the "Interview" list.
+* `selectInterview all`
+Selects all the people on the Person Display List to the "Interview" list.
+
+==== Select people into "To be sent to boss" List: `selectfinal` `Coming in v1.4`
+
+Select people from display board to the Job Hiring Process's "To be sent to boss" List +
+Format : `selectInterview [INDEX] [INDEX-INDEX] [all]` 
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* You can add all people on the Person Display List to the "To be sent to boss" list by using `all` parameter.
+****
+
+==== Arrange Interview Dates : `arrangeInterview` `Coming in v1.4`
+
+Arrange interview dates for applicants in the Job Hiring Process's "Interview" list
+sends the applicants their respective interview timings to the email they provided. +
+Format : `arrangeInterviews JOBNAME`
+
+==== Generate a final report for the Job Hiring Process : `report` `Coming in v1.4`
+
+Generate `report.txt` to show 3 categories of applicants for a specific role:
+"Applied", "Interview", "To be sent to boss". in a Job Hiring Process. +
+Format : `report JOBNAME`
+
+==== Delete the Job Hiring Process : `deletejob` `Coming in v1.4`
+
+Delete a Job Hiring Process and all its information +
+Format : `deletejob JOBNAME`
+
 
 == FAQ
 

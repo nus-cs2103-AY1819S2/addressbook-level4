@@ -51,7 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
-=== Basic Command 
+=== Basic Command
 
 ==== Viewing help : `help`
 
@@ -276,7 +276,7 @@ Given input resume txt files in placed in the resumes folder, reads all the resu
 Format : `readAll`
 
 ****
-* All the resume documents should be txt files and strictly follow the format of Company Standard Resume Format. 
+* All the resume documents should be txt files and strictly follow the format of Company Standard Resume Format.
 * All the resume documents should be stored in one folder.
 * If the new added people is a new person to our company, slaveFinder will crawl the data from resume and add him/her as ADD command.
 * If the new added people is a person already in our storage, slaveFinder will crawl the data from resume and change his/her data as EDIT command.
@@ -288,7 +288,7 @@ Create a Job hiring process with three person lists: "Applied", "Interview", "To
 Format : `createjob JOBNAME`
 
 ****
-* JOBNAME indicate the job name. For examle: `IOS-Developer`. 
+* JOBNAME indicate the job name. For examle: `IOS-Developer`.
 * All people in the storage who want to apply this job will automatically be added in "Applied" list.
 * All people in "Applied" list will show on the display list after this command.
 * A label with JOBNAME will show on the display board to indicate the current Job Hiring Process.
@@ -342,7 +342,7 @@ Format : `displayAnalytics`
 ==== Select people into "Interview" List: `selectInterview` `Coming in v1.4`
 
 Select people from display board to the Job Hiring Process's "Interviewed" list +
-Format : `selectInterview [INDEX] [INDEX-INDEX] [all]` 
+Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -362,7 +362,7 @@ Selects all the people on the Person Display List to the "Interview" list.
 ==== Select people into "To be sent to boss" List: `selectfinal` `Coming in v1.4`
 
 Select people from display board to the Job Hiring Process's "To be sent to boss" List +
-Format : `selectInterview [INDEX] [INDEX-INDEX] [all]` 
+Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...

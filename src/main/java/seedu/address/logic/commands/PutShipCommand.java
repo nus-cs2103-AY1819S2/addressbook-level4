@@ -101,8 +101,8 @@ public class PutShipCommand extends Command {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
-        if ((rowIndex.getZeroBased() >= model.getMapSize())
-                || colIndex.getZeroBased() >= model.getMapSize()) {
+        if ((rowIndex.getZeroBased() > model.getMapSize())
+                || colIndex.getZeroBased() > model.getMapSize()) {
             return false;
         }
 
@@ -119,8 +119,8 @@ public class PutShipCommand extends Command {
 
         int length = battleship.getLength();
 
-        if ((rowIndex.getZeroBased() + length >= model.getMapSize())
-                || colIndex.getZeroBased() + length >= model.getMapSize()) {
+        if ((rowIndex.getZeroBased() + length > model.getMapSize())
+                || colIndex.getZeroBased() + length > model.getMapSize()) {
             return false;
         }
 

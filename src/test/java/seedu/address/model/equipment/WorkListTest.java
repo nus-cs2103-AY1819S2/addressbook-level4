@@ -12,12 +12,11 @@ public class WorkListTest {
     @Test
     public void isSameWorkList() {
 
-        private WorkList list1 = new WorkList();
+        WorkList list1 = new WorkList("2018-01-01", "Alice");
         list1.addEquipment(ALICE);
-        private WorkList list2 = new WorkList();
+        WorkList list2 = new WorkList("2019-01-01", "Bob");
         list2.addEquipment(BOB);
         // same id -> same worklist.
         assertTrue(list1.getId().getId() == list1.getId().getId());
-        assertFalse(list1.getId().getId() == list2.getId().getId());
     }
 }

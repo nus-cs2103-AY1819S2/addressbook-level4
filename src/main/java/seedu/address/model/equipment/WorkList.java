@@ -14,7 +14,7 @@ public class WorkList {
     //Identity fields
     private final String date;
     private final String assignee;
-    private final WorkListID id;
+    private final WorkListId id;
 
     //Data fields
     private final Set<Equipment> equipments;
@@ -27,7 +27,7 @@ public class WorkList {
         this.date = date;
         this.assignee = name;
         this.equipments = new HashSet<>();
-        this.id = new WorkListID();
+        this.id = new WorkListId();
     }
 
     public String getDate() {
@@ -38,7 +38,7 @@ public class WorkList {
         return assignee;
     }
 
-    public WorkListID getId() {
+    public WorkListId getId() {
         return this.id;
     }
 

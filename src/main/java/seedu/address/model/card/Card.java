@@ -158,6 +158,34 @@ public class Card {
     }
 
     /**
+     * Generates a hash code using {@link #cores} and {@link #optionals} as input.
+     * Two {@code Card} objects with the <b>same set and order</b> of {@link #cores} and {@link #optionals}
+     * will have the same hash code.
+     *
+     * @return {@link #hashCode} generated using {@link #cores} and {@link #optionals} as input
+     */
+    private int generateHashCode() {
+        return Objects.hash(cores, optionals);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Hash Code: ")
+                .append(hashCode())
+                .append(", Cores: ")
+                .append(getCores())
+                .append(", Optionals: ")
+                .append(getOptionals());
+        return builder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return hashCode;
+    }
+
+    /**
      * Returns true if both are {@code Card} objects, and are the same object or have the same {@link #hashCode}.
      *
      * @param other object to be compared for equality with this {@code Card}
@@ -175,33 +203,5 @@ public class Card {
 
         Card otherCard = (Card) other;
         return otherCard.hashCode() == this.hashCode();
-    }
-
-    /**
-     * Generates a hash code using {@link #cores} and {@link #optionals} as input.
-     * Two {@code Card} objects with the <b>same set and order</b> of {@link #cores} and {@link #optionals}
-     * will have the same hash code.
-     *
-     * @return {@link #hashCode} generated using {@link #cores} and {@link #optionals} as input
-     */
-    private int generateHashCode() {
-        return Objects.hash(cores, optionals);
-    }
-
-    @Override
-    public int hashCode() {
-        return hashCode;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Hash Code: ")
-                .append(hashCode())
-                .append(", Cores: ")
-                .append(getCores())
-                .append(", Optionals: ")
-                .append(getOptionals());
-        return builder.toString();
     }
 }

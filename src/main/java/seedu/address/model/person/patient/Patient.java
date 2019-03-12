@@ -60,8 +60,11 @@ public class Patient extends Person {
 
         return other != null
                 && other.getName().equals(this.getName())
+                && other.getName().equals(this.getPhone())
+                && other.getName().equals(this.getEmail())
                 && other.getNric().equals(this.getNric())
-                && other.getPhone().equals(this.getPhone());
+                && other.getName().equals(this.getAddress())
+                && other.getName().equals(this.getConditions());
     }
 
     @Override

@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Pdf;
+import seedu.address.model.pdf.Pdf;
 
 /**
  * The Browser Panel of the App.

@@ -139,4 +139,9 @@ public interface Model {
      * Clears asset folder
      */
     void clearAssetFolder(File directory);
+
+    /**
+     * List all file names in assets folder
+     */
+    String[] listFiles();
 }

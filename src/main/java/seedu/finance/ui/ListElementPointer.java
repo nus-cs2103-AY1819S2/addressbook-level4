@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.finance.ui;
 
 import java.util.ArrayList;
 import java.util.List;

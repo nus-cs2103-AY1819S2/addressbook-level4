@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.finance.ui;
 
 import static java.util.Objects.requireNonNull;
 
@@ -11,9 +11,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.record.Record;
+import seedu.finance.MainApp;
+import seedu.finance.commons.core.LogsCenter;
+import seedu.finance.model.record.Record;
 
 /**
  * The Browser Panel of the App.

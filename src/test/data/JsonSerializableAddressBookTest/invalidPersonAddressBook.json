@@ -1,9 +1,6 @@
 {
   "records": [ {
     "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street",
     "amount" : "$123",
     "date" : "33/07/2006",
     "address": "4th street",

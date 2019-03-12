@@ -4,19 +4,19 @@
     "name" : "Alice Pauline",
     "amount" : "120",
     "date" : "12/02/2017",
-    "description": "some description",
+    "description": "",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "amount" : "119",
     "date" : "12/02/2015",
-    "description": "some description",
+    "description": "",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "amount" : "130",
     "date" : "12/05/2017",
-    "description": "some description",
+    "description": "",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",

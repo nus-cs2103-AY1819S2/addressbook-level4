@@ -23,23 +23,19 @@ import seedu.address.model.record.Record;
 public class TypicalRecords {
 
     public static final Record ALICE = new RecordBuilder().withName("Alice Pauline")
-            .withAmount("120").withDate("12/02/2017").withDescription(new Description("some description"))
-            .withTags("friends").build();
+            .withAmount("120").withDate("12/02/2017").withTags("friends").build();
     public static final Record BENSON = new RecordBuilder().withName("Benson Meier")
-            .withAmount("119").withDate("12/02/2015").withDescription(new Description("some description"))
-            .withTags("owesMoney", "friends").build();
+            .withAmount("119").withDate("12/02/2015").withTags("owesMoney", "friends").build();
     public static final Record CARL = new RecordBuilder().withName("Carl Kurz")
-            .withDescription(new Description("some description"))
             .withAmount("130").withDate("12/05/2017").build();
     public static final Record DANIEL = new RecordBuilder().withName("Daniel Meier")
-            .withDescription(new Description("some description")).withAmount("129")
-            .withDate("12/02/2007").withTags("friends").build();
+            .withAmount("129").withDate("12/02/2007").withTags("friends").build();
     public static final Record ELLE = new RecordBuilder().withName("Elle Meyer")
-            .withDescription(new Description("")).withAmount("150").withDate("12/12/2017").build();
+            .withAmount("150").withDate("12/12/2017").build();
     public static final Record FIONA = new RecordBuilder().withName("Fiona Kunz")
-            .withDescription(new Description("")).withAmount("520").withDate("02/02/2017").build();
+            .withAmount("520").withDate("02/02/2017").build();
     public static final Record GEORGE = new RecordBuilder().withName("George Best")
-            .withDescription(new Description("")).withAmount("128").withDate("12/02/2027").build();
+            .withAmount("128").withDate("12/02/2027").build();
 
     // Manually added
     public static final Record HOON = new RecordBuilder().withName("Hoon Meier")

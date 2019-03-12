@@ -116,10 +116,10 @@ Removes the description of entry at index 1
 
 === Editing entries : `edit`
 
-Edits an existing entry in the records. +
+Edits an existing entry in the record. +
 *Format*: `edit INDEX [a/AMOUNT] [c/CATEGORY]`
 ****
-* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed record list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -139,7 +139,7 @@ Returns an entry that has Transport as category and is entered on Wednesday
 
 === Deleting an entry: `delete`
 
-Deletes an entry in the records. +
+Deletes an entry in the record. +
 *Format*: `delete INDEX`
 [NOTE]
 ====
@@ -217,12 +217,12 @@ Exits the program. +
 
 === Saving the data
 
-The finance records and allocated budget will be saved in the hard disk automatically after any command that changes the data. There is no need to save manually
+The finance record and allocated budget will be saved in the hard disk automatically after any command that changes the data. There is no need to save manually
 
 // tag::savingpatterns[]
-=== Establish saving patterns based on records and derive projected savings/expenses in a time span `[coming in v2.0]`
+=== Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
 
-The finance records for each month will be archived at the end of the month. This information will be used to derive the projected savings/expenses based on the typical spending pattern of the user.
+The finance record for each month will be archived at the end of the month. This information will be used to derive the projected savings/expenses based on the typical spending pattern of the user.
 // end::savingpatterns[]
 
 === Suggestions on how to save/Links to investment guide `[coming in v2.0]`
@@ -239,7 +239,7 @@ The application will link up with secure methods of payment such as payLah, Visa
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous In-Credit-Ble folder.
 
 *Q*: Will the application support different currency?
-*A*: At the current version, the application is unable to support transactions records in different currency. User will need to calculate and input based on the local currency. This will be rectified in the subsequent version of our application.
+*A*: At the current version, the application is unable to support transactions record in different currency. User will need to calculate and input based on the local currency. This will be rectified in the subsequent version of our application.
 
 == Command Summary
 
@@ -253,7 +253,7 @@ e.g. `increase 10`
 * *Allocate budgeting based on categories*: `allocate a/AMOUNT c/CATEGORY' +
 e.g. `allocate 100 transport`
 * *Listing all entries*: `list`
-* *Showing summary of records*: `summary`
+* *Showing summary of record*: `summary`
 * *Editing an entry*: `edit INDEX a/AMOUNT [c/CATEGORY]` +
 e.g. `edit 1 4.55 transport`
 * *Locating entry based on category/date*: `search KEYWORD [MORE_KEYWORDS]`
@@ -271,5 +271,5 @@ e.g. `delete 1`
 The amount of money for expenditure and budget
 * *entry* +
 The listed item/activity tracked by the application. It generally consists of the amount, along with a category tag (if specified)
-* *records* +
+* *record* +
 The list of all entries stored in the application

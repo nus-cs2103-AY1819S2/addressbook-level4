@@ -23,8 +23,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.record.Record;
+import seedu.address.testutil.RecordBuilder;
 
 public class SpendCommandTest {
 
@@ -36,38 +36,38 @@ public class SpendCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullRecord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new SpendCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_recordAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingRecordAdded modelStub = new ModelStubAcceptingRecordAdded();
+        Record validRecord = new RecordBuilder().build();
 
-        CommandResult commandResult = new SpendCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new SpendCommand(validRecord).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(SpendCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(SpendCommand.MESSAGE_SUCCESS, validRecord), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validRecord), modelStub.recordsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        SpendCommand spendCommand = new SpendCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateRecord_throwsCommandException() throws Exception {
+        Record validRecord = new RecordBuilder().build();
+        SpendCommand spendCommand = new SpendCommand(validRecord);
+        ModelStub modelStub = new ModelStubWithRecord(validRecord);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(SpendCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(SpendCommand.MESSAGE_DUPLICATE_RECORD);
         spendCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Record alice = new RecordBuilder().withName("Alice").build();
+        Record bob = new RecordBuilder().withName("Bob").build();
         SpendCommand addAliceCommand = new SpendCommand(alice);
         SpendCommand addBobCommand = new SpendCommand(bob);
 
@@ -84,7 +84,7 @@ public class SpendCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different record -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -123,7 +123,7 @@ public class SpendCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addRecord(Record record) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,27 +138,27 @@ public class SpendCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasRecord(Record record) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteRecord(Record target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setRecord(Record target, Record editedRecord) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Record> getFilteredRecordList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,55 +188,55 @@ public class SpendCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Person> selectedPersonProperty() {
+        public ReadOnlyProperty<Record> selectedRecordProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Person getSelectedPerson() {
+        public Record getSelectedRecord() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Person person) {
+        public void setSelectedRecord(Record record) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single record.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithRecord extends ModelStub {
+        private final Record record;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithRecord(Record record) {
+            requireNonNull(record);
+            this.record = record;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return this.record.isSameRecord(record);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the record being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingRecordAdded extends ModelStub {
+        final ArrayList<Record> recordsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return recordsAdded.stream().anyMatch(record::isSameRecord);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addRecord(Record record) {
+            requireNonNull(record);
+            recordsAdded.add(record);
         }
 
         @Override

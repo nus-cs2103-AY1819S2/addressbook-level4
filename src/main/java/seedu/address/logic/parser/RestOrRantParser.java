@@ -51,6 +51,7 @@ public class RestOrRantParser {
         // General commands that work in all modes
 
         switch (commandWord) {
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
@@ -66,10 +67,19 @@ public class RestOrRantParser {
         case RestaurantModeCommand.COMMAND_WORD:
             return new RestaurantModeCommand();
 
+        case RestaurantModeCommand.COMMAND_ALIAS:
+            return new RestaurantModeCommand();
+
         case MenuModeCommand.COMMAND_WORD:
             return new MenuModeCommand();
 
+        case MenuModeCommand.COMMAND_ALIAS:
+            return new MenuModeCommand();
+
         case TableModeCommand.COMMAND_WORD:
+            return new TableModeCommandParser().parse(arguments);
+
+        case TableModeCommand.COMMAND_ALIAS:
             return new TableModeCommandParser().parse(arguments);
 
         // Commands that work in Restaurant Mode
@@ -105,8 +115,15 @@ public class RestOrRantParser {
             }
             return new BillCommand();
 
+        case BillCommand.COMMAND_ALIAS:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new BillCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
         }
 
     }

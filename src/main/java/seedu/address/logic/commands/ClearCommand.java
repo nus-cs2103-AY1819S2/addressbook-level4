@@ -21,7 +21,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) {
         requireNonNull(model);
         model.setRestOrRant(new RestOrRant());
-        model.updateRestOrRant();
+        model.updateMode();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

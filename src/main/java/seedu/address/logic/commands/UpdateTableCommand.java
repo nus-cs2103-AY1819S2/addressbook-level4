@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
+import seedu.address.model.table.TableStatus;
 
 /**
  * Updates the status of the table.
@@ -43,8 +44,9 @@ public class UpdateTableCommand extends Command {
         if (!optionalTable.isPresent()) {
             throw new CommandException(String.format(MESSAGE_INVALID_TABLE_NUMBER, tableNumber));
         }
-        Table updatedTable = optionalTable.get();
-        updatedTable.setTableStatus(newTableStatus[1]);
+        TableStatus updatedTableStatus = optionalTable.get().getTableStatus();
+        updatedTableStatus.changeOccupancy(newTableStatus[1]);
+        Table updatedTable = new Table(tableNumber, updatedTableStatus);
         model.setTable(optionalTable.get(), updatedTable);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, updatedTable.getTableNumber(), optionalTable.get().getTableStatus()));

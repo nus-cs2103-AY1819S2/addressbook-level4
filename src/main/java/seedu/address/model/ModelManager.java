@@ -33,6 +33,7 @@ public class ModelManager implements Model {
     private final FilteredList<VersionedCardFolder> filteredFoldersList;
     private ObservableList<VersionedCardFolder> foldersList;
     private int activeCardFolderIndex;
+    private boolean inFolder;
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
@@ -83,7 +84,7 @@ public class ModelManager implements Model {
     }
 
     private VersionedCardFolder getActiveVersionedCardFolder() {
-        return filteredFoldersList.get(activeCardFolderIndex);
+        return foldersList.get(activeCardFolderIndex);
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
@@ -222,6 +223,10 @@ public class ModelManager implements Model {
 
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
+    }
+
+    public void setActiveCardFolderIndex(int newIndex) {
+        activeCardFolderIndex = newIndex;
     }
 
     @Override

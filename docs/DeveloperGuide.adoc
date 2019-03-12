@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= In-Credit-Ble - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,24 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-3`      Since: `May 2019`      Licence: `MIT`
+
+== Introduction
+
+< Add introduction here>
+Sound inviting, friendly yet professional +
+Describe software +
+Describe purpose of the developer guide, its intended audience and perhaps how to use it. +
+Provide a preview of the contents of the developer guide +
+Include some info about the developer team and how to contact them.
+
+Welcome to *In-Credit-Ble*!
+
+In-Credit-Ble ...
+
+This developer guide.. <Ask them go setting up section>
+
+See <<AboutUs.adoc>> and <<ContactUs.adoc>> for more information on how to contact us!
 
 == Setting up
 

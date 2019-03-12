@@ -25,6 +25,8 @@ have been looking for, then jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
+Here is how you can get started with TopDeck:
+
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `topdeck.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
@@ -34,7 +36,7 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Try some of these commands:
 
 * *`index`* : lists all cards
 * **`deck add`**`Capitals`  creates a deck entitled "Capitals"
@@ -143,7 +145,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing a command : `undo`
 
 
 **Format**: `undo`
@@ -166,7 +168,7 @@ Undoable commands: You are not able to undo a study session.
 `undo` (reverses the `card add` command) +
 `undo` (reverses the `card delete` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redoing a command : `redo`
 
 
 **Format**: `redo`
@@ -248,7 +250,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == Glossary
 
-**Card**: An object that contains questions on one side and answer on the flip slide. During study mode, one side of the card is shown. Once you've locked in your answer, you can choose when to reveal the opposite side.
+**Card**: Cards in TopDeck work like flash cards. Each card has a front and back side. TopDeck assumes the front contains a question and the back contains the answer.
 
 **Deck**: A collection of cards
 

@@ -31,6 +31,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -52,9 +53,9 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addAppointment() throws Exception {
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
-                AddAppointmentCommand.COMMAND_WORD + " 1 r/ test");
+                AddAppointmentCommand.COMMAND_WORD + " 1 r/ appointment1");
         assertTrue(command instanceof AddAppointmentCommand);
-        assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), "test"), command);
+        assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), new Appointment("appointment1")), command);
     }
 
     @Test

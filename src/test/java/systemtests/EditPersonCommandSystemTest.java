@@ -64,7 +64,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditPersonCommand.COMMAND_WORD + "  " + MODE_OTHERS + " " + index.getOneBased() + "  "
+        String command = " " + EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + index.getOneBased() + "  "
                 + NAME_DESC_BOB + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
                 + TAG_DESC_HUSBAND + " ";
         Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
@@ -148,44 +148,44 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         /* -------------------------------- Performing invalid edit operation ------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " 0" + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " -1" + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredPersonList().size() + 1;
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + invalidIndex
+                        + NAME_DESC_BOB, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + INDEX_FIRST_PERSON.getOneBased(),
                 EditPersonCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + INDEX_FIRST_PERSON.getOneBased()
                         + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + INDEX_FIRST_PERSON.getOneBased()
                 + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + INDEX_FIRST_PERSON.getOneBased()
                         + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + INDEX_FIRST_PERSON.getOneBased()
                 + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + INDEX_FIRST_PERSON.getOneBased()
                         + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a person with new values same as another person's values -> rejected */

@@ -41,7 +41,7 @@ Once TopDeck is set up, you can try these commands:
 
 * `index` : lists all cards
 * `add Capitals` : creates a deck named "Capitals"
-* `deck delete 3` : deletes the third deck shown in the interface
+* `delete 3` : deletes the third deck in the list
 * `exit` : exits the app
 
 For details of each command, please refer to <<Commands>>.
@@ -212,16 +212,16 @@ The `redo` command fails as there is no undone state to restore.
 
 **Outcome**: Displays information regarding commands
 
-==== Importing a deck: `import deck`
+==== Importing a deck: `import`
 
 
-**Format**: `import deck FILE_PATH`
+**Format**: `import FILE_PATH`
 
 **Outcome**: Imports a deck from the given filepath
 
-==== Exporting a deck: `export deck`
+==== Exporting a deck: `export`
 
-**Format**: `export deck FILE_PATH`
+**Format**: `export FILE_PATH`
 
 **Outcome**: Exports a deck to the given filepath
 

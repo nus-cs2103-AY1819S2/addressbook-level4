@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
 
 /**
  * The API of the Model component.
@@ -19,8 +20,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<HealthWorker> PREDICATE_SHOW_ALL_HEALTHWORKERS = unused -> true;
 
-    //    /** {@code Predicate} that always evaluate to true */
-    //    Predicate<Request> PREDICATE_SHOW_ALL_REQUESTS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Request> PREDICATE_SHOW_ALL_REQUESTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -177,22 +178,48 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
-    //
-    //    /**
-    //     * Adds a given request.
-    //     * {@code newRequest} cannot already be present in the request book.
-    //     * @param newRequestthe request to be added.
-    //     */
-    //    void addRequest(Request newRequest);
-    //
-    //    /**
-    //     * Replaces the given request {@code target} with {@code request}.
-    //     * {@code target} must be present in the address book.
-    //     * {@code request} must not be the same request as any other request in the request book.
-    //     * @param target The target to update
-    //     * @param request The request to update with
-    //     */
-    //    void updateRequest(Request target, Request request);
-    //
-    //    ObservableList<Request> get
+
+    /**
+     * Returns the user prefs' request book file path.
+     */
+    Path getRequestBookFilePath();
+
+    /**
+     * Sets the user prefs' request book file path.
+     */
+    void setRequestBookFilePath(Path requestBookFilePath);
+
+    /**
+     * Replaces request book data with the data in {@code requestBook}.
+     */
+    void setRequestBook(ReadOnlyRequestBook requestBook);
+
+    /** Returns the RequestBook */
+    ReadOnlyRequestBook getRequestBook();
+
+    /**
+     * Returns true if a request with the same identity as {@code request} exists in the address
+     * book.
+     */
+    boolean hasRequest(Request request);
+
+    /**
+     * Deletes the given request.
+     * The request must exist in the request book.
+     */
+    void deleteRequest(Request target);
+
+    /**
+     * Adds the given request.
+     * {@code request} must not already exist in the request book.
+     */
+    void addRequest(Request request);
+
+    /**
+     * Replaces the given request {@code target} with {@code editedRequest}.
+     * {@code target} must exist in the request book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
+     */
+    void setRequest(Request target, Request editedRequest);
 }

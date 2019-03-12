@@ -12,19 +12,16 @@ public class CommandHistory {
     private final ObservableList<String> userInputHistory = FXCollections.observableArrayList();
     private final ObservableList<String> unmodifiableUserInputHistory =
             FXCollections.unmodifiableObservableList(userInputHistory);
-    private long startTime;
+
 
     public CommandHistory() {
-        this.startTime = System.nanoTime();
+
     }
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory.addAll(commandHistory.userInputHistory);
     }
 
-    public long getElapsedTime(long endTime) {
-        long elapsedTimeSeconds = (endTime - this.startTime) / (1000000000);
-        return elapsedTimeSeconds;
-    }
+
     /**
      * Appends {@code userInput} to the list of user input entered.
      */

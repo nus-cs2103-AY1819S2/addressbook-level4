@@ -19,9 +19,9 @@ public class PurchaseMedicineCommandParserTest {
     @Test
     public void validViaPathArgument_returnsPurchaseMedicineViaPathCommand() {
         assertParseSuccess(parser,
-                "root\\test1\\test2\\med 40 500",
+                "root\\test1\\test2\\med 40 50.0",
                 new PurchaseMedicineViaPathCommand(
-                        new String[] {"root", "test1", "test2", "med"}, 40, BigDecimal.valueOf(500)));
+                        new String[] {"root", "test1", "test2", "med"}, 40, BigDecimal.valueOf(50.0)));
     }
 
     @Test

@@ -23,5 +23,5 @@ public abstract class PurchaseMedicineCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "herb1 50 600";
 
-    public static final String MESSAGE_SUCCESS = "Purchase successful.";
+    public static final String MESSAGE_SUCCESS = "Purchase successful.\n";
 }

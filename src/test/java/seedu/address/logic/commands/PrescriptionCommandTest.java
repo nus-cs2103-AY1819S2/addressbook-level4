@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -39,7 +40,7 @@ public class PrescriptionCommandTest {
 
         // to store medicine
         String[] paths = {"root"};
-        modelManager.addMedicine("antibiotics", 2, paths);
+        modelManager.addMedicine("antibiotics", 2, paths, BigDecimal.valueOf(23.23));
     }
 
     @Test

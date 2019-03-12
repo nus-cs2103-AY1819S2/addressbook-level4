@@ -21,7 +21,7 @@ public class PurchaseMedicineCommandParser implements Parser<PurchaseMedicineCom
     private static final Pattern PurchaseMedicineWOPathCommand_Argument_Format =
             Pattern.compile("(?<medicineName>[^(\\s)(\\\\)]+)(?:\\s+)(?<purchaseInformation>\\d.+)");
     private static final Pattern PurchaseInformation_Format =
-            Pattern.compile("(?<quantity>\\d+)(?:\\s+)(?<cost>\\d+\\.?\\d+)");
+            Pattern.compile("(?<quantity>\\d+)(?:\\s+)(?<cost>\\d+\\.?\\d*)");
 
     /**
      * Parse the input string to form a PurchaseMedicineCommand

@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyPdfBook;
 public interface AddressBookStorage {
 
     /**
-     * Returns the file path of the data file.
+     * Returns the file value of the data file.
      */
     Path getAddressBookFilePath();
 

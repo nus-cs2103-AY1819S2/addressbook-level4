@@ -19,10 +19,25 @@ public class Pdf {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Location location;
+    private final Size size;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+
+    public Pdf(Name name, Location location, Size size, Set<Tag> tags) {
+        this.name = name;
+        this.location = location;
+        this.size = size;
+        this.tags.addAll(tags);
+
+        //dummy
+        this.phone = null;
+        this.email = null;
+        this.address = null;
+
+    }
 
     /**
      * Every field must be present and not null.
@@ -34,10 +49,22 @@ public class Pdf {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
+        //dummy
+        this.location = null;
+        this.size = null;
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Size getSize() {
+        return size;
     }
 
     public Phone getPhone() {
@@ -90,29 +117,35 @@ public class Pdf {
 
         Pdf otherPdf = (Pdf) other;
         return otherPdf.getName().equals(getName())
-                && otherPdf.getPhone().equals(getPhone())
-                && otherPdf.getEmail().equals(getEmail())
-                && otherPdf.getAddress().equals(getAddress())
+                && otherPdf.getLocation().equals(getLocation())
+                && otherPdf.getSize().equals(getSize())
+                //&& otherPdf.getPhone().equals(getPhone())
+                //&& otherPdf.getEmail().equals(getEmail())
+                //&& otherPdf.getAddress().equals(getAddress())
                 && otherPdf.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, location, size, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Location: ")
+                .append(getLocation())
+                .append(" Size: ")
+                .append(getSize())
                 .append(" Tags: ");
+                //.append(" Phone: ")
+                //.append(getPhone())
+                //.append(" Email: ")
+                //.append(getEmail())
+                //.append(" Address: ")
+                //.append(getAddress())
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -41,12 +41,12 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' address book file value.
      */
     Path getPdfBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' address book file value.
      */
     void setPdfBookFilePath(Path pdfBookFilePath);
 

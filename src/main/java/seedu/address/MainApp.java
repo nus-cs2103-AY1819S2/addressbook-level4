@@ -99,7 +99,7 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code Config} using the file at {@code configFilePath}. <br>
-     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
+     * The default file value {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
     protected Config initConfig(Path configFilePath) {
@@ -134,7 +134,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file value,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */

@@ -82,7 +82,7 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns the file path of the storage file.
+     * Returns the file value of the storage file.
      */
     public Path getStorageSaveLocation() {
         return storage.getAddressBookFilePath();

@@ -2,9 +2,7 @@ package seedu.address.logic.battle;
 
 import java.util.List;
 
-import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.player.Player;
 
 /**
  * API of the Battle component

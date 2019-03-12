@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import seedu.address.model.battleship.Battleship;
@@ -20,7 +21,7 @@ public class BattleManager implements Battle {
     // The list of AI players who are waiting to take a turn.
     private ArrayList<Player> aiPlayers;
 
-    private ObservableBooleanValue isPlayerTurn;
+    private BooleanProperty isPlayerTurn;
 
     public BattleManager(Player humanPlayer, List<Player> aiPlayers) {
         this.humanPlayer = humanPlayer;
@@ -78,10 +79,15 @@ public class BattleManager implements Battle {
 
     @Override
     public List<AttackResult> humanEndTurn() {
+        isPlayerTurn.setValue(false);
+
         ArrayList<AttackResult> results = new ArrayList<>();
         for (Player ai: aiPlayers) {
             // make the AIs take turns
         }
+
+        isPlayerTurn.setValue(true);
+
         return results;
     }
 }

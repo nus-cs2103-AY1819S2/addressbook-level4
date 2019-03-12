@@ -40,7 +40,7 @@ public class PurchaseMedicineViaPathCommand extends PurchaseMedicineCommand {
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }
-        model.addRecord(new MedicinePurchaseRecord(path[path.length - 1], quantity, cost), Clock.systemDefaultZone());
+        model.addRecord(new MedicinePurchaseRecord(medicine.get(), quantity, cost), Clock.systemDefaultZone());
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

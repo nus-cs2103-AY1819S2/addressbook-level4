@@ -15,7 +15,8 @@ public class ConsultationRecord extends Record {
     @Override
     public Statistics toStatistics() {
         BigDecimal consultationFee = Statistics.getConsultationFee();
-        // TODO BigDecimal prescriptionFee = prescription.getQuantity();
+        int quantity = prescription.getQuantity();
+        // TODO BigDecimal prescriptionFee = quantity * prescription.getMedicine().getPrice();
         return new Statistics(1, consultationFee, BigDecimal.ZERO);
     }
 }

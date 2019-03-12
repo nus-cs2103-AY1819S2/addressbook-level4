@@ -117,12 +117,12 @@ public class EditPersonCommand extends EditCommand implements PersonCommand {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Name name;
-        private Nric nric;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+        protected Name name;
+        protected Nric nric;
+        protected Phone phone;
+        protected Email email;
+        protected Address address;
+        protected Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 
@@ -143,7 +143,7 @@ public class EditPersonCommand extends EditCommand implements PersonCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, nric, phone, email, address, tags);
         }
 
         public void setName(Name name) {

@@ -46,7 +46,8 @@ public class UniqueRecordListTest {
     @Test
     public void contains_recordWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecordList.add(ALICE);
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         assertTrue(uniqueRecordList.contains(editedAlice));
     }
@@ -94,7 +95,8 @@ public class UniqueRecordListTest {
     @Test
     public void setRecord_editedRecordHasSameIdentity_success() {
         uniqueRecordList.add(ALICE);
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         uniqueRecordList.setRecord(ALICE, editedAlice);
         UniqueRecordList expectedUniqueRecordList = new UniqueRecordList();

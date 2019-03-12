@@ -175,7 +175,8 @@ public class ParserUtilTest {
     @Test
     public void parseCategories_collectionWithValidCategories_returnsCategorySet() throws Exception {
         Set<Category> actualCategorySet = ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, VALID_CATEGORY_2));
-        Set<Category> expectedCategorySet = new HashSet<Category>(Arrays.asList(new Category(VALID_CATEGORY_1), new Category(VALID_CATEGORY_2)));
+        Set<Category> expectedCategorySet = new HashSet<Category>(Arrays.asList(new Category(VALID_CATEGORY_1),
+                                                                         new Category(VALID_CATEGORY_2)));
 
         assertEquals(expectedCategorySet, actualCategorySet);
     }

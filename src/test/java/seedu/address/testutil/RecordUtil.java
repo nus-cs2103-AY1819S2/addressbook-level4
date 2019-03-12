@@ -1,16 +1,16 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.Set;
 
 import seedu.address.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.address.logic.commands.SpendCommand;
-import seedu.address.model.record.Record;
 import seedu.address.model.category.Category;
+import seedu.address.model.record.Record;
 
 
 

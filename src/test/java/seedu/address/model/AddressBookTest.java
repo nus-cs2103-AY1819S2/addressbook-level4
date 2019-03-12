@@ -53,7 +53,8 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateRecords_throwsDuplicateRecordException() {
         // Two records with the same identity fields
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         List<Record> newRecords = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newRecords);
@@ -82,7 +83,8 @@ public class AddressBookTest {
     @Test
     public void hasRecord_recordWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addRecord(ALICE);
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         assertTrue(addressBook.hasRecord(editedAlice));
     }

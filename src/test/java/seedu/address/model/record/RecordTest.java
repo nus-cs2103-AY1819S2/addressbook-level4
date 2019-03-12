@@ -3,9 +3,9 @@ package seedu.address.model.record;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.address.testutil.TypicalRecords.ALICE;
 import static seedu.address.testutil.TypicalRecords.BOB;
 
@@ -47,7 +47,8 @@ public class RecordTest {
         assertTrue(ALICE.isSameRecord(editedAlice));
 
         // same name, same date, different attributes -> returns true
-        editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND).build();
+        editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
+                .build();
         assertTrue(ALICE.isSameRecord(editedAlice));
     }
 

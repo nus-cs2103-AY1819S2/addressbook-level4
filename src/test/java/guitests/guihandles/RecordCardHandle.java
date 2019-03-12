@@ -95,7 +95,8 @@ public class RecordCardHandle extends NodeHandle<Node> {
                 && getAmount().equals(record.getAmount().value)
                 && getDate().equals(record.getDate().value)
                 && getDate().equals(record.getDate().value)
-                && ImmutableMultiset.copyOf(getCategories()).equals(ImmutableMultiset.copyOf(record.getCategories().stream()
+                && ImmutableMultiset.copyOf(getCategories())
+                        .equals(ImmutableMultiset.copyOf(record.getCategories().stream()
                         .map(category -> category.categoryName)
                         .collect(Collectors.toList())));
     }

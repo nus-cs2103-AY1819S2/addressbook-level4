@@ -3,22 +3,22 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -78,7 +78,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS); // invalid amount
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
-        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
+        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid
+                                                                                                        // category
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -86,9 +87,12 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_CATEGORY} alone will reset the tags of the {@code Record} being edited,
         // parsing it together with a valid category results in error
-        assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND + CATEGORY_EMPTY, Category.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_EMPTY + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + CATEGORY_EMPTY + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND
+                            + CATEGORY_EMPTY, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_EMPTY
+                            + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + CATEGORY_EMPTY + CATEGORY_DESC_FRIEND
+                            + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_AMOUNT_DESC + VALID_AMOUNT_AMY
@@ -102,7 +106,8 @@ public class EditCommandParserTest {
                 + DATE_DESC_AMY + NAME_DESC_AMY + CATEGORY_DESC_FRIEND;
 
         EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_AMY).withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND)
+                .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_AMY)
+                .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

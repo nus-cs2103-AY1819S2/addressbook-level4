@@ -3,23 +3,23 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalRecords.AMY;
@@ -28,11 +28,11 @@ import static seedu.address.testutil.TypicalRecords.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.SpendCommand;
+import seedu.address.model.category.Category;
 import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.category.Category;
 import seedu.address.testutil.RecordBuilder;
 
 public class SpendCommandParserTest {
@@ -59,7 +59,8 @@ public class SpendCommandParserTest {
                 + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
 
         // multiple categories - all accepted
-        Record expectedRecordMultipleCategories = new RecordBuilder(BOB).withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND)
+        Record expectedRecordMultipleCategories = new RecordBuilder(BOB)
+                .withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
                         + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,

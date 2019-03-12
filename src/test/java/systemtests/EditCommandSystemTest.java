@@ -5,19 +5,19 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
@@ -34,11 +34,11 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.category.Category;
 import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.category.Category;
 import seedu.address.testutil.RecordBuilder;
 import seedu.address.testutil.RecordUtil;
 
@@ -148,20 +148,20 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
+                + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid amount -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + INVALID_AMOUNT_DESC,
-                Amount.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
+                + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid date -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + INVALID_DATE_DESC,
-                Date.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
+                + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid category -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + INVALID_CATEGORY_DESC,
-                Category.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
+                + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a record with new values same as another person's values -> rejected */
         executeCommand(RecordUtil.getAddCommand(BOB));
@@ -172,7 +172,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
 
-        /* Case: edit a record with new values same as another person's values but with different categories -> rejected */
+        /* Case: edit a record with new values same as another person's values but
+                 with different categories -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);

@@ -12,8 +12,9 @@ import seedu.address.model.cell.Coordinates;
 public class AttackCommandParser implements Parser<AttackCommand> {
     @Override
     public AttackCommand parse(String userInput) throws ParseException {
-        if (Coordinates.isValidCoordinates(userInput)) {
-            return new AttackCommand(new Coordinates(userInput));
+        String uInput = userInput.trim();
+        if (Coordinates.isValidCoordinates(uInput)) {
+            return new AttackCommand(new Coordinates(uInput));
         } else {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttackCommand.MESSAGE_USAGE));

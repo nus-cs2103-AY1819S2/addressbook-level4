@@ -9,18 +9,18 @@ import java.util.List;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.SrsCard;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.user.CardData;
+import seedu.address.model.user.CardSrsData;
 
 /**
  * Represents a model of cards manager.
  */
 public class SrsCardsManager {
     private Lesson lesson;
-    private List<CardData> cardData;
+    private List<CardSrsData> cardData;
     private List<SrsCard> srsCards;
     private List<List<Integer>> quizInformation;
 
-    public SrsCardsManager(Lesson lesson, List<CardData> cardData) {
+    public SrsCardsManager(Lesson lesson, List<CardSrsData> cardData) {
         this.lesson = lesson;
         this.cardData = cardData;
     }
@@ -62,8 +62,8 @@ public class SrsCardsManager {
     /**
      * Updates fields of each cardData class based on the result of quiz system.
      */
-    public List<CardData> updateCardData() {
-        List<CardData> updatedCardData = new ArrayList<>();
+    public List<CardSrsData> updateCardData() {
+        List<CardSrsData> updatedCardData = new ArrayList<>();
         HashMap<SrsCard, Integer> memoryBoxes = new HashMap<>();
         for (int i = 0; i < quizInformation.size(); i++) { //terminal value to be changed
             int currentHashCode = srsCards.get(i).getHashcode();
@@ -90,7 +90,7 @@ public class SrsCardsManager {
                 currentSrsDueDate.plus(Duration.ofHours(48));
             }
 
-            updatedCardData.add(new CardData(currentHashCode, currentNumOfAttempts, currentStreak,
+            updatedCardData.add(new CardSrsData(currentHashCode, currentNumOfAttempts, currentStreak,
                     currentSrsDueDate));
         }
 

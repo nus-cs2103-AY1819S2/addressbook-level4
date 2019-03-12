@@ -4,19 +4,19 @@ import java.time.Instant;
 
 import seedu.address.model.card.exceptions.MissingCoreException;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.user.CardData;
+import seedu.address.model.user.CardSrsData;
 
 /**
  * Represents a flashcard contains both core fields(question and answer) and srs data.
  */
 public class SrsCard {
     private Card card;
-    private CardData cardData;
+    private CardSrsData cardData;
     private Lesson lesson;
     private int questionIndex;
     private int answerIndex;
 
-    public SrsCard(Card card, CardData cardData, Lesson lesson) {
+    public SrsCard(Card card, CardSrsData cardData, Lesson lesson) {
         this.card = card;
         this.cardData = cardData;
         this.lesson = lesson;

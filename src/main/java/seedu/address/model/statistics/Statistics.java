@@ -13,7 +13,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
  */
 public class Statistics implements ReadOnlyStatistics {
 
-    private final BillList billList;
+    private final DailyRevenueList dailyRevenueList;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -24,7 +24,7 @@ public class Statistics implements ReadOnlyStatistics {
      *   among constructors.
      */
     {
-        billList = new BillList();
+        dailyRevenueList = new DailyRevenueList();
     }
 
     /**
@@ -44,21 +44,10 @@ public class Statistics implements ReadOnlyStatistics {
     //// list overwrite operations
 
     /**
-     * Replaces the given bill {@code target} in the list with {@code editedItem}.
-     * {@code target} must exist in the RestOrRant.
+     * Replaces the contents of the daily revenue list with {@code dailyRevenueList}.
      */
-    public void setBills(Bill target, Bill editedItem) {
-        requireNonNull(editedItem);
-
-        billList.setBills(target, editedItem);
-        indicateModified();
-    }
-
-    /**
-     * Replaces the contents of the bill list with {@code billList}.
-     */
-    public void setBills(List<Bill> billList) {
-        this.billList.setBillList(billList);
+    public void setDailyRevenues(List<DailyRevenue> dailyRevenueList) {
+        this.dailyRevenueList.setDailyRevenueList(dailyRevenueList);
         indicateModified();
     }
 
@@ -68,15 +57,48 @@ public class Statistics implements ReadOnlyStatistics {
     public void resetData(ReadOnlyStatistics newData) {
         requireNonNull(newData);
 
-        setBills(newData.getBillList());
+        setDailyRevenues(newData.getDailyRevenueList());
+    }
+
+    //// order item-level operations
+
+    /**
+     * Returns true if a daily revenue with the same identity as {@code daily Revenue} exists in the RestOrRant
+     * Statistics.
+     */
+    public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
+        requireNonNull(dailyRevenue);
+        return dailyRevenueList.contains(dailyRevenue);
     }
 
     /**
-     * Adds a Bill to the RestOrRant's Bill List.
-     * The order item must not already exist in the orders.
+     * Adds an daily revenue to the RestOrRant's statistics.
+     * The daily revenue must not already exist in the Statistics.
      */
-    public void addBill(Bill bill) {
-        billList.add(bill);
+    public void addDailyRevenue(DailyRevenue dailyRevenue) {
+        dailyRevenueList.add(dailyRevenue);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given daily revenue {@code target} in the list with {@code editedDailyRevenue}.
+     * {@code target} must exist in the RestOrRant's statistics.
+     * The daily revenue identity of {@code editedODailyRevenue} must not be the same as another existing daily revenue
+     * in Statistics.
+     */
+    public void setDailyRevenue(DailyRevenue target, DailyRevenue editedDailyRevenue) {
+        requireNonNull(editedDailyRevenue);
+
+        dailyRevenueList.setDailyRevenue(target, editedDailyRevenue);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code dailyRevenue} from this RestOrRant's {@code DailyRevenueList}.
+     * {@code dailyRevenue} must exist in the Statistics.
+     */
+    public void removeDailyRevenue(DailyRevenue dailyRevenue) {
+        dailyRevenueList.remove(dailyRevenue);
         indicateModified();
     }
 
@@ -91,9 +113,9 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the statistics has been modified.
      */
-    protected void indicateModified() {
+    public void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 
@@ -101,17 +123,17 @@ public class Statistics implements ReadOnlyStatistics {
 
     @Override
     public String toString() {
-        return billList.asUnmodifiableObservableList().size() + " order items";
+        return dailyRevenueList.asUnmodifiableObservableList().size() + " order items";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Bill> getBillList() {
-        return billList.asUnmodifiableObservableList();
+    public ObservableList<DailyRevenue> getDailyRevenueList() {
+        return dailyRevenueList.asUnmodifiableObservableList();
     }
 
     @Override
     public int hashCode() {
-        return billList.hashCode();
+        return dailyRevenueList.hashCode();
     }
 }

@@ -19,7 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;
 
@@ -146,8 +146,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Bill> getFilteredBillList() {
-        return model.getFilteredBillList();
+    public ObservableList<DailyRevenue> getFilteredDailyRevenueList() {
+        return model.getFilteredDailyRevenueList();
     }
 
     @Override
@@ -212,13 +212,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Bill> selectedBillProperty() {
-        return model.selectedBillProperty();
+    public ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty() {
+        return model.selectedDailyRevenueProperty();
     }
 
     @Override
-    public void setSelectedBill(Bill bill) {
-        model.setSelectedBill(bill);
+    public void setSelectedDailyRevenue(DailyRevenue dailyRevenue) {
+        model.setSelectedDailyRevenue(dailyRevenue);
     }
 
 }

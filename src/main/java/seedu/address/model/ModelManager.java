@@ -20,7 +20,8 @@ import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.exception.BillNotFoundException;
+import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.exception.DailyRevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -40,8 +41,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<MenuItem> selectedMenuItem = new SimpleObjectProperty<>();
     private final FilteredList<Table> filteredTableList;
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
-    private final FilteredList<Bill> filteredBillList;
-    private final SimpleObjectProperty<Bill> selectedBill = new SimpleObjectProperty<>();
+    private final FilteredList<DailyRevenue> filteredDailyRevenueList;
+    private final SimpleObjectProperty<DailyRevenue> selectedDailyRevenue = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -60,8 +61,8 @@ public class ModelManager implements Model {
         filteredMenuItems.addListener(this::ensureSelectedMenuItemIsValid);
         filteredTableList = new FilteredList<>(this.restOrRant.getTables().getTableList());
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
-        filteredBillList = new FilteredList<>(this.restOrRant.getStatistics().getBillList());
-        filteredBillList.addListener(this::ensureSelectedBillIsValid);
+        filteredDailyRevenueList = new FilteredList<>(this.restOrRant.getStatistics().getDailyRevenueList());
+        filteredDailyRevenueList.addListener(this::ensureSelectedDailyRevenueIsValid);
     }
 
     public ModelManager() {
@@ -453,75 +454,92 @@ public class ModelManager implements Model {
     //=========== statistics =====================================================================================
 
     @Override
-    public void addBill(Bill bill) {
-        requireNonNull(bill);
-        restOrRant.getStatistics().addBill(bill);
+    public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
+        requireNonNull(dailyRevenue);
+        return restOrRant.getStatistics().hasDailyRevenue(dailyRevenue);
     }
 
     @Override
-    public ObservableList<Bill> getBillList() {
-        return restOrRant.getStatistics().getBillList();
+    public void deleteDailyRevenue(DailyRevenue target) {
+        restOrRant.getStatistics().removeDailyRevenue(target);
     }
 
     @Override
-    public void setBill(Bill target, Bill editedItem) {
+    public void addDailyRevenue(DailyRevenue dailyRevenue) {
+        restOrRant.getStatistics().addDailyRevenue(dailyRevenue);
+        updateFilteredDailyRevenueList(PREDICATE_SHOW_ALL_DAILY_REVENUE);
+    }
+
+    @Override
+    public ObservableList<DailyRevenue> getDailyRevenueList() {
+        return restOrRant.getStatistics().getDailyRevenueList();
+    }
+
+    @Override
+    public void setDailyRevenue(DailyRevenue target, DailyRevenue editedItem) {
         requireAllNonNull(target, editedItem);
 
-        restOrRant.getStatistics().setBills(target, editedItem);
+        restOrRant.getStatistics().setDailyRevenue(target, editedItem);
     }
 
-    //=========== Filtered Bill List Accessors ==============================================================
+    @Override
+    public void updateStatistics() {
+        restOrRant.getStatistics().indicateModified();
+    }
+
+    //=========== Filtered Daily revenue List Accessors ==============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Bill} backed by the internal list of {@code BillList}
+     * Returns an unmodifiable view of the list of {@code DailyRevenue} backed by the internal list of {@code
+     * DailyRevenueList}
      */
     @Override
-    public ObservableList<Bill> getFilteredBillList() {
-        return filteredBillList;
+    public ObservableList<DailyRevenue> getFilteredDailyRevenueList() {
+        return filteredDailyRevenueList;
     }
 
     @Override
-    public void updateFilteredBillList(Predicate<Bill> predicate) {
+    public void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate) {
         requireNonNull(predicate);
-        filteredBillList.setPredicate(predicate);
+        filteredDailyRevenueList.setPredicate(predicate);
     }
 
-    //=========== Selected bill =============================================================================
+    //=========== Selected daily revenue =============================================================================
 
     @Override
-    public ReadOnlyProperty<Bill> selectedBillProperty() {
-        return selectedBill;
-    }
-
-    @Override
-    public Bill getSelectedBill() {
-        return selectedBill.getValue();
+    public ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty() {
+        return selectedDailyRevenue;
     }
 
     @Override
-    public void setSelectedBill(Bill bill) {
-        if (bill != null && !filteredBillList.contains(bill)) {
-            throw new BillNotFoundException();
+    public DailyRevenue getSelectedDailyRevenue() {
+        return selectedDailyRevenue.getValue();
+    }
+
+    public void setSelectedDailyRevenue(DailyRevenue dailyRevenue) {
+        if (dailyRevenue != null && !filteredDailyRevenueList.contains(dailyRevenue)) {
+            throw new DailyRevenueNotFoundException();
         }
-        selectedBill.setValue(bill);
+        selectedDailyRevenue.setValue(dailyRevenue);
     }
 
     /**
      * Ensures {@code selectedTable} is a valid table in {@code filteredTable}.
      */
-    private void ensureSelectedBillIsValid(ListChangeListener.Change<? extends Bill> change) {
+    private void ensureSelectedDailyRevenueIsValid(ListChangeListener.Change<? extends DailyRevenue> change) {
         while (change.next()) {
-            if (selectedBill.getValue() == null) {
+            if (selectedDailyRevenue.getValue() == null) {
                 //null is always a valid selected bill, so we do not need to check that it is valid anymore
                 return;
             }
 
-            boolean wasSelectedBillReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedBill.getValue());
-            if (wasSelectedBillReplaced) {
-                //Update selectedBill to its new value.
-                int index = change.getRemoved().indexOf(selectedBill.getValue());
-                selectedBill.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedDailyRevenueReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedDailyRevenue.getValue());
+            if (wasSelectedDailyRevenueReplaced) {
+                //Update selectedDailyRevenue to its new value.
+                int index = change.getRemoved().indexOf(selectedDailyRevenue.getValue());
+                selectedDailyRevenue.setValue(change.getAddedSubList().get(index));
             }
         }
     }
@@ -545,7 +563,8 @@ public class ModelManager implements Model {
                 .equals(selectedOrderItem.get(), other.selectedOrderItem.get()) && filteredMenuItems
                 .equals(other.filteredMenuItems) && Objects.equals(selectedMenuItem.get(), other.selectedMenuItem.get())
                 && filteredTableList.equals(other.filteredTableList) && Objects
-                .equals(selectedTable.get(), other.selectedTable.get()) && filteredBillList
-                .equals(other.filteredBillList) && Objects.equals(selectedBill.get(), other.selectedBill.get());
+                .equals(selectedTable.get(), other.selectedTable.get()) && filteredDailyRevenueList
+                .equals(other.filteredDailyRevenueList)
+                && Objects.equals(selectedDailyRevenue.get(), other.selectedDailyRevenue.get());
     }
 }

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -52,9 +52,9 @@ public interface Logic {
     ObservableList<Table> getFilteredTableList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of bills
+     * Returns an unmodifiable view of the filtered list of daily revenues
      */
-    ObservableList<Bill> getFilteredBillList();
+    ObservableList<DailyRevenue> getFilteredDailyRevenueList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -117,12 +117,12 @@ public interface Logic {
     ReadOnlyProperty<Table> selectedTableProperty();
 
     /**
-     * Selected bill in the filtered bill list.
-     * null if no bill is selected.
+     * Selected daily revenue in the filtered daily revenue list.
+     * null if no daily revenue is selected.
      *
-     * @see seedu.address.model.Model#selectedBillProperty()
+     * @see seedu.address.model.Model#selectedDailyRevenueProperty()
      */
-    ReadOnlyProperty<Bill> selectedBillProperty();
+    ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty();
 
     /**
      * Sets the selected menu item in the filtered menu item list.
@@ -146,11 +146,11 @@ public interface Logic {
     void setSelectedTable(Table table);
 
     /**
-     * Sets the selected bill in the filtered bill list.
+     * Sets the selected daily revenue in the filtered daily revenue list.
      *
-     * @see seedu.address.model.Model#setSelectedBill(Bill)
+     * @see seedu.address.model.Model#setSelectedDailyRevenue(DailyRevenue)
      */
-    void setSelectedBill(Bill bill);
+    void setSelectedDailyRevenue(DailyRevenue dailyRevenue);
 
     /**
      * Changes current mode of RestOrRant.

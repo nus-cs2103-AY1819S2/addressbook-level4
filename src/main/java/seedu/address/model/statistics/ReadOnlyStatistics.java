@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 public interface ReadOnlyStatistics extends Observable {
 
     /**
-     * Returns an unmodifiable view of the order item list for the bill.
+     * Returns an unmodifiable view of the DailyRevenue list for the statistics.
      */
-    ObservableList<Bill> getBillList();
+    ObservableList<DailyRevenue> getDailyRevenueList();
 }

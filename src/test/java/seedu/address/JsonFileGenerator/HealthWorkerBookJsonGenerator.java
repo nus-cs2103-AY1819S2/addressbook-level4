@@ -21,9 +21,15 @@ import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.testutil.TypicalHealthWorkers;
 /**
  * This is a executable program that generates a JSON file of typical HealthWorkers.
+ * This can be modified to generate a JSON file of any kind of book.
 */
 public class HealthWorkerBookJsonGenerator {
 
+    /**
+     * Main functions creates a health worker book out of HealthWorkers found in TypicalHealthWorker file
+     * and saves it into a json file.
+     * @param args Leave it empty
+     */
     public static void main(String[] args) {
         String filepath = "toberenamed.json";
 

@@ -75,7 +75,7 @@ public class JsonHealthWorkerBookStorageTest {
     public void readHealthWorkerBook_invalidAndValidPersonHealthWorkerBook_throwDataConversionException()
             throws Exception {
         thrown.expect(DataConversionException.class);
-        readHealthWorkerBook("invalidAndValidPersonHealthWorkerBook.json");//TODO regenerate the json files
+        readHealthWorkerBook("invalidAndValidPersonHealthWorkerBook.json"); //TODO regenerate the json files
     }
 
     @Test

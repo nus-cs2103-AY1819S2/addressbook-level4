@@ -17,7 +17,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop patient management application designed for clinic receptionists. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop clinic management application designed for receptionists in clinic. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * Nowadays many clinic receptionists are still using pen and paper to track patients' information, which can be quite troublesome if the number of patients is large. Our patient management application is designed specifically to make this process much easier for them.
 * The features we provide include:
 ** Make, edit and delete appointments for patients

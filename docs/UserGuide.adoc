@@ -17,7 +17,7 @@ endif::[]
 By: `Team W17-3`      Since: `January 2019`      Licence: `MIT`
 
 == Introduction
-In-Credit-Ble will be your "one-stop shop" in managing and tracking your personal finances. Our user-friendly interface will make it user for you to stick to your budget and be more aware of your spending habits. If you are a fast typer, prefer to type over using your mouse and like to get things doen efficiently, then this is the product just for you! In-Credit-Ble is designed for those who prefer to work with a *Command Line Interface (CLI).*
+In-Credit-Ble will be your "one-stop shop" in managing and tracking your personal finances. Our user-friendly interface will make it easy for you to stick to your budget and be more aware of your spending habits. If you are a fast typer, or prefer to type over using your mouse and like to get things done efficiently, then this is the product just for you! In-Credit-Ble is designed for those who prefer to work with a *Command Line Interface (CLI).*
 
 == Quick Start
 

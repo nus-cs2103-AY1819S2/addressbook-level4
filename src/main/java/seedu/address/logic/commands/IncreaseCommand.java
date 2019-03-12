@@ -25,4 +25,5 @@ public class IncreaseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
     }
+    
 }

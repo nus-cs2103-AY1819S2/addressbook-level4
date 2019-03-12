@@ -292,6 +292,7 @@ public class ModelManager implements Model {
     @Override
     public void endTestSession() {
         insideTestSession = false;
+        cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
     }
 

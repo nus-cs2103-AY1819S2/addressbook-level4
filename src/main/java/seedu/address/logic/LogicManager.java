@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.storage.Storage;
 
 /**
@@ -72,9 +73,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Card> getFilteredCardList() {
-        return model.getFilteredCardList();
-    }
+    public ObservableList<Deck> getFilteredDeckList() { return model.getFilteredDeckList(); }
+
+    @Override
+    public ObservableList<Card> getFilteredCardList() { return model.getFilteredCardList(); }
 
     @Override
     public ObservableList<String> getHistory() {
@@ -105,4 +107,10 @@ public class LogicManager implements Logic {
     public void setSelectedCard(Card card) {
         model.setSelectedCard(card);
     }
+
+    @Override
+    public ReadOnlyProperty<Deck> selectedDeckProperty() { return model.selectedDeckProperty(); }
+
+    @Override
+    public void setSelectedDeck(Deck deck) { model.setSelectedDeck(deck); }
 }

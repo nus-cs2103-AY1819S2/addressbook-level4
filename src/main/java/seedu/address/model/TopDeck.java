@@ -8,7 +8,9 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
+import seedu.address.model.deck.UniqueDeckList;
 
 /**
  * Wraps all data at the TopDeck level
@@ -16,6 +18,7 @@ import seedu.address.model.deck.UniqueCardList;
  */
 public class TopDeck implements ReadOnlyTopDeck {
     private final UniqueCardList cards;
+    private final UniqueDeckList decks;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -26,6 +29,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      *   among constructors.
      */
     {
+        decks = new UniqueDeckList();
         cards = new UniqueCardList();
     }
 
@@ -122,6 +126,11 @@ public class TopDeck implements ReadOnlyTopDeck {
     public String toString() {
         return cards.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<Deck> getDeckList() {
+        return decks.asUnmodifiableObservableList();
     }
 
     @Override

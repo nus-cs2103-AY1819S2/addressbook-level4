@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private DeckListPanel deckListPanel;
     private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -117,6 +118,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedCardProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        deckListPanel = new DeckListPanel(logic.getFilteredDeckList(), logic.selectedDeckProperty(),
+                logic::setSelectedDeck);
         cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
                 logic::setSelectedCard);
         personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());

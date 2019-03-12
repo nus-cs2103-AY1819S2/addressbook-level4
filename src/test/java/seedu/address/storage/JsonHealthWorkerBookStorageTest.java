@@ -9,11 +9,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import seedu.address.commons.exceptions.DataConversionException;
+
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.HOOK;
 import static seedu.address.testutil.TypicalHealthWorkers.IVAN;
@@ -35,7 +37,8 @@ public class JsonHealthWorkerBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyHealthWorkerBook> readHealthWorkerBook(String filePath) throws Exception {
-        return new JsonHealthWorkerBookStorage(Paths.get(filePath)).readHealthWorkerBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonHealthWorkerBookStorage(Paths.get(filePath))
+                .readHealthWorkerBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -62,7 +65,7 @@ public class JsonHealthWorkerBookStorageTest {
     @Test
     public void readHealthWorkerBook_invalidPersonHealthWorkerBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readHealthWorkerBook("invalidPersonHealthWorkerBook.json");//TODO regenerate the json files
+        readHealthWorkerBook("invalidPersonHealthWorkerBook.json"); //TODO regenerate the json files
     }
 
     @Test

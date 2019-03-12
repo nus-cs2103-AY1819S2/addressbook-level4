@@ -76,7 +76,8 @@ public class TypicalHealthWorkers {
             .withEmail("stefan@example.com")
             .withAddress("little india")
             .withTags("Cancer")).withOrganization("NUH").build();
-    public static final HealthWorker IVAN = ((HealthWorkerBuilder)new HealthWorkerBuilder()
+
+    public static final HealthWorker IVAN = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Ida Mueller")
             .withPhone("8482131")
             .withNric("S1234567A")
@@ -90,7 +91,7 @@ public class TypicalHealthWorkers {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code HealthWorkerBook} with all the typical persons.
      */
     public static HealthWorkerBook getTypicalHealthWorkerBook() {
         HealthWorkerBook healthWorkerBook = new HealthWorkerBook();

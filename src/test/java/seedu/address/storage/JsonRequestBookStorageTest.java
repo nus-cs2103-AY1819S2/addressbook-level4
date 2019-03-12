@@ -9,11 +9,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import seedu.address.commons.exceptions.DataConversionException;
+
 import seedu.address.model.RequestBook;
 import seedu.address.model.ReadOnlyRequestBook;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.HOON_REQUEST;
 import static seedu.address.testutil.TypicalRequests.IDA_REQUEST;

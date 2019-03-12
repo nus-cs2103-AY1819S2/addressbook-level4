@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.card.exceptions.MissingCoreException;
-import seedu.address.model.card.exceptions.MissingOptionalException;
-
 /**
  * Represents a flash card which minimally contains {@value #MIN_CORE_COUNT} {@link java.lang.String} objects in
  * {@link #cores} and 0 or more {@link java.lang.String} objects in {@link #optionals}.
@@ -52,10 +49,11 @@ public class Card {
         requireAllNonNull(cores, optionals);
 
         this.cores = new ArrayList<>();
-        this.optionals = new ArrayList<>();
-
         this.cores.addAll(cores);
+
+        this.optionals = new ArrayList<>();
         this.optionals.addAll(optionals);
+
         hashCode = generateHashCode();
     }
 
@@ -68,9 +66,10 @@ public class Card {
         requireAllNonNull(cores);
 
         this.cores = new ArrayList<>();
+        this.cores.addAll(cores);
+
         this.optionals = new ArrayList<>();
 
-        this.cores.addAll(cores);
         hashCode = generateHashCode();
     }
 
@@ -121,17 +120,8 @@ public class Card {
      *
      * @param index index of the core to return
      * @return the core at the specified position in {@link #cores}
-     * @throws MissingCoreException if the index is out of range
      */
-    public String getCore(int index) throws MissingCoreException {
-        try {
-            if (cores.get(index).isEmpty()) {
-                throw new MissingCoreException(index);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            throw new MissingCoreException(index);
-        }
-
+    public String getCore(int index) {
         return cores.get(index);
     }
 
@@ -140,17 +130,8 @@ public class Card {
      *
      * @param index index of the optional to return
      * @return the optional at the specified position in {@link #optionals}
-     * @throws MissingCoreException if the index is out of range
      */
-    public String getOptional(int index) throws MissingOptionalException {
-        try {
-            if (optionals.get(index).isEmpty()) {
-                throw new MissingOptionalException(index);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            throw new MissingOptionalException(index);
-        }
-
+    public String getOptional(int index) {
         return optionals.get(index);
     }
 
@@ -177,6 +158,34 @@ public class Card {
     }
 
     /**
+     * Generates a hash code using {@link #cores} and {@link #optionals} as input.
+     * Two {@code Card} objects with the <b>same set and order</b> of {@link #cores} and {@link #optionals}
+     * will have the same hash code.
+     *
+     * @return {@link #hashCode} generated using {@link #cores} and {@link #optionals} as input
+     */
+    private int generateHashCode() {
+        return Objects.hash(cores, optionals);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Hash Code: ")
+                .append(hashCode())
+                .append(", Cores: ")
+                .append(getCores())
+                .append(", Optionals: ")
+                .append(getOptionals());
+        return builder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return hashCode;
+    }
+
+    /**
      * Returns true if both are {@code Card} objects, and are the same object or have the same {@link #hashCode}.
      *
      * @param other object to be compared for equality with this {@code Card}
@@ -194,33 +203,5 @@ public class Card {
 
         Card otherCard = (Card) other;
         return otherCard.hashCode() == this.hashCode();
-    }
-
-    /**
-     * Generates a hash code using {@link #cores} and {@link #optionals} as input.
-     * Two {@code Card} objects with the <b>same set and order</b> of {@link #cores} and {@link #optionals}
-     * will have the same hash code.
-     *
-     * @return {@link #hashCode} generated using {@link #cores} and {@link #optionals} as input
-     */
-    private int generateHashCode() {
-        return Objects.hash(cores, optionals);
-    }
-
-    @Override
-    public int hashCode() {
-        return hashCode;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Hash Code: ")
-                .append(hashCode())
-                .append(", Cores: ")
-                .append(getCores())
-                .append(", Optionals: ")
-                .append(getOptionals());
-        return builder.toString();
     }
 }

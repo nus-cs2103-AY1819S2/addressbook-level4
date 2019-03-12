@@ -153,8 +153,5 @@ public class ParserUtil {
         }
         return new TableNumber(trimmedTableNumber);
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> master
 }

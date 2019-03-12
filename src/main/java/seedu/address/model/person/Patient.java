@@ -58,6 +58,12 @@ public class Patient {
         return address;
     }
 
+    public String getFullPatientDescription() {
+        return name.toString() + " "
+                + gender.toString() + " " + age.toString() + " " + phone.toString() + " "
+                + address.toString();
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

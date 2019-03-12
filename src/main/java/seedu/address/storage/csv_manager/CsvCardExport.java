@@ -47,6 +47,8 @@ public class CsvCardExport {
             }
             fileWriter.append(NEW_LINE_SEPARATOR);
         }
+        fileWriter.flush();
+        fileWriter.close();
     }
 
     private String getFilePath() throws IOException {

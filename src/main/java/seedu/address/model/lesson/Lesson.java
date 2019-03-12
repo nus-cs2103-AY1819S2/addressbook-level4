@@ -157,7 +157,7 @@ public class Lesson {
         return coreHeaders;
     }
 
-    public void setOptionalHeaders(List<String> coreHeaders) {
+    public void setOptionalHeaders(List<String> optionalHeaders) {
         this.optionalHeaders = optionalHeaders;
     }
 

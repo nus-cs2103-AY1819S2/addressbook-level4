@@ -170,6 +170,14 @@ public class CsvLessonsStorageTest {
         assertEquals(new Lessons(), actual);
     }
 
+    @Test
+    public void testSave() {
+        CsvLessonsStorage csvLessonsStorage = new CsvLessonsStorage(TEST_DATA_FOLDER);
+        Lessons lessons = getTestLessons();
+
+        csvLessonsStorage.saveLessons(lessons);
+    }
+
     /*
     @Test
     public void savePrefs_nullPrefs_throwsNullPointerException() {

@@ -129,10 +129,32 @@ public class CsvLessonsStorage implements LessonsStorage {
         return Optional.of(newLesson);
     }
 
+    /**
+     * TODO
+     * @param lesson
+     */
     private void saveLessonToFile(Lesson lesson) {
         List<String[]> data = new ArrayList<>();
-        int headerSize = lesson.getCoreHeaders().size() + lesson.getOptionalHeaders().size();
+
+        List<String> headerList = new ArrayList<>();
+
+        headerList.addAll(lesson.getCoreHeaders());
+        headerList.addAll(lesson.getOptionalHeaders());
+        int headerSize = headerList.size();
+
         String[] header = new String[headerSize];
+        headerList.toArray(header);
+
+        header[lesson.getQuestionCoreIndex()] = QUESTION_ESCAPE + header[lesson.getQuestionCoreIndex()];
+        header[lesson.getAnswerCoreIndex()] = ANSWER_ESCAPE + header[lesson.getAnswerCoreIndex()];
+
+        for (int i = 0; i < lesson.getCoreCount(); i++) {
+            header[i] = CORE_ESCAPE + header[i];
+        }
+
+        for (String str : header) {
+            System.out.println(str);
+        }
     }
 
     @Override

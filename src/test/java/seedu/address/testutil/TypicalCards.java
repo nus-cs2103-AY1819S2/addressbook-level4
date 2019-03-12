@@ -30,6 +30,15 @@ public class TypicalCards {
     public static final String CARD_DOGCAT_CORE2 = "Yes";
     public static final Card CARD_DOGCAT = new CardBuilder()
             .withCores(CARD_DOGCAT_CORE1, CARD_DOGCAT_CORE2).build();
+    public static final String CARD_MULTI_CORE1 = "Japan."; // First core
+    public static final String CARD_MULTI_CORE2 = "Tokyo";
+    public static final String CARD_MULTI_CORE3 = "Japanese";
+    public static final Card CARD_MULTI = new CardBuilder()
+            .withCores(CARD_MULTI_CORE1, CARD_MULTI_CORE2, CARD_MULTI_CORE3).build();
+    public static final String CARD_EMPTY_CORE1 = "Japan."; // First core
+    public static final String CARD_EMPTY_CORE2 = "";
+    public static final Card CARD_EMPTY = new CardBuilder()
+            .withCores(CARD_EMPTY_CORE1, CARD_EMPTY_CORE2).build();
 
     private TypicalCards() {} // Prevents instantiation
 

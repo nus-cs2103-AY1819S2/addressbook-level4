@@ -26,12 +26,14 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SearchRatingCommand;
+import seedu.address.logic.commands.SearchTagsCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.place.NameContainsKeywordsPredicate;
 import seedu.address.model.place.Place;
 import seedu.address.model.place.RatingContainsKeywordsPredicate;
+import seedu.address.model.place.TagContainsKeywordsPredicate;
 import seedu.address.testutil.EditPlaceDescriptorBuilder;
 import seedu.address.testutil.PlaceBuilder;
 import seedu.address.testutil.PlaceUtil;
@@ -130,6 +132,14 @@ public class AddressBookParserTest {
                 SearchRatingCommand.COMMAND_WORD + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchRatingCommand(new RatingContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchTags() throws Exception {
+        List<String> keywords = Arrays.asList("school", "temple", "airport");
+        SearchTagsCommand command = (SearchTagsCommand) parser.parseCommand(SearchTagsCommand.COMMAND_WORD
+                + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchTagsCommand(new TagContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

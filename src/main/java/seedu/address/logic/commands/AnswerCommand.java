@@ -64,6 +64,13 @@ public class AnswerCommand extends Command {
                     false, AnswerCommandResultType.ANSWER_WRONG);
         }
     }
+
+    /**
+     *
+     * @param cardToMark {@code Card} which is being marked correct or wrong
+     * @param markCorrect Boolean representing if card should be graded correct or wrong
+     * @return Card created with new score
+     */
     private static Card createScoredCard(Card cardToMark, boolean markCorrect) {
         Score newScore;
         if (markCorrect) {

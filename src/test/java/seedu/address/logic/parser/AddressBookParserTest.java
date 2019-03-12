@@ -144,7 +144,7 @@ public class AddressBookParserTest {
     public void parseCommand_generateAlias() throws Exception {
         assertTrue(parser.parseCommand(GenerateCommand.COMMAND_ALIAS) instanceof GenerateCommand);
     }
-  
+
     @Test
     public void parseCommand_searchTags() throws Exception {
         List<String> keywords = Arrays.asList("school", "temple", "airport");

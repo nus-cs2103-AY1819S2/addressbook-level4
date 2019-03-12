@@ -80,7 +80,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         this.medicineManager = new MedicineManager();
-        this.patientManager = new PatientManager();
+        this.patientManager = new PatientManager(addressBook.getPatients());
         this.consultationManager = new ConsultationManager();
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
@@ -96,6 +96,24 @@ public class ModelManager implements Model {
      * Initialise quickdocs with sample patient data
      */
     public void iniQuickDocs() {
+        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
+        //for (Patient patient : samplePatients) {
+        //   addPatient(patient);
+        //}
+        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
+        for (Appointment app : sampleAppointments) {
+            addApp(app);
+        }
+        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
+        for (Reminder rem : sampleReminders) {
+            addRem(rem);
+        }
+    }
+
+    /**
+     * Initialise quickdocs with sample patient data for testing purposes
+     */
+    public void initQuickDocsSampleData() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
         for (Patient patient : samplePatients) {
             addPatient(patient);
@@ -365,8 +383,13 @@ public class ModelManager implements Model {
         return this.patientManager.duplicatePatient(patient);
     }
 
+    /**
+     * Add a patient to the quickdocs
+     */
     public void addPatient(Patient patient) {
         this.patientManager.addPatient(patient);
+        versionedAddressBook.addPatient(patient);
+        versionedAddressBook.indicateModified();
     }
 
     // for editing
@@ -386,8 +409,13 @@ public class ModelManager implements Model {
         return this.patientManager.checkDuplicatePatientAfterEdit(index, editedPatient);
     }
 
+    /**
+     * Replace the patient at index with the edited version
+     */
     public void replacePatient(int index, Patient editedPatient) {
         this.patientManager.replacePatient(index, editedPatient);
+        versionedAddressBook.replacePatient(index, editedPatient);
+        versionedAddressBook.indicateModified();
     }
 
     // for listing

@@ -57,7 +57,7 @@ public class EditPatientCommandTest {
         editedFields.setName(new Name("Bob Toh"));
 
         try {
-            CommandResult commandResult = new EditPatientCommand(4, editedFields)
+            CommandResult commandResult = new EditPatientCommand(1, editedFields)
                     .execute(modelManager, history);
 
             StringBuilder sb = new StringBuilder();

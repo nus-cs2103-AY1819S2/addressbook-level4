@@ -75,17 +75,17 @@ public class ListPatientCommandTest {
             StringBuilder sb = new StringBuilder();
             sb.append("Listing patients:\n");
             sb.append("==============================\n");
-            sb.append(4 + ") " + "John Tan"
+            sb.append(1 + ") " + "John Tan"
                     + " " + "S9123456A"
                     + " " + "M"
                     + " " + "1991-01-01"
                     + "\n");
-            sb.append(5 + ") " + "Jack Tan"
+            sb.append(2 + ") " + "Jack Tan"
                     + " " + "S9142356B"
                     + " " + "M"
                     + " " + "1991-01-01"
                     + "\n");
-            sb.append(6 + ") " + "Jeremy Toh"
+            sb.append(3 + ") " + "Jeremy Toh"
                     + " " + "S9132456C"
                     + " " + "M"
                     + " " + "1991-01-01"
@@ -134,17 +134,17 @@ public class ListPatientCommandTest {
             StringBuilder sb = new StringBuilder();
             sb.append("Listing patients:\n");
             sb.append("==============================\n");
-            sb.append(4 + ") " + "John Tan"
+            sb.append(1 + ") " + "John Tan"
                     + " " + "S9123456A"
                     + " " + "M"
                     + " " + "1991-01-01"
                     + "\n");
-            sb.append(5 + ") " + "Jack Tan"
+            sb.append(2 + ") " + "Jack Tan"
                     + " " + "S9142356B"
                     + " " + "M"
                     + " " + "1991-01-01"
                     + "\n");
-            sb.append(6 + ") " + "Jeremy Toh"
+            sb.append(3 + ") " + "Jeremy Toh"
                     + " " + "S9132456C"
                     + " " + "M"
                     + " " + "1991-01-01"
@@ -195,12 +195,12 @@ public class ListPatientCommandTest {
             StringBuilder sb = new StringBuilder();
             sb.append("Listing patients:\n");
             sb.append("==============================\n");
-            sb.append(4 + ") " + "John Tan"
+            sb.append(1 + ") " + "John Tan"
                     + " " + "S9123456A"
                     + " " + "M"
                     + " " + "1991-01-01"
                     + "\n");
-            sb.append(6 + ") " + "Jeremy Toh"
+            sb.append(3 + ") " + "Jeremy Toh"
                     + " " + "S9132456C"
                     + " " + "M"
                     + " " + "1991-01-01"
@@ -225,32 +225,17 @@ public class ListPatientCommandTest {
             StringBuilder sb = new StringBuilder();
             sb.append("Listing patients:\n");
             sb.append("==============================\n");
-            sb.append(1 + ") " + "Peter Tan"
-                    + " " + "S9367777A"
-                    + " " + "M"
-                    + " " + "1993-02-01"
-                    + "\n");
-            sb.append(2 + ") " + "Piper Wright"
-                    + " " + "S9534568C"
-                    + " " + "F"
-                    + " " + "1995-03-03"
-                    + "\n");
-            sb.append(3 + ") " + "Perry Ng"
-                    + " " + "S9534567B"
-                    + " " + "M"
-                    + " " + "1995-02-02"
-                    + "\n");
-            sb.append(4 + ") " + "John Tan"
+            sb.append(1 + ") " + "John Tan"
                     + " " + "S9123456A"
                     + " " + "M"
                     + " " + "1991-01-01"
                     + "\n");
-            sb.append(5 + ") " + "Jack Tan"
+            sb.append(2 + ") " + "Jack Tan"
                     + " " + "S9142356B"
                     + " " + "M"
                     + " " + "1991-01-01"
                     + "\n");
-            sb.append(6 + ") " + "Jeremy Toh"
+            sb.append(3 + ") " + "Jeremy Toh"
                     + " " + "S9132456C"
                     + " " + "M"
                     + " " + "1991-01-01"

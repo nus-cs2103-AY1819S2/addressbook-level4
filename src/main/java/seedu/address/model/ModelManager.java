@@ -110,6 +110,24 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Initialise quickdocs with sample patient data for testing purposes
+     */
+    public void initQuickDocsSampleData() {
+        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
+        for (Patient patient : samplePatients) {
+           addPatient(patient);
+        }
+        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
+        for (Appointment app : sampleAppointments) {
+            addApp(app);
+        }
+        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
+        for (Reminder rem : sampleReminders) {
+            addRem(rem);
+        }
+    }
+
 
     //=========== UserPrefs ==================================================================================
 

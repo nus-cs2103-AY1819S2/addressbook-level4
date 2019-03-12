@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.model.AddressBook;
@@ -22,6 +23,11 @@ public class AppointmentTest {
     private LocalTime endA = LocalTime.parse("17:00");
     private LocalTime endB = LocalTime.parse("13:00");
     private String comment = "This is a comment";
+
+    @Before
+    public void init() {
+        model.initQuickDocsSampleData();
+    }
 
     @Test
     public void equals() {

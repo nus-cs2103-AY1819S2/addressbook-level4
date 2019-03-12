@@ -155,7 +155,7 @@ Deletes the entry at index 2
 Lists all the commands user has entered in reverse chronological order +
 *Format*: `history`
 
-// tag::undoredo[]
+// category::undoredo[]
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
@@ -219,7 +219,7 @@ Exits the program. +
 
 The finance record and allocated budget will be saved in the hard disk automatically after any command that changes the data. There is no need to save manually
 
-// tag::savingpatterns[]
+// category::savingpatterns[]
 === Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
 
 The finance record for each month will be archived at the end of the month. This information will be used to derive the projected savings/expenses based on the typical spending pattern of the user.

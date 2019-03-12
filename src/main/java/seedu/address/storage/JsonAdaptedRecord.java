@@ -15,7 +15,7 @@ import seedu.address.model.record.Date;
 import seedu.address.model.record.Description;
 import seedu.address.model.record.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 /**
  * Jackson-friendly version of {@link Record}.
@@ -28,7 +28,7 @@ class JsonAdaptedRecord {
     private final String amount;
     private final String date;
     private final String description;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRecord} with the given record details.
@@ -36,7 +36,7 @@ class JsonAdaptedRecord {
     @JsonCreator
     public JsonAdaptedRecord(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
                              @JsonProperty("date") String date, @JsonProperty("description") String description,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
         this.name = name;
         this.amount = amount;
         this.date = date;
@@ -54,8 +54,8 @@ class JsonAdaptedRecord {
         amount = source.getAmount().value;
         date = source.getDate().value;
         description = source.getDescription().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        tagged.addAll(source.getCategories().stream()
+                .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
     }
 
@@ -65,8 +65,8 @@ class JsonAdaptedRecord {
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */
     public Record toModelType() throws IllegalValueException {
-        final List<Tag> recordTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
+        final List<Category> recordTags = new ArrayList<>();
+        for (JsonAdaptedCategory tag : tagged) {
             recordTags.add(tag.toModelType());
         }
 
@@ -100,7 +100,7 @@ class JsonAdaptedRecord {
         }
         final Description modelDescription = new Description(description);
 
-        final Set<Tag> modelTags = new HashSet<>(recordTags);
+        final Set<Category> modelTags = new HashSet<>(recordTags);
         return new Record(modelName, modelAmount, modelDate, modelDescription, modelTags);
     }
 

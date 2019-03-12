@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -16,7 +16,7 @@ import seedu.address.model.record.Date;
 import seedu.address.model.record.Description;
 import seedu.address.model.record.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -30,7 +30,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
      */
     public SpendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -41,7 +41,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Description description = new Description("");
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Category> tagList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         Record record = new Record(name, amount, date, description, tagList);
 

@@ -16,23 +16,23 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.record.Amount;
 import seedu.address.model.record.Date;
 import seedu.address.model.record.Name;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_AMOUNT = "$1";
     private static final String INVALID_DATE = "1/30/5999";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_CATEGORY = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_AMOUNT = "123";
     private static final String VALID_DATE = "12/02/2009";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_CATEGORY_1 = "friend";
+    private static final String VALID_CATEGORY_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -131,52 +131,52 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() throws Exception {
+    public void parseCategory_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTag(null);
+        ParserUtil.parseCategory(null);
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() throws Exception {
+    public void parseCategory_invalidValue_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTag(INVALID_TAG);
+        ParserUtil.parseCategory(INVALID_CATEGORY);
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+    public void parseCategory_validValueWithoutWhitespace_returnsCategory() throws Exception {
+        Category expectedCategory = new Category(VALID_CATEGORY_1);
+        assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_CATEGORY_1));
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+    public void parseCategory_validValueWithWhitespace_returnsTrimmedCategory() throws Exception {
+        String categoryWithWhitespace = WHITESPACE + VALID_CATEGORY_1 + WHITESPACE;
+        Category expectedCategory = new Category(VALID_CATEGORY_1);
+        assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() throws Exception {
+    public void parseCategories_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTags(null);
+        ParserUtil.parseCategories(null);
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
+    public void parseCategories_collectionWithInvalidCategories_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
+        ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, INVALID_CATEGORY));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+    public void parseCategories_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseCategories(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+    public void parseCategories_collectionWithValidCategories_returnsCategorySet() throws Exception {
+        Set<Category> actualCategorySet = ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, VALID_CATEGORY_2));
+        Set<Category> expectedCategorySet = new HashSet<Category>(Arrays.asList(new Category(VALID_CATEGORY_1), new Category(VALID_CATEGORY_2)));
 
-        assertEquals(expectedTagSet, actualTagSet);
+        assertEquals(expectedCategorySet, actualCategorySet);
     }
 }

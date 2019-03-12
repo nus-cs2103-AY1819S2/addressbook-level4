@@ -13,7 +13,7 @@ import seedu.address.model.record.Record;
 public class RecordCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES =
+    private static final String[] CATEGORY_COLOR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey", "purple" };
 
     /**
@@ -39,7 +39,7 @@ public class RecordCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private FlowPane tags;
+    private FlowPane categories;
 
     public RecordCard(Record record, int displayedIndex) {
         super(FXML);
@@ -49,32 +49,32 @@ public class RecordCard extends UiPart<Region> {
         amount.setText(record.getAmount().value);
         date.setText(record.getDate().value);
         description.setText(record.getDescription().value);
-        initTags(record);
+        initCategories(record);
     }
 
     //@@author geezlouisee-reused
     //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0
     // with minor modifications
     /**
-     * Returns the color style for {@code tagName}'s label.
+     * Returns the color style for {@code categoryName}'s label.
      */
-    private String getTagColorStyleFor(String tagName) {
-        //Using the hash code of the tag name to generate a random color, so color remains consistent
-        //between different runs of the program while still making it random enough between tags
-        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
+    private String getCategoryColorStyleFor(String categoryName) {
+        //Using the hash code of the category name to generate a random color, so color remains consistent
+        //between different runs of the program while still making it random enough between Categories
+        return CATEGORY_COLOR_STYLES[Math.abs(categoryName.hashCode()) % CATEGORY_COLOR_STYLES.length];
     }
 
     /**
-     * Creates the tag labels for {@code record}.
+     * Creates the category labels for {@code record}.
      * @param record
      */
-    private void initTags(Record record) {
-        record.getTags().forEach(tag -> {
-            Label tagLabel = new Label(tag.tagName);
+    private void initCategories(Record record) {
+        record.getCategories().forEach(tag -> {
+            Label tagLabel = new Label(tag.categoryName);
 
-            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
+            tagLabel.getStyleClass().add(getCategoryColorStyleFor(tag.categoryName));
 
-            tags.getChildren().add(tagLabel);
+            categories.getChildren().add(tagLabel);
         });
     }
     //@@author

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,12 +25,12 @@ public class SpendCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT"
             + PREFIX_DATE + "DATE"
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_AMOUNT + "123"
             + PREFIX_DATE + "12/02/2002"
-            + PREFIX_TAG + "Food ";
+            + PREFIX_CATEGORY + "Food ";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the address book";

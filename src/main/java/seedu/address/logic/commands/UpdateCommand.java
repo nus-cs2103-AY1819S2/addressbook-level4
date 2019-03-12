@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BATCHNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -23,15 +22,15 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Quantity;
 
 /**
- * Updates quantity of medicine in inventory with new batch information.
+ * Updates a medicine with new batch details.
  */
 public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates the medicine identified by the index number with new batch information. "
-            + "Existing values will be overwritten. Batch with quantity 0 will be removed.\n"
+            + ": Updates the medicine identified by the index number with new batch details. "
+            + "Existing values will be overwritten. Batch updated with quantity 0 will be removed.\n"
             + "Parameters: "
             + "INDEX "
             + PREFIX_BATCHNUMBER + "BATCH_NUMBER "
@@ -43,22 +42,24 @@ public class UpdateCommand extends Command {
             + PREFIX_EXPIRY + "13/11/2019 ";
 
     public static final String MESSAGE_SUCCESS = "Batch updated: %1$s";
-    public static final String MESSAGE_MISSING_PARAMETER = "Must include batch number and quantity of the batch used "
-            + "for updating.";
+    public static final String MESSAGE_MISSING_PARAMETER = "Must include batch number and quantity of the batch "
+            + "used for updating.";
     public static final String MESSAGE_MISSING_EXPIRY = "Must include expiry date for new batches.";
+    public static final String MESSAGE_MISSING_QUANTITY = "Batch not found. Cannot remove batch.";
+    public static final String MESSAGE_MAX_QUANTITY_EXCEEDED = "Max quantity exceeded. Max quantity: 999999999";
 
-    private final Batch toUpdate;
     private final Index targetIndex;
+    private final Batch newBatchDetails;
 
     /**
-     * Creates an UpdateCommand to update the {@code Medicine} at the specified {@index} by updating {@code Batch}
+     * Creates an UpdateCommand to update the {@code Medicine} at the specified {@index} with new batch details.
      */
-    public UpdateCommand(Index targetIndex, Batch batch) {
+    public UpdateCommand(Index targetIndex, Batch newBatchDetails) {
         requireNonNull(targetIndex);
-        requireNonNull(batch);
+        requireNonNull(newBatchDetails);
 
         this.targetIndex = targetIndex;
-        this.toUpdate = batch;
+        this.newBatchDetails = newBatchDetails;
     }
 
     @Override
@@ -71,71 +72,98 @@ public class UpdateCommand extends Command {
         }
 
         Medicine medicineToUpdate = lastShownList.get(targetIndex.getZeroBased());
-        Batch updatedBatch = getUpdatedBatch(medicineToUpdate);
-        Medicine updatedMedicine = createUpdatedMedicine(medicineToUpdate, updatedBatch);
+        Batch batchToUpdate = medicineToUpdate.getBatches().get(newBatchDetails.getBatchNumber());
+
+        if (batchToUpdate == null) {
+            checkNewBatchCommand();
+        }
+
+        Batch updatedBatch = newBatchDetails;
+        if (!updatedBatch.hasExpiry()) {
+            updatedBatch = getExistingBatchExpiry(batchToUpdate);
+        }
+
+        Medicine updatedMedicine = getUpdatedMedicine(medicineToUpdate, batchToUpdate, updatedBatch);
 
         model.setMedicine(medicineToUpdate, updatedMedicine);
-        model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedBatch));
     }
 
-    Batch getUpdatedBatch(Medicine medicineToUpdate) throws CommandException {
-        Map<BatchNumber, Batch> batchesToUpdate = medicineToUpdate.getBatches();
-        Batch batchToUpdate = batchesToUpdate.get(toUpdate.getBatchNumber());
-        Batch updatedBatch;
-
-        if (toUpdate.getExpiry().toString().equals("-")) {
-            try {
-                updatedBatch = new Batch(toUpdate.getBatchNumber(), batchToUpdate.getExpiry(), toUpdate.getQuantity());
-            } catch (NullPointerException e) {
-                throw new CommandException(MESSAGE_MISSING_EXPIRY);
-            }
-        } else {
-            updatedBatch = toUpdate;
+    /**
+     * Throws CommandException if fields needed to add a new batch is not input correctly.
+     */
+    private void checkNewBatchCommand() throws CommandException {
+        if (!newBatchDetails.hasNonZeroQuantity()) {
+            throw new CommandException(MESSAGE_MISSING_QUANTITY);
         }
-        return updatedBatch;
+        if (!newBatchDetails.hasExpiry()) {
+            throw new CommandException(MESSAGE_MISSING_EXPIRY);
+        }
     }
 
     /**
-     * Creates and returns a {@code Medicine} with the details of {@code medicineToUpdate}
-     * updated with {@code toUpdate}.
+     * Returns a new {@code Batch} with existing batch's {@code Expiry} added to {@code newBatchDetails}.
      */
-    Medicine createUpdatedMedicine(Medicine medicineToUpdate, Batch updatedBatch) {
-        Map<BatchNumber, Batch> updatedBatches = getNewBatches(medicineToUpdate, updatedBatch);
-        Quantity updatedQuantity = getNewQuantity(medicineToUpdate, updatedBatch);
-        Expiry updatedExpiry = getNewExpiry(updatedBatches);
+    private Batch getExistingBatchExpiry(Batch batchToUpdate) {
+        return new Batch(newBatchDetails.getBatchNumber(), batchToUpdate.getExpiry(), newBatchDetails.getQuantity());
+    }
+
+    /**
+     * Returns a {@code Medicine} with the details of {@code medicineToUpdate} updated with {@code updatedBatch}.
+     */
+    Medicine getUpdatedMedicine(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
+            CommandException {
+        Map<BatchNumber, Batch> updatedBatches = getNewMedicineBatches(medicineToUpdate, updatedBatch);
+        Quantity updatedQuantity = getNewMedicineQuantity(medicineToUpdate, batchToUpdate, updatedBatch);
+        Expiry updatedExpiry = getNewMedicineExpiry(medicineToUpdate, updatedBatch, updatedBatches);
 
         return new Medicine(medicineToUpdate.getName(), updatedQuantity, updatedExpiry, medicineToUpdate.getCompany(),
                 medicineToUpdate.getTags(), updatedBatches);
     }
 
-    Map<BatchNumber, Batch> getNewBatches(Medicine medicineToUpdate, Batch updatedBatch) {
+    Map<BatchNumber, Batch> getNewMedicineBatches(Medicine medicineToUpdate, Batch updatedBatch) {
         HashMap<BatchNumber, Batch> newBatches = new HashMap<>(medicineToUpdate.getBatches());
-        if (updatedBatch.getQuantity().value.equals("0")) {
-            newBatches.remove(updatedBatch.getBatchNumber());
-        } else {
+        if (updatedBatch.hasNonZeroQuantity()) {
             newBatches.put(updatedBatch.getBatchNumber(), updatedBatch);
+        } else {
+            newBatches.remove(updatedBatch.getBatchNumber());
         }
         return newBatches;
     }
 
-    Quantity getNewQuantity(Medicine medicineToUpdate, Batch updatedBatch) {
+    Quantity getNewMedicineQuantity(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch)
+            throws CommandException {
         int quantity = medicineToUpdate.getQuantity().getNumericValue();
-        Batch batchToUpdate = medicineToUpdate.getBatches().get(updatedBatch.getBatchNumber());
 
         if (batchToUpdate != null) {
             quantity -= batchToUpdate.getQuantity().getNumericValue();
         }
         quantity += updatedBatch.getQuantity().getNumericValue();
+
+        if (quantity > 999999999) {
+            throw new CommandException(MESSAGE_MAX_QUANTITY_EXCEEDED);
+        }
         return new Quantity(Integer.toString(quantity));
     }
 
-    Expiry getNewExpiry(Map<BatchNumber, Batch> updatedBatches) {
-        if (updatedBatches.size() > 0) {
+    Expiry getNewMedicineExpiry(Medicine medicineToUpdate, Batch updatedBatch, Map<BatchNumber, Batch> updatedBatches) {
+        if (updatedBatches.size() == 0) {
+            return new Expiry("-");
+        }
+
+        Expiry currentExpiry = medicineToUpdate.getExpiry();
+
+        if (updatedBatch.getExpiry().equals(currentExpiry) && !updatedBatch.hasNonZeroQuantity()) {
             return updatedBatches.values().stream().min(Comparator.comparing(Batch::getExpiry)).get().getExpiry();
         }
-        return new Expiry("-");
+
+        if (updatedBatch.getExpiry().compareTo(currentExpiry) < 0 && updatedBatch.hasNonZeroQuantity()) {
+            return updatedBatch.getExpiry();
+        } else {
+            return currentExpiry;
+        }
+
     }
 
     @Override
@@ -143,6 +171,6 @@ public class UpdateCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof seedu.address.logic.commands.UpdateCommand // instanceof handles nulls
                 && targetIndex.equals(((seedu.address.logic.commands.UpdateCommand) other).targetIndex)
-                && toUpdate.equals(((seedu.address.logic.commands.UpdateCommand) other).toUpdate));
+                && newBatchDetails.equals(((seedu.address.logic.commands.UpdateCommand) other).newBatchDetails));
     }
 }

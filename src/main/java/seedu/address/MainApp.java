@@ -95,7 +95,7 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            healthWorkerBookOptional = storage.readHealthWorkerBook();
+            healthWorkerBookOptional = storage.readHealthWorkerBook(userPrefs.getHealthWorkerBookFilePath());
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample HealthWorkerBook");
             }

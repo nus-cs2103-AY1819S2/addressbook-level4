@@ -23,8 +23,6 @@ public class TableFlowPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(TableFlowPanel.class);
     
-    private List<Table> tableList;
-
     @FXML
     private FlowPane tableFlowPane;
 
@@ -33,7 +31,6 @@ public class TableFlowPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing inside the loaded FlowPane.
         getRoot().setOnKeyPressed(Event::consume);
-        this.tableList = tableObservableList;
         tableFlowPane.setHgap(1);
         tableFlowPane.setVgap(1);
         tableFlowPane.prefWidthProperty().bind(scrollPane.widthProperty());

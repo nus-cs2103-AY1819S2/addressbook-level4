@@ -8,6 +8,8 @@ import java.util.Set;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.patient.Patient;
+import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -15,9 +17,9 @@ import seedu.address.model.tag.Tag;
  */
 public class Request {
     private final String id;
-    private final Person patient;
+    private final Patient patient;
     private final RequestDate requestDate;
-    private final Set<Tag> conditions;
+    private final Conditions conditions;
     private Optional<HealthWorker> healthWorker;
     private RequestStatus requestStatus;
 
@@ -31,7 +33,7 @@ public class Request {
      * @param conditions The set of the conditions the patient is requesting treatment for.
      * @param requestStatus The state of the request.
      */
-    public Request(String id, Person patient, RequestDate requestDate, Set<Tag> conditions,
+    public Request(String id, Patient patient, RequestDate requestDate, Conditions conditions,
                    RequestStatus requestStatus) {
         requireAllNonNull(id, patient, requestDate, conditions, requestStatus);
         this.id = id;
@@ -45,7 +47,7 @@ public class Request {
     /*
      * Requires all the properties of a request to be non-null.
      */
-    public Request(String id, Person patient, HealthWorker healthStaff, RequestDate requestDate, Set<Tag> conditions,
+    public Request(String id, Patient patient, HealthWorker healthStaff, RequestDate requestDate, Conditions conditions,
                    RequestStatus requestStatus) {
         this(id, patient, requestDate, conditions, requestStatus);
         requireNonNull(healthStaff);
@@ -110,7 +112,7 @@ public class Request {
                 && (otherRequest.getRequestStatus().equals(this.requestStatus));
     }
 
-    public Set<Tag> getConditions() {
+    public Conditions getConditions() {
         return this.conditions;
     }
 
@@ -122,7 +124,7 @@ public class Request {
         return this.id;
     }
 
-    public Person getPatient() {
+    public Patient getPatient() {
         return patient;
     }
 

@@ -37,11 +37,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyFinanceTracker getSampleFinanceTracker() {
-        FinanceTracker sampleFT = new FinanceTracker();
+        FinanceTracker sampleFinanceTracker = new FinanceTracker();
         for (Record sampleRecord : getSampleRecords()) {
-            sampleFT.addRecord(sampleRecord);
+            sampleFinanceTracker.addRecord(sampleRecord);
         }
-        return sampleFT;
+        return sampleFinanceTracker;
     }
 
     /**

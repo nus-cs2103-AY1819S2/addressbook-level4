@@ -58,7 +58,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyFinanceTracker> readFinanceTracker(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyFinanceTracker> readFinanceTracker(Path filePath) throws
+            DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return financeTrackerStorage.readFinanceTracker(filePath);
     }

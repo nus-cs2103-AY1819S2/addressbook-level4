@@ -2,6 +2,7 @@ package seedu.finance.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import seedu.finance.commons.exceptions.IllegalValueException;
 import seedu.finance.model.category.Category;
 

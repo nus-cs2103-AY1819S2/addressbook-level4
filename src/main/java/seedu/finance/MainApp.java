@@ -56,7 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        FinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(userPrefs.getFinanceTrackerFilePath());
+        FinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(
+                userPrefs.getFinanceTrackerFilePath());
         storage = new StorageManager(financeTrackerStorage, userPrefsStorage);
 
         initLogging(config);

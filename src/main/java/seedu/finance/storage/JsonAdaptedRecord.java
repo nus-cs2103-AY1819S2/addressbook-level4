@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.finance.commons.exceptions.IllegalValueException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;

@@ -156,7 +156,7 @@ Deletes the entry at index 2
 Lists all the commands user has entered in reverse chronological order +
 *Format*: `history`
 
-// category::undoredo[]
+// tag::undoredo[]
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +

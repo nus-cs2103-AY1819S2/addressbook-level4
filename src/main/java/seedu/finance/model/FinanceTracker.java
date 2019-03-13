@@ -82,7 +82,8 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     /**
      * Replaces the given record {@code target} in the list with {@code editedRecord}.
      * {@code target} must exist in the finance tracker.
-     * The record identity of {@code editedRecord} must not be the same as another existing record in the finance tracker.
+     * The record identity of {@code editedRecord} must not be the same as
+     * another existing record in the finance tracker.
      */
     public void setRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);

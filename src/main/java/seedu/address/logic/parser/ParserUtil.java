@@ -11,10 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.pdf.Address;
-import seedu.address.model.pdf.Email;
-import seedu.address.model.pdf.Name;
-import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -121,11 +118,27 @@ public class ParserUtil {
     public static File parseFile(String filePath) throws ParseException {
         requireNonNull(filePath);
         String trimmedFilePath = filePath.trim();
-        File file = new File(filePath);
+        File file = new File(trimmedFilePath);
         if (!file.exists()) {
             throw new ParseException("File does not exist.", new FileNotFoundException());
         }
         return file;
+    }
+
+    /**
+     * Parses a {@code String directory} into a {@code Directory}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code directory} is invalid.
+     */
+    public static Directory parseDirectory(String directory) throws ParseException {
+        requireNonNull(directory);
+        String trimmedDirectory = directory.trim();
+        File file = new File(trimmedDirectory);
+        if (!file.isDirectory()) {
+            throw new ParseException("Directory unavailable.", new FileNotFoundException());
+        }
+        return new Directory(trimmedDirectory);
     }
 
     /**

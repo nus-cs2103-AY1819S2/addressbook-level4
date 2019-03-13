@@ -8,6 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,11 +23,8 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.pdf.Address;
-import seedu.address.model.pdf.Email;
-import seedu.address.model.pdf.Name;
-import seedu.address.model.pdf.Pdf;
-import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.*;
+import seedu.address.model.pdf.exceptions.DuplicatePdfException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,9 +47,10 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Pdf: %1$s";
+    public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited Pdf: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This pdf already exists in the address book.";
+    public static final String MESSAGE_EDIT_PDF_FAILIUE = "Unable to Edit PDF.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -78,6 +79,21 @@ public class EditCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPerson(pdfToEdit, editPersonDescriptor);
 
+        if (editedPdf.isValidPdf()) {
+            System.out.println(Paths.get(editedPdf.getDirectory().getDirectory(),
+                    editedPdf.getName().getFullName()).toAbsolutePath().toString());
+            throw new CommandException(MESSAGE_EDIT_PDF_FAILIUE, new DuplicatePdfException());
+        } else {
+
+            File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
+            File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
+            boolean editSuccess = oFile.renameTo(nFile);
+
+            if (!editSuccess) {
+                throw new CommandException(MESSAGE_EDIT_PDF_FAILIUE);
+            }
+        }
+
         if (!pdfToEdit.isSamePdf(editedPdf) && model.hasPdf(editedPdf)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
@@ -85,7 +101,7 @@ public class EditCommand extends Command {
         model.setPdf(pdfToEdit, editedPdf);
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPdf));
+        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, editedPdf));
     }
 
     /**
@@ -96,12 +112,15 @@ public class EditCommand extends Command {
         assert pdfToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(pdfToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(pdfToEdit.getPhone());
+        Directory updatedDirectory = editPersonDescriptor.getDirectory().orElse(pdfToEdit.getDirectory());
+        Size updatedSize = new Size(Long.toString(Paths.get(pdfToEdit.getDirectory().getDirectory(),
+                pdfToEdit.getName().getFullName()).toFile().getTotalSpace()));
+        /*Phone updatedPhone = editPersonDescriptor.getPhone().orElse(pdfToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(pdfToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(pdfToEdit.getAddress());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(pdfToEdit.getAddress());*/
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
 
-        return new Pdf(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Pdf(updatedName, updatedDirectory, updatedSize, updatedTags);
     }
 
     @Override
@@ -128,6 +147,8 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
+        private Directory directory;
+
         private Phone phone;
         private Email email;
         private Address address;
@@ -141,6 +162,8 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
+            setDirectory(toCopy.directory);
+
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -151,7 +174,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, directory, tags);
         }
 
         public void setName(Name name) {
@@ -160,6 +183,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setDirectory(Directory directory) {
+            this.directory = directory;
+        }
+
+        public Optional<Directory> getDirectory() {
+            return Optional.ofNullable(directory);
         }
 
         public void setPhone(Phone phone) {

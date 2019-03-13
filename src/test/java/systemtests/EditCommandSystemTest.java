@@ -237,7 +237,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf), expectedSelectedCardIndex);
     }
 
     /**

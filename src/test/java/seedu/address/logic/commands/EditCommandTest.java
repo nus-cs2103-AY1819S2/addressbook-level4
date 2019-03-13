@@ -43,7 +43,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         expectedModel.setPdf(model.getFilteredPdfList().get(0), editedPdf);
@@ -65,7 +65,7 @@ public class EditCommandTest {
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         expectedModel.setPdf(lastPdf, editedPdf);
@@ -79,7 +79,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Pdf editedPdf = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         expectedModel.commitPdfBook();
@@ -96,7 +96,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPdf);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         expectedModel.setPdf(model.getFilteredPdfList().get(0), editedPdf);

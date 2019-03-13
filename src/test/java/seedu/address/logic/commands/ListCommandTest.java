@@ -26,7 +26,7 @@ public class ListCommandTest {
     @Before
     public void setUp() {
         model = new CustomerManager(new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
-        expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(), new UserPrefs());
+        expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()), new UserPrefs());
     }
 
     @Test

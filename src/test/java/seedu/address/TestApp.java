@@ -97,7 +97,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public CustomerModel getModel() {
-        CustomerModel copy = new CustomerManager((VersionedAddressBook) customerModel.getAddressBook(),
+        CustomerModel copy = new CustomerManager(new VersionedAddressBook(customerModel.getAddressBook()),
             new UserPrefs());
         ModelHelper.setFilteredList(copy, customerModel.getFilteredCustomerList());
         return copy;

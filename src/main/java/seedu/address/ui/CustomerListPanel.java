@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -59,12 +60,14 @@ public class CustomerListPanel extends UiPart<Region> {
         protected void updateItem(Customer customer, boolean empty) {
             super.updateItem(customer, empty);
 
-            if (empty || customer == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new CustomerCard(customer, getIndex() + 1).getRoot());
-            }
+            Platform.runLater(() -> {
+                if (empty || customer == null) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    setGraphic(new CustomerCard(customer, getIndex() + 1).getRoot());
+                }
+            });
         }
     }
 

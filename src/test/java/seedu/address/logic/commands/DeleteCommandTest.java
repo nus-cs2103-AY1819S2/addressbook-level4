@@ -89,7 +89,7 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Customer customerToDelete = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CUSTOMER);
-        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) model.getAddressBook(),
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(model.getAddressBook()),
             new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitAddressBook();

@@ -45,7 +45,7 @@ class JsonAdaptedPdf {
     public JsonAdaptedPdf(Pdf source) {
         name = source.getName().getFullName();
         size = source.getSize().getValue();
-        location = source.getDirectory().getLocation();
+        location = source.getDirectory().getDirectory();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

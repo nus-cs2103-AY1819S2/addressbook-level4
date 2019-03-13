@@ -2,6 +2,7 @@ package seedu.address.model.pdf;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -98,8 +99,11 @@ public class Pdf {
         }
 
         return otherPdf != null
-                && otherPdf.getName().equals(getName())
-                && (otherPdf.getPhone().equals(getPhone()) || otherPdf.getEmail().equals(getEmail()));
+                && otherPdf.getName().equals(getName());
+    }
+
+    public boolean isValidPdf() {
+        return Paths.get(this.directory.getDirectory(), this.name.getFullName()).toFile().exists();
     }
 
     /**

@@ -29,7 +29,7 @@ public class Directory {
     public Directory(String directory) {
         requireNonNull(directory);
         checkArgument(isValidDirectory(directory), MESSAGE_CONSTRAINTS);
-        value = Paths.get(directory).getParent();
+        value = Paths.get(directory);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Directory {
                 Paths.get(test).toFile().isDirectory();
     }
 
-    public String getLocation() {
+    public String getDirectory() {
         return this.value.toString();
     }
 

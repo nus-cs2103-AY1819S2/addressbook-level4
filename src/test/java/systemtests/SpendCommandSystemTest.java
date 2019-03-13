@@ -3,20 +3,20 @@ package systemtests;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.finance.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.testutil.TypicalRecords.ALICE;
 import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.BOB;
@@ -26,18 +26,17 @@ import static seedu.finance.testutil.TypicalRecords.IDA;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
-
 import seedu.finance.commons.core.Messages;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.model.Model;
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.tag.Tag;
 import seedu.finance.testutil.RecordBuilder;
 import seedu.finance.testutil.RecordUtil;
 
@@ -49,12 +48,12 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a record without tags to a non-empty finance tracker, command with leading spaces and trailing spaces
+        /* Case: add a record without categories to a non-empty finance tracker, command with leading spaces and trailing spaces
          * -> added
          */
         Record toSpend = AMY;
         String command = "   " + SpendCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "   " + AMOUNT_DESC_AMY + "   "
-                + DATE_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + DATE_DESC_AMY + "   " + CATEGORY_DESC_FRIEND + " ";
         assertCommandSuccess(command, toSpend);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -70,7 +69,7 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* Case: add a record with all fields same as another record in the finance tracker except name -> added */
         toSpend = new RecordBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = SpendCommand.COMMAND_WORD + NAME_DESC_BOB + AMOUNT_DESC_AMY + DATE_DESC_AMY + TAG_DESC_FRIEND;
+        command = SpendCommand.COMMAND_WORD + NAME_DESC_BOB + AMOUNT_DESC_AMY + DATE_DESC_AMY + CATEGORY_DESC_FRIEND;
         assertCommandSuccess(command, toSpend);
 
         /* Case: add a record with all fields same as another record in the finance tracker except amount and date
@@ -84,13 +83,13 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
         deleteAllRecords();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a record with tags, command with parameters in random order -> added */
+        /* Case: add a record with categories, command with parameters in random order -> added */
         toSpend = BOB;
-        command = SpendCommand.COMMAND_WORD + TAG_DESC_FRIEND + NAME_DESC_BOB + TAG_DESC_HUSBAND
+        command = SpendCommand.COMMAND_WORD + CATEGORY_DESC_FRIEND + NAME_DESC_BOB + CATEGORY_DESC_HUSBAND
                 + DATE_DESC_BOB + AMOUNT_DESC_BOB;
         assertCommandSuccess(command, toSpend);
 
-        /* Case: add a record, missing tags -> added */
+        /* Case: add a record, missing categories -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
@@ -121,8 +120,8 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
         command = RecordUtil.getAddCommand(toSpend);
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
 
-        /* Case: add a duplicate record except with different tags -> rejected */
-        command = RecordUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        /* Case: add a duplicate record except with different categories -> rejected */
+        command = RecordUtil.getAddCommand(HOON) + " " + PREFIX_CATEGORY.getPrefix() + "friends";
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
 
         /* Case: missing name -> rejected */
@@ -153,9 +152,9 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
         command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + INVALID_DATE_DESC;
         assertCommandFailure(command, Date.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid tag -> rejected */
-        command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY + INVALID_TAG_DESC;
-        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
+        /* Case: invalid category -> rejected */
+        command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY + INVALID_CATEGORY_DESC;
+        assertCommandFailure(command, Category.MESSAGE_CONSTRAINTS);
     }
 
     /**

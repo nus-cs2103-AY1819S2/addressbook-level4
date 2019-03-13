@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.finance.model.tag.Tag;
+import seedu.finance.model.category.Category;
 
 /**
  * Represents a Record in the finance tracker.
@@ -22,19 +22,19 @@ public class Record {
     private final Amount amount;
     private final Date date;
     private final Description description;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Record(Name name, Amount amount, Date date,
-                  Description description, Set<Tag> tags) {
-        requireAllNonNull(name, amount, date, tags);
+                  Description description, Set<Category> categories) {
+        requireAllNonNull(name, amount, date, categories);
         this.name = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
     }
 
     public Name getName() {
@@ -54,16 +54,16 @@ public class Record {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
     /**
      * Returns true if both records of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * This defines a weaker notion of equality between two records.
      */
     public boolean isSameRecord(Record otherRecord) {
         if (otherRecord == this) {
@@ -77,7 +77,7 @@ public class Record {
 
     /**
      * Returns true if both records have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * This defines a stronger notion of equality between two records.
      */
     @Override
     public boolean equals(Object other) {
@@ -94,13 +94,13 @@ public class Record {
                 && otherRecord.getAmount().equals(getAmount())
                 && otherRecord.getDate().equals(getDate())
                 && otherRecord.getDescription().equals(getDescription())
-                && otherRecord.getTags().equals(getTags());
+                && otherRecord.getCategories().equals(getCategories());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, date, description, tags);
+        return Objects.hash(name, amount, date, description, categories);
     }
 
     @Override
@@ -113,8 +113,8 @@ public class Record {
                 .append(getDate())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Categories: ");
+        getCategories().forEach(builder::append);
         return builder.toString();
     }
 

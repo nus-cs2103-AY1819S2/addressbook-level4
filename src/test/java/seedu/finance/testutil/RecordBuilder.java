@@ -3,12 +3,12 @@ package seedu.finance.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.tag.Tag;
 import seedu.finance.model.util.SampleDataUtil;
 
 /**
@@ -25,14 +25,14 @@ public class RecordBuilder {
     private Amount amount;
     private Date date;
     private Description description;
-    private Set<Tag> tags;
+    private Set<Category> categories;
 
     public RecordBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
         description = new Description(DEFAULT_DESCRIPTION);
-        tags = new HashSet<>();
+        categories = new HashSet<>();
     }
 
     /**
@@ -44,7 +44,7 @@ public class RecordBuilder {
         amount = recordToCopy.getAmount();
         date = recordToCopy.getDate();
         description = recordToCopy.getDescription();
-        tags = new HashSet<>(recordToCopy.getTags());
+        categories = new HashSet<>(recordToCopy.getCategories());
     }
 
     /**
@@ -56,10 +56,10 @@ public class RecordBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Record} that we are building.
+     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code Record} that we are building.
      */
-    public RecordBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public RecordBuilder withCategories(String ... categories) {
+        this.categories = SampleDataUtil.getCategorySet(categories);
         return this;
     }
 
@@ -92,7 +92,7 @@ public class RecordBuilder {
      * @return Record with fields specified by Class
      */
     public Record build() {
-        return new Record(name, amount, date, description, tags);
+        return new Record(name, amount, date, description, categories);
     }
 
 }

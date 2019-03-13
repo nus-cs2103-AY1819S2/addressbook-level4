@@ -12,14 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.model.Model;
-import seedu.finance.model.tag.Tag;
+import seedu.finance.model.category.Category;
 
 public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
 
@@ -126,9 +125,9 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();*/
 
-        /* Case: find tags of record in finance tracker -> 0 records found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
-        command = SearchCommand.COMMAND_WORD + " " + tags.get(0).tagName;
+        /* Case: find categories of record in finance tracker -> 0 records found */
+        List<Category> categories = new ArrayList<>(DANIEL.getCategories());
+        command = SearchCommand.COMMAND_WORD + " " + categories.get(0).categoryName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

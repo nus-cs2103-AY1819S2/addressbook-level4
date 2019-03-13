@@ -2,9 +2,9 @@ package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
 import java.util.Collections;
@@ -19,12 +19,12 @@ import seedu.finance.commons.util.CollectionUtil;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.tag.Tag;
 
 /**
  * Edits the details of an existing record in the finance tracker.
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "1234 "
             + PREFIX_DATE + "12/02/2009";
@@ -98,9 +98,9 @@ public class EditCommand extends Command {
         Amount updatedAmount = editRecordDescriptor.getAmount().orElse(recordToEdit.getAmount());
         Date updatedDate = editRecordDescriptor.getDate().orElse(recordToEdit.getDate());
         Description updatedDescription = recordToEdit.getDescription();
-        Set<Tag> updatedTags = editRecordDescriptor.getTags().orElse(recordToEdit.getTags());
+        Set<Category> updatedCategories = editRecordDescriptor.getCategories().orElse(recordToEdit.getCategories());
 
-        return new Record(updatedName, updatedAmount, updatedDate, updatedDescription, updatedTags);
+        return new Record(updatedName, updatedAmount, updatedDate, updatedDescription, updatedCategories);
     }
 
     @Override
@@ -129,26 +129,26 @@ public class EditCommand extends Command {
         private Name name;
         private Amount amount;
         private Date date;
-        private Set<Tag> tags;
+        private Set<Category> categories;
 
         public EditRecordDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code categories} is used internally.
          */
         public EditRecordDescriptor(EditRecordDescriptor toCopy) {
             setName(toCopy.name);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
-            setTags(toCopy.tags);
+            setCategories(toCopy.categories);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, amount, date, tags);
+            return CollectionUtil.isAnyNonNull(name, amount, date, categories);
         }
 
         public void setName(Name name) {
@@ -177,20 +177,20 @@ public class EditCommand extends Command {
 
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code categories} to this object's {@code categories}.
+         * A defensive copy of {@code categories} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setCategories(Set<Category> categories) {
+            this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code categories} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Category>> getCategories() {
+            return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
         }
 
         @Override
@@ -211,7 +211,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
-                    && getTags().equals(e.getTags());
+                    && getCategories().equals(e.getCategories());
         }
     }
 }

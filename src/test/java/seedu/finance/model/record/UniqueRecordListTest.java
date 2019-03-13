@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.testutil.TypicalRecords.ALICE;
 import static seedu.finance.testutil.TypicalRecords.BOB;
 
@@ -15,7 +15,6 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 import seedu.finance.testutil.RecordBuilder;
@@ -46,7 +45,8 @@ public class UniqueRecordListTest {
     @Test
     public void contains_recordWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecordList.add(ALICE);
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         assertTrue(uniqueRecordList.contains(editedAlice));
     }
@@ -94,7 +94,8 @@ public class UniqueRecordListTest {
     @Test
     public void setRecord_editedRecordHasSameIdentity_success() {
         uniqueRecordList.add(ALICE);
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         uniqueRecordList.setRecord(ALICE, editedAlice);
         UniqueRecordList expectedUniqueRecordList = new UniqueRecordList();

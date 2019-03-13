@@ -14,6 +14,7 @@ import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.logic.commands.ExitCommand;
 import seedu.finance.logic.commands.HelpCommand;
 import seedu.finance.logic.commands.HistoryCommand;
+import seedu.finance.logic.commands.IncreaseCommand;
 import seedu.finance.logic.commands.ListCommand;
 import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.SearchCommand;
@@ -50,6 +51,10 @@ public class FinanceTrackerParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
+
+        case IncreaseCommand.COMMAND_WORD:
+            return new IncreaseCommand();
+
         case DescriptionCommand.COMMAND_WORD:
         case DescriptionCommand.COMMAND_ALIAS:
             return new DescriptionCommandParser().parse(arguments);

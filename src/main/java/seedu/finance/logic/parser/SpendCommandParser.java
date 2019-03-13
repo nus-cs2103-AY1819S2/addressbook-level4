@@ -2,21 +2,21 @@ package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -30,7 +30,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
      */
     public SpendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -41,9 +41,9 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Description description = new Description("");
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        Record record = new Record(name, amount, date, description, tagList);
+        Record record = new Record(name, amount, date, description, categoryList);
 
         return new SpendCommand(record);
     }

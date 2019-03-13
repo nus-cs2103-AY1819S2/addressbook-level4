@@ -2,9 +2,9 @@ package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
@@ -23,14 +23,14 @@ public class SpendCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a record to the finance tracker. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_AMOUNT + "AMOUNT"
-            + PREFIX_DATE + "DATE"
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_AMOUNT + "AMOUNT "
+            + PREFIX_DATE + "DATE "
+            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_AMOUNT + "123"
-            + PREFIX_DATE + "12/02/2002"
-            + PREFIX_TAG + "Food ";
+            + PREFIX_AMOUNT + "123 "
+            + PREFIX_DATE + "12/02/2002 "
+            + PREFIX_CATEGORY + "Food ";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the finance tracker";

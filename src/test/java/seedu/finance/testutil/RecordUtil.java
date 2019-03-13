@@ -1,16 +1,16 @@
 package seedu.finance.testutil;
 
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
 import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.logic.commands.SpendCommand;
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.tag.Tag;
 
 
 
@@ -36,8 +36,8 @@ public class RecordUtil {
         sb.append(PREFIX_NAME + record.getName().fullName + " ");
         sb.append(PREFIX_AMOUNT + record.getAmount().value + " ");
         sb.append(PREFIX_DATE + record.getDate().value + " ");
-        record.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        record.getCategories().stream().forEach(
+            s -> sb.append(PREFIX_CATEGORY + s.categoryName + " ")
         );
         return sb.toString();
     }
@@ -50,12 +50,12 @@ public class RecordUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.value).append(" "));
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+        if (descriptor.getCategories().isPresent()) {
+            Set<Category> categories = descriptor.getCategories().get();
+            if (categories.isEmpty()) {
+                sb.append(PREFIX_CATEGORY);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                categories.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
             }
         }
         return sb.toString();

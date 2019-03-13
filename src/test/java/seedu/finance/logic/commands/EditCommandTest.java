@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.logic.commands.CommandTestUtil.showRecordAtIndex;
@@ -16,7 +16,6 @@ import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
-
 import seedu.finance.commons.core.Messages;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.CommandHistory;
@@ -58,10 +57,10 @@ public class EditCommandTest {
 
         RecordBuilder recordInList = new RecordBuilder(lastRecord);
         Record editedRecord = recordInList.withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withCategories(VALID_CATEGORY_HUSBAND).build();
 
         EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastRecord, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECORD_SUCCESS, editedRecord);

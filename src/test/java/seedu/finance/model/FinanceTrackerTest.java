@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.testutil.TypicalRecords.ALICE;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
@@ -13,14 +13,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.testutil.RecordBuilder;
@@ -53,7 +52,8 @@ public class FinanceTrackerTest {
     @Test
     public void resetData_withDuplicateRecords_throwsDuplicateRecordException() {
         // Two records with the same identity fields
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         List<Record> newRecords = Arrays.asList(ALICE, editedAlice);
         FinanceTrackerStub newData = new FinanceTrackerStub(newRecords);
@@ -82,7 +82,7 @@ public class FinanceTrackerTest {
     @Test
     public void hasRecord_recordWithSameIdentityFieldsInFinanceTracker_returnsTrue() {
         financeTracker.addRecord(ALICE);
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         assertTrue(financeTracker.hasRecord(editedAlice));
     }

@@ -17,7 +17,7 @@ import seedu.finance.model.record.Record;
  * Panel containing the list of records.
  */
 public class RecordListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "RecordListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RecordListPanel.class);
 
     @FXML

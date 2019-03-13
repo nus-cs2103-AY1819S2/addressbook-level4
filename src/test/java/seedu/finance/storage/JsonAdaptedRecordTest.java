@@ -20,14 +20,14 @@ public class JsonAdaptedRecordTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_AMOUNT = "$1";
     private static final String INVALID_DATE = "59/59/2109";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_CATEGORY = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_AMOUNT = BENSON.getAmount().toString();
     private static final String VALID_DATE = BENSON.getDate().toString();
     private static final String VALID_DESCRIPTION = BENSON.getDescription().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
-            .map(JsonAdaptedTag::new)
+    private static final List<JsonAdaptedCategory> VALID_CATEGORIES = BENSON.getCategories().stream()
+            .map(JsonAdaptedCategory::new)
             .collect(Collectors.toList());
 
     @Test
@@ -39,7 +39,7 @@ public class JsonAdaptedRecordTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedRecord record =
-                new JsonAdaptedRecord(INVALID_NAME, VALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, VALID_TAGS);
+                new JsonAdaptedRecord(INVALID_NAME, VALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, VALID_CATEGORIES);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
@@ -47,7 +47,7 @@ public class JsonAdaptedRecordTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedRecord record = new JsonAdaptedRecord(null, VALID_AMOUNT, VALID_DATE,
-                VALID_DESCRIPTION, VALID_TAGS);
+                VALID_DESCRIPTION, VALID_CATEGORIES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
@@ -55,7 +55,7 @@ public class JsonAdaptedRecordTest {
     @Test
     public void toModelType_invalidAmount_throwsIllegalValueException() {
         JsonAdaptedRecord record =
-                new JsonAdaptedRecord(VALID_NAME, INVALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, VALID_TAGS);
+                new JsonAdaptedRecord(VALID_NAME, INVALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, VALID_CATEGORIES);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
@@ -63,7 +63,7 @@ public class JsonAdaptedRecordTest {
     @Test
     public void toModelType_nullAmount_throwsIllegalValueException() {
         JsonAdaptedRecord record = new JsonAdaptedRecord(VALID_NAME, null, VALID_DATE,
-                VALID_DESCRIPTION, VALID_TAGS);
+                VALID_DESCRIPTION, VALID_CATEGORIES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
@@ -71,7 +71,7 @@ public class JsonAdaptedRecordTest {
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedRecord record =
-                new JsonAdaptedRecord(VALID_NAME, VALID_AMOUNT, INVALID_DATE, VALID_DESCRIPTION, VALID_TAGS);
+                new JsonAdaptedRecord(VALID_NAME, VALID_AMOUNT, INVALID_DATE, VALID_DESCRIPTION, VALID_CATEGORIES);
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
@@ -79,17 +79,17 @@ public class JsonAdaptedRecordTest {
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedRecord record = new JsonAdaptedRecord(VALID_NAME, VALID_AMOUNT, null,
-                VALID_DESCRIPTION, VALID_TAGS);
+                VALID_DESCRIPTION, VALID_CATEGORIES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
 
     @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+    public void toModelType_invalidCategories_throwsIllegalValueException() {
+        List<JsonAdaptedCategory> invalidCategories = new ArrayList<>(VALID_CATEGORIES);
+        invalidCategories.add(new JsonAdaptedCategory(INVALID_CATEGORY));
         JsonAdaptedRecord record =
-                new JsonAdaptedRecord(VALID_NAME, VALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, invalidTags);
+                new JsonAdaptedRecord(VALID_NAME, VALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, invalidCategories);
         Assert.assertThrows(IllegalValueException.class, record::toModelType);
     }
 

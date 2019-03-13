@@ -86,7 +86,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY;
-        Record expectedRecord = new RecordBuilder(AMY).withTags().build();
+        Record expectedRecord = new RecordBuilder(AMY).withCategories().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addRecord(expectedRecord);
         expectedModel.commitFinanceTracker();

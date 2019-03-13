@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.EditCommand;
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.tag.Tag;
 
 /**
  * A utility class to help with building EditRecordDescriptor objects.
@@ -34,7 +34,7 @@ public class EditRecordDescriptorBuilder {
         descriptor.setName(record.getName());
         descriptor.setAmount(record.getAmount());
         descriptor.setDate(record.getDate());
-        descriptor.setTags(record.getTags());
+        descriptor.setCategories(record.getCategories());
     }
 
     /**
@@ -62,12 +62,12 @@ public class EditRecordDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditRecordDescriptor}
+     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditRecordDescriptor}
      * that we are building.
      */
-    public EditRecordDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditRecordDescriptorBuilder withCategories(String... categories) {
+        Set<Category> categorySet = Stream.of(categories).map(Category::new).collect(Collectors.toSet());
+        descriptor.setCategories(categorySet);
         return this;
     }
 

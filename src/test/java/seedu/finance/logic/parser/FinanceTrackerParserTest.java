@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.finance.logic.commands.ClearCommand;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.DescriptionCommand;
@@ -22,6 +21,7 @@ import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.logic.commands.ExitCommand;
 import seedu.finance.logic.commands.HelpCommand;
 import seedu.finance.logic.commands.HistoryCommand;
+import seedu.finance.logic.commands.IncreaseCommand;
 import seedu.finance.logic.commands.ListCommand;
 import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.SearchCommand;
@@ -186,6 +186,11 @@ public class FinanceTrackerParserTest {
     public void parseCommand_historyAlias2() throws Exception {
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_ALIAS2) instanceof HistoryCommand);
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_ALIAS2 + " 3") instanceof HistoryCommand);
+    }
+
+    @Test
+    public void parseCommand_increase() throws Exception {
+        assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD) instanceof IncreaseCommand);
     }
 
     @Test

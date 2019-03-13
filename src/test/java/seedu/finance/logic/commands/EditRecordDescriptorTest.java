@@ -5,12 +5,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
-
 import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.testutil.EditRecordDescriptorBuilder;
 
@@ -46,8 +45,8 @@ public class EditRecordDescriptorTest {
         editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withDate(VALID_DATE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
-        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        // different categories -> returns false
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withCategories(VALID_CATEGORY_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

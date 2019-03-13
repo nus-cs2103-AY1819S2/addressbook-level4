@@ -41,8 +41,8 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         title.setText(task.getTitle().toString());
-        startDate.setText(task.getStartDate().toString());
-        endDate.setText(task.getEndDate().toString());
+        startDate.setText("Start Date: " + task.getStartDate().toString());
+        endDate.setText("End Date:  " + task.getEndDate().toString());
     }
 
     @Override

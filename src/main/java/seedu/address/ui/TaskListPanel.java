@@ -7,11 +7,13 @@ import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
+import javafx.scene.control.Label;
 
 /**
  * Panel containing the list of tasks.
@@ -22,9 +24,14 @@ public class TaskListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Task> taskListView;
+    @FXML
+    private Label header;
 
     public TaskListPanel(ObservableList<Task> taskList) {
         super(FXML);
+        header.setText("Tasks");
+        header.setMaxWidth(Double.MAX_VALUE);
+        header.setAlignment(Pos.CENTER);
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         /*

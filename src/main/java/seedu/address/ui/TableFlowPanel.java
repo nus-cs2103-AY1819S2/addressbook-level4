@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
@@ -21,6 +22,8 @@ public class TableFlowPanel extends UiPart<Region> {
     private static final String FXML = "TableFlowPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(TableFlowPanel.class);
+    
+    private List<Table> tableList;
 
     @FXML
     private FlowPane tableFlowPane;
@@ -30,7 +33,7 @@ public class TableFlowPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing inside the loaded FlowPane.
         getRoot().setOnKeyPressed(Event::consume);
-
+        this.tableList = tableObservableList;
         tableFlowPane.setHgap(1);
         tableFlowPane.setVgap(1);
         tableFlowPane.prefWidthProperty().bind(scrollPane.widthProperty());
@@ -43,8 +46,9 @@ public class TableFlowPanel extends UiPart<Region> {
 
         tableObservableList.addListener((ListChangeListener<Table>) c -> {
             while (c.next()) {
-                if (c.wasUpdated()) {
-                    logger.info("The List has been updated but not rendered");
+                tableFlowPane.getChildren().clear();
+                for (Table  table : tableObservableList) {
+                    tableFlowPane.getChildren().add(new TableCard(table).getRoot());
                 }
             }
         });

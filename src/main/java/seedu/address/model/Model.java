@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -85,6 +87,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Sorts the address book according to the given comparator
+     */
+    void sortAddressBook(Comparator<Patient> patientComparator);
 
     /**
      * Returns true if the model has previous address book states to restore.

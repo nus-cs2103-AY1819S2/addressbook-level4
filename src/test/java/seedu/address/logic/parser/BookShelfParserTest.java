@@ -24,12 +24,14 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.BookListFilterPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.BookBuilder;
@@ -99,6 +101,19 @@ public class BookShelfParserTest {
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
+
+    @Test
+    public void parseCommand_listBook() throws Exception {
+        Book book = new BookBuilder().build();
+        ListBookCommand command = (ListBookCommand) parser.parseCommand(BookUtil.getListBookCommand(book));
+        BookListFilterPredicate predicate = new BookListFilterPredicate(
+                Arrays.asList(book.getBookName().fullName),
+                book.getTags().stream().map(x -> x.tagName).collect(Collectors.toList()),
+                Arrays.asList(book.getRating().value)
+            );
+        assertEquals(new ListBookCommand(predicate), command);
+    }
+
 
     @Test
     public void parseCommand_help() throws Exception {

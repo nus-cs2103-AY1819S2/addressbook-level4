@@ -196,7 +196,8 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
-        filteredFoldersList.remove(index);
+        foldersList.remove(index);
+        filteredCardsList.remove(index);
         indicateModified();
     }
 

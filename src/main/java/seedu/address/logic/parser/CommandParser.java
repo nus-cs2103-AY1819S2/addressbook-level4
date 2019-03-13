@@ -13,6 +13,7 @@ import seedu.address.logic.commands.ChangeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteFolderCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EndCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -73,6 +74,9 @@ public class CommandParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteFolderCommand.COMMAND_WORD:
+            return new DeleteFolderCommandParser().parse(arguments);
 
         case TestCommand.COMMAND_WORD:
             return new TestCommandParser().parse(arguments);

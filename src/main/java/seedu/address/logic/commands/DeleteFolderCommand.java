@@ -13,44 +13,45 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 
 /**
- * Selects a card identified using it's displayed index from the card folder.
+ * Deletes a folder identified using it's displayed index from the home directory.
  */
-public class ChangeCommand extends Command {
+public class DeleteFolderCommand extends Command {
 
-    public static final String COMMAND_WORD = "change";
+    public static final String COMMAND_WORD = "deletefolder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Changes the card folder that the user is in.\n"
+            + ": Deletes the card folder identified by the index number used in the displayed list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_FOLDER_SUCCESS = "Entered Card Folder: %1$s";
+    public static final String MESSAGE_DELETE_FOLDER_SUCCESS = "Deleted Card Folder: %1$s";
 
     private final Index targetIndex;
 
-    public ChangeCommand(Index targetIndex) {
+    public DeleteFolderCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
         List<ReadOnlyCardFolder> cardFolderList = model.getCardFolders();
 
         if (targetIndex.getZeroBased() >= cardFolderList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX);
         }
 
-        model.setActiveCardFolderIndex(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SELECT_FOLDER_SUCCESS, targetIndex.getOneBased()),
+        ReadOnlyCardFolder cardFolderToDelete = cardFolderList.get(targetIndex.getZeroBased());
+
+        model.deleteFolder(targetIndex.getZeroBased());
+        return new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS, cardFolderToDelete),
                 false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ChangeCommand // instanceof handles nulls
-                && targetIndex.equals(((ChangeCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteFolderCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteFolderCommand) other).targetIndex)); // state check
     }
 }

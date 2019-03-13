@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 
 /**
- * Deletes a pdf identified using it's displayed index from the address book.
+ * Deletes a pdf identified using it's displayed index from the pdf book.
  */
 public class DeleteCommand extends Command {
 

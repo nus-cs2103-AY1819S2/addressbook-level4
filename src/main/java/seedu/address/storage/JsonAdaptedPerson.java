@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,50 +25,27 @@ class JsonAdaptedPerson {
     private final String location;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
-    private final String phone;
-    private final String email;
-    private final String address;
-
-
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("location") String location,
+            @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
-    }
-
-    /**
-     * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
-     */
-    @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("location") String location,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        File newFile = new File(location);
-        this.name = newFile.getName();
-        this.size = Long.toString(newFile.getTotalSpace());
         this.location = location;
+        this.size = size;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-
     }
 
     /**
      * Converts a given {@code Pdf} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Pdf source) {
-        name = source.getName().fullName;
-        size = source.getSize().value;
-        location = source.getLocation().value.toString();
+        name = source.getName().getFullName();
+        size = source.getSize().getValue();
+        location = source.getLocation().getLocation();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

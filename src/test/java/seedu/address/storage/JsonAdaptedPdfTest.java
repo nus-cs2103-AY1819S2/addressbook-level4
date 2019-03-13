@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalPersons.A_PDF;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
@@ -11,34 +12,32 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.pdf.Address;
-import seedu.address.model.pdf.Email;
-import seedu.address.model.pdf.Name;
-import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.*;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedPdfTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
-
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    private static final String INVALID_LOCATION = "DefinitelyWrongLocation";
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(BENSON);
-        assertEquals(BENSON, person.toModelType());
+    public void toModelType_validPdfDetails_returnsPdf() throws Exception {
+        JsonAdaptedPerson pdf = new JsonAdaptedPerson(A_PDF);
+        assertEquals(A_PDF, pdf.toModelType());
     }
 
     @Test
+    public void toModelType_invalidLocation_throwsIllegalValueException() {
+        JsonAdaptedPerson pdf =
+                new JsonAdaptedPerson(A_PDF.getName().getFullName(), INVALID_LOCATION, A_PDF.getSize().getValue(),
+                        VALID_TAGS);
+        String expectedMessage = Location.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, pdf::toModelType);
+    }
+
+    /*@Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
@@ -105,6 +104,6 @@ public class JsonAdaptedPdfTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
-    }
+    }*/
 
 }

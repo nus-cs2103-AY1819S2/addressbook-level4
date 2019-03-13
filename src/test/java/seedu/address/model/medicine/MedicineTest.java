@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPEN
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
 import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 
@@ -42,23 +42,23 @@ public class MedicineTest {
         // same name, same quantity, different attributes -> returns false
         editedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN)
                 .withCompany(VALID_COMPANY_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_PAINKILLER).build();
         assertFalse(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // same name, same expiry, different attributes -> returns false
         editedParacetamol = new MedicineBuilder(PARACETAMOL).withQuantity(VALID_QUANTITY_GABAPENTIN)
                 .withCompany(VALID_COMPANY_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_PAINKILLER).build();
         assertFalse(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // same name, same quantity, same expiry, different attributes -> returns false
         editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_PAINKILLER).build();
         assertFalse(PARACETAMOL.isSameMedicine(editedParacetamol));
 
         // same name, same company, different attributes -> returns true
         editedParacetamol = new MedicineBuilder(PARACETAMOL).withQuantity(VALID_QUANTITY_GABAPENTIN)
-                .withExpiry(VALID_EXPIRY_GABAPENTIN).withTags(VALID_TAG_HUSBAND).build();
+                .withExpiry(VALID_EXPIRY_GABAPENTIN).withTags(VALID_TAG_PAINKILLER).build();
         assertTrue(PARACETAMOL.isSameMedicine(editedParacetamol));
     }
 
@@ -97,7 +97,7 @@ public class MedicineTest {
         assertFalse(PARACETAMOL.equals(editedParacetamol));
 
         // different tags -> returns false
-        editedParacetamol = new MedicineBuilder(PARACETAMOL).withTags(VALID_TAG_HUSBAND).build();
+        editedParacetamol = new MedicineBuilder(PARACETAMOL).withTags(VALID_TAG_PAINKILLER).build();
         assertFalse(PARACETAMOL.equals(editedParacetamol));
     }
 }

@@ -37,8 +37,8 @@ public class CommandTestUtil {
     public static final String VALID_COMPANY_AMOXICILLIN = "Merck & Co. (MSD)";
     public static final String VALID_COMPANY_GABAPENTIN = "Sanofi";
     public static final String VALID_COMPANY_LISNOPRIL = "Takeda Pharmaceutical Co.";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_PAINKILLER = "painkiller";
+    public static final String VALID_TAG_FEVER = "fever";
     public static final String VALID_BATCHNUMBER_AMOXICILLIN = "s9c4xs9532";
     public static final String VALID_BATCHNUMBER_GABAPENTIN = "O26M997570";
 
@@ -52,8 +52,8 @@ public class CommandTestUtil {
     public static final String COMPANY_DESC_AMOXICILLIN = " " + PREFIX_COMPANY + VALID_COMPANY_AMOXICILLIN;
     public static final String COMPANY_DESC_GABAPENTIN = " " + PREFIX_COMPANY + VALID_COMPANY_GABAPENTIN;
     public static final String COMPANY_DESC_LISNOPRIL = " " + PREFIX_COMPANY + VALID_COMPANY_LISNOPRIL;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FEVER = " " + PREFIX_TAG + VALID_TAG_FEVER;
+    public static final String TAG_DESC_PAINKILER = " " + PREFIX_TAG + VALID_TAG_PAINKILLER;
     public static final String BATCHNUMBER_DESC_AMOXICILLIN = " " + PREFIX_BATCHNUMBER + VALID_BATCHNUMBER_AMOXICILLIN;
     public static final String BATCHNUMBER_DESC_GABAPENTIN = " " + PREFIX_BATCHNUMBER + VALID_BATCHNUMBER_GABAPENTIN;
 
@@ -72,9 +72,9 @@ public class CommandTestUtil {
 
     static {
         DESC_AMOXICILLIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
-                .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND).build();
+                .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FEVER).build();
         DESC_GABAPENTIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
-                .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_PAINKILLER, VALID_TAG_FEVER).build();
     }
 
     /**

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_AMOXICILLIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
 import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
@@ -53,7 +53,7 @@ public class InventoryTest {
     @Test
     public void resetData_withDuplicateMedicines_throwsDuplicateMedicineException() {
         // Two medicines with the same identity fields
-        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withTags(VALID_TAG_HUSBAND).build();
+        Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withTags(VALID_TAG_PAINKILLER).build();
         List<Medicine> newMedicines = Arrays.asList(PARACETAMOL, editedParacetamol);
         InventoryStub newData = new InventoryStub(newMedicines);
 
@@ -82,7 +82,7 @@ public class InventoryTest {
     public void hasMedicine_medicineWithSameIdentityFieldsInInventory_returnsTrue() {
         inventory.addMedicine(PARACETAMOL);
         Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_AMOXICILLIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_PAINKILLER).build();
         assertTrue(inventory.hasMedicine(editedParacetamol));
     }
 

@@ -9,10 +9,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Size {
     public static final String MESSAGE_CONSTRAINTS = "File size should be a non-negative number";
-    //Todo
-    public static final String VALIDATION_REGEX = "\\d{3,}";
 
-    public final String value;
+    public static final String VALIDATION_REGEX = "^\\d+$";
+
+    private final String value;
 
     public Size(String size) {
         requireNonNull(size);
@@ -20,12 +20,16 @@ public class Size {
         value = size;
     }
 
-    //Todo
+
     /**
-     * Returns true if a given string is a valid phone size.
+     * Returns true if a given string is a non-negative number.
      */
     public static boolean isValidSize(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getValue() {
+        return this.value;
     }
 
     @Override

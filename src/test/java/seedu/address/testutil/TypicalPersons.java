@@ -23,36 +23,40 @@ import seedu.address.model.pdf.Pdf;
  */
 public class TypicalPersons {
 
-    public static final Pdf ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
+    public static final Pdf A_PDF = new PdfBuilder().withName("a.pdf")
+            .withLocation("Somewhere in the computer")
+            .withSize("some size");
+
+    public static final Pdf ALICE = new PdfBuilder().withName("Alice Pauline")
+            .withLocation("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withSize("94351253")
             .withTags("friends").build();
-    public static final Pdf BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
+    public static final Pdf BENSON = new PdfBuilder().withName("Benson Meier")
+            .withLocation("311, Clementi Ave 2, #02-25")
+            .withEmail("johnd@example.com").withSize("98765432")
             .withTags("owesMoney", "friends").build();
-    public static final Pdf CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
-    public static final Pdf DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Pdf ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Pdf FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Pdf GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+    public static final Pdf CARL = new PdfBuilder().withName("Carl Kurz").withSize("95352563")
+            .withEmail("heinz@example.com").withLocation("wall street").build();
+    public static final Pdf DANIEL = new PdfBuilder().withName("Daniel Meier").withSize("87652533")
+            .withEmail("cornelia@example.com").withLocation("10th street").withTags("friends").build();
+    public static final Pdf ELLE = new PdfBuilder().withName("Elle Meyer").withSize("9482224")
+            .withEmail("werner@example.com").withLocation("michegan ave").build();
+    public static final Pdf FIONA = new PdfBuilder().withName("Fiona Kunz").withSize("9482427")
+            .withEmail("lydia@example.com").withLocation("little tokyo").build();
+    public static final Pdf GEORGE = new PdfBuilder().withName("George Best").withSize("9482442")
+            .withEmail("anna@example.com").withLocation("4th street").build();
 
     // Manually added
-    public static final Pdf HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Pdf IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Pdf HOON = new PdfBuilder().withName("Hoon Meier").withSize("8482424")
+            .withEmail("stefan@example.com").withLocation("little india").build();
+    public static final Pdf IDA = new PdfBuilder().withName("Ida Mueller").withSize("8482131")
+            .withEmail("hans@example.com").withLocation("chicago ave").build();
 
     // Manually added - Pdf's details found in {@code CommandTestUtil}
-    public static final Pdf AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Pdf BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Pdf AMY = new PdfBuilder().withName(VALID_NAME_AMY).withSize(VALID_PHONE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withLocation(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Pdf BOB = new PdfBuilder().withName(VALID_NAME_BOB).withSize(VALID_PHONE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

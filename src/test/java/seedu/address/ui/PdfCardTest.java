@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PdfBuilder;
 
 public class PdfCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Pdf pdfWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Pdf pdfWithNoTags = new PdfBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(pdfWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, pdfWithNoTags, 1);
 
         // with tags
-        Pdf pdfWithTags = new PersonBuilder().build();
+        Pdf pdfWithTags = new PdfBuilder().build();
         personCard = new PersonCard(pdfWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, pdfWithTags, 2);
@@ -30,7 +30,7 @@ public class PdfCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Pdf pdf = new PersonBuilder().build();
+        Pdf pdf = new PdfBuilder().build();
         PersonCard personCard = new PersonCard(pdf, 0);
 
         // same pdf, same index -> returns true
@@ -47,7 +47,7 @@ public class PdfCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(0));
 
         // different pdf, same index -> returns false
-        Pdf differentPdf = new PersonBuilder().withName("differentName").build();
+        Pdf differentPdf = new PdfBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentPdf, 0)));
 
         // same pdf, different index -> returns false

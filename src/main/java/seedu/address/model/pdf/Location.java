@@ -1,12 +1,14 @@
 package seedu.address.model.pdf;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.IOException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Pdf's value in the computer.
@@ -17,29 +19,33 @@ public class Location {
             + "and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * The address of the pdf file must end with .pdf ,
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = ".*\\.pdf";
 
-    public final Path value;
+    private final Path value;
 
     /**
      * Constructs an {@code Address}.
      *
      * @param location A valid address.
      */
-    public Location(String location) throws IOException {
+    public Location(String location) {
         requireNonNull(location);
         checkArgument(isValidLocation(location), MESSAGE_CONSTRAINTS);
-        value = Paths.get(location).toRealPath(LinkOption.NOFOLLOW_LINKS);
+        value = Paths.get(location);
     }
 
     /**
      * Returns if a given string is a valid email.
      */
     public static boolean isValidLocation(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) &&
+                Paths.get(test).toFile().exists();
+    }
+
+    public String getLocation() {
+        return this.value.toString();
     }
 
     @Override

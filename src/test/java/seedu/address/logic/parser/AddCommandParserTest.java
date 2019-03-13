@@ -38,14 +38,14 @@ import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PdfBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Pdf expectedPdf = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Pdf expectedPdf = new PdfBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPdf));
 
         // multiple tags - all accepted
-        Pdf expectedPdfMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Pdf expectedPdfMultipleTags = new PdfBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPdfMultipleTags));
@@ -77,7 +77,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Pdf expectedPdf = new PersonBuilder(AMY).withTags().build();
+        Pdf expectedPdf = new PdfBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPdf));
     }

@@ -18,7 +18,7 @@ public class Name implements Comparable<Name> {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullName;
+    private final String fullName;
 
     /**
      * Constructs a {@code Name}.
@@ -38,6 +38,9 @@ public class Name implements Comparable<Name> {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getFullName() {
+        return this.fullName;
+    }
 
     @Override
     public String toString() {

@@ -24,7 +24,7 @@ import seedu.address.model.PdfBook;
 import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PdfBuilder;
 
 public class AddCommandTest {
 
@@ -44,7 +44,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Pdf validPdf = new PersonBuilder().build();
+        Pdf validPdf = new PdfBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPdf).execute(modelStub, commandHistory);
 
@@ -55,7 +55,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Pdf validPdf = new PersonBuilder().build();
+        Pdf validPdf = new PdfBuilder().build();
         AddCommand addCommand = new AddCommand(validPdf);
         ModelStub modelStub = new ModelStubWithPerson(validPdf);
 
@@ -66,8 +66,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Pdf alice = new PersonBuilder().withName("Alice").build();
-        Pdf bob = new PersonBuilder().withName("Bob").build();
+        Pdf alice = new PdfBuilder().withName("Alice").build();
+        Pdf bob = new PdfBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

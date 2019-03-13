@@ -23,7 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.exceptions.DuplicatePdfException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PdfBuilder;
 
 public class AddressBookTest {
 
@@ -53,7 +53,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two pdfs with the same identity fields
-        Pdf editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Pdf editedAlice = new PdfBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Pdf> newPdfs = Arrays.asList(ALICE, editedAlice);
         PdfBookStub newData = new PdfBookStub(newPdfs);
@@ -82,7 +82,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPdf(ALICE);
-        Pdf editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Pdf editedAlice = new PdfBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPdf(editedAlice));
     }

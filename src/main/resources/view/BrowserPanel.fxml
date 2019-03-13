@@ -9,7 +9,7 @@
   <WebView fx:id="browser"/>
   <padding><Insets top="25" bottom="25"/></padding>
   <children>
-    <Label fx:id="question" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER">
+    <Label fx:id="question" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" wrapText="true" textAlignment="CENTER">
     </Label>
     <Label fx:id="answer" styleClass="label-bright" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
     </Label>

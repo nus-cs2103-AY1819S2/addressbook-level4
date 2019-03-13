@@ -72,13 +72,13 @@ public class BrowserPanel extends UiPart<Region> {
         cardPage.getChildren().clear();
 
         question.setText(card.getQuestion().fullQuestion);
-        answer.setText(card.getAnswer().fullAnswer);
-        score.setText(card.getScore().toString());
+        answer.setText("Ans: " + card.getAnswer().fullAnswer);
+        score.setText("Score: " + card.getScore().toString());
         // Set empty string for hint by default
         hint.setText("");
         if (!card.getHints().isEmpty()) {
             assert card.getHints().size() <= 1;
-            card.getHints().forEach(hintVal -> hint.setText(hintVal.hintName));
+            card.getHints().forEach(hintVal -> hint.setText("Hint: " + hintVal.hintName));
         }
 
         cardPage.getChildren().addAll(question, answer, score, hint);

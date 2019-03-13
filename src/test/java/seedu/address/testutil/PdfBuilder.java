@@ -17,13 +17,13 @@ public class PdfBuilder {
     public static final String DEFAULT_SIZE = "10";
 
     private Name name;
-    private Location location;
+    private Directory directory;
     private Size size;
     private Set<Tag> tags;
 
     public PdfBuilder() {
         name = new Name(DEFAULT_NAME);
-        location = new Location(DEFAULT_LOCATION);
+        directory = new Directory(DEFAULT_LOCATION);
         size = new Size(DEFAULT_SIZE);
         tags = new HashSet<>();
     }
@@ -33,7 +33,7 @@ public class PdfBuilder {
      */
     public PdfBuilder(Pdf pdfToCopy) {
         name = pdfToCopy.getName();
-        location = pdfToCopy.getLocation();
+        directory = pdfToCopy.getDirectory();
         size = pdfToCopy.getSize();
         tags = new HashSet<>(pdfToCopy.getTags());
     }
@@ -55,10 +55,10 @@ public class PdfBuilder {
     }
 
     /**
-     * Sets the {@code Location} of the {@code Pdf} that we are building.
+     * Sets the {@code Directory} of the {@code Pdf} that we are building.
      */
     public PdfBuilder withLocation(String location) {
-        this.location = new Location(location);
+        this.directory = new Directory(location);
         return this;
     }
 
@@ -72,7 +72,7 @@ public class PdfBuilder {
 
 
     public Pdf build() {
-        return new Pdf(name, location, size, tags);
+        return new Pdf(name, directory, size, tags);
     }
 
 }

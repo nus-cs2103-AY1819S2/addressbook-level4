@@ -43,7 +43,7 @@ public class AddCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Pdf pdfInList = model.getPdfBook().getPdfList().get(0);
         assertCommandFailure(new AddCommand(pdfInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+                AddCommand.MESSAGE_DUPLICATE_PDF);
     }
 
 }

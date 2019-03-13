@@ -135,7 +135,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPdfList().size());
 
         Pdf pdf = model.getFilteredPdfList().get(targetIndex.getZeroBased());
-        final String[] splitName = pdf.getName().fullName.split("\\s+");
+        final String[] splitName = pdf.getName().getFullName().split("\\s+");
         model.updateFilteredPdfList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPdfList().size());

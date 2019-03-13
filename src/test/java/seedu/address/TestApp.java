@@ -14,7 +14,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonPdfBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
@@ -42,9 +42,9 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+            JsonPdfBookStorage jsonPdfBookStorage = new JsonPdfBookStorage(saveFileLocation);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonPdfBookStorage.savePdfBook(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -73,7 +73,7 @@ public class TestApp extends MainApp {
      */
     public PdfBook readStorageAddressBook() {
         try {
-            return new PdfBook(storage.readAddressBook().get());
+            return new PdfBook(storage.readPdfBook().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the PdfBook format.", dce);
         } catch (IOException ioe) {
@@ -85,7 +85,7 @@ public class TestApp extends MainApp {
      * Returns the file value of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getPdfBookFilePath();
     }
 
     /**

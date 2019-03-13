@@ -20,7 +20,6 @@ public class Size {
         value = size;
     }
 
-
     /**
      * Returns true if a given string is a non-negative number.
      */

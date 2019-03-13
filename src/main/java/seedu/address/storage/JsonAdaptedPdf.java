@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +16,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Pdf}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedPdf {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Pdf's %s field is missing!";
 
@@ -26,50 +25,27 @@ class JsonAdaptedPerson {
     private final String location;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
-    private final String phone;
-    private final String email;
-    private final String address;
-
-
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
+     * Constructs a {@code JsonAdaptedPdf} with the given pdf details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("location") String location,
+                          @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
-    }
-
-    /**
-     * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
-     */
-    @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("location") String location,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        File newFile = new File(location);
-        this.name = newFile.getName();
-        this.size = Long.toString(newFile.getTotalSpace());
         this.location = location;
+        this.size = size;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-
     }
 
     /**
      * Converts a given {@code Pdf} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Pdf source) {
-        name = source.getName().fullName;
-        size = source.getSize().value;
-        location = source.getLocation().value.toString();
+    public JsonAdaptedPdf(Pdf source) {
+        name = source.getName().getFullName();
+        size = source.getSize().getValue();
+        location = source.getDirectory().getLocation();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -104,15 +80,15 @@ class JsonAdaptedPerson {
         Size modelSize = new Size(size);
 
         if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Directory.class.getSimpleName()));
         }
-        if (!Location.isValidLocation(location)) {
+        if (!Directory.isValidDirectory(location)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Location modelLocation = new Location(location);
+        final Directory modelDirectory = new Directory(location);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Pdf(modelName, modelLocation, modelSize, modelTags);
+        return new Pdf(modelName, modelDirectory, modelSize, modelTags);
     }
 
 }

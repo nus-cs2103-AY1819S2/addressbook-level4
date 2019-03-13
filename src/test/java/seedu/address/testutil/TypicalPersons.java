@@ -11,6 +11,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,11 +25,20 @@ import seedu.address.model.pdf.Pdf;
  */
 public class TypicalPersons {
 
-    public static final Pdf A_PDF = new PdfBuilder().withName("a.pdf")
-            .withLocation("Somewhere in the computer")
-            .withSize("some size");
+    public static final Path a_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "a.pdf");
+    public static final Path b_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "b.pdf");
+    public static final Path c_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "c.pdf");
+    public static final Pdf A_PDF = new PdfBuilder().withName(a_path.toFile().getName())
+            .withLocation(a_path.toString())
+            .withSize(Long.toString(a_path.toFile().getTotalSpace())).build();
+    public static final Pdf B_PDF = new PdfBuilder().withName(b_path.toFile().getName())
+            .withLocation(b_path.toString())
+            .withSize(Long.toString(b_path.toFile().getTotalSpace())).build();
+    public static final Pdf C_PDF = new PdfBuilder().withName(c_path.toFile().getName())
+            .withLocation(c_path.toString())
+            .withSize(Long.toString(c_path.toFile().getTotalSpace())).build();
 
-    public static final Pdf ALICE = new PdfBuilder().withName("Alice Pauline")
+    /*public static final Pdf ALICE = new PdfBuilder().withName("Alice Pauline")
             .withLocation("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withSize("94351253")
             .withTags("friends").build();
@@ -59,7 +70,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER*/
 
     private TypicalPersons() {} // prevents instantiation
 
@@ -75,6 +86,6 @@ public class TypicalPersons {
     }
 
     public static List<Pdf> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(A_PDF, B_PDF, C_PDF));
     }
 }

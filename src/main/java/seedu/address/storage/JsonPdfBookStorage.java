@@ -17,36 +17,36 @@ import seedu.address.model.ReadOnlyPdfBook;
 /**
  * A class to access PdfBook data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonPdfBookStorage implements PdfBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonPdfBookStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonPdfBookStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getPdfBookFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyPdfBook> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyPdfBook> readPdfBook() throws DataConversionException {
+        return readPdfBook(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readPdfBook()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyPdfBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyPdfBook> readPdfBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializablePdfBook> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializablePdfBook.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -60,21 +60,21 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyPdfBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void savePdfBook(ReadOnlyPdfBook addressBook) throws IOException {
+        savePdfBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyPdfBook)}.
+     * Similar to {@link #savePdfBook(ReadOnlyPdfBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyPdfBook addressBook, Path filePath) throws IOException {
+    public void savePdfBook(ReadOnlyPdfBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializablePdfBook(addressBook), filePath);
     }
 
 }

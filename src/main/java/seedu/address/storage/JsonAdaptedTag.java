@@ -61,7 +61,7 @@ class JsonAdaptedTag {
         } else if (type.equals(STATUS)) {
             return new StatusTag(tagName);
         } else {
-            throw new RuntimeException("This should not happen");
+            throw new TagsIsNotSpecificException();
         }
     }
 

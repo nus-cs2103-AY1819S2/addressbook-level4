@@ -3,17 +3,6 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
-import static seedu.address.testutil.TypicalRestOrRant.CHICKEN_WINGS;
-import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W12;
 
 import java.io.IOException;
 import java.nio.file.Path;

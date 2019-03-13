@@ -8,8 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.junit.validator.ValidateWith;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -18,6 +17,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
 
+import seedu.address.model.menu.Code;
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.Orders;
+import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.table.Table;
+import seedu.address.model.table.TableNumber;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -83,17 +90,18 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
-    static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    }
+    // TODO: Can remove if all future commands and tests do not use it.
+    //    public static final EditCommand.EditPersonDescriptor DESC_AMY;
+    //    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    //
+    //    static {
+    //        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+    //                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+    //                .withTags(VALID_TAG_FRIEND).build();
+    //        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+    //                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+    //                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    //    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -128,16 +136,25 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged <br>
-     * - {@code actualCommandHistory} remains unchanged.
+     * - the RestOrRant, filtered order item list, filtered menu item list, filtered bill list, filtered table list <br>
+     * - and selected order item, selected menu item, selected bill, selected table <br>
+     * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
+        //        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonsList());
+        //        Person expectedSelectedPerson = actualModel.getSelectedPerson();
         RestOrRant expectedRestOrRant = new RestOrRant(actualModel.getRestOrRant());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        Person expectedSelectedPerson = actualModel.getSelectedPerson();
+        List<OrderItem> expectedFilteredOrderItemList = new ArrayList<>(actualModel.getFilteredOrderItemList());
+        List<MenuItem> expectedFilteredMenuItemList = new ArrayList<>(actualModel.getFilteredMenuItemList());
+        List<Bill> expectedFilteredBillList = new ArrayList<>(actualModel.getFilteredBillList());
+        List<Table> expectedFilteredTableList = new ArrayList<>(actualModel.getFilteredTableList());
+        OrderItem expectedSelectedOrderItem = actualModel.getSelectedOrderItem();
+        MenuItem expectedSelectedMenuItem = actualModel.getSelectedMenuItem();
+        Table expectedSelectedTable = actualModel.getSelectedTable();
+        Bill expectedSelectedBill = actualModel.getSelectedBill();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -147,33 +164,133 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedRestOrRant, actualModel.getRestOrRant());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
+            //            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            //            assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
+            assertEquals(expectedFilteredOrderItemList, actualModel.getFilteredOrderItemList());
+            assertEquals(expectedFilteredMenuItemList, actualModel.getFilteredMenuItemList());
+            assertEquals(expectedFilteredTableList, actualModel.getFilteredTableList());
+            assertEquals(expectedFilteredBillList, actualModel.getFilteredBillList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
+            assertEquals(expectedSelectedOrderItem, actualModel.getSelectedOrderItem());
+            assertEquals(expectedSelectedMenuItem, actualModel.getSelectedMenuItem());
+            assertEquals(expectedSelectedTable, actualModel.getSelectedTable());
+            assertEquals(expectedSelectedBill, actualModel.getSelectedBill());
         }
     }
 
+    //    /**
+    //     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+    //     * {@code model}'s address book.
+    //     */
+    //    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    //        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    //
+    //        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+    //        final String[] splitName = person.getName().fullName.split("\\s+");
+    //        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+    //
+    //        assertEquals(1, model.getFilteredPersonList().size());
+    //    }
+
+    // TODO: Figure out what the methods below do and FURTHER morph it to fit RestOrRant.
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the order item at the given {@code targetIndex} in the
+     * {@code model}'s restaurant.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showOrderItemAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderItemList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        OrderItem orderItem = model.getFilteredOrderItemList().get(targetIndex.getZeroBased());
+        final TableNumber tableNumber = orderItem.getTableNumber();
+        model.updateFilteredOrderItemList(item -> tableNumber.equals(item.getTableNumber()));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredOrderItemList().size());
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the menu item at the given {@code targetIndex} in the
+     * {@code model}'s restaurant.
      */
-    public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
+    public static void showMenuItemAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMenuItemList().size());
+
+        MenuItem menuItem = model.getFilteredMenuItemList().get(targetIndex.getZeroBased());
+        final Code code = menuItem.getCode();
+        model.updateFilteredMenuItemList(item -> code.equals(item.getCode()));
+
+        assertEquals(1, model.getFilteredMenuItemList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the table at the given {@code targetIndex} in the
+     * {@code model}'s restaurant.
+     */
+    public static void showTableAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTableList().size());
+
+        Table table = model.getFilteredTableList().get(targetIndex.getZeroBased());
+        final TableNumber tableNumber = table.getTableNumber();
+        model.updateFilteredTableList(item -> tableNumber.equals(table.getTableNumber()));
+        
+        assertEquals(1, model.getFilteredTableList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the bill at the given {@code targetIndex} in the
+     * {@code model}'s restaurant.
+     */
+    public static void showBillAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBillList().size());
+
+        Bill bill = model.getFilteredBillList().get(targetIndex.getZeroBased());
+        final TableNumber tableNumber = bill.getTableNumber();
+        model.updateFilteredBillList(item -> tableNumber.equals(item.getTableNumber()));
+
+        assertEquals(1, model.getFilteredBillList().size());
+    }
+
+    //    /**
+    //     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+    //     */
+    //    public static void deleteFirstPerson(Model model) {
+    //        Person firstPerson = model.getFilteredPersonList().get(0);
+    //        model.deletePerson(firstPerson);
+    //        model.updateMode();
+    //    }
+
+    /**
+     * Deletes the first order item in {@code model}'s filtered list from {@code model}'s restaurant.
+     */
+    public static void deleteFirstOrderItem(Model model) {
+        OrderItem firstOrderItem = model.getFilteredOrderItemList().get(0);
+        model.deleteOrderItem(firstOrderItem);
         model.updateMode();
     }
 
+    /**
+     * Deletes the first menu item in {@code model}'s filtered list from {@code model}'s restaurant.
+     */
+    public static void deleteFirstMenuItem(Model model) {
+        MenuItem firstMenuItem = model.getFilteredMenuItemList().get(0);
+        model.deleteMenuItem(firstMenuItem);
+        model.updateMode();
+    }
+
+    /**
+     * Deletes the first table in {@code model}'s filtered list from {@code model}'s restaurant.
+     */
+    public static void deleteFirstTable(Model model) {
+        Table firstTable = model.getFilteredTableList().get(0);
+        model.deleteTable(firstTable);
+        model.updateMode();
+    }
+
+    /**
+     * Deletes the first bill in {@code model}'s filtered list from {@code model}'s restaurant.
+     */
+    public static void deleteFirstBill(Model model) {
+        Bill firstBill = model.getFilteredBillList().get(0);
+        model.deleteBill(firstBill);
+        model.updateMode();
+    }
 }

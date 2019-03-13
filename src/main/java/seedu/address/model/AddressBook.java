@@ -117,13 +117,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         invalidationListenerManager.callListeners(this);
     }
 
-    /** TODO
-     * Returns an unmodifiable view of the patients list.
-     * This list will not contain any duplicate patients.
-     public ObservableList<Patient> getPatientList() {
-     }
-     */
-
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";

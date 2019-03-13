@@ -127,6 +127,7 @@ public class MainWindow extends UiPart<Stage> {
         mapPanel = new MapPanel(logic.selectedPersonProperty());
         mapPanelPlaceholder.getChildren().add(mapPanel.getRoot());
 
+        //TODO: Change personListPanel to patientListPanel
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         patientListPlaceholder.getChildren().add(personListPanel.getRoot());

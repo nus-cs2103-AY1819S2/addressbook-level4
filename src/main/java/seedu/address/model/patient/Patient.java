@@ -43,15 +43,6 @@ public class Patient extends Person {
         inferTeethBuild();
     }
 
-    private Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                   Person personToCopy, int copyCount, Nric nric, DateOfBirth dateOfBirth) {
-        super(name, phone, email, address, tags, personToCopy, copyCount);
-        requireAllNonNull(nric, dateOfBirth);
-        this.nric = nric;
-        this.dateOfBirth = dateOfBirth;
-        inferTeethBuild();
-    }
-
     /**
      * Adds a new medical record to a patient.
      * @param record the medical record to be added.

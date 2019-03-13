@@ -23,6 +23,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
+import seedu.address.storage.csv_manager.CardFolderExport;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -160,22 +161,29 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<ReadOnlyCardFolder> returnValidCardFolders(List<String> cardFolders) {
+    public List<ReadOnlyCardFolder> returnValidCardFolders(List<CardFolderExport> cardFolders) {
         List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
-        for (String cardFolderName : cardFolders) {
-            boolean isCardFolderPresent = false;
-            for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
-                if (readOnlyCardFolder.getFolderName().equals(cardFolderName)) {
-                    isCardFolderPresent = true;
-                    returnCardFolder.add(readOnlyCardFolder);
-                }
-            }
-            if (!isCardFolderPresent) {
-                throw new CardFolderNotFoundException(cardFolderName);
-            }
+        for (CardFolderExport cardFolderExport : cardFolders) {
+           addCardFolder(cardFolderExport, returnCardFolder);
         }
         return returnCardFolder;
     }
+
+    /**
+     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
+     * Throws card Folder not found exception if card folder cannot be found.
+     */
+    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
+        String exportFolderName = cardFolderExport.folderName;
+        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
+            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
+                returnCardFolders.add(readOnlyCardFolder);
+                return;
+            }
+        }
+        throw new CardFolderNotFoundException(cardFolderExport.folderName);
+    }
+
 
     @Override
     public boolean hasCard(Card card) {

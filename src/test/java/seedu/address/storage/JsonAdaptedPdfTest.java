@@ -31,7 +31,7 @@ public class JsonAdaptedPdfTest {
         JsonAdaptedPdf pdf =
                 new JsonAdaptedPdf(A_PDF.getName().getFullName(), INVALID_LOCATION, A_PDF.getSize().getValue(),
                         VALID_TAGS);
-        String expectedMessage = Location.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Directory.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, pdf::toModelType);
     }
 

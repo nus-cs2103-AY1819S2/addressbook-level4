@@ -59,7 +59,7 @@ class JsonAdaptedCustomer {
     public JsonAdaptedCustomer(Customer source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        dob = source.getDob().value;
+        dob = source.getDateOfBirth().value;
         email = source.getEmail().value;
         idnum = source.getIdNum().value;
         address = source.getAddress().value;

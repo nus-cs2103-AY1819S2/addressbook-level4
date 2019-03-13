@@ -70,7 +70,7 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditCustomerDescriptorBuilder().withName(VALID_NAME_AMY)
-            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withIdNum(VALID_ID_AMY)
+            .withPhone(VALID_PHONE_AMY).withDateOfBirth.withEmail(VALID_EMAIL_AMY).withIdNum(VALID_ID_AMY)
             .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditCustomerDescriptorBuilder().withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB)

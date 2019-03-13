@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.AddBookCommand;
+import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.model.book.Book;
 
 /**
@@ -31,6 +32,19 @@ public class BookUtil {
         book.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+        return sb.toString();
+    }
+
+    /**
+     * Returns the part of command string for the listBookCommand for one book.
+     */
+    public static String getListBookCommand(Book book) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(ListBookCommand.COMMAND_WORD + " ");
+        sb.append(PREFIX_NAME + book.getBookName().fullName + " ");
+        book.getTags().stream().forEach(
+            s -> sb.append(PREFIX_TAG + s.tagName + " "));
+        sb.append(PREFIX_RATING + book.getRating().value + " ");
         return sb.toString();
     }
 

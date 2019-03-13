@@ -23,6 +23,7 @@ public class BookRatingMatchesScorePredicate implements Predicate<Book> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookRatingMatchesScorePredicate // instanceof handles nulls
-                && keyWords.equals(((BookRatingMatchesScorePredicate) other).keyWords)); // state check
+                && keyWords.containsAll(((BookRatingMatchesScorePredicate) other).keyWords)
+                && ((BookRatingMatchesScorePredicate) other).keyWords.containsAll(keyWords)); // state check
     }
 }

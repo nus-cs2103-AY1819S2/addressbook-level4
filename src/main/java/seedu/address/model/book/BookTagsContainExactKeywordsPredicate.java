@@ -35,6 +35,7 @@ public class BookTagsContainExactKeywordsPredicate implements Predicate<Book> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookTagsContainExactKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((BookTagsContainExactKeywordsPredicate) other).keywords)); // state check
+                && keywords.containsAll(((BookTagsContainExactKeywordsPredicate) other).keywords)
+                && ((BookTagsContainExactKeywordsPredicate) other).keywords.containsAll(keywords)); // state check
     }
 }

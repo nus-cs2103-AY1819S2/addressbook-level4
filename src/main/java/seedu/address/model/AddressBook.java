@@ -117,7 +117,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         invalidationListenerManager.callListeners(this);
     }
 
-    //// util methods
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";

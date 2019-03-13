@@ -10,9 +10,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Welcome to Health Hub" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -49,11 +49,11 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="300" prefWidth="300" maxWidth="300" SplitPane.resizableWithParent="false">
+          <VBox fx:id="patientList" minWidth="300" prefWidth="300" maxWidth="300" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="patientListPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <VBox>

@@ -86,6 +86,11 @@ public interface Model extends Observable {
     // TODO: Implement hasFolder and setFolder
 
     /**
+     * Returns true if a card folder with the same identity as {@code cardFolder} exists.
+     */
+    boolean hasFolder(CardFolder cardFolder);
+
+    /**
      * Deletes the folder at the given index.
      * The folder must exist.
      */

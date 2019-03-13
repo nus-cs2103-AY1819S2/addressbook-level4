@@ -32,7 +32,9 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final FilteredList<VersionedCardFolder> filteredFoldersList;
+    private ObservableList<VersionedCardFolder> foldersList;
     private int activeCardFolderIndex;
+    private boolean inFolder;
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
@@ -54,7 +56,8 @@ public class ModelManager implements Model {
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             versionedCardFolders.add(new VersionedCardFolder(cardFolder));
         }
-        filteredFoldersList = new FilteredList<>(FXCollections.observableArrayList(versionedCardFolders));
+        foldersList = FXCollections.observableArrayList(versionedCardFolders);
+        filteredFoldersList = new FilteredList<>(foldersList);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
@@ -84,7 +87,7 @@ public class ModelManager implements Model {
     }
 
     private VersionedCardFolder getActiveVersionedCardFolder() {
-        return filteredFoldersList.get(activeCardFolderIndex);
+        return foldersList.get(activeCardFolderIndex);
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
@@ -179,6 +182,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasFolder(CardFolder cardFolder) {
+        requireNonNull(cardFolder);
+
+        for (VersionedCardFolder versionedCardFolder : filteredFoldersList) {
+            if (versionedCardFolder.hasSameFolderName(cardFolder)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     public void deleteFolder(int index) {
         filteredFoldersList.remove(index);
         indicateModified();
@@ -186,12 +202,16 @@ public class ModelManager implements Model {
 
     @Override
     public void addFolder(CardFolder cardFolder) {
-        filteredFoldersList.add(new VersionedCardFolder(cardFolder));
+        foldersList.add(new VersionedCardFolder(cardFolder));
         indicateModified();
     }
 
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
+    }
+
+    public void setActiveCardFolderIndex(int newIndex) {
+        activeCardFolderIndex = newIndex;
     }
 
     @Override

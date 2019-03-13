@@ -169,7 +169,7 @@ public class ParserUtil {
                 throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
             }
         } catch (java.text.ParseException e) {
-                throw new ParseException((DateCustom.MESSAGE_CONSTRAINTS));
+            throw new ParseException((DateCustom.MESSAGE_CONSTRAINTS));
         }
         return new DateCustom(trimmedDate);
     }

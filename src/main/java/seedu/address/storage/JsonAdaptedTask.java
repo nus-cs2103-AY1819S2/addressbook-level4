@@ -1,17 +1,11 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.Task;
 import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
 
@@ -62,7 +56,8 @@ class JsonAdaptedTask {
         final Title modelTitle = new Title(title);
 
         if (startdate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateCustom.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateCustom.class.getSimpleName()
+            ));
         }
         if (!DateCustom.isValidDate(startdate)) {
             throw new IllegalValueException(DateCustom.MESSAGE_CONSTRAINTS);
@@ -70,7 +65,8 @@ class JsonAdaptedTask {
         final DateCustom modelStartdate = new DateCustom(startdate);
 
         if (enddate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateCustom.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateCustom.class.getSimpleName()
+            ));
         }
         if (!DateCustom.isValidDate(enddate)) {
             throw new IllegalValueException(DateCustom.MESSAGE_CONSTRAINTS);

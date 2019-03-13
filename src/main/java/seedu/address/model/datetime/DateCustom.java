@@ -1,11 +1,15 @@
 package seedu.address.model.datetime;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+
+
+
 
 
 /**
@@ -21,9 +25,7 @@ public class DateCustom {
                                                 + "((0[1-9]|[1-2][0-9]|30)-(04|06|09|11))|((0[1-9]|[1-2]["
                                                 + "0-9])-(02)))-(\\d{4})$";
 
-    public static String dateformat = "dd-MM-yyyy";
-
-    public final String storedDate;
+    private final String storedDate;
 
     /**
      * Constructs a {@code DateCustom}
@@ -36,26 +38,41 @@ public class DateCustom {
         storedDate = date;
     }
 
+
     public static String getFormat() {
-        return dateformat;
+        return "dd-MM-yyyy";
     }
 
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public static boolean isDateBeforeToday(String givenFormat, String test) throws ParseException {
-        String currentDateString = new SimpleDateFormat(givenFormat).format(new Date());
-        return dateCompare(givenFormat, test, currentDateString);
+    /**
+     *  Returns false if the given date is before the current date
+     * @param format the format of the date in string
+     * @param test the date to be tested
+     * @throws ParseException
+     */
+    public static boolean isDateBeforeToday(String format, String test) throws ParseException {
+        String currentDateString = new SimpleDateFormat(format).format(new Date());
+        return dateCompare(format, test, currentDateString);
     }
 
-    public static boolean isEndDateBeforeStartDate(String givenFormat, String date1, String date2) throws ParseException{
-        return dateCompare(givenFormat, date2, date1);
+    public static boolean isEndDateBeforeStartDate(String format, String date1, String date2) throws ParseException {
+        return dateCompare(format, date2, date1);
     }
 
-    public static boolean dateCompare(String givenFormat, String date1, String date2) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat(givenFormat);
-        Date firstDate =  sdf.parse(date1);
+    /**
+     *  Returns true if the first date given is before the second date given
+     * @param format the format of the date in string
+     * @param date1 the
+     * @param date2
+     * @return
+     * @throws ParseException
+     */
+    public static boolean dateCompare(String format, String date1, String date2) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date firstDate = sdf.parse(date1);
         Date secondDate = sdf.parse(date2);
         return firstDate.before(secondDate);
     }

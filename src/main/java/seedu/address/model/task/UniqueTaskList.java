@@ -88,13 +88,13 @@ public class UniqueTaskList implements Iterable<Task> {
      * Replaces the contents of this list with {@code Tasks}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Task> Tasks) {
-        requireAllNonNull(Tasks);
-        if (!TasksAreUnique(Tasks)) {
+    public void setTasks(List<Task> tasks) {
+        requireAllNonNull(tasks);
+        if (!tasksAreUnique(tasks)) {
             throw new DuplicateTaskException();
         }
 
-        internalList.setAll(Tasks);
+        internalList.setAll(tasks);
     }
 
     /**
@@ -124,7 +124,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Returns true if {@code Tasks} contains only unique Tasks.
      */
-    private boolean TasksAreUnique(List<Task> tasks) {
+    private boolean tasksAreUnique(List<Task> tasks) {
         for (int i = 0; i < tasks.size() - 1; i++) {
             for (int j = i + 1; j < tasks.size(); j++) {
                 if (tasks.get(i).isSameTask(tasks.get(j))) {

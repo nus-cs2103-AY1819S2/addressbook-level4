@@ -24,7 +24,7 @@ public class Task {
      * Every field must be present and not null.
      */
     public Task(Title title, DateCustom startDate, DateCustom endDate) {
-        requireAllNonNull(title,startDate,endDate);
+        requireAllNonNull(title, startDate, endDate);
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -80,7 +80,7 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title,startDate,endDate);
+        return Objects.hash(title, startDate, endDate);
     }
 
     @Override

@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 import seedu.finance.commons.core.Config;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.exceptions.DataConversionException;
-import seedu.finance.model.AddressBook;
+import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ModelManager;
-import seedu.finance.model.ReadOnlyAddressBook;
+import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.UserPrefs;
-import seedu.finance.storage.JsonAddressBookStorage;
+import seedu.finance.storage.JsonFinanceTrackerStorage;
 import seedu.finance.storage.UserPrefsStorage;
 import seedu.finance.testutil.TestUtil;
 import systemtests.ModelHelper;
@@ -29,22 +29,22 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyFinanceTracker> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyFinanceTracker> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+            JsonFinanceTrackerStorage jsonFinanceTrackerStorage = new JsonFinanceTrackerStorage(saveFileLocation);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonFinanceTrackerStorage.saveFinanceTracker(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -64,18 +64,18 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setFinanceTrackerFilePath(saveFileLocation);
         return userPrefs;
     }
 
     /**
-     * Returns a defensive copy of the finance book data stored inside the storage file.
+     * Returns a defensive copy of the finance tracker data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public FinanceTracker readStorageFinanceTracker() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new FinanceTracker(storage.readFinanceTracker().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the FinanceTracker format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -85,14 +85,14 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getFinanceTrackerFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getFinanceTracker()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredRecordList());
         return copy;
     }

@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -108,6 +110,22 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String filePath} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static File parseFile(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String trimmedFilePath = filePath.trim();
+        File file = new File(filePath);
+        if (!file.exists()) {
+            throw new ParseException("File does not exist.", new FileNotFoundException());
+        }
+        return file;
     }
 
     /**

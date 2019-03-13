@@ -135,7 +135,7 @@ Example:
 
 === Retrieving information about the file : `info`
 
-Retrieve information about the pdf file, e.g. file location, deadline, etc. +
+Retrieve information about the pdf file, e.g. file directory, deadline, etc. +
 Format: `info FILENAME`
 
 Example:

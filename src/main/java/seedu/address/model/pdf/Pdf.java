@@ -19,17 +19,17 @@ public class Pdf {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final Location location;
+    private final Directory directory;
     private final Size size;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Pdf(Name name, Location location, Size size, Set<Tag> tags) {
-        requireAllNonNull(name, location, size, tags);
+    public Pdf(Name name, Directory directory, Size size, Set<Tag> tags) {
+        requireAllNonNull(name, directory, size, tags);
         this.name = name;
-        this.location = location;
+        this.directory = directory;
         this.size = size;
         this.tags.addAll(tags);
 
@@ -52,7 +52,7 @@ public class Pdf {
         this.tags.addAll(tags);
 
         //dummy
-        this.location = null;
+        this.directory = null;
         this.size = null;
     }
 
@@ -60,8 +60,8 @@ public class Pdf {
         return name;
     }
 
-    public Location getLocation() {
-        return location;
+    public Directory getDirectory() {
+        return directory;
     }
 
     public Size getSize() {
@@ -118,7 +118,7 @@ public class Pdf {
 
         Pdf otherPdf = (Pdf) other;
         return otherPdf.getName().equals(getName())
-                && otherPdf.getLocation().equals(getLocation())
+                && otherPdf.getDirectory().equals(getDirectory())
                 && otherPdf.getSize().equals(getSize())
                 //&& otherPdf.getPhone().equals(getPhone())
                 //&& otherPdf.getEmail().equals(getEmail())
@@ -129,15 +129,15 @@ public class Pdf {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, size, tags);
+        return Objects.hash(name, directory, size, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Location: ")
-                .append(getLocation())
+                .append(" Directory: ")
+                .append(getDirectory())
                 .append(" Size: ")
                 .append(getSize())
                 .append(" Tags: ");

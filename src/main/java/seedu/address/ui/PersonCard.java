@@ -43,7 +43,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.pdf = pdf;
         id.setText(displayedIndex + ". ");
-        name.setText(pdf.getName().fullName);
+        name.setText(pdf.getName().getFullName());
         phone.setText(pdf.getPhone().value);
         address.setText(pdf.getAddress().value);
         email.setText(pdf.getEmail().value);

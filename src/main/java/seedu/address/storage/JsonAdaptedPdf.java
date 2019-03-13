@@ -45,7 +45,7 @@ class JsonAdaptedPdf {
     public JsonAdaptedPdf(Pdf source) {
         name = source.getName().getFullName();
         size = source.getSize().getValue();
-        location = source.getLocation().getLocation();
+        location = source.getDirectory().getLocation();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -80,15 +80,15 @@ class JsonAdaptedPdf {
         Size modelSize = new Size(size);
 
         if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Directory.class.getSimpleName()));
         }
-        if (!Location.isValidLocation(location)) {
+        if (!Directory.isValidDirectory(location)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Location modelLocation = new Location(location);
+        final Directory modelDirectory = new Directory(location);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Pdf(modelName, modelLocation, modelSize, modelTags);
+        return new Pdf(modelName, modelDirectory, modelSize, modelTags);
     }
 
 }

@@ -43,9 +43,9 @@ class JsonAdaptedPerson {
      * Converts a given {@code Pdf} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Pdf source) {
-        name = source.getName().fullName;
-        size = source.getSize().value;
-        location = source.getLocation().value.toString();
+        name = source.getName().getFullName();
+        size = source.getSize().getValue();
+        location = source.getLocation().getLocation();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

@@ -25,7 +25,7 @@ import seedu.address.model.pdf.Pdf;
  */
 public class TypicalPersons {
 
-    public static final Path a_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "a.pdf").toFile().isd;
+    public static final Path a_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "a.pdf");
     public static final Path b_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "b.pdf");
     public static final Path c_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "c.pdf");
     public static final Pdf A_PDF = new PdfBuilder().withName(a_path.toFile().getName())
@@ -38,7 +38,7 @@ public class TypicalPersons {
             .withLocation(c_path.toString())
             .withSize(Long.toString(c_path.toFile().getTotalSpace())).build();
 
-    public static final Pdf ALICE = new PdfBuilder().withName("Alice Pauline")
+    /*public static final Pdf ALICE = new PdfBuilder().withName("Alice Pauline")
             .withLocation("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withSize("94351253")
             .withTags("friends").build();
@@ -70,7 +70,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER*/
 
     private TypicalPersons() {} // prevents instantiation
 

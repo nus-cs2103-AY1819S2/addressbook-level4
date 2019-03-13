@@ -28,7 +28,9 @@ import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.HealthWorkerBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.RequestBookStorage;
@@ -64,9 +66,10 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        RequestBookStorage requestBookStorage =
-            new JsonRequestBookStorage(userPrefs.getRequestBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, requestBookStorage);
+        RequestBookStorage requestBookStorage = new JsonRequestBookStorage(userPrefs.getRequestBookFilePath());
+        HealthWorkerBookStorage healthWorkerBookStorage =
+                new JsonHealthWorkerBookStorage(userPrefs.getHealthWorkerBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, requestBookStorage, healthWorkerBookStorage);
 
         initLogging(config);
 
@@ -84,6 +87,7 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
         ReadOnlyRequestBook initialRequestBook;
@@ -101,7 +105,12 @@ public class MainApp extends Application {
             }
             initialRequestBook = new RequestBook();
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            // TODO: Implement storage reading for HealthWorkerBook
+            healthWorkerBookOptional = storage.readHealthWorkerBook();
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample HealthWorkerBook");
+            }
+            //initialHealthWorkerBook = healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            //will uncomment when the Sample DataUtil is done
             initialHealthWorkerBook = new HealthWorkerBook();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");

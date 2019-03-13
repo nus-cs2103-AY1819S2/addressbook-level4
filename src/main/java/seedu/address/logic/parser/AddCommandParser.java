@@ -48,7 +48,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            return parseAddHealthWorker(args);
+            return parseAddHealthWorker(ArgumentTokenizer.trimMode(args));
         } else if (commandMode == CommandMode.REQUEST) {
             return parseAddRequest(args);
         }

@@ -11,12 +11,12 @@ import seedu.address.model.ReadOnlyPdfBook;
 /**
  * Represents a storage for {@link PdfBook}.
  */
-public interface AddressBookStorage {
+public interface PdfBookStorage {
 
     /**
      * Returns the file value of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getPdfBookFilePath();
 
     /**
      * Returns PdfBook data as a {@link ReadOnlyPdfBook}.
@@ -24,23 +24,23 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyPdfBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyPdfBook> readPdfBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getPdfBookFilePath()
      */
-    Optional<ReadOnlyPdfBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyPdfBook> readPdfBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyPdfBook} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyPdfBook addressBook) throws IOException;
+    void savePdfBook(ReadOnlyPdfBook addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyPdfBook)
+     * @see #savePdfBook(ReadOnlyPdfBook)
      */
-    void saveAddressBook(ReadOnlyPdfBook addressBook, Path filePath) throws IOException;
+    void savePdfBook(ReadOnlyPdfBook addressBook, Path filePath) throws IOException;
 
 }

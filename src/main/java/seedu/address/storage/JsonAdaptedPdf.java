@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Pdf}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedPdf {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Pdf's %s field is missing!";
 
@@ -26,11 +26,11 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
+     * Constructs a {@code JsonAdaptedPdf} with the given pdf details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("location") String location,
-            @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("location") String location,
+                          @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.location = location;
         this.size = size;
@@ -42,7 +42,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Pdf} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Pdf source) {
+    public JsonAdaptedPdf(Pdf source) {
         name = source.getName().getFullName();
         size = source.getSize().getValue();
         location = source.getLocation().getLocation();

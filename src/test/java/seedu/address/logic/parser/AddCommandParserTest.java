@@ -49,11 +49,9 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, QUESTION_DESC_BOB + ANSWER_DESC_AMY + ANSWER_DESC_BOB
                 + HINT_DESC_FRIEND, new AddCommand(expectedCard));
 
-        // multiple hints - all accepted
-        Card expectedCardMultipleTags = new CardBuilder(BOB).withHint(VALID_HINT_FRIEND, VALID_HINT_HUSBAND)
-                .build();
+        // multiple hints - last hint accepted
         assertParseSuccess(parser, QUESTION_DESC_BOB + ANSWER_DESC_BOB + HINT_DESC_HUSBAND
-                + HINT_DESC_FRIEND, new AddCommand(expectedCardMultipleTags));
+                + HINT_DESC_FRIEND, new AddCommand(expectedCard));
     }
 
     @Test

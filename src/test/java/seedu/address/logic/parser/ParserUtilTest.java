@@ -148,7 +148,7 @@ public class ParserUtilTest {
     @Test
     public void parseHints_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Hint> actualHintSet = ParserUtil.parseHints(Arrays.asList(VALID_HINT_1, VALID_HINT_2));
-        Set<Hint> expectedHintSet = new HashSet<Hint>(Arrays.asList(new Hint(VALID_HINT_1), new Hint(VALID_HINT_2)));
+        Set<Hint> expectedHintSet = new HashSet<Hint>(Arrays.asList(new Hint(VALID_HINT_2)));
 
         assertEquals(expectedHintSet, actualHintSet);
     }

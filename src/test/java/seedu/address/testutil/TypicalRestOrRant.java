@@ -34,6 +34,12 @@ public class TypicalRestOrRant {
                                                              .withPrice("5.50").build();
     public static final MenuItem CREPES = new MenuItemBuilder().withName("Crepes").withCode("F11")
                                                              .withPrice("7.50").build();
+    
+    // manually added
+    public static final MenuItem HONEY_MILK_TEA = new MenuItemBuilder().withName("Honey Milk Tea").withCode("D01")
+                                                          .withPrice("4.50").build();
+    public static final MenuItem AGLIO_OLIO = new MenuItemBuilder().withName("Aglio Olio").withCode("W14")
+                                                      .withPrice("7.56").build();
 
     // Order Items TODO: add item name
     public static final OrderItem TABLE1_W09 = new OrderItemBuilder().withTableNumber("1").withCode("W09")

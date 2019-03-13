@@ -14,20 +14,20 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "TaskListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
     private ListView<Task> taskListView;
 
-    public TaskListPanel(ObservableList<Task> personList, ObservableValue<Task> selectedPerson,
-                           Consumer<Task> onSelectedPersonChange) {
+    public TaskListPanel(ObservableList<Task> taskList) {
         super(FXML);
-        taskListView.setItems(personList);
+        taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
+        /*
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in person list panel changed to : '" + newValue + "'");
             onSelectedPersonChange.accept(newValue);
@@ -48,11 +48,11 @@ public class TaskListPanel extends UiPart<Region> {
                 taskListView.scrollTo(index);
                 taskListView.getSelectionModel().clearAndSelect(index);
             }
-        });
+        });*/
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
      */
     class TaskListViewCell extends ListCell<Task> {
         @Override

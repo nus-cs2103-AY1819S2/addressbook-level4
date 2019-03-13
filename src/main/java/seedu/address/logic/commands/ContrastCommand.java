@@ -3,19 +3,12 @@ package seedu.address.logic.commands;
 import com.sksamuel.scrimage.filter.ContrastFilter;
 import com.sksamuel.scrimage.Image;
 import com.sksamuel.scrimage.BufferedOpFilter;
-import com.sksamuel.scrimage.nio.ImageWriter;
 import com.sksamuel.scrimage.nio.JpegWriter;
-import org.apache.commons.io.FileUtils;
-import org.imgscalr.Scalr;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 
 

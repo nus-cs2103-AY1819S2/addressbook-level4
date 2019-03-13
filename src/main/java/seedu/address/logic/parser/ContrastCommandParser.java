@@ -1,12 +1,11 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ContrastCommand;
-import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.io.File;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 
@@ -18,6 +17,7 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
      * @throws ParseException
      */
     public ContrastCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         args = args.trim();
         String[] parsed = args.split(" ");
 

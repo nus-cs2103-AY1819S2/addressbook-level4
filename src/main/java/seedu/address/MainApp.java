@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
@@ -86,16 +87,19 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
+        Optional<ReadOnlyRequestBook> requestBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
+        ReadOnlyRequestBook initialRequestBook;
 
         try {
+            requestBookOptional = storage.readRequestBook();
             addressBookOptional = storage.readAddressBook();
+            healthWorkerBookOptional = storage.readHealthWorkerBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            healthWorkerBookOptional = storage.readHealthWorkerBook(userPrefs.getHealthWorkerBookFilePath());
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample HealthWorkerBook");
             }

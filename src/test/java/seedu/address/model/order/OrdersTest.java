@@ -80,7 +80,7 @@ public class OrdersTest {
 
     @Test
     public void hasOrderItem_orderItemWithSameIdentityFieldsInOrders_returnsTrue() {
-        orders.addOrderItem(TABLE1_W09;
+        orders.addOrderItem(TABLE1_W09);
         OrderItem editedOrderItem = new OrderItemBuilder(TABLE1_W09).withQuantity(5).build();
         assertTrue(orders.hasOrderItem(editedOrderItem));
     }

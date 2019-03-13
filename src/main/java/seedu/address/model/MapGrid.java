@@ -57,17 +57,16 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     /**
-     * Initialises the 2D Map to the given size
+     * Initialises the 2D Map from the given 2D Cell array
      */
-    public void initialise(int size) {
-        this.size = size;
+    public void initialise(Cell[][] map) {
+        this.size = map.length;
         cellGrid = new Cell[size][size];
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                cellGrid[i][j] = new Cell();
-            }
+            cellGrid[i] = map[i].clone();
         }
     }
+
     /**
      * Returns the cell in the given coordinates
      */

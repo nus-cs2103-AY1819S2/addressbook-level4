@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.cell.Cell;
 
 /**
  * Initialise map to size input by user.
@@ -43,7 +44,13 @@ public class InitialiseMapCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_MAP_SIZE, MINIMUM_MAP_SIZE, MAXIMUM_MAP_SIZE));
         }
 
-        model.getMapGrid().initialise(mapSize);
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+        model.getMapGrid().initialise(cellGrid);
         model.updateUi();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));

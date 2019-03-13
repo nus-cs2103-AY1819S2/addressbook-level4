@@ -3,6 +3,8 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -22,9 +24,12 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+    public static final URL TEST_PAGE =
+            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "test.html"));
     public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
+    private Path imgPath = Paths.get("docs/images" , "image1.png");
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -54,7 +59,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+        Platform.runLater(() -> browser.getEngine().load(TEST_PAGE.toExternalForm()));
     }
 
     /**

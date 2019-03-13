@@ -27,6 +27,7 @@ public class Pdf {
     private final Set<Tag> tags = new HashSet<>();
 
     public Pdf(Name name, Location location, Size size, Set<Tag> tags) {
+        requireAllNonNull(name, location, size, tags);
         this.name = name;
         this.location = location;
         this.size = size;

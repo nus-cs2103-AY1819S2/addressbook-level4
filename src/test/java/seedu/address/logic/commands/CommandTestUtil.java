@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Specialisation;
+import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -111,6 +112,8 @@ public class CommandTestUtil {
 
     public static final EditPersonCommand.EditPersonDescriptor DESC_AMY;
     public static final EditPersonCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditHealthWorkerCommand.EditHealthWorkerDescriptor DESC_ANDY;
+    public static final EditHealthWorkerCommand.EditHealthWorkerDescriptor DESC_BETTY;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -121,6 +124,14 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withNric(VALID_NRIC_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ANDY = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_ANDY)
+                .withPhone(VALID_PHONE_ANDY).withEmail(VALID_EMAIL_ANDY).withAddress(VALID_ADDRESS_ANDY)
+                .withNric(VALID_NRIC_ANDY).withTags(VALID_TAG_HUSBAND)
+                .withSkills(Specialisation.GENERAL_PRACTICE.name(), Specialisation.PHYSIOTHERAPY.name()).build();
+        DESC_BETTY = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_BETTY)
+                .withPhone(VALID_PHONE_BETTY).withEmail(VALID_EMAIL_BETTY).withAddress(VALID_ADDRESS_BETTY)
+                .withNric(VALID_NRIC_BETTY).withTags(VALID_TAG_FRIEND)
+                .withSkills(Specialisation.GENERAL_PRACTICE.name(), Specialisation.ORTHOPAEDIC.name()).build();
     }
 
     /**

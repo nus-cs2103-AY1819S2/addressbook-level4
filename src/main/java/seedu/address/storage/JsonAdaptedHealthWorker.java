@@ -40,7 +40,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
                                    @JsonProperty("nric") String nric,
                                    @JsonProperty("address") String address,
                                    @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                                   @JsonProperty("organisation") String organisation,
+                                   @JsonProperty("organization") String organisation,
                                    @JsonProperty("skills") String skills) {
         super(name, phone, email, nric, address, tagged);
         this.organization = organisation;

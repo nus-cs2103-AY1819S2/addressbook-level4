@@ -152,12 +152,10 @@ public class ArgumentTokenizerTest {
     @Test
     public void checkMode() {
         // Empty String
-        Assert.assertThrows(StringIndexOutOfBoundsException.class, () ->
-                ArgumentTokenizer.checkMode(""));
+        assertEquals(ArgumentTokenizer.checkMode(""), CommandMode.INVALID);
 
         // String too short
-        Assert.assertThrows(StringIndexOutOfBoundsException.class, () ->
-                ArgumentTokenizer.checkMode("1"));
+        assertEquals(ArgumentTokenizer.checkMode("1"), CommandMode.INVALID);
 
         // null string
         Assert.assertThrows(NullPointerException.class, () ->
@@ -189,6 +187,10 @@ public class ArgumentTokenizerTest {
 
         // actual Patient, expected Health Worker -> return false
         assertFalse(ArgumentTokenizer.checkMode("2 n/")
+                .equals(CommandMode.HEALTH_WORKER));
+
+        // Leading white space
+        assertTrue(ArgumentTokenizer.checkMode("   1 n/")
                 .equals(CommandMode.HEALTH_WORKER));
     }
 

@@ -1,17 +1,21 @@
 package seedu.address.logic.commands;
 
-import com.sksamuel.scrimage.filter.ContrastFilter;
-import com.sksamuel.scrimage.Image;
-import com.sksamuel.scrimage.BufferedOpFilter;
-import com.sksamuel.scrimage.nio.JpegWriter;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+
 import java.io.File;
 
+import com.sksamuel.scrimage.BufferedOpFilter;
+import com.sksamuel.scrimage.Image;
+import com.sksamuel.scrimage.filter.ContrastFilter;
+import com.sksamuel.scrimage.nio.JpegWriter;
 
-
+/**
+ * This command allows users to adjust the contrast of images.
+ */
 public class ContrastCommand extends Command {
 
     public static final String COMMAND_WORD = "contrast";
@@ -37,7 +41,8 @@ public class ContrastCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history)
+        throws CommandException {
         double contrastAmount = 0.0;
 
         if (this.operator.equals("add")) {
@@ -47,16 +52,21 @@ public class ContrastCommand extends Command {
         }
 
         try {
-            seedu.address.model.image.Image image = new seedu.address.model.image.Image("src/main/resources/assets/" + fileName);
-            BufferedOpFilter contrastFilter = new ContrastFilter(contrastAmount);
-            Image.fromFile(new File("src/main/resources/assets/" + fileName)).filter(contrastFilter)
-                .output("src/main/resources/assets/sampleContrast.jpg", new JpegWriter(0, true));
+            seedu.address.model.image.Image image = new seedu.address.model.
+                image.Image("src/main/resources/assets/" + fileName);
+            BufferedOpFilter contrastFilter =
+                new ContrastFilter(contrastAmount);
+            Image.fromFile(new File("src/main/resources/assets/" +
+                fileName)).filter(contrastFilter)
+                .output("src/main/resources/assets/sampleContrast.jpg",
+                    new JpegWriter(0, true));
 
         } catch (IllegalArgumentException x) {
             throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST);
         }
 
-        seedu.address.model.image.Image finalImage = new seedu.address.model.image.Image("src/main/resources/assets/sampleContrast.jpg");
+        seedu.address.model.image.Image finalImage = new seedu.address.model.
+            image.Image("src/main/resources/assets/sampleContrast.jpg");
         model.displayImage(finalImage);
 
        return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);

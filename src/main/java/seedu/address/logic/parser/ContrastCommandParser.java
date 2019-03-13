@@ -1,15 +1,19 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
+
 import seedu.address.logic.commands.ContrastCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.io.File;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
-
+/**
+ * This class parses the contrast command.
+ */
 public class ContrastCommandParser implements Parser<ContrastCommand> {
+
     /**
      * Parses the Contrast Command.
      * @param args
@@ -21,20 +25,20 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
         args = args.trim();
         String[] parsed = args.split(" ");
 
-        if(parsed.length != 2) {
+        if (parsed.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ContrastCommand.MESSAGE_USAGE));
         }
 
         String operator = parsed[0];
 
-        if(!operator.equals("add") && !operator.equals("subtract")) {
+        if (!operator.equals("add") && !operator.equals("subtract")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ContrastCommand.MESSAGE_USAGE));
         }
 
         String fileName = parsed[1];
         File directory = new File("src/main/resources/assets/" + fileName);
 
-        if(!directory.exists()) {
+        if (!directory.exists()) {
             throw new ParseException(String.format(MESSAGE_INVALID_PATH, ContrastCommand.MESSAGE_USAGE));
         }
 

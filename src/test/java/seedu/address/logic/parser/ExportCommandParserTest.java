@@ -62,6 +62,9 @@ public class ExportCommandParserTest {
         // missing filename
         assertParseFailure(parser, FOLDER_DESC_SAMPLE_1 + INVALID_FILENAME_DESC,
                 CsvFile.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, FOLDER_DESC_SAMPLE_1 + INVALID_FILENAME_EXT,
+                CsvFile.MESSAGE_CONSTRAINTS);
     }
 
 

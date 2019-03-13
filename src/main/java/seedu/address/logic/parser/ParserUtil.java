@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
@@ -97,9 +98,18 @@ public class ParserUtil {
         requireNonNull(folderNames);
         final Set<CardFolderExport> cardFolderExports = new HashSet<>();
         for (String folderName : folderNames) {
-            cardFolderExports.add(new CardFolderExport(folderName));
+            cardFolderExports.add(parseFolder(folderName));
         }
         return cardFolderExports;
+    }
+
+    private static CardFolderExport parseFolder(String folderName) throws ParseException {
+        requireNonNull(folderName);
+        folderName = folderName.trim();
+        if (CardFolderExport.isFolderNameEmpty(folderName)) {
+            throw new ParseException(CardFolderExport.MESSAGE_CONSTRAINTS);
+        }
+        return new CardFolderExport(folderName);
     }
 
     /**

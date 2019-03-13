@@ -40,5 +40,4 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
 
         return new ContrastCommand(operator, fileName);
     }
-    
 }

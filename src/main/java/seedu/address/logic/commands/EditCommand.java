@@ -87,7 +87,6 @@ public class EditCommand extends Command {
 
             File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
             File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
-            
             boolean editSuccess = oFile.renameTo(nFile);
 
             if (!editSuccess) {

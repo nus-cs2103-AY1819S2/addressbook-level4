@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.Observable;
@@ -172,5 +173,5 @@ public interface Model extends Observable {
     /**
      * Checks whether list of card folder names specified is found inside model
      */
-    List<ReadOnlyCardFolder> returnValidCardFolders(List<CardFolderExport> cardFolers);
+    List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
 }

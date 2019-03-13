@@ -5,13 +5,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FOLDERNAME;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.storage.csv_manager.CardFolderExport;
 import seedu.address.storage.csv_manager.CsvCardExport;
+import seedu.address.storage.csv_manager.CsvFile;
 
 /**
  * Exports single or multiple card folders into a .json file. Users must specify file name to export card folders to.
@@ -34,10 +37,10 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_FILE_OPS_FAILURE = "Could not export to specified file";
 
-    private List<String> cardFolders;
-    private String filename;
+    private Set<CardFolderExport> cardFolders;
+    private CsvFile filename;
 
-    public ExportCommand(List<String> cardFolders, String filename) {
+    public ExportCommand(Set<CardFolderExport> cardFolders, CsvFile filename) {
         this.cardFolders = cardFolders;
         this.filename = filename;
     }

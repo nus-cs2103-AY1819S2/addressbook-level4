@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -27,6 +28,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
+import seedu.address.storage.csv_manager.CardFolderExport;
 import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {
@@ -161,7 +163,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public List<ReadOnlyCardFolder> returnValidCardFolders(List<String> cardFolers) {
+        public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolers) {
             throw new AssertionError("This method should not be called.");
         }
 

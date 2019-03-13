@@ -2,7 +2,7 @@ package seedu.address.storage.csv_manager;
 
 public class CsvFile {
 
-    public static final String MESSAGE_FILENAME_CONSTRAINTS = "File name should not be left blank and should have"
+    public static final String MESSAGE_CONSTRAINTS = "File name should not be left blank and should have"
             + ".csv format";
 
     public final String filename;
@@ -12,9 +12,9 @@ public class CsvFile {
     }
 
     public static boolean isValidFileName(String filename) {
-        return isCorrectFileExtension(filename) && !isFileNameEmpty(filename);
+        return !isFileNameEmpty(filename) && isCorrectFileExtension(filename);
     }
-    
+
     private static boolean isFileNameEmpty(String filename) {
         return filename.isEmpty();
     }

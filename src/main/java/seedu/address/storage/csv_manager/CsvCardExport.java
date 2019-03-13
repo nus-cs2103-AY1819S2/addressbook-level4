@@ -20,11 +20,11 @@ public class CsvCardExport {
 
 
     private List<ReadOnlyCardFolder> cardFolders;
-    private String filename;
+    private CsvFile csvFile;
 
-    public CsvCardExport(List<ReadOnlyCardFolder> cardFolders, String filename) {
+    public CsvCardExport(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) {
         this.cardFolders = cardFolders;
-        this.filename = filename;
+        this.csvFile = filename;
     }
 
     /**
@@ -53,7 +53,7 @@ public class CsvCardExport {
 
     private String getFilePath() throws IOException {
         String defaultFilePath = new File("./").getCanonicalPath();
-        return defaultFilePath + "/" + filename;
+        return defaultFilePath + "/" + csvFile.filename;
     }
 
     private String getCardString(Card card) {

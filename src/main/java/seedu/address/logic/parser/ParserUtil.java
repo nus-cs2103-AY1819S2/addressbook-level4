@@ -116,7 +116,7 @@ public class ParserUtil {
     public static CsvFile parseFileName(String filename) throws ParseException {
         requireNonNull(filename);
         if (!CsvFile.isValidFileName(filename)) {
-            throw new ParseException(CsvFile.MESSAGE_FILENAME_CONSTRAINTS);
+            throw new ParseException(CsvFile.MESSAGE_CONSTRAINTS);
         }
         return new CsvFile(filename);
     }

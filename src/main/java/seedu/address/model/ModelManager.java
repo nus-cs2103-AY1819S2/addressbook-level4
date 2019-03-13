@@ -4,10 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -161,7 +158,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<ReadOnlyCardFolder> returnValidCardFolders(List<CardFolderExport> cardFolders) {
+    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
         List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
         for (CardFolderExport cardFolderExport : cardFolders) {
            addCardFolder(cardFolderExport, returnCardFolder);

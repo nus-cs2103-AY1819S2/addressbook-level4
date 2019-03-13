@@ -16,7 +16,7 @@ public class CardFolderExport {
         this.folderName = folderName;
     }
 
-    public boolean isFolderNameEmpty() {
+    public static boolean isFolderNameEmpty(String folderName) {
         return folderName.isEmpty();
     }
 }

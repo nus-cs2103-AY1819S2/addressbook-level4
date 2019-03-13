@@ -43,10 +43,13 @@ public class CommandTestUtil {
     public static final String FOLDER_DESC_SAMPLE_1 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_1;
     public static final String FOLDER_DESC_SAMPLE_2 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_2;
     public static final String FILENAME_DESC_SAMPLE = " " + PREFIX_FILENAME + VALID_FILENAME;
+    public static final String INVALID_FILENAME_EXT = " " + PREFIX_FILENAME + INVALID_FILENAME;
 
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for questions
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answers
     public static final String INVALID_HINT_DESC = " " + PREFIX_HINT + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_FOLDER_DESC = " " + PREFIX_FOLDERNAME;
+    public static final String INVALID_FILENAME_DESC = " " + PREFIX_FILENAME;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

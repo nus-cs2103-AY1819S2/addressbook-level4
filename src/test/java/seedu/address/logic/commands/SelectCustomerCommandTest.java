@@ -21,9 +21,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.VersionedAddressBook;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SelectCustomerCommand}.
  */
-public class SelectCommandTest {
+public class SelectCustomerCommandTest {
     private CustomerModel model = new CustomerManager(
             new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
     private CustomerModel expectedModel = new CustomerManager(
@@ -68,14 +68,14 @@ public class SelectCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_CUSTOMER);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_CUSTOMER);
+        SelectCustomerCommand selectFirstCommand = new SelectCustomerCommand(INDEX_FIRST_CUSTOMER);
+        SelectCustomerCommand selectSecondCommand = new SelectCustomerCommand(INDEX_SECOND_CUSTOMER);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_CUSTOMER);
+        SelectCustomerCommand selectFirstCommandCopy = new SelectCustomerCommand(INDEX_FIRST_CUSTOMER);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -89,24 +89,25 @@ public class SelectCommandTest {
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index},
+     * Executes a {@code SelectCustomerCommand} with the given {@code index},
      * and checks that the model's selected customer is set to the customer at {@code index} in the filtered customer
      * list.
      */
     private void assertExecutionSuccess(Index index) {
-        SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS, index.getOneBased());
+        SelectCustomerCommand selectCustomerCommand = new SelectCustomerCommand(index);
+        String expectedMessage = String.format(SelectCustomerCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS,
+                index.getOneBased());
         expectedModel.setSelectedCustomer(model.getFilteredCustomerList().get(index.getZeroBased()));
 
-        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(selectCustomerCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
+     * Executes a {@code SelectCustomerCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectCommand selectCommand = new SelectCommand(index);
-        assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
+        SelectCustomerCommand selectCustomerCommand = new SelectCustomerCommand(index);
+        assertCommandFailure(selectCustomerCommand, model, commandHistory, expectedMessage);
     }
 }

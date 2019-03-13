@@ -20,7 +20,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.testutil.CustomerBuilder;
 
-public class AddCommandTest {
+public class AddCustomerCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -32,7 +32,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullCustomer_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddCustomerCommand(null);
     }
 
     //    @Test
@@ -40,9 +40,10 @@ public class AddCommandTest {
     //        ModelStubAcceptingCustomerAdded modelStub = new ModelStubAcceptingCustomerAdded();
     //        Customer validCustomer = new CustomerBuilder().build();
     //
-    //        CommandResult commandResult = new AddCommand(validCustomer).execute(modelStub, commandHistory);
+    //        CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub, commandHistory);
     //
-    //        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCustomer), commandResult.getFeedbackToUser());
+    //        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer),
+    // commandResult.getFeedbackToUser());
     //        assertEquals(Arrays.asList(validCustomer), modelStub.customersAdded);
     //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     //    }
@@ -50,11 +51,11 @@ public class AddCommandTest {
     //    @Test
     //    public void execute_duplicateCustomer_throwsCommandException() throws Exception {
     //        Customer validCustomer = new CustomerBuilder().build();
-    //        AddCommand addCommand = new AddCommand(validCustomer);
+    //        AddCustomerCommand addCommand = new AddCustomerCommand(validCustomer);
     //        ModelStub modelStub = new ModelStubWithCustomer(validCustomer);
     //
     //        thrown.expect(CommandException.class);
-    //        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //        thrown.expectMessage(AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //        addCommand.execute(modelStub, commandHistory);
     //    }
 
@@ -62,14 +63,14 @@ public class AddCommandTest {
     public void equals() {
         Customer alice = new CustomerBuilder().withName("Alice").build();
         Customer bob = new CustomerBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddCustomerCommand addAliceCommand = new AddCustomerCommand(alice);
+        AddCustomerCommand addBobCommand = new AddCustomerCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddCustomerCommand addAliceCommandCopy = new AddCustomerCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -173,7 +174,7 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddCustomerCommand#execute()}
         }
 
         @Override

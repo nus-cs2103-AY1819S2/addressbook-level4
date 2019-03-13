@@ -1,6 +1,6 @@
 package systemtests;
 
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearCustomerCommand;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 
@@ -14,7 +14,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
     //        and
     //         * spaces -> cleared
     //         */
-    //        assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
+    //        assertCommandSuccess("   " + ClearCustomerCommand.COMMAND_WORD + " ab12   ");
     //        assertSelectedCardUnchanged();
     //
     //        /* Case: undo clearing address book -> original address book restored */
@@ -32,17 +32,17 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
     //        /* Case: selects first card in customer list and clears address book -> cleared and no card selected */
     //        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
     //        selectCustomer(Index.fromOneBased(1));
-    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+    //        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
     //        assertSelectedCardDeselected();
     //
     //        /* Case: filters the customer list before clearing -> entire address book cleared */
     //        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
     //        showCustomersWithName(KEYWORD_MATCHING_MEIER);
-    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+    //        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
     //        assertSelectedCardUnchanged();
     //
     //        /* Case: clear empty address book -> cleared */
-    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+    //        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
     //        assertSelectedCardUnchanged();
     //
     //        /* Case: mixed case command word -> rejected */
@@ -51,7 +51,8 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code ClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
+     * box displays {@code ClearCustomerCommand#MESSAGE_SUCCESS} and the model related components equal to an empty
+     * model.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
@@ -59,7 +60,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new CustomerManager());
+        assertCommandSuccess(command, ClearCustomerCommand.MESSAGE_SUCCESS, new CustomerManager());
     }
 
     /**

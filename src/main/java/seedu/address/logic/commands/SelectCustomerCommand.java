@@ -14,7 +14,7 @@ import seedu.address.model.customer.Customer;
 /**
  * Selects a customer identified using it's displayed index from the address book.
  */
-public class SelectCommand extends CustomerCommand {
+public class SelectCustomerCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "s";
     public static final String COMMAND_WORD = "select";
@@ -28,7 +28,7 @@ public class SelectCommand extends CustomerCommand {
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public SelectCustomerCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -50,7 +50,7 @@ public class SelectCommand extends CustomerCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof SelectCommand // instanceof handles nulls
-            && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+            || (other instanceof SelectCustomerCommand // instanceof handles nulls
+            && targetIndex.equals(((SelectCustomerCommand) other).targetIndex)); // state check
     }
 }

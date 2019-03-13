@@ -15,9 +15,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.VersionedAddressBook;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListCustomerCommand.
  */
-public class ListCommandTest {
+public class ListCustomerCommandTest {
 
     private CustomerModel model;
     private CustomerModel expectedModel;
@@ -31,12 +31,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCustomerCommand(), model, commandHistory,
+                ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCustomerCommand(), model, commandHistory,
+                ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

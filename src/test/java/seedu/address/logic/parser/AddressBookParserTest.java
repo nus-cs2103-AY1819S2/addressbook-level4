@@ -14,18 +14,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditCustomerDescriptor;
+import seedu.address.logic.commands.AddCustomerCommand;
+import seedu.address.logic.commands.ClearCustomerCommand;
+import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.EditCustomerCommand;
+import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindNameCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListCustomerCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectCustomerCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BookingManager;
@@ -44,69 +44,71 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Customer customer = new CustomerBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(CustomerUtil.getAddCommand(customer),
+        AddCustomerCommand command = (AddCustomerCommand) parser.parseCommand(CustomerUtil.getAddCommand(customer),
             new CustomerManager(), new BookingManager());
-        assertEquals(new AddCommand(customer), command);
+        assertEquals(new AddCustomerCommand(customer), command);
     }
 
     @Test
     public void parseCommand_addAlias() throws Exception {
         Customer customer = new CustomerBuilder().build();
-        AddCommand commandAlias = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS + " "
-            + CustomerUtil.getCustomerDetails(customer), new CustomerManager(), new BookingManager());
-        assertEquals(new AddCommand(customer), commandAlias);
+        AddCustomerCommand commandAlias = (AddCustomerCommand) parser.parseCommand(
+                AddCustomerCommand.COMMAND_ALIAS + " " + CustomerUtil.getCustomerDetails(customer),
+                new CustomerManager(), new BookingManager());
+        assertEquals(new AddCustomerCommand(customer), commandAlias);
     }
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD, new CustomerManager(), new BookingManager())
-            instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3", new CustomerManager(),
-            new BookingManager()) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_WORD, new CustomerManager(), new BookingManager())
+            instanceof ClearCustomerCommand);
+        assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_WORD + " 3", new CustomerManager(),
+            new BookingManager()) instanceof ClearCustomerCommand);
     }
 
     @Test
     public void parseCommand_clearAlias() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager())
-            instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
-            new BookingManager()) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager())
+            instanceof ClearCustomerCommand);
+        assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
+            new BookingManager()) instanceof ClearCustomerCommand);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-            DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+        DeleteCustomerCommand command = (DeleteCustomerCommand) parser.parseCommand(
+            DeleteCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
             new CustomerManager(), new BookingManager());
-        assertEquals(new DeleteCommand(INDEX_FIRST_CUSTOMER), command);
+        assertEquals(new DeleteCustomerCommand(INDEX_FIRST_CUSTOMER), command);
     }
 
     @Test
     public void parseCommand_deleteAlias() throws Exception {
-        DeleteCommand commandAlias = (DeleteCommand) parser.parseCommand(
-            DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+        DeleteCustomerCommand commandAlias = (DeleteCustomerCommand) parser.parseCommand(
+            DeleteCustomerCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
             new CustomerManager(), new BookingManager());
-        assertEquals(new DeleteCommand(INDEX_FIRST_CUSTOMER), commandAlias);
+        assertEquals(new DeleteCustomerCommand(INDEX_FIRST_CUSTOMER), commandAlias);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Customer customer = new CustomerBuilder().build();
-        EditCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
+        EditCustomerCommand command = (EditCustomerCommand) parser.parseCommand(EditCustomerCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor),
             new CustomerManager(), new BookingManager());
-        assertEquals(new EditCommand(INDEX_FIRST_CUSTOMER, descriptor), command);
+        assertEquals(new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor), command);
     }
 
     @Test
     public void parseCommand_editAlias() throws Exception {
         Customer customer = new CustomerBuilder().build();
         EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
-        EditCommand commandAlias = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
+        EditCustomerCommand commandAlias = (EditCustomerCommand) parser.parseCommand(
+                EditCustomerCommand.COMMAND_ALIAS + " "
                 + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor),
             new CustomerManager(), new BookingManager());
-        assertEquals(new EditCommand(INDEX_FIRST_CUSTOMER, descriptor), commandAlias);
+        assertEquals(new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor), commandAlias);
     }
 
     @Test
@@ -128,19 +130,19 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
+        FindNameCommand command = (FindNameCommand) parser.parseCommand(
+            FindNameCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
             new CustomerManager(), new BookingManager());
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindNameCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_findAlias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand commandAlias = (FindCommand) parser.parseCommand(
-            FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")),
+        FindNameCommand commandAlias = (FindNameCommand) parser.parseCommand(
+            FindNameCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")),
             new CustomerManager(), new BookingManager());
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), commandAlias);
+        assertEquals(new FindNameCommand(new NameContainsKeywordsPredicate(keywords)), commandAlias);
     }
 
     @Test
@@ -191,34 +193,34 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD, new CustomerManager(), new BookingManager())
-            instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3", new CustomerManager(),
-            new BookingManager()) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCustomerCommand.COMMAND_WORD, new CustomerManager(), new BookingManager())
+            instanceof ListCustomerCommand);
+        assertTrue(parser.parseCommand(ListCustomerCommand.COMMAND_WORD + " 3", new CustomerManager(),
+            new BookingManager()) instanceof ListCustomerCommand);
     }
 
     @Test
     public void parseCommand_listAlias() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager())
-            instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
-            new BookingManager()) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCustomerCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager())
+            instanceof ListCustomerCommand);
+        assertTrue(parser.parseCommand(ListCustomerCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
+            new BookingManager()) instanceof ListCustomerCommand);
     }
 
     @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-            SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(), new CustomerManager(),
+        SelectCustomerCommand command = (SelectCustomerCommand) parser.parseCommand(
+            SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(), new CustomerManager(),
             new BookingManager());
-        assertEquals(new SelectCommand(INDEX_FIRST_CUSTOMER), command);
+        assertEquals(new SelectCustomerCommand(INDEX_FIRST_CUSTOMER), command);
     }
 
     @Test
     public void parseCommand_selectAlias() throws Exception {
-        SelectCommand commandAlias = (SelectCommand) parser.parseCommand(
-            SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(), new CustomerManager(),
+        SelectCustomerCommand commandAlias = (SelectCustomerCommand) parser.parseCommand(
+            SelectCustomerCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(), new CustomerManager(),
             new BookingManager());
-        assertEquals(new SelectCommand(INDEX_FIRST_CUSTOMER), commandAlias);
+        assertEquals(new SelectCustomerCommand(INDEX_FIRST_CUSTOMER), commandAlias);
     }
 
     @Test

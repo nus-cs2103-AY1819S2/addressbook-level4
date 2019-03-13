@@ -37,7 +37,7 @@ package systemtests;
 //
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.AddCommand;
+//import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.model.CustomerModel;
 //import seedu.address.model.customer.Customer;
 //import seedu.address.model.customer.Email;
@@ -61,7 +61,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //         * -> added
     //         */
     //        Customer toAdd = AMY;
-    //        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+    //        String command = "   " + AddCustomerCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  "
+    // + PHONE_DESC_AMY + " "
     //            + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
     //        assertCommandSuccess(command, toAdd);
     //
@@ -79,8 +80,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //        /* Case: add a customer with all fields same as another customer in the address book except name ->
     //        added */
     //        toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-    //            + TAG_DESC_FRIEND;
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
+    // + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
     //        assertCommandSuccess(command, toAdd);
     //
     //        /* Case: add a customer with all fields same as another customer in the address book except phone and
@@ -97,8 +98,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //
     //        /* Case: add a customer with tags, command with parameters in random order -> added */
     //        toAdd = BOB;
-    //        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-    //            + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+    //        command = AddCustomerCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+    // + NAME_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
     //        assertCommandSuccess(command, toAdd);
     //
     //        /* Case: add a customer, missing tags -> added */
@@ -124,69 +125,74 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //
     //        /* Case: add a duplicate customer -> rejected */
     //        command = CustomerUtil.getAddCommand(HOON);
-    //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     //        /* Case: add a duplicate customer except with different phone -> rejected */
     //        toAdd = new CustomerBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
     //        command = CustomerUtil.getAddCommand(toAdd);
-    //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     //        /* Case: add a duplicate customer except with different email -> rejected */
     //        toAdd = new CustomerBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
     //        command = CustomerUtil.getAddCommand(toAdd);
-    //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     //        /* Case: add a duplicate customer except with different address -> rejected */
     //        toAdd = new CustomerBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
     //        command = CustomerUtil.getAddCommand(toAdd);
-    //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     //        /* Case: add a duplicate customer except with different tags -> rejected */
     //        command = CustomerUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-    //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     //        /* Case: missing name -> rejected */
-    //        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    //        command = AddCustomerCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    // AddCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: missing phone -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    // AddCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: missing email -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
-    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    // AddCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: missing address -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    // AddCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: invalid keyword -> rejected */
     //        command = "adds " + CustomerUtil.getCustomerDetails(toAdd);
     //        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
     //
     //        /* Case: invalid name -> rejected */
-    //        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY +
+    //        command = AddCustomerCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY +
     //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid phone -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY +
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY +
     //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid email -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC +
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC +
     //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid address -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY +
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY +
     //        INVALID_ADDRESS_DESC;
     //        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid tag -> rejected */
-    //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+    // + ADDRESS_DESC_AMY
     //            + INVALID_TAG_DESC;
     //        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     //    }

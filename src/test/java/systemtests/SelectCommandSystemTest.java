@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS;
+import static seedu.address.logic.commands.SelectCustomerCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.CustomerModel;
@@ -14,12 +14,13 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     //        /* Case: select the first card in the customer list, command with leading spaces and trailing spaces
     //         * -> selected
     //         */
-    //        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased() + "   ";
+    //        String command = "   " + SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+    // + "   ";
     //        assertCommandSuccess(command, INDEX_FIRST_CUSTOMER);
     //
     //        /* Case: select the last card in the customer list -> selected */
     //        Index customerCount = getLastIndex(getModel());
-    //        command = SelectCommand.COMMAND_WORD + " " + customerCount.getOneBased();
+    //        command = SelectCustomerCommand.COMMAND_WORD + " " + customerCount.getOneBased();
     //        assertCommandSuccess(command, customerCount);
     //
     //        /* Case: undo previous selection -> rejected */
@@ -34,7 +35,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     //
     //        /* Case: select the middle card in the customer list -> selected */
     //        Index middleIndex = getMidIndex(getModel());
-    //        command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
+    //        command = SelectCustomerCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
     //        assertCommandSuccess(command, middleIndex);
     //
     //        /* Case: select the current selected card -> selected */
@@ -49,46 +50,46 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     //         */
     //        showCustomersWithName(KEYWORD_MATCHING_MEIER);
     //        int invalidIndex = getModel().getAddressBook().getCustomerList().size();
-    //        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+    //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + invalidIndex,
     //        MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //
     //        /* Case: filtered customer list, select index within bounds of address book and customer list ->
     //        selected */
     //        Index validIndex = Index.fromOneBased(1);
     //        assertTrue(validIndex.getZeroBased() < getModel().getFilteredCustomerList().size());
-    //        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
+    //        command = SelectCustomerCommand.COMMAND_WORD + " " + validIndex.getOneBased();
     //        assertCommandSuccess(command, validIndex);
     //
     //        /* ----------------------------------- Perform invalid select operations
     //        ------------------------------------ */
     //
     //        /* Case: invalid index (0) -> rejected */
-    //        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
-    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+    //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + 0,
+    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: invalid index (-1) -> rejected */
-    //        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + -1,
-    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+    //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + -1,
+    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: invalid index (size + 1) -> rejected */
     //        invalidIndex = getModel().getFilteredCustomerList().size() + 1;
-    //        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+    //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + invalidIndex,
     //        MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //
     //        /* Case: invalid arguments (alphabets) -> rejected */
-    //        assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
-    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+    //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " abc",
+    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: invalid arguments (extra argument) -> rejected */
-    //        assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
-    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+    //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " 1 abc",
+    //            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: mixed case command word -> rejected */
     //        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
     //
     //        /* Case: select from empty address book -> rejected */
     //        deleteAllCustomers();
-    //        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+    //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
     //            MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //    }
 

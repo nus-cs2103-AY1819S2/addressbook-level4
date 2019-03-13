@@ -14,7 +14,7 @@ public class Expiry implements Comparable<Expiry> {
 
     public static final String MESSAGE_CONSTRAINTS = "Expiry date should be of the format dd/mm/yyyy.\n"
             + "The day, month and year should only contain numbers.\n" + "Day should not be more than 31. "
-            + "Month should not be more than 12. Year should begin with 20";
+            + "Month should not be more than 12. Year should begin with 20.";
     public static final String VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((20)\\d\\d)";
 
     private final LocalDate expiryDate;

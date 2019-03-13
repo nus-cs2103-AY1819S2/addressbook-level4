@@ -32,11 +32,13 @@ public class QuantityTest {
         assertFalse(Quantity.isValidQuantity("9011p041")); // alphabets within digits
         assertFalse(Quantity.isValidQuantity("9312 1534")); // spaces within digits
         assertFalse(Quantity.isValidQuantity("-19282")); // negative numbers
+        assertFalse(Quantity.isValidQuantity("1000000000")); // Maximum quantity exceeded
+        assertFalse(Quantity.isValidQuantity("124293842033123")); // long quantities
 
         // valid quantities
         assertTrue(Quantity.isValidQuantity("1")); // 1 number
         assertTrue(Quantity.isValidQuantity("911")); // exactly 3 numbers
-        assertTrue(Quantity.isValidQuantity("93121534"));
-        assertTrue(Quantity.isValidQuantity("124293842033123")); // long quantities
+        assertTrue(Quantity.isValidQuantity("999999999")); // Maximum quantity
+
     }
 }

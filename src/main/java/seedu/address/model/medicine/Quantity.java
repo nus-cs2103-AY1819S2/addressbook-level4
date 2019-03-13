@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Quantity {
 
 
-    public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain numbers";
+    public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain numbers. Max Quantity 999999999";
     public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
 
@@ -29,6 +29,9 @@ public class Quantity {
      * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidQuantity(String test) {
+        if (test.length() > 9) {
+            return false;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

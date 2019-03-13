@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
@@ -22,7 +21,7 @@ public class TableFlowPanel extends UiPart<Region> {
     private static final String FXML = "TableFlowPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(TableFlowPanel.class);
-    
+
     @FXML
     private FlowPane tableFlowPane;
 
@@ -43,7 +42,7 @@ public class TableFlowPanel extends UiPart<Region> {
 
         tableObservableList.addListener((ListChangeListener<Table>) c -> {
             tableFlowPane.getChildren().clear();
-            for (Table  table : tableObservableList) {
+            for (Table table : tableObservableList) {
                 tableFlowPane.getChildren().add(new TableCard(table).getRoot());
             }
         });

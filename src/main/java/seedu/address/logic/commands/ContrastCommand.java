@@ -1,17 +1,16 @@
 package seedu.address.logic.commands;
 
-
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-
 import java.io.File;
 
 import com.sksamuel.scrimage.BufferedOpFilter;
 import com.sksamuel.scrimage.Image;
 import com.sksamuel.scrimage.filter.ContrastFilter;
 import com.sksamuel.scrimage.nio.JpegWriter;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 /**
  * This command allows users to adjust the contrast of images.
@@ -52,12 +51,12 @@ public class ContrastCommand extends Command {
         }
 
         try {
-            seedu.address.model.image.Image image = new seedu.address.model.
-                image.Image("src/main/resources/assets/" + fileName);
+            seedu.address.model.image.Image image = new seedu.address.model
+                .image.Image("src/main/resources/assets/" + fileName);
             BufferedOpFilter contrastFilter =
                 new ContrastFilter(contrastAmount);
-            Image.fromFile(new File("src/main/resources/assets/" +
-                fileName)).filter(contrastFilter)
+            Image.fromFile(new File("src/main/resources/assets/"
+                + fileName)).filter(contrastFilter)
                 .output("src/main/resources/assets/sampleContrast.jpg",
                     new JpegWriter(0, true));
 
@@ -65,13 +64,9 @@ public class ContrastCommand extends Command {
             throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST);
         }
 
-        seedu.address.model.image.Image finalImage = new seedu.address.model.
-            image.Image("src/main/resources/assets/sampleContrast.jpg");
+        seedu.address.model.image.Image finalImage = new seedu.address.model
+            .image.Image("src/main/resources/assets/sampleContrast.jpg");
         model.displayImage(finalImage);
-
-       return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
+        return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
     }
-
-
-
 }

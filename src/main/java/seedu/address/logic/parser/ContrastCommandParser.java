@@ -1,13 +1,14 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 
+import java.io.File;
+
 import seedu.address.logic.commands.ContrastCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.io.File;
 
 /**
  * This class parses the contrast command.

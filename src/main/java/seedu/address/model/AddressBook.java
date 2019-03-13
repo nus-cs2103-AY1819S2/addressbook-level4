@@ -175,6 +175,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         return healthWorkers.asUnmodifiableObservableList();
     }
 
+    public Person getPersonAt(int index) {
+        return this.persons.getAt(index);
+    }
+
+    public HealthWorker getHealthWorkerAt(int index) {
+        return this.healthWorkers.getAt(index);
+    }
+
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";

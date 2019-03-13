@@ -16,14 +16,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.HealthWorkerBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyHealthWorkerBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -33,6 +26,8 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+
+import javax.swing.text.html.Option;
 
 /**
  * The main entry point to the application.
@@ -80,12 +75,20 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
+        ReadOnlyRequestBook initialRequestBook;
+        Optional<ReadOnlyRequestBook> requestBookOptional;
 
         try {
             addressBookOptional = storage.readAddressBook();
+            requestBookOptional = storage.readRequestBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
+
+            if (!requestBookOptional.isPresent()) {
+                logger.info("Request file not found. Will be starting with sample RequestBook");
+            }
+            initialRequestBook = new RequestBook();
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             // TODO: Implement storage reading for HealthWorkerBook
             initialHealthWorkerBook = new HealthWorkerBook();
@@ -93,13 +96,16 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialAddressBook = new AddressBook();
             initialHealthWorkerBook = new HealthWorkerBook();
+            initialRequestBook = new RequestBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialAddressBook = new AddressBook();
             initialHealthWorkerBook = new HealthWorkerBook();
+            initialRequestBook = new RequestBook();
         }
 
-        return new ModelManager(initialAddressBook, initialHealthWorkerBook, userPrefs);
+        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialRequestBook,
+            userPrefs);
     }
 
     private void initLogging(Config config) {

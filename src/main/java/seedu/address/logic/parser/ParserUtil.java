@@ -9,12 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
-import seedu.address.model.person.Phone;
+import seedu.address.model.AddressBook;
+import seedu.address.model.RequestBook;
+import seedu.address.model.person.*;
 import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.request.Request;
+import seedu.address.model.request.RequestDate;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
@@ -52,6 +52,16 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String id} and returns it's respective index in the addressbook patient list.
+     * @return
+     */
+    public static int parsePatientIndex(String id) {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        return Integer.parseInt(trimmedId);
     }
 
     /**
@@ -189,5 +199,21 @@ public class ParserUtil {
             skills.addSpecialisation(parseSpecialisation(specialisation));
         }
         return skills;
+    }
+
+    /**
+     * Parses {@code String date} into a {@code RequestDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static RequestDate parseRequestDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!RequestDate.isValidDate(trimmedDate)) {
+            throw new ParseException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+
+        return new RequestDate(trimmedDate);
     }
 }

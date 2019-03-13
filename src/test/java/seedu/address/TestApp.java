@@ -9,12 +9,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.HealthWorkerBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
@@ -94,7 +89,8 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         // TODO: Fix HealthWorkerBook implementation
-        Model copy = new ModelManager((model.getAddressBook()), new HealthWorkerBook(), new UserPrefs());
+        Model copy = new ModelManager((model.getAddressBook()), new HealthWorkerBook(),
+            new RequestBook(), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

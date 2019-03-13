@@ -22,14 +22,17 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_allFields_present() {
+        ExportCommand exportCommandWithOneFolder = buildExportCommand(FILENAME_DESC_SAMPLE, FOLDER_DESC_SAMPLE_1);
+        ExportCommand exportCommandWithMultipleFolder = buildExportCommand(FILENAME_DESC_SAMPLE,
+                FOLDER_DESC_SAMPLE_1, FOLDER_DESC_SAMPLE_2);
+
         // whitespace preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FOLDER_DESC_SAMPLE_1
-                + FILENAME_DESC_SAMPLE, new ExportCommand(new HashSet<CardFolderExport>((VALID_FOLDER_NAME_1), VALID_FILENAME));
+                + FILENAME_DESC_SAMPLE, exportCommandWithOneFolder);
 
         // multiple folders
         assertParseSuccess(parser, FOLDER_DESC_SAMPLE_1 + FOLDER_DESC_SAMPLE_2
-                + FILENAME_DESC_SAMPLE, new ExportCommand(Arrays.asList(VALID_FOLDER_NAME_1,
-                VALID_FOLDER_NAME_2), VALID_FILENAME));
+                + FILENAME_DESC_SAMPLE, exportCommandWithMultipleFolder);
     }
 
     @Test
@@ -52,16 +55,20 @@ public class ExportCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
 
-        // invalid Folder name
+        // missing Folder name
         assertParseFailure(parser, INVALID_FOLDER_DESC + FILENAME_DESC_SAMPLE,
-                ExportCommand.MESSAGE_FOLDER_CONSTRAINTS);
+                CardFolderExport.MESSAGE_CONSTRAINTS);
 
-        // invalid hint
-        assertParseFailure(parser, VALID_FOLDER_NAME_1 + FILENAME_DESC_SAMPLE,
-                ExportCommand.MESSAGE_FILENAME_CONSTRAINTS);
+        // missing filename
+        assertParseFailure(parser, FOLDER_DESC_SAMPLE_1 + INVALID_FILENAME_DESC,
+                CsvFile.MESSAGE_CONSTRAINTS);
     }
 
 
+    /**
+     *
+     * helper method to build export command for testing
+     */
     private ExportCommand buildExportCommand(String validFileName, String... validFolderDescriptions) {
         Set<CardFolderExport> cardFolderExports = Stream.of(validFolderDescriptions)
                 .map(CardFolderExport::new)

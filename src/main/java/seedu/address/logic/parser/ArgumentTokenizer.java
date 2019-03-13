@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -52,15 +54,19 @@ public class ArgumentTokenizer {
      * @return CommandMode enum type if available, else CommandMode.INVALID
      */
     public static CommandMode checkMode(String args) {
+        Logger logger = Logger.getLogger("CommandMode");
         String trimmedArgs = args.trim();
         if (trimmedArgs.length() < 2) {
+            logger.log(Level.INFO, "INVALID");
             return CommandMode.INVALID;
         }
 
         if (!Character.toString(trimmedArgs.charAt(MODE_POSITION + 1)).equals(" ")) {
+            logger.log(Level.INFO, "INVALID");
             return CommandMode.INVALID;
         }
 
+        logger.log(Level.INFO, Character.toString(trimmedArgs.charAt(MODE_POSITION)));
         return COMMAND_MODES.getOrDefault(Character.toString(trimmedArgs
                         .charAt(MODE_POSITION)), CommandMode.INVALID);
     }
@@ -73,7 +79,7 @@ public class ArgumentTokenizer {
      * @return trimmed argument string.
      */
     public static String trimMode(String args) {
-        return args.substring(2);
+        return args.substring(2).trim();
     }
 
     /**

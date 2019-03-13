@@ -39,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            return parseEditHealthWorker(args.trim());
+            return parseEditHealthWorker(ArgumentTokenizer.trimMode(args));
         } else if (commandMode == CommandMode.OTHERS) {
             // TODO: Placeholder to handle current testing involving original AB4 Persons by removing the command mode
             args = args.substring(2).trim();

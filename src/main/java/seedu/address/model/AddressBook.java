@@ -117,15 +117,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         invalidationListenerManager.callListeners(this);
     }
 
-    //// Util Methods
-    /**
-     * Returns an unmodifiable view of the healthworkers list.
-     * This list will not contain any duplicate healthworkers
-     */
-    public ObservableList<HealthWorker> getHealthWorkerList() {
-        return healthWorkers.asUnmodifiableObservableList();
-    }
-
     /** TODO
      * Returns an unmodifiable view of the patients list.
      * This list will not contain any duplicate patients.

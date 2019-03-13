@@ -16,6 +16,7 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
 import seedu.address.storage.csv_manager.CardFolderExport;
+import seedu.address.storage.csv_manager.CsvFile;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -112,6 +113,14 @@ public class ParserUtil {
         return new CardFolderExport(folderName);
     }
 
+    public static CsvFile parseFileName(String filename) throws ParseException {
+        requireNonNull(filename);
+        if (!CsvFile.isValidFileName(filename)) {
+            throw new ParseException(CsvFile.MESSAGE_FILENAME_CONSTRAINTS);
+        }
+        return new CsvFile(filename);
+    }
+
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
@@ -119,4 +128,5 @@ public class ParserUtil {
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
 }

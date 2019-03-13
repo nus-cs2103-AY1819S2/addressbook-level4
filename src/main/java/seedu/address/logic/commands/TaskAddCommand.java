@@ -25,8 +25,8 @@ public class TaskAddCommand extends Command {
             + PREFIX_ENDDATE + "END DATE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Teeth removal surgery "
-            + PREFIX_STARTDATE + "20-12-2019 "
-            + PREFIX_ENDDATE + "20-13-2019 ";
+            + PREFIX_STARTDATE + "10-11-2019 "
+            + PREFIX_ENDDATE + "22-12-2019 ";
 
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";

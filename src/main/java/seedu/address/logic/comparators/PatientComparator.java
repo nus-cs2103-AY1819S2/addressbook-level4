@@ -64,6 +64,7 @@ public class PatientComparator {
      * Comparator to sort via Date of Birth.
      */
     private static Comparator<Patient> compPatientDob = new Comparator<Patient>() {
+        //TODO: Tweak so that it's date based instead of string based.
         @Override
         public int compare(Patient p1, Patient p2) {
             return p1.getDateOfBirth().getDate().compareTo(p2.getDateOfBirth().getDate());

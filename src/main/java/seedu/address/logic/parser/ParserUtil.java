@@ -2,7 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -85,7 +89,9 @@ public class ParserUtil {
         requireNonNull(hints);
         List<String> hintList = new ArrayList<>(hints);
         final Set<Hint> hintSet = new HashSet<>();
-        if (!hintList.isEmpty()) hintSet.add(parseHint(hintList.get(hintList.size() - 1)));
+        if (!hintList.isEmpty()) {
+            hintSet.add(parseHint(hintList.get(hintList.size() - 1)));
+        }
         return hintSet;
     }
 

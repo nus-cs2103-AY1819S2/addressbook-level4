@@ -42,11 +42,9 @@ public class TableFlowPanel extends UiPart<Region> {
         }
 
         tableObservableList.addListener((ListChangeListener<Table>) c -> {
-            while (c.next()) {
-                tableFlowPane.getChildren().clear();
-                for (Table  table : tableObservableList) {
-                    tableFlowPane.getChildren().add(new TableCard(table).getRoot());
-                }
+            tableFlowPane.getChildren().clear();
+            for (Table  table : tableObservableList) {
+                tableFlowPane.getChildren().add(new TableCard(table).getRoot());
             }
         });
     }

@@ -9,6 +9,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
+import seedu.address.storage.csv_manager.CardFolderExport;
 
 /**
  * The API of the Model component.
@@ -171,5 +172,5 @@ public interface Model extends Observable {
     /**
      * Checks whether list of card folder names specified is found inside model
      */
-    List<ReadOnlyCardFolder> returnValidCardFolders(List<String> cardFolers);
+    List<ReadOnlyCardFolder> returnValidCardFolders(List<CardFolderExport> cardFolers);
 }

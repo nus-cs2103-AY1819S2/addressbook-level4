@@ -28,7 +28,7 @@ public class Directory {
      */
     public Directory(String directory) {
         requireNonNull(directory);
-        checkArgument(isValidDirectory(directory), MESSAGE_CONSTRAINTS);
+//        checkArgument(isValidDirectory(directory), MESSAGE_CONSTRAINTS);
         value = Paths.get(directory);
     }
 

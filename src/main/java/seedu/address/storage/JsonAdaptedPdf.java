@@ -83,7 +83,7 @@ class JsonAdaptedPdf {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Directory.class.getSimpleName()));
         }
         if (!Directory.isValidDirectory(location)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Directory.MESSAGE_CONSTRAINTS);
         }
         final Directory modelDirectory = new Directory(location);
 

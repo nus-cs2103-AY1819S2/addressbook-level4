@@ -3,9 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalFlashcards.ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CHINESE;
+import static seedu.address.testutil.TypicalFlashcards.GOOD;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 
 import java.util.Arrays;
@@ -29,7 +28,6 @@ public class CardCollectionTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     private final CardCollection cardCollection = new CardCollection();
 
     @Test
@@ -53,9 +51,9 @@ public class CardCollectionTest {
     @Test
     public void resetData_withDuplicateFlashcards_throwsDuplicateFlashcardException() {
         // Two flashcards with the same identity fields
-        Flashcard editedAlice = new FlashcardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Flashcard editedGood = new FlashcardBuilder(GOOD).withTags(VALID_TAG_CHINESE)
             .build();
-        List<Flashcard> newFlashcards = Arrays.asList(ALICE, editedAlice);
+        List<Flashcard> newFlashcards = Arrays.asList(GOOD, editedGood);
         CardCollectionStub newData = new CardCollectionStub(newFlashcards);
 
         thrown.expect(DuplicateFlashcardException.class);
@@ -70,21 +68,21 @@ public class CardCollectionTest {
 
     @Test
     public void hasFlashcard_flashcardNotInCardCollection_returnsFalse() {
-        assertFalse(cardCollection.hasFlashcard(ALICE));
+        assertFalse(cardCollection.hasFlashcard(GOOD));
     }
 
     @Test
     public void hasFlashcard_flashcardInCardCollection_returnsTrue() {
-        cardCollection.addFlashcard(ALICE);
-        assertTrue(cardCollection.hasFlashcard(ALICE));
+        cardCollection.addFlashcard(GOOD);
+        assertTrue(cardCollection.hasFlashcard(GOOD));
     }
 
     @Test
     public void hasFlashcard_flashcardWithSameIdentityFieldsInCardCollection_returnsTrue() {
-        cardCollection.addFlashcard(ALICE);
-        Flashcard editedAlice = new FlashcardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        cardCollection.addFlashcard(GOOD);
+        Flashcard editedGood = new FlashcardBuilder(GOOD).withTags(VALID_TAG_CHINESE)
             .build();
-        assertTrue(cardCollection.hasFlashcard(editedAlice));
+        assertTrue(cardCollection.hasFlashcard(editedGood));
     }
 
     @Test
@@ -98,7 +96,7 @@ public class CardCollectionTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         cardCollection.addListener(listener);
-        cardCollection.addFlashcard(ALICE);
+        cardCollection.addFlashcard(GOOD);
         assertEquals(1, counter.get());
     }
 
@@ -108,7 +106,7 @@ public class CardCollectionTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         cardCollection.addListener(listener);
         cardCollection.removeListener(listener);
-        cardCollection.addFlashcard(ALICE);
+        cardCollection.addFlashcard(GOOD);
         assertEquals(0, counter.get());
     }
 

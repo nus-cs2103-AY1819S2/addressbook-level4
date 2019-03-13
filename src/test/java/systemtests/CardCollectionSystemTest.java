@@ -7,8 +7,6 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -20,7 +18,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CardViewHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.FlashcardListPanelHandle;
@@ -28,7 +25,6 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
@@ -38,7 +34,6 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.CardCollection;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalFlashcards;
-import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -180,7 +175,7 @@ public abstract class CardCollectionSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code FlashcardListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code FlashcardListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -191,10 +186,7 @@ public abstract class CardCollectionSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
-     * default page.
-     *
-     * @see BrowserPanelHandle#isUrlChanged()
+     * Asserts that the previously selected card is now deselected.
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getFlashcardListPanel().isAnyCardSelected());
@@ -204,26 +196,17 @@ public abstract class CardCollectionSystemTest {
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      * @see FlashcardListPanelHandle#isSelectedFlashcardCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getFlashcardListPanel().navigateToCard(getFlashcardListPanel().getSelectedCardIndex());
-        String selectedCardName = getFlashcardListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getFlashcardListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the selected card in the person list panel remain unchanged.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      * @see FlashcardListPanelHandle#isSelectedFlashcardCardChanged()
      */
     protected void assertSelectedCardUnchanged() {

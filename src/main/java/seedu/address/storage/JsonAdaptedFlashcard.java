@@ -10,11 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.flashcard.Address;
-import seedu.address.model.flashcard.Email;
+import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.Name;
-import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,23 +21,18 @@ class JsonAdaptedFlashcard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Flashcard's %s field is missing!";
 
-    private final String name;
-    private final String phone;
-    private final String email;
-    private final String address;
+    private final String frontFace;
+    private final String backFace;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedFlashcard} with the given flashcard details.
      */
     @JsonCreator
-    public JsonAdaptedFlashcard(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                                @JsonProperty("email") String email, @JsonProperty("address") String address,
+    public JsonAdaptedFlashcard(@JsonProperty("frontFace") String frontFace, @JsonProperty("backFace") String backFace,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.frontFace = frontFace;
+        this.backFace = backFace;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,10 +42,8 @@ class JsonAdaptedFlashcard {
      * Converts a given {@code Flashcard} into this class for Jackson use.
      */
     public JsonAdaptedFlashcard(Flashcard source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        frontFace = source.getFrontFace().text;
+        backFace = source.getBackFace().text;
         tagged.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
@@ -70,40 +60,25 @@ class JsonAdaptedFlashcard {
             flashcardTags.add(tag.toModelType());
         }
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (frontFace == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Face.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Face.isValidFace(frontFace)) {
+            throw new IllegalValueException(Face.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Face modelFrontFace = new Face(frontFace);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (backFace == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Face.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!Face.isValidFace(backFace)) {
+            throw new IllegalValueException(Face.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
+        final Face modelBackFace = new Face(backFace);
 
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
-        return new Flashcard(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Flashcard(modelFrontFace, modelBackFace, modelTags);
     }
 
 }

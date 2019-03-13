@@ -7,7 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_HELLO;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 
 import org.junit.Test;
@@ -58,7 +58,7 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
         flashcard list
          * -> rejected
          */
-        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_HELLO);
         int invalidIndex = getModel().getCardCollection().getFlashcardList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
             MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);

@@ -3,11 +3,9 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.testutil.TypicalFlashcards.AMY;
+import static seedu.address.logic.commands.CommandTestUtil.BACKFACE_DESC_GOOD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONTFACE_DESC_GOOD;
+import static seedu.address.testutil.TypicalFlashcards.GOOD;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -87,9 +85,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ADDRESS_DESC_AMY;
-        Flashcard expectedFlashcard = new FlashcardBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + FRONTFACE_DESC_GOOD + BACKFACE_DESC_GOOD;
+        Flashcard expectedFlashcard = new FlashcardBuilder(GOOD).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addFlashcard(expectedFlashcard);
         expectedModel.commitCardCollection();

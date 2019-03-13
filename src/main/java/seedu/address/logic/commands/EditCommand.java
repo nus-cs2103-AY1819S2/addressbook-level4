@@ -1,16 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,11 +19,8 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.flashcard.Address;
-import seedu.address.model.flashcard.Email;
+import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.Name;
-import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,14 +34,12 @@ public class EditCommand extends Command {
         + "by the index number used in the displayed flashcard list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_NAME + "NAME] "
-        + "[" + PREFIX_PHONE + "PHONE] "
-        + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_FRONT_FACE + "FRONTFACE] "
+        + "[" + PREFIX_BACK_FACE + "BACKFACE] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com";
+        + PREFIX_FRONT_FACE + "Hola "
+        + PREFIX_BACK_FACE + "你好";
 
     public static final String MESSAGE_EDIT_FLASHCARD_SUCCESS = "Edited Flashcard: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -64,6 +58,21 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editFlashcardDescriptor = new EditFlashcardDescriptor(editFlashcardDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Flashcard} with the details of {@code flashcardToEdit}
+     * edited with {@code editFlashcardDescriptor}.
+     */
+    private static Flashcard createEditedFlashcard(Flashcard flashcardToEdit,
+                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
+        assert flashcardToEdit != null;
+
+        Face updatedFrontFace = editFlashcardDescriptor.getFrontFace().orElse(flashcardToEdit.getFrontFace());
+        Face updatedBackFace = editFlashcardDescriptor.getBackFace().orElse(flashcardToEdit.getBackFace());
+        Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
+
+        return new Flashcard(updatedFrontFace, updatedBackFace, updatedTags);
     }
 
     @Override
@@ -86,23 +95,6 @@ public class EditCommand extends Command {
         model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
         model.commitCardCollection();
         return new CommandResult(String.format(MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard));
-    }
-
-    /**
-     * Creates and returns a {@code Flashcard} with the details of {@code flashcardToEdit}
-     * edited with {@code editFlashcardDescriptor}.
-     */
-    private static Flashcard createEditedFlashcard(Flashcard flashcardToEdit,
-                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
-        assert flashcardToEdit != null;
-
-        Name updatedName = editFlashcardDescriptor.getName().orElse(flashcardToEdit.getName());
-        Phone updatedPhone = editFlashcardDescriptor.getPhone().orElse(flashcardToEdit.getPhone());
-        Email updatedEmail = editFlashcardDescriptor.getEmail().orElse(flashcardToEdit.getEmail());
-        Address updatedAddress = editFlashcardDescriptor.getAddress().orElse(flashcardToEdit.getAddress());
-        Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
-
-        return new Flashcard(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -128,10 +120,8 @@ public class EditCommand extends Command {
      * corresponding field value of the flashcard.
      */
     public static class EditFlashcardDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
+        private Face frontFace;
+        private Face backFace;
         private Set<Tag> tags;
 
         public EditFlashcardDescriptor() {
@@ -142,10 +132,8 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditFlashcardDescriptor(EditFlashcardDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setFrontFace(toCopy.frontFace);
+            setBackFace(toCopy.backFace);
             setTags(toCopy.tags);
         }
 
@@ -153,47 +141,23 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(frontFace, backFace, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public Optional<Face> getFrontFace() {
+            return Optional.ofNullable(frontFace);
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public void setFrontFace(Face frontFace) {
+            this.frontFace = frontFace;
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public Optional<Face> getBackFace() {
+            return Optional.ofNullable(backFace);
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setBackFace(Face backFace) {
+            this.backFace = backFace;
         }
 
         /**
@@ -205,26 +169,31 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
         @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
+        public boolean equals(Object o) {
+            if (this == o) {
                 return true;
             }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditFlashcardDescriptor)) {
+            if (!(o instanceof EditFlashcardDescriptor)) {
                 return false;
             }
+            EditFlashcardDescriptor that = (EditFlashcardDescriptor) o;
+            return getFrontFace().equals(that.getFrontFace())
+                && getBackFace().equals(that.getBackFace())
+                && getTags().equals(that.getTags());
+        }
 
-            // state check
-            EditFlashcardDescriptor e = (EditFlashcardDescriptor) other;
-
-            return getName().equals(e.getName())
-                && getPhone().equals(e.getPhone())
-                && getEmail().equals(e.getEmail())
-                && getAddress().equals(e.getAddress())
-                && getTags().equals(e.getTags());
+        @Override
+        public int hashCode() {
+            return Objects.hash(getFrontFace(), getBackFace(), getTags());
         }
     }
 }

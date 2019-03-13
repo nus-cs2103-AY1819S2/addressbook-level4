@@ -41,35 +41,33 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new FlashcardBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Hello"));
+        assertTrue(predicate.test(new FlashcardBuilder().withFrontFace("Hello").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new FlashcardBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Hello", "Hola"));
+        assertTrue(predicate.test(new FlashcardBuilder().withFrontFace("Hello Hola").build()));
+        assertTrue(predicate.test(new FlashcardBuilder().withBackFace("Hello Hola").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new FlashcardBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Hello", "Hola"));
+        assertTrue(predicate.test(new FlashcardBuilder().withFrontFace("Halo Hola").build()));
+        assertTrue(predicate.test(new FlashcardBuilder().withBackFace("Halo Hola").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new FlashcardBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("hEllO", "hOla"));
+        assertTrue(predicate.test(new FlashcardBuilder().withFrontFace("Hello Holla").build()));
+        assertTrue(predicate.test(new FlashcardBuilder().withBackFace("Hello Holla").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new FlashcardBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new FlashcardBuilder().withFrontFace("Good").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new FlashcardBuilder().withName("Alice Bob").build()));
-
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new FlashcardBuilder().withName("Alice").withPhone("12345")
-            .withEmail("alice@email.com").withAddress("Main Street").build()));
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Bad"));
+        assertFalse(predicate.test(new FlashcardBuilder().withFrontFace("Good").build()));
     }
 }

@@ -16,40 +16,28 @@ import seedu.address.model.tag.Tag;
 public class Flashcard {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Face frontFace;
+    private final Face backFace;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Flashcard(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+    public Flashcard(Face frontFace, Face backFace, Set<Tag> tags) {
+        requireAllNonNull(frontFace, backFace, tags);
+        this.frontFace = frontFace;
+        this.backFace = backFace;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Face getFrontFace() {
+        return frontFace;
     }
 
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public Face getBackFace() {
+        return backFace;
     }
 
     /**
@@ -70,8 +58,8 @@ public class Flashcard {
         }
 
         return otherFlashcard != null
-            && otherFlashcard.getName().equals(getName())
-            && (otherFlashcard.getPhone().equals(getPhone()) || otherFlashcard.getEmail().equals(getEmail()));
+            && otherFlashcard.getFrontFace().equals(getFrontFace())
+            && otherFlashcard.getBackFace().equals(getBackFace());
     }
 
     /**
@@ -79,39 +67,31 @@ public class Flashcard {
      * This defines a stronger notion of equality between two flashcards.
      */
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-
-        if (!(other instanceof Flashcard)) {
+        if (!(o instanceof Flashcard)) {
             return false;
         }
-
-        Flashcard otherFlashcard = (Flashcard) other;
-        return otherFlashcard.getName().equals(getName())
-            && otherFlashcard.getPhone().equals(getPhone())
-            && otherFlashcard.getEmail().equals(getEmail())
-            && otherFlashcard.getAddress().equals(getAddress())
-            && otherFlashcard.getTags().equals(getTags());
+        Flashcard flashcard = (Flashcard) o;
+        return getFrontFace().equals(flashcard.getFrontFace())
+            && getBackFace().equals(flashcard.getBackFace())
+            && getTags().equals(flashcard.getTags());
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(getFrontFace(), getBackFace(), getTags());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-            .append(" Phone: ")
-            .append(getPhone())
-            .append(" Email: ")
-            .append(getEmail())
-            .append(" Address: ")
-            .append(getAddress())
+        builder.append("Front: ")
+            .append(getFrontFace().text)
+            .append(" Back: ")
+            .append(getBackFace().text)
             .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

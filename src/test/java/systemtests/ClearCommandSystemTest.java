@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_GOOD;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: filters the flashcard list before clearing -> entire card collection cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original card collection
-        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_GOOD);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

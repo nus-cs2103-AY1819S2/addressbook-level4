@@ -3,17 +3,20 @@ package systemtests;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.BACKFACE_DESC_GOOD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONTFACE_DESC_GOOD;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS;
 import static seedu.address.testutil.TestUtil.getFlashcard;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_GOOD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -60,7 +63,8 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered flashcard list, delete index within bounds of card collection and flashcard list -> deleted */
-        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
+        executeCommand(AddCommand.COMMAND_WORD + FRONTFACE_DESC_GOOD + BACKFACE_DESC_GOOD);
+        showFlashcardsWithName(KEYWORD_MATCHING_GOOD);
         Index index = INDEX_FIRST_FLASHCARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredFlashcardList().size());
         assertCommandSuccess(index);
@@ -69,7 +73,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         flashcard list
          * -> rejected
          */
-        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_GOOD);
         int invalidIndex = getModel().getCardCollection().getFlashcardList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);

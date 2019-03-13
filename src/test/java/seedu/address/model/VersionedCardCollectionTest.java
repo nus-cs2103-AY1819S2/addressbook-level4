@@ -3,10 +3,10 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalFlashcards.AMY;
-import static seedu.address.testutil.TypicalFlashcards.BOB;
-import static seedu.address.testutil.TypicalFlashcards.CARL;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalFlashcards.EMAIL;
+import static seedu.address.testutil.TypicalFlashcards.GOOD;
+import static seedu.address.testutil.TypicalFlashcards.HITBAG;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,10 +18,12 @@ import seedu.address.testutil.CardCollectionBuilder;
 
 public class VersionedCardCollectionTest {
 
-    private final ReadOnlyCardCollection cardCollectionWithAmy = new CardCollectionBuilder().withFlashcard(AMY).build();
-    private final ReadOnlyCardCollection cardCollectionWithBob = new CardCollectionBuilder().withFlashcard(BOB).build();
-    private final ReadOnlyCardCollection cardCollectionWithCarl =
-        new CardCollectionBuilder().withFlashcard(CARL).build();
+    private final ReadOnlyCardCollection cardCollectionWithGood = new CardCollectionBuilder()
+        .withFlashcard(GOOD).build();
+    private final ReadOnlyCardCollection cardCollectionWithHitbag = new CardCollectionBuilder()
+        .withFlashcard(HITBAG).build();
+    private final ReadOnlyCardCollection cardCollectionWithEmail =
+        new CardCollectionBuilder().withFlashcard(EMAIL).build();
     private final ReadOnlyCardCollection emptyCardCollection = new CardCollectionBuilder().build();
 
     @Test
@@ -38,19 +40,19 @@ public class VersionedCardCollectionTest {
     @Test
     public void commit_multipleCardCollectionPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
 
         versionedCardCollection.commit();
         assertCardCollectionListStatus(versionedCardCollection,
-            Arrays.asList(emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob),
-            cardCollectionWithBob,
+            Arrays.asList(emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag),
+            cardCollectionWithHitbag,
             Collections.emptyList());
     }
 
     @Test
     public void commit_multipleCardCollectionPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 2);
 
         versionedCardCollection.commit();
@@ -63,7 +65,7 @@ public class VersionedCardCollectionTest {
     @Test
     public void canUndo_multipleCardCollectionPointerAtEndOfStateList_returnsTrue() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
 
         assertTrue(versionedCardCollection.canUndo());
     }
@@ -71,7 +73,7 @@ public class VersionedCardCollectionTest {
     @Test
     public void canUndo_multipleCardCollectionPointerAtStartOfStateList_returnsTrue() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 1);
 
         assertTrue(versionedCardCollection.canUndo());
@@ -87,7 +89,7 @@ public class VersionedCardCollectionTest {
     @Test
     public void canUndo_multipleCardCollectionPointerAtStartOfStateList_returnsFalse() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 2);
 
         assertFalse(versionedCardCollection.canUndo());
@@ -96,7 +98,7 @@ public class VersionedCardCollectionTest {
     @Test
     public void canRedo_multipleCardCollectionPointerNotAtEndOfStateList_returnsTrue() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 1);
 
         assertTrue(versionedCardCollection.canRedo());
@@ -105,7 +107,7 @@ public class VersionedCardCollectionTest {
     @Test
     public void canRedo_multipleCardCollectionPointerAtStartOfStateList_returnsTrue() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 2);
 
         assertTrue(versionedCardCollection.canRedo());
@@ -121,7 +123,7 @@ public class VersionedCardCollectionTest {
     @Test
     public void canRedo_multipleCardCollectionPointerAtEndOfStateList_returnsFalse() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
 
         assertFalse(versionedCardCollection.canRedo());
     }
@@ -129,26 +131,26 @@ public class VersionedCardCollectionTest {
     @Test
     public void undo_multipleCardCollectionPointerAtEndOfStateList_success() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
 
         versionedCardCollection.undo();
         assertCardCollectionListStatus(versionedCardCollection,
             Collections.singletonList(emptyCardCollection),
-            cardCollectionWithAmy,
-            Collections.singletonList(cardCollectionWithBob));
+            cardCollectionWithGood,
+            Collections.singletonList(cardCollectionWithHitbag));
     }
 
     @Test
     public void undo_multipleCardCollectionPointerNotAtStartOfStateList_success() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 1);
 
         versionedCardCollection.undo();
         assertCardCollectionListStatus(versionedCardCollection,
             Collections.emptyList(),
             emptyCardCollection,
-            Arrays.asList(cardCollectionWithAmy, cardCollectionWithBob));
+            Arrays.asList(cardCollectionWithGood, cardCollectionWithHitbag));
     }
 
     @Test
@@ -161,7 +163,7 @@ public class VersionedCardCollectionTest {
     @Test
     public void undo_multipleCardCollectionPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 2);
 
         assertThrows(VersionedCardCollection.NoUndoableStateException.class, versionedCardCollection::undo);
@@ -170,27 +172,27 @@ public class VersionedCardCollectionTest {
     @Test
     public void redo_multipleCardCollectionPointerNotAtEndOfStateList_success() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 1);
 
         versionedCardCollection.redo();
         assertCardCollectionListStatus(versionedCardCollection,
-            Arrays.asList(emptyCardCollection, cardCollectionWithAmy),
-            cardCollectionWithBob,
+            Arrays.asList(emptyCardCollection, cardCollectionWithGood),
+            cardCollectionWithHitbag,
             Collections.emptyList());
     }
 
     @Test
     public void redo_multipleCardCollectionPointerAtStartOfStateList_success() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 2);
 
         versionedCardCollection.redo();
         assertCardCollectionListStatus(versionedCardCollection,
             Collections.singletonList(emptyCardCollection),
-            cardCollectionWithAmy,
-            Collections.singletonList(cardCollectionWithBob));
+            cardCollectionWithGood,
+            Collections.singletonList(cardCollectionWithHitbag));
     }
 
     @Test
@@ -203,18 +205,18 @@ public class VersionedCardCollectionTest {
     @Test
     public void redo_multipleCardCollectionPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedCardCollection versionedCardCollection = prepareCardCollectionList(
-            emptyCardCollection, cardCollectionWithAmy, cardCollectionWithBob);
+            emptyCardCollection, cardCollectionWithGood, cardCollectionWithHitbag);
 
         assertThrows(VersionedCardCollection.NoRedoableStateException.class, versionedCardCollection::redo);
     }
 
     @Test
     public void equals() {
-        VersionedCardCollection versionedCardCollection = prepareCardCollectionList(cardCollectionWithAmy,
-            cardCollectionWithBob);
+        VersionedCardCollection versionedCardCollection = prepareCardCollectionList(cardCollectionWithGood,
+            cardCollectionWithHitbag);
 
         // same values -> returns true
-        VersionedCardCollection copy = prepareCardCollectionList(cardCollectionWithAmy, cardCollectionWithBob);
+        VersionedCardCollection copy = prepareCardCollectionList(cardCollectionWithGood, cardCollectionWithHitbag);
         assertTrue(versionedCardCollection.equals(copy));
 
         // same object -> returns true
@@ -227,13 +229,13 @@ public class VersionedCardCollectionTest {
         assertFalse(versionedCardCollection.equals(1));
 
         // different state list -> returns false
-        VersionedCardCollection differentCardCollectionList = prepareCardCollectionList(cardCollectionWithBob,
-            cardCollectionWithCarl);
+        VersionedCardCollection differentCardCollectionList = prepareCardCollectionList(cardCollectionWithHitbag,
+            cardCollectionWithEmail);
         assertFalse(versionedCardCollection.equals(differentCardCollectionList));
 
         // different current pointer index -> returns false
         VersionedCardCollection differentCurrentStatePointer = prepareCardCollectionList(
-            cardCollectionWithAmy, cardCollectionWithBob);
+            cardCollectionWithGood, cardCollectionWithHitbag);
         shiftCurrentStatePointerLeftwards(versionedCardCollection, 1);
         assertFalse(versionedCardCollection.equals(differentCurrentStatePointer));
     }

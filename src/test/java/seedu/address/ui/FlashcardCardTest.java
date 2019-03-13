@@ -47,7 +47,7 @@ public class FlashcardCardTest extends GuiUnitTest {
         assertFalse(flashcardCard.equals(0));
 
         // different flashcard, same index -> returns false
-        Flashcard differentFlashcard = new FlashcardBuilder().withName("differentName").build();
+        Flashcard differentFlashcard = new FlashcardBuilder().withFrontFace("differentName").build();
         assertFalse(flashcardCard.equals(new FlashcardCard(differentFlashcard, 0)));
 
         // same flashcard, different index -> returns false

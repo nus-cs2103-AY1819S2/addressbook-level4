@@ -2,9 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalFlashcards.ALICE;
-import static seedu.address.testutil.TypicalFlashcards.HOON;
-import static seedu.address.testutil.TypicalFlashcards.IDA;
+import static seedu.address.testutil.TypicalFlashcards.HELLO;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 
 import java.io.IOException;
@@ -85,14 +83,13 @@ public class JsonCardCollectionStorageTest {
         assertEquals(original, new CardCollection(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addFlashcard(HOON);
-        original.removeFlashcard(ALICE);
+        original.removeFlashcard(HELLO);
         jsonCardCollectionStorage.saveCardCollection(original, filePath);
         readBack = jsonCardCollectionStorage.readCardCollection(filePath).get();
         assertEquals(original, new CardCollection(readBack));
 
         // Save and read without specifying file path
-        original.addFlashcard(IDA);
+        original.addFlashcard(HELLO);
         jsonCardCollectionStorage.saveCardCollection(original); // file path not specified
         readBack = jsonCardCollectionStorage.readCardCollection().get(); // file path not specified
         assertEquals(original, new CardCollection(readBack));

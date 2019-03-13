@@ -15,27 +15,21 @@ import seedu.address.model.flashcard.Flashcard;
  */
 public class FlashcardCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
-    private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String FRONTFACE_FIELD_ID = "#frontFace";
+    private static final String BACKFACE_FIELD_ID = "#backFace";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
-    private final Label nameLabel;
-    private final Label addressLabel;
-    private final Label phoneLabel;
-    private final Label emailLabel;
+    private final Label frontFaceLabel;
+    private final Label backFaceLabel;
     private final List<Label> tagLabels;
 
     public FlashcardCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
-        nameLabel = getChildNode(NAME_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
+        frontFaceLabel = getChildNode(FRONTFACE_FIELD_ID);
+        backFaceLabel = getChildNode(BACKFACE_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -49,20 +43,12 @@ public class FlashcardCardHandle extends NodeHandle<Node> {
         return idLabel.getText();
     }
 
-    public String getName() {
-        return nameLabel.getText();
+    public String getFrontFace() {
+        return frontFaceLabel.getText();
     }
 
-    public String getAddress() {
-        return addressLabel.getText();
-    }
-
-    public String getPhone() {
-        return phoneLabel.getText();
-    }
-
-    public String getEmail() {
-        return emailLabel.getText();
+    public String getBackFace() {
+        return backFaceLabel.getText();
     }
 
     public List<String> getTags() {
@@ -76,10 +62,8 @@ public class FlashcardCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code flashcard}.
      */
     public boolean equals(Flashcard flashcard) {
-        return getName().equals(flashcard.getName().fullName)
-            && getAddress().equals(flashcard.getAddress().value)
-            && getPhone().equals(flashcard.getPhone().value)
-            && getEmail().equals(flashcard.getEmail().value)
+        return getFrontFace().equals(flashcard.getFrontFace().text)
+            && getBackFace().equals(flashcard.getBackFace().text)
             && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(flashcard.getTags().stream()
             .map(tag -> tag.tagName)
             .collect(Collectors.toList())));

@@ -27,26 +27,24 @@ public class FlashcardCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
-    @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label frontFace;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label backFace;
     @FXML
     private FlowPane tags;
 
     public FlashcardCard(Flashcard flashcard, int displayedIndex) {
         super(FXML);
         this.flashcard = flashcard;
-        id.setText(displayedIndex + ". ");
-        name.setText(flashcard.getName().fullName);
-        phone.setText(flashcard.getPhone().value);
-        address.setText(flashcard.getAddress().value);
-        email.setText(flashcard.getEmail().value);
+        if (displayedIndex == 0) {
+            id.setText("");
+        } else {
+            id.setText(displayedIndex + ". ");
+        }
+        frontFace.setText(flashcard.getFrontFace().text);
+        backFace.setText(flashcard.getBackFace().text);
         flashcard.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

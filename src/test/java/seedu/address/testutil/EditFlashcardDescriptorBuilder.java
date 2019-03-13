@@ -6,11 +6,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashcardDescriptor;
-import seedu.address.model.flashcard.Address;
-import seedu.address.model.flashcard.Email;
+import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.Name;
-import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,42 +30,24 @@ public class EditFlashcardDescriptorBuilder {
      */
     public EditFlashcardDescriptorBuilder(Flashcard flashcard) {
         descriptor = new EditFlashcardDescriptor();
-        descriptor.setName(flashcard.getName());
-        descriptor.setPhone(flashcard.getPhone());
-        descriptor.setEmail(flashcard.getEmail());
-        descriptor.setAddress(flashcard.getAddress());
+        descriptor.setFrontFace(flashcard.getFrontFace());
+        descriptor.setBackFace(flashcard.getBackFace());
         descriptor.setTags(flashcard.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditFlashcardDescriptor} that we are building.
+     * Sets the {@code FrontFace} of the {@code EditFlashcardDescriptor} that we are building.
      */
-    public EditFlashcardDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+    public EditFlashcardDescriptorBuilder withFrontFace(String frontFace) {
+        descriptor.setFrontFace(new Face(frontFace));
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditFlashcardDescriptor} that we are building.
+     * Sets the {@code BackFace} of the {@code EditFlashcardDescriptor} that we are building.
      */
-    public EditFlashcardDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditFlashcardDescriptor} that we are building.
-     */
-    public EditFlashcardDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditFlashcardDescriptor} that we are building.
-     */
-    public EditFlashcardDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditFlashcardDescriptorBuilder withBackFace(String backFace) {
+        descriptor.setBackFace(new Face(backFace));
         return this;
     }
 

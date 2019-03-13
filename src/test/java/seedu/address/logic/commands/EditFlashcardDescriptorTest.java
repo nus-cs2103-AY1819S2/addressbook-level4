@@ -2,13 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_GOOD;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_HITBAG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACKFACE_HITBAG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONTFACE_HITBAG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CHINESE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_INDONESIAN;
 
 import org.junit.Test;
 
@@ -20,40 +19,33 @@ public class EditFlashcardDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditFlashcardDescriptor descriptorWithSameValues = new EditFlashcardDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditFlashcardDescriptor descriptorWithSameValues = new EditFlashcardDescriptor(DESC_GOOD);
+        assertTrue(DESC_GOOD.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_GOOD.equals(DESC_GOOD));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_GOOD.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_GOOD.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_GOOD.equals(DESC_HITBAG));
 
-        // different name -> returns false
-        EditFlashcardDescriptor editedAmy =
-            new EditFlashcardDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        // different frontFace -> returns false
+        EditFlashcardDescriptor editedGood =
+            new EditFlashcardDescriptorBuilder(DESC_GOOD).withFrontFace(VALID_FRONTFACE_HITBAG).build();
+        assertFalse(DESC_GOOD.equals(editedGood));
 
-        // different phone -> returns false
-        editedAmy = new EditFlashcardDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different email -> returns false
-        editedAmy = new EditFlashcardDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different address -> returns false
-        editedAmy = new EditFlashcardDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        // different backFace -> returns false
+        editedGood = new EditFlashcardDescriptorBuilder(DESC_GOOD).withBackFace(VALID_BACKFACE_HITBAG).build();
+        assertFalse(DESC_GOOD.equals(editedGood));
 
         // different tags -> returns false
-        editedAmy = new EditFlashcardDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedGood = new EditFlashcardDescriptorBuilder(DESC_GOOD)
+            .withTags(VALID_TAG_INDONESIAN, VALID_TAG_CHINESE).build();
+        assertFalse(DESC_GOOD.equals(editedGood));
     }
 }

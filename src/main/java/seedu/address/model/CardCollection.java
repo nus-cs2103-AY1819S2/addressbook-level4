@@ -11,7 +11,7 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.UniqueFlashcardList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the card-collection level
  * Duplicates are not allowed (by .isSameFlashcard comparison)
  */
 public class CardCollection implements ReadOnlyCardCollection {

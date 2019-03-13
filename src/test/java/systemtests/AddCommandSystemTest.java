@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FEVER;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PAINKILER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMOXICILLIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
@@ -46,7 +46,7 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
          */
         Medicine toAdd = GABAPENTIN;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_GABAPENTIN + "   "
-                + COMPANY_DESC_GABAPENTIN + "   " + TAG_DESC_FRIEND + " " + TAG_DESC_HUSBAND + " ";
+                + COMPANY_DESC_GABAPENTIN + "   " + TAG_DESC_FEVER + " " + TAG_DESC_PAINKILER + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Gabapentin to the list -> Gabapentin deleted */
@@ -62,8 +62,8 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: add a medicine with all fields same as another medicine in the inventory except name -> added */
         toAdd = new MedicineBuilder(GABAPENTIN).withName(VALID_NAME_AMOXICILLIN).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + COMPANY_DESC_GABAPENTIN + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMOXICILLIN + COMPANY_DESC_GABAPENTIN + TAG_DESC_FEVER
+                + TAG_DESC_PAINKILER;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty inventory -> added */
@@ -72,8 +72,8 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: add a medicine with tags, command with parameters in random order -> added */
         toAdd = GABAPENTIN;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + COMPANY_DESC_GABAPENTIN + NAME_DESC_GABAPENTIN
-                + TAG_DESC_HUSBAND;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FEVER + COMPANY_DESC_GABAPENTIN + NAME_DESC_GABAPENTIN
+                + TAG_DESC_PAINKILER;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a medicine, missing tags -> added */
@@ -99,7 +99,7 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: add a duplicate medicine except with different tags -> rejected */
-        command = MedicineUtil.getAddCommand(AMOXICILLIN) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = MedicineUtil.getAddCommand(AMOXICILLIN) + " " + PREFIX_TAG.getPrefix() + "fever";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: missing name -> rejected */

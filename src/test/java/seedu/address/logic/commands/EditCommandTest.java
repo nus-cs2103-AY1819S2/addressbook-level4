@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
@@ -58,10 +58,10 @@ public class EditCommandTest {
         Medicine lastMedicine = model.getFilteredMedicineList().get(indexLastMedicine.getZeroBased());
 
         MedicineBuilder medicineInList = new MedicineBuilder(lastMedicine);
-        Medicine editedMedicine = medicineInList.withName(VALID_NAME_GABAPENTIN).withTags(VALID_TAG_HUSBAND).build();
+        Medicine editedMedicine = medicineInList.withName(VALID_NAME_GABAPENTIN).withTags(VALID_TAG_PAINKILLER).build();
 
         EditMedicineDescriptor descriptor = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_PAINKILLER).build();
         EditCommand editCommand = new EditCommand(indexLastMedicine, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEDICINE_SUCCESS, editedMedicine);

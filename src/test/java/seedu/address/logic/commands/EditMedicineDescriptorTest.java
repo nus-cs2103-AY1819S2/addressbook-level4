@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class EditMedicineDescriptorTest {
         assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
 
         // different tags -> returns false
-        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withTags(VALID_TAG_HUSBAND).build();
+        editedAmoxicillin = new EditMedicineDescriptorBuilder(DESC_AMOXICILLIN).withTags(VALID_TAG_PAINKILLER).build();
         assertFalse(DESC_AMOXICILLIN.equals(editedAmoxicillin));
     }
 }

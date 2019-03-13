@@ -35,17 +35,17 @@ import seedu.finance.logic.commands.ClearCommand;
 import seedu.finance.logic.commands.ListCommand;
 import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.SelectCommand;
-import seedu.finance.model.AddressBook;
+import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.testutil.TypicalRecords;
 import seedu.finance.ui.BrowserPanel;
 import seedu.finance.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for FinanceTracker, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class FinanceTrackerSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -80,8 +80,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalRecords.getTypicalAddressBook();
+    protected FinanceTracker getInitialData() {
+        return TypicalRecords.getTypicalFinanceTracker();
     }
 
     /**
@@ -135,11 +135,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all records in the finance book.
+     * Displays all records in the finance record.
      */
     protected void showAllRecords() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getRecordList().size(), getModel().getFilteredRecordList().size());
+        assertEquals(getModel().getFinanceTracker().getRecordList().size(), getModel().getFilteredRecordList().size());
     }
 
     /**
@@ -147,7 +147,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showRecordsWithName(String keyword) {
         executeCommand(SearchCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredRecordList().size() < getModel().getAddressBook().getRecordList().size());
+        assertTrue(getModel().getFilteredRecordList().size() < getModel().getFinanceTracker().getRecordList().size());
     }
 
     /**
@@ -159,11 +159,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all records in the finance book.
+     * Deletes all records in the finance record.
      */
     protected void deleteAllRecords() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getRecordList().size());
+        assertEquals(0, getModel().getFinanceTracker().getRecordList().size());
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new FinanceTracker(expectedModel.getFinanceTracker()), testApp.readStorageFinanceTracker());
         assertListMatching(getRecordListPanel(), expectedModel.getFilteredRecordList());
     }
 

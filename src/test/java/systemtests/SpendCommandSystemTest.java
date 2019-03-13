@@ -1,47 +1,47 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalRecords.ALICE;
-import static seedu.address.testutil.TypicalRecords.AMY;
-import static seedu.address.testutil.TypicalRecords.BOB;
-import static seedu.address.testutil.TypicalRecords.CARL;
-import static seedu.address.testutil.TypicalRecords.HOON;
-import static seedu.address.testutil.TypicalRecords.IDA;
-import static seedu.address.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.finance.testutil.TypicalRecords.ALICE;
+import static seedu.finance.testutil.TypicalRecords.AMY;
+import static seedu.finance.testutil.TypicalRecords.BOB;
+import static seedu.finance.testutil.TypicalRecords.CARL;
+import static seedu.finance.testutil.TypicalRecords.HOON;
+import static seedu.finance.testutil.TypicalRecords.IDA;
+import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SpendCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.record.Amount;
-import seedu.address.model.record.Date;
-import seedu.address.model.record.Name;
-import seedu.address.model.record.Record;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.RecordBuilder;
-import seedu.address.testutil.RecordUtil;
+import seedu.finance.commons.core.Messages;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.commands.RedoCommand;
+import seedu.finance.logic.commands.SpendCommand;
+import seedu.finance.logic.commands.UndoCommand;
+import seedu.finance.model.Model;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.record.Record;
+import seedu.finance.model.tag.Tag;
+import seedu.finance.testutil.RecordBuilder;
+import seedu.finance.testutil.RecordUtil;
 
-public class SpendCommandSystemTest extends AddressBookSystemTest {
+public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
     @Test
     public void spend() {
@@ -49,7 +49,7 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a record without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a record without tags to a non-empty finance tracker, command with leading spaces and trailing spaces
          * -> added
          */
         Record toSpend = AMY;
@@ -68,19 +68,19 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a record with all fields same as another record in the address book except name -> added */
+        /* Case: add a record with all fields same as another record in the finance tracker except name -> added */
         toSpend = new RecordBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = SpendCommand.COMMAND_WORD + NAME_DESC_BOB + AMOUNT_DESC_AMY + DATE_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toSpend);
 
-        /* Case: add a record with all fields same as another record in the address book except amount and date
+        /* Case: add a record with all fields same as another record in the finance tracker except amount and date
          * -> added
          */
         toSpend = new RecordBuilder(AMY).withAmount("999").withDate("01/01/2001").build();
         command = RecordUtil.getAddCommand(toSpend);
         assertCommandSuccess(command, toSpend);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty finance tracker -> added */
         deleteAllRecords();
         assertCommandSuccess(ALICE);
 
@@ -116,7 +116,7 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
         command = RecordUtil.getAddCommand(toSpend);
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
 
-        /* Case: add a duplicate person except with different date -> rejected */
+        /* Case: add a duplicate record except with different date -> rejected */
         toSpend = new RecordBuilder(HOON).withDate(VALID_DATE_BOB).build();
         command = RecordUtil.getAddCommand(toSpend);
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
@@ -164,13 +164,13 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
      * {@code toAdd}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 4. {@code Storage} and {@code RecordListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Record toAdd) {
         assertCommandSuccess(RecordUtil.getAddCommand(toAdd), toAdd);
@@ -193,7 +193,7 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Record)} except asserts that
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
-     * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 2. {@code Storage} and {@code RecordListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
      * @see SpendCommandSystemTest#assertCommandSuccess(String, Record)
      */
@@ -210,11 +210,11 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
      * 1. Command box displays {@code command}.<br>
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code RecordListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

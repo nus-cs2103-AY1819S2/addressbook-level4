@@ -2,7 +2,7 @@ package seedu.finance.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.finance.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import java.nio.file.Path;
 
@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.finance.commons.core.GuiSettings;
-import seedu.finance.model.AddressBook;
-import seedu.finance.model.ReadOnlyAddressBook;
+import seedu.finance.model.FinanceTracker;
+import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -25,9 +25,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(financeTrackerStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -50,21 +50,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void financeTrackerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonFinanceTrackerStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonFinanceTrackerStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        FinanceTracker original = getTypicalFinanceTracker();
+        storageManager.saveFinanceTracker(original);
+        ReadOnlyFinanceTracker retrieved = storageManager.readFinanceTracker().get();
+        assertEquals(original, new FinanceTracker(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getFinanceTrackerFilePath() {
+        assertNotNull(storageManager.getFinanceTrackerFilePath());
     }
 
 }

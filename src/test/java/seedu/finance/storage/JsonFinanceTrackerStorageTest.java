@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.finance.testutil.TypicalRecords.ALICE;
 import static seedu.finance.testutil.TypicalRecords.HOON;
 import static seedu.finance.testutil.TypicalRecords.IDA;
-import static seedu.finance.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,11 +17,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.finance.commons.exceptions.DataConversionException;
-import seedu.finance.model.AddressBook;
-import seedu.finance.model.ReadOnlyAddressBook;
+import seedu.finance.model.FinanceTracker;
+import seedu.finance.model.ReadOnlyFinanceTracker;
 
-public class JsonAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+public class JsonFinanceTrackerStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonFinanceTrackerStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -30,13 +30,13 @@ public class JsonAddressBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readFinanceTracker_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readFinanceTracker(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyFinanceTracker> readFinanceTracker(String filePath) throws Exception {
+        return new JsonFinanceTrackerStorage(Paths.get(filePath)).readFinanceTracker(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,78 +47,78 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readFinanceTracker("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("notJsonFormatAddressBook.json");
+        readFinanceTracker("notJsonFormatFinanceTracker.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readFinanceTracker_invalidRecordFinanceTracker_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.json");
+        readFinanceTracker("invalidRecordFinanceTracker.json");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readFinanceTracker_invalidAndValidRecordFinanceTracker_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.json");
+        readFinanceTracker("invalidAndValidRecordFinanceTracker.json");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
-        AddressBook original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+    public void readAndSaveFinanceTracker_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempFinanceTracker.json");
+        FinanceTracker original = getTypicalFinanceTracker();
+        JsonFinanceTrackerStorage jsonFinanceTrackerStorage = new JsonFinanceTrackerStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        jsonFinanceTrackerStorage.saveFinanceTracker(original, filePath);
+        ReadOnlyFinanceTracker readBack = jsonFinanceTrackerStorage.readFinanceTracker(filePath).get();
+        assertEquals(original, new FinanceTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addRecord(HOON);
         original.removeRecord(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        jsonFinanceTrackerStorage.saveFinanceTracker(original, filePath);
+        readBack = jsonFinanceTrackerStorage.readFinanceTracker(filePath).get();
+        assertEquals(original, new FinanceTracker(readBack));
 
         // Save and read without specifying file path
         original.addRecord(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        jsonFinanceTrackerStorage.saveFinanceTracker(original); // file path not specified
+        readBack = jsonFinanceTrackerStorage.readFinanceTracker().get(); // file path not specified
+        assertEquals(original, new FinanceTracker(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveFinanceTracker_nullFinanceTracker_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.json");
+        saveFinanceTracker(null, "SomeFile.json");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code financeTracker} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonFinanceTrackerStorage(Paths.get(filePath))
+                    .saveFinanceTracker(financeTracker, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveFinanceTracker_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveFinanceTracker(new FinanceTracker(), null);
     }
 }

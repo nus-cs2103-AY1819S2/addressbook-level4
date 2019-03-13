@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -13,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
+import seedu.address.storage.csv_manager.CardFolderExport;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -89,6 +91,15 @@ public class ParserUtil {
             hintSet.add(parseHint(hintName));
         }
         return hintSet;
+    }
+
+    public static Set<CardFolderExport> parseFolders(Collection<String> folderNames) throws ParseException {
+        requireNonNull(folderNames);
+        final Set<CardFolderExport> cardFolderExports = new HashSet<>();
+        for (String folderName : folderNames) {
+            cardFolderExports.add(new CardFolderExport(folderName));
+        }
+        return cardFolderExports;
     }
 
     /**

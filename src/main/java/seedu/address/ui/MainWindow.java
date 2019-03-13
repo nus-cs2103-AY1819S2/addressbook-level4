@@ -231,12 +231,15 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case BILL_MODE:
-            billBrowserPanel = new BillBrowserPanel(logic.selectedBillProperty());
+            billBrowserPanel = new BillBrowserPanel(logic.getRecentBill());
             browserPlaceholder.getChildren().add(billBrowserPanel.getRoot());
 
             statusBarFooter.updateMode("Bill Mode");
             break;
 
+        case STATISTICS_MODE:
+            statusBarFooter.updateMode("Statistics Mode");
+                break;
         default:
             break;
         }

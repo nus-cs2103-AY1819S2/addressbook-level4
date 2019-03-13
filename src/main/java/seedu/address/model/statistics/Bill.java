@@ -37,7 +37,6 @@ public class Bill {
         day = new Day(dateParser.substring(0, 2));
         month = new Month(dateParser.substring(3, 5));
         year = new Year(dateParser.substring(6, 10));
-
     }
 
     /**
@@ -87,7 +86,9 @@ public class Bill {
      * Gets the receipt.
      */
     public String getReceipt() {
-        return receipt;
+        StringBuilder newReceipt = new StringBuilder();
+        newReceipt.append(receipt).append(getFormattedDate());
+        return newReceipt.toString();
     }
 
     @Override

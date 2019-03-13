@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.TextArea?>
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="400"
+      minWidth="600" style="-fx-background-color: #F9F8D4;"
+      xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox spacing="5" alignment="CENTER">
+        <Label fx:id="receiptLabel" styleClass="receipt_big_label" text="RECEIPT" VBox.vgrow="ALWAYS">
+            <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE"/>
+            </minWidth>
+        </Label>
+    </HBox>
+    <HBox spacing="5" alignment="CENTER">
+        <Label fx:id="tableNumber" styleClass="receipt_big_label" text="\$tableNumber" VBox.vgrow="ALWAYS">
+            <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE"/>
+            </minWidth>
+        </Label>
+    </HBox>
+        <TextArea id="receipt" styleClass="receipt_text"  text="\$receipt"
+                  editable="false" VBox.vgrow="ALWAYS" />
+</VBox>

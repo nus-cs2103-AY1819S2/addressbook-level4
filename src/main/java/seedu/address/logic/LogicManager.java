@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;
@@ -209,6 +210,21 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedTable(Table table) {
         model.setSelectedTable(table);
+    }
+
+    @Override
+    public ReadOnlyProperty<Bill> recentBillProperty() {
+        return model.recentBillProperty();
+    }
+
+    @Override
+    public void setRecentBill(Bill bill) {
+        model.setRecentBill(bill);
+    }
+
+    @Override
+    public Bill getRecentBill() {
+        return model.getRecentBill();
     }
 
     @Override

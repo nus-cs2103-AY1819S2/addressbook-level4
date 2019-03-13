@@ -326,6 +326,7 @@ public interface Model {
      * null if no daily revenue is selected.
      */
     ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty();
+
     /**
      * Returns the selected daily revenue in the filtered daily revenue list.
      * null if no DailyRevenue is selected.
@@ -341,6 +342,22 @@ public interface Model {
      * Get the DailyRevenue list
      */
     ObservableList<DailyRevenue> getDailyRevenueList();
+
+    /**
+     * Recent bill.
+     * null if no bill is selected.
+     */
+    ReadOnlyProperty<Bill> recentBillProperty();
+
+    /**
+     * Gets the recent Bill.
+     */
+    Bill getRecentBill();
+
+    /**
+     * Sets the selected Bill to be the recent bill.
+     */
+    void setRecentBill(Bill bill);
 
     /**
      * Notifies the listeners that the RestOrRant statistics has been modified to update the storage.

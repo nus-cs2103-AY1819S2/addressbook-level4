@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 
@@ -125,6 +126,14 @@ public interface Logic {
     ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty();
 
     /**
+     * Recent bill.
+     * null if no bill is selected.
+     *
+     * @see seedu.address.model.Model#recentBillProperty()
+     */
+    ReadOnlyProperty<Bill> recentBillProperty();
+
+    /**
      * Sets the selected menu item in the filtered menu item list.
      *
      * @see seedu.address.model.Model#setSelectedMenuItem(MenuItem)
@@ -151,6 +160,20 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedDailyRevenue(DailyRevenue)
      */
     void setSelectedDailyRevenue(DailyRevenue dailyRevenue);
+
+    /**
+     * Sets the selected bill to be the recent bill.
+     *
+     * @see seedu.address.model.Model#setRecentBill(Bill)
+     */
+    void setRecentBill(Bill bill);
+
+    /**
+     * Gets the recent bill.
+     *
+     * @see seedu.address.model.Model#getRecentBill()
+     */
+    Bill getRecentBill();
 
     /**
      * Changes current mode of RestOrRant.

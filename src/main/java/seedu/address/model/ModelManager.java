@@ -21,6 +21,7 @@ import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.exception.BillNotFoundException;
 import seedu.address.model.statistics.exception.DailyRevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
@@ -43,6 +44,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
     private final FilteredList<DailyRevenue> filteredDailyRevenueList;
     private final SimpleObjectProperty<DailyRevenue> selectedDailyRevenue = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Bill> recentBill = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -524,12 +526,12 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedTable} is a valid table in {@code filteredTable}.
+     * Ensures {@code selectedDailyRevenue} is a valid daily revenue in {@code filteredDailyRevenue}.
      */
     private void ensureSelectedDailyRevenueIsValid(ListChangeListener.Change<? extends DailyRevenue> change) {
         while (change.next()) {
             if (selectedDailyRevenue.getValue() == null) {
-                //null is always a valid selected bill, so we do not need to check that it is valid anymore
+                //null is always a valid selected daily revenue, so we do not need to check that it is valid anymore
                 return;
             }
 
@@ -542,6 +544,26 @@ public class ModelManager implements Model {
                 selectedDailyRevenue.setValue(change.getAddedSubList().get(index));
             }
         }
+    }
+
+    //=========== Selected bill =============================================================================
+
+    @Override
+    public ReadOnlyProperty<Bill> recentBillProperty() {
+        return recentBill;
+    }
+
+    @Override
+    public Bill getRecentBill() {
+        return recentBill.getValue();
+    }
+
+    @Override
+    public void setRecentBill(Bill bill) {
+        if (bill == null) {
+            throw new BillNotFoundException();
+        }
+        recentBill.setValue(bill);
     }
 
     @Override

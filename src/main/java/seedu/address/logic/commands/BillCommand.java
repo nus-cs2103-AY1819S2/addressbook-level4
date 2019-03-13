@@ -13,6 +13,7 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableStatus;
 
@@ -53,14 +54,14 @@ public class BillCommand extends Command {
 
         bill = calculateBill(orderItemList, model.getRestOrRant().getMenu());
 
-        //TODO: Update the status of the table
-        TableStatus updatedTableStatus = tableToBill.getTableStatus();
-        updatedTableStatus.changeOccupancy("0");
-        Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
-        model.setTable(tableToBill, updatedTable);
+        model.setRecentBill(bill);
 
-        model.updateMode();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, bill));
+        updateDailyRevenue(model.getFilteredDailyRevenueList(), bill);
+
+        updateStatusOfTable(model);
+
+        model.updateStatistics();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
     }
 
     /**
@@ -95,11 +96,34 @@ public class BillCommand extends Command {
                     .append("   x ")
                     .append(orderItem.getQuantity())
                     .append("\n");
-            totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
 
+            totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
         }
-        receipt.append("Total Bill: $ ").append(totalBill);
+        receipt.append("Total Bill: $ ").append(totalBill).append("\n");
         return new Bill(tableToBill.getTableNumber(), totalBill, receipt.toString());
+    }
+
+    /**
+     * Updates the daily revenue.
+     */
+    private void updateDailyRevenue(ObservableList<DailyRevenue> dailyRevenuesList, Bill bill) {
+        for (DailyRevenue dailyRevenue : dailyRevenuesList) {
+            if (dailyRevenue.getYear().equals(bill.getYear())
+                    && dailyRevenue.getMonth().equals(bill.getMonth())
+                    && dailyRevenue.getDay().equals(bill.getDay())) {
+                dailyRevenue.addToRevenue(bill);
+            }
+        }
+    }
+
+    /**
+     * Updates the status of table.
+     */
+    private void updateStatusOfTable(Model model) {
+        TableStatus updatedTableStatus = tableToBill.getTableStatus();
+        updatedTableStatus.changeOccupancy("0");
+        Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
+        model.setTable(tableToBill, updatedTable);
     }
 
     @Override

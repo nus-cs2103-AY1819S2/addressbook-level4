@@ -15,14 +15,14 @@ public class AmountTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidAmount_throwsIllegalArgumentException() {
         String invalidAmount = "$1";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Amount(invalidAmount));
     }
 
     @Test
     public void isValidAmount() {
-        // null finance
+        // null amount
         Assert.assertThrows(NullPointerException.class, () -> Amount.isValidAmount(null));
 
         // invalid amounts

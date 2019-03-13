@@ -27,7 +27,7 @@ public class RecordTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameRecord() {
         // same object -> returns true
         assertTrue(ALICE.isSameRecord(ALICE));
 

@@ -22,7 +22,7 @@ import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
-import seedu.finance.testutil.AddressBookBuilder;
+import seedu.finance.testutil.FinanceTrackerBuilder;
 import seedu.finance.testutil.RecordBuilder;
 
 public class ModelManagerTest {
@@ -35,7 +35,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new FinanceTracker(), new FinanceTracker(modelManager.getFinanceTracker()));
         assertEquals(null, modelManager.getSelectedRecord());
     }
 
@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("finance/book/file/path"));
+        userPrefs.setFinanceTrackerFilePath(Paths.get("finance/tracker/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/finance/book/file/path"));
+        userPrefs.setFinanceTrackerFilePath(Paths.get("new/finance/tracker/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,16 +73,16 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setFinanceTrackerFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.setFinanceTrackerFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("finance/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setFinanceTrackerFilePath_validPath_setsFinanceTrackerFilePath() {
+        Path path = Paths.get("finance/tracker/file/path");
+        modelManager.setFinanceTrackerFilePath(path);
+        assertEquals(path, modelManager.getFinanceTrackerFilePath());
     }
 
     @Test
@@ -92,12 +92,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasRecord_recordNotInAddressBook_returnsFalse() {
+    public void hasRecord_recordNotInFinanceTracker_returnsFalse() {
         assertFalse(modelManager.hasRecord(ALICE));
     }
 
     @Test
-    public void hasRecord_recordInAddressBook_returnsTrue() {
+    public void hasRecord_recordInFinanceTracker_returnsTrue() {
         modelManager.addRecord(ALICE);
         assertTrue(modelManager.hasRecord(ALICE));
     }
@@ -151,13 +151,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withRecord(ALICE).withRecord(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        FinanceTracker financeTracker = new FinanceTrackerBuilder().withRecord(ALICE).withRecord(BENSON).build();
+        FinanceTracker differentFinanceTracker = new FinanceTracker();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(financeTracker, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(financeTracker, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -169,20 +169,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different financeTracker -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentFinanceTracker, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredRecordList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(financeTracker, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setFinanceTrackerFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(financeTracker, differentUserPrefs)));
     }
 }

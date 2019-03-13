@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.finance.testutil.TypicalRecords.ALICE;
-import static seedu.finance.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,29 +25,29 @@ import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.testutil.RecordBuilder;
 
-public class AddressBookTest {
+public class FinanceTrackerTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final FinanceTracker financeTracker = new FinanceTracker();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getRecordList());
+        assertEquals(Collections.emptyList(), financeTracker.getRecordList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        financeTracker.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyFinanceTracker_replacesData() {
+        FinanceTracker newData = getTypicalFinanceTracker();
+        financeTracker.resetData(newData);
+        assertEquals(newData, financeTracker);
     }
 
     @Test
@@ -56,49 +56,49 @@ public class AddressBookTest {
         Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Record> newRecords = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newRecords);
+        FinanceTrackerStub newData = new FinanceTrackerStub(newRecords);
 
         thrown.expect(DuplicateRecordException.class);
-        addressBook.resetData(newData);
+        financeTracker.resetData(newData);
     }
 
     @Test
     public void hasRecord_nullRecord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasRecord(null);
+        financeTracker.hasRecord(null);
     }
 
     @Test
-    public void hasRecord_recordNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasRecord(ALICE));
+    public void hasRecord_recordNotInFinanceTracker_returnsFalse() {
+        assertFalse(financeTracker.hasRecord(ALICE));
     }
 
     @Test
-    public void hasRecord_recordInAddressBook_returnsTrue() {
-        addressBook.addRecord(ALICE);
-        assertTrue(addressBook.hasRecord(ALICE));
+    public void hasRecord_recordInFinanceTracker_returnsTrue() {
+        financeTracker.addRecord(ALICE);
+        assertTrue(financeTracker.hasRecord(ALICE));
     }
 
     @Test
-    public void hasRecord_recordWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addRecord(ALICE);
+    public void hasRecord_recordWithSameIdentityFieldsInFinanceTracker_returnsTrue() {
+        financeTracker.addRecord(ALICE);
         Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasRecord(editedAlice));
+        assertTrue(financeTracker.hasRecord(editedAlice));
     }
 
     @Test
     public void getRecordList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getRecordList().remove(0);
+        financeTracker.getRecordList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addRecord(ALICE);
+        financeTracker.addListener(listener);
+        financeTracker.addRecord(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -106,19 +106,19 @@ public class AddressBookTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addRecord(ALICE);
+        financeTracker.addListener(listener);
+        financeTracker.removeListener(listener);
+        financeTracker.addRecord(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose records list can violate interface constraints.
+     * A stub ReadOnlyFinanceTracker whose records list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class FinanceTrackerStub implements ReadOnlyFinanceTracker {
         private final ObservableList<Record> records = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Record> records) {
+        FinanceTrackerStub(Collection<Record> records) {
             this.records.setAll(records);
         }
 

@@ -15,7 +15,7 @@ public class DateTest {
     }
 
     @Test
-    public void constructor_invalidEmail_throwsIllegalArgumentException() {
+    public void constructor_invalidDate_throwsIllegalArgumentException() {
         String invalidDate = "1/2/3";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Date(invalidDate));
     }
@@ -39,7 +39,7 @@ public class DateTest {
         assertFalse(Date.isValidDate("03/30/2008")); // invalid month
         assertFalse(Date.isValidDate("30-03-2009")); // dashes instead of backslash
 
-        // valid email
+        // valid date
         assertTrue(Date.isValidDate("30/03/2009"));
     }
 }

@@ -1,16 +1,16 @@
-package seedu.address.logic.parser;
+package seedu.finance.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DescriptionCommand;
-import seedu.address.model.record.Description;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.commands.DescriptionCommand;
+import seedu.finance.model.record.Description;
 
 public class DescriptionCommandParserTest {
     private DescriptionCommandParser parser = new DescriptionCommandParser();

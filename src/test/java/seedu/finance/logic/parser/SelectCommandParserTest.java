@@ -1,13 +1,13 @@
-package seedu.address.logic.parser;
+package seedu.finance.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SelectCommand;
+import seedu.finance.logic.commands.SelectCommand;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.

@@ -1,41 +1,41 @@
-package seedu.address.logic.parser;
+package seedu.finance.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_THIRD_RECORD;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditRecordDescriptor;
-import seedu.address.model.record.Amount;
-import seedu.address.model.record.Date;
-import seedu.address.model.record.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditRecordDescriptorBuilder;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.commands.EditCommand;
+import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.tag.Tag;
+import seedu.finance.testutil.EditRecordDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -124,7 +124,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_RECORD;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
         EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -182,7 +182,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_RECORD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder().withTags().build();

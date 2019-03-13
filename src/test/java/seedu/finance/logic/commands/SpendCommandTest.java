@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
@@ -16,15 +16,15 @@ import org.junit.rules.ExpectedException;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.record.Record;
-import seedu.address.testutil.RecordBuilder;
+import seedu.finance.commons.core.GuiSettings;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.exceptions.CommandException;
+import seedu.finance.model.FinanceTracker;
+import seedu.finance.model.Model;
+import seedu.finance.model.ReadOnlyFinanceTracker;
+import seedu.finance.model.ReadOnlyUserPrefs;
+import seedu.finance.model.record.Record;
+import seedu.finance.testutil.RecordBuilder;
 
 public class SpendCommandTest {
 
@@ -113,12 +113,12 @@ public class SpendCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getFinanceTrackerFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setFinanceTrackerFilePath(Path financeTrackerFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -128,12 +128,12 @@ public class SpendCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setFinanceTracker(ReadOnlyFinanceTracker financeTracker) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyFinanceTracker getFinanceTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -163,27 +163,27 @@ public class SpendCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoFinanceTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoFinanceTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoFinanceTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoFinanceTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitFinanceTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -240,13 +240,13 @@ public class SpendCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitFinanceTracker() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyFinanceTracker getFinanceTracker() {
+            return new FinanceTracker();
         }
     }
 

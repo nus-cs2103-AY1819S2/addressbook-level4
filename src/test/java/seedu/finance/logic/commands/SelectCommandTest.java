@@ -7,8 +7,8 @@ import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.logic.commands.CommandTestUtil.showRecordAtIndex;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
-import static seedu.finance.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.finance.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_THIRD_RECORD;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
 
@@ -23,17 +23,17 @@ import seedu.finance.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredRecordList().size());
+        Index lastRecordIndex = Index.fromOneBased(model.getFilteredRecordList().size());
 
         assertExecutionSuccess(INDEX_FIRST_RECORD);
-        assertExecutionSuccess(INDEX_THIRD_PERSON);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(INDEX_THIRD_RECORD);
+        assertExecutionSuccess(lastRecordIndex);
     }
 
     @Test
@@ -57,8 +57,8 @@ public class SelectCommandTest {
         showRecordAtIndex(expectedModel, INDEX_FIRST_RECORD);
 
         Index outOfBoundsIndex = INDEX_SECOND_RECORD;
-        // ensures that outOfBoundIndex is still in bounds of finance book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getRecordList().size());
+        // ensures that outOfBoundIndex is still in bounds of finance tracker list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getFinanceTracker().getRecordList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
     }
@@ -91,7 +91,7 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_RECORD_SUCCESS, index.getOneBased());
         expectedModel.setSelectedRecord(model.getFilteredRecordList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);

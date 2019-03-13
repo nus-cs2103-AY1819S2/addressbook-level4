@@ -14,7 +14,7 @@ import java.util.List;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
-import seedu.finance.model.AddressBook;
+import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;
@@ -99,14 +99,14 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the finance book, filtered record list and selected record in {@code actualModel} remain unchanged <br>
+     * - the finance tracker, filtered record list and selected record in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        FinanceTracker expectedFinanceTracker = new FinanceTracker(actualModel.getFinanceTracker());
         List<Record> expectedFilteredList = new ArrayList<>(actualModel.getFilteredRecordList());
         Record expectedSelectedRecord = actualModel.getSelectedRecord();
 
@@ -117,7 +117,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedFinanceTracker, actualModel.getFinanceTracker());
             assertEquals(expectedFilteredList, actualModel.getFilteredRecordList());
             assertEquals(expectedSelectedRecord, actualModel.getSelectedRecord());
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -126,7 +126,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the record at the given {@code targetIndex} in the
-     * {@code model}'s finance book.
+     * {@code model}'s finance tracker.
      */
     public static void showRecordAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredRecordList().size());
@@ -139,12 +139,12 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first record in {@code model}'s filtered list from {@code model}'s finance book.
+     * Deletes the first record in {@code model}'s filtered list from {@code model}'s finance tracker.
      */
     public static void deleteFirstRecord(Model model) {
         Record firstRecord = model.getFilteredRecordList().get(0);
         model.deleteRecord(firstRecord);
-        model.commitAddressBook();
+        model.commitFinanceTracker();
     }
 
 }

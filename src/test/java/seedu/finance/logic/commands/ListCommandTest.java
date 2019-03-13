@@ -1,17 +1,17 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showRecordAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
-import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.finance.logic.commands.CommandTestUtil.showRecordAtIndex;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
+import seedu.finance.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -24,8 +24,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+        expectedModel = new ModelManager(model.getFinanceTracker(), new UserPrefs());
     }
 
     @Test

@@ -1,22 +1,22 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstRecord;
-import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.finance.logic.commands.CommandTestUtil.deleteFirstRecord;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
+import seedu.finance.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -32,11 +32,11 @@ public class UndoCommandTest {
     @Test
     public void execute() {
         // multiple undoable states in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoFinanceTracker();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoFinanceTracker();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model

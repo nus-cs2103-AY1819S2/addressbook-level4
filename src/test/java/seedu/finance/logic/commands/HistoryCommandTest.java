@@ -1,12 +1,12 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
 
 public class HistoryCommandTest {
     private CommandHistory history = new CommandHistory();

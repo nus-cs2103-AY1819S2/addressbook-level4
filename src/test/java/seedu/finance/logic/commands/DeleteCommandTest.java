@@ -1,24 +1,24 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showRecordAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
-import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.finance.logic.commands.CommandTestUtil.showRecordAtIndex;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.record.Record;
+import seedu.finance.commons.core.Messages;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
+import seedu.finance.model.UserPrefs;
+import seedu.finance.model.record.Record;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -26,7 +26,7 @@ import seedu.address.model.record.Record;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,9 +36,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getFinanceTracker(), new UserPrefs());
         expectedModel.deleteRecord(recordToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFinanceTracker();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -60,9 +60,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFinanceTracker(), new UserPrefs());
         expectedModel.deleteRecord(recordToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFinanceTracker();
         showNoRecord(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -73,8 +73,8 @@ public class DeleteCommandTest {
         showRecordAtIndex(model, INDEX_FIRST_RECORD);
 
         Index outOfBoundIndex = INDEX_SECOND_RECORD;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRecordList().size());
+        // ensures that outOfBoundIndex is still in bounds of finance tracker list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getFinanceTracker().getRecordList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -85,19 +85,19 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Record recordToDelete = model.getFilteredRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECORD);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFinanceTracker(), new UserPrefs());
         expectedModel.deleteRecord(recordToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFinanceTracker();
 
         // delete -> first record deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered record list to show all records
-        expectedModel.undoAddressBook();
+        // undo -> reverts financetracker back to previous state and filtered record list to show all records
+        expectedModel.undoFinanceTracker();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first record deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoFinanceTracker();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecordList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> finance tracker state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single finance tracker state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -124,23 +124,23 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameRecordDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECORD);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFinanceTracker(), new UserPrefs());
 
         showRecordAtIndex(model, INDEX_SECOND_RECORD);
         Record recordToDelete = model.getFilteredRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
         expectedModel.deleteRecord(recordToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFinanceTracker();
 
         // delete -> deletes second record in unfiltered record list / first record in filtered record list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered record list to show all records
-        expectedModel.undoAddressBook();
+        // undo -> reverts financetracker back to previous state and filtered record list to show all records
+        expectedModel.undoFinanceTracker();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(recordToDelete, model.getFilteredRecordList().get(INDEX_FIRST_RECORD.getZeroBased()));
         // redo -> deletes same second record in unfiltered record list
-        expectedModel.redoAddressBook();
+        expectedModel.redoFinanceTracker();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

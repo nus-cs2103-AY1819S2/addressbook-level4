@@ -1,32 +1,32 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalRecords.CARL;
-import static seedu.address.testutil.TypicalRecords.ELLE;
-import static seedu.address.testutil.TypicalRecords.FIONA;
-import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.commons.core.Messages.MESSAGE_RECORDS_LISTED_OVERVIEW;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.finance.testutil.TypicalRecords.CARL;
+import static seedu.finance.testutil.TypicalRecords.ELLE;
+import static seedu.finance.testutil.TypicalRecords.FIONA;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.record.NameContainsKeywordsPredicate;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
+import seedu.finance.model.UserPrefs;
+import seedu.finance.model.record.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class SearchCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -58,7 +58,7 @@ public class SearchCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredRecordList(predicate);
@@ -68,7 +68,7 @@ public class SearchCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredRecordList(predicate);

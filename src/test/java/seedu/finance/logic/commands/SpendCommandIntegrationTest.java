@@ -2,7 +2,7 @@ package seedu.finance.logic.commands;
 
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.finance.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,24 +24,24 @@ public class SpendCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newRecord_success() {
         Record validRecord = new RecordBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFinanceTracker(), new UserPrefs());
         expectedModel.addRecord(validRecord);
-        expectedModel.commitAddressBook();
+        expectedModel.commitFinanceTracker();
 
         assertCommandSuccess(new SpendCommand(validRecord), model, commandHistory,
                 String.format(SpendCommand.MESSAGE_SUCCESS, validRecord), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Record recordInList = model.getAddressBook().getRecordList().get(0);
+    public void execute_duplicateRecord_throwsCommandException() {
+        Record recordInList = model.getFinanceTracker().getRecordList().get(0);
         assertCommandFailure(new SpendCommand(recordInList), model, commandHistory,
                 SpendCommand.MESSAGE_DUPLICATE_RECORD);
     }

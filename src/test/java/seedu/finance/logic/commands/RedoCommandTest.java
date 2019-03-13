@@ -1,22 +1,22 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstRecord;
-import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.finance.logic.commands.CommandTestUtil.deleteFirstRecord;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
+import seedu.finance.model.UserPrefs;
 
 public class RedoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -24,23 +24,23 @@ public class RedoCommandTest {
         // set up of both models' undo/redo history
         deleteFirstRecord(model);
         deleteFirstRecord(model);
-        model.undoAddressBook();
-        model.undoAddressBook();
+        model.undoFinanceTracker();
+        model.undoFinanceTracker();
 
         deleteFirstRecord(expectedModel);
         deleteFirstRecord(expectedModel);
-        expectedModel.undoAddressBook();
-        expectedModel.undoAddressBook();
+        expectedModel.undoFinanceTracker();
+        expectedModel.undoFinanceTracker();
     }
 
     @Test
     public void execute() {
         // multiple redoable states in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoFinanceTracker();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoFinanceTracker();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model

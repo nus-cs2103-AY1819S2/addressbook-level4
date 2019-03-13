@@ -36,11 +36,11 @@ import seedu.finance.testutil.EditRecordDescriptorBuilder;
 import seedu.finance.testutil.RecordBuilder;
 import seedu.finance.testutil.RecordUtil;
 
-public class AddressBookParserTest {
+public class FinanceTrackerParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final FinanceTrackerParser parser = new FinanceTrackerParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -104,6 +104,14 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_descriptionAlias() throws Exception {
+        final Description description = new Description("Some description.");
+        DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_ALIAS + " "
+                + INDEX_FIRST_RECORD.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
+        assertEquals(new DescriptionCommand(INDEX_FIRST_RECORD, description), command);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Record record = new RecordBuilder().build();
         EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder(record).build();
@@ -125,6 +133,12 @@ public class AddressBookParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_exitAlias() throws Exception {
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS + " 3") instanceof ExitCommand);
     }
 
     @Test

@@ -333,6 +333,9 @@ public class ModelManager implements Model {
         versionedRequestBook.commit();
     }
 
+    /**
+     * Ensures {@code selectedRequest} is a valid request in {@code filteredRequests}.
+     */
     private void ensureSelectedRequestIsValid(ListChangeListener.Change<? extends Request> change) {
         while (change.next()) {
             if (selectedRequest.getValue() == null) {
@@ -351,10 +354,11 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedRequestRemoved =
-                change.getRemoved().stream().anyMatch(removedRequest -> selectedRequest.getValue().isSameRequest(removedRequest));
+                change.getRemoved().stream().anyMatch(removedRequest -> selectedRequest.getValue()
+                    .isSameRequest(removedRequest));
             if (wasSelectedRequestRemoved) {
-                selectedRequest.setValue(change.getFrom() > 0 ?
-                    change.getList().get(change.getFrom() - 1) : null);
+                selectedRequest.setValue(change.getFrom() > 0
+                    ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

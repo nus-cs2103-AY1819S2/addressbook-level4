@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path requestBookFilePath = Paths.get("data", "requestbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setRequestBookFilePath(newUserPrefs.getRequestBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +58,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public void setRequestBookFilePath(Path requestBookFilePath) {
+        requireNonNull(requestBookFilePath);
+        this.requestBookFilePath = requestBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,7 +75,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && requestBookFilePath.equals(o.requestBookFilePath);
     }
 
     @Override
@@ -79,9 +87,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("Gui Settings : ").append(guiSettings);
+        sb.append("\nLocal data file location : ").append(addressBookFilePath);
+        sb.append("\nRequests file location : ").append(requestBookFilePath);
         return sb.toString();
     }
 
+    public Path getRequestBookFilePath() {
+        return this.requestBookFilePath;
+    }
 }

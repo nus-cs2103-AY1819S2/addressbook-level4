@@ -25,7 +25,11 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.*;
+import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.Assert;
+import seedu.address.testutil.HealthWorkerBookBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RequestBookBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -239,13 +243,13 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook,
-         requestBook, userPrefs)));
+            requestBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, healthWorkerBook,
-         requestBook, userPrefs)));
+            requestBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -254,6 +258,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, healthWorkerBook,
-         requestBook, differentUserPrefs)));
+            requestBook, differentUserPrefs)));
     }
 }

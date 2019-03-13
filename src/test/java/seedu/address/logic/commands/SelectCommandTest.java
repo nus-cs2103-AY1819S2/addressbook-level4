@@ -26,7 +26,7 @@ import seedu.address.model.UserPrefs;
  */
 public class SelectCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-     getTypicalRequestBook(), new UserPrefs());
+        getTypicalRequestBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(),
         getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();

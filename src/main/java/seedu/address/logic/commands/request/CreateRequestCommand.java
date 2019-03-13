@@ -22,18 +22,18 @@ public class CreateRequestCommand extends AddCommand {
     public static final String COMMAND_WORD = "request";
 
     public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Creates a new request in the request book. " + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_DATE + "DATETIME"
-            + PREFIX_CONDITION + "CONDITION...\n"
-            + "Example: " + RequestCommand.COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "81234567 "
-            + PREFIX_ADDRESS + "123, Sengkang Ave 3, #04-12, 214632 "
-            + PREFIX_DATE + "01-01-2019 08:00:00 "
-            + PREFIX_CONDITION + "Physiotherapy";
+        + ": Creates a new request in the request book. " + "Parameters: "
+        + PREFIX_NAME + "NAME "
+        + PREFIX_PHONE + "PHONE "
+        + PREFIX_ADDRESS + "ADDRESS "
+        + PREFIX_DATE + "DATETIME"
+        + PREFIX_CONDITION + "CONDITION...\n"
+        + "Example: " + RequestCommand.COMMAND_WORD + " " + COMMAND_WORD + " "
+        + PREFIX_NAME + "John Doe "
+        + PREFIX_PHONE + "81234567 "
+        + PREFIX_ADDRESS + "123, Sengkang Ave 3, #04-12, 214632 "
+        + PREFIX_DATE + "01-01-2019 08:00:00 "
+        + PREFIX_CONDITION + "Physiotherapy";
 
     public static final String MESSAGE_SUCCESS = "Created new request successfully: %1$s";
     public static final String MESSAGE_DUPLICATE_REQUEST = "This request already exists.";
@@ -56,11 +56,11 @@ public class CreateRequestCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-          if (model.hasRequest(this.newRequest)) {
-              throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
-          }
-          model.addRequest(newRequest);
-          model.commitRequestBook();
+        if (model.hasRequest(this.newRequest)) {
+            throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
+        }
+        model.addRequest(newRequest);
+        model.commitRequestBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, newRequest));
     }
 

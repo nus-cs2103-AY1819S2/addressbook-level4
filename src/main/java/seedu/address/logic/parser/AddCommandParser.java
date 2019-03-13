@@ -1,11 +1,20 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHealthWorkerCommand;
@@ -49,9 +58,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new AddPersonCommand(person);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the CreateRequestCommand
+     * and returns an CreateReqeustCommand object for execution.
+     * @throws ParseException if the suer input does not conform the expected format
+     */
     private CreateRequestCommand parseAddRequest(String args) throws ParseException {
         UUID uuid = UUID.randomUUID();
-        String requestID = uuid.toString();
+        String requestId = uuid.toString();
 
         Person patient = getPersonFromArgs(args);
 
@@ -68,7 +82,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> conditions = ParserUtil.parseTags(argumentMultimap.getAllValues(PREFIX_CONDITION));
 
-        return new CreateRequestCommand(new Request(requestID, patient, null, requestDate, conditions,
+        return new CreateRequestCommand(new Request(requestId, patient, null, requestDate, conditions,
             new RequestStatus("PENDING")));
 
     }
@@ -109,6 +123,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new AddHealthWorkerCommand(healthWorker);
     }
 
+    /**
+     * Extracts a Person object from the given object and returns it.
+     * @throws ParseException if there are invalid/unfilled fields.
+     */
     private Person getPersonFromArgs(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);

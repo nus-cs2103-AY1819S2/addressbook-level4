@@ -5,7 +5,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_OTHERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PATIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_REQUEST;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**

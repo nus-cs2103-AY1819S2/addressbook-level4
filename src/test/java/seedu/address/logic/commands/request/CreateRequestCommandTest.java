@@ -1,29 +1,37 @@
 package seedu.address.logic.commands.request;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
-import org.junit.Rule;
-import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.*;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.request.Request;
-import seedu.address.testutil.Assert;
-import seedu.address.testutil.RequestBuilder;
-import seedu.address.testutil.TypicalRequests;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Rule;
+import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RequestBook;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
+import seedu.address.testutil.Assert;
+import seedu.address.testutil.RequestBuilder;
+import seedu.address.testutil.TypicalRequests;
 
 class CreateRequestCommandTest {
 
@@ -54,14 +62,14 @@ class CreateRequestCommandTest {
     }
 
     @Test
-    public void execute_duplicateRequest_throwsCommandException() throws Exception {
+    public void execute_duplicateRequest_throwsCommandException() {
         Request validRequest = new RequestBuilder().build();
         CreateRequestCommand createRequestCommand = new CreateRequestCommand(validRequest);
         ModelStub modelStub = new ModelStubWithRequest(validRequest);
 
         Assert.assertThrows(CommandException.class,
-            CreateRequestCommand.MESSAGE_DUPLICATE_REQUEST,
-            () -> createRequestCommand.execute(modelStub, commandHistory));
+            CreateRequestCommand.MESSAGE_DUPLICATE_REQUEST, () -> createRequestCommand.execute
+                (modelStub, commandHistory));
     }
 
     @Test

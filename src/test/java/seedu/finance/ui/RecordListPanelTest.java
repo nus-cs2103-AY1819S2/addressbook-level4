@@ -1,12 +1,12 @@
-package seedu.address.ui;
+package seedu.finance.ui;
 
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
-import static seedu.address.testutil.TypicalRecords.getTypicalRecords;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRecord;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
+import static seedu.finance.testutil.TypicalRecords.getTypicalRecords;
+import static seedu.finance.ui.testutil.GuiTestAssert.assertCardDisplaysRecord;
+import static seedu.finance.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
@@ -17,11 +17,11 @@ import guitests.guihandles.RecordListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.record.Amount;
-import seedu.address.model.record.Date;
-import seedu.address.model.record.Description;
-import seedu.address.model.record.Name;
-import seedu.address.model.record.Record;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.record.Record;
 
 public class RecordListPanelTest extends GuiUnitTest {
     private static final ObservableList<Record>TYPICAL_RECORDS =

@@ -1,10 +1,10 @@
-package seedu.address.ui;
+package seedu.finance.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
-import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
+import static seedu.finance.ui.HelpWindow.USERGUIDE_FILE_PATH;
 
 import java.net.URL;
 

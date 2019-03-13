@@ -10,7 +10,7 @@ import javafx.scene.Node;
 import seedu.finance.ui.testutil.UiPartRule;
 
 /**
- * A GUI unit test class for AddressBook.
+ * A GUI unit test class for FinanceTracker.
  */
 public abstract class GuiUnitTest {
     @Rule

@@ -15,6 +15,7 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 import seedu.finance.testutil.RecordBuilder;

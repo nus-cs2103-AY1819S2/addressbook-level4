@@ -1,22 +1,22 @@
-package seedu.address.logic.commands;
+package seedu.finance.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.IncreaseCommand.MESSAGE_NOT_IMPLEMENTED_YET;
-import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.finance.logic.commands.IncreaseCommand.MESSAGE_NOT_IMPLEMENTED_YET;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
+import seedu.finance.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with Model) and unit test for IncreaseCommand
  */
 public class IncreaseCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
 
     @Test
     public void execute() {

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.finance.logic.commands.ClearCommand;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.DescriptionCommand;

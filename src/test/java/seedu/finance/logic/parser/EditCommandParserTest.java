@@ -27,6 +27,7 @@ import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_THIRD_RECORD;
 
 import org.junit.Test;
+
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;

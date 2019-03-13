@@ -48,7 +48,8 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(temporaryFolder.newFile().toPath());
+        JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(
+                temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(financeTrackerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);

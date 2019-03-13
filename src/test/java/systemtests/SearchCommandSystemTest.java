@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.RedoCommand;

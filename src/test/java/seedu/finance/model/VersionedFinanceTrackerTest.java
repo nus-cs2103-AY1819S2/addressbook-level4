@@ -209,7 +209,8 @@ public class VersionedFinanceTrackerTest {
 
     @Test
     public void equals() {
-        VersionedFinanceTracker versionedFinanceTracker = prepareFinanceTrackerList(financeTrackerWithAmy, financeTrackerWithBob);
+        VersionedFinanceTracker versionedFinanceTracker = prepareFinanceTrackerList(
+                financeTrackerWithAmy, financeTrackerWithBob);
 
         // same values -> returns true
         VersionedFinanceTracker copy = prepareFinanceTrackerList(financeTrackerWithAmy, financeTrackerWithBob);
@@ -225,7 +226,8 @@ public class VersionedFinanceTrackerTest {
         assertFalse(versionedFinanceTracker.equals(1));
 
         // different state list -> returns false
-        VersionedFinanceTracker differentFinanceTrackerList = prepareFinanceTrackerList(financeTrackerWithBob, financeTrackerWithCarl);
+        VersionedFinanceTracker differentFinanceTrackerList = prepareFinanceTrackerList(
+                financeTrackerWithBob, financeTrackerWithCarl);
         assertFalse(versionedFinanceTracker.equals(differentFinanceTrackerList));
 
         // different current pointer index -> returns false
@@ -237,8 +239,10 @@ public class VersionedFinanceTrackerTest {
 
     /**
      * Asserts that {@code versionedFinanceTracker} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedFinanceTracker#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedFinanceTracker#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * states before {@code versionedFinanceTracker#currentStatePointer} is equal to
+     * {@code expectedStatesBeforePointer},
+     * and states after {@code versionedFinanceTracker#currentStatePointer} is equal to
+     * {@code expectedStatesAfterPointer}.
      */
     private void assertFinanceTrackerListStatus(VersionedFinanceTracker versionedFinanceTracker,
                                                 List<ReadOnlyFinanceTracker> expectedStatesBeforePointer,
@@ -272,7 +276,8 @@ public class VersionedFinanceTrackerTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedFinanceTracker} with the {@code financeTrackerStates} added into it, and the
+     * Creates and returns a {@code VersionedFinanceTracker} with the
+     * {@code financeTrackerStates} added into it, and the
      * {@code VersionedFinanceTracker#currentStatePointer} at the end of list.
      */
     private VersionedFinanceTracker prepareFinanceTrackerList(ReadOnlyFinanceTracker... financeTrackerStates) {

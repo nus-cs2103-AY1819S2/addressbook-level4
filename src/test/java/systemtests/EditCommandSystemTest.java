@@ -27,6 +27,7 @@ import static seedu.finance.testutil.TypicalRecords.BOB;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
+
 import seedu.finance.commons.core.Messages;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.EditCommand;

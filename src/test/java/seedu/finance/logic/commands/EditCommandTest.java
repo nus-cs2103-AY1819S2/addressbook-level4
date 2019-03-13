@@ -16,6 +16,7 @@ import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
+
 import seedu.finance.commons.core.Messages;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.CommandHistory;

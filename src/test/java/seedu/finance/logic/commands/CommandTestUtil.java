@@ -49,7 +49,8 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "*2"; // "*" not allowed in amounts
     public static final String INVALID_DATE_DESC =
             " " + PREFIX_DATE + "29/29/2019"; // invalid date not allowed in dates
-    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY
+            + "hubby*"; // '*' not allowed in categories
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

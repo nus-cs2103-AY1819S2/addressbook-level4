@@ -26,6 +26,7 @@ import static seedu.finance.testutil.TypicalRecords.IDA;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
+
 import seedu.finance.commons.core.Messages;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.RedoCommand;
@@ -48,7 +49,8 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a record without categories to a non-empty finance tracker, command with leading spaces and trailing spaces
+        /* Case: add a record without categories to a non-empty finance tracker,
+         & command with leading spaces and trailing spaces
          * -> added
          */
         Record toSpend = AMY;

@@ -10,6 +10,7 @@ import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
 import org.junit.Test;
+
 import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.testutil.EditRecordDescriptorBuilder;
 

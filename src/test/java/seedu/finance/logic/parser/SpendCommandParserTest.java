@@ -26,6 +26,7 @@ import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.BOB;
 
 import org.junit.Test;
+
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;

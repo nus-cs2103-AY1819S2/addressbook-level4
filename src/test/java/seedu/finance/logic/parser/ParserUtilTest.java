@@ -13,6 +13,7 @@ import java.util.Set;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;

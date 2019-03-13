@@ -36,7 +36,8 @@ public class JsonFinanceTrackerStorageTest {
     }
 
     private java.util.Optional<ReadOnlyFinanceTracker> readFinanceTracker(String filePath) throws Exception {
-        return new JsonFinanceTrackerStorage(Paths.get(filePath)).readFinanceTracker(addToTestDataPathIfNotNull(filePath));
+        return new JsonFinanceTrackerStorage(Paths.get(filePath))
+                .readFinanceTracker(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {

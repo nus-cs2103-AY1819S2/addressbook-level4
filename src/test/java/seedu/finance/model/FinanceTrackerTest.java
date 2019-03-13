@@ -13,16 +13,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import seedu.finance.model.record.Record;
+import seedu.finance.model.record.exceptions.DuplicateRecordException;
+import seedu.finance.testutil.RecordBuilder;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.finance.model.record.Record;
-import seedu.finance.model.record.exceptions.DuplicateRecordException;
-import seedu.finance.testutil.RecordBuilder;
 
 public class FinanceTrackerTest {
 
@@ -82,8 +84,8 @@ public class FinanceTrackerTest {
     @Test
     public void hasRecord_recordWithSameIdentityFieldsInFinanceTracker_returnsTrue() {
         financeTracker.addRecord(ALICE);
-        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
-                .build();
+        Record editedAlice = new RecordBuilder(ALICE).withAmount(VALID_AMOUNT_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND).build();
         assertTrue(financeTracker.hasRecord(editedAlice));
     }
 

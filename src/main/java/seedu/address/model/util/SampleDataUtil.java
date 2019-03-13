@@ -25,22 +25,22 @@ public class SampleDataUtil {
         return new Medicine[] {
             new Medicine(new Name("Aspirin"), new Quantity("807"), new Expiry("29/11/2019"),
                     new Company("Otsuka Pharmaceutical Co."),
-                    getTagSet("friends"), getBatchSet("CD485", "29/11/2019", "807")),
+                    getTagSet("fever"), getBatchSet("CD485", "29/11/2019", "807")),
             new Medicine(new Name("Bendroflumethiazide"), new Quantity("58"), new Expiry("03/10/2019"),
                     new Company("Piramal Healthcare"),
-                    getTagSet("colleagues", "friends"), getBatchSet("1001194", "03/10/2019", "58")),
+                    getTagSet("hypertension", "tablet"), getBatchSet("1001194", "03/10/2019", "58")),
             new Medicine(new Name("Co-codamol"), new Quantity("283"), new Expiry("28/02/2020"),
-                    new Company("Renovo PLC"), getTagSet("neighbours"),
+                    new Company("Renovo PLC"), getTagSet("painkiller"),
                     getBatchSet("HK-85412", "28/02/2020", "283")),
             new Medicine(new Name("Simvastatin"), new Quantity("312"), new Expiry("16/09/2019"),
-                    new Company("Vion Pharmaceuticals, Inc."), getTagSet("family"),
+                    new Company("Vion Pharmaceuticals, Inc."), getTagSet("lipid"),
                     getBatchSet("B5003B504", "16/09/2019", "312")),
             new Medicine(new Name("Omeprazole"), new Quantity("921"), new Expiry("02/07/2019"),
-                    new Company("Eli Lilly and Company"), getTagSet("classmates"),
+                    new Company("Eli Lilly and Company"), getTagSet("gastroesophageal"),
                     getBatchSet("A4415115698", "02/07/2019", "421", "A4415118456", "22/09/2019", "500")),
             new Medicine(new Name("Atorvastatin"), new Quantity("296"), new Expiry("31/12/2019"),
                     new Company("Mitsubishi Tanabe Pharma"),
-                    getTagSet("colleagues"), getBatchSet("BAL101025", "31/12/2019", "296"))
+                    getTagSet("cardiovascular"), getBatchSet("BAL101025", "31/12/2019", "296"))
         };
     }
 

@@ -107,6 +107,11 @@ public interface Model extends Observable {
      */
     int getActiveCardFolderIndex();
 
+    /**
+     * Sets the index of the current active {@code CardFolder}.
+     */
+    void setActiveCardFolderIndex(int newIndex);
+
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();
 

@@ -68,10 +68,10 @@ public class RequestBook implements ReadOnlyRequestBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given request {@code target} in the list with {@code editedRequest}.
      * {@code target} must exist in the request book.
-     * The request identity of {@code editedPerson} must not be the same as another existing request in the request
-     * book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
      */
     public void setRequest(Request target, Request editedRequest) {
         requireNonNull(editedRequest);
@@ -118,7 +118,7 @@ public class RequestBook implements ReadOnlyRequestBook {
 
     @Override
     public String toString() {
-        return requests.asUnmodifiableObservableList().size() + " persons";
+        return requests.asUnmodifiableObservableList().toString();
     }
 
 

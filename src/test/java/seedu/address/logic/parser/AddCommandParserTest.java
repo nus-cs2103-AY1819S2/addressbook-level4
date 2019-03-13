@@ -68,6 +68,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.HealthWorkerBuilder;
 import seedu.address.testutil.PersonBuilder;
 
+// TODO: Modify tests to include command mode after all commands implemented using command mode.
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 

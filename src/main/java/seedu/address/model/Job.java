@@ -21,7 +21,6 @@ public class Job implements ReadOnlyJob {
 
     private String jobName;
     private ArrayList<UniquePersonList> persons_list;
-    private UniqueTagList tags;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     public Job() {}
@@ -36,7 +35,6 @@ public class Job implements ReadOnlyJob {
         for(int i = 0; i < 4; i++) {
             persons_list.add(new UniquePersonList());
         }
-        tags = new UniqueTagList();
     }
 
     //// list overwrite operations
@@ -50,68 +48,41 @@ public class Job implements ReadOnlyJob {
         indicateModified();  
     }
 
-    /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-     */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
-    }
-
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the job.
      */
-    public boolean hasPerson(Person person) {
+    public boolean hasPerson(Person person, int listNumber) {
         requireNonNull(person);
-        return persons.contains(person);
+        return persons_list.get(listNumber).contains(person);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the Job.
+     * The person must not already exist in the Job.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
-        tags.addPerson(p);
+    public void addPerson(Person p, int listNumber) {
+        persons_list.get(listNumber).add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Removes {@code key} from this {@code Job}.
+     * {@code key} must exist in the Job.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
+    public void removePerson(Person key, int listNumber) {
+        persons_list.get(listNumber).remove(key);
         indicateModified();
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Moves {@code key} from this {@code persons_list} to another (@code persons_list)
+     * {@code key} must exist in the persons_list.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
-        indicateModified();
-    }
-
-    /**
-     * Removes everyone in the addressbook that has the input tag
-     * Removes the tag itself from list of tag
-     */
-
-    public void removeEveryoneWithThisTag(Tag tag) {
-        ObservableList<Person> listOfPeople = tags.getListOfPerson(tag);
-        for (Person i : listOfPeople) {
-            persons.remove(i);
-            tags.removePerson(i);
-        }
-        tags.removeEntireTag(tag);
+    public void movePerson(Person key, int fromList, int toList) {
+        removePerson(key, fromList);
+        addPerson(key, toList);
     }
 
     @Override
@@ -134,26 +105,20 @@ public class Job implements ReadOnlyJob {
     //// util methods
 
     @Override
-    public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Person> getPersonList(int listNumber) {
+        return persons_list.get(listNumber).asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Job // instanceof handles nulls
-                && persons.equals(((Job) other).persons));
+                && persons_list.equals(((Job) other).persons_list));
     }
 
     @Override
-    public int hashCode() {
-        return persons.hashCode();
+    public int hashCode(int listNumber) {
+        return persons_list.get(listNumber).hashCode();
     }
 }
 

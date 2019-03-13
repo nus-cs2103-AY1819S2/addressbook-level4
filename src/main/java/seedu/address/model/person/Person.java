@@ -37,7 +37,9 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
         copyInfo = null;
         copyCount = 0;
     }

@@ -25,8 +25,12 @@ class JsonAdaptedTag {
     @JsonCreator
     public JsonAdaptedTag(String tagName) {
         String[] sb = tagName.split(":");
-        type = sb[0];
-        this.tagName = sb[1];
+        if (sb.length == 2) {
+            type = sb[0];
+            this.tagName = sb[1];
+        } else {
+            throw new TagsIsNotSpecificException();
+        }
     }
 
     /**

@@ -5,16 +5,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortMethods.SortAlphabetical;
 import seedu.address.logic.commands.sortMethods.SortSkills;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.*;
 import seedu.address.logic.parser.SortWord;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-/**
-import static seedu.address.logic.parser.CliSyntax.SORTIT_AGE;
-import static seedu.address.logic.parser.CliSyntax.SORTIT_ALPHABETICAL;
- */
 
 /**
  * Sorts all persons in the address book and lists to the user.
@@ -26,9 +21,12 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons in address book "
             + "according to the specified keyword and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " age";
+            + "Valid KEYWORD: alphabetical, skills \n"
+            + "Example: " + COMMAND_WORD + " alphabetical \n"
+            + "Example: " + COMMAND_WORD + " skills ";
 
     public static final String MESSAGE_SUCCESS = "Sorted all persons";
+    public static final String MESSAGE_NOT_SORTED = "Sorting is not successful!";
 
     private final SortWord method;
 
@@ -38,12 +36,9 @@ public class SortCommand extends Command {
         this.method = method;
     }
 
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
+    private void ProcessCommand(Model model) {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        String MESSAGE_SUCCESS = "Sorted all persons by " + method.toString();
         //Maybe use switch statement here?
         if (this.method.getSortWord().equals("alphabetical")) {
             SortAlphabetical sorted = new SortAlphabetical(lastShownList);
@@ -54,15 +49,23 @@ public class SortCommand extends Command {
             SortSkills sorted = new SortSkills(lastShownList);
             sortedPersons = sorted.getList();
         }
-
-
-        for (Person personToDelete : sortedPersons) {
-            model.deletePerson(personToDelete);
-        }
+        model.deleteAllPerson();
         for (Person newPerson : sortedPersons) {
-            model.addPerson(newPerson);
+            model.addPersonWithFilter(newPerson);
         }
-        model.commitAddressBook();
-        return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) {
+        requireNonNull(model);
+        try {
+            ProcessCommand(model);
+            String MESSAGE_SUCCESS = "Sorted all persons by " + method.toString();
+            model.commitAddressBook();
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+        catch(Exception e) {
+            return new CommandResult(MESSAGE_NOT_SORTED);
+        }
     }
 }

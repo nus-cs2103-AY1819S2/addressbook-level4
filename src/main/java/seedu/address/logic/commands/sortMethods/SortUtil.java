@@ -4,7 +4,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.SkillsTag;
 
 import java.util.*;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;

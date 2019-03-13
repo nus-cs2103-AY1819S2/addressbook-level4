@@ -114,6 +114,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addPersonWithFilter(Person p) {
+
+        allPersonsStorage.add(p);
+        persons.add(p);
+
+        indicateModified();
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -151,6 +163,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         else {
             persons.remove(key);
         }
+
+        indicateModified();
+    }
+
+    public void removeAllPerson() {
+        List<Person> listToRemove = new ArrayList();
+        for (Person person : persons) {
+            listToRemove.add(person);
+        }
+        allPersonsStorage.removeAll(listToRemove);
+
+        persons.removeAll(listToRemove);
 
         indicateModified();
     }

@@ -23,7 +23,7 @@ import seedu.address.model.pdf.NameContainsKeywordsPredicate;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.exceptions.PdfNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PdfBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -124,7 +124,7 @@ public class ModelManagerTest {
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPdf(ALICE);
         modelManager.setSelectedPdf(ALICE);
-        Pdf updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Pdf updatedAlice = new PdfBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setPdf(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPdf());
     }

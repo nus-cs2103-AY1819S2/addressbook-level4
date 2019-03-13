@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,11 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.pdf.Address;
-import seedu.address.model.pdf.Email;
-import seedu.address.model.pdf.Name;
-import seedu.address.model.pdf.Pdf;
-import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,10 +22,14 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Pdf's %s field is missing!";
 
     private final String name;
+    private final String size;
+    private final String location;
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
@@ -47,17 +48,33 @@ class JsonAdaptedPerson {
     }
 
     /**
+     * Constructs a {@code JsonAdaptedPerson} with the given pdf details.
+     */
+    @JsonCreator
+    public JsonAdaptedPerson(@JsonProperty("location") String location,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        File newFile = new File(location);
+        this.name = newFile.getName();
+        this.size = Long.toString(newFile.getTotalSpace());
+        this.location = location;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
+
+    }
+
+    /**
      * Converts a given {@code Pdf} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Pdf source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        size = source.getSize().value;
+        location = source.getLocation().value.toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
+
 
     /**
      * Converts this Jackson-friendly adapted pdf object into the model's {@code Pdf} object.
@@ -78,32 +95,24 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (size == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Size.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
+        if (!Size.isValidSize(size)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        Size modelSize = new Size(size);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (location == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!Location.isValidLocation(location)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
+        final Location modelLocation = new Location(location);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Pdf(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Pdf(modelName, modelLocation, modelSize, modelTags);
     }
 
 }

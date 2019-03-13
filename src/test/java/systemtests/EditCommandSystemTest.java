@@ -45,7 +45,7 @@ import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PdfBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
@@ -62,7 +62,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Pdf editedPdf = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Pdf editedPdf = new PdfBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedPdf);
 
         /* Case: undo editing the last pdf in the list -> last pdf restored */
@@ -87,7 +87,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(getModel().getFilteredPdfList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPdf = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedPdf = new PdfBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPdf);
 
         /* Case: edit a pdf with new values same as another pdf's values but with different phone and email
@@ -96,14 +96,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPdf = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedPdf = new PdfBuilder(BOB).withSize(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedPdf);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Pdf pdfToEdit = getModel().getFilteredPdfList().get(index.getZeroBased());
-        editedPdf = new PersonBuilder(pdfToEdit).withTags().build();
+        editedPdf = new PdfBuilder(pdfToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPdf);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -114,7 +114,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredPdfList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         pdfToEdit = getModel().getFilteredPdfList().get(index.getZeroBased());
-        editedPdf = new PersonBuilder(pdfToEdit).withName(VALID_NAME_BOB).build();
+        editedPdf = new PdfBuilder(pdfToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPdf);
 
         /* Case: filtered pdf list, edit index within bounds of address book but out of bounds of pdf list

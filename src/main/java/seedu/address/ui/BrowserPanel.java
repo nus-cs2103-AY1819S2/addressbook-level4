@@ -3,17 +3,22 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.model.hint.Hint;
 
 /**
  * The Browser Panel of the App.
@@ -30,6 +35,16 @@ public class BrowserPanel extends UiPart<Region> {
 
     @FXML
     private WebView browser;
+    @FXML
+    private GridPane cardPage;
+    @FXML
+    private Label question;
+    @FXML
+    private Label answer;
+    @FXML
+    private Label hint;
+    @FXML
+    private Label score;
 
     public BrowserPanel(ObservableValue<Card> selectedCard) {
         super(FXML);
@@ -49,8 +64,24 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
+    /**
+     * Load the current selected {@code Card} into the browser panel with all card info.
+     * @param card selected to be displayed.
+     */
     private void loadCardPage(Card card) {
-        loadPage(SEARCH_PAGE_URL + card.getQuestion().fullQuestion);
+        cardPage.getChildren().clear();
+
+        question.setText(card.getQuestion().fullQuestion);
+        answer.setText(card.getAnswer().fullAnswer);
+        score.setText(card.getScore().toString());
+        // Set empty string for hint by default
+        hint.setText("");
+        if (!card.getHints().isEmpty()) {
+            assert card.getHints().size() <= 1;
+            card.getHints().forEach(hintVal -> hint.setText(hintVal.hintName));
+        }
+
+        cardPage.getChildren().addAll(question, answer, score, hint);
     }
 
     public void loadPage(String url) {

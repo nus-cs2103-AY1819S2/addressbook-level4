@@ -43,7 +43,7 @@ public class BookUtil {
         sb.append(ListBookCommand.COMMAND_WORD + " ");
         sb.append(PREFIX_NAME + book.getBookName().fullName + " ");
         book.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " "));
+            s -> sb.append(PREFIX_TAG + s.tagName + " "));
         sb.append(PREFIX_RATING + book.getRating().value + " ");
         return sb.toString();
     }

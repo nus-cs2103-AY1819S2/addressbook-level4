@@ -67,7 +67,7 @@ public class Medicine {
     }
 
     /**
-     * Returns an immutable batch set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable batch map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Map<BatchNumber, Batch> getBatches() {

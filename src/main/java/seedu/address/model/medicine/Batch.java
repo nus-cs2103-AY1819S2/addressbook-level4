@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents the Batch a medicine in the inventory belongs to.
+ * Represents a batch of medicine.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Batch {
@@ -33,6 +33,14 @@ public class Batch {
 
     public Quantity getQuantity() {
         return quantity;
+    }
+
+    public boolean hasExpiry() {
+        return expiry.getExpiryDate() != null;
+    }
+
+    public boolean hasNonZeroQuantity() {
+        return quantity != null && !quantity.value.equals("0");
     }
 
     @Override

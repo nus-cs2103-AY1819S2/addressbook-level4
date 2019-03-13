@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Batches' number in the inventory.
+ * Represents the identification number of a Batch.
  * Guarantees: immutable; is valid as declared in {@link #isValidBatchNumber(String)}
  */
 public class BatchNumber {
@@ -18,7 +18,7 @@ public class BatchNumber {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} -]*";
 
-    public final String number;
+    public final String batchNumber;
 
     /**
      * Constructs a {@code Name}.
@@ -28,7 +28,7 @@ public class BatchNumber {
     public BatchNumber(String batchNumber) {
         requireNonNull(batchNumber);
         checkArgument(isValidBatchNumber(batchNumber), MESSAGE_CONSTRAINTS);
-        number = batchNumber;
+        this.batchNumber = batchNumber;
     }
 
     /**
@@ -40,19 +40,19 @@ public class BatchNumber {
 
     @Override
     public String toString() {
-        return number;
+        return batchNumber;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof seedu.address.model.medicine.BatchNumber // instanceof handles nulls
-                && number.equals(((seedu.address.model.medicine.BatchNumber) other).number)); // state check
+                && batchNumber.equals(((seedu.address.model.medicine.BatchNumber) other).batchNumber)); // state check
     }
 
     @Override
     public int hashCode() {
-        return number.hashCode();
+        return batchNumber.hashCode();
     }
 }
 

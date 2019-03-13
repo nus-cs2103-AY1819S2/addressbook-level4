@@ -1,4 +1,4 @@
-= MediTabs v2.0 - User Guide
+= MediTabs - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -43,15 +43,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-*Operating Mode*
-
-* MediTabs v2.0 has 2 operating modes: Medicine Inventory Mode and Address Book Mode.
-* Medicine Inventory Mode is used to view and manage medicine stock. Refer to <<Medicine Inventory Mode Features>> for features in this mode.
-* Address Book Mode is used to view and manage company contacts. Refer to <<Address Book Mode Features `[coming in v2.0]`>> for features in this mode.
-* The mode you are currently on is displayed at the bottom of the application window.
-
-image::UserGuide_OperatingMode.png[width="790"]
-
 *Warnings Panel*
 
 * Low stock of a medicine and expiring medicine will trigger warnings to notify the user that action is required.
@@ -62,8 +53,8 @@ image::UserGuide_WarningPanel.png[width="790"]
 *Terminology*
 
 * *List:* This refers to the currently displayed list (possibly filtered).
-* *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command in Medicine Inventory Mode.
-* *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command in Medicine Inventory Mode.
+* *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
+* *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
 
 ====
 
@@ -75,8 +66,6 @@ image::UserGuide_WarningPanel.png[width="790"]
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
 
 ====
-
-== Medicine Inventory Mode Features
 
 === Viewing help : `help`
 
@@ -101,51 +90,21 @@ Format: `list`
 * The details of the medicine shown in the list include: name, company, total quantity, closest expiry date and tags.
 ****
 
-=== Sorting the list : `sort`
-
-Sort the list based on certain criteria. +
-Format: `sort c/CRITERIA o/ORDER`
-
-List of possible CRITERIA:
-
-* Quantity : `quantity` +
-* Expiry Date : `expiry` +
-* Name : `name`
-
-List of possible ORDER:
-
-* Ascending : `ascending` +
-* Descending : `descending`
-
-Example:
-
-* `sort c/quantity o/ascending` +
-Displays list of all medicine in ascending order of quantity.
-
 === Locating medicines : `find`
 
-Finds all medicines that match the given criteria and displays them in the list. +
-Format: `find CRITERIA [MORE_CRITERIA]...`
+Finds medicine whose names contain any of the given keywords and displays them in the list. +
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
-List of possible criteria:
-
-* Low stock: `low`
-* Expiring: `expiring`
-* Name: `n/NAME_KEYWORD`
-* Company: `c/COMPANY_KEYWORD`
-
-{nbsp}
 ****
-* Searches with keywords are case insensitive. e.g `n/sodium` will match `Sodium`
+* The search is case insensitive. e.g `n/sodium` will match `Sodium`
 * The order of the keywords does not matter. e.g. `n/Sodium n/Levothyroxine` will match `Levothyroxine Sodium`
-* Only full words will be matched e.g. `c/Sci` will not match `Sciences`
+* Only the name is searched.
+* Only full words will be matched e.g. `c/Sod` will not match `Sodium`
 * Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `n/Sodium n/Ibuprofen` will return `Levothyroxine Sodium`, `Ibuprofen`
 ****
 
 Examples:
 
-* `find low` +
-Displays list of all medicines that are low in stock.
 * `find n/Sodium` +
 Returns `Levothyroxine Sodium` and `Naproxen Sodium`.
 * `find n/Amoxicillin n/Gabapentin c/Johnson` +
@@ -358,11 +317,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the inventory. +
 Format: `clear`
 
-=== Changing to Address Book Mode : `mode` `[coming in v2.0]`
-
-Changes operating mode to Address Book Mode. +
-Format: `mode`
-
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -388,211 +342,13 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-== Address Book Mode Features `[coming in v2.0]`
-
-=== Viewing help : `help`
-
-Format: `help`
-
-=== Adding a company : `add`
-
-Adds a company to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-Example:
-
-* `add n/3M Pharmaceuticals p/67661584 e/johnd@example.com a/John street, block 123, #01-01 t/3weeksLeadTime`
-
-=== Listing all companies : `list`
-
-Shows a list of all companies in the address book. +
-Format: `list`
-
-****
-* The details of the company shown in the list include: name, phone number, email, address and tags.
-****
-
-=== Editing a company : `edit`
-
-Edits an existing company in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the company at the specified `INDEX`. The index refers to the index number shown in the displayed company list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
-
-Example:
-
-* `edit 1 p/61234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st company to be `61234567` and `johndoe@example.com` respectively.
-
-=== Locating companies by name : `find`
-
-Finds companies whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `pfizer` will match `Pfizer`
-* The order of the keywords does not matter. e.g. `Sciences Gilead` will match `Gilead Sciences`
-* Only the name is searched.
-* Only full words will be matched e.g. `Pfiz` will not match `Pfizer`
-* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Pharmaceuticals` will return `3M Pharmaceuticals`, `Acadia Pharmaceuticals`
-****
-
-Examples:
-
-* `find Pharmaceuticals` +
-Returns `Acadia Pharmaceuticals` and `3M Pharmaceuticals`
-* `find Sciences Co. Industries` +
-Returns any company having names `Sciences`, `Co.`, or `Industries`
-
-=== Deleting a company : `delete`
-
-Deletes the specified company from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the company at the specified `INDEX`.
-* The index refers to the index number shown in the displayed company list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd company in the address book.
-* `find Pharmaceuticals` +
-`delete 1` +
-Deletes the 1st company in the results of the `find` command.
-
-=== Viewing company Google search page : `select`
-
-Selects the company and loads the Google search page of the company. +
-Format: `select INDEX`
-
-****
-* Loads the Google search page the company at the specified `INDEX`.
-* The index refers to the index number shown in the displayed company list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd company in the address book.
-* `find Pharmaceuticals` +
-`select 1` +
-Selects the 1st company in the results of the `find` command.
-
-=== Mailing a company : `mailto`
-
-Open mail application with new mail with email address of company inputted. +
-Format: `mailto INDEX`
-
-****
-* The index refers to the index number shown in the displayed company list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`mailto 2` +
-Open mail application with address of the 2nd company in the address book.
-* `find Pharmaceuticals` +
-`mailto 1` +
-Open mail application with address of 1st company in the results of the find
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files
-
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MediTabs folder.
 
 
-== Medicine Inventory Mode Commands Summary
+== Commands Summary
 
 * *Add* `add n/NAME c/COMPANY_NAME [t/TAG]...` +
 e.g. `add n/Paracetamol c/3M Pharmaceuticals t/Popular`
@@ -611,7 +367,6 @@ e.g. `find n/paracetamol c/3M`
 * *Label* : `label INDEX [FILE_NAME]` +
 e.g. `label 1 Paracetamol`
 * *List* : `list`
-* *Mode* : `mode`
 * *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
@@ -623,32 +378,8 @@ e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`
 * *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
 e.g. `warning e/20 s/10`
 
-== Address Book Mode Commands Summary `[coming in v2.0]`
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/GlaxoSmithKline p/22224444 e/jamesho@gsk.com a/123, Clementi Rd, 1234665 + t/3weeksLeadTime`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/Pfizer e/jameslee@pfizer.com`
-* *Exit* : `exit`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]...` +
-e.g. `find Pfizer 3M`
-* *List* : `list`
-* *Help* : `help`
-* *History* : `history`
-* *Mail* : `mailto INDEX` +
-e.g.`mailto 1`
-* *Mode* : `mode`
-* *Redo* : `redo`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *Undo* : `undo`
-
 == Keyboard Shortcuts `[coming in v2.0]`
 
-* *Change operating mode* : kbd:[Shift] + kbd:[Spacebar]
 * *Back to input* : kbd:[Shift] + kbd:[Enter]
 * *To bottom of list* : kbd:[Shift] + kbd:[d]
 * *To top of list* : kbd:[Shift] + kbd:[u]

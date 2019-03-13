@@ -14,14 +14,12 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMOXICILLIN
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FEVER;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FEVER;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PAINKILER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARACETAMOL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;

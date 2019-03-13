@@ -5,7 +5,9 @@ import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -60,7 +62,9 @@ public class StatusBarFooter extends UiPart<Region> {
     private void updateSyncStatus() {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
-        syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        Platform.runLater(() -> {
+            syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        });
     }
 
 }

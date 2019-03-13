@@ -88,7 +88,7 @@ public class RecordBuilder {
     }
 
     /**
-     * Creates a {@code Record} based on the variables sepcificed.
+     * Creates a {@code Record} based on the variables specified.
      * @return Record with fields specified by Class
      */
     public Record build() {

@@ -46,7 +46,7 @@ public class EditRecordDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditRecordDescriptor} that we are building.
+     * Sets the {@code Amount} of the {@code EditRecordDescriptor} that we are building.
      */
     public EditRecordDescriptorBuilder withAmount(String amount) {
         descriptor.setAmount(new Amount(amount));
@@ -54,7 +54,7 @@ public class EditRecordDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditRecordDescriptor} that we are building.
+     * Sets the {@code Date} of the {@code EditRecordDescriptor} that we are building.
      */
     public EditRecordDescriptorBuilder withDate(String date) {
         descriptor.setDate(new Date(date));

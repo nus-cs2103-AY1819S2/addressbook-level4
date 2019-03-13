@@ -4,26 +4,26 @@ import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.record.Record;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building FinanceTracker objects.
  * Example usage: <br>
- *     {@code FinanceTracker ab = new AddressBookBuilder().withRecord("John", "Doe").build();}
+ *     {@code FinanceTracker ab = new FinanceTrackerBuilder().withRecord("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class FinanceTrackerBuilder {
 
     private FinanceTracker financeTracker;
 
-    public AddressBookBuilder() {
+    public FinanceTrackerBuilder() {
         financeTracker = new FinanceTracker();
     }
 
-    public AddressBookBuilder(FinanceTracker financeTracker) {
+    public FinanceTrackerBuilder(FinanceTracker financeTracker) {
         this.financeTracker = financeTracker;
     }
 
     /**
      * Adds a new {@code Record} to the {@code FinanceTracker} that we are building.
      */
-    public AddressBookBuilder withRecord(Record record) {
+    public FinanceTrackerBuilder withRecord(Record record) {
         financeTracker.addRecord(record);
         return this;
     }

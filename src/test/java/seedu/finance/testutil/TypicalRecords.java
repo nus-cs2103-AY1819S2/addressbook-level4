@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.finance.model.AddressBook;
+import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.record.Record;
 
 /**
@@ -54,14 +54,15 @@ public class TypicalRecords {
     private TypicalRecords() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical records.
+     * Returns an {@code FinanceTracker} with all the typical records.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static FinanceTracker getTypicalFinanceTracker() {
+        FinanceTracker ft = new FinanceTracker();
         for (Record record : getTypicalRecords()) {
-            ab.addRecord(record);
+            ft.addRecord(record);
         }
-        return ab;
+
+        return ft;
     }
 
     public static List<Record> getTypicalRecords() {

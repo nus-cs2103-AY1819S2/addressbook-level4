@@ -4,33 +4,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.Mode;
+import seedu.address.logic.commands.AddItemToMenuCommand;
+import seedu.address.logic.commands.AddOrderCommand;
+import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.model.menu.Code;
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.order.OrderItem;
+import seedu.address.model.table.Table;
+import seedu.address.model.table.TableStatus;
+import seedu.address.testutil.MenuItemBuilder;
+import seedu.address.testutil.OrderItemBuilder;
+import seedu.address.testutil.RestOrRantUtil;
+import seedu.address.testutil.TableBuilder;
 
 public class RestOrRantParserTest {
     @Rule
@@ -38,13 +37,43 @@ public class RestOrRantParserTest {
 
     private final RestOrRantParser parser = new RestOrRantParser();
 
+    //    @Test
+    //    public void parseCommand_add() throws Exception {
+    //        Person person = new PersonBuilder().build();
+    //        AddCommand command = (AddCommand) parser.parseCommand(Mode.RESTAURANT_MODE, RestOrRantUtil.getAddCommand(person));
+    //        assertEquals(new AddCommand(person), command);
+    //        command = (AddCommand) parser.parseCommand(Mode.RESTAURANT_MODE, RestOrRantUtil.getAddAlias(person));
+    //        assertEquals(new AddCommand(person), command);
+    //    }
+
     @Test
-    public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(Mode.RESTAURANT_MODE, PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
-        command = (AddCommand) parser.parseCommand(Mode.RESTAURANT_MODE, PersonUtil.getAddAlias(person));
-        assertEquals(new AddCommand(person), command);
+    public void parseCommand_addTable() throws Exception {
+        Table table = new TableBuilder().build();
+        AddTableCommand command = (AddTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestOrRantUtil.getTableDetails(table));
+        List<TableStatus> tableStatuses = new ArrayList<>();
+        tableStatuses.add(table.getTableStatus());
+        assertEquals(new AddTableCommand(tableStatuses), command);
+    }
+
+    @Test
+    public void parseCommand_addOrderItem() throws Exception {
+        OrderItem orderItem = new OrderItemBuilder().build();
+        AddOrderCommand command = (AddOrderCommand) parser.parseCommand(Mode.TABLE_MODE,
+                RestOrRantUtil.getOrderItemDetails(orderItem));
+        List<Code> codes = new ArrayList<>();
+        List<Integer> quantities = new ArrayList<>();
+        codes.add(orderItem.getMenuItemCode());
+        quantities.add(orderItem.getQuantity());
+        assertEquals(new AddOrderCommand(codes, quantities), command);
+    }
+
+    @Test
+    public void parseCommand_addMenuItem() throws Exception {
+        MenuItem menuItem = new MenuItemBuilder().build();
+        AddItemToMenuCommand command = (AddItemToMenuCommand) parser.parseCommand(Mode.MENU_MODE,
+                RestOrRantUtil.getMenuItemDetails(menuItem));
+        assertEquals(new AddItemToMenuCommand(menuItem), command);
     }
 
     @Test
@@ -57,28 +86,29 @@ public class RestOrRantParserTest {
                 ClearCommand.COMMAND_ALIAS + " 3") instanceof ClearCommand);
     }
 
-    @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                Mode.RESTAURANT_MODE, DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-        command = (DeleteCommand) parser.parseCommand(
-                Mode.RESTAURANT_MODE, DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
-                EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
-                + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-        command = (EditCommand) parser.parseCommand(Mode.RESTAURANT_MODE, EditCommand.COMMAND_ALIAS + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    }
+    // TODO: keep for future use
+    //    @Test
+    //    public void parseCommand_delete() throws Exception {
+    //        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+    //                Mode.RESTAURANT_MODE, DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+    //        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+    //        command = (DeleteCommand) parser.parseCommand(
+    //                Mode.RESTAURANT_MODE, DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+    //        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+    //    }
+    //
+    //    @Test
+    //    public void parseCommand_edit() throws Exception {
+    //        Person person = new PersonBuilder().build();
+    //        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+    //        EditCommand command = (EditCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
+    //                EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+    //                + RestOrRantUtil.getEditPersonDescriptorDetails(descriptor));
+    //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+    //        command = (EditCommand) parser.parseCommand(Mode.RESTAURANT_MODE, EditCommand.COMMAND_ALIAS + " "
+    //                + INDEX_FIRST_PERSON.getOneBased() + " " + RestOrRantUtil.getEditPersonDescriptorDetails(descriptor));
+    //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+    //    }
 
     @Test
     public void parseCommand_exit() throws Exception {
@@ -90,16 +120,16 @@ public class RestOrRantParserTest {
                 ExitCommand.COMMAND_ALIAS + " 3") instanceof ExitCommand);
     }
 
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-        command = (FindCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
-                FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
+    //    @Test
+    //    public void parseCommand_find() throws Exception {
+    //        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+    //        FindCommand command = (FindCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
+    //                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+    //        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    //        command = (FindCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
+    //                FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
+    //        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    //    } 
 
     @Test
     public void parseCommand_help() throws Exception {
@@ -135,25 +165,25 @@ public class RestOrRantParserTest {
         }
     }
 
-    @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
-                ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, ListCommand.COMMAND_ALIAS) instanceof ListCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
-                ListCommand.COMMAND_ALIAS + " 3") instanceof ListCommand);
-    }
+    //    @Test
+    //    public void parseCommand_list() throws Exception {
+    //        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, ListCommand.COMMAND_WORD) instanceof ListCommand);
+    //        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+    //                ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    //        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, ListCommand.COMMAND_ALIAS) instanceof ListCommand);
+    //        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+    //                ListCommand.COMMAND_ALIAS + " 3") instanceof ListCommand);
+    //    }
 
-    @Test
-    public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                Mode.RESTAURANT_MODE, SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
-        command = (SelectCommand) parser.parseCommand(
-                Mode.RESTAURANT_MODE, SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
-    }
+    //    @Test
+    //    public void parseCommand_select() throws Exception {
+    //        SelectCommand command = (SelectCommand) parser.parseCommand(
+    //                Mode.RESTAURANT_MODE, SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+    //        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+    //        command = (SelectCommand) parser.parseCommand(
+    //                Mode.RESTAURANT_MODE, SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+    //        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+    //    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

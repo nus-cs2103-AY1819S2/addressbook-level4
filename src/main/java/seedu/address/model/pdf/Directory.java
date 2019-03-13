@@ -15,9 +15,9 @@ public class Directory {
             + "and it should not be blank";
 
     /*
-     * The address of the pdf file must not start with blackspace ,
+     * The first character of the directory must not be a whitespace ,
      */
-    public static final String VALIDATION_REGEX = "\\s";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     private final Path value;
 

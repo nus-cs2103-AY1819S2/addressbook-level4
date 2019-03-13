@@ -70,7 +70,8 @@ public class StorageManager implements Storage {
      * Reads a {@code ReadOnlyCardFolder} from a {@code CardFolderStorage}.
      * @return {@code Optional.empty} if the file is not found.
      */
-    public Optional<ReadOnlyCardFolder> readCardFolder(CardFolderStorage cardFolderStorage) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCardFolder> readCardFolder(CardFolderStorage cardFolderStorage)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + cardFolderStorage.getcardFolderFilesPath());
         return cardFolderStorage.readCardFolder(cardFolderStorage.getcardFolderFilesPath());
     }

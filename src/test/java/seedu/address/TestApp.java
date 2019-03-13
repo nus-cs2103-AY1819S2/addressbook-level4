@@ -14,6 +14,7 @@ import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
@@ -94,7 +95,8 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         // TODO: Fix HealthWorkerBook implementation
-        Model copy = new ModelManager((model.getAddressBook()), new HealthWorkerBook(), new UserPrefs());
+        Model copy = new ModelManager((model.getAddressBook()), new HealthWorkerBook(),
+            new RequestBook(), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

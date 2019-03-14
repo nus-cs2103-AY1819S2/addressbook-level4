@@ -10,7 +10,6 @@ import guitests.guihandles.RecordCardHandle;
 import guitests.guihandles.RecordListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.finance.model.record.Record;
-import seedu.finance.ui.RecordCard;
 
 
 /**

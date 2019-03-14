@@ -12,9 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
-import seedu.address.storage.csv_manager.CardFolderExport;
-import seedu.address.storage.csv_manager.CsvCardExport;
-import seedu.address.storage.csv_manager.CsvFile;
+import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvCardExport;
+import seedu.address.storage.csvmanager.CsvFile;
 
 /**
  * Exports single or multiple card folders into a .json file. Users must specify file name to export card folders to.
@@ -51,7 +51,7 @@ public class ExportCommand extends Command {
         try {
             List<ReadOnlyCardFolder> cardFolderObject = model.returnValidCardFolders(this.cardFolders);
             CsvCardExport cardExportManager = new CsvCardExport(cardFolderObject, filename);
-            cardExportManager.writeFoldersToCSV();
+            cardExportManager.writeFoldersToCsv();
         } catch (CardFolderNotFoundException e) {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS + e.getMessage());
         } catch (IOException e) {

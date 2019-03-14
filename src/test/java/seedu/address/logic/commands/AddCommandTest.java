@@ -27,8 +27,9 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
-import seedu.address.storage.csv_manager.CardFolderExport;
+import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {
@@ -148,9 +149,20 @@ public class AddCommandTest {
         }
 
         @Override
-        public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Card getCurrentTestedCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentTestedCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public boolean checkIfInsideTestSession() {
@@ -164,6 +176,20 @@ public class AddCommandTest {
 
         @Override
         public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolers) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean markAttemptedAnswer(Answer attemptedAnswer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCardAsAnswered() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkIfCardAlreadyAnswered() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -183,6 +209,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasFolder(CardFolder cardFolder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteFolder(int index) {
             throw new AssertionError("This method should not be called.");
         }
@@ -194,6 +225,11 @@ public class AddCommandTest {
 
         @Override
         public int getActiveCardFolderIndex() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActiveCardFolderIndex(int newIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

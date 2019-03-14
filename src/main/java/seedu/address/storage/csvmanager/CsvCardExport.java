@@ -1,12 +1,14 @@
-package seedu.address.storage.csv_manager;
-
-import seedu.address.model.ReadOnlyCardFolder;
-import seedu.address.model.card.Card;
+package seedu.address.storage.csvmanager;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.model.card.Card;
+
+
 
 /**
  * Manages the exporting of flashcard folders
@@ -30,7 +32,7 @@ public class CsvCardExport {
     /**
      * Writes card folders as csv file.
      */
-    public void writeFoldersToCSV() throws IOException {
+    public void writeFoldersToCsv() throws IOException {
         String filepath = getFilePath();
         FileWriter fileWriter = new FileWriter(filepath);
 

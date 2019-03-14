@@ -80,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination fullAnswer of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -172,7 +173,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Start test session UI.
+     * Starts test session UI.
      */
     private void handleStartTestSession(Card card) {
         Region testSessionRegion = (new TestSession(card)).getRoot();
@@ -180,10 +181,40 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * End test session and display back card main screen.
+     * Ends test session and display back card main screen.
      */
     private void handleEndTestSession() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+    }
+
+    /**
+     * Refreshes the side panel to display the new active folder.
+     */
+    private void handleSidePanelUpdate() {
+        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
+                logic::setSelectedCard);
+        cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
+    }
+
+
+    /**
+     * Show the page with correct answer.
+     */
+    private void handleCorrectAnswer() {
+        //TODO: Change UI to display correct answer
+    }
+
+    /**
+     * Show the page with wrong answer.
+     */
+    private void handleWrongAnswer() {
+        //TODO: Change UI to display wrong answer
+    }
+
+    private void updateCardListPanel() {
+        fullScreenPlaceholder.getChildren();
     }
 
     public CardListPanel getCardListPanel() {
@@ -209,12 +240,24 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isSidePanelUpdated()) {
+                handleSidePanelUpdate();
+            }
+
             if (commandResult.isTestSession()) {
                 handleStartTestSession(commandResult.getTestSessionCard());
             }
 
             if (commandResult.isEndTestSession()) {
                 handleEndTestSession();
+            }
+
+            if (commandResult.isAnswerCommand()) {
+                if (commandResult.isAnswerCorrect()) {
+                    handleCorrectAnswer();
+                } else {
+                    handleWrongAnswer();
+                }
             }
 
             return commandResult;

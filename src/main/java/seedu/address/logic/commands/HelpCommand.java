@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -17,6 +18,7 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, null, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false, null, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 }

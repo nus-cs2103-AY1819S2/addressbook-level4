@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -11,12 +12,11 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
-import seedu.address.storage.csv_manager.CardFolderExport;
-import seedu.address.storage.csv_manager.CsvFile;
+import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvFile;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -85,16 +85,22 @@ public class ParserUtil {
 
     /**
      * Parses {@code Collection<String> hints} into a {@code Set<Hint>}.
+     * Restrict to at most the last hint from {@code Collection<String> hints}, or none if the Collection is empty.
      */
     public static Set<Hint> parseHints(Collection<String> hints) throws ParseException {
         requireNonNull(hints);
+        List<String> hintList = new ArrayList<>(hints);
         final Set<Hint> hintSet = new HashSet<>();
-        for (String hintName : hints) {
-            hintSet.add(parseHint(hintName));
+        if (!hintList.isEmpty()) {
+            hintSet.add(parseHint(hintList.get(hintList.size() - 1)));
         }
         return hintSet;
     }
 
+    /**
+     * Parsers {@code Collection<String> folderNames} into a {@Code Set<CardFolderExport>}.
+     * Similar folder names will not be included inside the set.
+     */
     public static Set<CardFolderExport> parseFolders(Collection<String> folderNames) throws ParseException {
         requireNonNull(folderNames);
         final Set<CardFolderExport> cardFolderExports = new HashSet<>();
@@ -104,6 +110,10 @@ public class ParserUtil {
         return cardFolderExports;
     }
 
+    /**
+     * Parses a {@Code String folderName} into a {@code CardFolderExport}.
+     * Trims any leading and trailing white space for folder name.
+     */
     private static CardFolderExport parseFolder(String folderName) throws ParseException {
         requireNonNull(folderName);
         folderName = folderName.trim();
@@ -113,6 +123,9 @@ public class ParserUtil {
         return new CardFolderExport(folderName);
     }
 
+    /**
+     * Parses a {@Code String filename} into a {@Code CsvFile}
+     */
     public static CsvFile parseFileName(String filename) throws ParseException {
         requireNonNull(filename);
         if (!CsvFile.isValidFileName(filename)) {

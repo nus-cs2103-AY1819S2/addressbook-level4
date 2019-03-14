@@ -1,5 +1,8 @@
-package seedu.address.storage.csv_manager;
+package seedu.address.storage.csvmanager;
 
+/**
+ * Represents a Csv file for either import or export
+ */
 public class CsvFile {
 
     public static final String MESSAGE_CONSTRAINTS = "File name should not be left blank and should have"
@@ -21,7 +24,7 @@ public class CsvFile {
 
 
     /**
-     * Returns true if file extension is of .json format.
+     * Returns true if file extension is of .csv format.
      */
     private static boolean isCorrectFileExtension(String filename) {
         return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");

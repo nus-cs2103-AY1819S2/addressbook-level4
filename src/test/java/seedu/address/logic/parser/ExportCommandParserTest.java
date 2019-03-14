@@ -1,20 +1,29 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.commands.ExportCommand;
-import seedu.address.storage.csv_manager.CardFolderExport;
-import seedu.address.storage.csv_manager.CsvFile;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.FILENAME_DESC_SAMPLE;
+import static seedu.address.logic.commands.CommandTestUtil.FOLDER_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.FOLDER_DESC_SAMPLE_2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILENAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILENAME_EXT;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FOLDER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILENAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FOLDER_NAME_1;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import org.junit.Test;
+
+import seedu.address.logic.commands.ExportCommand;
+
+import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvFile;
+
 
 public class ExportCommandParserTest {
 

@@ -4,7 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,9 +22,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
-import seedu.address.storage.csv_manager.CardFolderExport;
+import seedu.address.storage.csvmanager.CardFolderExport;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -29,11 +34,15 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final FilteredList<VersionedCardFolder> filteredFoldersList;
+    private ObservableList<VersionedCardFolder> foldersList;
     private int activeCardFolderIndex;
+    private boolean inFolder;
     private final UserPrefs userPrefs;
     private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
+    private boolean cardAlreadyAnswered = false;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
@@ -49,7 +58,8 @@ public class ModelManager implements Model {
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             versionedCardFolders.add(new VersionedCardFolder(cardFolder));
         }
-        filteredFoldersList = new FilteredList<>(FXCollections.observableArrayList(versionedCardFolders));
+        foldersList = FXCollections.observableArrayList(versionedCardFolders);
+        filteredFoldersList = new FilteredList<>(foldersList);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
@@ -79,7 +89,7 @@ public class ModelManager implements Model {
     }
 
     private VersionedCardFolder getActiveVersionedCardFolder() {
-        return filteredFoldersList.get(activeCardFolderIndex);
+        return foldersList.get(activeCardFolderIndex);
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
@@ -139,32 +149,17 @@ public class ModelManager implements Model {
         return new ArrayList<>(filteredFoldersList);
     }
 
-    @Override
-    public Card testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
-        Card cardToTest = cardFolderToTest.getCardList().get(0);
-        insideTestSession = true;
-        return cardToTest;
-    }
 
-    @Override
-    public boolean checkIfInsideTestSession() {
-        return insideTestSession;
-    }
-
-    @Override
-    public void endTestSession() {
-        insideTestSession = false;
-    }
 
     @Override
     public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
         List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
         for (CardFolderExport cardFolderExport : cardFolders) {
-           addCardFolder(cardFolderExport, returnCardFolder);
+            addCardFolder(cardFolderExport, returnCardFolder);
         }
         return returnCardFolder;
     }
+
 
     /**
      * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
@@ -212,19 +207,43 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasFolder(CardFolder cardFolder) {
+        requireNonNull(cardFolder);
+
+        for (VersionedCardFolder versionedCardFolder : filteredFoldersList) {
+            if (versionedCardFolder.hasSameFolderName(cardFolder)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     public void deleteFolder(int index) {
-        filteredFoldersList.remove(index);
+        foldersList.remove(index);
+        filteredCardsList.remove(index);
         indicateModified();
     }
 
     @Override
     public void addFolder(CardFolder cardFolder) {
-        filteredFoldersList.add(new VersionedCardFolder(cardFolder));
+        VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
+        foldersList.add(versionedCardFolder);
+        FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
+        filteredCardsList.add(filteredCards);
+        filteredCards.addListener(this::ensureSelectedCardIsValid);
         indicateModified();
     }
 
+    @Override
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
+    }
+
+    @Override
+    public void setActiveCardFolderIndex(int newIndex) {
+        activeCardFolderIndex = newIndex;
     }
 
     @Override
@@ -292,6 +311,64 @@ public class ModelManager implements Model {
     public void commitActiveCardFolder() {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.commit();
+    }
+
+    //=========== Test Session ===========================================================================
+
+    @Override
+    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
+        Card cardToTest = cardFolderToTest.getCardList().get(0);
+        setCurrentTestedCard(cardToTest);
+        insideTestSession = true;
+    }
+
+    @Override
+    public void setCurrentTestedCard(Card card) {
+        if (card != null && !getActiveFilteredCards().contains(card)) {
+            throw new CardNotFoundException();
+        }
+        currentTestedCard.setValue(card);
+    }
+
+    @Override
+    public Card getCurrentTestedCard() {
+        return currentTestedCard.getValue();
+    }
+
+    @Override
+    public void endTestSession() {
+        insideTestSession = false;
+        cardAlreadyAnswered = false;
+        setCurrentTestedCard(null);
+    }
+
+    @Override
+    public boolean markAttemptedAnswer(Answer attemptedAnswer) {
+        Answer correctAnswer = currentTestedCard.getValue().getAnswer();
+        String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
+        String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
+
+        //LOOSEN MORE CRITERIAS?
+        if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void setCardAsAnswered() {
+        cardAlreadyAnswered = true;
+    }
+
+    @Override
+    public boolean checkIfCardAlreadyAnswered() {
+        return cardAlreadyAnswered;
+    }
+
+    @Override
+    public boolean checkIfInsideTestSession() {
+        return insideTestSession;
     }
 
     //=========== Selected card ===========================================================================

@@ -1,4 +1,4 @@
-package seedu.address.storage.csv_manager;
+package seedu.address.storage.csvmanager;
 
 /**
  * Manages the importing of flashcard folders

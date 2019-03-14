@@ -9,8 +9,9 @@ import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
-import seedu.address.storage.csv_manager.CardFolderExport;
+import seedu.address.storage.csvmanager.CardFolderExport;
 
 /**
  * The API of the Model component.
@@ -87,6 +88,11 @@ public interface Model extends Observable {
     // TODO: Implement hasFolder and setFolder
 
     /**
+     * Returns true if a card folder with the same identity as {@code cardFolder} exists.
+     */
+    boolean hasFolder(CardFolder cardFolder);
+
+    /**
      * Deletes the folder at the given index.
      * The folder must exist.
      */
@@ -102,6 +108,11 @@ public interface Model extends Observable {
      * Gets the index of the current active {@code CardFolder}.
      */
     int getActiveCardFolderIndex();
+
+    /**
+     * Sets the index of the current active {@code CardFolder}.
+     */
+    void setActiveCardFolderIndex(int newIndex);
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();
@@ -155,9 +166,25 @@ public interface Model extends Observable {
     void setSelectedCard(Card card);
 
     /**
+     * Checks whether list of card folder names specified is found inside model
+     */
+    List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
+
+    /**
      * Enters a test session using the specified card folder.
      */
-    Card testCardFolder(ReadOnlyCardFolder cardFolder);
+    void testCardFolder(ReadOnlyCardFolder cardFolder);
+
+    /**
+     * Sets the current card in the test session.
+     */
+    void setCurrentTestedCard(Card card);
+
+    /**
+     * Returns the current card in the test session
+     * null if there is no cards in folder or user is not in a test session.
+     */
+    Card getCurrentTestedCard();
 
     /**
      * Returns true if user is in a test session
@@ -171,7 +198,21 @@ public interface Model extends Observable {
     void endTestSession();
 
     /**
-     * Checks whether list of card folder names specified is found inside model
+     * Returns true if the given answer is right
+     * false if answer is wrong
      */
-    List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
+    boolean markAttemptedAnswer(Answer attemptedAnswer);
+
+    /**
+     * Set cardAlreadyAnswered variable to true to indicate current card as answered
+     */
+    void setCardAsAnswered();
+
+    /**
+     * Returns true if the answer has already been input for that card
+     * false if otherwise
+     */
+    boolean checkIfCardAlreadyAnswered();
+
+
 }

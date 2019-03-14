@@ -6,8 +6,8 @@
     "description": "some description",
     "category": [ "friends" ]
   }, {
-    "name": "Bus fare",
-    "amount" : "1.71",
+    "name": "Fries",
+    "amount" : "3.00",
     "date" : "12/03/2019",
     "description": "some description"
   } ]

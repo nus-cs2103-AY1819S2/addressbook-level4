@@ -64,7 +64,7 @@ public class ExportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || other instanceof ExportCommand // instanceof handles nulls
-                && (cardFolders.equals(((ExportCommand) other).cardFolders)
+                && (cardFolders.containsAll(((ExportCommand) other).cardFolders)
                 && filename.equals(((ExportCommand) other).filename));
     }
 }

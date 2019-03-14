@@ -1,15 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.FILENAME_DESC_SAMPLE;
-import static seedu.address.logic.commands.CommandTestUtil.FOLDER_DESC_SAMPLE_1;
-import static seedu.address.logic.commands.CommandTestUtil.FOLDER_DESC_SAMPLE_2;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILENAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILENAME_EXT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FOLDER_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FILENAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FOLDER_NAME_1;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -31,9 +23,9 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_allFields_present() {
-        ExportCommand exportCommandWithOneFolder = buildExportCommand(FILENAME_DESC_SAMPLE, FOLDER_DESC_SAMPLE_1);
-        ExportCommand exportCommandWithMultipleFolder = buildExportCommand(FILENAME_DESC_SAMPLE,
-                FOLDER_DESC_SAMPLE_1, FOLDER_DESC_SAMPLE_2);
+        ExportCommand exportCommandWithOneFolder = buildExportCommand(VALID_FILENAME, VALID_FOLDER_NAME_1);
+        ExportCommand exportCommandWithMultipleFolder = buildExportCommand(VALID_FILENAME,
+                VALID_FOLDER_NAME_1, VALID_FOLDER_NAME_2);
 
         // whitespace preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FOLDER_DESC_SAMPLE_1

@@ -1,5 +1,6 @@
 package seedu.address.storage.csvmanager;
 
+
 /**
  * Represents a Csv file for either import or export
  */
@@ -28,5 +29,15 @@ public class CsvFile {
      */
     private static boolean isCorrectFileExtension(String filename) {
         return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || obj instanceof CsvFile && ((CsvFile) obj).filename.equals(this.filename);
+    }
+
+    @Override
+    public int hashCode() {
+        return filename.hashCode();
     }
 }

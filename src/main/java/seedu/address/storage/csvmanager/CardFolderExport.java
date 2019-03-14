@@ -19,4 +19,15 @@ public class CardFolderExport {
     public static boolean isFolderNameEmpty(String folderName) {
         return folderName.isEmpty();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || obj instanceof CardFolderExport && ((CardFolderExport) obj)
+                .folderName.equals(this.folderName);
+    }
+
+    @Override
+    public int hashCode() {
+        return folderName.hashCode();
+    }
 }

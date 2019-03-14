@@ -10,7 +10,7 @@ assignees: ''
 ## Feature Request
 
 
-## Steps to Reproduce the Problem
+## Steps to Use the Feature
 
   1.
   2.

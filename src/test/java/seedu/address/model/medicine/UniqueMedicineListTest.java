@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
 import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 
@@ -48,7 +48,7 @@ public class UniqueMedicineListTest {
     public void contains_medicineWithSameIdentityFieldsInList_returnsTrue() {
         uniqueMedicineList.add(PARACETAMOL);
         Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_PAINKILLER).build();
         assertTrue(uniqueMedicineList.contains(editedParacetamol));
     }
 
@@ -96,7 +96,7 @@ public class UniqueMedicineListTest {
     public void setMedicine_editedMedicineHasSameIdentity_success() {
         uniqueMedicineList.add(PARACETAMOL);
         Medicine editedParacetamol = new MedicineBuilder(PARACETAMOL).withCompany(VALID_COMPANY_GABAPENTIN)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_PAINKILLER).build();
         uniqueMedicineList.setMedicine(PARACETAMOL, editedParacetamol);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
         expectedUniqueMedicineList.add(editedParacetamol);

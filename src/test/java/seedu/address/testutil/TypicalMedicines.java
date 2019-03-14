@@ -9,8 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMOXICILLI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,14 +26,14 @@ public class TypicalMedicines {
 
     public static final Medicine PARACETAMOL = new MedicineBuilder().withName("Paracetamol")
             .withCompany("GlaxoSmithKline").withExpiry("31/12/2019").withQuantity("312")
-            .withTags("friends").withBatches("0042121", "31/12/2019", "312").build();
+            .withTags("fever").withBatches("0042121", "31/12/2019", "312").build();
     public static final Medicine IBUPROFEN = new MedicineBuilder().withName("Ibuprofen")
             .withCompany("Novartis").withExpiry("21/09/2019").withQuantity("432")
-            .withTags("owesMoney", "friends").withBatches("HH073101", "21/09/2019", "432").build();
+            .withTags("owesMoney", "fever").withBatches("HH073101", "21/09/2019", "432").build();
     public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withName("Acetaminophen").withQuantity("0")
             .withExpiry("-").withCompany("Pfizer").build();
     public static final Medicine LEVOTHYROXINE = new MedicineBuilder().withName("Levothyroxine Sodium")
-            .withQuantity("533").withExpiry("13/08/2019").withCompany("3M Pharmaceuticals").withTags("friends")
+            .withQuantity("533").withExpiry("13/08/2019").withCompany("3M Pharmaceuticals").withTags("fever")
             .withBatches("GKP1684", "13/08/2019", "233", "GKP1685", "15/08/2019", "300").build();
     public static final Medicine LISINOPRIL = new MedicineBuilder().withName("Lisinopril").withQuantity("94")
             .withExpiry("06/07/2019").withCompany("Takeda Pharmaceutical Co.")
@@ -55,11 +55,11 @@ public class TypicalMedicines {
     // Manually added - Medicine's details found in {@code CommandTestUtil}
     public static final Medicine AMOXICILLIN = new MedicineBuilder().withName(VALID_NAME_AMOXICILLIN)
             .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN)
-            .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FRIEND)
+            .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FEVER)
             .withBatches(VALID_BATCHNUMBER_AMOXICILLIN, VALID_EXPIRY_AMOXICILLIN, VALID_QUANTITY_AMOXICILLIN).build();
     public static final Medicine GABAPENTIN = new MedicineBuilder().withName(VALID_NAME_GABAPENTIN)
             .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN)
-            .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_PAINKILLER, VALID_TAG_FEVER).build();
 
     public static final String KEYWORD_MATCHING_SODIUM = "Sodium"; // A keyword that matches SODIUM
 

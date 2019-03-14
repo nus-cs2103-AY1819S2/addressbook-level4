@@ -51,6 +51,7 @@ public class SortCommand extends Command {
         //TODO Implement sorting for records
         model.sortAddressBook(this.attrCompare, this.isReverse);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, paraType));
     }
 }

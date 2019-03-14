@@ -139,7 +139,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTask(Task task) {
-        versionedAddressBook.deleteTask(task);
+        versionedAddressBook.removeTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 

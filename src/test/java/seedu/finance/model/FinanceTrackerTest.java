@@ -17,14 +17,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.finance.model.record.Record;
-import seedu.finance.model.record.exceptions.DuplicateRecordException;
-import seedu.finance.testutil.RecordBuilder;
-
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.finance.model.record.Record;
+import seedu.finance.model.record.exceptions.DuplicateRecordException;
+import seedu.finance.testutil.RecordBuilder;
 
 public class FinanceTrackerTest {
 

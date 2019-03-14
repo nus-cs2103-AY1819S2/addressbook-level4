@@ -41,7 +41,7 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
             editTaskDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_STARTDATE).isPresent() || argMultimap.getValue(PREFIX_ENDDATE).isPresent()) {
-            if (!argMultimap.getValue(PREFIX_STARTDATE).isPresent() || !argMultimap.getValue(PREFIX_ENDDATE)
+            if (argMultimap.getValue(PREFIX_STARTDATE).isPresent() ^ argMultimap.getValue(PREFIX_ENDDATE)
                     .isPresent()) {
                 throw new ParseException("Please give a Start Date AND End Date when changing dates");
             } else {

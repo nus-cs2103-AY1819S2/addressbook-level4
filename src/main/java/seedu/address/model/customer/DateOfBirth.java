@@ -53,7 +53,7 @@ public class DateOfBirth {
                 if(year >= current_year)
                     return false;
 
-                if (day.equals("31") &&
+                if (("31").equals(day) &&
                     (month.equals("4") || month .equals("6") || month.equals("9") ||
                         month.equals("11") || month.equals("04") || month .equals("06") ||
                         month.equals("09"))) {

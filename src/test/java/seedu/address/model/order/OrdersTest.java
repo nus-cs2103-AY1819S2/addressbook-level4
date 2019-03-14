@@ -2,10 +2,7 @@ package seedu.address.model.order;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalOrderItems;
 
@@ -27,10 +24,9 @@ import seedu.address.testutil.OrderItemBuilder;
 
 public class OrdersTest {
 
+    private final Orders orders = new Orders();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private final Orders orders = new Orders();
 
     @Test
     public void constructor() {
@@ -45,7 +41,10 @@ public class OrdersTest {
 
     @Test
     public void resetData_withValidReadOnlyOrders_replacesData() {
-        Orders newData = getTypicalOrderItems();
+        Orders newData = new Orders();
+        for (OrderItem orderItem : getTypicalOrderItems()) {
+            newData.addOrderItem(orderItem);
+        }
         orders.resetData(newData);
         assertEquals(newData, orders);
     }
@@ -80,7 +79,7 @@ public class OrdersTest {
 
     @Test
     public void hasOrderItem_orderItemWithSameIdentityFieldsInOrders_returnsTrue() {
-        orders.addOrderItem(TABLE1_W09;
+        orders.addOrderItem(TABLE1_W09);
         OrderItem editedOrderItem = new OrderItemBuilder(TABLE1_W09).withQuantity(5).build();
         assertTrue(orders.hasOrderItem(editedOrderItem));
     }

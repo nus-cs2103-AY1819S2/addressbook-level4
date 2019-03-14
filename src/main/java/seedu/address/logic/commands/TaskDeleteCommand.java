@@ -14,7 +14,7 @@ import seedu.address.model.task.Task;
 /**
  * Deletes a task identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class TaskDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "taskdelete";
 
@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public TaskDeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -50,6 +50,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && targetIndex.equals(((TaskDeleteCommand) other).targetIndex)); // state check
     }
 }

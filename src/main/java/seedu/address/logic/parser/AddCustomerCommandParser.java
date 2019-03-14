@@ -44,10 +44,12 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
      */
     public AddCustomerCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_DATE_OF_BIRTH, PREFIX_EMAIL, PREFIX_IDENTIFICATION_NUMBER,
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_DATE_OF_BIRTH, PREFIX_EMAIL,
+                PREFIX_IDENTIFICATION_NUMBER,
                 PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_PHONE, PREFIX_IDENTIFICATION_NUMBER,
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_PHONE,
+            PREFIX_IDENTIFICATION_NUMBER,
             PREFIX_EMAIL)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));

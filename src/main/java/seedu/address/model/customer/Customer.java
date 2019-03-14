@@ -29,7 +29,8 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, Phone phone, DateOfBirth dob, Email email, IdentificationNo idnum, Address address, Set<Tag> tags) {
+    public Customer(Name name, Phone phone, DateOfBirth dob, Email email, IdentificationNo idnum, Address address,
+                    Set<Tag> tags) {
         requireAllNonNull(name, phone, dob, email, idnum, address, tags);
         this.name = name;
         this.phone = phone;
@@ -48,7 +49,9 @@ public class Customer {
         return phone;
     }
 
-    public DateOfBirth getDateOfBirth() { return dob; }
+    public DateOfBirth getDateOfBirth() {
+        return dob;
+    }
 
     public Email getEmail() {
         return email;
@@ -126,7 +129,7 @@ public class Customer {
         builder.append(getName())
             .append(" Phone: ")
             .append(getPhone())
-            .append( " Date of Birth: ")
+            .append(" Date of Birth: ")
             .append(getDateOfBirth())
             .append(" Email: ")
             .append(getEmail())

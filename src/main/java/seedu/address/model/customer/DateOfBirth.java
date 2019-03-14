@@ -41,17 +41,18 @@ public class DateOfBirth {
         pattern = Pattern.compile(VALIDATION_REGEX);
         matcher = pattern.matcher(test);
 
-        if(matcher.matches()){
+        if (matcher.matches()) {
 
             matcher.reset();
 
-            if(matcher.find()){
+            if (matcher.find()) {
 
                 String day = matcher.group(1);
                 String month = matcher.group(2);
                 int year = Integer.parseInt(matcher.group(3));
-                if(year >= current_year)
+                if (year >= current_year) {
                     return false;
+                }
 
                 if (("31").equals(day) &&
                     (("4").equals(month) || ("6").equals(month) || ("9").equals(month) ||
@@ -60,18 +61,18 @@ public class DateOfBirth {
                     return false; // only 1,3,5,7,8,10,12 has 31 days
                 } else if (("2").equals(month) || ("02").equals(month)) {
                     //leap year
-                    if(year % 4==0){
+                    if (year % 4 == 0) {
                         return !(("30").equals(day) || ("31").equals(day));
-                    }else{
-                        return !(("29").equals(day)||("31").equals(day)||("30").equals(day));
+                    } else {
+                        return !(("29").equals(day) || ("31").equals(day) || ("30").equals(day));
                     }
-                }else{
+                } else {
                     return true;
                 }
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }

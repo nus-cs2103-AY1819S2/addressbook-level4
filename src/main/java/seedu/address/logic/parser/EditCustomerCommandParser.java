@@ -35,7 +35,8 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
     public EditCustomerCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_DATE_OF_BIRTH, PREFIX_EMAIL, PREFIX_IDENTIFICATION_NUMBER,
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_DATE_OF_BIRTH, PREFIX_EMAIL,
+                PREFIX_IDENTIFICATION_NUMBER,
                 PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
@@ -44,7 +45,7 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE),
-                    pe);
+                pe);
         }
 
         EditCustomerDescriptor editCustomerDescriptor = new EditCustomerDescriptor();
@@ -55,7 +56,8 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
             editCustomerDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE_OF_BIRTH).isPresent()) {
-            editCustomerDescriptor.setDateOfBirth(ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).get()));
+            editCustomerDescriptor.setDateOfBirth(ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATE_OF_BIRTH)
+                .get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editCustomerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));

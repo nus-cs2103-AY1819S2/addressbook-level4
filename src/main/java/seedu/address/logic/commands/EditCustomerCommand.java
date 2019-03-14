@@ -89,7 +89,8 @@ public class EditCustomerCommand extends CustomerCommand {
         Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
         Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
 
-        return new Customer(updatedName, updatedPhone, updatedDob, updatedEmail, updatedIdNum, updatedAddress, updatedTags);
+        return new Customer(updatedName, updatedPhone, updatedDob, updatedEmail, updatedIdNum, updatedAddress,
+            updatedTags);
     }
 
     @Override
@@ -173,23 +174,29 @@ public class EditCustomerCommand extends CustomerCommand {
             return Optional.ofNullable(name);
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
         public void setName(Name name) {
             this.name = name;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
         }
 
         public void setPhone(Phone phone) {
             this.phone = phone;
         }
 
-        public Optional<DateOfBirth> getDateOfBirth() { return Optional.ofNullable(dob); }
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
+        }
+
+        public void setEmail(Email email) {
+            this.email = email;
+        }
+
+        public Optional<DateOfBirth> getDateOfBirth() {
+            return Optional.ofNullable(dob);
+        }
 
         public void setDateOfBirth(DateOfBirth dob) {
             this.dob = dob;
@@ -197,10 +204,6 @@ public class EditCustomerCommand extends CustomerCommand {
 
         public Optional<IdentificationNo> getIdNum() {
             return Optional.ofNullable(idnum);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
         }
 
         public void setIdNum(IdentificationNo idnum) {

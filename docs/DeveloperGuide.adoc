@@ -835,6 +835,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |add a new task |
+
+|`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
+
+|`* * *` |user |edit a task |change details of certains tasks that I have already added
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list

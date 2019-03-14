@@ -6,11 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TaskEditCommand;
 import seedu.address.logic.commands.TaskEditCommand.EditTaskDescriptor;
@@ -27,7 +22,7 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public TaskEditCommand parse(String args) throws ParseException {
-        System.out.println("Edit command parser parse is run.");
+        System.out.println("Edit task command parser parse is run.");
 
         requireNonNull(args);
         ArgumentMultimap argMultimap =

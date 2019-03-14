@@ -47,7 +47,7 @@ public class EditBookCommandTest {
 
         Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
         expectedModel.setBook(model.getFilteredBookList().get(0), editedBook);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -70,7 +70,7 @@ public class EditBookCommandTest {
 
         Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
         expectedModel.setBook(lastBook, editedBook);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -85,7 +85,7 @@ public class EditBookCommandTest {
         String expectedMessage = String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook);
 
         Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -103,7 +103,7 @@ public class EditBookCommandTest {
 
         Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
         expectedModel.setBook(model.getFilteredBookList().get(0), editedBook);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -142,17 +142,17 @@ public class EditBookCommandTest {
         EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK, descriptor);
         Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
         expectedModel.setBook(bookToEdit, editedBook);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         // edit -> first book edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered book list to show all books
-        expectedModel.undoAddressBook();
+        expectedModel.undoBookShelf();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first book edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoBookShelf();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -188,18 +188,18 @@ public class EditBookCommandTest {
         showBookAtIndex(model, INDEX_SECOND_BOOK);
         Book bookToEdit = model.getFilteredBookList().get(0);
         expectedModel.setBook(bookToEdit, editedBook);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         // edit -> edits second book in unfiltered book list / first book in filtered book list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered book list to show all books
-        expectedModel.undoAddressBook();
+        expectedModel.undoBookShelf();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredBookList().get(0), bookToEdit);
         // redo -> edits same second book in unfiltered book list
-        expectedModel.redoAddressBook();
+        expectedModel.redoBookShelf();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
     */

@@ -190,27 +190,27 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoBookShelf() {
         return versionedBookShelf.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoBookShelf() {
         return versionedBookShelf.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoBookShelf() {
         versionedBookShelf.undo();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoBookShelf() {
         versionedBookShelf.redo();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitBookShelf() {
         versionedBookShelf.commit();
     }
 

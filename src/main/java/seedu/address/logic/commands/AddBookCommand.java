@@ -53,7 +53,7 @@ public class AddBookCommand extends Command {
         }
 
         model.addBook(toAdd);
-        model.commitAddressBook();
+        model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

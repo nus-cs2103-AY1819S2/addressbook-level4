@@ -50,7 +50,7 @@ public class AddReviewCommand extends Command {
             throw new CommandException(MESSAGE_BOOK_NOT_EXIST);
         }
         model.addReview(toAdd, bookForReview);
-        model.commitAddressBook();
+        model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 
     }

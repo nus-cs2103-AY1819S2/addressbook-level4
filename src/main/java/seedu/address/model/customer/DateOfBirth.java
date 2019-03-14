@@ -37,7 +37,7 @@ public class DateOfBirth {
     public static boolean isValidDob(String test) {
 
         LocalDate currentDate = LocalDate.now();
-        int current_year = currentDate.getYear();
+        int currentYear = currentDate.getYear();
         pattern = Pattern.compile(VALIDATION_REGEX);
         matcher = pattern.matcher(test);
 
@@ -50,14 +50,12 @@ public class DateOfBirth {
                 String day = matcher.group(1);
                 String month = matcher.group(2);
                 int year = Integer.parseInt(matcher.group(3));
-                if (year >= current_year) {
+                if (year >= currentYear) {
                     return false;
                 }
 
-                if (("31").equals(day) &&
-                    (("4").equals(month) || ("6").equals(month) || ("9").equals(month) ||
-                        ("11").equals(month) || ("04").equals(month) || ("06").equals(month) ||
-                        ("09").equals(month))) {
+                if (("31").equals(day) && (("4").equals(month) || ("6").equals(month) || ("9").equals(month)
+                    || ("11").equals(month) || ("04").equals(month) || ("06").equals(month) || ("09").equals(month))) {
                     return false; // only 1,3,5,7,8,10,12 has 31 days
                 } else if (("2").equals(month) || ("02").equals(month)) {
                     //leap year

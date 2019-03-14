@@ -1,7 +1,7 @@
 ---
 name: Feature/fixes to be implemented.
 about: Open an issue about features or fixes to be implemented.
-title: ''
+title: "[BUG]"
 labels: ''
 assignees: ''
 
@@ -16,8 +16,8 @@ assignees: ''
 ## Steps to Reproduce the Problem
 
   1.
-  1.
-  1.
+  2.
+  3.
 
 ## Specifications
 

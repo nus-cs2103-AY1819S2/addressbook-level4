@@ -16,5 +16,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_KNOWNPROGLANG = new Prefix("kpl/");
     public static final Prefix PREFIX_PASTJOB = new Prefix("pj/");
     public static final Prefix PREFIX_SCHOOL = new Prefix("s/");
+    public static final Prefix PREFIX_JOBNAME = new Prefix("jn/");
 
 }

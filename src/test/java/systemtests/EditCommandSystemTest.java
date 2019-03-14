@@ -164,7 +164,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a record with new values same as another person's values -> rejected */
-        executeCommand(RecordUtil.getAddCommand(BOB));
+        executeCommand(RecordUtil.getSpendCommand(BOB));
         assertTrue(getModel().getAddressBook().getRecordList().contains(BOB));
         index = INDEX_FIRST_RECORD;
         assertFalse(getModel().getFilteredRecordList().get(index.getZeroBased()).equals(BOB));

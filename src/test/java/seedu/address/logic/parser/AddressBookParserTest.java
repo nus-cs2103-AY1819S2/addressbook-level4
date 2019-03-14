@@ -1,9 +1,11 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
@@ -46,7 +48,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Record record = new RecordBuilder().build();
-        SpendCommand command = (SpendCommand) parser.parseCommand(RecordUtil.getAddCommand(record));
+        SpendCommand command = (SpendCommand) parser.parseCommand(RecordUtil.getSpendCommand(record));
         assertEquals(new SpendCommand(record), command);
     }
 
@@ -129,22 +131,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_search() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        SearchCommand command = (SearchCommand) parser.parseCommand(
-                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_searchAlias() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        SearchCommand command = (SearchCommand) parser.parseCommand(
-                SearchCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
@@ -177,7 +163,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_increase() throws Exception {
-        assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD) instanceof IncreaseCommand);
+        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123")
+                instanceof IncreaseCommand));
     }
 
     @Test
@@ -197,6 +184,18 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS2) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS2 + " 3") instanceof ListCommand);
     }
+
+    @Test
+    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
+    }
+
+    @Test
+    public void parseCommand_redoCommandAlias_returnsRedoCommand() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS + " 1") instanceof RedoCommand);
+    }   
 
     @Test
     public void parseCommand_select() throws Exception {
@@ -220,15 +219,19 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
+    public void parseCommand_search() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
-    public void parseCommand_redoCommandAlias_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS) instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS + " 1") instanceof RedoCommand);
+    public void parseCommand_searchAlias() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

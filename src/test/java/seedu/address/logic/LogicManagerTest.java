@@ -20,10 +20,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListCustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BookingManager;
@@ -77,8 +77,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, customerModel);
+        String listCommand = ListCustomerCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCustomerCommand.MESSAGE_SUCCESS, customerModel);
         assertHistoryCorrect(listCommand);
     }
 
@@ -92,7 +92,7 @@ public class LogicManagerTest {
         logic = new LogicManager(customerModel, bookingModel, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
+        String addCommand = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
                 + ADDRESS_DESC_AMY;
         Customer expectedCustomer = new CustomerBuilder(AMY).withTags().build();
         CustomerManager expectedModel = new CustomerManager();
@@ -143,7 +143,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, CustomerModel)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        CustomerModel expectedModel = new CustomerManager((VersionedAddressBook) customerModel.getAddressBook(),
+        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(customerModel.getAddressBook()),
             new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }

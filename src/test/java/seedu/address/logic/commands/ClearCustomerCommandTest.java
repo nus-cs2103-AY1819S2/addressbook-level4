@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.VersionedAddressBook;
 
-public class ClearCommandTest {
+public class ClearCustomerCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -23,7 +23,8 @@ public class ClearCommandTest {
         CustomerModel expectedModel = new CustomerManager();
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCustomerCommand(), model, commandHistory, ClearCustomerCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test
@@ -34,7 +35,8 @@ public class ClearCommandTest {
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCustomerCommand(), model, commandHistory, ClearCustomerCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
 }

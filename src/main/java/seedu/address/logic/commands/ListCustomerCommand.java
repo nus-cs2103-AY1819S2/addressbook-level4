@@ -9,7 +9,7 @@ import seedu.address.model.CustomerModel;
 /**
  * Lists all customers in the address book to the user.
  */
-public class ListCommand extends CustomerCommand {
+public class ListCustomerCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "lc";
     public static final String COMMAND_WORD = "listcustomers";

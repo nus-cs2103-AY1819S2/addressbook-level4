@@ -11,7 +11,7 @@ import seedu.address.model.customer.NameContainsKeywordsPredicate;
  * Finds and lists all customers in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends CustomerCommand {
+public class FindNameCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "fn";
     public static final String COMMAND_WORD = "findname";
@@ -23,7 +23,7 @@ public class FindCommand extends CustomerCommand {
 
     private final NameContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindNameCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -38,7 +38,7 @@ public class FindCommand extends CustomerCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof FindCommand // instanceof handles nulls
-            && predicate.equals(((FindCommand) other).predicate)); // state check
+            || (other instanceof FindNameCommand // instanceof handles nulls
+            && predicate.equals(((FindNameCommand) other).predicate)); // state check
     }
 }

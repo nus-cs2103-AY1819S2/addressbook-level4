@@ -13,7 +13,7 @@ import seedu.address.model.BookingModel;
 import seedu.address.model.booking.Booking;
 
 /**
- * Adds a customer to the address book.
+ * Adds a booking to the address book.
  */
 public class AddBookingCommand extends BookingCommand {
 
@@ -41,7 +41,7 @@ public class AddBookingCommand extends BookingCommand {
     private final Booking toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Customer}
+     * Creates an AddBookingCommand to add the specified {@code Booking}
      */
     public AddBookingCommand(Booking booking) {
         requireNonNull(booking);

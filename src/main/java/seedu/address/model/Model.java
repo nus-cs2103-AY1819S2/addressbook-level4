@@ -129,6 +129,11 @@ public interface Model {
      * {@code task} must not already exist in the address book.
      */
     void addTask(Task task);
+    /**
+     * Deletes the given task.
+     * The task must exist in the address book.
+     */
+    void deleteTask(Task task);
 
     //=========== Undo/Redo/Commit =================================================================================
 

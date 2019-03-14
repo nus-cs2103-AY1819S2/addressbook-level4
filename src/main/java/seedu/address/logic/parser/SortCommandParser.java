@@ -22,30 +22,45 @@ public class SortCommandParser implements Parser<SortCommand> {
         requireNonNull(userInput);
         String[] inputArr = userInput.trim().split(" ");
 
-        Comparator<Patient> userComparator;
-        try {
-            userComparator = PatientComparator.getPatientComparator(inputArr[0]);
-            boolean isReverse = false;
+        if (inputArr[0].trim().equals("record")) {
+            //TODO: Sorting for records
+            System.out.println("Record sorting");
+            try {
+                Comparator<Patient> recordComparator;
 
-            if (inputArr.length > 2) {
-                throw new ParseException("");
-            } else if (inputArr.length == 2) {
-                switch (inputArr[1]) {
+                recordComparator = PatientComparator.getPatientComparator(inputArr[0]);
 
-                case "desc":
-                    isReverse = true;
-                    break;
-                case "asce":
-                    isReverse = false;
-                    break;
-                default:
-                    throw new ParseException("");
-                }
+                return new SortCommand(recordComparator, userInput.trim());
+
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
             }
-            return new SortCommand(userComparator, inputArr[0], isReverse);
+        } else {
+            Comparator<Patient> userComparator;
+            try {
+                userComparator = PatientComparator.getPatientComparator(inputArr[0]);
+                boolean isReverse = false;
 
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
+                if (inputArr.length > 2) {
+                    throw new ParseException("");
+                } else if (inputArr.length == 2) {
+                    switch (inputArr[1]) {
+
+                    case "desc":
+                        isReverse = true;
+                        break;
+                    case "asce":
+                        isReverse = false;
+                        break;
+                    default:
+                        throw new ParseException("");
+                    }
+                }
+                return new SortCommand(userComparator, inputArr[0], isReverse);
+
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
+            }
         }
     }
 }

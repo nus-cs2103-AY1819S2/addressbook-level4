@@ -23,22 +23,21 @@ public class DeletePersonCommand extends DeleteCommand implements PersonCommand 
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    private final Index targetIndex;
-
     public DeletePersonCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Person personToDelete = lastShownList.get(index.getZeroBased());
         delete(model, personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
@@ -53,6 +52,6 @@ public class DeletePersonCommand extends DeleteCommand implements PersonCommand 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeletePersonCommand // instanceof handles nulls
-                && targetIndex.equals(((DeletePersonCommand) other).targetIndex)); // state check
+                && index.equals(((DeletePersonCommand) other).index)); // state check
     }
 }

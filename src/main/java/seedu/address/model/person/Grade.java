@@ -118,4 +118,8 @@ public enum Grade {
     public String toString() {
         return this.printedGrade;
     }
+
+    public boolean isWithin(Grade limit) {
+        return this.gradePoint <= limit.gradePoint;
+    }
 }

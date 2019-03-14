@@ -62,7 +62,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code ExpectedMaxGrade} of the {@code Person} that we are building.
      */
     public PersonBuilder withExpectedMaxGrade(String expectedMaxGrade) {
         this.expectedMaxGrade = Grade.valueOf(expectedMaxGrade);
@@ -78,7 +78,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code ExpectedMinGrade} of the {@code Person} that we are building.
      */
     public PersonBuilder withExpectedMinGrade(String expectedMinGrade) {
         this.expectedMinGrade = Grade.valueOf(expectedMinGrade);

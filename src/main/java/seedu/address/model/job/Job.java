@@ -1,4 +1,4 @@
-package seedu.address.model.Job;
+package seedu.address.model.job;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -16,12 +16,12 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class Job {
 
+    private static final int NUMBER_OF_LISTS = 4;
+    private static final String[] LIST_NAMES = {"List1", "List2", "List3", "List4"};
     // Identity fields
     private final JobName name;
 
     // Data fields
-    private static final int NUMBER_OF_LISTS = 4;
-    private static final String[] LIST_NAMES = {"List1", "List2", "List3", "List4"};
     private ArrayList<UniquePersonList> personsHash = new ArrayList<> (NUMBER_OF_LISTS);
     private ArrayList<List<Person>> personsList = new ArrayList<>(NUMBER_OF_LISTS);
 
@@ -33,7 +33,7 @@ public class Job {
         requireAllNonNull(name);
 
         this.name = name;
-        for(int i = 0; i < 4; i ++) {
+        for (int i = 0; i < 4; i++) {
             personsHash.add(new UniquePersonList());
         }
     }
@@ -52,11 +52,11 @@ public class Job {
     }
 
     public final ArrayList<Name> getPeopleNames(List<Person> peopleList) {
-        ArrayList<Name> Names = new ArrayList<> (peopleList.size());
-        for(int i = 0; i < peopleList.size(); i++) {
-            Names.add(peopleList.get(i).getName());
+        ArrayList<Name> names = new ArrayList<> (peopleList.size());
+        for (int i = 0; i < peopleList.size(); i++) {
+            names.add(peopleList.get(i).getName());
         }
-        return Names;
+        return names;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Job {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        for(int i = 0; i < NUMBER_OF_LISTS; i++) {
+        for (int i = 0; i < NUMBER_OF_LISTS; i++) {
             builder.append(LIST_NAMES[i]);
             getPeopleNames(getPeople(i)).forEach(builder::append);
         }

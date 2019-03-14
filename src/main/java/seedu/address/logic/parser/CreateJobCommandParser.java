@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Job.Job;
-import seedu.address.model.Job.JobName;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 
 /**
  * Parses input arguments and creates a new AddCommand object

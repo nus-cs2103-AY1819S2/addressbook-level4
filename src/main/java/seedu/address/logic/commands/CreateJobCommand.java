@@ -5,8 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Job.Job;
 import seedu.address.model.Model;
+import seedu.address.model.job.Job;
+
 
 /**
  * Adds a person to the address book.
@@ -31,7 +32,7 @@ public class CreateJobCommand extends Command {
     private final Job toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Job}
+     * Creates an AddCommand to add the specified {@code job}
      */
     public CreateJobCommand(Job job) {
         requireNonNull(job);

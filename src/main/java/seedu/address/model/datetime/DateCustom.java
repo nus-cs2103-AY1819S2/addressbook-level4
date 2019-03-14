@@ -4,9 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -49,32 +50,39 @@ public class DateCustom {
 
     /**
      *  Returns false if the given date is before the current date
-     * @param format the format of the date in string
      * @param test the date to be tested
      * @throws ParseException
      */
-    public static boolean isDateBeforeToday(String format, String test) throws ParseException {
-        String currentDateString = new SimpleDateFormat(format).format(new Date());
-        return dateCompare(format, test, currentDateString);
+    public static boolean isDateBeforeToday(String test) {
+        String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
+        return dateCompare(test, currentDateString);
     }
 
-    public static boolean isEndDateBeforeStartDate(String format, String date1, String date2) throws ParseException {
-        return dateCompare(format, date2, date1);
+    public static boolean isEndDateBeforeStartDate(String format, String date1, String date2) {
+        return dateCompare(date2, date1);
     }
 
+    public int getAge() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate storedDate = LocalDate.parse(this.toString());
+        return Period.between(storedDate, currentDate).getYears();
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.parse(storedDate);
+    }
     /**
      *  Returns true if the first date given is before the second date given
-     * @param format the format of the date in string
-     * @param date1 the
-     * @param date2
+     * @param date1 the first date to comapre with the second date
+     * @param date2 the second date
      * @return
      * @throws ParseException
      */
-    public static boolean dateCompare(String format, String date1, String date2) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        Date firstDate = sdf.parse(date1);
-        Date secondDate = sdf.parse(date2);
-        return firstDate.before(secondDate);
+    public static boolean dateCompare(String date1, String date2) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getFormat());
+        LocalDate firstDate = LocalDate.parse(date1, formatter);
+        LocalDate secondDate = LocalDate.parse(date2, formatter);
+        return firstDate.isBefore(secondDate);
     }
 
     @Override

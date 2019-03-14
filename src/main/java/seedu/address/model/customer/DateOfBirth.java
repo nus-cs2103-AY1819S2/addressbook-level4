@@ -61,17 +61,9 @@ public class DateOfBirth {
                 } else if (("2").equals(month) || ("02").equals(month)) {
                     //leap year
                     if(year % 4==0){
-                        if(("30").equals(day) || ("31").equals(day)){
-                            return false;
-                        }else{
-                            return true;
-                        }
+                        return !(("30").equals(day) || ("31").equals(day));
                     }else{
-                        if(("29").equals(day)||("31").equals(day)||("30").equals(day)){
-                            return false;
-                        }else{
-                            return true;
-                        }
+                        return !(("29").equals(day)||("31").equals(day)||("30").equals(day));
                     }
                 }else{
                     return true;

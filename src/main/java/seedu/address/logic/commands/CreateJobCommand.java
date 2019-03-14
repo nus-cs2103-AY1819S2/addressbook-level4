@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Job.Job;
 import seedu.address.model.Model;
 
 /**
@@ -25,7 +26,7 @@ public class CreateJobCommand extends Command {
             + PREFIX_JOBNAME + "Search Engineer ";
 
     public static final String MESSAGE_SUCCESS = "New job added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This job already exists in the system";
+    public static final String MESSAGE_COMMAND_NOT_AVAILABLE = "Command Not Implemented!";
 
     private final Job toAdd;
 
@@ -41,13 +42,7 @@ public class CreateJobCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        model.addPerson(toAdd);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        throw new CommandException(MESSAGE_COMMAND_NOT_AVAILABLE);
     }
 
     @Override

@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.Job.Job;
+import seedu.address.model.Job.JobName;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,10 +31,10 @@ public class CreateJobCommandParser implements Parser<CreateJobCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        JobName name = ParserUtil.parseName(argMultimap.getValue(PREFIX_JOBNAME).get());
-        Person person = new Job(name);
+        JobName name = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+        Job job = new Job(name);
 
-        return new AddCommand(person);
+        return new CreateJobCommand(job);
     }
 
     /**

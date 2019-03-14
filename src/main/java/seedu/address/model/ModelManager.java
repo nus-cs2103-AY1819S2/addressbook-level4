@@ -196,20 +196,27 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
-        filteredFoldersList.remove(index);
+        foldersList.remove(index);
+        filteredCardsList.remove(index);
         indicateModified();
     }
 
     @Override
     public void addFolder(CardFolder cardFolder) {
-        foldersList.add(new VersionedCardFolder(cardFolder));
+        VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
+        foldersList.add(versionedCardFolder);
+        FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
+        filteredCardsList.add(filteredCards);
+        filteredCards.addListener(this::ensureSelectedCardIsValid);
         indicateModified();
     }
 
+    @Override
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
     }
 
+    @Override
     public void setActiveCardFolderIndex(int newIndex) {
         activeCardFolderIndex = newIndex;
     }

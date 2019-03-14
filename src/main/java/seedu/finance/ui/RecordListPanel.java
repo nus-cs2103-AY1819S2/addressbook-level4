@@ -21,14 +21,14 @@ public class RecordListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(RecordListPanel.class);
 
     @FXML
-    private ListView<Record> personListView;
+    private ListView<Record> recordListView;
 
     public RecordListPanel(ObservableList<Record> recordList, ObservableValue<Record> selectedRecord,
                            Consumer<Record> onSelectedRecordChange) {
         super(FXML);
-        personListView.setItems(recordList);
-        personListView.setCellFactory(listView -> new RecordListViewCell());
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        recordListView.setItems(recordList);
+        recordListView.setCellFactory(listView -> new RecordListViewCell());
+        recordListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in record list panel changed to : '" + newValue + "'");
             onSelectedRecordChange.accept(newValue);
         });
@@ -37,16 +37,16 @@ public class RecordListPanel extends UiPart<Region> {
 
             // Don't modify selection if we are already selecting the selected record,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(recordListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                personListView.getSelectionModel().clearSelection();
+                recordListView.getSelectionModel().clearSelection();
             } else {
-                int index = personListView.getItems().indexOf(newValue);
-                personListView.scrollTo(index);
-                personListView.getSelectionModel().clearAndSelect(index);
+                int index = recordListView.getItems().indexOf(newValue);
+                recordListView.scrollTo(index);
+                recordListView.getSelectionModel().clearAndSelect(index);
             }
         });
     }

@@ -136,8 +136,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Method to sort the patients within the address book
      */
-    public void sortPatients(Comparator<Patient> patientComparator) {
-        persons.sortStoredList(patientComparator);
+    public void sortPatients(Comparator<Patient> patientComparator, boolean isReverse) {
+        persons.sortStoredList(patientComparator, isReverse);
     }
 
     @Override

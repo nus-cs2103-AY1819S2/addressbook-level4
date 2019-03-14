@@ -20,10 +20,30 @@ public class SortCommandParser implements Parser<SortCommand> {
     @Override
     public SortCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
+        String[] inputArr = userInput.trim().split(" ");
+
         Comparator<Patient> userComparator;
         try {
-            userComparator = PatientComparator.getPatientComparator(userInput);
-            return new SortCommand(userComparator, userInput.trim());
+            userComparator = PatientComparator.getPatientComparator(inputArr[0]);
+            boolean isReverse = false;
+
+            if (inputArr.length > 2) {
+                throw new ParseException("");
+            } else if (inputArr.length == 2) {
+                switch (inputArr[1]) {
+
+                case "desc":
+                    isReverse = true;
+                    break;
+                case "asce":
+                    isReverse = false;
+                    break;
+                default:
+                    throw new ParseException("");
+                }
+            }
+            return new SortCommand(userComparator, inputArr[0], isReverse);
+
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
         }

@@ -166,7 +166,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void sortAddressBook(Comparator<Patient> patientComparator) {
+        public void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse) {
             throw new AssertionError("This method should not be called");
         }
 

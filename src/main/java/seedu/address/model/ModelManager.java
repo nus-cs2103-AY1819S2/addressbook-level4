@@ -144,9 +144,9 @@ public class ModelManager implements Model {
      * Sorts the address book according to the given comparator
      */
     @Override
-    public void sortAddressBook(Comparator<Patient> compPa) {
+    public void sortAddressBook(Comparator<Patient> compPa, boolean isReverse) {
         requireNonNull(compPa);
-        versionedAddressBook.sortPatients(compPa);
+        versionedAddressBook.sortPatients(compPa, isReverse);
     }
 
     //=========== Undo/Redo =================================================================================

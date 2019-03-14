@@ -91,7 +91,7 @@ public interface Model {
     /**
      * Sorts the address book according to the given comparator
      */
-    void sortAddressBook(Comparator<Patient> patientComparator);
+    void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse);
 
     /**
      * Returns true if the model has previous address book states to restore.

@@ -30,17 +30,26 @@ public class SortCommand extends Command {
 
     public final Comparator<Patient> attrCompare;
     private final String paraType;
+    private final boolean isReverse;
 
-    public SortCommand(Comparator<Patient> chosenCompare, String paraType) {
+    public SortCommand(Comparator<Patient> chosenCompare, String paraType, boolean sortOrder) {
         requireNonNull(chosenCompare);
         this.attrCompare = chosenCompare;
         this.paraType = paraType;
+        this.isReverse = sortOrder;
+    }
+
+    /**
+     * Sets default sortOrder to ascending
+     */
+    public SortCommand(Comparator<Patient> chosenCompare, String paraType) {
+        this(chosenCompare, paraType, false);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //TODO Implement sorting
-        model.sortAddressBook(this.attrCompare);
+        //TODO Implement sorting for records
+        model.sortAddressBook(this.attrCompare, this.isReverse);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, paraType));
     }

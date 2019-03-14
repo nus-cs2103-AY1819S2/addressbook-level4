@@ -117,7 +117,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts the internal list according to desired comparator
      */
-    public void sortStoredList(Comparator<Patient> compPatient) {
+    public void sortStoredList(Comparator<Patient> compPatient, boolean isReverse) {
         //        ObservableList<Patient> patientObservableList = (ObservableList<Patient>) internalList;
         ArrayList<Patient> tempPatientList = new ArrayList<>();
         for (Person p:internalList) {
@@ -125,7 +125,11 @@ public class UniquePersonList implements Iterable<Person> {
                 tempPatientList.add((Patient) p);
             }
         }
-        Collections.sort(tempPatientList, compPatient);
+        if (!isReverse) {
+            Collections.sort(tempPatientList, compPatient);
+        } else {
+            Collections.sort(tempPatientList, Collections.reverseOrder(compPatient));
+        }
         this.setPersons(new ArrayList<Person>(tempPatientList));
     }
 

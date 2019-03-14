@@ -32,7 +32,7 @@ public class DateOfBirthTest {
         assertFalse(DateOfBirth.isValidDob("32/13/1999")); // date out of bounds
         assertFalse(DateOfBirth.isValidDob("01/13/1999")); // month out of bounds
         assertFalse(DateOfBirth.isValidDob("29/02/1999")); // not a leap year
-        assertFalse(DateOfBirth.isValidDob("30/02/2000"));// february is 28 days only
+        assertFalse(DateOfBirth.isValidDob("30/02/2000")); // february is 28 days only
         assertFalse(DateOfBirth.isValidDob("01/11/2020")); // year can't be equal or greater than current year
         assertFalse(DateOfBirth.isValidDob("01/11/11")); // yy not taken
 

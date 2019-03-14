@@ -63,7 +63,9 @@ public class CustomerCardHandle extends NodeHandle<Node> {
         return addressLabel.getText();
     }
 
-    public String getDateOfBirth() { return dobLabel.getText(); }
+    public String getDateOfBirth() {
+        return dobLabel.getText();
+    }
 
     public String getIdNum() {
         return identificationNoLabel.getText();

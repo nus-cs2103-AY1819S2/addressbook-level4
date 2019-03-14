@@ -38,8 +38,7 @@ package systemtests;
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.AddCustomerCommand;
-import seedu.address.model.CustomerModel;
-import systemtests.AddressBookSystemTest;
+//import seedu.address.model.CustomerModel;
 //import seedu.address.model.customer.Customer;
 //import seedu.address.model.customer.Email;
 //import seedu.address.model.customer.IdentificationNo;
@@ -198,7 +197,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     //        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     //    }
 
-    /** assertCommandFailure
+    /**
+     * assertCommandFailure
+     *
      * @param command
      * @param expectedResultMessage
      */

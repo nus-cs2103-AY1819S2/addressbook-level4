@@ -47,7 +47,7 @@ public class ExpiryTest {
         assertFalse(Expiry.isValidDate("01/13/2020")); // month more than 12
 
         // valid expiry
-        assertTrue(Expiry.isValidDate("01/01/2020"));
+        assertTrue(Expiry.isValidDate("11/11/2020"));
         assertTrue(Expiry.isValidDate("1/1/2020")); // without leading zero
 
     }

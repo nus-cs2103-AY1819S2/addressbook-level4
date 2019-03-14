@@ -11,11 +11,14 @@ import seedu.address.logic.commands.IncreaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.record.Amount;
 
+/**
+ * Parses input arguments and creates a new {@code IncreaseCommand} object
+ */
 public class IncreaseCommandParser implements Parser<IncreaseCommand> {
 
     /**
-     * Parses given {@code String} of arguments in context of the {@code IncreaseCommand
-     * @return a {@code IncreaseCommand} object for execution
+     * Parses given {@code String} of arguments in context of the {@code IncreaseCommand}
+     * and returns a {@code IncreaseCommand} object for execution
      * @throws ParseException if the user input does not conform to expected format
      */
     public IncreaseCommand parse(String args) throws ParseException {
@@ -26,12 +29,9 @@ public class IncreaseCommandParser implements Parser<IncreaseCommand> {
 
         try {
             amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        } catch (IllegalValueException ive) {
+        } catch (IllegalValueException | NoSuchElementException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     IncreaseCommand.MESSAGE_USAGE), ive);
-        } catch (NoSuchElementException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    IncreaseCommand.MESSAGE_USAGE), e);
         }
 
         return new IncreaseCommand(amount);

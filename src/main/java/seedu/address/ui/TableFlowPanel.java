@@ -30,7 +30,6 @@ public class TableFlowPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing inside the loaded FlowPane.
         getRoot().setOnKeyPressed(Event::consume);
-
         tableFlowPane.setHgap(1);
         tableFlowPane.setVgap(1);
         tableFlowPane.prefWidthProperty().bind(scrollPane.widthProperty());
@@ -42,10 +41,9 @@ public class TableFlowPanel extends UiPart<Region> {
         }
 
         tableObservableList.addListener((ListChangeListener<Table>) c -> {
-            while (c.next()) {
-                if (c.wasUpdated()) {
-                    logger.info("The List has been updated but not rendered");
-                }
+            tableFlowPane.getChildren().clear();
+            for (Table table : tableObservableList) {
+                tableFlowPane.getChildren().add(new TableCard(table).getRoot());
             }
         });
     }

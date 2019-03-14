@@ -15,7 +15,7 @@ import seedu.address.model.table.TableStatus;
 public class AddTableCommandParser implements Parser<AddTableCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTableCommand
+     * Parses the given {@code args} of arguments in the context of the AddTableCommand
      * and returns an AddTableCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format

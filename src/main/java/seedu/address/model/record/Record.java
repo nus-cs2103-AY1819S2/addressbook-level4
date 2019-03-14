@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 /**
  * Represents a Record in the address book.
@@ -22,19 +22,19 @@ public class Record {
     private final Amount amount;
     private final Date date;
     private final Description description;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Record(Name name, Amount amount, Date date,
-                  Description description, Set<Tag> tags) {
-        requireAllNonNull(name, amount, date, tags);
+                  Description description, Set<Category> categories) {
+        requireAllNonNull(name, amount, date, categories);
         this.name = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
     }
 
     public Name getName() {
@@ -54,11 +54,11 @@ public class Record {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
     /**
@@ -94,13 +94,13 @@ public class Record {
                 && otherRecord.getAmount().equals(getAmount())
                 && otherRecord.getDate().equals(getDate())
                 && otherRecord.getDescription().equals(getDescription())
-                && otherRecord.getTags().equals(getTags());
+                && otherRecord.getCategories().equals(getCategories());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, date, description, tags);
+        return Objects.hash(name, amount, date, description, categories);
     }
 
     @Override
@@ -113,8 +113,8 @@ public class Record {
                 .append(getDate())
                 .append("Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Categories: ");
+        getCategories().forEach(builder::append);
         return builder.toString();
     }
 

@@ -15,6 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
+import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvFile;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -96,10 +98,48 @@ public class ParserUtil {
     }
 
     /**
+     * Parsers {@code Collection<String> folderNames} into a {@Code Set<CardFolderExport>}.
+     * Similar folder names will not be included inside the set.
+     */
+    public static Set<CardFolderExport> parseFolders(Collection<String> folderNames) throws ParseException {
+        requireNonNull(folderNames);
+        final Set<CardFolderExport> cardFolderExports = new HashSet<>();
+        for (String folderName : folderNames) {
+            cardFolderExports.add(parseFolder(folderName));
+        }
+        return cardFolderExports;
+    }
+
+    /**
+     * Parses a {@Code String folderName} into a {@code CardFolderExport}.
+     * Trims any leading and trailing white space for folder name.
+     */
+    private static CardFolderExport parseFolder(String folderName) throws ParseException {
+        requireNonNull(folderName);
+        folderName = folderName.trim();
+        if (CardFolderExport.isFolderNameEmpty(folderName)) {
+            throw new ParseException(CardFolderExport.MESSAGE_CONSTRAINTS);
+        }
+        return new CardFolderExport(folderName);
+    }
+
+    /**
+     * Parses a {@Code String filename} into a {@Code CsvFile}
+     */
+    public static CsvFile parseFileName(String filename) throws ParseException {
+        requireNonNull(filename);
+        if (!CsvFile.isValidFileName(filename)) {
+            throw new ParseException(CsvFile.MESSAGE_CONSTRAINTS);
+        }
+        return new CsvFile(filename);
+    }
+
+    /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
 }

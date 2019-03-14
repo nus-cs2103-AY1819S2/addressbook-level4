@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.Observable;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.storage.csvmanager.CardFolderExport;
 
 /**
  * The API of the Model component.
@@ -166,7 +168,7 @@ public interface Model extends Observable {
     /**
      * Checks whether list of card folder names specified is found inside model
      */
-    boolean checkValidCardFolders(List<String> cardFolders);
+    List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
 
     /**
      * Enters a test session using the specified card folder.
@@ -211,5 +213,6 @@ public interface Model extends Observable {
      * false if otherwise
      */
     boolean checkIfCardAlreadyAnswered();
+
 
 }

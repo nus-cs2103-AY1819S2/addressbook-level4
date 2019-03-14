@@ -49,7 +49,7 @@ public class CustomerCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(customer.getName().fullName);
         phone.setText(customer.getPhone().value);
-        dob.setText(customer.getDob().value);
+        dob.setText(customer.getDateOfBirth().value);
         identificationNo.setText(customer.getIdNum().value);
         address.setText(customer.getAddress().value);
         email.setText(customer.getEmail().value);

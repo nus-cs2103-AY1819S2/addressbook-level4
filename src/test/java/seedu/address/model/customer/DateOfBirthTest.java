@@ -28,14 +28,20 @@ public class DateOfBirthTest {
         // invalid identification numbers
         assertFalse(DateOfBirth.isValidDob("")); // empty string
         assertFalse(DateOfBirth.isValidDob(" ")); // spaces only
-        assertFalse(DateOfBirth.isValidDob("1/12/1999")); // date is not in correct format
         assertFalse(DateOfBirth.isValidDob("dob")); // non-numeric
+        assertFalse(DateOfBirth.isValidDob("32/13/1999")); // date out of bounds
         assertFalse(DateOfBirth.isValidDob("01/13/1999")); // month out of bounds
+        assertFalse(DateOfBirth.isValidDob("29/02/1999")); // not a leap year
+        assertFalse(DateOfBirth.isValidDob("30/02/2000"));// february is 28 days only
         assertFalse(DateOfBirth.isValidDob("01/11/2020")); // year can't be equal or greater than current year
+        assertFalse(DateOfBirth.isValidDob("01/11/11")); // yy not taken
+
 
         // valid identification numbers
+        assertTrue(DateOfBirth.isValidDob("29/02/2000"));
+        assertTrue(DateOfBirth.isValidDob("1/12/1999")); // date is in correct format
         assertTrue(DateOfBirth.isValidDob("28/05/1999")); // exact order
         assertTrue(DateOfBirth.isValidDob("01/12/1999"));
-        assertTrue(DateOfBirth.isValidDob("12/10/1999")); // long identification numbers
+        assertTrue(DateOfBirth.isValidDob("12/10/1999"));
     }
 }

@@ -83,7 +83,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
         for (int i = 0; i < customerCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
-            DateOfBirth dob = new DateOfBirth("124414");
+            DateOfBirth dob = new DateOfBirth("12/02/1994");
             Email email = new Email("a@aa");
             IdentificationNo idnum = new IdentificationNo("1234");
             Address address = new Address("a");

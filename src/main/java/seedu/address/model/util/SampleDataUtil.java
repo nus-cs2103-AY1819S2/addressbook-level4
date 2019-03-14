@@ -33,7 +33,7 @@ public class SampleDataUtil {
             new Customer(new Name("David Li"), new Phone("91031282"), new DateOfBirth ("29/05/1999"), new Email("lidavid@example.com"),
                 new IdentificationNo("9877853"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("family")),
-            new Customer(new Name("Irfan Ibrahim"), new Phone("92492021"), new DateOfBirth ("2/05/1989"), new Email("irfan@example.com"),
+            new Customer(new Name("Irfan Ibrahim"), new Phone("92492021"), new DateOfBirth ("02/05/1989"), new Email("irfan@example.com"),
                 new IdentificationNo("987973"), new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("classmates")),
             new Customer(new Name("Roy Balakrishnan"), new Phone("92624417"), new DateOfBirth ("09/12/2002"), new Email("royb@example.com"),

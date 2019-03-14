@@ -135,6 +135,12 @@ public interface Model {
      * The task must exist in the address book.
      */
     void deleteTask(Task task);
+    /**
+     * Replaces the given task {@code target} with {@code editedTask}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedTask} must not be the same as another existing task in the address book.
+     */
+    void setTask(Task target, Task editedTask);
 
     //=========== Undo/Redo/Commit =================================================================================
 

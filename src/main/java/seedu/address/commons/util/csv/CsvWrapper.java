@@ -1,4 +1,4 @@
-package seedu.address.storage.csv;
+package seedu.address.commons.util.csv;
 
 import java.io.FileWriter;
 import java.io.IOException;

@@ -53,7 +53,7 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case IncreaseCommand.COMMAND_WORD:
-            return new IncreaseCommand();
+            return new IncreaseCommandParser().parse(arguments);
 
         case DescriptionCommand.COMMAND_WORD:
             return new DescriptionCommandParser().parse(arguments);

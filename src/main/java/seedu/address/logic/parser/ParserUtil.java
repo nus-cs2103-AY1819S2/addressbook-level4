@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -120,5 +121,26 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String file}.
+     *
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    public static File parseFile(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        filePath = filePath.trim();
+        final String validationRegex = "\\p{Alnum}+.(txt|xml|json)$";
+
+        if (!filePath.matches(validationRegex)) {
+            throw new ParseException("File name is invalid");
+        }
+
+        String newPath = "data\\";
+
+        File file = new File(newPath.concat(filePath));
+
+        return file;
     }
 }

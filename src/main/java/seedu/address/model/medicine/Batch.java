@@ -60,7 +60,7 @@ public class Batch {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("BatchNumber: ")
+        builder.append("Batch No.: ")
                 .append(getBatchNumber())
                 .append(" Quantity: ")
                 .append(getQuantity())

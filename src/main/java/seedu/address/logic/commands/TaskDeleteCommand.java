@@ -49,7 +49,7 @@ public class TaskDeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
+                || (other instanceof TaskDeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((TaskDeleteCommand) other).targetIndex)); // state check
     }
 }

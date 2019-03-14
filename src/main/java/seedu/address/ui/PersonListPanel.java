@@ -36,7 +36,6 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         modelUpdateObservable.addListener(observable -> {
             int size = mapGrid.getMapSize();
-            System.out.println(size);
             grid.getChildren().clear();
             for (int i = 0; i < size; i++) {
                 HBox row = new HBox();

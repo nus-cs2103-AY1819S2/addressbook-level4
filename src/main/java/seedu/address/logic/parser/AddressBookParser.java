@@ -101,7 +101,7 @@ public class AddressBookParser {
             return new TaskAddCommandParser().parse(arguments);
 
         case TaskDeleteCommand.COMMAND_WORD:
-            return new TaskDeleteCommandParser.parse(arguments);
+            return new TaskDeleteCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

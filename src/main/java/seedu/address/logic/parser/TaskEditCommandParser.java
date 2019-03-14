@@ -40,21 +40,20 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
             editTaskDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
-        if (argMultimap.getValue(PREFIX_STARTDATE).isPresent()) {
-            editTaskDescriptor.setStartDate(ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get()));
+        if (argMultimap.getValue(PREFIX_STARTDATE).isPresent() || argMultimap.getValue(PREFIX_ENDDATE).isPresent()) {
+            if (!argMultimap.getValue(PREFIX_STARTDATE).isPresent() || !argMultimap.getValue(PREFIX_ENDDATE)
+                    .isPresent()) {
+                throw new ParseException("Please give a Start Date AND End Date when changing dates");
+            } else {
+                editTaskDescriptor.setStartDate(ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE)
+                        .get()));
+                editTaskDescriptor.setEndDate(ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE)
+                        .get(), argMultimap.getValue(PREFIX_STARTDATE).get()));
+            }
         }
-        if (argMultimap.getValue(PREFIX_ENDDATE).isPresent()) {
-            editTaskDescriptor.setEndDate(ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE)
-                    .get(), argMultimap.getValue(PREFIX_STARTDATE).get()));
-        }
-
-
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TaskEditCommand.MESSAGE_NOT_EDITED);
         }
-
         return new TaskEditCommand(index, editTaskDescriptor);
     }
-
-
 }

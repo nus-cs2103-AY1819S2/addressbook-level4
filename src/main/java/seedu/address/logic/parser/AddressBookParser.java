@@ -16,8 +16,8 @@ import seedu.address.logic.commands.MemberAddCommand;
 import seedu.address.logic.commands.MemberDeleteCommand;
 import seedu.address.logic.commands.MemberFindCommand;
 import seedu.address.logic.commands.MemberListCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.MemberSelectCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

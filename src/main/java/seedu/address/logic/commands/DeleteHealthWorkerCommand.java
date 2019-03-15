@@ -11,6 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.healthworker.HealthWorker;
 
+/**
+ * Deletes a HealthWorker from the addressbook based on the index specified.
+ */
 public class DeleteHealthWorkerCommand extends DeleteCommand implements HealthWorkerCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

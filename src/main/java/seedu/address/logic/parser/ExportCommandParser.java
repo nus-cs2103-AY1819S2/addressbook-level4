@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import java.io.File;
-
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -17,8 +15,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      */
     public ExportCommand parse(String args) throws ParseException {
         try {
-            File file = ParserUtil.parseImportExport(args);
-            return new ExportCommand(file);
+            return new ExportCommand(ParserUtil.parseImportExport(args));
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());
         }

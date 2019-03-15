@@ -37,7 +37,7 @@ public interface Logic {
      */
     ObservableList<Deck> getFilteredDeckList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredCardList();
 
     /**
@@ -47,7 +47,7 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' TopDeck file path.
      */
     Path getTopDeckFilePath();
 

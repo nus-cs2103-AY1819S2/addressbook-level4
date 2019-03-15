@@ -156,7 +156,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static File parseFile(String filePath) throws ParseException {
+    public static File parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
         final String validationRegex = "\\p{Alnum}+.(txt|xml|json)$";

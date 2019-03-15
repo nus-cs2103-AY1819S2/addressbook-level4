@@ -18,9 +18,9 @@ import seedu.address.model.person.healthworker.UniqueHealthWorkerList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueHealthWorkerList healthWorkers;
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final UniqueHealthWorkerList healthWorkers;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -104,51 +104,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    // ==== Added methods to support operations on UniqueHealthWorkerList ====
-    // @author: Lookaz
-
-    /**
-     * Returns true if a HealthWorker with the same identity as {@code worker}
-     * exists in the address book.
-     */
-    public boolean hasHealthWorker(HealthWorker worker) {
-        requireNonNull(worker);
-        return this.healthWorkers.contains(worker);
-    }
-
-    /**
-     * Adds a HealthWorker to the address book.
-     * The HealthWorker must not already exist in the address book.
-     */
-    public void addHealthWorker(HealthWorker worker) {
-        this.healthWorkers.add(worker);
-        indicateModified();
-    }
-
-    /**
-     * Replaces the given HealthWorker {@code target} in the list with {@code
-     * edited}. {@code target} must exist in the address book.
-     * The identity of {@code edited} must not be the same as
-     * another existing HealthWorker in the address book.
-     */
-    public void setHealthWorker(HealthWorker target, HealthWorker edited) {
-        requireNonNull(edited);
-
-        this.healthWorkers.setHealthWorker(target, edited);
-        indicateModified();
-    }
-
-    /**
-     * Removes HealthWorker {@code worker} from this {@code AddressBook}.
-     * HealthWorker {@code worker} must exist in the address book.
-     */
-    public void removeHealthWorker(HealthWorker worker) {
-        this.healthWorkers.remove(worker);
-        indicateModified();
-    }
-
-    // ======================================================================
-
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -173,6 +128,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public ObservableList<HealthWorker> getHealthWorkerList() {
         return healthWorkers.asUnmodifiableObservableList();
+    }
+
+    public Person getPersonAt(int index) {
+        return this.persons.getAt(index);
+    }
+
+    public HealthWorker getHealthWorkerAt(int index) {
+        return this.healthWorkers.getAt(index);
     }
 
     @Override

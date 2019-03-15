@@ -16,6 +16,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
+    private Path requestBookFilePath = Paths.get("data" , "requestbook.json");
+    private Path healthWorkerBookFilePath = Paths.get("data" , "healthworkerbook.json");
+
+
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -36,6 +40,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setHealthWorkerBookFilePath(newUserPrefs.getHealthWorkerBookFilePath());
+        setRequestBookFilePath(newUserPrefs.getRequestBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +62,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public void setRequestBookFilePath(Path requestBookFilePath) {
+        requireNonNull(requestBookFilePath);
+        this.requestBookFilePath = requestBookFilePath;
+    }
+
+    public Path getHealthWorkerBookFilePath() {
+        return healthWorkerBookFilePath;
+    }
+
+    public void setHealthWorkerBookFilePath(Path healthWorkerBookFilePath) {
+        requireNonNull(healthWorkerBookFilePath);
+        this.healthWorkerBookFilePath = healthWorkerBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,7 +88,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && requestBookFilePath.equals(o.requestBookFilePath);
     }
 
     @Override
@@ -80,8 +101,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nAddress book Local data file location : " + addressBookFilePath);
+        sb.append("\nRequest book Local data file location : " + requestBookFilePath);
+        sb.append("\nHealthWorker book Local data file location : " + healthWorkerBookFilePath);
         return sb.toString();
     }
 
+    public Path getRequestBookFilePath() {
+        return this.requestBookFilePath;
+    }
 }

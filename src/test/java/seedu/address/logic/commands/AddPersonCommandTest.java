@@ -22,9 +22,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddPersonCommandTest {
@@ -187,6 +190,11 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // ===================================================================
 
         @Override
@@ -236,6 +244,94 @@ public class AddPersonCommandTest {
 
         @Override
         public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Returns the user prefs' request book file path.
+         */
+        @Override
+        public Path getRequestBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Sets the user prefs' request book file path.
+         *
+         * @param requestBookFilePath
+         */
+        @Override
+        public void setRequestBookFilePath(Path requestBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Replaces request book data with the data in {@code requestBook}.
+         *
+         * @param requestBook
+         */
+        @Override
+        public void setRequestBook(ReadOnlyRequestBook requestBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Returns the RequestBook
+         */
+        @Override
+        public ReadOnlyRequestBook getRequestBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Returns true if a request with the same identity as {@code request} exists in the address
+         * book.
+         *
+         * @param request
+         */
+        @Override
+        public boolean hasRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Deletes the given request.
+         * The request must exist in the request book.
+         *
+         * @param target
+         */
+        @Override
+        public void deleteRequest(Request target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Adds the given request.
+         * {@code request} must not already exist in the request book.
+         *
+         * @param request
+         */
+        @Override
+        public void addRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Replaces the given request {@code target} with {@code editedRequest}.
+         * {@code target} must exist in the request book.
+         * The request identity of {@code editedRequest} must not be the same as another existing
+         * request in the request book.
+         *
+         * @param target
+         * @param editedRequest
+         */
+        @Override
+        public void setRequest(Request target, Request editedRequest) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitRequestBook() {
             throw new AssertionError("This method should not be called.");
         }
     }

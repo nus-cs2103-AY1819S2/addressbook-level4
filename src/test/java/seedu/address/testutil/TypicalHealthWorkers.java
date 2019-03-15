@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
@@ -68,20 +68,37 @@ public class TypicalHealthWorkers {
             .withAddress("4th street")
             .withTags("Cancer")).withOrganization("NUH").build();
 
+    // Manually added
+    public static final HealthWorker HOOK = ((HealthWorkerBuilder) new HealthWorkerBuilder()
+            .withName("Hoon Meier")
+            .withPhone("8482424")
+            .withNric("S1234567A")
+            .withEmail("stefan@example.com")
+            .withAddress("little india")
+            .withTags("Cancer")).withOrganization("NUH").build();
+
+    public static final HealthWorker IVAN = ((HealthWorkerBuilder) new HealthWorkerBuilder()
+            .withName("Ida Mueller")
+            .withPhone("8482131")
+            .withNric("S1234567A")
+            .withEmail("hans@example.com")
+            .withAddress("chicago ave")
+            .withTags("KidneyFailure")).withOrganization("NUH").build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalHealthWorkers() {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code HealthWorkerBook} with all the typical persons.
      */
-    public static AddressBook getTypicalHealthStaffBook() {
-        AddressBook ab = new AddressBook();
-        for (HealthWorker person : getTypicalHealthStaff()) {
-            ab.addPerson(person);
+    public static HealthWorkerBook getTypicalHealthWorkerBook() {
+        HealthWorkerBook healthWorkerBook = new HealthWorkerBook();
+        for (HealthWorker healthWorker : getTypicalHealthStaff()) {
+            healthWorkerBook.addHealthWorker(healthWorker);
         }
-        return ab;
+        return healthWorkerBook;
     }
 
     public static List<HealthWorker> getTypicalHealthStaff() {

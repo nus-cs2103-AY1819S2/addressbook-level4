@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,15 +28,24 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
+
+    private final VersionedRequestBook versionedRequestBook;
     private final UserPrefs userPrefs;
+
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<HealthWorker> filteredHealthWorkers;
+    // TODO make the relevant changes to the model manager
+    // TODO get versionedAddressBook tests to pass
+    private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+
+    private final SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyHealthWorkerBook healthWorkerBook,
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -44,16 +54,19 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedHealthWorkerBook = new VersionedHealthWorkerBook(healthWorkerBook);
+        versionedRequestBook = new VersionedRequestBook(requestBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
+        filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         // TODO: listener for healthworker
         filteredHealthWorkers.addListener(this::ensureSelectedPersonIsValid);
+        filteredRequests.addListener(this::ensureSelectedRequestIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new HealthWorkerBook(), new UserPrefs());
+        this(new AddressBook(), new HealthWorkerBook(), new RequestBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -138,7 +151,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteHealthWorker(HealthWorker target) {
-        this.versionedAddressBook.removeHealthWorker(target);
+        this.versionedHealthWorkerBook.removeHealthWorker(target);
     }
 
     @Override
@@ -163,6 +176,11 @@ public class ModelManager implements Model {
     public void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate) {
         requireNonNull(predicate);
         this.filteredHealthWorkers.setPredicate(predicate);
+    }
+
+    @Override
+    public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+        return this.versionedHealthWorkerBook;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -208,6 +226,7 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+        versionedHealthWorkerBook.commit();
     }
 
     //=========== Selected person ===========================================================================
@@ -231,6 +250,124 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Returns the user prefs' request book file path.
+     */
+    @Override
+    public Path getRequestBookFilePath() {
+        return null;
+    }
+
+    /**
+     * Sets the user prefs' request book file path.
+     *
+     * @param requestBookFilePath
+     */
+    @Override
+    public void setRequestBookFilePath(Path requestBookFilePath) {
+
+    }
+
+    /**
+     * Replaces request book data with the data in {@code requestBook}.
+     *
+     * @param requestBook
+     */
+    @Override
+    public void setRequestBook(ReadOnlyRequestBook requestBook) {
+
+    }
+
+    /**
+     * Returns the RequestBook
+     */
+    @Override
+    public ReadOnlyRequestBook getRequestBook() {
+        return this.versionedRequestBook;
+    }
+
+    /**
+     * Returns true if a request with the same identity as {@code request} exists in the address
+     * book.
+     *
+     * @param request
+     */
+    @Override
+    public boolean hasRequest(Request request) {
+        return false;
+    }
+
+    /**
+     * Deletes the given request.
+     * The request must exist in the request book.
+     *
+     * @param target
+     */
+    @Override
+    public void deleteRequest(Request target) {
+
+    }
+
+    /**
+     * Adds the given request.
+     * {@code request} must not already exist in the request book.
+     *
+     * @param request
+     */
+    @Override
+    public void addRequest(Request request) {
+
+    }
+
+    /**
+     * Replaces the given request {@code target} with {@code editedRequest}.
+     * {@code target} must exist in the request book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
+     *
+     * @param target
+     * @param editedRequest
+     */
+    @Override
+    public void setRequest(Request target, Request editedRequest) {
+
+    }
+
+    @Override
+    public void commitRequestBook() {
+        versionedRequestBook.commit();
+    }
+
+    /**
+     * Ensures {@code selectedRequest} is a valid request in {@code filteredRequests}.
+     */
+    private void ensureSelectedRequestIsValid(ListChangeListener.Change<? extends Request> change) {
+        while (change.next()) {
+            if (selectedRequest.getValue() == null) {
+                return;
+            }
+
+            boolean wasSelectedRequestReplaced =
+                change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedRequest.getValue());
+
+            if (wasSelectedRequestReplaced) {
+                // Update selectedRequest to its new value
+                int index = change.getRemoved().indexOf(selectedRequest.getValue());
+                selectedRequest.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedRequestRemoved =
+                change.getRemoved().stream().anyMatch(removedRequest -> selectedRequest.getValue()
+                    .isSameRequest(removedRequest));
+            if (wasSelectedRequestRemoved) {
+                selectedRequest.setValue(change.getFrom() > 0
+                    ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    /**
      * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
      */
     private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
@@ -241,7 +378,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
+                && change.getRemoved().contains(selectedPerson.getValue());
             if (wasSelectedPersonReplaced) {
                 // Update selectedPerson to its new value.
                 int index = change.getRemoved().indexOf(selectedPerson.getValue());
@@ -250,7 +387,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
@@ -274,10 +411,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && versionedHealthWorkerBook.equals(other.versionedHealthWorkerBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+            && versionedHealthWorkerBook.equals(other.versionedHealthWorkerBook)
+            && userPrefs.equals(other.userPrefs)
+            && filteredPersons.equals(other.filteredPersons)
+            && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
 }

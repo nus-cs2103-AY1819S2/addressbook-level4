@@ -21,22 +21,22 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.StorageManager;
 
 /**
- * Imports records from a text file.
+ * Opens records from a text file.
  */
-public class ImportCommand extends Command {
+public class OpenCommand extends Command {
 
-    public static final String COMMAND_WORD = "import";
+    public static final String COMMAND_WORD = "open";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Imports a text file in the \"data\" folder \n"
+            + ": open a text file in the \"data\" folder and overwrites the current addressbook\n"
             + "Parameters: FILENAME\n"
             + "Example: " + COMMAND_WORD + " records1.json";
 
-    public static final String MESSAGE_SUCCESS = "Imported the records!";
+    public static final String MESSAGE_SUCCESS = "Opened the records!";
 
     private final File file;
 
-    public ImportCommand(File file) {
+    public OpenCommand(File file) {
         this.file = file;
     }
 

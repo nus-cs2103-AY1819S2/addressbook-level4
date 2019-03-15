@@ -1,6 +1,6 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -25,7 +25,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
+//import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -51,7 +51,7 @@ import seedu.address.model.equipment.Phone;
 import seedu.address.model.equipment.SerialNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EquipmentBuilder;
-import seedu.address.testutil.EquipmentUtil;
+//import seedu.address.testutil.EquipmentUtil;
 
 public class EditCommandSystemTest extends EquipmentManagerSystemTest {
 

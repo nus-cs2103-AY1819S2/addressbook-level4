@@ -90,7 +90,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Equipment} with the details of {@code equipmentToEdit}
      * edited with {@code editEquipmentDescriptor}.
      */
-    private static Equipment createEditedPerson(Equipment equipmentToEdit, EditEquipmentDescriptor editEquipmentDescriptor) {
+    private static Equipment createEditedPerson(Equipment equipmentToEdit, EditEquipmentDescriptor
+            editEquipmentDescriptor) {
         assert equipmentToEdit != null;
 
         Name updatedName = editEquipmentDescriptor.getName().orElse(equipmentToEdit.getName());

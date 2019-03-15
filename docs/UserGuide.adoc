@@ -114,6 +114,57 @@ Format: `sort CATEGORY ORDER`
 Example: `sort n increasing` +
 Displays the contact list sorted by name in forward alphabetical order.
 
+=== Finding contact(s) by keyword(s) : `find`
+
+Finds contact(s) whose information contains any of the keyword(s). +
+e.g. search by name, search by address, search by tags etc. +
+Format: `find KEYWORD [KEYWORD]...`
+
+[NOTE]
+====
+`KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
+====
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Contacts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find n/James` +
+Returns `James Lee` and `John James`
+* `find n/James n/Tan n/Young` +
+Returns any contact having names `James`, `Tan`, or `Young`
+* `find a/Woodlands c/Landlord` +
+Returns any contact with address `Woodlands` and customer type `Landlord`
+
+=== Selecting a contact : `select`
+
+Selects the contact identified by the index number used in the displayed contact list. +
+Format: `select INDEX`
+
+****
+* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps window panel.
+* The index refers to the index number shown in the displayed contact list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd contact in the address book.
+* `find James` +
+`select 1` +
+Selects the 1st contact in the results of the `find` command.
+* `sort` +
+`select 3` +
+Selects the 3rd contact in the sorted list displayed earlier.
+
 === Editing a contact : `edit`
 
 Edits an existing contact and/or associated property (if any) in the address book, with 4 variants of customer types.
@@ -162,34 +213,6 @@ Format: `match INDEX_TENANT INDEX_LANDLORD ` +
 Example: `match 3 10`
 ** Matches the tenant listed as index 3 to the property listed with the landlord as index 10.
 
-=== Finding contact(s) by keyword(s) : `find`
-
-Finds contact(s) whose information contains any of the keyword(s). +
-e.g. search by name, search by address, search by tags etc. +
-Format: `find KEYWORD [KEYWORD]...`
-
-[NOTE]
-====
-`KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
-====
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Contacts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find n/James` +
-Returns `James Lee` and `John James`
-* `find n/James n/Tan n/Young` +
-Returns any contact having names `James`, `Tan`, or `Young`
-* `find a/Woodlands c/Landlord` +
-Returns any contact with address `Woodlands` and customer type `Landlord`
-
 === Deleting a contact : `delete`
 
 Deletes the specified contact from the address book. +
@@ -212,29 +235,6 @@ Deletes the 1st contact in the results of the `find` command.
 * `sort` +
 `delete 3` +
 Deletes the 3rd contact in the sorted list displayed earlier.
-
-=== Selecting a contact : `select`
-
-Selects the contact identified by the index number used in the displayed contact list. +
-Format: `select INDEX`
-
-****
-* Selects the contact at the specified `INDEX` and loads the Google Maps location of the contact in the applet window.
-* The index refers to the index number shown in the displayed contact list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd contact in the address book.
-* `find James` +
-`select 1` +
-Selects the 1st contact in the results of the `find` command.
-* `sort` +
-`select 3` +
-Selects the 3rd contact in the sorted list displayed earlier.
 
 === Pinning a contact : `pin`
 
@@ -422,7 +422,7 @@ There is no need to save manually.
 
 === Displaying location on Google Maps `[coming in v2.0]`
 
-Double-clicking the contact will bring up the Google Maps location of the contact in the applet window.
+Double-clicking the contact will bring up the the address location of the associated property on the Google Maps window panel.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`

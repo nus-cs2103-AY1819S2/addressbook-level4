@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.DeleteHealthWorkerCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 
 /**
@@ -28,6 +29,19 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeletePersonCommand.MESSAGE_USAGE));
+    }
+
+    // ================================= Tests for parsing HealthWorker =================================
+    // @author Lookaz
+
+    @Test
+    public void parse_HealthWorker() {
+        // valid index
+        assertParseSuccess(parser, "1 1", new DeleteHealthWorkerCommand(INDEX_FIRST_PERSON));
+
+        // invalid index
+        assertParseFailure(parser, "1 a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeletePersonCommand.MESSAGE_USAGE));
     }
 }

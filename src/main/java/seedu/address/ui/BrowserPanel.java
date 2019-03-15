@@ -29,6 +29,8 @@ public class BrowserPanel extends UiPart<Region> {
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
     public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
+    private static Card CURRENT_CARD;
+
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -82,10 +84,16 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         cardPage.getChildren().addAll(question, answer, score, hint);
+
+        updateCurrentCard(card);
     }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
+    }
+
+    private void updateCurrentCard(Card card) {
+        CURRENT_CARD = card;
     }
 
     /**

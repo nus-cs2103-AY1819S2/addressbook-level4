@@ -28,6 +28,7 @@ public class PlayerTest {
         assertFalse(Player.isValidName("AbCdEfGhIjklmnoPqrst")); // over max 16 chars
         assertFalse(Player.isValidName("John Doe")); // contains whitespace
         assertFalse(Player.isValidName("John!@#$")); // Contains invalid characters !#$%&'*+/=?`{|}~^.-
+        assertFalse(Player.isValidName("Enemy")); // Contains saved name "Enemy" for computer enemy player.
         //valid names
         assertTrue(Player.isValidName("123AbCde123")); //Allows upper and lower case alphanumerical chars
         assertTrue(Player.isValidName("bob")); //satisfies min 3 char required
@@ -55,5 +56,8 @@ public class PlayerTest {
         Player newPlayer1 = new Player("Bob", 7);
         assertEquals(newPlayer1.getMapGrid(), testPlayer.getMapGrid());
     }
-
+    @Test public void test_getTargetHistory() {
+        Player newPlayer1 = new Player("Bob", 7);
+        assertEquals(newPlayer1.getTargetHistory(), testPlayer.getTargetHistory());
+    }
 }

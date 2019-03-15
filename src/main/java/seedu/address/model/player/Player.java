@@ -4,13 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import seedu.address.model.MapGrid;
+import seedu.address.model.cell.Coordinates;
 
 /**
  * Represents a player in the game.
- * Can be either a user or a computerised enemy.
+ * Is a user-controlled Player and superclass for Enemy
  */
 public class Player {
 
@@ -23,6 +27,7 @@ public class Player {
     private final int fleetSize;
     private final Fleet fleet;
     private final MapGrid mapGrid;
+    private Set targetHistory = new HashSet();
 
     /**
      * Constructor presented to user.
@@ -44,6 +49,17 @@ public class Player {
         this("Player1", 5);
     }
 
+
+    /**
+     * Attempts to add targeted coordinates to the Player targetHistory
+     * Checks for duplicates.
+     * Returns False if adding failed (duplicate found)
+     * Returns True if adding succeeded (coordinate added to targetHistory)
+     */
+    public boolean addToTargetHistory(Coordinates target) {
+        return this.targetHistory.add(target);
+    }
+
     public String getName() {
         return this.name; }
     public int getFleetSize() {
@@ -56,9 +72,11 @@ public class Player {
     public MapGrid getMapGrid() {
         return this.mapGrid;
     }
-
+    public Set getTargetHistory() {
+        return this.targetHistory;
+    }
     public static boolean isValidName(String name) {
-        return Pattern.matches(VALID_NAME_REGEX, name);
+        return Pattern.matches(VALID_NAME_REGEX, name) && !name.equals("Enemy");
     }
 
     @Override
@@ -67,7 +85,8 @@ public class Player {
         builder.append(getName())
                 .append(" Name: ")
                 .append(getName())
-                .append(getFleet());
+                .append(getFleet())
+                .append(Arrays.toString(targetHistory.toArray()));
         return builder.toString();
     }
 }

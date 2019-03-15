@@ -149,15 +149,7 @@ public class Battleship {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-//                .append(" Name: ")
                 .append(getName());
-//                .append(" Id: ")
-//                .append(getId())
-//                .append(" Length: ")
-//                .append(getLength())
-//                .append(" Life: ")
-//                .append(getLife())
-//                .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

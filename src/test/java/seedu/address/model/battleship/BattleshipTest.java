@@ -104,4 +104,22 @@ public class BattleshipTest {
 
         assertEquals(battleshipOne.isDestroyed(), true);
     }
+
+    @Test
+    public void testAicraftCarrier() {
+        Battleship aircraftCarrier = new AircraftCarrierBattleship();
+        assertEquals(aircraftCarrier.getLength(), 5);
+    }
+
+    @Test
+    public void testDestroyer() {
+        Battleship destroyerBattleship = new DestroyerBattleship();
+        assertEquals(destroyerBattleship.getLength(), 3);
+    }
+
+    @Test
+    public void testCruiser() {
+        Battleship cruiserBattleship = new CruiserBattleship();
+        assertEquals(cruiserBattleship.getLength(), 2);
+    }
 }

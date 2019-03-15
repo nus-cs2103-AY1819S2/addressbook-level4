@@ -9,6 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.battleship.AircraftCarrierBattleship;
+import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.CruiserBattleship;
+import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Address;
@@ -65,6 +69,28 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code Name name} into a {@code Battleship}.
+     * @throws ParseException if the given (@code name} is invalid.
+     */
+    public static Battleship parseBattleship(Name name) throws ParseException {
+        requireNonNull(name);
+
+        Battleship battleship;
+
+        if (name.fullName.toLowerCase().equals("destroyer")) {
+            battleship = new DestroyerBattleship();
+        } else if (name.fullName.toLowerCase().equals("cruiser")) {
+            battleship = new CruiserBattleship();
+        } else if (name.fullName.toLowerCase().equals("aircraft carrier")) {
+            battleship = new AircraftCarrierBattleship();
+        } else {
+            throw new ParseException("Error");
+        }
+
+        return battleship;
     }
 
     /**

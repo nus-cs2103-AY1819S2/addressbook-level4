@@ -30,7 +30,7 @@ public class DeleteBookCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Book bookToDelete = model.getFilteredBookList().get(0);
-        DeleteBookCommand deleteCommand = 
+        DeleteBookCommand deleteCommand =
                 new DeleteBookCommand(new BookNameContainsExactKeywordsPredicate(bookToDelete.getBookName()));
 
         String expectedMessage = String.format(DeleteBookCommand.MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete);
@@ -80,70 +80,70 @@ public class DeleteBookCommandTest {
 
     /**
 
-    @Test
-    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Book bookToDelete = model.getFilteredBookList().get(0);
-        DeleteBookCommand deleteCommand = new DeleteBookCommand(INDEX_FIRST_BOOK);
-        Model expectedModel = new ModelManager(model.getBookShelf(), new UserPrefs());
-        expectedModel.deleteBook(bookToDelete);
-        expectedModel.commitAddressBook();
+     @Test
+     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+     Book bookToDelete = model.getFilteredBookList().get(0);
+     DeleteBookCommand deleteCommand = new DeleteBookCommand(INDEX_FIRST_BOOK);
+     Model expectedModel = new ModelManager(model.getBookShelf(), new UserPrefs());
+     expectedModel.deleteBook(bookToDelete);
+     expectedModel.commitAddressBook();
 
-        // delete -> first book deleted
-        deleteCommand.execute(model, commandHistory);
+     // delete -> first book deleted
+     deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered book list to show all books
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+     // undo -> reverts addressbook back to previous state and filtered book list to show all books
+     expectedModel.undoAddressBook();
+     assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first book deleted again
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
+     // redo -> same first book deleted again
+     expectedModel.redoAddressBook();
+     assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+     }
 
-    @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookList().size() + 1);
-        DeleteBookCommand deleteCommand = new DeleteBookCommand(outOfBoundIndex);
+     @Test
+     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+     Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookList().size() + 1);
+     DeleteBookCommand deleteCommand = new DeleteBookCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK);
+     // execution failed -> address book state not added into model
+     assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK);
 
-        // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    }
+     // single address book state in model -> undoCommand and redoCommand fail
+     assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+     assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+     }
 
-    /**
-     * 1. Deletes a {@code Book} from a filtered list.
-     * 2. Undo the deletion.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted book in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the book object regardless of indexing.
+     /**
+      * 1. Deletes a {@code Book} from a filtered list.
+      * 2. Undo the deletion.
+      * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted book in the
+      * unfiltered list is different from the index at the filtered list.
+      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the book object regardless of indexing.
      */
     /**
-    @Test
-    public void executeUndoRedo_validIndexFilteredList_sameBookDeleted() throws Exception {
-        DeleteBookCommand deleteCommand = new DeleteBookCommand(INDEX_FIRST_BOOK);
-        Model expectedModel = new ModelManager(model.getBookShelf(), new UserPrefs());
+     @Test
+     public void executeUndoRedo_validIndexFilteredList_sameBookDeleted() throws Exception {
+     DeleteBookCommand deleteCommand = new DeleteBookCommand(INDEX_FIRST_BOOK);
+     Model expectedModel = new ModelManager(model.getBookShelf(), new UserPrefs());
 
-        showBookAtIndex(model, INDEX_SECOND_BOOK);
-        Book bookToDelete = model.getFilteredBookList().get(0);
-        expectedModel.deleteBook(bookToDelete);
-        expectedModel.commitAddressBook();
+     showBookAtIndex(model, INDEX_SECOND_BOOK);
+     Book bookToDelete = model.getFilteredBookList().get(0);
+     expectedModel.deleteBook(bookToDelete);
+     expectedModel.commitAddressBook();
 
-        // delete -> deletes second book in unfiltered book list / first book in filtered book list
-        deleteCommand.execute(model, commandHistory);
+     // delete -> deletes second book in unfiltered book list / first book in filtered book list
+     deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered book list to show all books
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+     // undo -> reverts addressbook back to previous state and filtered book list to show all books
+     expectedModel.undoAddressBook();
+     assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(bookToDelete, model.getFilteredBookList().get(0));
-        // redo -> deletes same second book in unfiltered book list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-    **/
+     assertNotEquals(bookToDelete, model.getFilteredBookList().get(0));
+     // redo -> deletes same second book in unfiltered book list
+     expectedModel.redoAddressBook();
+     assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+     }
+     **/
 
     @Test
     public void equals() {

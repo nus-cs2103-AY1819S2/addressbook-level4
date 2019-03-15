@@ -164,12 +164,8 @@ public class ParserUtil {
         if (!DateCustom.isValidDate(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
-        try {
-            if (DateCustom.isDateBeforeToday(DateCustom.getFormat(), date)) {
-                throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-            }
-        } catch (java.text.ParseException e) {
-            throw new ParseException((DateCustom.MESSAGE_CONSTRAINTS));
+        if (DateCustom.isDateBeforeToday(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
         return new DateCustom(trimmedDate);
     }
@@ -186,12 +182,8 @@ public class ParserUtil {
         if (!DateCustom.isValidDate(trimmedEndDate)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
-        try {
-            if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
-                throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-            }
-        } catch (java.text.ParseException e) {
-            throw new ParseException((DateCustom.MESSAGE_CONSTRAINTS));
+        if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
         return new DateCustom(trimmedEndDate);
     }

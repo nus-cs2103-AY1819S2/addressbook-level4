@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -28,7 +27,7 @@ public class TaskListPanel extends UiPart<Region> {
         super(FXML);
         header.setText("Tasks");
         header.setMaxWidth(Double.MAX_VALUE);
-        header.setAlignment(Pos.CENTER);
+        //  header.setAlignment(Pos.CENTER_LEFT);
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         /*

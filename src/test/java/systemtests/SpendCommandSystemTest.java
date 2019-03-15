@@ -77,7 +77,7 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         toSpend = new RecordBuilder(AMY).withAmount("999").withDate("01/01/2001").build();
-        command = RecordUtil.getAddCommand(toSpend);
+        command = RecordUtil.getSpendCommand(toSpend);
         assertCommandSuccess(command, toSpend);
 
         /* Case: add to empty address book -> added */
@@ -108,21 +108,21 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate record -> rejected */
-        command = RecordUtil.getAddCommand(HOON);
+        command = RecordUtil.getSpendCommand(HOON);
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
 
         /* Case: add a duplicate record except with different amount -> rejected */
         toSpend = new RecordBuilder(HOON).withAmount(VALID_AMOUNT_BOB).build();
-        command = RecordUtil.getAddCommand(toSpend);
+        command = RecordUtil.getSpendCommand(toSpend);
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
 
         /* Case: add a duplicate person except with different date -> rejected */
         toSpend = new RecordBuilder(HOON).withDate(VALID_DATE_BOB).build();
-        command = RecordUtil.getAddCommand(toSpend);
+        command = RecordUtil.getSpendCommand(toSpend);
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
 
         /* Case: add a duplicate record except with different tags -> rejected */
-        command = RecordUtil.getAddCommand(HOON) + " " + PREFIX_CATEGORY.getPrefix() + "friends";
+        command = RecordUtil.getSpendCommand(HOON) + " " + PREFIX_CATEGORY.getPrefix() + "friends";
         assertCommandFailure(command, SpendCommand.MESSAGE_DUPLICATE_RECORD);
 
         /* Case: missing name -> rejected */
@@ -173,7 +173,7 @@ public class SpendCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Record toAdd) {
-        assertCommandSuccess(RecordUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(RecordUtil.getSpendCommand(toAdd), toAdd);
     }
 
     /**

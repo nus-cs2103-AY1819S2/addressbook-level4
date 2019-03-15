@@ -23,7 +23,7 @@ public class RecordUtil {
      * Returns an add command string for adding the {@code record}.
      * @param record
      */
-    public static String getAddCommand(Record record) {
+    public static String getSpendCommand(Record record) {
         return SpendCommand.COMMAND_WORD + " " + getRecordDetails(record);
     }
 

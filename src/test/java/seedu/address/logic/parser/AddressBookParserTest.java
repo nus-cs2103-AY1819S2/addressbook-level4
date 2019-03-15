@@ -20,18 +20,21 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.GenerateCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SearchRatingCommand;
+import seedu.address.logic.commands.SearchTagsCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.place.NameContainsKeywordsPredicate;
 import seedu.address.model.place.Place;
 import seedu.address.model.place.RatingContainsKeywordsPredicate;
+import seedu.address.model.place.TagContainsKeywordsPredicate;
 import seedu.address.testutil.EditPlaceDescriptorBuilder;
 import seedu.address.testutil.PlaceBuilder;
 import seedu.address.testutil.PlaceUtil;
@@ -130,6 +133,24 @@ public class AddressBookParserTest {
                 SearchRatingCommand.COMMAND_WORD + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchRatingCommand(new RatingContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_generate() throws Exception {
+        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_WORD) instanceof GenerateCommand);
+    }
+
+    @Test
+    public void parseCommand_generateAlias() throws Exception {
+        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_ALIAS) instanceof GenerateCommand);
+    }
+
+    @Test
+    public void parseCommand_searchTags() throws Exception {
+        List<String> keywords = Arrays.asList("school", "temple", "airport");
+        SearchTagsCommand command = (SearchTagsCommand) parser.parseCommand(SearchTagsCommand.COMMAND_WORD
+                + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchTagsCommand(new TagContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

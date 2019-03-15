@@ -324,6 +324,13 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::generateGraphs[]
+=== Generating graphs `[coming in v1.2]`
+
+Generate graphs based on input data. +
+Format: `generate`
+// end::generateGraphs[]
+
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
@@ -355,3 +362,4 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Generate* : `generate`

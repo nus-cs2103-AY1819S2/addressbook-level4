@@ -45,6 +45,7 @@ public class ImportCommand extends Command {
         requireNonNull(model);
         readFile(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

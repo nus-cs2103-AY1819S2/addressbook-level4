@@ -171,4 +171,25 @@ public class ParserUtil {
 
         return file;
     }
+
+    /**
+     * Parses a {@code String file}.
+     *
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    public static File parseImportExport(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        filePath = filePath.trim();
+        final String validationRegex = "\\p{Alnum}+.(txt|xml|json)$";
+
+        if (!filePath.matches(validationRegex)) {
+            throw new ParseException("File name is invalid");
+        }
+
+        String newPath = "data\\";
+
+        File file = new File(newPath.concat(filePath));
+
+        return file;
+    }
 }

@@ -17,7 +17,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      */
     public ExportCommand parse(String args) throws ParseException {
         try {
-            File file = ParserUtil.parseFile(args);
+            File file = ParserUtil.parseImportExport(args);
             return new ExportCommand(file);
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());

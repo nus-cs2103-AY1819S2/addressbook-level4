@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -72,7 +73,8 @@ public class EditCommand extends Command {
         Face updatedBackFace = editFlashcardDescriptor.getBackFace().orElse(flashcardToEdit.getBackFace());
         Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
 
-        return new Flashcard(updatedFrontFace, updatedBackFace, updatedTags);
+        Statistics statistics = flashcardToEdit.getStatistics(); // statistics cannot be edited
+        return new Flashcard(updatedFrontFace, updatedBackFace, statistics, updatedTags);
     }
 
     @Override

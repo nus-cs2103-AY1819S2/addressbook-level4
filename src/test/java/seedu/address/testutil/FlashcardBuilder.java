@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,11 +20,13 @@ public class FlashcardBuilder {
     private Face frontFace;
     private Face backFace;
     private Set<Tag> tags;
+    private Statistics statistics;
 
     public FlashcardBuilder() {
         frontFace = new Face(DEFAULT_FRONTFACE);
         backFace = new Face(DEFAULT_BACKFACE);
         tags = new HashSet<>();
+        statistics = new Statistics();
     }
 
     /**
@@ -33,6 +36,7 @@ public class FlashcardBuilder {
         frontFace = flashcardToCopy.getFrontFace();
         backFace = flashcardToCopy.getBackFace();
         tags = new HashSet<>(flashcardToCopy.getTags());
+        statistics = flashcardToCopy.getStatistics();
     }
 
 
@@ -60,8 +64,16 @@ public class FlashcardBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code statistics} of the {@code Flashcard} that we are building.
+     */
+    public FlashcardBuilder withStatistics(int success, int attempts) {
+        this.statistics = new Statistics(success, attempts);
+        return this;
+    }
+
     public Flashcard build() {
-        return new Flashcard(frontFace, backFace, tags);
+        return new Flashcard(frontFace, backFace, statistics, tags);
     }
 
 }

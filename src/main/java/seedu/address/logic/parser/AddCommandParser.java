@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,8 +38,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Face frontFace = ParserUtil.parseFace(argMultimap.getValue(PREFIX_FRONT_FACE).get());
         Face backFace = ParserUtil.parseFace(argMultimap.getValue(PREFIX_BACK_FACE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Flashcard flashcard = new Flashcard(frontFace, backFace, tagList);
+        Statistics statistics = new Statistics(0, 0);
+        Flashcard flashcard = new Flashcard(frontFace, backFace, statistics, tagList);
 
         return new AddCommand(flashcard);
     }

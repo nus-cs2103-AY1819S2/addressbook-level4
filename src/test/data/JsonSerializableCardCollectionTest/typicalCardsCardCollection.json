@@ -4,6 +4,7 @@
     {
       "frontFace": "Hello",
       "backFace": "Halo",
+      "statistics": "9 out of 10 attempts.",
       "tagged": [
         "indonesian"
       ]
@@ -11,6 +12,7 @@
     {
       "frontFace": "Hola",
       "backFace": "Haha",
+      "statistics": "4 out of 7 attempts.",
       "tagged": [
         "spanish"
       ]
@@ -18,6 +20,7 @@
     {
       "frontFace": "Eat",
       "backFace": "吃",
+      "statistics": "0 out of 0 attempts.",
       "tagged": [
         "chinese"
       ]
@@ -25,6 +28,7 @@
     {
       "frontFace": "Newton's 3rd Law",
       "backFace": "idk",
+      "statistics": "0 out of 10 attempts.",
       "tagged": [
         "alevel",
         "physics"
@@ -33,6 +37,7 @@
     {
       "frontFace": "Robin's email",
       "backFace": "robincyu96@gmail.com",
+      "statistics": "100 out of 100 attempts.",
       "tagged": []
     }
   ]

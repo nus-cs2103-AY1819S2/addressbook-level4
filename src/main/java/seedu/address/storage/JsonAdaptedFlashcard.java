@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,18 +25,21 @@ class JsonAdaptedFlashcard {
     private final String frontFace;
     private final String backFace;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String statistics;
 
     /**
      * Constructs a {@code JsonAdaptedFlashcard} with the given flashcard details.
      */
     @JsonCreator
     public JsonAdaptedFlashcard(@JsonProperty("frontFace") String frontFace, @JsonProperty("backFace") String backFace,
+                                @JsonProperty("statistics") String statistics,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.frontFace = frontFace;
         this.backFace = backFace;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.statistics = statistics;
     }
 
     /**
@@ -47,6 +51,7 @@ class JsonAdaptedFlashcard {
         tagged.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
+        statistics = source.getStatistics().toString();
     }
 
     /**
@@ -77,8 +82,18 @@ class JsonAdaptedFlashcard {
         }
         final Face modelBackFace = new Face(backFace);
 
+        if (statistics == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Statistics.class.getSimpleName()));
+        }
+        if (!Statistics.isValidStatistics(statistics)) {
+            throw new IllegalValueException(Statistics.MESSAGE_CONSTRAINTS);
+        }
+        final Statistics modelStatistics = new Statistics(statistics);
+
+
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
-        return new Flashcard(modelFrontFace, modelBackFace, modelTags);
+        return new Flashcard(modelFrontFace, modelBackFace, modelStatistics, modelTags);
     }
 
 }

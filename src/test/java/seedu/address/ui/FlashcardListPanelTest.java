@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Statistics;
 
 public class FlashcardListPanelTest extends GuiUnitTest {
     private static final ObservableList<Flashcard> TYPICAL_FLASHCARDS =
@@ -79,7 +80,8 @@ public class FlashcardListPanelTest extends GuiUnitTest {
         for (int i = 0; i < flashcardCount; i++) {
             Face frontFace = new Face("a");
             Face backFace = new Face("b");
-            Flashcard flashcard = new Flashcard(frontFace, backFace, Collections.emptySet());
+            Statistics statistics = new Statistics();
+            Flashcard flashcard = new Flashcard(frontFace, backFace, statistics, Collections.emptySet());
             backingList.add(flashcard);
         }
         return backingList;

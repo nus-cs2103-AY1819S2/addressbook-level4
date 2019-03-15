@@ -8,6 +8,7 @@ import seedu.address.model.CardCollection;
 import seedu.address.model.ReadOnlyCardCollection;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,11 +18,11 @@ public class SampleDataUtil {
     public static Flashcard[] getSampleFlashcards() {
         return new Flashcard[] {
             new Flashcard(new Face("Hello"), new Face("Halo"),
-                getTagSet("indonesian")),
+                    new Statistics(), getTagSet("indonesian")),
             new Flashcard(new Face("Hola"), new Face("你好"),
-                getTagSet("chinese", "spanish")),
+                    new Statistics(5, 7), getTagSet("chinese", "spanish")),
             new Flashcard(new Face("Newton's 3rd law"), new Face("idk"),
-                getTagSet("alevel", "physics"))
+                    new Statistics(0, 5), getTagSet("alevel", "physics"))
         };
     }
 

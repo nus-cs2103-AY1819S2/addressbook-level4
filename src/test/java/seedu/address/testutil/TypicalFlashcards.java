@@ -20,15 +20,15 @@ import seedu.address.model.flashcard.Flashcard;
 public class TypicalFlashcards {
 
     public static final Flashcard HELLO = new FlashcardBuilder().withFrontFace("Hello")
-        .withBackFace("Halo").withTags("indonesian").build();
+        .withBackFace("Halo").withTags("indonesian").withStatistics(9, 10).build();
     public static final Flashcard HOLA = new FlashcardBuilder().withFrontFace("Hola")
-        .withBackFace("Haha").withTags("spanish").build();
+        .withBackFace("Haha").withTags("spanish").withStatistics(4, 7).build();
     public static final Flashcard EAT = new FlashcardBuilder().withFrontFace("Eat")
         .withBackFace("吃").withTags("chinese").build();
     public static final Flashcard NEWTON = new FlashcardBuilder().withFrontFace("Newton's 3rd Law")
-        .withBackFace("idk").withTags("alevel", "physics").build();
+        .withBackFace("idk").withTags("alevel", "physics").withStatistics(0, 10).build();
     public static final Flashcard EMAIL = new FlashcardBuilder().withFrontFace("Robin's email")
-        .withBackFace("robincyu96@gmail.com").build();
+        .withBackFace("robincyu96@gmail.com").withStatistics(100, 100).build();
 
     // Manually added - Flashcard's details found in {@code CommandTestUtil}
     public static final Flashcard GOOD = new FlashcardBuilder().withFrontFace(VALID_FRONTFACE_GOOD)

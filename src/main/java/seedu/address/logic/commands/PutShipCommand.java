@@ -4,26 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Battleship;
-import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
-import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.cell.Email;
-import seedu.address.model.cell.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Puts ship in an existing cell on the map.
@@ -49,6 +38,7 @@ public class PutShipCommand extends Command {
             "There is already a ship along the vertical coordinates";
     public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL =
             "There is already a ship along the horizontal coordinates";
+    public static final String MESSAGE_OUT_OF_BOUNDS = "Out of bounds";
 
     private final Coordinates coordinates;
     private final Battleship battleship;
@@ -61,6 +51,7 @@ public class PutShipCommand extends Command {
     public PutShipCommand(Coordinates coordinates, Battleship battleship, Orientation orientation) {
         requireNonNull(coordinates);
         requireNonNull(battleship);
+        requireNonNull(orientation);
 
         this.coordinates = coordinates;
         this.battleship = battleship;
@@ -73,31 +64,44 @@ public class PutShipCommand extends Command {
 
         if (!isHeadWithinBounds(model, coordinates)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } else if (!isBodyWithinBounds(model, coordinates, battleship)) {
-            throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
-        } else if (!isHorizontalClear(model, coordinates, battleship)) {
-            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
-        } else if (!isVerticalClear(model, coordinates, battleship)) {
-            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
-        }
-
-        Cell cellToEdit = model.getMapGrid().getCell(coordinates);
-
-        if (cellToEdit.hasBattleShip()) {
-            throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
-        } else {
-            try {
-                if (this.orientation.isHorizontal() && !this.orientation.isVertical()) {
-                    putAlongHorizontal(model, coordinates, battleship);
-                } else if (this.orientation.isVertical() && !this.orientation.isHorizontal()) {
-                    putAlongVertical(model, coordinates, battleship);
-                } else {
-                    throw new CommandException(MESSAGE_USAGE);
-                }
-            } catch (Exception e) {
+        } else if (this.orientation.isHorizontal() && !this.orientation.isVertical()) {
+            if (!isBattleshipAbsent(model, coordinates)) {
+                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+            } else if (!isBodyWithinHorizontalBounds(model, coordinates, battleship)) {
+                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+            } else if (!isHorizontalClear(model, coordinates, battleship)) {
                 throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
+            } else {
+                try {
+                    putAlongHorizontal(model, coordinates, battleship);
+                } catch (ArrayIndexOutOfBoundsException aiobe) {
+                    throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                }
             }
+        } else if (this.orientation.isVertical() && !this.orientation.isHorizontal()) {
+            if (!isBattleshipAbsent(model, coordinates)) {
+                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+            } else if (!isBodyWithinVerticalBounds(model, coordinates, battleship)) {
+                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+            } else if (!isVerticalClear(model, coordinates, battleship)) {
+                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
+            } else {
+                try {
+                    putAlongVertical(model, coordinates, battleship);
+                } catch (ArrayIndexOutOfBoundsException aiobe) {
+                    throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                }
+            }
+        } else {
+            throw new CommandException(MESSAGE_USAGE);
         }
+
+        model.updateUi();
+        Cell cellToEdit = model.getMapGrid().getCell(coordinates);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
     }
@@ -119,17 +123,50 @@ public class PutShipCommand extends Command {
     }
 
     /**
-     * Checks if the body is within bounds of the map grid.
-     * @return boolean of whether body of battleship is within bounds of map grid.
+     * Checks if the body is within horizontal bounds of the map grid.
+     * @return boolean of whether the body of battleship is within bounds of map grid.
      */
-    public static boolean isBodyWithinBounds(Model model, Coordinates coordinates, Battleship battleship) {
-        Index rowIndex = coordinates.getRowIndex();
+    public static boolean isBodyWithinHorizontalBounds(Model model,
+                                                       Coordinates coordinates, Battleship battleship) {
         Index colIndex = coordinates.getColIndex();
 
         int length = battleship.getLength();
 
-        if ((rowIndex.getZeroBased() + length > model.getMapSize())
-                || colIndex.getZeroBased() + length > model.getMapSize()) {
+        if (colIndex.getZeroBased() + length > model.getMapSize()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the body is within vertical bounds of the map grid.
+     * @return boolean of whether body of battleship is within bounds of map grid.
+     */
+    public static boolean isBodyWithinVerticalBounds(Model model,
+                                                     Coordinates coordinates, Battleship battleship) {
+        Index rowIndex = coordinates.getRowIndex();
+
+        int length = battleship.getLength();
+
+        if (rowIndex.getZeroBased() + length > model.getMapSize()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the battleship is absent.
+     * @return boolean of whether battleship is absent or present.
+     */
+    public static boolean isBattleshipAbsent(Model model, Coordinates coordinates) {
+        Index rowIndex = coordinates.getRowIndex();
+        Index colIndex = coordinates.getColIndex();
+
+        Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(), colIndex.getZeroBased());
+
+        if (cellToInspect.hasBattleShip()) {
             return false;
         }
 
@@ -144,15 +181,11 @@ public class PutShipCommand extends Command {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
-        model.getMapGrid().getCell(rowIndex.getZeroBased(), colIndex.getZeroBased());
-
         int length = battleship.getLength();
 
         for (int i = 1; i < length; i++) {
             Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
-
-            System.out.println(cellToInspect);
 
             if (cellToInspect.hasBattleShip()) {
                 return false;
@@ -232,24 +265,6 @@ public class PutShipCommand extends Command {
         }
     }
 
-    /**
-     * Creates and returns a {@code Cell} with the details of {@code cellToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Cell createEditedPerson(Cell cellToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert cellToEdit != null;
-
-        Name updatedName = editPersonDescriptor.getName().orElse(cellToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(cellToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(cellToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(cellToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(cellToEdit.getTags());
-
-        Battleship battleship = new Battleship(updatedName, updatedTags);
-
-        return new Cell(battleship);
-    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -267,118 +282,5 @@ public class PutShipCommand extends Command {
         return battleship.equals(e.battleship)
                 && coordinates.equals(e.coordinates);
     }
-
-    /**
-     * Stores the details to edit the cell with. Each non-empty field value will replace the
-     * corresponding field value of the cell.
-     */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
-        private Battleship battleship;
-
-        public EditPersonDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
-            setBattleship(toCopy.battleship);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        public void setBattleship(Battleship battleship) {
-            this.battleship = battleship;
-        }
-
-        public Optional<Battleship> getBattleship() {
-            return Optional.ofNullable(battleship);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
-        }
-    }
 }
+

@@ -13,18 +13,18 @@ import seedu.address.model.tag.Tag;
  */
 public class Battleship {
     // Default fields
-    private static final int DEFAULT_LENGTH = 2;
-    private static final int DEFAULT_LIFE = 2;
+    protected static final int DEFAULT_LENGTH = 2;
+    protected static final int DEFAULT_LIFE = 2;
 
     // Identity fields
-    private static int counter = 0;
-    private final int id;
-    private final Name name;
+    protected static int counter = 0;
+    protected final int id;
+    protected final Name name;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
-    private final int length;
-    private int life;
+    protected final Set<Tag> tags = new HashSet<>();
+    protected final int length;
+    protected int life;
 
     /**
      * Every field must be present and not null.
@@ -43,6 +43,14 @@ public class Battleship {
      */
     public Battleship(Name name, Set<Tag> tags) {
         this(name, DEFAULT_LENGTH, DEFAULT_LIFE, tags);
+    }
+
+
+    /**
+     * Constructor Battleship with only name, length and size.
+     */
+    public Battleship(Name name, int length, int life) {
+        this(name, length, life, new HashSet<>());
     }
 
     /**
@@ -141,15 +149,7 @@ public class Battleship {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Name: ")
-                .append(getName())
-                .append(" Id: ")
-                .append(getId())
-                .append(" Length: ")
-                .append(getLength())
-                .append(" Life: ")
-                .append(getLife())
-                .append(" Tags: ");
+                .append(getName());
         getTags().forEach(builder::append);
         return builder.toString();
     }

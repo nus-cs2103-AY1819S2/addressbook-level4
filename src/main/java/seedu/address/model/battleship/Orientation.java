@@ -40,7 +40,16 @@ public class Orientation {
     public Orientation(String orientation) {
         requireNonNull(orientation);
         checkArgument(isValidOrientation(orientation), MESSAGE_CONSTRAINTS);
-        this.orientation = orientation;
+
+        if (orientation.toLowerCase().equals("h")
+                || orientation.toLowerCase().equals("horizontal")) {
+            this.orientation = "horizontal";
+        } else if (orientation.toLowerCase().equals("v")
+                || orientation.toLowerCase().equals("vertical")) {
+            this.orientation = "vertical";
+        } else {
+            this.orientation = orientation;
+        }
     }
 
     /**

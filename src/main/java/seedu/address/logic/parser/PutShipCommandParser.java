@@ -40,7 +40,8 @@ public class PutShipCommandParser implements Parser<PutShipCommand> {
         Orientation orientation = ParserUtil.parseOrientation(argMultimap.getValue(PREFIX_ORIENTATION).get());
 
         // Default 1 by 1 battleship
-        Battleship battleship = new Battleship(name);
+        Battleship battleship = ParserUtil.parseBattleship(name);
+
         return new PutShipCommand(coordinates, battleship, orientation);
     }
 

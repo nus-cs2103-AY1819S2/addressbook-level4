@@ -70,6 +70,14 @@ public class TypicalPersons {
         return ab;
     }
 
+    /**
+     * Returns an {@code MapGrid} that is empty.
+     */
+    public static MapGrid getEmptyMapGrid() {
+        MapGrid ab = new MapGrid();
+        return ab;
+    }
+
     public static List<Cell> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }

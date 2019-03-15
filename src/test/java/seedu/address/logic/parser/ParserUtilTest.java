@@ -16,6 +16,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.battleship.AircraftCarrierBattleship;
+import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.CruiserBattleship;
+import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Coordinates;
@@ -256,5 +260,16 @@ public class ParserUtilTest {
     public void parseCoordinates_validCoord_returnsNewCoordinatesToo() throws Exception {
         Coordinates expectedCoordinates = new Coordinates(VALID_COORD_2);
         assertEquals(expectedCoordinates, ParserUtil.parseCoordinates(VALID_COORD_2));
+    }
+
+    @Test
+    public void parseBattleship_validBattleship() throws Exception {
+        Battleship expectedBattleshipOne = new AircraftCarrierBattleship();
+        Battleship expectedBattleshipTwo = new DestroyerBattleship();
+        Battleship expectedBattleshipThree = new CruiserBattleship();
+
+        assertEquals(expectedBattleshipOne, ParserUtil.parseBattleship(new Name("aircraft carrier")));
+        assertEquals(expectedBattleshipTwo, ParserUtil.parseBattleship(new Name("destroyer")));
+        assertEquals(expectedBattleshipThree, ParserUtil.parseBattleship(new Name("cruiser")));
     }
 }

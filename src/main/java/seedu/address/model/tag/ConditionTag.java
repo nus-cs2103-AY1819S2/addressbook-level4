@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ConditionTag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphabetic";
+    public static final String VALIDATION_REGEX = "(?<=\\s|^)[a-zA-Z]*(?=[.,;:]?\\s|$)";
 
     public final String conditionTagName;
 
@@ -21,7 +21,7 @@ public class ConditionTag {
      */
     public ConditionTag(String conditionTagName) {
         requireNonNull(conditionTagName);
-        checkArgument(isValidConditionTagName(conditionTagName), MESSAGE_CONSTRAINTS);
+        //checkArgument(isValidConditionTagName(conditionTagName), MESSAGE_CONSTRAINTS);
         this.conditionTagName = conditionTagName;
     }
 

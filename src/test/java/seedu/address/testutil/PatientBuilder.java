@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,18 +13,14 @@ import seedu.address.model.tag.Conditions;
  */
 public class PatientBuilder extends PersonBuilder {
 
-    public static final Set<ConditionTag> DEFAULT_CONDITIONS_SET = new HashSet<>() {
-        {
-            add(new ConditionTag("Physiotherapy"));
-            add(new ConditionTag("Dialysis"));
-        }
-    };
-
+    public static final Set <ConditionTag> DEFAULT_CONDITIONS_SET = new HashSet<>(
+            Arrays.asList(new ConditionTag("Physiotherapy"),
+                    new ConditionTag("Dialysis")));
     private Conditions conditions;
 
     public PatientBuilder() {
         super();
-        this.conditions = new Conditions((Conditions) DEFAULT_CONDITIONS_SET);
+        this.conditions = new Conditions(DEFAULT_CONDITIONS_SET);
     }
 
     /**

@@ -81,7 +81,7 @@ public class EditBookCommand extends Command {
 
         model.setBook(bookToEdit, editBookedBook);
         model.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
-        model.commitAddressBook();
+        model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_EDIT_BOOK_SUCCESS, editBookedBook));
     }
 

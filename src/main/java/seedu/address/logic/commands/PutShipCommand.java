@@ -62,6 +62,7 @@ public class PutShipCommand extends Command {
     public PutShipCommand(Coordinates coordinates, Battleship battleship, Orientation orientation) {
         requireNonNull(coordinates);
         requireNonNull(battleship);
+        requireNonNull(orientation);
 
         this.coordinates = coordinates;
         this.battleship = battleship;
@@ -111,7 +112,6 @@ public class PutShipCommand extends Command {
         }
 
         model.updateUi();
-
         Cell cellToEdit = model.getMapGrid().getCell(coordinates);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));

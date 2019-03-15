@@ -100,6 +100,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * @return {@code true} if no {@code person} is a copy
+     */
+    public boolean checkNoCopy() {
+        for (Person p : persons) {
+            if (p.isCopy()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

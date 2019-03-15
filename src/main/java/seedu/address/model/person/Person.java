@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
+import seedu.address.model.tag.CopyTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,13 +18,15 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    protected final Name name;
+    protected final Phone phone;
+    protected final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    protected final Address address;
+    protected final Set<Tag> tags = new HashSet<>();
+    protected CopyTag copyInfo;
+    protected int copyCount;
 
     /**
      * Every field must be present and not null.
@@ -34,6 +38,21 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        copyInfo = null;
+        copyCount = 0;
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  Person personToCopy, int copyCount) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.tags.add(new Tag("Copy"));
+        this.copyCount = copyCount;
+        copyInfo = new CopyTag(personToCopy, "$Copy" + copyCount);
     }
 
     public Name getName() {
@@ -52,6 +71,51 @@ public class Person {
         return address;
     }
 
+    public int getCopyCount() {
+        return copyCount;
+    }
+
+    public boolean hasCopy() {
+        return copyCount > 0;
+    }
+
+    /**
+     *
+     * @return true if a person has {@code Tag} copy
+     */
+    private boolean copyInTag() {
+        for (Tag t : getTags()) {
+            if (t.tagName.equals("Copy")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isCopy() {
+        return copyInfo != null || copyInTag();
+    }
+
+    public void editCopy() {
+        copyInfo.getOriginalPerson().edittedCopy();
+    }
+
+    private void edittedCopy() {
+        copyCount -= 1;
+    }
+
+    /**
+     * @return another instance of the same person
+     * {@code Tag} Copy is added
+     */
+    public Person copy() {
+        if (isCopy()) {
+            return copyInfo.getOriginalPerson().copy();
+        }
+        copyCount++;
+        return new Person(name, phone, email, address, tags, this, copyCount);
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -65,13 +129,7 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        throw new PersonIsNotPatient();
     }
 
     /**

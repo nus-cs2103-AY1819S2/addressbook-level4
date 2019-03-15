@@ -29,18 +29,23 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
 
+    private final VersionedRequestBook versionedRequestBook;
+    private final UserPrefs userPrefs;
+
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<HealthWorker> filteredHealthWorkers;
     // TODO make the relevant changes to the model manager
     // TODO get versionedAddressBook tests to pass
-    // private final FilteredList<Request> filteredRequests;
+    private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
-    private final UserPrefs userPrefs;
+
+    private final SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyHealthWorkerBook healthWorkerBook,
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -49,16 +54,19 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedHealthWorkerBook = new VersionedHealthWorkerBook(healthWorkerBook);
+        versionedRequestBook = new VersionedRequestBook(requestBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
+        filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         // TODO: listener for healthworker
         filteredHealthWorkers.addListener(this::ensureSelectedPersonIsValid);
+        filteredRequests.addListener(this::ensureSelectedRequestIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new HealthWorkerBook(), new UserPrefs());
+        this(new AddressBook(), new HealthWorkerBook(), new RequestBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -322,6 +330,41 @@ public class ModelManager implements Model {
     @Override
     public void setRequest(Request target, Request editedRequest) {
 
+    }
+
+    @Override
+    public void commitRequestBook() {
+        versionedRequestBook.commit();
+    }
+
+    /**
+     * Ensures {@code selectedRequest} is a valid request in {@code filteredRequests}.
+     */
+    private void ensureSelectedRequestIsValid(ListChangeListener.Change<? extends Request> change) {
+        while (change.next()) {
+            if (selectedRequest.getValue() == null) {
+                return;
+            }
+
+            boolean wasSelectedRequestReplaced =
+                change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedRequest.getValue());
+
+            if (wasSelectedRequestReplaced) {
+                // Update selectedRequest to its new value
+                int index = change.getRemoved().indexOf(selectedRequest.getValue());
+                selectedRequest.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedRequestRemoved =
+                change.getRemoved().stream().anyMatch(removedRequest -> selectedRequest.getValue()
+                    .isSameRequest(removedRequest));
+            if (wasSelectedRequestRemoved) {
+                selectedRequest.setValue(change.getFrom() > 0
+                    ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
     }
 
     /**

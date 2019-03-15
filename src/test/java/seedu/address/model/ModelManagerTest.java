@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +29,7 @@ import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBookBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RequestBookBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -221,11 +223,13 @@ public class ModelManagerTest {
         HealthWorkerBook healthWorkerBook = new HealthWorkerBookBuilder().withHealthWorker(ANDY)
                 .withHealthWorker(BETTY).build();
         AddressBook differentAddressBook = new AddressBook();
+        RequestBook requestBook = new RequestBookBuilder().withRequest(ALICE_REQUEST).build();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, healthWorkerBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, healthWorkerBook, userPrefs);
+        modelManager = new ModelManager(addressBook, healthWorkerBook, requestBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, healthWorkerBook,
+            requestBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -238,12 +242,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook,
+            requestBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, healthWorkerBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, healthWorkerBook,
+            requestBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -251,6 +257,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, healthWorkerBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, healthWorkerBook,
+            requestBook, differentUserPrefs)));
     }
 }

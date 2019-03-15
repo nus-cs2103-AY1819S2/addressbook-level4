@@ -82,9 +82,7 @@ public class Equipment {
         }
 
         return otherEquipment != null
-                && otherEquipment.getSerialNumber().equals(getSerialNumber())
-                && (otherEquipment.getPhone().equals(getPhone()) || otherEquipment.getEmail()
-                    .equals(getEmail()) || otherEquipment.getName().equals(getName()));
+                && otherEquipment.getSerialNumber().equals(getSerialNumber());
     }
 
     public double[] getCoordiantes() {

@@ -21,7 +21,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.EquipmentManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -41,7 +40,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Equipment editedEquipment = new EquipmentBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedEquipment).build();
+        EditCommand.EditEquipmentDescriptor descriptor = new EditPersonDescriptorBuilder(editedEquipment).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedEquipment);
@@ -62,7 +61,7 @@ public class EditCommandTest {
         Equipment editedEquipment = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOB).withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditCommand.EditEquipmentDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withSerialNumber(VALID_SERIAL_NUMBER_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
@@ -78,7 +77,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditCommand.EditEquipmentDescriptor());
         Equipment editedEquipment = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedEquipment);
@@ -110,10 +109,10 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Equipment firstEquipment = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstEquipment).build();
+        EditCommand.EditEquipmentDescriptor descriptor = new EditPersonDescriptorBuilder(firstEquipment).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
     }
 
     @Test
@@ -125,13 +124,13 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(equipmentInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditEquipmentDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
@@ -158,7 +157,7 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Equipment editedEquipment = new EquipmentBuilder().build();
         Equipment equipmentToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedEquipment).build();
+        EditCommand.EditEquipmentDescriptor descriptor = new EditPersonDescriptorBuilder(editedEquipment).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new EquipmentManager(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(equipmentToEdit, editedEquipment);
@@ -179,7 +178,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditEquipmentDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
@@ -200,7 +199,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Equipment editedEquipment = new EquipmentBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedEquipment).build();
+        EditCommand.EditEquipmentDescriptor descriptor = new EditPersonDescriptorBuilder(editedEquipment).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new EquipmentManager(model.getAddressBook()), new UserPrefs());
 
@@ -227,7 +226,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+        EditCommand.EditEquipmentDescriptor copyDescriptor = new EditCommand.EditEquipmentDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

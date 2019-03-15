@@ -25,8 +25,8 @@ public class BattleshipTest {
     @Test
     public void testIsSameBattleship() {
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
-        Battleship battleshipTwo = new Battleship(new Name("one"));
+        Battleship battleshipOne = new DestroyerBattleship();
+        Battleship battleshipTwo = new DestroyerBattleship();
         Battleship battleshipThree = battleshipOne;
 
         // test equality
@@ -38,8 +38,8 @@ public class BattleshipTest {
     public void testDifferentNameDifferentBattleship() {
 
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
-        Battleship battleshipTwo = new Battleship(new Name("two"));
+        Battleship battleshipOne = new DestroyerBattleship();;
+        Battleship battleshipTwo = new CruiserBattleship();
 
         // test equality
         assertFalse(battleshipOne.equals(battleshipTwo));
@@ -49,8 +49,8 @@ public class BattleshipTest {
     public void testSameNameDifferentBattleship() {
 
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
-        Battleship battleshipTwo = new Battleship(new Name("one"));
+        Battleship battleshipOne = new DestroyerBattleship();
+        Battleship battleshipTwo = new DestroyerBattleship();
 
         // test equality
         assertTrue(battleshipOne.equals(battleshipTwo));
@@ -60,7 +60,7 @@ public class BattleshipTest {
     public void testSameNameSameBattleship() {
 
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
+        Battleship battleshipOne = new DestroyerBattleship();
         Battleship battleshipTwo = battleshipOne;
 
         // test equality
@@ -70,21 +70,21 @@ public class BattleshipTest {
     @Test
     public void testBattleshipLength() {
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
-        assertEquals(battleshipOne.getLength(), 2);
+        Battleship battleshipOne = new DestroyerBattleship();
+        assertEquals(battleshipOne.getLength(), 3);
     }
 
     @Test
     public void testBattleshipLife() {
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
-        assertEquals(battleshipOne.getLife(), 2);
+        Battleship battleshipOne = new DestroyerBattleship();
+        assertEquals(battleshipOne.getLife(), 3);
     }
 
     @Test
     public void testBattleshipReduceLife() {
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
+        Battleship battleshipOne = new DestroyerBattleship();
         int initialLife = battleshipOne.getLife();
 
         battleshipOne.reduceLife();
@@ -95,7 +95,7 @@ public class BattleshipTest {
     @Test
     public void testBattleshipDestroyed() {
         // create variables
-        Battleship battleshipOne = new Battleship(new Name("one"));
+        Battleship battleshipOne = new DestroyerBattleship();
         int initialLife = battleshipOne.getLife();
 
         for (int i = 0; i < initialLife; i++) {
@@ -103,6 +103,5 @@ public class BattleshipTest {
         }
 
         assertEquals(battleshipOne.isDestroyed(), true);
-
     }
 }

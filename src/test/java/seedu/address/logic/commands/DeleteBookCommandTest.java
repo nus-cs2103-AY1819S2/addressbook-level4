@@ -37,7 +37,7 @@ public class DeleteBookCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getBookShelf(), new UserPrefs());
         expectedModel.deleteBook(bookToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -61,7 +61,7 @@ public class DeleteBookCommandTest {
 
         Model expectedModel = new ModelManager(model.getBookShelf(), new UserPrefs());
         expectedModel.deleteBook(bookToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
         showNoBook(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);

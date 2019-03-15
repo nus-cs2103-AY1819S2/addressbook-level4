@@ -47,7 +47,7 @@ public class DeleteBookCommand extends Command {
 
         Book bookToDelete = lastShownList.get(0);
         model.deleteBook(bookToDelete);
-        model.commitAddressBook();
+        model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }
 

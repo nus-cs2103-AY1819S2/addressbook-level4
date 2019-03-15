@@ -29,7 +29,7 @@ public class DeletePersonCommandSystemTest extends AddressBookSystemTest {
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
+        /* Case: delete the first person in the list, command witAh leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeletePersonCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased()
                 + "       ";

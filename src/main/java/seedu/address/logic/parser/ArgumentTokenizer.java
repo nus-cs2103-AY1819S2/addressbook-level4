@@ -73,7 +73,7 @@ public class ArgumentTokenizer {
      * @return trimmed argument string.
      */
     public static String trimMode(String args) {
-        return args.substring(2).trim();
+        return args.substring(2);
     }
 
     /**

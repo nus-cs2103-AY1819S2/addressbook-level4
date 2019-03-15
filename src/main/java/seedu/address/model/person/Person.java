@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.tag.CopyTag;
 import seedu.address.model.tag.Tag;
 
@@ -17,18 +18,15 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
-
-    // Mutable fields
-    private Teeth teeth;
+    protected final Name name;
+    protected final Phone phone;
+    protected final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
-    private CopyTag copyInfo;
-    private int copyCount;
+    protected final Address address;
+    protected final Set<Tag> tags = new HashSet<>();
+    protected CopyTag copyInfo;
+    protected int copyCount;
 
     /**
      * Every field must be present and not null.
@@ -131,14 +129,7 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()))
-                && !(isCopy() || otherPerson.isCopy());
+        throw new PersonIsNotPatient();
     }
 
     /**

@@ -5,25 +5,23 @@ package seedu.address.model.cell;
  */
 public enum Status {
     /**
-     * This cell has not been hit before, and its state is not known to enemies.
-     */
-    HIDDEN,
-    /**
-     * This cell has been hit before, and there is no ship here.
+     * This cell is empty and has not been hit.
      */
     EMPTY,
     /**
-     * This cell has been hit before, and there is a damaged ship here.
+     * This cell has been hit before, and is empty;
      */
-    HIT,
-    /**
-     * This cell has been hit before, and the ship here has been destroyed.
-     */
-    DESTROYED,
+    EMPTYHIT,
     /**
      * This cell has a ship in it.
      */
-    SHIP
-
-
+    SHIP,
+    /**
+     * This cell has been hit before, and there is a damaged ship here.
+     */
+    SHIPHIT,
+    /**
+     * This cell has been hit before, and the ship here has been destroyed.
+     */
+    DESTROYED
 }

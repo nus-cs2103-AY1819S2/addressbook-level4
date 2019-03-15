@@ -27,6 +27,7 @@ public class Cell {
     private Optional<Battleship> battleship;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private boolean isHit = false;
 
     /**
      * Every field must be present and not null.
@@ -102,9 +103,19 @@ public class Cell {
      */
     public Status getStatus() {
         if (battleship.isPresent()) {
-            return Status.SHIP;
+            if (battleship.get().isDestroyed()) {
+                return Status.DESTROYED;
+            } else if (this.isHit) {
+                return Status.SHIPHIT;
+            } else {
+                return Status.SHIP;
+            }
         } else {
-            return Status.EMPTY;
+            if (isHit) {
+                return Status.EMPTYHIT;
+            } else {
+                return Status.EMPTY;
+            }
         }
     }
 
@@ -113,6 +124,7 @@ public class Cell {
      * @return <code>true</code> if the attack hit a ship, <code>false</code> otherwise.
      */
     public boolean receiveAttack() {
+        this.isHit = true;
         if (battleship.isPresent()) {
             battleship.ifPresent(Battleship::reduceLife);
             return true;

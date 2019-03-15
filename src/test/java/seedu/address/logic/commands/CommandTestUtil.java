@@ -17,12 +17,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -204,6 +206,22 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the HealthWorker at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showHealthWorkerAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredHealthWorkerList().size());
+
+        HealthWorker healthWorker = model.getFilteredHealthWorkerList().get(targetIndex.getZeroBased());
+        final String[] splitName = healthWorker.getName().fullName.split("\\s+");
+        model.updateFilteredHealthWorkerList(p -> Arrays.asList(splitName[0]).stream().anyMatch(
+            keyword -> StringUtil.containsWordIgnoreCase(p.getName().fullName, keyword)
+        ));
+
+        assertEquals(1, model.getFilteredHealthWorkerList().size());
     }
 
     /**

@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +26,10 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), getTypicalHealthWorkerBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+            getTypicalRequestBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), getTypicalHealthWorkerBook(),
+            getTypicalRequestBook(), new UserPrefs());
     }
 
     @Test

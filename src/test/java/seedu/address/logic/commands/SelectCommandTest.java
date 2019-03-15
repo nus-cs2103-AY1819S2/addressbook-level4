@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import org.junit.Test;
 
@@ -24,9 +25,10 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-            new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+        getTypicalRequestBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(),
+        getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

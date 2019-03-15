@@ -14,9 +14,9 @@ import seedu.address.model.person.Person;
 /**
  * Selects a person identified using it's displayed index from the address book.
  */
-public class SelectCommand extends Command {
+public class MemberSelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "memberSelect";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the person identified by the index number used in the displayed person list.\n"
@@ -27,7 +27,7 @@ public class SelectCommand extends Command {
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public MemberSelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -49,7 +49,7 @@ public class SelectCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                || (other instanceof MemberSelectCommand // instanceof handles nulls
+                && targetIndex.equals(((MemberSelectCommand) other).targetIndex)); // state check
     }
 }

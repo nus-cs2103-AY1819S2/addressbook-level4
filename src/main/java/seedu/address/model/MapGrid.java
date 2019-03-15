@@ -68,6 +68,14 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns map size
+     */
+    public int getMapSize() {
+        return this.size;
+    }
+
+    // TODO: Remove getCell methods
+    /**
      * Returns the cell in the given coordinates
      */
     public Cell getCell(Coordinates coordinates) {
@@ -77,6 +85,8 @@ public class MapGrid implements ReadOnlyAddressBook {
     public Cell getCell(int row, int column) {
         return cellGrid[row][column];
     }
+
+    // UI operations
 
     /**
      * Used to Update the UI.
@@ -96,6 +106,23 @@ public class MapGrid implements ReadOnlyAddressBook {
         } else {
             uiUpdateSwitch.setValue(false);
         }
+    }
+
+    // Cell operations
+    /**
+     * Put battleship in the given coordinates
+     */
+    public void putShip(Coordinates coordinates, Battleship battleship) {
+        cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
+            .putShip(battleship);
+    }
+
+    /**
+     * Attack a specified cell. Returns true if a ship was hit otherwise false.
+     */
+    public boolean attackCell(Coordinates coordinates) {
+        return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
+                .receiveAttack();
     }
 
     //// list overwrite operations
@@ -199,13 +226,6 @@ public class MapGrid implements ReadOnlyAddressBook {
         return tags;
     }
 
-    /**
-     * Returns map size
-     */
-    public int getMapSize() {
-        return this.size;
-    }
-
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -246,12 +266,5 @@ public class MapGrid implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
-    }
-
-    /**
-     * Put battleship in the given coordinates
-     */
-    public void putShip(Coordinates coordinates, Battleship battleship) {
-        persons.putShipAtIndex(coordinates.getRowIndex(), battleship);
     }
 }

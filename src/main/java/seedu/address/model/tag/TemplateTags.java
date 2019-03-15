@@ -5,7 +5,7 @@ package seedu.address.model.tag;
  */
 public class TemplateTags {
     public static final String HEALTHY = "Healthy";
-    public static final String STATUS = "Status";
-    public static final String CHILD = "Primary";
-    public static final String ADULT = "Permanent";
+    public static final String STATUS = "On Status";
+    public static final String CHILD = "Primary Teeth ";
+    public static final String ADULT = "Permanent Teeth";
 }

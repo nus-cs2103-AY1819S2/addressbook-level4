@@ -76,9 +76,19 @@ public class Patient extends Person {
 
     /**
      * Build a default none/child/adult teeth layout, according to the parameters.
+     * Adds relevant tags to patient if not initialised.
      */
     private void buildTeeth(String teethLayout) {
         teeth = new Teeth(teethLayout);
+        if (this.tags.size() == 0) {
+            addRelevantTags(teethLayout);
+        }
+    }
+
+    /**
+     * Add relevant teeth type and health tags to a patient.
+     */
+    private void addRelevantTags(String teethLayout) {
         if (teethLayout.equals(CHILD)) {
             editTags(new TeethTag(TemplateTags.CHILD));
         } else {

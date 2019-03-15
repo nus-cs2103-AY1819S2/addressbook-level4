@@ -33,8 +33,7 @@ public class Dentist {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            setDentistName("No dentist name set");
-            return getDentistName();
+            return "NIL";
         }
     }
 

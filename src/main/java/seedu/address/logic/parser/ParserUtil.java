@@ -159,7 +159,7 @@ public class ParserUtil {
     public static File parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "\\p{Alnum}+.(txt|xml|json)$";
+        final String validationRegex = "^([\\w\\-\\\\\\s\\.\\(\\)]+)+\\.(txt|xml|json)$";
 
         if (!filePath.matches(validationRegex)) {
             throw new ParseException("File name is invalid");

@@ -35,32 +35,6 @@ public class CardListPanelTest extends GuiUnitTest {
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private CardListPanelHandle cardListPanelHandle;
 
-    @Test
-    public void display() {
-        initUi(TYPICAL_CARDS);
-
-        for (int i = 0; i < TYPICAL_CARDS.size(); i++) {
-            cardListPanelHandle.navigateToCard(TYPICAL_CARDS.get(i));
-            Card expectedCard = TYPICAL_CARDS.get(i);
-            CardThumbnailHandle actualCard = cardListPanelHandle.getCardCardHandle(i);
-
-            assertCardDisplaysCard(expectedCard, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
-        }
-    }
-
-    @Test
-    public void selection_modelSelectedCardChanged_selectionChanges() {
-        initUi(TYPICAL_CARDS);
-        Card secondCard = TYPICAL_CARDS.get(INDEX_SECOND_CARD.getZeroBased());
-        guiRobot.interact(() -> selectedCard.set(secondCard));
-        guiRobot.pauseForHuman();
-
-        CardThumbnailHandle expectedCard = cardListPanelHandle.getCardCardHandle(INDEX_SECOND_CARD.getZeroBased());
-        CardThumbnailHandle selectedCard = cardListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedCard, selectedCard);
-    }
-
     /**
      * Verifies that creating and deleting large number of cards in {@code CardListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.

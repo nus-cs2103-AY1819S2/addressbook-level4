@@ -6,9 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.QuizAnswerCommand;
 import seedu.address.logic.commands.QuizCommand;
+import seedu.address.logic.commands.QuizHelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -28,8 +28,7 @@ public class QuizModeParser {
     public QuizCommand parse(String userInput) throws ParseException {
         matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            // todo change to quiz help not mgmt help command
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
         }
 
 
@@ -58,6 +57,8 @@ public class QuizModeParser {
         final String commandWord = matcher.group("commandWord");
 
         switch (commandWord) {
+        case QuizHelpCommand.COMMAND_WORD:
+            return new QuizHelpCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

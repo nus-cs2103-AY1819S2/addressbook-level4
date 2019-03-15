@@ -8,8 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.QuizAnswerCommand;
+import seedu.address.logic.commands.QuizHelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -28,16 +28,21 @@ public class QuizModeParserTest {
     }
 
     @Test
+    public void parseCommand() throws Exception {
+        assertTrue(parser.parse("\\help") instanceof QuizHelpCommand);
+    }
+
+    @Test
     public void parse_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
         parser.parse("");
     }
 
     @Test
     public void parse_onlyWhitespace_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
         parser.parse("   ");
     }
 

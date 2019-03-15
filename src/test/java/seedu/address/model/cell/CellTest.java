@@ -42,6 +42,19 @@ public class CellTest {
     }
 
     @Test
+    public void copyConstructor() {
+        Cell emptyCell = new Cell();
+        Cell copyCell = new Cell(emptyCell);
+        assertEquals(emptyCell.getBattleship(), copyCell.getBattleship());
+
+        Cell battleShipCell = new Cell();
+        battleShipCell.putShip(new Battleship());
+        copyCell = new Cell(battleShipCell);
+
+        assertEquals(battleShipCell.getBattleship(), copyCell.getBattleship());
+    }
+
+    @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Cell cell = new PersonBuilder().build();
         thrown.expect(UnsupportedOperationException.class);

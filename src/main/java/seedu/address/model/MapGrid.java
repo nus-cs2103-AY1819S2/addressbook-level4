@@ -56,6 +56,7 @@ public class MapGrid implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    // 2D map grid operations
     /**
      * Initialises the 2D Map from the given 2D Cell array
      */
@@ -65,6 +66,21 @@ public class MapGrid implements ReadOnlyAddressBook {
         for (int i = 0; i < size; i++) {
             cellGrid[i] = map[i].clone();
         }
+    }
+
+    /**
+     * Returns a copy of the map grid
+     */
+    public Cell[][] get2dArrayMapGridCopy() {
+        Cell[][] mapCopy = new Cell[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                mapCopy[i][j] = new Cell(cellGrid[i][j]);
+            }
+        }
+
+        return mapCopy;
     }
 
     /**

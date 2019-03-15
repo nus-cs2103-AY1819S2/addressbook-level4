@@ -36,15 +36,20 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         modelUpdateObservable.addListener(observable -> {
             int size = mapGrid.getMapSize();
+            Cell[][] mapArray = mapGrid.get2dArrayMapGridCopy();
+
             grid.getChildren().clear();
+
             for (int i = 0; i < size; i++) {
                 HBox row = new HBox();
                 for (int j = 0; j < size; j++) {
                     Rectangle cell = new Rectangle(30, 30);
-                    Cell mapCell = mapGrid.getCell(i, j);
+                    Cell mapCell = mapArray[i][j];
+
                     Color color = getColor(mapCell);
                     cell.setStroke(Color.BLACK);
                     cell.setFill(color);
+
                     Text text = new Text("");
                     StackPane sp = new StackPane();
                     sp.getChildren().addAll(cell, text);

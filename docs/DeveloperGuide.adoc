@@ -233,6 +233,30 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::initmap[]
+=== Map Feature
+==== Current Implementation
+A map grid is a 2D array made up of `Cell` objects. This 2D array is encapsulated within the `MapGrid` class.
+
+==== Design Considerations
+===== Aspect: How initialise map works
+* **Alternative 1 (current choice):** MapGrid will have an initialise method that takes in a 2D array of `Cell` objects. The method will deep copy the new 2D array to the `MapGrid` map grid.
+** Pros: The underlying 2D array in `MapGrid` is better protected from modification.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Have a method that returns a shallow copy of the 2D array. Initialise command will then populate the 2D array.
+** Pros: Easy to implement.
+** Cons: The 2D array within `MapGrid` is unprotected and open for modification.
+
+===== Aspect: Data structure to support the map
+* **Alternative 1 (current choice):** 2D array of `Cell` objects.
+** Pros: Resulting code will be simpler.
+** Cons: More changes to be done from the original AB4 codebase.
+* **Alternative 2:** List of lists of `Cell` objects.
+** Pros: Easier to implement from the original AB4 codebase.
+** Cons: May have worse performance than a simpler 2D array.
+
+// end::initmap[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

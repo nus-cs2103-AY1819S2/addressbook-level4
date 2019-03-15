@@ -282,7 +282,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ReadOnlyRequestBook getRequestBook() {
-        return null;
+        return this.versionedRequestBook;
     }
 
     /**

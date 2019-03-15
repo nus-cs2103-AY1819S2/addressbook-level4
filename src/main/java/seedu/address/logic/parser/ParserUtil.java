@@ -180,7 +180,7 @@ public class ParserUtil {
     public static File parseImportExport(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "^([\\w\\-\\\\\\s\\.\\(\\)]+)+\\.(txt|xml|json)$";
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?$";
 
         if (!filePath.matches(validationRegex)) {
             throw new ParseException("File name is invalid");

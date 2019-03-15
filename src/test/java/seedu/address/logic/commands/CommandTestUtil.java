@@ -20,6 +20,9 @@ import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditBookDescriptorBuilder;
@@ -180,6 +183,14 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the book of the given {@code name} in the
+     * {@code model}'s book shelf. The book should be present in the book shelf.
+     */
+    public static void showBookOfExactName(Model model, BookName name) {
+        model.updateFilteredBookList(new BookNameContainsExactKeywordsPredicate(name));
     }
 
     /**

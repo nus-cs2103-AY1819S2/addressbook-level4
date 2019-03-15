@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.quiz.exceptions.NotInitialisedException;
 import seedu.address.testutil.Assert;
 
 public class QuizCardTest {
@@ -114,7 +113,7 @@ public class QuizCardTest {
     }
 
     @Test
-    public void getIndex() throws NotInitialisedException {
+    public void getIndex() {
         assertEquals(1, VALID_QUIZCARD_INDEX.getIndex());
     }
 

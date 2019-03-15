@@ -6,6 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalEquipments.ALICE;
 import static seedu.address.testutil.TypicalEquipments.BOB;
@@ -28,29 +30,30 @@ public class EquipmentTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameEquipment() {
         // same object -> returns true
         assertTrue(ALICE.isSameEquipment(ALICE));
 
         // null -> returns false
         assertFalse(ALICE.isSameEquipment(null));
 
-        // different name -> returns false
-        Equipment editedAlice = new EquipmentBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        // same name and other attributes except serial number -> return False
+        Equipment editedAlice = new EquipmentBuilder(ALICE).withSerialNumber(VALID_SERIAL_NUMBER_BOB).build();
         assertFalse(ALICE.isSameEquipment(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same serial number, same name, different attributes -> return true
         editedAlice = new EquipmentBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameEquipment(editedAlice));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new EquipmentBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        // same serial number, same email, different attributes -> return true
+        editedAlice = new EquipmentBuilder(ALICE).withName(VALID_NAME_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameEquipment(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new EquipmentBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same serial number, same address, different attributes -> return true
+        editedAlice = new EquipmentBuilder(ALICE).withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameEquipment(editedAlice));
     }
 

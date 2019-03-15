@@ -13,7 +13,7 @@ import static seedu.address.testutil.TypicalIndexes.COORDINATES_B1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_J1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_LAST_CELL;
 import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 
 import org.junit.Test;
 
@@ -23,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
@@ -32,7 +33,7 @@ import seedu.address.model.cell.Coordinates;
  */
 public class PutShipCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getEmptyMapGrid(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,7 +46,7 @@ public class PutShipCommandTest {
             }
         }
 
-        Battleship battleship = new Battleship();
+        Battleship battleship = new DestroyerBattleship();
 
         model.getMapGrid().initialise(cellGrid);
         model.getMapGrid().getCell(COORDINATES_A1).putShip(battleship);
@@ -53,7 +54,6 @@ public class PutShipCommandTest {
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
-
 
         assertCommandFailure(putShipCommand, model, commandHistory,
                 PutShipCommand.MESSAGE_BATTLESHIP_PRESENT);

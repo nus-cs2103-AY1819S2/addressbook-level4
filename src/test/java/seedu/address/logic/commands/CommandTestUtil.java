@@ -46,6 +46,8 @@ public class CommandTestUtil {
     public static final String VALID_HORIZONTAL_ORIENTATION = "horizontal";
     public static final String VALID_VERTICAL_ORIENTATION = "vertical";
 
+    public static final String VALID_NAME_DESTROYER = "destroyer";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -59,6 +61,8 @@ public class CommandTestUtil {
     public static final String COORDINATE_FIRST_ROW = " " + PREFIX_COORDINATES + VALID_COORDINATES_FIRST_ROW;
     public static final String COORDINATE_MIDDLE_ROW = " " + PREFIX_COORDINATES + VALID_COORDINATES_MIDDLE_ROW;
     public static final String COORDINATE_LAST_ROW = " " + PREFIX_COORDINATES + VALID_COORDINATES_LAST_ROW;
+
+    public static final String NAME_DESC_DESTROYER = " " + PREFIX_NAME + VALID_NAME_DESTROYER;
 
     public static final String ORIENTATION_HORIZONTAL = " " + PREFIX_ORIENTATION + VALID_HORIZONTAL_ORIENTATION;
 

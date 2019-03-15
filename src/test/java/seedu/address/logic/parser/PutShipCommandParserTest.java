@@ -7,24 +7,21 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_COORDINATE_DE
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_DESTROYER;
 import static seedu.address.logic.commands.CommandTestUtil.ORIENTATION_HORIZONTAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATES_FIRST_ROW;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATES_LAST_ROW;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HORIZONTAL_ORIENTATION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
-import java.util.HashSet;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.PutShipCommand;
 import seedu.address.model.battleship.Battleship;
-import seedu.address.model.battleship.Name;
+import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.tag.Tag;
 
 public class PutShipCommandParserTest {
 
@@ -76,10 +73,9 @@ public class PutShipCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        String userInput = NAME_DESC_AMY + COORDINATE_FIRST_ROW + ORIENTATION_HORIZONTAL;
+        String userInput = NAME_DESC_DESTROYER + COORDINATE_FIRST_ROW + ORIENTATION_HORIZONTAL;
 
-        Battleship battleship = new Battleship(new Name(VALID_NAME_AMY),
-                1, 1, new HashSet<Tag>());
+        Battleship battleship = new DestroyerBattleship();
         Coordinates coordinates = new Coordinates(VALID_COORDINATES_FIRST_ROW);
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 

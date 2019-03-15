@@ -4,16 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
@@ -34,7 +36,6 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + " records1.json + 1,3,5";
 
     public static final String MESSAGE_SUCCESS = "Imported the records!";
-    private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
 
     private final ParsedInOut parsedInput;
 
@@ -45,51 +46,43 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
+        readFile(model, parsedInput.getParsedIndex());
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
     /**
-     * writeFile() writes or overwrites a file with the contents of the current address book.
+     * readFile() appends the current address book with the contents of the file.
      */
-    private void writeFile(Model model) {
+    private void readFile(Model model, HashSet<Integer> parsedIndex) {
+        AddressBookStorage importStorage = new JsonAddressBookStorage(parsedInput.getFile().toPath());
 
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(parsedInput.getFile().toPath());
-
-        StorageManager storage = new StorageManager(addressBookStorage, null);
+        StorageManager importStorageManager = new StorageManager(importStorage, null);
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
+        Optional<ReadOnlyAddressBook> importOptional;
+        ReadOnlyAddressBook importData;
+
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            importOptional = importStorageManager.readAddressBook();
+            if (!importOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            importData = importOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format.");
+            importData = new AddressBook();
         } catch (IOException e) {
-            logger.warning(MESSAGE_FAILURE);
+            logger.warning("Problem while reading from the file.");
+            importData = new AddressBook();
         }
-    }
 
-    /**
-     * createTempAddressBook() creates a temporary address book populated with the specified patients in parsedInput[1]
-     * @param model
-     * @param parsedIndex
-     * @return
-     */
-    private ModelManager createTempAddressBook(Model model, HashSet<Integer> parsedIndex) {
-        ModelManager tempModel = new ModelManager();
-
-        tempModel.setAddressBook(model.getAddressBook());
-        ArrayList<Person> deleteList = new ArrayList<>();
-
-        for (int i = 0; i < tempModel.getFilteredPersonList().size(); i++) {
-            if (!parsedIndex.contains(i)) {
-                deleteList.add(tempModel.getFilteredPersonList().get(i));
+        for (int i = 0; i < importData.getPersonList().size(); i++) {
+            if (parsedIndex.contains(i) && !model.hasPerson(importData.getPersonList().get(i))) {
+                model.addPerson(importData.getPersonList().get(i));
             }
         }
-
-        for (Person personToDelete : deleteList) {
-            tempModel.deletePerson(personToDelete);
-        }
-
-        return tempModel;
     }
 }

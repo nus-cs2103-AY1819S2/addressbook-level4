@@ -17,7 +17,7 @@ public class SaveCommandParser implements Parser<SaveCommand> {
      */
     public SaveCommand parse(String args) throws ParseException {
         try {
-            File file = ParserUtil.parseFile(args);
+            File file = ParserUtil.parseOpenSave(args);
             return new SaveCommand(file);
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());

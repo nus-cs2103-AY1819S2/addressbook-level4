@@ -63,9 +63,13 @@ public class PersonListPanel extends UiPart<Region> {
         switch(status) {
         case SHIP:
             return Color.BLACK;
+        case SHIPHIT:
+            return Color.ORANGE;
         case EMPTY:
             return Color.LIGHTBLUE;
-        case HIT:
+        case EMPTYHIT:
+            return Color.DARKBLUE;
+        case DESTROYED:
             return Color.RED;
         default:
             return Color.WHITE;

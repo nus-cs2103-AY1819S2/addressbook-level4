@@ -1,8 +1,10 @@
 package seedu.address.logic.parser;
 
+import static java.lang.String.valueOf;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -173,23 +176,57 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String file}.
+     * Parses a {@code String file} and {@code Index} into a {@code ParsedIO}.
      *
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static File parseImportExport(String filePath) throws ParseException {
-        requireNonNull(filePath);
-        filePath = filePath.trim();
+    public static ParsedInOut parseImportExport(String input) throws ParseException {
+        requireNonNull(input);
+        input = input.trim();
         final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?$";
 
-        if (!filePath.matches(validationRegex)) {
-            throw new ParseException("File name is invalid");
+        if (!input.matches(validationRegex)) {
+            throw new ParseException("File name is invalid or no index given");
         }
 
+        char[] inputArr = input.toCharArray();
+        String filepath = "";
+
         String newPath = "data\\";
+        int breakpoint = 0;
+        HashSet<Integer> parsedIndex = new HashSet<>();
 
-        File file = new File(newPath.concat(filePath));
+        for (int i = 0; i < inputArr.length; i++) {
+            if (inputArr[i] == ' ') {
+                filepath = valueOf(Arrays.copyOfRange(inputArr, 0, i));
+                breakpoint = i;
+                break;
+            }
+        }
 
-        return file;
+        String[] splitInput = (String.valueOf(Arrays.copyOfRange(inputArr, breakpoint, inputArr.length)))
+                                .trim().split(",");
+        String[] splitRange;
+        final String singleNumberRegex = "^\\d+$";
+        final String rangeNumberRegex = "^(\\d+)-(\\d+)$";
+
+        for (String string : splitInput) {
+            if (string.matches(singleNumberRegex)) {
+                // -1 because indexes displayed to user starts with 1, not 0
+                parsedIndex.add(Integer.parseInt(string) - 1);
+            } else if (string.matches(rangeNumberRegex)) {
+                splitRange = string.split("-");
+                for (int i = Integer.parseInt(splitRange[0]); i < Integer.parseInt(splitRange[1]) + 1; i++) {
+                    // -1 because indexes displayed to user starts with 1, not 0
+                    parsedIndex.add(i - 1);
+                }
+            } else {
+                throw new ParseException("Invalid index range!");
+            }
+        }
+
+        filepath = newPath.concat(filepath);
+
+        return new ParsedInOut(new File(filepath), parsedIndex);
     }
 }

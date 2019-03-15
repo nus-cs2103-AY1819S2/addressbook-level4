@@ -983,6 +983,13 @@ Use case resumes from step 1.
 +
 Use case ends.
 
+*Extensions*
+
+[none]
+* 3a. User cancels the request.
++
+Use case ends.
+
 [discrete]
 === Use case: Delete contact
 
@@ -1015,7 +1022,7 @@ Use case resumes at step 3.
 *MSS*
 
 1. User requests to edit a contact, with new information.
-2. TheRealApp edits the contact in the contact list.
+2. TheRealApp edits the contact in the contact list and displays the edited contact in the displayed contact list.
 +
 Use case ends.
 

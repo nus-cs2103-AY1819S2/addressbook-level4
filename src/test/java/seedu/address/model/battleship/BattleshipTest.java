@@ -1,5 +1,6 @@
 package seedu.address.model.battleship;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -64,5 +65,44 @@ public class BattleshipTest {
 
         // test equality
         assertTrue(battleshipOne.equals(battleshipTwo));
+    }
+
+    @Test
+    public void testBattleshipLength() {
+        // create variables
+        Battleship battleshipOne = new Battleship(new Name("one"));
+        assertEquals(battleshipOne.getLength(), 2);
+    }
+
+    @Test
+    public void testBattleshipLife() {
+        // create variables
+        Battleship battleshipOne = new Battleship(new Name("one"));
+        assertEquals(battleshipOne.getLife(), 2);
+    }
+
+    @Test
+    public void testBattleshipReduceLife() {
+        // create variables
+        Battleship battleshipOne = new Battleship(new Name("one"));
+        int initialLife = battleshipOne.getLife();
+
+        battleshipOne.reduceLife();
+
+        assertEquals(battleshipOne.getLife(), initialLife - 1);
+    }
+
+    @Test
+    public void testBattleshipDestroyed() {
+        // create variables
+        Battleship battleshipOne = new Battleship(new Name("one"));
+        int initialLife = battleshipOne.getLife();
+
+        for (int i = 0; i < initialLife; i++) {
+            battleshipOne.reduceLife();
+        }
+
+        assertEquals(battleshipOne.isDestroyed(), true);
+
     }
 }

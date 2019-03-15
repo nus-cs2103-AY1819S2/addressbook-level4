@@ -208,10 +208,10 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCardListPanel().navigateToCard(getCardListPanel().getSelectedCardIndex());
-        String selectedCardQuestion = getCardListPanel().getHandleToSelectedCard().getQuestion();
+        String expectedCardQuestion = getCardListPanel().getHandleToSelectedCard().getQuestion();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardQuestion.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + expectedCardQuestion.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }

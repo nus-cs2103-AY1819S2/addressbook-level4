@@ -3,7 +3,6 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -13,12 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
-import seedu.address.model.hint.Hint;
 
 /**
  * The Browser Panel of the App.
@@ -66,6 +63,14 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
+    public String getCurrentCardQuestion() {
+        return CURRENT_CARD.getQuestion().fullQuestion;
+    }
+
+    private void setCurrentCard(Card card) {
+        CURRENT_CARD = card;
+    }
+
     /**
      * Load the current selected {@code Card} into the browser panel with all card info.
      * @param card selected to be displayed.
@@ -85,15 +90,11 @@ public class BrowserPanel extends UiPart<Region> {
 
         cardPage.getChildren().addAll(question, answer, score, hint);
 
-        updateCurrentCard(card);
+        setCurrentCard(card);
     }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
-    }
-
-    private void updateCurrentCard(Card card) {
-        CURRENT_CARD = card;
     }
 
     /**

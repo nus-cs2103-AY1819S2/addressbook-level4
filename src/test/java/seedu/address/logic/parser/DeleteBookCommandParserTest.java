@@ -12,7 +12,6 @@ import seedu.address.logic.commands.DeleteBookCommand;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.testutil.BookBuilder;
-import seedu.address.testutil.BookUtil;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

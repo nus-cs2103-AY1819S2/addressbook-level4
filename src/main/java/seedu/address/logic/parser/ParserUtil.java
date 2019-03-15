@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
-import static java.lang.String.valueOf;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -189,23 +189,25 @@ public class ParserUtil {
             throw new ParseException("File name is invalid or no index given");
         }
 
-        char[] inputArr = input.toCharArray();
-        String filepath = "";
-
         String newPath = "data\\";
-        int breakpoint = 0;
-        HashSet<Integer> parsedIndex = new HashSet<>();
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?");
+        Matcher splitMatcher = splitRegex.matcher(input);
+        String filepath = "";
+        String indexRange = "";
 
-        for (int i = 0; i < inputArr.length; i++) {
-            if (inputArr[i] == ' ') {
-                filepath = valueOf(Arrays.copyOfRange(inputArr, 0, i));
-                breakpoint = i;
-                break;
-            }
+        if (splitMatcher.find()) {
+            filepath = splitMatcher.group(1).concat(".");
+            filepath = filepath.concat(splitMatcher.group(2));
+            filepath = newPath.concat(filepath);
+            indexRange = splitMatcher.group(3);
+        } else {
+            // This shouldn't be possible after validationRegex
+            throw new ParseException("File name is invalid or no index given");
         }
 
-        String[] splitInput = (String.valueOf(Arrays.copyOfRange(inputArr, breakpoint, inputArr.length)))
-                                .trim().split(",");
+        HashSet<Integer> parsedIndex = new HashSet<>();
+
+        String[] splitInput = indexRange.trim().split(",");
         String[] splitRange;
         final String singleNumberRegex = "^\\d+$";
         final String rangeNumberRegex = "^(\\d+)-(\\d+)$";
@@ -224,8 +226,6 @@ public class ParserUtil {
                 throw new ParseException("Invalid index range!");
             }
         }
-
-        filepath = newPath.concat(filepath);
 
         return new ParsedInOut(new File(filepath), parsedIndex);
     }

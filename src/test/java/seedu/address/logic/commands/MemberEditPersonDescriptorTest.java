@@ -15,7 +15,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.MemberEditCommand.EditPersonDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class MemberEditPersonDescriptorTest {
 
     @Test
     public void equals() {

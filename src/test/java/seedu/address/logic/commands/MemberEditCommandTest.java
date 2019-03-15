@@ -30,9 +30,10 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for MemberEditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for MemberEditCommand.
  */
-public class EditCommandTest {
+public class MemberEditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();

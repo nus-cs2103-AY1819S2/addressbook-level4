@@ -16,23 +16,23 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.StorageManager;
 
 /**
- * Exports records to a text file.
+ * Saves records to a text file.
  */
-public class ExportCommand extends Command {
+public class SaveCommand extends Command {
 
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exports to text file in the \"data\" folder \n"
+            + ": Saves to text file in the \"data\" folder, overwriting if filename exists \n"
             + "Parameters: FILENAME\n"
             + "Example: " + COMMAND_WORD + " records1.json";
 
-    public static final String MESSAGE_SUCCESS = "Exported the records!";
+    public static final String MESSAGE_SUCCESS = "Saved the records!";
     private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
 
     private final File file;
 
-    public ExportCommand(File file) {
+    public SaveCommand(File file) {
         this.file = file;
     }
 

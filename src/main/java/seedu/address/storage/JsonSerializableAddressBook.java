@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.activity.Activity;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,11 +20,11 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
+    public static final String MESSAGE_DUPLICATED_ACTIVITY = "Activity list contains duplicated activity(ies).";
+
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
-
-    public static final String MESSAGE_DUPLICATED_ACTIVITY = "Activity list contains duplicated activity(ies).";
 
     private final List<JsonAdaptedActivity> activities = new ArrayList<>();
 
@@ -62,7 +62,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-        for  (JsonAdaptedActivity jsonAdaptedActivity : activities){
+        for (JsonAdaptedActivity jsonAdaptedActivity : activities) {
             Activity activity = jsonAdaptedActivity.toModelType();
             if (addressBook.hasActivity(activity)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATED_ACTIVITY);

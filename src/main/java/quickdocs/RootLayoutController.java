@@ -76,6 +76,7 @@ public class RootLayoutController {
                 historySnapshot.next();
                 userInput.setText("");
 
+                fillReminderList();
             } catch (Exception e) {
                 inputFeedback.setText(e.getMessage());
             }

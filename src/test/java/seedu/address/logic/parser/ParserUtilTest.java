@@ -31,7 +31,7 @@ public class ParserUtilTest {
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_SEMESTER = "Y2S2";
-    private static final String VALID_EXPECTED_MAX_GRADE = "A+";
+    private static final String VALID_EXPECTED_MAX_GRADE = "A_PLUS";
     private static final String VALID_EXPECTED_MIN_GRADE = "F";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";

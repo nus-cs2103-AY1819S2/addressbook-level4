@@ -5,15 +5,15 @@ package seedu.address.model.person;
  */
 public enum Grade {
 
-    A_Plus(5, true, true, "A+"),
+    A_PLUS(5, true, true, "A+"),
     A(5, true, true, "A"),
-    A_Minus(4.5, true, true, "A-"),
-    B_Plus(4, true, true, "B+"),
+    A_MINUS(4.5, true, true, "A-"),
+    B_PLUS(4, true, true, "B+"),
     B(3.5, true, true, "B"),
-    B_Minus(3, true, true, "B-"),
-    C_Plus(2.5, true, true, "C+"),
+    B_MINUS(3, true, true, "B-"),
+    C_PLUS(2.5, true, true, "C+"),
     C(2, true, true, "C"),
-    D_Plus(1.5, true, true, "D+"),
+    D_PLUS(1.5, true, true, "D+"),
     D(1, true, true, "D"),
     F(0, false, true, "F"),
     CS(0, true, false, "CS"),
@@ -51,24 +51,24 @@ public enum Grade {
 
     public static Grade getGrade(String grade) {
         switch (grade) {
-        case "A+":
-            return A_Plus;
+        case "A_PLUS":
+            return A_PLUS;
         case "A":
             return A;
-        case "A-":
-            return A_Minus;
-        case "B+":
-            return B_Plus;
+        case "A_MINUS":
+            return A_MINUS;
+        case "B_PLUS":
+            return B_PLUS;
         case "B":
             return B;
-        case "B-":
-            return B_Minus;
-        case "C+":
-            return C_Plus;
+        case "B_MINUS":
+            return B_MINUS;
+        case "C_PLUS":
+            return C_PLUS;
         case "C":
             return C;
-        case "D+":
-            return D_Plus;
+        case "D_PLUS":
+            return D_PLUS;
         case "D":
             return D;
         case "F":
@@ -92,15 +92,15 @@ public enum Grade {
      */
     public static boolean isValidGrade(String test) {
         switch (test) {
-        case "A+":
+        case "A_PLUS":
         case "A":
-        case "A-":
-        case "B+":
+        case "A_MINUS":
+        case "B_PLUS":
         case "B":
-        case "B-":
-        case "C+":
+        case "B_MINUS":
+        case "C_PLUS":
         case "C":
-        case "D+":
+        case "D_PLUS":
         case "D":
         case "F":
         case "CS":
@@ -119,6 +119,9 @@ public enum Grade {
         return this.printedGrade;
     }
 
+    /**
+     * Returns if this gradepoint is no more than another gradepoint.
+     */
     public boolean isWithin(Grade limit) {
         return this.gradePoint <= limit.gradePoint;
     }

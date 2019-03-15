@@ -3,28 +3,28 @@ package seedu.address.model.person;
 /**
  * Represents expected grade range of a module taken
  */
-public class GradeRange {
-    private Grade min;
-    private Grade max;
+public class HourRange {
+    private Hour min;
+    private Hour max;
 
-    public Grade getMin() {
+    public Hour getMin() {
         return min;
     }
 
-    public Grade getMax() {
+    public Hour getMax() {
         return max;
     }
 
-    public void setMin(Grade min) {
+    public void setMin(Hour min) {
         this.min = min;
     }
 
-    public void setMax(Grade max) {
+    public void setMax(Hour max) {
         this.max = max;
     }
 
     /**
-     * Returns true if the min gradepoint is no more than max gradepoint
+     * Returns true if the min hour limit is no more than max hour limit
      */
     public boolean checkMinNotMoreThanMax() {
         return min.isWithin(max);

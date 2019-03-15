@@ -9,11 +9,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Hour {
 
-
     public static final String MESSAGE_CONSTRAINTS =
             "Hour should be a non-negative number to .5 degree of accuracy";
     public static final String VALIDATION_REGEX = "\\d{1,3}(\\.[05])?";
-    public final String value;
+    public final Double hour;
 
     /**
      * Constructs a {@code Hour}.
@@ -23,7 +22,7 @@ public class Hour {
     public Hour(String hour) {
         requireNonNull(hour);
         checkArgument(isValidHour(hour), MESSAGE_CONSTRAINTS);
-        value = hour;
+        this.hour = Double.parseDouble(hour);
     }
 
     /**
@@ -33,20 +32,31 @@ public class Hour {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns if this number of hours is no more than another number of hours.
+     */
+    public boolean isWithin(Hour limit) {
+        return this.hour <= limit.getHour();
+    }
+
     @Override
     public String toString() {
-        return value;
+        return hour.toString();
+    }
+
+    public double getHour() {
+        return hour;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Hour // instanceof handles nulls
-                && value.equals(((Hour) other).value)); // state check
+                && hour == ((Hour) other).hour); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return hour.hashCode();
     }
 }

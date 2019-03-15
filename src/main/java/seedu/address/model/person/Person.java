@@ -20,8 +20,8 @@ public class Person {
     private final Semester semester;
 
     // Data fields
-    private final Grade expectedMinGrade;
-    private final Grade expectedMaxGrade;
+    private final GradeRange gradeRange;
+    private final Workload workload;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -31,8 +31,11 @@ public class Person {
         requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
         this.moduleInfo = moduleInfo;
         this.semester = semester;
-        this.expectedMinGrade = expectedMinGrade;
-        this.expectedMaxGrade = expectedMaxGrade;
+        this.gradeRange = new GradeRange();
+        this.gradeRange.setMin(expectedMinGrade);
+        this.gradeRange.setMax(expectedMaxGrade);
+        this.workload = new Workload(new Hour("0"), new Hour("0"),
+                new Hour("0"), new Hour("0"), new Hour("0")); //to be populated based on module info
         this.tags.addAll(tags);
     }
 
@@ -45,11 +48,15 @@ public class Person {
     }
 
     public Grade getExpectedMinGrade() {
-        return expectedMinGrade;
+        return gradeRange.getMin();
     }
 
     public Grade getExpectedMaxGrade() {
-        return expectedMaxGrade;
+        return gradeRange.getMax();
+    }
+
+    public Workload getWorkload() {
+        return workload;
     }
 
     /**
@@ -100,7 +107,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
+        return Objects.hash(moduleInfo, semester, gradeRange, workload, tags);
     }
 
     @Override
@@ -113,6 +120,8 @@ public class Person {
                 .append(getExpectedMinGrade())
                 .append(" Expected Max Grade: ")
                 .append(getExpectedMaxGrade())
+                .append(" Workload: ")
+                .append(getWorkload())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

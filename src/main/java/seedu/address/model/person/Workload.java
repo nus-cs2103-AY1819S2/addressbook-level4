@@ -1,51 +1,89 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
- * Represents a Person's workload number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidWorkload(String)}
+ * Represents the expected Workload of module selected as defined by the user
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Workload {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Workload should be a non-negative number to .5 degree of accuracy";
-    public static final String VALIDATION_REGEX = "\\d{1,3}(\\.[05])?";
-    public final String value;
+    private final Hour lectureHour;
+    private final Hour tutorialHour;
+    private final Hour labHour;
+    private final Hour projectHour;
+    private final Hour preparationHour;
 
-    /**
-     * Constructs a {@code Workload}.
-     *
-     * @param workload A valid workload number.
-     */
-    public Workload(String workload) {
-        requireNonNull(workload);
-        checkArgument(isValidWorkload(workload), MESSAGE_CONSTRAINTS);
-        value = workload;
+    public Workload(Hour lectureHour, Hour tutorialHour,
+                  Hour labHour, Hour projectHour,
+                  Hour preparationHour) {
+        requireAllNonNull(lectureHour, tutorialHour, labHour,
+                projectHour, preparationHour);
+        this.lectureHour = lectureHour;
+        this.tutorialHour = tutorialHour;
+        this.labHour = labHour;
+        this.projectHour = projectHour;
+        this.preparationHour = preparationHour;
+    }
+
+    public Hour getLectureHour() {
+        return lectureHour;
+    }
+
+    public Hour getTutorialHour() {
+        return tutorialHour;
+    }
+
+    public Hour getLabHour() {
+        return labHour;
+    }
+
+    public Hour getProjectHour() {
+        return projectHour;
+    }
+
+    public Hour getPreparationHour() {
+        return preparationHour;
     }
 
     /**
-     * Returns true if a given string is a valid workload number.
+     * Returns true if both Workloads are the same in all attributes.
      */
-    public static boolean isValidWorkload(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
+    public boolean isSameWorkload(Workload other) {
+        if (other == this) {
+            return true;
+        }
 
-    @Override
-    public String toString() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Workload // instanceof handles nulls
-                && value.equals(((Workload) other).value)); // state check
+        return other != null
+                && other.getLectureHour().equals(getLectureHour())
+                && other.getTutorialHour().equals(getTutorialHour())
+                && other.getLabHour().equals(getLabHour())
+                && other.getProjectHour().equals(getProjectHour())
+                && other.getPreparationHour().equals(getPreparationHour());
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(lectureHour, tutorialHour, labHour,
+                projectHour, preparationHour);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Lecture hours expected: \n")
+                .append(getLectureHour())
+                .append(" Tutorial hours expected: \n")
+                .append(getTutorialHour())
+                .append(" Lab hours expected: \n")
+                .append(getLabHour())
+                .append(" Project hours expected: \n")
+                .append(getProjectHour())
+                .append(" Preparation hours expected: \n")
+                .append(getPreparationHour());
+        return builder.toString();
     }
 }

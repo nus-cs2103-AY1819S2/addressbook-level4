@@ -36,7 +36,7 @@ public class DeleteCommandParserTest {
     // @author Lookaz
 
     @Test
-    public void parse_HealthWorker() {
+    public void parse_healthWorker() {
         // valid index
         assertParseSuccess(parser, "1 1", new DeleteHealthWorkerCommand(INDEX_FIRST_PERSON));
 

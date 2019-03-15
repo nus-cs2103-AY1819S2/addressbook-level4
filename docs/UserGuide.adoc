@@ -296,7 +296,13 @@ Universal Numbering System.
 
 ==== The Universal Numbering System
 
-image::images/image1.png[image,width=200,height=294]
+ifdef::env-github[]
+image::image1.png[width="200"]
+endif::[]
+
+ifndef::env-github[]
+image::image1.png[width="200"]
+endif::[]
 
 The uppercase letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
@@ -413,6 +419,8 @@ Saves patient 1 and patient 4 from the current records to "records1.json".
 * `export records1.json 1-4` +
 Saves patient 1 to patient 4 from the current records to "records1.json".
 
+* `Export records2.json` +
+Writes all entries from the address book to records2.json. +
 
 === List
 Shows a list of all personnel or medical stored in the application

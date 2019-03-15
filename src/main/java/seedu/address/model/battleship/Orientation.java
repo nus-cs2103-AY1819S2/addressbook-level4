@@ -41,11 +41,11 @@ public class Orientation {
         requireNonNull(orientation);
         checkArgument(isValidOrientation(orientation), MESSAGE_CONSTRAINTS);
 
-        if (orientation.toLowerCase().equals("h") ||
-            orientation.toLowerCase().equals("horizontal")) {
+        if (orientation.toLowerCase().equals("h")
+                || orientation.toLowerCase().equals("horizontal")) {
             this.orientation = "horizontal";
-        } else if (orientation.toLowerCase().equals("v") ||
-            orientation.toLowerCase().equals("vertical")) {
+        } else if (orientation.toLowerCase().equals("v")
+                || orientation.toLowerCase().equals("vertical")) {
             this.orientation = "vertical";
         } else {
             this.orientation = orientation;

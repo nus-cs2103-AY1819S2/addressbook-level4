@@ -15,7 +15,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add-e";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an equipment to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an equipment to the Equipment Manager. "
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME "
             + CliSyntax.PREFIX_PHONE + "PHONE "

@@ -203,14 +203,6 @@ Example:
 * `filter /region north /type HDB /status spoiled`
 * `filter /year 1987-2018 /status in-use`
 
-=== Updating equipment details: `update-e`
-Update details of a equipment.
-Format: `update equipment [equipment id] /[fieldname to be updated] [value to be updated to]`
-
-Example:
-
-* `Update equipment 68912 /status spoiled`
-
 === Autocomplete: kbd:[tab]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
 

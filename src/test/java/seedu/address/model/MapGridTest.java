@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 
+import static seedu.address.testutil.SizeTenMapGrid.getSizeTenMapGrid;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -24,7 +25,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -35,6 +38,27 @@ public class MapGridTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final MapGrid mapGrid = new MapGrid();
+
+    @Test
+    public void putShipTest() {
+        MapGrid sizeTenmap = getSizeTenMapGrid();
+        Battleship battleship = new Battleship();
+
+        sizeTenmap.putShip(new Coordinates("a1"), battleship);
+
+        assertEquals(sizeTenmap.get2dArrayMapGridCopy()[0][0].getBattleship().get(), battleship);
+    }
+
+    @Test
+    public void attackCellTest() {
+        MapGrid sizeTenmap = getSizeTenMapGrid();
+        Battleship battleship = new Battleship();
+
+        assertFalse(sizeTenmap.attackCell(new Coordinates("a1")));
+
+        sizeTenmap.putShip(new Coordinates("a1"), battleship);
+        assertTrue(sizeTenmap.attackCell(new Coordinates("a1")));
+    }
 
     @Test
     public void constructor() {

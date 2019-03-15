@@ -64,6 +64,17 @@ public class Cell {
         this.address = new Address("placeholder");
     }
 
+    /**
+     * Constructor to copy a given Cell
+     */
+    public Cell(Cell newCell) {
+        this.battleship = newCell.battleship;
+        this.name = newCell.name;
+        this.phone = new Phone("123");
+        this.email = new Email("placeholder@gmail.com");
+        this.address = new Address("placeholder");
+    }
+
     public Name getName() {
         return name;
     }

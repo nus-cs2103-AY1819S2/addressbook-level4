@@ -36,7 +36,7 @@ public class Address {
      * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
-        if (!test.equals(AddCommandParser.NONE)) {
+        if (!test.equals(AddCommandParser.NONE_ADDRESS)) {
             return test.matches(VALIDATION_REGEX);
         } else {
             return true;

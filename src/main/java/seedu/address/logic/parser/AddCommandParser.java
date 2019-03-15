@@ -25,7 +25,9 @@ import seedu.address.model.person.Phone;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    public static final String NONE = "NIL";
+    public static final String NONE_PHONE = "No phone number specified";
+    public static final String NONE_ADDRESS = "No address specified";
+    public static final String NONE_EMAIL = "No email specified";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -47,9 +49,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         DateOfBirth dateOfBirth = ParserUtil.parseDob(argMultimap.getValue(PREFIX_YEAR).get());
 
         // Optional Fields
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(NONE));
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(NONE));
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(NONE));
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(NONE_PHONE));
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(NONE_EMAIL));
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(NONE_ADDRESS));
 
         Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth);
 

@@ -207,7 +207,7 @@ public class CommandTestUtil {
         HealthWorker healthWorker = model.getFilteredHealthWorkerList().get(targetIndex.getZeroBased());
         final String[] splitName = healthWorker.getName().fullName.split("\\s+");
         model.updateFilteredHealthWorkerList(p -> Arrays.asList(splitName[0]).stream().anyMatch(
-                keyword -> StringUtil.containsWordIgnoreCase(p.getName().fullName, keyword)
+            keyword -> StringUtil.containsWordIgnoreCase(p.getName().fullName, keyword)
         ));
 
         assertEquals(1, model.getFilteredHealthWorkerList().size());

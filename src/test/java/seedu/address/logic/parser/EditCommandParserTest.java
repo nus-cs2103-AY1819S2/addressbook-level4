@@ -363,8 +363,8 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, input, expectedCommand);
 
         // multiple fields specified, accepts last
-        input = MODE_HEALTHWORKER + targetIndex.getOneBased() + NAME_DESC_BETTY + NAME_DESC_ANDY + PHONE_DESC_BETTY + EMAIL_DESC_ANDY
-                + ADDRESS_DESC_BETTY + ADDRESS_DESC_ANDY;
+        input = MODE_HEALTHWORKER + targetIndex.getOneBased() + NAME_DESC_BETTY + NAME_DESC_ANDY + PHONE_DESC_BETTY
+                + EMAIL_DESC_ANDY + ADDRESS_DESC_BETTY + ADDRESS_DESC_ANDY;
         descriptor = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_ANDY)
                 .withPhone(VALID_PHONE_BETTY).withEmail(VALID_EMAIL_ANDY).withAddress(VALID_ADDRESS_ANDY).build();
         expectedCommand = new EditHealthWorkerCommand(targetIndex, descriptor);

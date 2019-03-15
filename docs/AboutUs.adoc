@@ -4,53 +4,60 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+OurTeeth was developed by the W17-02 Team
+
+The basis of our product, AddressBook - Level 4, was developed by the https://se-edu.github.io/docs/Team.html[se-edu]
+team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
+{nbsp} +
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+image::kylerwsm.png[width="150", align="left"]
+{nbsp} +
+*Kyler Wong Shen Meng*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Responsibilities::
+* Build efficient data structures that stores represented dental data
+* Develop dentistry-specific functions and features
+* Ensure intuitiveness of dentistry data to dentist users
+* Apply and conform to renowned dentistry standards
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Keith Sim
+image::kthsim.png[width="150", align="left"]
+{empty}[https://github.com/kthSim[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Records Managament
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Lim Jia Hao
+image::jiahaolim.png[width="150", align="left"]
+{empty}[https://github.com/JiaHaoLim[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Records IO
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Jonathan Choo
+image::cchj1995.png[width="150", align="left"]
+{empty}[http://github.com/cchj1995[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Login
 
 '''
+
+=== Wang Debang
+image::wsemis.png[width="150", aligh="left"]
+{empty}[https://github.com/wSemis[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Record processing

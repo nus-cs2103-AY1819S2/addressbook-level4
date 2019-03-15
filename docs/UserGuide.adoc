@@ -340,37 +340,78 @@ newly created teeth layout.
 indicate personalised note describing more detail on the patient’s teeth
 health.
 
-=== Export
-Exports the entire records into the specified file path with the
-specified file name.
+=== Open
+Opens the file in the specified file path and overwrites the current records.
+** Note that 'open' always searches inside the data folder.
 
-Format: `export FILE_PATH FILE_NAME`
-
-Example:
-
-
-* `export /mnt/ext_drive/ clinicRecords.txt` +
-Creates a file named clinicRecords.txt in the /mnt/ext_drive/ folder
-
-
-=== Import
-Imports data into the program from the specified file path and
-overwrites current data.
-
-Format: `import FILE_PATH [append]`
-
-Note: The optional “append” adds the file data onto the current records
-rather than overwriting.
+Format: `open FILE_PATH`
 
 Examples:
 
+* `open records1.json` +
+Replaces the current records with the records in "records1.json".
 
-* `import /mnt/sample/newData` +
-Replaces the current records with the ones in the newData file
+* `open february\records2.json` +
+Replaces the current records with the records in "records2.json" found in the "february" folder.
 
 
-* `import /mnt/sample/extraData append` +
-Appends the records within extraData onto the current program’s records.
+=== Save
+Saves the current records to the specified filepath.
+** Note that 'save' always saves inside the data folder. If no such filepath exists,
+it will be created. Otherwise, it will overwrite the existing file.
+
+Format: `save FILE_PATH`
+
+Examples:
+
+* `save records1.json` +
+Saves the current records to "records1.json".
+
+* `save february\records2.json` +
+Saves the current records to "records1.json" found in the "february" folder.
+
+
+=== Import
+Opens the file in the specified file path and adds the specified patients to the current records.
+** Note that 'import' always searches inside the data folder.
+
+Format: `import FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `import records1.json 1` +
+Adds patient 1 from "records1.json" to the current records.
+
+* `import february\records1.json 1` +
+Adds patient 1 from "records1.json" found in the "february" folder to the current records.
+
+* `import records1.json 1,4` +
+Adds patient 1 and patient 4 from "records1.json" to the current records.
+
+* `import records1.json 1-4` +
+Adds patient 1 to patient 4 from "records1.json" to the current records.
+
+
+=== Export
+Saves the specified patients in the current records to the specified filepath.
+** Note that 'export' always saves inside the data folder. If no such filepath exists,
+it will be created. Otherwise, it will overwrite the existing file.
+
+Format: `export FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `export records1.json 1` +
+Saves patient 1 from the current records to "records1.json".
+
+* `export february\records1.json 1` +
+Saves patient 1 from the current records to "records1.json" found in the "february" folder.
+
+* `export records1.json 1,4` +
+Saves patient 1 and patient 4 from the current records to "records1.json".
+
+* `export records1.json 1-4` +
+Saves patient 1 to patient 4 from the current records to "records1.json".
 
 
 === List

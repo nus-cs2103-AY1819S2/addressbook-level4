@@ -33,7 +33,8 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_TAG + "urgent";
 
     public static final String MESSAGE_SUCCESS = "New equipment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This equipment already exists in the equipment manager";
+    public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicated equipment serial number, "
+            + "this equipment already exists in the equipment manager.";
 
     private final Equipment toAdd;
 
@@ -50,7 +51,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EQUIPMENT);
         }
 
         model.addPerson(toAdd);

@@ -112,26 +112,26 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: add a duplicate equipment -> rejected */
         command = EquipmentUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different phone -> rejected */
         toAdd = new EquipmentBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different email -> rejected */
         toAdd = new EquipmentBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different address -> rejected */
         toAdd = new EquipmentBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different tags -> rejected */
         command = EquipmentUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "west";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;

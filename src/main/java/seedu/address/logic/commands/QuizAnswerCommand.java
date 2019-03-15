@@ -7,13 +7,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.quiz.Quiz;
 import seedu.address.quiz.QuizCard;
 import seedu.address.quiz.QuizModel;
-import seedu.address.quiz.exceptions.NotInitialisedException;
 
 /**
  * Execute User answer
  */
 public class QuizAnswerCommand extends QuizCommand {
-    public static final String MESSAGE_USAGE = "* any character except word that starts with \\";
+    public static final String COMMAND_WORD = "answer";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": * any character except word that starts with \\\n";
     public static final String MESSAGE_QUESTION = "Question: %1$s";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
     public static final String MESSAGE_CORRECT = "Your answer is correct.\n";
@@ -52,11 +52,7 @@ public class QuizAnswerCommand extends QuizCommand {
             return new CommandResult(sb.toString());
         }
 
-        try {
-            model.updateTotalAttemptsAndStreak(card.getIndex(), answer);
-        } catch (NotInitialisedException e) {
-            e.printStackTrace();
-        }
+        model.updateTotalAttemptsAndStreak(card.getIndex(), answer);
 
         if (card.isCorrect(answer)) {
             sb.append(MESSAGE_CORRECT);

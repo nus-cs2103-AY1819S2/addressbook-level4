@@ -142,4 +142,10 @@ public class UniqueHealthWorkerList implements Iterable<HealthWorker> {
         }
         return true;
     }
+
+    public HealthWorker getAt(int index) {
+        assert(index < this.internalList.size() - 1);
+        return this.internalList.get(index);
+    }
+
 }

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.equipment.Equipment;
 
 /**
- * Deletes a equipment identified using it's displayed index from the address book.
+ * Deletes an equipment identified using it's displayed index from the Equipment Manager.
  */
 public class DeleteCommand extends Command {
 

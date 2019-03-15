@@ -21,11 +21,6 @@ public interface Model {
     Predicate<Cell> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
-     * Put battleship in the given coordinates
-     */
-    void putShip(Coordinates coordinates, Battleship battleship);
-
-    /**
      * Update the UI
      */
     void updateUi();

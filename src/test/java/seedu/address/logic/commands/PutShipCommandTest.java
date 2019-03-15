@@ -1,24 +1,30 @@
+
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HORIZONTAL_ORIENTATION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VERTICAL_ORIENTATION;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalIndexes.COORDINATES_FIRST_CELL;
-import static seedu.address.testutil.TypicalIndexes.COORDINATES_FIRST_CELL_NEXT_HORIZONTAL;
-import static seedu.address.testutil.TypicalIndexes.COORDINATES_FIRST_CELL_NEXT_VERTICAL;
+import static seedu.address.testutil.TypicalIndexes.COORDINATES_A1;
+import static seedu.address.testutil.TypicalIndexes.COORDINATES_A10;
+import static seedu.address.testutil.TypicalIndexes.COORDINATES_A2;
+import static seedu.address.testutil.TypicalIndexes.COORDINATES_B1;
+import static seedu.address.testutil.TypicalIndexes.COORDINATES_J1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_LAST_CELL;
+import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
+import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 
 /**
@@ -28,48 +34,118 @@ public class PutShipCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    @Ignore
+
     @Test
     public void execute_battleshipAlreadyPresent_failure() {
-        //model.getMapGrid().initialise(MAP_SIZE_TEN);
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
         Battleship battleship = new Battleship();
-        model.getMapGrid().getCell(COORDINATES_FIRST_CELL).putShip(battleship);
+
+        model.getMapGrid().initialise(cellGrid);
+        model.getMapGrid().getCell(COORDINATES_A1).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 
-        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship, orientation);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
+
 
         assertCommandFailure(putShipCommand, model, commandHistory,
                 PutShipCommand.MESSAGE_BATTLESHIP_PRESENT);
     }
-    @Ignore
+
     @Test
     public void execute_putBattleshipVertical_failure() {
-        //model.getMapGrid().initialise(MAP_SIZE_TEN);
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
         Battleship battleship = new Battleship();
-        Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
-        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship, orientation);
-        model.getMapGrid().getCell(COORDINATES_FIRST_CELL_NEXT_VERTICAL).putShip(battleship);
+
+        model.getMapGrid().initialise(cellGrid);
+        model.getMapGrid().getCell(COORDINATES_B1).putShip(battleship);
+
+        Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
                 PutShipCommand.MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
     }
-    @Ignore
+
     @Test
     public void execute_putBattleshipHorizontal_failure() {
-        //model.getMapGrid().initialise(MAP_SIZE_TEN);
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
         Battleship battleship = new Battleship();
+
+        model.getMapGrid().initialise(cellGrid);
+        model.getMapGrid().getCell(COORDINATES_A2).putShip(battleship);
+
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
-        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_FIRST_CELL, battleship, orientation);
-        model.getMapGrid().getCell(COORDINATES_FIRST_CELL_NEXT_HORIZONTAL).putShip(battleship);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
                 PutShipCommand.MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
     }
-    @Ignore
+
+    @Test
+    public void execute_battleshipTooHorizontal_failure() {
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
+        model.getMapGrid().initialise(cellGrid);
+        Battleship battleship = new Battleship();
+
+        Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A10, battleship, orientation);
+
+        assertCommandFailure(putShipCommand, model, commandHistory,
+                Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+    }
+
+    @Test
+    public void execute_battleshipTooVertical_failure() {
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
+        model.getMapGrid().initialise(cellGrid);
+        Battleship battleship = new Battleship();
+
+        Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_J1, battleship, orientation);
+
+        assertCommandFailure(putShipCommand, model, commandHistory,
+                Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+    }
+
     @Test
     public void equals() {
-        final PutShipCommand standardCommand = new PutShipCommand(COORDINATES_FIRST_CELL,
+        final PutShipCommand standardCommand = new PutShipCommand(COORDINATES_A1,
                 new Battleship(), new Orientation(VALID_HORIZONTAL_ORIENTATION));
 
         // same values -> returns true

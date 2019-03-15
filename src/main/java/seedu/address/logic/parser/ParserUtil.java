@@ -3,16 +3,22 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.patient.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Title;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -118,6 +124,80 @@ public class ParserUtil {
             throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         return new DateOfBirth(trimmedDob);
+    }
+
+    /**
+     * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
+    public static Tag parseTag(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String title} into an {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(title)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseStartDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateCustom.isValidDate(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isDateBeforeToday(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseEndDate(String endDate, String startDate) throws ParseException {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        String trimmedStartDate = startDate.trim();
+        String trimmedEndDate = endDate.trim();
+        if (!DateCustom.isValidDate(trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedEndDate);
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(parseTag(tagName));
+        }
+        return tagSet;
     }
 
     /**

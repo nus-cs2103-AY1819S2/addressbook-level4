@@ -6,8 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.quiz.exceptions.NotInitialisedException;
-
 /**
  * Represents a partial of Card, only contains the necessary information for Quiz.
  */
@@ -68,12 +66,10 @@ public class QuizCard {
         return opt;
     }
 
-    public int getIndex() throws NotInitialisedException {
-        if (index > -1) {
-            return index;
-        }
+    public int getIndex() {
+        assert index > -1;
 
-        throw new NotInitialisedException("This card do not contain index.");
+        return index;
     }
 
     public int getTotalAttempts() {

@@ -119,9 +119,9 @@ public class QuizCardTest {
     }
 
     @Test
-    public void getIndex_invalidIndex_throwsNotInitialisedException() {
+    public void getIndex_invalidIndex_throwsAssertionError() {
         // do not contain actual index.
-        Assert.assertThrows(NotInitialisedException.class, () ->
+        Assert.assertThrows(AssertionError.class, () ->
             VALID_QUIZCARD.getIndex());
     }
 

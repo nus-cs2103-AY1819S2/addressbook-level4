@@ -1,5 +1,6 @@
 package seedu.address.model.cell;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -14,11 +15,31 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.battleship.Battleship;
 import seedu.address.testutil.PersonBuilder;
 
 public class CellTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void status() {
+        Cell cell = new Cell();
+        assertEquals(cell.getStatus(), Status.EMPTY);
+
+        cell.receiveAttack();
+        assertEquals(cell.getStatus(), Status.EMPTYHIT);
+
+        Cell battleShipCell = new Cell();
+        battleShipCell.putShip(new Battleship());
+        assertEquals(battleShipCell.getStatus(), Status.SHIP);
+
+        battleShipCell.receiveAttack();
+        assertEquals(battleShipCell.getStatus(), Status.SHIPHIT);
+
+        battleShipCell.receiveAttack();
+        assertEquals(battleShipCell.getStatus(), Status.DESTROYED);
+    }
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {

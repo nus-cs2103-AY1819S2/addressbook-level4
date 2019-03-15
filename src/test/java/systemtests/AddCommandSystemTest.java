@@ -23,6 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalEquipments.ALICE;
 import static seedu.address.testutil.TypicalEquipments.AMY;
@@ -77,10 +78,11 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a equipment with all fields same as another equipment in the address book except name -> added */
-        toAdd = new EquipmentBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + SERIAL_NUMBER_DESC_AMY + TAG_DESC_FRIEND;
+        /* Case: add an equipment with all fields same as another equipment in the equipment manager
+         * except serial number -> added */
+        toAdd = new EquipmentBuilder(AMY).withSerialNumber(VALID_SERIAL_NUMBER_BOB).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */

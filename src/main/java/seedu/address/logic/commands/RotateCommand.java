@@ -67,6 +67,7 @@ public class RotateCommand extends Command {
             File outputFile = new File(fileName);
             ImageIO.write(bufferImage, initialImage.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, directory, false);
+            outputFile.delete();
         } catch (IOException | IllegalArgumentException x) {
             throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST);
         }

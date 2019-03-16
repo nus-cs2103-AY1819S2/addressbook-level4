@@ -54,4 +54,13 @@ public class SortCommand extends Command {
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, paraType));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof SortCommand
+            && attrCompare.equals(((SortCommand) other).attrCompare)
+            && paraType.equals(((SortCommand) other).paraType)
+            && isReverse == ((SortCommand) other).isReverse);
+    }
 }

@@ -7,7 +7,7 @@ import seedu.address.model.player.Player;
  * An AttackResult represents the end result of an attack.
  */
 public abstract class AttackResult {
-    protected static final String ATTACK = "Attack by player %s on cell %s of player %s";
+    public static final String ATTACK = "Attack by player %s on cell %s of player %s";
 
     protected Player attacker;
     protected Player target;
@@ -20,14 +20,14 @@ public abstract class AttackResult {
     }
 
     /**
-     * Returns the player ID of the attacker.
+     * Returns the Player object of the attacker.
      */
     public Player getAttacker() {
         return attacker;
     }
 
     /**
-     * Returns the player ID of the attacked.
+     * Returns the Player object of the attacked.
      */
     public Player getTarget() {
         return target;

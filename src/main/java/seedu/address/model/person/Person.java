@@ -61,6 +61,18 @@ public class Person {
     }
 
     /**
+     * Checks if a tag as a String parameter is contained in one of the tags of that person
+     */
+    public boolean isTagExist(String tag) {
+
+        for(SkillsTag skill : tags) {
+            if(skill.tagName.toLowerCase().contains(tag)) return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */

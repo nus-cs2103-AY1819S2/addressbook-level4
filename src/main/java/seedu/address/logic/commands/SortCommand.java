@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortMethods.SortAlphabetical;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.logic.parser.SortWord;
@@ -37,12 +38,14 @@ public class SortCommand extends Command {
 
     public SortCommand(SortWord method) {
         this.method = method;
+        AddressBook.sortingExist = true;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getAddressBook().getPersonList();
 
         String MESSAGE_SUCCESS = "Sorted all persons by " + method.toString();
         //Maybe use switch statement here?
@@ -51,15 +54,18 @@ public class SortCommand extends Command {
             sortedPersons = sorted.getList();
         }
 
-
         for (Person personToDelete : sortedPersons) {
             model.deletePerson(personToDelete);
         }
+
         for (Person newPerson : sortedPersons) {
             System.out.println("Should be adding");
             model.addPerson(newPerson);
         }
+
         model.commitAddressBook();
+        AddressBook.sortingExist = false;
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

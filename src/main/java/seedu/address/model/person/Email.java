@@ -26,6 +26,7 @@ public class Email {
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
+    public static final String DEFAULT_EMAIL = "default@gmail.com";
 
     public final String value;
 

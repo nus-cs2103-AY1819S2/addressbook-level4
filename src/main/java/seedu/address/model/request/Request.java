@@ -6,7 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.person.*;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Tag;
 
@@ -14,7 +14,8 @@ import seedu.address.model.tag.Tag;
  * Represents a request made by a patient in the request book.
  */
 public class Request {
-    private final String id;
+
+    private String id;
     private final Person patient;
     private final RequestDate requestDate;
     private final Set<Tag> conditions;
@@ -50,6 +51,31 @@ public class Request {
         this(id, patient, requestDate, conditions, requestStatus);
         requireNonNull(healthStaff);
         this.healthWorker = Optional.of(healthStaff);
+    }
+
+    /**
+     * Overloaded constructor that takes in differing arguments for the patient.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Set<Tag> conditions, RequestStatus status) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status);
+        this.patient = new Person(name, phone, address, conditions);
+        this.conditions = conditions;
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+    }
+
+    /**
+     * Overloaded constructor that takes in a {@code healthWorker}.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Set<Tag> conditions, RequestStatus status, HealthWorker healthWorker) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status);
+        this.patient = new Person(name, phone, address, conditions);
+        this.conditions = conditions;
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+        this.healthWorker = Optional.ofNullable(healthWorker);
     }
 
     public void setHealthStaff(HealthWorker healthStaff) {

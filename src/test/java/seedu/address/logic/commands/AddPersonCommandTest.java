@@ -283,6 +283,11 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Request> getFilteredRequestList() {
+            return null;
+        }
+
         /**
          * Returns true if a request with the same identity as {@code request} exists in the address
          * book.
@@ -291,6 +296,11 @@ public class AddPersonCommandTest {
          */
         @Override
         public boolean hasRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRequest(Request target, Request editedRequest) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -305,11 +315,14 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateFilteredRequestList(Predicate<Request> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         /**
          * Adds the given request.
          * {@code request} must not already exist in the request book.
-         *
-         * @param request
          */
         @Override
         public void addRequest(Request request) {

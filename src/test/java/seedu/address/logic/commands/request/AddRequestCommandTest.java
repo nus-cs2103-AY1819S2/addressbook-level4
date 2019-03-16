@@ -264,13 +264,28 @@ class AddRequestCommandTest {
         }
 
         @Override
+        public ObservableList<Request> getFilteredRequestList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRequest(Request target, Request editedRequest) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteRequest(Request target) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRequestList(Predicate<Request> predicate) {
+
         }
 
         @Override

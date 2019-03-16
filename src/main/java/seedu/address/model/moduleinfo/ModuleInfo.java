@@ -1,39 +1,12 @@
 package seedu.address.model.moduleinfo;
 
-<<<<<<< HEAD
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-=======
 import java.util.Objects;
->>>>>>> 3d2b0fdedd70c3e794a0bc7fa1c3f9905fb97b6d
 
 /**
  * Represents Module Information about a particular module available in NUS.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ModuleInfo {
-<<<<<<< HEAD
-
-    private final String code;
-    private final String title;
-    private final double credits;
-    private final String description;
-    private final String workload;
-    private final String preclusions;
-    private final String department;
-    private final String prerequisites;
-
-
-    public ModuleInfo(String code, String title, double credits,
-                      String description, String workload, String preclusions,
-                      String department, String prerequisites) {
-        requireAllNonNull(code, title, credits, description, department, prerequisites,
-                preclusions, workload);
-        this.code = code;
-        this.title = title;
-        this.credits = credits;
-        this.description = description;
-        this.workload = workload;
-=======
     private ModuleInfoCode code;
     private ModuleInfoTitle title;
     private ModuleInfoCredits credits;
@@ -50,13 +23,11 @@ public class ModuleInfo {
         this.credits = new ModuleInfoCredits(credits);
         this.description = new ModuleInfoDescription(description);
         this.workload = new ModuleInfoWorkload(workLoad);
->>>>>>> 3d2b0fdedd70c3e794a0bc7fa1c3f9905fb97b6d
         this.preclusions = preclusions;
         this.department = new ModuleInfoDepartment(department);
         this.prerequisites = prerequisites;
 
-
-        //System.out.println("Module:" + code + " has been created");
+        System.out.println("Module:" + code + " has been created");
     }
 
     // ================ Object String Methods ==============================
@@ -81,70 +52,20 @@ public class ModuleInfo {
         return this.description.toString();
     }
 
-<<<<<<< HEAD
-    public String getDepartment() {
-        return this.department;
-    }
-
-    public String getPrerequisites() {
-        return this.prerequisites;
-=======
     public String getWorkloadString() {
         return this.workload.toString();
->>>>>>> 3d2b0fdedd70c3e794a0bc7fa1c3f9905fb97b6d
     }
 
     public String getPreclusionsString() {
         return this.preclusions;
     }
 
-<<<<<<< HEAD
-    public String getWorkload() {
-        return this.workload;
-    }
-
-    /**
-     * Returns true if both modules have same module code or same module title.
-     * This defines a weaker notion of equality between two modules.
-     */
-    public boolean isSameModule(ModuleInfo other) {
-        if (other == this) {
-            return true;
-        }
-
-        return other != null
-                && (other.code.equals(code) || other.title.equals(title));
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(" Module Code: ")
-                .append(getCode())
-                .append(" Module Title: ")
-                .append(getTitle())
-                .append(" Module Credits")
-                .append(getCredits())
-                .append(" Module Description: ")
-                .append(getDescription())
-                .append(" Department: ")
-                .append(getDepartment())
-                .append(" Prerequisites: ")
-                .append(getPrerequisites())
-                .append(" Preclusions: ")
-                .append(getPreclusions())
-                .append(" Workload: ")
-                .append(getWorkload());
-
-        return builder.toString();
-=======
     public String getDepartmentString() {
         return this.department.toString();
     }
 
     public String getPrerequisitesString() {
         return this.prerequisites;
->>>>>>> 3d2b0fdedd70c3e794a0bc7fa1c3f9905fb97b6d
     }
 
     // ================ Object methods ==============================

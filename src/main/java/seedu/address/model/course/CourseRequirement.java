@@ -29,23 +29,9 @@ public class CourseRequirement {
     /**
      * Returns description of course requirement
      */
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public boolean isFulfilled(List<Module> modulesTaken) {
-        double satisfied = modulesTaken.stream()
-                                    .filter(x -> modules.contains(x))
-                                    .mapToDouble(x -> x.getModuleInfo().getCredits())
-                                    .sum();
-        return satisfied >= courseReqCredits.getCourseReqCredits();
-    }
-=======
-    String getDescription();
->>>>>>> 3d2b0fdedd70c3e794a0bc7fa1c3f9905fb97b6d
-=======
     public String getDescription() {
         return description;
     }
->>>>>>> 37add1c4ec7b6bee8c90bcefd83f26830b0d0546
 
     /**
      * Returns regular expressions that are not satisfied
@@ -67,8 +53,8 @@ public class CourseRequirement {
      */
     public CourseRequirement and(CourseRequirement other) {
         return new CourseRequirement(description + "\n AND \n" + other.description,
-            isFulfilled.and(other.isFulfilled), (
-                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n AND \n" + other.getUnfulfilled(x));
+                isFulfilled.and(other.isFulfilled), (
+                List<ModuleInfo> x) -> getUnfulfilled(x) + "\n AND \n" + other.getUnfulfilled(x));
     }
 
 
@@ -81,7 +67,7 @@ public class CourseRequirement {
      */
     public CourseRequirement or(CourseRequirement other) {
         return new CourseRequirement(description + "\n OR \n" + other.description,
-            isFulfilled.or(other.isFulfilled), (
-                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n OR \n" + other.getUnfulfilled(x));
+                isFulfilled.or(other.isFulfilled), (
+                List<ModuleInfo> x) -> getUnfulfilled(x) + "\n OR \n" + other.getUnfulfilled(x));
     }
 }

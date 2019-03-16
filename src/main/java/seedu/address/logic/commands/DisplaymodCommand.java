@@ -80,16 +80,6 @@ public class DisplaymodCommand extends Command {
 
         for (int i = 0; i < model.getDisplayList().size(); i++) {
             result = result + "\n \n" + String.format(MESSAGE_SUCCESS,
-<<<<<<< HEAD
-                    model.getDisplayList().get(i).getCode(),
-                    model.getDisplayList().get(i).getTitle(),
-                    model.getDisplayList().get(i).getDepartment(),
-                    Double.toString(model.getDisplayList().get(i).getCredits()),
-                    model.getDisplayList().get(i).getDescription(),
-                    model.getDisplayList().get(i).getWorkload(),
-                    model.getDisplayList().get(i).getPreclusions(),
-                    model.getDisplayList().get(i).getPrerequisites());
-=======
                     model.getDisplayList().get(i).getCodeString(),
                     model.getDisplayList().get(i).getTitleString(),
                     model.getDisplayList().get(i).getDepartmentString(),
@@ -98,7 +88,6 @@ public class DisplaymodCommand extends Command {
                     model.getDisplayList().get(i).getWorkloadString(),
                     model.getDisplayList().get(i).getPreclusionsString(),
                     model.getDisplayList().get(i).getPrerequisitesString());
->>>>>>> 3d2b0fdedd70c3e794a0bc7fa1c3f9905fb97b6d
         }
         return result;
     }

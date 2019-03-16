@@ -8,7 +8,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.module.Grade;
+import seedu.address.model.module.GradeRange;
+import seedu.address.model.module.Hour;
 import seedu.address.model.module.Semester;
+import seedu.address.model.module.Workload;
 import seedu.address.model.tag.Tag;
 
 /**

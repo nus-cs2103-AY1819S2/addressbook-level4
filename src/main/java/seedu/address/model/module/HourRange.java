@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.module;
 
 /**
  * Represents expected grade range of a module taken

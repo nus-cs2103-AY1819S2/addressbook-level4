@@ -41,7 +41,7 @@ public enum Grade {
         return this.gradePoint;
     }
 
-    boolean isPassingGrade() {
+    public boolean isPassingGrade() {
         return this.isPass;
     }
 
@@ -119,14 +119,10 @@ public enum Grade {
         return this.printedGrade;
     }
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/module/Grade.java
-    //TODO: implement comparator (Grades below F should not be comparable)
-=======
     /**
      * Returns if this gradepoint is no more than another gradepoint.
      */
     public boolean isWithin(Grade limit) {
         return this.gradePoint <= limit.gradePoint;
     }
->>>>>>> 37add1c4ec7b6bee8c90bcefd83f26830b0d0546:src/main/java/seedu/address/model/person/Grade.java
 }

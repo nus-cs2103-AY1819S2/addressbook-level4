@@ -61,8 +61,8 @@ public class Module {
         }
 
         return other != null
-                && (other.getModuleInfo().getCode().equals(getModuleInfo().getCode())
-                || other.getModuleInfo().getTitle().equals(getModuleInfo().getTitle()));
+                && (other.getModuleInfo().getModuleInfoCode().equals(getModuleInfo().getModuleInfoCode())
+                || other.getModuleInfo().getModuleInfoTitle().equals(getModuleInfo().getModuleInfoTitle()));
     }
 
     @Override

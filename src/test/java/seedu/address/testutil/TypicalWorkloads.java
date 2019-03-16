@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import seedu.address.model.person.Hour;
-import seedu.address.model.person.Workload;
+import seedu.address.model.module.Hour;
+import seedu.address.model.module.Workload;
 
 /**
  * A class that stores some examples of Typical Modules

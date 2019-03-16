@@ -30,11 +30,11 @@ public class FindModulePredicate implements Predicate<Module> {
         Optional<Grade> grade = findModuleDescriptor.getGrade();
 
         if (code.isPresent()
-                && !(moduleInfo.getCode().toString().contains(code.get()))) {
+                && !(moduleInfo.getModuleInfoCode().toString().contains(code.get()))) {
             return false;
         }
         if (title.isPresent()
-                && !(moduleInfo.getTitle().toString().contains(title.get()))) {
+                && !(moduleInfo.getModuleInfoTitle().toString().contains(title.get()))) {
             return false;
         }
         if (semester.isPresent()

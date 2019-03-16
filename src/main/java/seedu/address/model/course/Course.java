@@ -1,5 +1,7 @@
 package seedu.address.model.course;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,12 +10,13 @@ import java.util.List;
  */
 public class Course {
 
-    private CourseName courseName;
-    private CourseDescription courseDescription;
-    private List<CourseRequirement> courseRequirements;
+    private final CourseName courseName;
+    private final CourseDescription courseDescription;
+    private final List<CourseRequirement> courseRequirements;
 
     public Course(CourseName courseName, CourseDescription courseDescription,
                   CourseRequirement... courseRequirements) {
+        requireAllNonNull(courseName, courseDescription, courseRequirements);
         this.courseName = courseName;
         this.courseDescription = courseDescription;
         this.courseRequirements = Arrays.asList(courseRequirements);

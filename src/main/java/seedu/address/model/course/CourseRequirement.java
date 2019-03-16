@@ -1,5 +1,7 @@
 package seedu.address.model.course;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -18,6 +20,7 @@ public class CourseRequirement {
     public CourseRequirement (String description,
                               Predicate<List<ModuleInfo>> isFulfilled,
                               Function<List<ModuleInfo>, String> getUnfulfilled) {
+        requireAllNonNull(description, isFulfilled, getUnfulfilled);
         this.description = description;
         this.isFulfilled = isFulfilled;
         this.getUnfulfilled = getUnfulfilled;

@@ -1,5 +1,8 @@
 package seedu.address.model.course;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -13,6 +16,7 @@ import seedu.address.model.moduleinfo.ModuleInfo;
  */
 public class ContainsAtLeast extends CourseRequirement {
 
+    private static final String MESSAGE_CONSTRAINTS = "Number of modules must be at least 0!";
 
     public ContainsAtLeast(String description, int number, String... regexes) {
         super(description,
@@ -32,5 +36,14 @@ public class ContainsAtLeast extends CourseRequirement {
                 }
             }
         );
+        checkArgument(isValidNumber(number), MESSAGE_CONSTRAINTS);
+
+        requireAllNonNull(regexes);
+        requireAllNonNull(number, description, regexes);
+
+    }
+
+    public static boolean isValidNumber(int number) {
+        return number >= 0;
     }
 }

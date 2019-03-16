@@ -45,6 +45,6 @@ public class DateOfBirth extends DateBase {
      * @return the patient's age.
      */
     public int getAge() {
-        return Period.between(LocalDate.parse(super.getRawFormat()), LocalDate.now()).getYears();
+        return Period.between(LocalDate.parse(super.getParsableFormat()), LocalDate.now()).getYears();
     }
 }

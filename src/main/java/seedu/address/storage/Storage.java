@@ -25,7 +25,7 @@ public interface Storage extends UserPrefsStorage, LessonsStorage, LessonImportE
     Optional<Lessons> readLessons() throws IOException;
 
     @Override
-    void saveLessons(Lessons lessons) throws IOException;
+    int saveLessons(Lessons lessons) throws IOException;
 
     @Override
     Optional<Lesson> importLesson(Path filePath) throws IOException;

@@ -69,13 +69,13 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveLessons(Lessons lessons) throws IOException {
-
+    public int saveLessons(Lessons lessons) throws IOException {
+        return lessonsStorage.saveLessons(lessons);
     }
 
     @Override
-    public void saveLessons(Lessons lessons, Path filePath) throws IOException {
-
+    public int saveLessons(Lessons lessons, Path filePath) throws IOException {
+        return lessonsStorage.saveLessons(lessons, filePath);
     }
 
     @Override

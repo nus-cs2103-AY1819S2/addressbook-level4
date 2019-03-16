@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  * Represents a Predicate with keywords to use with an associated attribute
  */
 public abstract class ContainsKeywordsPredicate<T> implements Predicate<T> {
-    private final List<String> keywords;
+    protected final List<String> keywords;
 
     /**
      * Basic constructor for predicates.

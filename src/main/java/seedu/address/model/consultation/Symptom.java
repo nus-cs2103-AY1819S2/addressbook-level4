@@ -10,6 +10,9 @@ public class Symptom {
 
     private String symptom;
 
+    public Symptom() {
+    }
+
     public Symptom(String symptom) {
         if (!symptom.matches(REGEX_SYMPTOMS)) {
             throw new IllegalArgumentException(SYMPTOMS_CONSTRAINTS);

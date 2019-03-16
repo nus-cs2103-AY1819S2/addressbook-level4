@@ -40,6 +40,7 @@ public class LogicManager implements Logic {
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
+
     }
 
     @Override
@@ -59,6 +60,16 @@ public class LogicManager implements Logic {
             logger.info("Address book modified, saving to file.");
             try {
                 storage.saveAddressBook(model.getAddressBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        if (model.getQuickDocs().isModified()) {
+            logger.info("QuickDocs modified, saving to file.");
+            try {
+                storage.saveQuickDocs(model.getQuickDocs());
+                model.getQuickDocs().indicateModification(false);
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

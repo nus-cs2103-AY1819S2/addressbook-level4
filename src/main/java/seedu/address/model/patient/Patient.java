@@ -1,6 +1,10 @@
 package seedu.address.model.patient;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.model.tag.Tag;
 
@@ -17,6 +21,9 @@ public class Patient {
     private Gender gender;
     private Dob dob;
     private ArrayList<Tag> tagList;
+
+    public Patient() {
+    }
 
     public Patient(Name name, Nric nric, Email email, Address address, Contact contact,
                    Gender gender, Dob dob, ArrayList<Tag> tagList) {

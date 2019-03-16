@@ -10,6 +10,9 @@ public class Address {
 
     private String address;
 
+    public Address() {
+    }
+
     public Address(String address) {
         if (!address.matches(REGEX_ADDRESS)) {
             throw new IllegalArgumentException(ADDRESS_CONSTRAINTS);

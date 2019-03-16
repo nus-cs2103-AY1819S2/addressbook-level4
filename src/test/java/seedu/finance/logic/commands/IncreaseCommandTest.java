@@ -48,6 +48,6 @@ public class IncreaseCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different amount -> returns false
-        assertFalse(standardCommand.equals(new Amount(VALID_AMOUNT_BOB)));
+        assertFalse(standardCommand.equals(new IncreaseCommand(new Amount(VALID_AMOUNT_BOB))));
     }
 }

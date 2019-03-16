@@ -153,8 +153,6 @@ public class ModelManager implements Model {
         return new ArrayList<>(filteredFolders);
     }
 
-
-
     @Override
     public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
         List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
@@ -171,7 +169,7 @@ public class ModelManager implements Model {
      */
     private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
         String exportFolderName = cardFolderExport.folderName;
-        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
+        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFolders) {
             if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
                 returnCardFolders.add(readOnlyCardFolder);
                 return;

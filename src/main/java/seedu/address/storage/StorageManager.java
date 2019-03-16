@@ -93,7 +93,7 @@ public class StorageManager implements Storage {
     public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders) throws IOException {
         cardFolderStorageList.clear();
         // Clear directory before saving
-        List<Path> pathsToDelete = Files.walk(Paths.get("data\\"))
+        List<Path> pathsToDelete = Files.walk(Paths.get("data"))
                 .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
         for (Path pathToDelete : pathsToDelete) {
@@ -101,7 +101,7 @@ public class StorageManager implements Storage {
         }
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             // TODO: Address hardcoding and add check for orphaned folders
-            Path filePath = Paths.get("data\\" + cardFolder.getFolderName() + ".json");
+            Path filePath = Paths.get("data", cardFolder.getFolderName() + ".json");
             CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
             cardFolderStorageList.add(cardFolderStorage);
             cardFolderStorage.saveCardFolder(cardFolder);

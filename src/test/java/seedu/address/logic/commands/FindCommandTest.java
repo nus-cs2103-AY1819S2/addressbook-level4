@@ -141,12 +141,12 @@ public class FindCommandTest {
      */
     @Test
     public void execute_zeroKeywords_noNricFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "dob", Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "nric", Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleNricFound() throws ParseException {
-        execute_parameterPredicate_test(2, "S2334569A S5234569A", "dob",
+        execute_parameterPredicate_test(2, "S2334569A S5234569A", "nric",
             Arrays.asList(ELLE, GEORGE));
     }
 

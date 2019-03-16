@@ -3,9 +3,11 @@ package seedu.address.logic.battle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
@@ -16,6 +18,10 @@ import seedu.address.model.player.Player;
  * In this game, we implement the case of one human player and N AI players (here N=1).
  */
 public class BattleManager implements Battle {
+    private static final Logger logger = LogsCenter.getLogger(BattleManager.class);
+    /**
+     * The human player
+     */
     private Player humanPlayer;
     // The list of AI players who are waiting to take a turn.
     private ArrayList<Player> aiPlayers;
@@ -57,6 +63,7 @@ public class BattleManager implements Battle {
      * An Player attacks an enemy.
      */
     private AttackResult performAttack(Player attacker, Player target, Coordinates coord) {
+        logger.info(String.format(AttackResult.ATTACK, attacker.getName(), coord, target.getName()));
         try {
             Cell cell = target.getMapGrid().getCell(coord);
             if (cell.receiveAttack()) {

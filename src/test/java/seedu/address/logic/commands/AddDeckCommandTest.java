@@ -56,12 +56,12 @@ public class AddDeckCommandTest {
     @Test
     public void execute_duplicateDeck_throwsCommandException() throws Exception {
         Deck validDeck = new DeckBuilder().build();
-        AddDeckCommand newDeckCommand = new AddDeckCommand(validDeck);
+        AddDeckCommand addDeckCommand = new AddDeckCommand(validDeck);
         ModelStub modelStub = new ModelStubWithDeck(validDeck);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_DUPLICATE_DECK);
-        newDeckCommand.execute(modelStub, commandHistory);
+        addDeckCommand.execute(modelStub, commandHistory);
     }
 
     @Test

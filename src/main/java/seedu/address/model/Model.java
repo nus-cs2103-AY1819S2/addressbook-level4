@@ -222,4 +222,6 @@ public interface Model {
      * request in the request book.
      */
     void setRequest(Request target, Request editedRequest);
+
+    void commitRequestBook();
 }

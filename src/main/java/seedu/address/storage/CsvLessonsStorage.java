@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.nio.file.Paths;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
@@ -54,12 +55,13 @@ public class CsvLessonsStorage implements LessonsStorage {
      * - Reads the file into a List of String arrays
      * - Parses the first String array as a header
      * -> Values marked as core using CORE_ESCAPE have the marker removed
+     *      --> Values marked with QUESTION_ESCAPE and ANSWER_ESCAPE are assigned.
+     *       - See documentation on save data. TODO
      * -> The count of cores is kept
      * - Name of lesson is read from filename without extension
      * - Fields of lesson read from modified header
      * - Cards are read from remainder of data.
      * <p>
-     * TODO: Further refactoring.
      *
      * @param filePath Assumes not null.
      * @return The parsed lesson.
@@ -127,11 +129,15 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     /**
-     * TODO
+     * Returns a formatted String[] containing correctly formatted strings for saving.
+     * Appends QUESTION_ESCAPE and ANSWER_ESCAPE chars to the headers, then appends CORE_ESCAPE to all remaining core
+     * values.
+     *
      * @param lesson
+     * @return Header data with relevant escape characters.
      */
-    private void saveLessonToFile(Lesson lesson) {
-        List<String[]> data = new ArrayList<>();
+    private String[] parseHeaderData(Lesson lesson) {
+        String[] header;
 
         List<String> headerList = new ArrayList<>();
 
@@ -139,7 +145,7 @@ public class CsvLessonsStorage implements LessonsStorage {
         headerList.addAll(lesson.getOptionalHeaders());
         int headerSize = headerList.size();
 
-        String[] header = new String[headerSize];
+        header = new String[headerSize];
         headerList.toArray(header);
 
         header[lesson.getQuestionCoreIndex()] = QUESTION_ESCAPE + header[lesson.getQuestionCoreIndex()];
@@ -148,10 +154,20 @@ public class CsvLessonsStorage implements LessonsStorage {
         for (int i = 0; i < lesson.getCoreHeaderSize(); i++) {
             header[i] = CORE_ESCAPE + header[i];
         }
+        return header;
+    }
 
-        for (String str : header) {
-            System.out.println(str);
-        }
+    /**
+     * TODO
+     * @param lesson
+     */
+    private void saveLessonToFile(Lesson lesson, Path folderPath) throws IOException {
+        List<String[]> data = new ArrayList<>();
+
+        data.add(parseHeaderData(lesson));
+
+        Path filePath = Paths.get(folderPath.toString(), lesson.getName() + ".csv");
+        CsvUtil.writeCsvFile(filePath, data);
     }
 
     @Override
@@ -165,7 +181,7 @@ public class CsvLessonsStorage implements LessonsStorage {
         List<Path> paths = new ArrayList<>();
         Lessons lessons = new Lessons();
         try {
-            Files.walk(folderPath).filter(path ->
+            Files.walk(folderPath, 1).filter(path ->
                     path.toString().endsWith(".csv")).forEach(paths::add);
         } catch (IOException e) {
             return Optional.empty();
@@ -183,14 +199,18 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     @Override
-    public void saveLessons(Lessons lessons, Path filePath) {
+    public void saveLessons(Lessons lessons, Path folderPath) {
         requireNonNull(lessons);
-        requireNonNull(filePath);
+        requireNonNull(folderPath);
 
         List<Lesson> allLessons = lessons.getLessons();
 
         for (Lesson lesson : allLessons) {
-            saveLessonToFile(lesson);
+            try {
+                saveLessonToFile(lesson, folderPath);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

@@ -317,7 +317,6 @@ public class ModelManager implements Model {
 
     @Override
     public void testCardFolder(int cardFolderToTestIndex) {
-        setActiveCardFolderIndex(cardFolderToTestIndex);
         ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
         Card cardToTest = currentTestedCardFolder.get(0);
         setCurrentTestedCard(cardToTest);

@@ -20,10 +20,11 @@ By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
 *TravelBuddy* is for those who *prefer to use a desktop app for managing their travel log*. More importantly,
 TravelBuddy is optimized for those who prefer to work with a *Command Line Interface* (CLI) while still having the
-benefits of a Graphical User Interface (GUI). If you can type fast, TravelBuddy can get your contact management tasks
-done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
+
+Here are the steps to get you started with using TravelBuddy:
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
@@ -36,12 +37,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+
 * *`list`* : lists all places
 * **`add`**`n/NUS Computing r/5 d/No Description a/NUS School of Computing, COM1, 13 Computing Drive, 117417` : adds
- a place named
-`NUS Computing` to the Address Book.
+ a place named `NUS Computing` to the Address Book.
 * **`delete`**`3` : deletes the 3rd place shown in the current list
-* *`exit`* : exits the app
+* *`exit`* : exits the application
 
 .  Refer to <<Features>> for details of each command.
 
@@ -343,6 +344,8 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
+
+Below is a summarized list of all the acceptable commands that TravelBuddy supports:
 
 * *Add* `add n/NAME r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
 e.g. `add n/NUS Computing r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417 t/school`

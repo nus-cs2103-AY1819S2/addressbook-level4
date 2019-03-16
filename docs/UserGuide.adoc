@@ -35,9 +35,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all battleships
+* **`put`**`a1` : Puts a battleship with its head at the A1 cell
+* **`shoot`**`a1` : Attacks the enemy's A1 cell
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -105,17 +105,18 @@ Finds battleships whose names contain any of the given keywords. +
 Format: `find NAME [MORE_NAMES]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `hood` will match `Hood`
+* The order of the keywords does not matter. e.g. `Wales Prince` will match `Prince Of Wales`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Bel` will not match `Belfast`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). +
+e.g. `King York` will return `King George V`, `Duke of York`
 ****
 
 Examples:
 
-* `find Vengence` +
-Returns `Name: RSS Vengence, Size: 4, Command: true, Position: 4, 2`
+* `find Vengeance` +
+Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
 
 [NOTE]
 The position may not be displayed if the ship has not been placed.
@@ -128,19 +129,19 @@ Format: `findTag TAG [MORE_TAGS]`
 Examples:
 
 * `findTag bluewater_fleet` +
-Returns `Name: RSS Vengence, Size: 4, Command: true, Position: 4, 2`
+Returns `Name: RSS Vengence, Size: 4, Command: true, Position: d2`
 
 [NOTE]
 The position may not be displayed if the ship has not been placed.
 
 === Deleting a ship: `delete`
 
-Deletes the specified person from the inventory. +
+Deletes the specified ship from the inventory. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the ship at the specified `INDEX`.
+* The index refers to the index number shown in the displayed ship list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -149,9 +150,9 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd battleship in the inventory.
-* `find Betsy` +
+* `find Prinz Eugen` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st ship in the results of the `find` command.
 
 === Selecting a ship : `select`
 
@@ -184,8 +185,8 @@ Example:
 
 === Shooting at a coordinate: `shoot`
 
-Launches a missile onto given coordinate. +
-Format: `shoot c/COORDINATES`
+Launches a missile onto the given coordinate on the enemy's map. +
+Format: `shoot COORDINATES`
 
 Example:
 
@@ -193,19 +194,17 @@ Example:
 
 ****
 * The program will check if the coordinates are within the map itself.
+* The program will prevent you from accidentally attacking the same square twice (but you get to try again immediately).
 ****
 
 === Starts Enemy's turn: `enemyturn`
 
 Ends Player turn and starts Enemy's turn. +
-Format: `shoot c/COORDINATES`
-
-Example:
-
-* `enemyturn`
+Format: `enemyturn`
 
 ****
-* The program will end the player's turn and automatically play the Enemy's turns, til the Player's next turn.
+* The program will end the player's turn and automatically play the Enemy's turns, until the Player's next turn.
+While that is happening, the player can see the enemy's attacks reflected on the map.
 ****
 
 === Retrieving game statistics: `stats`
@@ -312,7 +311,7 @@ _{explain how the user can enable/disable data encryption}_
 * **Statistics**: `stats`
 * **Stats**: `stats`
 * **"enemyTurn**: `enemyturn`
-* **Shoot**: `shoot c/COORDINATES`
+* **Shoot**: `shoot COORDINATES`
 * **Play**: `play`
 * **Select**: `select INDEX`
 * **Delete**: `delete INDEX`

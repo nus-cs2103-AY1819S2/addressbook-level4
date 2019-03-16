@@ -32,6 +32,8 @@ public class AttackCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        model.updateUi();
+
         return new CommandResult(
                 String.format("Attacked cell %s", coord.toString()));
     }

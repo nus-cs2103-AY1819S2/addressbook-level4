@@ -18,6 +18,7 @@ import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
 
@@ -68,17 +69,15 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         //TODO: Check which parameter is used.
         return new FindCommand(predicate);
-
-        //        String[] nameKeywords = trimmedArgs.split("\\s+");
-        //        nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
-        //
-        //        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
     private static ContainsKeywordsPredicate getKeywordsPredicate(Prefix prefix, List<String> keywords)
         throws ParseException {
 
         switch (prefix.getPrefix()) {
+        case "n/":
+            return new NameContainsKeywordsPredicate(keywords);
+
         case "p/":
             return new PhoneContainsKeywordsPredicate(keywords);
 

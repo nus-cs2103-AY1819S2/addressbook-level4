@@ -42,7 +42,8 @@ public class JsonHotelManagementSystemStorage implements HotelManagementSystemSt
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(Path filePath)
+        throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableHotelManagementSystem> jsonHotelManagementSystem = JsonUtil.readJsonFile(
@@ -69,7 +70,8 @@ public class JsonHotelManagementSystemStorage implements HotelManagementSystemSt
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath) throws IOException {
+    public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath)
+        throws IOException {
         requireNonNull(hotelManagementSystem);
         requireNonNull(filePath);
 

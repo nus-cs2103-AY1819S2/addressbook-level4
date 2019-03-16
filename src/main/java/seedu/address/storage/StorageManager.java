@@ -60,7 +60,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(Path filePath)
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return hotelManagementSystemStorage.readHotelManagementSystem(filePath);
     }
@@ -72,7 +73,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath) throws IOException {
+    public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath)
+        throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         hotelManagementSystemStorage.saveHotelManagementSystem(hotelManagementSystem, filePath);
     }

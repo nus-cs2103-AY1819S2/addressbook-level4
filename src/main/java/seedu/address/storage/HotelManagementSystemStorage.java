@@ -43,6 +43,7 @@ public interface HotelManagementSystemStorage {
     /**
      * @see #saveHotelManagementSystem(ReadOnlyHotelManagementSystem)
      */
-    void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath) throws IOException;
+    void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath)
+        throws IOException;
 
 }

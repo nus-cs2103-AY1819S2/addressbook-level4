@@ -231,6 +231,9 @@ Export the current list shown in the GUI to a CSV file which has the filename `e
 * `export` +
 Export the current list shown in the GUI to a CSV file which has a default file name in this format `{Date of export}_{Time of export}`. The specific date and time format used is `dd_MMM_yyyy_HH_mm_ss`. In other words, an example of a default CSV file name is `18_Mar_2019_10_28_00`.
 
+[WARNING]
+If a file with the specified file name already exists in the default `exported` directory, a `File already exists` exception would be shown.
+
 === Printing labels : `label`
 
 Outputs label to a PDF file. Label will include name of medicine and standard label template. +

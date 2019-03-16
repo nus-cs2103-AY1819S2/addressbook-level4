@@ -3,10 +3,11 @@ package seedu.address.model.pdf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPdfs.ALICE;
-import static seedu.address.testutil.TypicalPdfs.BOB;
+import static seedu.address.testutil.TypicalPdfs.G_PDF;
+//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+//import static seedu.address.testutil.TypicalPdfs.ALICE;
+//import static seedu.address.testutil.TypicalPdfs.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class UniquePdfListTest {
 
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniquePdfList.contains(ALICE));
+        assertFalse(uniquePdfList.contains(G_PDF));
     }
 
     @Test

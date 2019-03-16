@@ -15,9 +15,11 @@ public class Messages {
     public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist in assets folder. \n%1$s";
     public static final String MESSAGE_ROTATE_SUCCESS = "Rotated successfully";
     public static final String MESSAGE_CONTRAST_SUCCESS = "Contrast filter applied successfully";
-    public static final String MESSAGE_ROTATE_DEGREE_ERROR = "Argument given is an invalid integer or rotating degree.";
+    public static final String MESSAGE_ROTATE_DEGREE_ERROR = "Argument given is an invalid integer or rotating degree. "
+            + "Only 90, 180 or 270 is allowed.";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist.";
-    public static final String MESSAGE_FILE_NAME_UNSPECIFIED = "File name to be specified after keying in degree.";
+    public static final String MESSAGE_FILE_NAME_UNSPECIFIED = "File name to be specified after keying in degree. "
+            + "e.g. rotate 90 sample.png";
 
 
 

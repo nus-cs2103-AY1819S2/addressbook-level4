@@ -119,7 +119,7 @@ public class ModelManager implements Model {
 
     @Override
     public void displayImage(Image image) {
-        Notifier.firePropertyChangeListener("import", null, image.getName());
+        Notifier.firePropertyChangeListener("import", null, image.getUrl());
     }
 
     @Override

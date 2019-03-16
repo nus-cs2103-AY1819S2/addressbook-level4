@@ -7,8 +7,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
@@ -27,8 +30,8 @@ public class Image {
     private int height;
     private int width;
     private BufferedImage buffer;
-    private List commandHistory;
-    private int index;
+    private String url;
+    private String fileType;
 
     /**
      * Every field must be present and not null.
@@ -38,11 +41,25 @@ public class Image {
         try {
             File file = new File(url);
             buffer = ImageIO.read(file);
+            try {
+                ImageInputStream iis = ImageIO.createImageInputStream(file);
+
+                Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(iis);
+
+                int readTime = 0;
+                while (readTime < 1 && imageReaders.hasNext()) {
+                    ImageReader reader = imageReaders.next();
+                    fileType = reader.getFormatName().toLowerCase();
+                    readTime++;
+                    System.out.println(fileType);
+                }
+            } catch (IOException e) {
+                System.out.println(e.toString());
+            }
             this.name = file.getName();
             this.height = buffer.getHeight();
             this.width = buffer.getWidth();
-            commandHistory = new List();
-            index = 0;
+            this.url = url;
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -76,6 +93,13 @@ public class Image {
         return buffer;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
     /**
      * Prints the metadata for any given image.
      */

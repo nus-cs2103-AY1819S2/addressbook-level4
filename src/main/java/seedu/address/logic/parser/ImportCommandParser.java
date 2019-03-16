@@ -4,6 +4,7 @@ import java.io.File;
 
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * Parses input arguments and creates a new ImportCommand object.
@@ -17,9 +18,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      */
     public ImportCommand parse(String args) throws ParseException {
         try {
-            File file = ParserUtil.parseFile(args);
-            importValidation(file);
-            return new ImportCommand(file);
+            ParsedInOut parsedInOut = ParserUtil.parseImportExport(args);
+            importValidation(parsedInOut.getFile());
+            return new ImportCommand(parsedInOut);
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());
         }
@@ -30,5 +31,4 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             throw new ParseException("File is invalid");
         }
     }
-
 }

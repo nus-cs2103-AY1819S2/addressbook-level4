@@ -19,6 +19,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.task.Task;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,7 +30,9 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,6 +46,7 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredTasks = new FilteredList<>(versionedAddressBook.getTaskList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
     }
 
@@ -87,6 +91,7 @@ public class ModelManager implements Model {
 
     //=========== AddressBook ================================================================================
 
+    ////Person object specific methods
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         versionedAddressBook.resetData(addressBook);
@@ -121,6 +126,31 @@ public class ModelManager implements Model {
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
+    ////Task Object specific methods
+    @Override
+    public boolean hasTask(Task task) {
+        requireAllNonNull(task);
+        return versionedAddressBook.hasTask(task);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        versionedAddressBook.addTask(task);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void deleteTask(Task task) {
+        versionedAddressBook.removeTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void setTask(Task task, Task editedTask) {
+        versionedAddressBook.setTask(task, editedTask);
+    }
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -147,6 +177,23 @@ public class ModelManager implements Model {
     public void sortAddressBook(Comparator<Patient> compPa, boolean isReverse) {
         requireNonNull(compPa);
         versionedAddressBook.sortPatients(compPa, isReverse);
+    }
+
+    //=========== Filtered Task List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTasks;
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

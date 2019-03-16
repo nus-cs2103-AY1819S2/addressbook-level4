@@ -26,7 +26,11 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
+
 import seedu.address.testutil.PersonBuilder;
+
+
 
 public class AddCommandTest {
 
@@ -131,6 +135,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTask(Task task) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -146,6 +155,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -154,9 +173,18 @@ public class AddCommandTest {
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void setTask(Task task, Task editedTask) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -168,6 +196,10 @@ public class AddCommandTest {
         @Override
         public void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse) {
             throw new AssertionError("This method should not be called");
+        }
+
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -211,7 +243,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean checkNoCopy() { throw new AssertionError("This method should not be called."); }
+        public boolean checkNoCopy() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -237,11 +271,18 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Task> tasksAdded = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return tasksAdded.stream().anyMatch(task::isSameTask);
         }
 
         @Override

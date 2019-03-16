@@ -15,10 +15,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 
 /**
@@ -71,8 +71,8 @@ public class ModelManager implements Model {
         filteredRequests.addListener(this::ensureSelectedRequestIsValid);
     }
 
-    public ModelManager() {this(new AddressBook(), new HealthWorkerBook(), new PatientBook(), new RequestBook(),
-            new UserPrefs());
+    public ModelManager() {
+        this(new AddressBook(), new HealthWorkerBook(), new PatientBook(), new RequestBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================

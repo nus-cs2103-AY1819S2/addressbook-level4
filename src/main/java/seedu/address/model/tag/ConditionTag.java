@@ -1,7 +1,7 @@
 package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+//import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a ConditionTag --> accepts any form of alphanumeric input from Patient

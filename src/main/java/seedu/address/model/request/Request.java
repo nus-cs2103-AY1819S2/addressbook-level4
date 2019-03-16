@@ -4,13 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a request made by a patient in the request book.

@@ -105,7 +105,8 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         if (conditions == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Conditions.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Conditions.class.getSimpleName()));
         }
 
         Set<ConditionTag> set = new HashSet<>();

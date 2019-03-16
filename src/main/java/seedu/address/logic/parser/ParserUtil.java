@@ -11,7 +11,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.pdf.*;
+import seedu.address.model.pdf.Address;
+import seedu.address.model.pdf.Directory;
+import seedu.address.model.pdf.Email;
+import seedu.address.model.pdf.Name;
+import seedu.address.model.pdf.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

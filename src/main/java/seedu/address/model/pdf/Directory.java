@@ -1,10 +1,9 @@
 package seedu.address.model.pdf;
 
+import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Pdf's directory in the computer.
@@ -28,7 +27,7 @@ public class Directory {
      */
     public Directory(String directory) {
         requireNonNull(directory);
-//        checkArgument(isValidDirectory(directory), MESSAGE_CONSTRAINTS);
+        //checkArgument(isValidDirectory(directory), MESSAGE_CONSTRAINTS);
         value = Paths.get(directory);
     }
 
@@ -36,9 +35,9 @@ public class Directory {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidDirectory(String test) {
-        return test.matches(VALIDATION_REGEX) &&
-                Paths.get(test).toFile().exists() &&
-                Paths.get(test).toFile().isDirectory();
+        return test.matches(VALIDATION_REGEX)
+                && Paths.get(test).toFile().exists()
+                && Paths.get(test).toFile().isDirectory();
     }
 
     public String getDirectory() {

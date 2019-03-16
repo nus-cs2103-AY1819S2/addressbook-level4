@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,7 +22,13 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.pdf.*;
+import seedu.address.model.pdf.Address;
+import seedu.address.model.pdf.Directory;
+import seedu.address.model.pdf.Email;
+import seedu.address.model.pdf.Name;
+import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.Size;
 import seedu.address.model.pdf.exceptions.DuplicatePdfException;
 import seedu.address.model.tag.Tag;
 

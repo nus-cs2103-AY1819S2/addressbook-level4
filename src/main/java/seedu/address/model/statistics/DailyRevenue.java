@@ -85,8 +85,10 @@ public class DailyRevenue {
         }
 
         DailyRevenue otherDailyRevenue = (DailyRevenue) other;
-        return isSameDailyRevenue(otherDailyRevenue) && otherDailyRevenue.getTotalDailyRevenue() == getTotalDailyRevenue();
+        return isSameDailyRevenue(otherDailyRevenue) && otherDailyRevenue.getTotalDailyRevenue() ==
+                getTotalDailyRevenue();
     }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

@@ -6,6 +6,7 @@ import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.finance.logic.commands.AllocateCommand;
 import seedu.finance.logic.commands.ClearCommand;
 import seedu.finance.logic.commands.Command;
 import seedu.finance.logic.commands.DeleteCommand;
@@ -51,6 +52,9 @@ public class FinanceTrackerParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
+
+        case AllocateCommand.COMMAND_WORD:
+            return new AllocateCommandParser().parse(arguments);
 
         case IncreaseCommand.COMMAND_WORD:
             return new IncreaseCommandParser().parse(arguments);

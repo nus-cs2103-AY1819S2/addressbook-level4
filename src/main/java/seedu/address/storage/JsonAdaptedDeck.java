@@ -29,7 +29,7 @@ public class JsonAdaptedDeck {
      * Constructs a {@code JsonAdaptedDeck} with the given deck details.
      */
     @JsonCreator
-    public JsonAdaptedDeck(@JsonProperty("Name") String name, @JsonProperty("Cards") List<JsonAdaptedCard> cards) {
+    public JsonAdaptedDeck(@JsonProperty("name") String name, @JsonProperty("cards") List<JsonAdaptedCard> cards) {
         this.name = name;
         this.cards = new ArrayList<>(cards);
     }

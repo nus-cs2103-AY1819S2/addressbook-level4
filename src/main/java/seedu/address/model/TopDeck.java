@@ -129,6 +129,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      */
     public void addDeck(Deck deck) throws DuplicateDeckException {
         decks.add(deck);
+        indicateModified();
     }
 
     /**

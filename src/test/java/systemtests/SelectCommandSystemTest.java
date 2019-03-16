@@ -105,7 +105,8 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
      * 3. Result display box displays the success message of executing select command with the
      * {@code expectedSelectedCardIndex} of the selected medicine.<br>
      * 4. {@code Storage} and {@code MedicineListPanel} remain unchanged.<br>
-     * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
+     * 5. Selected card is at {@code expectedSelectedCardIndex} and the loaded information table is updated
+     * accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -137,7 +138,7 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
      * 4. {@code Storage} and {@code MedicineListPanel} remain unchanged.<br>
-     * 5. Browser url, selected card and status bar remain unchanged.<br>
+     * 5. Loaded information table, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)

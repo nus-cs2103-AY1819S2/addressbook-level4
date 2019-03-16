@@ -7,9 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.QuizAnswerCommand;
+import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.quiz.commands.AnswerCommand;
-import seedu.address.quiz.commands.QuizCommand;
 
 /**
  * Parses user input in QuizMode
@@ -44,7 +44,7 @@ public class QuizModeParser {
     }
 
     private QuizCommand parseAnswer(String answer) {
-        return new AnswerCommand(answer);
+        return new QuizAnswerCommand(answer);
     }
 
     /**

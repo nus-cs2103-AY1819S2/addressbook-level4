@@ -17,7 +17,7 @@ import seedu.address.model.request.Request;
 /**
  * Creates a new request to the request book.
  */
-public class CreateRequestCommand extends AddCommand {
+public class AddRequestCommand extends AddCommand {
 
     public static final String COMMAND_WORD = "request";
 
@@ -40,7 +40,7 @@ public class CreateRequestCommand extends AddCommand {
 
     private final Request newRequest;
 
-    public CreateRequestCommand(Request newRequest) {
+    public AddRequestCommand(Request newRequest) {
         requireNonNull(newRequest);
         this.newRequest = newRequest;
     }
@@ -73,7 +73,7 @@ public class CreateRequestCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-            || (other instanceof CreateRequestCommand
-            && newRequest.equals(((CreateRequestCommand) other).newRequest));
+            || (other instanceof AddRequestCommand
+            && newRequest.equals(((AddRequestCommand) other).newRequest));
     }
 }

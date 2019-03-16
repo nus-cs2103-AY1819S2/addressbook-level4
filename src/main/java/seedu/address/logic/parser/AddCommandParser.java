@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHealthWorkerCommand;
 import seedu.address.logic.commands.AddPersonCommand;
-import seedu.address.logic.commands.request.CreateRequestCommand;
+import seedu.address.logic.commands.request.AddRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -59,11 +59,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the CreateRequestCommand
+     * Parses the given {@code String} of arguments in the context of the AddRequestCommand
      * and returns an CreateReqeustCommand object for execution.
      * @throws ParseException if the suer input does not conform the expected format
      */
-    private CreateRequestCommand parseAddRequest(String args) throws ParseException {
+    private AddRequestCommand parseAddRequest(String args) throws ParseException {
         UUID uuid = UUID.randomUUID();
         String requestId = uuid.toString();
 
@@ -74,7 +74,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_DATE, PREFIX_CONDITION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                CreateRequestCommand.MESSAGE_USAGE));
+                AddRequestCommand.MESSAGE_USAGE));
         }
 
         RequestDate requestDate =
@@ -82,7 +82,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> conditions = ParserUtil.parseTags(argumentMultimap.getAllValues(PREFIX_CONDITION));
 
-        return new CreateRequestCommand(new Request(requestId, patient, null, requestDate, conditions,
+        return new AddRequestCommand(new Request(requestId, patient, null, requestDate, conditions,
             new RequestStatus("PENDING")));
 
     }

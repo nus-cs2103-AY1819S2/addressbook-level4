@@ -33,7 +33,7 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.RequestBuilder;
 import seedu.address.testutil.TypicalRequests;
 
-class CreateRequestCommandTest {
+class AddRequestCommandTest {
 
     protected static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -44,7 +44,7 @@ class CreateRequestCommandTest {
 
     @Test
     public void constructor_nullRequest_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new CreateRequestCommand(null));
+        Assert.assertThrows(NullPointerException.class, () -> new AddRequestCommand(null));
     }
 
     @Test
@@ -52,10 +52,10 @@ class CreateRequestCommandTest {
         ModelStubAcceptingRequestAdded modelStub = new ModelStubAcceptingRequestAdded();
         Request validRequest = new RequestBuilder().build();
 
-        CommandResult commandResult = new CreateRequestCommand(validRequest).execute(modelStub,
+        CommandResult commandResult = new AddRequestCommand(validRequest).execute(modelStub,
             commandHistory);
 
-        assertEquals(String.format(CreateRequestCommand.MESSAGE_SUCCESS, validRequest),
+        assertEquals(String.format(AddRequestCommand.MESSAGE_SUCCESS, validRequest),
             commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validRequest), modelStub.requestsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -64,26 +64,26 @@ class CreateRequestCommandTest {
     @Test
     public void execute_duplicateRequest_throwsCommandException() {
         Request validRequest = new RequestBuilder().build();
-        CreateRequestCommand createRequestCommand = new CreateRequestCommand(validRequest);
+        AddRequestCommand addRequestCommand = new AddRequestCommand(validRequest);
         ModelStub modelStub = new ModelStubWithRequest(validRequest);
 
         Assert.assertThrows(CommandException.class,
-            CreateRequestCommand.MESSAGE_DUPLICATE_REQUEST, () -> createRequestCommand.execute
+            AddRequestCommand.MESSAGE_DUPLICATE_REQUEST, () -> addRequestCommand.execute
                 (modelStub, commandHistory));
     }
 
     @Test
     public void equals() {
 
-        CreateRequestCommand addAliceRequest = new CreateRequestCommand(TypicalRequests.ALICE_REQUEST);
-        CreateRequestCommand addBensonRequest = new CreateRequestCommand(TypicalRequests.BENSON_REQUEST);
+        AddRequestCommand addAliceRequest = new AddRequestCommand(TypicalRequests.ALICE_REQUEST);
+        AddRequestCommand addBensonRequest = new AddRequestCommand(TypicalRequests.BENSON_REQUEST);
 
         // same object -> returns true
         assertTrue(addAliceRequest.equals(addAliceRequest));
 
         // same values -> returns true
-        CreateRequestCommand addAliceRequestCopy =
-            new CreateRequestCommand(TypicalRequests.ALICE_REQUEST);
+        AddRequestCommand addAliceRequestCopy =
+            new AddRequestCommand(TypicalRequests.ALICE_REQUEST);
         assertTrue(addAliceRequest.equals(addAliceRequestCopy));
 
         // different types -> returns false
@@ -321,7 +321,7 @@ class CreateRequestCommandTest {
 
         @Override
         public void commitRequestBook() {
-            // called by {@code CreateRequestCommand#execute()}
+            // called by {@code AddRequestCommand#execute()}
         }
 
         @Override

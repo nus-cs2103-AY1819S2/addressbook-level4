@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.menu.MenuItem;
 
-public class AddItemToMenuCommand extends Command {
+public class AddToMenuCommand extends Command {
     public static final String COMMAND_WORD = "addToMenu";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. " + "Parameters: "
             + PREFIX_CODE + "CODE " + PREFIX_NAME + "NAME " + PREFIX_PRICE + "PRICE " + "Example: " + COMMAND_WORD + " "
@@ -26,7 +26,7 @@ public class AddItemToMenuCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddItemToMenuCommand(MenuItem item) {
+    public AddToMenuCommand(MenuItem item) {
         requireNonNull(item);
         toAdd = item;
     }
@@ -51,7 +51,7 @@ public class AddItemToMenuCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddItemToMenuCommand // instanceof handles nulls
-                && toAdd.equals(((AddItemToMenuCommand) other).toAdd));
+                || (other instanceof AddToMenuCommand // instanceof handles nulls
+                && toAdd.equals(((AddToMenuCommand) other).toAdd));
     }
 }

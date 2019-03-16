@@ -14,7 +14,8 @@ image::chenwencuhk.png[width="150", align="left"]
 {empty}[https://github.com/ChenWenCUHK[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Scheduling and Tracking + Deliverables and Deadlines
+Responsibilities: Scheduling and Tracking + Deliverables and Deadlines +
+Features: Pin, Match
 
 '''
 
@@ -23,7 +24,8 @@ image::yongxiang1095.png[width="150", align="left"]
 {empty}[http://github.com/yongxiang1095[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration + Documentation + Code Quality
+Responsibilities: Integration + Documentation + Code Quality +
+Features: Archive
 
 '''
 
@@ -32,7 +34,8 @@ image::sharadk1234.png[width="150", align="left"]
 {empty}[http://github.com/sharadk1234[github]] [<<sharadk1234#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data + Testing
+Responsibilities: Data + Testing +
+Features: Sort
 
 '''
 
@@ -41,6 +44,7 @@ image::tanlongbin.png[width="150", align="left"]
 {empty}[https://github.com/tanlongbin[github]]
 
 Role: Developer +
-Responsibilities: UI + Documentation + Code Quality
+Responsibilities: UI + Integration + Code Quality +
+Features: Add, Edit, Find
 
 '''

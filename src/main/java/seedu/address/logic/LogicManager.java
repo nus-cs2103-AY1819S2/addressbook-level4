@@ -11,7 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.BrainTrainParser;
+import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -27,14 +27,14 @@ public class LogicManager implements Logic {
     private final Model model;
     private final QuizModel quizModel;
     private final CommandHistory history;
-    private final BrainTrainParser addressBookParser;
+    private final ManagementModeParser managementModeParser;
     private final QuizModeParser quizModeParser;
 
     public LogicManager(Model model, QuizModel quizModel) {
         this.model = model;
         this.quizModel = quizModel;
         history = new CommandHistory();
-        addressBookParser = new BrainTrainParser();
+        managementModeParser = new ManagementModeParser();
         quizModeParser = new QuizModeParser();
     }
 
@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
         try {
             Command command = null;
             if (quizModel.isDone()) {
-                command = addressBookParser.parseCommand(commandText);
+                command = managementModeParser.parseCommand(commandText);
                 commandResult = command.execute(model, history);
             } else {
                 QuizCommand quizCommand = quizModeParser.parse(commandText);

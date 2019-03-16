@@ -15,11 +15,11 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class BrainTrainParserTest {
+public class ManagementModeParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final BrainTrainParser parser = new BrainTrainParser();
+    private final ManagementModeParser parser = new ManagementModeParser();
 
     @Test
     public void parseCommand_exit() throws Exception {

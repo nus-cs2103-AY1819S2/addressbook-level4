@@ -9,29 +9,27 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
 /**
- * Adds a person to the address book.
+ * Adds a new deck to TopDeck.
  */
-public class NewDeckCommand extends Command {
+public class AddDeckCommand extends Command {
 
-    public static final String COMMAND_WORD = "newdeck";
+    public static final String COMMAND_WORD = "adddeck";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a new deck inside TopDeck. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a new deck."
             + "Parameters: "
             + PREFIX_NAME + "NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "MyDeck";
 
     public static final String MESSAGE_SUCCESS = "New deck added: %1$s";
-    public static final String DEFAULT_DECK = "MyDeck";
-    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PREFIX_NAME + " " + DEFAULT_DECK;
-
+    public static final String MESSAGE_DUPLICATE_DECK = "A deck with this name already exists";
 
     private final Deck toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddDeckCommand to add the specified {@code Deck}
      */
-    public NewDeckCommand(Deck deck) {
+    public AddDeckCommand(Deck deck) {
         requireNonNull(deck);
         toAdd = deck;
     }
@@ -39,6 +37,10 @@ public class NewDeckCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasDeck(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_DECK);
+        }
 
         model.addDeck(toAdd);
         model.commitTopDeck();
@@ -48,8 +50,8 @@ public class NewDeckCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NewDeckCommand // instanceof handles nulls
-                && toAdd.equals(((NewDeckCommand) other).toAdd));
+                || (other instanceof AddDeckCommand // instanceof handles nulls
+                && toAdd.equals(((AddDeckCommand) other).toAdd));
     }
 }
 

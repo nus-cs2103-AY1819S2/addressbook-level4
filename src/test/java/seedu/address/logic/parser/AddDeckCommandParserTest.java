@@ -12,12 +12,12 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.NewDeckCommand;
+import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.DeckBuilder;
 
-public class NewDeckCommandParserTest {
-    private NewDeckCommandParser parser = new NewDeckCommandParser();
+public class AddDeckCommandParserTest {
+    private AddDeckCommandParser parser = new AddDeckCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -25,18 +25,18 @@ public class NewDeckCommandParserTest {
 
         // clean
         assertParseSuccess(parser, VALID_DECK_NAME_A_ARGS,
-                new NewDeckCommand(expectedDeck));
+                new AddDeckCommand(expectedDeck));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_DECK_NAME_A_ARGS,
-                new NewDeckCommand(expectedDeck));
+                new AddDeckCommand(expectedDeck));
     }
 
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                NewDeckCommand.MESSAGE_USAGE);
+                AddDeckCommand.MESSAGE_USAGE);
 
         // No argument
         assertParseFailure(parser, "", expectedMessage);
@@ -49,12 +49,12 @@ public class NewDeckCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                NewDeckCommand.MESSAGE_USAGE);
+                AddDeckCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "n/" + INVALID_DECK_NAME_ARGS, expectedMessage);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_NAME_DECK_A,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        NewDeckCommand.MESSAGE_USAGE));
+                        AddDeckCommand.MESSAGE_USAGE));
     }
 }

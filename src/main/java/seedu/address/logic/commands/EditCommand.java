@@ -120,10 +120,10 @@ public class EditCommand extends Command {
         Directory updatedDirectory = editPersonDescriptor.getDirectory().orElse(pdfToEdit.getDirectory());
         Size updatedSize = new Size(Long.toString(Paths.get(pdfToEdit.getDirectory().getDirectory(),
                 pdfToEdit.getName().getFullName()).toFile().getTotalSpace()));
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
         /*Phone updatedPhone = editPersonDescriptor.getPhone().orElse(pdfToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(pdfToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(pdfToEdit.getAddress());*/
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
 
         return new Pdf(updatedName, updatedDirectory, updatedSize, updatedTags);
     }
@@ -153,11 +153,10 @@ public class EditCommand extends Command {
     public static class EditPersonDescriptor {
         private Name name;
         private Directory directory;
-
-        private Phone phone;
-        private Email email;
-        private Address address;
         private Set<Tag> tags;
+        /*private Phone phone;
+        private Email email;
+        private Address address;*/
 
         public EditPersonDescriptor() {}
 
@@ -168,11 +167,10 @@ public class EditCommand extends Command {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setDirectory(toCopy.directory);
-
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
+            /*setPhone(toCopy.phone);
+            setEmail(toCopy.email);
+            setAddress(toCopy.address);*/
         }
 
         /**
@@ -198,7 +196,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(directory);
         }
 
-        public void setPhone(Phone phone) {
+        /*public void setPhone(Phone phone) {
             this.phone = phone;
         }
 
@@ -220,7 +218,7 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
-        }
+        }*/
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -255,9 +253,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getDirectory().equals(e.getDirectory())
                     && getTags().equals(e.getTags());
         }
     }

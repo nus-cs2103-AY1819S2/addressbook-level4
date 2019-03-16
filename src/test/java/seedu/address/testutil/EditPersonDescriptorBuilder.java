@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.pdf.Address;
+import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Email;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
@@ -33,10 +34,11 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Pdf pdf) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(pdf.getName());
-        descriptor.setPhone(pdf.getPhone());
-        descriptor.setEmail(pdf.getEmail());
-        descriptor.setAddress(pdf.getAddress());
+        descriptor.setDirectory(pdf.getDirectory());
         descriptor.setTags(pdf.getTags());
+        /*descriptor.setPhone(pdf.getPhone());
+        descriptor.setEmail(pdf.getEmail());
+        descriptor.setAddress(pdf.getAddress());*/
     }
 
     /**
@@ -47,27 +49,35 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
-        return this;
-    }
+//    /**
+//     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+//     */
+//    public EditPersonDescriptorBuilder withPhone(String phone) {
+//        descriptor.setPhone(new Phone(phone));
+//        return this;
+//    }
 
-    /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
-    }
+//    /**
+//     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+//     */
+//    public EditPersonDescriptorBuilder withEmail(String email) {
+//        descriptor.setEmail(new Email(email));
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+//     */
+//    public EditPersonDescriptorBuilder withAddress(String address) {
+//        descriptor.setAddress(new Address(address));
+//        return this;
+//    }
 
     /**
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditPersonDescriptorBuilder withDirectory(String directory) {
+        descriptor.setDirectory(new Directory(directory));
         return this;
     }
 

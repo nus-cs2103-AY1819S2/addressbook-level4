@@ -30,18 +30,22 @@ import seedu.address.model.card.exceptions.CardNotFoundException;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    private final FilteredList<VersionedCardFolder> filteredFoldersList;
-    private ObservableList<VersionedCardFolder> foldersList;
+    private final UserPrefs userPrefs;
+
+    // CardFolder related
+    private ObservableList<VersionedCardFolder> folders;
+    private final FilteredList<VersionedCardFolder> filteredFolders;
+    private final List<FilteredList<Card>> filteredCardsList;
     private int activeCardFolderIndex;
     private boolean inFolder;
-    private final UserPrefs userPrefs;
-    private final List<FilteredList<Card>> filteredCardsList;
+
+    // Test Session related
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
@@ -56,13 +60,13 @@ public class ModelManager implements Model {
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             versionedCardFolders.add(new VersionedCardFolder(cardFolder));
         }
-        foldersList = FXCollections.observableArrayList(versionedCardFolders);
-        filteredFoldersList = new FilteredList<>(foldersList);
+        folders = FXCollections.observableArrayList(versionedCardFolders);
+        filteredFolders = new FilteredList<>(folders);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
-        for (int i = 0; i < filteredFoldersList.size(); i++) {
-            FilteredList<Card> filteredCards = new FilteredList<>(filteredFoldersList.get(i).getCardList());
+        for (int i = 0; i < filteredFolders.size(); i++) {
+            FilteredList<Card> filteredCards = new FilteredList<>(filteredFolders.get(i).getCardList());
             filteredCardsList.add(filteredCards);
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
@@ -77,7 +81,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initialising user prefs without folder: " + userPrefs);
 
-        filteredFoldersList = new FilteredList<>(FXCollections.observableArrayList());
+        filteredFolders = new FilteredList<>(FXCollections.observableArrayList());
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCardsList = new ArrayList<>();
     }
@@ -87,7 +91,7 @@ public class ModelManager implements Model {
     }
 
     private VersionedCardFolder getActiveVersionedCardFolder() {
-        return foldersList.get(activeCardFolderIndex);
+        return folders.get(activeCardFolderIndex);
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
@@ -144,7 +148,7 @@ public class ModelManager implements Model {
 
     @Override
     public List<ReadOnlyCardFolder> getCardFolders() {
-        return new ArrayList<>(filteredFoldersList);
+        return new ArrayList<>(filteredFolders);
     }
 
     @Override
@@ -185,7 +189,7 @@ public class ModelManager implements Model {
     public boolean hasFolder(CardFolder cardFolder) {
         requireNonNull(cardFolder);
 
-        for (VersionedCardFolder versionedCardFolder : filteredFoldersList) {
+        for (VersionedCardFolder versionedCardFolder : filteredFolders) {
             if (versionedCardFolder.hasSameFolderName(cardFolder)) {
                 return true;
             }
@@ -196,7 +200,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
-        foldersList.remove(index);
+        folders.remove(index);
         filteredCardsList.remove(index);
         indicateModified();
     }
@@ -204,7 +208,7 @@ public class ModelManager implements Model {
     @Override
     public void addFolder(CardFolder cardFolder) {
         VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
-        foldersList.add(versionedCardFolder);
+        folders.add(versionedCardFolder);
         FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
         filteredCardsList.add(filteredCards);
         filteredCards.addListener(this::ensureSelectedCardIsValid);
@@ -242,7 +246,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code filteredFoldersList}
+     * {@code filteredFolders}
      */
     @Override
     public ObservableList<Card> getFilteredCards() {
@@ -409,7 +413,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return filteredFoldersList.equals(other.filteredFoldersList)
+        return filteredFolders.equals(other.filteredFolders)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());

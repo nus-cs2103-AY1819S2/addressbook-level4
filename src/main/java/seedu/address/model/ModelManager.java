@@ -57,6 +57,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     // to handle QuickDocs operations
+    private final QuickDocs quickDocs;
     private final SimpleObjectProperty<Reminder> selectedReminder = new SimpleObjectProperty<>();
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
@@ -85,6 +86,37 @@ public class ModelManager implements Model {
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
         this.recordManager = new RecordManager();
+
+        quickDocs = new QuickDocs();
+
+        iniQuickDocs();
+    }
+
+    /**
+     * Initializes a ModelManager with the given addressBook quickdocs and userPrefs.
+     */
+    public ModelManager(ReadOnlyAddressBook addressBook, QuickDocs quickDocs, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(addressBook, userPrefs);
+
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+
+        this.quickDocs = quickDocs;
+
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        this.medicineManager = new MedicineManager();
+        //this.patientManager = new PatientManager(addressBook.getPatients());
+        this.patientManager = quickDocs.getPatientManager();
+        this.consultationManager = quickDocs.getConsultationManager();
+        this.appointmentManager = new AppointmentManager();
+        this.reminderManager = new ReminderManager();
+        this.recordManager = new RecordManager();
+
+
+
         iniQuickDocs();
     }
 
@@ -128,6 +160,9 @@ public class ModelManager implements Model {
         }
     }
 
+    public QuickDocs getQuickDocs() {
+        return quickDocs;
+    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -388,8 +423,7 @@ public class ModelManager implements Model {
      */
     public void addPatient(Patient patient) {
         this.patientManager.addPatient(patient);
-        versionedAddressBook.addPatient(patient);
-        versionedAddressBook.indicateModified();
+        quickDocs.indicateModification(true);
     }
 
     // for editing
@@ -414,8 +448,7 @@ public class ModelManager implements Model {
      */
     public void replacePatient(int index, Patient editedPatient) {
         this.patientManager.replacePatient(index, editedPatient);
-        versionedAddressBook.replacePatient(index, editedPatient);
-        versionedAddressBook.indicateModified();
+        quickDocs.indicateModification(true);
     }
 
     // for listing
@@ -461,8 +494,12 @@ public class ModelManager implements Model {
         this.consultationManager.prescribeMedicine(prescriptions);
     }
 
+    /**
+     * end the current consultation session, no further edits can be made
+     */
     public void endConsultation() {
         this.consultationManager.endConsultation();
+        quickDocs.indicateModification(true);
     }
 
     public Consultation getCurrentConsultation() {

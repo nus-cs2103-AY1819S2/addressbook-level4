@@ -167,6 +167,8 @@ public interface Model {
     //===========Quickdocs methods=====================================
     void initQuickDocsSampleData();
 
+    QuickDocs getQuickDocs();
+
     //===========Medicine Storage =====================================
     void addMedicine(String medicineName, String[] path, BigDecimal price);
 

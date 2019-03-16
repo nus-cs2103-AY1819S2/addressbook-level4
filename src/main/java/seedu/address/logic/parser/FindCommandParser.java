@@ -10,10 +10,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.Arrays;
+import java.util.List;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -44,8 +47,13 @@ public class FindCommandParser implements Parser<FindCommand> {
         Prefix[] prefixArr = new Prefix[] {PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
             PREFIX_NRIC, PREFIX_YEAR};
 
+        String[] keywords = new String[1];
+        ContainsKeywordsPredicate predicate = new PhoneContainsKeywordsPredicate(Arrays.asList(keywords));
+
         for (Prefix pref: prefixArr) {
             if (argMultimap.getValue(pref).isPresent()) {
+                keywords = argMultimap.getValue(pref).get().split("\\s+");
+                predicate = getKeywordsPredicate(pref, Arrays.asList(keywords));
                 prefixNum++;
             }
         }
@@ -55,10 +63,24 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         //TODO: Check which parameter is used.
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-        nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
+        return new FindCommand(predicate);
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        //        String[] nameKeywords = trimmedArgs.split("\\s+");
+        //        nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
+        //
+        //        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+    }
+
+    private static ContainsKeywordsPredicate getKeywordsPredicate(Prefix prefix, List<String> keywords)
+        throws ParseException {
+
+        switch (prefix.getPrefix()) {
+        case "p/":
+            return new PhoneContainsKeywordsPredicate(keywords);
+
+        default:
+            throw new ParseException("");
+        }
     }
 
 }

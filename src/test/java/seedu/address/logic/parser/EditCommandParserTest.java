@@ -78,7 +78,8 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_HINT} alone will reset the hints of the {@code Card} being edited,
         // parsing valid hint followed by invalid hint will result in error
-        assertParseFailure(parser, "1" + HINT_DESC_FRIEND + HINT_DESC_HUSBAND + HINT_EMPTY, Hint.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + HINT_DESC_FRIEND + HINT_DESC_HUSBAND + HINT_EMPTY,
+                Hint.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,
@@ -89,7 +90,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_CARD;
-        String userInput = targetIndex.getOneBased() + ANSWER_DESC_SAMPLE_2 + HINT_DESC_HUSBAND + QUESTION_DESC_SAMPLE_1;
+        String userInput = targetIndex.getOneBased() + ANSWER_DESC_SAMPLE_2 + HINT_DESC_HUSBAND
+                + QUESTION_DESC_SAMPLE_1;
 
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_1)
                 .withAnswer(VALID_ANSWER_2).withHint(VALID_HINT_HUSBAND).build();

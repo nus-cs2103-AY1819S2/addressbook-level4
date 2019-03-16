@@ -51,8 +51,8 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_CARD;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_SAMPLE_2 + "  "
-                + ANSWER_DESC_SAMPLE_2 + " " + HINT_DESC_HUSBAND + " ";
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_SAMPLE_2
+                + "  " + ANSWER_DESC_SAMPLE_2 + " " + HINT_DESC_HUSBAND + " ";
         Card editedCard = new CardBuilder(CARD_2).withHint(VALID_HINT_HUSBAND).build();
         assertCommandSuccess(command, index, editedCard);
 

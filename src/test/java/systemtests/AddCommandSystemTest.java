@@ -48,8 +48,8 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
          * -> added
          */
         Card toAdd = CARD_1;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_SAMPLE_1 + "  " + ANSWER_DESC_SAMPLE_1 + " "
-                + "   " + HINT_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_SAMPLE_1 + "  " + ANSWER_DESC_SAMPLE_1
+                + " " + "   " + HINT_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */

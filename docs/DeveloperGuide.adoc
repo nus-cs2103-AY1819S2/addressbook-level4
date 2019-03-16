@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= ClubManager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -839,8 +839,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |CCA main committee member |see which members are attending an activity |plan the activity according to the participation rate.
 
-|`* * *` |CCA main committee member |see which members are interested in attending a future event |decide whether to execute the activity or to cancel it based on the level of  interests.
-
 |`* * *` |CCA main committee member |view the activities that a member has participated. |better select applicants for the main committee positions.
 
 |`*` |CCA main committee member |see the payments of each member |track the payments of each member.
@@ -878,8 +876,6 @@ _{More to be added}_
 
 [appendix]
 == Use Cases
-
-(For all use cases below, the *System* is the `AddressBook` and the *Admin* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add Member
@@ -1052,7 +1048,6 @@ Use case resumes at step 1.
 
 1.  User requests to add a new activity in the list
 2.  Club Manager adds the activity
-3.  Use case ends.
 +
 Use case ends.
 
@@ -1217,7 +1212,7 @@ Use case resumes at step 2.
 [discrete]
 === Use case: List Activity
 
-* Main Success Scenario (MSS)*
+*Main Success Scenario (MSS)*
 
 1. User requests to list activities
 2. Club Manager shows a list of activities
@@ -1234,7 +1229,7 @@ Use case ends.
 [discrete]
 === Use case: Select Activity
 
-* Main Success Scenario (MSS)*
+*Main Success Scenario (MSS)*
 
 1. User requests to list activities
 2. Club Manager shows a list of activities
@@ -1260,7 +1255,7 @@ Use case resumes at step 2.
 [discrete]
 === Use case: Find Activity
 
-* Main Success Scenario (MSS)*
+*Main Success Scenario (MSS)*
 
 1. User requests to find activities based on keywords
 2. Club Manager finds the activities with the given keywords
@@ -1283,72 +1278,6 @@ Use case ends.
 +
 Use case ends.
 
-
-[discrete]
-=== Use case: Archive Activity
-
-* Main Success Scenario (MSS)*
-
-1. User requests to list activities
-2. Club Manager shows a list of activities
-3. User request to archive an activity from the displayed list
-4. Club Manager archives the selected activity
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
-
-* 3b. The activity at the given index is already archived.
-+
-[none]
-** 3b1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Unarchive Activity
-
-* Main Success Scenario (MSS)*
-
-1. User requests to list activities
-2. Club Manager shows a list of activities
-3. User request to unarchive an activity from the displayed list
-4. Club Manager unarchives the selected activity
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
-
-* 3b. The activity at the given index is not archived.
-+
-[none]
-** 3b1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
 
 
 _{More to be added}_

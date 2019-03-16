@@ -129,7 +129,7 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     /**
-     * Returns a formatted String[] containing correctly formatted strings for saving.
+     * Returns a String[] containing correctly formatted strings for saving.
      * Appends QUESTION_ESCAPE and ANSWER_ESCAPE chars to the headers, then appends CORE_ESCAPE to all remaining core
      * values.
      *
@@ -158,15 +158,38 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     /**
+     * Returns a String[] of all card fields in order.
+     *
+     * @param card
+     * @return Formatted card data.
+     */
+    private String[] parseCardData(Card card) {
+        String[] cardArray;
+
+        List<String> cardData = new ArrayList<>();
+        cardData.addAll(card.getCores());
+        cardData.addAll(card.getOptionals());
+
+        cardArray = new String[card.getCores().size() + card.getOptionals().size()];
+        cardData.toArray(cardArray);
+
+        return cardArray;
+    }
+
+    /**
      * TODO
      * @param lesson
      */
     private void saveLessonToFile(Lesson lesson, Path folderPath) throws IOException {
         List<String[]> data = new ArrayList<>();
+        Path filePath = Paths.get(folderPath.toString(), lesson.getName() + ".csv");
 
         data.add(parseHeaderData(lesson));
 
-        Path filePath = Paths.get(folderPath.toString(), lesson.getName() + ".csv");
+        for (Card card : lesson.getCards()) {
+            data.add(parseCardData(card));
+        }
+
         CsvUtil.writeCsvFile(filePath, data);
     }
 

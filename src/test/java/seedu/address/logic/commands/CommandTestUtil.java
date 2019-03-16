@@ -26,10 +26,10 @@ import seedu.address.testutil.EditCardDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_QUESTION_AMY = "Amy Bee";
-    public static final String VALID_QUESTION_BOB = "Bob Choo";
-    public static final String VALID_ANSWER_AMY = "11111111";
-    public static final String VALID_ANSWER_BOB = "22222222";
+    public static final String VALID_QUESTION_1 = "Sample Question 1";
+    public static final String VALID_QUESTION_2 = "Sample Question 2";
+    public static final String VALID_ANSWER_1 = "Sample Answer 1";
+    public static final String VALID_ANSWER_2 = "Sample Answer 2";
     public static final String VALID_SCORE_AMY = "0/0";
     public static final String VALID_HINT_HUSBAND = "husband";
     public static final String VALID_HINT_FRIEND = "friend";
@@ -38,10 +38,10 @@ public class CommandTestUtil {
     public static final String VALID_FILENAME = "sample_folder.csv";
     public static final String INVALID_FILENAME = "sample_folder.json";
 
-    public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_AMY;
-    public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_BOB;
-    public static final String ANSWER_DESC_AMY = " " + PREFIX_ANSWER + VALID_ANSWER_AMY;
-    public static final String ANSWER_DESC_BOB = " " + PREFIX_ANSWER + VALID_ANSWER_BOB;
+    public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_1;
+    public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_2;
+    public static final String ANSWER_DESC_AMY = " " + PREFIX_ANSWER + VALID_ANSWER_1;
+    public static final String ANSWER_DESC_BOB = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String HINT_DESC_FRIEND = " " + PREFIX_HINT + VALID_HINT_FRIEND;
     public static final String HINT_DESC_HUSBAND = " " + PREFIX_HINT + VALID_HINT_HUSBAND;
     public static final String FOLDER_DESC_SAMPLE_1 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_1;
@@ -66,10 +66,10 @@ public class CommandTestUtil {
 
 
     static {
-        DESC_AMY = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withAnswer(VALID_ANSWER_AMY).withHint(VALID_HINT_FRIEND).build();
-        DESC_BOB = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_BOB)
-                .withAnswer(VALID_ANSWER_BOB).withHint(VALID_HINT_HUSBAND, VALID_HINT_FRIEND).build();
+        DESC_AMY = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_1)
+                .withAnswer(VALID_ANSWER_1).withHint(VALID_HINT_FRIEND).build();
+        DESC_BOB = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_2)
+                .withAnswer(VALID_ANSWER_2).withHint(VALID_HINT_HUSBAND, VALID_HINT_FRIEND).build();
     }
 
     /**

@@ -12,10 +12,10 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.TypicalCards.AMY;
@@ -80,7 +80,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_AMY + ANSWER_DESC_BOB
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
-        editedCard = new CardBuilder(BOB).withQuestion(VALID_QUESTION_AMY).build();
+        editedCard = new CardBuilder(BOB).withQuestion(VALID_QUESTION_1).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: edit a card with new values same as another card's values but with different answer -> edited */
@@ -88,7 +88,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_AMY
                         + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
-        editedCard = new CardBuilder(BOB).withAnswer(VALID_ANSWER_AMY).build();
+        editedCard = new CardBuilder(BOB).withAnswer(VALID_ANSWER_1).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: clear hints -> cleared */
@@ -106,7 +106,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredCards().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_BOB;
         cardToEdit = getModel().getFilteredCards().get(index.getZeroBased());
-        editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_BOB).build();
+        editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_2).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: filtered card list, edit index within bounds of card folder but out of bounds of card list

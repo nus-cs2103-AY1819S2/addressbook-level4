@@ -12,9 +12,9 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalCards.AMY;
@@ -65,13 +65,13 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_QUESTION_BOB + ANSWER_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, VALID_QUESTION_2 + ANSWER_DESC_BOB, expectedMessage);
 
         // missing answer prefix
-        assertParseFailure(parser, QUESTION_DESC_BOB + VALID_ANSWER_BOB, expectedMessage);
+        assertParseFailure(parser, QUESTION_DESC_BOB + VALID_ANSWER_2, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_QUESTION_BOB + VALID_ANSWER_BOB, expectedMessage);
+        assertParseFailure(parser, VALID_QUESTION_2 + VALID_ANSWER_2, expectedMessage);
     }
 
     @Test

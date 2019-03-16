@@ -9,11 +9,11 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -42,7 +42,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_QUESTION_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_QUESTION_1, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -82,7 +82,7 @@ public class EditCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,
-                "1" + INVALID_QUESTION_DESC + INVALID_HINT_DESC + VALID_ANSWER_AMY,
+                "1" + INVALID_QUESTION_DESC + INVALID_HINT_DESC + VALID_ANSWER_1,
                 Question.MESSAGE_CONSTRAINTS);
     }
 
@@ -91,8 +91,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_CARD;
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_BOB + HINT_DESC_HUSBAND + QUESTION_DESC_AMY;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withAnswer(VALID_ANSWER_BOB).withHint(VALID_HINT_HUSBAND).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_1)
+                .withAnswer(VALID_ANSWER_2).withHint(VALID_HINT_HUSBAND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -103,7 +103,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_CARD;
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_BOB;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_BOB)
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_2)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -116,13 +116,13 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_CARD;
         String userInput = targetIndex.getOneBased() + QUESTION_DESC_AMY;
         EditCommand.EditCardDescriptor descriptor =
-                new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_AMY).build();
+                new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_1).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // answer
         userInput = targetIndex.getOneBased() + ANSWER_DESC_AMY;
-        descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_AMY).build();
+        descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_1).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -139,7 +139,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_AMY + HINT_DESC_FRIEND + ANSWER_DESC_AMY
                 + HINT_DESC_FRIEND + ANSWER_DESC_BOB + HINT_DESC_HUSBAND;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_BOB)
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_2)
                 .withHint(VALID_HINT_HUSBAND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -152,13 +152,13 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_CARD;
         String userInput = targetIndex.getOneBased() + INVALID_ANSWER_DESC + ANSWER_DESC_BOB;
         EditCommand.EditCardDescriptor descriptor =
-                new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_BOB).build();
+                new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_2).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + INVALID_ANSWER_DESC + ANSWER_DESC_BOB;
-        descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_BOB).build();
+        descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_2).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -10,8 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.AMY;
@@ -64,12 +64,12 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a card with all fields same as another card in the card folder except question -> added */
-        toAdd = new CardBuilder(AMY).withQuestion(VALID_QUESTION_BOB).build();
+        toAdd = new CardBuilder(AMY).withQuestion(VALID_QUESTION_2).build();
         command = AddCommand.COMMAND_WORD + QUESTION_DESC_BOB + ANSWER_DESC_AMY + HINT_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a card with all fields same as another card in the card folder except answer -> added */
-        toAdd = new CardBuilder(AMY).withAnswer(VALID_ANSWER_BOB).build();
+        toAdd = new CardBuilder(AMY).withAnswer(VALID_ANSWER_2).build();
         command = CardUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 

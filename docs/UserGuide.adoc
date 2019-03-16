@@ -217,7 +217,7 @@ Low stock warning will be triggered when quantity remaining is less than or equa
 
 === Exporting as CSV file format : `export`
 
-Exports the current list shown into CSV file format. +
+You can export the current Medicine Inventory data shown in the GUI as CSV file format. +
 Format: `export [FILE_NAME]`
 
 ****
@@ -229,7 +229,7 @@ Examples:
 * `export example` +
 Export the current list shown in the GUI to a CSV file which has the filename `example`.
 * `export` +
-Export the current list shown in the GUI to a CSV file which has a default file name in this format `{Date of export}_{Time of export}`.
+Export the current list shown in the GUI to a CSV file which has a default file name in this format `{Date of export}_{Time of export}`. The specific date and time format used is `dd_MMM_yyyy_HH_mm_ss`. In other words, an example of a default CSV file name is `18_Mar_2019_10_28_00`.
 
 === Printing labels : `label`
 

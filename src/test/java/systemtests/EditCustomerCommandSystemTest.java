@@ -53,7 +53,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.CustomerUtil;
 
-public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
+public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTest {
 
     @Test
     public void edit() {
@@ -89,7 +89,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a customer with new values same as another customer's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getCustomerList().contains(BOB));
+        assertTrue(getModel().getHotelManagementSystem().getCustomerList().contains(BOB));
         index = INDEX_SECOND_CUSTOMER;
         assertNotEquals(getModel().getFilteredCustomerList().get(index.getZeroBased()), BOB);
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB
@@ -129,7 +129,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getCustomerList().size();
+        int invalidIndex = getModel().getHotelManagementSystem().getCustomerList().size();
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
             Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
@@ -203,7 +203,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a customer with new values same as another customer's values -> rejected */
         executeCommand(CustomerUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getCustomerList().contains(BOB));
+        assertTrue(getModel().getHotelManagementSystem().getCustomerList().contains(BOB));
         index = INDEX_FIRST_CUSTOMER;
         assertFalse(getModel().getFilteredCustomerList().get(index.getZeroBased()).equals(BOB));
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
@@ -290,10 +290,10 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+     * @see HotelManagementSystemSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
@@ -316,9 +316,9 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+     * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         CustomerModel expectedModel = getModel();

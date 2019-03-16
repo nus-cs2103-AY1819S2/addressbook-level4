@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.customer.Customer;
 
 /**
@@ -77,10 +77,10 @@ public class TypicalCustomers {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical customers.
+     * Returns an {@code HotelManagementSystem} with all the typical customers.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static HotelManagementSystem getTypicalHotelManagementSystem() {
+        HotelManagementSystem ab = new HotelManagementSystem();
         for (Customer customer : getTypicalCustomers()) {
             ab.addCustomer(customer);
         }

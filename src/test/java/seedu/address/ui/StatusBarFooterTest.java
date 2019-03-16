@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HotelManagementSystem;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
@@ -27,7 +27,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-    private final AddressBook addressBook = new AddressBook();
+    private final HotelManagementSystem hotelManagementSystem = new HotelManagementSystem();
     private StatusBarFooterHandle statusBarFooterHandle;
 
     @BeforeClass
@@ -44,7 +44,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, addressBook);
+        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, hotelManagementSystem);
         uiPartRule.setUiPart(statusBarFooter);
 
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
@@ -56,7 +56,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
         // after address book is updated
-        guiRobot.interact(() -> addressBook.addCustomer(ALICE));
+        guiRobot.interact(() -> hotelManagementSystem.addCustomer(ALICE));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
             String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }

@@ -43,7 +43,7 @@ public class DeleteCustomerCommand extends CustomerCommand {
 
         Customer customerToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteCustomer(customerToDelete);
-        model.commitAddressBook();
+        model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete));
     }
 

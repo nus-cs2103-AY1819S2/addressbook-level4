@@ -48,7 +48,7 @@ import seedu.address.model.CustomerModel;
 //import seedu.address.testutil.CustomerBuilder;
 //import seedu.address.testutil.CustomerUtil;
 
-public class AddCommandSystemTest extends AddressBookSystemTest {
+public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //    @Test
     //    public void add() {
     //        CustomerModel model = getModel();

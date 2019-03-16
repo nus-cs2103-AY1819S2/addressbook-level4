@@ -24,28 +24,28 @@ import seedu.address.model.booking.exceptions.BookingNotFoundException;
 public class BookingManager implements BookingModel {
     private static final Logger logger = LogsCenter.getLogger(BookingManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedHotelManagementSystem versionedHotelManagementSystem;
     private final UserPrefs userPrefs;
     private final FilteredList<Booking> filteredBookings;
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given hotelManagementSystem and userPrefs.
      */
-    public BookingManager(VersionedAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public BookingManager(VersionedHotelManagementSystem hotelManagementSystem, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(hotelManagementSystem, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + hotelManagementSystem + " and user prefs " + userPrefs);
 
-        versionedAddressBook = addressBook;
+        versionedHotelManagementSystem = hotelManagementSystem;
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBookings = new FilteredList<>(versionedAddressBook.getBookingList());
+        filteredBookings = new FilteredList<>(versionedHotelManagementSystem.getBookingList());
         filteredBookings.addListener(this::ensureSelectedBookingIsValid);
     }
 
     public BookingManager() {
-        this(new VersionedAddressBook(new AddressBook()), new UserPrefs());
+        this(new VersionedHotelManagementSystem(new HotelManagementSystem()), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,50 +73,50 @@ public class BookingManager implements BookingModel {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getHotelManagementSystemFilePath() {
+        return userPrefs.getHotelManagementSystemFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setHotelManagementSystemFilePath(Path hotelManagementSystemFilePath) {
+        requireNonNull(hotelManagementSystemFilePath);
+        userPrefs.setHotelManagementSystemFilePath(hotelManagementSystemFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== HotelManagementSystem ================================================================================
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyHotelManagementSystem getHotelManagementSystem() {
+        return versionedHotelManagementSystem;
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem) {
+        versionedHotelManagementSystem.resetData(hotelManagementSystem);
     }
 
     public void deleteBooking(int bookingIndex) {
-        versionedAddressBook.removeBooking(bookingIndex);
+        versionedHotelManagementSystem.removeBooking(bookingIndex);
     }
 
     /*
      * Adds a booking
      */
     public void addBooking(Booking booking) {
-        versionedAddressBook.addBooking(booking);
+        versionedHotelManagementSystem.addBooking(booking);
     }
 
     public void setBooking(int bookingIndex, Booking editedBooking) {
         requireNonNull(editedBooking);
 
-        versionedAddressBook.setBooking(bookingIndex, editedBooking);
+        versionedHotelManagementSystem.setBooking(bookingIndex, editedBooking);
     }
 
     //=========== Filtered Booking List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedHotelManagementSystem}
      */
     public ObservableList<Booking> getFilteredBookingList() {
         return filteredBookings;
@@ -125,28 +125,28 @@ public class BookingManager implements BookingModel {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoHotelManagementSystem() {
+        return versionedHotelManagementSystem.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoHotelManagementSystem() {
+        return versionedHotelManagementSystem.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoHotelManagementSystem() {
+        versionedHotelManagementSystem.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoHotelManagementSystem() {
+        versionedHotelManagementSystem.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitHotelManagementSystem() {
+        versionedHotelManagementSystem.commit();
     }
 
     //=========== Selected Booking ===========================================================================
@@ -210,7 +210,7 @@ public class BookingManager implements BookingModel {
 
         // state check
         BookingManager other = (BookingManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedHotelManagementSystem.equals(other.versionedHotelManagementSystem)
             && userPrefs.equals(other.userPrefs)
             && filteredBookings.equals(other.filteredBookings)
             && Objects.equals(selectedBooking.get(), other.selectedBooking.get());

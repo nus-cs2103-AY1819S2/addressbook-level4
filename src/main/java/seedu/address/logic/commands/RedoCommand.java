@@ -21,11 +21,11 @@ public class RedoCommand extends CustomerCommand {
     public CommandResult execute(CustomerModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook()) {
+        if (!model.canRedoHotelManagementSystem()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoAddressBook();
+        model.redoHotelManagementSystem();
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

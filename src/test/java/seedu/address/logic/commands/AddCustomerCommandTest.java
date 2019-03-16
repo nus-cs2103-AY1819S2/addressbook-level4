@@ -13,9 +13,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHotelManagementSystem;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.testutil.CustomerBuilder;
@@ -108,47 +108,47 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getHotelManagementSystemFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setHotelManagementSystemFilePath(Path hotelManagementSystemFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyHotelManagementSystem getHotelManagementSystem() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setHotelManagementSystem(ReadOnlyHotelManagementSystem newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoHotelManagementSystem() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoHotelManagementSystem() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoHotelManagementSystem() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoHotelManagementSystem() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitHotelManagementSystem() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -173,13 +173,13 @@ public class AddCustomerCommandTest {
         final ArrayList<Customer> customersAdded = new ArrayList<>();
 
         @Override
-        public void commitAddressBook() {
+        public void commitHotelManagementSystem() {
             // called by {@code AddCustomerCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyHotelManagementSystem getHotelManagementSystem() {
+            return new HotelManagementSystem();
         }
     }
 

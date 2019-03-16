@@ -15,12 +15,12 @@ import seedu.address.model.booking.Booking;
 /**
  * Adds a booking to the address book.
  */
-public class AddBookingCommand extends BookingCommand {
+public class EditBookingCommand extends BookingCommand {
 
-    public static final String COMMAND_ALIAS = "ab";
-    public static final String COMMAND_WORD = "add-booking";
+    public static final String COMMAND_ALIAS = "eb";
+    public static final String COMMAND_WORD = "edit-booking";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a booking to the hotel management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a booking to the hotel management system. "
         + "Parameters: "
         + PREFIX_SERVICE + "SERVICE NAME "
         + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format) "
@@ -43,7 +43,7 @@ public class AddBookingCommand extends BookingCommand {
     /**
      * Creates an AddBookingCommand to add the specified {@code Booking}
      */
-    public AddBookingCommand(Booking booking) {
+    public EditBookingCommand(Booking booking) {
         requireNonNull(booking);
         toAdd = booking;
     }
@@ -59,7 +59,7 @@ public class AddBookingCommand extends BookingCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddBookingCommand // instanceof handles nulls
-            && toAdd.equals(((AddBookingCommand) other).toAdd));
+            || (other instanceof EditBookingCommand // instanceof handles nulls
+            && toAdd.equals(((EditBookingCommand) other).toAdd));
     }
 }

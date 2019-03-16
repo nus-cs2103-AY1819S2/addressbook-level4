@@ -12,11 +12,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.HotelManagementSystemParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BookingModel;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHotelManagementSystem;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.customer.Customer;
 import seedu.address.storage.Storage;
@@ -32,29 +32,29 @@ public class LogicManager implements Logic {
     private final BookingModel bookingModel;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final HotelManagementSystemParser hotelManagementSystemParser;
+    private boolean hotelManagementSystemModified;
 
     public LogicManager(CustomerModel customerModel, BookingModel bookingModel, Storage storage) {
         this.customerModel = customerModel;
         this.bookingModel = bookingModel;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        hotelManagementSystemParser = new HotelManagementSystemParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        customerModel.getAddressBook().addListener(observable -> addressBookModified = true);
-        bookingModel.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set hotelManagementSystemModified to true whenever the models' address book is modified.
+        customerModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
+        bookingModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        hotelManagementSystemModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText, customerModel, bookingModel);
+            Command command = hotelManagementSystemParser.parseCommand(commandText, customerModel, bookingModel);
             if (command instanceof CustomerCommand) {
                 commandResult = command.execute(customerModel, history);
             } else {
@@ -64,10 +64,10 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
+        if (hotelManagementSystemModified) {
             logger.info("Address book modified, saving to file.");
             try {
-                storage.saveAddressBook(bookingModel.getAddressBook());
+                storage.saveHotelManagementSystem(bookingModel.getHotelManagementSystem());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -77,8 +77,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return customerModel.getAddressBook();
+    public ReadOnlyHotelManagementSystem getHotelManagementSystem() {
+        return customerModel.getHotelManagementSystem();
     }
 
     @Override
@@ -97,8 +97,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return customerModel.getAddressBookFilePath();
+    public Path getHotelManagementSystemFilePath() {
+        return customerModel.getHotelManagementSystemFilePath();
     }
 
     @Override

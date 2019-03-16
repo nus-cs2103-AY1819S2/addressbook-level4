@@ -29,11 +29,11 @@ import seedu.address.model.BookingManager;
 import seedu.address.model.BookingModel;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHotelManagementSystem;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedAddressBook;
+import seedu.address.model.VersionedHotelManagementSystem;
 import seedu.address.model.customer.Customer;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonHotelManagementSystemStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.CustomerBuilder;
@@ -54,9 +54,9 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
+        JsonHotelManagementSystemStorage hotelManagementSystemStorage = new JsonHotelManagementSystemStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
         logic = new LogicManager(customerModel, bookingModel, storage);
     }
 
@@ -83,11 +83,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-            new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        // Setup LogicManager with JsonHotelManagementSystemIoExceptionThrowingStub
+        JsonHotelManagementSystemStorage hotelManagementSystemStorage =
+            new JsonHotelManagementSystemIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
         logic = new LogicManager(customerModel, bookingModel, storage);
 
         // Execute add command
@@ -96,7 +96,7 @@ public class LogicManagerTest {
         Customer expectedCustomer = new CustomerBuilder(AMY).withTags().build();
         CustomerManager expectedModel = new CustomerManager();
         expectedModel.addCustomer(expectedCustomer);
-        expectedModel.commitAddressBook();
+        expectedModel.commitHotelManagementSystem();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);
@@ -142,7 +142,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, CustomerModel)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        CustomerModel expectedModel = new CustomerManager(new VersionedAddressBook(customerModel.getAddressBook()),
+        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(customerModel.getHotelManagementSystem()),
             new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
@@ -186,13 +186,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonHotelManagementSystemIoExceptionThrowingStub extends JsonHotelManagementSystemStorage {
+        private JsonHotelManagementSystemIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

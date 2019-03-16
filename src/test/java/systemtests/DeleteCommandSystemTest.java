@@ -20,7 +20,7 @@ package systemtests;
 //import seedu.address.model.CustomerModel;
 //import seedu.address.model.customer.Customer;
 
-public class DeleteCommandSystemTest extends AddressBookSystemTest {
+public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
     //
     //private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
     //String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCustomerCommand.MESSAGE_USAGE);
@@ -69,7 +69,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     // * -> rejected
     // */
     //showCustomersWithName(KEYWORD_MATCHING_MEIER);
-    //int invalidIndex = getModel().getAddressBook().getCustomerList().size();
+    //int invalidIndex = getModel().getHotelManagementSystem().getCustomerList().size();
     //command = DeleteCustomerCommand.COMMAND_WORD + " " + invalidIndex;
     //assertCommandFailure(command, MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //
@@ -98,7 +98,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     //
     ///* Case: invalid index (size + 1) -> rejected */
     //Index outOfBoundsIndex = Index.fromOneBased(
-    //    getModel().getAddressBook().getCustomerList().size() + 1);
+    //    getModel().getHotelManagementSystem().getCustomerList().size() + 1);
     //command = DeleteCustomerCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
     //assertCommandFailure(command, MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //
@@ -147,9 +147,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     // * 4. Asserts that the status bar's sync status changes.<br>
     // * 5. Asserts that the command box has the default style class.<br>
     // * Verifications 1 and 2 are performed by
-    // * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+    // * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
     // *
-    // * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+    // * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
     // */
     //private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage) {
     //    assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -160,7 +160,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     // * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}
     // *
     // * @see DeleteCommandSystemTest#assertCommandSuccess(String, CustomerModel, String)
-    // * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+    // * @see HotelManagementSystemSystemTest#assertSelectedCardChanged(Index)
     // */
     //private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage,
     //                                  Index expectedSelectedCardIndex) {
@@ -184,9 +184,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     // * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
     // * 4. Asserts that the command box has the error style.<br>
     // * Verifications 1 and 2 are performed by
-    // * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+    // * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
     // *
-    // * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+    // * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
     // */
     //private void assertCommandFailure(String command, String expectedResultMessage) {
     //    CustomerModel expectedModel = getModel();

@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Customer values as in TypicalCustomers#getTypicalAddressBook()",
+  "_comment": "HotelManagementSystem save file which contains the same Customer values as in TypicalCustomers#getTypicalHotelManagementSystem()",
   "customers": [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",

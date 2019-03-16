@@ -60,7 +60,7 @@ public class AddCustomerCommand extends CustomerCommand {
         }
 
         model.addCustomer(toAdd);
-        model.commitAddressBook();
+        model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

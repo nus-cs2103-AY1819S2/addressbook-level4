@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCustomerAtIndex;
-import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CUSTOMER;
@@ -18,16 +18,16 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedAddressBook;
+import seedu.address.model.VersionedHotelManagementSystem;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCustomerCommand}.
  */
 public class SelectCustomerCommandTest {
     private CustomerModel model = new CustomerManager(
-            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CustomerModel expectedModel = new CustomerManager(
-            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -61,7 +61,7 @@ public class SelectCustomerCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_CUSTOMER;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getCustomerList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getHotelManagementSystem().getCustomerList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     }

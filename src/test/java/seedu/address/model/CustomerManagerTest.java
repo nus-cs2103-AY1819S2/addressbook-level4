@@ -22,7 +22,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.customer.exceptions.CustomerNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.HotelManagementSystemBuilder;
 import seedu.address.testutil.CustomerBuilder;
 
 public class CustomerManagerTest {
@@ -35,7 +35,7 @@ public class CustomerManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), customerManager.getUserPrefs());
         assertEquals(new GuiSettings(), customerManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(customerManager.getAddressBook()));
+        assertEquals(new HotelManagementSystem(), new HotelManagementSystem(customerManager.getHotelManagementSystem()));
         assertEquals(null, customerManager.getSelectedCustomer());
     }
 
@@ -48,14 +48,14 @@ public class CustomerManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setHotelManagementSystemFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         customerManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, customerManager.getUserPrefs());
 
         // Modifying userPrefs should not modify customerManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setHotelManagementSystemFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, customerManager.getUserPrefs());
     }
 
@@ -73,16 +73,16 @@ public class CustomerManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setHotelManagementSystemFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        customerManager.setAddressBookFilePath(null);
+        customerManager.setHotelManagementSystemFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setHotelManagementSystemFilePath_validPath_setsHotelManagementSystemFilePath() {
         Path path = Paths.get("address/book/file/path");
-        customerManager.setAddressBookFilePath(path);
-        assertEquals(path, customerManager.getAddressBookFilePath());
+        customerManager.setHotelManagementSystemFilePath(path);
+        assertEquals(path, customerManager.getHotelManagementSystemFilePath());
     }
 
     @Test
@@ -92,12 +92,12 @@ public class CustomerManagerTest {
     }
 
     @Test
-    public void hasCustomer_customerNotInAddressBook_returnsFalse() {
+    public void hasCustomer_customerNotInHotelManagementSystem_returnsFalse() {
         assertFalse(customerManager.hasCustomer(ALICE));
     }
 
     @Test
-    public void hasCustomer_customerInAddressBook_returnsTrue() {
+    public void hasCustomer_customerInHotelManagementSystem_returnsTrue() {
         customerManager.addCustomer(ALICE);
         assertTrue(customerManager.hasCustomer(ALICE));
     }
@@ -151,13 +151,13 @@ public class CustomerManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withCustomer(ALICE).withCustomer(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        HotelManagementSystem hotelManagementSystem = new HotelManagementSystemBuilder().withCustomer(ALICE).withCustomer(BENSON).build();
+        HotelManagementSystem differentHotelManagementSystem = new HotelManagementSystem();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        customerManager = new CustomerManager(new VersionedAddressBook(addressBook), userPrefs);
-        CustomerManager customerManagerCopy = new CustomerManager(new VersionedAddressBook(addressBook), userPrefs);
+        customerManager = new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs);
+        CustomerManager customerManagerCopy = new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs);
         assertTrue(customerManager.equals(customerManagerCopy));
 
         // same object -> returns true
@@ -169,22 +169,22 @@ public class CustomerManagerTest {
         // different types -> returns false
         assertFalse(customerManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(customerManager.equals(new CustomerManager(new VersionedAddressBook(differentAddressBook),
+        // different hotelManagementSystem -> returns false
+        assertFalse(customerManager.equals(new CustomerManager(new VersionedHotelManagementSystem(differentHotelManagementSystem),
             userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         customerManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(customerManager.equals(new CustomerManager(new VersionedAddressBook(addressBook), userPrefs)));
+        assertFalse(customerManager.equals(new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs)));
 
         // resets customerManager to initial state for upcoming tests
         customerManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(customerManager.equals(new CustomerManager(new VersionedAddressBook(addressBook),
+        differentUserPrefs.setHotelManagementSystemFilePath(Paths.get("differentFilePath"));
+        assertFalse(customerManager.equals(new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem),
             differentUserPrefs)));
     }
 }

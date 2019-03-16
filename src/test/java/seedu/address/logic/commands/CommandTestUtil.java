@@ -16,7 +16,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -118,7 +118,7 @@ public class CommandTestUtil {
                                             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        HotelManagementSystem expectedHotelManagementSystem = new HotelManagementSystem(actualModel.getHotelManagementSystem());
         List<Customer> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCustomerList());
         Customer expectedSelectedCustomer = actualModel.getSelectedCustomer();
 
@@ -129,7 +129,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedHotelManagementSystem, actualModel.getHotelManagementSystem());
             assertEquals(expectedFilteredList, actualModel.getFilteredCustomerList());
             assertEquals(expectedSelectedCustomer, actualModel.getSelectedCustomer());
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -156,7 +156,7 @@ public class CommandTestUtil {
     public static void deleteFirstCustomer(CustomerModel model) {
         Customer firstCustomer = model.getFilteredCustomerList().get(0);
         model.deleteCustomer(firstCustomer);
-        model.commitAddressBook();
+        model.commitHotelManagementSystem();
     }
 
 }

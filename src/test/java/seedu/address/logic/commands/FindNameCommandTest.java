@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCustomers.CARL;
 import static seedu.address.testutil.TypicalCustomers.ELLE;
 import static seedu.address.testutil.TypicalCustomers.FIONA;
-import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +19,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedAddressBook;
+import seedu.address.model.VersionedHotelManagementSystem;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 
 /**
@@ -27,9 +27,9 @@ import seedu.address.model.customer.NameContainsKeywordsPredicate;
  */
 public class FindNameCommandTest {
     private CustomerModel model = new CustomerManager(
-            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CustomerModel expectedModel = new CustomerManager(
-            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

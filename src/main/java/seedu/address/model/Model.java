@@ -40,45 +40,45 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getHotelManagementSystemFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setHotelManagementSystemFilePath(Path hotelManagementSystemFilePath);
 
     /**
-     * Returns the AddressBook
+     * Returns the HotelManagementSystem
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyHotelManagementSystem getHotelManagementSystem();
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code hotelManagementSystem}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem);
 
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoHotelManagementSystem();
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoHotelManagementSystem();
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undoAddressBook();
+    void undoHotelManagementSystem();
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoHotelManagementSystem();
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitHotelManagementSystem();
 }

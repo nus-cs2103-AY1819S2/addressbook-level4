@@ -106,7 +106,7 @@ public class EditCustomerCommand extends CustomerCommand {
 
         model.setCustomer(customerToEdit, editedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
-        model.commitAddressBook();
+        model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer));
     }
 

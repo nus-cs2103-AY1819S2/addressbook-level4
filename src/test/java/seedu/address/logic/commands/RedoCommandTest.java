@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstCustomer;
-import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,14 +12,14 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedAddressBook;
+import seedu.address.model.VersionedHotelManagementSystem;
 
 public class RedoCommandTest {
 
     private final CustomerModel model = new CustomerManager(
-            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private final CustomerModel expectedModel = new CustomerManager(
-            new VersionedAddressBook(getTypicalAddressBook()), new UserPrefs());
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -27,23 +27,23 @@ public class RedoCommandTest {
         // set up of both models' undo/redo history
         deleteFirstCustomer(model);
         deleteFirstCustomer(model);
-        model.undoAddressBook();
-        model.undoAddressBook();
+        model.undoHotelManagementSystem();
+        model.undoHotelManagementSystem();
 
         deleteFirstCustomer(expectedModel);
         deleteFirstCustomer(expectedModel);
-        expectedModel.undoAddressBook();
-        expectedModel.undoAddressBook();
+        expectedModel.undoHotelManagementSystem();
+        expectedModel.undoHotelManagementSystem();
     }
 
     @Test
     public void execute() {
         // multiple redoable states in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoHotelManagementSystem();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
-        expectedModel.redoAddressBook();
+        expectedModel.redoHotelManagementSystem();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model

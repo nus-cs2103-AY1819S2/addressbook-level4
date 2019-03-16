@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalCustomers.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import java.nio.file.Path;
 
@@ -12,10 +12,10 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.HotelManagementSystem;
+import seedu.address.model.ReadOnlyHotelManagementSystem;
 import seedu.address.model.UserPrefs;
-//import seedu.address.model.VersionedAddressBook;
+//import seedu.address.model.VersionedHotelManagementSystem;
 
 public class StorageManagerTest {
 
@@ -26,9 +26,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonHotelManagementSystemStorage hotelManagementSystemStorage = new JsonHotelManagementSystemStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -51,21 +51,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void hotelManagementSystemReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonHotelManagementSystemStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonHotelManagementSystemStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        HotelManagementSystem original = getTypicalHotelManagementSystem();
+        storageManager.saveHotelManagementSystem(original);
+        ReadOnlyHotelManagementSystem retrieved = storageManager.readHotelManagementSystem().get();
+        assertEquals(original, new HotelManagementSystem(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getHotelManagementSystemFilePath() {
+        assertNotNull(storageManager.getHotelManagementSystemFilePath());
     }
 
 }

@@ -24,28 +24,28 @@ import seedu.address.model.customer.exceptions.CustomerNotFoundException;
 public class CustomerManager implements CustomerModel {
     private static final Logger logger = LogsCenter.getLogger(CustomerManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedHotelManagementSystem versionedHotelManagementSystem;
     private final UserPrefs userPrefs;
     private final FilteredList<Customer> filteredCustomers;
     private final SimpleObjectProperty<Customer> selectedCustomer = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a CustomerManager with the given addressBook and userPrefs.
+     * Initializes a CustomerManager with the given hotelManagementSystem and userPrefs.
      */
-    public CustomerManager(VersionedAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public CustomerManager(VersionedHotelManagementSystem hotelManagementSystem, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(hotelManagementSystem, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + hotelManagementSystem + " and user prefs " + userPrefs);
 
-        versionedAddressBook = addressBook;
+        versionedHotelManagementSystem = hotelManagementSystem;
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCustomers = new FilteredList<>(versionedAddressBook.getCustomerList());
+        filteredCustomers = new FilteredList<>(versionedHotelManagementSystem.getCustomerList());
         filteredCustomers.addListener(this::ensureSelectedCustomerIsValid);
     }
 
     public CustomerManager() {
-        this(new VersionedAddressBook(new AddressBook()), new UserPrefs());
+        this(new VersionedHotelManagementSystem(new HotelManagementSystem()), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,42 +73,42 @@ public class CustomerManager implements CustomerModel {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getHotelManagementSystemFilePath() {
+        return userPrefs.getHotelManagementSystemFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setHotelManagementSystemFilePath(Path hotelManagementSystemFilePath) {
+        requireNonNull(hotelManagementSystemFilePath);
+        userPrefs.setHotelManagementSystemFilePath(hotelManagementSystemFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== HotelManagementSystem ================================================================================
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyHotelManagementSystem getHotelManagementSystem() {
+        return versionedHotelManagementSystem;
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem) {
+        versionedHotelManagementSystem.resetData(hotelManagementSystem);
     }
 
     @Override
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
-        return versionedAddressBook.hasCustomer(customer);
+        return versionedHotelManagementSystem.hasCustomer(customer);
     }
 
     @Override
     public void deleteCustomer(Customer target) {
-        versionedAddressBook.removeCustomer(target);
+        versionedHotelManagementSystem.removeCustomer(target);
     }
 
     @Override
     public void addCustomer(Customer customer) {
-        versionedAddressBook.addCustomer(customer);
+        versionedHotelManagementSystem.addCustomer(customer);
         updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     }
 
@@ -116,14 +116,14 @@ public class CustomerManager implements CustomerModel {
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
 
-        versionedAddressBook.setCustomer(target, editedCustomer);
+        versionedHotelManagementSystem.setCustomer(target, editedCustomer);
     }
 
     //=========== Filtered Customer List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedHotelManagementSystem}
      */
     @Override
     public ObservableList<Customer> getFilteredCustomerList() {
@@ -139,28 +139,28 @@ public class CustomerManager implements CustomerModel {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoHotelManagementSystem() {
+        return versionedHotelManagementSystem.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoHotelManagementSystem() {
+        return versionedHotelManagementSystem.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoHotelManagementSystem() {
+        versionedHotelManagementSystem.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoHotelManagementSystem() {
+        versionedHotelManagementSystem.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitHotelManagementSystem() {
+        versionedHotelManagementSystem.commit();
     }
 
     //=========== Selected customer ===========================================================================
@@ -227,7 +227,7 @@ public class CustomerManager implements CustomerModel {
 
         // state check
         CustomerManager other = (CustomerManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedHotelManagementSystem.equals(other.versionedHotelManagementSystem)
             && userPrefs.equals(other.userPrefs)
             && filteredCustomers.equals(other.filteredCustomers)
             && Objects.equals(selectedCustomer.get(), other.selectedCustomer.get());

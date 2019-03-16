@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.io.File;
+import java.nio.file.Files;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -183,8 +185,12 @@ public class CsvLessonsStorageTest {
     }
 
     @Test
-    public void saveLessons_readOnlyFile_throwsIoException() {
+    public void saveLessons_readOnlyFile_catchesIoException() throws IOException {
         CsvLessonsStorage csvLessonsStorage = new CsvLessonsStorage(READ_ONLY_FILE_FOLDER);
+        Files.walk(READ_ONLY_FILE_FOLDER).forEach(path -> {
+            File f = new File(path.toString());
+            f.setReadOnly();
+        });
         Lessons lessons = csvLessonsStorage.readLessons().get();
         assertEquals(0, csvLessonsStorage.saveLessons(lessons));
     }

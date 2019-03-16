@@ -23,19 +23,23 @@ import seedu.address.model.pdf.Pdf;
 /**
  * A utility class containing a list of {@code Pdf} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalPdfs {
 
     public static final Path a_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "a.pdf");
     public static final Path b_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "b.pdf");
     public static final Path c_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "c.pdf");
     public static final Pdf A_PDF = new PdfBuilder().withName(a_path.toFile().getName())
             .withLocation(a_path.toString())
-            .withSize(Long.toString(a_path.toFile().getTotalSpace())).build();
+            .withSize(Long.toString(a_path.toFile().getTotalSpace()))
+            .withTags("moduleA", "admin", "w1")
+            .build();
     public static final Pdf B_PDF = new PdfBuilder().withName(b_path.toFile().getName())
             .withLocation(b_path.toString())
+            .withTags("moduleB", "lecture")
             .withSize(Long.toString(b_path.toFile().getTotalSpace())).build();
     public static final Pdf C_PDF = new PdfBuilder().withName(c_path.toFile().getName())
             .withLocation(c_path.toString())
+            .withTags("moduleC", "tutorial", "w7")
             .withSize(Long.toString(c_path.toFile().getTotalSpace())).build();
 
     /*public static final Pdf ALICE = new PdfBuilder().withName("Alice Pauline")
@@ -72,7 +76,7 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER*/
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPdfs() {} // prevents instantiation
 
     /**
      * Returns an {@code PdfBook} with all the typical persons.

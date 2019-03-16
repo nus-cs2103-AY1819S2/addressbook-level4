@@ -1,0 +1,19 @@
+{
+  "_comment": "PdfBook save file which contains the same Pdf values as in TypicalPdfss#getTypicalPdfBook()",
+  "pdfs" : [ {
+    "name" : "a.pdf",
+    "location" : "/Users/prithiviraj/Repositories/CS2103T/main",
+    "size" : "500068036608",
+    "tagged" : [ "RandomTag1" ]
+  }, {
+    "name" : "b.pdf",
+    "location" : "/Users/prithiviraj/Repositories/CS2103T/main",
+    "size" : "500068036608",
+    "tagged" : [ "colleagues" ]
+  }, {
+    "name" : "c.pdf",
+    "location" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/JsonAdaptedPdfTest",
+    "size" : "500068036608",
+    "tagged" : [ ]
+  } ]
+}

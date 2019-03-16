@@ -2,10 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPdfs.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -54,7 +51,7 @@ public class JsonPdfBookStorageTest {
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("notJsonFormatAddressBook.json");
+        readAddressBook("notJsonFormatPdfBook.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
@@ -63,13 +60,13 @@ public class JsonPdfBookStorageTest {
     @Test
     public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.json");
+        readAddressBook("invalidPdfPdfBook.json");
     }
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.json");
+        readAddressBook("invalidAndValidPdfPdfBook.json");
     }
 
     @Test
@@ -84,14 +81,14 @@ public class JsonPdfBookStorageTest {
         assertEquals(original, new PdfBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPdf(HOON);
-        original.removePdf(ALICE);
+        original.addPdf(A_PDF);
+        original.removePdf(C_PDF);
         jsonPdfBookStorage.savePdfBook(original, filePath);
         readBack = jsonPdfBookStorage.readPdfBook(filePath).get();
         assertEquals(original, new PdfBook(readBack));
 
         // Save and read without specifying file value
-        original.addPdf(IDA);
+        original.addPdf(B_PDF);
         jsonPdfBookStorage.savePdfBook(original); // file value not specified
         readBack = jsonPdfBookStorage.readPdfBook().get(); // file value not specified
         assertEquals(original, new PdfBook(readBack));

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPdfs.ALICE;
+import static seedu.address.testutil.TypicalPdfs.BENSON;
+import static seedu.address.testutil.TypicalPdfs.BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

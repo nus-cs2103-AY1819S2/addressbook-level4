@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.BENSON;
-import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARD_2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -112,10 +112,10 @@ public class ModelManagerTest {
     @Test
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
         modelManager.addCard(ALICE);
-        modelManager.addCard(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredCards());
-        modelManager.setSelectedCard(BOB);
-        modelManager.deleteCard(BOB);
+        modelManager.addCard(CARD_2);
+        assertEquals(Arrays.asList(ALICE, CARD_2), modelManager.getFilteredCards());
+        modelManager.setSelectedCard(CARD_2);
+        modelManager.deleteCard(CARD_2);
         assertEquals(ALICE, modelManager.getSelectedCard());
     }
 
@@ -123,7 +123,7 @@ public class ModelManagerTest {
     public void setCard_cardIsSelected_selectedCardUpdated() {
         modelManager.addCard(ALICE);
         modelManager.setSelectedCard(ALICE);
-        Card updatedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_BOB).build();
+        Card updatedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).build();
         modelManager.setCard(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedCard());
     }
@@ -146,6 +146,20 @@ public class ModelManagerTest {
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
         modelManager.setSelectedCard(ALICE);
         assertEquals(ALICE, modelManager.getSelectedCard());
+    }
+
+    @Test
+    public void setCurrentTestedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
+        thrown.expect(CardNotFoundException.class);
+        modelManager.setSelectedCard(ALICE);
+    }
+
+    @Test
+    public void setCurrentTestedCard_cardInFilteredCardList_setsSelectedCard() {
+        modelManager.addCard(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
+        modelManager.setCurrentTestedCard(ALICE);
+        assertEquals(ALICE, modelManager.getCurrentTestedCard());
     }
 
     @Test

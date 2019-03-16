@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
+import seedu.address.storage.csvmanager.CardFolderExport;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -151,10 +153,33 @@ public class ModelManager implements Model {
         return new ArrayList<>(filteredFolders);
     }
 
+
+
     @Override
-    public boolean checkValidCardFolders(List<String> cardFolders) {
-        return false;
+    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
+        List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
+        for (CardFolderExport cardFolderExport : cardFolders) {
+            addCardFolder(cardFolderExport, returnCardFolder);
+        }
+        return returnCardFolder;
     }
+
+
+    /**
+     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
+     * Throws card Folder not found exception if card folder cannot be found.
+     */
+    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
+        String exportFolderName = cardFolderExport.folderName;
+        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
+            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
+                returnCardFolders.add(readOnlyCardFolder);
+                return;
+            }
+        }
+        throw new CardFolderNotFoundException(cardFolderExport.folderName);
+    }
+
 
     @Override
     public boolean hasCard(Card card) {
@@ -295,9 +320,9 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
-        Card cardToTest = cardFolderToTest.getCardList().get(0);
+    public void testCardFolder(int cardFolderToTestIndex) {
+        ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
+        Card cardToTest = currentTestedCardFolder.get(0);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
     }
@@ -316,15 +341,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean checkIfInsideTestSession() {
-        return insideTestSession;
-    }
-
-    @Override
     public void endTestSession() {
         insideTestSession = false;
         cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
+        //TODO: exit card folder
     }
 
     @Override
@@ -348,6 +369,11 @@ public class ModelManager implements Model {
     @Override
     public boolean checkIfCardAlreadyAnswered() {
         return cardAlreadyAnswered;
+    }
+
+    @Override
+    public boolean checkIfInsideTestSession() {
+        return insideTestSession;
     }
 
     //=========== Selected card ===========================================================================

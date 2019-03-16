@@ -314,7 +314,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return this.card.isSameCard(card);
+            return this.card.equals(card);
         }
     }
 
@@ -327,7 +327,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameCard);
+            return cardsAdded.stream().anyMatch(card::equals);
         }
 
         @Override

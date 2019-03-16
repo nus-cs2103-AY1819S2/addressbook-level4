@@ -5,6 +5,7 @@ import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.Orders;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.Tables;
@@ -12,9 +13,6 @@ import seedu.address.model.table.Tables;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 
 public class TypicalRestOrRant {
     // Menu Items TODO: add quantity ordered
@@ -63,6 +61,22 @@ public class TypicalRestOrRant {
     public static final Table TABLE7 = new TableBuilder().withTableNumber("7").withTableStatus("4/4").build();
     public static final Table TABLE8 = new TableBuilder().withTableNumber("8").withTableStatus("1/4").build();
 
+    // Statistics (day, month, year and total daily revenue)
+    public static final DailyRevenue DAILY_REVENUE1 = new StatisticsBuilder().withDay("1").withMonth("3")
+                                                       .withYear("2019").withTotalDailyRevenue("700").build();
+    public static final DailyRevenue DAILY_REVENUE2 = new StatisticsBuilder().withDay("2").withMonth("3")
+                                                       .withYear("2019").withTotalDailyRevenue("600").build();
+    public static final DailyRevenue DAILY_REVENUE3 = new StatisticsBuilder().withDay("3").withMonth("3")
+                                                       .withYear("2019").withTotalDailyRevenue("500").build();
+    public static final DailyRevenue DAILY_REVENUE4 = new StatisticsBuilder().withDay("4").withMonth("3")
+                                                       .withYear("2019").withTotalDailyRevenue("400").build();
+    public static final DailyRevenue DAILY_REVENUE5 = new StatisticsBuilder().withDay("5").withMonth("3")
+                                                       .withYear("2019").withTotalDailyRevenue("300").build();
+    public static final DailyRevenue DAILY_REVENUE6 = new StatisticsBuilder().withDay("3").withMonth("3")
+                                                       .withYear("2019").withTotalDailyRevenue("200").build();
+    public static final DailyRevenue DAILY_REVENUE7 = new StatisticsBuilder().withDay("1").withMonth("3")
+                                                       .withYear("2019").withTotalDailyRevenue("100").build();
+
     // Manually added - Person's details found in {@code CommandTestUtil}
     //    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
     //                                             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
@@ -96,7 +110,9 @@ public class TypicalRestOrRant {
             tables.addTable(table);
         }
 
-        // TODO: add sample stats before returning
+        for (DailyRevenue dailyRevenue : getTypicalDailyRevenue()) {
+            statistics.addDailyRevenue(dailyRevenue);
+        }
         return new RestOrRant(orders, menu, tables, statistics);
     }
 
@@ -114,4 +130,8 @@ public class TypicalRestOrRant {
         return new ArrayList<>(Arrays.asList(TABLE1, TABLE2, TABLE3, TABLE4, TABLE5, TABLE6, TABLE7, TABLE8));
     }
 
+    public static List<DailyRevenue> getTypicalDailyRevenue() {
+        return new ArrayList<>(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2, DAILY_REVENUE3, DAILY_REVENUE4,
+                DAILY_REVENUE5, DAILY_REVENUE6, DAILY_REVENUE7));
+    }
 }

@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -95,5 +96,26 @@ public class TestUtil {
      */
     public static Table getTable(Model model, Index index) {
         return model.getFilteredTableList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the middle index of the daily revenue in the {@code model}'s daily revenue list.
+     */
+    public static Index getDailyRevenueMidIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredDailyRevenueList().size() / 2);
+    }
+
+    /**
+     * Returns the last index of the daily revenue in the {@code model}'s daily revenue list.
+     */
+    public static Index getDailyRevenueLastIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredDailyRevenueList().size());
+    }
+
+    /**
+     * Returns the daily revenue in the {@code model}'s daily revenue list at {@code index}.
+     */
+    public static DailyRevenue getDailyRevenue(Model model, Index index) {
+        return model.getFilteredDailyRevenueList().get(index.getZeroBased());
     }
 }

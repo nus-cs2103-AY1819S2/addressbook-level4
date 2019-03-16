@@ -16,12 +16,6 @@ class WorkloadTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Workload workload = new WorkloadBuilder().build();
-        thrown.expect(UnsupportedOperationException.class);
-    }
-
-    @Test
     public void isSameWorkload() {
         // same object -> returns true
         assertTrue(CS2040Workload.isSameWorkload(CS2040Workload));

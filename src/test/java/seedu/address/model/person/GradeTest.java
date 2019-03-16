@@ -16,7 +16,6 @@ public class GradeTest {
 
     @Test
     public void constructor_invalidGradeWithWhitespace_throwsIllegalArgumentException() {
-        String invalidGradeWithWhitespace = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> Grade.valueOf(""));
     }
 

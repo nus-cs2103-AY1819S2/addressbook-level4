@@ -4,8 +4,13 @@ package seedu.address.model.person;
  * Represents expected grade range of a module taken
  */
 public class GradeRange {
-    private Grade min;
-    private Grade max;
+    private final Grade min;
+    private final Grade max;
+
+    public GradeRange(Grade min, Grade max) {
+        this.min = min;
+        this.max = max;
+    }
 
     public Grade getMin() {
         return min;
@@ -13,14 +18,6 @@ public class GradeRange {
 
     public Grade getMax() {
         return max;
-    }
-
-    public void setMin(Grade min) {
-        this.min = min;
-    }
-
-    public void setMax(Grade max) {
-        this.max = max;
     }
 
     /**

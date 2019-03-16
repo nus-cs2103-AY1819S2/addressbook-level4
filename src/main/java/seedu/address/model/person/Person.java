@@ -31,9 +31,7 @@ public class Person {
         requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
         this.moduleInfo = moduleInfo;
         this.semester = semester;
-        this.gradeRange = new GradeRange();
-        this.gradeRange.setMin(expectedMinGrade);
-        this.gradeRange.setMax(expectedMaxGrade);
+        this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
         this.workload = new Workload(new Hour("0"), new Hour("0"),
                 new Hour("0"), new Hour("0"), new Hour("0")); //to be populated based on module info
         this.tags.addAll(tags);

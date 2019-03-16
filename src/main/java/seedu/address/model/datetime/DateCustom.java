@@ -3,23 +3,17 @@ package seedu.address.model.datetime;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.ParseException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a date.
+ * Represents a date for tasks.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class DateCustom {
+public class DateCustom implements DateBuilder {
     public static final String MESSAGE_CONSTRAINTS = "Date should not be before today's date, End Date should not"
                                                    + " be before Start Date and a valid date should"
                                                    + " be in the form of dd-mm-yyyy";
-
-    public static final String VALIDATION_REGEX = "^(((0[1-9]|[1-2][0-9]|3[0,1])-(01|03|05|07|08|10|12))|"
-                                                + "((0[1-9]|[1-2][0-9]|30)-(04|06|09|11))|((0[1-9]|[1-2]["
-                                                + "0-9])-(02)))-(\\d{4})$";
 
     private final String storedDate;
 
@@ -36,7 +30,7 @@ public class DateCustom {
 
 
     public static String getFormat() {
-        return "dd-MM-yyyy";
+        return DATE_FORMAT;
     }
 
     public static boolean isValidDate(String test) {
@@ -46,7 +40,6 @@ public class DateCustom {
     /**
      *  Returns false if the given date is before the current date
      * @param test the date to be tested
-     * @throws ParseException
      */
     public static boolean isDateBeforeToday(String test) {
         String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
@@ -64,8 +57,7 @@ public class DateCustom {
      *  Returns true if the first date given is before the second date given
      * @param date1 the first date to comapre with the second date
      * @param date2 the second date
-     * @return
-     * @throws ParseException
+     * @return true if first date is before, false otherwise.
      */
     public static boolean dateCompare(String date1, String date2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getFormat());

@@ -88,8 +88,10 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
+        Optional<ReadOnlyHealthWorkerBook> patientBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
+        ReadOnlyHealthWorkerBook initialPatientBook;
         ReadOnlyRequestBook initialRequestBook;
         Optional<ReadOnlyRequestBook> requestBookOptional;
 
@@ -124,7 +126,7 @@ public class MainApp extends Application {
             initialRequestBook = new RequestBook();
         }
 
-        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialRequestBook,
+        return new ModelManager(initialAddressBook, initialHealthWorkerBook, null, initialRequestBook,
             userPrefs);
     }
 

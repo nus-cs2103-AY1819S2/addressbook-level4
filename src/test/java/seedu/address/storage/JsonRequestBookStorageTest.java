@@ -3,8 +3,8 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
-import static seedu.address.testutil.TypicalRequests.HOON_REQUEST;
-import static seedu.address.testutil.TypicalRequests.IDA_REQUEST;
+//import static seedu.address.testutil.TypicalRequests.HOON_REQUEST;
+//import static seedu.address.testutil.TypicalRequests.IDA_REQUEST;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.io.IOException;
@@ -86,6 +86,8 @@ public class JsonRequestBookStorageTest {
         ReadOnlyRequestBook readBack = jsonRequestBookStorage.readRequestBook(filePath).get();
         assertEquals(original, new RequestBook(readBack));
 
+        // please review the following chunk, i do not know what Hoon and Ida are for -Rohan
+        /*
         // Modify data, overwrite exiting file, and read back
         original.addRequest(HOON_REQUEST);
         original.removeRequest(ALICE_REQUEST);
@@ -98,6 +100,7 @@ public class JsonRequestBookStorageTest {
         jsonRequestBookStorage.saveRequestBook(original); // file path not specified
         readBack = jsonRequestBookStorage.readRequestBook().get(); // file path not specified
         assertEquals(original, new RequestBook(readBack));
+        */
 
     }
 

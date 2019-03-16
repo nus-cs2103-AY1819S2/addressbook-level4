@@ -9,6 +9,7 @@ import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.user.User;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -90,6 +91,16 @@ public class StorageManager implements Storage {
 
     @Override
     public void exportLesson(Lesson lesson, Path filePath) throws IOException {
+
+    }
+
+    @Override
+    public Optional<User> importUser(Path filePath) throws IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void exportUser(User user, Path filePath) throws IOException {
 
     }
 

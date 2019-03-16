@@ -9,11 +9,12 @@ import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.user.User;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends UserPrefsStorage, LessonsStorage, LessonImportExport {
+public interface Storage extends UserPrefsStorage, LessonsStorage, LessonImportExport, UserImportExport {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -32,5 +33,11 @@ public interface Storage extends UserPrefsStorage, LessonsStorage, LessonImportE
 
     @Override
     void exportLesson(Lesson lesson, Path filePath) throws IOException;
+
+    @Override
+    Optional<User> importUser(Path filePath) throws IOException;
+
+    @Override
+    void exportUser(User user, Path filePath) throws IOException;
 
 }

@@ -316,9 +316,9 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
-        Card cardToTest = cardFolderToTest.getCardList().get(0);
+    public void testCardFolder(int cardFolderToTestIndex) {
+        ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
+        Card cardToTest = currentTestedCardFolder.get(0);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
     }
@@ -341,6 +341,7 @@ public class ModelManager implements Model {
         insideTestSession = false;
         cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
+        //TODO: exit card folder
     }
 
     @Override

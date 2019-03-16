@@ -3,23 +3,23 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_2;
 import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-import static seedu.address.testutil.TypicalCards.AMY;
-import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARD_1;
+import static seedu.address.testutil.TypicalCards.CARD_2;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
@@ -51,9 +51,9 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_CARD;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_BOB + "  "
-                + ANSWER_DESC_BOB + " " + HINT_DESC_HUSBAND + " ";
-        Card editedCard = new CardBuilder(BOB).withHint(VALID_HINT_HUSBAND).build();
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_SAMPLE_2
+                + "  " + ANSWER_DESC_SAMPLE_2 + " " + HINT_DESC_HUSBAND + " ";
+        Card editedCard = new CardBuilder(CARD_2).withHint(VALID_HINT_HUSBAND).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: undo editing the last card in the list -> last card restored */
@@ -69,26 +69,26 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: edit a card with new values same as existing values -> edited */
         command =
-                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
+                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
-        assertCommandSuccess(command, index, BOB);
+        assertCommandSuccess(command, index, CARD_2);
 
         /* Case: edit a card with new values same as another card's values but with different question -> edited */
-        assertTrue(getModel().getActiveCardFolder().getCardList().contains(BOB));
+        assertTrue(getModel().getActiveCardFolder().getCardList().contains(CARD_2));
         index = INDEX_SECOND_CARD;
-        assertNotEquals(getModel().getFilteredCards().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredCards().get(index.getZeroBased()), CARD_2);
         command =
-                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_AMY + ANSWER_DESC_BOB
+                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_2
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
-        editedCard = new CardBuilder(BOB).withQuestion(VALID_QUESTION_AMY).build();
+        editedCard = new CardBuilder(CARD_2).withQuestion(VALID_QUESTION_1).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: edit a card with new values same as another card's values but with different answer -> edited */
         index = INDEX_SECOND_CARD;
         command =
-                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_AMY
+                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
                         + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
-        editedCard = new CardBuilder(BOB).withAnswer(VALID_ANSWER_AMY).build();
+        editedCard = new CardBuilder(CARD_2).withAnswer(VALID_ANSWER_1).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: clear hints -> cleared */
@@ -104,9 +104,9 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredCards().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_SAMPLE_2;
         cardToEdit = getModel().getFilteredCards().get(index.getZeroBased());
-        editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_BOB).build();
+        editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_2).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: filtered card list, edit index within bounds of card folder but out of bounds of card list
@@ -114,7 +114,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
          */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getActiveCardFolder().getCardList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_SAMPLE_2,
                 Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a card card is selected -------------------------- */
@@ -126,29 +126,29 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         index = INDEX_FIRST_CARD;
         selectCard(index);
         command =
-                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_AMY + ANSWER_DESC_AMY
+                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_1
                        + HINT_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new card's question
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, CARD_1, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + QUESTION_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + QUESTION_DESC_SAMPLE_2,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + QUESTION_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + QUESTION_DESC_SAMPLE_2,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredCards().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_SAMPLE_2,
                 Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + QUESTION_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_2,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
@@ -168,24 +168,24 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
                 + INVALID_HINT_DESC, Hint.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a card with new values same as another card's values -> rejected */
-        executeCommand(CardUtil.getAddCommand(BOB));
-        assertTrue(getModel().getActiveCardFolder().getCardList().contains(BOB));
+        executeCommand(CardUtil.getAddCommand(CARD_2));
+        assertTrue(getModel().getActiveCardFolder().getCardList().contains(CARD_2));
         index = INDEX_FIRST_CARD;
-        assertFalse(getModel().getFilteredCards().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredCards().get(index.getZeroBased()).equals(CARD_2));
         command =
-                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
+                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different hints -> rejected */
         command =
-                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
+                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
                        + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different answer -> rejected */
         command =
-                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_AMY
+                EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
     }

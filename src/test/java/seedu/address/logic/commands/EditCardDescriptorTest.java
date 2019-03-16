@@ -4,9 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 
 import org.junit.Test;
 
@@ -35,11 +35,11 @@ public class EditCardDescriptorTest {
 
         // different question -> returns false
         EditCommand.EditCardDescriptor editedAmy =
-                new EditCardDescriptorBuilder(DESC_AMY).withQuestion(VALID_QUESTION_BOB).build();
+                new EditCardDescriptorBuilder(DESC_AMY).withQuestion(VALID_QUESTION_2).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different answer -> returns false
-        editedAmy = new EditCardDescriptorBuilder(DESC_AMY).withAnswer(VALID_ANSWER_BOB).build();
+        editedAmy = new EditCardDescriptorBuilder(DESC_AMY).withAnswer(VALID_ANSWER_2).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different hint -> returns false

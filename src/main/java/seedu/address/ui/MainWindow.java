@@ -37,7 +37,6 @@ public class MainWindow extends UiPart<Stage> {
     private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private TestSession testSessionScreen;
     private CardMainScreen cardMainScreen;
 
     @FXML
@@ -121,9 +120,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        testSessionScreen = new TestSession();
-        fullScreenPlaceholder.getChildren().add(testSessionScreen.getRoot());
 
         browserPanel = new BrowserPanel(logic.selectedCardProperty());
         cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),

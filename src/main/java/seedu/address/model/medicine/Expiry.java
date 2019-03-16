@@ -43,7 +43,7 @@ public class Expiry implements Comparable<Expiry> {
     }
 
     private LocalDate parseRawDate(String expiry) {
-        return LocalDate.parse(expiry, DateTimeFormatter.ofPattern("dd/M/yyyy"));
+        return LocalDate.parse(expiry, DateTimeFormatter.ofPattern("d/M/yyyy"));
     }
 
     public LocalDate getExpiryDate() {

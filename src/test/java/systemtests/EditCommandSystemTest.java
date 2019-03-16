@@ -136,7 +136,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         /* -------------------- Performing edit operation while a medicine card is selected ------------------------- */
 
         /* Case: selects first card in the medicine list, edit a medicine -> edited, card selection remains unchanged
-         * but browser url changes
+         * but loaded information table changes
          */
         showAllMedicines();
         index = INDEX_FIRST_MEDICINE;
@@ -145,7 +145,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_PARACETAMOL + COMPANY_DESC_GABAPENTIN
                 + TAG_DESC_FEVER + TAG_DESC_PAINKILER;
         // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new medicine's name
+        // loaded information table is updated to reflect the new medicine's name
 
         editedMedicine = new MedicineBuilder(medicineToEdit).withName(VALID_NAME_PARACETAMOL)
                 .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_FEVER, VALID_TAG_PAINKILLER).build();
@@ -203,7 +203,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Medicine, Index)} except that
-     * the browser url and selected card remain unchanged.
+     * the loaded information table and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Medicine, Index)
      */
@@ -231,7 +231,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
-     * browser url and selected card remain unchanged.
+     * loaded information table and selected card remain unchanged.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -242,7 +242,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url and selected card update accordingly depending on the card at
+     * 3. Asserts that the loaded information table and selected card update accordingly depending on the card at
      * {@code expectedSelectedCardIndex}.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
@@ -269,7 +269,7 @@ public class EditCommandSystemTest extends MediTabsSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
+     * 3. Asserts that the loaded information table, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

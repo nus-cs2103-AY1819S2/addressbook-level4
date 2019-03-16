@@ -181,8 +181,8 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
      * {@code MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
-     * error style.
+     * Also verifies that the loaded information table, selected card and status bar remain unchanged, and the command
+     * box has the error style.
      * @see MediTabsSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

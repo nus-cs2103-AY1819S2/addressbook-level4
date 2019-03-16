@@ -46,7 +46,8 @@ public class UpdateCommand extends Command {
             + "used for updating.";
     public static final String MESSAGE_MISSING_EXPIRY = "Must include expiry date for new batches.";
     public static final String MESSAGE_MISSING_QUANTITY = "Batch not found. Cannot remove batch.";
-    public static final String MESSAGE_MAX_QUANTITY_EXCEEDED = "Max quantity exceeded. Max quantity: 999999999";
+    public static final String MESSAGE_MAX_QUANTITY_EXCEEDED = "Max quantity exceeded. Max quantity: "
+            + Quantity.MAX_QUANTITY;
 
     private final Index targetIndex;
     private final Batch newBatchDetails;
@@ -132,8 +133,8 @@ public class UpdateCommand extends Command {
         return newBatches;
     }
 
-    Quantity getNewMedicineQuantity(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch)
-            throws CommandException {
+    Quantity getNewMedicineQuantity(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
+            CommandException {
         int quantity = medicineToUpdate.getQuantity().getNumericValue();
 
         if (batchToUpdate != null) {
@@ -141,9 +142,10 @@ public class UpdateCommand extends Command {
         }
         quantity += updatedBatch.getQuantity().getNumericValue();
 
-        if (quantity > 999999999) {
+        if (quantity > Quantity.MAX_QUANTITY) {
             throw new CommandException(MESSAGE_MAX_QUANTITY_EXCEEDED);
         }
+
         return new Quantity(Integer.toString(quantity));
     }
 

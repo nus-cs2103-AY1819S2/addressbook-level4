@@ -10,10 +10,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.GridPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MediTabs" minWidth="960" minHeight="700" onCloseRequest="#handleExit">
+         title="MediTabs" minWidth="1000" minHeight="700" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/medicine_bottle_32.png" />
   </icons>
@@ -55,7 +54,7 @@
             <StackPane fx:id="medicineListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" minWidth="340" prefWidth="340" >
+          <StackPane fx:id="informationPanelPlaceHolder" minWidth="400" prefWidth="400" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>

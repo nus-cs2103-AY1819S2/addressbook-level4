@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,10 +7,9 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -21,8 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.InformationPanelHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.MedicineListPanelHandle;
@@ -37,7 +35,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalMedicines;
-import seedu.address.ui.BrowserPanel;
+import seedu.address.ui.BatchTable;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -67,7 +65,6 @@ public abstract class MediTabsSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -106,8 +103,8 @@ public abstract class MediTabsSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
+    public InformationPanelHandle getInformationPanel() {
+        return mainWindowHandle.getInformationPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
@@ -130,7 +127,6 @@ public abstract class MediTabsSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -179,54 +175,55 @@ public abstract class MediTabsSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code MedicineListPanelHandle} and {@code StatusBarFooterHandle} to remember
-     * their current state.
+     * Calls {@code InformationPanelHandle}, {@code MedicineListPanelHandle} and {@code StatusBarFooterHandle} to
+     * remember their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        getInformationPanel().rememberLoadedTableDetails();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getMedicineListPanel().rememberSelectedMedicineCard();
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
-     * default page.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * Asserts that the previously selected card is now deselected and the information panel is not displaying any
+     * loaded table.
+     * @see InformationPanelHandle#isLoadedTableDetailsChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertFalse(getInformationPanel().isBatchTableLoaded());
         assertFalse(getMedicineListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the medicine in the medicine list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * Asserts that the information panel is changed to display the details of the medicine in the medicine list panel
+     * at {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see InformationPanelHandle#isLoadedTableDetailsChanged()
      * @see MedicineListPanelHandle#isSelectedMedicineCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getMedicineListPanel().navigateToCard(getMedicineListPanel().getSelectedCardIndex());
-        String selectedCardName = getMedicineListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+        List<String> expectedDetails = new ArrayList<>();
+        expectedDetails.add(getMedicineListPanel().getHandleToSelectedCard().getName());
+        expectedDetails.add(getMedicineListPanel().getHandleToSelectedCard().getCompany());
+        expectedDetails.add(BatchTable.BATCHTABLE_FOOTER_QUANTITY
+                + getMedicineListPanel().getHandleToSelectedCard().getQuantity());
+        expectedDetails.add(BatchTable.BATCHTABLE_FOOTER_EXPIRY
+                + getMedicineListPanel().getHandleToSelectedCard().getExpiry());
 
+        assertEquals(expectedDetails, getInformationPanel().getTableDetails());
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getMedicineListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the medicine list panel remain unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * Asserts that the loaded information table and the selected card in the medicine list panel remain
+     * unchanged.
+     * @see InformationPanelHandle#isLoadedTableDetailsChanged
      * @see MedicineListPanelHandle#isSelectedMedicineCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getInformationPanel().isLoadedTableDetailsChanged());
         assertFalse(getMedicineListPanel().isSelectedMedicineCardChanged());
     }
 
@@ -272,7 +269,7 @@ public abstract class MediTabsSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getMedicineListPanel(), getModel().getFilteredMedicineList());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertFalse(getInformationPanel().isBatchTableLoaded());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

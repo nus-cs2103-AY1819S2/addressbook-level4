@@ -22,9 +22,6 @@ public class QuantityTest {
 
     @Test
     public void isValidQuantity() {
-        // null quantity
-        Assert.assertThrows(NullPointerException.class, () -> Quantity.isValidQuantity(null));
-
         // invalid quantities
         assertFalse(Quantity.isValidQuantity("")); // empty string
         assertFalse(Quantity.isValidQuantity(" ")); // spaces only
@@ -32,13 +29,13 @@ public class QuantityTest {
         assertFalse(Quantity.isValidQuantity("9011p041")); // alphabets within digits
         assertFalse(Quantity.isValidQuantity("9312 1534")); // spaces within digits
         assertFalse(Quantity.isValidQuantity("-19282")); // negative numbers
-        assertFalse(Quantity.isValidQuantity("1000000000")); // Maximum quantity exceeded
         assertFalse(Quantity.isValidQuantity("124293842033123")); // long quantities
+        assertFalse(Quantity.isValidQuantity(Integer.toString(Quantity.MAX_QUANTITY + 1))); // max quantity exceeded
 
         // valid quantities
         assertTrue(Quantity.isValidQuantity("1")); // 1 number
         assertTrue(Quantity.isValidQuantity("911")); // exactly 3 numbers
-        assertTrue(Quantity.isValidQuantity("999999999")); // Maximum quantity
+        assertTrue(Quantity.isValidQuantity("1000000000"));
 
     }
 }

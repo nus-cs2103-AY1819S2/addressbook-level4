@@ -69,6 +69,7 @@ public class Cell {
      */
     public Cell(Cell newCell) {
         this.battleship = newCell.battleship;
+        this.isHit = newCell.isHit;
         this.name = newCell.name;
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");

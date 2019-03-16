@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -34,6 +35,8 @@ public class CommandTestUtil {
     public static final String VALID_EXPECTED_MIN_GRADE_BOB = "D";
     public static final String VALID_EXPECTED_MAX_GRADE_AMY = "A";
     public static final String VALID_EXPECTED_MAX_GRADE_BOB = "B";
+    public static final String VALID_LECTURE_HOUR_AMY = "0";
+    public static final String VALID_LECTURE_HOUR_BOB = "0";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -52,12 +55,14 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&";
+    public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "911a";
     public static final String INVALID_EXPECTED_MIN_GRADE_DESC = " "
-            + PREFIX_EXPECTED_MIN_GRADE + "bob!yahoo"; // missing '@' symbol
+            + PREFIX_EXPECTED_MIN_GRADE + "bob!yahoo";
     public static final String INVALID_EXPECTED_MAX_GRADE_DESC = " "
-            + PREFIX_EXPECTED_MAX_GRADE; // empty string not allowed for addresses
+            + PREFIX_EXPECTED_MAX_GRADE;
+    public static final String INVALID_LECTURE_HOUR_DESC = " "
+            + PREFIX_LECTURE_HOUR;
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -71,11 +76,13 @@ public class CommandTestUtil {
                 .withSemester(VALID_SEMESTER_AMY)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_AMY)
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_AMY)
+                .withLectureHour(VALID_LECTURE_HOUR_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withSemester(VALID_SEMESTER_BOB)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_BOB)
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_BOB)
+                .withLectureHour(VALID_LECTURE_HOUR_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

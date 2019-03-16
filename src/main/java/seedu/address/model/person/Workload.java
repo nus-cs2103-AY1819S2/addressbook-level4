@@ -48,20 +48,23 @@ public class Workload {
         return preparationHour;
     }
 
-    /**
-     * Returns true if both Workloads are the same in all attributes.
-     */
-    public boolean isSameWorkload(Workload other) {
+    @Override
+    public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
+        if (!(other instanceof Workload)) {
+            return false;
+        }
+
+        Workload otherWorkload = (Workload) other;
         return other != null
-                && other.getLectureHour().equals(getLectureHour())
-                && other.getTutorialHour().equals(getTutorialHour())
-                && other.getLabHour().equals(getLabHour())
-                && other.getProjectHour().equals(getProjectHour())
-                && other.getPreparationHour().equals(getPreparationHour());
+                && otherWorkload.getLectureHour().equals(getLectureHour())
+                && otherWorkload.getTutorialHour().equals(getTutorialHour())
+                && otherWorkload.getLabHour().equals(getLabHour())
+                && otherWorkload.getProjectHour().equals(getProjectHour())
+                && otherWorkload.getPreparationHour().equals(getPreparationHour());
     }
 
     @Override

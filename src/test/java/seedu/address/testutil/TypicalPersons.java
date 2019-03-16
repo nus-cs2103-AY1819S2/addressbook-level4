@@ -4,6 +4,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GR
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LECTURE_HOUR_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LECTURE_HOUR_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_AMY;
@@ -24,29 +26,29 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withExpectedMinGrade("F").withExpectedMaxGrade("A")
+            .withExpectedMinGrade("F").withExpectedMaxGrade("A").withLectureHour("0")
             .withSemester("Y1S2")
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withExpectedMinGrade("D")
-            .withExpectedMaxGrade("A").withSemester("Y3S2")
+            .withExpectedMaxGrade("A").withLectureHour("0").withSemester("Y3S2")
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withSemester("Y5S2")
-            .withExpectedMinGrade("D").withExpectedMaxGrade("A").build();
+            .withExpectedMinGrade("D").withExpectedMaxGrade("A").withLectureHour("0").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withSemester("Y4S2")
-            .withExpectedMinGrade("F").withExpectedMaxGrade("A").withTags("friends").build();
+            .withExpectedMinGrade("F").withExpectedMaxGrade("A").withLectureHour("0").withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withSemester("Y3S1")
-            .withExpectedMinGrade("C").withExpectedMaxGrade("A").build();
+            .withExpectedMinGrade("C").withExpectedMaxGrade("A").withLectureHour("0").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withSemester("Y4S2")
-            .withExpectedMinGrade("D").withExpectedMaxGrade("A").build();
+            .withExpectedMinGrade("D").withExpectedMaxGrade("A").withLectureHour("0").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withSemester("Y4S1")
-            .withExpectedMinGrade("C").withExpectedMaxGrade("B").build();
+            .withExpectedMinGrade("C").withExpectedMaxGrade("B").withLectureHour("0").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withSemester("Y1S1")
-            .withExpectedMinGrade("B").withExpectedMaxGrade("A").build();
+            .withExpectedMinGrade("B").withExpectedMaxGrade("A").withLectureHour("0").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withSemester("Y3S2")
-            .withExpectedMinGrade("D").withExpectedMaxGrade("A").build();
+            .withExpectedMinGrade("D").withExpectedMaxGrade("A").withLectureHour("0").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder()
@@ -54,12 +56,14 @@ public class TypicalPersons {
             .withSemester(VALID_SEMESTER_AMY)
             .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_AMY)
             .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_AMY)
+            .withLectureHour(VALID_LECTURE_HOUR_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder()
             .withName(VALID_NAME_BOB)
             .withSemester(VALID_SEMESTER_BOB)
             .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_BOB)
             .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_BOB)
+            .withLectureHour(VALID_LECTURE_HOUR_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -57,6 +58,10 @@ public class PersonUtil {
         descriptor.getExpectedMaxGrade().ifPresent(expectedMaxGrade ->
                 sb.append(PREFIX_EXPECTED_MAX_GRADE)
                         .append(expectedMaxGrade.name())
+                        .append(" "));
+        descriptor.getLectureHour().ifPresent(lectureHour ->
+                sb.append(PREFIX_LECTURE_HOUR)
+                        .append(lectureHour.toString())
                         .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

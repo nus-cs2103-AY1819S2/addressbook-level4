@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Grade;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
@@ -42,12 +43,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Semester phone = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
         Grade expectedMinGrade = ParserUtil
-                .parseExpectedMinGrade(argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).get());
+                .parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).get());
         Grade expectedMaxGrade = ParserUtil
-                .parseExpectedMaxGrade(argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).get());
+                .parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, expectedMinGrade, expectedMaxGrade, tagList);
+        Person person = new Person(name, phone, expectedMinGrade, expectedMaxGrade, new Hour("0"), tagList);
 
         return new AddCommand(person);
     }

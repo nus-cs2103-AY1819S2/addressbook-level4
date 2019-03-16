@@ -268,7 +268,7 @@ Step 4: The `CsvWrapper#export()` operation retrieves the current Medicine Inven
 Step 5: After retrieving the data, the `CsvWrapper#createCsvFile(String csvFileName)` operation, which is the second key operation, is called. It creates an empty CSV file with the input file name in the `exported` directory as mentioned earlier.
 
 [NOTE]
-If a CSV file with the input file name *already exist* in the `exported` directory, a `File already exist` error will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current Medicine Inventory data shown in the GUI would not be exported.
+If a CSV file with the input file name *already exist* in the `exported` directory, a `File already exist` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current Medicine Inventory data shown in the GUI would not be exported.
 
 Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, which is the third key operation, is called to process the current Medicine Inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
 

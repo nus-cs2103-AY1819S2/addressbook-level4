@@ -8,7 +8,10 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
+import seedu.address.model.deck.UniqueDeckList;
+import seedu.address.model.deck.exceptions.DuplicateDeckException;
 
 /**
  * Wraps all data at the TopDeck level
@@ -16,6 +19,7 @@ import seedu.address.model.deck.UniqueCardList;
  */
 public class TopDeck implements ReadOnlyTopDeck {
     private final UniqueCardList cards;
+    private final UniqueDeckList decks;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -26,6 +30,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      *   among constructors.
      */
     {
+        decks = new UniqueDeckList();
         cards = new UniqueCardList();
     }
 
@@ -116,12 +121,36 @@ public class TopDeck implements ReadOnlyTopDeck {
         invalidationListenerManager.callListeners(this);
     }
 
+    //// deck operations
+
+    /**
+     * Adds a deck to the TopDeck.
+     * The deck must not already exist in the TopDeck.
+     */
+    public void addDeck(Deck deck) throws DuplicateDeckException {
+        decks.add(deck);
+    }
+
+    /**
+     * Returns true if a deck with the same identity as {@code deck} exists in Anakin.
+     */
+    public boolean hasDeck(Deck deck) {
+        requireNonNull(deck);
+        return decks.contains(deck);
+    }
+
+
     //// util methods
 
     @Override
     public String toString() {
         return cards.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<Deck> getDeckList() {
+        return decks.asUnmodifiableObservableList();
     }
 
     @Override

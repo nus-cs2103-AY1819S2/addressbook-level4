@@ -2,9 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +15,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.NameContainsKeywordsPredicate;
+import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 /**
@@ -58,6 +60,21 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_NAME = "My Deck";
+    public static final String INVALID_NAME = "B@d_Deck_Name";
+    public static final String VALID_NAME_JOHN = "John Phua";
+
+    public static final String VALID_NAME_DECK_A = "My Deck A";
+    public static final String VALID_NAME_DECK_B = "Your deck";
+    public static final Deck VALID_DECK_A = new DeckBuilder().withName(VALID_NAME_DECK_A).build();
+    public static final Deck VALID_DECK_B = new DeckBuilder().withName(VALID_NAME_DECK_B).build();
+
+    public static final String VALID_DECK_NAME_A_ARGS = " " + PREFIX_NAME + VALID_NAME_DECK_A;
+    public static final String VALID_DECK_NAME_B_ARGS = " " + PREFIX_NAME + VALID_NAME_DECK_B;
+    public static final String INVALID_DECK_NAME_ARGS = " " + PREFIX_NAME + " Bad_Deck_Name!";
+
+    public static final List<Card> VALID_CARD_LIST = new ArrayList<>();
 
     public static final EditCommand.EditCardDescriptor DESC_HELLO;
     public static final EditCommand.EditCardDescriptor DESC_MOD;
@@ -128,6 +145,23 @@ public class CommandTestUtil {
             assertEquals(expectedSelectedCard, actualModel.getSelectedCard());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the deck at the given {@code targetIndex} in the
+     * {@code model}'s Anakin.
+     */
+
+    public static void showDeckAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDeckList().size());
+
+        Deck deck = model.getFilteredDeckList().get(targetIndex.getZeroBased());
+
+        final String[] splitName = deck.getName().fullName.split("\\s+");
+        model.updateFilteredDeckList(
+                new DeckNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredDeckList().size());
     }
 
     /**

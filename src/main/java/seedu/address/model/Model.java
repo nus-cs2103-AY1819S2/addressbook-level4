@@ -7,11 +7,18 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Deck> PREDICATE_SHOW_ALL_DECKS = unused -> true;
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
@@ -77,6 +84,15 @@ public interface Model {
      */
     void setCard(Card target, Card editedCard);
 
+    /** Returns an unmodifiable view of the filtered deck list */
+    ObservableList<Deck> getFilteredDeckList();
+
+    /**
+     * Updates the filter of the filtered deck list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDeckList(Predicate<Deck> predicate);
+
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
 
@@ -127,4 +143,29 @@ public interface Model {
      * Sets the selected card in the filtered card list.
      */
     void setSelectedCard(Card card);
+
+    /**
+     * Selected deck in the filtered deck list.
+     * null if no deck is selected.
+     */
+    ReadOnlyProperty<Deck> selectedDeckProperty();
+
+    /**
+     * Returns the selected deck in the filtered deck list.
+     * null if no deck is selected.
+     */
+    Deck getSelectedDeck();
+
+    /**
+     * Sets the selected deck in the filtered deck list.
+     */
+    void setSelectedDeck(Deck deck);
+
+    /**
+     * Adds a new deck in the filtered deck list.
+     * @param deck
+     */
+    void addDeck(Deck deck);
+
+    boolean hasDeck(Deck deck);
 }

@@ -63,13 +63,13 @@ public class JsonTopDeckStorageTest {
     @Test
     public void readTopDeck_invalidCardTopDeck_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readTopDeck("invalidCardTopDeck.json");
+        readTopDeck("invalidDeckTopDeck.json");
     }
 
     @Test
     public void readTopDeck_invalidAndValidCardTopDeck_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readTopDeck("invalidAndValidCardTopDeck.json");
+        readTopDeck("invalidAndValidDeckTopDeck.json");
     }
 
     @Test

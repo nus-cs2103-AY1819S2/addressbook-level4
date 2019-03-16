@@ -20,6 +20,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
 import seedu.address.testutil.CardBuilder;
 
@@ -112,6 +113,7 @@ public class TopDeckTest {
      */
     private static class TopDeckStub implements ReadOnlyTopDeck {
         private final ObservableList<Card> cards = FXCollections.observableArrayList();
+        private final ObservableList<Deck> decks = FXCollections.observableArrayList();
 
         TopDeckStub(Collection<Card> cards) {
             this.cards.setAll(cards);
@@ -120,6 +122,11 @@ public class TopDeckTest {
         @Override
         public ObservableList<Card> getCardList() {
             return cards;
+        }
+
+        @Override
+        public ObservableList<Deck> getDeckList() {
+            return decks;
         }
 
         @Override

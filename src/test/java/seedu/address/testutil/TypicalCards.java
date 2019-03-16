@@ -6,6 +6,8 @@ import java.util.List;
 
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 
 /**
  * A utility class containing a list of {@code Card} objects to be used in tests.
@@ -44,6 +46,14 @@ public class TypicalCards {
     public static final String KEYWORD_MATCHING_HTTP = "HTTP";
 
     private TypicalCards() {} // prevents instantiation
+
+    /**
+     * Returns a {@code Deck} with all the typical cards.
+     */
+    public static Deck getTypicalDeck() {
+        Deck ad = new Deck(new Name("HEYYY"), getTypicalCards());
+        return ad;
+    }
 
     /**
      * Returns an {@code TopDeck} with all the typical cards.

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * API of the Logic component
@@ -31,7 +32,12 @@ public interface Logic {
      */
     ReadOnlyTopDeck getTopDeck();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of decks
+     */
+    ObservableList<Deck> getFilteredDeckList();
+
+    /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredCardList();
 
     /**
@@ -41,7 +47,7 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' TopDeck file path.
      */
     Path getTopDeckFilePath();
 
@@ -69,4 +75,19 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedCard(Card)
      */
     void setSelectedCard(Card card);
+
+    /**
+     * Selected deck in the filtered deck list.
+     * null if no deck is selected.
+     *
+     * @see seedu.address.model.Model#selectedDeckProperty()
+     */
+    ReadOnlyProperty<Deck> selectedDeckProperty();
+
+    /**
+     * Sets the selected deck in the filtered deck list.
+     *
+     * @see seedu.address.model.Model#setSelectedDeck(Deck)
+     */
+    void setSelectedDeck(Deck deck);
 }

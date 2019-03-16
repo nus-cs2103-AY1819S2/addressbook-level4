@@ -10,13 +10,16 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
+import seedu.address.model.deck.exceptions.DeckNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,8 +29,10 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
+    private final FilteredList<Deck> filteredDecks;
     private final FilteredList<Card> filteredCards;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +45,7 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
+        filteredDecks = new FilteredList<>(versionedTopDeck.getDeckList());
         filteredCards = new FilteredList<Card>(versionedTopDeck.getCardList());
         filteredCards.addListener(this::ensureSelectedPersonIsValid);
     }
@@ -119,7 +125,39 @@ public class ModelManager implements Model {
         versionedTopDeck.setCard(target, editedCard);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void addDeck(Deck deck) {
+        logger.info("Added a new deck to TopDeck.");
+        versionedTopDeck.addDeck(deck);
+        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        commitTopDeck();
+    }
+
+    @Override
+    public boolean hasDeck(Deck deck) {
+        requireAllNonNull(deck);
+        return versionedTopDeck.hasDeck(deck);
+    }
+
+
+    //=========== Filtered Deck List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Deck} backed by the internal list of
+     * {@code versionedAnakin}
+     */
+    @Override
+    public ObservableList<Deck> getFilteredDeckList() {
+        return FXCollections.unmodifiableObservableList(filteredDecks);
+    }
+
+    @Override
+    public void updateFilteredDeckList(Predicate<Deck> predicate) {
+        requireAllNonNull(predicate);
+        filteredDecks.setPredicate(predicate);
+    }
+
+    //=========== Filtered Card List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -183,6 +221,24 @@ public class ModelManager implements Model {
         selectedCard.setValue(card);
     }
 
+    //=========== Selected deck ===========================================================================
+    @Override
+    public ReadOnlyProperty<Deck> selectedDeckProperty() {
+        return selectedDeck;
+    }
+
+    @Override
+    public Deck getSelectedDeck() {
+        return selectedDeck.getValue();
+    }
+
+    @Override
+    public void setSelectedDeck(Deck deck) {
+        if (deck != null && !filteredDecks.contains(deck)) {
+            throw new DeckNotFoundException();
+        }
+        selectedDeck.setValue(deck);
+    }
     /**
      * Ensures {@code selectedCard} is a valid card in {@code filteredCards}.
      */

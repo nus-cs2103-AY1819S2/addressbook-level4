@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.TopDeck;
-import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * An Immutable TopDeck that is serializable to JSON format.
@@ -19,16 +19,17 @@ import seedu.address.model.deck.Card;
 @JsonRootName(value = "topdeck")
 class JsonSerializableTopDeck {
 
-    public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate card(s).";
+    public static final String MESSAGE_DUPLICATE_DECK = "Decks list contains duplicate deck(s).";
+    public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate cards(s).";
 
-    private final List<JsonAdaptedCard> cards = new ArrayList<>();
+    private final List<JsonAdaptedDeck> decks = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableTopDeck} with the given cards.
+     * Constructs a {@code JsonSerializableTopDeck} with the given decks.
      */
     @JsonCreator
-    public JsonSerializableTopDeck(@JsonProperty("cards") List<JsonAdaptedCard> cards) {
-        this.cards.addAll(cards);
+    public JsonSerializableTopDeck(@JsonProperty("decks") List<JsonAdaptedDeck> decks) {
+        this.decks.addAll(decks);
     }
 
     /**
@@ -37,7 +38,7 @@ class JsonSerializableTopDeck {
      * @param source future changes to this will not affect the created {@code JsonSerializableTopDeck}.
      */
     public JsonSerializableTopDeck(ReadOnlyTopDeck source) {
-        cards.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
+        decks.addAll(source.getDeckList().stream().map(JsonAdaptedDeck::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +48,13 @@ class JsonSerializableTopDeck {
      */
     public TopDeck toModelType() throws IllegalValueException {
         TopDeck topDeck = new TopDeck();
-        for (JsonAdaptedCard jsonAdaptedCard : cards) {
-            Card card = jsonAdaptedCard.toModelType();
-            if (topDeck.hasCard(card)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_CARD);
+
+        for (JsonAdaptedDeck jsonAdaptedDeck : decks) {
+            Deck deck = jsonAdaptedDeck.toModelType();
+            if (topDeck.hasDeck(deck)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DECK);
             }
-            topDeck.addCard(card);
+            topDeck.addDeck(deck);
         }
         return topDeck;
     }

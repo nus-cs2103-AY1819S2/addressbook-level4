@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DECK_NAME_A_ARGS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DECK_A;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import java.util.Arrays;
@@ -14,23 +16,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.CardUtil;
+import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class TopDeckParserTest {
@@ -38,6 +31,14 @@ public class TopDeckParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final TopDeckParser parser = new TopDeckParser();
+
+    @Test
+    public void parseCommand_newDeck() throws Exception {
+        Deck deck = new DeckBuilder().withName(VALID_NAME_DECK_A).build();
+        NewDeckCommand command = (NewDeckCommand) parser
+                .parseCommand(NewDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS);
+        assertEquals(new NewDeckCommand(deck), command);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {

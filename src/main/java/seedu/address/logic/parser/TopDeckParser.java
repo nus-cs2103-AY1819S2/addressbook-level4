@@ -19,6 +19,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.NewDeckCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -83,6 +85,9 @@ public class TopDeckParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case NewDeckCommand.COMMAND_WORD:
+            return new NewDeckCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

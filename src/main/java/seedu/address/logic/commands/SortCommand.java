@@ -15,7 +15,7 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts all the pdfs based on sorting keywords.\n"
+            + ": Sorts all the PDFs based on sorting keywords.\n"
             + "Parameters: up (for ascending order), down (for descending order)\n"
             + "Example: " + COMMAND_WORD + " up";
 

@@ -7,12 +7,12 @@ import seedu.address.model.Model;
 import seedu.address.model.PdfBook;
 
 /**
- * Clears the pdf book.
+ * Clears the PDF book.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Pdf book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "PDF book has been cleared!";
 
 
     @Override

@@ -10,29 +10,23 @@ import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 
 /**
- * Adds a pdf to the address book.
+ * Adds a PDF to the PDF book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a pdf to the pdf book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a pdf to the PDF book. "
             + "Parameters: "
             + PREFIX_FILE + "FILEPATH "
-            //+ PREFIX_PHONE + "PHONE "
-            //+ PREFIX_EMAIL + "EMAIL "
-            //+ PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "Desktop\\main\\target "
-            /*+ PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "*/
             + PREFIX_TAG + "CS2103T "
             + PREFIX_TAG + "SE ROCKS";
 
-    public static final String MESSAGE_SUCCESS = "New pdf added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New PDF added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the PDF book";
 
     private final Pdf toAdd;
 

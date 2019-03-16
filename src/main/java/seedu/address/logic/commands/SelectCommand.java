@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 
 /**
- * Selects a pdf identified using it's displayed index from the address book.
+ * Selects a pdf identified using it's displayed index from the PDF book.
  */
 public class SelectCommand extends Command {
 
@@ -23,7 +23,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Pdf: %1$s";
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected PDF: %1$s";
 
     private final Index targetIndex;
 

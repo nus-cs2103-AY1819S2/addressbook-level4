@@ -20,4 +20,11 @@ public class EmailContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pe
         return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().toString(),
             keyword));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof EmailContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((EmailContainsKeywordsPredicate) other).keywords)); // state check
+    }
 }

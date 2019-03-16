@@ -20,4 +20,11 @@ public class DateOfBirthContainsKeywordsPredicate extends ContainsKeywordsPredic
         return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getDateOfBirth()
                 .getDate(), keyword));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof DateOfBirthContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((DateOfBirthContainsKeywordsPredicate) other).keywords)); // state check
+    }
 }

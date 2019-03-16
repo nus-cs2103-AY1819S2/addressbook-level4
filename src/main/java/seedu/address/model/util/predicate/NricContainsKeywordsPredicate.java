@@ -19,4 +19,11 @@ public class NricContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pat
         return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getNric()
             .toString(), keyword));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof NricContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((NricContainsKeywordsPredicate) other).keywords)); // state check
+    }
 }

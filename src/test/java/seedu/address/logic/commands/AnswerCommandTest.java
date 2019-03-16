@@ -51,7 +51,7 @@ public class AnswerCommandTest {
         // null -> returns false
         assertFalse(answerFirstCommand.equals(null));
 
-        // different card -> returns false
+        // different answer -> returns false
         assertFalse(answerFirstCommand.equals(answerSecondCommand));
     }
 

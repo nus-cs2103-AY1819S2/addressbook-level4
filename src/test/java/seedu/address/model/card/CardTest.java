@@ -2,11 +2,11 @@ package seedu.address.model.card;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.testutil.TypicalCards.ALICE;
-import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARD_2;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,11 +34,11 @@ public class CardTest {
         assertFalse(ALICE.isSameCard(null));
 
         // different answer -> returns false
-        Card editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_BOB).build();
+        Card editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).build();
         assertFalse(ALICE.isSameCard(editedAlice));
 
         // different question -> returns false
-        editedAlice = new CardBuilder(ALICE).withQuestion(VALID_QUESTION_BOB).build();
+        editedAlice = new CardBuilder(ALICE).withQuestion(VALID_QUESTION_2).build();
         assertFalse(ALICE.isSameCard(editedAlice));
 
         // same question, same answer, different attributes -> returns true
@@ -46,7 +46,7 @@ public class CardTest {
         assertTrue(ALICE.isSameCard(editedAlice));
 
         // same question, different answer, different attributes -> returns false
-        editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_BOB).withHint(VALID_HINT_HUSBAND).build();
+        editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).withHint(VALID_HINT_HUSBAND).build();
         assertFalse(ALICE.isSameCard(editedAlice));
 
         // same question, same answer, different attributes -> returns true
@@ -70,14 +70,14 @@ public class CardTest {
         assertFalse(ALICE.equals(5));
 
         // different card -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ALICE.equals(CARD_2));
 
         // different question -> returns false
-        Card editedAlice = new CardBuilder(ALICE).withQuestion(VALID_QUESTION_BOB).build();
+        Card editedAlice = new CardBuilder(ALICE).withQuestion(VALID_QUESTION_2).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different answer -> returns false
-        editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_BOB).build();
+        editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different hint -> returns false

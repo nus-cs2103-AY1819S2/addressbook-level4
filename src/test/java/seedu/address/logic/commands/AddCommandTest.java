@@ -150,7 +150,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        public void testCardFolder(int cardFolderToTestIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

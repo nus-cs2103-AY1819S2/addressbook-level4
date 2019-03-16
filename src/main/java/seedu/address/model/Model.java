@@ -182,9 +182,9 @@ public interface Model extends Observable {
     List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
 
     /**
-     * Enters a test session using the specified card folder.
+     * Enters a test session using the specified card folder index.
      */
-    void testCardFolder(ReadOnlyCardFolder cardFolder);
+    void testCardFolder(int cardFolderToTestIndex);
 
     /**
      * Sets the current card in the test session.

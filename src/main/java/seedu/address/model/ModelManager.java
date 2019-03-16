@@ -133,6 +133,12 @@ public class ModelManager implements Model {
         commitTopDeck();
     }
 
+    @Override
+    public boolean hasDeck(Deck deck) {
+        requireAllNonNull(deck);
+        return versionedTopDeck.hasDeck(deck);
+    }
+
 
     //=========== Filtered Deck List Accessors =============================================================
 

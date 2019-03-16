@@ -166,4 +166,6 @@ public interface Model {
      * @param deck
      */
     void addDeck(Deck deck);
+
+    boolean hasDeck(Deck deck);
 }

@@ -131,6 +131,15 @@ public class TopDeck implements ReadOnlyTopDeck {
         decks.add(deck);
     }
 
+    /**
+     * Returns true if a deck with the same identity as {@code deck} exists in Anakin.
+     */
+    public boolean hasDeck(Deck deck) {
+        requireNonNull(deck);
+        return decks.contains(deck);
+    }
+
+
     //// util methods
 
     @Override

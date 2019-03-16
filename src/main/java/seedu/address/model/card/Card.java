@@ -84,9 +84,7 @@ public class Card {
 
         Card otherCard = (Card) other;
         return otherCard.getQuestion().equals(getQuestion())
-                && otherCard.getAnswer().equals(getAnswer())
-                && otherCard.getScore().equals(getScore())
-                && otherCard.getHints().equals(getHints());
+                && otherCard.getAnswer().equals(getAnswer());
     }
 
     @Override

@@ -80,8 +80,5 @@ public class CardTest {
         editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different hint -> returns false
-        editedAlice = new CardBuilder(ALICE).withHint(VALID_HINT_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 }

@@ -57,7 +57,7 @@ public class RestOrRantParserTest {
     }
 
     @Test
-    public void parseCommand_addOrderItem() throws Exception {
+    public void parseCommand_addToOrder() throws Exception {
         OrderItem orderItem = new OrderItemBuilder().build();
         AddToOrderCommand command = (AddToOrderCommand) parser.parseCommand(Mode.TABLE_MODE,
                 RestOrRantUtil.getOrderItemDetails(orderItem));

@@ -202,7 +202,8 @@ public class CommandTestUtil {
 
         OrderItem orderItem = model.getFilteredOrderItemList().get(targetIndex.getZeroBased());
         final TableNumber tableNumber = orderItem.getTableNumber();
-        model.updateFilteredOrderItemList(item -> tableNumber.equals(item.getTableNumber()));
+        final Code menuItemCode = orderItem.getMenuItemCode();
+        model.updateFilteredOrderItemList(item -> tableNumber.equals(item.getTableNumber()) && menuItemCode.equals(item.getMenuItemCode()));
 
         assertEquals(1, model.getFilteredOrderItemList().size());
     }
@@ -264,7 +265,7 @@ public class CommandTestUtil {
     public static void deleteFirstOrderItem(Model model) {
         OrderItem firstOrderItem = model.getFilteredOrderItemList().get(0);
         model.deleteOrderItem(firstOrderItem);
-        model.updateMode();
+        model.updateOrders();
     }
 
     /**

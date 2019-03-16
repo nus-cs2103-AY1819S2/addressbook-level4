@@ -107,7 +107,7 @@ public class RestOrRantParser {
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
-            return new AddOrderCommandParser().parse(arguments);
+            return new AddToOrderCommandParser().parse(arguments);
 
         case BillCommand.COMMAND_WORD:
             if (mode != Mode.TABLE_MODE) {

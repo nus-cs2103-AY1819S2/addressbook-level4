@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 
 /**
- * Wraps all order-related data
+ * Wraps all statistics-related data
  */
 public class Statistics implements ReadOnlyStatistics {
 

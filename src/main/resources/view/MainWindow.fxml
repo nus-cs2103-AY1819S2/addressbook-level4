@@ -52,8 +52,8 @@
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane VBox.vgrow="ALWAYS"><Text text="Your board" fill="white"></Text></StackPane>
-            <StackPane fx:id="personListPanelPlaceholder"/>
+            <StackPane><Text text="Your board" fill="white"></Text></StackPane>
+            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <StackPane fx:id="browserPlaceholder" minWidth="400" prefWidth="400" >

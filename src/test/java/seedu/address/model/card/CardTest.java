@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.testutil.TypicalCards.ALICE;
-import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARD_2;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,7 +70,7 @@ public class CardTest {
         assertFalse(ALICE.equals(5));
 
         // different card -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ALICE.equals(CARD_2));
 
         // different question -> returns false
         Card editedAlice = new CardBuilder(ALICE).withQuestion(VALID_QUESTION_2).build();

@@ -3,9 +3,9 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.address.testutil.TypicalCards.AMY;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
+import static seedu.address.testutil.TypicalCards.CARD_1;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -94,8 +94,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY;
-        Card expectedCard = new CardBuilder(AMY).withHint().build();
+        String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_1;
+        Card expectedCard = new CardBuilder(CARD_1).withHint().build();
         ModelManager expectedModel = new ModelManager(this.getClass().getName());
         expectedModel.addCard(expectedCard);
         expectedModel.commitActiveCardFolder();

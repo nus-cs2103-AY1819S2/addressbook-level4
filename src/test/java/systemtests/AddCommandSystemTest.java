@@ -1,21 +1,21 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_2;
 import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.address.testutil.TypicalCards.ALICE;
-import static seedu.address.testutil.TypicalCards.AMY;
-import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARD_1;
+import static seedu.address.testutil.TypicalCards.CARD_2;
 import static seedu.address.testutil.TypicalCards.CARL;
 import static seedu.address.testutil.TypicalCards.HOON;
 import static seedu.address.testutil.TypicalCards.IDA;
@@ -47,8 +47,8 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         /* Case: add a card without hints to a non-empty card folder, command with leading spaces and trailing spaces
          * -> added
          */
-        Card toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_AMY + "  " + ANSWER_DESC_AMY + " "
+        Card toAdd = CARD_1;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + QUESTION_DESC_SAMPLE_1 + "  " + ANSWER_DESC_SAMPLE_1 + " "
                 + "   " + HINT_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -64,12 +64,12 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a card with all fields same as another card in the card folder except question -> added */
-        toAdd = new CardBuilder(AMY).withQuestion(VALID_QUESTION_2).build();
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_BOB + ANSWER_DESC_AMY + HINT_DESC_FRIEND;
+        toAdd = new CardBuilder(CARD_1).withQuestion(VALID_QUESTION_2).build();
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1 + HINT_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a card with all fields same as another card in the card folder except answer -> added */
-        toAdd = new CardBuilder(AMY).withAnswer(VALID_ANSWER_2).build();
+        toAdd = new CardBuilder(CARD_1).withAnswer(VALID_ANSWER_2).build();
         command = CardUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -78,8 +78,8 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(ALICE);
 
         /* Case: add a card with hints, command with parameters in random order -> added */
-        toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + HINT_DESC_FRIEND + ANSWER_DESC_BOB + QUESTION_DESC_BOB
+        toAdd = CARD_2;
+        command = AddCommand.COMMAND_WORD + HINT_DESC_FRIEND + ANSWER_DESC_SAMPLE_2 + QUESTION_DESC_SAMPLE_2
                 + HINT_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
@@ -115,11 +115,11 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: missing question -> rejected */
-        command = AddCommand.COMMAND_WORD + ANSWER_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + ANSWER_DESC_SAMPLE_1;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing answer -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_1;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -127,15 +127,15 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid question -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_QUESTION_DESC + ANSWER_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_QUESTION_DESC + ANSWER_DESC_SAMPLE_1;
         assertCommandFailure(command, Question.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid answer -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + INVALID_ANSWER_DESC;
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_1 + INVALID_ANSWER_DESC;
         assertCommandFailure(command, Answer.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid hint -> rejected */
-        command = AddCommand.COMMAND_WORD + QUESTION_DESC_AMY + ANSWER_DESC_AMY
+        command = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_1
                 + INVALID_HINT_DESC;
         assertCommandFailure(command, Hint.MESSAGE_CONSTRAINTS);
     }

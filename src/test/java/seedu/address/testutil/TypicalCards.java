@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SCORE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SCORE_1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,9 +44,9 @@ public class TypicalCards {
             .build();
 
     // Manually added - Card's details found in {@code CommandTestUtil}
-    public static final Card AMY = new CardBuilder().withQuestion(VALID_QUESTION_1).withAnswer(VALID_ANSWER_1)
-            .withScore(VALID_SCORE_AMY).withHint(VALID_HINT_FRIEND).build();
-    public static final Card BOB = new CardBuilder().withQuestion(VALID_QUESTION_2).withAnswer(VALID_ANSWER_2)
+    public static final Card CARD_1 = new CardBuilder().withQuestion(VALID_QUESTION_1).withAnswer(VALID_ANSWER_1)
+            .withScore(VALID_SCORE_1).withHint(VALID_HINT_FRIEND).build();
+    public static final Card CARD_2 = new CardBuilder().withQuestion(VALID_QUESTION_2).withAnswer(VALID_ANSWER_2)
             .withScore("0/0").withHint(VALID_HINT_HUSBAND).build();
 
     public static final String TYPICAL_FOLDER_NAME = "Typical Cards";

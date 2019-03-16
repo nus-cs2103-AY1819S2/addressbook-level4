@@ -30,7 +30,7 @@ public class CommandTestUtil {
     public static final String VALID_QUESTION_2 = "Sample Question 2";
     public static final String VALID_ANSWER_1 = "Sample Answer 1";
     public static final String VALID_ANSWER_2 = "Sample Answer 2";
-    public static final String VALID_SCORE_AMY = "0/0";
+    public static final String VALID_SCORE_1 = "0/0";
     public static final String VALID_HINT_HUSBAND = "husband";
     public static final String VALID_HINT_FRIEND = "friend";
     public static final String VALID_FOLDER_NAME_1 = "Sample Folder 1";
@@ -38,10 +38,10 @@ public class CommandTestUtil {
     public static final String VALID_FILENAME = "sample_folder.csv";
     public static final String INVALID_FILENAME = "sample_folder.json";
 
-    public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_1;
-    public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_2;
-    public static final String ANSWER_DESC_AMY = " " + PREFIX_ANSWER + VALID_ANSWER_1;
-    public static final String ANSWER_DESC_BOB = " " + PREFIX_ANSWER + VALID_ANSWER_2;
+    public static final String QUESTION_DESC_SAMPLE_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
+    public static final String QUESTION_DESC_SAMPLE_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
+    public static final String ANSWER_DESC_SAMPLE_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
+    public static final String ANSWER_DESC_SAMPLE_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String HINT_DESC_FRIEND = " " + PREFIX_HINT + VALID_HINT_FRIEND;
     public static final String HINT_DESC_HUSBAND = " " + PREFIX_HINT + VALID_HINT_HUSBAND;
     public static final String FOLDER_DESC_SAMPLE_1 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_1;

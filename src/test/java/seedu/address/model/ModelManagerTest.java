@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.BENSON;
-import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARD_2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -112,10 +112,10 @@ public class ModelManagerTest {
     @Test
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
         modelManager.addCard(ALICE);
-        modelManager.addCard(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredCards());
-        modelManager.setSelectedCard(BOB);
-        modelManager.deleteCard(BOB);
+        modelManager.addCard(CARD_2);
+        assertEquals(Arrays.asList(ALICE, CARD_2), modelManager.getFilteredCards());
+        modelManager.setSelectedCard(CARD_2);
+        modelManager.deleteCard(CARD_2);
         assertEquals(ALICE, modelManager.getSelectedCard());
     }
 

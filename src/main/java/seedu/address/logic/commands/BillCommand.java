@@ -30,6 +30,9 @@ public class BillCommand extends Command {
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
     public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
     public static final String MESSAGE_MENUITEM_NOT_PRESENT = "MenuItem is not received.";
+    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode " +
+            "[TABLE_NUMBER]";
+
     private static Bill bill;
     private Table tableToBill;
     private float totalBill;
@@ -38,12 +41,16 @@ public class BillCommand extends Command {
      * Creates a BillCommand to find the total bill of the specified {@code Table}
      */
     public BillCommand() {
-
     }
 
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (!mode.equals(Mode.TABLE_MODE)) {
+            throw new CommandException(MESSAGE_INCORRECT_MODE);
+        }
+
         tableToBill = model.getSelectedTable();
 
         if (!model.hasTable(tableToBill)) {

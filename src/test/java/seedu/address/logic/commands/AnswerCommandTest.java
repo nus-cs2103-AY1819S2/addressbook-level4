@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
@@ -71,5 +73,33 @@ public class AnswerCommandTest {
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_wrongAnswerAttempt_markWrong() {
+        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS, false,
+                false, false, null, false, AnswerCommandResultType.ANSWER_WRONG);
+
+        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+
+        Card testedCard = model.getCurrentTestedCard();
+        AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
+
+        expectedModel.setCardAsAnswered();
+        Score newScore = new Score(testedCard.getScore().correctAttempts,
+                testedCard.getScore().totalAttempts + 1);
+        expectedModel.setCard(testedCard, new Card(testedCard.getQuestion(), testedCard.getAnswer(), newScore,
+                testedCard.getHints()));
+        expectedModel.commitActiveCardFolder();
+
+        assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidAnswerOutsideTestSession_fail() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+        AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
+        assertCommandFailure(answerCommand, model, commandHistory, expectedMessage);
     }
 }

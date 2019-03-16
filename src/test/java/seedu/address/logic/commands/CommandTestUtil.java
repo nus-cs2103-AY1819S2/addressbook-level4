@@ -20,6 +20,7 @@ import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
+import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -201,4 +202,12 @@ public class CommandTestUtil {
         model.commitBookShelf();
     }
 
+    /**
+     * Deletes the first book in {@code model}'s filtered list from {@code model}'s book shelf.
+     */
+    public static void deleteFirstBook(Model model) {
+        Book firstBook = model.getFilteredBookList().get(0);
+        model.deleteBook(firstBook);
+        model.commitBookShelf();
+    }
 }

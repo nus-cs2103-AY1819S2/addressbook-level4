@@ -22,9 +22,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * storage and the list persons is used as the current filtered list holder.
      */
 
-   public static boolean filterExist = false;
-
-    private final UniquePersonList allPersonsStorage;
+    public static boolean filterExist = false;
+    public static boolean sortingExist = false;
+    private UniquePersonList allPersonsStorage;
     private UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -59,16 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPersons(List<Person> persons) {
 
         this.allPersonsStorage.setPersons(persons);
-
-        if(filterExist) {
-            clearFilter();
-            filterExist = false;
-        }
-
-        else {
-            this.persons.setPersons(persons);
-        }
-
+        this.persons.setPersons(persons);
         indicateModified();
     }
 
@@ -78,9 +69,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        allPersonsStorage.setPersons(newData.getPersonList());
+        allPersonsStorage.setPersons(newData.getAllPersonsStorageList());
         persons.setPersons(newData.getPersonList());
-        filterExist = false;
     }
 
     //// person-level operations
@@ -99,17 +89,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
 
-        allPersonsStorage.add(p);
+        if(!sortingExist) {
+            allPersonsStorage.add(p);
+        }
 
-        if(filterExist) {
+        if(filterExist && !sortingExist) {
             clearFilter();
             filterExist = false;
         }
 
-        else {
-            persons.add(p);
-        }
-
+        persons.add(p);
         indicateModified();
     }
 
@@ -133,6 +122,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             persons.setPerson(target, editedPerson);
         }
 
+        persons.setPerson(target, editedPerson);
         indicateModified();
     }
 
@@ -141,16 +131,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
-        allPersonsStorage.remove(key);
 
-        if(filterExist) {
+        if(!sortingExist) {
+            allPersonsStorage.remove(key);
+        }
+
+        if(filterExist && !sortingExist) {
             clearFilter();
             filterExist = false;
         }
 
-        else {
-            persons.remove(key);
-        }
+        persons.remove(key);
 
         indicateModified();
     }
@@ -176,7 +167,14 @@ public class AddressBook implements ReadOnlyAddressBook {
             if (address != null && !person.getAddress().toString().toLowerCase().contains(address))
                 ifExcluded = true;
 
-            // TODO: Add also tag filter
+            if (tagList != null) {
+                for(String skill : tagList)  {
+                    if(!person.isTagExist(skill)) {
+                        ifExcluded = true;
+                        break;
+                    }
+                }
+            }
 
             if (ifExcluded) {
                 listToRemove.add(person);
@@ -184,6 +182,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         persons.removeAll(listToRemove);
+        indicateModified();
     }
 
     public void filterOr(String name, String phone, String email, String address, String[] tagList) {
@@ -207,7 +206,14 @@ public class AddressBook implements ReadOnlyAddressBook {
             if (address != null && person.getAddress().toString().toLowerCase().contains(address))
                 ifIncluded = true;
 
-            // TODO: Add also tag filter
+            if (tagList != null) {
+                for(String skill : tagList)  {
+                    if(person.isTagExist(skill)) {
+                        ifIncluded = true;
+                        break;
+                    }
+                }
+            }
 
             if (!ifIncluded) {
                 listToRemove.add(person);
@@ -215,14 +221,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         persons.removeAll(listToRemove);
+        indicateModified();
     }
 
     public void clearFilter() {
 
         if(filterExist) {
-            persons.setPersons(allPersonsStorage);
+           for(Person person : allPersonsStorage) {
+               if(!persons.contains(person)) {
+                   persons.add(person);
+               }
+           }
+
+           indicateModified();
         }
+
         filterExist = false;
+    }
+
+    public void restoreStorageAddressBook() {
+        allPersonsStorage = new UniquePersonList();
+        for(Person person : persons) {
+            allPersonsStorage.add(person);
+        }
+        indicateModified();
     }
 
     @Override
@@ -253,6 +275,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Person> getAllPersonsStorageList() {
+        return allPersonsStorage.asUnmodifiableObservableList();
     }
 
     @Override

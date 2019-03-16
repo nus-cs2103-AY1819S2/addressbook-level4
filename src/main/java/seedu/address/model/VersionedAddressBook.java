@@ -24,10 +24,15 @@ public class VersionedAddressBook extends AddressBook {
      * Undone states are removed from the state list.
      */
     public void commit() {
+
+        boolean filteredInfo = AddressBook.filterExist;
+
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new AddressBook(this));
         currentStatePointer++;
         indicateModified();
+
+        AddressBook.filterExist = filteredInfo;
     }
 
     private void removeStatesAfterCurrentPointer() {
@@ -39,13 +44,13 @@ public class VersionedAddressBook extends AddressBook {
      */
     public void undo() {
 
-        this.clearFilter();
-        // TODO: Implement undo for filtering processes
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
+
         currentStatePointer--;
         resetData(addressBookStateList.get(currentStatePointer));
+        restoreStorageAddressBook();
     }
 
     /**
@@ -53,8 +58,6 @@ public class VersionedAddressBook extends AddressBook {
      */
     public void redo() {
 
-        this.clearFilter();
-        // TODO: Implement redo for filtering processes
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }

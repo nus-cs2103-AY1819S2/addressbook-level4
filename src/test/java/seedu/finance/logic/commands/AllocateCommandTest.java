@@ -2,12 +2,13 @@ package seedu.finance.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import static seedu.finance.logic.commands.AllocateCommand.MESSAGE_ARGUMENTS;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.finance.logic.commands.AllocateCommand.MESSAGE_ARGUMENTS;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import java.util.HashSet;

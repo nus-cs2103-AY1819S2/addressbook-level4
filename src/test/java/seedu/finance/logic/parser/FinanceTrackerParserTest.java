@@ -63,8 +63,8 @@ public class FinanceTrackerParserTest {
 
     @Test
     public void parseCommand_allocate() throws Exception {
-        assertTrue((parser.parseCommand(AllocateCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123 " +
-                PREFIX_CATEGORY + "Friends") instanceof AllocateCommand));
+        assertTrue((parser.parseCommand(AllocateCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123 "
+                + PREFIX_CATEGORY + "Friends") instanceof AllocateCommand));
     }
 
     @Test

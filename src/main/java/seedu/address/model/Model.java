@@ -68,6 +68,9 @@ public interface Model {
     /** Returns the HealthWorkerBook */
     ReadOnlyHealthWorkerBook getHealthWorkerBook();
 
+    /** Returns the PatientBook */
+    ReadOnlyPatientBook getPatientBook();
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -146,6 +149,12 @@ public interface Model {
      * {@code patient} must not already exist in the address book.
      */
     void addPatient(Patient patient);
+
+    /**
+     * Updates the filter of the filtered Patient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPatientList(Predicate<Patient> predicate);
 
     // =======================================================================
 

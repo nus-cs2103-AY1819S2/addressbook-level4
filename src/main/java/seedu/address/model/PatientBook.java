@@ -62,7 +62,7 @@ public class PatientBook implements ReadOnlyPatientBook {
      * Adds a Patient to the address book.
      * Patient object must not already exist in the PatientBook.
      */
-    public void addHealthWorker(Patient patient) {
+    public void addPatient(Patient patient) {
         this.uniquePatientList.add(patient);
         indicateModified();
     }

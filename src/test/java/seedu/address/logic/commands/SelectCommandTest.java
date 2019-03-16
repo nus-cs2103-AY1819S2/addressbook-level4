@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorker
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
@@ -26,9 +27,9 @@ import seedu.address.model.UserPrefs;
  */
 public class SelectCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-        getTypicalRequestBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(),
-        getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+            getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(),getTypicalHealthWorkerBook(),
+            getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

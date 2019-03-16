@@ -16,16 +16,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.HealthWorkerBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyHealthWorkerBook;
-import seedu.address.model.ReadOnlyRequestBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RequestBook;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.HealthWorkerBookStorage;
@@ -88,8 +79,10 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
+        Optional<ReadOnlyHealthWorkerBook> patientBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
+        ReadOnlyHealthWorkerBook initialPatientBook;
         ReadOnlyRequestBook initialRequestBook;
         Optional<ReadOnlyRequestBook> requestBookOptional;
 
@@ -124,7 +117,7 @@ public class MainApp extends Application {
             initialRequestBook = new RequestBook();
         }
 
-        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialRequestBook,
+        return new ModelManager(initialAddressBook, initialHealthWorkerBook, null, initialRequestBook,
             userPrefs);
     }
 

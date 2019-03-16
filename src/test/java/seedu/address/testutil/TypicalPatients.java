@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.PatientBook;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.ConditionTag;
 import seedu.address.model.tag.Conditions;
@@ -86,12 +87,12 @@ public class TypicalPatients {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalPatientBook() {
-        AddressBook ab = new AddressBook();
-        for (Patient person : getTypicalPatients()) {
-            ab.addPerson(person);
+    public static PatientBook getTypicalPatientBook() {
+        PatientBook patientBook = new PatientBook();
+        for (Patient patient : getTypicalPatients()) {
+            patientBook.addPatient(patient);
         }
-        return ab;
+        return patientBook;
     }
 
     public static List<Patient> getTypicalPatients() {

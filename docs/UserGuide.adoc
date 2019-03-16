@@ -239,7 +239,7 @@ Deletes the 3rd contact in the sorted list displayed earlier.
 === Pinning a contact : `pin`
 
 Pins a contact. +
-These contacts will always be showing in a pinned list at the top of the side panel. +
+Limited to a maximum of 5 contacts, these contacts will always be showing in a pinned list at the top of the side panel. +
 Format: `pin INDEX`
 
 ****

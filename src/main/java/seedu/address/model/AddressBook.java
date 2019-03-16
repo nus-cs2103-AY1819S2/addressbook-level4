@@ -9,8 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
+
 
 /**
  * Wraps all data at the address-book level
@@ -19,7 +18,6 @@ import seedu.address.model.tag.UniqueTagList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniqueTagList tags;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -31,7 +29,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -80,7 +77,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
-        tags.addPerson(p);
         indicateModified();
     }
 
@@ -103,20 +99,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
         indicateModified();
-    }
-
-    /**
-     * Removes everyone in the addressbook that has the input tag
-     * Removes the tag itself from list of tag
-     */
-
-    public void removeEveryoneWithThisTag(Tag tag) {
-        ObservableList<Person> listOfPeople = tags.getListOfPerson(tag);
-        for (Person i : listOfPeople) {
-            persons.remove(i);
-            tags.removePerson(i);
-        }
-        tags.removeEntireTag(tag);
     }
 
     @Override

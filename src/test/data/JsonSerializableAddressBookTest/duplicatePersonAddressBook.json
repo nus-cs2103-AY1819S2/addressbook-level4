@@ -3,18 +3,29 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
+    "nric": "S9345678K",
+    "gender": "Female",
     "race": "Others",
     "address": "123, Jurong West Ave 6, #08-111",
     "school": "NUS",
     "major": "CS",
+    "grade": "4.54",
+    "jobsApply": [ "Accountant" ],
+    "interviewScores": "10,8,5,10,1",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "nric": "S9345678K",
+    "gender": "Female",
     "race": "Others",
     "address": "4th street",
     "school": "NUS",
-    "major": "CS"
+    "major": "CS",
+    "grade": "4.54",
+    "jobsApply": [ "Accountant" ],
+    "interviewScores": "10,8,5,10,1",
+    "tagged": [ "friends" ]
   } ]
 }

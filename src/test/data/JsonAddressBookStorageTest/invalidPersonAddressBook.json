@@ -3,9 +3,13 @@
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
     "email": "hans@example.com",
+    "nric": "S1234567L",
+    "gender": "Male",
     "race": "Ang Moh",
     "address": "4th street",
     "school": "SMU",
-    "major": "CS"
+    "major": "CS",
+    "grade": "3.00",
+    "jobsApply": [ "Analyst" ]
   } ]
 }

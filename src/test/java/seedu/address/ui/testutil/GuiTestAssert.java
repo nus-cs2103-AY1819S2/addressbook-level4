@@ -21,6 +21,11 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getRace(), actualCard.getRace());
+        assertEquals(expectedCard.getNric(), actualCard.getNric());
+        assertEquals(expectedCard.getGender(), actualCard.getGender());
+        assertEquals(expectedCard.getGrade(), actualCard.getGrade());
+        assertEquals(expectedCard.getJobsApply(), actualCard.getJobsApply());
+        assertEquals(expectedCard.getInterviewScores(), actualCard.getInterviewScores());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
@@ -37,12 +42,18 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedPerson.getNric().value, actualCard.getNric());
+        assertEquals(expectedPerson.getGender().value, actualCard.getGender());
+        assertEquals(expectedPerson.getGrade().value, actualCard.getGrade());
+        assertEquals(expectedPerson.getInterviewScores().value, actualCard.getInterviewScores());
         assertEquals(expectedPerson.getRace().value, actualCard.getRace());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getSchool().value, actualCard.getSchool());
         assertEquals(expectedPerson.getMajor().value, actualCard.getMajor());
         assertEquals(expectedPerson.getPastJobs().stream().map(pastjob -> pastjob.value).collect(Collectors.toList()),
                 actualCard.getPastJobs());
+        assertEquals(expectedPerson.getJobsApply().stream().map(jobsApply -> jobsApply.value)
+                .collect(Collectors.toList()), actualCard.getJobsApply());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

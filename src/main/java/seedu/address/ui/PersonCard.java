@@ -33,6 +33,10 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label nric;
+    @FXML
+    private Label gender;
+    @FXML
     private Label race;
     @FXML
     private Label address;
@@ -43,7 +47,13 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label major;
     @FXML
+    private Label grade;
+    @FXML
     private FlowPane pastjobs;
+    @FXML
+    private FlowPane jobsApply;
+    @FXML
+    private Label interviewScores;
     @FXML
     private FlowPane tags;
 
@@ -53,12 +63,17 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
+        nric.setText(person.getNric().value);
+        gender.setText(person.getGender().value);
         race.setText(person.getRace().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         school.setText(person.getSchool().value);
         major.setText(person.getMajor().value);
+        grade.setText(person.getGrade().value);
+        interviewScores.setText(person.getInterviewScores().value);
         person.getPastJobs().forEach(pastjob -> pastjobs.getChildren().add(new Label(pastjob.value)));
+        person.getJobsApply().forEach(jobApply -> jobsApply.getChildren().add(new Label(jobApply.value)));
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

@@ -11,9 +11,14 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.InterviewScores;
+import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Race;
@@ -84,6 +89,66 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String gender} into an {@code Gender}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code gender} is invalid.
+     */
+    public static Gender parseGender(String gender) throws ParseException {
+        requireNonNull(gender);
+        String trimmedGender = gender.trim();
+        if (!Gender.isValidGender(trimmedGender)) {
+            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        return new Gender(trimmedGender);
+    }
+
+    /**
+     * Parses a {@code String grade} into an {@code Grade}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code grade} is invalid.
+     */
+    public static Grade parseGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim();
+        if (!Grade.isValidGrade(trimmedGrade)) {
+            throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
+        }
+        return new Grade(trimmedGrade);
+    }
+
+    /**
+     * Parses a {@code String nric} into an {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
+        }
+        return new Nric(trimmedNric);
+    }
+
+    /**
+     * Parses a {@code String interviewScores} into an {@code InterviewScores}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code interviewScores} is invalid.
+     */
+    public static InterviewScores parseInterviewScores(String interviewScores) throws ParseException {
+        requireNonNull(interviewScores);
+        String trimmedInterviewScores = interviewScores.trim();
+        if (!InterviewScores.isValidInterviewScores(trimmedInterviewScores)) {
+            throw new ParseException(InterviewScores.MESSAGE_CONSTRAINTS);
+        }
+        return new InterviewScores(trimmedInterviewScores);
     }
 
     /**
@@ -172,6 +237,33 @@ public class ParserUtil {
             knownProgLangSet.add(parseKnownProgLang(knownProgLangName));
         }
         return knownProgLangSet;
+    }
+
+    /**
+     * Parses a {@code String jobsApply} into a {@code JobsApply}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code jobsApply} is invalid.
+     */
+    public static JobsApply parseJobsApply(String jobsApply) throws ParseException {
+        requireNonNull(jobsApply);
+        String trimmedJobsApply = jobsApply.trim();
+        if (!JobsApply.isValidJobsApply(trimmedJobsApply)) {
+            throw new ParseException(JobsApply.MESSAGE_CONSTRAINTS);
+        }
+        return new JobsApply(trimmedJobsApply);
+    }
+
+    /**
+     * Parses {@code Collection<String> jobsApply} into a {@code Set<JobsApply>}.
+     */
+    public static Set<JobsApply> parseJobsApply(Collection<String> jobsApply) throws ParseException {
+        requireNonNull(jobsApply);
+        final Set<JobsApply> jobsApplySet = new HashSet<>();
+        for (String jobsApplyName : jobsApply) {
+            jobsApplySet.add(parseJobsApply(jobsApplyName));
+        }
+        return jobsApplySet;
     }
 
     /**

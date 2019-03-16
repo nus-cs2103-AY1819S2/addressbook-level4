@@ -9,6 +9,8 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -19,8 +21,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.InterviewScores;
+import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Race;
@@ -85,12 +92,20 @@ public class PersonListPanelTest extends GuiUnitTest {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
+            Nric nric = new Nric("S4853234G");
+            Gender gender = new Gender("Female");
             Race race = new Race("Indian");
             Address address = new Address("a");
             School school = new School("n");
             Major major = new Major("ME");
-            Person person = new Person(name, phone, email, race, address, school,
-                major, Collections.emptySet(), Collections.emptySet(), Collections.emptySet());
+            Grade grade = new Grade("4.32");
+            JobsApply jobsApply = new JobsApply("Software Engineer");
+            Set<JobsApply> jobsApplySet = new HashSet<>();
+            jobsApplySet.add(jobsApply);
+            InterviewScores interviewScores = new InterviewScores("4,5,6,7,1");
+            Person person = new Person(name, phone, email, nric, gender, race, address, school,
+                major, grade, Collections.emptySet(), Collections.emptySet(), jobsApplySet, interviewScores,
+                    Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

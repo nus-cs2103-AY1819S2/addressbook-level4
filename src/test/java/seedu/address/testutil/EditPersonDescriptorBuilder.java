@@ -7,9 +7,14 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.InterviewScores;
+import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -40,11 +45,16 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(person.getName());
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
+        descriptor.setNric(person.getNric());
+        descriptor.setGender(person.getGender());
         descriptor.setRace(person.getRace());
         descriptor.setAddress(person.getAddress());
         descriptor.setSchool(person.getSchool());
+        descriptor.setGrade(person.getGrade());
         descriptor.setKnownProgLangs(person.getKnownProgLangs());
         descriptor.setPastJobs(person.getPastJobs());
+        descriptor.setJobsApply(person.getJobsApply());
+        descriptor.setInterviewScores(person.getInterviewScores());
         descriptor.setTags(person.getTags());
     }
 
@@ -105,6 +115,49 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code Gender} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withGender(String gender) {
+        descriptor.setGender(new Gender(gender));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Grade} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withGrade(String grade) {
+        descriptor.setGrade(new Grade(grade));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Nric} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withNric(String nric) {
+        descriptor.setNric(new Nric(nric));
+        return this;
+    }
+
+    /**
+     * Sets the {@code InterviewScores} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withInterviewScores(String interviewScores) {
+        descriptor.setInterviewScores(new InterviewScores(interviewScores));
+        return this;
+    }
+
+    /**
+     * Parses the {@code jobsApply} into a {@code Set<JobsApply>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withJobsApply(String... jobsApply) {
+        Set<JobsApply> jobsApplySet = Stream.of(jobsApply).map(JobsApply::new)
+                .collect(Collectors.toSet());
+        descriptor.setJobsApply(jobsApplySet);
+        return this;
+    }
+
+    /**
      * Parses the {@code pastjobs} into a {@code Set<PastJob>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
@@ -137,4 +190,5 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptor build() {
         return descriptor;
     }
+
 }

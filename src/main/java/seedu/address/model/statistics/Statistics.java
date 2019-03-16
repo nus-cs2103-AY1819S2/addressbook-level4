@@ -133,6 +133,13 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Statistics // instanceof handles nulls
+                && dailyRevenueList.equals(((Statistics) other).dailyRevenueList));
+    }
+
+    @Override
     public int hashCode() {
         return dailyRevenueList.hashCode();
     }

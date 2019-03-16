@@ -15,10 +15,7 @@ public class DailyRevenue {
      * Every field must be present and not null.
      */
     public DailyRevenue(Day day, Month month, Year year, float totalDailyRevenue) {
-        requireAllNonNull(day);
-        requireAllNonNull(month);
-        requireAllNonNull(year);
-        requireAllNonNull(totalDailyRevenue);
+        requireAllNonNull(day, month, year, totalDailyRevenue);
         this.day = day;
         this.month = month;
         this.year = year;

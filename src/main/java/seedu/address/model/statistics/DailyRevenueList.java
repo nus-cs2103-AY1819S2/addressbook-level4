@@ -62,11 +62,14 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
     }
 
     /**
-     * Removes the equivalent order item from the list.
-     * The order item must exist in the list.
+     * Removes the equivalent daily revenue from the list.
+     * The daily revenue must exist in the list.
      */
     public void remove(DailyRevenue toRemove) {
         requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new DailyRevenueNotFoundException();
+        }
     }
 
     /**
@@ -87,6 +90,13 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
     @Override
     public Iterator<DailyRevenue> iterator() {
         return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DailyRevenueList // instanceof handles nulls
+                && internalList.equals(((DailyRevenueList) other).internalList));
     }
 
     @Override

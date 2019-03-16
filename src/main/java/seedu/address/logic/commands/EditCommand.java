@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
@@ -22,12 +19,9 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.pdf.Address;
 import seedu.address.model.pdf.Directory;
-import seedu.address.model.pdf.Email;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.model.pdf.Phone;
 import seedu.address.model.pdf.Size;
 import seedu.address.model.pdf.exceptions.DuplicatePdfException;
 import seedu.address.model.tag.Tag;
@@ -44,15 +38,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_NAME + "Tutorial3.pdf "
+            + PREFIX_TAG + "Easy";
 
-    public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited Pdf: %1$s";
+    public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited PDF: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This pdf already exists in the address book.";
     public static final String MESSAGE_EDIT_PDF_FAILIUE = "Unable to Edit PDF.";
@@ -121,9 +112,6 @@ public class EditCommand extends Command {
         Size updatedSize = new Size(Long.toString(Paths.get(pdfToEdit.getDirectory().getDirectory(),
                 pdfToEdit.getName().getFullName()).toFile().getTotalSpace()));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
-        /*Phone updatedPhone = editPersonDescriptor.getPhone().orElse(pdfToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(pdfToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(pdfToEdit.getAddress());*/
 
         return new Pdf(updatedName, updatedDirectory, updatedSize, updatedTags);
     }
@@ -154,9 +142,6 @@ public class EditCommand extends Command {
         private Name name;
         private Directory directory;
         private Set<Tag> tags;
-        /*private Phone phone;
-        private Email email;
-        private Address address;*/
 
         public EditPersonDescriptor() {}
 
@@ -168,9 +153,6 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setDirectory(toCopy.directory);
             setTags(toCopy.tags);
-            /*setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);*/
         }
 
         /**
@@ -195,30 +177,6 @@ public class EditCommand extends Command {
         public Optional<Directory> getDirectory() {
             return Optional.ofNullable(directory);
         }
-
-        /*public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }*/
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

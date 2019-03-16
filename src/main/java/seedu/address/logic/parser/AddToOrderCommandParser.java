@@ -12,7 +12,7 @@ import seedu.address.model.menu.Code;
 /**
  * Parses input arguments and creates a new AddToOrderCommand object
  */
-public class AddOrderCommandParser implements Parser<AddToOrderCommand> {
+public class AddToOrderCommandParser implements Parser<AddToOrderCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddToOrderCommand

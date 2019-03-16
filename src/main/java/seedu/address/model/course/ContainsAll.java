@@ -1,5 +1,7 @@
 package seedu.address.model.course;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -13,8 +15,8 @@ import seedu.address.model.moduleinfo.ModuleInfo;
  */
 public class ContainsAll extends CourseRequirement {
 
-    public ContainsAll(String description, String... regexes) {
 
+    public ContainsAll(String description, String... regexes) {
         super(description, new Predicate<List<ModuleInfo>>() {
             @Override
             public boolean test(List<ModuleInfo> moduleInfos) {
@@ -39,5 +41,7 @@ public class ContainsAll extends CourseRequirement {
                 }
             }
         );
+        requireAllNonNull(regexes);
+        requireAllNonNull(description, regexes);
     }
 }

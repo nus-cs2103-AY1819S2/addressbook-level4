@@ -11,9 +11,6 @@ import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAN
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.Test;
 
 import seedu.finance.logic.CommandHistory;
@@ -33,26 +30,21 @@ public class AllocateCommandTest {
     @Test
     public void execute() {
         final Amount amount = new Amount("123");
-        final Set<Category> categories = new HashSet<>();
-        categories.add(new Category("Food"));
+        final Category category = new Category("Food");
 
-        assertCommandFailure(new AllocateCommand(amount, categories), model,
-                new CommandHistory(), String.format(MESSAGE_ARGUMENTS, amount, categories));
+        assertCommandFailure(new AllocateCommand(amount, category), model,
+                new CommandHistory(), String.format(MESSAGE_ARGUMENTS, amount, category));
     }
 
     @Test
     public void equals() {
-        final Set<Category> categories = new HashSet<>();
-        categories.add(new Category(VALID_CATEGORY_FRIEND));
-        final AllocateCommand standardCommand = new AllocateCommand(new Amount(VALID_AMOUNT_AMY),
-                categories);
 
-        final Set<Category> otherCategories = new HashSet<>();
-        otherCategories.add(new Category(VALID_CATEGORY_FRIEND));
-        otherCategories.add(new Category(VALID_CATEGORY_HUSBAND));
+        final AllocateCommand standardCommand = new AllocateCommand(new Amount(VALID_AMOUNT_AMY),
+                new Category(VALID_CATEGORY_FRIEND));
 
         // same values -> returns true
-        AllocateCommand commandWithSameValues = new AllocateCommand(new Amount ("312"), categories);
+        AllocateCommand commandWithSameValues = new AllocateCommand(new Amount ("312"),
+                new Category("friend"));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -65,10 +57,12 @@ public class AllocateCommandTest {
         assertFalse(standardCommand.equals(new IncreaseCommand(new Amount ("312"))));
 
         // different amount -> returns false
-        assertFalse(standardCommand.equals(new AllocateCommand(new Amount(VALID_AMOUNT_BOB), categories)));
+        assertFalse(standardCommand.equals(new AllocateCommand(new Amount(VALID_AMOUNT_BOB),
+                new Category(VALID_CATEGORY_FRIEND))));
 
-        // different categories -> returns false
-        assertFalse(standardCommand.equals(new AllocateCommand(new Amount(VALID_AMOUNT_AMY), otherCategories)));
+        // different category -> returns false
+        assertFalse(standardCommand.equals(new AllocateCommand(new Amount(VALID_AMOUNT_AMY),
+                new Category(VALID_CATEGORY_HUSBAND))));
 
     }
 }

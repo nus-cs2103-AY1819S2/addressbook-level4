@@ -4,9 +4,6 @@ import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
@@ -25,23 +22,23 @@ public class AllocateCommand extends Command {
             + "Existing budget for the category will be overwritten by the input\n"
             + "Parameters: " + PREFIX_AMOUNT + "AMOUNT " + PREFIX_CATEGORY + "CATEGORY\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_AMOUNT + "100.10 "
-            + PREFIX_CATEGORY + "Food " + PREFIX_CATEGORY + "Friends";
+            + PREFIX_CATEGORY + "Food ";
 
     public static final String MESSAGE_ARGUMENTS = "Amount: %1$s, Category: %2$s";
 
     private final Amount amount;
-    private final Set<Category> categories = new HashSet<>();
+    private final Category category;
 
-    public AllocateCommand(Amount amount, Set<Category> categories) {
-        requireAllNonNull(amount, categories);
+    public AllocateCommand(Amount amount, Category category) {
+        requireAllNonNull(amount, category);
 
         this.amount = amount;
-        this.categories.addAll(categories);
+        this.category = category;
     }
 
     @Override
     public CommandResult execute(Model mode, CommandHistory history) throws CommandException {
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, amount, categories));
+        throw new CommandException(String.format(MESSAGE_ARGUMENTS, amount, category));
     }
 
     @Override
@@ -59,7 +56,7 @@ public class AllocateCommand extends Command {
         //state check
 
         AllocateCommand e = (AllocateCommand) other;
-        return amount.equals(e.amount) && categories.equals(e.categories);
+        return amount.equals(e.amount) && category.equals(e.category);
     }
 
 

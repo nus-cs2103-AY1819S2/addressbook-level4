@@ -5,7 +5,6 @@ import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.AllocateCommand;
@@ -33,9 +32,9 @@ public class AllocateCommandParser implements Parser<AllocateCommand> {
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
+        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
-        return new AllocateCommand(amount, categoryList);
+        return new AllocateCommand(amount, category);
     }
 
     /**

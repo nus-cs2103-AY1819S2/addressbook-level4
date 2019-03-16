@@ -55,8 +55,7 @@ public class Card {
     }
 
     /**
-     * Returns true if both cards have the same identity and data fields.
-     * This defines a stronger notion of equality between two cards.
+     * Returns true if both cards have the same question and answer.
      */
     @Override
     public boolean equals(Object other) {

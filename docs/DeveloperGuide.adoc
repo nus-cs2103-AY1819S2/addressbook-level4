@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Recruit Me - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -20,11 +20,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `8`* (revision `1.8.0_201` or later)
+. *JDK `9`* (revision `1.9.4` or later)
 +
 [NOTE]
-Only JDK 8 is supported. +
-This app will not work with later major JDK releases such as JDK 9, 10, 11, etc.
+Only JDK 9 is supported. +
+This app will not work with later major JDK releases such as JDK 10, 11, etc.
 +
 . *IntelliJ* IDE
 +

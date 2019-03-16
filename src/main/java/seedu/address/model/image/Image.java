@@ -3,6 +3,7 @@ package seedu.address.model.image;
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class Image {
     private int height;
     private int width;
     private BufferedImage buffer;
+    private List commandHistory;
+    private int index;
 
     /**
      * Every field must be present and not null.
@@ -38,6 +41,8 @@ public class Image {
             this.name = file.getName();
             this.height = buffer.getHeight();
             this.width = buffer.getWidth();
+            commandHistory = new List();
+            index = 0;
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -50,9 +55,14 @@ public class Image {
         this.width = width;
     }
 
-    public int getWidth() {
-        return width;
+    public void addHistory(String c) {
+        commandHistory.add(c);
+        index++;
     }
+
+    public int getIndex() { return index; }
+
+    public int getWidth() { return width; }
 
     public int getHeight() {
         return height;

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.statistics.Statistics;
@@ -37,7 +36,8 @@ class JsonSerializableStatistics {
      * @param source future changes to this will not affect the created {@code JsonSerializableRestOrRant}.
      */
     public JsonSerializableStatistics(ReadOnlyStatistics source) {
-        statisticsList.addAll(source.getDailyRevenueList().stream().map(JsonAdaptedDailyRevenue::new).collect(Collectors.toList()));
+        statisticsList.addAll(source.getDailyRevenueList().stream().map(JsonAdaptedDailyRevenue::new)
+                .collect(Collectors.toList()));
     }
 
     /**

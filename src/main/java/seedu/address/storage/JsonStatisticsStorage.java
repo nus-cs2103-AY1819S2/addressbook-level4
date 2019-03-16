@@ -20,7 +20,7 @@ import seedu.address.model.statistics.ReadOnlyStatistics;
  */
 public class JsonStatisticsStorage implements StatisticsStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonMenuStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonStatisticsStorage.class);
 
     private final Path filePath;
     private final Path backupFilePath;

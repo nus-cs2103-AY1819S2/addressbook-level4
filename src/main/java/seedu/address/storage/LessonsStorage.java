@@ -35,6 +35,7 @@ public interface LessonsStorage {
     /**
      * Saves the given {@link Lessons} to the storage.
      * @param lessons cannot be null.
+     * @return Number of lessons successfully saved.
      * @throws IOException if there was any problem writing to the file.
      */
     int saveLessons(Lessons lessons) throws IOException;

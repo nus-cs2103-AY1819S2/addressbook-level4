@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.A_PDF;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPdfs.A_PDF;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +14,13 @@ import seedu.address.model.pdf.*;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedPdfTest {
-    private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_LOCATION = "DefinitelyWrongLocation";
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String INVALID_TAG = "#friend";
+
+    private static final String VALID_NAME = A_PDF.getName().getFullName();
+    private static final String VALID_LOCATION = A_PDF.getName().getFullName();
+    private static final String VALID_SIZE = A_PDF.getSize().getValue();
+    private static final List<JsonAdaptedTag> VALID_TAGS = A_PDF.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
@@ -33,6 +37,15 @@ public class JsonAdaptedPdfTest {
                         VALID_TAGS);
         String expectedMessage = Directory.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, pdf::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidTags_throwsIllegalValueException() {
+        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
+        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+        JsonAdaptedPdf person =
+                new JsonAdaptedPdf(VALID_NAME, VALID_LOCATION, VALID_SIZE, invalidTags);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
     /*@Test
@@ -93,15 +106,8 @@ public class JsonAdaptedPdfTest {
         JsonAdaptedPdf person = new JsonAdaptedPdf(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedPdf person =
-                new JsonAdaptedPdf(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
-        Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }*/
+
+
 
 }

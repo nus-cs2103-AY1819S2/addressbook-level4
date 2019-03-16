@@ -30,12 +30,12 @@ public class PersonCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-//    @FXML
-//    private Label phone;
-//    @FXML
-//    private Label address;
-//    @FXML
-//    private Label email;
+    //@FXML
+    //private Label phone;
+    //@FXML
+    //private Label address;
+    //@FXML
+    //private Label email;
     @FXML
     private FlowPane tags;
 
@@ -44,9 +44,9 @@ public class PersonCard extends UiPart<Region> {
         this.pdf = pdf;
         id.setText(displayedIndex + ". ");
         name.setText(pdf.getName().getFullName());
-//        phone.setText(pdf.getPhone().value);
-//        address.setText(pdf.getAddress().value);
-//        email.setText(pdf.getEmail().value);
+        //phone.setText(pdf.getPhone().value);
+        //address.setText(pdf.getAddress().value);
+        //email.setText(pdf.getEmail().value);
         pdf.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

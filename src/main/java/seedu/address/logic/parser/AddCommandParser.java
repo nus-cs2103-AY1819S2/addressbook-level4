@@ -1,23 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.pdf.Address;
 import seedu.address.model.pdf.Directory;
-import seedu.address.model.pdf.Email;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.model.pdf.Phone;
 import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
 
@@ -36,7 +31,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 //ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
                 ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
-        //if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+                //if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }

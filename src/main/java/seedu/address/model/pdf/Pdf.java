@@ -145,12 +145,12 @@ public class Pdf {
                 .append(" Size: ")
                 .append(getSize())
                 .append(" Tags: ");
-                //.append(" Phone: ")
-                //.append(getPhone())
-                //.append(" Email: ")
-                //.append(getEmail())
-                //.append(" Address: ")
-                //.append(getAddress())
+        //.append(" Phone: ")
+        //.append(getPhone())
+        //.append(" Email: ")
+        //.append(getEmail())
+        //.append(" Address: ")
+        //.append(getAddress())
         getTags().forEach(builder::append);
         return builder.toString();
     }

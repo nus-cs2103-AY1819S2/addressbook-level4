@@ -1,6 +1,5 @@
 package seedu.address.model.util;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -9,7 +8,10 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.PdfBook;
 import seedu.address.model.ReadOnlyPdfBook;
-import seedu.address.model.pdf.*;
+import seedu.address.model.pdf.Directory;
+import seedu.address.model.pdf.Name;
+import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -18,11 +20,13 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Pdf[] getSamplePdfs() {
         Path sampleA = Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "a.pdf");
-        Path sampleB = Paths.get("src","test", "data", "JsonAdaptedPdfTest", "b.pdf");
+        Path sampleB = Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "b.pdf");
         return new Pdf[] {
-            new Pdf(new Name(sampleA.getFileName().toString()), new Directory(sampleA.getParent().toAbsolutePath().toString()),
+            new Pdf(new Name(sampleA.getFileName().toString()),
+                    new Directory(sampleA.getParent().toAbsolutePath().toString()),
                     new Size(Long.toString(sampleA.toFile().getTotalSpace())), getTagSet("RandomTag1")),
-            new Pdf(new Name(sampleB.getFileName().toString()), new Directory(sampleB.getParent().toAbsolutePath().toString()),
+            new Pdf(new Name(sampleB.getFileName().toString()),
+                    new Directory(sampleB.getParent().toAbsolutePath().toString()),
                     new Size(Long.toString(sampleB.toFile().getTotalSpace())), getTagSet("colleagues"))
 //            new Pdf(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
 //                new Address("Blk 30 Geylang Street 29, #06-40"),

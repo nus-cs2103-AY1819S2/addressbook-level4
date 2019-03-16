@@ -10,7 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.pdf.*;
+import seedu.address.model.pdf.Directory;
+import seedu.address.model.pdf.Name;
+import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -80,7 +84,8 @@ class JsonAdaptedPdf {
         Size modelSize = new Size(size);
 
         if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Directory.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Directory.class.getSimpleName()));
         }
         if (!Directory.isValidDirectory(location)) {
             throw new IllegalValueException(Directory.MESSAGE_CONSTRAINTS);

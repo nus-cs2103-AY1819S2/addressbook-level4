@@ -23,6 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPdfs.ALICE;
 import static seedu.address.testutil.TypicalPdfs.AMY;
+import static seedu.address.testutil.TypicalPdfs.A_PDF;
 import static seedu.address.testutil.TypicalPdfs.BOB;
 import static seedu.address.testutil.TypicalPdfs.CARL;
 import static seedu.address.testutil.TypicalPdfs.HOON;
@@ -57,7 +58,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a pdf without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Pdf toAdd = AMY;
+        Pdf toAdd = A_PDF;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);

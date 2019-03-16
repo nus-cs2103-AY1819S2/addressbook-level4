@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +28,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
+    /*public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
@@ -35,7 +37,26 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_FRIEND = "friend";*/
+
+    public static final String VALID_NAME_A = "a.pdf";
+    public static final String VALID_NAME_B = "b.pdf";
+    public static final String VALID_DIR_A = Paths.get("src", "data", "JsonAdaptedPdfTest", "a.pdf")
+            .toAbsolutePath().toString();
+    public static final String VALID_DIR_B = Paths.get("src", "data", "JsonAdaptedPdfTest", "b.pdf")
+            .toAbsolutePath().toString();
+    public static final String VALID_SIZE_A = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+            "a.pdf").toAbsolutePath().toFile().length());
+    public static final String VALID_SIZE_B = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+            "b.pdf").toAbsolutePath().toFile().length());
+    public static final String VALID_TAG_LECTURE = "lecture";
+    public static final String VALID_TAG_TUTORIAL = "tutorial";
+
+    public static final String FILE_DESC_A_PDF = " " + PREFIX_FILE + VALID_DIR_A + VALID_NAME_A;
+    public static final String FILE_DESC_B_PDF = " " + PREFIX_FILE + VALID_DIR_B + VALID_NAME_B;
+
+    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
+    public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -48,6 +69,9 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+
+    public static final String INVALID_FILE_PATH_DESC = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -57,16 +81,23 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    /*public static final EditCommand.EditPersonDescriptor DESC_AMY;
+    public static final EditCommand.EditPersonDescriptor DESC_BOB;*/
+
+    public static final EditCommand.EditPersonDescriptor DESC_A;
+    public static final EditCommand.EditPersonDescriptor DESC_B;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        /*DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();*/
+        DESC_A = new EditPersonDescriptorBuilder().withName(VALID_NAME_A)
+                .withDirectory(VALID_DIR_A).build();
+        DESC_B = new EditPersonDescriptorBuilder().withName(VALID_NAME_B)
+                .withDirectory(VALID_DIR_B).build();
     }
 
     /**

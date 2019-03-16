@@ -68,17 +68,6 @@ public class Cell {
     }
 
     /**
-     * Constructor for cell that contains battleship
-     */
-    public Cell(Battleship battleship) {
-        this.battleship = Optional.of(battleship);
-        this.name = battleship.getName();
-        this.phone = new Phone("123");
-        this.email = new Email("placeholder@gmail.com");
-        this.address = new Address("placeholder");
-    }
-
-    /**
      * Constructor to copy a given Cell
      */
     public Cell(Cell newCell) {

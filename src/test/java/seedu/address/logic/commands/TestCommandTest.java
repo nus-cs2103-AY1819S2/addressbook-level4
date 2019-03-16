@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -42,5 +44,27 @@ public class TestCommandTest {
         model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         assertCommandFailure(testCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
+        TestCommand testFirstFolderCommand = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        TestCommand testSecondFolderCommand = new TestCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
+
+        // same object -> returns true
+        assertTrue(testFirstFolderCommand.equals(testFirstFolderCommand));
+
+        // same values -> returns true
+        TestCommand testFirstFolderCommandCopy = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        assertTrue(testFirstFolderCommand.equals(testFirstFolderCommandCopy));
+
+        // different types -> returns false
+        assertFalse(testFirstFolderCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(testFirstFolderCommand.equals(null));
+
+        // different folder -> returns false
+        assertFalse(testFirstFolderCommand.equals(testSecondFolderCommand));
     }
 }

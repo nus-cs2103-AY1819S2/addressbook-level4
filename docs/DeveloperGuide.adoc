@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= BrainTrain - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 

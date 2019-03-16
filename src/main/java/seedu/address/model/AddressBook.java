@@ -17,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniquePersonList favorites;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -28,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        favorites = new UniquePersonList();
     }
 
     public AddressBook() {}
@@ -76,6 +78,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Adds a person to the favorites list.
+     * The person must not already exist in the favorites list.
+     * @param p person
+     */
+    public void addFavorites(Person p) {
+        favorites.add(p);
         indicateModified();
     }
 

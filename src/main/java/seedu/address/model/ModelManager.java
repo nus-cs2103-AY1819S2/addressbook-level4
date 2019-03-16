@@ -113,6 +113,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addFavorites(Person person) {
+        versionedAddressBook.addFavorites(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 

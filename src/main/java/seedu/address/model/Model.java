@@ -71,6 +71,12 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Adds the given person to the favorites list.
+     * @param person
+     */
+    void addFavorites(Person person);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.

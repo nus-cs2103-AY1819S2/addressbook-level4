@@ -20,6 +20,9 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Salary;
+import seedu.address.model.person.Occupation;
+import seedu.address.model.person.Relationship;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
@@ -28,12 +31,18 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_SALARY = "@8000";
+    private static final String INVALID_OCCUPATION = " ";
+    private static final String INVALID_RELATIONSHIP = "@@@";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_SALARY = "8000";
+    private static final String VALID_OCCUPATION = "teacher";
+    private static final String VALID_RELATIONSHIP = "single";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -154,6 +163,75 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseSalary_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseSalary((String) null));
+    }
+
+    @Test
+    public void parseSalary_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_SALARY));
+    }
+
+    @Test
+    public void parseSalary_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        Salary expectedSalary = new Salary(VALID_SALARY);
+        assertEquals(expectedSalary, ParserUtil.parseSalary(VALID_SALARY));
+    }
+
+    @Test
+    public void parseSalary_validValueWithWhitespace_returnsTrimmedSalary() throws Exception {
+        String salaryWithWhitespace = WHITESPACE + VALID_SALARY + WHITESPACE;
+        Salary expectedSalary = new Salary(VALID_SALARY);
+        assertEquals(expectedSalary, ParserUtil.parseSalary(salaryWithWhitespace));
+    }
+
+    @Test
+    public void parseOccupation_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseOccupation((String) null));
+    }
+
+    @Test
+    public void parseOccupation_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseOccupation(INVALID_OCCUPATION));
+    }
+
+    @Test
+    public void parseOccupation_validValueWithoutWhitespace_returnsOccupation() throws Exception {
+        Occupation expectedOccupation = new Occupation(VALID_OCCUPATION);
+        assertEquals(expectedOccupation, ParserUtil.parseOccupation(VALID_OCCUPATION));
+    }
+
+    @Test
+    public void parseOccupation_validValueWithWhitespace_returnsTrimmedOccupation() throws Exception {
+        String occupationWithWhitespace = WHITESPACE + VALID_OCCUPATION + WHITESPACE;
+        Occupation expectedOccupation = new Occupation(VALID_OCCUPATION);
+        assertEquals(expectedOccupation, ParserUtil.parseOccupation(occupationWithWhitespace));
+    }
+
+    @Test
+    public void parseRelationship_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseRelationship((String) null));
+    }
+
+    @Test
+    public void parseRelationship_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseRelationship(INVALID_RELATIONSHIP));
+    }
+
+    @Test
+    public void parseRelationship_validValueWithoutWhitespace_returnsRelationship() throws Exception {
+        Relationship expectedRelationship = new Relationship(VALID_RELATIONSHIP);
+        assertEquals(expectedRelationship, ParserUtil.parseRelationship(VALID_RELATIONSHIP));
+    }
+
+    @Test
+    public void parseRelationship_validValueWithWhitespace_returnsTrimmedRelationship() throws Exception {
+        String relationshipWithWhitespace = WHITESPACE + VALID_RELATIONSHIP + WHITESPACE;
+        Relationship expectedRelationship = new Relationship(VALID_RELATIONSHIP);
+        assertEquals(expectedRelationship, ParserUtil.parseRelationship(relationshipWithWhitespace));
     }
 
     @Test

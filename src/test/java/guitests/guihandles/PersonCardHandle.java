@@ -19,6 +19,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
+    private static final String SALARY_FIELD_ID = "#salary";
+    private static final String OCCUPATION_FIELD_ID = "#occupation";
+    private static final String RELATIONSHIP_FIELD_ID = "#relationship";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -26,6 +29,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label addressLabel;
     private final Label phoneLabel;
     private final Label emailLabel;
+    private final Label salaryLabel;
+    private final Label occupationLabel;
+    private final Label relationshipLabel;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -36,6 +42,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
+        salaryLabel = getChildNode(SALARY_FIELD_ID);
+        occupationLabel = getChildNode(OCCUPATION_FIELD_ID);
+        relationshipLabel = getChildNode(RELATIONSHIP_FIELD_ID);
+
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -65,6 +75,18 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
+    public String getSalary() {
+        return salaryLabel.getText();
+    }
+
+    public String getOccupation() {
+        return occupationLabel.getText();
+    }
+
+    public String getRelationship() {
+        return relationshipLabel.getText();
+    }
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -80,6 +102,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getAddress().equals(person.getAddress().value)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
+                && getSalary().equals(person.getSalary().value)
+                && getOccupation().equals(person.getOccupation().value)
+                && getRelationship().equals(person.getRelationship().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

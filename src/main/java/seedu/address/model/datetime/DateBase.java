@@ -6,17 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Represents the birth day of a patient.
+ * Date format for patients and records.
  */
-public class DateBase {
-    public static final String VALIDATION_REGEX = "^(((0[1-9]|[1-2][0-9]|3[0,1])-(01|03|05|07|08|10|12))|"
-            + "((0[1-9]|[1-2][0-9]|30)-(04|06|09|11))|((0[1-9]|[1-2]["
-            + "0-9])-(02)))-(\\d{4})$";
-
-    static final String DATE_FORMAT = "dd-MM-yyyy";
-
-    private static final String[] MONTHS = {"", "January", "February", "March", "April", "May", "June", "July",
-        "August", "September", "October", "November", "December"};
+public class DateBase implements DateBuilder {
 
     private int day;
     private int month;
@@ -40,7 +32,7 @@ public class DateBase {
      * Returns true if a given string is a valid DOB.
      * @param test the string to be tested.
      */
-    public static boolean isValidDate(String test) {
+    static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -50,7 +42,7 @@ public class DateBase {
      * @param month the month of birth.
      * @param year the year of birth.
      */
-    protected void setTo(int day, int month, int year) {
+    public void setTo(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
@@ -86,6 +78,17 @@ public class DateBase {
         String formattedMonth = String.format("%02d", month);
         String formattedYear = String.format("%04d", year);
         return formattedDay + "-" + formattedMonth + "-" + formattedYear;
+    }
+
+    /**
+     * Gets a date format that can be parsed into local date class.
+     * @return the parsable format to be used with local date class.
+     */
+    public String getParsableFormat() {
+        String formattedDay = String.format("%02d", day);
+        String formattedMonth = String.format("%02d", month);
+        String formattedYear = String.format("%04d", year);
+        return formattedYear + "-" + formattedMonth + "-" + formattedDay;
     }
 
     /**

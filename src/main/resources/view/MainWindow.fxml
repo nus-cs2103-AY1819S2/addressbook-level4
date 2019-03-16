@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Text?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -46,15 +47,16 @@
           </padding>
         </StackPane>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="cellList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+        <SplitPane id="splitPane" fx:id="splitPane" VBox.vgrow="ALWAYS">
+          <VBox fx:id="cellList" minWidth="400" prefWidth="400" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
+            <StackPane><Text text="Your board" fill="white"></Text></StackPane>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+          <StackPane fx:id="browserPlaceholder" minWidth="400" prefWidth="400" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>

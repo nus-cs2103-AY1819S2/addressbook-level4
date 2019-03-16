@@ -11,9 +11,9 @@ public class Nric {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "NRIC must be unique. It should start with 'S', followed by exactly 7 numbers, " +
-                    "and end with an alphabet in capital letter";
-    public static final String VALIDATION_REGEX = "S"+ "\\d{7}" + "[A-Z]";
+            "NRIC must be unique. It should start with 'S', followed by exactly 7 numbers, "
+                    + "and end with an alphabet in capital letter";
+    public static final String VALIDATION_REGEX = "S" + "\\d{7}" + "[A-Z]";
     public final String value;
 
     /**

@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class JobsApply {
 
-    public static final String MESSAGE_CONSTRAINTS = "Job(s) Applying For should only contain alphanumeric" +
-            " characters, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Job(s) Applying For should only contain alphanumeric"
+            + " characters, and it should not be blank";
     /*
      * The first character of the job must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.

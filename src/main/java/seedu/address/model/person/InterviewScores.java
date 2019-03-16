@@ -11,9 +11,9 @@ public class InterviewScores {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Interview Scores should only exactly 5 set of numbers, each number separated by a comma" ;
-    public static final String VALIDATION_REGEX = "\\d+" + "," + "\\d+" + "," + "\\d+" + "," +  "\\d+" +
-            "," + "\\d+";
+            "Interview Scores should only exactly 5 set of numbers, each number separated by a comma";
+    public static final String VALIDATION_REGEX = "\\d+" + "," + "\\d+" + "," + "\\d+" + "," +  "\\d+"
+            + "," + "\\d+";
     public final String value;
 
     /**

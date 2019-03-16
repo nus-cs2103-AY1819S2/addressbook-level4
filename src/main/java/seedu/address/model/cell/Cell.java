@@ -28,6 +28,7 @@ public class Cell {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private boolean isHit = false;
+    private Coordinates coordinates;
 
     /**
      * Every field must be present and not null.
@@ -44,15 +45,28 @@ public class Cell {
 
     /**
      * Constructor for cell that requires no arguments
-     * To prepare with refactoring Cell to a cell
      */
-    public Cell() {
+    public Cell(Coordinates coordinates) {
         this.battleship = Optional.empty();
+        this.coordinates = coordinates;
         this.name = new Name("This cell is empty");
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");
     }
+    /**
+     * Constructor for cell that requires no arguments
+     * To prepare with refactoring Cell to a cell
+     */
+    public Cell() {
+        this.battleship = Optional.empty();
+        this.coordinates = new Coordinates("a1");
+        this.name = new Name("This cell is empty");
+        this.phone = new Phone("123");
+        this.email = new Email("placeholder@gmail.com");
+        this.address = new Address("placeholder");
+    }
+
     /**
      * Constructor for cell that contains battleship
      */
@@ -70,6 +84,7 @@ public class Cell {
     public Cell(Cell newCell) {
         this.battleship = newCell.battleship;
         this.isHit = newCell.isHit;
+        this.coordinates = newCell.coordinates;
         this.name = newCell.name;
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");

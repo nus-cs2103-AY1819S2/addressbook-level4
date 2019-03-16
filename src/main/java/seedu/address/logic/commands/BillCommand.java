@@ -63,7 +63,13 @@ public class BillCommand extends Command {
 
         model.setRecentBill(bill);
 
-        updateDailyRevenue(model.getFilteredDailyRevenueList(), bill);
+        DailyRevenue dailyRevenue =
+                new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
+        if (model.hasDailyRevenue(dailyRevenue)) {
+            updateDailyRevenue(model, bill);
+        } else {
+            model.addDailyRevenue(dailyRevenue);
+        }
 
         updateStatusOfTable(model);
 
@@ -113,7 +119,8 @@ public class BillCommand extends Command {
     /**
      * Updates the daily revenue.
      */
-    private void updateDailyRevenue(ObservableList<DailyRevenue> dailyRevenuesList, Bill bill) {
+    private void updateDailyRevenue(Model model, Bill bill) {
+        ObservableList<DailyRevenue> dailyRevenuesList = model.getFilteredDailyRevenueList();
         for (DailyRevenue dailyRevenue : dailyRevenuesList) {
             if (dailyRevenue.getYear().equals(bill.getYear())
                     && dailyRevenue.getMonth().equals(bill.getMonth())

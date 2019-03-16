@@ -6,6 +6,8 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -19,6 +21,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Title;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -205,10 +208,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static File parseFile(String filePath) throws ParseException {
+    public static File parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "\\p{Alnum}+.(txt|xml|json)$";
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)$";
 
         if (!filePath.matches(validationRegex)) {
             throw new ParseException("File name is invalid");
@@ -219,5 +222,60 @@ public class ParserUtil {
         File file = new File(newPath.concat(filePath));
 
         return file;
+    }
+
+    /**
+     * Parses a {@code String file} and {@code Index} into a {@code ParsedIO}.
+     *
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    public static ParsedInOut parseImportExport(String input) throws ParseException {
+        requireNonNull(input);
+        input = input.trim();
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?$";
+
+        if (!input.matches(validationRegex)) {
+            throw new ParseException("File name is invalid or no index given");
+        }
+
+        String newPath = "data\\";
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?");
+        Matcher splitMatcher = splitRegex.matcher(input);
+        String filepath = "";
+        String indexRange = "";
+
+        if (splitMatcher.find()) {
+            filepath = splitMatcher.group(1).concat(".");
+            filepath = filepath.concat(splitMatcher.group(2));
+            filepath = newPath.concat(filepath);
+            indexRange = splitMatcher.group(3);
+        } else {
+            // This shouldn't be possible after validationRegex
+            throw new ParseException("File name is invalid or no index given");
+        }
+
+        HashSet<Integer> parsedIndex = new HashSet<>();
+
+        String[] splitInput = indexRange.trim().split(",");
+        String[] splitRange;
+        final String singleNumberRegex = "^\\d+$";
+        final String rangeNumberRegex = "^(\\d+)-(\\d+)$";
+
+        for (String string : splitInput) {
+            if (string.matches(singleNumberRegex)) {
+                // -1 because indexes displayed to user starts with 1, not 0
+                parsedIndex.add(Integer.parseInt(string) - 1);
+            } else if (string.matches(rangeNumberRegex)) {
+                splitRange = string.split("-");
+                for (int i = Integer.parseInt(splitRange[0]); i < Integer.parseInt(splitRange[1]) + 1; i++) {
+                    // -1 because indexes displayed to user starts with 1, not 0
+                    parsedIndex.add(i - 1);
+                }
+            } else {
+                throw new ParseException("Invalid index range!");
+            }
+        }
+
+        return new ParsedInOut(new File(filepath), parsedIndex);
     }
 }

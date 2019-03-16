@@ -1,4 +1,4 @@
-package seedu.address.quiz.exceptions;
+package seedu.address.model.modelManager.quizModel.exceptions;
 
 /**
  *  Represents not yet initialised error encountered by Quiz

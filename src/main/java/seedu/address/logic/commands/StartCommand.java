@@ -5,9 +5,9 @@ import java.util.Arrays;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelManager.managementModel.Model;
-import seedu.address.quiz.Quiz;
-import seedu.address.quiz.QuizCard;
-import seedu.address.quiz.QuizModel;
+import seedu.address.model.modelManager.quizModel.Quiz;
+import seedu.address.model.modelManager.quizModel.QuizCard;
+import seedu.address.model.modelManager.quizModel.QuizModel;
 
 /**
  * TODO: implement the actual start command

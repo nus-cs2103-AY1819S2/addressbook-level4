@@ -12,6 +12,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.modelManager.quizModel.Quiz;
+import seedu.address.model.modelManager.quizModel.QuizCard;
+import seedu.address.model.modelManager.quizModel.QuizModelManager;
 import seedu.address.testutil.Assert;
 
 public class QuizModelManagerTest {

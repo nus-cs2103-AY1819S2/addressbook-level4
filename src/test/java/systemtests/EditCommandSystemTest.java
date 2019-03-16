@@ -164,7 +164,7 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
                 + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a record with new values same as another record's values -> rejected */
-        executeCommand(RecordUtil.getAddCommand(BOB));
+        executeCommand(RecordUtil.getSpendCommand(BOB));
         assertTrue(getModel().getFinanceTracker().getRecordList().contains(BOB));
         index = INDEX_FIRST_RECORD;
         assertFalse(getModel().getFilteredRecordList().get(index.getZeroBased()).equals(BOB));

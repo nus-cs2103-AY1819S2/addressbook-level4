@@ -17,7 +17,7 @@ public class OpenCommandParser implements Parser<OpenCommand> {
      */
     public OpenCommand parse(String args) throws ParseException {
         try {
-            File file = ParserUtil.parseFile(args);
+            File file = ParserUtil.parseOpenSave(args);
             openValidation(file);
             return new OpenCommand(file);
         } catch (ParseException pe) {

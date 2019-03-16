@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
@@ -134,6 +135,9 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addReview(Review toAdd, Book bookForReview) {}
+
+        @Override
         public void setBookShelf(ReadOnlyBookShelf newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -192,27 +196,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitBookShelf() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -289,7 +293,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitBookShelf() {
             // called by {@code AddCommand#execute()}
         }
 

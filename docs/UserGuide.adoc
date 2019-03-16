@@ -68,24 +68,27 @@ Examples:
 === Adding a book review: `addReview`
 
 Adds a book review to a certain book in the book list +
-Format: `addReview n/BOOKNAME r/review`
+Format: `addReview n/BOOKNAME A/AUTHOR r/REVIEW
 
 Examples:
 
-* `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
-* `addReview n/Structure and Interpretation of Computer Programs r/A very difficult book:(`
+* `addReview n/Alice in Wonderland A/Lewis Caroll r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
+* `addReview n/Structure and Interpretation of Computer Programs A/H Abelson r/A very difficult book:(`
 
 === Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
-Format: `listBook [n/BOOKNAME] [t/TAG] [m/RATING]`
+Format: `listBook [n/NAME] [t/TAG] [m/RATING]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Only books match all the search criteria will be returned
+* If no search criteria given, the command will give the complete list of books
 * For name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
+* For tag searching, books containing at least one tag will be returned. e.g. `computer` will return `Computer Organisation`, `Computer Networks`
+* For rating search, books whose rating are included will be returned.
 ****
 
 Examples:

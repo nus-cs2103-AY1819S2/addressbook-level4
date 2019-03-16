@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -91,6 +92,12 @@ public interface Model {
     void addBook(Book book);
 
     /**
+     * Adds a review to the given book.
+     * {@code book} must already exist in the book shelf.
+     */
+    void addReview(Review toAdd, Book book);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the book shelf.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the book shelf.
@@ -125,27 +132,27 @@ public interface Model {
     /**
      * Returns true if the model has previous book shelf states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoBookShelf();
 
     /**
      * Returns true if the model has undone book shelf states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoBookShelf();
 
     /**
      * Restores the model's book shelf to its previous state.
      */
-    void undoAddressBook();
+    void undoBookShelf();
 
     /**
      * Restores the model's book shelf to its previously undone state.
      */
-    void redoAddressBook();
+    void redoBookShelf();
 
     /**
      * Saves the current book shelf state for undo/redo.
      */
-    void commitAddressBook();
+    void commitBookShelf();
 
     /**
      * Selected person in the filtered person list.

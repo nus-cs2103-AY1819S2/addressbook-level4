@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -27,7 +28,7 @@ import seedu.address.model.tag.Tag;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedBookShelf versionedAddressBook;
+    private final VersionedBookShelf versionedBookShelf;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Book> filteredBooks;
@@ -43,10 +44,10 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedBookShelf(addressBook);
+        versionedBookShelf = new VersionedBookShelf(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredBooks = new FilteredList<>(versionedAddressBook.getBookList());
+        filteredPersons = new FilteredList<>(versionedBookShelf.getPersonList());
+        filteredBooks = new FilteredList<>(versionedBookShelf.getBookList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredBooks.addListener(this::ensureSelectedBookIsValid);
     }
@@ -94,69 +95,75 @@ public class ModelManager implements Model {
 
     @Override
     public void setBookShelf(ReadOnlyBookShelf addressBook) {
-        versionedAddressBook.resetData(addressBook);
+        versionedBookShelf.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyBookShelf getBookShelf() {
-        return versionedAddressBook;
+        return versionedBookShelf;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return versionedBookShelf.hasPerson(person);
     }
 
     @Override
     public boolean hasBook(Book book) {
         requireNonNull(book);
-        return versionedAddressBook.hasBook(book);
+        return versionedBookShelf.hasBook(book);
     }
 
     @Override
     public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+        versionedBookShelf.removePerson(target);
     }
 
     public void deleteBook(Book target) {
-        versionedAddressBook.removeBook(target);
+        versionedBookShelf.removeBook(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        versionedBookShelf.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void addBook(Book book) {
-        versionedAddressBook.addBook(book);
+        versionedBookShelf.addBook(book);
+        updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
+    }
+
+    @Override
+    public void addReview(Review toAdd, Book bookForReview) {
+        versionedBookShelf.addReview(toAdd, bookForReview);
         updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedBookShelf.setPerson(target, editedPerson);
     }
 
     @Override
     public void setBook(Book target, Book editedBook) {
         requireAllNonNull(target, editedBook);
-        versionedAddressBook.setBook(target, editedBook);
+        versionedBookShelf.setBook(target, editedBook);
     }
 
     @Override
     public void deleteTag(Tag tag) {
-        versionedAddressBook.removeTag(tag);
+        versionedBookShelf.removeTag(tag);
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedBookShelf}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -183,28 +190,28 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoBookShelf() {
+        return versionedBookShelf.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoBookShelf() {
+        return versionedBookShelf.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoBookShelf() {
+        versionedBookShelf.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoBookShelf() {
+        versionedBookShelf.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitBookShelf() {
+        versionedBookShelf.commit();
     }
 
     //=========== Selected person ===========================================================================
@@ -317,7 +324,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedBookShelf.equals(other.versionedBookShelf)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

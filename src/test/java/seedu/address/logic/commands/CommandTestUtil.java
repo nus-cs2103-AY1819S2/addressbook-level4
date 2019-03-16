@@ -20,6 +20,8 @@ import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditBookDescriptorBuilder;
@@ -43,6 +45,8 @@ public class CommandTestUtil {
 
     public static final String VALID_BOOKNAME_ALICE = "Alice in Wonderland";
     public static final String VALID_BOOKNAME_CS = "Structure and Interpretation of Computer Programs";
+    public static final String VALID_BOOKNAME_PART_ALICE = "Alice";
+    public static final String VALID_BOOKNAME_PART_CS = "Computer";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
     public static final String VALID_AUTHOR_CS = "Hal Abelson Jerry Sussman";
     public static final String VALID_RATING_ALICE = "5";
@@ -64,6 +68,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_ALICE;
     public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;
+    public static final String NAME_PART_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_PART_ALICE;
+    public static final String NAME_PART_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_PART_CS;
     public static final String AUTHOR_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_ALICE;
     public static final String AUTHOR_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_CS;
     public static final String RATING_DESC_ALICE = " " + PREFIX_RATING + VALID_RATING_ALICE;
@@ -179,12 +185,20 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the book of the given {@code name} in the
+     * {@code model}'s book shelf. The book should be present in the book shelf.
+     */
+    public static void showBookOfExactName(Model model, BookName name) {
+        model.updateFilteredBookList(new BookNameContainsExactKeywordsPredicate(name));
+    }
+
+    /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
-        model.commitAddressBook();
+        model.commitBookShelf();
     }
 
 }

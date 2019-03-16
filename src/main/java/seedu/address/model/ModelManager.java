@@ -341,6 +341,7 @@ public class ModelManager implements Model {
         insideTestSession = false;
         cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
+        //TODO: exit card folder
     }
 
     @Override

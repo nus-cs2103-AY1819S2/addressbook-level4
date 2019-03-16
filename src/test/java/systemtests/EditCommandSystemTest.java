@@ -44,7 +44,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.RestOrRantUtil;
 
 public class EditCommandSystemTest extends RestOrRantSystemTest {
 
@@ -170,7 +170,7 @@ public class EditCommandSystemTest extends RestOrRantSystemTest {
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a person with new values same as another person's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(RestOrRantUtil.getAddCommand(BOB));
         assertTrue(getModel().getRestOrRant().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));

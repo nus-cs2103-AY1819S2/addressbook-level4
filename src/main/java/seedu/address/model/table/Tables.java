@@ -39,10 +39,7 @@ public class Tables implements ReadOnlyTables {
 
     //// list overwrite operations
 
-    /**
-     * Replaces the contents of the table list with {@code tableList}.
-     * {@code tableList} must not contain duplicate tables.
-     */
+    @Override
     public void setTables(List<Table> tableList) {
         this.tableList.setTables(tableList);
         nextTableNumber = this.tableList.getSize() + 1;
@@ -60,27 +57,19 @@ public class Tables implements ReadOnlyTables {
 
     //// person-level operations
 
-    /**
-     * Returns true if a table with the same identity as {@code table} exists in the UniqueTableList.
-     */
+    @Override
     public boolean hasTable(Table table) {
         requireNonNull(table);
         return tableList.contains(table);
     }
 
-    /**
-     * Adds a table to the UniqueTableList.
-     * The table must not already exist in the UniqueTableList.
-     */
+    @Override
     public void addTable(Table table) {
         tableList.add(table);
         indicateModified();
     }
 
-    /**
-     * Adds a table to the UniqueTableList.
-     * The table must not already exist in the UniqueTableList.
-     */
+    @Override
     public TableNumber addTable(TableStatus tableStatus) {
         tableList.add(new Table(new TableNumber(String.valueOf(nextTableNumber)), tableStatus));
         indicateModified();
@@ -88,11 +77,7 @@ public class Tables implements ReadOnlyTables {
         return new TableNumber(String.valueOf(nextTableNumber - 1));
     }
 
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
+    @Override
     public void setTable(Table target, Table editedTable) {
         requireNonNull(editedTable);
 
@@ -100,10 +85,7 @@ public class Tables implements ReadOnlyTables {
         indicateModified();
     }
 
-    /**
-     * Removes {@code key} from this {@code RestOrRant}.
-     * {@code key} must exist in the address book.
-     */
+    @Override
     public void removeTable(Table key) {
         tableList.remove(key);
         indicateModified();
@@ -120,10 +102,6 @@ public class Tables implements ReadOnlyTables {
             throw new CommandException(String.format(MESSAGE_INVALID_TABLE, tableNumber));
         }
         return tableList.getTable(tableNumber).isOccupied();
-    }
-
-    public int getNextTableNumber() {
-        return nextTableNumber;
     }
 
     /**

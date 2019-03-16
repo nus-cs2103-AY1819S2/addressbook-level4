@@ -39,7 +39,15 @@ public class Table {
      */
     public boolean isSameTable(Table otherTable) {
         return otherTable == this
-                || otherTable != null
-                && otherTable.getTableNumber().equals(getTableNumber());
+                || (otherTable != null
+                && otherTable.getTableNumber().equals(this.getTableNumber()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other != null
+                && this.getTableNumber().equals(((Table) other).getTableNumber())
+                && this.getTableStatus().equals(((Table) other).getTableStatus()));
     }
 }

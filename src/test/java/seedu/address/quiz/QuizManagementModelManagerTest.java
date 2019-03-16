@@ -17,7 +17,7 @@ import seedu.address.model.modelManager.quizModel.QuizCard;
 import seedu.address.model.modelManager.quizModel.QuizModelManager;
 import seedu.address.testutil.Assert;
 
-public class QuizModelManagerTest {
+public class QuizManagementModelManagerTest {
     private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");

@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelManager.managementModel.Model;
-import seedu.address.model.modelManager.managementModel.ModelManager;
+import seedu.address.model.modelManager.managementModel.ManagementModel;
+import seedu.address.model.modelManager.managementModel.ManagementModelManager;
 import seedu.address.model.modelManager.quizModel.Quiz;
 import seedu.address.model.modelManager.quizModel.QuizCard;
 import seedu.address.model.modelManager.quizModel.QuizModel;
@@ -22,8 +22,8 @@ public class StartCommandTest {
 
     @Test
     public void execute_success() throws Exception {
-        Model model = new ModelManager();
-        CommandResult commandResult = new StartCommand().execute(model, commandHistory);
+        ManagementModel managementModel = new ManagementModelManager();
+        CommandResult commandResult = new StartCommand().execute(managementModel, commandHistory);
 
         assertEquals(String.format(StartCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
     }

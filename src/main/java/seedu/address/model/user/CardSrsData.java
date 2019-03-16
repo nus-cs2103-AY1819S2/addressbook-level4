@@ -29,7 +29,7 @@ public class CardSrsData {
     }
 
     /**
-     * Function for session model to get list of card datas
+     * Function for session managementModel to get list of card datas
      * @param hashCode must be given
      * @return card from hashmap
      */

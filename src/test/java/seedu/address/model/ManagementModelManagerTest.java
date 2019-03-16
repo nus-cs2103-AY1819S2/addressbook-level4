@@ -17,13 +17,13 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.exceptions.MissingCoreException;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelManager.managementModel.ModelManager;
+import seedu.address.model.modelManager.managementModel.ManagementModelManager;
 
-public class ModelManagerTest {
+public class ManagementModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager modelManager = new ModelManager();
+    private ManagementModelManager modelManager = new ManagementModelManager();
 
     private void addTestLesson() {
         modelManager.addLesson(getTestLesson());
@@ -151,8 +151,8 @@ public class ModelManagerTest {
         Lessons lessons = new Lessons();
 
         // same values -> returns true
-        modelManager = new ModelManager(userPrefs, lessons);
-        ModelManager modelManagerCopy = new ModelManager(userPrefs, lessons);
+        modelManager = new ManagementModelManager(userPrefs, lessons);
+        ManagementModelManager modelManagerCopy = new ManagementModelManager(userPrefs, lessons);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true

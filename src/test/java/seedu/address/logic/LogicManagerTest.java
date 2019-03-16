@@ -20,8 +20,8 @@ import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Lessons;
-import seedu.address.model.modelManager.managementModel.Model;
-import seedu.address.model.modelManager.managementModel.ModelManager;
+import seedu.address.model.modelManager.managementModel.ManagementModel;
+import seedu.address.model.modelManager.managementModel.ManagementModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.modelManager.quizModel.Quiz;
 import seedu.address.model.modelManager.quizModel.QuizCard;
@@ -39,7 +39,7 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    private Model model = new ModelManager();
+    private ManagementModel managementModel = new ManagementModelManager();
     private QuizModel quizModel = new QuizModelManager();
     private Logic logic;
 
@@ -49,7 +49,7 @@ public class LogicManagerTest {
         CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(temporaryFolder.newFile().toPath());
         CsvLessonImportExport lessonImportExport = new CsvLessonImportExport(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
-        logic = new LogicManager(model, quizModel);
+        logic = new LogicManager(managementModel, quizModel);
     }
 
     @Test
@@ -115,11 +115,11 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
-     * Also confirms that {@code expectedModel} is as specified.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * Also confirms that {@code expectedManagementModel} is as specified.
+     * @see #assertCommandBehavior(Class, String, String, ManagementModel)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel) {
-        assertCommandBehavior(null, inputCommand, expectedMessage, expectedModel);
+    private void assertCommandSuccess(String inputCommand, String expectedMessage, ManagementModel expectedManagementModel) {
+        assertCommandBehavior(null, inputCommand, expectedMessage, expectedManagementModel);
     }
 
     /**
@@ -133,7 +133,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * @see #assertCommandBehavior(Class, String, String, ManagementModel)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
@@ -141,7 +141,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * @see #assertCommandBehavior(Class, String, String, ManagementModel)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
@@ -149,21 +149,21 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * @see #assertCommandBehavior(Class, String, String, ManagementModel)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(new UserPrefs(), new Lessons());
-        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
+        ManagementModel expectedManagementModel = new ManagementModelManager(new UserPrefs(), new Lessons());
+        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedManagementModel);
     }
 
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal model manager data are same as those in the {@code expectedModel} <br>
-     *      - {@code expectedModel}'s address book was saved to the storage file.
+     *      - the internal managementModel manager data are same as those in the {@code expectedManagementModel} <br>
+     *      - {@code expectedManagementModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
-                                           String expectedMessage, Model expectedModel) {
+                                           String expectedMessage, ManagementModel expectedManagementModel) {
 
         try {
             CommandResult result = logic.execute(inputCommand);
@@ -174,13 +174,13 @@ public class LogicManagerTest {
             assertEquals(expectedMessage, e.getMessage());
         }
 
-        assertEquals(expectedModel, model);
+        assertEquals(expectedManagementModel, managementModel);
     }
 
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal model manager data are same as those in the {@code expectedModel} <br>
+     *      - the internal managementModel manager data are same as those in the {@code expectedModel} <br>
      *      - {@code expectedModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,

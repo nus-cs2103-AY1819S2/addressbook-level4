@@ -14,17 +14,17 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
 
 /**
- * Represents the in-memory model of BrainTrain data.
+ * Represents the in-memory managementModel of BrainTrain data.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+public class ManagementModelManager implements ManagementModel {
+    private static final Logger logger = LogsCenter.getLogger(ManagementModelManager.class);
 
     private final Lessons lessons;
     private final UserPrefs userPrefs;
     /**
-     * Initializes a ModelManager with the given userPrefs.
+     * Initializes a ManagementModelManager with the given userPrefs.
      */
-    public ModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
+    public ManagementModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
         super();
         requireAllNonNull(userPrefs);
 
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
         this.lessons = lessons;
     }
 
-    public ModelManager() {
+    public ManagementModelManager() {
         this(new UserPrefs(), new Lessons());
     }
 
@@ -125,12 +125,12 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
+        if (!(obj instanceof ManagementModelManager)) {
             return false;
         }
 
         // state check
-        ModelManager other = (ModelManager) obj;
+        ManagementModelManager other = (ManagementModelManager) obj;
         return userPrefs.equals(other.userPrefs) && lessons.equals(other.lessons);
     }
 

@@ -5,22 +5,22 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelManager.managementModel.Model;
-import seedu.address.model.modelManager.managementModel.ModelManager;
+import seedu.address.model.modelManager.managementModel.ManagementModel;
+import seedu.address.model.modelManager.managementModel.ManagementModelManager;
 
 public class HistoryCommandTest {
     private CommandHistory history = new CommandHistory();
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private ManagementModel managementModel = new ManagementModelManager();
+    private ManagementModel expectedManagementModel = new ManagementModelManager();
 
     @Test
     public void execute() {
-        assertCommandSuccess(new HistoryCommand(), model, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
+        assertCommandSuccess(new HistoryCommand(), managementModel, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedManagementModel);
 
         String command1 = "clear";
         history.add(command1);
-        assertCommandSuccess(new HistoryCommand(), model, history,
-                String.format(HistoryCommand.MESSAGE_SUCCESS, command1), expectedModel);
+        assertCommandSuccess(new HistoryCommand(), managementModel, history,
+                String.format(HistoryCommand.MESSAGE_SUCCESS, command1), expectedManagementModel);
 
         String command2 = "randomCommand";
         String command3 = "select 1";
@@ -29,7 +29,7 @@ public class HistoryCommandTest {
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", command3, command2, command1));
-        assertCommandSuccess(new HistoryCommand(), model, history, expectedMessage, expectedModel);
+        assertCommandSuccess(new HistoryCommand(), managementModel, history, expectedMessage, expectedManagementModel);
     }
 
 }

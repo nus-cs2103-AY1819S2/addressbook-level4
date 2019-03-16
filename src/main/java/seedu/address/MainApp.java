@@ -17,8 +17,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Lessons;
-import seedu.address.model.modelManager.managementModel.Model;
-import seedu.address.model.modelManager.managementModel.ModelManager;
+import seedu.address.model.modelManager.managementModel.ManagementModel;
+import seedu.address.model.modelManager.managementModel.ManagementModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.modelManager.quizModel.QuizModel;
@@ -46,7 +46,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected Model model;
+    protected ManagementModel managementModel;
     protected QuizModel quizModel;
     protected Config config;
 
@@ -67,19 +67,19 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(userPrefs, lessons);
+        managementModel = initModelManager(userPrefs, lessons);
         quizModel = initQuizModelManager();
 
-        logic = new LogicManager(model, quizModel);
+        logic = new LogicManager(managementModel, quizModel);
 
         ui = new UiManager(logic);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code userPrefs}.
+     * Returns a {@code ManagementModelManager} with the data from {@code userPrefs}.
      */
-    private Model initModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
-        return new ModelManager(userPrefs, lessons);
+    private ManagementModel initModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
+        return new ManagementModelManager(userPrefs, lessons);
     }
 
     /**
@@ -202,7 +202,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping BrainTrain ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveUserPrefs(managementModel.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

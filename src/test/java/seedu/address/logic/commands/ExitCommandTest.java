@@ -6,17 +6,17 @@ import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEM
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelManager.managementModel.Model;
-import seedu.address.model.modelManager.managementModel.ModelManager;
+import seedu.address.model.modelManager.managementModel.ManagementModel;
+import seedu.address.model.modelManager.managementModel.ManagementModelManager;
 
 public class ExitCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private ManagementModel managementModel = new ManagementModelManager();
+    private ManagementModel expectedManagementModel = new ManagementModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_exit_success() {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
-        assertCommandSuccess(new ExitCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new ExitCommand(), managementModel, commandHistory, expectedCommandResult, expectedManagementModel);
     }
 }

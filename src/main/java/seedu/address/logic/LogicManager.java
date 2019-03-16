@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelManager.managementModel.Model;
+import seedu.address.model.modelManager.managementModel.ManagementModel;
 import seedu.address.model.modelManager.quizModel.QuizModel;
 
 /**
@@ -24,14 +24,14 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private final ManagementModel managementModel;
     private final QuizModel quizModel;
     private final CommandHistory history;
     private final ManagementModeParser managementModeParser;
     private final QuizModeParser quizModeParser;
 
-    public LogicManager(Model model, QuizModel quizModel) {
-        this.model = model;
+    public LogicManager(ManagementModel managementModel, QuizModel quizModel) {
+        this.managementModel = managementModel;
         this.quizModel = quizModel;
         history = new CommandHistory();
         managementModeParser = new ManagementModeParser();
@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
             Command command = null;
             if (quizModel.isDone()) {
                 command = managementModeParser.parseCommand(commandText);
-                commandResult = command.execute(model, history);
+                commandResult = command.execute(managementModel, history);
             } else {
                 QuizCommand quizCommand = quizModeParser.parse(commandText);
                 commandResult = quizCommand.execute(quizModel, history);
@@ -73,11 +73,11 @@ public class LogicManager implements Logic {
 
     @Override
     public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
+        return managementModel.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
+        managementModel.setGuiSettings(guiSettings);
     }
 }

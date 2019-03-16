@@ -7,9 +7,9 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
 
 /**
- * The API of the Model component.
+ * The API of the ManagementModel component.
  */
-public interface Model {
+public interface ManagementModel {
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

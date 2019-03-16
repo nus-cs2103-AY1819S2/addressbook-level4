@@ -6,17 +6,17 @@ import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelManager.managementModel.Model;
-import seedu.address.model.modelManager.managementModel.ModelManager;
+import seedu.address.model.modelManager.managementModel.ManagementModel;
+import seedu.address.model.modelManager.managementModel.ManagementModelManager;
 
 public class HelpCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private ManagementModel managementModel = new ManagementModelManager();
+    private ManagementModel expectedManagementModel = new ManagementModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_help_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-        assertCommandSuccess(new HelpCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new HelpCommand(), managementModel, commandHistory, expectedCommandResult, expectedManagementModel);
     }
 }

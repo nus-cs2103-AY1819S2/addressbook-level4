@@ -70,6 +70,8 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
         retrieved = storageManager.readLessons(NO_VALID_FILES_FOLDER).get();
         assertEquals(original, retrieved);
+        assertEquals(0, storageManager.saveLessons(retrieved));
+        assertEquals(0, storageManager.saveLessons(retrieved, NO_VALID_FILES_FOLDER));
     }
     @Test
     public void getLessonsFolderPath() {

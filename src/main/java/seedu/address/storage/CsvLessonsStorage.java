@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +25,8 @@ public class CsvLessonsStorage implements LessonsStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
 
     private static final String CORE_ESCAPE = "*";
+    private static final String QUESTION_ESCAPE = "?";
+    private static final String ANSWER_ESCAPE = "@";
 
     private static final String READ_WARNING_CORE_LABEL = "Core escape character [ "
             + CORE_ESCAPE
@@ -52,12 +55,13 @@ public class CsvLessonsStorage implements LessonsStorage {
      * - Reads the file into a List of String arrays
      * - Parses the first String array as a header
      * -> Values marked as core using CORE_ESCAPE have the marker removed
+     *      --> Values marked with QUESTION_ESCAPE and ANSWER_ESCAPE are assigned.
+     *       - See documentation on save data. TODO
      * -> The count of cores is kept
      * - Name of lesson is read from filename without extension
      * - Fields of lesson read from modified header
      * - Cards are read from remainder of data.
      * <p>
-     * TODO: Further refactoring.
      *
      * @param filePath Assumes not null.
      * @return The parsed lesson.
@@ -67,14 +71,20 @@ public class CsvLessonsStorage implements LessonsStorage {
         try {
             data = CsvUtil.readCsvFile(filePath);
         } catch (IOException e) {
+            logger.warning("Unable to read file at: " + filePath.toString());
             return Optional.empty();
         }
         if (data == null) {
+            logger.warning("Empty/invalid file at: " + filePath.toString());
             return Optional.empty();
         }
+
         String[] header = data.get(0);
         int coreCount = 0;
+        int questionIndex = Lesson.DEFAULT_INDEX_QUESTION;
+        int answerIndex = Lesson.DEFAULT_INDEX_ANSWER;
         boolean readingCores = true;
+
         for (int i = 0; i < header.length; i++) {
             String value = header[i];
             if (value.startsWith(CORE_ESCAPE)) {
@@ -84,6 +94,15 @@ public class CsvLessonsStorage implements LessonsStorage {
                 }
                 coreCount++;
                 header[i] = value.substring(CORE_ESCAPE.length());
+
+                String substring = header[i];
+                if (substring.startsWith(QUESTION_ESCAPE)) {
+                    header[i] = substring.substring(QUESTION_ESCAPE.length());
+                    questionIndex = i;
+                } else if (substring.startsWith(ANSWER_ESCAPE)) {
+                    header[i] = substring.substring(ANSWER_ESCAPE.length());
+                    answerIndex = i;
+                }
             } else {
                 readingCores = false;
             }
@@ -96,7 +115,9 @@ public class CsvLessonsStorage implements LessonsStorage {
         int extensionPos = lessonName.lastIndexOf(".");
         lessonName = lessonName.substring(0, extensionPos);
         List<String> fields = Arrays.asList(header);
+
         Lesson newLesson = new Lesson(lessonName, coreCount, fields);
+        newLesson.setQuestionAnswerIndices(questionIndex, answerIndex);
         for (int i = 1; i < data.size(); i++) {
             try {
                 newLesson.addCard(Arrays.asList(data.get(i)));
@@ -105,6 +126,71 @@ public class CsvLessonsStorage implements LessonsStorage {
             }
         }
         return Optional.of(newLesson);
+    }
+
+    /**
+     * Returns a String[] containing correctly formatted strings for saving.
+     * Appends QUESTION_ESCAPE and ANSWER_ESCAPE chars to the headers, then appends CORE_ESCAPE to all remaining core
+     * values.
+     *
+     * @param lesson
+     * @return Header data with relevant escape characters.
+     */
+    private String[] parseHeaderData(Lesson lesson) {
+        String[] header;
+
+        List<String> headerList = new ArrayList<>();
+
+        headerList.addAll(lesson.getCoreHeaders());
+        headerList.addAll(lesson.getOptionalHeaders());
+        int headerSize = headerList.size();
+
+        header = new String[headerSize];
+        headerList.toArray(header);
+
+        header[lesson.getQuestionCoreIndex()] = QUESTION_ESCAPE + header[lesson.getQuestionCoreIndex()];
+        header[lesson.getAnswerCoreIndex()] = ANSWER_ESCAPE + header[lesson.getAnswerCoreIndex()];
+
+        for (int i = 0; i < lesson.getCoreHeaderSize(); i++) {
+            header[i] = CORE_ESCAPE + header[i];
+        }
+        return header;
+    }
+
+    /**
+     * Returns a String[] of all card fields in order.
+     *
+     * @param card
+     * @return Formatted card data.
+     */
+    private String[] parseCardData(Card card) {
+        String[] cardArray;
+
+        List<String> cardData = new ArrayList<>();
+        cardData.addAll(card.getCores());
+        cardData.addAll(card.getOptionals());
+
+        cardArray = new String[card.getCores().size() + card.getOptionals().size()];
+        cardData.toArray(cardArray);
+
+        return cardArray;
+    }
+
+    /**
+     * TODO
+     * @param lesson
+     */
+    private void saveLessonToFile(Lesson lesson, Path folderPath) throws IOException {
+        List<String[]> data = new ArrayList<>();
+        Path filePath = Paths.get(folderPath.toString(), lesson.getName() + ".csv");
+
+        data.add(parseHeaderData(lesson));
+
+        for (Card card : lesson.getCards()) {
+            data.add(parseCardData(card));
+        }
+
+        CsvUtil.writeCsvFile(filePath, data);
     }
 
     @Override
@@ -118,7 +204,7 @@ public class CsvLessonsStorage implements LessonsStorage {
         List<Path> paths = new ArrayList<>();
         Lessons lessons = new Lessons();
         try {
-            Files.walk(folderPath).filter(path ->
+            Files.walk(folderPath, 1).filter(path ->
                     path.toString().endsWith(".csv")).forEach(paths::add);
         } catch (IOException e) {
             return Optional.empty();
@@ -131,12 +217,27 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     @Override
-    public void saveLessons(Lessons lessons) throws IOException {
-
+    public int saveLessons(Lessons lessons) {
+        return saveLessons(lessons, folderPath);
     }
 
     @Override
-    public void saveLessons(Lessons lessons, Path filePath) throws IOException {
+    public int saveLessons(Lessons lessons, Path folderPath) {
+        requireNonNull(lessons);
+        requireNonNull(folderPath);
 
+        int saveCount = 0;
+
+        List<Lesson> allLessons = lessons.getLessons();
+
+        for (Lesson lesson : allLessons) {
+            try {
+                saveLessonToFile(lesson, folderPath);
+                saveCount++;
+            } catch (IOException e) {
+                logger.warning(lesson.getName() + " failed to save; IOException occurred");
+            }
+        }
+        return saveCount;
     }
 }

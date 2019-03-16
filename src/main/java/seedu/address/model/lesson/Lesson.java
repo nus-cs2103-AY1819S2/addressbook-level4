@@ -27,11 +27,14 @@ import seedu.address.model.card.Card;
  */
 public class Lesson {
     // Static fields
+    public static final int DEFAULT_INDEX_QUESTION = 0;
+    public static final int DEFAULT_INDEX_ANSWER = 1;
+
     public static final String EXCEPTION_INVALID_NAME = "Invalid name supplied.";
     public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
     public static final String EXCEPTION_CORE_SIZE_MISMATCH =
-            "The cores of the card to be added do not match the core headers of this lesson.";
+        "The cores of the card to be added do not match the core headers of this lesson.";
 
     // Identity fields
     /**
@@ -55,11 +58,11 @@ public class Lesson {
     /**
      * The index of the question in {@link Card} objects' cores.
      */
-    private int questionCoreIndex;
+    private int questionCoreIndex = DEFAULT_INDEX_QUESTION;
     /**
      * The index of the answer in {@link Card} objects' cores.
      */
-    private int answerCoreIndex;
+    private int answerCoreIndex = DEFAULT_INDEX_ANSWER;
     /**
      * The list of {@link Card} objects.
      */
@@ -194,6 +197,7 @@ public class Lesson {
     public List<String> getCoreHeaders() {
         return coreHeaders;
     }
+
 
     /**
      * @return the number of core headers in this lesson

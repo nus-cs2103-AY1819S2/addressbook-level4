@@ -351,6 +351,13 @@ The quiz feature implements the following commands and processes answer:
 * `\status` - Lists current status and lesson progress of user.
 * `Answer [*]` - Enters any character without escape character \ is treated as an answer.
 
+==== \status
+The `\status` feature list the total attempts you have attempted, total number of question you
+have gotten correct in this session and which question you are currently on.
+
+.Sequence diagram for status feature
+image::QuizStatusCommandSequenceDiagram.png[width="800"]
+
 ==== Answer [*]
 The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
 as answer to be processed later.

@@ -14,7 +14,7 @@ public class ContainsAtLeastTest {
             -> new ContainsAtLeast(null, 0, "CS2101"));
         String[] strings = {null, null};
         Assert.assertThrows(NullPointerException.class, ()
-                -> new ContainsAtLeast(null, 0, null));
+            -> new ContainsAtLeast(null, 0, null));
         Assert.assertThrows(NullPointerException.class, ()
             -> new ContainsAtLeast("Lorem ipsum dolor sit amet", 0, strings));
     }

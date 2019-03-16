@@ -11,7 +11,7 @@ public class ContainsAllTest {
             -> new ContainsAll(null, "CS2101"));
         String[] strings = {null, null};
         Assert.assertThrows(NullPointerException.class, ()
-                -> new ContainsAll("Lorem ipsum dolor sit amet", null));
+            -> new ContainsAll("Lorem ipsum dolor sit amet", null));
         Assert.assertThrows(NullPointerException.class, ()
             -> new ContainsAll("Lorem ipsum dolor sit amet", strings));
     }

@@ -36,7 +36,7 @@ public class BookTest {
         assertFalse(ALI.isSameBook(null));
 
         // different author -> returns false
-        Book editedAlice = new BookBuilder(ALI).withAuthor(VALID_AUTHOR_CS).build();
+        Book editedAlice = new BookBuilder(CS).withAuthor(VALID_AUTHOR_CS).build();
         assertFalse(ALI.isSameBook(editedAlice));
 
         // different name -> returns false

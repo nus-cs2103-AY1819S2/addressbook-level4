@@ -46,11 +46,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEWSCORES_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEWSCORES_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAJOR_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RACE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_BOB;
@@ -347,21 +345,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid grade -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY+ GENDER_DESC_AMY + INVALID_GRADE_DESC
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + INVALID_GRADE_DESC
             + NRIC_DESC_AMY + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
         assertCommandFailure(command, Grade.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid nric -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY+ GENDER_DESC_AMY + GRADE_DESC_AMY
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY
             + INVALID_NRIC_DESC + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
         assertCommandFailure(command, Nric.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid interview scores -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
             + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY+ GENDER_DESC_AMY + GRADE_DESC_AMY
-            + NRIC_DESC_AMY + JOBSAPPLY_DESC_TRADER + INVALID_INTERVIEWSCORES_DESC
-        ;
+            + NRIC_DESC_AMY + JOBSAPPLY_DESC_TRADER + INVALID_INTERVIEWSCORES_DESC;
         assertCommandFailure(command, InterviewScores.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */

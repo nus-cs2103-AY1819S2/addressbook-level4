@@ -217,6 +217,7 @@ public class PersonBuilder {
         return this;
     }
 
+    /***/
     public Person build() {
         return new Person(name, phone, email, nric, gender, race, address, school, major, grade, knownProgLangs,
                 pastjobs, jobsApply, interviewScores, tags);

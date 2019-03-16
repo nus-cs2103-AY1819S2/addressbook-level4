@@ -65,7 +65,7 @@ public class PersonUtil {
             s -> sb.append(PREFIX_PASTJOB + s.value + " ")
         );
         person.getJobsApply().stream().forEach(
-                s -> sb.append(PREFIX_JOBSAPPLY + s.value + " ")
+            s -> sb.append(PREFIX_JOBSAPPLY + s.value + " ")
         );
         sb.append(PREFIX_INTERVIEWSCORES + person.getInterviewScores().value + " ");
         person.getTags().stream().forEach(
@@ -113,7 +113,8 @@ public class PersonUtil {
                 jobsApply.forEach(s -> sb.append(PREFIX_JOBSAPPLY).append(s.value).append(" "));
             }
         }
-        descriptor.getInterviewScores().ifPresent(interviewScores -> sb.append(PREFIX_INTERVIEWSCORES).append(interviewScores.value).append(" "));
+        descriptor.getInterviewScores().ifPresent(interviewScores -> sb.append(PREFIX_INTERVIEWSCORES)
+                .append(interviewScores.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

@@ -25,8 +25,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RACE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SCHOOL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_TRADER;
 import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_ENGINEER;
+import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_TRADER;
 import static seedu.address.logic.commands.CommandTestUtil.KNOWNPROGLANG_DESC_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
@@ -295,7 +295,7 @@ public class AddCommandParserTest {
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + NRIC_DESC_BOB
                 + GENDER_DESC_BOB + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
-                + GRADE_DESC_BOB + JOBSAPPLY_DESC_ENGINEER +  INTERVIEWSCORES_DESC_BOB + TAG_DESC_HUSBAND
+                + GRADE_DESC_BOB + JOBSAPPLY_DESC_ENGINEER + INTERVIEWSCORES_DESC_BOB + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
@@ -314,13 +314,13 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + NRIC_DESC_BOB
                 + GENDER_DESC_BOB + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + INVALID_MAJOR_DESC
                 + GRADE_DESC_BOB + JOBSAPPLY_DESC_ENGINEER + TAG_DESC_HUSBAND + TAG_DESC_FRIEND
-                +  INTERVIEWSCORES_DESC_BOB, Major.MESSAGE_CONSTRAINTS);
+                + INTERVIEWSCORES_DESC_BOB, Major.MESSAGE_CONSTRAINTS);
 
         // invalid race
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + NRIC_DESC_BOB
                 + GENDER_DESC_BOB + INVALID_RACE_DESC + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
                 + GRADE_DESC_BOB + JOBSAPPLY_DESC_ENGINEER + TAG_DESC_HUSBAND + TAG_DESC_FRIEND
-                +  INTERVIEWSCORES_DESC_BOB, Race.MESSAGE_CONSTRAINTS);
+                + INTERVIEWSCORES_DESC_BOB, Race.MESSAGE_CONSTRAINTS);
 
         // invalid gender
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + NRIC_DESC_BOB

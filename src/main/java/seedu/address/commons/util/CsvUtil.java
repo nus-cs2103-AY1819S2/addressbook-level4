@@ -1,8 +1,8 @@
 package seedu.address.commons.util;
 
-import java.io.BufferedReader;
 import static java.util.Objects.requireNonNull;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

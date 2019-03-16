@@ -1,11 +1,11 @@
 package seedu.address.storage;
 
-import java.nio.file.Paths;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -217,23 +217,27 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     @Override
-    public void saveLessons(Lessons lessons) {
-        saveLessons(lessons, folderPath);
+    public int saveLessons(Lessons lessons) {
+        return saveLessons(lessons, folderPath);
     }
 
     @Override
-    public void saveLessons(Lessons lessons, Path folderPath) {
+    public int saveLessons(Lessons lessons, Path folderPath) {
         requireNonNull(lessons);
         requireNonNull(folderPath);
+
+        int saveCount = 0;
 
         List<Lesson> allLessons = lessons.getLessons();
 
         for (Lesson lesson : allLessons) {
             try {
                 saveLessonToFile(lesson, folderPath);
+                saveCount++;
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                logger.warning(lesson.getName() + " failed to save; IOException occurred");
             }
         }
+        return saveCount;
     }
 }

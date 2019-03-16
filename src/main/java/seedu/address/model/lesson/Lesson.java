@@ -211,7 +211,8 @@ public class Lesson {
      * @param optionalHeaders all {@link Card} objects added to this lesson can have optionals corresponding
      *                        to these headers
      */
-    public void setOptionalHeaders(List<String> optionalHeaders) {        this.optionalHeaders = optionalHeaders;
+    public void setOptionalHeaders(List<String> optionalHeaders) {
+        this.optionalHeaders = optionalHeaders;
 
         if (optionalHeaders.size() > 0) {
             isVisibleOptionals = new boolean[optionalHeaders.size()];

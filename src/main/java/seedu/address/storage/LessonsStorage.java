@@ -37,10 +37,10 @@ public interface LessonsStorage {
      * @param lessons cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveLessons(Lessons lessons) throws IOException;
+    int saveLessons(Lessons lessons) throws IOException;
 
     /**
      * @see #saveLessons(Lessons)
      */
-    void saveLessons(Lessons lessons, Path filePath) throws IOException;
+    int saveLessons(Lessons lessons, Path filePath) throws IOException;
 }

@@ -38,9 +38,8 @@ public class User {
                 throw new CardDataImportException("Error importing file, there exists a duplicate file");
             }
 
-            return importCardData; }
-
-        catch (Exception e) {
+            return importCardData;
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }

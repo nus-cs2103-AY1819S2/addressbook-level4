@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -19,6 +20,10 @@ import seedu.address.storage.csvmanager.CardFolderExport;
 public interface Model extends Observable {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
+    /** {@code Comparator} that sorts cards by ascending percentage score */
+    Comparator<Card> COMPARATOR_ASC_SCORE_CARDS = Comparator.comparing(Card::getScore);
+    /** {@code Comparator} that sorts cards by lexicographic order of questions */
+    Comparator<Card> COMPARATOR_LEXICOGRAPHIC_CARDS = Comparator.comparing(Card::getQuestion);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -122,6 +127,12 @@ public interface Model extends Observable {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCard(Predicate<Card> predicate);
+
+    /**
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void sortFilteredCard(Comparator<Card> cardComparator);
 
     /**
      * Returns true if the model has previous card folder states to restore.

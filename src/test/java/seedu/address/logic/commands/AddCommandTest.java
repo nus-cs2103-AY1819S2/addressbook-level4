@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -244,6 +245,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void sortFilteredCard(Comparator<Card> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
@@ -308,7 +314,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return this.card.isSameCard(card);
+            return this.card.equals(card);
         }
     }
 
@@ -321,7 +327,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameCard);
+            return cardsAdded.stream().anyMatch(card::equals);
         }
 
         @Override

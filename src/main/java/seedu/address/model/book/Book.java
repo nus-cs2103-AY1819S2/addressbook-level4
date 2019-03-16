@@ -59,8 +59,8 @@ public class Book {
     }
 
     /**
-     * Returns true if both books of the same bookName have the same author.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both books of the same book name.
+     * This defines a weaker notion of equality between two books.
      */
     public boolean isSameBook(Book otherBook) {
         if (otherBook == this) {
@@ -68,13 +68,12 @@ public class Book {
         }
 
         return otherBook != null
-                && otherBook.getBookName().equals(getBookName())
-                && (otherBook.getAuthor().equals(getAuthor()));
+                && otherBook.getBookName().equals(getBookName());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both books have the same identity and data fields.
+     * This defines a stronger notion of equality between two books.
      */
     @Override
     public boolean equals(Object other) {
@@ -112,5 +111,4 @@ public class Book {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

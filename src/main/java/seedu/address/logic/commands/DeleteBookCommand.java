@@ -13,7 +13,7 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 
 /**
- * Deletes a book identified using it's displayed index from the address book.
+ * Deletes a book identified using it's displayed index from the book shelf.
  */
 public class DeleteBookCommand extends Command {
 

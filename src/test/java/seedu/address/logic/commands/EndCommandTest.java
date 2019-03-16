@@ -15,6 +15,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TypicalIndexes;
 
+/**
+ * Contains integration tests (interaction with the Model) and junit tests for {@code EndCommand}.
+ */
 public class EndCommandTest {
     private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());

@@ -31,12 +31,9 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalRestOrRant;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -63,7 +60,8 @@ public abstract class RestOrRantSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getTableDataFileLocation(),
+                getOrdersDataFileLocation(), getMenuDataFileLocation(), getStatsDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -79,14 +77,26 @@ public abstract class RestOrRantSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected RestOrRant getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalRestOrRant.getTypicalRestOrRant();
     }
 
     /**
      * Returns the directory of the data file.
      */
-    protected Path getDataFileLocation() {
-        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    protected Path getTableDataFileLocation() {
+        return TestApp.TABLES_FOR_TESTING;
+    }
+
+    protected Path getOrdersDataFileLocation() {
+        return TestApp.ORDERS_FOR_TESTING;
+    }
+
+    protected Path getMenuDataFileLocation() {
+        return TestApp.MENU_FOR_TESTING;
+    }
+
+    protected Path getStatsDataFileLocation() {
+        return TestApp.STATS_FOR_TESTING;
     }
 
     public MainWindowHandle getMainWindowHandle() {

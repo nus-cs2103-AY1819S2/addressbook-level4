@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 
 /**
- * Selects a card identified using it's displayed index from the address book.
+ * Selects a card identified using it's displayed index.
  */
 public class SelectCommand extends Command {
 

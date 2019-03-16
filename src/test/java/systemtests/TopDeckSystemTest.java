@@ -100,7 +100,7 @@ public abstract class TopDeckSystemTest {
     }
 
     public CardListPanelHandle getCardListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+        return mainWindowHandle.getCardListPanel();
     }
 
     public MainMenuHandle getMainMenu() {

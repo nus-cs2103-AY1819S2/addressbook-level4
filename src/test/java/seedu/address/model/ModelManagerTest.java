@@ -149,6 +149,20 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setCurrentTestedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
+        thrown.expect(CardNotFoundException.class);
+        modelManager.setSelectedCard(ALICE);
+    }
+
+    @Test
+    public void setCurrentTestedCard_cardInFilteredCardList_setsSelectedCard() {
+        modelManager.addCard(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
+        modelManager.setCurrentTestedCard(ALICE);
+        assertEquals(ALICE, modelManager.getCurrentTestedCard());
+    }
+
+    @Test
     public void equals() {
         CardFolder cardFolder = new CardFolderBuilder().withCard(ALICE).withCard(BENSON).build();
         CardFolder differentCardFolder = new CardFolder(this.getClass().getName());

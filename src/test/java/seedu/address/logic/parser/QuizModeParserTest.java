@@ -10,6 +10,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.QuizAnswerCommand;
 import seedu.address.logic.commands.QuizHelpCommand;
+import seedu.address.logic.commands.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,6 +31,10 @@ public class QuizModeParserTest {
     @Test
     public void parseCommand() throws Exception {
         assertTrue(parser.parse("\\help") instanceof QuizHelpCommand);
+        assertTrue(parser.parse(QuizHelpCommand.COMMAND_WORD) instanceof QuizHelpCommand);
+
+        assertTrue(parser.parse("\\status") instanceof QuizStatusCommand);
+        assertTrue(parser.parse(QuizStatusCommand.COMMAND_WORD) instanceof QuizStatusCommand);
     }
 
     @Test

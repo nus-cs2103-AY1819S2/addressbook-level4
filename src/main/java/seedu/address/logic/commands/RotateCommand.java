@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
+import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -58,19 +59,19 @@ public class RotateCommand extends Command {
         }
 
         try {
-            File directory = new File(ASSETS_FILEPATH);
+            File directory = new File(TEMP_FILEPATH);
             Image initialImage = new Image(ASSETS_FILEPATH + fileName);
             BufferedImage bufferImage = Scalr.rotate(initialImage.getBufferedImage(), rotate);
             //hardcoded the result file, have to concatenate in future and have specific ones
             // when we have more than 1 file
-            File outputFile = new File("sampleRotate.jpg");
-            ImageIO.write(bufferImage, "jpg", outputFile);
-            FileUtils.copyFileToDirectory(outputFile, directory);
+            File outputFile = new File(fileName);
+            ImageIO.write(bufferImage, initialImage.getFileType(), outputFile);
+            FileUtils.copyFileToDirectory(outputFile, directory, false);
         } catch (IOException | IllegalArgumentException x) {
             throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST);
         }
 
-        Image finalImage = new Image(ASSETS_FILEPATH + "sampleRotate.jpg");
+        Image finalImage = new Image(TEMP_FILEPATH + fileName);
         model.displayImage(finalImage);
 
         return new CommandResult(Messages.MESSAGE_ROTATE_SUCCESS);

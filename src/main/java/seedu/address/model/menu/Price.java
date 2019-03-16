@@ -14,7 +14,7 @@ public class Price {
      * None of the characters must contain alphabets or symbols (except the period)
      * else is not a valid price input.
      */
-    public static final String VALIDATION_REGEX = "(\\d+\\.\\d{1,2})";
+    public static final String VALIDATION_REGEX = "(\\d+\\.\\d{2})";
 
     public final String itemPrice;
 

@@ -6,12 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.text.ParseException;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-
-
-
-
 
 /**
  * Represents a date.
@@ -60,12 +55,6 @@ public class DateCustom {
 
     public static boolean isEndDateBeforeStartDate(String format, String date1, String date2) {
         return dateCompare(date2, date1);
-    }
-
-    public int getAge() {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate storedDate = LocalDate.parse(this.toString());
-        return Period.between(storedDate, currentDate).getYears();
     }
 
     public LocalDate getDate() {

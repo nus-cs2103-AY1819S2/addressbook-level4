@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;

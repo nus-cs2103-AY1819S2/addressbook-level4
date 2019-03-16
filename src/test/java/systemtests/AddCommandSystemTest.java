@@ -357,7 +357,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid interview scores -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY+ GENDER_DESC_AMY + GRADE_DESC_AMY
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY
             + NRIC_DESC_AMY + JOBSAPPLY_DESC_TRADER + INVALID_INTERVIEWSCORES_DESC;
         assertCommandFailure(command, InterviewScores.MESSAGE_CONSTRAINTS);
 

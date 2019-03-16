@@ -8,7 +8,7 @@ import org.junit.Test;
 import seedu.address.model.module.Grade;
 import seedu.address.testutil.Assert;
 
-public class ExpectedMinGradeTest {
+public class GradeTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -16,8 +16,8 @@ public class ExpectedMinGradeTest {
     }
 
     @Test
-    public void constructor_invalidExpectedMinGradeWithWhitespace_throwsIllegalArgumentException() {
-        String invalidExpectedMinGradeWithWhitespace = "";
+    public void constructor_invalidGradeWithWhitespace_throwsIllegalArgumentException() {
+        String invalidGradeWithWhitespace = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> Grade.valueOf(""));
     }
 
@@ -38,12 +38,18 @@ public class ExpectedMinGradeTest {
         assertFalse(Grade.isValidGrade("G3"));
         assertFalse(Grade.isValidGrade("AB"));
         assertFalse(Grade.isValidGrade("A++"));
+        assertFalse(Grade.isValidGrade("A-"));
+        assertFalse(Grade.isValidGrade("B_Minus"));
+        assertFalse(Grade.isValidGrade("B_Plus"));
 
-        // valid email
+        // valid grade
         assertTrue(Grade.isValidGrade("F"));
         assertTrue(Grade.isValidGrade("D"));
         assertTrue(Grade.isValidGrade("C"));
         assertTrue(Grade.isValidGrade("B"));
         assertTrue(Grade.isValidGrade("A"));
+        assertTrue(Grade.isValidGrade("A_PLUS"));
+        assertTrue(Grade.isValidGrade("C_PLUS"));
+        assertTrue(Grade.isValidGrade("B_MINUS"));
     }
 }

@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Pdf[] getSamplePdfs() {
         Path sampleA = Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "a.pdf");
-        Path sampleB = Paths.get("src","test", "data", "JsonAdaptedPdfTest", "b.pdf");
+        Path sampleB = Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "b.pdf");
         return new Pdf[] {
             new Pdf(new Name(sampleA.getFileName().toString()),
                     new Directory(sampleA.getParent().toAbsolutePath().toString()),

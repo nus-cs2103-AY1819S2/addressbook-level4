@@ -25,7 +25,7 @@ import seedu.address.model.util.SampleDataUtil;
  * A utility class to help with building Request objects.
  */
 public class RequestBuilder {
-    public static final String DEFAULT_ID = "1233";
+    public static final String DEFAULT_ID = null;
     public static final String DEFAULT_PATIENT_NAME = "Amanda Tan";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_ADDRESS = "123, Far East Ave 3, #04-123, 123456";
@@ -49,7 +49,8 @@ public class RequestBuilder {
 
     public RequestBuilder() {
         this.id = DEFAULT_ID;
-        this.patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone(DEFAULT_PHONE), new Email(DEFAULT_EMAIL),
+        this.patient = new Person(new Name(DEFAULT_PATIENT_NAME), new Phone(DEFAULT_PHONE),
+            new Email(Email.DEFAULT_EMAIL),
                 new Address(DEFAULT_ADDRESS), new HashSet<>(Collections.singleton(new Tag(DEFAULT_REQUEST))));
         this.healthWorker = Optional.of(new HealthWorker(new Name(DEFAULT_STAFF_NAME), new Phone(DEFAULT_STAFF_PHONE),
                 new Email(DEFAULT_STAFF_EMAIL), new Nric(DEFAULT_STAFF_NRIC), new Address(DEFAULT_STAFF_ADDRESS),
@@ -88,6 +89,16 @@ public class RequestBuilder {
      */
     public RequestBuilder withDate(String date) {
         this.requestDate = new RequestDate(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code address} of the {@code patient} that we are building
+     * @param address the address of the patient
+     * @return The RequestBuilder object
+     */
+    public RequestBuilder withAddress(String address) {
+        this.patient = new PersonBuilder(this.patient).withAddress(address).build();
         return this;
     }
 

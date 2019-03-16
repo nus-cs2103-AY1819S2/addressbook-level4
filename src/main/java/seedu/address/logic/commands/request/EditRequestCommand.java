@@ -47,7 +47,7 @@ public class EditRequestCommand extends RequestCommand {
         + PREFIX_CONDITION + "Physiotherapy "
         + PREFIX_CONDITION + "Dialysis";
 
-    public static final String MESSAGE_EDIT_REQUEST_SUCCESS = "Edited Order: %1$s";
+    public static final String MESSAGE_EDIT_REQUEST_SUCCESS = "Edited Request: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_REQUEST = "This request already exists in the " +
         "request book.";

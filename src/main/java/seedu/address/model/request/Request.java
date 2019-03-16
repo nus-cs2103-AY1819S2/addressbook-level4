@@ -34,7 +34,7 @@ public class Request {
      */
     public Request(String id, Person patient, RequestDate requestDate, Set<Tag> conditions,
                    RequestStatus requestStatus) {
-        requireAllNonNull(id, patient, requestDate, conditions, requestStatus);
+        requireAllNonNull(patient, requestDate, conditions, requestStatus);
         this.id = id;
         this.patient = patient;
         this.requestDate = requestDate;
@@ -93,8 +93,14 @@ public class Request {
             return true;
         }
 
-        return otherRequest != null
-                && otherRequest.getId().equals(this.id)
+        if (otherRequest == null) return false;
+
+        if (this.id == null || otherRequest.id == null) {
+            return otherRequest.getRequestDate().equals(this.requestDate)
+                && ((otherRequest.getPatient().equals(this.patient)) || otherRequest.getConditions().equals(this.conditions));
+        }
+
+        return otherRequest.getId().equals(this.id)
                 && otherRequest.getRequestDate().equals(this.requestDate)
                 && ((otherRequest.getPatient().equals(this.patient)) || otherRequest
                 .getConditions().equals(this.conditions));
@@ -103,11 +109,12 @@ public class Request {
     @Override
     public String toString() {
 
+        String identifier = (id == null) ? "null" : this.id;
         String healthStaff = this.healthWorker.map(Person::toString)
                 .orElse("Unassigned");
 
         return "----------Request----------\n"
-                + "ID: " + this.id + "\n"
+                + "ID: " + identifier + "\n"
                 + "Patient: " + this.patient + "\n"
                 + "Assigned staff: " + healthStaff + "\n"
                 + "Request Date: " + this.requestDate + "\n"
@@ -128,9 +135,11 @@ public class Request {
 
         Request otherRequest = (Request) other;
 
-        return otherRequest.getId().equals(this.id)
-                && otherRequest.getPatient().equals(this.patient)
-                && (otherRequest.getRequestDate().equals(this.requestDate))
+        if (otherRequest.getId() != null && this.id != null) {
+            if (!getId().equals(this.id)) return false;
+        }
+
+        return (otherRequest.getRequestDate().equals(this.requestDate))
                 && (otherRequest.getConditions().equals(this.conditions))
                 && otherRequest.getHealthStaff().equals(this.healthWorker)
                 && (otherRequest.getRequestStatus().equals(this.requestStatus));

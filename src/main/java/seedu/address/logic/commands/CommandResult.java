@@ -17,6 +17,13 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    @Override
+    public String toString() {
+        return "Message: " + feedbackToUser + "\n" +
+            "showhelp: " + showHelp + "\n" +
+            "exit: " + exit + "\n";
+    }
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */

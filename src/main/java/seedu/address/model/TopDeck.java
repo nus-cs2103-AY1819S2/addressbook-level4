@@ -56,12 +56,22 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     /**
+     * Replaces the contents of the deck list with {@code decks}.
+     * {@code decks} must not contain duplicate cards.
+     */
+    public void setDecks(List<Deck> decks) {
+        this.decks.setDecks(decks);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code TopDeck} with {@code newData}.
      */
     public void resetData(ReadOnlyTopDeck newData) {
         requireNonNull(newData);
 
         setCards(newData.getCardList());
+        setDecks(newData.getDeckList());
     }
 
     //// card-level operations

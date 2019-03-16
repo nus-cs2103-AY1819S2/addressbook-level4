@@ -22,6 +22,8 @@ public class Quiz {
     private int currentCardIndex;
     private int generatedCardSize;
     private boolean isDone; // Indicates if User is done with this quiz
+    private int quizTotalAttempts;
+    private int quizTotalCorrectQuestions;
 
     /**
      * Different types of mode supported in Quiz.
@@ -48,6 +50,8 @@ public class Quiz {
         this.currentCardIndex = -1;
         this.generatedCardSize = -1;
         this.isDone = false;
+        this.quizTotalAttempts = 0;
+        this.quizTotalCorrectQuestions = 0;
 
         generate();
     }
@@ -128,19 +132,39 @@ public class Quiz {
         throw new IndexOutOfBoundsException("No cards left.");
     }
 
+    public String getCurrentProgress() {
+        return (currentCardIndex + 1) + "/" + generatedCardSize;
+    }
+
     public QuizCard getCurrentQuizCard() {
         requireNonNull(currentQuizCard);
         return currentQuizCard;
     }
 
     /**
-     * Update the totalAttempts and streak of a specified card in the current session.
+     * Updates the totalAttempts and streak of a specified card in the current session
+     * and current quiz session totalAttempts and totalCorrectQuestions
      * @param index of the card
      * @param answer user input
      */
     public void updateTotalAttemptsAndStreak(int index, String answer) {
         QuizCard sessionCard = currentSession.get(index);
-        sessionCard.updateTotalAttemptsAndStreak(currentQuizCard.isCorrect(answer));
+        boolean isCorrect = currentQuizCard.isCorrect(answer);
+        sessionCard.updateTotalAttemptsAndStreak(isCorrect);
+
+        if (isCorrect) {
+            quizTotalCorrectQuestions++;
+        }
+
+        quizTotalAttempts++;
+    }
+
+    public int getQuizTotalAttempts() {
+        return quizTotalAttempts;
+    }
+
+    public int getQuizTotalCorrectQuestions() {
+        return quizTotalCorrectQuestions;
     }
 
     /**

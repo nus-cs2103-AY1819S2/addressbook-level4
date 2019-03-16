@@ -42,6 +42,11 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
+    public String getCurrentProgress() {
+        return quiz.getCurrentProgress();
+    }
+
+    @Override
     public QuizCard getCurrentQuizCard() {
         return quiz.getCurrentQuizCard();
     }
@@ -50,6 +55,17 @@ public class QuizModelManager implements QuizModel {
     public void updateTotalAttemptsAndStreak(int index, String answer) {
         quiz.updateTotalAttemptsAndStreak(index, answer);
     }
+
+    @Override
+    public int getQuizTotalAttempts() {
+        return quiz.getQuizTotalAttempts();
+    }
+
+    @Override
+    public int getQuizTotalCorrectQuestions() {
+        return quiz.getQuizTotalCorrectQuestions();
+    }
+
 
     @Override
     public boolean isDone() {

@@ -116,6 +116,8 @@ public class QuizModelManagerTest {
         expected.add(Arrays.asList(1, 2, 2));
 
         assertEquals(expected, modelManager.end());
+        assertEquals(4, modelManager.getQuizTotalAttempts());
+        assertEquals(4, modelManager.getQuizTotalCorrectQuestions());
     }
 
     @Test

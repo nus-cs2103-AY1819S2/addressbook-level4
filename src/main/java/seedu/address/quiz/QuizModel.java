@@ -22,6 +22,11 @@ public interface QuizModel {
     QuizCard getNextCard();
 
     /**
+     * Returns the user current progress in {@code Quiz}.
+     */
+    String getCurrentProgress();
+
+    /**
      * Returns the current QuizCard in {@code Quiz}.
      */
     QuizCard getCurrentQuizCard();
@@ -32,6 +37,16 @@ public interface QuizModel {
      * @param answer user input
      */
     void updateTotalAttemptsAndStreak(int index, String answer);
+
+    /**
+     * Returns total attempts in this {@code Quiz}.
+     */
+    int getQuizTotalAttempts();
+
+    /**
+     * Returns the total correct questions attempted in this {code Quiz}.
+     */
+    int getQuizTotalCorrectQuestions();
 
     /**
      * Returns if User is done with {@code Quiz}.

@@ -15,7 +15,7 @@ public class QuizTest {
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
     private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);
-
+    private static final int VALID_QUIZCARD_SIZE = VALID_QUIZCARD.size();
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () ->
@@ -38,19 +38,19 @@ public class QuizTest {
         List<QuizCard> expectedLearn = new ArrayList<>();
 
         QuizCard expectedCurrentCard;
-        for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
+        for (int i = 0; i < VALID_QUIZCARD_SIZE; i++) {
             expectedCurrentCard = VALID_QUIZCARD.get(i);
             expectedPreview.add(new QuizCard(i, expectedCurrentCard.getQuestion(), expectedCurrentCard.getAnswer(),
                 Quiz.Mode.PREVIEW));
         }
 
-        for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
+        for (int i = 0; i < VALID_QUIZCARD_SIZE; i++) {
             expectedCurrentCard = VALID_QUIZCARD.get(i);
             expectedReview.add(new QuizCard(i, expectedCurrentCard.getQuestion(), expectedCurrentCard.getAnswer(),
                 Quiz.Mode.REVIEW));
         }
 
-        for (int i = 0; i < VALID_QUIZCARD.size(); i++) {
+        for (int i = 0; i < VALID_QUIZCARD_SIZE; i++) {
             expectedCurrentCard = VALID_QUIZCARD.get(i);
             expectedReview.add(new QuizCard(i, expectedCurrentCard.getAnswer(), expectedCurrentCard.getQuestion(),
                 Quiz.Mode.REVIEW));
@@ -101,8 +101,9 @@ public class QuizTest {
 
         // normal
         List<QuizCard> generated = quiz.generate();
-        for (int i = 0; i < VALID_QUIZCARD.size() * 3; i++) {
+        for (int i = 0; i < VALID_QUIZCARD_SIZE * 3; i++) {
             assertEquals(generated.get(i), quiz.getNextCard());
+            assertEquals((i + 1) + "/" + VALID_QUIZCARD_SIZE * 3, quiz.getCurrentProgress());
         }
 
         // no more cards
@@ -114,8 +115,9 @@ public class QuizTest {
 
         // normal
         List<QuizCard> generatedReview = quizReview.generate();
-        for (int i = 0; i < VALID_QUIZCARD.size() * 2; i++) {
+        for (int i = 0; i < VALID_QUIZCARD_SIZE * 2; i++) {
             assertEquals(generatedReview.get(i), quizReview.getNextCard());
+            assertEquals((i + 1) + "/" + VALID_QUIZCARD_SIZE * 2, quizReview.getCurrentProgress());
         }
 
         // no more cards
@@ -129,6 +131,8 @@ public class QuizTest {
         List<QuizCard> generatedPreview = quizPreview.generate();
         assertEquals(generatedPreview.get(0), quizPreview.getNextCard());
         assertEquals(generatedPreview.get(1), quizPreview.getNextCard());
+        assertEquals(2 + "/" + VALID_QUIZCARD_SIZE, quizPreview.getCurrentProgress());
+
 
         // no more cards
         Assert.assertThrows(IndexOutOfBoundsException.class, () ->
@@ -171,12 +175,16 @@ public class QuizTest {
         quiz.updateTotalAttemptsAndStreak(index, correctAnswer);
 
         assertEquals(expected, quiz.getCurrentSession());
+        assertEquals(1, quiz.getQuizTotalAttempts());;
+        assertEquals(1, quiz.getQuizTotalCorrectQuestions());
 
         // test wrong answer
         expectedCard1.updateTotalAttemptsAndStreak(expectedCard1.isCorrect(wrongAnswer));
         quiz.getNextCard();
         quiz.updateTotalAttemptsAndStreak(index, wrongAnswer);
         assertEquals(expected, quiz.getCurrentSession());
+        assertEquals(2, quiz.getQuizTotalAttempts());
+        assertEquals(1, quiz.getQuizTotalCorrectQuestions());
 
         // ------- Review -------
         Quiz quizReview = new Quiz(quizCards, Quiz.Mode.REVIEW);

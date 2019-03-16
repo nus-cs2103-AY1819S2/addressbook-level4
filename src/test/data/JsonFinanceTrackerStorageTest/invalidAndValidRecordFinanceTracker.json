@@ -1,0 +1,13 @@
+{
+  "records": [ {
+    "name": "Valid Record",
+    "amount": "123",
+    "date": "12/02/2009",
+    "description": "some description"
+  }, {
+    "name": "Record With Invalid Amount Field",
+    "amount": "948asdf2424",
+    "date": "12/02/2009",
+    "description": ""
+  } ]
+}

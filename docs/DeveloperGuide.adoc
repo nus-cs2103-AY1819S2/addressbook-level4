@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= In-Credit-Ble - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,24 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-3`      Since: `May 2019`      Licence: `MIT`
+
+== Introduction
+
+< Add introduction here>
+Sound inviting, friendly yet professional +
+Describe software +
+Describe purpose of the developer guide, its intended audience and perhaps how to use it. +
+Provide a preview of the contents of the developer guide +
+Include some info about the developer team and how to contact them.
+
+Welcome to *In-Credit-Ble*!
+
+In-Credit-Ble ...
+
+This developer guide.. <Ask them go setting up section>
+
+See <<AboutUs#, AboutUs.adoc>> and <<ContactUs#, ContactUs.adoc>> for more information on how to contact us!
 
 == Setting up
 
@@ -54,7 +71,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.finance.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -233,7 +250,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// category::undoredo[]
+// tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -313,7 +330,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// category::dataencryption[]
+// tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -478,14 +495,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.finance.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.finance.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.finance.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.finance.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing

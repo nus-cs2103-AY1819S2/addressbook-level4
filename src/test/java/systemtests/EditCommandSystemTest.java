@@ -3,46 +3,46 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
-import static seedu.address.testutil.TypicalRecords.AMY;
-import static seedu.address.testutil.TypicalRecords.BOB;
-import static seedu.address.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
+import static seedu.finance.testutil.TypicalRecords.AMY;
+import static seedu.finance.testutil.TypicalRecords.BOB;
+import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.category.Category;
-import seedu.address.model.record.Amount;
-import seedu.address.model.record.Date;
-import seedu.address.model.record.Name;
-import seedu.address.model.record.Record;
-import seedu.address.testutil.RecordBuilder;
-import seedu.address.testutil.RecordUtil;
+import seedu.finance.commons.core.Messages;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.commands.EditCommand;
+import seedu.finance.logic.commands.RedoCommand;
+import seedu.finance.logic.commands.UndoCommand;
+import seedu.finance.model.Model;
+import seedu.finance.model.category.Category;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.record.Record;
+import seedu.finance.testutil.RecordBuilder;
+import seedu.finance.testutil.RecordUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends FinanceTrackerSystemTest {
 
     @Test
     public void edit() {
@@ -76,7 +76,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a record with new values same as another record's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getRecordList().contains(BOB));
+        assertTrue(getModel().getFinanceTracker().getRecordList().contains(BOB));
         index = INDEX_SECOND_RECORD;
         assertNotEquals(getModel().getFilteredRecordList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
@@ -93,7 +93,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered record list, edit index within bounds of address book and record list -> edited */
+        /* Case: filtered record list, edit index within bounds of finance tracker and record list -> edited */
         showRecordsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_RECORD;
         assertTrue(index.getZeroBased() < getModel().getFilteredRecordList().size());
@@ -102,11 +102,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedRecord = new RecordBuilder(recordToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedRecord);
 
-        /* Case: filtered record list, edit index within bounds of address book but out of bounds of record list
+        /* Case: filtered record list, edit index within bounds of finance tracker but out of bounds of record list
          * -> rejected
          */
         showRecordsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getRecordList().size();
+        int invalidIndex = getModel().getFinanceTracker().getRecordList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
 
@@ -163,27 +163,27 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
                 + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
-        /* Case: edit a record with new values same as another person's values -> rejected */
+        /* Case: edit a record with new values same as another record's values -> rejected */
         executeCommand(RecordUtil.getSpendCommand(BOB));
-        assertTrue(getModel().getAddressBook().getRecordList().contains(BOB));
+        assertTrue(getModel().getFinanceTracker().getRecordList().contains(BOB));
         index = INDEX_FIRST_RECORD;
         assertFalse(getModel().getFilteredRecordList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
 
-        /* Case: edit a record with new values same as another person's values but
+        /* Case: edit a record with new values same as another record's values but
                  with different categories -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
 
-        /* Case: edit a record with new values same as another person's values but with different amount -> rejected */
+        /* Case: edit a record with new values same as another record's values but with different amount -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + AMOUNT_DESC_AMY + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
 
-        /* Case: edit a person with new values same as another record's values but with different date -> rejected */
+        /* Case: edit a record with new values same as another record's values but with different date -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + AMOUNT_DESC_BOB + DATE_DESC_AMY + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
@@ -235,9 +235,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see FinanceTrackerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -260,8 +260,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

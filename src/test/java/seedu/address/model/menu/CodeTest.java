@@ -14,13 +14,13 @@ public class CodeTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
+    public void constructor_invalidCode_throwsIllegalArgumentException() {
         String invalidCode = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidCode));
     }
 
     @Test
-    public void isValidName() {
+    public void isValidCode() {
         // null code
         Assert.assertThrows(NullPointerException.class, () -> Code.isValidCode(null));
 

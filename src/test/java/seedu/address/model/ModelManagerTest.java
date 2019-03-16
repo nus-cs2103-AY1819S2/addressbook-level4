@@ -28,6 +28,7 @@ import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.exceptions.TableNotFoundException;
+import seedu.address.testutil.MenuItemBuilder;
 import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.RestOrRantBuilder;
 import seedu.address.testutil.TableBuilder;

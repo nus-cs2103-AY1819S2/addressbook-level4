@@ -53,8 +53,8 @@ public class HotelManagementSystemParserTest {
     public void parseCommand_addAlias() throws Exception {
         Customer customer = new CustomerBuilder().build();
         AddCustomerCommand commandAlias = (AddCustomerCommand) parser.parseCommand(
-                AddCustomerCommand.COMMAND_ALIAS + " " + CustomerUtil.getCustomerDetails(customer),
-                new CustomerManager(), new BookingManager());
+            AddCustomerCommand.COMMAND_ALIAS + " " + CustomerUtil.getCustomerDetails(customer),
+            new CustomerManager(), new BookingManager());
         assertEquals(new AddCustomerCommand(customer), commandAlias);
     }
 
@@ -105,7 +105,7 @@ public class HotelManagementSystemParserTest {
         Customer customer = new CustomerBuilder().build();
         EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
         EditCustomerCommand commandAlias = (EditCustomerCommand) parser.parseCommand(
-                EditCustomerCommand.COMMAND_ALIAS + " "
+            EditCustomerCommand.COMMAND_ALIAS + " "
                 + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor),
             new CustomerManager(), new BookingManager());
         assertEquals(new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor), commandAlias);

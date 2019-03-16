@@ -26,7 +26,8 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonHotelManagementSystemStorage hotelManagementSystemStorage = new JsonHotelManagementSystemStorage(getTempFilePath("ab"));
+        JsonHotelManagementSystemStorage hotelManagementSystemStorage =
+            new JsonHotelManagementSystemStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
     }
@@ -55,7 +56,8 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonHotelManagementSystemStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonHotelManagementSystemStorageTest} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonHotelManagementSystemStorageTest}
+         * class.
          */
         HotelManagementSystem original = getTypicalHotelManagementSystem();
         storageManager.saveHotelManagementSystem(original);

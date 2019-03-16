@@ -27,8 +27,9 @@ import seedu.address.model.customer.Customer;
  */
 public class DeleteCustomerCommandTest {
 
-    private CustomerModel model = new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
-        new UserPrefs());
+    private CustomerModel model =
+        new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
+            new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -38,8 +39,9 @@ public class DeleteCustomerCommandTest {
 
         String expectedMessage = String.format(DeleteCustomerCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
-        CustomerManager expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerManager expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitHotelManagementSystem();
 
@@ -52,7 +54,7 @@ public class DeleteCustomerCommandTest {
         DeleteCustomerCommand deleteCustomerCommand = new DeleteCustomerCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCustomerCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     }
 
     @Test
@@ -64,8 +66,9 @@ public class DeleteCustomerCommandTest {
 
         String expectedMessage = String.format(DeleteCustomerCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitHotelManagementSystem();
         showNoCustomer(expectedModel);
@@ -84,15 +87,16 @@ public class DeleteCustomerCommandTest {
         DeleteCustomerCommand deleteCustomerCommand = new DeleteCustomerCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCustomerCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Customer customerToDelete = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
         DeleteCustomerCommand deleteCustomerCommand = new DeleteCustomerCommand(INDEX_FIRST_CUSTOMER);
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         expectedModel.commitHotelManagementSystem();
 
@@ -115,7 +119,7 @@ public class DeleteCustomerCommandTest {
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteCustomerCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -132,8 +136,9 @@ public class DeleteCustomerCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameCustomerDeleted() throws Exception {
         DeleteCustomerCommand deleteCustomerCommand = new DeleteCustomerCommand(INDEX_FIRST_CUSTOMER);
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
 
         showCustomerAtIndex(model, INDEX_SECOND_CUSTOMER);
         Customer customerToDelete = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());

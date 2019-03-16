@@ -18,14 +18,18 @@ import seedu.address.testutil.HotelManagementSystemBuilder;
 
 public class VersionedHotelManagementSystemTest {
 
-    private final ReadOnlyHotelManagementSystem hotelManagementSystemWithAmy = new HotelManagementSystemBuilder().withCustomer(AMY).build();
-    private final ReadOnlyHotelManagementSystem hotelManagementSystemWithBob = new HotelManagementSystemBuilder().withCustomer(BOB).build();
-    private final ReadOnlyHotelManagementSystem hotelManagementSystemWithCarl = new HotelManagementSystemBuilder().withCustomer(CARL).build();
+    private final ReadOnlyHotelManagementSystem hotelManagementSystemWithAmy =
+        new HotelManagementSystemBuilder().withCustomer(AMY).build();
+    private final ReadOnlyHotelManagementSystem hotelManagementSystemWithBob =
+        new HotelManagementSystemBuilder().withCustomer(BOB).build();
+    private final ReadOnlyHotelManagementSystem hotelManagementSystemWithCarl =
+        new HotelManagementSystemBuilder().withCustomer(CARL).build();
     private final ReadOnlyHotelManagementSystem emptyHotelManagementSystem = new HotelManagementSystemBuilder().build();
 
     @Test
     public void commit_singleHotelManagementSystem_noStatesRemovedCurrentStateSaved() {
-        VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(emptyHotelManagementSystem);
+        VersionedHotelManagementSystem versionedHotelManagementSystem =
+            prepareHotelManagementSystemList(emptyHotelManagementSystem);
 
         versionedHotelManagementSystem.commit();
         assertHotelManagementSystemListStatus(versionedHotelManagementSystem,
@@ -47,7 +51,8 @@ public class VersionedHotelManagementSystemTest {
     }
 
     @Test
-    public void commit_multipleHotelManagementSystemPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+    public void
+        commit_multipleHotelManagementSystemPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(
             emptyHotelManagementSystem, hotelManagementSystemWithAmy, hotelManagementSystemWithBob);
         shiftCurrentStatePointerLeftwards(versionedHotelManagementSystem, 2);
@@ -78,7 +83,8 @@ public class VersionedHotelManagementSystemTest {
 
     @Test
     public void canUndo_singleHotelManagementSystem_returnsFalse() {
-        VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(emptyHotelManagementSystem);
+        VersionedHotelManagementSystem versionedHotelManagementSystem =
+            prepareHotelManagementSystemList(emptyHotelManagementSystem);
 
         assertFalse(versionedHotelManagementSystem.canUndo());
     }
@@ -112,7 +118,8 @@ public class VersionedHotelManagementSystemTest {
 
     @Test
     public void canRedo_singleHotelManagementSystem_returnsFalse() {
-        VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(emptyHotelManagementSystem);
+        VersionedHotelManagementSystem versionedHotelManagementSystem =
+            prepareHotelManagementSystemList(emptyHotelManagementSystem);
 
         assertFalse(versionedHotelManagementSystem.canRedo());
     }
@@ -152,9 +159,11 @@ public class VersionedHotelManagementSystemTest {
 
     @Test
     public void undo_singleHotelManagementSystem_throwsNoUndoableStateException() {
-        VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(emptyHotelManagementSystem);
+        VersionedHotelManagementSystem versionedHotelManagementSystem =
+            prepareHotelManagementSystemList(emptyHotelManagementSystem);
 
-        assertThrows(VersionedHotelManagementSystem.NoUndoableStateException.class, versionedHotelManagementSystem::undo);
+        assertThrows(VersionedHotelManagementSystem.NoUndoableStateException.class,
+            versionedHotelManagementSystem::undo);
     }
 
     @Test
@@ -163,7 +172,8 @@ public class VersionedHotelManagementSystemTest {
             emptyHotelManagementSystem, hotelManagementSystemWithAmy, hotelManagementSystemWithBob);
         shiftCurrentStatePointerLeftwards(versionedHotelManagementSystem, 2);
 
-        assertThrows(VersionedHotelManagementSystem.NoUndoableStateException.class, versionedHotelManagementSystem::undo);
+        assertThrows(VersionedHotelManagementSystem.NoUndoableStateException.class,
+            versionedHotelManagementSystem::undo);
     }
 
     @Test
@@ -194,9 +204,11 @@ public class VersionedHotelManagementSystemTest {
 
     @Test
     public void redo_singleHotelManagementSystem_throwsNoRedoableStateException() {
-        VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(emptyHotelManagementSystem);
+        VersionedHotelManagementSystem versionedHotelManagementSystem =
+            prepareHotelManagementSystemList(emptyHotelManagementSystem);
 
-        assertThrows(VersionedHotelManagementSystem.NoRedoableStateException.class, versionedHotelManagementSystem::redo);
+        assertThrows(VersionedHotelManagementSystem.NoRedoableStateException.class,
+            versionedHotelManagementSystem::redo);
     }
 
     @Test
@@ -204,15 +216,18 @@ public class VersionedHotelManagementSystemTest {
         VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(
             emptyHotelManagementSystem, hotelManagementSystemWithAmy, hotelManagementSystemWithBob);
 
-        assertThrows(VersionedHotelManagementSystem.NoRedoableStateException.class, versionedHotelManagementSystem::redo);
+        assertThrows(VersionedHotelManagementSystem.NoRedoableStateException.class,
+            versionedHotelManagementSystem::redo);
     }
 
     @Test
     public void equals() {
-        VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(hotelManagementSystemWithAmy, hotelManagementSystemWithBob);
+        VersionedHotelManagementSystem versionedHotelManagementSystem =
+            prepareHotelManagementSystemList(hotelManagementSystemWithAmy, hotelManagementSystemWithBob);
 
         // same values -> returns true
-        VersionedHotelManagementSystem copy = prepareHotelManagementSystemList(hotelManagementSystemWithAmy, hotelManagementSystemWithBob);
+        VersionedHotelManagementSystem copy = prepareHotelManagementSystemList(hotelManagementSystemWithAmy,
+            hotelManagementSystemWithBob);
         assertTrue(versionedHotelManagementSystem.equals(copy));
 
         // same object -> returns true
@@ -225,7 +240,8 @@ public class VersionedHotelManagementSystemTest {
         assertFalse(versionedHotelManagementSystem.equals(1));
 
         // different state list -> returns false
-        VersionedHotelManagementSystem differentHotelManagementSystemList = prepareHotelManagementSystemList(hotelManagementSystemWithBob, hotelManagementSystemWithCarl);
+        VersionedHotelManagementSystem differentHotelManagementSystemList =
+            prepareHotelManagementSystemList(hotelManagementSystemWithBob, hotelManagementSystemWithCarl);
         assertFalse(versionedHotelManagementSystem.equals(differentHotelManagementSystemList));
 
         // different current pointer index -> returns false
@@ -237,13 +253,15 @@ public class VersionedHotelManagementSystemTest {
 
     /**
      * Asserts that {@code versionedHotelManagementSystem} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedHotelManagementSystem#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedHotelManagementSystem#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * states before {@code versionedHotelManagementSystem#currentStatePointer} is equal to {@code
+     * expectedStatesBeforePointer},
+     * and states after {@code versionedHotelManagementSystem#currentStatePointer} is equal to {@code
+     * expectedStatesAfterPointer}.
      */
     private void assertHotelManagementSystemListStatus(VersionedHotelManagementSystem versionedHotelManagementSystem,
-                                             List<ReadOnlyHotelManagementSystem> expectedStatesBeforePointer,
-                                             ReadOnlyHotelManagementSystem expectedCurrentState,
-                                             List<ReadOnlyHotelManagementSystem> expectedStatesAfterPointer) {
+                                                       List<ReadOnlyHotelManagementSystem> expectedStatesBeforePointer,
+                                                       ReadOnlyHotelManagementSystem expectedCurrentState,
+                                                       List<ReadOnlyHotelManagementSystem> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
         assertEquals(new HotelManagementSystem(versionedHotelManagementSystem), expectedCurrentState);
 
@@ -272,13 +290,16 @@ public class VersionedHotelManagementSystemTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedHotelManagementSystem} with the {@code hotelManagementSystemStates} added into it, and the
+     * Creates and returns a {@code VersionedHotelManagementSystem} with the {@code hotelManagementSystemStates}
+     * added into it, and the
      * {@code VersionedHotelManagementSystem#currentStatePointer} at the end of list.
      */
-    private VersionedHotelManagementSystem prepareHotelManagementSystemList(ReadOnlyHotelManagementSystem... hotelManagementSystemStates) {
+    private VersionedHotelManagementSystem prepareHotelManagementSystemList(
+        ReadOnlyHotelManagementSystem... hotelManagementSystemStates) {
         assertFalse(hotelManagementSystemStates.length == 0);
 
-        VersionedHotelManagementSystem versionedHotelManagementSystem = new VersionedHotelManagementSystem(hotelManagementSystemStates[0]);
+        VersionedHotelManagementSystem versionedHotelManagementSystem =
+            new VersionedHotelManagementSystem(hotelManagementSystemStates[0]);
         for (int i = 1; i < hotelManagementSystemStates.length; i++) {
             versionedHotelManagementSystem.resetData(hotelManagementSystemStates[i]);
             versionedHotelManagementSystem.commit();
@@ -290,7 +311,8 @@ public class VersionedHotelManagementSystemTest {
     /**
      * Shifts the {@code versionedHotelManagementSystem#currentStatePointer} by {@code count} to the left of its list.
      */
-    private void shiftCurrentStatePointerLeftwards(VersionedHotelManagementSystem versionedHotelManagementSystem, int count) {
+    private void shiftCurrentStatePointerLeftwards(VersionedHotelManagementSystem versionedHotelManagementSystem,
+                                                   int count) {
         for (int i = 0; i < count; i++) {
             versionedHotelManagementSystem.undo();
         }

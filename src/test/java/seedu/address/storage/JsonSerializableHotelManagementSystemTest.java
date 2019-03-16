@@ -16,10 +16,14 @@ import seedu.address.testutil.TypicalCustomers;
 
 public class JsonSerializableHotelManagementSystemTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableHotelManagementSystemTest");
-    private static final Path TYPICAL_CUSTOMERS_FILE = TEST_DATA_FOLDER.resolve("typicalCustomersHotelManagementSystem.json");
-    private static final Path INVALID_CUSTOMER_FILE = TEST_DATA_FOLDER.resolve("invalidCustomerHotelManagementSystem.json");
-    private static final Path DUPLICATE_CUSTOMER_FILE = TEST_DATA_FOLDER.resolve("duplicateCustomerHotelManagementSystem.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+        "JsonSerializableHotelManagementSystemTest");
+    private static final Path TYPICAL_CUSTOMERS_FILE = TEST_DATA_FOLDER.resolve(
+        "typicalCustomersHotelManagementSystem.json");
+    private static final Path INVALID_CUSTOMER_FILE = TEST_DATA_FOLDER.resolve("invalidCustomerHotelManagementSystem"
+        + ".json");
+    private static final Path DUPLICATE_CUSTOMER_FILE = TEST_DATA_FOLDER.resolve(
+        "duplicateCustomerHotelManagementSystem.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -29,7 +33,8 @@ public class JsonSerializableHotelManagementSystemTest {
         JsonSerializableHotelManagementSystem dataFromFile = JsonUtil.readJsonFile(TYPICAL_CUSTOMERS_FILE,
             JsonSerializableHotelManagementSystem.class).get();
         HotelManagementSystem hotelManagementSystemFromFile = dataFromFile.toModelType();
-        HotelManagementSystem typicalCustomersHotelManagementSystem = TypicalCustomers.getTypicalHotelManagementSystem();
+        HotelManagementSystem typicalCustomersHotelManagementSystem =
+            TypicalCustomers.getTypicalHotelManagementSystem();
         assertEquals(hotelManagementSystemFromFile, typicalCustomersHotelManagementSystem);
     }
 

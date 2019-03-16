@@ -30,7 +30,7 @@ class JsonSerializableHotelManagementSystem {
      */
     @JsonCreator
     public JsonSerializableHotelManagementSystem(@JsonProperty("customers") List<JsonAdaptedCustomer> customers,
-                                       @JsonProperty("bookings") List<JsonAdaptedBooking> bookings) {
+                                                 @JsonProperty("bookings") List<JsonAdaptedBooking> bookings) {
         this.customers.addAll(customers);
         this.bookings.addAll(bookings);
     }

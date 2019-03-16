@@ -6,9 +6,9 @@ import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementS
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
+import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.VersionedHotelManagementSystem;
@@ -24,19 +24,20 @@ public class ClearCustomerCommandTest {
         expectedModel.commitHotelManagementSystem();
 
         assertCommandSuccess(new ClearCustomerCommand(), model, commandHistory, ClearCustomerCommand.MESSAGE_SUCCESS,
-                expectedModel);
+            expectedModel);
     }
 
     @Test
     public void execute_nonEmptyHotelManagementSystem_success() {
-        CustomerModel model = new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        CustomerModel model =
+            new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
         CustomerModel expectedModel = new CustomerManager(
-                new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
         expectedModel.setHotelManagementSystem(new HotelManagementSystem());
         expectedModel.commitHotelManagementSystem();
 
         assertCommandSuccess(new ClearCustomerCommand(), model, commandHistory, ClearCustomerCommand.MESSAGE_SUCCESS,
-                expectedModel);
+            expectedModel);
     }
 
 }

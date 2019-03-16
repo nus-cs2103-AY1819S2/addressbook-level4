@@ -15,13 +15,12 @@ import seedu.address.model.util.TimeRange;
  */
 public class Booking {
 
+    private final Set<Customer> allUsers = new HashSet<>();
     private ServiceType service;
     private TimeRange timing;
     private Customer payer;
     private Optional<List<Customer>> otherUsers;
     private Optional<String> comment;
-
-    private final Set<Customer> allUsers = new HashSet<>();
 
     public Booking(ServiceType service, TimeRange timing, Customer payer, Optional<List<Customer>> otherUsers,
                    Optional<String> comment) {

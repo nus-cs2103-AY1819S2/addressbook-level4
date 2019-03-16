@@ -29,7 +29,8 @@ public interface HotelManagementSystemStorage {
     /**
      * @see #getHotelManagementSystemFilePath()
      */
-    Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(Path filePath) throws DataConversionException,
+        IOException;
 
     /**
      * Saves the given {@link ReadOnlyHotelManagementSystem} to the storage.

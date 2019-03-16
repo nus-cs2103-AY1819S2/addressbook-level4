@@ -25,9 +25,9 @@ import seedu.address.model.VersionedHotelManagementSystem;
  */
 public class SelectCustomerCommandTest {
     private CustomerModel model = new CustomerManager(
-            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CustomerModel expectedModel = new CustomerManager(
-            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -96,7 +96,7 @@ public class SelectCustomerCommandTest {
     private void assertExecutionSuccess(Index index) {
         SelectCustomerCommand selectCustomerCommand = new SelectCustomerCommand(index);
         String expectedMessage = String.format(SelectCustomerCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS,
-                index.getOneBased());
+            index.getOneBased());
         expectedModel.setSelectedCustomer(model.getFilteredCustomerList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCustomerCommand, model, commandHistory, expectedMessage, expectedModel);

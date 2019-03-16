@@ -167,28 +167,28 @@ public class EditCustomerCommand extends CustomerCommand {
             return Optional.ofNullable(name);
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
         public void setName(Name name) {
             this.name = name;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
         }
 
         public void setPhone(Phone phone) {
             this.phone = phone;
         }
 
-        public Optional<IdentificationNo> getIdNum() {
-            return Optional.ofNullable(idnum);
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
         }
 
         public void setEmail(Email email) {
             this.email = email;
+        }
+
+        public Optional<IdentificationNo> getIdNum() {
+            return Optional.ofNullable(idnum);
         }
 
         public void setIdNum(IdentificationNo idnum) {

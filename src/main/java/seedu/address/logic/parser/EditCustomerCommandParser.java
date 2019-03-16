@@ -43,7 +43,7 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE),
-                    pe);
+                pe);
         }
 
         EditCustomerDescriptor editCustomerDescriptor = new EditCustomerDescriptor();

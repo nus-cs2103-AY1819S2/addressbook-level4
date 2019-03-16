@@ -34,8 +34,8 @@ import seedu.address.logic.commands.ClearCustomerCommand;
 import seedu.address.logic.commands.FindNameCommand;
 import seedu.address.logic.commands.ListCustomerCommand;
 import seedu.address.logic.commands.SelectCustomerCommand;
-import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.CustomerModel;
+import seedu.address.model.HotelManagementSystem;
 import seedu.address.testutil.TypicalCustomers;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -47,11 +47,9 @@ import seedu.address.ui.CommandBox;
 public abstract class HotelManagementSystemSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
-
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
-
+        Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
@@ -138,7 +136,8 @@ public abstract class HotelManagementSystemSystemTest {
      */
     protected void showAllCustomers() {
         executeCommand(ListCustomerCommand.COMMAND_WORD);
-        assertEquals(getModel().getHotelManagementSystem().getCustomerList().size(), getModel().getFilteredCustomerList().size());
+        assertEquals(getModel().getHotelManagementSystem().getCustomerList().size(),
+            getModel().getFilteredCustomerList().size());
     }
 
     /**
@@ -146,7 +145,8 @@ public abstract class HotelManagementSystemSystemTest {
      */
     protected void showCustomersWithName(String keyword) {
         executeCommand(FindNameCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCustomerList().size() < getModel().getHotelManagementSystem().getCustomerList().size());
+        assertTrue(getModel().getFilteredCustomerList().size() < getModel().getHotelManagementSystem()
+            .getCustomerList().size());
     }
 
     /**
@@ -174,7 +174,8 @@ public abstract class HotelManagementSystemSystemTest {
                                                      CustomerModel expectedModel) {
         //assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new HotelManagementSystem(expectedModel.getHotelManagementSystem()), testApp.readStorageHotelManagementSystem());
+        assertEquals(new HotelManagementSystem(expectedModel.getHotelManagementSystem()),
+            testApp.readStorageHotelManagementSystem());
         assertListMatching(getCustomerListPanel(), expectedModel.getFilteredCustomerList());
     }
 

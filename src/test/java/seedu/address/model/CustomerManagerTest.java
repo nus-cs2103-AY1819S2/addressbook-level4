@@ -22,8 +22,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.customer.exceptions.CustomerNotFoundException;
-import seedu.address.testutil.HotelManagementSystemBuilder;
 import seedu.address.testutil.CustomerBuilder;
+import seedu.address.testutil.HotelManagementSystemBuilder;
 
 public class CustomerManagerTest {
     @Rule
@@ -35,7 +35,8 @@ public class CustomerManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), customerManager.getUserPrefs());
         assertEquals(new GuiSettings(), customerManager.getGuiSettings());
-        assertEquals(new HotelManagementSystem(), new HotelManagementSystem(customerManager.getHotelManagementSystem()));
+        assertEquals(new HotelManagementSystem(),
+            new HotelManagementSystem(customerManager.getHotelManagementSystem()));
         assertEquals(null, customerManager.getSelectedCustomer());
     }
 
@@ -151,13 +152,15 @@ public class CustomerManagerTest {
 
     @Test
     public void equals() {
-        HotelManagementSystem hotelManagementSystem = new HotelManagementSystemBuilder().withCustomer(ALICE).withCustomer(BENSON).build();
+        HotelManagementSystem hotelManagementSystem =
+            new HotelManagementSystemBuilder().withCustomer(ALICE).withCustomer(BENSON).build();
         HotelManagementSystem differentHotelManagementSystem = new HotelManagementSystem();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
         customerManager = new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs);
-        CustomerManager customerManagerCopy = new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs);
+        CustomerManager customerManagerCopy =
+            new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs);
         assertTrue(customerManager.equals(customerManagerCopy));
 
         // same object -> returns true
@@ -170,13 +173,15 @@ public class CustomerManagerTest {
         assertFalse(customerManager.equals(5));
 
         // different hotelManagementSystem -> returns false
-        assertFalse(customerManager.equals(new CustomerManager(new VersionedHotelManagementSystem(differentHotelManagementSystem),
+        assertFalse(customerManager
+            .equals(new CustomerManager(new VersionedHotelManagementSystem(differentHotelManagementSystem),
             userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         customerManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(customerManager.equals(new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs)));
+        assertFalse(customerManager
+            .equals(new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem), userPrefs)));
 
         // resets customerManager to initial state for upcoming tests
         customerManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
@@ -184,7 +189,8 @@ public class CustomerManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setHotelManagementSystemFilePath(Paths.get("differentFilePath"));
-        assertFalse(customerManager.equals(new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem),
+        assertFalse(customerManager
+            .equals(new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem),
             differentUserPrefs)));
     }
 }

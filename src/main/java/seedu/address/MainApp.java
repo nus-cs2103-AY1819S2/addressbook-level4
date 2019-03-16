@@ -15,11 +15,11 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.BookingManager;
 import seedu.address.model.BookingModel;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
+import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyHotelManagementSystem;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -65,7 +65,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        HotelManagementSystemStorage hotelManagementSystemStorage = new JsonHotelManagementSystemStorage(userPrefs.getHotelManagementSystemFilePath());
+        HotelManagementSystemStorage hotelManagementSystemStorage =
+            new JsonHotelManagementSystemStorage(userPrefs.getHotelManagementSystemFilePath());
         storage = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
 
         initLogging(config);

@@ -3,10 +3,11 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-//import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.customer.Customer;
+
+//import javafx.scene.layout.HBox;
 
 /**
  * An UI component that displays information of a {@code Booking}.
@@ -20,7 +21,8 @@ public class BookingCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/hotelManagementSystem-level4/issues/336">The issue on HotelManagementSystem level 4</a>
+     * @see
+     * <a href="https://github.com/se-edu/hotelManagementSystem-level4/issues/336">The issue on HotelManagementSystem level 4</a>
      */
 
     public final Booking booking;
@@ -74,6 +76,6 @@ public class BookingCard extends UiPart<Region> {
         // state check
         BookingCard card = (BookingCard) other;
         return id.getText().equals(card.id.getText())
-                && booking.equals(card.booking);
+            && booking.equals(card.booking);
     }
 }

@@ -23,7 +23,6 @@ import seedu.address.testutil.CustomerBuilder;
 public class UniqueCustomerListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     private final UniqueCustomerList uniqueCustomerList = new UniqueCustomerList();
 
     @Test

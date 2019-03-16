@@ -30,7 +30,6 @@ import seedu.address.testutil.CustomerBuilder;
 public class HotelManagementSystemTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     private final HotelManagementSystem hotelManagementSystem = new HotelManagementSystem();
 
     @Test

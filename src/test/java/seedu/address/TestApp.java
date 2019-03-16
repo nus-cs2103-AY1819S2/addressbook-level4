@@ -9,9 +9,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.CustomerModel;
+import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.ReadOnlyHotelManagementSystem;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.VersionedHotelManagementSystem;
@@ -43,7 +43,8 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            JsonHotelManagementSystemStorage jsonHotelManagementSystemStorage = new JsonHotelManagementSystemStorage(saveFileLocation);
+            JsonHotelManagementSystemStorage jsonHotelManagementSystemStorage =
+                new JsonHotelManagementSystemStorage(saveFileLocation);
             try {
                 jsonHotelManagementSystemStorage.saveHotelManagementSystem(initialDataSupplier.get());
             } catch (IOException ioe) {
@@ -97,8 +98,9 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public CustomerModel getModel() {
-        CustomerModel copy = new CustomerManager(new VersionedHotelManagementSystem(customerModel.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel copy =
+            new CustomerManager(new VersionedHotelManagementSystem(customerModel.getHotelManagementSystem()),
+                new UserPrefs());
         ModelHelper.setFilteredList(copy, customerModel.getFilteredCustomerList());
         return copy;
     }

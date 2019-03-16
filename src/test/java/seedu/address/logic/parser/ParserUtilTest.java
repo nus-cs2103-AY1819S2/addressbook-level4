@@ -114,7 +114,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseIdNullThrowsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseIdNum((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseIdNum(null));
     }
 
     @Test

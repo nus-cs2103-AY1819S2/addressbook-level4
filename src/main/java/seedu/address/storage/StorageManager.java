@@ -21,7 +21,8 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(HotelManagementSystemStorage hotelManagementSystemStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(HotelManagementSystemStorage hotelManagementSystemStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.hotelManagementSystemStorage = hotelManagementSystemStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -53,7 +54,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem() throws DataConversionException, IOException {
+    public Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem() throws DataConversionException,
+        IOException {
         return readHotelManagementSystem(hotelManagementSystemStorage.getHotelManagementSystemFilePath());
     }
 
@@ -65,7 +67,8 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem) throws IOException {
-        saveHotelManagementSystem(hotelManagementSystem, hotelManagementSystemStorage.getHotelManagementSystemFilePath());
+        saveHotelManagementSystem(hotelManagementSystem,
+            hotelManagementSystemStorage.getHotelManagementSystemFilePath());
     }
 
     @Override

@@ -25,20 +25,22 @@ public class ListCustomerCommandTest {
 
     @Before
     public void setUp() {
-        model = new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
-        expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
+        model = new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
+            new UserPrefs());
+        expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+            new UserPrefs());
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListCustomerCommand(), model, commandHistory,
-                ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
+            ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
         assertCommandSuccess(new ListCustomerCommand(), model, commandHistory,
-                ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
+            ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

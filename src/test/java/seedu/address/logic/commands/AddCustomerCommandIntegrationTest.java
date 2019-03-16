@@ -25,21 +25,22 @@ public class AddCustomerCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        model = new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
+            new UserPrefs());
     }
 
     @Test
     public void execute_newCustomer_success() {
         Customer validCustomer = new CustomerBuilder()
-                .withName("Unique Name")
-                .withPhone("9293292")
-                .withEmail("unique@name.com")
-                .withIdNum("9292392")
-                .withAddress("2, New Place, #01-321")
-                .build();
+            .withName("Unique Name")
+            .withPhone("9293292")
+            .withEmail("unique@name.com")
+            .withIdNum("9292392")
+            .withAddress("2, New Place, #01-321")
+            .build();
         System.out.println(validCustomer);
         CustomerModel expectedModel = new CustomerManager(
-                new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
+            new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
         expectedModel.addCustomer(validCustomer);
         expectedModel.commitHotelManagementSystem();
 

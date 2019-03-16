@@ -21,7 +21,8 @@ import seedu.address.model.HotelManagementSystem;
 import seedu.address.model.ReadOnlyHotelManagementSystem;
 
 public class JsonHotelManagementSystemStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonHotelManagementSystemStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+        "JsonHotelManagementSystemStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -35,8 +36,10 @@ public class JsonHotelManagementSystemStorageTest {
         readHotelManagementSystem(null);
     }
 
-    private java.util.Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(String filePath) throws Exception {
-        return new JsonHotelManagementSystemStorage(Paths.get(filePath)).readHotelManagementSystem(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyHotelManagementSystem> readHotelManagementSystem(String filePath)
+        throws Exception {
+        return new JsonHotelManagementSystemStorage(Paths.get(filePath))
+            .readHotelManagementSystem(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -61,13 +64,15 @@ public class JsonHotelManagementSystemStorageTest {
     }
 
     @Test
-    public void readHotelManagementSystem_invalidCustomerHotelManagementSystem_throwDataConversionException() throws Exception {
+    public void readHotelManagementSystem_invalidCustomerHotelManagementSystem_throwDataConversionException()
+        throws Exception {
         thrown.expect(DataConversionException.class);
         readHotelManagementSystem("invalidCustomerHotelManagementSystem.json");
     }
 
     @Test
-    public void readHotelManagementSystem_invalidAndValidCustomerHotelManagementSystem_throwDataConversionException() throws Exception {
+    public void readHotelManagementSystem_invalidAndValidCustomerHotelManagementSystem_throwDataConversionException()
+        throws Exception {
         thrown.expect(DataConversionException.class);
         readHotelManagementSystem("invalidAndValidCustomerHotelManagementSystem.json");
     }
@@ -76,11 +81,13 @@ public class JsonHotelManagementSystemStorageTest {
     public void readAndSaveHotelManagementSystem_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempHotelManagementSystem.json");
         HotelManagementSystem original = getTypicalHotelManagementSystem();
-        JsonHotelManagementSystemStorage jsonHotelManagementSystemStorage = new JsonHotelManagementSystemStorage(filePath);
+        JsonHotelManagementSystemStorage jsonHotelManagementSystemStorage =
+            new JsonHotelManagementSystemStorage(filePath);
 
         // Save in new file and read back
         jsonHotelManagementSystemStorage.saveHotelManagementSystem(original, filePath);
-        ReadOnlyHotelManagementSystem readBack = jsonHotelManagementSystemStorage.readHotelManagementSystem(filePath).get();
+        ReadOnlyHotelManagementSystem readBack =
+            jsonHotelManagementSystemStorage.readHotelManagementSystem(filePath).get();
         assertEquals(original, new HotelManagementSystem(readBack));
 
         // Modify data, overwrite exiting file, and read back

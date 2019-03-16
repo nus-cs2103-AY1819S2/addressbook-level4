@@ -80,8 +80,8 @@ public class AddCustomerCommandParserTest {
         Customer expectedCustomerMultipleTags = new CustomerBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
             .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB
-            + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCustomerCommand(expectedCustomerMultipleTags));
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+            new AddCustomerCommand(expectedCustomerMultipleTags));
     }
 
     @Test

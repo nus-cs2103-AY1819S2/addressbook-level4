@@ -27,9 +27,9 @@ import seedu.address.model.customer.NameContainsKeywordsPredicate;
  */
 public class FindNameCommandTest {
     private CustomerModel model = new CustomerManager(
-            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CustomerModel expectedModel = new CustomerManager(
-            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

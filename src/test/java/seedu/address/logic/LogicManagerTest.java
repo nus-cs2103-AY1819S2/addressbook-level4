@@ -54,7 +54,8 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonHotelManagementSystemStorage hotelManagementSystemStorage = new JsonHotelManagementSystemStorage(temporaryFolder.newFile().toPath());
+        JsonHotelManagementSystemStorage hotelManagementSystemStorage =
+            new JsonHotelManagementSystemStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
         logic = new LogicManager(customerModel, bookingModel, storage);
@@ -92,7 +93,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ID_DESC_AMY + ADDRESS_DESC_AMY;
+            + ID_DESC_AMY + ADDRESS_DESC_AMY;
         Customer expectedCustomer = new CustomerBuilder(AMY).withTags().build();
         CustomerManager expectedModel = new CustomerManager();
         expectedModel.addCustomer(expectedCustomer);
@@ -142,8 +143,9 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, CustomerModel)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(customerModel.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(customerModel.getHotelManagementSystem()),
+                new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -179,7 +181,8 @@ public class LogicManagerTest {
                 HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
-            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
+            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.",
+                e);
         }
     }
 
@@ -192,7 +195,8 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath) throws IOException {
+        public void saveHotelManagementSystem(ReadOnlyHotelManagementSystem hotelManagementSystem, Path filePath)
+            throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

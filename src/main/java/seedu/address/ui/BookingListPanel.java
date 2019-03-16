@@ -24,7 +24,7 @@ public class BookingListPanel extends UiPart<Region> {
     private ListView<Booking> bookingListView;
 
     public BookingListPanel(ObservableList<Booking> bookingList, ObservableValue<Booking> selectedBooking,
-                             Consumer<Booking> onSelectedBookingChange) {
+                            Consumer<Booking> onSelectedBookingChange) {
         super(FXML);
         bookingListView.setItems(bookingList);
         bookingListView.setCellFactory(listView -> new BookingListViewCell());

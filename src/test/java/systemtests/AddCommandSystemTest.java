@@ -38,6 +38,7 @@ package systemtests;
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.AddCustomerCommand;
+
 import seedu.address.model.CustomerModel;
 //import seedu.address.model.customer.Customer;
 //import seedu.address.model.customer.Email;
@@ -197,7 +198,9 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     //    }
 
-    /** assertCommandFailure
+    /**
+     * assertCommandFailure
+     *
      * @param command
      * @param expectedResultMessage
      */

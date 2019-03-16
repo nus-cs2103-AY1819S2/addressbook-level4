@@ -35,21 +35,23 @@ import seedu.address.testutil.EditCustomerDescriptorBuilder;
  */
 public class EditCustomerCommandTest {
 
-    private CustomerModel model = new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
-        new UserPrefs());
+    private CustomerModel model =
+        new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
+            new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Customer editedCustomer = new CustomerBuilder().build();
         EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(editedCustomer)
-                .build();
+            .build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor);
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
         expectedModel.commitHotelManagementSystem();
 
@@ -66,14 +68,15 @@ public class EditCustomerCommandTest {
             .withTags(VALID_TAG_HUSBAND).build();
 
         EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder()
-                .withName(VALID_NAME_BOB)
+            .withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(indexLastCustomer, descriptor);
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setCustomer(lastCustomer, editedCustomer);
         expectedModel.commitHotelManagementSystem();
 
@@ -83,13 +86,14 @@ public class EditCustomerCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER,
-                new EditCustomerCommand.EditCustomerDescriptor());
+            new EditCustomerCommand.EditCustomerDescriptor());
         Customer editedCustomer = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.commitHotelManagementSystem();
 
         assertCommandSuccess(editCustomerCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -106,8 +110,9 @@ public class EditCustomerCommandTest {
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
         expectedModel.commitHotelManagementSystem();
 
@@ -118,11 +123,11 @@ public class EditCustomerCommandTest {
     public void execute_duplicateCustomerUnfilteredList_failure() {
         Customer firstCustomer = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
         EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(firstCustomer)
-                .build();
+            .build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_SECOND_CUSTOMER, descriptor);
 
         assertCommandFailure(editCustomerCommand, model, commandHistory,
-                EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
+            EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     }
 
     @Test
@@ -130,12 +135,13 @@ public class EditCustomerCommandTest {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
 
         // edit customer in filtered list into a duplicate in address book
-        Customer customerInList = model.getHotelManagementSystem().getCustomerList().get(INDEX_SECOND_CUSTOMER.getZeroBased());
+        Customer customerInList =
+            model.getHotelManagementSystem().getCustomerList().get(INDEX_SECOND_CUSTOMER.getZeroBased());
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER,
             new EditCustomerDescriptorBuilder(customerInList).build());
 
         assertCommandFailure(editCustomerCommand, model, commandHistory,
-                EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
+            EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     }
 
     @Test
@@ -146,7 +152,7 @@ public class EditCustomerCommandTest {
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCustomerCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     }
 
     /**
@@ -164,7 +170,7 @@ public class EditCustomerCommandTest {
             new EditCustomerDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCustomerCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     }
 
     @Test
@@ -172,10 +178,11 @@ public class EditCustomerCommandTest {
         Customer editedCustomer = new CustomerBuilder().build();
         Customer customerToEdit = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
         EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(editedCustomer)
-                .build();
+            .build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor);
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setCustomer(customerToEdit, editedCustomer);
         expectedModel.commitHotelManagementSystem();
 
@@ -200,7 +207,7 @@ public class EditCustomerCommandTest {
 
         // execution failed -> address book state not added into model
         assertCommandFailure(editCustomerCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -218,10 +225,11 @@ public class EditCustomerCommandTest {
     public void executeUndoRedoValidIndexFilteredListSameCustomerEdited() throws Exception {
         Customer editedCustomer = new CustomerBuilder().build();
         EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(editedCustomer)
-                .build();
+            .build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor);
-        CustomerModel expectedModel = new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-            new UserPrefs());
+        CustomerModel expectedModel =
+            new CustomerManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
 
         showCustomerAtIndex(model, INDEX_SECOND_CUSTOMER);
         Customer customerToEdit = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());

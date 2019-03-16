@@ -51,13 +51,13 @@ public class CustomerTest {
         // same name, same phone, different attributes -> returns true
         editedAlice =
             new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice =
             new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same id, different attributes -> returns true

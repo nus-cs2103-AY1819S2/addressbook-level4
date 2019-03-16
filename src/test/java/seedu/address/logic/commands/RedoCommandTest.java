@@ -17,9 +17,9 @@ import seedu.address.model.VersionedHotelManagementSystem;
 public class RedoCommandTest {
 
     private final CustomerModel model = new CustomerManager(
-            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private final CustomerModel expectedModel = new CustomerManager(
-            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
+        new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

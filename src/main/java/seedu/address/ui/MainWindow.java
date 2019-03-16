@@ -124,13 +124,14 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
         bookingListPanel = new BookingListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
-                logic::setSelectedBooking);
+            logic::setSelectedBooking);
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getHotelManagementSystemFilePath(), logic.getHotelManagementSystem());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getHotelManagementSystemFilePath(),
+            logic.getHotelManagementSystem());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());

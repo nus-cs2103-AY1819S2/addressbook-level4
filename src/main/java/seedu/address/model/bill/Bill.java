@@ -13,7 +13,7 @@ public class Bill {
     /**
      * Constructs a {@code Bill}.
      *
-     * @param customer Customer details.
+     * @param customer   Customer details.
      * @param amountPaid Amount already paid by customers.
      */
     public Bill(Customer customer, int amountPaid) {

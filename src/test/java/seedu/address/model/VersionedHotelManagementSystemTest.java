@@ -219,7 +219,7 @@ public class VersionedHotelManagementSystemTest {
         assertTrue(versionedHotelManagementSystem.equals(versionedHotelManagementSystem));
 
         // null -> returns false
-        assertFalse(versionedHotelManagementSystem.equals(null));
+        assertFalse(versionedHotelManagementSystem == null);
 
         // different types -> returns false
         assertFalse(versionedHotelManagementSystem.equals(1));

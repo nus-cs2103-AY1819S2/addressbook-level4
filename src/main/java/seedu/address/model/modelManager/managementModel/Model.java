@@ -1,8 +1,9 @@
-package seedu.address.model;
+package seedu.address.model.modelManager.managementModel;
 
 import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
 
 /**

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import seedu.address.model.modelManager.managementModel.Model;
 
 /**
  * Terminates the program.

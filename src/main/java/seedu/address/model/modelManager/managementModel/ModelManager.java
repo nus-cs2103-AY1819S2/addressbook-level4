@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.modelManager.managementModel;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Lessons;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
 
 /**

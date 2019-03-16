@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.address.model.modelManager.managementModel.Model;
+import seedu.address.model.modelManager.managementModel.ModelManager;
 import seedu.address.quiz.Quiz;
 import seedu.address.quiz.QuizCard;
 import seedu.address.quiz.QuizModel;

@@ -4,13 +4,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.StatusTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TeethTag;
+import seedu.address.model.tag.exceptions.TagsIsNotSpecificException;
 
 /**
  * Jackson-friendly version of {@link Tag}.
  */
 class JsonAdaptedTag {
+    private static final String TEETH = "teeth";
+    private static final String STATUS = "status";
 
+    private final String type;
     private final String tagName;
 
     /**
@@ -18,7 +24,13 @@ class JsonAdaptedTag {
      */
     @JsonCreator
     public JsonAdaptedTag(String tagName) {
-        this.tagName = tagName;
+        String[] sb = tagName.split(":");
+        if (sb.length == 2) {
+            type = sb[0];
+            this.tagName = sb[1];
+        } else {
+            throw new TagsIsNotSpecificException();
+        }
     }
 
     /**
@@ -26,11 +38,18 @@ class JsonAdaptedTag {
      */
     public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;
+        if (source instanceof TeethTag) {
+            type = TEETH;
+        } else if (source instanceof StatusTag) {
+            type = STATUS;
+        } else {
+            throw new TagsIsNotSpecificException();
+        }
     }
 
     @JsonValue
     public String getTagName() {
-        return tagName;
+        return type + ":" + tagName;
     }
 
     /**
@@ -41,8 +60,13 @@ class JsonAdaptedTag {
     public Tag toModelType() throws IllegalValueException {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+        } else if (type.equals(TEETH)) {
+            return new TeethTag(tagName);
+        } else if (type.equals(STATUS)) {
+            return new StatusTag(tagName);
+        } else {
+            throw new TagsIsNotSpecificException();
         }
-        return new Tag(tagName);
     }
 
 }

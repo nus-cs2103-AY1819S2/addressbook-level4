@@ -33,11 +33,11 @@ public class TopDeckParserTest {
     private final TopDeckParser parser = new TopDeckParser();
 
     @Test
-    public void parseCommand_newDeck() throws Exception {
+    public void parseCommand_addDeck() throws Exception {
         Deck deck = new DeckBuilder().withName(VALID_NAME_DECK_A).build();
-        NewDeckCommand command = (NewDeckCommand) parser
-                .parseCommand(NewDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS);
-        assertEquals(new NewDeckCommand(deck), command);
+        AddDeckCommand command = (AddDeckCommand) parser
+                .parseCommand(AddDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS);
+        assertEquals(new AddDeckCommand(deck), command);
     }
 
     @Test

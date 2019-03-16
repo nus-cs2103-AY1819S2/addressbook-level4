@@ -26,7 +26,7 @@ import seedu.address.model.deck.Deck;
 import seedu.address.testutil.DeckBuilder;
 
 
-public class NewDeckCommandTest {
+public class AddDeckCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -38,7 +38,7 @@ public class NewDeckCommandTest {
     @Test
     public void constructor_nullDeck_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new NewDeckCommand(null);
+        new AddDeckCommand(null);
     }
 
     @Test
@@ -46,9 +46,9 @@ public class NewDeckCommandTest {
         ModelStubAcceptingDeckAdded modelStub = new ModelStubAcceptingDeckAdded();
         Deck validDeck = new DeckBuilder().build();
 
-        CommandResult commandResult = new NewDeckCommand(validDeck).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddDeckCommand(validDeck).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(NewDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.feedbackToUser);
+        assertEquals(String.format(AddDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validDeck), modelStub.decksAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -56,7 +56,7 @@ public class NewDeckCommandTest {
     @Test
     public void execute_duplicateDeck_throwsCommandException() throws Exception {
         Deck validDeck = new DeckBuilder().build();
-        NewDeckCommand newDeckCommand = new NewDeckCommand(validDeck);
+        AddDeckCommand newDeckCommand = new AddDeckCommand(validDeck);
         ModelStub modelStub = new ModelStubWithDeck(validDeck);
 
         thrown.expect(CommandException.class);
@@ -68,14 +68,14 @@ public class NewDeckCommandTest {
     public void equals() {
         Deck firstDeck = new DeckBuilder().withName("Test Deck1").build();
         Deck secondDeck = new DeckBuilder().withName("Test Deck2").build();
-        NewDeckCommand addFirstDeckCommand = new NewDeckCommand(firstDeck);
-        NewDeckCommand addSecondDeckCommand = new NewDeckCommand(secondDeck);
+        AddDeckCommand addFirstDeckCommand = new AddDeckCommand(firstDeck);
+        AddDeckCommand addSecondDeckCommand = new AddDeckCommand(secondDeck);
 
         // same object -> returns true
         assertTrue(addFirstDeckCommand.equals(addFirstDeckCommand));
 
         // same values -> returns true
-        NewDeckCommand addFirstDeckCommandCopy = new NewDeckCommand(firstDeck);
+        AddDeckCommand addFirstDeckCommandCopy = new AddDeckCommand(firstDeck);
         assertTrue(addFirstDeckCommand.equals(addFirstDeckCommandCopy));
 
         // different types -> returns false
@@ -275,7 +275,7 @@ public class NewDeckCommandTest {
 
         @Override
         public void commitTopDeck() {
-            // called by {@code NewDeckCommand#execute()}
+            // called by {@code AddDeckCommand#execute()}
         }
 
         @Override

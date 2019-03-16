@@ -5,13 +5,13 @@
 
 == PROJECT: BrainTrain
 
----
+This project portfolio highlights my key contributions to the https://cs2103-ay1819s2-w14-1.github.io/main/[BrainTrain] project.
 
 == Overview
 
-*BrainTrain* is an open-source spaced repetition flashcard application which makes memorizing easy and efficient. Research has shown that the *Spaced-Repetition System (SRS) is more effective* than traditional memorization techniques. With it, you will be able to *learn more with less time*.
+BrainTrain is an open-source spaced repetition flashcard application which makes *memorizing easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. By using BrainTrain, users will be able to *learn more with less time*.
 
-*BrainTrain* is a desktop flashcard program and does not consume Internet bandwidth and can be used offline. It is also a *Command Line Interface (CLI)* program with none of the visual distractions Graphical User Interface (GUI) applications have. Furthermore, if you can type fast, you will spend *less time navigating the application and more time memorizing*.
+BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which can be used anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way to use BrainTrain.
 
 == Summary of contributions
 
@@ -22,7 +22,7 @@
 *** Allows users to modify an existing card in a lesson
 *** Allows users to delete a card in a lesson
 ** Justification: // To do
-** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39]
+** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-1/main/pull/77[#77]
 
 * *Minor enhancement*: // To do
 ** // To do

@@ -63,10 +63,6 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultCard();
     }
 
-    public String getCurrentCardQuestion() {
-        return CURRENT_CARD.getQuestion().fullQuestion;
-    }
-
     private void setCurrentCard(Card card) {
         CURRENT_CARD = card;
     }
@@ -96,6 +92,9 @@ public class BrowserPanel extends UiPart<Region> {
     /**
      * Loads a default blank card with a background that matches the general theme.
      */
-    private void loadDefaultCard() { cardPage.getChildren().clear(); }
+    private void loadDefaultCard() {
+        cardPage.getChildren().clear();
+        question.setText("");
+    }
 
 }

@@ -64,8 +64,8 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCustomerCommand
-     * and returns an AddCustomerCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddBookingCommand
+     * and returns an AddBookingCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

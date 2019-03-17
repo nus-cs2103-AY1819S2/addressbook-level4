@@ -9,9 +9,9 @@ import seedu.address.model.cell.Status;
 /**
  * Panel containing the list of persons.
  */
-public class PlayerMap extends Map {
+public class EnemyMap extends Map {
 
-    public PlayerMap(ObservableBooleanValue modelUpdateObservable, MapGrid mapGrid) {
+    public EnemyMap(ObservableBooleanValue modelUpdateObservable, MapGrid mapGrid) {
         super(modelUpdateObservable, mapGrid);
     }
 
@@ -21,13 +21,16 @@ public class PlayerMap extends Map {
     @Override
     protected Color getColor(Cell cell) {
         Status status = cell.getStatus();
-        switch (status) {
+        switch(status) {
+        /**
+         * HIDDEN CELL
+         */
         case SHIP:
-            return Color.BLACK;
-        case SHIPHIT:
-            return Color.ORANGE;
         case EMPTY:
             return Color.LIGHTBLUE;
+
+        case SHIPHIT:
+            return Color.ORANGE;
         case EMPTYHIT:
             return Color.DARKBLUE;
         case DESTROYED:

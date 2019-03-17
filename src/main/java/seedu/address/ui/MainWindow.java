@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PlayerMap playerMap;
+    private EnemyMap enemyMap;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -111,11 +112,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         playerMap = new PlayerMap(logic.getModelUpdateObservable(), logic.getMapGrid());
         personListPanelPlaceholder.getChildren().add(playerMap.getRoot());
+
+        enemyMap = new EnemyMap(logic.getModelUpdateObservable(), logic.getMapGrid());
+        browserPlaceholder.getChildren().add(enemyMap.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

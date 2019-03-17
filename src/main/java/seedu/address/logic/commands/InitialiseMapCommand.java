@@ -6,6 +6,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Coordinates;
 
 /**
  * Initialise map to size input by user.
@@ -45,9 +46,11 @@ public class InitialiseMapCommand extends Command {
         }
 
         Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        char row = 'a';
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
-                cellGrid[i][j] = new Cell();
+
+                cellGrid[i][j] = new Cell(new Coordinates(String.format("%c%d", row + i, j + 1)));
             }
         }
         model.getMapGrid().initialise(cellGrid);

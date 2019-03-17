@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 
 import java.util.ArrayList;
@@ -75,20 +74,20 @@ public class AddLessonCommandTest {
         AddLessonCommand addLessonPropCommand = new AddLessonCommand(lessonTrueFalse);
 
         // same object -> returns true
-        assertTrue(addLessonDefCommand.equals(addLessonDefCommand));
+        assertEquals(addLessonDefCommand, addLessonDefCommand);
 
         // same values -> returns true
         AddLessonCommand addLessonDefCommandCopy = new AddLessonCommand(lessonDefault);
-        assertTrue(addLessonDefCommand.equals(addLessonDefCommandCopy));
+        assertEquals(addLessonDefCommand, addLessonDefCommandCopy);
 
         // different types -> returns false
-        assertFalse(addLessonDefCommand.equals(1));
+        assertNotEquals(addLessonDefCommand, 1);
 
         // null -> returns false
-        assertFalse(addLessonDefCommand.equals(null));
+        assertNotEquals(addLessonDefCommand, null);
 
         // different person -> returns false
-        assertFalse(addLessonDefCommand.equals(addLessonPropCommand));
+        assertNotEquals(addLessonDefCommand, addLessonPropCommand);
     }
 
     /**

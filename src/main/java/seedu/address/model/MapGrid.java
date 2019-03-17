@@ -62,10 +62,10 @@ public class MapGrid implements ReadOnlyAddressBook {
      */
     public void initialise(Cell[][] map) {
         this.size = map.length;
+
         cellGrid = new Cell[size][size];
-        for (int i = 0; i < size; i++) {
-            cellGrid[i] = map[i].clone();
-        }
+
+        copy2dArray(cellGrid, map);
     }
 
     /**
@@ -74,13 +74,20 @@ public class MapGrid implements ReadOnlyAddressBook {
     public Cell[][] get2dArrayMapGridCopy() {
         Cell[][] mapCopy = new Cell[size][size];
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                mapCopy[i][j] = new Cell(cellGrid[i][j]);
-            }
-        }
+        copy2dArray(mapCopy, cellGrid);
 
         return mapCopy;
+    }
+
+    /**
+     * Utility function to do a deep copy of a 2D array
+     */
+    private void copy2dArray(Cell[][] output, Cell[][] toBeCopied) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                output[i][j] = new Cell(toBeCopied[i][j]);
+            }
+        }
     }
 
     /**

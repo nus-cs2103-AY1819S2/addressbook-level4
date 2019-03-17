@@ -63,7 +63,7 @@ public class PlayerMap extends UiPart<Region> {
         });
     }
 
-    StackPane getUiCell(String label, Color fillColour) {
+    private StackPane getUiCell(String label, Color fillColour) {
         Rectangle cell = new Rectangle(30, 30);
         cell.setStroke(Color.BLACK);
         cell.setFill(fillColour);
@@ -74,12 +74,12 @@ public class PlayerMap extends UiPart<Region> {
         return sp;
     }
 
-    StackPane getColumnLabelCell() {
+    private StackPane getColumnLabelCell() {
         StackPane sp = getUiCell(String.valueOf(rowLabel++), Color.WHITE);
         return sp;
     }
 
-    StackPane getRowLabelCell() {
+    private StackPane getRowLabelCell() {
         StackPane sp = getUiCell(String.valueOf(columnLabel++), Color.WHITE);
         return sp;
     }
@@ -87,7 +87,7 @@ public class PlayerMap extends UiPart<Region> {
     /**
      * Determine color of cell from the status of cell
      */
-    Color getColor(Cell cell) {
+    private Color getColor(Cell cell) {
         Status status = cell.getStatus();
         switch(status) {
         case SHIP:

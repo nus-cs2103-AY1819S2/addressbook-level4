@@ -7,7 +7,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.managementmodel.ManagementModel;
 import seedu.address.model.modelmanager.quizmodel.Quiz;
 import seedu.address.model.modelmanager.quizmodel.QuizCard;
 import seedu.address.model.modelmanager.quizmodel.QuizModel;

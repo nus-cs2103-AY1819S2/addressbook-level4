@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
+
  * Represents a Book's name in the BookShelf.
+
  * Guarantees: immutable; is valid as declared in {@link #isValidBookName(String)}
  */
 public class BookName {

@@ -146,9 +146,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete \nAlice`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete n/Alice`.
 
-.Component interactions for `delete \nAlice` command
+.Component interactions for `delete n/Alice` command
 image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
@@ -186,9 +186,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete \nAlice")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete n/Alice")` API call.
 
-.Interactions Inside the Logic Component for the `delete \nAlice` Command
+.Interactions Inside the Logic Component for the `delete n/Alice` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -253,7 +253,7 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete \nAlice` command to delete the book called Alice in the book list. The `delete` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `delete \nAlice` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
+Step 2. The user executes `delete n/Alice` command to delete the book called Alice in the book list. The `delete` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `delete n/Alice` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -340,6 +340,46 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+
+// tag::addBook[]
+=== addBook feature
+==== Current Implementation
+
+The addBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the book shelf.
+* `model#addBook()` -- To add the new book into book shelf.
+* `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
+
+These operations are exposed in the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+
+[NOTE]
+If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the address book state will not be saved into the `BookShelfStateList`.
+
+Step 4. The book shelf now adds the book to the book list after making sure there is no duplicates, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How addBook executes
+
+* **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
+** Pros: Easy to implement delete and other features that change an entire book.
+** Cons: May be more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
+* **Alternative 2:** Components stored as individual objects.
+** Pros: Easier to obtain statistics regarding each component.
+** Cons: It is hard to manage book object as we need to find a way to connect all components together.
+// end::addBook[]
+
+
+// tag::addReview[]
 === addReview Feature
 
 ==== Current Implementation
@@ -376,6 +416,7 @@ Step 5. The `AddReviewCommand` executes. The command checks if the book to which
 ** Pros: Maybe makes it easier for the UI to implement.
 ** Cons: Harder to implement.
 
+// end::addReview[]
 
 == Documentation
 
@@ -987,7 +1028,7 @@ _{ more test cases ... }_
 . Deleting a book by its name
 
 .. Prerequisites: The book is inside the list. User knows the full name of the book.
-.. Test case: `delete \nAlice` +
+.. Test case: `delete n/Alice` +
    Expected: The book named Alice is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.

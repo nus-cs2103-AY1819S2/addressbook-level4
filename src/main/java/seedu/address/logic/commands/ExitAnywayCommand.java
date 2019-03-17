@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+/**
+ * Terminates the program without any checking
+ */
 public class ExitAnywayCommand extends Command {
     public static final String COMMAND_WORD = "exit!";
 

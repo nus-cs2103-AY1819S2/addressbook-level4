@@ -7,9 +7,9 @@ import java.time.Instant;
 import java.time.YearMonth;
 import java.time.ZoneId;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.Assert;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;

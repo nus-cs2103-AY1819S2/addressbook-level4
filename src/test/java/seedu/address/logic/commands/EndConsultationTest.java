@@ -54,6 +54,7 @@ public class EndConsultationTest {
         Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
 
         Assessment assessment = new Assessment("migrane");
+
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
 

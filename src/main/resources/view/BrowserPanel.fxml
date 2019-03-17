@@ -8,14 +8,12 @@
 <GridPane id="cardPage" fx:id="cardPage" styleClass="background" stylesheets="@DarkTheme.css" alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1">
   <WebView fx:id="browser"/>
   <padding><Insets top="25" bottom="25"/></padding>
-  <children>
-    <Label fx:id="question" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" wrapText="true" textAlignment="CENTER">
-    </Label>
-    <Label fx:id="answer" styleClass="label-bright" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
-    </Label>
-    <Label fx:id="hint" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER">
-    </Label>
-    <Label fx:id="score" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="CENTER">
-    </Label>
-  </children>
+  <Label fx:id="question" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" wrapText="true" textAlignment="CENTER">
+  </Label>
+  <Label fx:id="answer" styleClass="label-bright" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
+  </Label>
+  <Label fx:id="hint" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER">
+  </Label>
+  <Label fx:id="score" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="CENTER">
+  </Label>
 </GridPane>

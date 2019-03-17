@@ -54,13 +54,13 @@ public class BrowserPanel extends UiPart<Region> {
         // Load card page when selected card changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                loadDefaultPage();
+                loadDefaultCard();
                 return;
             }
             loadCardPage(newValue);
         });
 
-        loadDefaultPage();
+        loadDefaultCard();
     }
 
     public String getCurrentCardQuestion() {
@@ -93,15 +93,9 @@ public class BrowserPanel extends UiPart<Region> {
         setCurrentCard(card);
     }
 
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
-    }
-
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Loads a default blank card with a background that matches the general theme.
      */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
-    }
+    private void loadDefaultCard() { cardPage.getChildren().clear(); }
 
 }

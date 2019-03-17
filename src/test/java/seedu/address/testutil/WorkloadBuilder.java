@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.module.Hour;
-import seedu.address.model.module.Workload;
+import seedu.address.model.person.Hour;
+import seedu.address.model.person.Workload;
 
 /**
  * Helper class to build modules for testing

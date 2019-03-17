@@ -17,11 +17,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
-import seedu.address.model.module.Module;
-import seedu.address.model.module.Semester;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Semester;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -184,11 +183,6 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredModuleList(Predicate<Module> predicate) {
-        //TODO
     }
 
     //=========== Undo/Redo =================================================================================

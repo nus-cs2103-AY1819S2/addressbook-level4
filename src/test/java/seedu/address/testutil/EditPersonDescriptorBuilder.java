@@ -5,10 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Semester;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,6 +36,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setSemester(person.getSemester());
         descriptor.setExpectedMinGrade(person.getExpectedMinGrade());
         descriptor.setExpectedMaxGrade(person.getExpectedMaxGrade());
+        descriptor.setLectureHour(person.getLectureHour());
         descriptor.setTags(person.getTags());
     }
 
@@ -67,6 +69,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withExpectedMaxGrade(String expectedMaxGrade) {
         descriptor.setExpectedMaxGrade(Grade.valueOf(expectedMaxGrade));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Hour} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withLectureHour(String lectureHour) {
+        descriptor.setLectureHour(new Hour(lectureHour));
         return this;
     }
 

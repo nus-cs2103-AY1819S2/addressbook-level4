@@ -7,11 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.GradeRange;
-import seedu.address.model.module.Hour;
-import seedu.address.model.module.Semester;
-import seedu.address.model.module.Workload;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,14 +27,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name moduleInfo, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade, Set<Tag> tags) {
+    public Person(Name moduleInfo, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade,
+                  Hour lectureHour, Set<Tag> tags) {
         requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
         this.moduleInfo = moduleInfo;
         this.semester = semester;
-        this.gradeRange = new GradeRange();
-        this.gradeRange.setMin(expectedMinGrade);
-        this.gradeRange.setMax(expectedMaxGrade);
-        this.workload = new Workload(new Hour("0"), new Hour("0"),
+        this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
+        this.workload = new Workload(lectureHour, new Hour("0"),
                 new Hour("0"), new Hour("0"), new Hour("0")); //to be populated based on module info
         this.tags.addAll(tags);
     }
@@ -60,8 +54,8 @@ public class Person {
         return gradeRange.getMax();
     }
 
-    public Workload getWorkload() {
-        return workload;
+    public Hour getLectureHour() {
+        return workload.getLectureHour();
     }
 
     /**
@@ -83,8 +77,7 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getModuleInfo().equals(getModuleInfo())
-                && (otherPerson.getSemester().equals(getSemester())
-                || otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade()));
+                && (otherPerson.getSemester().equals(getSemester()));
     }
 
     /**
@@ -106,6 +99,7 @@ public class Person {
                 && otherPerson.getSemester().equals(getSemester())
                 && otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade())
                 && otherPerson.getExpectedMaxGrade().equals(getExpectedMaxGrade())
+                && otherPerson.getLectureHour().equals(getLectureHour())
                 && otherPerson.getTags().equals(getTags());
     }
 
@@ -125,8 +119,8 @@ public class Person {
                 .append(getExpectedMinGrade())
                 .append(" Expected Max Grade: ")
                 .append(getExpectedMaxGrade())
-                .append(" Workload: ")
-                .append(getWorkload())
+                .append(" Lecture Hour: ")
+                .append(getLectureHour())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

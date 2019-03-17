@@ -6,10 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Semester;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,23 +20,23 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                getTagSet("friends")),
+                Grade.valueOf("A"), new Hour("0"),
+                    getTagSet("friends")),
             new Person(new Name("Bernice Yu"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                getTagSet("colleagues", "friends")),
+                Grade.valueOf("A"), new Hour("0"),
+                    getTagSet("colleagues", "friends")),
             new Person(new Name("Charlotte Oliveiro"), Semester.valueOf("Y2S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                getTagSet("neighbours")),
+                Grade.valueOf("A"), new Hour("0"),
+                    getTagSet("neighbours")),
             new Person(new Name("David Li"), Semester.valueOf("Y2S2"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                getTagSet("family")),
+                Grade.valueOf("A"), new Hour("0"),
+                    getTagSet("family")),
             new Person(new Name("Irfan Ibrahim"), Semester.valueOf("Y2S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                getTagSet("classmates")),
+                Grade.valueOf("A"), new Hour("0"),
+                    getTagSet("classmates")),
             new Person(new Name("Roy Balakrishnan"), Semester.valueOf("Y2S2"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                getTagSet("colleagues"))
+                Grade.valueOf("A"), new Hour("0"),
+                    getTagSet("colleagues"))
         };
     }
 

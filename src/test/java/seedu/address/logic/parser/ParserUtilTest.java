@@ -16,9 +16,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Semester;
+import seedu.address.model.person.Grade;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
@@ -111,48 +111,48 @@ public class ParserUtilTest {
 
     @Test
     public void parseExpectedMaxGrade_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseExpectedMaxGrade((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseGrade((String) null));
     }
 
     @Test
     public void parseExpectedMaxGrade_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseExpectedMaxGrade(INVALID_EXPECTED_MAX_GRADE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseGrade(INVALID_EXPECTED_MAX_GRADE));
     }
 
     @Test
     public void parseExpectedMaxGrade_validValueWithoutWhitespace_returnsExpectedMaxGrade() throws Exception {
         Grade expectedExpectedMaxGrade = Grade.getGrade(VALID_EXPECTED_MAX_GRADE);
-        assertEquals(expectedExpectedMaxGrade, ParserUtil.parseExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE));
+        assertEquals(expectedExpectedMaxGrade, ParserUtil.parseGrade(VALID_EXPECTED_MAX_GRADE));
     }
 
     @Test
     public void parseExpectedMaxGrade_validValueWithWhitespace_returnsTrimmedExpectedMaxGrade() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_EXPECTED_MAX_GRADE + WHITESPACE;
         Grade expectedExpectedMaxGrade = Grade.getGrade(VALID_EXPECTED_MAX_GRADE);
-        assertEquals(expectedExpectedMaxGrade, ParserUtil.parseExpectedMaxGrade(addressWithWhitespace));
+        assertEquals(expectedExpectedMaxGrade, ParserUtil.parseGrade(addressWithWhitespace));
     }
 
     @Test
     public void parseExpectedMinGrade_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseExpectedMinGrade((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseGrade((String) null));
     }
 
     @Test
     public void parseExpectedMinGrade_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseExpectedMinGrade(INVALID_EXPECTED_MIN_GRADE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseGrade(INVALID_EXPECTED_MIN_GRADE));
     }
 
     @Test
     public void parseExpectedMinGrade_validValueWithoutWhitespace_returnsExpectedMinGrade() throws Exception {
         Grade expectedExpectedMinGrade = Grade.valueOf(VALID_EXPECTED_MIN_GRADE);
-        assertEquals(expectedExpectedMinGrade, ParserUtil.parseExpectedMinGrade(VALID_EXPECTED_MIN_GRADE));
+        assertEquals(expectedExpectedMinGrade, ParserUtil.parseGrade(VALID_EXPECTED_MIN_GRADE));
     }
 
     @Test
     public void parseExpectedMinGrade_validValueWithWhitespace_returnsTrimmedExpectedMinGrade() throws Exception {
         String expectedMinGradeWithWhitespace = WHITESPACE + VALID_EXPECTED_MIN_GRADE + WHITESPACE;
         Grade expectedExpectedMinGrade = Grade.valueOf(VALID_EXPECTED_MIN_GRADE);
-        assertEquals(expectedExpectedMinGrade, ParserUtil.parseExpectedMinGrade(expectedMinGradeWithWhitespace));
+        assertEquals(expectedExpectedMinGrade, ParserUtil.parseGrade(expectedMinGradeWithWhitespace));
     }
 
     @Test

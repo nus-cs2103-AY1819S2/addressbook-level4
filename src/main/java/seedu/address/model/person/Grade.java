@@ -1,4 +1,4 @@
-package seedu.address.model.module;
+package seedu.address.model.person;
 
 /**
  * Represents grade of a module taken
@@ -41,7 +41,7 @@ public enum Grade {
         return this.gradePoint;
     }
 
-    public boolean isPassingGrade() {
+    boolean isPassingGrade() {
         return this.isPass;
     }
 

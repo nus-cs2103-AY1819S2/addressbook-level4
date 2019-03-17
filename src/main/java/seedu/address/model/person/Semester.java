@@ -1,4 +1,4 @@
-package seedu.address.model.module;
+package seedu.address.model.person;
 
 /**
  * Represents semester of a module taken

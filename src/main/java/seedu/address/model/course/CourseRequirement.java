@@ -53,8 +53,8 @@ public class CourseRequirement {
      */
     public CourseRequirement and(CourseRequirement other) {
         return new CourseRequirement(description + "\n AND \n" + other.description,
-                isFulfilled.and(other.isFulfilled), (
-                List<ModuleInfo> x) -> getUnfulfilled(x) + "\n AND \n" + other.getUnfulfilled(x));
+            isFulfilled.and(other.isFulfilled), (
+                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n AND \n" + other.getUnfulfilled(x));
     }
 
 
@@ -67,7 +67,7 @@ public class CourseRequirement {
      */
     public CourseRequirement or(CourseRequirement other) {
         return new CourseRequirement(description + "\n OR \n" + other.description,
-                isFulfilled.or(other.isFulfilled), (
-                List<ModuleInfo> x) -> getUnfulfilled(x) + "\n OR \n" + other.getUnfulfilled(x));
+            isFulfilled.or(other.isFulfilled), (
+                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n OR \n" + other.getUnfulfilled(x));
     }
 }

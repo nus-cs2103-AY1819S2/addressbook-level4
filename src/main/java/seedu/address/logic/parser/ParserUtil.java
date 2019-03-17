@@ -10,9 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Semester;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -81,33 +82,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String grade} into an {@code Grade}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code grade} is invalid.
      */
-    public static Grade parseExpectedMaxGrade(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Grade.isValidGrade(trimmedAddress)) {
-            throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
-        }
-        return Grade.getGrade(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Grade parseExpectedMinGrade(String expectedMinGrade) throws ParseException {
-        requireNonNull(expectedMinGrade);
-        String trimmedGrade = expectedMinGrade.trim();
+    public static Grade parseGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim();
         if (!Grade.isValidGrade(trimmedGrade)) {
             throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
         }
         return Grade.getGrade(trimmedGrade);
+    }
+
+    /**
+     * Parses a {@code String lectureHour} into an {@code Hour}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code lectureHour} is invalid.
+     */
+    public static Hour parseHour(String hour) throws ParseException {
+        requireNonNull(hour);
+        String trimmedHour = hour.trim();
+        if (!Hour.isValidHour(trimmedHour)) {
+            throw new ParseException(Hour.MESSAGE_CONSTRAINTS);
+        }
+        return new Hour(trimmedHour);
     }
 
     /**

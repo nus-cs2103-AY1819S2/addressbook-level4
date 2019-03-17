@@ -32,10 +32,10 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Semester;
+import seedu.address.model.person.Grade;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -100,16 +100,6 @@ public class AddCommandParserTest {
         // missing semester prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_SEMESTER_BOB
                         + EXPECTED_MIN_GRADE_DESC_BOB + EXPECTED_MAX_GRADE_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + SEMESTER_DESC_BOB
-                        + VALID_EXPECTED_MIN_GRADE_BOB + EXPECTED_MAX_GRADE_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + SEMESTER_DESC_BOB
-                        + EXPECTED_MIN_GRADE_DESC_BOB + VALID_EXPECTED_MAX_GRADE_BOB,
                 expectedMessage);
 
         // all prefixes missing

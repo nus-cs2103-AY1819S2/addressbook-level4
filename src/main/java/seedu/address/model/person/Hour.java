@@ -1,4 +1,4 @@
-package seedu.address.model.module;
+package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -52,7 +52,7 @@ public class Hour {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Hour // instanceof handles nulls
-                && hour == ((Hour) other).hour); // state check
+                && hour.equals(((Hour) other).hour)); // state check
     }
 
     @Override

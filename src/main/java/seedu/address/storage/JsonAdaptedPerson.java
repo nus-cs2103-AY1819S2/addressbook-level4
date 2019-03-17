@@ -10,10 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Semester;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,6 +28,7 @@ class JsonAdaptedPerson {
     private final String semester;
     private final String expectedMinGrade;
     private final String expectedMaxGrade;
+    private final String lectureHour;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,11 +38,13 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("semester") String semester,
                              @JsonProperty("expectedMinGrade") String expectedMinGrade,
                              @JsonProperty("expectedMaxGrade") String expectedMaxGrade,
+                             @JsonProperty("lectureHour") String lectureHour,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.semester = semester;
         this.expectedMinGrade = expectedMinGrade;
         this.expectedMaxGrade = expectedMaxGrade;
+        this.lectureHour = lectureHour;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -51,9 +55,10 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getModuleInfo().fullName;
-        semester = source.getSemester().toString();
-        expectedMinGrade = source.getExpectedMinGrade().toString();
-        expectedMaxGrade = source.getExpectedMaxGrade().toString();
+        semester = source.getSemester().name();
+        expectedMinGrade = source.getExpectedMinGrade().name();
+        expectedMaxGrade = source.getExpectedMaxGrade().name();
+        lectureHour = source.getLectureHour().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -104,8 +109,17 @@ class JsonAdaptedPerson {
         }
         final Grade modelExpectedMaxGrade = Grade.getGrade(expectedMaxGrade);
 
+        if (lectureHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Hour.class.getSimpleName()));
+        }
+        if (!Hour.isValidHour(lectureHour)) {
+            throw new IllegalValueException(Hour.MESSAGE_CONSTRAINTS);
+        }
+        final Hour modelLectureHour = new Hour(lectureHour);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelSemester, modelExpectedMinGrade, modelExpectedMaxGrade, modelTags);
+        return new Person(modelName, modelSemester, modelExpectedMinGrade,
+                modelExpectedMaxGrade, modelLectureHour, modelTags);
     }
 
 }

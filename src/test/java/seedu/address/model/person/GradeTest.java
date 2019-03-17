@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.module.Grade;
 import seedu.address.testutil.Assert;
 
 public class GradeTest {
@@ -17,7 +16,6 @@ public class GradeTest {
 
     @Test
     public void constructor_invalidGradeWithWhitespace_throwsIllegalArgumentException() {
-        String invalidGradeWithWhitespace = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> Grade.valueOf(""));
     }
 

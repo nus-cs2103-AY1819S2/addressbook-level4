@@ -1,8 +1,8 @@
 package seedu.address.model.book;
 
-import java.util.function.Predicate;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Review}'s {@code Title} matches all of the keywords given.

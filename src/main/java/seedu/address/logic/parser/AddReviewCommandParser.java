@@ -5,14 +5,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
 
+import java.util.stream.Stream;
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.book.Review;
 import seedu.address.model.book.ReviewTitle;
-import java.util.stream.Stream;
 
+/**
+ * Parses input arguments and creates a new AddReviewCommand object
+ */
 public class AddReviewCommandParser implements Parser<AddReviewCommand> {
 
     /**

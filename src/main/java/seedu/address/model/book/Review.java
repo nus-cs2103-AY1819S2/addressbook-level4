@@ -45,7 +45,9 @@ public class Review {
         dateCreated = date;
     }
 
-    public ReviewTitle getTitle() {return title;}
+    public ReviewTitle getTitle() {
+        return title;
+    }
 
     @Override
     public String toString() {

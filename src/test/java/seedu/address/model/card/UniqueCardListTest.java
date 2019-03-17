@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.address.testutil.TypicalCards.ALICE;
-import static seedu.address.testutil.TypicalCards.BOB;
+import static seedu.address.testutil.TypicalCards.CARD_2;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -104,18 +104,18 @@ public class UniqueCardListTest {
     @Test
     public void setCard_editedCardHasDifferentIdentity_success() {
         uniqueCardList.add(ALICE);
-        uniqueCardList.setCard(ALICE, BOB);
+        uniqueCardList.setCard(ALICE, CARD_2);
         UniqueCardList expectedUniqueCardList = new UniqueCardList();
-        expectedUniqueCardList.add(BOB);
+        expectedUniqueCardList.add(CARD_2);
         assertEquals(expectedUniqueCardList, uniqueCardList);
     }
 
     @Test
     public void setCard_editedCardHasNonUniqueIdentity_throwsDuplicateCardException() {
         uniqueCardList.add(ALICE);
-        uniqueCardList.add(BOB);
+        uniqueCardList.add(CARD_2);
         thrown.expect(DuplicateCardException.class);
-        uniqueCardList.setCard(ALICE, BOB);
+        uniqueCardList.setCard(ALICE, CARD_2);
     }
 
     @Test
@@ -148,7 +148,7 @@ public class UniqueCardListTest {
     public void setCards_uniqueCardList_replacesOwnListWithProvidedUniqueCardList() {
         uniqueCardList.add(ALICE);
         UniqueCardList expectedUniqueCardList = new UniqueCardList();
-        expectedUniqueCardList.add(BOB);
+        expectedUniqueCardList.add(CARD_2);
         uniqueCardList.setCards(expectedUniqueCardList);
         assertEquals(expectedUniqueCardList, uniqueCardList);
     }
@@ -162,10 +162,10 @@ public class UniqueCardListTest {
     @Test
     public void setCards_list_replacesOwnListWithProvidedList() {
         uniqueCardList.add(ALICE);
-        List<Card> cardList = Collections.singletonList(BOB);
+        List<Card> cardList = Collections.singletonList(CARD_2);
         uniqueCardList.setCards(cardList);
         UniqueCardList expectedUniqueCardList = new UniqueCardList();
-        expectedUniqueCardList.add(BOB);
+        expectedUniqueCardList.add(CARD_2);
         assertEquals(expectedUniqueCardList, uniqueCardList);
     }
 

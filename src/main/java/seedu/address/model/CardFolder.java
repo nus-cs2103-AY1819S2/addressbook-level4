@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -12,7 +13,7 @@ import seedu.address.model.card.UniqueCardList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameCard comparison)
+ * Duplicates are not allowed (by .equals comparison)
  */
 public class CardFolder implements ReadOnlyCardFolder {
 
@@ -124,13 +125,17 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     @Override
     public String toString() {
-        return cards.asUnmodifiableObservableList().size() + " cards";
+        return getFolderName();
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Card> getCardList() {
         return cards.asUnmodifiableObservableList();
+    }
+
+    public void sortCards(Comparator<Card> comparator) {
+        cards.sortCards(comparator);
     }
 
     /**

@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddFolderCommand;
 import seedu.address.logic.commands.AnswerCommand;
+import seedu.address.logic.commands.ChangeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteFolderCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EndCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -23,6 +25,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.TestCommand;
 import seedu.address.logic.commands.UndoCommand;
 
@@ -61,6 +64,9 @@ public class CommandParser {
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
 
+        case ChangeCommand.COMMAND_WORD:
+            return new ChangeCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -69,6 +75,9 @@ public class CommandParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteFolderCommand.COMMAND_WORD:
+            return new DeleteFolderCommandParser().parse(arguments);
 
         case TestCommand.COMMAND_WORD:
             return new TestCommandParser().parse(arguments);
@@ -90,6 +99,9 @@ public class CommandParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

@@ -37,7 +37,6 @@ public class MainWindow extends UiPart<Stage> {
     private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private TestSession testSessionScreen;
     private CardMainScreen cardMainScreen;
 
     @FXML
@@ -121,9 +120,6 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        testSessionScreen = new TestSession();
-        fullScreenPlaceholder.getChildren().add(testSessionScreen.getRoot());
-
         browserPanel = new BrowserPanel(logic.selectedCardProperty());
         cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
                 logic::setSelectedCard);
@@ -172,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Start test session UI.
+     * Starts test session UI.
      */
     private void handleStartTestSession(Card card) {
         Region testSessionRegion = (new TestSession(card)).getRoot();
@@ -180,11 +176,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * End test session and display back card main screen.
+     * Ends test session and display back card main screen.
      */
     private void handleEndTestSession() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
     }
+
+    /**
+     * Refreshes the side panel to display the new active folder.
+     */
+    private void handleSidePanelUpdate() {
+        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
+                logic::setSelectedCard);
+        cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
+    }
+
 
     /**
      * Show the page with correct answer.
@@ -198,6 +206,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleWrongAnswer() {
         //TODO: Change UI to display wrong answer
+    }
+
+    private void updateCardListPanel() {
+        fullScreenPlaceholder.getChildren();
     }
 
     public CardListPanel getCardListPanel() {
@@ -221,6 +233,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSidePanelUpdated()) {
+                handleSidePanelUpdate();
             }
 
             if (commandResult.isTestSession()) {

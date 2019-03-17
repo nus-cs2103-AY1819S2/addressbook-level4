@@ -128,14 +128,14 @@ public class ModelManager implements Model {
      * Initialise quickdocs with sample patient data
      */
     public void iniQuickDocs() {
-        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
+        //Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
         //for (Patient patient : samplePatients) {
-        //   addPatient(patient);
+        //addPatient(patient);
         //}
-        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        for (Appointment app : sampleAppointments) {
-            addApp(app);
-        }
+        //Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
+        //for (Appointment app : sampleAppointments) {
+        //addApp(app);
+        //}
         Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
         for (Reminder rem : sampleReminders) {
             addRem(rem);
@@ -529,7 +529,7 @@ public class ModelManager implements Model {
      * @param app the {@code Appointment} to add
      */
     public void addApp(Appointment app) {
-        appointmentManager.add(app);
+        appointmentManager.addAppointment(app);
         Reminder remToAdd = new Reminder(app);
         addRem((remToAdd));
         quickDocs.indicateModification(true);

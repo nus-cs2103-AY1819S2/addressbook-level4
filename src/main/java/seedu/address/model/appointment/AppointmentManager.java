@@ -14,12 +14,16 @@ public class AppointmentManager {
         appointments = new ArrayList<>();
     }
 
-    public void add(Appointment app) {
+    public void addAppointment(Appointment app) {
         appointments.add(app);
     }
 
     public boolean duplicateApp(Appointment app) {
         return appointments.contains(app);
+    }
+
+    public List<Appointment> getAppointmentList() {
+        return appointments;
     }
 
     /**

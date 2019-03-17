@@ -18,6 +18,7 @@ public class HelpCommandTest {
     @Test
     public void execute_help_success() {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, true, false);
-        assertCommandSuccess(new HelpCommand(), managementModel, commandHistory, expectedCommandResult, expectedManagementModel);
+        assertCommandSuccess(new HelpCommand(), managementModel, commandHistory,
+                expectedCommandResult, expectedManagementModel);
     }
 }

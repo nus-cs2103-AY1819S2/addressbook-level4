@@ -16,8 +16,9 @@ public class CommandTestUtil {
      * - the {@code actualManagementModel} matches {@code expectedManagementModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, ManagementModel actualManagementModel, CommandHistory actualCommandHistory,
-                                            CommandResult expectedCommandResult, ManagementModel expectedManagementModel) {
+    public static void assertCommandSuccess(Command command, ManagementModel actualManagementModel,
+                                            CommandHistory actualCommandHistory, CommandResult expectedCommandResult,
+                                            ManagementModel expectedManagementModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualManagementModel, actualCommandHistory);
@@ -30,12 +31,15 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, ManagementModel, CommandHistory, CommandResult, ManagementModel)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, ManagementModel, CommandHistory,
+     * CommandResult, ManagementModel)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, ManagementModel actualManagementModel, CommandHistory actualCommandHistory,
-                                            String expectedMessage, ManagementModel expectedManagementModel) {
+    public static void assertCommandSuccess(Command command, ManagementModel actualManagementModel,
+                                            CommandHistory actualCommandHistory, String expectedMessage,
+                                            ManagementModel expectedManagementModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualManagementModel, actualCommandHistory, expectedCommandResult, expectedManagementModel);
+        assertCommandSuccess(command, actualManagementModel, actualCommandHistory, expectedCommandResult,
+                expectedManagementModel);
     }
 }

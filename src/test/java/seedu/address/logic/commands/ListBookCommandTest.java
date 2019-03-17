@@ -113,7 +113,8 @@ public class ListBookCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private BookListFilterPredicate preparePredicate(List<String> names, List<String> authors, List<String> tags, List<String> ratings) {
+    private BookListFilterPredicate preparePredicate(List<String> names, List<String> authors, List<String> tags,
+            List<String> ratings) {
         return new BookListFilterPredicate(names, authors, tags, ratings);
     }
 

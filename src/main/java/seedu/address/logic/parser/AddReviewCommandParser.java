@@ -7,7 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
 
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.book.*;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewTitle;
 import java.util.stream.Stream;
 
 public class AddReviewCommandParser implements Parser<AddReviewCommand> {

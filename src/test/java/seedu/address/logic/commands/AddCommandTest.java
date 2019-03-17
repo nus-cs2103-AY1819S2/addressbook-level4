@@ -135,9 +135,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addReview(Review toAdd, Book bookForReview) {}
-
-        @Override
         public void setBookShelf(ReadOnlyBookShelf newData) {
             throw new AssertionError("This method should not be called.");
         }

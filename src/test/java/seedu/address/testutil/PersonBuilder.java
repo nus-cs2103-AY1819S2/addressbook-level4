@@ -7,6 +7,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
@@ -24,6 +25,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_GENDER = "Female";
     public static final String DEFAULT_RACE = "Chinese";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_SCHOOL = "NUS";
@@ -32,6 +34,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
+    private Gender gender;
     private Race race;
     private Address address;
     private School school;
@@ -44,6 +47,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        gender = new Gender(DEFAULT_GENDER);
         race = new Race(DEFAULT_RACE);
         address = new Address(DEFAULT_ADDRESS);
         school = new School(DEFAULT_SCHOOL);
@@ -60,6 +64,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        gender = personToCopy.getGender();
         race = personToCopy.getRace();
         address = personToCopy.getAddress();
         school = personToCopy.getSchool();
@@ -150,8 +155,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Gender} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
+        return new Person(name, phone, email, gender, race, address, school, major, knownProgLangs, pastjobs, tags);
     }
 
 }

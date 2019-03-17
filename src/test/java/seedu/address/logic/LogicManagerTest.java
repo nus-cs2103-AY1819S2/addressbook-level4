@@ -3,11 +3,11 @@ package seedu.hms.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
 import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.testutil.TypicalCustomers.AMY;
 
 import java.io.IOException;

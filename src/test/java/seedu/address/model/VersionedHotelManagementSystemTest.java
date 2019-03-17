@@ -52,7 +52,7 @@ public class VersionedHotelManagementSystemTest {
 
     @Test
     public void
-    commit_multipleHotelManagementSystemPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        commit_multipleHotelManagementSystemPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedHotelManagementSystem versionedHotelManagementSystem = prepareHotelManagementSystemList(
             emptyHotelManagementSystem, hotelManagementSystemWithAmy, hotelManagementSystemWithBob);
         shiftCurrentStatePointerLeftwards(versionedHotelManagementSystem, 2);

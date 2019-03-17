@@ -3,8 +3,8 @@ package seedu.hms.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.hms.testutil.TypicalCustomers.ALICE;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 

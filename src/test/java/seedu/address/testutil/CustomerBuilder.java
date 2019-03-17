@@ -21,7 +21,7 @@ public class CustomerBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_IDENTIFICATION_N0 = "1223453";
-    public static final String DEFAULT_address = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
@@ -35,7 +35,7 @@ public class CustomerBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         idnum = new IdentificationNo(DEFAULT_IDENTIFICATION_N0);
-        address = new Address(DEFAULT_address);
+        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 

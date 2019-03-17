@@ -18,6 +18,9 @@ import seedu.address.model.cell.Coordinates;
  */
 public class Player {
 
+    private static final int DEFAULT_NUM_AIRCRAFT_CARRIER = 1;
+    private static final int DEFAULT_NUM_CRUISER = 2;
+    private static final int DEFAULT_NUM_DESTROYER = 5;
     private static final String VALID_NAME_REGEX = "^[a-zA-Z0-9]{3,16}$";
     private static final String MESSAGE_CONSTRAINTS = "Name should contain only alphanumerical characters,"
             + "with no whitespaces.\n"
@@ -28,10 +31,6 @@ public class Player {
     private final Fleet fleet;
     private final MapGrid mapGrid;
     private Set targetHistory = new HashSet();
-
-    private static final int DEFAULT_NUM_DESTROYER = 5;
-    private static final int DEFAULT_NUM_CRUISER = 2;
-    private static final int DEFAULT_NUM_AIRCRAFT_CARRIER = 1;
 
     /**
      * Constructor presented to user.

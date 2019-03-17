@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.CruiserBattleship;
@@ -21,10 +22,6 @@ public class Fleet {
     private int numDestroyer;
     private int numCruiser;
     private int numAircraftCarrier;
-
-    private final String MESSAGE_NOT_ENOUGH_DESTROYERS = "Not enough destroyers.";
-    private final String MESSAGE_NOT_ENOUGH_CRUISERS = "Not enough cruisers.";
-    private final String MESSAGE_NOT_ENOUGH_AIRCRAFT_CARRIERS = "Not enough aircraft carriers.";
 
     /**
      * Default constructor for a fleet of size 8 with placeholder ship names.
@@ -57,6 +54,9 @@ public class Fleet {
         return this.deployedFleet;
     }
 
+    /**
+     * Deploys one battleship. Checks class of battleship.
+     */
     public void deployBattleship(Battleship battleship) throws Exception {
         if (battleship instanceof DestroyerBattleship) {
             deployDestroyerBattleships(1);
@@ -67,10 +67,13 @@ public class Fleet {
         }
     }
 
+    /**
+     * Deploys a destroyer.
+     */
     public void deployDestroyerBattleships(int number)
             throws Exception {
         if (number > this.numDestroyer) {
-            throw new Exception(MESSAGE_NOT_ENOUGH_DESTROYERS);
+            throw new Exception("Not enough destroyers.");
         } else {
             for (int i = 0; i < number; i++) {
                 this.numDestroyer--;
@@ -79,10 +82,13 @@ public class Fleet {
         }
     }
 
+    /**
+     * Deploys a cruiser.
+     */
     public void deployCruiserBattleships(int number)
             throws Exception {
         if (number > this.numCruiser) {
-            throw new Exception(MESSAGE_NOT_ENOUGH_CRUISERS);
+            throw new Exception("Not enough cruisers.");
         } else {
             for (int i = 0; i < number; i++) {
                 this.numCruiser--;
@@ -91,10 +97,13 @@ public class Fleet {
         }
     }
 
+    /**
+     * Deploys an aircraft carrier.
+     */
     public void deployAircraftCarrierBattleships(int number)
             throws Exception {
         if (number > this.numAircraftCarrier) {
-            throw new Exception(MESSAGE_NOT_ENOUGH_AIRCRAFT_CARRIERS);
+            throw new Exception("Not enough aircraft carriers.");
         } else {
             for (int i = 0; i < number; i++) {
                 this.numAircraftCarrier--;

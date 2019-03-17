@@ -1,10 +1,10 @@
 package seedu.address.model.player;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
+
 import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
@@ -67,30 +67,24 @@ public class FleetTest {
 
     @Test
     public void testConstructorFail() {
-        assertThrows(IllegalArgumentException.class,
-                () -> new Fleet(0, 0,0));
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Fleet(0, 0, 0); });
     }
 
     @Test
     public void testDeployBattleship() {
         Fleet testFleet = new Fleet(1, 1, 1);
-        assertThrows(Exception.class,
-                () -> {
+        assertThrows(Exception.class, () -> {
             testFleet.deployBattleship(new DestroyerBattleship());
-            testFleet.deployBattleship(new DestroyerBattleship());
-                });
+            testFleet.deployBattleship(new DestroyerBattleship()); });
 
-        assertThrows(Exception.class,
-                () -> {
+        assertThrows(Exception.class, () -> {
             testFleet.deployBattleship(new CruiserBattleship());
-            testFleet.deployBattleship(new CruiserBattleship());
-                });
+            testFleet.deployBattleship(new CruiserBattleship()); });
 
-        assertThrows(Exception.class,
-                () -> {
+        assertThrows(Exception.class, () -> {
             testFleet.deployBattleship(new AircraftCarrierBattleship());
-            testFleet.deployBattleship(new AircraftCarrierBattleship());
-                });
+            testFleet.deployBattleship(new AircraftCarrierBattleship()); });
     }
 
     @Test
@@ -98,14 +92,11 @@ public class FleetTest {
         Fleet destroyerOnlyFleet = new Fleet(5, 0, 0);
 
         // deploying more than available destroyers
-        assertThrows(Exception.class,
-                () -> destroyerOnlyFleet.deployDestroyerBattleships(10));
+        assertThrows(Exception.class, () -> destroyerOnlyFleet.deployDestroyerBattleships(10));
 
-        assertThrows(Exception.class,
-                () -> {
+        assertThrows(Exception.class, () -> {
             destroyerOnlyFleet.deployDestroyerBattleships(5);
-            destroyerOnlyFleet.deployDestroyerBattleships(1);
-                });
+            destroyerOnlyFleet.deployDestroyerBattleships(1); });
 
     }
 
@@ -114,14 +105,11 @@ public class FleetTest {
         Fleet cruiserOnlyFleet = new Fleet(0, 2, 0);
 
         // deploying more than available destroyers
-        assertThrows(Exception.class,
-                () -> cruiserOnlyFleet.deployCruiserBattleships(10));
+        assertThrows(Exception.class, () -> cruiserOnlyFleet.deployCruiserBattleships(10));
 
-        assertThrows(Exception.class,
-                () -> {
-                    cruiserOnlyFleet.deployCruiserBattleships(2);
-                    cruiserOnlyFleet.deployCruiserBattleships(1);
-                });
+        assertThrows(Exception.class, () -> {
+            cruiserOnlyFleet.deployCruiserBattleships(2);
+            cruiserOnlyFleet.deployCruiserBattleships(1); });
 
     }
 
@@ -130,14 +118,12 @@ public class FleetTest {
         Fleet aircraftCarrierOnlyFleet = new Fleet(0, 0, 1);
 
         // deploying more than available destroyers
-        assertThrows(Exception.class,
-                () -> aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(10));
+        assertThrows(Exception.class, () ->
+                aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(10));
 
-        assertThrows(Exception.class,
-                () -> {
-                    aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(1);
-                    aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(1);
-                });
+        assertThrows(Exception.class, () -> {
+            aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(1);
+            aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(1); });
     }
 
     @Test

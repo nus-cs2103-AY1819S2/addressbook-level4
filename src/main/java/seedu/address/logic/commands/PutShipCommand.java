@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,11 +24,12 @@ public class PutShipCommand extends Command {
     public static final String COMMAND_ALIAS = "p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Puts ship in cell that is identified "
-            + "by the row number provided by the user. "
+            + "by the row number and orientation (vertical/horizontal) provided by the user. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_COORDINATES + "COORDINATES]\n"
+            + "[" + PREFIX_ORIENTATION + "ORIENTATION\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_NAME + "Destroyer "
             + PREFIX_COORDINATES + "c1";

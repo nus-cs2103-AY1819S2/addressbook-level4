@@ -29,10 +29,8 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredCards;
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
-    private ViewState viewState = ViewState.CARDS;
-    private Deck currentDeck = null; // Deck that is active, null if we are in Decks View
+    private final FilteredList<? extends ListItem> filteredItems;
+    private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,8 +43,8 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCards = new FilteredList<>(versionedTopDeck.getCardList());
-        filteredCards.addListener(this::ensureSelectedItemIsValid);
+        filteredItems = new FilteredList<>(versionedTopDeck.getDeckList());
+        filteredItems.addListener(this::ensureSelectedItemIsValid);
     }
 
     public ModelManager() {
@@ -114,7 +112,7 @@ public class ModelManager implements Model {
     @Override
     public void addCard(Card card) {
         versionedTopDeck.addCard(card);
-        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS); // TODO: show all cards after adding a card
     }
 
     @Override
@@ -127,8 +125,8 @@ public class ModelManager implements Model {
     @Override
     public void addDeck(Deck deck) {
         logger.info("Added a new deck to TopDeck.");
-        // versionedTopDeck.addDeck(deck);
-        // updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        versionedTopDeck.addDeck(deck);
+        updateFilteredList(PREDICATE_SHOW_ALL_DECKS); // TODO: show all decks after adding a deck
         commitTopDeck();
     }
 
@@ -146,13 +144,13 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<ListItem> getFilteredList() {
-        return (ObservableList<ListItem>) (ObservableList<? extends ListItem>) filteredCards;
+        return (ObservableList<ListItem>) filteredItems;
     }
 
     @Override
     public void updateFilteredList(Predicate<? extends ListItem> predicate) {
         requireNonNull(predicate);
-        filteredCards.setPredicate((Predicate<Card>) predicate);
+        filteredItems.setPredicate((Predicate<ListItem>) predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -182,51 +180,51 @@ public class ModelManager implements Model {
         versionedTopDeck.commit();
     }
 
-    //=========== Selected card ===========================================================================
+    //=========== Selected item ===========================================================================
 
     @Override
     public ReadOnlyProperty<ListItem> selectedItemProperty() {
-        return (ReadOnlyProperty<ListItem>) (ReadOnlyProperty<? extends ListItem>) selectedCard;
+        return selectedItem;
     }
 
     @Override
     public ListItem getSelectedItem() {
-        return selectedCard.getValue();
+        return selectedItem.getValue();
     }
 
     @Override
     public void setSelectedItem(ListItem card) {
-        if (card != null && !filteredCards.contains(card)) {
+        if (card != null && !filteredItems.contains(card)) {
             throw new CardNotFoundException();
         }
-        selectedCard.setValue((Card)card);
+        selectedItem.setValue(card);
     }
 
     /**
-     * Ensures {@code selectedCard} is a valid card in {@code filteredCards}.
+     * Ensures {@code selectedItem} is a valid card in {@code filteredItems}.
      */
-    private void ensureSelectedItemIsValid(ListChangeListener.Change<? extends Card> change) {
+    private void ensureSelectedItemIsValid(ListChangeListener.Change<? extends ListItem> change) {
         while (change.next()) {
-            if (selectedCard.getValue() == null) {
+            if (selectedItem.getValue() == null) {
                 // null is always a valid selected card, so we do not need to check that it is valid anymore.
                 return;
             }
 
             boolean wasSelectedItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedCard.getValue());
+                    && change.getRemoved().contains(selectedItem.getValue());
             if (wasSelectedItemReplaced) {
-                // Update selectedCard to its new value.
-                int index = change.getRemoved().indexOf(selectedCard.getValue());
-                selectedCard.setValue(change.getAddedSubList().get(index));
+                // Update selectedItem to its new value.
+                int index = change.getRemoved().indexOf(selectedItem.getValue());
+                selectedItem.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
             boolean wasSelectedItemRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedCard.getValue().equals(removedPerson));
+                    .anyMatch(removedItem -> selectedItem.getValue().equals(removedItem));
             if (wasSelectedItemRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.
-                selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedItem.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -247,8 +245,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedTopDeck.equals(other.versionedTopDeck)
                 && userPrefs.equals(other.userPrefs)
-                && filteredCards.equals(other.filteredCards)
-                && Objects.equals(selectedCard.get(), other.selectedCard.get());
+                && filteredItems.equals(other.filteredItems)
+                && Objects.equals(selectedItem.get(), other.selectedItem.get());
     }
 
 }

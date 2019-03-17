@@ -17,12 +17,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindowBook extends UiPart<Stage> {
+public class MainBookWindow extends UiPart<Stage> {
 
 	private static final String FXML = "MainWindow.fxml";
 
@@ -55,7 +54,7 @@ public class MainWindowBook extends UiPart<Stage> {
 	@FXML
 	private StackPane statusbarPlaceholder;
 
-	public MainWindowBook(Stage primaryStage, Logic logic) {
+	public MainBookWindow(Stage primaryStage, Logic logic) {
 		super(FXML, primaryStage);
 
 		// Set dependencies
@@ -115,8 +114,8 @@ public class MainWindowBook extends UiPart<Stage> {
 		browserPanel = new BrowserPanel(logic.selectedPersonProperty());
 		browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-	    bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
-	            logic::setSelectedBook);
+		bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
+			logic::setSelectedBook);
 
 		bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 

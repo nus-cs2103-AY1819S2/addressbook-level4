@@ -37,19 +37,21 @@ public class BrowserBookPanel extends UiPart<Region> {
 		// To prevent triggering events for typing inside the loaded Web page.
 		getRoot().setOnKeyPressed(Event::consume);
 
+		// Load book's review when selected book changes.
+
 		// Load person page when selected person changes.
 		selectedBook.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
+			if (newValue == null) {
 				loadDefaultPage();
 				return;
 			}
-			loadBookPage(newValue);
+			loadReviewPage(newValue);
 		});
 
 		loadDefaultPage();
 	}
 
-	private void loadBookPage(Book book) {
+	private void loadReviewPage(Book book) {
 		loadPage(SEARCH_PAGE_URL + book.getBookName().fullName);
 	}
 

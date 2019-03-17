@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.managementcommand.HistoryCommand;
 import seedu.address.logic.commands.QuizAnswerCommand;
 import seedu.address.logic.commands.QuizStartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;

@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.managementcommand.ExitCommand;
+import seedu.address.logic.commands.managementcommand.HelpCommand;
+import seedu.address.logic.commands.managementcommand.HistoryCommand;
 import seedu.address.logic.commands.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

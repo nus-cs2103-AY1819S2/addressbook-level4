@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.managementcommand;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.modelmanager.Model;
 
 /**

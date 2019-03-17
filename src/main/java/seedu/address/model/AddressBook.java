@@ -112,16 +112,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         allPersonsStorage.setPerson(target, editedPerson);
-
-        if(filterExist) {
-            clearFilter();
-            filterExist = false;
-        }
-
-        else {
-            persons.setPerson(target, editedPerson);
-        }
-
         persons.setPerson(target, editedPerson);
         indicateModified();
     }

@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class SetConsultationFeeCommandParser implements Parser<SetConsultationFeeCommand> {
 
-    private static final String REGEX = "^\\$?\\d+(\\.\\d{2})?$";
+    private static final String REGEX = "^\\$?\\d+(\\.\\d{1,2})?$";
     /**
      * Parses the given {@code String} of arguments in the context of the SetConsultationFeeCommand
      * and returns a SetConsultationFeeCommand object for execution
@@ -34,14 +34,6 @@ public class SetConsultationFeeCommandParser implements Parser<SetConsultationFe
         if (token.charAt(0) == '$') {
             token = token.substring(1);
         }
-        String cents = "00";
-        int len = token.length();
-        if (len > 3 && token.charAt(len - 3) == '.') {
-            cents = token.substring(len - 2);
-            token = token.substring(0, len - 3);
-        }
-        String dollars = token;
-        final String fee = dollars + "." + cents;
-        return new SetConsultationFeeCommand(new BigDecimal(fee));
+        return new SetConsultationFeeCommand(new BigDecimal(token));
     }
 }

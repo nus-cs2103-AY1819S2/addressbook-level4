@@ -22,6 +22,11 @@ class SetConsultationFeeCommandParserTest {
     }
 
     @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "30.",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetConsultationFeeCommand.MESSAGE_USAGE));
+    }
+    @Test
     public void parse_emptyArgs_throwsParseException() {
         assertParseFailure(parser, "",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetConsultationFeeCommand.MESSAGE_USAGE));

@@ -1,18 +1,18 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCustomerCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.ClearCustomerCommand;
+import seedu.hms.logic.commands.RedoCommand;
+import seedu.hms.logic.commands.UndoCommand;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
 
-public class ClearCommandSystemTest extends AddressBookSystemTest {
+public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
     @Test
     public void clear() {
         final CustomerModel defaultModel = getModel();
@@ -61,10 +61,10 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * box displays {@code ClearCustomerCommand#MESSAGE_SUCCESS} and the model related components equal to an empty
      * model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+     * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandSuccess(String command) {
         assertCommandSuccess(command, ClearCustomerCommand.MESSAGE_SUCCESS, new CustomerManager());
@@ -87,11 +87,11 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+     * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         CustomerModel expectedModel = getModel();

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -62,6 +63,7 @@ public class EndConsultationTest {
 
         ArrayList<Prescription> prescriptions = new ArrayList<>();
         Medicine med1 = new Medicine("migrane medicine", 1);
+        med1.setPrice(BigDecimal.valueOf(20.00));
         prescriptions.add(new Prescription(med1, 1));
         modelManager.prescribeMedicine(prescriptions);
 

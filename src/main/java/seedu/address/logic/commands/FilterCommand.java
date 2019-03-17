@@ -99,6 +99,7 @@ public class FilterCommand extends Command{
         try {
             ProcessCommand(model);
             model.commitAddressBook();
+
             if(isFilterCleared) {
                 isFilterCleared = false;
                 return new CommandResult(MESSAGE_CLEAR_FILTER_PERSON_SUCCESS);

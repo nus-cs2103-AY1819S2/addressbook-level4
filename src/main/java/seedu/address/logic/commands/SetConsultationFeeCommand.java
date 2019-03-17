@@ -45,6 +45,6 @@ public class SetConsultationFeeCommand extends Command {
             return false;
         }
         SetConsultationFeeCommand sc = (SetConsultationFeeCommand) other;
-        return this.fee.equals(sc.fee);
+        return this.fee.compareTo(sc.fee) == 0;
     }
 }

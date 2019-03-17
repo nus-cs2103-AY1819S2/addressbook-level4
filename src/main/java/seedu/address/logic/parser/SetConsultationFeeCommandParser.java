@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input argument and returns a SetConsultationFeeCommand
  */
-public class SetConsultationFeeCommandParser {
+public class SetConsultationFeeCommandParser implements Parser<SetConsultationFeeCommand> {
 
     private static final String REGEX = "^\\$?\\d+(\\.\\d{2})?$";
     /**

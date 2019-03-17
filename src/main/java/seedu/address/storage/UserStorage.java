@@ -13,34 +13,34 @@ public interface UserStorage {
     /**
      * Returns the folder path of the data file.
      */
-    Path getLessonsFolderPath();
+    Path getUserFolderPath();
 
     /**
      * Sets the folder path of the data file.
      */
-    void setLessonsFolderPath(Path folderPath);
+    void setUserFolderPath(Path folderPath);
 
     /**
      * Returns Lessons data as a {@link User}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<User> readLessons() throws IOException;
+    Optional<User> readUser() throws IOException;
 
     /**
-     * @see #getLessonsFolderPath()
+     * @see #getUserFolderPath()
      */
-    Optional<User> readLessons(Path folderPath) throws IOException;
+    Optional<User> readUser(Path folderPath) throws IOException;
 
     /**
      * Saves the given {@link User} to the storage.
      * @param user cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveUser(User user) throws IOException;
+    int saveUser(User user) throws IOException;
 
     /**
      * @see #saveUser(User, Path)
      */
-    void saveUser(User user, Path filePath) throws IOException;
+    int saveUser(User user, Path filePath) throws IOException;
 }

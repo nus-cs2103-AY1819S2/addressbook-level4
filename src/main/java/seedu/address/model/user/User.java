@@ -1,5 +1,7 @@
 package seedu.address.model.user;
 
+import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import seedu.address.commons.util.CsvUtil;
 public class User {
     private String name;
     private List<CardSrsData> cardData; // Contains User-specific data on Cards
+    private List<User> users;
 
     /**
      *  returns true if the function is able to write file
@@ -53,5 +56,14 @@ public class User {
     }
     public List<CardSrsData> getCardData() {
         return cardData;
+    }
+
+    /**Add user
+     *
+     * @param user
+     */
+    public void addUser(User user) {
+        requireNonNull(user);
+        users.add(user);
     }
 }

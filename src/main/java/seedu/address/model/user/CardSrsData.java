@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * Represents a Card which contains the data and hashcode that can be called by session
  */
-public class CardSrsData {
+public class CardSrsData extends User {
     private int hashCode; // This corresponds to a Card's hashCode
     private int numOfAttempts; // Number of attempts for this Card by a User
     private int streak;
@@ -42,10 +42,6 @@ public class CardSrsData {
     }
     public int getHashCode() {
         return hashCode;
-    }
-
-    public int getnumOfAttempts() {
-        return numOfAttempts;
     }
 
     public Instant getSrsDueDate() {

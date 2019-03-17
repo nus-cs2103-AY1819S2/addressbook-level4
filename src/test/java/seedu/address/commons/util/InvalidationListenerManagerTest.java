@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.hms.commons.util;
 
 import static org.junit.Assert.assertEquals;
 

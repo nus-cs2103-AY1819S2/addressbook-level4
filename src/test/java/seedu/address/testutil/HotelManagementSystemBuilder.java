@@ -1,7 +1,7 @@
-package seedu.address.testutil;
+package seedu.hms.testutil;
 
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.customer.Customer;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.customer.Customer;
 
 /**
  * A utility class to help with building HotelManagementSystem objects.

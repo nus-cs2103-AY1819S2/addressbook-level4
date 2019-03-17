@@ -1,12 +1,12 @@
-package seedu.address.model;
+package seedu.hms.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalCustomers.AMY;
-import static seedu.address.testutil.TypicalCustomers.BOB;
-import static seedu.address.testutil.TypicalCustomers.CARL;
+import static seedu.hms.testutil.TypicalCustomers.AMY;
+import static seedu.hms.testutil.TypicalCustomers.BOB;
+import static seedu.hms.testutil.TypicalCustomers.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.HotelManagementSystemBuilder;
+import seedu.hms.testutil.HotelManagementSystemBuilder;
 
 public class VersionedHotelManagementSystemTest {
 

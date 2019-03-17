@@ -1,14 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.hms.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.Model;
 
 public class ExitCommandTest {
     private Model model = new CustomerManager();

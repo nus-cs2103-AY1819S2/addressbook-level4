@@ -1,4 +1,4 @@
-package seedu.address.ui.testutil;
+package seedu.hms.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.CustomerCardHandle;
 import guitests.guihandles.CustomerListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.customer.Customer;
+import seedu.hms.model.customer.Customer;
 
 /**
  * A set of assertion methods useful for writing GUI tests.

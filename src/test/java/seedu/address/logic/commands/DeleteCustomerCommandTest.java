@@ -1,25 +1,25 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showCustomerAtIndex;
-import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.hms.logic.commands.CommandTestUtil.showCustomerAtIndex;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedHotelManagementSystem;
-import seedu.address.model.customer.Customer;
+import seedu.hms.commons.core.Messages;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
+import seedu.hms.model.customer.Customer;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -81,7 +81,7 @@ public class DeleteCustomerCommandTest {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
 
         Index outOfBoundIndex = INDEX_SECOND_CUSTOMER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of hms book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getCustomerList().size());
 
         DeleteCustomerCommand deleteCustomerCommand = new DeleteCustomerCommand(outOfBoundIndex);
@@ -117,11 +117,11 @@ public class DeleteCustomerCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCustomerList().size() + 1);
         DeleteCustomerCommand deleteCustomerCommand = new DeleteCustomerCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> hms book state not added into model
         assertCommandFailure(deleteCustomerCommand, model, commandHistory,
             Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single hms book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }

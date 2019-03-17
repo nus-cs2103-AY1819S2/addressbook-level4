@@ -1,33 +1,32 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showCustomerAtIndex;
-import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
+import static seedu.hms.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.hms.logic.commands.CommandTestUtil.showCustomerAtIndex;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedHotelManagementSystem;
-import seedu.address.model.customer.Customer;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.EditCustomerDescriptorBuilder;
+import seedu.hms.commons.core.Messages;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.testutil.CustomerBuilder;
+import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -134,7 +133,7 @@ public class EditCustomerCommandTest {
     public void execute_duplicateCustomerFilteredList_failure() {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
 
-        // edit customer in filtered list into a duplicate in address book
+        // edit customer in filtered list into a duplicate in hms book
         Customer customerInList =
             model.getHotelManagementSystem().getCustomerList().get(INDEX_SECOND_CUSTOMER.getZeroBased());
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER,
@@ -157,13 +156,13 @@ public class EditCustomerCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of hms book
      */
     @Test
     public void executeInvalidCustomerIndexFilteredListFailure() {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
         Index outOfBoundIndex = INDEX_SECOND_CUSTOMER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of hms book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getCustomerList().size());
 
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(outOfBoundIndex,
@@ -205,11 +204,11 @@ public class EditCustomerCommandTest {
             new EditCustomerDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> hms book state not added into model
         assertCommandFailure(editCustomerCommand, model, commandHistory,
             Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single hms book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }

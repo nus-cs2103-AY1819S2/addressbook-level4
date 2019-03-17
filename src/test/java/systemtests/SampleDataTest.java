@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,10 +8,10 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.util.SampleDataUtil;
+import seedu.hms.testutil.TestUtil;
 
 public class SampleDataTest extends HotelManagementSystemSystemTest {
     /**

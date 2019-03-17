@@ -1,4 +1,4 @@
-package seedu.address.ui.testutil;
+package seedu.hms.ui.testutil;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;

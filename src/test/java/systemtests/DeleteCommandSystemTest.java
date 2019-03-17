@@ -1,24 +1,24 @@
 package systemtests;
 
 //import static org.junit.Assert.assertTrue;
-//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
-//import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.address.logic.commands.DeleteCustomerCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS;
-//import static seedu.address.testutil.TestUtil.getCustomer;
-//import static seedu.address.testutil.TestUtil.getLastIndex;
-//import static seedu.address.testutil.TestUtil.getMidIndex;
-//import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+//import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
+//import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+//import static seedu.hms.logic.commands.DeleteCustomerCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS;
+//import static seedu.hms.testutil.TestUtil.getCustomer;
+//import static seedu.hms.testutil.TestUtil.getLastIndex;
+//import static seedu.hms.testutil.TestUtil.getMidIndex;
+//import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+//import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 //
 //import org.junit.Test;
 //
-//import seedu.address.commons.core.Messages;
-//import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.DeleteCustomerCommand;
-//import seedu.address.logic.commands.RedoCommand;
-//import seedu.address.logic.commands.UndoCommand;
-//import seedu.address.model.CustomerModel;
-//import seedu.address.model.customer.Customer;
+//import seedu.hms.commons.core.Messages;
+//import seedu.hms.commons.core.index.Index;
+//import seedu.hms.logic.commands.DeleteCustomerCommand;
+//import seedu.hms.logic.commands.RedoCommand;
+//import seedu.hms.logic.commands.UndoCommand;
+//import seedu.hms.model.CustomerModel;
+//import seedu.hms.model.customer.Customer;
 
 public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
     //
@@ -59,13 +59,13 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
     //
     ///* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
     //
-    ///* Case: filtered customer list, delete index within bounds of address book and customer list -> deleted */
+    ///* Case: filtered customer list, delete index within bounds of hms book and customer list -> deleted */
     //showCustomersWithName(KEYWORD_MATCHING_MEIER);
     //Index index = INDEX_FIRST_CUSTOMER;
     //assertTrue(index.getZeroBased() < getModel().getFilteredCustomerList().size());
     //assertCommandSuccess(index);
     //
-    ///* Case: filtered customer list, delete index within bounds of address book but out of bounds of customer list
+    ///* Case: filtered customer list, delete index within bounds of hms book but out of bounds of customer list
     // * -> rejected
     // */
     //showCustomersWithName(KEYWORD_MATCHING_MEIER);
@@ -113,7 +113,7 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
     //}
     //
     ///**
-    //* Removes the {@code Customer} at the specified {@code index} in {@code model}'s address book.
+    //* Removes the {@code Customer} at the specified {@code index} in {@code model}'s hms book.
     //*
     //* @return the removed customer
     //*/

@@ -3,55 +3,55 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ID_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-import static seedu.address.testutil.TypicalCustomers.AMY;
-import static seedu.address.testutil.TypicalCustomers.BOB;
-import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
+import static seedu.hms.testutil.TypicalCustomers.AMY;
+import static seedu.hms.testutil.TypicalCustomers.BOB;
+import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.CustomerUtil;
+import seedu.hms.commons.core.Messages;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.EditCustomerCommand;
+import seedu.hms.logic.commands.RedoCommand;
+import seedu.hms.logic.commands.UndoCommand;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.Email;
+import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.customer.Name;
+import seedu.hms.model.customer.Phone;
+import seedu.hms.model.tag.Tag;
+import seedu.hms.testutil.CustomerBuilder;
+import seedu.hms.testutil.CustomerUtil;
 
 public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTest {
 
@@ -116,7 +116,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered customer list, edit index within bounds of address book and customer list -> edited */
+        /* Case: filtered customer list, edit index within bounds of hms book and customer list -> edited */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_CUSTOMER;
         assertTrue(index.getZeroBased() < getModel().getFilteredCustomerList().size());
@@ -125,7 +125,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
         editedCustomer = new CustomerBuilder(customerToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedCustomer);
 
-        /* Case: filtered customer list, edit index within bounds of address book but out of bounds of customer list
+        /* Case: filtered customer list, edit index within bounds of hms book but out of bounds of customer list
          * -> rejected
          */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
@@ -191,7 +191,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
                 + INVALID_ID_DESC,
             IdentificationNo.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid hms -> rejected */
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
                 + INVALID_ADDRESS_DESC,
             Address.MESSAGE_CONSTRAINTS);
@@ -215,7 +215,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
             + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
-        /* Case: edit a customer with new values same as another customer's values but with different address ->
+        /* Case: edit a customer with new values same as another customer's values but with different hms ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
             + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;

@@ -1,10 +1,10 @@
-package seedu.address.logic.parser;
+package seedu.hms.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,27 +14,27 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCustomerCommand;
-import seedu.address.logic.commands.ClearCustomerCommand;
-import seedu.address.logic.commands.DeleteCustomerCommand;
-import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindNameCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCustomerCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCustomerCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.BookingManager;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.CustomerUtil;
-import seedu.address.testutil.EditCustomerDescriptorBuilder;
+import seedu.hms.logic.commands.AddCustomerCommand;
+import seedu.hms.logic.commands.ClearCustomerCommand;
+import seedu.hms.logic.commands.DeleteCustomerCommand;
+import seedu.hms.logic.commands.EditCustomerCommand;
+import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
+import seedu.hms.logic.commands.ExitCommand;
+import seedu.hms.logic.commands.FindNameCommand;
+import seedu.hms.logic.commands.HelpCommand;
+import seedu.hms.logic.commands.HistoryCommand;
+import seedu.hms.logic.commands.ListCustomerCommand;
+import seedu.hms.logic.commands.RedoCommand;
+import seedu.hms.logic.commands.SelectCustomerCommand;
+import seedu.hms.logic.commands.UndoCommand;
+import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BookingManager;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.testutil.CustomerBuilder;
+import seedu.hms.testutil.CustomerUtil;
+import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 public class HotelManagementSystemParserTest {
     @Rule

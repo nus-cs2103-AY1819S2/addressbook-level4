@@ -4,9 +4,9 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,17 +28,17 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.TestApp;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCustomerCommand;
-import seedu.address.logic.commands.FindNameCommand;
-import seedu.address.logic.commands.ListCustomerCommand;
-import seedu.address.logic.commands.SelectCustomerCommand;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.testutil.TypicalCustomers;
-import seedu.address.ui.BrowserPanel;
-import seedu.address.ui.CommandBox;
+import seedu.hms.TestApp;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.ClearCustomerCommand;
+import seedu.hms.logic.commands.FindNameCommand;
+import seedu.hms.logic.commands.ListCustomerCommand;
+import seedu.hms.logic.commands.SelectCustomerCommand;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.testutil.TypicalCustomers;
+import seedu.hms.ui.BrowserPanel;
+import seedu.hms.ui.CommandBox;
 
 /**
  * A system test class for HotelManagementSystem, which provides access to handles of GUI components and helper methods
@@ -132,7 +132,7 @@ public abstract class HotelManagementSystemSystemTest {
     }
 
     /**
-     * Displays all customers in the address book.
+     * Displays all customers in the hms book.
      */
     protected void showAllCustomers() {
         executeCommand(ListCustomerCommand.COMMAND_WORD);
@@ -158,7 +158,7 @@ public abstract class HotelManagementSystemSystemTest {
     }
 
     /**
-     * Deletes all customers in the address book.
+     * Deletes all customers in the hms book.
      */
     protected void deleteAllCustomers() {
         executeCommand(ClearCustomerCommand.COMMAND_WORD);

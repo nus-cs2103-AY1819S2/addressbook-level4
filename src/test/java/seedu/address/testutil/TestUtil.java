@@ -1,13 +1,13 @@
-package seedu.address.testutil;
+package seedu.hms.testutil;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.customer.Customer;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.customer.Customer;
 
 /**
  * A utility class for test cases.

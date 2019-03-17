@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.hms.ui;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -8,12 +8,12 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.BookingManager;
-import seedu.address.model.CustomerManager;
-import seedu.address.storage.JsonHotelManagementSystemStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
+import seedu.hms.logic.LogicManager;
+import seedu.hms.model.BookingManager;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.storage.JsonHotelManagementSystemStorage;
+import seedu.hms.storage.JsonUserPrefsStorage;
+import seedu.hms.storage.StorageManager;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.

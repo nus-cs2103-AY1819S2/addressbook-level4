@@ -1,12 +1,12 @@
-package seedu.address.ui;
+package seedu.hms.ui;
 
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalCustomers.getTypicalCustomers;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCustomer;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalCustomers;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertCardDisplaysCustomer;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
@@ -17,14 +17,14 @@ import guitests.guihandles.CustomerListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
+import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.Email;
+import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.customer.Name;
+import seedu.hms.model.customer.Phone;
 
-public class CustomerListPanelTest extends GuiUnitTest {
+public class CustomerListPanelTest extends seedu.hms.ui.GuiUnitTest {
     private static final ObservableList<Customer> TYPICAL_CUSTOMERS =
         FXCollections.observableList(getTypicalCustomers());
 

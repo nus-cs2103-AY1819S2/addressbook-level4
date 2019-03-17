@@ -1,15 +1,15 @@
-package seedu.address.logic.parser;
+package seedu.hms.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FindNameCommand;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.logic.commands.FindNameCommand;
+import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 
 public class FindNameCommandParserTest {
 

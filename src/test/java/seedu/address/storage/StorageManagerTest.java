@@ -1,8 +1,8 @@
-package seedu.address.storage;
+package seedu.hms.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import java.nio.file.Path;
 
@@ -11,11 +11,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.ReadOnlyHotelManagementSystem;
-import seedu.address.model.UserPrefs;
-//import seedu.address.model.VersionedHotelManagementSystem;
+import seedu.hms.commons.core.GuiSettings;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.ReadOnlyHotelManagementSystem;
+import seedu.hms.model.UserPrefs;
+//import seedu.hms.model.VersionedHotelManagementSystem;
 
 public class StorageManagerTest {
 

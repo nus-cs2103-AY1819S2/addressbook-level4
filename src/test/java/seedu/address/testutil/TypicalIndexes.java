@@ -1,6 +1,6 @@
-package seedu.address.testutil;
+package seedu.hms.testutil;
 
-import seedu.address.commons.core.index.Index;
+import seedu.hms.commons.core.index.Index;
 
 /**
  * A utility class containing a list of {@code Index} objects to be used in tests.

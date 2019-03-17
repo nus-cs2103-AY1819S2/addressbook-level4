@@ -1,11 +1,11 @@
-package seedu.address.model.tag;
+package seedu.hms.model.tag;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.testutil.Assert;
+import seedu.hms.testutil.Assert;
 
 public class TagTest {
 

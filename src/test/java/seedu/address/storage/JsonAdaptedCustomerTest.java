@@ -1,8 +1,8 @@
-package seedu.address.storage;
+package seedu.hms.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.JsonAdaptedCustomer.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalCustomers.BENSON;
+import static seedu.hms.storage.JsonAdaptedCustomer.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.hms.testutil.TypicalCustomers.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.testutil.Assert;
+import seedu.hms.commons.exceptions.IllegalValueException;
+import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.Email;
+import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.customer.Name;
+import seedu.hms.model.customer.Phone;
+import seedu.hms.testutil.Assert;
 
 public class JsonAdaptedCustomerTest {
     private static final String INVALID_NAME = "R@chel";
@@ -113,7 +113,7 @@ public class JsonAdaptedCustomerTest {
     }
 
     @Test
-    public void toModelTypeInvalidAddressThrowsIllegalValueException() {
+    public void toModelTypeInvalidhmsThrowsIllegalValueException() {
         JsonAdaptedCustomer customer =
             new JsonAdaptedCustomer(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_IDENTIFICATION_NO, INVALID_ADDRESS,
                 VALID_TAGS);
@@ -122,7 +122,7 @@ public class JsonAdaptedCustomerTest {
     }
 
     @Test
-    public void toModelTypeNullAddressThrowsIllegalValueException() {
+    public void toModelTypeNullhmsThrowsIllegalValueException() {
         JsonAdaptedCustomer customer = new JsonAdaptedCustomer(VALID_NAME, VALID_PHONE, VALID_EMAIL,
             VALID_IDENTIFICATION_NO, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());

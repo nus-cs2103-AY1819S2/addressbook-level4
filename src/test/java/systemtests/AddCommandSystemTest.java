@@ -1,53 +1,53 @@
 package systemtests;
 
-//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_ID_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.address.testutil.TypicalCustomers.ALICE;
-//import static seedu.address.testutil.TypicalCustomers.AMY;
-//import static seedu.address.testutil.TypicalCustomers.BOB;
-//import static seedu.address.testutil.TypicalCustomers.CARL;
-//import static seedu.address.testutil.TypicalCustomers.HOON;
-//import static seedu.address.testutil.TypicalCustomers.IDA;
-//import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+//import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+//import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+//import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+//import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
+//import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+//import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+//import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+//import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+//import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+//import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
+//import static seedu.hms.testutil.TypicalCustomers.ALICE;
+//import static seedu.hms.testutil.TypicalCustomers.AMY;
+//import static seedu.hms.testutil.TypicalCustomers.BOB;
+//import static seedu.hms.testutil.TypicalCustomers.CARL;
+//import static seedu.hms.testutil.TypicalCustomers.HOON;
+//import static seedu.hms.testutil.TypicalCustomers.IDA;
+//import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 //
 //import org.junit.Test;
 //
-//import seedu.address.commons.core.Messages;
-//import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.AddCustomerCommand;
+//import seedu.hms.commons.core.Messages;
+//import seedu.hms.commons.core.index.Index;
+//import seedu.hms.logic.commands.AddCustomerCommand;
 
-import seedu.address.model.CustomerModel;
-//import seedu.address.model.customer.Customer;
-//import seedu.address.model.customer.Email;
-//import seedu.address.model.customer.IdentificationNo;
-//import seedu.address.model.customer.Name;
-//import seedu.address.model.customer.Phone;
-//import seedu.address.model.tag.Tag;
-//import seedu.address.testutil.CustomerBuilder;
-//import seedu.address.testutil.CustomerUtil;
+import seedu.hms.model.CustomerModel;
+//import seedu.hms.model.customer.Customer;
+//import seedu.hms.model.customer.Email;
+//import seedu.hms.model.customer.IdentificationNo;
+//import seedu.hms.model.customer.Name;
+//import seedu.hms.model.customer.Phone;
+//import seedu.hms.model.tag.Tag;
+//import seedu.hms.testutil.CustomerBuilder;
+//import seedu.hms.testutil.CustomerUtil;
 
 public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //    @Test
@@ -57,7 +57,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        /* ------------------------ Perform add operations on the shown unfiltered list
     //        ----------------------------- */
     //
-    //        /* Case: add a customer without tags to a non-empty address book, command with leading spaces and trailing
+    //        /* Case: add a customer without tags to a non-empty hms book, command with leading spaces and trailing
     //         * spaces
     //         * -> added
     //         */
@@ -78,14 +78,14 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
     //        assertCommandSuccess(command, model, expectedResultMessage);
     //
-    //        /* Case: add a customer with all fields same as another customer in the address book except name ->
+    //        /* Case: add a customer with all fields same as another customer in the hms book except name ->
     //        added */
     //        toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
     // + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
     //        assertCommandSuccess(command, toAdd);
     //
-    //        /* Case: add a customer with all fields same as another customer in the address book except phone and
+    //        /* Case: add a customer with all fields same as another customer in the hms book except phone and
     //        email
     //         * -> added
     //         */
@@ -93,7 +93,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        command = CustomerUtil.getAddCommand(toAdd);
     //        assertCommandSuccess(command, toAdd);
     //
-    //        /* Case: add to empty address book -> added */
+    //        /* Case: add to empty hms book -> added */
     //        deleteAllCustomers();
     //        assertCommandSuccess(ALICE);
     //
@@ -138,7 +138,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        command = CustomerUtil.getAddCommand(toAdd);
     //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
-    //        /* Case: add a duplicate customer except with different address -> rejected */
+    //        /* Case: add a duplicate customer except with different hms -> rejected */
     //        toAdd = new CustomerBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
     //        command = CustomerUtil.getAddCommand(toAdd);
     //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
@@ -162,7 +162,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
     // AddCustomerCommand.MESSAGE_USAGE));
     //
-    //        /* Case: missing address -> rejected */
+    //        /* Case: missing hms -> rejected */
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
     //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
     // AddCustomerCommand.MESSAGE_USAGE));
@@ -186,7 +186,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
     //
-    //        /* Case: invalid address -> rejected */
+    //        /* Case: invalid hms -> rejected */
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY +
     //        INVALID_ADDRESS_DESC;
     //        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);

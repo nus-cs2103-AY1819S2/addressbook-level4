@@ -70,7 +70,7 @@ public class MainApp extends Application {
         managementModel = initModelManager(userPrefs, lessons);
         quizModel = initQuizModelManager();
 
-        logic = new LogicManager(managementModel, quizModel, storage);
+        logic = new LogicManager(managementModel, quizModel);
 
         ui = new UiManager(logic);
     }

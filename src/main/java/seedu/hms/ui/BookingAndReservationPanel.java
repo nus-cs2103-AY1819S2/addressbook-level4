@@ -1,17 +1,13 @@
-package seedu.address.ui;
+package seedu.hms.ui;
 
-import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.booking.Booking;
+import javafx.scene.layout.StackPane;
+import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.model.booking.Booking;
 
 /**
  * Panel containing the list of bookings.
@@ -19,12 +15,24 @@ import seedu.address.model.booking.Booking;
 public class BookingAndReservationPanel extends UiPart<Region> {
     private static final String FXML = "BookingAndReservationPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BookingAndReservationPanel.class);
+    private BookingListPanel bookingListPanel;
+    private ReservationListPanel reservationListPanel;
 
     @FXML
     private ListView<Booking> bookingListView;
 
-    public BookingAndReservationPanel() {
-        super(FXML);
+    @FXML
+    private StackPane bookingListPanelPlaceholder;
 
+    @FXML
+    private StackPane reservationListPanelPlaceholder;
+
+    public BookingAndReservationPanel(BookingListPanel bookingListPanel, ReservationListPanel reservationListPanel) {
+        super(FXML);
+        this.bookingListPanel = bookingListPanel;
+        this.reservationListPanel = reservationListPanel;
+
+        bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
+        reservationListPanelPlaceholder.getChildren().add(reservationListPanel.getRoot());
     }
 }

@@ -15,6 +15,7 @@ import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.storage.Storage;
 
 /**
  * The main LogicManager of the app.
@@ -25,13 +26,15 @@ public class LogicManager implements Logic {
 
     private final ManagementModel managementModel;
     private final QuizModel quizModel;
+    private final Storage storage;
     private final CommandHistory history;
     private final ManagementModeParser managementModeParser;
     private final QuizModeParser quizModeParser;
 
-    public LogicManager(ManagementModel managementModel, QuizModel quizModel) {
+    public LogicManager(ManagementModel managementModel, QuizModel quizModel, Storage storage) {
         this.managementModel = managementModel;
         this.quizModel = quizModel;
+        this.storage = storage;
         history = new CommandHistory();
         managementModeParser = new ManagementModeParser();
         quizModeParser = new QuizModeParser();
@@ -57,7 +60,6 @@ public class LogicManager implements Logic {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
                 commandResult = quizStartCommand.executeActual(quizModel, history);
             }
-
         } finally {
             history.add(commandText);
         }

@@ -33,7 +33,7 @@ public class TablesFlowPanelHandle extends NodeHandle<Node> {
     }
 
     private Table getTable(int index) {
-        return getRootNode().get;
+        return getRootNode().getItems(); // TODO: figure out how to get tables from rootnode.
     }
 
     /**

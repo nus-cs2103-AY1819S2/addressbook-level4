@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -48,7 +49,7 @@ public class AddTableCommandTest {
     }
 
     @Test
-    public void execute_tableAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_tableAcceptedByModel_addSuccessful() {
         ModelStubAcceptingTableAdded modelStub = new ModelStubAcceptingTableAdded();
         Table validTable = new TableBuilder().build();
         List<TableStatus> tableStatusList = new ArrayList<>();
@@ -60,6 +61,19 @@ public class AddTableCommandTest {
         assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, validTable), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTable), modelStub.tableAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateOrderItem_throwsCommandException() throws Exception {
+        List<TableStatus> tableStatusList = new ArrayList<>();
+        tableStatusList.add(new TableStatus("0/4"));
+        Table validTable = new TableBuilder().build();
+        AddTableCommand addCommand = new AddTableCommand(tableStatusList);
+        ModelStub modelStub = new ModelStubWithTable(validTable);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddToOrderCommand.MESSAGE_DUPLICATE_ORDER_ITEM);
+        addCommand.execute(Mode.TABLE_MODE, modelStub, commandHistory);
     }
 
     @Test

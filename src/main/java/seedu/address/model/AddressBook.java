@@ -126,13 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             allPersonsStorage.remove(key);
         }
 
-        if(filterExist && !sortingExist) {
-            clearFilter();
-            filterExist = false;
-        }
-
         persons.remove(key);
-
         indicateModified();
     }
 

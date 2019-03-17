@@ -14,14 +14,11 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.player.Fleet;
 
 /**
  * Parses input arguments and creates a new PutShipCommand object
  */
 public class PutShipCommandParser implements Parser<PutShipCommand> {
-
-    private static Fleet fleet = new Fleet();
 
     /**
      * Parses the given {@code String} of arguments in the context of the PutShipCommand
@@ -45,12 +42,7 @@ public class PutShipCommandParser implements Parser<PutShipCommand> {
         // Default 1 by 1 battleship
         Battleship battleship = ParserUtil.parseBattleship(name);
 
-        try {
-            fleet.deployBattleship(battleship);
-            return new PutShipCommand(coordinates, battleship, orientation);
-        } catch (Exception e) {
-            throw new ParseException(e.getMessage());
-        }
+        return new PutShipCommand(coordinates, battleship, orientation);
     }
 
     /**

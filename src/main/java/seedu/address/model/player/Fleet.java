@@ -57,7 +57,7 @@ public class Fleet {
     /**
      * Deploys one battleship. Checks class of battleship.
      */
-    public void deployBattleship(Battleship battleship) throws Exception {
+    public void deployBattleship(Battleship battleship) {
         if (battleship instanceof DestroyerBattleship) {
             deployDestroyerBattleships(1);
         } else if (battleship instanceof CruiserBattleship) {
@@ -68,47 +68,48 @@ public class Fleet {
     }
 
     /**
+     * Checks if there are enough battleships. Returns true or false.
+     * @return whether there are enough battleships.
+     */
+    public boolean isEnoughBattleship(Battleship battleship, int numBattleship) {
+        if (battleship instanceof DestroyerBattleship) {
+            return numBattleship <= this.getNumDestroyer();
+        } else if (battleship instanceof CruiserBattleship) {
+            return numBattleship <= this.getNumCruiser();
+        } else if (battleship instanceof AircraftCarrierBattleship) {
+            return numBattleship <= this.getNumAircraftCarrier();
+        }
+
+        return false;
+    }
+
+    /**
      * Deploys a destroyer.
      */
-    public void deployDestroyerBattleships(int number)
-            throws Exception {
-        if (number > this.numDestroyer) {
-            throw new Exception("Not enough destroyers.");
-        } else {
-            for (int i = 0; i < number; i++) {
-                this.numDestroyer--;
-                this.deployedFleet.add(new DestroyerBattleship());
-            }
+    public void deployDestroyerBattleships(int number) {
+        for (int i = 0; i < number; i++) {
+            this.numDestroyer--;
+            this.deployedFleet.add(new DestroyerBattleship());
         }
     }
 
     /**
      * Deploys a cruiser.
      */
-    public void deployCruiserBattleships(int number)
-            throws Exception {
-        if (number > this.numCruiser) {
-            throw new Exception("Not enough cruisers.");
-        } else {
-            for (int i = 0; i < number; i++) {
-                this.numCruiser--;
-                this.deployedFleet.add(new CruiserBattleship());
-            }
+    public void deployCruiserBattleships(int number) {
+        for (int i = 0; i < number; i++) {
+            this.numCruiser--;
+            this.deployedFleet.add(new CruiserBattleship());
         }
     }
 
     /**
      * Deploys an aircraft carrier.
      */
-    public void deployAircraftCarrierBattleships(int number)
-            throws Exception {
-        if (number > this.numAircraftCarrier) {
-            throw new Exception("Not enough aircraft carriers.");
-        } else {
-            for (int i = 0; i < number; i++) {
-                this.numAircraftCarrier--;
-                this.deployedFleet.add(new AircraftCarrierBattleship());
-            }
+    public void deployAircraftCarrierBattleships(int number) {
+        for (int i = 0; i < number; i++) {
+            this.numAircraftCarrier--;
+            this.deployedFleet.add(new AircraftCarrierBattleship());
         }
     }
 

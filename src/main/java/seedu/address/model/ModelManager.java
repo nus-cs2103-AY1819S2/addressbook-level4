@@ -19,8 +19,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
+import seedu.address.model.player.Fleet;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,6 +35,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Cell> filteredCells;
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
+
+    private Fleet fleet;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -47,6 +51,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCells = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCells.addListener(this::ensureSelectedPersonIsValid);
+
+        // Create new fleet
+        this.fleet = new Fleet();
     }
 
     public ModelManager() {
@@ -166,6 +173,20 @@ public class ModelManager implements Model {
     public int getMapSize() {
         return versionedAddressBook.getMapSize();
     }
+
+    //=========== Battleship ===============================================================================
+
+    @Override
+    public void deployBattleship(Battleship battleship) {
+        fleet.deployBattleship(battleship);
+    }
+
+    @Override
+    public boolean isEnoughBattleships(Battleship battleship, int numBattleship) {
+        return fleet.isEnoughBattleship(battleship, numBattleship);
+    }
+
+
     //=========== Filtered Cell List Accessors =============================================================
 
     /**

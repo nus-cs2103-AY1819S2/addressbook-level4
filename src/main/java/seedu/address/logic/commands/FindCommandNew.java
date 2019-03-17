@@ -9,9 +9,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Module;
-import seedu.address.model.module.Semester;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Semester;
 
 /**
  * Finds and lists module(s) in module plan matching all given module code, module title,
@@ -24,19 +24,19 @@ public class FindCommandNew extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds and lists module(s) based on "
             + "module code, module title, semester taken or grade obtained (case-insensitive).\n"
             + "Code and title can be entered partially, but semester and grade must be exact.\n"
-            + "Parameters: [c/MODULE_CODE] [t/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]\n"
-            + "Example: " + COMMAND_WORD + " s/y1s1 n/cs g/A";
+            + "Parameters: [c/MODULE_CODE] [n/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]\n"
+            + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
 
-    private final Predicate<Module> predicate;
+    private final Predicate<Person> predicate;
 
-    public FindCommandNew(Predicate<Module> predicate) {
+    public FindCommandNew(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredModuleList(predicate);
+        model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
@@ -116,7 +116,7 @@ public class FindCommandNew extends Command {
 
             FindModuleDescriptor other = (FindModuleDescriptor) object;
             return (code.equals(other.code) && title.equals(other.title)
-                        && semester.equals(other.semester) && grade.equals(other.grade));
+                    && semester.equals(other.semester) && grade.equals(other.grade));
         }
     }
 }

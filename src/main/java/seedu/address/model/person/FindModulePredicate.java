@@ -1,17 +1,15 @@
-package seedu.address.model.module;
+package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
-import seedu.address.model.moduleinfo.ModuleInfo;
 
 /**
  * Tests that a module matches all of the description given.
  */
-public class FindModulePredicate implements Predicate<Module> {
+public class FindModulePredicate implements Predicate<Person> {
     private final FindModuleDescriptor findModuleDescriptor;
 
     public FindModulePredicate(FindModuleDescriptor findModuleDescriptor) {
@@ -20,8 +18,8 @@ public class FindModulePredicate implements Predicate<Module> {
     }
 
     @Override
-    public boolean test(Module module) {
-        requireNonNull(module);
+    public boolean test(Person module) {
+        /*requireNonNull(module);
         ModuleInfo moduleInfo = module.getModuleInfo();
 
         Optional<String> code = findModuleDescriptor.getCode();
@@ -30,22 +28,21 @@ public class FindModulePredicate implements Predicate<Module> {
         Optional<Grade> grade = findModuleDescriptor.getGrade();
 
         if (code.isPresent()
-                && !(moduleInfo.getModuleInfoCode().toString().contains(code.get()))) {
+                && !moduleInfo.getModuleInfoCode().toString().contains(code.get())) {
             return false;
         }
         if (title.isPresent()
-                && !(moduleInfo.getModuleInfoTitle().toString().contains(title.get()))) {
+                && !moduleInfo.getModuleInfoTitle().toString().contains(title.get())) {
             return false;
         }
         if (semester.isPresent()
-                && !(module.getTakenSem().equals(semester.get()))) {
+                && !module.getSemester().equals(semester.get())) {
             return false;
         }
-        if (grade.isPresent()) {
-            if (!(module.isTaken() && module.getObtainedGrade().get().equals(grade.get()))) {
-                return false;
-            }
-        }
+        if (grade.isPresent()
+                && !module.getGradeRange().isWithinRange(grade.get())) {
+            return false;
+        }*/
         return true;
     }
 

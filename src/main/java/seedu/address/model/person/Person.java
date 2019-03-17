@@ -46,6 +46,10 @@ public class Person {
         return semester;
     }
 
+    GradeRange getGradeRange() {
+        return gradeRange;
+    }
+
     public Grade getExpectedMinGrade() {
         return gradeRange.getMin();
     }

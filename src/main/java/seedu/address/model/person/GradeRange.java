@@ -30,6 +30,16 @@ public class GradeRange {
     }
 
     /**
+     * Checks if the given grade is within this grade range.
+     * @param grade The grade to be checked.
+     * @return true if the given grade is within this grade range, false otherwise
+     */
+    public boolean isWithinRange(Grade grade) {
+        return grade.compareTo(min) >= 0
+                && grade.compareTo(max) <= 0;
+    }
+
+    /**
      * Returns true if both grade ranges have the same data fields.
      */
     @Override

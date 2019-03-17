@@ -264,13 +264,16 @@ View all the statistics for the January 2019. +
 * `stats finances 0119 0219` +
 View the financial statistics from January 2019 to February 2019. +
 
-=== Administration - locking the application: `lock`
-Locks the application, requires the user to login again with the password +
-Format: `lock`
+=== Administration - setting consultation fee: `setconsultfee`
+Sets the consultation fee to the specified amount. +
+Format: `setconsultfee [AMOUNT]`
 
-=== Administration - resetting password: `resetpass`
-Resets the password, either from within the application, or lock screen. Authenticated with security question. +
-Format: `RESETPASS`
+Examples: +
+
+* `setconsultfee 30` +
+Sets the consultation fee to $30.00. +
+* `setconsultfee 32.50` +
+Sets the consultation fee to $32.50. +
 
 === Administration - generate medical certificate: [coming in V2.0]
 

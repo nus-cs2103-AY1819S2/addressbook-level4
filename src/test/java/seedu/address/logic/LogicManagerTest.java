@@ -21,8 +21,8 @@ import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Lessons;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.modelmanager.managementmodel.ManagementModel;
-import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
+import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quizmodel.Quiz;
 import seedu.address.model.modelmanager.quizmodel.QuizCard;
 import seedu.address.model.modelmanager.quizmodel.QuizModel;
@@ -160,7 +160,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal managementmodel manager data are same as those in the {@code expectedManagementModel} <br>
+     *      - the internal management manager data are same as those in the {@code expectedManagementModel} <br>
      *      - {@code expectedManagementModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
@@ -181,7 +181,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal managementmodel manager data are same as those in the {@code expectedModel} <br>
+     *      - the internal management manager data are same as those in the {@code expectedModel} <br>
      *      - {@code expectedModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,

@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.managementmodel;
+package seedu.address.model.modelmanager.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -14,7 +14,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
 
 /**
- * Represents the in-memory managementmodel of BrainTrain data.
+ * Represents the in-memory management of BrainTrain data.
  */
 public class ManagementModelManager implements ManagementModel {
     private static final Logger logger = LogsCenter.getLogger(ManagementModelManager.class);

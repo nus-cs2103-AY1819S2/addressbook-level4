@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.managementmodel;
+package seedu.address.model.modelmanager.management;
 
 import java.util.List;
 

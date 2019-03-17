@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import seedu.address.logic.LogicManager;
-import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quizmodel.QuizModelManager;
 import seedu.address.storage.JsonUserPrefsStorage;
 

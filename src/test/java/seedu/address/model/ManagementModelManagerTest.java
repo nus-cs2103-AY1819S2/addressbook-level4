@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.exceptions.MissingCoreException;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 
 public class ManagementModelManagerTest {
     @Rule

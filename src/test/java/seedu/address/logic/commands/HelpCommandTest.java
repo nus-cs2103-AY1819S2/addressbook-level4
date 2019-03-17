@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.management.HelpCommand;
-import seedu.address.model.modelmanager.managementmodel.ManagementModel;
-import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
+import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 
 public class HelpCommandTest {
     private ManagementModel managementModel = new ManagementModelManager();

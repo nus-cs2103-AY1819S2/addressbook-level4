@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
@@ -25,6 +26,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PatientBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
@@ -33,7 +35,7 @@ import seedu.address.testutil.HealthWorkerBuilder;
 public class EditHealthWorkerCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-        getTypicalRequestBook(), new UserPrefs());
+        getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -46,8 +48,8 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), getTypicalRequestBook(),
-            new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
+            getTypicalRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(model.getFilteredHealthWorkerList().get(0), editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -71,8 +73,8 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), getTypicalRequestBook(),
-            new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
+            getTypicalRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(lastHealthWorker, editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -89,8 +91,8 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new HealthWorkerBook(model.getHealthWorkerBook()), getTypicalRequestBook(),
-            new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
+            getTypicalRequestBook(), new UserPrefs());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editHealthWorkerCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -109,8 +111,8 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new HealthWorkerBook(model.getHealthWorkerBook()), getTypicalRequestBook(),
-            new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
+            getTypicalRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(model.getFilteredHealthWorkerList().get(0), editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -157,8 +159,8 @@ public class EditHealthWorkerCommandTest {
         EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(INDEX_FIRST, descriptor);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new HealthWorkerBook(model.getHealthWorkerBook()), getTypicalRequestBook(),
-            new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
+            getTypicalRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(toEdit, editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -192,8 +194,8 @@ public class EditHealthWorkerCommandTest {
         EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder(editedHealthWorker).build();
         EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(INDEX_FIRST, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new HealthWorkerBook(model.getHealthWorkerBook()), getTypicalRequestBook(),
-            new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
+            getTypicalRequestBook(), new UserPrefs());
 
         HealthWorker toEdit = model.getFilteredHealthWorkerList().get(INDEX_FIRST.getZeroBased());
         expectedModel.setHealthWorker(toEdit, editedHealthWorker);

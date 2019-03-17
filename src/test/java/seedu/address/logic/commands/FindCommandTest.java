@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorker
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
@@ -28,9 +29,9 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-        getTypicalRequestBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(),
-        getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+        getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+        getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 
 /**
@@ -19,6 +20,11 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<HealthWorker> PREDICATE_SHOW_ALL_HEALTHWORKERS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Request> PREDICATE_SHOW_ALL_REQUESTS = unused -> true;
@@ -63,6 +69,11 @@ public interface Model {
 
     /** Returns the HealthWorkerBook */
     ReadOnlyHealthWorkerBook getHealthWorkerBook();
+
+    /**
+     * Returns the PatientBook
+     */
+    ReadOnlyPatientBook getPatientBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -125,6 +136,30 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate);
+
+    // =======================================================================
+
+    // ============== Added methods for AddPatientCommand ===============
+    // @author: Rohan
+
+    /**
+     * Returns true if a person with the same identity as {@code patient}
+     * exists in the address book.
+     */
+    boolean hasPatient(Patient patient);
+
+    /**
+     * Adds the given Patient.
+     * {@code patient} must not already exist in the address book.
+     */
+    void addPatient(Patient patient);
+
+    /**
+     * Updates the filter of the filtered Patient list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPatientList(Predicate<Patient> predicate);
 
     // =======================================================================
 

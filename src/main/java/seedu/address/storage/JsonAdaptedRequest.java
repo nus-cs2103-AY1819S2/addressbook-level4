@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -59,9 +58,6 @@ class JsonAdaptedRequest {
     public JsonAdaptedRequest(Request source) {
         this.id = source.getId();
         this.patient = new JsonAdaptedPerson(source.getPatient());
-        this.conditions.addAll(source.getConditions().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
         Optional<HealthWorker> hw = source.getHealthStaff();
@@ -121,11 +117,7 @@ class JsonAdaptedRequest {
 
         final Set<Tag> modelConditions = new HashSet<>(requestConditions);
 
-        if (modelHealthStaff == null) {
-            return new Request(modelId, modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
-        }
-        return new Request(modelId, modelPatient, modelHealthStaff,
-                modelrequestDate, modelConditions, modelrequestStatus);
+        return null;
     }
 
 }

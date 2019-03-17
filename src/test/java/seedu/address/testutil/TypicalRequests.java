@@ -6,6 +6,8 @@ import java.util.List;
 
 import seedu.address.model.RequestBook;
 import seedu.address.model.request.Request;
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
 
 /**
  * A utility class containing {@code Request} objects to be used in tests.
@@ -19,7 +21,7 @@ public class TypicalRequests {
     public static final Request ALICE_REQUEST = new RequestBuilder()
             .withId(ALICE_ID)
             .withPatient(TypicalPatients.ALICE)
-            .withConditions("Physiotherapy")
+        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Physiotherapy"))))
             .withDate("01-01-2019 10:00:00")
             .withHealthStaff(TypicalHealthWorkers.ANDY)
             .withStatus("PENDING")
@@ -28,7 +30,7 @@ public class TypicalRequests {
     public static final Request BENSON_REQUEST = new RequestBuilder()
             .withId(BENSON_ID)
             .withPatient(TypicalPatients.BENSON)
-            .withConditions("Palliative")
+        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.BETTY)
             .withStatus("PENDING")
@@ -37,7 +39,7 @@ public class TypicalRequests {
     public static final Request CARL_REQUEST = new RequestBuilder()
             .withId(CARL_ID)
             .withPatient(TypicalPatients.CARL)
-            .withConditions("Palliative")
+        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.CARLIE)
             .withStatus("PENDING")
@@ -46,13 +48,15 @@ public class TypicalRequests {
     public static final Request DANIEL_REQUEST = new RequestBuilder()
             .withId(DANIEL_ID)
             .withPatient(TypicalPatients.DANIEL)
-            .withConditions("Palliative")
+        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.PANIEL)
             .withStatus("COMPLETED")
             .build();
 
+    /*
     // To be added manually
+    // David pls review this, i do not know the purpose of Hoon and Ida -Rohan
 
     public static final Request HOON_REQUEST = new RequestBuilder()
             .withId("asdfbtyuilkj")
@@ -71,6 +75,7 @@ public class TypicalRequests {
             .withHealthStaff(TypicalHealthWorkers.IVAN)
             .withStatus("COMPLETED")
             .build();
+    */
 
     /**
      * Returns an {@code RequestBook} with all the typical persons.

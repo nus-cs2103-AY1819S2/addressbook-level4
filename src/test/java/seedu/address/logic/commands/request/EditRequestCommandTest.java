@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
@@ -19,7 +20,8 @@ import seedu.address.testutil.RequestBuilder;
 
 class EditRequestCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(),
-        getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+        getTypicalHealthWorkerBook(), getTypicalPatientBook(), getTypicalRequestBook(),
+        new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private final String defaultAddress = "123, Jurong West Ave 6, #08-111";
 
@@ -35,7 +37,8 @@ class EditRequestCommandTest {
             editedRequest);
 
         Model expectedModel = new ModelManager(model.getAddressBook(),
-            model.getHealthWorkerBook(), model.getRequestBook(), new UserPrefs());
+            model.getHealthWorkerBook(), model.getPatientBook(), model.getRequestBook(),
+            new UserPrefs());
         expectedModel.updateRequest(model.getFilteredRequestList().get(0), editedRequest);
         expectedModel.commitRequestBook();
 

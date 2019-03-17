@@ -1,53 +1,60 @@
 package systemtests;
 
-import seedu.hms.logic.commands.ClearCustomerCommand;
-import seedu.hms.model.CustomerManager;
-import seedu.hms.model.CustomerModel;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 
-public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
+import org.junit.Test;
 
-    //    @Test
-    //    public void clear() {
-    //        final CustomerModel defaultModel = getModel();
-    //
-    //        /* Case: clear non-empty hms book, command with leading spaces and trailing alphanumeric characters
-    //        and
-    //         * spaces -> cleared
-    //         */
-    //        assertCommandSuccess("   " + ClearCustomerCommand.COMMAND_WORD + " ab12   ");
-    //        assertSelectedCardUnchanged();
-    //
-    //        /* Case: undo clearing hms book -> original hms book restored */
-    //        String command = UndoCommand.COMMAND_WORD;
-    //        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-    //        assertCommandSuccess(command, expectedResultMessage, defaultModel);
-    //        assertSelectedCardUnchanged();
-    //
-    //        /* Case: redo clearing hms book -> cleared */
-    //        command = RedoCommand.COMMAND_WORD;
-    //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-    //        assertCommandSuccess(command, expectedResultMessage, new CustomerManager());
-    //        assertSelectedCardUnchanged();
-    //
-    //        /* Case: selects first card in customer list and clears hms book -> cleared and no card selected */
-    //        executeCommand(UndoCommand.COMMAND_WORD); // restores the original hms book
-    //        selectCustomer(Index.fromOneBased(1));
-    //        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
-    //        assertSelectedCardDeselected();
-    //
-    //        /* Case: filters the customer list before clearing -> entire hms book cleared */
-    //        executeCommand(UndoCommand.COMMAND_WORD); // restores the original hms book
-    //        showCustomersWithName(KEYWORD_MATCHING_MEIER);
-    //        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
-    //        assertSelectedCardUnchanged();
-    //
-    //        /* Case: clear empty hms book -> cleared */
-    //        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
-    //        assertSelectedCardUnchanged();
-    //
-    //        /* Case: mixed case command word -> rejected */
-    //        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
-    //    }
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ClearCustomerCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.CustomerManager;
+import seedu.address.model.CustomerModel;
+
+public class ClearCommandSystemTest extends AddressBookSystemTest {
+    @Test
+    public void clear() {
+        final CustomerModel defaultModel = getModel();
+
+        /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters
+        and
+         * spaces -> cleared
+         */
+        assertCommandSuccess("   " + ClearCustomerCommand.COMMAND_WORD + " ab12   ");
+        assertSelectedCardUnchanged();
+
+        /* Case: undo clearing address book -> original address book restored */
+        String command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, expectedResultMessage, defaultModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: redo clearing address book -> cleared */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, expectedResultMessage, new CustomerManager());
+        assertSelectedCardUnchanged();
+
+        /* Case: selects first card in customer list and clears address book -> cleared and no card selected */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        selectCustomer(Index.fromOneBased(1));
+        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
+        assertSelectedCardDeselected();
+
+        /* Case: filters the customer list before clearing -> entire address book cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        showCustomersWithName(KEYWORD_MATCHING_MEIER);
+        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
+        assertSelectedCardUnchanged();
+
+        /* Case: clear empty address book -> cleared */
+        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
+        assertSelectedCardUnchanged();
+
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
+    }
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display

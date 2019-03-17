@@ -117,7 +117,7 @@ public class ModelManager implements Model {
 
 
 
-        //iniQuickDocs();
+        iniQuickDocs();
     }
 
     public ModelManager() {
@@ -129,17 +129,17 @@ public class ModelManager implements Model {
      */
     public void iniQuickDocs() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        for (Patient patient : samplePatients) {
-            addPatient(patient);
-        }
+        //for (Patient patient : samplePatients) {
+        //    addPatient(patient);
+        //}
         Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        for (Appointment app : sampleAppointments) {
-            addApp(app);
-        }
+        //for (Appointment app : sampleAppointments) {
+        //    addApp(app);
+        //}
         Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
-        for (Reminder rem : sampleReminders) {
-            addRem(rem);
-        }
+        //for (Reminder rem : sampleReminders) {
+        //    addRem(rem);
+        //}
     }
 
     /**

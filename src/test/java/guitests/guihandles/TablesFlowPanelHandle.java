@@ -6,6 +6,7 @@ import java.util.Set;
 import guitests.GuiRobot;
 import javafx.concurrent.Worker;
 import javafx.scene.Node;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seedu.address.model.table.Table;
@@ -13,13 +14,13 @@ import seedu.address.model.table.Table;
 /**
  * A handler for the {@code BrowserPanel} of the UI.
  */
-public class TablesFlowPanelHandle extends NodeHandle<Node> {
+public class TablesFlowPanelHandle extends NodeHandle<FlowPane> {
 
     public static final String TABLES_FLOW_PANEL_ID = "#tablesFlowPanel";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    public TablesFlowPanelHandle(Node tablesPanelNode) {
+    public TablesFlowPanelHandle(FlowPane tablesPanelNode) {
         super(tablesPanelNode);
     }
 
@@ -32,8 +33,8 @@ public class TablesFlowPanelHandle extends NodeHandle<Node> {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    private Table getTable(int index) {
-        return getRootNode().getItems(); // TODO: figure out how to get tables from rootnode.
+    private Table getTable(int index) {// TODO: figure out how to get tables from rootnode.
+        return getRootNode().getChildren().get(index);
     }
 
     /**

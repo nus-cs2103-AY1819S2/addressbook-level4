@@ -10,6 +10,7 @@ import seedu.hms.logic.commands.AddBookingCommand;
 import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.commands.ClearCustomerCommand;
 import seedu.hms.logic.commands.Command;
+import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
 import seedu.hms.logic.commands.EditBookingCommand;
 import seedu.hms.logic.commands.EditCustomerCommand;
@@ -18,6 +19,7 @@ import seedu.hms.logic.commands.FindNameCommand;
 import seedu.hms.logic.commands.GenerateBillCommand;
 import seedu.hms.logic.commands.HelpCommand;
 import seedu.hms.logic.commands.HistoryCommand;
+import seedu.hms.logic.commands.ListBookingCommand;
 import seedu.hms.logic.commands.ListCustomerCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.SelectCustomerCommand;
@@ -78,6 +80,10 @@ public class HotelManagementSystemParser {
         case DeleteCustomerCommand.COMMAND_ALIAS:
             return new DeleteCustomerCommandParser().parse(arguments);
 
+        case DeleteBookingCommand.COMMAND_WORD:
+        case DeleteBookingCommand.COMMAND_ALIAS:
+            return new DeleteBookingCommandParser().parse(arguments);
+
         case ClearCustomerCommand.COMMAND_WORD:
         case ClearCustomerCommand.COMMAND_ALIAS:
             return new ClearCustomerCommand();
@@ -94,6 +100,10 @@ public class HotelManagementSystemParser {
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:
             return new ListCustomerCommand();
+
+        case ListBookingCommand.COMMAND_WORD:
+        case ListBookingCommand.COMMAND_ALIAS:
+            return new ListBookingCommand();
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:

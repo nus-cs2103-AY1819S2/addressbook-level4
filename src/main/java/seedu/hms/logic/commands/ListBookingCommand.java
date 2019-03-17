@@ -1,0 +1,28 @@
+package seedu.hms.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
+import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
+
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.BookingModel;
+import seedu.hms.model.CustomerModel;
+
+/**
+ * Lists all customers in the hms book to the user.
+ */
+public class ListBookingCommand extends BookingCommand {
+
+    public static final String COMMAND_ALIAS = "lb";
+    public static final String COMMAND_WORD = "listbookings";
+
+    public static final String MESSAGE_SUCCESS = "Listed all bookings";
+
+
+    @Override
+    public CommandResult execute(BookingModel model, CommandHistory history) {
+        requireNonNull(model);
+        model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+}

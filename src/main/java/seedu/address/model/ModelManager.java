@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 
 /**
@@ -28,12 +29,14 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
+    private final VersionedPatientBook versionedPatientBook;
 
     private final VersionedRequestBook versionedRequestBook;
     private final UserPrefs userPrefs;
 
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<HealthWorker> filteredHealthWorkers;
+    private final FilteredList<Patient> filteredPatients;
     // TODO make the relevant changes to the model manager
     // TODO get versionedAddressBook tests to pass
     private final FilteredList<Request> filteredRequests;
@@ -45,8 +48,8 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
-                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyRequestBook requestBook,
-                        ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyPatientBook patientBook,
+                        ReadOnlyRequestBook requestBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -54,19 +57,22 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedHealthWorkerBook = new VersionedHealthWorkerBook(healthWorkerBook);
+        versionedPatientBook = new VersionedPatientBook(patientBook);
         versionedRequestBook = new VersionedRequestBook(requestBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
+        filteredPatients = new FilteredList<>(versionedPatientBook.getPatientList());
         filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        // TODO: listener for healthworker
+        // TODO: listener for healthworker, patient
         filteredHealthWorkers.addListener(this::ensureSelectedPersonIsValid);
+        filteredPatients.addListener(this::ensureSelectedPersonIsValid);
         filteredRequests.addListener(this::ensureSelectedRequestIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new HealthWorkerBook(), new RequestBook(), new UserPrefs());
+        this(new AddressBook(), new HealthWorkerBook(), new PatientBook(), new RequestBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -181,6 +187,32 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
         return this.versionedHealthWorkerBook;
+    }
+
+    // ======================== Implemented methods for Patient through Model Interface =========================
+    // @author: Rohan
+
+    @Override
+    public boolean hasPatient(Patient patient) {
+        requireNonNull(patient);
+        return this.versionedPatientBook.hasPatient(patient);
+    }
+
+    @Override
+    public void addPatient(Patient patient) {
+        this.versionedPatientBook.addPatient(patient);
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+    }
+
+    @Override
+    public void updateFilteredPatientList(Predicate<Patient> predicate) {
+        requireNonNull(predicate);
+        this.filteredPatients.setPredicate(predicate);
+    }
+
+    @Override
+    public ReadOnlyPatientBook getPatientBook() {
+        return this.versionedPatientBook;
     }
 
     //=========== Filtered Person List Accessors =============================================================

@@ -12,8 +12,8 @@ import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.quizcommand.QuizStartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.quizcommand.QuizStartCommand;
 
 
 public class CommandBoxTest extends GuiUnitTest {

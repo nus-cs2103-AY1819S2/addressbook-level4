@@ -24,7 +24,7 @@ public class DeleteBookingCommand extends BookingCommand {
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_CUSTOMER_SUCCESS = "Deleted Customer: %1$s";
+    public static final String MESSAGE_DELETE_BOOKING_SUCCESS = "Deleted Booking: %1$s";
 
     private final Index targetIndex;
 
@@ -38,13 +38,13 @@ public class DeleteBookingCommand extends BookingCommand {
         List<Booking> lastShownList = model.getFilteredBookingList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
         }
 
         Booking bookingToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBooking(targetIndex.getZeroBased());
         model.commitHotelManagementSystem();
-        return new CommandResult(String.format(MESSAGE_DELETE_CUSTOMER_SUCCESS, bookingToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_BOOKING_SUCCESS, bookingToDelete));
     }
 
     @Override

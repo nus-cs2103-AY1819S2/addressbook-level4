@@ -33,6 +33,8 @@ public class PlaceCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label countryCode;
+    @FXML
     private Label rating;
     @FXML
     private Label address;
@@ -46,6 +48,7 @@ public class PlaceCard extends UiPart<Region> {
         this.place = place;
         id.setText(displayedIndex + ". ");
         name.setText(place.getName().fullName);
+        countryCode.setText(place.getCountryCode().code);
         rating.setText(place.getRating().value);
         address.setText(place.getAddress().value);
         description.setText(place.getDescription().value);

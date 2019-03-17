@@ -18,6 +18,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.place.Address;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Place;
@@ -80,10 +81,11 @@ public class PlaceListPanelTest extends GuiUnitTest {
         ObservableList<Place> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < placeCount; i++) {
             Name name = new Name(i + "a");
-            Rating phone = new Rating("1");
-            Description description = new Description("a@aa");
+            CountryCode countryCode = new CountryCode("SGP");
+            Rating rating = new Rating("1");
+            Description description = new Description("aaa");
             Address address = new Address("a");
-            Place place = new Place(name, phone, description, address, Collections.emptySet());
+            Place place = new Place(name, countryCode , rating, description, address, Collections.emptySet());
             backingList.add(place);
         }
         return backingList;

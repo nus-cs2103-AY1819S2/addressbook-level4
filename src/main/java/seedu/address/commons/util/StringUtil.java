@@ -96,6 +96,35 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code countryCodeList} contains the {@code countryCode}.
+     *   Ignores case, but a full word match is required.
+     *   Correct country code is also required.
+     *   <br>examples:<pre>
+     *       containsCountryCode("SGp usa", "abc") == true
+     *       containsCountryCode("SGp usa", "USA") == true
+     *       containsCountryCode("SGp usa", "sg") == false // not a full word match
+     *       containsCountryCode("SGp usa", "sga") == false // not a valid code
+     *       </pre>
+     * @param countryCodeList cannot be null
+     * @param countryCode cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsCountryCode(String countryCodeList, String countryCode) {
+        requireNonNull(countryCodeList);
+        requireNonNull(countryCode);
+
+        String preppedCountryCode = countryCode.trim();
+        checkArgument(!preppedCountryCode.isEmpty(), "Country Code parameter cannot be empty");
+        checkArgument(preppedCountryCode.split("\\s+").length == 1,
+            "Country Code parameter should be a single word");
+
+        String preppedCountryCodeList = countryCodeList;
+        String[] countryCodesInPreppedCountryCodeList = preppedCountryCodeList.split("\\s+");
+
+        return Arrays.stream(countryCodesInPreppedCountryCodeList)
+            .anyMatch(preppedCountryCode::equalsIgnoreCase);
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

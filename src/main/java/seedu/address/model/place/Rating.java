@@ -27,7 +27,8 @@ public class Rating {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid rating
+     * .
      */
     public static boolean isValidRating(String test) {
         return test.matches(VALIDATION_REGEX);

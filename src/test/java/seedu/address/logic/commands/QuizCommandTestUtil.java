@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.modelmanager.quizmodel.QuizModel;
+import seedu.address.model.modelmanager.quiz.QuizModel;
 
 /**
  * Contains helper methods for testing commands.

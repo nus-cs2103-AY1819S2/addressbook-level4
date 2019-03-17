@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.quizmodel;
+package seedu.address.model.modelmanager.quiz;
 
 import java.util.List;
 

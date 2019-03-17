@@ -14,10 +14,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
-import seedu.address.model.modelmanager.quizmodel.Quiz;
-import seedu.address.model.modelmanager.quizmodel.QuizCard;
-import seedu.address.model.modelmanager.quizmodel.QuizModel;
-import seedu.address.model.modelmanager.quizmodel.QuizModelManager;
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.quiz.QuizModelManager;
 
 public class QuizAnswerCommandTest {
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));

@@ -19,7 +19,7 @@ import javafx.stage.WindowEvent;
 
 import seedu.address.logic.LogicManager;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
-import seedu.address.model.modelmanager.quizmodel.QuizModelManager;
+import seedu.address.model.modelmanager.quiz.QuizModelManager;
 import seedu.address.storage.JsonUserPrefsStorage;
 
 /**

@@ -5,7 +5,7 @@ package seedu.address.logic.statistics;
  */
 public class EnemyStatistics extends Statistics {
 
-    public enemyStatistics() {
+    public EnemyStatistics() {
         super();
     }
 }

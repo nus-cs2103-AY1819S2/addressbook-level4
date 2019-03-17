@@ -4,7 +4,7 @@ package seedu.address.logic.statistics;
  */
 public class PlayerStatistics extends Statistics {
 
-    public playerStatistics() {
+    public PlayerStatistics() {
         super();
     }
 }

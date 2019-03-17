@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.management.ExitCommand;
+import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
@@ -42,6 +45,7 @@ public class LogicManagerTest {
 
     private ManagementModel managementModel = new ManagementModelManager();
     private QuizModel quizModel = new QuizModelManager();
+    private CommandHistory history = new CommandHistory();
     private Logic logic;
 
     @Before
@@ -133,6 +137,16 @@ public class LogicManagerTest {
 
         assertCommandSuccess("\\status", expected.getFeedbackToUser(), expectedModel);
 
+    }
+
+    @Test
+    public void isShowHelp() {
+        assertTrue(new HelpCommand().execute(managementModel, history).isShowHelp());
+    }
+
+    @Test
+    public void isExit() {
+        assertTrue(new ExitCommand().execute(managementModel, history).isExit());
     }
 
     @Test

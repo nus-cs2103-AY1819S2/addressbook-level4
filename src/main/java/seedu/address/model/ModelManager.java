@@ -117,7 +117,7 @@ public class ModelManager implements Model {
 
 
 
-        iniQuickDocs();
+        //iniQuickDocs();
     }
 
     public ModelManager() {
@@ -128,14 +128,14 @@ public class ModelManager implements Model {
      * Initialise quickdocs with sample patient data
      */
     public void iniQuickDocs() {
-        //Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        //for (Patient patient : samplePatients) {
-        //addPatient(patient);
-        //}
-        //Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        //for (Appointment app : sampleAppointments) {
-        //addApp(app);
-        //}
+        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
+        for (Patient patient : samplePatients) {
+            addPatient(patient);
+        }
+        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
+        for (Appointment app : sampleAppointments) {
+            addApp(app);
+        }
         Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
         for (Reminder rem : sampleReminders) {
             addRem(rem);

@@ -53,7 +53,7 @@ public class JsonAdaptedAppointment {
     /**
      * Converts this Jackson-friendly adapted appointment object into the model's {@code Appointment} object.
      *
-     * @throws IllegalArgumentException if there were any data constraints violated for patient fields.
+     * @throws IllegalArgumentException if there were any data constraints violated for appointment fields.
      */
     public Appointment toModelType() throws IllegalArgumentException {
         Patient modelPatient = this.patient;

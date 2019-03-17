@@ -15,6 +15,8 @@ import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.ConsultationManager;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.ReminderManager;
 
 /**
  * QuickDocs serializable to json format
@@ -23,10 +25,12 @@ public class JsonSerializableQuickDocs {
 
     private static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
     private static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
+    private static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
 
     private final List<JsonAdaptedPatient> patientList = new ArrayList<>();
     private final List<JsonAdaptedConsultation> consultationList = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointmentList = new ArrayList<>();
+    private final List<JsonAdaptedReminder> reminderList = new ArrayList<>();
 
     @JsonCreator
     public JsonSerializableQuickDocs(@JsonProperty("patientList") List<JsonAdaptedPatient> patients) {
@@ -43,13 +47,15 @@ public class JsonSerializableQuickDocs {
                 .stream().map(JsonAdaptedConsultation::new).collect(Collectors.toList()));
         appointmentList.addAll(source.getAppointmentManager().getAppointmentList()
                 .stream().map(JsonAdaptedAppointment::new).collect(Collectors.toList()));
+        reminderList.addAll(source.getReminderManager().getReminderList()
+                .stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this address book into the model's {@code QuickDocs} object.
      *
      * @throws IllegalValueException    if there were any data constraints violated.
-     * @throws IllegalArgumentException if there were any data contraints violated for patient fields
+     * @throws IllegalArgumentException if there were any data constraints violated for any class fields
      */
     public QuickDocs toModelType() throws IllegalValueException, IllegalArgumentException {
         QuickDocs quickDocs = new QuickDocs();
@@ -79,9 +85,19 @@ public class JsonSerializableQuickDocs {
             if (appointmentManager.duplicateApp(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-
             appointmentManager.addAppointment(appointment);
         }
+
+        ReminderManager reminderManager = quickDocs.getReminderManager();
+        for (JsonAdaptedReminder jsonAdaptedReminder : reminderList) {
+            Reminder reminder = jsonAdaptedReminder.toModelType();
+
+            if (reminderManager.duplicateReminder(reminder)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_REMINDER);
+            }
+            reminderManager.addReminder(reminder);
+        }
+
         return quickDocs;
     }
 

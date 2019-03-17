@@ -15,8 +15,8 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.managementcommand.HistoryCommand;
-import seedu.address.logic.commands.QuizAnswerCommand;
-import seedu.address.logic.commands.QuizStartCommand;
+import seedu.address.logic.commands.quizcommand.QuizAnswerCommand;
+import seedu.address.logic.commands.quizcommand.QuizStartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Lessons;

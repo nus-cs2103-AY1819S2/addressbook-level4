@@ -12,7 +12,7 @@ import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.QuizStartCommand;
+import seedu.address.logic.commands.quizcommand.QuizStartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 

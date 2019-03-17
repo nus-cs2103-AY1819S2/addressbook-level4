@@ -109,11 +109,11 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandSuccess(Mode mode, Command command, Model actualModel, CommandHistory actualCommandHistory,
             CommandResult expectedCommandResult, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(Mode.RESTAURANT_MODE, actualModel, actualCommandHistory);
+            CommandResult result = command.execute(mode, actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -123,13 +123,13 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Mode mode, Command, Model, CommandHistory, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandSuccess(Mode mode, Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(mode, command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -140,7 +140,7 @@ public class CommandTestUtil {
      * - and selected order item, selected menu item, selected bill, selected table <br>
      * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandFailure(Mode mode, Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
@@ -264,7 +264,6 @@ public class CommandTestUtil {
     public static void deleteFirstOrderItem(Model model) {
         OrderItem firstOrderItem = model.getFilteredOrderItemList().get(0);
         model.deleteOrderItem(firstOrderItem);
-        model.updateMode();
     }
 
     /**
@@ -273,7 +272,6 @@ public class CommandTestUtil {
     public static void deleteFirstMenuItem(Model model) {
         MenuItem firstMenuItem = model.getFilteredMenuItemList().get(0);
         model.deleteMenuItem(firstMenuItem);
-        model.updateMode();
     }
 
     /**
@@ -282,7 +280,6 @@ public class CommandTestUtil {
     public static void deleteFirstTable(Model model) {
         Table firstTable = model.getFilteredTableList().get(0);
         model.deleteTable(firstTable);
-        model.updateMode();
     }
 
     /**
@@ -291,6 +288,5 @@ public class CommandTestUtil {
     public static void deleteFirstBill(Model model) {
         Bill firstBill = model.getFilteredBillList().get(0);
         model.deleteBill(firstBill);
-        model.updateMode();
     }
 }

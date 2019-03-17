@@ -1,24 +1,25 @@
 package seedu.address.logic.commands;
 
-//import java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.time.Clock;
-//import java.time.Duration;
-//import java.time.Instant;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.YearMonth;
-//import java.time.ZoneId;
+import java.time.ZoneId;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-//import org.junit.Assert;
 
 import seedu.address.logic.CommandHistory;
-//import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-//import seedu.address.model.consultation.Prescription;
-//import seedu.address.model.record.ConsultationRecord;
-//import seedu.address.model.record.MedicinePurchaseRecord;
+import seedu.address.model.consultation.Prescription;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.record.ConsultationRecord;
+import seedu.address.model.record.MedicinePurchaseRecord;
 import seedu.address.model.record.Record;
-//import seedu.address.model.record.Statistics;
+import seedu.address.model.record.Statistics;
 
 class StatisticsCommandTest {
 
@@ -37,19 +38,17 @@ class StatisticsCommandTest {
      */
     @BeforeEach
     void init() {
-        /*
         String topic = "all";
-        record1 = new ConsultationRecord(new Prescription("test", 1));
-        record2 = new MedicinePurchaseRecord("test", 1, BigDecimal.valueOf(10.00));
+        Medicine medicine = new Medicine("test");
+        record1 = new ConsultationRecord(new Prescription(medicine, 1));
+        record2 = new MedicinePurchaseRecord(medicine, 1, BigDecimal.valueOf(10.00));
         command1 = new StatisticsCommand(topic, from, to);
         command2 = new StatisticsCommand(topic, from, to);
         clock = Clock.fixed(Instant.parse("2019-01-01T10:15:30.00Z"), ZoneId.systemDefault());
-        */
     }
 
     @Test
     void execute() {
-        /*
         modelManager.addRecord(record1, clock);
         clock = Clock.offset(clock, Duration.ofDays((long) 32));
         modelManager.addRecord(record2, clock);
@@ -73,11 +72,10 @@ class StatisticsCommandTest {
         } catch (CommandException ce) {
             Assert.fail();
         }
-        */
     }
 
     @Test
     void equals() {
-        //Assert.assertTrue(command1.equals(command2));
+        Assert.assertTrue(command1.equals(command2));
     }
 }

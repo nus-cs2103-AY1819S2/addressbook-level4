@@ -12,8 +12,9 @@ class MedicinePurchaseRecordTest {
     @Test
     void toStatistics() {
         Medicine medicine = new Medicine("test");
+        medicine.setPrice(BigDecimal.valueOf(11.10));
         Statistics stats = new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(44.40));
-        MedicinePurchaseRecord mpr = new MedicinePurchaseRecord(medicine, 4, BigDecimal.valueOf(11.10));
+        MedicinePurchaseRecord mpr = new MedicinePurchaseRecord(medicine, 4);
         Assert.assertEquals(mpr.toStatistics(), stats);
     }
 }

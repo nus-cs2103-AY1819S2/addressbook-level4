@@ -37,7 +37,7 @@ public class EditCustomerDescriptorBuilder {
         descriptor.setPhone(customer.getPhone());
         descriptor.setEmail(customer.getEmail());
         descriptor.setIdNum(customer.getIdNum());
-        descriptor.sethms(customer.gethms());
+        descriptor.setAddress(customer.getAddress());
         descriptor.setTags(customer.getTags());
     }
 
@@ -76,8 +76,8 @@ public class EditCustomerDescriptorBuilder {
     /**
      * Sets the {@code hms} of the {@code EditCustomerDescriptor} that we are building.
      */
-    public EditCustomerDescriptorBuilder withhms(String hms) {
-        descriptor.sethms(new hms(hms));
+    public EditCustomerDescriptorBuilder withAddress(String address) {
+        descriptor.setAddress(new Address(address));
         return this;
     }
 

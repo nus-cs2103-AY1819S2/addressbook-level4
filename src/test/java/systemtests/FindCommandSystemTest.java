@@ -119,7 +119,7 @@ public class FindCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertSelectedCardUnchanged();
     //
     //        /* Case: find hms of customer in hms book -> 0 customers found */
-    //        command = FindNameCommand.COMMAND_WORD + " " + DANIEL.gethms().value;
+    //        command = FindNameCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //

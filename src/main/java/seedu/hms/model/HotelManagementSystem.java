@@ -28,8 +28,7 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
     }

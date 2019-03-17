@@ -1,13 +1,13 @@
 package systemtests;
 
 //import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-//import static seedu.hms.logic.commands.CommandTestUtil.hms_DESC_AMY;
-//import static seedu.hms.logic.commands.CommandTestUtil.hms_DESC_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+//import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 //import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 //import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 //import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 //import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
-//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_hms_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 //import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 //import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
 //import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -19,7 +19,7 @@ package systemtests;
 //import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 //import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 //import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static seedu.hms.logic.commands.CommandTestUtil.VALID_hms_BOB;
+//import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 //import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 //import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -64,7 +64,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        Customer toAdd = AMY;
     //        String command = "   " + AddCustomerCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  "
     // + PHONE_DESC_AMY + " "
-    //            + EMAIL_DESC_AMY + "   " + hms_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+    //            + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
     //        assertCommandSuccess(command, toAdd);
     //
     //        /* Case: undo adding Amy to the list -> Amy deleted */
@@ -82,7 +82,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        added */
     //        toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-    // + hms_DESC_AMY + TAG_DESC_FRIEND;
+    // + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
     //        assertCommandSuccess(command, toAdd);
     //
     //        /* Case: add a customer with all fields same as another customer in the hms book except phone and
@@ -99,7 +99,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //
     //        /* Case: add a customer with tags, command with parameters in random order -> added */
     //        toAdd = BOB;
-    //        command = AddCustomerCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + hms_DESC_BOB
+    //        command = AddCustomerCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB
     // + NAME_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
     //        assertCommandSuccess(command, toAdd);
     //
@@ -139,7 +139,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     //        /* Case: add a duplicate customer except with different hms -> rejected */
-    //        toAdd = new CustomerBuilder(HOON).withhms(VALID_hms_BOB).build();
+    //        toAdd = new CustomerBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
     //        command = CustomerUtil.getAddCommand(toAdd);
     //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
@@ -148,17 +148,17 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     //
     //        /* Case: missing name -> rejected */
-    //        command = AddCustomerCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + hms_DESC_AMY;
+    //        command = AddCustomerCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
     // AddCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: missing phone -> rejected */
-    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + hms_DESC_AMY;
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
     // AddCustomerCommand.MESSAGE_USAGE));
     //
     //        /* Case: missing email -> rejected */
-    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + hms_DESC_AMY;
+    //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
     // AddCustomerCommand.MESSAGE_USAGE));
     //
@@ -173,27 +173,27 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     //
     //        /* Case: invalid name -> rejected */
     //        command = AddCustomerCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY +
-    //        hms_DESC_AMY;
+    //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid phone -> rejected */
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY +
-    //        hms_DESC_AMY;
+    //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid email -> rejected */
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC +
-    //        hms_DESC_AMY;
+    //        ADDRESS_DESC_AMY;
     //        assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid hms -> rejected */
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY +
-    //        INVALID_hms_DESC;
-    //        assertCommandFailure(command, hms.MESSAGE_CONSTRAINTS);
+    //        INVALID_ADDRESS_DESC;
+    //        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
     //
     //        /* Case: invalid tag -> rejected */
     //        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-    // + hms_DESC_AMY
+    // + ADDRESS_DESC_AMY
     //            + INVALID_TAG_DESC;
     //        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     //    }

@@ -3,8 +3,8 @@ package seedu.hms.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.hms.logic.commands.CommandTestUtil.VALID_hms_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.hms.testutil.TypicalCustomers.ALICE;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
@@ -53,7 +53,7 @@ public class HotelManagementSystemTest {
     @Test
     public void resetData_withDuplicateCustomers_throwsDuplicateCustomerException() {
         // Two customers with the same identity fields
-        Customer editedAlice = new CustomerBuilder(ALICE).withhms(VALID_hms_BOB).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         List<Customer> newCustomers = Arrays.asList(ALICE, editedAlice);
         HotelManagementSystemStub newData = new HotelManagementSystemStub(newCustomers, new ArrayList<>());
@@ -82,7 +82,7 @@ public class HotelManagementSystemTest {
     @Test
     public void hasCustomer_customerWithSameIdentityFieldsInHotelManagementSystem_returnsTrue() {
         hotelManagementSystem.addCustomer(ALICE);
-        Customer editedAlice = new CustomerBuilder(ALICE).withhms(VALID_hms_BOB).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         assertTrue(hotelManagementSystem.hasCustomer(editedAlice));
     }

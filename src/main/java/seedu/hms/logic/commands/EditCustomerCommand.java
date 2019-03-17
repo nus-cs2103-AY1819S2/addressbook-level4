@@ -28,8 +28,6 @@ import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
-import seedu.hms.logic.commands.CommandResult;
-import seedu.hms.logic.commands.CustomerCommand;
 
 /**
  * Edits the details of an existing customer in the address book.

@@ -13,6 +13,7 @@ import org.junit.rules.TemporaryFolder;
 import javafx.fxml.FXML;
 import seedu.hms.MainApp;
 import seedu.hms.testutil.Assert;
+import seedu.hms.ui.TestFxmlObject;
 
 public class UiPartTest {
 
@@ -20,7 +21,7 @@ public class UiPartTest {
     private static final String INVALID_FILE_PATH = "UiPartTest/invalidFile.fxml";
     private static final String VALID_FILE_PATH = "UiPartTest/validFile.fxml";
     private static final String VALID_FILE_WITH_FX_ROOT_PATH = "UiPartTest/validFileWithFxRoot.fxml";
-    private static final TestFxmlObject VALID_FILE_ROOT = new TestFxmlObject("Hello World!");
+    private static final seedu.hms.ui.TestFxmlObject VALID_FILE_ROOT = new seedu.hms.ui.TestFxmlObject("Hello World!");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -57,7 +58,7 @@ public class UiPartTest {
     @Test
     public void constructor_validFileWithFxRootUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_WITH_FX_ROOT_PATH);
-        TestFxmlObject root = new TestFxmlObject();
+        seedu.hms.ui.TestFxmlObject root = new seedu.hms.ui.TestFxmlObject();
         assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(validFileUrl, root).getRoot());
     }
 
@@ -93,7 +94,7 @@ public class UiPartTest {
     private static class TestUiPart<T> extends UiPart<T> {
 
         @FXML
-        private TestFxmlObject validFileRoot; // Check that @FXML annotations work
+        private seedu.hms.ui.TestFxmlObject validFileRoot; // Check that @FXML annotations work
 
         TestUiPart(URL fxmlFileUrl, T root) {
             super(fxmlFileUrl, root);

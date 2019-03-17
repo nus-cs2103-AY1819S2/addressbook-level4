@@ -24,7 +24,7 @@ import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 
-public class CustomerListPanelTest extends GuiUnitTest {
+public class CustomerListPanelTest extends seedu.hms.ui.GuiUnitTest {
     private static final ObservableList<Customer> TYPICAL_CUSTOMERS =
         FXCollections.observableList(getTypicalCustomers());
 
@@ -84,8 +84,8 @@ public class CustomerListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             IdentificationNo idnum = new IdentificationNo("1234");
-            hms hms = new hms("a");
-            Customer customer = new Customer(name, phone, email, idnum, hms, Collections.emptySet());
+            Address address = new Address("a");
+            Customer customer = new Customer(name, phone, email, idnum, address, Collections.emptySet());
             backingList.add(customer);
         }
         return backingList;

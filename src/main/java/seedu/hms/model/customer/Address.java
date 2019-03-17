@@ -4,15 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.hms.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Customer's hms in the hms book.
- * Guarantees: immutable; is valid as declared in {@link #isValidhms(String)}
+ * Represents a Customer's address in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidaddress(String)}
  */
 public class Address {
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
 
     /*
-     * The first character of the hms must not be a whitespace,
+     * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
@@ -20,14 +20,14 @@ public class Address {
     public final String value;
 
     /**
-     * Constructs an {@code hms}.
+     * Constructs an {@code address}.
      *
-     * @param hms A valid hms.
+     * @param address A valid address.
      */
-    public Address(String hms) {
-        requireNonNull(hms);
-        checkArgument(isValidAddress(hms), MESSAGE_CONSTRAINTS);
-        value = hms;
+    public Address(String address) {
+        requireNonNull(address);
+        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
+        value = address;
     }
 
     /**

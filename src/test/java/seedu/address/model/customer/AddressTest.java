@@ -7,31 +7,31 @@ import org.junit.Test;
 
 import seedu.hms.testutil.Assert;
 
-public class hmsTest {
+public class AddressTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new hms(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Address(null));
     }
 
     @Test
     public void constructor_invalidhms_throwsIllegalArgumentException() {
         String invalidhms = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new hms(invalidhms));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Address(invalidhms));
     }
 
     @Test
-    public void isValidhms() {
+    public void isValidAddress() {
         // null hms
-        Assert.assertThrows(NullPointerException.class, () -> hms.isValidhms(null));
+        Assert.assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
 
         // invalid hmses
-        assertFalse(hms.isValidhms("")); // empty string
-        assertFalse(hms.isValidhms(" ")); // spaces only
+        assertFalse(Address.isValidAddress("")); // empty string
+        assertFalse(Address.isValidAddress(" ")); // spaces only
 
         // valid hmses
-        assertTrue(hms.isValidhms("Blk 456, Den Road, #01-355"));
-        assertTrue(hms.isValidhms("-")); // one character
-        assertTrue(hms.isValidhms("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long hms
+        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
+        assertTrue(Address.isValidAddress("-")); // one character
+        assertTrue(Address.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long hms
     }
 }

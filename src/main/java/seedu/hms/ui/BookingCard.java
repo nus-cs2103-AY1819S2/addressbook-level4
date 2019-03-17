@@ -21,8 +21,7 @@ public class BookingCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see
-     * <a href="https://github.com/se-edu/hotelManagementSystem-level4/issues/336"> The issue on
+     * @see <a href="https://github.com/se-edu/hotelManagementSystem-level4/issues/336"> The issue on
      * HotelManagementSystem level 4</a>
      */
 

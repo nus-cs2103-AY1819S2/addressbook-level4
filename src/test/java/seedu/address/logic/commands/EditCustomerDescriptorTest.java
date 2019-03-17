@@ -4,12 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.hms.logic.commands.CommandTestUtil.VALID_hms_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 
 import org.junit.Test;
 
@@ -54,7 +54,7 @@ public class EditCustomerDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different hms -> returns false
-        editedAmy = new EditCustomerDescriptorBuilder(DESC_AMY).withhms(VALID_hms_BOB).build();
+        editedAmy = new EditCustomerDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

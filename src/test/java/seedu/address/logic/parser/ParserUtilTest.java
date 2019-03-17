@@ -26,14 +26,14 @@ import seedu.hms.testutil.Assert;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_hms = " ";
+    private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_ID = "+3422";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
-    private static final String VALID_hms = "123 Main Street #0505";
+    private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_ID = "2345525";
     private static final String VALID_TAG_1 = "friend";
@@ -137,26 +137,26 @@ public class ParserUtilTest {
 
 
     @Test
-    public void parsehms_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsehms(null));
+    public void parseAddress_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null));
     }
 
     @Test
-    public void parsehms_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsehms(INVALID_hms));
+    public void parseAddress_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
     }
 
     @Test
-    public void parsehms_validValueWithoutWhitespace_returnshms() throws Exception {
-        hms expectedhms = new hms(VALID_hms);
-        assertEquals(expectedhms, ParserUtil.parsehms(VALID_hms));
+    public void parseAddress_validValueWithoutWhitespace_returnshms() throws Exception {
+        Address expectedAddress = new Address(VALID_ADDRESS);
+        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
     }
 
     @Test
-    public void parsehms_validValueWithWhitespace_returnsTrimmedhms() throws Exception {
-        String hmsWithWhitespace = WHITESPACE + VALID_hms + WHITESPACE;
-        hms expectedhms = new hms(VALID_hms);
-        assertEquals(expectedhms, ParserUtil.parsehms(hmsWithWhitespace));
+    public void parseAddress_validValueWithWhitespace_returnsTrimmedhms() throws Exception {
+        String hmsWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
+        Address expectedAddress = new Address(VALID_ADDRESS);
+        assertEquals(expectedAddress, ParserUtil.parseAddress(hmsWithWhitespace));
     }
 
     @Test

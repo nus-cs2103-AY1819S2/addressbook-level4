@@ -3,8 +3,8 @@ package seedu.hms.model.customer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.hms.logic.commands.CommandTestUtil.VALID_hms_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.hms.testutil.TypicalCustomers.ALICE;
 import static seedu.hms.testutil.TypicalCustomers.BOB;
 
@@ -46,7 +46,7 @@ public class UniqueCustomerListTest {
     @Test
     public void containsCustomerWithSameIdentityFieldsInListReturnsTrue() {
         uniqueCustomerList.add(ALICE);
-        Customer editedAlice = new CustomerBuilder(ALICE).withhms(VALID_hms_BOB).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         assertTrue(uniqueCustomerList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueCustomerListTest {
     @Test
     public void setCustomerEditedCustomerHasSameIdentitySuccess() {
         uniqueCustomerList.add(ALICE);
-        Customer editedAlice = new CustomerBuilder(ALICE).withhms(VALID_hms_BOB).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         uniqueCustomerList.setCustomer(ALICE, editedAlice);
         UniqueCustomerList expectedUniqueCustomerList = new UniqueCustomerList();

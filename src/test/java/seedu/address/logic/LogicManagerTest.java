@@ -3,11 +3,11 @@ package seedu.hms.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
 import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.hms.logic.commands.CommandTestUtil.hms_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.testutil.TypicalCustomers.AMY;
 
 import java.io.IOException;
@@ -93,7 +93,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ID_DESC_AMY + hms_DESC_AMY;
+            + ID_DESC_AMY + ADDRESS_DESC_AMY;
         Customer expectedCustomer = new CustomerBuilder(AMY).withTags().build();
         CustomerManager expectedModel = new CustomerManager();
         expectedModel.addCustomer(expectedCustomer);

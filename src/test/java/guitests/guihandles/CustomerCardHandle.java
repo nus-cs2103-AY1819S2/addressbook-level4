@@ -56,7 +56,7 @@ public class CustomerCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String gethms() {
+    public String getAddress() {
         return hmsLabel.getText();
     }
 
@@ -84,7 +84,7 @@ public class CustomerCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Customer customer) {
         return getName().equals(customer.getName().fullName)
-            && gethms().equals(customer.gethms().value)
+            && getAddress().equals(customer.getAddress().value)
             && getPhone().equals(customer.getPhone().value)
             && getEmail().equals(customer.getEmail().value)
             && getIdNum().equals(customer.getIdNum().value)

@@ -36,7 +36,7 @@ public class AddCustomerCommandIntegrationTest {
             .withPhone("9293292")
             .withEmail("unique@name.com")
             .withIdNum("9292392")
-            .withhms("2, New Place, #01-321")
+            .withAddress("2, New Place, #01-321")
             .build();
         System.out.println(validCustomer);
         CustomerModel expectedModel = new CustomerManager(

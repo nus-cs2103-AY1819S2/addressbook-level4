@@ -21,13 +21,13 @@ public class CustomerBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_IDENTIFICATION_N0 = "1223453";
-    public static final String DEFAULT_hms = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_address = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
     private Email email;
     private IdentificationNo idnum;
-    private hms hms;
+    private Address address;
     private Set<Tag> tags;
 
     public CustomerBuilder() {
@@ -35,7 +35,7 @@ public class CustomerBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         idnum = new IdentificationNo(DEFAULT_IDENTIFICATION_N0);
-        hms = new hms(DEFAULT_hms);
+        address = new Address(DEFAULT_address);
         tags = new HashSet<>();
     }
 
@@ -47,7 +47,7 @@ public class CustomerBuilder {
         phone = customerToCopy.getPhone();
         email = customerToCopy.getEmail();
         idnum = customerToCopy.getIdNum();
-        hms = customerToCopy.gethms();
+        address = customerToCopy.getAddress();
         tags = new HashSet<>(customerToCopy.getTags());
     }
 
@@ -68,10 +68,10 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code hms} of the {@code Customer} that we are building.
+     * Sets the {@code address} of the {@code Customer} that we are building.
      */
-    public CustomerBuilder withhms(String hms) {
-        this.hms = new hms(hms);
+    public CustomerBuilder withAddress(String address) {
+        this.address = new Address(address);
         return this;
     }
 
@@ -100,7 +100,7 @@ public class CustomerBuilder {
     }
 
     public Customer build() {
-        return new Customer(name, phone, email, idnum, hms, tags);
+        return new Customer(name, phone, email, idnum, address, tags);
     }
 
 }

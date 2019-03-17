@@ -148,6 +148,15 @@ public class QuizCardTest {
     }
 
     @Test
+    public void isWrongTwice() {
+        VALID_QUIZCARD.isCorrect("wronganswer");
+        assertFalse(VALID_QUIZCARD.isWrongTwice());
+
+        VALID_QUIZCARD.isCorrect("wrongansweragain");
+        assertTrue(VALID_QUIZCARD.isWrongTwice());
+    }
+
+    @Test
     public void updateTotalAttemptsAndStreak() {
         QuizCard quizCardWithIndex = VALID_QUIZCARD;
 

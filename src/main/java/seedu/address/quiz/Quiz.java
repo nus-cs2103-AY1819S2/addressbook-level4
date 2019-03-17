@@ -147,7 +147,7 @@ public class Quiz {
      * @param index of the card
      * @param answer user input
      */
-    public void updateTotalAttemptsAndStreak(int index, String answer) {
+    public boolean updateTotalAttemptsAndStreak(int index, String answer) {
         QuizCard sessionCard = currentSession.get(index);
         boolean isCorrect = currentQuizCard.isCorrect(answer);
         sessionCard.updateTotalAttemptsAndStreak(isCorrect);
@@ -157,6 +157,8 @@ public class Quiz {
         }
 
         quizTotalAttempts++;
+
+        return isCorrect;
     }
 
     public int getQuizTotalAttempts() {

@@ -156,9 +156,14 @@ public class QuizAnswerCommandTest {
         card = expectedModel.getNextCard();
         card.isCorrect(wrongAns);
 
-        expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, card.getAnswer())
+        expectedMessage = QuizAnswerCommand.MESSAGE_WRONG_ONCE
             + String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
 
+        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+
+        // wrong twice
+        expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, card.getAnswer())
+            + String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
         assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
 
         // complete the quiz

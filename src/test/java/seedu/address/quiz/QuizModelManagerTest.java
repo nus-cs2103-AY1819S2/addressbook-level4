@@ -54,6 +54,27 @@ public class QuizModelManagerTest {
     }
 
     @Test
+    public void getCurrentProgress() {
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+
+        modelManager.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        assertEquals("0/6", modelManager.getCurrentProgress());
+
+        modelManager.getNextCard();
+        assertEquals("1/6", modelManager.getCurrentProgress());
+
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        assertEquals("6/6", modelManager.getCurrentProgress());
+
+    }
+
+    @Test
     public void getCurrentQuizCard() {
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");

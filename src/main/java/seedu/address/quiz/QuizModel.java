@@ -35,8 +35,9 @@ public interface QuizModel {
      * Update the totalAttempts and streak of a specified card in the current session.
      * @param index of the current {@code QuizCard}
      * @param answer user input
+     * @return true if correct
      */
-    void updateTotalAttemptsAndStreak(int index, String answer);
+    boolean updateTotalAttemptsAndStreak(int index, String answer);
 
     /**
      * Returns total attempts in this {@code Quiz}.

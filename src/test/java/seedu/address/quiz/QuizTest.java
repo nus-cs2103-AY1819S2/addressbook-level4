@@ -172,8 +172,8 @@ public class QuizTest {
 
         Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
         quiz.getNextCard();
-        quiz.updateTotalAttemptsAndStreak(index, correctAnswer);
 
+        assertTrue(quiz.updateTotalAttemptsAndStreak(index, correctAnswer));
         assertEquals(expected, quiz.getCurrentSession());
         assertEquals(1, quiz.getQuizTotalAttempts());;
         assertEquals(1, quiz.getQuizTotalCorrectQuestions());
@@ -181,7 +181,7 @@ public class QuizTest {
         // test wrong answer
         expectedCard1.updateTotalAttemptsAndStreak(expectedCard1.isCorrect(wrongAnswer));
         quiz.getNextCard();
-        quiz.updateTotalAttemptsAndStreak(index, wrongAnswer);
+        assertFalse(quiz.updateTotalAttemptsAndStreak(index, wrongAnswer));
         assertEquals(expected, quiz.getCurrentSession());
         assertEquals(2, quiz.getQuizTotalAttempts());
         assertEquals(1, quiz.getQuizTotalCorrectQuestions());

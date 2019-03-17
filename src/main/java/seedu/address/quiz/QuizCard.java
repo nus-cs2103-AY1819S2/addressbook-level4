@@ -20,6 +20,8 @@ public class QuizCard {
     private int index;
     private int totalAttempts;
     private int streak;
+    private boolean hasAttemptedBefore;
+    private boolean isWrongTwice;
 
     public QuizCard(String question, String answer) {
         requireAllNonNull(question, answer);
@@ -52,6 +54,8 @@ public class QuizCard {
         this.question = question;
         this.answer = answer;
         this.quizMode = quizMode;
+        this.hasAttemptedBefore = false;
+        this.isWrongTwice = false;
     }
 
     public String getQuestion() {
@@ -80,6 +84,10 @@ public class QuizCard {
         return streak;
     }
 
+    public boolean isWrongTwice() {
+        return isWrongTwice;
+    }
+
     public Quiz.Mode getQuizMode() {
         requireAllNonNull(quizMode);
         return quizMode;
@@ -91,6 +99,10 @@ public class QuizCard {
      * @return the result after checking.
      */
     public boolean isCorrect(String answer) throws NullPointerException {
+        if (hasAttemptedBefore) {
+            isWrongTwice = true;
+        }
+        hasAttemptedBefore = true;
         return answer.equalsIgnoreCase(this.answer);
     }
 

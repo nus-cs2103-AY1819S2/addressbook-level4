@@ -52,8 +52,8 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
-    public void updateTotalAttemptsAndStreak(int index, String answer) {
-        quiz.updateTotalAttemptsAndStreak(index, answer);
+    public boolean updateTotalAttemptsAndStreak(int index, String answer) {
+        return quiz.updateTotalAttemptsAndStreak(index, answer);
     }
 
     @Override

@@ -17,6 +17,7 @@ public class QuizAnswerCommand extends QuizCommand {
     public static final String MESSAGE_QUESTION = "Question: %1$s";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
     public static final String MESSAGE_CORRECT = "Your answer is correct.\n";
+    public static final String MESSAGE_WRONG_ONCE = "Your answer is wrong, you have one more chance to answer it\n";
     public static final String MESSAGE_WRONG = "The correct answer is %1$s.\n";
     public static final String MESSAGE_COMPLETE = "You have completed all the questions in this quiz.\n";
 
@@ -52,9 +53,9 @@ public class QuizAnswerCommand extends QuizCommand {
             return new CommandResult(sb.toString());
         }
 
-        model.updateTotalAttemptsAndStreak(card.getIndex(), answer);
+        boolean result = model.updateTotalAttemptsAndStreak(card.getIndex(), answer);
 
-        if (card.isCorrect(answer)) {
+        if (result) {
             sb.append(MESSAGE_CORRECT);
 
             if (model.hasCardLeft()) {
@@ -68,8 +69,13 @@ public class QuizAnswerCommand extends QuizCommand {
             }
 
         } else {
-            sb.append(String.format(MESSAGE_WRONG, card.getAnswer()));
-            sb.append(String.format(MESSAGE_QUESTION, card.getQuestion()));
+            if (!card.isWrongTwice()) {
+                sb.append(MESSAGE_WRONG_ONCE);
+                sb.append(String.format(MESSAGE_QUESTION, card.getQuestion()));
+            } else {
+                sb.append(String.format(MESSAGE_WRONG, card.getAnswer()));
+                sb.append(String.format(MESSAGE_QUESTION, card.getQuestion()));
+            }
         }
 
         return new CommandResult(sb.toString());

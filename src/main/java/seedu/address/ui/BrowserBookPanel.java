@@ -1,10 +1,5 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
-import java.net.URL;
-import java.util.logging.Logger;
-
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -12,20 +7,24 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
+
+import java.net.URL;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The Browser Panel of the App.
  */
 public class BrowserBookPanel extends UiPart<Region> {
 
-public static final URL DEFAULT_PAGE = requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+	public static final URL DEFAULT_PAGE = requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+
 	public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
 	private static final String FXML = "BrowserPanel.fxml";
 
-	private final Logger logger = LogsCenter.getLogger(getClass());
+	//private final Logger logger = LogsCenter.getLogger(getClass());
 
 	@FXML
 	private WebView browser;

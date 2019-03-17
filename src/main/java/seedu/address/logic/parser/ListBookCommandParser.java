@@ -24,7 +24,7 @@ public class ListBookCommandParser implements Parser<ListBookCommand> {
      */
     public ListBookCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG, PREFIX_RATING);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_TAG, PREFIX_RATING);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListBookCommand.MESSAGE_USAGE));

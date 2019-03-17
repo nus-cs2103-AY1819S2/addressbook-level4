@@ -1,11 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_PART_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_PART_DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_PART_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_PART_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_CS;
@@ -74,6 +74,8 @@ public class ListBookCommandParserTest {
                 Arrays.asList(ratingsArr1)
         );
 
+
+
         BookListFilterPredicate predicate2 = new BookListFilterPredicate(
                 Arrays.asList(namesArr2),
                 Arrays.asList(authorsArr2),
@@ -98,13 +100,9 @@ public class ListBookCommandParserTest {
     @Test
     public void parse_wrongValue_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListBookCommand.MESSAGE_USAGE);
-        String argsStr1 = PREAMBLE_WHITESPACE + AUTHOR_DESC_ALICE;
-        String argsStr2 = PREAMBLE_WHITESPACE + AUTHOR_DESC_ALICE + NAME_PART_DESC_ALICE;
-        String argsStr3 = PREAMBLE_WHITESPACE + AUTHOR_DESC_ALICE + NAME_PART_DESC_ALICE + TAG_DESC_FANTASY;
+        String argsStr = PREAMBLE_NON_EMPTY;
 
-        assertParseFailure(parser, argsStr1, expectedMessage);
-        assertParseFailure(parser, argsStr2, expectedMessage);
-        assertParseFailure(parser, argsStr3, expectedMessage);
+        assertParseFailure(parser, argsStr, expectedMessage);
     }
 
 }

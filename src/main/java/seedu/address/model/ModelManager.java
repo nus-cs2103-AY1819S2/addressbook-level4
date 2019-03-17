@@ -137,12 +137,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addReview(Review toAdd, Book bookForReview) {
-        versionedBookShelf.addReview(toAdd, bookForReview);
-        updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
-    }
-
-    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedBookShelf.setPerson(target, editedPerson);

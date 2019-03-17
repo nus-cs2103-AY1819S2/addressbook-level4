@@ -92,12 +92,6 @@ public interface Model {
     void addBook(Book book);
 
     /**
-     * Adds a review to the given book.
-     * {@code book} must already exist in the book shelf.
-     */
-    void addReview(Review toAdd, Book book);
-
-    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the book shelf.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the book shelf.

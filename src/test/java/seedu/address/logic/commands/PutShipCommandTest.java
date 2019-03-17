@@ -19,9 +19,11 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;
@@ -141,6 +143,94 @@ public class PutShipCommandTest {
 
         assertCommandFailure(putShipCommand, model, commandHistory,
                 Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+    }
+
+    @Test
+    public void execute_testPutHorizontal_success() {
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
+        model.getMapGrid().initialise(cellGrid);
+        Battleship battleship = new AircraftCarrierBattleship();
+
+        Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
+
+        try {
+            putShipCommand.execute(model, commandHistory);
+
+            // Test length of battleship
+            for (int i = 0; i < battleship.getLength(); i++) {
+                Cell cellToCheck = model.getMapGrid().getCell(
+                        COORDINATES_A1.getRowIndex().getZeroBased(),
+                        COORDINATES_A1.getColIndex().getZeroBased() + i);
+                assertTrue(cellToCheck.hasBattleShip());
+            }
+        } catch (CommandException ce) {
+            throw new AssertionError("Test should not fail.");
+        }
+    }
+
+    @Test
+    public void execute_testPutVertical_success() {
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
+        model.getMapGrid().initialise(cellGrid);
+        Battleship battleship = new AircraftCarrierBattleship();
+
+        Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
+
+        try {
+            putShipCommand.execute(model, commandHistory);
+
+            // Test length of battleship
+            for (int i = 0; i < battleship.getLength(); i++) {
+                Cell cellToCheck = model.getMapGrid().getCell(
+                        COORDINATES_A1.getRowIndex().getZeroBased() + i,
+                        COORDINATES_A1.getColIndex().getZeroBased());
+                assertTrue(cellToCheck.hasBattleShip());
+            }
+        } catch (CommandException ce) {
+            throw new AssertionError("Test should not fail.");
+        }
+    }
+
+    @Test
+    public void execute_notEnoughBattleships_failure() {
+
+        int mapSize = MAP_SIZE_TEN;
+        Cell[][] cellGrid = new Cell[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                cellGrid[i][j] = new Cell();
+            }
+        }
+
+        model.getMapGrid().initialise(cellGrid);
+        Battleship battleship = new AircraftCarrierBattleship();
+        Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
+
+        PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
+
+        model.getMapGrid().initialise(cellGrid);
+        model.getMapGrid().getCell(COORDINATES_A2).putShip(battleship);
+        model.deployBattleship(battleship);
+
+        assertCommandFailure(putShipCommand, model, commandHistory,
+                "Not enough aircraft carriers.");
+
     }
 
     @Test

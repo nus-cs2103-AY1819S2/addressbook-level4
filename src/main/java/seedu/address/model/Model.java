@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.tag.Tag;
 
@@ -162,4 +163,14 @@ public interface Model {
      * Sets the selected cell in the filtered cell list.
      */
     void setSelectedPerson(Cell cell);
+
+    /**
+     * Deploys a battleship.
+     */
+    void deployBattleship(Battleship battleship);
+
+    /**
+     * Checks number of battleships available.
+     */
+    boolean isEnoughBattleships(Battleship battleship, int numBattleship);
 }

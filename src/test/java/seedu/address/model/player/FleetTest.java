@@ -1,9 +1,16 @@
 package seedu.address.model.player;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
 
+import seedu.address.model.battleship.AircraftCarrierBattleship;
+import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.CruiserBattleship;
+import seedu.address.model.battleship.DestroyerBattleship;
 
 
 public class FleetTest {
@@ -13,28 +20,115 @@ public class FleetTest {
     @Test
     public void constructor_default() {
         Fleet f = new Fleet();
-        assertEquals(5, f.getSize());
+        assertEquals(8, f.getSize());
     }
 
     @Test
     public void constructor_customArg() {
-        Fleet f = new Fleet(4);
-        assertEquals(4, f.getSize());
+        Fleet f = new Fleet(10, 10, 10);
+        assertEquals(30, f.getSize());
     }
 
     @Test(
             expected = IllegalArgumentException.class
-    ) public void constructor_invalidInput_throwsIllegalArgumentException() {
-        new Fleet(0);
+    )
+    public void constructor_invalidInput_throwsIllegalArgumentException() {
+        new Fleet(0, 0, 0);
     }
 
     @Test
     public void testGetSize() {
-        assertEquals(5, testFleet.getSize());
+        assertEquals(8, testFleet.getSize());
     }
 
     @Test
     public void testGetFleetContents() {
-        assertEquals(new Fleet(5).getFleetContents(), testFleet.getFleetContents());
+        assertEquals(new Fleet(5, 2, 1).getDeployedFleet(),
+                testFleet.getDeployedFleet());
+    }
+
+    @Test
+    public void testGetDestroyerBattleship() {
+        Fleet destroyerOnlyFleet = new Fleet(5, 0, 0);
+        assertEquals(destroyerOnlyFleet.getDeployedFleet(),
+                testFleet.getListOfDestroyerBattleship());
+    }
+
+    @Test
+    public void testGetCruiserBattleship() {
+        Fleet cruiserOnlyFleet = new Fleet(0, 2, 0);
+        assertEquals(cruiserOnlyFleet.getDeployedFleet(),
+                testFleet.getListOfCruiserBattleship());
+    }
+
+    @Test
+    public void testGetAircraftCarrierBattleship() {
+        Fleet aircraftCarrierOnlyFleet = new Fleet(0, 0, 1);
+        assertEquals(aircraftCarrierOnlyFleet.getDeployedFleet(),
+                testFleet.getListOfAircraftCarrierBattleship());
+    }
+
+    @Test
+    public void testConstructorFail() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Fleet(0, 0, 0); });
+    }
+
+    @Test
+    public void testDeployBattleships() {
+        Fleet testFleet = new Fleet(1, 1, 1);
+        testFleet.deployBattleship(new DestroyerBattleship());
+        testFleet.deployBattleship(new CruiserBattleship());
+        testFleet.deployBattleship(new AircraftCarrierBattleship());
+
+        assertEquals(testFleet.getNumDestroyer(), 0);
+        assertEquals(testFleet.getNumCruiser(), 0);
+        assertEquals(testFleet.getNumAircraftCarrier(), 0);
+    }
+
+    @Test
+    public void testIsEnoughBattleships() {
+        Fleet testFleet = new Fleet(1, 1, 1);
+
+        Battleship testDestroyer = new DestroyerBattleship();
+        Battleship testCruiser = new CruiserBattleship();
+        Battleship testAircraftCarrier = new AircraftCarrierBattleship();
+
+        assertTrue(testFleet.isEnoughBattleship(testDestroyer, 1));
+        assertTrue(testFleet.isEnoughBattleship(testCruiser, 1));
+        assertTrue(testFleet.isEnoughBattleship(testAircraftCarrier, 1));
+
+        testFleet.deployBattleship(new DestroyerBattleship());
+        testFleet.deployBattleship(new CruiserBattleship());
+        testFleet.deployBattleship(new AircraftCarrierBattleship());
+
+        assertFalse(testFleet.isEnoughBattleship(testDestroyer, 1));
+        assertFalse(testFleet.isEnoughBattleship(testCruiser, 1));
+        assertFalse(testFleet.isEnoughBattleship(testAircraftCarrier, 1));
+
+        Battleship testInvalidBattleship = new Battleship();
+        assertFalse(testFleet.isEnoughBattleship(testInvalidBattleship, 1));
+    }
+
+    @Test
+    public void testToString() {
+        Fleet testFleet = new Fleet(1, 1, 1);
+        final StringBuilder builder = new StringBuilder();
+
+        builder.append(testFleet.getSize())
+                .append(" Fleet size: ")
+                .append(testFleet.getSize())
+                .append(" Fleet contents: ")
+                .append(testFleet.getDeployedFleet());
+
+        assertEquals(testFleet.toString(), builder.toString());
+    }
+
+    @Test
+    public void testGetAttributes() {
+        Fleet testFleet = new Fleet(1, 1, 1);
+        assertEquals(testFleet.getNumDestroyer(), 1);
+        assertEquals(testFleet.getNumCruiser(), 1);
+        assertEquals(testFleet.getNumAircraftCarrier(), 1);
     }
 }

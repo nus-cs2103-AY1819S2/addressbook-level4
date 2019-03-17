@@ -28,12 +28,14 @@ public class Cell {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private boolean isHit = false;
+    private Coordinates coordinates;
 
     /**
      * Every field must be present and not null.
      */
     public Cell(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.coordinates = new Coordinates("a1");
         this.battleship = Optional.empty();
         this.name = name;
         this.phone = phone;
@@ -44,21 +46,23 @@ public class Cell {
 
     /**
      * Constructor for cell that requires no arguments
-     * To prepare with refactoring Cell to a cell
      */
-    public Cell() {
+    public Cell(Coordinates coordinates) {
         this.battleship = Optional.empty();
+        this.coordinates = coordinates;
         this.name = new Name("This cell is empty");
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");
     }
     /**
-     * Constructor for cell that contains battleship
+     * Constructor for cell that requires no arguments
+     * To prepare with refactoring Cell to a cell
      */
-    public Cell(Battleship battleship) {
-        this.battleship = Optional.of(battleship);
-        this.name = battleship.getName();
+    public Cell() {
+        this.battleship = Optional.empty();
+        this.coordinates = new Coordinates("a1");
+        this.name = new Name("This cell is empty");
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
         this.address = new Address("placeholder");
@@ -69,6 +73,8 @@ public class Cell {
      */
     public Cell(Cell newCell) {
         this.battleship = newCell.battleship;
+        this.isHit = newCell.isHit;
+        this.coordinates = newCell.coordinates;
         this.name = newCell.name;
         this.phone = new Phone("123");
         this.email = new Email("placeholder@gmail.com");
@@ -95,10 +101,7 @@ public class Cell {
      * Returns true if this cell has a battleship, otherwise returns false
      */
     public boolean hasBattleShip() {
-        if (battleship.isPresent()) {
-            return true;
-        }
-        return false;
+        return battleship.isPresent();
     }
 
     /**
@@ -192,7 +195,10 @@ public class Cell {
                 && otherCell.getPhone().equals(getPhone())
                 && otherCell.getEmail().equals(getEmail())
                 && otherCell.getAddress().equals(getAddress())
-                && otherCell.getTags().equals(getTags());
+                && otherCell.getTags().equals(getTags())
+                && otherCell.coordinates.equals(coordinates)
+                && otherCell.battleship.isPresent() == battleship.isPresent()
+                && (!otherCell.battleship.isPresent() || otherCell.battleship.get().equals(battleship.get()));
     }
 
     @Override
@@ -204,15 +210,7 @@ public class Cell {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+        builder.append(coordinates);
         return builder.toString();
     }
 }

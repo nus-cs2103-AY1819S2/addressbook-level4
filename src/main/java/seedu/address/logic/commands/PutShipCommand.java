@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,11 +24,12 @@ public class PutShipCommand extends Command {
     public static final String COMMAND_ALIAS = "p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Puts ship in cell that is identified "
-            + "by the row number provided by the user. "
+            + "by the row number and orientation (vertical/horizontal) provided by the user. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_COORDINATES + "COORDINATES]\n"
+            + "[" + PREFIX_ORIENTATION + "ORIENTATION\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_NAME + "Destroyer "
             + PREFIX_COORDINATES + "c1";
@@ -73,11 +75,13 @@ public class PutShipCommand extends Command {
                 throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
             } else {
                 try {
+                    checkEnoughBattleships(model, battleship, 1);
                     putAlongHorizontal(model, coordinates, battleship);
+                    model.deployBattleship(battleship);
                 } catch (ArrayIndexOutOfBoundsException aiobe) {
                     throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
                 } catch (Exception e) {
-                    throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                    throw new CommandException(e.getMessage());
                 }
             }
         } else if (this.orientation.isVertical() && !this.orientation.isHorizontal()) {
@@ -89,11 +93,13 @@ public class PutShipCommand extends Command {
                 throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
             } else {
                 try {
+                    checkEnoughBattleships(model, battleship, 1);
                     putAlongVertical(model, coordinates, battleship);
+                    model.deployBattleship(battleship);
                 } catch (ArrayIndexOutOfBoundsException aiobe) {
                     throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
                 } catch (Exception e) {
-                    throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                    throw new CommandException(e.getMessage());
                 }
             }
         } else {
@@ -196,6 +202,16 @@ public class PutShipCommand extends Command {
     }
 
     /**
+     * Checks if there are enough battleships to use. Throws exception if otherwise.
+     */
+    public static void checkEnoughBattleships(Model model, Battleship battleship, int numBattleship)
+            throws Exception {
+        if (!model.isEnoughBattleships(battleship, numBattleship)) {
+            throw new Exception("Not enough " + battleship.getName() + "s.");
+        }
+    }
+
+    /**
      * Checks if horizontal length is clear, i.e., there are no other battleship objects.
      * @return boolean of whether horizontal length is clear.
      */
@@ -222,8 +238,7 @@ public class PutShipCommand extends Command {
      * Pre-conditions: there are NO existing battleships along the vertical length, else will throw
      * and exception.
      */
-    public static void putAlongVertical(Model model, Coordinates coordinates, Battleship battleship)
-            throws Exception {
+    public static void putAlongVertical(Model model, Coordinates coordinates, Battleship battleship) {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
@@ -233,11 +248,7 @@ public class PutShipCommand extends Command {
             Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
 
-            if (cellToInspect.hasBattleShip()) {
-                throw new Exception();
-            } else {
-                cellToInspect.putShip(battleship);
-            }
+            cellToInspect.putShip(battleship);
         }
     }
 
@@ -246,8 +257,7 @@ public class PutShipCommand extends Command {
      * Pre-conditions: there are NO existing battleships along the horizontal length, else will throw
      * and exception.
      */
-    public static void putAlongHorizontal(Model model, Coordinates coordinates, Battleship battleship)
-            throws Exception {
+    public static void putAlongHorizontal(Model model, Coordinates coordinates, Battleship battleship) {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
@@ -257,11 +267,7 @@ public class PutShipCommand extends Command {
             Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
                     colIndex.getZeroBased() + i);
 
-            if (cellToInspect.hasBattleShip()) {
-                throw new Exception();
-            } else {
-                cellToInspect.putShip(battleship);
-            }
+            cellToInspect.putShip(battleship);
         }
     }
 

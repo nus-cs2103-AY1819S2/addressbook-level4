@@ -4,9 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
+import java.util.Objects;
+
 import org.junit.Test;
 
 import seedu.address.model.cell.Address;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class BattleshipTest {
@@ -20,6 +24,43 @@ public class BattleshipTest {
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
         String invalidAddress = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
+    }
+
+    @Test
+    public void testDefaultConstructors() {
+        Battleship battleshipOne = new Battleship();
+        Battleship battleshipTwo = new Battleship(new Name("destroyer"), new HashSet<>());
+        Battleship battleshipThree = new Battleship(new Name("destroyer"), 2, 2);
+        Battleship battleshipFour = new Battleship(new Name("destroyer"));
+
+        HashSet<Tag> emptySet = new HashSet<>();
+        Battleship battleshipOneShadow = new Battleship(new Name("placeholder"), 2, 2, emptySet);
+        Battleship battleshipTwoShadow = new Battleship(new Name("destroyer"), 2, 2, emptySet);
+        Battleship battleshipThreeShadow = new Battleship(new Name("destroyer"), 2, 2, emptySet);
+        Battleship battleshipFourShadow = new Battleship(new Name("destroyer"), 2, 2, emptySet);
+
+        assertEquals(battleshipOne, battleshipOneShadow);
+        assertEquals(battleshipTwo, battleshipTwoShadow);
+        assertEquals(battleshipThree, battleshipThreeShadow);
+        assertEquals(battleshipFour, battleshipFourShadow);
+    }
+
+    @Test
+    public void testToString() {
+        Battleship battleship = new Battleship();
+        assertEquals(battleship.toString(), "placeholder");
+    }
+
+    @Test
+    public void testHash() {
+        Battleship battleship = new Battleship();
+        assertEquals(battleship.hashCode(), Objects.hash(
+                battleship.getName(),
+                battleship.getId(),
+                battleship.getLength(),
+                battleship.getLife(),
+                battleship.getTags()
+        ));
     }
 
     @Test

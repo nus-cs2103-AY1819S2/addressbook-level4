@@ -77,6 +77,11 @@ Examples:
 
 * `start n/02-03-LEARN c/15 m/LEARN`
 
+==== Listing all lessons: `listLessons`
+
+Shows a numbered list of all lessons. +
+Format: `listLessons`
+
 ==== Adding a lesson: `addLesson`
 Adds a lesson. +
 Format: `addLesson n/NAME c/CORE... [o/OPTIONAL]...`

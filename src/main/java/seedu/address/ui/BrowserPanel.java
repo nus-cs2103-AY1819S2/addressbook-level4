@@ -2,10 +2,8 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.net.URL;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 
@@ -22,9 +19,7 @@ import seedu.address.model.card.Card;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final URL DEFAULT_PAGE =
-            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
+    public static final String DEFAULT_CARD_PAGE = "";
 
     private static Card CURRENT_CARD;
 
@@ -37,7 +32,7 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private GridPane cardPage;
     @FXML
-    private Label question;
+    private Label cardQuestion;
     @FXML
     private Label answer;
     @FXML
@@ -54,9 +49,11 @@ public class BrowserPanel extends UiPart<Region> {
         // Load card page when selected card changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
+                System.out.println("Default card");
                 loadDefaultCard();
                 return;
             }
+            System.out.println("New card");
             loadCardPage(newValue);
         });
 
@@ -74,7 +71,7 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadCardPage(Card card) {
         cardPage.getChildren().clear();
 
-        question.setText(card.getQuestion().fullQuestion);
+        cardQuestion.setText(card.getQuestion().fullQuestion);
         answer.setText("Ans: " + card.getAnswer().fullAnswer);
         score.setText("Score: " + card.getScore().toString());
         // Set empty string for hint by default
@@ -84,7 +81,7 @@ public class BrowserPanel extends UiPart<Region> {
             card.getHints().forEach(hintVal -> hint.setText("Hint: " + hintVal.hintName));
         }
 
-        cardPage.getChildren().addAll(question, answer, score, hint);
+        cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
 
         setCurrentCard(card);
     }
@@ -94,7 +91,12 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void loadDefaultCard() {
         cardPage.getChildren().clear();
-        question.setText("");
+        cardQuestion.setText("");
+        answer.setText("");
+        score.setText("");
+        hint.setText("");
+        cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
+        setCurrentCard(null);
     }
 
 }

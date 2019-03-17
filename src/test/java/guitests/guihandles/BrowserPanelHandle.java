@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
-    public static final String CURRENT_CARD_QUESTION = "#question";
+    public static final String CURRENT_CARD_QUESTION = "#cardQuestion";
 
     private boolean isWebViewLoaded = true;
 
@@ -55,6 +55,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
      */
     public boolean isLoaded() {
+        getChildNode(CURRENT_CARD_QUESTION).applyCss();
         return isWebViewLoaded;
     }
 }

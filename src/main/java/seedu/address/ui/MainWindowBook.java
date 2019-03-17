@@ -36,7 +36,7 @@ public class MainWindowBook extends UiPart<Stage> {
 	private ResultDisplay resultDisplay;
 	private HelpWindow helpWindow;
 
-	@javafx.fxml.FXML
+	@FXML
 	private StackPane browserPlaceholder;
 
 	@FXML

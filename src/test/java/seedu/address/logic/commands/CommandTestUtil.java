@@ -85,7 +85,9 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " Chicken Wings"; // ' ' not allowed in front
     public static final String INVALID_CODE_DESC = " " + PREFIX_CODE + "31A"; // first character should be a letter
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "a.50"; // 'a' not allowed in price
-    public static final String INVALID_ORDER_DESC = " " + VALID_QUANTITY_2 + " " + VALID_CODE_FRIES; // order swapped
+    public static final String INVALID_ORDER_CODE_DESC = " " + "31A" + " " + VALID_QUANTITY_2;
+    public static final String INVALID_ORDER_QUANTITY_DESC = " " + VALID_CODE_CHICKEN + " " + "A";
+    public static final String INVALID_ORDER_DESC = " " + VALID_QUANTITY_2 + " " + VALID_CODE_CHICKEN; // order swapped
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -265,7 +267,7 @@ public class CommandTestUtil {
     public static void deleteFirstOrderItem(Model model) {
         OrderItem firstOrderItem = model.getFilteredOrderItemList().get(0);
         model.deleteOrderItem(firstOrderItem);
-        model.updateOrders();
+        model.updateOrders(); // TODO: is this needed? Since deleteOrderItem already calls listener
     }
 
     /**

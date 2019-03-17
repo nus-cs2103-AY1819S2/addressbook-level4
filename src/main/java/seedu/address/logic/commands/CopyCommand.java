@@ -10,10 +10,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Person;
 
 /**
- * Adds a person to the address book.
+ * Copy a temporary person to the address book.
  */
 public class CopyCommand extends Command {
 
@@ -28,7 +30,7 @@ public class CopyCommand extends Command {
     private final Index index;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an CopyCommand to add the specified {@code Person}
      */
     public CopyCommand(Index index) {
         requireNonNull(index);
@@ -45,7 +47,14 @@ public class CopyCommand extends Command {
         }
 
         Person personToCopy = lastShownList.get(index.getZeroBased());
-        Person copyPerson = personToCopy.copy();
+        Person copyPerson;
+
+        requireNonNull(personToCopy);
+        if (personToCopy instanceof Patient) {
+            copyPerson  = (Patient) personToCopy.copy();
+        } else {
+            throw new PersonIsNotPatient();
+        }
 
         model.addPerson(copyPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -20,10 +20,8 @@ import seedu.address.model.UserPrefs;
 public class JsonUserPrefsStorageTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 

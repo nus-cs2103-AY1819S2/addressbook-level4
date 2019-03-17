@@ -11,6 +11,7 @@ import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.commands.ClearCustomerCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.EditBookingCommand;
 import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindNameCommand;
@@ -59,8 +60,11 @@ public class HotelManagementSystemParser {
 
         case AddBookingCommand.COMMAND_WORD:
         case AddBookingCommand.COMMAND_ALIAS:
-            System.out.println("Here");
             return new AddBookingCommandParser().parse(arguments, customerModel);
+
+        case EditBookingCommand.COMMAND_WORD:
+        case EditBookingCommand.COMMAND_ALIAS:
+            return new EditBookingCommandParser().parse(arguments, customerModel);
 
         case EditCustomerCommand.COMMAND_WORD:
         case EditCustomerCommand.COMMAND_ALIAS:

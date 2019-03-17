@@ -83,6 +83,13 @@ public class BookingList implements Iterable<Booking> {
         if (bookingIndex < 0 || bookingIndex > internalList.size()) {
             throw new BookingNotFoundException();
         }
+        if (!duringOperation(editedBooking)) {
+            throw new ServiceUnavailableException();
+        }
+        Optional<TimeRange> overlapping = isServiceFull(editedBooking);
+        if (overlapping.isPresent()) {
+            throw new ServiceFullException(overlapping.get());
+        }
 
         internalList.set(bookingIndex, editedBooking);
     }

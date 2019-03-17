@@ -41,13 +41,10 @@ import seedu.address.testutil.CustomerBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
-
     private CustomerModel customerModel = new CustomerManager();
     private BookingModel bookingModel = new BookingManager();
     private Logic logic;

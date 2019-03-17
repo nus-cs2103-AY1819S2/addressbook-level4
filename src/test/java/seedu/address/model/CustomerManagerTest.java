@@ -175,7 +175,7 @@ public class CustomerManagerTest {
         // different hotelManagementSystem -> returns false
         assertFalse(customerManager
             .equals(new CustomerManager(new VersionedHotelManagementSystem(differentHotelManagementSystem),
-            userPrefs)));
+                userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
@@ -191,6 +191,6 @@ public class CustomerManagerTest {
         differentUserPrefs.setHotelManagementSystemFilePath(Paths.get("differentFilePath"));
         assertFalse(customerManager
             .equals(new CustomerManager(new VersionedHotelManagementSystem(hotelManagementSystem),
-            differentUserPrefs)));
+                differentUserPrefs)));
     }
 }

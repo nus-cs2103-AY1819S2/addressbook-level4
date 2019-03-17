@@ -24,7 +24,6 @@ public class JsonSerializableHotelManagementSystemTest {
         + ".json");
     private static final Path DUPLICATE_CUSTOMER_FILE = TEST_DATA_FOLDER.resolve(
         "duplicateCustomerHotelManagementSystem.json");
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

@@ -70,9 +70,9 @@ public class Booking {
     @Override
     public String toString() {
         return "Booking for "
-            + service
+            + service.getName()
             + " from " + timing
-            + " by " + payer
-            + ". Comment - " + comment;
+            + " by " + payer.getName()
+            + ". Comment - " + comment.orElse("N/A");
     }
 }

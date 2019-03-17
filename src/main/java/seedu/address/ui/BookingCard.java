@@ -15,20 +15,17 @@ import seedu.address.model.customer.Customer;
 public class BookingCard extends UiPart<Region> {
 
     private static final String FXML = "BookingListCard.fxml";
-
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see
-     * <a href="https://github.com/se-edu/hotelManagementSystem-level4/issues/336"> The issue on
+     * @see <a href="https://github.com/se-edu/hotelManagementSystem-level4/issues/336"> The issue on
      * HotelManagementSystem level 4</a>
      */
 
     public final Booking booking;
     public final Customer payer;
-
     //@FXML
     //private HBox cardPane;
     @FXML

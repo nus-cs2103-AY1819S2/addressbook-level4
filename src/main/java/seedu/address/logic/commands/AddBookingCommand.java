@@ -11,6 +11,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookingModel;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.exceptions.ServiceFullException;
+import seedu.address.model.booking.exceptions.ServiceUnavailableException;
 
 /**
  * Adds a booking to the address book.
@@ -25,7 +27,7 @@ public class AddBookingCommand extends BookingCommand {
         + PREFIX_SERVICE + "SERVICE NAME "
         + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format) "
         + PREFIX_PAYER + "PAYER INDEX "
-        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX]... "
+        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)]... "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_SERVICE + "GYM "
@@ -51,7 +53,13 @@ public class AddBookingCommand extends BookingCommand {
     @Override
     public CommandResult execute(BookingModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.addBooking(toAdd);
+        try {
+            model.addBooking(toAdd);
+        } catch (ServiceUnavailableException e) {
+            return new CommandResult(MESSAGE_SERVICE_UNAVAILABLE);
+        } catch (ServiceFullException e) {
+            return new CommandResult(MESSAGE_SERVICE_FULL);
+        }
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

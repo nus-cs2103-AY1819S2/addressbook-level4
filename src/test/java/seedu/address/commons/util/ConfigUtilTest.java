@@ -20,10 +20,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 public class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 

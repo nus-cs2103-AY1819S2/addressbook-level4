@@ -163,8 +163,8 @@ public class ParserUtil {
     public static TimeRange parseTiming(String timing) throws ParseException {
         requireNonNull(timing);
         String trimmedTiming = timing.trim();
-        String[] hours = trimmedTiming.split(" - ");
-        return new TimeRange(Integer.parseInt(hours[0]), Integer.parseInt(hours[1]));
+        String[] hours = trimmedTiming.split("-");
+        return new TimeRange(Integer.parseInt(hours[0].trim()), Integer.parseInt(hours[1].trim()));
     }
 
     /**

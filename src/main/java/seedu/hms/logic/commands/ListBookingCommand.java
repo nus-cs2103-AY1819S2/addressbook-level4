@@ -2,11 +2,9 @@ package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
-import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.model.BookingModel;
-import seedu.hms.model.CustomerModel;
 
 /**
  * Lists all customers in the hms book to the user.

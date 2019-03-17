@@ -49,11 +49,9 @@ public class BrowserPanel extends UiPart<Region> {
         // Load card page when selected card changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                System.out.println("Default card");
                 loadDefaultCard();
                 return;
             }
-            System.out.println("New card");
             loadCardPage(newValue);
         });
 

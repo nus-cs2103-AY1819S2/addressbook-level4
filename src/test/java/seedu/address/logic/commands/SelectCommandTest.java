@@ -29,7 +29,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredCardList().size());
+        Index lastPersonIndex = Index.fromOneBased(model.getFilteredList().size());
 
         assertExecutionSuccess(INDEX_FIRST_CARD);
         assertExecutionSuccess(INDEX_THIRD_CARD);
@@ -38,7 +38,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
@@ -92,7 +92,7 @@ public class SelectCommandTest {
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedCard(model.getFilteredCardList().get(index.getZeroBased()));
+        expectedModel.setSelectedCard(model.getFilteredList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }

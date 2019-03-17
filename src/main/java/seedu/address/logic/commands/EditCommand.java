@@ -16,6 +16,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
@@ -66,14 +67,14 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Card> lastShownList = model.getFilteredCardList();
+        List<ListItem> lastShownList = model.getFilteredList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
         if (editCardDescriptor.isPresent()) {
-            Card cardToEdit = lastShownList.get(index.getZeroBased());
+            Card cardToEdit = (Card) lastShownList.get(index.getZeroBased());
             Card editedCard = createEditedCard(cardToEdit, editCardDescriptor.get());
 
             if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
@@ -81,11 +82,11 @@ public class EditCommand extends Command {
             }
 
             model.setCard(cardToEdit, editedCard);
-            model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+            model.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
             model.commitTopDeck();
             return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
         } else {
-            Card cardToEdit = lastShownList.get(index.getZeroBased());
+            Card cardToEdit = (Card) lastShownList.get(index.getZeroBased());
             String question = cardToEdit.getQuestion();
             String answer = cardToEdit.getAnswer();
             Set<Tag> tags = cardToEdit.getTags();

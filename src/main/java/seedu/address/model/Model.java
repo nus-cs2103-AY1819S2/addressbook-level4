@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
@@ -84,23 +85,14 @@ public interface Model {
      */
     void setCard(Card target, Card editedCard);
 
-    /** Returns an unmodifiable view of the filtered deck list */
-    ObservableList<Deck> getFilteredDeckList();
-
-    /**
-     * Updates the filter of the filtered deck list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredDeckList(Predicate<Deck> predicate);
-
-    /** Returns an unmodifiable view of the filtered card list */
-    ObservableList<Card> getFilteredCardList();
+    /** Returns an unmodifiable view of the filtered list */
+    ObservableList<ListItem> getFilteredList();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredCardList(Predicate<Card> predicate);
+    void updateFilteredList(Predicate<? extends ListItem> predicate);
 
     /**
      * Returns true if the model has previous TopDeck states to restore.
@@ -128,38 +120,21 @@ public interface Model {
     void commitTopDeck();
 
     /**
-     * Selected card in the filtered card list.
+     * Selected item in the filtered list.
+     * null if no item is selected.
+     */
+    ReadOnlyProperty<ListItem> selectedItemProperty();
+
+    /**
+     * Returns the selected Item in the filtered list.
      * null if no card is selected.
      */
-    ReadOnlyProperty<Card> selectedCardProperty();
+    ListItem getSelectedItem();
 
     /**
-     * Returns the selected card in the filtered card list.
-     * null if no card is selected.
+     * Sets the selected item in the filtered list.
      */
-    Card getSelectedCard();
-
-    /**
-     * Sets the selected card in the filtered card list.
-     */
-    void setSelectedCard(Card card);
-
-    /**
-     * Selected deck in the filtered deck list.
-     * null if no deck is selected.
-     */
-    ReadOnlyProperty<Deck> selectedDeckProperty();
-
-    /**
-     * Returns the selected deck in the filtered deck list.
-     * null if no deck is selected.
-     */
-    Deck getSelectedDeck();
-
-    /**
-     * Sets the selected deck in the filtered deck list.
-     */
-    void setSelectedDeck(Deck deck);
+    void setSelectedItem(ListItem item);
 
     /**
      * Adds a new deck in the filtered deck list.

@@ -113,7 +113,7 @@ public class ModelManagerTest {
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
         modelManager.addCard(ADDITION);
         modelManager.addCard(SUBTRACTION);
-        assertEquals(Arrays.asList(ADDITION, SUBTRACTION), modelManager.getFilteredCardList());
+        assertEquals(Arrays.asList(ADDITION, SUBTRACTION), modelManager.getFilteredList());
         modelManager.setSelectedCard(SUBTRACTION);
         modelManager.deleteCard(SUBTRACTION);
         assertEquals(ADDITION, modelManager.getSelectedCard());
@@ -131,7 +131,7 @@ public class ModelManagerTest {
     @Test
     public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredCardList().remove(0);
+        modelManager.getFilteredList().remove(0);
     }
 
     @Test
@@ -143,7 +143,7 @@ public class ModelManagerTest {
     @Test
     public void setSelectedCard_cardInFilteredCardList_setsSelectedCard() {
         modelManager.addCard(ADDITION);
-        assertEquals(Collections.singletonList(ADDITION), modelManager.getFilteredCardList());
+        assertEquals(Collections.singletonList(ADDITION), modelManager.getFilteredList());
         modelManager.setSelectedCard(ADDITION);
         assertEquals(ADDITION, modelManager.getSelectedCard());
     }

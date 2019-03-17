@@ -63,7 +63,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: filtered card list, select index within bounds of address book and card list -> selected */
         Index validIndex = Index.fromOneBased(1);
-        assertTrue(validIndex.getZeroBased() < getModel().getFilteredCardList().size());
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
@@ -78,7 +78,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredCardList().size() + 1;
+        invalidIndex = getModel().getFilteredList().size() + 1;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */

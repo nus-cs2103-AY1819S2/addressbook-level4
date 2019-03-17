@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
@@ -35,13 +36,13 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Card> filteredCardList = model.getFilteredCardList();
+        List<ListItem> filteredCardList = model.getFilteredList();
 
         if (targetIndex.getZeroBased() >= filteredCardList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
-        model.setSelectedCard(filteredCardList.get(targetIndex.getZeroBased()));
+        model.setSelectedItem(filteredCardList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
     }

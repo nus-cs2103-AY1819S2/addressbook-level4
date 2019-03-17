@@ -11,6 +11,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
@@ -130,8 +131,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         TopDeck expectedTopDeck = new TopDeck(actualModel.getTopDeck());
-        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
-        Card expectedSelectedCard = actualModel.getSelectedCard();
+        List<ListItem> expectedFilteredList = new ArrayList<>(actualModel.getFilteredList());
+        ListItem expectedSelectedItem = actualModel.getSelectedItem();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -141,8 +142,8 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedTopDeck, actualModel.getTopDeck());
-            assertEquals(expectedFilteredList, actualModel.getFilteredCardList());
-            assertEquals(expectedSelectedCard, actualModel.getSelectedCard());
+            assertEquals(expectedFilteredList, actualModel.getFilteredList());
+            assertEquals(expectedSelectedItem, actualModel.getSelectedItem());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -169,21 +170,21 @@ public class CommandTestUtil {
      * {@code model}'s deck.
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCardList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
 
-        Card card = model.getFilteredCardList().get(targetIndex.getZeroBased());
+        Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = card.getQuestion().split("\\s+");
         model.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         //Gets all the question that starts with what
-        assertEquals(1, model.getFilteredCardList().size());
+        assertEquals(1, model.getFilteredList().size());
     }
 
     /**
      * Deletes the first card in {@code model}'s filtered list from {@code model}'s deck.
      */
     public static void deleteFirstCard(Model model) {
-        Card firstCard = model.getFilteredCardList().get(0);
+        Card firstCard = (Card) model.getFilteredList().get(0);
         model.deleteCard(firstCard);
         model.commitTopDeck();
     }

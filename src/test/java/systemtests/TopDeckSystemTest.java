@@ -139,7 +139,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getTopDeck().getCardList().size(), getModel().getFilteredCardList().size());
+        assertEquals(getModel().getTopDeck().getCardList().size(), getModel().getFilteredList().size());
     }
 
     /**
@@ -147,7 +147,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void showCardsWithQuestion(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCardList().size() < getModel().getTopDeck().getCardList().size());
+        assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getCardList().size());
     }
 
     /**
@@ -176,7 +176,7 @@ public abstract class TopDeckSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new TopDeck(expectedModel.getTopDeck()), testApp.readStorageTopDeck());
-        assertListMatching(getCardListPanel(), expectedModel.getFilteredCardList());
+        assertListMatching(getCardListPanel(), expectedModel.getFilteredList());
     }
 
     /**
@@ -294,7 +294,7 @@ public abstract class TopDeckSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getCardListPanel(), getModel().getFilteredCardList());
+        assertListMatching(getCardListPanel(), getModel().getFilteredList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

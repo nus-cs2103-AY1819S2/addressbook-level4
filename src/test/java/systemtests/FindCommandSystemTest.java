@@ -156,7 +156,7 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCardList().size());
+                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

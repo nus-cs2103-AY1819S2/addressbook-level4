@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.*;
 import seedu.address.model.deck.Card;
@@ -154,7 +155,7 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public ObservableList<Card> getFilteredCardList() {
+        public ObservableList<Card> getFilteredList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,7 +189,7 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Card> selectedCardProperty() {
+        public ReadOnlyProperty<ListItem> selectedItemProperty() {
             throw new AssertionError("This method should not be called.");
         }
 

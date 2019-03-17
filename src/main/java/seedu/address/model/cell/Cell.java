@@ -35,6 +35,7 @@ public class Cell {
      */
     public Cell(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.coordinates = new Coordinates("a1");
         this.battleship = Optional.empty();
         this.name = name;
         this.phone = phone;
@@ -194,7 +195,10 @@ public class Cell {
                 && otherCell.getPhone().equals(getPhone())
                 && otherCell.getEmail().equals(getEmail())
                 && otherCell.getAddress().equals(getAddress())
-                && otherCell.getTags().equals(getTags());
+                && otherCell.getTags().equals(getTags())
+                && otherCell.coordinates.equals(coordinates)
+                && otherCell.battleship.isPresent() == battleship.isPresent()
+                && (!otherCell.battleship.isPresent() || otherCell.battleship.get().equals(battleship.get()));
     }
 
     @Override

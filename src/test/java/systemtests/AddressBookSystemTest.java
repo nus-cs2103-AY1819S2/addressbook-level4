@@ -172,9 +172,6 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
-        System.out.println(expectedCommandInput.equals(getCommandBox().getInput()));
-        System.out.println(expectedResultMessage.equals(getResultDisplay().getText()));
-        System.out.println(new AddressBook(expectedModel.getAddressBook()).equals(testApp.readStorageAddressBook()));
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());

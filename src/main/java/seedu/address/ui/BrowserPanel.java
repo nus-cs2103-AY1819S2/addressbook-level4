@@ -21,8 +21,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_CARD_PAGE = "";
 
-    private static Card CURRENT_CARD;
-
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -58,10 +56,6 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultCard();
     }
 
-    private void setCurrentCard(Card card) {
-        CURRENT_CARD = card;
-    }
-
     /**
      * Load the current selected {@code Card} into the browser panel with all card info.
      * @param card selected to be displayed.
@@ -80,8 +74,6 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
-
-        setCurrentCard(card);
     }
 
     /**
@@ -94,7 +86,6 @@ public class BrowserPanel extends UiPart<Region> {
         score.setText("");
         hint.setText("");
         cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
-        setCurrentCard(null);
     }
 
 }

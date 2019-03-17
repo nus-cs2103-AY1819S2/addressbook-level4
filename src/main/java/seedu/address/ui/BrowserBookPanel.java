@@ -24,41 +24,41 @@ public class BrowserBookPanel extends UiPart<Region> {
 
     private static final String FXML = "BrowserPanel.fxml";
 
-	//private final Logger logger = LogsCenter.getLogger(getClass());
+    //private final Logger logger = LogsCenter.getLogger(getClass());
 
-	@FXML
-	private WebView browser;
+    @FXML
+    private WebView browser;
 
-	public BrowserBookPanel(ObservableValue<Book> selectedBook) {
+    public BrowserBookPanel(ObservableValue<Book> selectedBook) {
 		super(FXML);
 
 		// To prevent triggering events for typing inside the loaded Web page.
-		getRoot().setOnKeyPressed(Event::consume);
+        getRoot().setOnKeyPressed(Event::consume);
 
 		// Load book's review when selected book changes.
-		selectedBook.addListener((observable, oldValue, newValue) -> {
-			if (newValue == null) {
-				loadDefaultPage();
-				return;
-			}
-			loadReviewPage(newValue);
+        selectedBook.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                loadDefaultPage();
+                return;
+            }
+            loadReviewPage(newValue);
 		});
 
-		loadDefaultPage();
-	}
+        loadDefaultPage();
+    }
 
-	private void loadReviewPage(Book book) {
-		loadPage(SEARCH_PAGE_URL + book.getBookName().fullName);
-	}
+    private void loadReviewPage(Book book) {
+        loadPage(SEARCH_PAGE_URL + book.getBookName().fullName);
+    }
 
-	public void loadPage(String url) {
-		Platform.runLater(() -> browser.getEngine().load(url));
-	}
+    public void loadPage(String url) {
+        Platform.runLater(() -> browser.getEngine().load(url));
+    }
 
 	/**
 	 * Loads a default HTML file with a background that matches the general theme.
 	 */
-	private void loadDefaultPage() {
-		loadPage(DEFAULT_PAGE.toExternalForm());
-	}
+    private void loadDefaultPage() {
+        loadPage(DEFAULT_PAGE.toExternalForm());
+    }
 }

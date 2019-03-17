@@ -23,65 +23,65 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainBookWindow extends UiPart<Stage> {
 
-	private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "MainWindow.fxml";
 
-	private final Logger logger = LogsCenter.getLogger(getClass());
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
-	private Stage primaryStage;
-	private Logic logic;
+    private Stage primaryStage;
+    private Logic logic;
 
 	// Independent Ui parts residing in this Ui container
-	private BookListPanel bookListPanel;
-	private ResultDisplay resultDisplay;
-	private HelpWindow helpWindow;
+    private BookListPanel bookListPanel;
+    private ResultDisplay resultDisplay;
+    private HelpWindow helpWindow;
 
-	@FXML
-	private StackPane browserPlaceholder;
+    @FXML
+    private StackPane browserPlaceholder;
 
-	@FXML
-	private StackPane commandBoxPlaceholder;
+    @FXML
+    private StackPane commandBoxPlaceholder;
 
-	@FXML
-	private MenuItem helpMenuItem;
+    @FXML
+    private MenuItem helpMenuItem;
 
-	@FXML
-	private StackPane bookListPanelPlaceholder;
+    @FXML
+    private StackPane bookListPanelPlaceholder;
 
-	@FXML
-	private StackPane resultDisplayPlaceholder;
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
-	@FXML
-	private StackPane statusbarPlaceholder;
+    @FXML
+    private StackPane statusbarPlaceholder;
 
-	public MainBookWindow(Stage primaryStage, Logic logic) {
-		super(FXML, primaryStage);
+    public MainBookWindow(Stage primaryStage, Logic logic) {
+        super(FXML, primaryStage);
 
-		// Set dependencies
-		this.primaryStage = primaryStage;
-		this.logic = logic;
+        // Set dependencies
+        this.primaryStage = primaryStage;
+        this.logic = logic;
 
-		// Configure the UI
-		setWindowDefaultSize(logic.getGuiSettings());
+        // Configure the UI
+        setWindowDefaultSize(logic.getGuiSettings());
 
-		setAccelerators();
+        setAccelerators();
 
-		helpWindow = new HelpWindow();
+        helpWindow = new HelpWindow();
 	}
 
-	public Stage getPrimaryStage() {
-		return primaryStage;
-	}
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
-	private void setAccelerators() {
-		setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-	}
+    private void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
 
 	/**
 	 * Sets the accelerator of a MenuItem.
 	 * @param keyCombination the KeyCombination value of the accelerator
 	 */
-	private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-		menuItem.setAccelerator(keyCombination);
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+        menuItem.setAccelerator(keyCombination);
 
 		/*
 		 * TODO: the code below can be removed once the bug reported here
@@ -98,103 +98,103 @@ public class MainBookWindow extends UiPart<Stage> {
 		 * help window purposely so to support accelerators even when focus is
 		 * in CommandBox or ResultDisplay.
 		 */
-		getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-				menuItem.getOnAction().handle(new ActionEvent());
-				event.consume();
-			}
-		});
-	}
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
+    }
 
 	/**
 	 * Fills up all the placeholders of this window.
 	 */
-	public void fillInnerParts() {
-		BrowserBookPanel browserBookPanel = new BrowserBookPanel(logic.selectedBookProperty());
-		browserPlaceholder.getChildren().add(browserBookPanel.getRoot());
+    public void fillInnerParts() {
+        BrowserBookPanel browserBookPanel = new BrowserBookPanel(logic.selectedBookProperty());
+        browserPlaceholder.getChildren().add(browserBookPanel.getRoot());
 
-		bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
-			logic::setSelectedBook);
-		bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
+        bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
+            logic::setSelectedBook);
+        bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
-		resultDisplay = new ResultDisplay();
-		resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-		StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
-		statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-		CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
-		commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-	}
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        }
 
 	/**
 	 * Sets the default size based on {@code guiSettings}.
 	 */
-	private void setWindowDefaultSize(GuiSettings guiSettings) {
-		primaryStage.setHeight(guiSettings.getWindowHeight());
-		primaryStage.setWidth(guiSettings.getWindowWidth());
-		if (guiSettings.getWindowCoordinates() != null) {
-			primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-			primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-		}
-	}
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
 
 	/**
 	 * Opens the help window or focuses on it if it's already opened.
 	 */
-	@FXML
-	public void handleHelp() {
-		if (!helpWindow.isShowing()) {
-			helpWindow.show();
-		} else {
-			helpWindow.focus();
-		}
-	}
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
 
-	public void show() {
-		primaryStage.show();
-	}
+    public void show() {
+        primaryStage.show();
+    }
 
 	/**
 	 * Closes the application.
 	 */
-	@FXML
-	private void handleExit() {
-		GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-			(int) primaryStage.getX(), (int) primaryStage.getY());
-		logic.setGuiSettings(guiSettings);
-		helpWindow.hide();
-		primaryStage.hide();
-	}
+    @FXML
+    private void handleExit() {
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+            (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
+        helpWindow.hide();
+        primaryStage.hide();
+    }
 
-	public BookListPanel getBookListPanel() {
-		return bookListPanel;
-	}
+    public BookListPanel getBookListPanel() {
+        return bookListPanel;
+    }
 
 	/**
 	 * Executes the command and returns the result.
 	 *
 	 * @see seedu.address.logic.Logic#execute(String)
 	 */
-	private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-		try {
-			CommandResult commandResult = logic.execute(commandText);
-			logger.info("Result: " + commandResult.getFeedbackToUser());
-			resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-			if (commandResult.isShowHelp()) {
-				handleHelp();
-			}
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
 
-			if (commandResult.isExit()) {
-				handleExit();
-			}
+            if (commandResult.isExit()) {
+                handleExit();
+            }
 
-			return commandResult;
-		} catch (CommandException | ParseException e) {
-			logger.info("Invalid command: " + commandText);
-			resultDisplay.setFeedbackToUser(e.getMessage());
-			throw e;
-		}
-	}
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
 }

@@ -32,6 +32,8 @@ public class AddLessonParser implements Parser<AddLessonCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
         }
 
+        // To do check if minimum number of core headers reached
+
         String name = argMultimap.getValue(PREFIX_LESSON_NAME).get();
         ArrayList<String> coreHeaders = new ArrayList<>();
         ArrayList<String> optHeaders = new ArrayList<>();

@@ -37,7 +37,8 @@ public class ManagementModeParser implements Parser<Command> {
         }
 
         final String commandWord = matcher.group("commandWord");
-        //        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         //        case FindCommand.COMMAND_WORD:
@@ -56,8 +57,7 @@ public class ManagementModeParser implements Parser<Command> {
             return new HelpCommand();
 
         case AddLessonCommand.COMMAND_WORD:
-            Lesson lesson = new Lesson("Test Lesson", List.of("Question", "Answer"), List.of("Hint"));
-            return new AddLessonCommand(lesson);
+            return new AddLessonParser().parse(arguments);
 
         //        case UndoCommand.COMMAND_WORD:
         //            return new UndoCommand();

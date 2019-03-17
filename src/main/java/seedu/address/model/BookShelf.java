@@ -176,14 +176,28 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
+     * Removes {@code tag} from a {@code book}
+     */
+    private void removeTagFromBook(Tag tag, Book book) {
+        Set<Tag> tags = new HashSet<Tag>(book.getTags());
+        if (!tags.remove(tag)) {
+            return;
+        }
+
+        Book newBook = new Book(book.getBookName(), book.getAuthor(),
+                book.getRating(), tags);
+
+        setBook(book, newBook);
+    }
+
+    /**
      * Remove {@code tag} from all person in the list
      */
     public void removeTag(Tag tag) {
-        for (Person p: persons) {
-            removeTagFromPerson(tag, p);
+        for (Book p: books) {
+            removeTagFromBook(tag, p);
         }
     }
-
 
     @Override
     public void addListener(InvalidationListener listener) {

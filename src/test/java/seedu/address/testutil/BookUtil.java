@@ -5,9 +5,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
+
 import seedu.address.logic.commands.AddBookCommand;
+import seedu.address.logic.commands.DeleteBookCommand;
+import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.model.book.Book;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Book.
@@ -19,6 +24,13 @@ public class BookUtil {
      */
     public static String getAddBookCommand(Book book) {
         return AddBookCommand.COMMAND_WORD + " " + getBookDetails(book);
+    }
+
+    /**
+     * Returns an delete command string for delete the {@code book}.
+     */
+    public static String getDeleteBookCommand(Book book) {
+        return DeleteBookCommand.COMMAND_WORD + " " + PREFIX_NAME + book.getBookName().fullName;
     }
 
     /**
@@ -51,13 +63,11 @@ public class BookUtil {
     /**
      * Returns the part of command string for the given {@code EditBookDescriptor}'s details.
      */
-    /*
     public static String getEditBookDescriptorDetails(EditBookDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getAuthor().ifPresent(author -> sb.append(PREFIX_AUTHOR).append(author.fullName).append(" "));
+        descriptor.getRating().ifPresent(rating -> sb.append(PREFIX_RATING).append(rating.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
@@ -68,5 +78,4 @@ public class BookUtil {
         }
         return sb.toString();
     }
-    */
 }

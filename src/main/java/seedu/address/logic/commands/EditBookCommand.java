@@ -26,7 +26,7 @@ import seedu.address.model.book.Rating;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing book in the book shelf.
  */
 public class EditBookCommand extends Command {
 
@@ -53,7 +53,7 @@ public class EditBookCommand extends Command {
     private final EditBookDescriptor editBookDescriptor;
 
     /**
-     * @param editBookDescriptor details to editBook the person with
+     * @param editBookDescriptor details to editBook the book with
      */
     public EditBookCommand(BookNameContainsExactKeywordsPredicate predicate, EditBookDescriptor editBookDescriptor) {
         requireNonNull(editBookDescriptor);
@@ -81,7 +81,7 @@ public class EditBookCommand extends Command {
 
         model.setBook(bookToEdit, editBookedBook);
         model.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
-        model.commitAddressBook();
+        model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_EDIT_BOOK_SUCCESS, editBookedBook));
     }
 
@@ -118,8 +118,8 @@ public class EditBookCommand extends Command {
     }
 
     /**
-     * Stores the details to editBook the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to editBook the book with. Each non-empty field value will replace the
+     * corresponding field value of the book.
      */
     public static class EditBookDescriptor {
         private BookName name;

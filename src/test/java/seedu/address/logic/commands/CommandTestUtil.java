@@ -20,6 +20,9 @@ import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditBookDescriptorBuilder;
@@ -183,12 +186,28 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the book of the given {@code name} in the
+     * {@code model}'s book shelf. The book should be present in the book shelf.
+     */
+    public static void showBookOfExactName(Model model, BookName name) {
+        model.updateFilteredBookList(new BookNameContainsExactKeywordsPredicate(name));
+    }
+
+    /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
-        model.commitAddressBook();
+        model.commitBookShelf();
     }
 
+    /**
+     * Deletes the first book in {@code model}'s filtered list from {@code model}'s book shelf.
+     */
+    public static void deleteFirstBook(Model model) {
+        Book firstBook = model.getFilteredBookList().get(0);
+        model.deleteBook(firstBook);
+        model.commitBookShelf();
+    }
 }

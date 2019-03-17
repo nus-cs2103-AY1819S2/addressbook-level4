@@ -17,7 +17,10 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddBookCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteBookCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditBookCommand;
+import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -32,10 +35,12 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookListFilterPredicate;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
+import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -67,16 +72,18 @@ public class BookShelfParserTest {
     }
 
     @Test
-    public void parseCommand_clear_alias() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS + " 3") instanceof ClearCommand);
-    }
-
-    @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_deleteBook() throws Exception {
+        Book book = new BookBuilder().build();
+        DeleteBookCommand command = (DeleteBookCommand) parser.parseCommand(BookUtil.getDeleteBookCommand(book));
+        assertEquals(new DeleteBookCommand(
+                new BookNameContainsExactKeywordsPredicate(book.getBookName())), command);
     }
 
     @Test
@@ -86,6 +93,16 @@ public class BookShelfParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_editBook() throws Exception {
+        Book book = new BookBuilder().build();
+        EditBookDescriptor descriptor = new EditBookDescriptorBuilder(book).build();
+        EditBookCommand command = (EditBookCommand) parser.parseCommand(EditBookCommand.COMMAND_WORD + " "
+                + BookUtil.getEditBookDescriptorDetails(descriptor));
+        assertEquals(new EditBookCommand(
+                new BookNameContainsExactKeywordsPredicate(book.getBookName()), descriptor), command);
     }
 
     @Test
@@ -113,7 +130,6 @@ public class BookShelfParserTest {
             );
         assertEquals(new ListBookCommand(predicate), command);
     }
-
 
     @Test
     public void parseCommand_help() throws Exception {

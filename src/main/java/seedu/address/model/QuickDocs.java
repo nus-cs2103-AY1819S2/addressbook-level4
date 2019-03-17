@@ -1,7 +1,9 @@
 package seedu.address.model;
 
+import seedu.address.model.appointment.AppointmentManager;
 import seedu.address.model.consultation.ConsultationManager;
 import seedu.address.model.patient.PatientManager;
+import seedu.address.model.reminder.ReminderManager;
 
 /**
  * Manages all managers of QuickDocs
@@ -10,6 +12,8 @@ public class QuickDocs {
 
     private PatientManager patientManager = new PatientManager();
     private ConsultationManager consultationManager = new ConsultationManager();
+    private AppointmentManager appointmentManager = new AppointmentManager();
+    private ReminderManager reminderManager = new ReminderManager();
 
     private boolean isModified = false;
 
@@ -23,6 +27,22 @@ public class QuickDocs {
 
     public ConsultationManager getConsultationManager() {
         return consultationManager;
+    }
+
+    public AppointmentManager getAppointmentManager() {
+        return appointmentManager;
+    }
+
+    public void setAppointmentManager(AppointmentManager appointmentManager) {
+        this.appointmentManager = appointmentManager;
+    }
+
+    public ReminderManager getReminderManager() {
+        return reminderManager;
+    }
+
+    public void setReminderManager(ReminderManager reminderManager) {
+        this.reminderManager = reminderManager;
     }
 
     // indicate modification of quickdocs data

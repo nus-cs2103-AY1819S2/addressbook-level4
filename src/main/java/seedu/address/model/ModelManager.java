@@ -111,8 +111,8 @@ public class ModelManager implements Model {
         //this.patientManager = new PatientManager(addressBook.getPatients());
         this.patientManager = quickDocs.getPatientManager();
         this.consultationManager = quickDocs.getConsultationManager();
-        this.appointmentManager = new AppointmentManager();
-        this.reminderManager = new ReminderManager();
+        this.appointmentManager = quickDocs.getAppointmentManager();
+        this.reminderManager = quickDocs.getReminderManager();
         this.recordManager = new RecordManager();
 
 
@@ -524,7 +524,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Adds an {@code Appointment} and its {@code Reminder} to their corresponding managers
+     * Adds an {@code Appointment} and its {@code Reminder} to QuickDocs
      *
      * @param app the {@code Appointment} to add
      */
@@ -532,6 +532,7 @@ public class ModelManager implements Model {
         appointmentManager.add(app);
         Reminder remToAdd = new Reminder(app);
         addRem((remToAdd));
+        quickDocs.indicateModification(true);
     }
 
     public String listApp() {
@@ -543,8 +544,13 @@ public class ModelManager implements Model {
         return reminderManager.duplicateReminder(rem);
     }
 
+    /**
+     * Adds a {@code Reminder} to QuickDocs
+     * @param rem the {@code Reminder} to add
+     */
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
+        quickDocs.indicateModification(true);
     }
 
     public String listRem() {

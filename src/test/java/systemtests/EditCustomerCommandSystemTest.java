@@ -3,57 +3,57 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ID_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-import static seedu.address.testutil.TypicalCustomers.AMY;
-import static seedu.address.testutil.TypicalCustomers.BOB;
-import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
+import static seedu.hms.testutil.TypicalCustomers.AMY;
+import static seedu.hms.testutil.TypicalCustomers.BOB;
+import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.CustomerUtil;
+import seedu.hms.commons.core.Messages;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.EditCustomerCommand;
+import seedu.hms.logic.commands.RedoCommand;
+import seedu.hms.logic.commands.UndoCommand;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.Email;
+import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.customer.Name;
+import seedu.hms.model.customer.Phone;
+import seedu.hms.model.tag.Tag;
+import seedu.hms.testutil.CustomerBuilder;
+import seedu.hms.testutil.CustomerUtil;
 
-public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
+public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTest {
 
     @Test
     public void edit() {
@@ -66,7 +66,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
          */
         Index index = INDEX_FIRST_CUSTOMER;
         String command = " " + EditCustomerCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB
-                + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
+            + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
             + TAG_DESC_HUSBAND + " ";
         Customer editedCustomer = new CustomerBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedCustomer);
@@ -85,15 +85,15 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a customer with new values same as existing values -> edited */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a customer with new values same as another customer's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getCustomerList().contains(BOB));
+        assertTrue(getModel().getHotelManagementSystem().getCustomerList().contains(BOB));
         index = INDEX_SECOND_CUSTOMER;
         assertNotEquals(getModel().getFilteredCustomerList().get(index.getZeroBased()), BOB);
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCustomer = new CustomerBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedCustomer);
 
@@ -102,7 +102,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
          */
         index = INDEX_SECOND_CUSTOMER;
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCustomer = new CustomerBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
             .withIdNum(VALID_ID_AMY).build();
         assertCommandSuccess(command, index, editedCustomer);
@@ -116,7 +116,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered customer list, edit index within bounds of address book and customer list -> edited */
+        /* Case: filtered customer list, edit index within bounds of hms book and customer list -> edited */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_CUSTOMER;
         assertTrue(index.getZeroBased() < getModel().getFilteredCustomerList().size());
@@ -125,11 +125,11 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
         editedCustomer = new CustomerBuilder(customerToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedCustomer);
 
-        /* Case: filtered customer list, edit index within bounds of address book but out of bounds of customer list
+        /* Case: filtered customer list, edit index within bounds of hms book but out of bounds of customer list
          * -> rejected
          */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getCustomerList().size();
+        int invalidIndex = getModel().getHotelManagementSystem().getCustomerList().size();
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
             Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
@@ -143,7 +143,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_FIRST_CUSTOMER;
         selectCustomer(index);
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+            + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new customer's name
         assertCommandSuccess(command, index, AMY, index);
@@ -191,7 +191,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
                 + INVALID_ID_DESC,
             IdentificationNo.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid hms -> rejected */
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
                 + INVALID_ADDRESS_DESC,
             Address.MESSAGE_CONSTRAINTS);
@@ -203,40 +203,40 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a customer with new values same as another customer's values -> rejected */
         executeCommand(CustomerUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getCustomerList().contains(BOB));
+        assertTrue(getModel().getHotelManagementSystem().getCustomerList().contains(BOB));
         index = INDEX_FIRST_CUSTOMER;
         assertFalse(getModel().getFilteredCustomerList().get(index.getZeroBased()).equals(BOB));
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different tags -> rejected*/
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
-        /* Case: edit a customer with new values same as another customer's values but with different address ->
+        /* Case: edit a customer with new values same as another customer's values but with different hms ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different phone ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different email ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_AMY + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_AMY + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different id ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + EMAIL_DESC_BOB + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     }
 
@@ -268,7 +268,7 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
 
         assertCommandSuccess(command, expectedModel,
             String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer),
-                expectedSelectedCardIndex);
+            expectedSelectedCardIndex);
     }
 
     /**
@@ -290,10 +290,10 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+     * @see HotelManagementSystemSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
@@ -316,9 +316,9 @@ public class EditCustomerCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+     * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         CustomerModel expectedModel = getModel();

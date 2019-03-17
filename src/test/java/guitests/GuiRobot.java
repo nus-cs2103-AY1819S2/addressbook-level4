@@ -48,7 +48,6 @@ public class GuiRobot extends FxRobot {
 
     /**
      * Waits for {@code event} to be true by {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS} milliseconds.
-     *
      */
     public void waitForEvent(BooleanSupplier event) {
         waitForEvent(event, DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS);
@@ -95,7 +94,6 @@ public class GuiRobot extends FxRobot {
      * Returns the first stage, ordered by proximity to the current target window, with the stage title.
      * The order that the windows are searched are as follows (proximity): current target window,
      * children of the target window, rest of the windows.
-     *
      */
     public Stage getStage(String stageTitle) {
         Optional<Stage> targetStage = listTargetWindows().stream()

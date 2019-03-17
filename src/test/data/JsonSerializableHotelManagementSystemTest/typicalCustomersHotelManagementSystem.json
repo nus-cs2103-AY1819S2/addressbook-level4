@@ -1,0 +1,70 @@
+{
+  "_comment": "HotelManagementSystem save file which contains the same Customer values as in TypicalCustomers#getTypicalHotelManagementSystem()",
+  "customers": [
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "idnum": "12312",
+      "hms": "123, Jurong West Ave 6, #08-111",
+      "tagged": [
+        "friends"
+      ]
+    },
+    {
+      "name": "Benson Meier",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "idnum": "12335",
+      "hms": "311, Clementi Ave 2, #02-25",
+      "tagged": [
+        "owesMoney",
+        "friends"
+      ]
+    },
+    {
+      "name": "Carl Kurz",
+      "phone": "95352563",
+      "email": "heinz@example.com",
+      "idnum": "104535",
+      "hms": "wall street",
+      "tagged": []
+    },
+    {
+      "name": "Daniel Meier",
+      "phone": "87652533",
+      "email": "cornelia@example.com",
+      "idnum": "12005",
+      "hms": "10th street",
+      "tagged": [
+        "friends"
+      ]
+    },
+    {
+      "name": "Elle Meyer",
+      "phone": "9482224",
+      "email": "werner@example.com",
+      "idnum": "123300",
+      "hms": "michegan ave",
+      "tagged": []
+    },
+    {
+      "name": "Fiona Kunz",
+      "phone": "9482427",
+      "email": "lydia@example.com",
+      "idnum": "10095",
+      "hms": "little tokyo",
+      "tagged": []
+    },
+    {
+      "name": "George Best",
+      "phone": "9482442",
+      "email": "anna@example.com",
+      "idnum": "1233999",
+      "hms": "4th street",
+      "tagged": []
+    }
+  ],
+  "bookings": [
+  ]
+}

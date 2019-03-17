@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Lessons;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.modelmanager.managementmodel.ManagementModel;
 import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 

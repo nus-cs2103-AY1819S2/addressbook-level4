@@ -14,15 +14,15 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.managementcommand.HistoryCommand;
 import seedu.address.logic.commands.quizcommand.QuizAnswerCommand;
 import seedu.address.logic.commands.quizcommand.QuizStartCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Lessons;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.modelmanager.managementmodel.ManagementModel;
 import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.modelmanager.quizmodel.Quiz;
 import seedu.address.model.modelmanager.quizmodel.QuizCard;
 import seedu.address.model.modelmanager.quizmodel.QuizModel;
@@ -118,7 +118,8 @@ public class LogicManagerTest {
      * Also confirms that {@code expectedManagementModel} is as specified.
      * @see #assertCommandBehavior(Class, String, String, ManagementModel)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage, ManagementModel expectedManagementModel) {
+    private void assertCommandSuccess(String inputCommand, String expectedMessage,
+                                      ManagementModel expectedManagementModel) {
         assertCommandBehavior(null, inputCommand, expectedMessage, expectedManagementModel);
     }
 

@@ -41,7 +41,7 @@ public class FindCommandNewParser implements Parser<FindCommandNew> {
             findModuleDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
         }
         if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
-            findModuleDescriptor.setGrade(ParserUtil.parseExpectedMinGrade(argMultimap.getValue(PREFIX_GRADE).get()));
+            findModuleDescriptor.setGrade(ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
         }
 
         return new FindCommandNew(new FindCommandPredicate(findModuleDescriptor));

@@ -3,13 +3,15 @@
     "name": "Valid Person",
     "semester": "Y1S1",
     "expectedMinGrade": "F",
-    "expectedMaxGrade": "A+",
+    "expectedMaxGrade": "A",
+    "lectureHour" : "2",
     "tags": [ ]
   }, {
     "name": "Person With Invalid Semester Field",
     "semester": "948asdf2424",
     "expectedMinGrade": "F",
-    "expectedMaxGrade": "A+",
+    "expectedMaxGrade": "A",
+    "lectureHour" : "f",
     "tags": [ ]
   } ]
 }

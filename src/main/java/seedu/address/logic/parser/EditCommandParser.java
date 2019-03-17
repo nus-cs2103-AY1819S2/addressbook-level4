@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -33,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SEMESTER,
-                        PREFIX_EXPECTED_MIN_GRADE, PREFIX_EXPECTED_MAX_GRADE, PREFIX_TAG);
+                        PREFIX_EXPECTED_MIN_GRADE, PREFIX_EXPECTED_MAX_GRADE, PREFIX_LECTURE_HOUR, PREFIX_TAG);
 
         Index index;
 
@@ -51,12 +52,16 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
         }
         if (argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).isPresent()) {
-            editPersonDescriptor.setExpectedMinGrade(ParserUtil.parseExpectedMinGrade(
-                    argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).get()));
+            editPersonDescriptor.setExpectedMinGrade(
+                    ParserUtil.parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).get()));
         }
         if (argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).isPresent()) {
             editPersonDescriptor.setExpectedMaxGrade(
-                    ParserUtil.parseExpectedMaxGrade(argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).get()));
+                    ParserUtil.parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LECTURE_HOUR).isPresent()) {
+            editPersonDescriptor.setLectureHour(
+                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_LECTURE_HOUR).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

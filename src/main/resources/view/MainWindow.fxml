@@ -56,12 +56,16 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" minWidth="400" prefWidth="400" >
+          <VBox fx:id="enemyMap" minWidth="400" prefWidth="400" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-          </StackPane>
+            <StackPane><Text text="Enemy board" fill="white"></Text></StackPane>
+            <StackPane fx:id="browserPlaceholder" VBox.vgrow="ALWAYS" >
+            </StackPane>
+          </VBox>
         </SplitPane>
+
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

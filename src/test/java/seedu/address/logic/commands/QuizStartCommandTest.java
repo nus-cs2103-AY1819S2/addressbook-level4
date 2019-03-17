@@ -16,21 +16,21 @@ import seedu.address.model.modelmanager.quizmodel.QuizCard;
 import seedu.address.model.modelmanager.quizmodel.QuizModel;
 import seedu.address.model.modelmanager.quizmodel.QuizModelManager;
 
-public class StartCommandTest {
+public class QuizStartCommandTest {
 
     private static final CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_success() throws Exception {
         ManagementModel managementModel = new ManagementModelManager();
-        CommandResult commandResult = new StartCommand().execute(managementModel, commandHistory);
+        CommandResult commandResult = new QuizStartCommand().execute(managementModel, commandHistory);
 
-        assertEquals(String.format(StartCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
+        assertEquals(String.format(QuizStartCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
     }
 
     @Test
     public void executeActual_success() {
-        // this hardcoded values matched StartCommand
+        // this hardcoded values matched QuizStartCommand
         // when session is implemented then this will change to session instead
         final QuizCard card1 = new QuizCard("Japan", "Tokyo");
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
@@ -42,13 +42,13 @@ public class StartCommandTest {
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
         expectedModel.getNextCard();
-        CommandResult expectedCommandResult = new StartCommand().executeActual(expectedModel, commandHistory);
+        CommandResult expectedCommandResult = new QuizStartCommand().executeActual(expectedModel, commandHistory);
 
         QuizModel actualModel = new QuizModelManager();
-        StartCommand startCommand = new StartCommand();
+        QuizStartCommand quizStartCommand = new QuizStartCommand();
 
         CommandHistory expectedCommandHistory = new CommandHistory(commandHistory);
-        CommandResult result = startCommand.executeActual(actualModel, commandHistory);
+        CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
         assertEquals(expectedCommandResult, result);
         assertEquals(expectedModel, actualModel);
         assertEquals(expectedCommandHistory, commandHistory);

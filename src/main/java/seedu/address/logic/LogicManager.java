@@ -8,8 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.QuizCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.QuizStartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
@@ -49,14 +48,14 @@ public class LogicManager implements Logic {
                 command = managementModeParser.parseCommand(commandText);
                 commandResult = command.execute(managementModel, history);
             } else {
-                QuizCommand quizCommand = quizModeParser.parse(commandText);
-                commandResult = quizCommand.execute(quizModel, history);
+                command = quizModeParser.parse(commandText);
+                commandResult = command.execute(quizModel, history);
             }
 
             // very ugly way
-            if (command instanceof StartCommand) {
-                StartCommand startCommand = (StartCommand) command;
-                commandResult = startCommand.executeActual(quizModel, history);
+            if (command instanceof QuizStartCommand) {
+                QuizStartCommand quizStartCommand = (QuizStartCommand) command;
+                commandResult = quizStartCommand.executeActual(quizModel, history);
             }
 
         } finally {

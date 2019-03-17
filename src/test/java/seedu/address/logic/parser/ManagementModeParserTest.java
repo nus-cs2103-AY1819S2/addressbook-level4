@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ManagementModeParserTest {
@@ -59,7 +59,7 @@ public class ManagementModeParserTest {
     //    }
     @Test
     public void parseCommand_start() throws Exception {
-        assertTrue(parser.parseCommand(StartCommand.COMMAND_WORD) instanceof StartCommand);
+        assertTrue(parser.parseCommand(QuizStartCommand.COMMAND_WORD) instanceof QuizStartCommand);
     }
 
     @Test

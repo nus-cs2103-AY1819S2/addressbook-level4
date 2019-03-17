@@ -8,7 +8,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -41,8 +41,8 @@ public class ManagementModeParser {
         //        case FindCommand.COMMAND_WORD:
         //            return new FindCommandParser().parse(arguments);
         // TODO use parser here
-        case StartCommand.COMMAND_WORD:
-            return new StartCommand();
+        case QuizStartCommand.COMMAND_WORD:
+            return new QuizStartCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

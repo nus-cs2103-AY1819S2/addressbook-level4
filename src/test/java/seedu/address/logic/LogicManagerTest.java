@@ -16,7 +16,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.QuizAnswerCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.QuizStartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Lessons;
@@ -62,7 +62,7 @@ public class LogicManagerTest {
     @Test
     public void execute_startCommand_success() {
         // TODO change to session
-        // this hardcoded values matched StartCommand
+        // this hardcoded values matched QuizStartCommand
         // when session is implemented then this will change to session instead
         final QuizCard card1 = new QuizCard("Japan", "Tokyo");
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
@@ -74,17 +74,17 @@ public class LogicManagerTest {
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
         QuizCard expectedCard = expectedModel.getNextCard();
-        CommandResult expected = new CommandResult(String.format(StartCommand.MESSAGE_QUESTION_ANSWER,
+        CommandResult expected = new CommandResult(String.format(QuizStartCommand.MESSAGE_QUESTION_ANSWER,
             expectedCard.getQuestion(), expectedCard.getAnswer()));
 
-        assertCommandSuccess(StartCommand.COMMAND_WORD, expected.getFeedbackToUser(), expectedModel);
+        assertCommandSuccess(QuizStartCommand.COMMAND_WORD, expected.getFeedbackToUser(), expectedModel);
     }
 
     @Test
     public void execute_quizCommand_success() throws Exception {
         final String answer = "Budapest";
         // TODO change to session
-        // this hardcoded values matched StartCommand
+        // this hardcoded values matched QuizStartCommand
         // when session is implemented then this will change to session instead
         final QuizCard card1 = new QuizCard("Japan", "Tokyo");
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");

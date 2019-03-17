@@ -16,7 +16,7 @@ public class QuizCommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(QuizCommand command, QuizModel actualModel,
+    public static void assertCommandSuccess(Command command, QuizModel actualModel,
                                             CommandHistory actualCommandHistory, CommandResult expectedCommandResult,
                                             QuizModel expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -31,11 +31,11 @@ public class QuizCommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(QuizCommand, QuizModel, CommandHistory,
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, QuizModel, CommandHistory,
      * CommandResult, QuizModel)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(QuizCommand command, QuizModel actualModel,
+    public static void assertCommandSuccess(Command command, QuizModel actualModel,
                                             CommandHistory actualCommandHistory,
                                             String expectedMessage, QuizModel expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);

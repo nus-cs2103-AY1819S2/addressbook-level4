@@ -51,7 +51,7 @@ public class CopyCommand extends Command {
 
         requireNonNull(personToCopy);
         if (personToCopy instanceof Patient) {
-            copyPerson  = (Patient) personToCopy.copy();
+            copyPerson = personToCopy.copy();
         } else {
             throw new PersonIsNotPatient();
         }

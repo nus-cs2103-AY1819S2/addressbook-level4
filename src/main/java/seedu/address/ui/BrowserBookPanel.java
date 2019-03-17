@@ -32,7 +32,7 @@ public class BrowserBookPanel extends UiPart<Region> {
     public BrowserBookPanel(ObservableValue<Book> selectedBook) {
 		super(FXML);
 
-		// To prevent triggering events for typing inside the loaded Web page.
+        // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
 		// Load book's review when selected book changes.

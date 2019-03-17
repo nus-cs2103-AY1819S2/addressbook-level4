@@ -14,8 +14,11 @@ import seedu.address.model.lesson.Lesson;
  */
 public class LessonBuilder {
     public static final String DEFAULT_NAME = "Capitals";
-    public static final List<String> DEFAULT_CORE_HEADERS = List.of("Country", "Capital");
-    public static final List<String> DEFAULT_OPT_HEADERS = List.of("Hint");
+    public static final String DEFAULT_CORE_HEADER_1 = "Country";
+    public static final String DEFAULT_CORE_HEADER_2 = "Capital";
+    public static final String DEFAULT_OPT_HEADER_1 = "Hint";
+    public static final List<String> DEFAULT_CORE_HEADERS = List.of(DEFAULT_CORE_HEADER_1, DEFAULT_CORE_HEADER_2);
+    public static final List<String> DEFAULT_OPT_HEADERS = List.of(DEFAULT_OPT_HEADER_1);
     public static final int DEFAULT_QUESTION_CORE_INDEX = 0;
     public static final int DEFAULT_ANSWER_CORE_INDEX = 1;
     public static final List<Card> DEFAULT_CARDS = List.of(CARD_BELGIUM, CARD_JAPAN);

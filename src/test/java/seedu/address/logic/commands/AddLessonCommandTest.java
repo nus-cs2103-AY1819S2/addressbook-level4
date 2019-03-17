@@ -36,7 +36,7 @@ public class AddLessonCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullLesson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddLessonCommand(null);
     }

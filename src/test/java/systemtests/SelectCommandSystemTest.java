@@ -64,7 +64,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getCustomerList().size();
         assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + invalidIndex,
-        MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+                MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
         /* Case: filtered customer list, select index within bounds of address book and customer list ->
         selected */
@@ -87,7 +87,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredCustomerList().size() + 1;
         assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + invalidIndex,
-        MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+                MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " abc",

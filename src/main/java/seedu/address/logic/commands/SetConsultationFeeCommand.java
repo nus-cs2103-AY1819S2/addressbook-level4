@@ -15,8 +15,9 @@ import seedu.address.model.record.Statistics;
 public class SetConsultationFeeCommand extends Command {
 
     public static final String COMMAND_WORD = "setconsultfee";
+    public static final String COMMAND_ALIAS = "setfee";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":sets the consultation fee to the desired value.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": sets the consultation fee to the desired value.\n"
             + "Parameters: FEE\n"
             + "Example: " + COMMAND_WORD + " 30.00";
 
@@ -30,11 +31,15 @@ public class SetConsultationFeeCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.setConsultationFee(fee);
-        StringBuilder sb = new StringBuilder();
-        sb.append("Consultation fee has been successfully changed to $" + Statistics.currencyFormat(fee));
-        sb.append("\n\n");
-        return new CommandResult(sb.toString());
+        try {
+            model.setConsultationFee(fee);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Consultation fee has been successfully changed to $" + Statistics.currencyFormat(fee));
+            sb.append("\n\n");
+            return new CommandResult(sb.toString());
+        } catch (Exception ex) {
+            throw new CommandException(ex.getMessage());
+        }
     }
 
     @Override

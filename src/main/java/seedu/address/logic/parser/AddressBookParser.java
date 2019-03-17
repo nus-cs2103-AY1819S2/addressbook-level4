@@ -127,6 +127,7 @@ public class AddressBookParser {
             return new StatisticsCommandParser().parse(arguments);
 
         case SetConsultationFeeCommand.COMMAND_WORD:
+        case SetConsultationFeeCommand.COMMAND_ALIAS:
             return new SetConsultationFeeCommandParser().parse(arguments);
 
         case PrescriptionCommand.COMMAND_WORD:

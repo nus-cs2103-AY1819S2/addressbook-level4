@@ -2,13 +2,21 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.book.*;
+
+import seedu.address.model.book.Book;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.Author;
+import seedu.address.model.book.Rating;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.Review;
 import seedu.address.model.tag.Tag;
 
 import java.util.List;

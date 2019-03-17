@@ -10,7 +10,6 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Review;
 import seedu.address.model.book.UniqueBookList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;

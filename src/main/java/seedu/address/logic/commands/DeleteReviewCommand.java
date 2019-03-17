@@ -35,12 +35,9 @@ public class DeleteReviewCommand extends Command {
     public static final String MESSAGE_DELETE_REVIEW_SUCCESS = "Deleted Review: %1$s";
 
     private final BookNameContainsExactKeywordsPredicate bookPredicate;
-    private final ReviewNameContainsExactKeywordsPredicate reviewPredicate;
 
-    public DeleteReviewCommand(BookNameContainsExactKeywordsPredicate bookPredicate,
-                               ReviewNameContainsExactKeywordsPredicate reviewPredicate) {
+    public DeleteReviewCommand(BookNameContainsExactKeywordsPredicate bookPredicate) {
         this.bookPredicate = bookPredicate;
-        this.reviewPredicate = reviewPredicate;
     }
 
     @Override

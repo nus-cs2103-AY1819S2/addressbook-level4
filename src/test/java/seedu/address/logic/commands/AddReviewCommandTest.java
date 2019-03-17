@@ -25,41 +25,41 @@ public class AddReviewCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
-//    @Test
-//    public void constructor_nullReview_throwsNullPointerException() {
-//        thrown.expect(NullPointerException.class);
-//        new AddReviewCommand(null, validPredicate);
-//    }
-//
-//    @Test
-//    public void constructor_nullPredicate_throwsNullPointerException() {
-//        thrown.expect(NullPointerException.class);
-//        new AddReviewCommand(validReview, null);
-//    }
-//
-//    @Test
-//    public void equals() {
-//        BookNameContainsExactKeywordsPredicate alicePredicate =
-//                new BookNameContainsExactKeywordsPredicate(new BookName("Alice"));
-//        BookNameContainsExactKeywordsPredicate bobPredicate =
-//                new BookNameContainsExactKeywordsPredicate(new BookName("Bob"));
-//        AddReviewCommand addAliceCommand = new AddReviewCommand(validReview, alicePredicate);
-//        AddReviewCommand addBobCommand = new AddReviewCommand(validReview, bobPredicate);
-//
-//        // same object -> returns true
-//        assertTrue(addAliceCommand.equals(addAliceCommand));
-//
-//        // same values -> returns true
-//        AddReviewCommand addAliceCommandCopy = new AddReviewCommand(validReview, alicePredicate);
-//        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-//
-//        // different types -> returns false
-//        assertFalse(addAliceCommand.equals(1));
-//
-//        // null -> returns false
-//        assertFalse(addAliceCommand.equals(null));
-//
-//        // different book -> returns false
-//        assertFalse(addAliceCommand.equals(addBobCommand));
-//    }
+    //    @Test
+    //    public void constructor_nullReview_throwsNullPointerException() {
+    //        thrown.expect(NullPointerException.class);
+    //        new AddReviewCommand(null, validPredicate);
+    //    }
+    //
+    //    @Test
+    //    public void constructor_nullPredicate_throwsNullPointerException() {
+    //        thrown.expect(NullPointerException.class);
+    //        new AddReviewCommand(validReview, null);
+    //    }
+    //
+    //    @Test
+    //    public void equals() {
+    //        BookNameContainsExactKeywordsPredicate alicePredicate =
+    //                new BookNameContainsExactKeywordsPredicate(new BookName("Alice"));
+    //        BookNameContainsExactKeywordsPredicate bobPredicate =
+    //                new BookNameContainsExactKeywordsPredicate(new BookName("Bob"));
+    //        AddReviewCommand addAliceCommand = new AddReviewCommand(validReview, alicePredicate);
+    //        AddReviewCommand addBobCommand = new AddReviewCommand(validReview, bobPredicate);
+    //
+    //        // same object -> returns true
+    //        assertTrue(addAliceCommand.equals(addAliceCommand));
+    //
+    //        // same values -> returns true
+    //        AddReviewCommand addAliceCommandCopy = new AddReviewCommand(validReview, alicePredicate);
+    //        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+    //
+    //        // different types -> returns false
+    //        assertFalse(addAliceCommand.equals(1));
+    //
+    //        // null -> returns false
+    //        assertFalse(addAliceCommand.equals(null));
+    //
+    //        // different book -> returns false
+    //        assertFalse(addAliceCommand.equals(addBobCommand));
+    //    }
 }

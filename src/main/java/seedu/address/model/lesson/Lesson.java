@@ -420,6 +420,28 @@ public class Lesson {
         return sb.toString();
     }
 
+    /**
+     * For listing of lessons in CLI
+     * @return the single-line String representation of this lesson
+     */
+    public String toStringSingleLine() {
+        StringBuilder sb = new StringBuilder().append("Lesson: [").append(name).append("], Cores: ");
+        for (String s: coreHeaders) {
+            sb.append("[" + s + "] ");
+        }
+
+        if (optionalHeaders.size() > 0) {
+            sb.append(", Optionals: ");
+            for (String s : optionalHeaders) {
+                sb.append("[" + s + "] ");
+            }
+        }
+
+        sb.append(", Cards: " + getCardCount());
+
+        return sb.toString();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

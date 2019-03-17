@@ -3,7 +3,6 @@ package seedu.address.logic.commands.quizcommand;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
 
 /**

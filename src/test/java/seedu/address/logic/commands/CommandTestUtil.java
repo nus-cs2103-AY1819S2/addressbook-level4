@@ -59,6 +59,17 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BETTY = "Block 456 NUS";
     public static final String VALID_ORGANIZATION_ANDY = "NUH";
     public static final String VALID_ORGANIZATION_BETTY = "Clinic B";
+    // Default strings for Patient objects
+    public static final String VALID_NAME_ALICE = "Alice Pauline";
+    public static final String VALID_NAME_BENSON = "Benson Meier";
+    public static final String VALID_NRIC_ALICE = "S9670515H";
+    public static final String VALID_NRIC_BENSON = "S9274100D";
+    public static final String VALID_PHONE_ALICE = "94351253";
+    public static final String VALID_PHONE_BENSON = "98765432";
+    public static final String VALID_EMAIL_ALICE = "alice@example.com";
+    public static final String VALID_EMAIL_BENSON = "johnd@example.com";
+    public static final String VALID_ADDRESS_ALICE = "125, Jurong West Ave 6, #08-111";
+    public static final String VALID_ADDRESS_BENSON = "311, Clementi Ave 2, #02-25";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

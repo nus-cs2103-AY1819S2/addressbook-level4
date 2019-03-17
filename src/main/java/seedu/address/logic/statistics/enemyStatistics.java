@@ -1,9 +1,9 @@
 package seedu.address.logic.statistics;
 
-/*
- * statistics for the enemy.
+/**
+ * enemyStatistics is the statistics for the enemy.
  */
-public class enemyStatistics extends Statistics {
+public class EnemyStatistics extends Statistics {
 
     public enemyStatistics() {
         super();

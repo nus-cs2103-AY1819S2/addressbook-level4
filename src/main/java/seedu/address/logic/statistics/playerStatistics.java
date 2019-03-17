@@ -1,8 +1,8 @@
 package seedu.address.logic.statistics;
-/*
- * statistics for the Player.
+/**
+ * PlayerStatistics is the statistics for the Player.
  */
-public class playerStatistics extends Statistics {
+public class PlayerStatistics extends Statistics {
 
     public playerStatistics() {
         super();

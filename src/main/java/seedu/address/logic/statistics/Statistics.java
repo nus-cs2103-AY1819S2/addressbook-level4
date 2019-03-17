@@ -1,5 +1,5 @@
 package seedu.address.logic.statistics;
-/*
+/**
  * A Statistics Class tracks the key gameplay information.
  */
 public abstract class Statistics {
@@ -10,13 +10,13 @@ public abstract class Statistics {
     // private int shipsLeft;
     // private int hatTricks // 3 in a row
 
-    /*
+    /**
      * initialization of class will begin with default configuration.
      */
     public Statistics() {
         defaultConfig();
     }
-    /*
+    /**
      * assigns the class attributes with default values of a NEW game
      */
     private void defaultConfig() {
@@ -35,11 +35,11 @@ public abstract class Statistics {
     public int getMissCount() {
         return this.missCount;
     }
-    /*
+    /**
      * returns the hit-miss percentage of the user.
      */
     public double getAccuracy() {
-        return (double) hitCount / (double) hitCount+(double) missCount;
+        return (double) hitCount / (double) hitCount + (double) missCount;
     }
 
 }

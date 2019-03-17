@@ -1,0 +1,49 @@
+{
+  "_comment": "Orders save file which contains the same OrderItem values as in TypicalRestOrRant#getTypicalOrderItems()",
+  "orderItems" : [ {
+    "tableNumber" : "1",
+    "menuItemCode" : "W09",
+    "quantityOrdered" : "2",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "1",
+    "menuItemCode" : "W12",
+    "quantityOrdered" : "2",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "2",
+    "menuItemCode" : "A05",
+    "quantityOrdered" : "1",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "2",
+    "menuItemCode" : "M17",
+    "quantityOrdered" : "1",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "2",
+    "menuItemCode" : "C02",
+    "quantityOrdered" : "2",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "4",
+    "menuItemCode" : "T01",
+    "quantityOrdered" : "3",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "7",
+    "menuItemCode" : "F11",
+    "quantityOrdered" : "4",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "1",
+    "menuItemCode" : "K12",
+    "quantityOrdered" : "1",
+    "quantityUnserved" : "0"
+  }, {
+    "tableNumber" : "8",
+    "menuItemCode" : "W09",
+    "quantityOrdered" : "3",
+    "quantityUnserved" : "0"
+  } ]
+}

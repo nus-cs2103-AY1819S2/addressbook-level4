@@ -61,5 +61,4 @@ public class BrowserBookPanel extends UiPart<Region> {
 	private void loadDefaultPage() {
 		loadPage(DEFAULT_PAGE.toExternalForm());
 	}
-
 }

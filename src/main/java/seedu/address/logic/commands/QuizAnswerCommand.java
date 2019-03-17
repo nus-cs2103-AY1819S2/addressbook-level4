@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.modelManager.quizModel.Quiz;
-import seedu.address.model.modelManager.quizModel.QuizCard;
-import seedu.address.model.modelManager.quizModel.QuizModel;
-import seedu.address.model.modelManager.quizModel.exceptions.NotInitialisedException;
+import seedu.address.model.modelmanager.quizmodel.Quiz;
+import seedu.address.model.modelmanager.quizmodel.QuizCard;
+import seedu.address.model.modelmanager.quizmodel.QuizModel;
+import seedu.address.model.modelmanager.quizmodel.exceptions.NotInitialisedException;
 
 /**
  * Execute User answer

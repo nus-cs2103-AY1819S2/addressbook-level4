@@ -1,8 +1,8 @@
-package seedu.address.model.modelManager.quizModel;
+package seedu.address.model.modelmanager.quizmodel;
 
 import java.util.List;
 
-import seedu.address.model.modelManager.Model;
+import seedu.address.model.modelmanager.Model;
 
 /**
  * The API of the QuizModel component.

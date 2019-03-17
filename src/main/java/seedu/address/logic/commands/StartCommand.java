@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.modelManager.managementModel.ManagementModel;
-import seedu.address.model.modelManager.quizModel.Quiz;
-import seedu.address.model.modelManager.quizModel.QuizCard;
-import seedu.address.model.modelManager.quizModel.QuizModel;
+import seedu.address.model.modelmanager.managementmodel.ManagementModel;
+import seedu.address.model.modelmanager.quizmodel.Quiz;
+import seedu.address.model.modelmanager.quizmodel.QuizCard;
+import seedu.address.model.modelmanager.quizmodel.QuizModel;
 
 /**
  * TODO: implement the actual start command
@@ -41,7 +41,7 @@ public class StartCommand implements Command {
 
         return new CommandResult(String.format(MESSAGE_QUESTION_ANSWER, card.getQuestion(), card.getAnswer()));
     }
-    
+
     public CommandResult execute(ManagementModel managementModel, CommandHistory history) throws CommandException {
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }

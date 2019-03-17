@@ -20,13 +20,13 @@ import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Lessons;
-import seedu.address.model.modelManager.managementModel.ManagementModel;
-import seedu.address.model.modelManager.managementModel.ManagementModelManager;
+import seedu.address.model.modelmanager.managementmodel.ManagementModel;
+import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.modelManager.quizModel.Quiz;
-import seedu.address.model.modelManager.quizModel.QuizCard;
-import seedu.address.model.modelManager.quizModel.QuizModel;
-import seedu.address.model.modelManager.quizModel.QuizModelManager;
+import seedu.address.model.modelmanager.quizmodel.Quiz;
+import seedu.address.model.modelmanager.quizmodel.QuizCard;
+import seedu.address.model.modelmanager.quizmodel.QuizModel;
+import seedu.address.model.modelmanager.quizmodel.QuizModelManager;
 import seedu.address.storage.CsvLessonImportExport;
 import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -159,7 +159,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal managementModel manager data are same as those in the {@code expectedManagementModel} <br>
+     *      - the internal managementmodel manager data are same as those in the {@code expectedManagementModel} <br>
      *      - {@code expectedManagementModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
@@ -180,7 +180,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal managementModel manager data are same as those in the {@code expectedModel} <br>
+     *      - the internal managementmodel manager data are same as those in the {@code expectedModel} <br>
      *      - {@code expectedModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,

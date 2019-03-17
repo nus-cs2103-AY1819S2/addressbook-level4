@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEM
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelManager.managementModel.ManagementModel;
-import seedu.address.model.modelManager.managementModel.ManagementModelManager;
+import seedu.address.model.modelmanager.managementmodel.ManagementModel;
+import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
 
 public class ExitCommandTest {
     private ManagementModel managementModel = new ManagementModelManager();

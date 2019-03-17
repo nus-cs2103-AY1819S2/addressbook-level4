@@ -5,8 +5,8 @@ import java.util.List;
 
 import seedu.address.model.card.SrsCard;
 import seedu.address.model.card.exceptions.MissingCoreException;
-import seedu.address.model.modelManager.quizModel.Quiz;
-import seedu.address.model.modelManager.quizModel.QuizCard;
+import seedu.address.model.modelmanager.quizmodel.Quiz;
+import seedu.address.model.modelmanager.quizmodel.QuizCard;
 
 
 /**

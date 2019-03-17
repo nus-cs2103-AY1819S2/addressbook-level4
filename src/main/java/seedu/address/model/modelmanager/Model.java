@@ -1,4 +1,4 @@
-package seedu.address.model.modelManager;
+package seedu.address.model.modelmanager;
 
 /**
  * Wrapper interface for QuizModel and ManagementModel

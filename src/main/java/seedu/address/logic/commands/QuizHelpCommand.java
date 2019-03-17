@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelManager.quizModel.QuizModel;
+import seedu.address.model.modelmanager.quizmodel.QuizModel;
 
 /**
  * Format full help instructions for every command for display.

@@ -1,11 +1,11 @@
-package seedu.address.model.modelManager.managementModel;
+package seedu.address.model.modelmanager.managementmodel;
 
 import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelManager.Model;
+import seedu.address.model.modelmanager.Model;
 
 /**
  * The API of the ManagementModel component.

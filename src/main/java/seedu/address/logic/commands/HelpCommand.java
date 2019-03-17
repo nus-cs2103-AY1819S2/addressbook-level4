@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelManager.managementModel.ManagementModel;
+import seedu.address.model.modelmanager.managementmodel.ManagementModel;
 
 /**
  * Format full help instructions for every command for display.

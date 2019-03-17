@@ -2,12 +2,8 @@ package guitests.guihandles;
 
 import java.net.URL;
 
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.
@@ -15,7 +11,7 @@ import javafx.scene.web.WebView;
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
-    public static final String CURRENT_QUESTION = "#question";
+    public static final String CURRENT_CARD_QUESTION = "#question";
 
     private boolean isWebViewLoaded = true;
 
@@ -23,23 +19,13 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
-
-        WebView webView = getChildNode(BROWSER_ID);
-        WebEngine engine = webView.getEngine();
-        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-            } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
-            }
-        }));
     }
 
     /**
      * @return the string form of the {@code Question} of the card currently in the {@code BrowserPanel}
      */
     public String getCurrentQuestion() {
-        Label currentCardQuestion = getChildNode(CURRENT_QUESTION);
+        Label currentCardQuestion = getChildNode(CURRENT_CARD_QUESTION);
         return currentCardQuestion.getText();
     }
 

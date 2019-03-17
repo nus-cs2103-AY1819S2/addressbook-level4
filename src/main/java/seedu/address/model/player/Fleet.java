@@ -1,53 +1,142 @@
 package seedu.address.model.player;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
-import seedu.address.model.battleship.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.battleship.CruiserBattleship;
+import seedu.address.model.battleship.DestroyerBattleship;
 
 
 /**
  * Represents a list of individual battleships
- * a Player can have
  */
 public class Fleet {
 
-    private int size;
-    private ArrayList<Battleship> fleetContents;
+
+    private ArrayList<Battleship> deployedFleet;
+
+    private int numDestroyer;
+    private int numCruiser;
+    private int numAircraftCarrier;
+
+    private final String MESSAGE_NOT_ENOUGH_DESTROYERS = "Not enough destroyers.";
+    private final String MESSAGE_NOT_ENOUGH_CRUISERS = "Not enough cruisers.";
+    private final String MESSAGE_NOT_ENOUGH_AIRCRAFT_CARRIERS = "Not enough aircraft carriers.";
+
     /**
-     * Default constructor for a fleet of size 5 with placeholder ship names.
+     * Default constructor for a fleet of size 8 with placeholder ship names.
      */
     public Fleet() {
-        this(5);
+        this(5, 2, 1);
     }
     /**
      * Constructor for a fleet with placeholder ship names.
      */
-    public Fleet(int size) throws IllegalArgumentException {
+    public Fleet(int numDestroyer, int numCruiser, int numAircraftCarrier)
+            throws IllegalArgumentException {
 
-        if (size <= 0) {
+        if (numDestroyer + numCruiser + numAircraftCarrier <= 0) {
             throw new IllegalArgumentException();
         }
 
-        this.size = size;
-        this.fleetContents = new ArrayList<>();
+        this.numDestroyer = numDestroyer;
+        this.numCruiser = numCruiser;
+        this.numAircraftCarrier = numAircraftCarrier;
 
-        for (int i = 1; i <= size; i++) {
-            HashSet<Tag> tags = new HashSet<>();
-            Name shipName = new Name("ship" + i);
-            Battleship newShip = new Battleship(shipName, tags);
-            this.fleetContents.add(newShip);
-        }
+        this.deployedFleet = new ArrayList<>();
     }
 
     public int getSize() {
-        return this.size;
+        return this.numDestroyer + this.numCruiser + this.numAircraftCarrier;
     }
 
-    public ArrayList getFleetContents() {
-        return this.fleetContents;
+    public ArrayList getDeployedFleet() {
+        return this.deployedFleet;
+    }
+
+    public void deployBattleship(Battleship battleship) throws Exception {
+        if (battleship instanceof DestroyerBattleship) {
+            deployDestroyerBattleships(1);
+        } else if (battleship instanceof CruiserBattleship) {
+            deployCruiserBattleships(1);
+        } else if (battleship instanceof AircraftCarrierBattleship) {
+            deployAircraftCarrierBattleships(1);
+        }
+    }
+
+    public void deployDestroyerBattleships(int number)
+            throws Exception {
+        if (number > this.numDestroyer) {
+            throw new Exception(MESSAGE_NOT_ENOUGH_DESTROYERS);
+        } else {
+            for (int i = 0; i < number; i++) {
+                this.numDestroyer--;
+                this.deployedFleet.add(new DestroyerBattleship());
+            }
+        }
+    }
+
+    public void deployCruiserBattleships(int number)
+            throws Exception {
+        if (number > this.numCruiser) {
+            throw new Exception(MESSAGE_NOT_ENOUGH_CRUISERS);
+        } else {
+            for (int i = 0; i < number; i++) {
+                this.numCruiser--;
+                this.deployedFleet.add(new CruiserBattleship());
+            }
+        }
+    }
+
+    public void deployAircraftCarrierBattleships(int number)
+            throws Exception {
+        if (number > this.numAircraftCarrier) {
+            throw new Exception(MESSAGE_NOT_ENOUGH_AIRCRAFT_CARRIERS);
+        } else {
+            for (int i = 0; i < number; i++) {
+                this.numAircraftCarrier--;
+                this.deployedFleet.add(new AircraftCarrierBattleship());
+            }
+        }
+    }
+
+    public List<DestroyerBattleship> getListOfDestroyerBattleship() {
+        return this.deployedFleet
+                .stream()
+                .filter(ship -> ship instanceof DestroyerBattleship)
+                .map(ship -> (DestroyerBattleship) ship)
+                .collect(Collectors.toList());
+    }
+
+    public List<CruiserBattleship> getListOfCruiserBattleship() {
+        return this.deployedFleet
+                .stream()
+                .filter(ship -> ship instanceof CruiserBattleship)
+                .map(ship -> (CruiserBattleship) ship)
+                .collect(Collectors.toList());
+    }
+
+    public List<AircraftCarrierBattleship> getListOfAircraftCarrierBattleship() {
+        return this.deployedFleet
+                .stream()
+                .filter(ship -> ship instanceof AircraftCarrierBattleship)
+                .map(ship -> (AircraftCarrierBattleship) ship)
+                .collect(Collectors.toList());
+    }
+
+    public int getNumDestroyer() {
+        return this.numDestroyer;
+    }
+
+    public int getNumCruiser() {
+        return this.numCruiser;
+    }
+
+    public int getNumAircraftCarrier() {
+        return this.numAircraftCarrier;
     }
 
     @Override
@@ -57,7 +146,7 @@ public class Fleet {
                 .append(" Fleet size: ")
                 .append(getSize())
                 .append(" Fleet contents: ")
-                .append(getFleetContents());
+                .append(getDeployedFleet());
         return builder.toString();
     }
 

@@ -16,14 +16,14 @@ public class Enemy extends Player {
      * Constructor with custom fleetSize.
      */
     public Enemy(int fleetSize) {
-        super("Enemy", fleetSize);
+        super("Enemy", 5, 2, 1);
     }
 
     /**
      * Default constructor with fleet size 5.
      */
     public Enemy() {
-        super("Enemy", 5);
+        super("Enemy", 5, 2, 1);
     }
 
     /**

@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.MapGrid;
 import seedu.address.model.cell.Cell;
-import seedu.address.model.cell.Status;
 
 /**
  * Panel containing the list of persons.

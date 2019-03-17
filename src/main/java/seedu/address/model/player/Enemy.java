@@ -13,17 +13,10 @@ public class Enemy extends Player {
     private static final Random randGen = new Random();
 
     /**
-     * Constructor with custom fleetSize.
-     */
-    public Enemy(int fleetSize) {
-        super("Enemy", 5, 2, 1);
-    }
-
-    /**
      * Default constructor with fleet size 5.
      */
     public Enemy() {
-        super("Enemy", 5, 2, 1);
+        super("EnemyPlayer", 5, 2, 1);
     }
 
     /**

@@ -86,9 +86,11 @@ public class Player {
     public MapGrid getMapGrid() {
         return this.mapGrid;
     }
+
     public Set getTargetHistory() {
         return this.targetHistory;
     }
+
     public static boolean isValidName(String name) {
         return Pattern.matches(VALID_NAME_REGEX, name) && !name.equals("Enemy");
     }

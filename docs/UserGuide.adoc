@@ -77,6 +77,24 @@ Examples:
 
 * `start n/02-03-LEARN c/15 m/LEARN`
 
+==== Adding a lesson: `addLesson`
+Adds a lesson. +
+Format: `addLesson n/NAME c/CORE... [o/OPTIONAL]...`
+
+Usage rules:
+
+* The lesson to be added must contain at least 2 `CORE` parameters. These parameters are `CORE` headers which define the lesson cards' `CORE` values. An example of a `CORE` header and a card's `CORE` value would be 'Country' and 'Japan' respectively.
+
+[TIP]
+The lesson can have any number of `OPTIONAL` headers (including 0).
+
+The `OPTIONAL` headers are optional. When added, these headers are displayed during quiz mode when <<hint, `\hint`>> is entered.
+
+Examples:
+
+* `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`
+* `addLesson n/Country Capitals c/Country c/Capital o/First letter of capital`
+
 [[list_cards]]
 ==== Listing all flashcards: `list cards`
 

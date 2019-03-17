@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +11,6 @@ import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.lesson.Lesson;
 
 /**
  * Parses user input.

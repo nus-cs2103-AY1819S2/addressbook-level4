@@ -43,9 +43,13 @@ public class BookNameContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
-        // One keyword
+        // Zero keyword
         BookNameContainsKeywordsPredicate predicate =
-                new BookNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+                new BookNameContainsKeywordsPredicate(Collections.emptyList());
+        assertTrue(predicate.test(new BookBuilder().withBookName("Alice").build()));
+
+        // One keyword
+        predicate = new BookNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
 
         // Multiple keywords
@@ -63,13 +67,8 @@ public class BookNameContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
-        BookNameContainsKeywordsPredicate predicate =
-                new BookNameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new BookBuilder().withBookName("Alice").build()));
-
         // Non-matching keyword
-        predicate = new BookNameContainsKeywordsPredicate(Arrays.asList("Carol"));
+        BookNameContainsKeywordsPredicate predicate = new BookNameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new BookBuilder().withBookName("Alice Bob").build()));
 
         // Keywords match author and rating, but does not match name

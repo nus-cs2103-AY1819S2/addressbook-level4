@@ -30,7 +30,6 @@ public class FilterCommand extends Command{
     private String email;
     private String[] tagList;
     private String address;
-    
     private boolean isFilterCleared;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " clear/or/and " + "[prefix/text/prefix] \n"
@@ -99,7 +98,6 @@ public class FilterCommand extends Command{
 
         try {
             ProcessCommand(model);
-            model.commitAddressBook();
 
             if(isFilterCleared) {
                 isFilterCleared = false;

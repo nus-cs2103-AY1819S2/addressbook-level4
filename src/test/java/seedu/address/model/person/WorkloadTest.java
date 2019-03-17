@@ -16,12 +16,15 @@ class WorkloadTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void isSameWorkload() {
+    public void equals() {
         // same object -> returns true
         assertTrue(CS2040WORKLOAD.equals(CS2040WORKLOAD));
 
-        // null -> returns false
-        assertFalse(CS2040WORKLOAD.equals(null));
+        // different type -> returns false
+        assertFalse(CS2040WORKLOAD.equals(5));
+
+        // different CS2040WORKLOAD -> returns false
+        assertFalse(CS2040WORKLOAD.equals(CS1010WORKLOAD));
 
         // same values -> returns true
         Workload modifiedCS2040WORKLOAD = new WorkloadBuilder()
@@ -79,21 +82,6 @@ class WorkloadTest {
                 .withProjectHour(CS2040WORKLOAD.getProjectHour().toString())
                 .withPreparationHour("2").build();
         assertFalse(CS2040WORKLOAD.equals(modifiedCS2040WORKLOAD));
-    }
-
-    @Test
-    public void equals() {
-        // same object -> returns true
-        assertTrue(CS2040WORKLOAD.equals(CS2040WORKLOAD));
-
-        // null -> returns false
-        assertFalse(CS2040WORKLOAD.equals(null));
-
-        // different type -> returns false
-        assertFalse(CS2040WORKLOAD.equals(5));
-
-        // different CS2040WORKLOAD -> returns false
-        assertFalse(CS2040WORKLOAD.equals(CS1010WORKLOAD));
     }
 
 }

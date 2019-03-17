@@ -40,6 +40,8 @@ public class SelectDeckCommand extends SelectCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof SelectDeckCommand && super.equals(other);
+        return other == this // short circuit if same object
+                || (other instanceof SelectDeckCommand // instanceof handles nulls
+                && targetIndex.equals(((SelectDeckCommand) other).targetIndex)); // state check
     }
 }

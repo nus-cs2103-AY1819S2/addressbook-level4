@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import javax.swing.text.View;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
@@ -18,7 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class SelectCommandParser implements Parser<SelectCommand> {
 
-    ViewState viewState;
+    private ViewState viewState;
 
     public SelectCommandParser(ViewState viewState) {
         this.viewState = viewState;

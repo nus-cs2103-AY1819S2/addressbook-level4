@@ -13,7 +13,7 @@ import seedu.address.model.deck.Deck;
  */
 public class AddDeckCommand extends Command {
 
-    public static final String COMMAND_WORD = "adddeck";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a new deck."
             + "Parameters: "

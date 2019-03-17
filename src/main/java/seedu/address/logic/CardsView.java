@@ -5,12 +5,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.parser.AddCommandParser;
+import seedu.address.logic.parser.AddCardCommandParser;
 import seedu.address.logic.parser.DeleteCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
@@ -35,14 +35,14 @@ public class CardsView implements ViewState {
     @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
+            case AddCardCommand.COMMAND_WORD:
+                return new AddCardCommandParser().parse(arguments);
             case DeleteCommand.COMMAND_WORD:
                 return new DeleteCommandParser().parse(arguments);
             case EditCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
             case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser(model.getViewState()).parse(arguments);
+                return new SelectCommandParser(this).parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

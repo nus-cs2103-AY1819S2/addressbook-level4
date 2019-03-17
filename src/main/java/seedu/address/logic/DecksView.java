@@ -8,6 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.parser.AddCardCommandParser;
 import seedu.address.logic.parser.AddDeckCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -31,7 +32,7 @@ public class DecksView implements ViewState {
             case AddDeckCommand.COMMAND_WORD:
                 return new AddDeckCommandParser().parse(arguments);
             case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser(model.getViewState()).parse(arguments);
+                return new SelectCommandParser(this).parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

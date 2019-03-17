@@ -42,8 +42,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_NRIC_BOB = "S1234567A";
     public static final String VALID_NRIC_AMY = "S1234567A";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_ADDRESS_AMY = "Block 312 Amy Street 1";
+    public static final String VALID_ADDRESS_BOB = "Block 123 Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     // Default strings for Health Worker objects
@@ -55,8 +55,8 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BETTY = "99991111";
     public static final String VALID_EMAIL_ANDY = "andye@example.com";
     public static final String VALID_EMAIL_BETTY = "healthworkerb@example.com";
-    public static final String VALID_ADDRESS_ANDY = "125, Jurong West Ave 6, #08-111";
-    public static final String VALID_ADDRESS_BETTY = "Block 456, NUS";
+    public static final String VALID_ADDRESS_ANDY = "125 Jurong West Ave 6, #08-111";
+    public static final String VALID_ADDRESS_BETTY = "Block 456 NUS";
     public static final String VALID_ORGANIZATION_ANDY = "NUH";
     public static final String VALID_ORGANIZATION_BETTY = "Clinic B";
 

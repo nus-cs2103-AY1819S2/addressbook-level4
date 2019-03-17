@@ -210,11 +210,17 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        String addressText = getPersonListPanel().getHandleToSelectedCard().getAddress();
+
+        if (addressText.contains(",")) {
+            addressText = addressText.substring(0, addressText.indexOf(","));
+        }
+        String selectedCardAddress = addressText.replaceAll("\\s", "%20");
+
         URL expectedUrl;
         try {
-            //Before: expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-            expectedUrl = new URL(MapPanel.GOOGLE_MAPS_URL);
+            expectedUrl = new URL(MapPanel.MAP_URL + selectedCardAddress + "%22&zoom=15&size=640x500&markers=%22"
+                    + selectedCardAddress + ",red&sensor=false");
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }

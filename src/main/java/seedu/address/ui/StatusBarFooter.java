@@ -47,6 +47,13 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     /**
+     * Stops the internal Timer that increments the time display.
+     */
+    public void stopTimer() {
+        myTimer.cancel();
+    }
+
+    /**
      * Updates elapsed time
      */
     private void updateSyncStatus() {

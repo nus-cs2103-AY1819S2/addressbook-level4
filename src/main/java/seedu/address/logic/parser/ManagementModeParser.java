@@ -1,15 +1,18 @@
 package seedu.address.logic.parser;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.Lesson;
 
 /**
  * Parses user input.
@@ -51,6 +54,10 @@ public class ManagementModeParser implements Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddLessonCommand.COMMAND_WORD:
+            Lesson lesson = new Lesson("Test Lesson", List.of("Question", "Answer"), List.of("Hint"));
+            return new AddLessonCommand(lesson);
 
         //        case UndoCommand.COMMAND_WORD:
         //            return new UndoCommand();

@@ -54,7 +54,7 @@ public interface QuizModel extends Model {
     /**
      * Returns if User is done with {@code Quiz}.
      */
-    boolean isDone();
+    boolean isQuizDone();
 
     /**
      * Returns data needed by {@code Session} when {@code Quiz} end.

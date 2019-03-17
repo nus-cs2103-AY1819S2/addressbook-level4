@@ -92,13 +92,13 @@ public class QuizManagementModelManagerTest {
 
     @Test
     public void isDone() {
-        assertTrue(modelManager.isDone());
+        assertTrue(modelManager.isQuizDone());
 
         modelManager.init(QUIZ);
-        assertFalse(modelManager.isDone());
+        assertFalse(modelManager.isQuizDone());
 
         modelManager.end();
-        assertTrue(modelManager.isDone());
+        assertTrue(modelManager.isQuizDone());
     }
 
     @Test

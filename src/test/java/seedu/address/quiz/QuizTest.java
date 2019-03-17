@@ -211,7 +211,7 @@ public class QuizTest {
 
         // quiz just started
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
-        assertFalse(quiz.isDone());
+        assertFalse(quiz.isQuizDone());
 
         // test 2 question
         quiz.getNextCard();
@@ -220,7 +220,7 @@ public class QuizTest {
         quiz.updateTotalAttemptsAndStreak(1, "wrong answer");
 
         assertEquals(expected, quiz.end());
-        assertTrue(quiz.isDone());
+        assertTrue(quiz.isQuizDone());
     }
 
     @Test

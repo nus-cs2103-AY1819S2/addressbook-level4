@@ -68,13 +68,13 @@ public class QuizModelManager implements QuizModel {
 
 
     @Override
-    public boolean isDone() {
-        try {
-            return quiz.isDone();
-        } catch (NullPointerException e) {
-            logger.info("quiz not initialised");
-            return true;
+    public boolean isQuizDone() {
+        if (quiz != null) {
+            return quiz.isQuizDone();
         }
+
+        // By default if no quiz is running, it will be considered as done
+        return true;
     }
 
     @Override

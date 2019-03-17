@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
+import java.net.URL;
+import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -10,11 +14,6 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
-
-import java.net.URL;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * The Browser Panel of the App.
@@ -40,7 +39,7 @@ public class BrowserBookPanel extends UiPart<Region> {
 
 		// Load person page when selected person changes.
 		selectedBook.addListener((observable, oldValue, newValue) -> {
-			if (newValue == null) {
+            if (newValue == null) {
 				loadDefaultPage();
 				return;
 			}

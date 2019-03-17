@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.managementcommand.HistoryCommand;
+import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.model.modelmanager.managementmodel.ManagementModel;
 import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
 

@@ -9,9 +9,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.managementcommand.ExitCommand;
-import seedu.address.logic.commands.managementcommand.HelpCommand;
-import seedu.address.logic.commands.managementcommand.HistoryCommand;
+import seedu.address.logic.commands.management.ExitCommand;
+import seedu.address.logic.commands.management.HelpCommand;
+import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quizcommand.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

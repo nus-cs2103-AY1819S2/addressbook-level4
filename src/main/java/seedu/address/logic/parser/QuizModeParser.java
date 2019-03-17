@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.managementcommand.HelpCommand;
+import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.quizcommand.QuizAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

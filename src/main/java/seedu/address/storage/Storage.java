@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.QuickDocs;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -28,5 +29,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+
+    // for quickdocs
+    Optional<QuickDocs> readQuickDocs() throws DataConversionException, IOException;
+
+    void saveQuickDocs(QuickDocs quickDocs) throws IOException;
 
 }

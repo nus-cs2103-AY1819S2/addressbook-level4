@@ -22,6 +22,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.QuickDocs;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -100,7 +101,22 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-        return new ModelManager(initialData, userPrefs);
+
+        QuickDocs initialQuickDocs = new QuickDocs();
+        Optional<QuickDocs> quickDocs;
+        try {
+            quickDocs = storage.readQuickDocs();
+            if (!quickDocs.isPresent()) {
+                logger.info("Data file not found. Will be starting with a empty quickdocs");
+            }
+            initialQuickDocs = quickDocs.orElse(initialQuickDocs);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty QuickDocs");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty QuickDocs");
+        }
+
+        return new ModelManager(initialData, initialQuickDocs, userPrefs);
     }
 
     private void initLogging(Config config) {

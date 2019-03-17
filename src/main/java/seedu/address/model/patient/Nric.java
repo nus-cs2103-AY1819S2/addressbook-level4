@@ -11,6 +11,9 @@ public class Nric {
 
     private String nric;
 
+    public Nric() {
+    }
+
     public Nric (String nric) {
         if (!nric.matches(REGEX_NRIC1) && !nric.matches(REGEX_NRIC2)) {
             throw new IllegalArgumentException(NRIC_CONSTRAINTS);

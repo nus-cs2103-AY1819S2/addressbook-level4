@@ -26,6 +26,13 @@ public class ConsultationManager {
     }
 
     /**
+     * For reading in consultation records from json file
+     */
+    public void addConsultation(Consultation consultation) {
+        this.consultationList.add(consultation);
+    }
+
+    /**
      * Create a consultation session with the patient indicated
      */
     public void createConsultation(Patient patient) {

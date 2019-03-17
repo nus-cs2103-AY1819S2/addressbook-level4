@@ -30,6 +30,19 @@ public class Consultation {
         this.patient = patient;
     }
 
+    public Consultation() {
+    }
+
+    //for json records creation of consultation
+    public Consultation(int index, Patient patient, LocalDateTime session, Diagnosis diagnosis,
+                        ArrayList<Prescription> prescriptions) {
+        this.index = index;
+        this.patient = patient;
+        this.session = session;
+        this.diagnosis = diagnosis;
+        this.prescriptions.addAll(prescriptions);
+    }
+
     public int getIndex() {
         return index;
     }
@@ -40,6 +53,10 @@ public class Consultation {
 
     public LocalDateTime getSession() {
         return session;
+    }
+
+    public void setSession(LocalDateTime session) {
+        this.session = session;
     }
 
     public Patient getPatient() {

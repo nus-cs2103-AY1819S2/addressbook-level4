@@ -11,6 +11,9 @@ public class Name {
 
     private String name;
 
+    public Name() {
+    }
+
     public Name (String name) {
         if (!name.matches(REGEX_NAME)) {
             throw new IllegalArgumentException(NAME_CONSTRAINTS);

@@ -18,6 +18,9 @@ public class Patient {
     private Dob dob;
     private ArrayList<Tag> tagList;
 
+    public Patient() {
+    }
+
     public Patient(Name name, Nric nric, Email email, Address address, Contact contact,
                    Gender gender, Dob dob, ArrayList<Tag> tagList) {
         this.name = name;

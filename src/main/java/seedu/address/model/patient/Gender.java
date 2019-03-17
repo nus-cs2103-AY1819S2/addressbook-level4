@@ -9,6 +9,9 @@ public class Gender {
 
     private String gender;
 
+    public Gender() {
+    }
+
     public Gender (String gender) {
         if (!gender.matches(REGEX_GENDER)) {
             throw new IllegalArgumentException(GENDER_CONSTRAINTS);

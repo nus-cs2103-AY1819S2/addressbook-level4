@@ -70,7 +70,7 @@ public class EditCommand extends Command {
         List<ListItem> lastShownList = model.getFilteredList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         if (editCardDescriptor.isPresent()) {

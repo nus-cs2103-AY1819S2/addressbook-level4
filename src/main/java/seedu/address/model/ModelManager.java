@@ -48,9 +48,10 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
-        // viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
-        viewState = new CardsView(new FilteredList<>(versionedTopDeck.getCardList()));
-        filteredItems = ((CardsView) viewState).filteredCards;
+        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
+        // viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
+        filteredItems = ((DecksView) viewState).filteredDecks;
+        // filteredItems = ((CardsView) viewState).filteredCards;
     }
 
     public ModelManager() {
@@ -59,6 +60,15 @@ public class ModelManager implements Model {
 
     public Command parse(String commandWord, String arguments) throws ParseException {
         return viewState.parse(commandWord, arguments);
+    }
+
+    // TODO: implement proper state transitions (e.g. enter/exit deck)
+    public void setViewState(ViewState newViewState) {
+        viewState = newViewState;
+    }
+
+    public ViewState getViewState() {
+        return viewState;
     }
 
     //=========== UserPrefs ==================================================================================

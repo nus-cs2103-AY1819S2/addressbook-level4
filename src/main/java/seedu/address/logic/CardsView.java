@@ -7,18 +7,27 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.AddCommandParser;
+import seedu.address.logic.parser.DeleteCommandParser;
+import seedu.address.logic.parser.EditCommandParser;
+import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
 public class CardsView implements ViewState {
+    private Model model;
     public final FilteredList<Card> filteredCards;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     public final Deck activeDeck = null;
 
-    // TODO: pass in deck instead
-    public CardsView(FilteredList<Card> cardList) {
+    // TODO: pass in deck instead of card list
+    public CardsView(Model model, FilteredList<Card> cardList) {
+        this.model = model;
         filteredCards = cardList;
         filteredCards.addListener(this::ensureSelectedItemIsValid);
     }
@@ -28,6 +37,12 @@ public class CardsView implements ViewState {
         switch (commandWord) {
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser(model.getViewState()).parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

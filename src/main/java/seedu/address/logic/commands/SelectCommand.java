@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.ListItem;
+import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
@@ -26,7 +29,7 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
 
-    private final Index targetIndex;
+    protected final Index targetIndex;
 
     public SelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -36,10 +39,10 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<ListItem> filteredCardList = model.getFilteredList();
+        List<Card> filteredCardList = ((CardsView) model.getViewState()).filteredCards;
 
         if (targetIndex.getZeroBased() >= filteredCardList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         model.setSelectedItem(filteredCardList.get(targetIndex.getZeroBased()));

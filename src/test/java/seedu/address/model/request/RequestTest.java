@@ -71,10 +71,6 @@ public class RequestTest {
         editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions("Cancer").build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
-        // different id -> returns false
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withId("1").build();
-        assertFalse(ALICE_REQUEST.equals(editedAlice));
-
         // different isComplete status -> returns false
         editedAlice = new RequestBuilder(ALICE_REQUEST).withStatus("COMPLETED").build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));

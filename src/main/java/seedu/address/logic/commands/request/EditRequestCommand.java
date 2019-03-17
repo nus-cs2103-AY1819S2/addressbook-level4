@@ -1,5 +1,18 @@
 package seedu.address.logic.commands.request;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -15,15 +28,6 @@ import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Edits an order in the request book.
@@ -49,8 +53,8 @@ public class EditRequestCommand extends RequestCommand {
 
     public static final String MESSAGE_EDIT_REQUEST_SUCCESS = "Edited Request: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_REQUEST = "This request already exists in the " +
-        "request book.";
+    public static final String MESSAGE_DUPLICATE_REQUEST = "This request already exists in the "
+        + "request book.";
 
     private final Index index;
     private final EditRequestDescriptor editRequestDescriptor;
@@ -86,9 +90,13 @@ public class EditRequestCommand extends RequestCommand {
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
         model.commitRequestBook();
         return new CommandResult(String.format(MESSAGE_EDIT_REQUEST_SUCCESS, editedRequest));
-//        List<Request> lastShownList = model.getF()
+        // List<Request> lastShownList = model.getF()
     }
 
+    /**
+     * Creates and returns a {@code Request} with the details of {@code requestToEdit}
+     * edited with {@code editRequestDescriptor}.
+     */
     private static Request createEditedRequest(Request requestToEdit,
                                                EditRequestDescriptor editRequestDescriptor) {
         assert requestToEdit != null;
@@ -153,21 +161,37 @@ public class EditRequestCommand extends RequestCommand {
             return CollectionUtil.isAnyNonNull(name, phone, address, requestDate, conditions);
         }
 
-        public void setName(Name name) { this.name = name; }
+        public void setName(Name name) {
+            this.name = name;
+        }
 
-        public Optional<Name> getName() { return Optional.ofNullable(name); }
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
 
-        public void setPhone(Phone phone) { this.phone = phone; }
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
 
-        public Optional<Phone> getPhone() { return Optional.ofNullable(phone); }
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
 
-        public void setAddress(Address address) { this.address = address; }
+        public void setAddress(Address address) {
+            this.address = address;
+        }
 
-        public Optional<Address> getAddress() { return Optional.ofNullable(address); }
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
+        }
 
-        public void setDate(RequestDate requestDate) { this.requestDate = requestDate; }
+        public void setDate(RequestDate requestDate) {
+            this.requestDate = requestDate;
+        }
 
-        public Optional<RequestDate> getDate() { return Optional.ofNullable(requestDate); }
+        public Optional<RequestDate> getDate() {
+            return Optional.ofNullable(requestDate);
+        }
 
         /**
          * Sets {@code conditions} to this object's {@code conditions}
@@ -183,17 +207,21 @@ public class EditRequestCommand extends RequestCommand {
          * Returns {@code Optional#empty()} if {@code conditions} is null
          */
         public Optional<Set<Tag>> getConditions() {
-            return (conditions != null) ? Optional.of(Collections.unmodifiableSet(conditions)) :
-                Optional.empty();
+            return (conditions != null) ? Optional.of(Collections.unmodifiableSet(conditions))
+                : Optional.empty();
         }
 
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
-            if (other == this) return true;
+            if (other == this) {
+                return true;
+            }
 
             // instanceof handles nulls
-            if (!(other instanceof EditRequestDescriptor)) return false;
+            if (!(other instanceof EditRequestDescriptor)) {
+                return false;
+            }
 
             // state check
             EditRequestDescriptor editRequestDescriptor = (EditRequestDescriptor) other;

@@ -6,7 +6,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Tag;
 
@@ -93,11 +96,14 @@ public class Request {
             return true;
         }
 
-        if (otherRequest == null) return false;
+        if (otherRequest == null) {
+            return false;
+        }
 
         if (this.id == null || otherRequest.id == null) {
             return otherRequest.getRequestDate().equals(this.requestDate)
-                && ((otherRequest.getPatient().equals(this.patient)) || otherRequest.getConditions().equals(this.conditions));
+                && ((otherRequest.getPatient().equals(this.patient)) || otherRequest.getConditions()
+                .equals(this.conditions));
         }
 
         return otherRequest.getId().equals(this.id)
@@ -136,10 +142,13 @@ public class Request {
         Request otherRequest = (Request) other;
 
         if (otherRequest.getId() != null && this.id != null) {
-            if (!getId().equals(this.id)) return false;
+            if (!getId().equals(this.id)) {
+                return false;
+            }
         }
 
         return (otherRequest.getRequestDate().equals(this.requestDate))
+                && (otherRequest.getPatient().equals(this.patient))
                 && (otherRequest.getConditions().equals(this.conditions))
                 && otherRequest.getHealthStaff().equals(this.healthWorker)
                 && (otherRequest.getRequestStatus().equals(this.requestStatus));

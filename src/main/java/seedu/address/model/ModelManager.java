@@ -21,8 +21,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 
-import javax.naming.event.EventContext;
-
 /**
  * Represents the in-memory model of the address book data.
  */

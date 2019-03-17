@@ -10,12 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
 
 /**
  * Jackson-friendly version of {@link Request}.
@@ -25,9 +26,9 @@ class JsonAdaptedRequest {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Request's %s field is missing!";
 
     private final String id;
-    private final JsonAdaptedPerson patient;
+    private final JsonAdaptedPatient patient;
     private final String requestDate;
-    private final List<JsonAdaptedTag> conditions = new ArrayList<>();
+    private final List<JsonAdaptedConditionTag> conditions = new ArrayList<>();
     private final JsonAdaptedHealthWorker healthWorker;
 
     private final String requestStatus;
@@ -37,10 +38,10 @@ class JsonAdaptedRequest {
      */
     @JsonCreator
     public JsonAdaptedRequest(@JsonProperty("id") String id,
-                              @JsonProperty("patient") JsonAdaptedPerson patient,
+                              @JsonProperty("patient") JsonAdaptedPatient patient,
                               @JsonProperty("requestdate") String requestDate,
                               @JsonProperty("healthworker") JsonAdaptedHealthWorker healthWorker,
-                              @JsonProperty("conditions") List<JsonAdaptedTag> conditions,
+                              @JsonProperty("conditions") List<JsonAdaptedConditionTag> conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;
         this.patient = patient;
@@ -57,7 +58,7 @@ class JsonAdaptedRequest {
      */
     public JsonAdaptedRequest(Request source) {
         this.id = source.getId();
-        this.patient = new JsonAdaptedPerson(source.getPatient());
+        this.patient = new JsonAdaptedPatient(source.getPatient());
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
         Optional<HealthWorker> hw = source.getHealthStaff();
@@ -70,8 +71,8 @@ class JsonAdaptedRequest {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Request toModelType() throws IllegalValueException {
-        final List<Tag> requestConditions = new ArrayList<>();
-        for (JsonAdaptedTag tag : conditions) {
+        final List<ConditionTag> requestConditions = new ArrayList<>();
+        for (JsonAdaptedConditionTag tag : conditions) {
             requestConditions.add(tag.toModelType());
         }
 
@@ -83,10 +84,10 @@ class JsonAdaptedRequest {
 
 
         if (patient == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Patient.class.getSimpleName()));
         }
 
-        final Person modelPatient = this.patient.toModelType();
+        final Patient modelPatient = this.patient.toModelType();
         final HealthWorker modelHealthStaff;
         if (healthWorker != null) {
             modelHealthStaff = this.healthWorker.toModelType();
@@ -115,9 +116,9 @@ class JsonAdaptedRequest {
 
         final RequestStatus modelrequestStatus = new RequestStatus(this.requestStatus);
 
-        final Set<Tag> modelConditions = new HashSet<>(requestConditions);
+        final Conditions modelConditions = new Conditions(requestConditions);
 
-        return null;
+        return new Request(modelId, modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
     }
 
 }

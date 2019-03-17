@@ -32,6 +32,11 @@ public interface Logic {
      */
     ReadOnlyTopDeck getTopDeck();
 
+    /**
+     * Sets the selected item.
+     */
+    void setSelectedItem(ListItem item);
+
     /** Returns an unmodifiable view of the current filtered list. The element type depends on the view state. */
     ObservableList<ListItem> getFilteredList();
 
@@ -63,26 +68,4 @@ public interface Logic {
      * @see seedu.address.model.Model#selectedCardProperty()
      */
     ReadOnlyProperty<ListItem> selectedCardProperty();
-
-    /**
-     * Sets the selected card in the filtered card list.
-     *
-     * @see seedu.address.model.Model#setSelectedCard(Card)
-     */
-    void setSelectedCard(Card card);
-
-    /**
-     * Selected deck in the filtered deck list.
-     * null if no deck is selected.
-     *
-     * @see seedu.address.model.Model#selectedDeckProperty()
-     */
-    ReadOnlyProperty<Deck> selectedDeckProperty();
-
-    /**
-     * Sets the selected deck in the filtered deck list.
-     *
-     * @see seedu.address.model.Model#setSelectedDeck(Deck)
-     */
-    void setSelectedDeck(Deck deck);
 }

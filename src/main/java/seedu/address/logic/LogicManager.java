@@ -31,6 +31,7 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final TopDeckParser topDeckParser;
     private boolean topDeckModified;
+    private ViewState viewState = ViewState.CARDS;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -73,6 +74,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void setSelectedItem(ListItem item) {
+        model.setSelectedCard((Card)item);
+    }
+
+    @Override
     public ObservableList<ListItem> getFilteredList() {
         return (ObservableList<ListItem>) (ObservableList<? extends ListItem>) model.getFilteredCardList();
     }
@@ -100,20 +106,5 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyProperty<ListItem> selectedCardProperty() {
         return (ReadOnlyProperty<ListItem>) (ReadOnlyProperty<? extends ListItem>) model.selectedCardProperty();
-    }
-
-    @Override
-    public void setSelectedCard(Card card) {
-        model.setSelectedCard(card);
-    }
-
-    @Override
-    public ReadOnlyProperty<Deck> selectedDeckProperty() {
-        return model.selectedDeckProperty();
-    }
-
-    @Override
-    public void setSelectedDeck(Deck deck) {
-        model.setSelectedDeck(deck);
     }
 }

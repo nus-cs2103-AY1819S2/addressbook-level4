@@ -24,18 +24,19 @@ public class CardListPanel extends UiPart<Region> {
     @FXML
     private ListView<ListItem> cardListView;
 
-    public CardListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem) {
+    public CardListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem, Consumer<ListItem> onSelectedItemChange) {
         super(FXML);
 
-        // disable mouse selection
-        cardListView.setMouseTransparent(true);
-        cardListView.setFocusTraversable(false);
+        cardListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
+            onSelectedItemChange.accept(newValue);
+        });
 
         cardListView.setItems(list);
         cardListView.setCellFactory(listView -> new CardListViewCell());
 
         selectedItem.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected item changed to: " + newValue);
+            logger.info("Selected item changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected card,
             // otherwise we would have an infinite loop.

@@ -46,8 +46,8 @@ public class ModelManager implements Model {
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredDecks = new FilteredList<>(versionedTopDeck.getDeckList());
-        filteredCards = new FilteredList<Card>(versionedTopDeck.getCardList());
-        filteredCards.addListener(this::ensureSelectedPersonIsValid);
+        filteredCards = new FilteredList<>(versionedTopDeck.getCardList());
+        filteredCards.addListener(this::ensureSelectedItemIsValid);
     }
 
     public ModelManager() {
@@ -242,25 +242,25 @@ public class ModelManager implements Model {
     /**
      * Ensures {@code selectedCard} is a valid card in {@code filteredCards}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Card> change) {
+    private void ensureSelectedItemIsValid(ListChangeListener.Change<? extends Card> change) {
         while (change.next()) {
             if (selectedCard.getValue() == null) {
                 // null is always a valid selected card, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedCard.getValue());
-            if (wasSelectedPersonReplaced) {
+            if (wasSelectedItemReplaced) {
                 // Update selectedCard to its new value.
                 int index = change.getRemoved().indexOf(selectedCard.getValue());
                 selectedCard.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedCard.getValue().isSameCard(removedPerson));
-            if (wasSelectedPersonRemoved) {
+            boolean wasSelectedItemRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedCard.getValue().equals(removedPerson));
+            if (wasSelectedItemRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.
                 selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);

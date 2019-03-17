@@ -1,14 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.hms.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.Model;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.Model;
 
 public class HelpCommandTest {
     private Model model = new CustomerManager();

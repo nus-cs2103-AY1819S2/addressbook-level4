@@ -1,13 +1,13 @@
-package seedu.address.logic.parser;
+package seedu.hms.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SelectCustomerCommand;
+import seedu.hms.logic.commands.SelectCustomerCommand;
 
 /**
  * Test scope: similar to {@code DeleteCustomerCommandParserTest}.

@@ -1,8 +1,8 @@
-package seedu.address.model;
+package seedu.hms.model;
 
 import org.junit.Test;
 
-import seedu.address.testutil.Assert;
+import seedu.hms.testutil.Assert;
 
 public class UserPrefsTest {
 

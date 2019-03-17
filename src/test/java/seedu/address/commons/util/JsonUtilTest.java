@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.hms.commons.util;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,8 +7,8 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
+import seedu.hms.testutil.SerializableTestClass;
+import seedu.hms.testutil.TestUtil;
 
 /**
  * Tests JSON Read and Write

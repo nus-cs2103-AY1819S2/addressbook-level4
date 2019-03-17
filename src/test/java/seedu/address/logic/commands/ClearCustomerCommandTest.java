@@ -1,17 +1,17 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.Model;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedHotelManagementSystem;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.Model;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
 
 public class ClearCustomerCommandTest {
 

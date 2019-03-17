@@ -1,4 +1,4 @@
-package seedu.address.ui.testutil;
+package seedu.hms.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.CustomerCardHandle;
 import guitests.guihandles.CustomerListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.customer.Customer;
+import seedu.hms.model.customer.Customer;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -19,7 +19,7 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(CustomerCardHandle expectedCard, CustomerCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
+        assertEquals(expectedCard.gethms(), actualCard.gethms());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getIdNum(), actualCard.getIdNum());
         assertEquals(expectedCard.getName(), actualCard.getName());
@@ -35,7 +35,7 @@ public class GuiTestAssert {
         assertEquals(expectedCustomer.getPhone().value, actualCard.getPhone());
         assertEquals(expectedCustomer.getEmail().value, actualCard.getEmail());
         assertEquals(expectedCustomer.getIdNum().value, actualCard.getIdNum());
-        assertEquals(expectedCustomer.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedCustomer.gethms().value, actualCard.gethms());
         assertEquals(expectedCustomer.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
             actualCard.getTags());
     }

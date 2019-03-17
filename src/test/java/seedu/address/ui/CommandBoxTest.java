@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.hms.ui;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCustomerCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.hms.logic.commands.CommandResult;
+import seedu.hms.logic.commands.ListCustomerCommand;
+import seedu.hms.logic.commands.exceptions.CommandException;
 
 public class CommandBoxTest extends GuiUnitTest {
 

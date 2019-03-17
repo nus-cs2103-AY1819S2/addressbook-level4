@@ -1,24 +1,24 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showCustomerAtIndex;
-import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CUSTOMER;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.hms.logic.commands.CommandTestUtil.showCustomerAtIndex;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_THIRD_CUSTOMER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedHotelManagementSystem;
+import seedu.hms.commons.core.Messages;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCustomerCommand}.
@@ -60,7 +60,7 @@ public class SelectCustomerCommandTest {
         showCustomerAtIndex(expectedModel, INDEX_FIRST_CUSTOMER);
 
         Index outOfBoundsIndex = INDEX_SECOND_CUSTOMER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of hms book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getHotelManagementSystem().getCustomerList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);

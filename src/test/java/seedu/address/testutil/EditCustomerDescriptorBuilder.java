@@ -1,17 +1,17 @@
-package seedu.address.testutil;
+package seedu.hms.testutil;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
+import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.Email;
+import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.customer.Name;
+import seedu.hms.model.customer.Phone;
+import seedu.hms.model.tag.Tag;
 
 /**
  * A utility class to help with building EditCustomerDescriptor objects.
@@ -37,7 +37,7 @@ public class EditCustomerDescriptorBuilder {
         descriptor.setPhone(customer.getPhone());
         descriptor.setEmail(customer.getEmail());
         descriptor.setIdNum(customer.getIdNum());
-        descriptor.setAddress(customer.getAddress());
+        descriptor.sethms(customer.gethms());
         descriptor.setTags(customer.getTags());
     }
 
@@ -74,10 +74,10 @@ public class EditCustomerDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditCustomerDescriptor} that we are building.
+     * Sets the {@code hms} of the {@code EditCustomerDescriptor} that we are building.
      */
-    public EditCustomerDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditCustomerDescriptorBuilder withhms(String hms) {
+        descriptor.sethms(new hms(hms));
         return this;
     }
 

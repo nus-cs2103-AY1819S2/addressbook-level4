@@ -1,15 +1,15 @@
-package seedu.address.ui;
+package seedu.hms.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCustomer;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertCardDisplaysCustomer;
 
 import org.junit.Test;
 
 import guitests.guihandles.CustomerCardHandle;
-import seedu.address.model.customer.Customer;
-import seedu.address.testutil.CustomerBuilder;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.testutil.CustomerBuilder;
 
 public class CustomerCardTest extends GuiUnitTest {
 

@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.hms;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -6,18 +6,18 @@ import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.ReadOnlyHotelManagementSystem;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedHotelManagementSystem;
-import seedu.address.storage.JsonHotelManagementSystemStorage;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.testutil.TestUtil;
+import seedu.hms.commons.core.Config;
+import seedu.hms.commons.core.GuiSettings;
+import seedu.hms.commons.exceptions.DataConversionException;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.ReadOnlyHotelManagementSystem;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
+import seedu.hms.storage.JsonHotelManagementSystemStorage;
+import seedu.hms.storage.UserPrefsStorage;
+import seedu.hms.testutil.TestUtil;
 import systemtests.ModelHelper;
 
 /**
@@ -75,7 +75,7 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the hms book data stored inside the storage file.
      */
     public HotelManagementSystem readStorageHotelManagementSystem() {
         try {

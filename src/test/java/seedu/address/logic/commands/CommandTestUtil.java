@@ -1,27 +1,27 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.Model;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditCustomerDescriptorBuilder;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.Model;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -36,8 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ID_AMY = "3345541";
     public static final String VALID_ID_BOB = "4566474";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_hms_AMY = "Block 312, Amy Street 1";
+    public static final String VALID_hms_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -49,8 +49,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ID_DESC_AMY = " " + PREFIX_IDENTIFICATION_NUMBER + VALID_ID_AMY;
     public static final String ID_DESC_BOB = " " + PREFIX_IDENTIFICATION_NUMBER + VALID_ID_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String hms_DESC_AMY = " " + PREFIX_ADDRESS + VALID_hms_AMY;
+    public static final String hms_DESC_BOB = " " + PREFIX_ADDRESS + VALID_hms_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -59,7 +59,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ID_DESC = " " + PREFIX_IDENTIFICATION_NUMBER + "911a"; // 'a' not allowed in
     // identificaiton numbers
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_hms_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for hmses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -71,10 +71,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditCustomerDescriptorBuilder().withName(VALID_NAME_AMY)
             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withIdNum(VALID_ID_AMY)
-            .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withhms(VALID_hms_AMY).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditCustomerDescriptorBuilder().withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB)
-            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withhms(VALID_hms_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
     /**
@@ -110,7 +110,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered customer list and selected customer in {@code actualModel} remain unchanged <br>
+     * - the hms book, filtered customer list and selected customer in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, CustomerModel actualModel,
@@ -139,7 +139,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s hms book.
      */
     public static void showCustomerAtIndex(CustomerModel model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
@@ -152,7 +152,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first customer in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first customer in {@code model}'s filtered list from {@code model}'s hms book.
      */
     public static void deleteFirstCustomer(CustomerModel model) {
         Customer firstCustomer = model.getFilteredCustomerList().get(0);

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.hms.testutil;
 
 /**
  * A set of assertion methods useful for writing tests.

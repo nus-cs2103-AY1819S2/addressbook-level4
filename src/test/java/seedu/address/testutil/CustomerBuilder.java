@@ -1,16 +1,16 @@
-package seedu.address.testutil;
+package seedu.hms.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.Email;
+import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.customer.Name;
+import seedu.hms.model.customer.Phone;
+import seedu.hms.model.tag.Tag;
+import seedu.hms.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Customer objects.
@@ -21,13 +21,13 @@ public class CustomerBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_IDENTIFICATION_N0 = "1223453";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_hms = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
     private Email email;
     private IdentificationNo idnum;
-    private Address address;
+    private hms hms;
     private Set<Tag> tags;
 
     public CustomerBuilder() {
@@ -35,7 +35,7 @@ public class CustomerBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         idnum = new IdentificationNo(DEFAULT_IDENTIFICATION_N0);
-        address = new Address(DEFAULT_ADDRESS);
+        hms = new hms(DEFAULT_hms);
         tags = new HashSet<>();
     }
 
@@ -47,7 +47,7 @@ public class CustomerBuilder {
         phone = customerToCopy.getPhone();
         email = customerToCopy.getEmail();
         idnum = customerToCopy.getIdNum();
-        address = customerToCopy.getAddress();
+        hms = customerToCopy.gethms();
         tags = new HashSet<>(customerToCopy.getTags());
     }
 
@@ -68,10 +68,10 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Customer} that we are building.
+     * Sets the {@code hms} of the {@code Customer} that we are building.
      */
-    public CustomerBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public CustomerBuilder withhms(String hms) {
+        this.hms = new hms(hms);
         return this;
     }
 
@@ -100,7 +100,7 @@ public class CustomerBuilder {
     }
 
     public Customer build() {
-        return new Customer(name, phone, email, idnum, address, tags);
+        return new Customer(name, phone, email, idnum, hms, tags);
     }
 
 }

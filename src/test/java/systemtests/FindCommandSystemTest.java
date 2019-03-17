@@ -1,31 +1,31 @@
 package systemtests;
 
 //import static org.junit.Assert.assertFalse;
-//import static seedu.address.commons.core.Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW;
-//import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.address.testutil.TypicalCustomers.BENSON;
-//import static seedu.address.testutil.TypicalCustomers.CARL;
-//import static seedu.address.testutil.TypicalCustomers.DANIEL;
-//import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+//import static seedu.hms.commons.core.Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW;
+//import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+//import static seedu.hms.testutil.TypicalCustomers.BENSON;
+//import static seedu.hms.testutil.TypicalCustomers.CARL;
+//import static seedu.hms.testutil.TypicalCustomers.DANIEL;
+//import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 //
 //import java.util.ArrayList;
 //import java.util.List;
 //
 //import org.junit.Test;
 //
-//import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.DeleteCustomerCommand;
-//import seedu.address.logic.commands.FindNameCommand;
-//import seedu.address.logic.commands.RedoCommand;
-//import seedu.address.logic.commands.UndoCommand;
-//import seedu.address.model.CustomerModel;
-//import seedu.address.model.tag.Tag;
+//import seedu.hms.commons.core.index.Index;
+//import seedu.hms.logic.commands.DeleteCustomerCommand;
+//import seedu.hms.logic.commands.FindNameCommand;
+//import seedu.hms.logic.commands.RedoCommand;
+//import seedu.hms.logic.commands.UndoCommand;
+//import seedu.hms.model.CustomerModel;
+//import seedu.hms.model.tag.Tag;
 
 public class FindCommandSystemTest extends HotelManagementSystemSystemTest {
 
     //    @Test
     //    public void find() {
-    //        /* Case: find multiple customers in address book, command with leading spaces and trailing spaces
+    //        /* Case: find multiple customers in hms book, command with leading spaces and trailing spaces
     //         * -> 2 customers found
     //         */
     //        String command = "   " + FindNameCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
@@ -48,23 +48,23 @@ public class FindCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find multiple customers in address book, 2 keywords -> 2 customers found */
+    //        /* Case: find multiple customers in hms book, 2 keywords -> 2 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " Benson Daniel";
     //        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find multiple customers in address book, 2 keywords in reversed order -> 2 customers found */
+    //        /* Case: find multiple customers in hms book, 2 keywords in reversed order -> 2 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " Daniel Benson";
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find multiple customers in address book, 2 keywords with 1 repeat -> 2 customers found */
+    //        /* Case: find multiple customers in hms book, 2 keywords with 1 repeat -> 2 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " Daniel Benson Daniel";
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find multiple customers in address book, 2 matching keywords and 1 non-matching keyword
+    //        /* Case: find multiple customers in hms book, 2 matching keywords and 1 non-matching keyword
     //         * -> 2 customers found
     //         */
     //        command = FindNameCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
@@ -81,7 +81,7 @@ public class FindCommandSystemTest extends HotelManagementSystemSystemTest {
     //        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
     //        assertCommandFailure(command, expectedResultMessage);
     //
-    //        /* Case: find same customers in address book after deleting 1 of them -> 1 customer found */
+    //        /* Case: find same customers in hms book after deleting 1 of them -> 1 customer found */
     //        executeCommand(DeleteCustomerCommand.COMMAND_WORD + " 1");
     //        assertFalse(getModel().getHotelManagementSystem().getCustomerList().contains(BENSON));
     //        command = FindNameCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
@@ -90,45 +90,45 @@ public class FindCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //            /* Case: find customer in address book, keyword is same as name but of different case -> 1 customer
+    //            /* Case: find customer in hms book, keyword is same as name but of different case -> 1 customer
     //            found */
     //        command = FindNameCommand.COMMAND_WORD + " MeIeR";
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find customer in address book, keyword is substring of name -> 0 customers found */
+    //        /* Case: find customer in hms book, keyword is substring of name -> 0 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " Mei";
     //        ModelHelper.setFilteredList(expectedModel);
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find customer in address book, name is substring of keyword -> 0 customers found */
+    //        /* Case: find customer in hms book, name is substring of keyword -> 0 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " Meiers";
     //        ModelHelper.setFilteredList(expectedModel);
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find customer not in address book -> 0 customers found */
+    //        /* Case: find customer not in hms book -> 0 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " Mark";
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find phone number of customer in address book -> 0 customers found */
+    //        /* Case: find phone number of customer in hms book -> 0 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find address of customer in address book -> 0 customers found */
-    //        command = FindNameCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+    //        /* Case: find hms of customer in hms book -> 0 customers found */
+    //        command = FindNameCommand.COMMAND_WORD + " " + DANIEL.gethms().value;
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find email of customer in address book -> 0 customers found */
+    //        /* Case: find email of customer in hms book -> 0 customers found */
     //        command = FindNameCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardUnchanged();
     //
-    //        /* Case: find tags of customer in address book -> 0 customers found */
+    //        /* Case: find tags of customer in hms book -> 0 customers found */
     //        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
     //        command = FindNameCommand.COMMAND_WORD + " " + tags.get(0).tagName;
     //        assertCommandSuccess(command, expectedModel);
@@ -143,7 +143,7 @@ public class FindCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandSuccess(command, expectedModel);
     //        assertSelectedCardDeselected();
     //
-    //        /* Case: find customer in empty address book -> 0 customers found */
+    //        /* Case: find customer in empty hms book -> 0 customers found */
     //        deleteAllCustomers();
     //        command = FindNameCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
     //        expectedModel = getModel();

@@ -1,9 +1,9 @@
-package seedu.address.ui;
+package seedu.hms.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.hms.testutil.TypicalCustomers.ALICE;
+import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.model.HotelManagementSystem;
+import seedu.hms.model.HotelManagementSystem;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
@@ -55,7 +55,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // initial state
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
-        // after address book is updated
+        // after hms book is updated
         guiRobot.interact(() -> hotelManagementSystem.addCustomer(ALICE));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
             String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));

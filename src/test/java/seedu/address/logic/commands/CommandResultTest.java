@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

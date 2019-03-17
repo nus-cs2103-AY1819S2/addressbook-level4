@@ -1,13 +1,13 @@
-package seedu.address.model;
+package seedu.hms.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.testutil.TypicalCustomers.BENSON;
-import static seedu.address.testutil.TypicalCustomers.BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
+import static seedu.hms.testutil.TypicalCustomers.ALICE;
+import static seedu.hms.testutil.TypicalCustomers.BENSON;
+import static seedu.hms.testutil.TypicalCustomers.BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,12 +18,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
-import seedu.address.model.customer.exceptions.CustomerNotFoundException;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.HotelManagementSystemBuilder;
+import seedu.hms.commons.core.GuiSettings;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.model.customer.exceptions.CustomerNotFoundException;
+import seedu.hms.testutil.CustomerBuilder;
+import seedu.hms.testutil.HotelManagementSystemBuilder;
 
 public class CustomerManagerTest {
     @Rule
@@ -49,14 +49,14 @@ public class CustomerManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setHotelManagementSystemFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setHotelManagementSystemFilePath(Paths.get("hms/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         customerManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, customerManager.getUserPrefs());
 
         // Modifying userPrefs should not modify customerManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setHotelManagementSystemFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setHotelManagementSystemFilePath(Paths.get("new/hms/book/file/path"));
         assertEquals(oldUserPrefs, customerManager.getUserPrefs());
     }
 
@@ -81,7 +81,7 @@ public class CustomerManagerTest {
 
     @Test
     public void setHotelManagementSystemFilePath_validPath_setsHotelManagementSystemFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("hms/book/file/path");
         customerManager.setHotelManagementSystemFilePath(path);
         assertEquals(path, customerManager.getHotelManagementSystemFilePath());
     }

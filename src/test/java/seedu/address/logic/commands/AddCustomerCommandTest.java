@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertFalse;
@@ -11,14 +11,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyHotelManagementSystem;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.customer.Customer;
-import seedu.address.testutil.CustomerBuilder;
+import seedu.hms.commons.core.GuiSettings;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.Model;
+import seedu.hms.model.ReadOnlyHotelManagementSystem;
+import seedu.hms.model.ReadOnlyUserPrefs;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.testutil.CustomerBuilder;
 
 public class AddCustomerCommandTest {
 

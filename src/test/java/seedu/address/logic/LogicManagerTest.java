@@ -1,14 +1,14 @@
-package seedu.address.logic;
+package seedu.hms.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.testutil.TypicalCustomers.AMY;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
+import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.hms.logic.commands.CommandTestUtil.hms_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.hms.testutil.TypicalCustomers.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,24 +19,24 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.AddCustomerCommand;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCustomerCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.BookingManager;
-import seedu.address.model.BookingModel;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.ReadOnlyHotelManagementSystem;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedHotelManagementSystem;
-import seedu.address.model.customer.Customer;
-import seedu.address.storage.JsonHotelManagementSystemStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.testutil.CustomerBuilder;
+import seedu.hms.logic.commands.AddCustomerCommand;
+import seedu.hms.logic.commands.CommandResult;
+import seedu.hms.logic.commands.HistoryCommand;
+import seedu.hms.logic.commands.ListCustomerCommand;
+import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BookingManager;
+import seedu.hms.model.BookingModel;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.ReadOnlyHotelManagementSystem;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.storage.JsonHotelManagementSystemStorage;
+import seedu.hms.storage.JsonUserPrefsStorage;
+import seedu.hms.storage.StorageManager;
+import seedu.hms.testutil.CustomerBuilder;
 
 
 public class LogicManagerTest {
@@ -93,7 +93,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ID_DESC_AMY + ADDRESS_DESC_AMY;
+            + ID_DESC_AMY + hms_DESC_AMY;
         Customer expectedCustomer = new CustomerBuilder(AMY).withTags().build();
         CustomerManager expectedModel = new CustomerManager();
         expectedModel.addCustomer(expectedCustomer);
@@ -153,7 +153,7 @@ public class LogicManagerTest {
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
      * - the internal model manager data are same as those in the {@code expectedModel} <br>
-     * - {@code expectedModel}'s address book was saved to the storage file.
+     * - {@code expectedModel}'s hms book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                        String expectedMessage, CustomerModel expectedModel) {

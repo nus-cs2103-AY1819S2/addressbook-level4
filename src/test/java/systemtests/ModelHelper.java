@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.model.CustomerModel;
-import seedu.address.model.customer.Customer;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.customer.Customer;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.

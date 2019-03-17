@@ -1,26 +1,26 @@
-package seedu.address.logic.commands;
+package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCustomers.CARL;
-import static seedu.address.testutil.TypicalCustomers.ELLE;
-import static seedu.address.testutil.TypicalCustomers.FIONA;
-import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
+import static seedu.hms.commons.core.Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.hms.testutil.TypicalCustomers.CARL;
+import static seedu.hms.testutil.TypicalCustomers.ELLE;
+import static seedu.hms.testutil.TypicalCustomers.FIONA;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedHotelManagementSystem;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.logic.CommandHistory;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
+import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindNameCommand}.

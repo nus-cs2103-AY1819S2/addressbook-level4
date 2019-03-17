@@ -1,11 +1,11 @@
-package seedu.address.model.customer;
+package seedu.hms.model.customer;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.testutil.Assert;
+import seedu.hms.testutil.Assert;
 
 public class NameTest {
 

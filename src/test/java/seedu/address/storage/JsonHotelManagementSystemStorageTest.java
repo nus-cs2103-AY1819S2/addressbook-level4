@@ -1,11 +1,11 @@
-package seedu.address.storage;
+package seedu.hms.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.testutil.TypicalCustomers.HOON;
-import static seedu.address.testutil.TypicalCustomers.IDA;
-import static seedu.address.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
+import static seedu.hms.testutil.TypicalCustomers.ALICE;
+import static seedu.hms.testutil.TypicalCustomers.HOON;
+import static seedu.hms.testutil.TypicalCustomers.IDA;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,9 +16,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.model.ReadOnlyHotelManagementSystem;
+import seedu.hms.commons.exceptions.DataConversionException;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.ReadOnlyHotelManagementSystem;
 
 public class JsonHotelManagementSystemStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

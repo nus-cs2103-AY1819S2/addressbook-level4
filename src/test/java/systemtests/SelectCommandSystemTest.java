@@ -1,9 +1,9 @@
 package systemtests;
 
-import static seedu.address.logic.commands.SelectCustomerCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS;
+import static seedu.hms.logic.commands.SelectCustomerCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.CustomerModel;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.model.CustomerModel;
 
 public class SelectCommandSystemTest extends HotelManagementSystemSystemTest {
     //    @Test
@@ -44,7 +44,7 @@ public class SelectCommandSystemTest extends HotelManagementSystemSystemTest {
     //        /* ------------------------ Perform select operations on the shown filtered list
     //        ---------------------------- */
     //
-    //        /* Case: filtered customer list, select index within bounds of address book but out of bounds of
+    //        /* Case: filtered customer list, select index within bounds of hms book but out of bounds of
     //        customer list
     //         * -> rejected
     //         */
@@ -53,7 +53,7 @@ public class SelectCommandSystemTest extends HotelManagementSystemSystemTest {
     //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + invalidIndex,
     //        MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     //
-    //        /* Case: filtered customer list, select index within bounds of address book and customer list ->
+    //        /* Case: filtered customer list, select index within bounds of hms book and customer list ->
     //        selected */
     //        Index validIndex = Index.fromOneBased(1);
     //        assertTrue(validIndex.getZeroBased() < getModel().getFilteredCustomerList().size());
@@ -87,7 +87,7 @@ public class SelectCommandSystemTest extends HotelManagementSystemSystemTest {
     //        /* Case: mixed case command word -> rejected */
     //        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
     //
-    //        /* Case: select from empty address book -> rejected */
+    //        /* Case: select from empty hms book -> rejected */
     //        deleteAllCustomers();
     //        assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
     //            MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);

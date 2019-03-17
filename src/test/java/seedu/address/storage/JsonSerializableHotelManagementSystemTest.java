@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.hms.storage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,10 +9,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.HotelManagementSystem;
-import seedu.address.testutil.TypicalCustomers;
+import seedu.hms.commons.exceptions.IllegalValueException;
+import seedu.hms.commons.util.JsonUtil;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.testutil.TypicalCustomers;
 
 public class JsonSerializableHotelManagementSystemTest {
 

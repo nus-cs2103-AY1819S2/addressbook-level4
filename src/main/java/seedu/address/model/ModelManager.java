@@ -15,6 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.CardsView;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.ViewState;
 import seedu.address.model.deck.Card;
@@ -31,6 +33,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<? extends ListItem> filteredItems;
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
+    private ViewState viewState;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,8 +46,9 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredItems = new FilteredList<>(versionedTopDeck.getDeckList());
-        filteredItems.addListener(this::ensureSelectedItemIsValid);
+        // viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
+        viewState = new CardsView(new FilteredList<>(versionedTopDeck.getCardList()));
+        filteredItems = ((CardsView) viewState).filteredCards;
     }
 
     public ModelManager() {
@@ -198,35 +202,6 @@ public class ModelManager implements Model {
             throw new CardNotFoundException();
         }
         selectedItem.setValue(card);
-    }
-
-    /**
-     * Ensures {@code selectedItem} is a valid card in {@code filteredItems}.
-     */
-    private void ensureSelectedItemIsValid(ListChangeListener.Change<? extends ListItem> change) {
-        while (change.next()) {
-            if (selectedItem.getValue() == null) {
-                // null is always a valid selected card, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedItem.getValue());
-            if (wasSelectedItemReplaced) {
-                // Update selectedItem to its new value.
-                int index = change.getRemoved().indexOf(selectedItem.getValue());
-                selectedItem.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedItemRemoved = change.getRemoved().stream()
-                    .anyMatch(removedItem -> selectedItem.getValue().equals(removedItem));
-            if (wasSelectedItemRemoved) {
-                // Select the card that came before it in the list,
-                // or clear the selection if there is no such card.
-                selectedItem.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
     }
 
     @Override

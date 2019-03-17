@@ -9,6 +9,7 @@ import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.hms.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.hms.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.hms.logic.commands.CommandTestUtil.showCustomerAtIndex;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;

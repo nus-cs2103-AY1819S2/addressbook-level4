@@ -20,9 +20,9 @@ public class AddReviewCommandTest {
             new BookNameContainsExactKeywordsPredicate(new BookName("Alice in Wonderland"));
     private static final Review validReview = new Review(
             new ReviewTitle("Carroll has depicted a unique world I hadn't seen before"),
-            "Alice's Adventures in Wonderland by Lewis Carroll is a story " +
-            "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, " +
-            "wonderful people and animals.");
+            "Alice's Adventures in Wonderland by Lewis Carroll is a story "
+                    + "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, "
+                    + "wonderful people and animals.");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

@@ -1,19 +1,26 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TEXTBOOK;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_BOOKNAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_REVIEWTITLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.REVIEWMESSAGE_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.REVIEWTITLE_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWMESSAGE_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWTITLE_CS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalBooks.ALI;
-import static seedu.address.testutil.TypicalBooks.CS;
 
 import org.junit.Test;
-import seedu.address.logic.commands.AddBookCommand;
+
 import seedu.address.logic.commands.AddReviewCommand;
-import seedu.address.model.book.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.BookBuilder;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewTitle;
 
 public class AddReviewCommandParserTest {
     private AddReviewCommandParser parser = new AddReviewCommandParser();

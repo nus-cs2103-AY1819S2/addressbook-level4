@@ -2,7 +2,15 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,11 +59,11 @@ public class CommandTestUtil {
     public static final String VALID_TAG_INTERESTING = "interesting";
     public static final String VALID_REVIEWTITLE_ALICE = "Carroll has depicted a unique world I hadn't seen before";
     public static final String VALID_REVIEWTITLE_CS = "The book was awesome";
-    public static final String VALID_REVIEWMESSAGE_ALICE = "Alice's Adventures in Wonderland by Lewis Carroll is a story " +
-            "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, " +
-            "wonderful people and animals.";
-    public static final String VALID_REVIEWMESSAGE_CS = "It provides a great introduction to computer science. " +
-            "The legendary SICP reminded me of the the Bible in many respects. ";
+    public static final String VALID_REVIEWMESSAGE_ALICE = "Alice's Adventures in Wonderland by Lewis Carroll is a story "
+            + "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, "
+            + "wonderful people and animals.";
+    public static final String VALID_REVIEWMESSAGE_CS = "It provides a great introduction to computer science. "
+            + "The legendary SICP reminded me of the the Bible in many respects. ";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

@@ -19,6 +19,9 @@ public class BookTagsContainExactKeywordsPredicate implements Predicate<Book> {
 
     @Override
     public boolean test(Book book) {
+        if (keywords.isEmpty()) {
+            return true;
+        }
         Iterator<Tag> itr = book.getTags().iterator();
         while (itr.hasNext()) {
             String tagStr = itr.next().tagName;

@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Book}'s {@code BookName} matches any of the keywords given.
+ * Tests that a {@code Book}'s {@code AuthorName} matches any of the keywords given.
  */
-public class BookNameContainsKeywordsPredicate implements Predicate<Book> {
+public class BookAuthorContainsKeywordPredicate implements Predicate<Book> {
     private final List<String> keywords;
 
-    public BookNameContainsKeywordsPredicate(List<String> keywords) {
+    public BookAuthorContainsKeywordPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -21,14 +21,14 @@ public class BookNameContainsKeywordsPredicate implements Predicate<Book> {
             return true;
         }
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(book.getBookName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(book.getAuthor().fullName, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookNameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.containsAll(((BookNameContainsKeywordsPredicate) other).keywords)
-                && ((BookNameContainsKeywordsPredicate) other).keywords.containsAll(keywords)); // state check
+                && keywords.containsAll(((BookAuthorContainsKeywordPredicate) other).keywords)
+                && ((BookAuthorContainsKeywordPredicate) other).keywords.containsAll(keywords)); // state check
     }
 }

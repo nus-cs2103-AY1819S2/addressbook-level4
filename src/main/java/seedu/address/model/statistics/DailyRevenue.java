@@ -4,6 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+/**
+ * Daily Revenue which contains the day, month year and total revenue earned on that specific day.
+ */
 public class DailyRevenue {
 
     private final Day day;
@@ -85,7 +88,8 @@ public class DailyRevenue {
         }
 
         DailyRevenue otherDailyRevenue = (DailyRevenue) other;
-        return isSameDailyRevenue(otherDailyRevenue) && otherDailyRevenue.getTotalDailyRevenue() == getTotalDailyRevenue();
+        return isSameDailyRevenue(otherDailyRevenue)
+                && otherDailyRevenue.getTotalDailyRevenue() == getTotalDailyRevenue();
     }
     @Override
     public int hashCode() {

@@ -8,7 +8,7 @@ import seedu.address.model.statistics.DailyRevenue;
 /**
  * An UI component that displays information of a {@code Monthly Statistics}.
  */
-public class DailyStatisticsCard extends UiPart<Region>{
+public class DailyStatisticsCard extends UiPart<Region> {
 
     private static final String FXML = "DailyStatisticsCard.fxml";
 

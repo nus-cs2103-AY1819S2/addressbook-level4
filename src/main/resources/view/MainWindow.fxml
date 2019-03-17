@@ -46,7 +46,7 @@
                         <Insets top="5" right="10" bottom="5" left="10"/>
                     </padding>
                 </StackPane>
-                        
+
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS" >
                   <VBox fx:id="itemList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                     <padding>
@@ -54,7 +54,7 @@
                     </padding>
                     <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                   </VBox>
-        
+
                   <StackPane fx:id="flowPanel" minWidth="442" prefWidth="442" SplitPane.resizableWithParent="true">
                     <padding>
                       <Insets top="10" right="10" bottom="10" left="10" />
@@ -64,7 +64,7 @@
                     </ScrollPane>
                   </StackPane>
                 </SplitPane>
-                        
+
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>
         </Scene>

@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.AddItemToMenuCommand;
-import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -103,11 +103,11 @@ public class RestOrRantParser {
             return new AddItemToMenuCommandParser().parse(arguments);
 
         // Commands that work in Table Mode
-        case AddOrderCommand.COMMAND_WORD:
+        case AddToOrderCommand.COMMAND_WORD:
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
-            return new AddOrderCommandParser().parse(arguments);
+            return new AddToOrderCommandParser().parse(arguments);
 
         case BillCommand.COMMAND_WORD:
             if (mode != Mode.TABLE_MODE) {

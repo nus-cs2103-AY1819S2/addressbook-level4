@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -66,7 +65,7 @@ public class BillBrowserPanel extends UiPart<Region> {
 //                receiptView.scrollTo(index);
 //                receiptView.getSelectionModel().clearAndSelect(index);
 //            }
-//        }));
+        //        }));
     }
 
 //    /**
@@ -85,6 +84,5 @@ public class BillBrowserPanel extends UiPart<Region> {
 //            }
 //        }
 //    }
-
 
 }

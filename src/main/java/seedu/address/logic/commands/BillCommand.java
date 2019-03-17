@@ -30,8 +30,8 @@ public class BillCommand extends Command {
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
     public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
     public static final String MESSAGE_MENUITEM_NOT_PRESENT = "MenuItem is not received.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode " +
-            "[TABLE_NUMBER]";
+    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode "
+            + "[TABLE_NUMBER]";
 
     private static Bill bill;
     private Table tableToBill;

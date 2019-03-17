@@ -2,10 +2,10 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.fxml.FXML;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;

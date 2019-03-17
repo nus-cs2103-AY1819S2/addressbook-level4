@@ -50,13 +50,11 @@ public class QuizModeParser implements Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param command full user input string
+     * @param commandWord full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    private Command parseCommand(String command) throws ParseException {
-        final String commandWord = matcher.group("commandWord");
-
+    private Command parseCommand(String commandWord) throws ParseException {
         switch (commandWord) {
         case QuizStatusCommand.COMMAND_WORD:
             return new QuizStatusCommand();

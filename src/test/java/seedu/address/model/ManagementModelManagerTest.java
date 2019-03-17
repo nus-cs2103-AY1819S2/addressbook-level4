@@ -123,7 +123,7 @@ public class ManagementModelManagerTest {
         newLesson.addCard(Arrays.asList("test1", "test2"));
         assertNotEquals(newLesson, getTestLesson());
         modelManager.setLesson(0, newLesson);
-        Assert.assertEquals(newLesson, modelManager.getLesson(0));
+        assertEquals(newLesson, modelManager.getLesson(0));
     }
 
     @Test
@@ -138,7 +138,7 @@ public class ManagementModelManagerTest {
     public void deleteLesson_validIndex_deletesLesson() {
         addTestLesson();
         assertEquals(1, modelManager.getLessons().size());
-        Assert.assertEquals(getTestLesson(), modelManager.getLesson(0));
+        assertEquals(getTestLesson(), modelManager.getLesson(0));
         modelManager.deleteLesson(0);
         assertEquals(0, modelManager.getLessons().size());
         thrown.expect(IndexOutOfBoundsException.class);

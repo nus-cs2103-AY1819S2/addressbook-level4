@@ -177,7 +177,7 @@ public class QuizTest {
 
         assertTrue(quiz.updateTotalAttemptsAndStreak(index, correctAnswer));
         assertEquals(expected, quiz.getCurrentSession());
-        assertEquals(1, quiz.getQuizTotalAttempts());;
+        assertEquals(1, quiz.getQuizTotalAttempts());
         assertEquals(1, quiz.getQuizTotalCorrectQuestions());
 
         // test wrong answer

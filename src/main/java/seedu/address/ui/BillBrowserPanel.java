@@ -41,6 +41,8 @@ public class BillBrowserPanel extends UiPart<Region> {
         tableNumber.setText("TABLE NUMBER " + bill.getTableNumber().tableNumber);
         //TODO: Find out why the text aren't printing
         receipt = new TextArea(" ");
+        receipt.setWrapText(true);
+        receipt.setText(bill.getReceipt());
         receipt.appendText(bill.getReceipt());
 
 //        receiptView.setCellFactory(listView -> new BillBrowserPanel.BillCell());

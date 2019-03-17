@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
+import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_CORE_SIZE;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -29,17 +30,29 @@ public class AddLessonParser implements Parser<AddLessonCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_LESSON_NAME, PREFIX_LESSON_CORE_HEADER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddLessonCommand.MESSAGE_USAGE));
         }
-
-        // To do check if minimum number of core headers reached
 
         String name = argMultimap.getValue(PREFIX_LESSON_NAME).get();
         ArrayList<String> coreHeaders = new ArrayList<>();
         ArrayList<String> optHeaders = new ArrayList<>();
         coreHeaders.addAll(argMultimap.getAllValues(PREFIX_LESSON_CORE_HEADER));
         optHeaders.addAll(argMultimap.getAllValues(PREFIX_LESSON_OPT_HEADER));
-        Lesson lesson = new Lesson(name, coreHeaders, optHeaders);
+
+        Lesson lesson = null;
+
+        try {
+            lesson = new Lesson(name, coreHeaders, optHeaders);
+            // Throws IllegalArgumentException if less than 2 core headers are specified
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equals(EXCEPTION_INVALID_CORE_SIZE)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddLessonCommand.MESSAGE_USAGE));
+            } else {
+                throw e;
+            }
+        }
 
         return new AddLessonCommand(lesson);
     }

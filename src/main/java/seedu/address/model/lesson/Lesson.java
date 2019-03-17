@@ -398,12 +398,18 @@ public class Lesson {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder().append("Name: ")
-                .append(name)
-                .append(", Hashcode: ")
-                .append(hashCode())
-                .append(", Cards: ")
-                .append(getCardCount());
+        StringBuilder sb = new StringBuilder().append("Name: [").append(name).append("]\nCores: ");
+        for (String s: coreHeaders) {
+            sb.append("[" + s + "] ");
+        }
+
+        if (optionalHeaders.size() > 0) {
+            sb.append("\nOptionals: ");
+            for (String s : optionalHeaders) {
+                sb.append("[" + s + "] ");
+            }
+        }
+
         return sb.toString();
     }
 

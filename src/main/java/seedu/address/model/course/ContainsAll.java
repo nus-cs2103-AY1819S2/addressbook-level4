@@ -1,6 +1,10 @@
 package seedu.address.model.course;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
 
@@ -9,39 +13,35 @@ import seedu.address.model.moduleinfo.ModuleInfo;
  * at least one of the module code matches one of the
  * regular expression
  */
-public class ContainsAll implements CourseRequirement {
+public class ContainsAll extends CourseRequirement {
 
-    private final String description;
-    private final List<String> regexes;
 
     public ContainsAll(String description, String... regexes) {
-        this.description = description;
-        this.regexes = List.of(regexes);
-    }
-
-    @Override
-    public boolean test(List<ModuleInfo> modules) {
-        for (String regex: regexes) {
-            if (modules.stream().map(x -> x.getCodeString()).noneMatch(x -> x.matches(regex))) {
-                return false;
+        super(description, new Predicate<List<ModuleInfo>>() {
+            @Override
+            public boolean test(List<ModuleInfo> moduleInfos) {
+                for (String regex : regexes) {
+                    if (moduleInfos.stream().map(x -> x.getCodeString()).noneMatch(x -> x.matches(regex))) {
+                        return false;
+                    }
+                }
+                return true;
             }
-        }
-        return true;
-    }
-
-    @Override
-    public String getUnfulfilled(List<ModuleInfo> modules) {
-        StringBuilder sb = new StringBuilder("Failed contain:\n");
-        for (String regex: regexes) {
-            if (modules.stream().map(x -> x.getCodeString()).noneMatch(x -> x.matches(regex))) {
-                sb.append(regex + "\n");
+        },
+            new Function<List<ModuleInfo>, String>() {
+                @Override
+                public String apply(List<ModuleInfo> moduleInfos) {
+                    StringBuilder sb = new StringBuilder("Failed contain:\n");
+                    for (String regex: regexes) {
+                        if (moduleInfos.stream().map(x -> x.getCodeString()).noneMatch(x -> x.matches(regex))) {
+                            sb.append(regex + "\n");
+                        }
+                    }
+                    return sb.toString();
+                }
             }
-        }
-        return sb.toString();
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+        );
+        requireAllNonNull(regexes);
+        requireAllNonNull(description, regexes);
     }
 }

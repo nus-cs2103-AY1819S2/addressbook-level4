@@ -41,7 +41,8 @@ public class QuizStartCommand implements Command {
         model.init(quiz);
         QuizCard card = model.getNextCard();
 
-        return new CommandResult(String.format(MESSAGE_QUESTION_ANSWER, card.getQuestion(), card.getAnswer()));
+        return new CommandResult(String.format(MESSAGE_QUESTION_ANSWER, card.getQuestion(), card.getAnswer()),
+            true, false, false);
     }
 
     @Override

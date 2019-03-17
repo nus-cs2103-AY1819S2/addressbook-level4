@@ -60,9 +60,9 @@ public class QuizAnswerCommand implements Command {
                 card = quizModel.getNextCard();
                 if (card.getQuizMode() == Quiz.Mode.PREVIEW) {
                     return new CommandResult(String.format(MESSAGE_QUESTION_ANSWER,
-                        card.getQuestion(), card.getAnswer()));
+                        card.getQuestion(), card.getAnswer()), true, false, false);
                 }
-                return new CommandResult(String.format(MESSAGE_QUESTION, card.getQuestion()));
+                return new CommandResult(String.format(MESSAGE_QUESTION, card.getQuestion()), true, false, false);
             } else {
                 sb.append(MESSAGE_COMPLETE);
 
@@ -70,7 +70,7 @@ public class QuizAnswerCommand implements Command {
                 System.out.println(quizModel.end());
             }
 
-            return new CommandResult(sb.toString());
+            return new CommandResult(sb.toString(), true, false, false);
         }
 
         boolean result = quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
@@ -98,7 +98,7 @@ public class QuizAnswerCommand implements Command {
             }
         }
 
-        return new CommandResult(sb.toString());
+        return new CommandResult(sb.toString(), true, false, false);
     }
 
     @Override

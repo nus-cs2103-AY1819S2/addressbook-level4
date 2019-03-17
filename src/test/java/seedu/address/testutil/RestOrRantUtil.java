@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
 import seedu.address.logic.commands.AddItemToMenuCommand;
-import seedu.address.logic.commands.AddOrderCommand;
+import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
@@ -33,8 +33,8 @@ public class RestOrRantUtil {
     /**
      * Returns an add command string for adding the {@code OrderItem}.
      */
-    public static String getAddOrderCommand(OrderItem orderItem) {
-        return AddOrderCommand.COMMAND_WORD + " " + getOrderItemDetails(orderItem);
+    public static String getAddToOrderCommand(OrderItem orderItem) {
+        return AddToOrderCommand.COMMAND_WORD + " " + getOrderItemDetails(orderItem);
     }
 
     /**

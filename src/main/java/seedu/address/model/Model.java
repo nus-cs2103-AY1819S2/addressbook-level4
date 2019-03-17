@@ -54,8 +54,7 @@ public interface Model {
     /**
      * Sets the user prefs' Orders file path.
      */
-    void setOrdersFilePath(Path restOrRantFilePath);
-    // TODO: add get file path for each feature
+    void setOrdersFilePath(Path ordersFilePath);
 
     /**
      * Returns the user pref's Menu file path.

@@ -9,16 +9,17 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 
 import java.util.List;
 import java.util.Set;
+
+import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
-import seedu.address.model.book.Author;
-import seedu.address.model.book.Rating;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.Rating;
 import seedu.address.model.book.Review;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.Model;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Adds a review to the book.

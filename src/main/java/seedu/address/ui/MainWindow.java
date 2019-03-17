@@ -115,7 +115,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        cardListPanel = new CardListPanel(logic.getFilteredList(), logic.selectedCardProperty(), logic::setSelectedItem);
+        cardListPanel = new CardListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
         personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

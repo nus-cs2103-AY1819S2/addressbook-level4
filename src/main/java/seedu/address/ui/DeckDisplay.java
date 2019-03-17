@@ -9,7 +9,7 @@ import seedu.address.model.deck.Deck;
 /**
  * An UI component that displays information of a {@code Deck}.
  */
-public class DeckCard extends UiPart<Region> {
+public class DeckDisplay extends UiPart<Region> {
 
     private static final String FXML = "DeckListCard.fxml";
 
@@ -30,7 +30,7 @@ public class DeckCard extends UiPart<Region> {
     @FXML
     private Label id;
 
-    public DeckCard(Deck deck, int displayedIndex) {
+    public DeckDisplay(Deck deck, int displayedIndex) {
         super(FXML);
         this.deck = deck;
         id.setText(displayedIndex + ". ");
@@ -45,12 +45,12 @@ public class DeckCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeckCard)) {
+        if (!(other instanceof DeckDisplay)) {
             return false;
         }
 
         // state check
-        DeckCard card = (DeckCard) other;
+        DeckDisplay card = (DeckDisplay) other;
         return id.getText().equals(card.id.getText())
                 && deck.equals(card.deck);
     }

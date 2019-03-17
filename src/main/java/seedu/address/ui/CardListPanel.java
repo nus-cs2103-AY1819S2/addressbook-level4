@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Panel containing the list of persons.
@@ -67,7 +68,9 @@ public class CardListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 if (item instanceof Card) {
-                    setGraphic(new CardDisplay(item, getIndex() + 1).getRoot());
+                    setGraphic(new CardDisplay((Card)item, getIndex() + 1).getRoot());
+                } else if (item instanceof Deck) {
+                    setGraphic(new DeckDisplay((Deck)item, getIndex() + 1).getRoot());
                 }
             }
         }

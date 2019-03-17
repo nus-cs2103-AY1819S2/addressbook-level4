@@ -53,7 +53,7 @@ public class DeckListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Deck} using a {@code DeckCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Deck} using a {@code DeckDisplay}.
      */
     class DeckListViewCell extends ListCell<Deck> {
         @Override
@@ -64,7 +64,7 @@ public class DeckListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new DeckCard(card, getIndex() + 1).getRoot());
+                setGraphic(new DeckDisplay(card, getIndex() + 1).getRoot());
             }
         }
     }

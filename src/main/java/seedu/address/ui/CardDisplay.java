@@ -37,13 +37,13 @@ public class CardDisplay extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public CardDisplay(ListItem card, int displayedIndex) {
+    public CardDisplay(Card card, int displayedIndex) {
         super(FXML);
-        this.card = (Card)card;
+        this.card = card;
         id.setText(displayedIndex + ". ");
-        question.setText(((Card)card).getQuestion());
-        answer.setText(((Card)card).getAnswer());
-        initTags((Card)card);
+        question.setText(card.getQuestion());
+        answer.setText(card.getAnswer());
+        initTags(card);
     }
 
     /**

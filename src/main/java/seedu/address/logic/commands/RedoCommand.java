@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
@@ -8,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Reverts the {@code model}'s address book to its previously undone state.
+ * Reverts the {@code model}'s book shelf to its previously undone state.
  */
 public class RedoCommand extends Command {
 
@@ -20,12 +21,13 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook()) {
+        if (!model.canRedoBookShelf()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoAddressBook();
+        model.redoBookShelf();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

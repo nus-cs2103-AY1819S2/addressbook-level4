@@ -68,12 +68,12 @@ Examples:
 === Adding a book review: `addReview`
 
 Adds a book review to a certain book in the book list +
-Format: `addReview n/BOOKNAME A/AUTHOR r/REVIEW
+Format: `addReview n/BOOKNAME a/AUTHOR r/REVIEW
 
 Examples:
 
-* `addReview n/Alice in Wonderland A/Lewis Caroll r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
-* `addReview n/Structure and Interpretation of Computer Programs A/H Abelson r/A very difficult book:(`
+* `addReview n/Alice in Wonderland a/Lewis Caroll r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
+* `addReview n/Structure and Interpretation of Computer Programs a/H Abelson r/A very difficult book:(`
 
 === Listing book entries : `listBook`
 

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 
 /**
- * Adds a book to the address book.
+ * Adds a book to the book shelf.
  */
 public class AddBookCommand extends Command {
 
@@ -53,7 +53,7 @@ public class AddBookCommand extends Command {
         }
 
         model.addBook(toAdd);
-        model.commitAddressBook();
+        model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

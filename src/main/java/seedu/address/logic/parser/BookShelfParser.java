@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddBookCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteBookCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditBookCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -67,13 +68,13 @@ public class BookShelfParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
+        case DeleteBookCommand.COMMAND_WORD:
+            return new DeleteBookCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case ClearCommand.COMMAND_ALIAS:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:

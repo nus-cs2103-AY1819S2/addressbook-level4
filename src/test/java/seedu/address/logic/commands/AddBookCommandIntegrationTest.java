@@ -33,7 +33,7 @@ public class AddBookCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getBookShelf(), new UserPrefs());
         expectedModel.addBook(validBook);
-        expectedModel.commitAddressBook();
+        expectedModel.commitBookShelf();
 
         assertCommandSuccess(new AddBookCommand(validBook), model, commandHistory,
                 String.format(AddBookCommand.MESSAGE_SUCCESS, validBook), expectedModel);

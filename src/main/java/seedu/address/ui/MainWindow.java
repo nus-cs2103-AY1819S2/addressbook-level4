@@ -174,7 +174,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleExit(Event evt) {
         // stop the Timer
-        statusBarFooter.stopTimer();
+        if (statusBarFooter != null) {
+            statusBarFooter.stopTimer();
+        }
 
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
             (int) primaryStage.getX(), (int) primaryStage.getY());

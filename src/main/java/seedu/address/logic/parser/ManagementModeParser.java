@@ -17,7 +17,7 @@ import seedu.address.model.lesson.Lesson;
 /**
  * Parses user input.
  */
-public class ManagementModeParser implements Parser {
+public class ManagementModeParser implements Parser<Command> {
     /**
      * Used for initial separation of command word and args.
      */

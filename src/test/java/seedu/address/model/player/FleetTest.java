@@ -1,11 +1,14 @@
 package seedu.address.model.player;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
 
 import seedu.address.model.battleship.AircraftCarrierBattleship;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
 
@@ -72,58 +75,53 @@ public class FleetTest {
     }
 
     @Test
-    public void testDeployBattleship() {
+    public void testDeployBattleships() {
         Fleet testFleet = new Fleet(1, 1, 1);
-        assertThrows(Exception.class, () -> {
-            testFleet.deployBattleship(new DestroyerBattleship());
-            testFleet.deployBattleship(new DestroyerBattleship()); });
+        testFleet.deployBattleship(new DestroyerBattleship());
+        testFleet.deployBattleship(new CruiserBattleship());
+        testFleet.deployBattleship(new AircraftCarrierBattleship());
 
-        assertThrows(Exception.class, () -> {
-            testFleet.deployBattleship(new CruiserBattleship());
-            testFleet.deployBattleship(new CruiserBattleship()); });
-
-        assertThrows(Exception.class, () -> {
-            testFleet.deployBattleship(new AircraftCarrierBattleship());
-            testFleet.deployBattleship(new AircraftCarrierBattleship()); });
+        assertEquals(testFleet.getNumDestroyer(), 0);
+        assertEquals(testFleet.getNumCruiser(), 0);
+        assertEquals(testFleet.getNumAircraftCarrier(), 0);
     }
 
     @Test
-    public void testDeployDestroyers() {
-        Fleet destroyerOnlyFleet = new Fleet(5, 0, 0);
+    public void testIsEnoughBattleships() {
+        Fleet testFleet = new Fleet(1, 1, 1);
 
-        // deploying more than available destroyers
-        assertThrows(Exception.class, () -> destroyerOnlyFleet.deployDestroyerBattleships(10));
+        Battleship testDestroyer = new DestroyerBattleship();
+        Battleship testCruiser = new CruiserBattleship();
+        Battleship testAircraftCarrier = new AircraftCarrierBattleship();
 
-        assertThrows(Exception.class, () -> {
-            destroyerOnlyFleet.deployDestroyerBattleships(5);
-            destroyerOnlyFleet.deployDestroyerBattleships(1); });
+        assertTrue(testFleet.isEnoughBattleship(testDestroyer, 1));
+        assertTrue(testFleet.isEnoughBattleship(testCruiser, 1));
+        assertTrue(testFleet.isEnoughBattleship(testAircraftCarrier, 1));
 
+        testFleet.deployBattleship(new DestroyerBattleship());
+        testFleet.deployBattleship(new CruiserBattleship());
+        testFleet.deployBattleship(new AircraftCarrierBattleship());
+
+        assertFalse(testFleet.isEnoughBattleship(testDestroyer, 1));
+        assertFalse(testFleet.isEnoughBattleship(testCruiser, 1));
+        assertFalse(testFleet.isEnoughBattleship(testAircraftCarrier, 1));
+
+        Battleship testInvalidBattleship = new Battleship();
+        assertFalse(testFleet.isEnoughBattleship(testInvalidBattleship, 1));
     }
 
     @Test
-    public void testDeployCruisers() {
-        Fleet cruiserOnlyFleet = new Fleet(0, 2, 0);
+    public void testToString() {
+        Fleet testFleet = new Fleet(1, 1, 1);
+        final StringBuilder builder = new StringBuilder();
 
-        // deploying more than available destroyers
-        assertThrows(Exception.class, () -> cruiserOnlyFleet.deployCruiserBattleships(10));
+        builder.append(testFleet.getSize())
+                .append(" Fleet size: ")
+                .append(testFleet.getSize())
+                .append(" Fleet contents: ")
+                .append(testFleet.getDeployedFleet());
 
-        assertThrows(Exception.class, () -> {
-            cruiserOnlyFleet.deployCruiserBattleships(2);
-            cruiserOnlyFleet.deployCruiserBattleships(1); });
-
-    }
-
-    @Test
-    public void testDeployAircraftCarriers() {
-        Fleet aircraftCarrierOnlyFleet = new Fleet(0, 0, 1);
-
-        // deploying more than available destroyers
-        assertThrows(Exception.class, () ->
-                aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(10));
-
-        assertThrows(Exception.class, () -> {
-            aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(1);
-            aircraftCarrierOnlyFleet.deployAircraftCarrierBattleships(1); });
+        assertEquals(testFleet.toString(), builder.toString());
     }
 
     @Test

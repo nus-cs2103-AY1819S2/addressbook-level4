@@ -44,21 +44,21 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns the {@code URL} of the currently loaded page.
+     * Returns the question of the currently loaded card.
      */
     public URL getLoadedUrl() {
         return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
     }
 
     /**
-     * Remembers the {@code URL} of the currently loaded page.
+     * Remembers the question of the currently loaded card.
      */
     public void rememberQuestion() {
         lastRememberedQuestion = getCurrentQuestion();
     }
 
     /**
-     * Returns true if the current {@code URL} is different from the value remembered by the most recent
+     * Returns true if the current question is different from the value remembered by the most recent
      * {@code rememberQuestion()} call.
      */
     public boolean isQuestionChanged() {

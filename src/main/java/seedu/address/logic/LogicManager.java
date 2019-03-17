@@ -73,13 +73,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Deck> getFilteredDeckList() {
-        return model.getFilteredDeckList();
-    }
-
-    @Override
-    public ObservableList<Card> getFilteredCardList() {
-        return model.getFilteredCardList();
+    public ObservableList<ListItem> getFilteredList() {
+        return (ObservableList<ListItem>) (ObservableList<? extends ListItem>) model.getFilteredCardList();
     }
 
     @Override
@@ -103,8 +98,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Card> selectedCardProperty() {
-        return model.selectedCardProperty();
+    public ReadOnlyProperty<ListItem> selectedCardProperty() {
+        return (ReadOnlyProperty<ListItem>) (ReadOnlyProperty<? extends ListItem>) model.selectedCardProperty();
     }
 
     @Override

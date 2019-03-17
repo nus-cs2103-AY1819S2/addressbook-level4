@@ -89,7 +89,7 @@ public class CardListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Card> backingList) {
         CardListPanel cardListPanel =
-                new CardListPanel(backingList, selectedPerson, selectedPerson::set);
+                new CardListPanel(backingList, selectedPerson);
         uiPartRule.setUiPart(cardListPanel);
 
         cardListPanelHandle = new CardListPanelHandle(getChildNode(cardListPanel.getRoot(),

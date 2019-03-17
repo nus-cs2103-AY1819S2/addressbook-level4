@@ -32,13 +32,8 @@ public interface Logic {
      */
     ReadOnlyTopDeck getTopDeck();
 
-    /**
-     * Returns an unmodifiable view of the filtered list of decks
-     */
-    ObservableList<Deck> getFilteredDeckList();
-
-    /** Returns an unmodifiable view of the filtered list of cards */
-    ObservableList<Card> getFilteredCardList();
+    /** Returns an unmodifiable view of the current filtered list. The element type depends on the view state. */
+    ObservableList<ListItem> getFilteredList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -67,7 +62,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#selectedCardProperty()
      */
-    ReadOnlyProperty<Card> selectedCardProperty();
+    ReadOnlyProperty<ListItem> selectedCardProperty();
 
     /**
      * Sets the selected card in the filtered card list.

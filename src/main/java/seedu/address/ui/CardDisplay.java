@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Card;
 
 /**
@@ -36,13 +37,13 @@ public class CardDisplay extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public CardDisplay(Card card, int displayedIndex) {
+    public CardDisplay(ListItem card, int displayedIndex) {
         super(FXML);
-        this.card = card;
+        this.card = (Card)card;
         id.setText(displayedIndex + ". ");
-        question.setText(card.getQuestion());
-        answer.setText(card.getAnswer());
-        initTags(card);
+        question.setText(((Card)card).getQuestion());
+        answer.setText(((Card)card).getAnswer());
+        initTags((Card)card);
     }
 
     /**

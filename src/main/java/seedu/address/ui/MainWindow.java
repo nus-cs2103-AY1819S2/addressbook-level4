@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -12,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
@@ -33,8 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private DeckListPanel deckListPanel;
     private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -115,13 +115,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedCardProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        deckListPanel = new DeckListPanel(logic.getFilteredDeckList(), logic.selectedDeckProperty(),
-                logic::setSelectedDeck);
-        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
-                logic::setSelectedCard);
+        cardListPanel = new CardListPanel(logic.getFilteredList(), logic.selectedCardProperty());
         personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

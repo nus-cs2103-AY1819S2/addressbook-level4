@@ -11,6 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Card;
 
 /**
@@ -21,19 +22,20 @@ public class CardListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
 
     @FXML
-    private ListView<Card> cardListView;
+    private ListView<ListItem> cardListView;
 
-    public CardListPanel(ObservableList<Card> cardList, ObservableValue<Card> selectedCard,
-                         Consumer<Card> onSelectedCardChange) {
+    public CardListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem) {
         super(FXML);
-        cardListView.setItems(cardList);
-        cardListView.setCellFactory(listView -> new PersonListViewCell());
-        cardListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
-            onSelectedCardChange.accept(newValue);
-        });
-        selectedCard.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected card changed to: " + newValue);
+
+        // disable mouse selection
+        cardListView.setMouseTransparent(true);
+        cardListView.setFocusTraversable(false);
+
+        cardListView.setItems(list);
+        cardListView.setCellFactory(listView -> new CardListViewCell());
+
+        selectedItem.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected item changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected card,
             // otherwise we would have an infinite loop.
@@ -52,18 +54,20 @@ public class CardListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Card} using a {@code CardDisplay}.
+     * Custom {@code ListCell} that displays the graphics of a {@code ListItem}.
      */
-    class PersonListViewCell extends ListCell<Card> {
+    class CardListViewCell extends ListCell<ListItem> {
         @Override
-        protected void updateItem(Card card, boolean empty) {
-            super.updateItem(card, empty);
+        protected void updateItem(ListItem item, boolean empty) {
+            super.updateItem(item, empty);
 
-            if (empty || card == null) {
+            if (empty || item == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new CardDisplay(card, getIndex() + 1).getRoot());
+                if (item instanceof Card) {
+                    setGraphic(new CardDisplay(item, getIndex() + 1).getRoot());
+                }
             }
         }
     }

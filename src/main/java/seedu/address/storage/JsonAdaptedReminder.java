@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,9 +18,9 @@ public class JsonAdaptedReminder {
 
     private String title;
     private String comment;
-    private LocalDate date;
-    private LocalTime start;
-    private LocalTime end;
+    private String date;
+    private String start;
+    private String end;
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
@@ -27,9 +28,9 @@ public class JsonAdaptedReminder {
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("title") String title,
                                @JsonProperty("comment") String comment,
-                               @JsonProperty("date") LocalDate date,
-                               @JsonProperty("start") LocalTime start,
-                               @JsonProperty("end") LocalTime end) {
+                               @JsonProperty("date") String date,
+                               @JsonProperty("start") String start,
+                               @JsonProperty("end") String end) {
         this.title = title;
         this.comment = comment;
         this.date = date;
@@ -44,9 +45,9 @@ public class JsonAdaptedReminder {
 
         this.title = source.getTitle();
         this.comment = source.getComment();
-        this.date = source.getDate();
-        this.start = source.getStartTime();
-        this.end = source.getEndTime();
+        this.date = source.getDate().toString();
+        this.start = source.getStartTime().toString();
+        this.end = source.getEndTime().toString();
     }
 
     /**
@@ -57,9 +58,26 @@ public class JsonAdaptedReminder {
     public Reminder toModelType() throws IllegalArgumentException {
         String modelTitle = this.title;
         String modelComment = this.comment;
-        LocalDate modelDate = this.date;
-        LocalTime modelStart = this.start;
-        LocalTime modelEnd = this.end;
+        LocalDate modelDate;
+        LocalTime modelStart;
+        LocalTime modelEnd;
+
+        try {
+            modelDate = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Date format: YYYY-MM-DD");
+        }
+
+        try {
+            modelStart = LocalTime.parse(start);
+            if (end != null) {
+                modelEnd = LocalTime.parse(end);
+            } else {
+                modelEnd = null;
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Time format: HH:MM");
+        }
 
         Reminder reminder = new Reminder(modelTitle, modelComment, modelDate, modelStart, modelEnd);
         return reminder;

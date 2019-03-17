@@ -39,8 +39,10 @@ public class ListLessonsCommand implements Command {
         if (lessons.isEmpty()) {
             builder.append(MESSAGE_NO_LESSONS);
         } else {
+            int i = 1;
             for (Lesson lesson : lessons) {
-                builder.append(lesson.toStringSingleLine() + "\n");
+                builder.append(i + ". " + lesson.toStringSingleLine() + "\n");
+                i++;
             }
         }
 

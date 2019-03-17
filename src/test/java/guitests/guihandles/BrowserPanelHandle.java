@@ -5,6 +5,7 @@ import java.net.URL;
 import guitests.GuiRobot;
 import javafx.concurrent.Worker;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -14,6 +15,7 @@ import javafx.scene.web.WebView;
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
+    public static final String CURRENT_QUESTION = "#question";
 
     private boolean isWebViewLoaded = true;
 
@@ -31,6 +33,14 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
                 isWebViewLoaded = true;
             }
         }));
+    }
+
+    /**
+     * @return the string form of the {@code Question} of the card currently in the {@code BrowserPanel}
+     */
+    public String getCurrentQuestion() {
+        Label currentCardQuestion = getChildNode(CURRENT_QUESTION);
+        return currentCardQuestion.getText();
     }
 
     /**

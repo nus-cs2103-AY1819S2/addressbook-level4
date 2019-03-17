@@ -5,17 +5,16 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.management.ExitCommand;
+import seedu.address.logic.commands.management.HelpCommand;
+import seedu.address.logic.commands.management.HistoryCommand;
+import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class BrainTrainParser {
-
+public class ManagementModeParser implements Parser {
     /**
      * Used for initial separation of command word and args.
      */
@@ -28,7 +27,7 @@ public class BrainTrainParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -41,8 +40,8 @@ public class BrainTrainParser {
         //        case FindCommand.COMMAND_WORD:
         //            return new FindCommandParser().parse(arguments);
         // TODO use parser here
-        case StartCommand.COMMAND_WORD:
-            return new StartCommand();
+        case QuizStartCommand.COMMAND_WORD:
+            return new QuizStartCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
@@ -63,5 +62,4 @@ public class BrainTrainParser {
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

@@ -8,9 +8,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.QuizAnswerCommand;
-import seedu.address.logic.commands.QuizHelpCommand;
-import seedu.address.logic.commands.QuizStatusCommand;
+import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizHelpCommand;
+import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

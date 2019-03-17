@@ -1,14 +1,16 @@
-package seedu.address.model;
+package seedu.address.model.modelmanager.management;
 
 import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.modelmanager.Model;
 
 /**
- * The API of the Model component.
+ * The API of the ManagementModel component.
  */
-public interface Model {
+public interface ManagementModel extends Model {
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

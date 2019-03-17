@@ -12,9 +12,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.modelmanager.quiz.QuizModelManager;
 import seedu.address.testutil.Assert;
 
-public class QuizModelManagerTest {
+public class QuizManagementModelManagerTest {
     private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");

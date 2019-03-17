@@ -1,11 +1,13 @@
-package seedu.address.quiz;
+package seedu.address.model.modelmanager.quiz;
 
 import java.util.List;
+
+import seedu.address.model.modelmanager.Model;
 
 /**
  * The API of the QuizModel component.
  */
-public interface QuizModel {
+public interface QuizModel extends Model {
     /**
      * Sets the {@code Quiz} information.
      */

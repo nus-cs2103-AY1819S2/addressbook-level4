@@ -1,25 +1,27 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.quiz;
 
 import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.quiz.Quiz;
-import seedu.address.quiz.QuizCard;
-import seedu.address.quiz.QuizModel;
+import seedu.address.model.modelmanager.Model;
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.modelmanager.quiz.QuizModel;
 
 /**
  * TODO: implement the actual start command
  */
-public class StartCommand extends Command {
+public class QuizStartCommand implements Command {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Starts a new quiz.\n";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
 
-    //    public StartCommand() {
+    //    public QuizStartCommand() {
     //        // TODO start session
     //    }
 
@@ -43,6 +45,14 @@ public class StartCommand extends Command {
     }
 
     @Override
+    /**
+     * Executes the command and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }

@@ -160,7 +160,7 @@ public class AddLessonCommandTest {
      * A Model stub that always accept the lesson being added.
      */
     private class ManagementModelStubAcceptingLesson extends ManagementModelStub {
-        final ArrayList<Lesson> lessonsAdded = new ArrayList<>();
+        public final ArrayList<Lesson> lessonsAdded = new ArrayList<>();
 
         @Override
         public void addLesson(Lesson lesson) {

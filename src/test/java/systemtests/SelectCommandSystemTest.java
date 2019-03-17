@@ -1,24 +1,24 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCustomerCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
+import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.hms.logic.commands.SelectCustomerCommand.MESSAGE_SELECT_CUSTOMER_SUCCESS;
+import static seedu.hms.testutil.TestUtil.getLastIndex;
+import static seedu.hms.testutil.TestUtil.getMidIndex;
+import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCustomerCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.CustomerModel;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.RedoCommand;
+import seedu.hms.logic.commands.SelectCustomerCommand;
+import seedu.hms.logic.commands.UndoCommand;
+import seedu.hms.model.CustomerModel;
 
-public class SelectCommandSystemTest extends AddressBookSystemTest {
+public class SelectCommandSystemTest extends HotelManagementSystemSystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list
@@ -62,7 +62,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getCustomerList().size();
+        int invalidIndex = getModel().getHotelManagementSystem().getCustomerList().size();
         assertCommandFailure(SelectCustomerCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 

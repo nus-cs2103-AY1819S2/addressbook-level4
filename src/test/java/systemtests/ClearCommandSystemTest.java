@@ -1,18 +1,18 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCustomerCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.CustomerManager;
-import seedu.address.model.CustomerModel;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.ClearCustomerCommand;
+import seedu.hms.logic.commands.RedoCommand;
+import seedu.hms.logic.commands.UndoCommand;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
 
-public class ClearCommandSystemTest extends AddressBookSystemTest {
+public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
     @Test
     public void clear() {
         final CustomerModel defaultModel = getModel();

@@ -1,57 +1,57 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ID_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.testutil.TypicalCustomers.AMY;
-import static seedu.address.testutil.TypicalCustomers.BOB;
-import static seedu.address.testutil.TypicalCustomers.CARL;
-import static seedu.address.testutil.TypicalCustomers.HOON;
-import static seedu.address.testutil.TypicalCustomers.IDA;
-import static seedu.address.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.hms.testutil.TypicalCustomers.ALICE;
+import static seedu.hms.testutil.TypicalCustomers.AMY;
+import static seedu.hms.testutil.TypicalCustomers.BOB;
+import static seedu.hms.testutil.TypicalCustomers.CARL;
+import static seedu.hms.testutil.TypicalCustomers.HOON;
+import static seedu.hms.testutil.TypicalCustomers.IDA;
+import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCustomerCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.CustomerUtil;
+import seedu.hms.commons.core.Messages;
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.AddCustomerCommand;
+import seedu.hms.logic.commands.RedoCommand;
+import seedu.hms.logic.commands.UndoCommand;
+import seedu.hms.model.CustomerModel;
+import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.Email;
+import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.customer.Name;
+import seedu.hms.model.customer.Phone;
+import seedu.hms.model.tag.Tag;
+import seedu.hms.testutil.CustomerBuilder;
+import seedu.hms.testutil.CustomerUtil;
 
-public class AddCommandSystemTest extends AddressBookSystemTest {
+public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     @Test
     public void add() {
         CustomerModel model = getModel();
@@ -226,8 +226,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
+     * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandSuccess(Customer toAdd) {
         assertCommandSuccess(CustomerUtil.getAddCommand(toAdd), toAdd);

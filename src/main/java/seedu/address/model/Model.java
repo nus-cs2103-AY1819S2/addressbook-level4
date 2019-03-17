@@ -251,4 +251,6 @@ public interface Model {
     Statistics getStatistics(String topic, YearMonth from, YearMonth to);
 
     void addRecord(Record record, Clock clock);
+
+    void setConsultationFee(BigDecimal fee);
 }

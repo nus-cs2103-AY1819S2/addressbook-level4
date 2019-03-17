@@ -20,6 +20,7 @@ public class RecordManager {
     }
     public RecordManager(RecordManager toBeCopied) {
         monthRecords = toBeCopied.copyRecords();
+        totalNoOfRecords = toBeCopied.getTotalNoOfRecords();
     }
     private List<MonthRecord> copyRecords() {
         return this.monthRecords;

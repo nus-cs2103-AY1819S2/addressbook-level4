@@ -1,17 +1,36 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.parser.AddCommandParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 public class CardsView implements ViewState {
     public final FilteredList<Card> filteredCards;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    public final Deck activeDeck = null;
 
+    // TODO: pass in deck instead
     public CardsView(FilteredList<Card> cardList) {
         filteredCards = cardList;
         filteredCards.addListener(this::ensureSelectedItemIsValid);
+    }
+
+    @Override
+    public Command parse(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
     }
 
     /**
@@ -42,5 +61,4 @@ public class CardsView implements ViewState {
             }
         }
     }
-
 }

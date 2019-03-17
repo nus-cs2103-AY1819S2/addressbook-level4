@@ -49,7 +49,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = topDeckParser.parseCommand(commandText);
+            Command command = topDeckParser.parseCommand(commandText, model);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);

@@ -19,6 +19,8 @@ import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.ViewState;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
@@ -53,6 +55,10 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new TopDeck(), new UserPrefs());
+    }
+
+    public Command parse(String commandWord, String arguments) throws ParseException {
+        return viewState.parse(commandWord, arguments);
     }
 
     //=========== UserPrefs ==================================================================================

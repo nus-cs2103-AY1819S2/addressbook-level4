@@ -22,6 +22,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * Parses user input.
@@ -40,7 +41,7 @@ public class TopDeckParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, Model model) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -48,6 +49,21 @@ public class TopDeckParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        try {
+            return model.parse(commandWord, arguments);
+        } catch (ParseException e) {
+            switch (commandWord) {
+                case ExitCommand.COMMAND_WORD:
+                    return new ExitCommand();
+                case HelpCommand.COMMAND_WORD:
+                    return new HelpCommand();
+                default:
+                    throw e;
+            }
+        }
+
+        /**
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -92,6 +108,7 @@ public class TopDeckParser {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+        **/
     }
 
 }

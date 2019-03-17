@@ -7,6 +7,8 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.ListItem;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
@@ -143,4 +145,6 @@ public interface Model {
     void addDeck(Deck deck);
 
     boolean hasDeck(Deck deck);
+
+    Command parse(String commandWord, String arguments) throws ParseException;
 }

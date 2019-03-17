@@ -1,8 +1,12 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 
 public class DecksView implements ViewState {
@@ -12,6 +16,14 @@ public class DecksView implements ViewState {
     public DecksView(FilteredList<Deck> deckList) {
         filteredDecks = deckList;
         filteredDecks.addListener(this::ensureSelectedItemIsValid);
+    }
+
+    @Override
+    public Command parse(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
     }
 
     /**
@@ -42,5 +54,4 @@ public class DecksView implements ViewState {
             }
         }
     }
-
 }

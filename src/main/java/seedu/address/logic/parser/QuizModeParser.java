@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input in QuizMode
  */
-public class QuizModeParser {
+public class QuizModeParser implements Parser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\\\\\w*)|(?<answer>^\\S.+)");
     private static Matcher matcher;

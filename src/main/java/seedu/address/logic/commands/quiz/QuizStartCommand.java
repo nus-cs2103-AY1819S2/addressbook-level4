@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.quizcommand;
+package seedu.address.logic.commands.quiz;
 
 import java.util.Arrays;
 

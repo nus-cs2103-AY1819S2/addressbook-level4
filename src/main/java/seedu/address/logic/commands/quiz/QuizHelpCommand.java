@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.quizcommand;
+package seedu.address.logic.commands.quiz;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;

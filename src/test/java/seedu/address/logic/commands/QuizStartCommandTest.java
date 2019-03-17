@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.quizcommand.QuizStartCommand;
+import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.model.modelmanager.managementmodel.ManagementModel;
 import seedu.address.model.modelmanager.managementmodel.ManagementModelManager;
 import seedu.address.model.modelmanager.quizmodel.Quiz;

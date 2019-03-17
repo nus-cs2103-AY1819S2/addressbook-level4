@@ -45,7 +45,7 @@ public class LogicManager implements Logic {
         try {
             Command command = null;
             if (quizModel.isDone()) {
-                command = managementModeParser.parseCommand(commandText);
+                command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
             } else {
                 command = quizModeParser.parse(commandText);

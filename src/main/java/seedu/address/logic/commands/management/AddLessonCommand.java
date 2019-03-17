@@ -2,6 +2,9 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
+import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
+import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -17,8 +20,18 @@ import seedu.address.model.modelmanager.management.ManagementModel;
 public class AddLessonCommand implements Command {
     public static final String COMMAND_WORD = "addLesson";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson. "
+            + "Parameters: "
+            + PREFIX_LESSON_NAME + "NAME "
+            + PREFIX_LESSON_CORE_HEADER + "..."
+            + "[" + PREFIX_LESSON_OPT_HEADER + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_LESSON_NAME + "Capitals of the world "
+            + PREFIX_LESSON_CORE_HEADER + "Country "
+            + PREFIX_LESSON_CORE_HEADER + "Capital "
+            + PREFIX_LESSON_OPT_HEADER + "Hint";
+
     public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Lesson toAdd;
 

@@ -148,8 +148,7 @@ public class Battleship {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(getName());
+        builder.append(getName());
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class PlayerTest {
 
-    public final Player testPlayer = new Player("Alice", 7);
+    public final Player testPlayer = new Player("Alice", 5, 2, 1);
 
     //Lucy TO-FIX:
     /*  @Test
@@ -42,22 +42,22 @@ public class PlayerTest {
 
     @Test
     public void test_getFleetSize() {
-        assertEquals(7, testPlayer.getFleetSize());
+        assertEquals(8, testPlayer.getFleetSize());
     }
 
     @Test
     public void test_getFleetContents() {
-        Player newPlayer1 = new Player("Bob", 7);
+        Player newPlayer1 = new Player("Bob", 5, 2, 1);
         assertEquals(newPlayer1.getFleetContents(), testPlayer.getFleetContents());
     }
 
     @Test
     public void test_getMapGrid() {
-        Player newPlayer1 = new Player("Bob", 7);
+        Player newPlayer1 = new Player("Bob", 5, 2, 1);
         assertEquals(newPlayer1.getMapGrid(), testPlayer.getMapGrid());
     }
     @Test public void test_getTargetHistory() {
-        Player newPlayer1 = new Player("Bob", 7);
+        Player newPlayer1 = new Player("Bob", 5, 2, 1);
         assertEquals(newPlayer1.getTargetHistory(), testPlayer.getTargetHistory());
     }
 }

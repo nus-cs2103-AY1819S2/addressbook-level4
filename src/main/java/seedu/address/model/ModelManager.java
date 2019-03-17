@@ -6,8 +6,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,6 +26,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
+import seedu.address.storage.csvmanager.CardFolderExport;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -93,6 +96,9 @@ public class ModelManager implements Model {
     private FilteredList<Card> getActiveFilteredCards() {
         return filteredCardsList.get(activeCardFolderIndex);
     }
+    private ObservableList<Card> getActiveObservableCards() {
+        return filteredCardsList.get(activeCardFolderIndex);
+    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -147,10 +153,33 @@ public class ModelManager implements Model {
         return new ArrayList<>(filteredFoldersList);
     }
 
+
+
     @Override
-    public boolean checkValidCardFolders(List<String> cardFolders) {
-        return false;
+    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
+        List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
+        for (CardFolderExport cardFolderExport : cardFolders) {
+            addCardFolder(cardFolderExport, returnCardFolder);
+        }
+        return returnCardFolder;
     }
+
+
+    /**
+     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
+     * Throws card Folder not found exception if card folder cannot be found.
+     */
+    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
+        String exportFolderName = cardFolderExport.folderName;
+        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
+            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
+                returnCardFolders.add(readOnlyCardFolder);
+                return;
+            }
+        }
+        throw new CardFolderNotFoundException(cardFolderExport.folderName);
+    }
+
 
     @Override
     public boolean hasCard(Card card) {
@@ -196,20 +225,27 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
-        filteredFoldersList.remove(index);
+        foldersList.remove(index);
+        filteredCardsList.remove(index);
         indicateModified();
     }
 
     @Override
     public void addFolder(CardFolder cardFolder) {
-        foldersList.add(new VersionedCardFolder(cardFolder));
+        VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
+        foldersList.add(versionedCardFolder);
+        FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
+        filteredCardsList.add(filteredCards);
+        filteredCards.addListener(this::ensureSelectedCardIsValid);
         indicateModified();
     }
 
+    @Override
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
     }
 
+    @Override
     public void setActiveCardFolderIndex(int newIndex) {
         activeCardFolderIndex = newIndex;
     }
@@ -242,11 +278,17 @@ public class ModelManager implements Model {
         return getActiveFilteredCards();
     }
 
+
     @Override
     public void updateFilteredCard(Predicate<Card> predicate) {
         requireNonNull(predicate);
         FilteredList<Card> filteredCards = getActiveFilteredCards();
         filteredCards.setPredicate(predicate);
+    }
+    @Override
+    public void sortFilteredCard(Comparator<Card> cardComparator) {
+        requireNonNull(cardComparator);
+        foldersList.get(activeCardFolderIndex).sortCards(cardComparator);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -284,9 +326,9 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
-        Card cardToTest = cardFolderToTest.getCardList().get(0);
+    public void testCardFolder(int cardFolderToTestIndex) {
+        ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
+        Card cardToTest = currentTestedCardFolder.get(0);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
     }
@@ -305,15 +347,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean checkIfInsideTestSession() {
-        return insideTestSession;
-    }
-
-    @Override
     public void endTestSession() {
         insideTestSession = false;
         cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
+        //TODO: exit card folder
     }
 
     @Override
@@ -337,6 +375,11 @@ public class ModelManager implements Model {
     @Override
     public boolean checkIfCardAlreadyAnswered() {
         return cardAlreadyAnswered;
+    }
+
+    @Override
+    public boolean checkIfInsideTestSession() {
+        return insideTestSession;
     }
 
     //=========== Selected card ===========================================================================
@@ -379,7 +422,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedCardRemoved = change.getRemoved().stream()
-                    .anyMatch(removedCard -> selectedCard.getValue().isSameCard(removedCard));
+                    .anyMatch(removedCard -> selectedCard.getValue().equals(removedCard));
             if (wasSelectedCardRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.

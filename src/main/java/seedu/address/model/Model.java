@@ -1,7 +1,9 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.Observable;
@@ -10,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.storage.csvmanager.CardFolderExport;
 
 /**
  * The API of the Model component.
@@ -17,6 +20,10 @@ import seedu.address.model.card.Card;
 public interface Model extends Observable {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
+    /** {@code Comparator} that sorts cards by ascending percentage score */
+    Comparator<Card> COMPARATOR_ASC_SCORE_CARDS = Comparator.comparing(Card::getScore);
+    /** {@code Comparator} that sorts cards by lexicographic order of questions */
+    Comparator<Card> COMPARATOR_LEXICOGRAPHIC_CARDS = Comparator.comparing(Card::getQuestion);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -107,6 +114,11 @@ public interface Model extends Observable {
      */
     int getActiveCardFolderIndex();
 
+    /**
+     * Sets the index of the current active {@code CardFolder}.
+     */
+    void setActiveCardFolderIndex(int newIndex);
+
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();
 
@@ -115,6 +127,12 @@ public interface Model extends Observable {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCard(Predicate<Card> predicate);
+
+    /**
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void sortFilteredCard(Comparator<Card> cardComparator);
 
     /**
      * Returns true if the model has previous card folder states to restore.
@@ -161,12 +179,12 @@ public interface Model extends Observable {
     /**
      * Checks whether list of card folder names specified is found inside model
      */
-    boolean checkValidCardFolders(List<String> cardFolders);
+    List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
 
     /**
-     * Enters a test session using the specified card folder.
+     * Enters a test session using the specified card folder index.
      */
-    void testCardFolder(ReadOnlyCardFolder cardFolder);
+    void testCardFolder(int cardFolderToTestIndex);
 
     /**
      * Sets the current card in the test session.
@@ -206,5 +224,6 @@ public interface Model extends Observable {
      * false if otherwise
      */
     boolean checkIfCardAlreadyAnswered();
+
 
 }

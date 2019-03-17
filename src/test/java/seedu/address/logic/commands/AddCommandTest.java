@@ -8,7 +8,9 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -28,6 +30,7 @@ import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {
@@ -147,7 +150,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
+        public void testCardFolder(int cardFolderToTestIndex) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -173,6 +176,10 @@ public class AddCommandTest {
         }
 
         @Override
+        public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolers) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public boolean markAttemptedAnswer(Answer attemptedAnswer) {
             throw new AssertionError("This method should not be called.");
         }
@@ -185,11 +192,6 @@ public class AddCommandTest {
         @Override
         public boolean checkIfCardAlreadyAnswered() {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean checkValidCardFolders(List<String> cardFolders) {
-            return false;
         }
 
         @Override
@@ -228,12 +230,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setActiveCardFolderIndex(int newIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Card> getFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredCard(Predicate<Card> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredCard(Comparator<Card> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -302,7 +314,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return this.card.isSameCard(card);
+            return this.card.equals(card);
         }
     }
 
@@ -315,7 +327,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameCard);
+            return cardsAdded.stream().anyMatch(card::equals);
         }
 
         @Override

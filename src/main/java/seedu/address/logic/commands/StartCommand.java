@@ -12,7 +12,7 @@ import seedu.address.model.modelManager.quizModel.QuizModel;
 /**
  * TODO: implement the actual start command
  */
-public class StartCommand extends Command {
+public class StartCommand implements Command {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Starts a new quiz.\n";
@@ -41,8 +41,7 @@ public class StartCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_QUESTION_ANSWER, card.getQuestion(), card.getAnswer()));
     }
-
-    @Override
+    
     public CommandResult execute(ManagementModel managementModel, CommandHistory history) throws CommandException {
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }

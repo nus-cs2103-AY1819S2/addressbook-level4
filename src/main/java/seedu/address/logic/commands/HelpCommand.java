@@ -6,7 +6,7 @@ import seedu.address.model.modelManager.managementModel.ManagementModel;
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends Command {
+public class HelpCommand implements Command {
 
     public static final String COMMAND_WORD = "help";
 
@@ -15,7 +15,6 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
-    @Override
     public CommandResult execute(ManagementModel managementModel, CommandHistory history) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }

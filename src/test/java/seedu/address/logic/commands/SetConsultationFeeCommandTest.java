@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
+import seedu.address.model.record.Statistics;
 
 class SetConsultationFeeCommandTest {
 
@@ -33,7 +34,7 @@ class SetConsultationFeeCommandTest {
         try {
             CommandResult commandResult = command1.execute(modelManager, history);
             StringBuilder sb = new StringBuilder();
-            sb.append("Consultation fee has been successfully changed to $" + fee.toString());
+            sb.append("Consultation fee has been successfully changed to $" + Statistics.currencyFormat(fee));
             sb.append("\n\n");
             Assert.assertEquals(commandResult.getFeedbackToUser(), sb.toString());
         } catch (CommandException ce) {

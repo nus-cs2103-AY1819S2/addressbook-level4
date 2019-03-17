@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.record.Statistics;
 
 /**
  * Sets the consultation fee of the clinic.
@@ -31,7 +32,7 @@ public class SetConsultationFeeCommand extends Command {
         requireNonNull(model);
         model.setConsultationFee(fee);
         StringBuilder sb = new StringBuilder();
-        sb.append("Consultation fee has been successfully changed to $" + fee.toString());
+        sb.append("Consultation fee has been successfully changed to $" + Statistics.currencyFormat(fee));
         sb.append("\n\n");
         return new CommandResult(sb.toString());
     }

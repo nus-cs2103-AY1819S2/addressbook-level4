@@ -88,7 +88,7 @@ Usage rules:
 [TIP]
 The lesson can have any number of `OPTIONAL` headers (including 0).
 
-The `OPTIONAL` headers are optional. When added, these headers are displayed during quiz mode when <<hint, `\hint`>> is entered.
+The `OPTIONAL` headers are optional. The values of these headers are displayed during quiz mode when you enter <<hint, `\hint`>>.
 
 Examples:
 

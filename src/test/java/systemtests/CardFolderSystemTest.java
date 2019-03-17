@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import guitests.GuiRobot;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -36,7 +35,6 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalCards;
-import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -265,7 +263,7 @@ public abstract class CardFolderSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCardListPanel(), getModel().getFilteredCards());
-        //assertEquals("", getBrowserPanel().getCurrentQuestion());
+        assertEquals("", getBrowserPanel().getCurrentQuestion());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

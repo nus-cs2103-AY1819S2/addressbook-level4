@@ -68,12 +68,12 @@ Examples:
 === Adding a book review: `addReview`
 
 Adds a book review to a certain book in the book list +
-Format: `addReview n/BOOKNAME A/AUTHOR r/REVIEW
+Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE
 
 Examples:
 
-* `addReview n/Alice in Wonderland A/Lewis Caroll r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
-* `addReview n/Structure and Interpretation of Computer Programs A/H Abelson r/A very difficult book:(`
+* `addReview n/Alice in Wonderland rt/An interesting child book r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
+* `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
 
 === Listing book entries : `listBook`
 
@@ -155,19 +155,19 @@ Deletes the entry of Alice in Wonderland.
 === Deleting a book review: `deleteReview`
 
 Deletes the review of the specified book from the review list. +
-Format: `deleteReview INDEX`
+Format: `deleteReview rt/REVIEW TITLE`
 
 ****
-* Deletes of the book at the specified `INDEX`.
-* The index refers to the index number shown in the displayed review list.
-* The index must be a positive integer 1, 2, 3, …​
+* Deletes of the book with the specified REVIEW TITLE.
+* The REVIEW TITLE must only contain alphanumeric characters
+* and exist in the review list.
 ****
 
 Examples:
 
 * `listReview n/Alice in Wonderland` +
-`deleteReview 2` +
-Deletes the 2nd review of Alice in Wonderland.
+`deleteReview rt/An interesting children's book` +
+Deletes the review with the title "An interesting children's book"
 
 === Listing entered commands : `history`
 
@@ -265,7 +265,7 @@ e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff a
 * *Clear* : `clear`
 * *DeleteBook* : `deleteBook n/BOOKNAME` +
 e.g. `deleteBook n/Alice in Wonderland`
-* *DeleteReview* : `deleteReview INDEX`
+* *DeleteReview* : `deleteReview rt/REVIEW TITLE`
 * *EditBook* : `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...` +
 e.g. `edit n/Alice in Wonderland a/some author`
 * *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +

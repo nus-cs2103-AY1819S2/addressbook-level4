@@ -98,7 +98,7 @@ Format: `edit INDEX [n/NAME] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
  index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the pplace will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the place will be removed i.e adding of tags is not cumulative.
 * You can remove all the place's tags by typing `t/` without specifying any tags after it.
 ****
 
@@ -340,8 +340,49 @@ _{explain how the user can enable/disable data encryption}_
 
 == FAQ
 
+=== Setting Up
+*Q*: Can the application be used even without internet connection? +
+*A*: Yes, the application works without internet connection.
+
+*Q*: How do I import data from another address book? +
+*A*: Overwrite the empty data file in your computer with the data file of the other address book.
+
+*Q*: Why is my address book empty? +
+*A*: If you are just starting out, the address book will be empty for you to add places that you have been to.
+If you have been using it frequently, please refer to Data and Storage Issues.
+
+=== Data and Storage Issues
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+*Q*: How do I send my address book to another person? +
+*A*: Send the person (via E-mail or messenger applications) your file that contains the data of your Address Book folder.
+
+*Q*: Can I retrieve the data from when I just launched the application? +
+*A*: Repeatedly use the `undo` command until there are no further commands to undo.
+
+*Q*: Why is my address book empty? +
+*A*: If you are just starting out, please refer to Setting Up section. An empty address book means that the address book file has been cleared either by commands or invalid json file.
+Please do check the file that contains the data of your address book.
+
+=== Command Issues
+
+*Q*: How do I view the full address book after searching or selecting an entry? +
+*A*: Use the command `list` to retrieve the full address book.
+
+*Q*: What details do I need for the `add` command? +
+*A*: The following details are required for a valid `add` command:
+
+* Name of place (Prefix: n/)
+* Rating of place (Prefix: r/)
+* Description of place (Prefix: d/)
+* Address of place (Prefix: a/)
+
+*Q*: Why does the `undo` command not work? +
+*A*: The `undo` command only reverses the commands `add`, `delete`, `edit` and `clear`.
+
+*Q*: Why does the `undo` command reverse a command from multiple commands before? +
+*A*: The `undo` command reverses the last used `add`, `delete`, `edit` or `clear` command.
 
 == Command Summary
 

@@ -83,8 +83,22 @@ public class AddLessonParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
 
         // missing name
-        assertParseFailure(addLessonParser, PREAMBLE_NON_EMPTY + PREFIX_LESSON_NAME
+        assertParseFailure(addLessonParser, PREFIX_LESSON_NAME
                         + LESSON_CORE_1 + LESSON_CORE_2,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
+
+        // empty core string specified
+        assertParseFailure(addLessonParser, LESSON_NAME
+                        + PREFIX_LESSON_CORE_HEADER + LESSON_CORE_2,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
+
+        assertParseFailure(addLessonParser, LESSON_NAME
+                        + LESSON_CORE_1 + PREFIX_LESSON_CORE_HEADER,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
+
+        // empty optional string specified
+        assertParseFailure(addLessonParser, LESSON_NAME
+                        + LESSON_CORE_1 + PREFIX_LESSON_CORE_HEADER,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
     }
 }

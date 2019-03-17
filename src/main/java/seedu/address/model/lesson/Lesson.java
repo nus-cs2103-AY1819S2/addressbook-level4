@@ -33,6 +33,7 @@ public class Lesson {
     public static final String EXCEPTION_INVALID_NAME = "Invalid name supplied.";
     public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
+    public static final String EXCEPTION_INVALID_CORE = "Invalid core header supplied.";
     public static final String EXCEPTION_CORE_SIZE_MISMATCH =
         "The cores of the card to be added do not match the core headers of this lesson.";
 
@@ -185,6 +186,12 @@ public class Lesson {
 
         if (coreHeaders.size() < MIN_CORE_COUNT) {
             throw new IllegalArgumentException(EXCEPTION_INVALID_CORE_SIZE);
+        }
+
+        for (String coreHeader: coreHeaders) {
+            if (coreHeader.isEmpty()) {
+                throw new IllegalArgumentException(EXCEPTION_INVALID_CORE);
+            }
         }
 
         this.coreHeaders = coreHeaders;

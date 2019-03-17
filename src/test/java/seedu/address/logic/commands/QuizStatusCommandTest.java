@@ -10,10 +10,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.quiz.Quiz;
-import seedu.address.quiz.QuizCard;
-import seedu.address.quiz.QuizModel;
-import seedu.address.quiz.QuizModelManager;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.quiz.QuizStatusCommand;
+import seedu.address.model.modelmanager.Model;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.testutil.Assert;
 
 public class QuizStatusCommandTest {
     private QuizModel model = new QuizModelManager();
@@ -28,6 +33,13 @@ public class QuizStatusCommandTest {
         final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
         model.init(quiz);
         expectedModel.init(quiz);
+    }
+
+    @Test
+    public void execute_wrongModel_throwsCommandException() {
+        Model model = new ManagementModelManager();
+        Assert.assertThrows(CommandException.class, () ->
+            new QuizStatusCommand().execute(model, commandHistory));
     }
 
     @Test

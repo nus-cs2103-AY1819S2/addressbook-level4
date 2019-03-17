@@ -13,11 +13,15 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.model.modelmanager.Model;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.testutil.Assert;
 
 public class QuizAnswerCommandTest {
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
@@ -34,6 +38,13 @@ public class QuizAnswerCommandTest {
     public void constructor_nullAnswer_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new QuizAnswerCommand(null);
+    }
+
+    @Test
+    public void execute_wrongModel_throwsCommandException() {
+        Model model = new ManagementModelManager();
+        Assert.assertThrows(CommandException.class, () ->
+            new QuizAnswerCommand("someanswer").execute(model, commandHistory));
     }
 
     @Test

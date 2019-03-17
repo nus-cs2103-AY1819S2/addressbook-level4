@@ -22,7 +22,7 @@ BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an
 *** Allows users to modify an existing card in a lesson
 *** Allows users to delete a card in a lesson
 ** Justification: // To do
-** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-1/main/pull/77[#77]
+** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-1/main/pull/77[#77], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85]
 
 * *Minor enhancement*: // To do
 ** // To do
@@ -33,11 +33,11 @@ BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an
 *** // To do
 *** Closed milestone // To do
 ** Enhancements to existing features:
-*** // To do
+*** Major overhaul of `package seedu.address.logic` design and implementation (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
 ** Documentation:
 *** Updated User Guide and Developer Guide (Pull request
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/15[#15] and
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/20[#20])
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/15[#15],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
 ** Community:
 *** Fix a bug in teammate's pull request (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/33[#33])
 *** Reviewed pull requests with constructive feedback (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/30#pullrequestreview-209863095[#30],

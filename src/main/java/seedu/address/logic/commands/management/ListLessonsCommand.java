@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -23,6 +24,28 @@ public class ListLessonsCommand implements Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all lessons";
+    public static final String MESSAGE_DELIMITER = ":\n";
+    public static final String MESSAGE_NO_LESSONS = "There are no lessons yet.";
+
+    /**
+     * Builds a String representation of {@code List<Lesson> lessons} and returns it.
+     * @param lessons the list of lessons
+     * @return a String representing {@code lessons}
+     */
+    public String buildList(List<Lesson> lessons) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(MESSAGE_SUCCESS).append(MESSAGE_DELIMITER);
+
+        if (lessons.isEmpty()) {
+            builder.append(MESSAGE_NO_LESSONS);
+        } else {
+            for (Lesson lesson : lessons) {
+                builder.append(lesson.toStringSingleLine() + "\n");
+            }
+        }
+
+        return builder.toString();
+    }
 
     /**
      * Executes the command and returns the result message.
@@ -41,20 +64,9 @@ public class ListLessonsCommand implements Command {
 
         ManagementModel mgtModel = (ManagementModel) model;
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(MESSAGE_SUCCESS).append(":\n");
-
         ArrayList<Lesson> lessons = new ArrayList<>();
         lessons.addAll(mgtModel.getLessons());
 
-        if (lessons.isEmpty()) {
-            builder.append("There are no lessons yet.");
-        } else {
-            for (Lesson lesson : lessons) {
-                builder.append(lesson.toStringSingleLine() + "\n");
-            }
-        }
-
-        return new CommandResult(builder.toString());
+        return new CommandResult(buildList(lessons));
     }
 }

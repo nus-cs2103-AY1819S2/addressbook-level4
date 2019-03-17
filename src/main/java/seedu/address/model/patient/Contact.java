@@ -10,6 +10,9 @@ public class Contact {
 
     private String contact;
 
+    public Contact() {
+    }
+
     public Contact(String contact) {
         if (!contact.matches(REGEX_CONTACT)) {
             throw new IllegalArgumentException(CONTACT_CONSTRAINTS);

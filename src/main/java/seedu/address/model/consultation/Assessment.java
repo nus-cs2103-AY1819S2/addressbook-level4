@@ -10,6 +10,9 @@ public class Assessment {
 
     private String assessment;
 
+    public Assessment() {
+    }
+
     public Assessment(String assessment) {
         if (!assessment.matches(REGEX_SYMPTOMS)) {
             throw new IllegalArgumentException(SYMPTOMS_CONSTRAINTS);

@@ -11,6 +11,9 @@ public class Diagnosis {
     private Assessment assessment;
     private ArrayList<Symptom> symptoms;
 
+    public Diagnosis() {
+    }
+
     public Diagnosis(Assessment assessment, ArrayList<Symptom> symptoms) {
 
         if (symptoms.size() < 1) {

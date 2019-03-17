@@ -17,6 +17,9 @@ public class Dob {
 
     private LocalDate dob;
 
+    public Dob() {
+    }
+
     public Dob(String dob) {
         if (!dob.matches(REGEX_DOB)) {
             throw new IllegalArgumentException(DOB_CONSTRAINTS);

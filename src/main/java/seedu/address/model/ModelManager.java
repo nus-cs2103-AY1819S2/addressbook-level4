@@ -57,6 +57,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     // to handle QuickDocs operations
+    private final QuickDocs quickDocs;
     private final SimpleObjectProperty<Reminder> selectedReminder = new SimpleObjectProperty<>();
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
@@ -80,11 +81,42 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         this.medicineManager = new MedicineManager();
-        this.patientManager = new PatientManager();
+        this.patientManager = new PatientManager(addressBook.getPatients());
         this.consultationManager = new ConsultationManager();
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
         this.recordManager = new RecordManager();
+
+        quickDocs = new QuickDocs();
+
+        iniQuickDocs();
+    }
+
+    /**
+     * Initializes a ModelManager with the given addressBook quickdocs and userPrefs.
+     */
+    public ModelManager(ReadOnlyAddressBook addressBook, QuickDocs quickDocs, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(addressBook, userPrefs);
+
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+
+        this.quickDocs = quickDocs;
+
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        this.medicineManager = new MedicineManager();
+        //this.patientManager = new PatientManager(addressBook.getPatients());
+        this.patientManager = quickDocs.getPatientManager();
+        this.consultationManager = quickDocs.getConsultationManager();
+        this.appointmentManager = new AppointmentManager();
+        this.reminderManager = new ReminderManager();
+        this.recordManager = new RecordManager();
+
+
+
         iniQuickDocs();
     }
 
@@ -96,6 +128,24 @@ public class ModelManager implements Model {
      * Initialise quickdocs with sample patient data
      */
     public void iniQuickDocs() {
+        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
+        //for (Patient patient : samplePatients) {
+        //   addPatient(patient);
+        //}
+        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
+        for (Appointment app : sampleAppointments) {
+            addApp(app);
+        }
+        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
+        for (Reminder rem : sampleReminders) {
+            addRem(rem);
+        }
+    }
+
+    /**
+     * Initialise quickdocs with sample patient data for testing purposes
+     */
+    public void initQuickDocsSampleData() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
         for (Patient patient : samplePatients) {
             addPatient(patient);
@@ -110,6 +160,9 @@ public class ModelManager implements Model {
         }
     }
 
+    public QuickDocs getQuickDocs() {
+        return quickDocs;
+    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -365,8 +418,12 @@ public class ModelManager implements Model {
         return this.patientManager.duplicatePatient(patient);
     }
 
+    /**
+     * Add a patient to the quickdocs
+     */
     public void addPatient(Patient patient) {
         this.patientManager.addPatient(patient);
+        quickDocs.indicateModification(true);
     }
 
     // for editing
@@ -386,8 +443,12 @@ public class ModelManager implements Model {
         return this.patientManager.checkDuplicatePatientAfterEdit(index, editedPatient);
     }
 
+    /**
+     * Replace the patient at index with the edited version
+     */
     public void replacePatient(int index, Patient editedPatient) {
         this.patientManager.replacePatient(index, editedPatient);
+        quickDocs.indicateModification(true);
     }
 
     // for listing
@@ -433,8 +494,12 @@ public class ModelManager implements Model {
         this.consultationManager.prescribeMedicine(prescriptions);
     }
 
+    /**
+     * end the current consultation session, no further edits can be made
+     */
     public void endConsultation() {
         this.consultationManager.endConsultation();
+        quickDocs.indicateModification(true);
     }
 
     public Consultation getCurrentConsultation() {

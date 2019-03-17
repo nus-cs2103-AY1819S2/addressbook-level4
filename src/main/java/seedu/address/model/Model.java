@@ -164,6 +164,11 @@ public interface Model {
      */
     void deleteTag(Tag tag);
 
+    //===========Quickdocs methods=====================================
+    void initQuickDocsSampleData();
+
+    QuickDocs getQuickDocs();
+
     //===========Medicine Storage =====================================
     void addMedicine(String medicineName, String[] path, BigDecimal price);
 

@@ -13,6 +13,9 @@ public class Email {
 
     private String email;
 
+    public Email() {
+    }
+
     public Email(String email) {
         if (!Pattern.compile(REGEX_EMAIL, Pattern.CASE_INSENSITIVE).matcher(email).find()) {
             throw new IllegalArgumentException(EMAIL_CONSTRAINTS);

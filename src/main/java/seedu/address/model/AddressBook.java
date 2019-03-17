@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.Set;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -22,6 +24,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
+    // quickdocs data
+    private final ArrayList<Patient> patients;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -31,9 +36,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        patients = new ArrayList<Patient>();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -42,6 +49,44 @@ public class AddressBook implements ReadOnlyAddressBook {
         this();
         resetData(toBeCopied);
     }
+
+
+    // quickdocs related methods of AddressBook
+
+    // patient and consultation module
+    public ArrayList<Patient> getPatients() {
+        return patients;
+    }
+
+    public void addPatient(Patient p) {
+        patients.add(p);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void replacePatient(int index, Patient editedPatient) {
+        requireNonNull(editedPatient);
+        patients.set(index - 1, editedPatient);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the patient list with {@code patients}.
+     * {@code patients} must not contain duplicate persons.
+     */
+    public void setPatients(List<Patient> patients) {
+        this.patients.addAll(patients);
+        indicateModified();
+    }
+
+    // appointment and reminder module
+
+    // medicine and storage module
+
+    // record and statistics module
 
     //// list overwrite operations
 
@@ -61,6 +106,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setPatients(newData.getPatients());
     }
 
     //// person-level operations
@@ -102,6 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
         indicateModified();
     }
+
     /**
      * Removes {@code tag} from {@code person} in this {@code AddressBook}.
      */
@@ -159,7 +206,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && patients.equals(((AddressBook) other).patients));
     }
 
     @Override

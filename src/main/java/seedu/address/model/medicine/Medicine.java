@@ -22,6 +22,10 @@ public class Medicine {
     private int threshold;
     private BigDecimal price;
 
+    public Medicine() {
+        name = "";
+    }
+
     /**
      * Constructs a medicine with given name and default quantity 0.
      * @param name The name of medicine

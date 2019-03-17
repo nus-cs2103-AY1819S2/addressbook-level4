@@ -33,6 +33,9 @@ public class AddAppCommandTest {
 
     @Before
     public void init() {
+
+        model.initQuickDocsSampleData();
+
         Nric nric = new Nric("S9534568C");
         LocalDate date = LocalDate.parse("2019-10-23");
         LocalTime start = LocalTime.parse("16:00");

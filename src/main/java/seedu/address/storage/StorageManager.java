@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.QuickDocs;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -20,11 +21,15 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
+    private JsonQuickDocsStorage quickDocsStorage;
+
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+
+        this.quickDocsStorage = new JsonQuickDocsStorage();
     }
 
     // ================ UserPrefs methods ==============================
@@ -77,5 +82,25 @@ public class StorageManager implements Storage {
     @Override
     public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         addressBookStorage.backupAddressBook(addressBook);
+    }
+
+    // ================ QuickDocs methods ==============================
+
+    /**
+     * Read QuickDocs data file and retrieve data from json format
+     * @return
+     * @throws DataConversionException
+     * @throws IOException
+     */
+    @Override
+    public Optional<QuickDocs> readQuickDocs() throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + quickDocsStorage.getFilePath());
+        return quickDocsStorage.readQuickDocs();
+    }
+
+    @Override
+    public void saveQuickDocs(QuickDocs quickDocs) throws IOException {
+        logger.fine("Attempting to write to data file: " + quickDocsStorage.getFilePath());
+        quickDocsStorage.saveQuickDocs(quickDocs);
     }
 }

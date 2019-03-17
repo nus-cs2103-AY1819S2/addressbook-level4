@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.card.exceptions.MissingCoreException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 
@@ -117,7 +116,7 @@ public class ManagementModelManagerTest {
     }
 
     @Test
-    public void setLesson_validData_updatesLesson() throws MissingCoreException {
+    public void setLesson_validData_updatesLesson() {
         addTestLesson();
         Lesson newLesson = getTestLesson();
         newLesson.addCard(Arrays.asList("test1", "test2"));

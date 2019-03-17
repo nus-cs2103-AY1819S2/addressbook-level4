@@ -31,7 +31,7 @@ public class AddLessonCommand implements Command {
             + PREFIX_LESSON_CORE_HEADER + "Capital "
             + PREFIX_LESSON_OPT_HEADER + "Hint";
 
-    public static final String MESSAGE_SUCCESS = "New lesson added: %1$s\n";
+    public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
 
     private final Lesson toAdd;
 

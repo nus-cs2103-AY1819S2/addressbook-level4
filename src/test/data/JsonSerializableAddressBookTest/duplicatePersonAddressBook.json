@@ -8,9 +8,9 @@
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "semester" : "Y3S1",
-    "expectedMinGrade" : "D",
+    "semester" : "Y3S2",
+    "expectedMinGrade" : "C",
     "expectedMaxGrade" : "B",
-    "lectureHour" : "0"
+    "lectureHour" : "1"
   } ]
 }

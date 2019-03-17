@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -78,10 +79,26 @@ public class LessonBuilder {
     }
 
     /**
+     * Removes all optional headers
+     */
+    public LessonBuilder withNoOptionalHeaders() {
+        this.optionalHeaders = null;
+        return this;
+    }
+
+    /**
      * Parses the {@code cards} into a {@code List<Cards>} and set it to the {@code Lesson}'s {@link #cards}.
      */
     public LessonBuilder withCards(Card ... cards) {
         this.cards = Arrays.asList(cards);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Lesson} to have no {@code Cards} in {@link #cards}.
+     */
+    public LessonBuilder withNoCards() {
+        this.cards = new ArrayList<>();
         return this;
     }
 

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
 import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_CORE;
 import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_CORE_SIZE;
 import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_NAME;
+import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_OPT;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -49,8 +50,8 @@ public class AddLessonParser implements Parser<AddLessonCommand> {
             // Throws IllegalArgumentException if less than 2 core headers are specified
         } catch (IllegalArgumentException e) {
             String message = e.getMessage();
-            if (message.equals(EXCEPTION_INVALID_CORE_SIZE)
-                    || message.equals(EXCEPTION_INVALID_CORE) || message.equals(EXCEPTION_INVALID_NAME)) {
+            if (message.equals(EXCEPTION_INVALID_CORE_SIZE) || message.equals(EXCEPTION_INVALID_CORE)
+                    || message.equals(EXCEPTION_INVALID_NAME) || message.equals(EXCEPTION_INVALID_OPT)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddLessonCommand.MESSAGE_USAGE));
             } else {

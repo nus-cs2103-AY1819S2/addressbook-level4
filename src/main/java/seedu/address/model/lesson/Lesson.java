@@ -34,6 +34,7 @@ public class Lesson {
     public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
     public static final String EXCEPTION_INVALID_CORE = "Invalid core header supplied.";
+    public static final String EXCEPTION_INVALID_OPT = "Invalid optional header supplied.";
     public static final String EXCEPTION_CORE_SIZE_MISMATCH =
         "The cores of the card to be added do not match the core headers of this lesson.";
 
@@ -188,12 +189,6 @@ public class Lesson {
             throw new IllegalArgumentException(EXCEPTION_INVALID_CORE_SIZE);
         }
 
-        for (String coreHeader: coreHeaders) {
-            if (coreHeader.isEmpty()) {
-                throw new IllegalArgumentException(EXCEPTION_INVALID_CORE);
-            }
-        }
-
         this.coreHeaders = coreHeaders;
     }
 
@@ -219,6 +214,11 @@ public class Lesson {
      *                        to these headers
      */
     public void setOptionalHeaders(List<String> optionalHeaders) {
+        if (optionalHeaders == null) {
+            this.optionalHeaders = new ArrayList<>();
+            return;
+        }
+
         this.optionalHeaders = optionalHeaders;
 
         if (optionalHeaders.size() > 0) {

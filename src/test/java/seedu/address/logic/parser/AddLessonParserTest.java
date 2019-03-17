@@ -8,12 +8,12 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
+import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_OPT_HEADER_1;
 import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
-import static seedu.address.testutil.TypicalLessons.LESSON_TRUE_FALSE;
 
 import org.junit.Test;
 
@@ -26,13 +26,13 @@ public class AddLessonParserTest {
     public static final String LESSON_NAME_OTHER = " " + PREFIX_LESSON_NAME + "Trivia";
     public static final String LESSON_CORE_1 = " " + PREFIX_LESSON_CORE_HEADER + DEFAULT_CORE_HEADER_1;
     public static final String LESSON_CORE_2 = " " + PREFIX_LESSON_CORE_HEADER + DEFAULT_CORE_HEADER_2;
-    public static final String LESSON_OPT_1 = " " + PREFIX_LESSON_CORE_HEADER + DEFAULT_OPT_HEADER_1;
+    public static final String LESSON_OPT_1 = " " + PREFIX_LESSON_OPT_HEADER + DEFAULT_OPT_HEADER_1;
 
     private AddLessonParser addLessonParser = new AddLessonParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Lesson expectedLesson = new LessonBuilder(LESSON_DEFAULT).build();
+        Lesson expectedLesson = new LessonBuilder(LESSON_DEFAULT).withNoCards().build();
 
         // whitespace only preamble
         assertParseSuccess(addLessonParser, PREAMBLE_WHITESPACE + LESSON_NAME
@@ -46,7 +46,7 @@ public class AddLessonParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero optionals
-        Lesson expectedLesson = new LessonBuilder(LESSON_TRUE_FALSE).build();
+        Lesson expectedLesson = new LessonBuilder(LESSON_DEFAULT).withNoOptionalHeaders().withNoCards().build();
         assertParseSuccess(addLessonParser, LESSON_NAME + LESSON_CORE_1 + LESSON_CORE_2,
                 new AddLessonCommand(expectedLesson));
     }
@@ -92,11 +92,6 @@ public class AddLessonParserTest {
                         + PREFIX_LESSON_CORE_HEADER + LESSON_CORE_2,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
 
-        assertParseFailure(addLessonParser, LESSON_NAME
-                        + LESSON_CORE_1 + PREFIX_LESSON_CORE_HEADER,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
-
-        // empty optional string specified
         assertParseFailure(addLessonParser, LESSON_NAME
                         + LESSON_CORE_1 + PREFIX_LESSON_CORE_HEADER,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));

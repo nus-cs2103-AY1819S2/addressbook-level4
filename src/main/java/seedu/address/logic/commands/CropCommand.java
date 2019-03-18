@@ -18,6 +18,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.image.Image;
 
+/**
+ * This command allows the user to crop an image.
+ */
 public class CropCommand extends Command {
 
     public static final String COMMAND_WORD = "crop";

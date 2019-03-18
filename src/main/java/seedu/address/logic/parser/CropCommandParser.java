@@ -4,6 +4,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CropCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * This class parses the crop command.
+ */
 public class CropCommandParser implements Parser<CropCommand> {
     /**
      * Parses the Crop Command.

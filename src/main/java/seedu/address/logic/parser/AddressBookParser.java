@@ -106,7 +106,7 @@ public class AddressBookParser {
             return new ContrastCommandParser().parse(arguments);
 
         case CropCommand.COMMAND_WORD:
-                return new CropCommandParser().parse(arguments);
+            return new CropCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -44,6 +44,8 @@ public class DeleteLessonCommandTest {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         Index toDeleteIndex = Index.fromZeroBased(0);
         thrown.expect(CommandException.class);
+        CommandResult commandResult =
+                new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }
 
     @Test

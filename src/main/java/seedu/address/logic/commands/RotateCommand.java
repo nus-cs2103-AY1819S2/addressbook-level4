@@ -3,6 +3,10 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
+//import java.awt.*;
+//import java.awt.geom.AffineTransform;
+//import java.awt.image.AffineTransformOp;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,13 +31,13 @@ public class RotateCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Rotate the image according to the degree of input.\n"
-            + "Parameters: DEGREE (a positive degree indicates clockwise, a negative "
-            + "degree indicates anticlockwise rotation.)\n"
+            + "Parameters: DEGREE (only 90, 180 and 270 are accepted. \n"
             + "Example: " + COMMAND_WORD + " 90";
 
-    private static int degree;
-    private static Scalr.Rotation rotate;
-    private static String fileName;
+    private int degree;
+    private Scalr.Rotation rotate;
+    private String fileName;
+    //private static final Color BACKGROUND = new Color(56, 56, 56, 255);
 
     /**
      * Creates a RotateCommand object.
@@ -58,6 +62,48 @@ public class RotateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ROTATE_DEGREE_ERROR);
         }
 
+        //try {
+        //    File directory = new File(TEMP_FILEPATH);
+        //    Image initialImage = new Image(ASSETS_FILEPATH + fileName);
+        //    BufferedImage initImage = initialImage.getBufferedImage();
+
+        //    int w = initImage.getWidth();
+        //    int h = initImage.getHeight();
+        //    double rotationRequired = Math.toRadians (degree);
+        //    int hPrime = (int) (w * Math.abs(Math.sin(rotationRequired)) + h * Math.abs(Math.cos(rotationRequired)));
+        //    int wPrime = (int) (h * Math.abs(Math.sin(rotationRequired)) + w * Math.abs(Math.cos(rotationRequired)));
+
+        //    File outputFile = new File(fileName);
+        //    BufferedImage finalImage = new BufferedImage(wPrime, hPrime, initImage.getType());
+        //    System.out.println(initImage.getType());
+
+
+        //    Rotation information
+        //    double locationX = initImage.getWidth() / 2;
+        //    double locationY = initImage.getHeight() / 2;
+        //    AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+        //    AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+        //    Drawing the rotated image at the required drawing locations
+        //    Graphics2D g2d = (Graphics2D) initImage.getGraphics();
+        //    g2d.drawImage(op.filter(initImage, finalImage), drawLocationX, drawLocationY, null);
+        //    ImageIO.write(finalImage, initialImage.getFileType(), outputFile);
+        //    FileUtils.copyFileToDirectory(outputFile, directory, false);
+        //    outputFile.delete();
+
+        //    Graphics2D g = finalImage.createGraphics();
+        //    g.setColor(BACKGROUND);
+        //    g.fillRect(0 ,0 , wPrime, hPrime);
+        //    g.translate(wPrime/2, hPrime/2);
+        //    g.rotate(rotationRequired);
+        //    g.translate(-w / 2, -h / 2);
+        //    g.drawImage(initImage, 0, 0, null);
+        //    ImageIO.write(finalImage, initialImage.getFileType(), outputFile);
+        //    FileUtils.copyFileToDirectory(outputFile, directory, false);
+        //    outputFile.delete();
+        // } catch (Exception e) {
+        //    throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST);
+        // }
         try {
             File directory = new File(TEMP_FILEPATH);
             Image initialImage = new Image(ASSETS_FILEPATH + fileName);

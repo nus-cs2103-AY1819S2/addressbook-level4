@@ -26,6 +26,7 @@ endif::[]
 
 == Acknowledgements
 
+* QuickDocs is developed using the base code of https://github.com/nus-cs2103-AY1819S2/addressbook-level4/blob/master/README.adoc[AddressBook Level 4] provided by by the https://github.com/se-edu[se-edu team].
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]

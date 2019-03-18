@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
@@ -31,10 +32,10 @@ public class Restaurant {
     private final OpeningHours openingHours;
 
     // Category fields
-    private final Optional<Cuisine> cuisine;
+    private final Category categories;
 
     /**
-     * Constructor for Restaurant class without Reviews and Cuisine
+     * Constructor for Restaurant class without Reviews and Categories
      * Every field must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
@@ -47,7 +48,7 @@ public class Restaurant {
         this.tags.addAll(tags);
         this.weblink = weblink;
         this.openingHours = openingHours;
-        this.cuisine = Optional.empty();
+        this.categories = Category.empty();
     }
 
     /**
@@ -64,7 +65,7 @@ public class Restaurant {
         this.tags.addAll(tags);
         this.weblink = weblink;
         this.openingHours = openingHours;
-        this.cuisine = cuisine;
+        this.categories = new Category(cuisine.isPresent() ? cuisine.get() : null, null);
     }
 
     /**
@@ -82,7 +83,7 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.reviews.addAll(reviews);
-        this.cuisine = Optional.empty();
+        this.categories = Category.empty();
     }
 
     /**
@@ -99,7 +100,7 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.reviews.addAll(reviews);
-        this.cuisine = cuisine;
+        this.categories = new Category(cuisine.isPresent() ? cuisine.get() : null, null);
     }
 
     /**
@@ -114,7 +115,7 @@ public class Restaurant {
         this.email = restaurant.email;
         this.address = restaurant.address;
         this.tags.addAll(restaurant.tags);
-        this.cuisine = Optional.of(cuisine);
+        this.categories = new Category(cuisine, null);
         this.weblink = restaurant.weblink;
         this.openingHours = restaurant.openingHours;
     }
@@ -144,7 +145,7 @@ public class Restaurant {
     }
 
     public Optional<Cuisine> getCuisine() {
-        return cuisine;
+        return categories.getCuisine();
     }
 
     /**
@@ -225,10 +226,8 @@ public class Restaurant {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
 
-        this.cuisine.ifPresent(content ->
-            builder.append(" Cuisine: ")
-                    .append(content)
-        );
+        builder.append(" Categories: ")
+                .append(categories.toString());
 
         builder.append(" Reviews: ");
         getReviews().forEach(builder::append);

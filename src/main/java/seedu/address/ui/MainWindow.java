@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBarFooter statusBarFooter;
+    private StatsPane statsPane;
 
     @FXML
     private StackPane browserPlaceholder;

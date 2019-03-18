@@ -56,8 +56,8 @@ public class BrowserBookPanel extends UiPart<Region> {
     }
 
     /**
-	 * Loads a default HTML file with a background that matches the general theme.
-	 */
+     * Loads a default HTML file with a background that matches the general theme.
+     */
     private void loadDefaultPage() {
         loadPage(DEFAULT_PAGE.toExternalForm());
     }

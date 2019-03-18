@@ -28,7 +28,7 @@ public class BookUiManager implements Ui {
     public BookUiManager(Logic logic) {
         super();
         this.logic = logic;
-	}
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -49,8 +49,8 @@ public class BookUiManager implements Ui {
     }
 
     private Image getImage(String imagePath) {
-		return new Image(MainApp.class.getResourceAsStream(imagePath));
-	}
+        return new Image(MainApp.class.getResourceAsStream(imagePath));
+    }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(bookMainWindow.getPrimaryStage(), type, title, headerText, contentText);

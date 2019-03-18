@@ -26,9 +26,7 @@ public class Bill {
      * Every field must be present and not null.
      */
     public Bill(TableNumber tableNumber, float totalBill, String receipt) {
-        requireAllNonNull(tableNumber);
-        requireAllNonNull(totalBill);
-        requireAllNonNull(receipt);
+        requireAllNonNull(tableNumber, totalBill, receipt);
         this.tableNumber = tableNumber;
         this.totalBill = totalBill;
         this.receipt = receipt;
@@ -44,12 +42,7 @@ public class Bill {
      * Constructor for StatisticBuilder for testing.
      */
     public Bill(Day day, Month month, Year year, TableNumber tableNumber, float totalBill, String receipt) {
-        requireAllNonNull(day);
-        requireAllNonNull(month);
-        requireAllNonNull(year);
-        requireAllNonNull(tableNumber);
-        requireAllNonNull(totalBill);
-        requireAllNonNull(receipt);
+        requireAllNonNull(day, month, year, tableNumber, totalBill, receipt);
         this.day = day;
         this.month = month;
         this.year = year;
@@ -123,7 +116,7 @@ public class Bill {
         builder.append("Total bill for Table ")
                 .append(getTableNumber())
                 .append(": $")
-                .append(String.format("%.2f",getTotalBill()))
+                .append(String.format("%.2f", getTotalBill()))
                 .append(" [Date: ")
                 .append(getFormattedDate())
                 .append("] ");

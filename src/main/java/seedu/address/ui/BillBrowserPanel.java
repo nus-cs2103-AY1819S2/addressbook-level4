@@ -44,45 +44,45 @@ public class BillBrowserPanel extends UiPart<Region> {
         receipt.setText(bill.getReceipt());
         receipt.appendText(bill.getReceipt());
 
-//        receiptView.setCellFactory(listView -> new BillBrowserPanel.BillCell());
-//        receiptView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            logger.fine("Selection in list panel changed to : '" + newValue + "'");
-//            onSelectedBillChange.accept(newValue);
-//        });
-//        selectedBill.addListener(((observable, oldValue, newValue) -> {
-//            logger.fine("Selected item changed to: " + newValue);
-//
-//            // Don't modify selection if we are already selecting the selected item,
-//            // otherwise we would have an infinite loop.
-//            if (Objects.equals(receiptView.getSelectionModel().getSelectedItem(), newValue)) {
-//                return;
-//            }
-//
-//            if (newValue == null) {
-//                receiptView.getSelectionModel().clearSelection();
-//            } else {
-//                int index = receiptView.getItems().indexOf(newValue);
-//                receiptView.scrollTo(index);
-//                receiptView.getSelectionModel().clearAndSelect(index);
-//            }
+        //        receiptView.setCellFactory(listView -> new BillBrowserPanel.BillCell());
+        //        receiptView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        //            logger.fine("Selection in list panel changed to : '" + newValue + "'");
+        //            onSelectedBillChange.accept(newValue);
+        //        });
+        //        selectedBill.addListener(((observable, oldValue, newValue) -> {
+        //            logger.fine("Selected item changed to: " + newValue);
+        //
+        //            // Don't modify selection if we are already selecting the selected item,
+        //            // otherwise we would have an infinite loop.
+        //            if (Objects.equals(receiptView.getSelectionModel().getSelectedItem(), newValue)) {
+        //                return;
+        //            }
+        //
+        //            if (newValue == null) {
+        //                receiptView.getSelectionModel().clearSelection();
+        //            } else {
+        //                int index = receiptView.getItems().indexOf(newValue);
+        //                receiptView.scrollTo(index);
+        //                receiptView.getSelectionModel().clearAndSelect(index);
+        //            }
         //        }));
     }
 
-//    /**
-//     * Custom {@code ListCell} that displays the graphics of a {@code Item} using a {@code ItemCard}.
-//     */
-//    class BillCell extends ListCell<Bill> {
-//        @Override
-//        protected void updateItem(Bill item, boolean empty) {
-//            super.updateItem(item, empty);
-//
-//            if (empty || item == null) {
-//                setGraphic(null);
-//                setText(null);
-//            } else {
-//                setGraphic(new BillCard(bill));
-//            }
-//        }
-//    }
+    //    /**
+    //     * Custom {@code ListCell} that displays the graphics of a {@code Item} using a {@code ItemCard}.
+    //     */
+    //    class BillCell extends ListCell<Bill> {
+    //        @Override
+    //        protected void updateItem(Bill item, boolean empty) {
+    //            super.updateItem(item, empty);
+    //
+    //            if (empty || item == null) {
+    //                setGraphic(null);
+    //                setText(null);
+    //            } else {
+    //                setGraphic(new BillCard(bill));
+    //            }
+    //        }
+    //    }
 
 }

@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,15 +17,15 @@ public class ActivityDateTime {
     // to be updated
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Dates and time should be in dd/MM/YYYY HHMM format separated by a blank between date and time. \n" +
-                    "Date and month should have 2 digits and the year should be four digits. \n" +
-                    "Time should be entered in 24 hr clock format. e.g. 1330 represents 1:30 pm. ";
+            "Dates and time should be in dd/MM/YYYY HHMM format separated by a blank between date and time. \n"
+                    + "Date and month should have 2 digits and the year should be four digits. \n"
+                    + "Time should be entered in 24 hr clock format. e.g. 1330 represents 1:30 pm. ";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String DATE_PART_REGEX = "^\\d{1,2}"+ "/" + "\\d{1,2}"+ "/" + "\\d{4}";
+    public static final String DATE_PART_REGEX = "^\\d{1,2}" + "/" + "\\d{1,2}" + "/" + "\\d{4}";
     public static final String TIME_PART_REGEX = "\\d{4}";
     public static final String VALIDATION_REGEX = DATE_PART_REGEX + " " + TIME_PART_REGEX;
 
@@ -47,7 +47,7 @@ public class ActivityDateTime {
      */
     public static boolean isValidActivityDateTime(String test) {
 
-        if (!test.matches(VALIDATION_REGEX)){
+        if (!test.matches(VALIDATION_REGEX)) {
             return false;
         }
         List<String> dateTimeParts = Arrays.asList(test.split(" "));
@@ -75,7 +75,7 @@ public class ActivityDateTime {
      * Returns true if a given time is a valid time.
      */
     public static boolean isValidTime(String time) {
-        int hour = Integer.parseInt(time.substring(0,2));
+        int hour = Integer.parseInt(time.substring(0, 2));
         int minute = Integer.parseInt(time.substring(2));
         return !(hour > 23 || minute > 59);
     }

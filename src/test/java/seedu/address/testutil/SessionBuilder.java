@@ -18,13 +18,13 @@ public class SessionBuilder {
     private String name;
     private int count;
     private Quiz.Mode mode;
-    private List<SrsCard> SrsCards;
+    private List<SrsCard> srsCards;
 
     public SessionBuilder() {
         name = DEFAULT_NAME;
         count = DEFAULT_COUNT;
         mode = DEFAULT_MODE;
-        SrsCards = DEFAULT_SRSCARDS;
+        srsCards = DEFAULT_SRSCARDS;
     }
 
     /**
@@ -34,7 +34,7 @@ public class SessionBuilder {
         name = currentSession.getName();
         count = currentSession.getCount();
         mode = currentSession.getMode();
-        SrsCards = currentSession.getSrsCards();
+        srsCards = currentSession.getSrsCards();
     }
 
     /**
@@ -66,11 +66,11 @@ public class SessionBuilder {
      * @return a session
      */
     public Session build() {
-        return new Session(name, count, mode, SrsCards);
+        return new Session(name, count, mode, srsCards);
     }
 
     public Session build_without_count() {
-        return new Session(name, mode, SrsCards);
+        return new Session(name, mode, srsCards);
     }
 
     public Session build_without_srsCards() {

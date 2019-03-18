@@ -58,12 +58,6 @@ public class Patient {
         return address;
     }
 
-    public String getFullPatientDescription() {
-        return name.toString() + " "
-                + gender.toString() + " " + age.toString() + " " + phone.toString() + " "
-                + address.toString();
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -89,7 +83,7 @@ public class Patient {
 
     /**
      * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * This defines a stronger notion of equality between two patients.
      */
     @Override
     public boolean equals(Object other) {
@@ -101,7 +95,7 @@ public class Patient {
             return false;
         }
 
-        seedu.address.model.person.Person otherPatient = (seedu.address.model.person.Person) other;
+        Patient otherPatient = (Patient) other;
         return otherPatient.getName().equals(getName())
                 && otherPatient.getPhone().equals(getPhone())
                 && otherPatient.getAddress().equals(getAddress())
@@ -111,7 +105,7 @@ public class Patient {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+        return Objects.hash(name, gender, age, phone, address, tags);
     }
 
     @Override

@@ -9,7 +9,10 @@ import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.cell.Coordinates;
+import seedu.address.model.player.Fleet;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -164,10 +167,12 @@ public interface Model {
      */
     void setSelectedPerson(Cell cell);
 
+    Fleet getFleet();
+
     /**
      * Deploys a battleship.
      */
-    void deployBattleship(Battleship battleship);
+    void deployBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation);
 
     /**
      * Checks number of battleships available.

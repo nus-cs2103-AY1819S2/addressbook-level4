@@ -9,6 +9,8 @@ import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
+import seedu.address.model.battleship.Orientation;
+import seedu.address.model.cell.Coordinates;
 
 
 /**
@@ -17,7 +19,7 @@ import seedu.address.model.battleship.DestroyerBattleship;
 public class Fleet {
 
 
-    private ArrayList<Battleship> deployedFleet;
+    private ArrayList<FleetEntry> deployedFleet;
 
     private int numDestroyer;
     private int numCruiser;
@@ -50,20 +52,20 @@ public class Fleet {
         return this.numDestroyer + this.numCruiser + this.numAircraftCarrier;
     }
 
-    public ArrayList getDeployedFleet() {
+    public ArrayList<FleetEntry> getDeployedFleet() {
         return this.deployedFleet;
     }
 
     /**
      * Deploys one battleship. Checks class of battleship.
      */
-    public void deployBattleship(Battleship battleship) {
+    public void deployOneBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
         if (battleship instanceof DestroyerBattleship) {
-            deployDestroyerBattleships(1);
+            deployDestroyerBattleships(1, coordinates, orientation);
         } else if (battleship instanceof CruiserBattleship) {
-            deployCruiserBattleships(1);
+            deployCruiserBattleships(1, coordinates, orientation);
         } else if (battleship instanceof AircraftCarrierBattleship) {
-            deployAircraftCarrierBattleships(1);
+            deployAircraftCarrierBattleships(1, coordinates, orientation);
         }
     }
 
@@ -86,54 +88,63 @@ public class Fleet {
     /**
      * Deploys a destroyer.
      */
-    public void deployDestroyerBattleships(int number) {
+    public void deployDestroyerBattleships(int number, Coordinates coordinates, Orientation orientation) {
         for (int i = 0; i < number; i++) {
             this.numDestroyer--;
-            this.deployedFleet.add(new DestroyerBattleship());
+            this.deployedFleet.add(new FleetEntry(
+                    new DestroyerBattleship(),
+                    coordinates,
+                    orientation
+            ));
         }
     }
 
     /**
      * Deploys a cruiser.
      */
-    public void deployCruiserBattleships(int number) {
+    public void deployCruiserBattleships(int number, Coordinates coordinates, Orientation orientation) {
         for (int i = 0; i < number; i++) {
             this.numCruiser--;
-            this.deployedFleet.add(new CruiserBattleship());
+            this.deployedFleet.add(new FleetEntry(
+                    new CruiserBattleship(),
+                    coordinates,
+                    orientation
+            ));
         }
     }
 
     /**
      * Deploys an aircraft carrier.
      */
-    public void deployAircraftCarrierBattleships(int number) {
+    public void deployAircraftCarrierBattleships(int number, Coordinates coordinates, Orientation orientation) {
         for (int i = 0; i < number; i++) {
             this.numAircraftCarrier--;
-            this.deployedFleet.add(new AircraftCarrierBattleship());
+            this.deployedFleet.add(new FleetEntry(
+                    new AircraftCarrierBattleship(),
+                    coordinates,
+                    orientation
+            ));
         }
     }
 
-    public List<DestroyerBattleship> getListOfDestroyerBattleship() {
+    public List<FleetEntry> getListOfDestroyerBattleship() {
         return this.deployedFleet
                 .stream()
-                .filter(ship -> ship instanceof DestroyerBattleship)
-                .map(ship -> (DestroyerBattleship) ship)
+                .filter(entry -> entry.getBattleship() instanceof DestroyerBattleship)
                 .collect(Collectors.toList());
     }
 
-    public List<CruiserBattleship> getListOfCruiserBattleship() {
+    public List<FleetEntry> getListOfCruiserBattleship() {
         return this.deployedFleet
                 .stream()
-                .filter(ship -> ship instanceof CruiserBattleship)
-                .map(ship -> (CruiserBattleship) ship)
+                .filter(entry -> entry.getBattleship() instanceof CruiserBattleship)
                 .collect(Collectors.toList());
     }
 
-    public List<AircraftCarrierBattleship> getListOfAircraftCarrierBattleship() {
+    public List<FleetEntry> getListOfAircraftCarrierBattleship() {
         return this.deployedFleet
                 .stream()
-                .filter(ship -> ship instanceof AircraftCarrierBattleship)
-                .map(ship -> (AircraftCarrierBattleship) ship)
+                .filter(entry -> entry.getBattleship() instanceof AircraftCarrierBattleship)
                 .collect(Collectors.toList());
     }
 
@@ -158,6 +169,50 @@ public class Fleet {
                 .append(" Fleet contents: ")
                 .append(getDeployedFleet());
         return builder.toString();
+    }
+
+    /**
+     * Represents an entry in the fleet. To describe the orientation and coordinates
+     * of a given battleship.
+     */
+    private class FleetEntry {
+        private final Battleship battleship;
+        private final Orientation orientation;
+        private final Coordinates coordinates;
+
+        public FleetEntry(Battleship battleship, Coordinates coordinates, Orientation orientation) {
+            this.battleship = battleship;
+            this.coordinates = coordinates;
+            this.orientation = orientation;
+        }
+
+        public Battleship getBattleship() {
+            return battleship;
+        }
+
+        public Coordinates getCoordinates() {
+            return coordinates;
+        }
+
+        public Orientation getOrientation() {
+            return orientation;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append(this.getBattleship())
+                    .append(" (")
+                    .append(this.getBattleship().getLife())
+                    .append("/")
+                    .append(this.getBattleship().getLength())
+                    .append(")")
+                    .append(" at ")
+                    .append(this.getCoordinates())
+                    .append(" ")
+                    .append(this.getOrientation());
+            return builder.toString();
+        }
     }
 
 }

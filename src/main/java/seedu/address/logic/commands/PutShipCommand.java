@@ -77,7 +77,7 @@ public class PutShipCommand extends Command {
                 try {
                     checkEnoughBattleships(model, battleship, 1);
                     putAlongHorizontal(model, coordinates, battleship);
-                    model.deployBattleship(battleship);
+                    model.deployBattleship(battleship, coordinates, orientation);
                 } catch (ArrayIndexOutOfBoundsException aiobe) {
                     throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
                 } catch (Exception e) {
@@ -95,7 +95,7 @@ public class PutShipCommand extends Command {
                 try {
                     checkEnoughBattleships(model, battleship, 1);
                     putAlongVertical(model, coordinates, battleship);
-                    model.deployBattleship(battleship);
+                    model.deployBattleship(battleship, coordinates, orientation);
                 } catch (ArrayIndexOutOfBoundsException aiobe) {
                     throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
                 } catch (Exception e) {

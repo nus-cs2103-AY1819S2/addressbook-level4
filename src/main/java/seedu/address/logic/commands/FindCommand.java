@@ -67,7 +67,7 @@ public class FindCommand extends Command {
         }
 
         public void setCode(String code) {
-            this.code = code;
+            this.code = code.toLowerCase();
         }
 
         public Optional<String> getCode() {
@@ -100,7 +100,9 @@ public class FindCommand extends Command {
             }
 
             FindModuleDescriptor other = (FindModuleDescriptor) object;
-            return (code.equals(other.code) && semester.equals(other.semester) && grade.equals(other.grade));
+            return getCode().equals(other.getCode())
+                    && getSemester().equals(other.getSemester())
+                    && getGrade().equals(other.getGrade());
         }
     }
 }

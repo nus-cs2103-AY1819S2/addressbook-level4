@@ -28,7 +28,7 @@ public class FindModulePredicate implements Predicate<Person> {
         Optional<Grade> grade = findModuleDescriptor.getGrade();
 
         if (code.isPresent()
-                && !moduleCode.fullName.toLowerCase().contains(code.get().toLowerCase())) {
+                && !moduleCode.fullName.toLowerCase().contains(code.get())) {
             return false;
         }
         if (semester.isPresent()

@@ -2,10 +2,9 @@ package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;

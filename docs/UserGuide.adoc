@@ -396,8 +396,6 @@ Please do check the file that contains the data of your address book.
 *Q*: Why does the `undo` command reverse a command from multiple commands before? +
 *A*: The `undo` command reverses the last used `add`, `delete`, `edit` or `clear` command.
 
-== Command Summary
-=======
 == Shortcuts Cheatsheet
 
 Below is a summarized list of all the shortcuts for commands that TravelBuddy supports:

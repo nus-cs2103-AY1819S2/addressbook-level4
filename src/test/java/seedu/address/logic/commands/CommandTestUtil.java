@@ -139,7 +139,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the RestOrRant, filtered order item list, filtered menu item list, filtered dailyRevenue list, filtered 
+     * - the RestOrRant, filtered order item list, filtered menu item list, filtered dailyRevenue list, filtered
      * table list <br>
      * - and selected order item, selected menu item, selected dailyRevenue, selected table <br>
      * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.

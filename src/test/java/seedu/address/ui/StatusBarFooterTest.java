@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,7 +38,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, mapGrid);
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
         uiPartRule.setUiPart(statusBarFooter);
 
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
@@ -47,22 +46,23 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // initial state
-        //TO REMOVE//assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
-
         // after address book is updated
-        guiRobot.interact(() -> mapGrid.addPerson(ALICE));
-        //TOREMOVE        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-        //                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+        //guiRobot.interact(() -> mapGrid.addPerson(ALICE));
+        assertStatusBarContent();
     }
 
     /**
      * Asserts that the save location matches that of {@code expectedSaveLocation}, and the
      * sync status matches that of {@code expectedSyncStatus}.
      */
-    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus) {
-        assertEquals(expectedSaveLocation, statusBarFooterHandle.getSaveLocation());
-        assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
+    private void assertStatusBarContent() {
+
+        StatusBarFooter statusBarFooter1 = new StatusBarFooter();
+        StatusBarFooter statusBarFooter2 = new StatusBarFooter();
+
+        // create 2 status bar and compare the timing
+        assertEquals(statusBarFooter1.getElapsedTime(System.nanoTime()),
+                   statusBarFooter2.getElapsedTime(System.nanoTime()));
         guiRobot.pauseForHuman();
     }
 

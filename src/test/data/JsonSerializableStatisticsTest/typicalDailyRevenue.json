@@ -1,0 +1,50 @@
+{
+  "_comment":
+  "DailyRevenueList save file which contains same DailyRevenue values as inTypicalRestOrRant#getTypicalDailyRevenue()",
+  "statisticsList" : [ {
+    "day" : "16",
+    "month" : "03",
+    "year" : "2019",
+    "totalDailyRevenue" : "18.60"
+  }, {
+    "day" : "17",
+    "month" : "03",
+    "year" : "2019",
+    "totalDailyRevenue" : "24.50"
+  }, {
+    "day" : "18",
+    "month" : "03",
+    "year" : "2019",
+    "totalDailyRevenue" : "200.10"
+  }, {
+    "day" : "31",
+    "month" : "03",
+    "year" : "2019",
+    "totalDailyRevenue" : "240.20"
+  }, {
+    "day" : "01",
+    "month" : "04",
+    "year" : "2019",
+    "totalDailyRevenue" : "70.30"
+  }, {
+    "day" : "02",
+    "month" : "04",
+    "year" : "2019",
+    "totalDailyRevenue" : "77.30"
+  }, {
+    "day" : "03",
+    "month" : "04",
+    "year" : "2019",
+    "totalDailyRevenue" : "340.50"
+  }, {
+    "day" : "11",
+    "month" : "01",
+    "year" : "1998",
+    "totalDailyRevenue" : "240.00"
+  }, {
+    "day" : "11",
+    "month" : "03",
+    "year" : "1998",
+    "totalDailyRevenue" : "400.50"
+  } ]
+}

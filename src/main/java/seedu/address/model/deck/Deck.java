@@ -40,6 +40,13 @@ public class Deck implements ListItem {
     }
 
     /**
+     * Adds a card to the current deck.
+     */
+    public void addCard(Card newCard) {
+        this.cards.add(newCard);
+    }
+
+    /**
      * Returns true if 2 decks are the same, or have identical name.
      */
     public boolean isSameDeck(Deck otherDeck) {

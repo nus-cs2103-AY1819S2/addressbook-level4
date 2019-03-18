@@ -18,7 +18,6 @@ import seedu.address.model.deck.exceptions.DuplicateDeckException;
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class TopDeck implements ReadOnlyTopDeck {
-    private final UniqueCardList cards;
     private final UniqueDeckList decks;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -31,7 +30,6 @@ public class TopDeck implements ReadOnlyTopDeck {
      */
     {
         decks = new UniqueDeckList();
-        cards = new UniqueCardList();
     }
 
     public TopDeck() {}
@@ -45,15 +43,6 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the card list with {@code cards}.
-     * {@code cards} must not contain duplicate cards.
-     */
-    public void setCards(List<Card> cards) {
-        this.cards.setCards(cards);
-        indicateModified();
-    }
 
     /**
      * Replaces the contents of the deck list with {@code decks}.
@@ -70,48 +59,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     public void resetData(ReadOnlyTopDeck newData) {
         requireNonNull(newData);
 
-        setCards(newData.getCardList());
         setDecks(newData.getDeckList());
-    }
-
-    //// card-level operations
-
-    /**
-     * Returns true if another card with the same question as {@code card} exists in the deck.
-     */
-    public boolean hasCard(Card card) {
-        requireNonNull(card);
-        return cards.contains(card);
-    }
-
-    /**
-     * Adds a card to the deck.
-     * The card must not already exist in the deck.
-     */
-    public void addCard(Card card) {
-        cards.add(card);
-        indicateModified();
-    }
-
-    /**
-     * Replaces the given card {@code target} in the list with {@code editedCard}.
-     * {@code target} must exist in the deck.
-     * The card identity of {@code editedCard} must not be the same as another existing card in the deck.
-     */
-    public void setCard(Card target, Card editedCard) {
-        requireNonNull(editedCard);
-
-        cards.setCard(target, editedCard);
-        indicateModified();
-    }
-
-    /**
-     * Removes {@code key} from this {@code TopDeck}.
-     * {@code key} must exist in the deck.
-     */
-    public void removeCard(Card key) {
-        cards.remove(key);
-        indicateModified();
     }
 
     @Override
@@ -155,7 +103,7 @@ public class TopDeck implements ReadOnlyTopDeck {
 
     @Override
     public String toString() {
-        return cards.asUnmodifiableObservableList().size() + " persons";
+        return decks.asUnmodifiableObservableList().size() + " decks";
         // TODO: refine later
     }
 
@@ -165,19 +113,14 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     @Override
-    public ObservableList<Card> getCardList() {
-        return cards.asUnmodifiableObservableList();
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TopDeck // instanceof handles nulls
-                && cards.equals(((TopDeck) other).cards));
+                && decks.equals(((TopDeck) other).decks));
     }
 
     @Override
     public int hashCode() {
-        return cards.hashCode();
+        return decks.hashCode();
     }
 }

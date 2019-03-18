@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,9 +27,11 @@ public class SampleDataUtil {
 
     public static ReadOnlyTopDeck getSampleTopDeck() {
         TopDeck sampleTd = new TopDeck();
+        Deck sampleDeck = new Deck(new Name("Sample Deck"));
         for (Card sampleCard : getSampleCards()) {
-            sampleTd.addCard(sampleCard);
+            sampleDeck.addCard(sampleCard);
         }
+        sampleTd.addDeck(sampleDeck);
         return sampleTd;
     }
 

@@ -25,6 +25,31 @@ public abstract class Statistics {
         this.movesLeft = 10; // magic number for now
     }
 
+    /**
+     * increments the hit count by 1.
+     * @return incremented hitCount
+     */
+    public int addHit() {
+        return ++this.hitCount;
+    }
+
+    /**
+     * increments the miss count by 1.
+     * @return incremented missCount
+     */
+    public int addMiss() {
+        int miss = this.missCount;
+        return ++miss;
+    }
+
+    /**
+     * decrements the number of moves left.
+     * @return the decremented number of moves
+     */
+    public int minusMove() {
+        return --this.movesLeft;
+    }
+
     public int getMovesLeft() {
         return this.movesLeft;
     }
@@ -39,7 +64,7 @@ public abstract class Statistics {
      * returns the hit-miss percentage of the user.
      */
     public double getAccuracy() {
-        return (double) hitCount / (double) hitCount + (double) missCount;
+        return (double) hitCount / (double) (hitCount + missCount);
     }
 
 }

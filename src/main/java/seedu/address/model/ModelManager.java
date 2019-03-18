@@ -41,6 +41,7 @@ public class ModelManager implements Model {
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
+    private final ModuleInfoList moduleInfoList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -59,6 +60,7 @@ public class ModelManager implements Model {
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = allModules.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
+        this.moduleInfoList = allModules;
     }
 
     public ModelManager() {
@@ -164,7 +166,6 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
@@ -237,7 +238,6 @@ public class ModelManager implements Model {
     public ObservableList<ModuleInfo> getDisplayList() {
         return this.displayList;
     }
-
 
     @Override
     public void updateDisplayList(Predicate<ModuleInfo> predicate) {

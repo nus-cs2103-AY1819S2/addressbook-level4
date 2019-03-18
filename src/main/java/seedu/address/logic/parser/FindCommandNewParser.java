@@ -1,10 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODCODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.commands.FindCommandNew;
 import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
@@ -23,19 +22,20 @@ public class FindCommandNewParser implements Parser<FindCommandNew> {
      */
     public FindCommandNew parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) { // list all
-            return new FindCommandNew(PREDICATE_SHOW_ALL_PERSONS);
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandNew.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODCODE, PREFIX_MODNAME, PREFIX_SEMESTER, PREFIX_GRADE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODCODE, PREFIX_SEMESTER, PREFIX_GRADE);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandNew.MESSAGE_USAGE));
+        }
 
         FindModuleDescriptor findModuleDescriptor = new FindModuleDescriptor();
         if (argMultimap.getValue(PREFIX_MODCODE).isPresent()) {
             findModuleDescriptor.setCode(argMultimap.getValue(PREFIX_MODCODE).get());
-        }
-        if (argMultimap.getValue(PREFIX_MODNAME).isPresent()) {
-            findModuleDescriptor.setTitle(argMultimap.getValue(PREFIX_MODNAME).get());
         }
         if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
             findModuleDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));

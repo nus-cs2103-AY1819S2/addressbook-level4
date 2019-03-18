@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
@@ -19,20 +20,15 @@ public class FindModulePredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person module) {
-        /*requireNonNull(module);
-        ModuleInfo moduleInfo = module.getModuleInfo();
+        requireNonNull(module);
+        Name moduleCode = module.getModuleInfo();
 
         Optional<String> code = findModuleDescriptor.getCode();
-        Optional<String> title = findModuleDescriptor.getTitle();
         Optional<Semester> semester = findModuleDescriptor.getSemester();
         Optional<Grade> grade = findModuleDescriptor.getGrade();
 
         if (code.isPresent()
-                && !moduleInfo.getModuleInfoCode().toString().contains(code.get())) {
-            return false;
-        }
-        if (title.isPresent()
-                && !moduleInfo.getModuleInfoTitle().toString().contains(title.get())) {
+                && !moduleCode.fullName.toLowerCase().contains(code.get().toLowerCase())) {
             return false;
         }
         if (semester.isPresent()
@@ -40,9 +36,9 @@ public class FindModulePredicate implements Predicate<Person> {
             return false;
         }
         if (grade.isPresent()
-                && !module.getGradeRange().isWithinRange(grade.get())) {
+                && !grade.get().isWithin(module.getGradeRange())) {
             return false;
-        }*/
+        }
         return true;
     }
 

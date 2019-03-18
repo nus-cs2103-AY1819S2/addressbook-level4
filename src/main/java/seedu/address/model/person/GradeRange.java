@@ -26,17 +26,7 @@ public class GradeRange {
      * Returns true if the min gradepoint is no more than max gradepoint
      */
     public boolean checkMinNotMoreThanMax() {
-        return min.isWithin(max);
-    }
-
-    /**
-     * Checks if the given grade is within this grade range.
-     * @param grade The grade to be checked.
-     * @return true if the given grade is within this grade range, false otherwise
-     */
-    public boolean isWithinRange(Grade grade) {
-        return grade.compareTo(min) >= 0
-                && grade.compareTo(max) <= 0;
+        return min.isLowerOrEqualTo(max);
     }
 
     /**

@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Grade;
@@ -14,7 +13,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
 
 /**
- * Finds and lists module(s) in module plan matching all given module code, module title,
+ * Finds and lists module(s) in module plan matching all given module code,
  * semester taken or grade obtained (case-insensitive).
  */
 public class FindCommandNew extends Command {
@@ -22,9 +21,9 @@ public class FindCommandNew extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds and lists module(s) based on "
-            + "module code, module title, semester taken or grade obtained (case-insensitive).\n"
-            + "Code and title can be entered partially, but semester and grade must be exact.\n"
-            + "Parameters: [c/MODULE_CODE] [n/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]\n"
+            + "module code, semester taken or grade obtained (case-insensitive).\n"
+            + "Module code can be entered partially, but semester and grade must be exact.\n"
+            + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE_OBTAINED]\n"
             + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
 
     private final Predicate<Person> predicate;
@@ -53,7 +52,6 @@ public class FindCommandNew extends Command {
      */
     public static class FindModuleDescriptor {
         private String code; // can be substring of exact code
-        private String title; // can be substring of exact title
         private Semester semester;
         private Grade grade;
 
@@ -64,13 +62,8 @@ public class FindCommandNew extends Command {
          */
         public FindModuleDescriptor(FindModuleDescriptor toCopy) {
             setCode(toCopy.code);
-            setTitle(toCopy.title);
             setSemester(toCopy.semester);
             setGrade(toCopy.grade);
-        }
-
-        public boolean isAnyFieldEntered() {
-            return CollectionUtil.isAnyNonNull(code, title, semester, grade);
         }
 
         public void setCode(String code) {
@@ -79,14 +72,6 @@ public class FindCommandNew extends Command {
 
         public Optional<String> getCode() {
             return Optional.ofNullable(code);
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public Optional<String> getTitle() {
-            return Optional.ofNullable(title);
         }
 
         public void setSemester(Semester semester) {
@@ -115,8 +100,7 @@ public class FindCommandNew extends Command {
             }
 
             FindModuleDescriptor other = (FindModuleDescriptor) object;
-            return (code.equals(other.code) && title.equals(other.title)
-                    && semester.equals(other.semester) && grade.equals(other.grade));
+            return (code.equals(other.code) && semester.equals(other.semester) && grade.equals(other.grade));
         }
     }
 }

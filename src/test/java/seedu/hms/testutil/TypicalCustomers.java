@@ -72,8 +72,8 @@ public class TypicalCustomers {
     // Manually added - Customer's details found in {@code CommandTestUtil}
     public static final Customer AMY =
         new seedu.hms.testutil.CustomerBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withIdNum(VALID_ID_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
+            .withEmail(VALID_EMAIL_AMY).withIdNum(VALID_ID_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withTags(VALID_TAG_FRIEND).withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
     public static final Customer BOB =
         new seedu.hms.testutil.CustomerBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)

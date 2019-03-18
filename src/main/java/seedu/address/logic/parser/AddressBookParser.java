@@ -17,11 +17,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LabelCommand;
 import seedu.address.logic.commands.ListCommand;
-<<<<<<< HEAD
 import seedu.address.logic.commands.MoveCommand;
-=======
 import seedu.address.logic.commands.OpenCommand;
->>>>>>> 198b47adb36df1f470b2f366785060849bbac935
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
@@ -97,13 +94,10 @@ public class AddressBookParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
-<<<<<<< HEAD
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-=======
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
->>>>>>> 198b47adb36df1f470b2f366785060849bbac935
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

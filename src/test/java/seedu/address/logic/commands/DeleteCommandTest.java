@@ -34,7 +34,7 @@ public class DeleteCommandTest {
         Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, pdfToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
         expectedModel.deletePdf(pdfToDelete);
@@ -58,7 +58,7 @@ public class DeleteCommandTest {
         Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, pdfToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete);
 
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
         expectedModel.deletePdf(pdfToDelete);

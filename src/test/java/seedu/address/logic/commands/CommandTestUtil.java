@@ -29,6 +29,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_CODE_AMY = "CS2103T";
+    public static final String VALID_CODE_BOB = "CS1010";
     public static final String VALID_SEMESTER_AMY = "Y2S2";
     public static final String VALID_SEMESTER_BOB = "Y2S1";
     public static final String VALID_EXPECTED_MIN_GRADE_AMY = "C";

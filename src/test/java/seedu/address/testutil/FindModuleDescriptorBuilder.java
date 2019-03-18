@@ -1,9 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Grade;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Semester;
 
 /**

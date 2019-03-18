@@ -3,13 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.person.FindModulePredicate;
 import seedu.address.model.person.Grade;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
 
 /**
@@ -26,9 +25,9 @@ public class FindCommand extends Command {
             + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE_OBTAINED]\n"
             + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
 
-    private final Predicate<Person> predicate;
+    private final FindModulePredicate predicate;
 
-    public FindCommand(Predicate<Person> predicate) {
+    public FindCommand(FindModulePredicate predicate) {
         this.predicate = predicate;
     }
 

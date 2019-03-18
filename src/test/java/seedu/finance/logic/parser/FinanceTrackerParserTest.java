@@ -176,7 +176,7 @@ public class FinanceTrackerParserTest {
 
     @Test
     public void parseCommand_increase() throws Exception {
-        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123")
+        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "$123")
                 instanceof IncreaseCommand));
     }
 

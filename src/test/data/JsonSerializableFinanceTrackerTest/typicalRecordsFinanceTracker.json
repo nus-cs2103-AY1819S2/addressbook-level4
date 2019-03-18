@@ -2,43 +2,43 @@
   "_comment": "FinanceTracker saves file which contains the same Record values as in TypicalRecords#getTypicalFinanceTracker()",
   "records" : [ {
     "name" : "Alice Pauline",
-    "amount" : "120",
+    "amount" : "$120.30",
     "date" : "12/02/2017",
     "description": "",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
-    "amount" : "119",
+    "amount" : "$119",
     "date" : "12/02/2015",
     "description": "",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "amount" : "130",
+    "amount" : "$130.45",
     "date" : "12/05/2017",
     "description": "",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "amount" : "129",
+    "amount" : "$129",
     "date" : "12/02/2007",
     "description": "",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "amount" : "150",
+    "amount" : "$150",
     "date" : "12/12/2017",
     "description": "",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "amount" : "520",
+    "amount" : "$520",
     "date" : "02/02/2017",
     "description": "",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "amount" : "128",
+    "amount" : "$128.90",
     "date" : "12/02/2027",
     "description": "",
     "tagged" : [ ]

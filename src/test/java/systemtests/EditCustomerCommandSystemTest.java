@@ -11,7 +11,6 @@ import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
-import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_DATE_OF_BIRTH_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
@@ -32,7 +31,6 @@ import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-import static seedu.hms.testutil.TypicalCustomers.AMY;
 import static seedu.hms.testutil.TypicalCustomers.BOB;
 import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
@@ -46,7 +44,6 @@ import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.model.CustomerModel;
-import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
@@ -142,7 +139,8 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
 
         /* --------------------- Performing edit operation while a customer card is selected ------------------------ */
 
-        /* Case: selects first card in the customer list, edit a customer -> not edited, card selection remains unchanged
+        /* Case: selects first card in the customer list, edit a customer -> not edited, card selection remains
+        unchanged
          * but
          * browser url changes
          */

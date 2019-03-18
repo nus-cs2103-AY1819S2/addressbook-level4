@@ -16,7 +16,7 @@ import seedu.hms.model.customer.Customer;
 public class CustomerCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#hms";
+    private static final String ADDRESS_FIELD_ID = "#address";
     private static final String IDENTIFICATION_NO_FIELD_ID = "#identificationNo";
     private static final String DATE_OF_BIRTH_FIELD_ID = "#dob";
     private static final String PHONE_FIELD_ID = "#phone";

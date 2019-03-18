@@ -29,7 +29,7 @@ public class RestaurantListPanelTest extends GuiUnitTest {
     private static final ObservableList<Restaurant> TYPICAL_RESTAURANTS =
             FXCollections.observableList(getTypicalRestaurants());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 5000;
 
     private final SimpleObjectProperty<Restaurant> selectedRestaurant = new SimpleObjectProperty<>();
     private RestaurantListPanelHandle restaurantListPanelHandle;

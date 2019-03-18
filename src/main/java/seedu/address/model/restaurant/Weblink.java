@@ -9,6 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Weblink {
 
+    public static final String NO_WEBLINK_STRING = "No weblink added";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format https://local-part.domain "
             + "and adhere to the following constraints:\n"
@@ -44,11 +45,11 @@ public class Weblink {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidWeblink(String test) {
-        return test.matches(VALIDATION_REGEX) || test.matches("No weblink added");
+        return test.matches(VALIDATION_REGEX) || test.matches(NO_WEBLINK_STRING);
     }
 
     public static Weblink makeDefaultWeblink() {
-        return new Weblink("No weblink added");
+        return new Weblink(NO_WEBLINK_STRING);
     }
 
     @Override

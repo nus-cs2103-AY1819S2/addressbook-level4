@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
+import seedu.address.model.person.*;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.ConditionTag;
 import seedu.address.model.tag.Conditions;
@@ -34,11 +34,53 @@ public class PatientBuilder extends PersonBuilder {
     }
 
     /**
+     * Sets the {@code Conditions} of the patient that we are building.
+     */
+    public PatientBuilder withConditionTags(String... conditions) {
+        HashSet<ConditionTag> set = new HashSet<>();
+        Arrays.stream(conditions).forEach(cond -> set.add(new ConditionTag(cond)));
+        this.conditions = new Conditions(set);
+        return this;
+    }
+
+    /**
+     * Specifies the nric of the patient object that we are building.
+     */
+    public PatientBuilder withNric(String nric) {
+        this.nric = new Nric(nric);
+        return this;
+    }
+
+    /**
+     * Sets the email of the {@code Patient} in the {@code Request} object that we are building.
+     */
+    public PatientBuilder withEmail(String email) {
+        this.email = new Email(email);
+        return this;
+    }
+
+    /**
      * Initializes the PatientBuilder with the data of {@code address}
      */
     @Override
     public PatientBuilder withAddress(String address) {
         this.address = new Address(address);
+        return this;
+    }
+
+    /**
+     * Initialises the PatientBuilder with the data of {@code name}
+     */
+    public PatientBuilder withName(String name) {
+        this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Initialises the PatientBuilder with the data of {@code phone}
+     */
+    public PatientBuilder withPhone(String phone) {
+        this.phone = new Phone(phone);
         return this;
     }
 

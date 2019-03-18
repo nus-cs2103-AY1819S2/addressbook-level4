@@ -130,6 +130,21 @@ public class EditRequestCommand extends RequestCommand {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof EditRequestCommand)) {
+            return false;
+        }
+
+        EditRequestCommand e = (EditRequestCommand) other;
+        return index.equals(e.index) && editRequestDescriptor.equals(((EditRequestCommand) other)
+            .editRequestDescriptor);
+    }
+
     /**
      * Stores the details to edit the request with. Each non-empty field value will replace the
      * corresponding field value of the order.

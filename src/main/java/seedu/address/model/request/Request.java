@@ -70,6 +70,7 @@ public class Request {
         this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
         this.requestStatus = status;
         this.requestDate = requestDate;
+        this.healthWorker = Optional.empty();
     }
 
     /**
@@ -84,6 +85,7 @@ public class Request {
         this.conditions = conditions;
         this.requestStatus = status;
         this.requestDate = requestDate;
+        this.healthWorker = Optional.empty();
     }
 
     /**
@@ -98,6 +100,7 @@ public class Request {
         this.conditions = conditions;
         this.requestStatus = status;
         this.requestDate = requestDate;
+        this.healthWorker = Optional.ofNullable(healthWorker);
     }
 
     /**

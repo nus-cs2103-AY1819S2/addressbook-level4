@@ -87,6 +87,28 @@ public class RequestBuilder {
     }
 
     /**
+     * Sets the {@code email} of the {@code Patient} object in the request that we are building.
+     *
+     * @param email the email of the patient to set
+     * @return The RequestBuilder object
+     */
+    public RequestBuilder withEmail(String email) {
+        this.patient = new PatientBuilder(this.patient).withEmail(email).build();
+        return this;
+    }
+
+    /**
+     * Sets the {@code nric} of the {@code Patient} object in the request that we are building.
+     *
+     * @param nric the nric of the patient to set
+     * @return The RequestBuilder object
+     */
+    public RequestBuilder withNric(String nric) {
+        this.patient = new PatientBuilder(this.patient).withNric(nric).build();
+        return this;
+    }
+
+    /**
      * Sets the {@code requestDate} of the {@code Request} that we are building
      *
      * @param date the date of the request.
@@ -94,6 +116,17 @@ public class RequestBuilder {
      */
     public RequestBuilder withDate(String date) {
         this.requestDate = new RequestDate(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Phone} of the {@code Patient} in the request that we are building.
+     *
+     * @param phone the phone number of the patient
+     * @return The RequestBuilder object
+     */
+    public RequestBuilder withPhone(String phone) {
+        this.patient = new PatientBuilder(this.patient).withPhone(phone).build();
         return this;
     }
 
@@ -143,6 +176,18 @@ public class RequestBuilder {
     }
 
     /**
+     * Overloaded constructor that takes in multiple strings as the conditions.
+     *
+     * @return the RequestBuilder object
+     */
+    public RequestBuilder withConditions(String... conditions) {
+        HashSet<ConditionTag> set = new HashSet<>();
+        Arrays.stream(conditions).forEach(condition -> set.add(new ConditionTag(condition)));
+        this.conditions = new Conditions(set);
+        return this;
+    }
+
+    /**
      * Sets the {@code healthStaff} of the {@code Request} we are building.
      *
      * @param status The status of the request.
@@ -150,6 +195,18 @@ public class RequestBuilder {
      */
     public RequestBuilder withStatus(String status) {
         this.requestStatus = new RequestStatus(status);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Name} of the patient making the request.
+     *
+     * @param name The name of the patient
+     * @return the RequestBuilder object
+     */
+    public RequestBuilder withPatientName(String name) {
+        PatientBuilder pb = new PatientBuilder(this.patient).withName(name);
+        this.patient = pb.build();
         return this;
     }
 

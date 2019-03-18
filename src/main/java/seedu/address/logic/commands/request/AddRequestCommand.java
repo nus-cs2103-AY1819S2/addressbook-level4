@@ -21,14 +21,14 @@ public class AddRequestCommand extends AddCommand {
 
     public static final String COMMAND_WORD = "request";
 
-    public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + " " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = RequestCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD
         + ": Creates a new request in the request book. " + "Parameters: "
         + PREFIX_NAME + "NAME "
         + PREFIX_PHONE + "PHONE "
         + PREFIX_ADDRESS + "ADDRESS "
         + PREFIX_DATE + "DATETIME"
         + PREFIX_CONDITIONS + "CONDITION...\n"
-        + "Example: " + RequestCommand.COMMAND_WORD + " " + COMMAND_WORD + " "
+        + "Example: " + RequestCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
         + PREFIX_PHONE + "81234567 "
         + PREFIX_ADDRESS + "123, Sengkang Ave 3, #04-12, 214632 "
@@ -74,6 +74,6 @@ public class AddRequestCommand extends AddCommand {
     public boolean equals(Object other) {
         return other == this
             || (other instanceof AddRequestCommand
-            && newRequest.equals(((AddRequestCommand) other).newRequest));
+            && newRequest.isSameRequest(((AddRequestCommand) other).newRequest));
     }
 }

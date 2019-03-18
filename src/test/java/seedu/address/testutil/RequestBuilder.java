@@ -2,10 +2,7 @@ package seedu.address.testutil;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -20,6 +17,7 @@ import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.ConditionTag;
 import seedu.address.model.tag.Conditions;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building Request objects.
@@ -50,14 +48,19 @@ public class RequestBuilder {
 
     public RequestBuilder() {
         this.id = DEFAULT_ID;
+        HashSet<ConditionTag> conditions =
+            new HashSet<>(Collections.singletonList(new ConditionTag(DEFAULT_REQUEST)));
+        HashSet<Tag> set = new HashSet<>();
+        set.add(new Tag(DEFAULT_REQUEST));
         this.patient = new Patient(new Name(DEFAULT_PATIENT_NAME), new Phone(DEFAULT_PATIENT_PHONE),
             new Email(DEFAULT_PATIENT_EMAIL), new Nric(DEFAULT_PATIENT_NRIC), new Address(DEFAULT_PATIENT_ADDRESS),
-            Collections.emptySet(), new Conditions(new HashSet<>(Arrays.asList(new ConditionTag(DEFAULT_REQUEST)))));
+            set, new Conditions(conditions));
         this.healthWorker = Optional.of(new HealthWorker(new Name(DEFAULT_STAFF_NAME), new Phone(DEFAULT_STAFF_PHONE),
                 new Email(DEFAULT_STAFF_EMAIL), new Nric(DEFAULT_STAFF_NRIC), new Address(DEFAULT_STAFF_ADDRESS),
                 Collections.emptySet(), new Organization(DEFAULT_ORGANISATION)));
         this.requestDate = new RequestDate(DEFAULT_DATE);
         this.requestStatus = new RequestStatus(DEFAULT_STATUS);
+        this.conditions = new Conditions(conditions);
     }
 
     /*

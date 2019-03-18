@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -53,7 +54,7 @@ class AddRequestCommandTest {
 
         assertEquals(String.format(AddRequestCommand.MESSAGE_SUCCESS, validRequest),
             commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validRequest), modelStub.requestsAdded);
+        assertEquals(Collections.singletonList(validRequest), modelStub.requestsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -90,6 +91,10 @@ class AddRequestCommandTest {
 
         // differnt request -> returns false
         assertFalse(addAliceRequest.equals(addBensonRequest));
+    }
+
+    @Test
+    void execute() {
     }
 
     protected class ModelStub implements Model {

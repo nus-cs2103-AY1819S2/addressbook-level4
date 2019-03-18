@@ -29,7 +29,6 @@ import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.ConditionTag;
 import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits an order in the request book.

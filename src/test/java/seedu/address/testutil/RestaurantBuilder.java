@@ -60,6 +60,7 @@ public class RestaurantBuilder {
         phone = restaurantToCopy.getPhone();
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
+        reviews = restaurantToCopy.getReviews();
         tags = new HashSet<>(restaurantToCopy.getTags());
         weblink = restaurantToCopy.getWeblink();
         openingHours = restaurantToCopy.getOpeningHours();
@@ -87,7 +88,7 @@ public class RestaurantBuilder {
      * Parses the {@code reviews} into a {@code Set<Review>} and set it to the {@code Restaurant} that we are building.
      */
     public RestaurantBuilder withReviews(String ... reviews) {
-        this.reviews = SampleDataUtil.getReviewSet(reviews);
+        this.reviews = SampleDataUtil.getReviewList(reviews);
         return this;
     }
 

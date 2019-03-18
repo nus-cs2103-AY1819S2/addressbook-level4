@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.web.WebView;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -27,6 +30,9 @@ public class GotoCommand extends Command {
 
     private final Index targetIndex;
 
+    @FXML
+    private WebView browser;
+
     public GotoCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -41,9 +47,11 @@ public class GotoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
 
+        model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_RESTAURANT_SUCCESS, targetIndex.getOneBased()));
 
     }
+    
 
     @Override
     public boolean equals(Object other) {

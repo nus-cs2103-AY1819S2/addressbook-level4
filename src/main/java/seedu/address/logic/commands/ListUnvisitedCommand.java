@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  * Lists all restaurants that have yet to be visited in the food diary to the user.
  */
 public class ListUnvisitedCommand extends Command {
-    public static final String COMMAND_WORD = "listUnivisited";
+    public static final String COMMAND_WORD = "listUnvisited";
 
     public static final String MESSAGE_SUCCESS = "Listed all unvisited restaurants";
 

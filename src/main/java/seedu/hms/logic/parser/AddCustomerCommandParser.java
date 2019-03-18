@@ -1,6 +1,5 @@
 package seedu.hms.logic.parser;
 
-
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;

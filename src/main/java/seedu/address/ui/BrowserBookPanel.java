@@ -30,19 +30,19 @@ public class BrowserBookPanel extends UiPart<Region> {
     private WebView browser;
 
     public BrowserBookPanel(ObservableValue<Book> selectedBook) {
-		super(FXML);
+        super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-		// Load book's review when selected book changes.
+        // Load book's review when selected book changes.
         selectedBook.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();
                 return;
             }
             loadReviewPage(newValue);
-		});
+        });
 
         loadDefaultPage();
     }
@@ -55,7 +55,7 @@ public class BrowserBookPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().load(url));
     }
 
-	/**
+    /**
 	 * Loads a default HTML file with a background that matches the general theme.
 	 */
     private void loadDefaultPage() {

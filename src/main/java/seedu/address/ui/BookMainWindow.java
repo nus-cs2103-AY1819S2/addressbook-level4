@@ -21,7 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class BookMainkWindow extends UiPart<Stage> {
+public class BookMainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -30,7 +30,7 @@ public class BookMainkWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-	// Independent Ui parts residing in this Ui container
+    // Independent Ui parts residing in this Ui container
     private BookListPanel bookListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -53,7 +53,7 @@ public class BookMainkWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public BookMainkWindow(Stage primaryStage, Logic logic) {
+    public BookMainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -66,7 +66,7 @@ public class BookMainkWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-	}
+    }
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -76,14 +76,14 @@ public class BookMainkWindow extends UiPart<Stage> {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
-	/**
+    /**
 	 * Sets the accelerator of a MenuItem.
 	 * @param keyCombination the KeyCombination value of the accelerator
 	 */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
 
-		/*
+        /*
 		 * TODO: the code below can be removed once the bug reported here
 		 * https://bugs.openjdk.java.net/browse/JDK-8131666
 		 * is fixed in later version of SDK.
@@ -106,7 +106,7 @@ public class BookMainkWindow extends UiPart<Stage> {
         });
     }
 
-	/**
+    /**
 	 * Fills up all the placeholders of this window.
 	 */
     public void fillInnerParts() {
@@ -127,7 +127,7 @@ public class BookMainkWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         }
 
-	/**
+    /**
 	 * Sets the default size based on {@code guiSettings}.
 	 */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -139,7 +139,7 @@ public class BookMainkWindow extends UiPart<Stage> {
         }
     }
 
-	/**
+    /**
 	 * Opens the help window or focuses on it if it's already opened.
 	 */
     @FXML
@@ -155,7 +155,7 @@ public class BookMainkWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
-	/**
+    /**
 	 * Closes the application.
 	 */
     @FXML
@@ -171,7 +171,7 @@ public class BookMainkWindow extends UiPart<Stage> {
         return bookListPanel;
     }
 
-	/**
+    /**
 	 * Executes the command and returns the result.
 	 *
 	 * @see seedu.address.logic.Logic#execute(String)

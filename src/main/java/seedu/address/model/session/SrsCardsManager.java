@@ -1,5 +1,7 @@
 package seedu.address.model.session;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -7,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.card.Card;
-import seedu.address.model.card.SrsCard;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.user.CardSrsData;
 
@@ -16,16 +17,18 @@ import seedu.address.model.user.CardSrsData;
  */
 public class SrsCardsManager {
     private Lesson lesson;
-    private List<CardSrsData> cardData;
+    private HashMap<Integer, CardSrsData> cardData;
     private List<SrsCard> srsCards;
     private List<List<Integer>> quizInformation;
 
-    public SrsCardsManager(Lesson lesson, List<CardSrsData> cardData) {
+    public SrsCardsManager(Lesson lesson, HashMap<Integer, CardSrsData> cardData) {
+        requireAllNonNull(lesson, cardData);
         this.lesson = lesson;
         this.cardData = cardData;
     }
 
     public SrsCardsManager(List<SrsCard> srsCards, List<List<Integer>> quizInformation) {
+        requireAllNonNull(srsCards, quizInformation);
         this.quizInformation = quizInformation;
         this.srsCards = srsCards;
     }
@@ -38,20 +41,18 @@ public class SrsCardsManager {
         List<SrsCard> srsCards = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
             Card currentCard = cards.get(i);
-            SrsCard srsCard = new SrsCard();
-            for (int j = 0; j < cardData.size(); j++) {
-                if (currentCard.hashCode() == cardData.get(j).getHashCode()) {
-                    srsCard = new SrsCard(currentCard, cardData.get(j), lesson);
-                    break;
-                }
-            }
-            Instant currentsrsDueDate = srsCard.getSrsDueDate();
+            SrsCard srsCard = new SrsCard(currentCard, cardData.get(currentCard.hashCode()), lesson);
+            Instant currentSrsDueDate = srsCard.getSrsDueDate();
+            int currentSize = srsCards.size();
             if (srsCards.size() == 0) {
                 srsCards.add(srsCard);
-            }
-            for (int k = 0; k < srsCards.size(); k++) {
-                if (currentsrsDueDate.compareTo(srsCards.get(k).getSrsDueDate()) < 0) {
-                    srsCards.add(k, srsCard);
+            } else {
+                for (int k = 0; k < currentSize; k++) {
+                    if (currentSrsDueDate.compareTo(srsCards.get(k).getSrsDueDate()) < 0) {
+                        srsCards.add(k, srsCard);
+                    } else {
+                        srsCards.add(srsCard);
+                    }
                 }
             }
         }

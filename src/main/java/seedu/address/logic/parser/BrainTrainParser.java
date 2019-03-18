@@ -35,14 +35,14 @@ public class BrainTrainParser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        //        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
         //        case FindCommand.COMMAND_WORD:
         //            return new FindCommandParser().parse(arguments);
         // TODO use parser here
         case StartCommand.COMMAND_WORD:
-            return new StartCommand();
+            return new StartCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

@@ -1,8 +1,10 @@
-package seedu.address.model.card;
+package seedu.address.model.session;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Instant;
 
-import seedu.address.model.card.exceptions.MissingCoreException;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.user.CardSrsData;
 
@@ -17,6 +19,7 @@ public class SrsCard {
     private int answerIndex;
 
     public SrsCard(Card card, CardSrsData cardData, Lesson lesson) {
+        requireAllNonNull(card, cardData, lesson);
         this.card = card;
         this.cardData = cardData;
         this.lesson = lesson;
@@ -24,16 +27,19 @@ public class SrsCard {
         questionIndex = lesson.getQuestionCoreIndex();
         answerIndex = lesson.getAnswerCoreIndex();
     }
-
-    public SrsCard() {
-
-    }
-
-    public String getQuestion() throws MissingCoreException {
+    public String getQuestion() {
         return card.getCore(questionIndex);
     }
 
-    public String getAnswer() throws MissingCoreException {
+    public Card getCard() {
+        return card;
+    }
+
+    public CardSrsData getCardData() {
+        return cardData;
+    }
+
+    public String getAnswer() {
         return card.getCore(answerIndex);
     }
 
@@ -55,5 +61,10 @@ public class SrsCard {
 
     public Lesson getLesson() {
         return lesson;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        SrsCard other = (SrsCard) obj;
+        return other.getHashcode() == this.getHashcode();
     }
 }

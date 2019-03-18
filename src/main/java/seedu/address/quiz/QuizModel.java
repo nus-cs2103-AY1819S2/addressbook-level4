@@ -2,10 +2,32 @@ package seedu.address.quiz;
 
 import java.util.List;
 
+import seedu.address.model.card.exceptions.MissingCoreException;
+
 /**
  * The API of the QuizModel component.
  */
 public interface QuizModel {
+    /**
+     * Generate a list of quizCards that will be tested in quiz.
+     */
+    List<QuizCard> generateSession() throws MissingCoreException;
+
+    /**
+     * Return mode of {@code session}.
+     */
+    Quiz.Mode getMode();
+
+    /**
+     * Return card count of {@code session}.
+     */
+    int getCount();
+
+    /**
+     * Return name of {@code session}.
+     */
+    String getName();
+
     /**
      * Sets the {@code Quiz} information.
      */

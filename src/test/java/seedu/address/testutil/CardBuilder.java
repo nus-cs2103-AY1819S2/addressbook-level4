@@ -16,12 +16,14 @@ public class CardBuilder {
 
     private List<String> cores;
     private List<String> optionals;
+    private int hashcode;
 
     public CardBuilder() {
         cores = new ArrayList<>();
         optionals = new ArrayList<>();
         cores.addAll(DEFAULT_CORE);
         optionals.addAll(DEFAULT_OPTIONAL);
+        hashcode = 1;
     }
 
     /**

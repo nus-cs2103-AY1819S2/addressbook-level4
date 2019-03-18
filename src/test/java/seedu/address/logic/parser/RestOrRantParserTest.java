@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
@@ -54,6 +57,18 @@ public class RestOrRantParserTest {
         List<TableStatus> tableStatuses = new ArrayList<>();
         tableStatuses.add(table.getTableStatus());
         assertEquals(new AddTableCommand(tableStatuses), command);
+        try {
+            parser.parseCommand(Mode.TABLE_MODE, RestOrRantUtil.getTableDetails(table));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.MENU_MODE, RestOrRantUtil.getTableDetails(table));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
     }
 
     @Test
@@ -66,6 +81,18 @@ public class RestOrRantParserTest {
         codes.add(orderItem.getMenuItemCode());
         quantities.add(orderItem.getQuantity());
         assertEquals(new AddToOrderCommand(codes, quantities), command);
+        try {
+            parser.parseCommand(Mode.RESTAURANT_MODE, RestOrRantUtil.getOrderItemDetails(orderItem));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.MENU_MODE, RestOrRantUtil.getOrderItemDetails(orderItem));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
     }
 
     @Test
@@ -74,6 +101,18 @@ public class RestOrRantParserTest {
         AddItemToMenuCommand command = (AddItemToMenuCommand) parser.parseCommand(Mode.MENU_MODE,
                 RestOrRantUtil.getMenuItemDetails(menuItem));
         assertEquals(new AddItemToMenuCommand(menuItem), command);
+        try {
+            parser.parseCommand(Mode.TABLE_MODE, RestOrRantUtil.getMenuItemDetails(menuItem));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.RESTAURANT_MODE, RestOrRantUtil.getMenuItemDetails(menuItem));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
     }
 
     @Test
@@ -84,6 +123,10 @@ public class RestOrRantParserTest {
                 ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
                 ClearCommand.COMMAND_ALIAS + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
     }
 
     // TODO: keep for future use
@@ -118,6 +161,10 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
                 ExitCommand.COMMAND_ALIAS + " 3") instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
     }
 
     //    @Test
@@ -139,6 +186,10 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
                 HelpCommand.COMMAND_ALIAS + " 3") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
     }
 
     @Test
@@ -149,6 +200,10 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, HistoryCommand.COMMAND_ALIAS) instanceof HistoryCommand);
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
                 HistoryCommand.COMMAND_ALIAS + " 3") instanceof HistoryCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, HistoryCommand.COMMAND_ALIAS) instanceof HistoryCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE, HistoryCommand.COMMAND_ALIAS) instanceof HistoryCommand);
 
         try {
             parser.parseCommand(Mode.RESTAURANT_MODE, "histories");
@@ -162,6 +217,94 @@ public class RestOrRantParserTest {
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_restaurantMode() throws Exception {
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                RestaurantModeCommand.COMMAND_WORD + " 3") instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS + " 3") instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        try {
+            parser.parseCommand(Mode.RESTAURANT_MODE, RestaurantModeCommand.COMMAND_WORD);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE_CHANGE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.RESTAURANT_MODE, RestaurantModeCommand.COMMAND_ALIAS);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE_CHANGE, pe.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_tableMode() throws Exception {
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_WORD + " 3") instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS + " 3") instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.MENU_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        try {
+            parser.parseCommand(Mode.TABLE_MODE, RestaurantModeCommand.COMMAND_WORD);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE_CHANGE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.TABLE_MODE, RestaurantModeCommand.COMMAND_ALIAS);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE_CHANGE, pe.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_menuMode() throws Exception {
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_WORD + " 3") instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS + " 3") instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        try {
+            parser.parseCommand(Mode.MENU_MODE, RestaurantModeCommand.COMMAND_WORD);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE_CHANGE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.MENU_MODE, RestaurantModeCommand.COMMAND_ALIAS);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE_CHANGE, pe.getMessage());
         }
     }
 

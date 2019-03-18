@@ -86,7 +86,7 @@ public class AddLessonCommandTest {
         // null -> returns false
         assertNotEquals(addLessonDefCommand, null);
 
-        // different person -> returns false
+        // different lesson -> returns false
         assertNotEquals(addLessonDefCommand, addLessonPropCommand);
     }
 

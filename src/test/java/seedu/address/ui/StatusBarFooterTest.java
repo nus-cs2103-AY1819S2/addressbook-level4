@@ -47,7 +47,6 @@ public class StatusBarFooterTest extends GuiUnitTest {
     public void setUp() {
         StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, foodDiary, "hello");
         uiPartRule.setUiPart(statusBarFooter);
-
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
     }
 

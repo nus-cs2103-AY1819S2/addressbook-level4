@@ -32,6 +32,7 @@ import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.JsonFoodDiaryStorage;
+import seedu.address.storage.JsonPostalDataStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.RestaurantBuilder;
@@ -53,7 +54,8 @@ public class LogicManagerTest {
     public void setUp() throws Exception {
         JsonFoodDiaryStorage foodDiaryStorage = new JsonFoodDiaryStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage);
+        JsonPostalDataStorage jsonPostalDataStorage = new JsonPostalDataStorage(temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage, jsonPostalDataStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -84,7 +86,9 @@ public class LogicManagerTest {
         JsonFoodDiaryStorage foodDiaryStorage =
                 new JsonFoodDiaryIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage);
+        JsonPostalDataStorage jsonPostalDataStorage = new JsonPostalDataStorage(temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage, jsonPostalDataStorage);
+
         logic = new LogicManager(model, storage);
 
         // Execute add command

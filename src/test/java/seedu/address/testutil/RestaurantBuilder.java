@@ -43,7 +43,6 @@ public class RestaurantBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        reviews = new HashSet<>();
         tags = new HashSet<>();
         weblink = new Weblink(DEFAULT_WEBLINK);
         openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
@@ -59,7 +58,6 @@ public class RestaurantBuilder {
         phone = restaurantToCopy.getPhone();
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
-        reviews = restaurantToCopy.getReviews();
         tags = new HashSet<>(restaurantToCopy.getTags());
         weblink = restaurantToCopy.getWeblink();
         openingHours = restaurantToCopy.getOpeningHours();
@@ -88,6 +86,7 @@ public class RestaurantBuilder {
      */
     public RestaurantBuilder withReviews(String ... reviews) {
         this.reviews = SampleDataUtil.getReviewSet(reviews);
+
         return this;
     }
 

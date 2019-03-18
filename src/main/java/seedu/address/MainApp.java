@@ -24,6 +24,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.FoodDiaryStorage;
 import seedu.address.storage.JsonFoodDiaryStorage;
+import seedu.address.storage.JsonPostalDataStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -56,8 +57,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        JsonPostalDataStorage jsonPostalDataStorage = new JsonPostalDataStorage(config.getPostalDataPath());
         FoodDiaryStorage foodDiaryStorage = new JsonFoodDiaryStorage(userPrefs.getFoodDiaryFilePath());
-        storage = new StorageManager(foodDiaryStorage, userPrefsStorage);
+        storage = new StorageManager(foodDiaryStorage, userPrefsStorage, jsonPostalDataStorage);
 
         initLogging(config);
 

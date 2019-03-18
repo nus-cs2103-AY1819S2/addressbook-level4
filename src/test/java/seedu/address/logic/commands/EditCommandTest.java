@@ -78,19 +78,15 @@ public class EditCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, new EditRestaurantDescriptor());
         Restaurant editedRestaurant = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
-
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
-
         Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
         expectedModel.commitFoodDiary();
-
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_filteredList_success() {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
-
         Restaurant restaurantInFilteredList = model.getFilteredRestaurantList()
                 .get(INDEX_FIRST_RESTAURANT.getZeroBased());
         Restaurant editedRestaurant = new RestaurantBuilder(restaurantInFilteredList).withName(VALID_NAME_BOB).build();

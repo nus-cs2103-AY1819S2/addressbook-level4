@@ -33,7 +33,8 @@ public class ListUnvisitedCommandTest {
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
-        assertCommandSuccess(new ListUnvisitedCommand(), model, commandHistory, ListUnvisitedCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListUnvisitedCommand(), model, commandHistory,
+                ListUnvisitedCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

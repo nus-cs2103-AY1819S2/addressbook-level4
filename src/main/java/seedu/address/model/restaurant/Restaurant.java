@@ -69,7 +69,7 @@ public class Restaurant {
     }
 
     /**
-     * Constructor for Restaurant class with Reviews but without Optional Cuisine field.
+     * Constructor for Restaurant class with Reviews but without Category field.
      * Every field except reviews must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,

@@ -2,9 +2,12 @@ package seedu.address.model.restaurant.categories;
 
 import java.util.Optional;
 
+/**
+ * Encapsulates the categories of a restaurant.
+ */
 public class Category {
-    private Optional<Cuisine> cuisine;
-    private Optional<Occasion> occasion;
+    private final Optional<Cuisine> cuisine;
+    private final Optional<Occasion> occasion;
 
     public Category(Cuisine cuisine, Occasion occasion) {
         this.cuisine = Optional.ofNullable(cuisine);
@@ -25,18 +28,18 @@ public class Category {
 
     @Override
     public String toString() {
-        String cuisine_string;
+        String cuisineString;
         if (cuisine.isPresent()) {
-            cuisine_string = "(cuisine) " + cuisine.get().toString();
+            cuisineString = "(cuisine) " + cuisine.get().toString();
         } else {
-            cuisine_string = "";
+            cuisineString = "";
         }
-        String occasion_string;
+        String occasionString;
         if (occasion.isPresent()) {
-            occasion_string = "(occasion) " + occasion.get().toString();
+            occasionString = "(occasion) " + occasion.get().toString();
         } else {
-            occasion_string = "";
+            occasionString = "";
         }
-        return cuisine_string + " " + occasion_string;
+        return cuisineString + " " + occasionString;
     }
 }

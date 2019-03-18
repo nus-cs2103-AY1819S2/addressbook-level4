@@ -23,7 +23,8 @@ public class SetCategoryCommand extends Command {
     public static final String COMMAND_WORD = "setCategory";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets categories of the restaurant identified by the index number used in the displayed restaurant list.\n"
+            + ": Sets categories of the restaurant identified by the index number used in the displayed "
+            + "restaurant list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CUISINE + "CUISINE] "
             + "[" + PREFIX_OCCASION + "OCCASION]\n"

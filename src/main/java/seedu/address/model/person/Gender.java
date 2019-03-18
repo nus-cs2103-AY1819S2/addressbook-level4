@@ -11,7 +11,7 @@ public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Gender should only contain character, and it should only be Male or Female";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+    public static final String VALIDATION_REGEX = "[MF]"; // matches either M or F
     public final String value;
 
     /**

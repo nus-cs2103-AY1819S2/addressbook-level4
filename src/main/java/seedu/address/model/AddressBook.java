@@ -97,8 +97,10 @@ public class AddressBook implements ReadOnlyAddressBook {
             clearFilter();
             filterExist = false;
         }
+        else {
+            persons.add(p);
+        }
 
-        persons.add(p);
         indicateModified();
     }
 
@@ -221,14 +223,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         filterExist = false;
-    }
-
-    public void restoreStorageAddressBook() {
-        allPersonsStorage = new UniquePersonList();
-        for(Person person : persons) {
-            allPersonsStorage.add(person);
-        }
-        indicateModified();
     }
 
     @Override

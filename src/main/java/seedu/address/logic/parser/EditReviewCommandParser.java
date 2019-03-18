@@ -1,29 +1,30 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
-
-import java.util.stream.Stream;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddReviewCommand;
+import seedu.address.logic.commands.EditReviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
 
+import java.util.stream.Stream;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+
 /**
- * Parses input arguments and creates a new AddReviewCommand object
+ * Parses input arguments and creates a new EditReviewCommand object
  */
-public class AddReviewCommandParser implements Parser<AddReviewCommand> {
+public class EditReviewCommandParser implements Parser<EditReviewCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddReviewCommand
-     * and returns an AddReviewCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditReviewCommand
+     * and returns an EditReviewCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddReviewCommand parse(String args) throws ParseException {
+    public EditReviewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING);
 
@@ -56,5 +57,4 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

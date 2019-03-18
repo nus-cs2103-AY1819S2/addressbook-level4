@@ -1,14 +1,17 @@
 package seedu.address.storage.csvmanager;
 
-import seedu.address.model.ReadOnlyCardFolder;
-import seedu.address.model.card.Card;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.model.card.Card;
 
+
+/**
+ * Manages the importing and exporting of flashcards into model
+ */
 public class CsvManager implements CsvCommands {
 
     private static final String COMMA_DELIMITTER = ",";

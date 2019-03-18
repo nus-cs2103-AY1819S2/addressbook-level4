@@ -1,13 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.io.IOException;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.storage.csvmanager.CsvFile;
-import seedu.address.storage.csvmanager.CsvManager;
-
-import java.io.File;
-import java.io.IOException;
 
 
 /**

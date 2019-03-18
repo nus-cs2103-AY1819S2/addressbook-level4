@@ -23,32 +23,6 @@ public class TableFlowPanelTest extends GuiUnitTest {
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
     private TablesFlowPanelHandle tablesFlowPanelHandle;
 
-//    @Test TODO: Check if tables UI need these since there is nothing  to select.
-//    public void display() {
-//        initUi(TYPICAL_TABLES);
-//
-//        for (int i = 0; i < TYPICAL_TABLES.size(); i++) {
-//            tablesFlowPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-//            Person expectedPerson = TYPICAL_PERSONS.get(i);
-//            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
-//
-//            assertCardDisplaysPerson(expectedPerson, actualCard);
-//            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
-//        }
-//    }
-//
-//    @Test
-//    public void selection_modelSelectedPersonChanged_selectionChanges() {
-//        initUi(TYPICAL_PERSONS);
-//        Person secondPerson = TYPICAL_PERSONS.get(INDEX_SECOND_PERSON.getZeroBased());
-//        guiRobot.interact(() -> selectedPerson.set(secondPerson));
-//        guiRobot.pauseForHuman();
-//
-//        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-//        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
-//        assertCardEquals(expectedPerson, selectedPerson);
-//    }
-
     /**
      * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.

@@ -21,8 +21,11 @@ import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.Orders;
-import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Day;
+import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.Year;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -139,8 +142,8 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the RestOrRant, filtered order item list, filtered menu item list, filtered bill list, filtered table list <br>
-     * - and selected order item, selected menu item, selected bill, selected table <br>
+     * - the RestOrRant, filtered order item list, filtered menu item list, filtered dailyRevenue list, filtered table list <br>
+     * - and selected order item, selected menu item, selected dailyRevenue, selected table <br>
      * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Mode mode, Command command, Model actualModel,
@@ -152,12 +155,12 @@ public class CommandTestUtil {
         RestOrRant expectedRestOrRant = new RestOrRant(actualModel.getRestOrRant());
         List<OrderItem> expectedFilteredOrderItemList = new ArrayList<>(actualModel.getFilteredOrderItemList());
         List<MenuItem> expectedFilteredMenuItemList = new ArrayList<>(actualModel.getFilteredMenuItemList());
-        List<Bill> expectedFilteredBillList = new ArrayList<>(actualModel.getFilteredBillList());
+        List<DailyRevenue> expectedFilteredDailyRevenueList = new ArrayList<>(actualModel.getFilteredDailyRevenueList());
         List<Table> expectedFilteredTableList = new ArrayList<>(actualModel.getFilteredTableList());
         OrderItem expectedSelectedOrderItem = actualModel.getSelectedOrderItem();
         MenuItem expectedSelectedMenuItem = actualModel.getSelectedMenuItem();
         Table expectedSelectedTable = actualModel.getSelectedTable();
-        Bill expectedSelectedBill = actualModel.getSelectedBill();
+        DailyRevenue expectedSelectedDailyRevenue = actualModel.getSelectedDailyRevenue();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -172,12 +175,12 @@ public class CommandTestUtil {
             assertEquals(expectedFilteredOrderItemList, actualModel.getFilteredOrderItemList());
             assertEquals(expectedFilteredMenuItemList, actualModel.getFilteredMenuItemList());
             assertEquals(expectedFilteredTableList, actualModel.getFilteredTableList());
-            assertEquals(expectedFilteredBillList, actualModel.getFilteredBillList());
+            assertEquals(expectedFilteredDailyRevenueList, actualModel.getFilteredDailyRevenueList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
             assertEquals(expectedSelectedOrderItem, actualModel.getSelectedOrderItem());
             assertEquals(expectedSelectedMenuItem, actualModel.getSelectedMenuItem());
             assertEquals(expectedSelectedTable, actualModel.getSelectedTable());
-            assertEquals(expectedSelectedBill, actualModel.getSelectedBill());
+            assertEquals(expectedSelectedDailyRevenue, actualModel.getSelectedDailyRevenue());
         }
     }
 
@@ -241,17 +244,20 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the bill at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the dailyRevenue at the given {@code targetIndex} in the
      * {@code model}'s restaurant.
      */
-    public static void showBillAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredBillList().size());
+    public static void showDailyRevenueAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDailyRevenueList().size());
 
-        Bill bill = model.getFilteredBillList().get(targetIndex.getZeroBased());
-        final TableNumber tableNumber = bill.getTableNumber();
-        model.updateFilteredBillList(item -> tableNumber.equals(item.getTableNumber()));
+        DailyRevenue dailyRevenue = model.getFilteredDailyRevenueList().get(targetIndex.getZeroBased());
+        final Day day = dailyRevenue.getDay();
+        final Month month = dailyRevenue.getMonth();
+        final Year year = dailyRevenue.getYear();
+        model.updateFilteredDailyRevenueList(item -> day.equals(item.getDay()) && month.equals(item.getMonth()) &&
+                year.equals(item.getYear()));
 
-        assertEquals(1, model.getFilteredBillList().size());
+        assertEquals(1, model.getFilteredDailyRevenueList().size());
     }
 
     //    /**
@@ -288,10 +294,10 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first bill in {@code model}'s filtered list from {@code model}'s restaurant.
+     * Deletes the first dailyRevenue in {@code model}'s filtered list from {@code model}'s restaurant.
      */
-    public static void deleteFirstBill(Model model) {
-        Bill firstBill = model.getFilteredBillList().get(0);
-        model.deleteDailyRevenue(firstBill);
+    public static void deleteFirstDailyRevenue(Model model) {
+        DailyRevenue firstDailyRevenue = model.getFilteredDailyRevenueList().get(0);
+        model.deleteDailyRevenue(firstDailyRevenue);
     }
 }

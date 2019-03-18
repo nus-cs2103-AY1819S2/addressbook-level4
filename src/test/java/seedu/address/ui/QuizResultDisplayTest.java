@@ -31,5 +31,11 @@ public class QuizResultDisplayTest extends GuiUnitTest {
         guiRobot.interact(() -> quizResultDisplay.setFeedbackToUser("Dummy feedback to user"));
         guiRobot.pauseForHuman();
         assertEquals("Dummy feedback to user", quizResultDisplayHandle.getText());
+
+        // only question
+        guiRobot.interact(() -> quizResultDisplay.setFeedbackToUser("Question: Japan\n"));
+        guiRobot.pauseForHuman();
+        assertEquals("Question: Japan\nType the answer for the question above and press Enter:",
+            quizResultDisplayHandle.getText());
     }
 }

@@ -59,9 +59,9 @@ public class UniqueNricMapTest {
 
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniqueNricMap.add(ALICE.getNric(),ALICE);
+        uniqueNricMap.add(ALICE.getNric(), ALICE);
         thrown.expect(DuplicatePersonException.class);
-        uniqueNricMap.add(ALICE.getNric(),ALICE);
+        uniqueNricMap.add(ALICE.getNric(), ALICE);
     }
 
     @Test

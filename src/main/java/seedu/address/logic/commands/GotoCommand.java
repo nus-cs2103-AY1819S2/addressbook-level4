@@ -40,7 +40,7 @@ public class GotoCommand extends Command {
         if (targetIndex.getZeroBased() >= filteredRestaurantList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
-        
+
         return new CommandResult(String.format(MESSAGE_SELECT_RESTAURANT_SUCCESS, targetIndex.getOneBased()));
 
     }

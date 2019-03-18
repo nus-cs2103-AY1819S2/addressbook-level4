@@ -10,7 +10,6 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Review;
 import seedu.address.model.book.UniqueBookList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -107,14 +106,6 @@ public class BookShelf implements ReadOnlyBookShelf {
      */
     public void addBook(Book b) {
         books.add(b);
-        indicateModified();
-    }
-
-    /**
-     * Adds a review to the book.
-     * The book must already exist in the book shelf.
-     */
-    public void addReview(Review toadd, Book bookForReview) {
         indicateModified();
     }
 

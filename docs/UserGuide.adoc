@@ -68,25 +68,28 @@ Examples:
 === Adding a book review: `addReview`
 
 Adds a book review to a certain book in the book list +
-Format: `addReview n/BOOKNAME a/AUTHOR r/REVIEW
+
+Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE
 
 Examples:
 
-* `addReview n/Alice in Wonderland a/Lewis Caroll r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
-* `addReview n/Structure and Interpretation of Computer Programs a/H Abelson r/A very difficult book:(`
+* `addReview n/Alice in Wonderland rt/An interesting child book r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
+* `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
+
 
 === Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
-Format: `listBook [n/NAME] [t/TAG] [m/RATING]`
+Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Only books match all the search criteria will be returned
-* If no search criteria given, the command will give the complete list of books
-* For name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
+* If no search criteria given, the command will give the complete list of the books
+* For book name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
+* For author name searching, books whose author name matching at least one keyword will be returned. e.g. `James` will return books whose author name is `Henry James`
 * For tag searching, books containing at least one tag will be returned. e.g. `computer` will return `Computer Organisation`, `Computer Networks`
 * For rating search, books whose rating are included will be returned.
 ****
@@ -155,19 +158,19 @@ Deletes the entry of Alice in Wonderland.
 === Deleting a book review: `deleteReview`
 
 Deletes the review of the specified book from the review list. +
-Format: `deleteReview INDEX`
+Format: `deleteReview rt/REVIEW TITLE`
 
 ****
-* Deletes of the book at the specified `INDEX`.
-* The index refers to the index number shown in the displayed review list.
-* The index must be a positive integer 1, 2, 3, …​
+* Deletes of the book with the specified REVIEW TITLE.
+* The REVIEW TITLE must only contain alphanumeric characters
+* and exist in the review list.
 ****
 
 Examples:
 
 * `listReview n/Alice in Wonderland` +
-`deleteReview 2` +
-Deletes the 2nd review of Alice in Wonderland.
+`deleteReview rt/An interesting children's book` +
+Deletes the review with the title "An interesting children's book"
 
 === Listing entered commands : `history`
 
@@ -265,7 +268,7 @@ e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff a
 * *Clear* : `clear`
 * *DeleteBook* : `deleteBook n/BOOKNAME` +
 e.g. `deleteBook n/Alice in Wonderland`
-* *DeleteReview* : `deleteReview INDEX`
+* *DeleteReview* : `deleteReview rt/REVIEW TITLE`
 * *EditBook* : `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...` +
 e.g. `edit n/Alice in Wonderland a/some author`
 * *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +

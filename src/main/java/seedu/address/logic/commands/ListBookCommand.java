@@ -16,10 +16,10 @@ public class ListBookCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": list all books whose tags and rating match"
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: [t/TAGS]...[m/RATING]\n"
+            + "Parameters: [n/BOOKNAME]...[a/AUTHOR]...[t/TAGS]...[m/RATING]...\n"
             + "Example: " + COMMAND_WORD + " t/textbook m/5";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons satisfy the requirement";
+    public static final String MESSAGE_SUCCESS = "Listed all books satisfy the requirement";
 
     private final BookListFilterPredicate predicate;
 

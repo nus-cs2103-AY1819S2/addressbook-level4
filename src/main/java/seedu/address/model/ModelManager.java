@@ -16,7 +16,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Review;
 import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -133,12 +132,6 @@ public class ModelManager implements Model {
     @Override
     public void addBook(Book book) {
         versionedBookShelf.addBook(book);
-        updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
-    }
-
-    @Override
-    public void addReview(Review toAdd, Book bookForReview) {
-        versionedBookShelf.addReview(toAdd, bookForReview);
         updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
     }
 

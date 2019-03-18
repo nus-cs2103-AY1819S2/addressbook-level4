@@ -54,6 +54,7 @@ public class BookUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(ListBookCommand.COMMAND_WORD + " ");
         sb.append(PREFIX_NAME + book.getBookName().fullName + " ");
+        sb.append(PREFIX_AUTHOR + book.getAuthor().fullName + " ");
         book.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " "));
         sb.append(PREFIX_RATING + book.getRating().value + " ");

@@ -7,15 +7,18 @@ import java.util.function.Predicate;
  * Tests that a {@code Book}'s {@code BookRating} match the given score.
  */
 public class BookRatingMatchesScorePredicate implements Predicate<Book> {
-    private final List<String> keyWords;
+    private final List<String> keywords;
 
-    public BookRatingMatchesScorePredicate(List<String> keyWords) {
-        this.keyWords = keyWords;
+    public BookRatingMatchesScorePredicate(List<String> keywords) {
+        this.keywords = keywords;
     }
 
     @Override
     public boolean test(Book book) {
-        return keyWords.stream()
+        if (keywords.isEmpty()) {
+            return true;
+        }
+        return keywords.stream()
                 .anyMatch(x -> x.equals(book.getRating().value));
     }
 
@@ -23,7 +26,7 @@ public class BookRatingMatchesScorePredicate implements Predicate<Book> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookRatingMatchesScorePredicate // instanceof handles nulls
-                && keyWords.containsAll(((BookRatingMatchesScorePredicate) other).keyWords)
-                && ((BookRatingMatchesScorePredicate) other).keyWords.containsAll(keyWords)); // state check
+                && keywords.containsAll(((BookRatingMatchesScorePredicate) other).keywords)
+                && ((BookRatingMatchesScorePredicate) other).keywords.containsAll(keywords)); // state check
     }
 }

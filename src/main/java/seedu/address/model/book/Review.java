@@ -8,34 +8,57 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * A review.
+ * A book review.
  */
 public class Review {
     public final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public final ReviewTitle title;
     public final String reviewMessage;
     public final String dateCreated;
 
     /**
      * Constructs a {@code Review}.
      *
+     * @param title the title of the review.
      * @param message the content of the review.
      */
-    public Review(String message) {
+    public Review(ReviewTitle title, String message) {
         requireNonNull(message);
+        requireNonNull(title);
+        this.title = title;
         reviewMessage = message;
         dateCreated = dateFormat.format(new Date());
     }
 
+    /**
+     * Constructs a {@code Review}.
+     *
+     * @param title the title of the review.
+     * @param date the date of the review.
+     * @param message the content of the review.
+     */
+    public Review(ReviewTitle title, String date, String message) {
+        requireNonNull(message);
+        requireNonNull(title);
+        this.title = title;
+        reviewMessage = message;
+        dateCreated = date;
+    }
+
+    public ReviewTitle getTitle() {
+        return title;
+    }
+
     @Override
     public String toString() {
-        return dateCreated + ": \r\n" + reviewMessage;
+        return title.fullName + "\r\n" + dateCreated + ": \r\n" + reviewMessage;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Rating // instanceof handles nulls
-                && dateCreated.equals(((Review) other).dateCreated)
+                || (other instanceof Review // instanceof handles nulls
+                && title.equals(((Review) other).title)
                 && reviewMessage.equals(((Review) other).reviewMessage)); // state check
     }
 

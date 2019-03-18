@@ -36,24 +36,24 @@ public class SearchCommandTest {
         QuestionContainsKeywordsPredicate secondPredicate =
                 new QuestionContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        SearchCommand findFirstCommand = new SearchCommand(firstPredicate);
-        SearchCommand findSecondCommand = new SearchCommand(secondPredicate);
+        SearchCommand searchFirstCommand = new SearchCommand(firstPredicate);
+        SearchCommand searchSecondCommand = new SearchCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertTrue(searchFirstCommand.equals(searchFirstCommand));
 
         // same values -> returns true
         SearchCommand findFirstCommandCopy = new SearchCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        assertTrue(searchFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertFalse(searchFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(searchFirstCommand.equals(null));
 
         // different card -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertFalse(searchFirstCommand.equals(searchSecondCommand));
     }
 
     @Test

@@ -8,8 +8,6 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -37,7 +35,6 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalCards;
-import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -184,7 +181,7 @@ public abstract class CardFolderSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        getBrowserPanel().rememberQuestion();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getCardListPanel().rememberSelectedCardCard();
@@ -193,40 +190,34 @@ public abstract class CardFolderSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
      * default page.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see BrowserPanelHandle#isQuestionChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals("", getBrowserPanel().getCurrentQuestion());
         assertFalse(getCardListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the browser's url is changed to display the details of the card in the card list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see BrowserPanelHandle#isQuestionChanged()
      * @see CardListPanelHandle#isSelectedCardCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCardListPanel().navigateToCard(getCardListPanel().getSelectedCardIndex());
-        String selectedCardQuestion = getCardListPanel().getHandleToSelectedCard().getQuestion();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardQuestion.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+        String expectedCardQuestion = getCardListPanel().getHandleToSelectedCard().getQuestion();
+        assertEquals(expectedCardQuestion, getBrowserPanel().getCurrentQuestion());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getCardListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the card list panel remain unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see BrowserPanelHandle#isQuestionChanged()
      * @see CardListPanelHandle#isSelectedCardCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getBrowserPanel().isQuestionChanged());
         assertFalse(getCardListPanel().isSelectedCardCardChanged());
     }
 
@@ -272,7 +263,7 @@ public abstract class CardFolderSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCardListPanel(), getModel().getFilteredCards());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals("", getBrowserPanel().getCurrentQuestion());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

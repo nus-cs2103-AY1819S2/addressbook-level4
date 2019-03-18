@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -93,6 +94,9 @@ public class ModelManager implements Model {
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
+        return filteredCardsList.get(activeCardFolderIndex);
+    }
+    private ObservableList<Card> getActiveObservableCards() {
         return filteredCardsList.get(activeCardFolderIndex);
     }
 
@@ -274,11 +278,17 @@ public class ModelManager implements Model {
         return getActiveFilteredCards();
     }
 
+
     @Override
     public void updateFilteredCard(Predicate<Card> predicate) {
         requireNonNull(predicate);
         FilteredList<Card> filteredCards = getActiveFilteredCards();
         filteredCards.setPredicate(predicate);
+    }
+    @Override
+    public void sortFilteredCard(Comparator<Card> cardComparator) {
+        requireNonNull(cardComparator);
+        foldersList.get(activeCardFolderIndex).sortCards(cardComparator);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -316,9 +326,9 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder(ReadOnlyCardFolder cardFolderToTest) {
-        //TODO: Remove hardcoding, enter card folder and get the list of cards, enter test session mode
-        Card cardToTest = cardFolderToTest.getCardList().get(0);
+    public void testCardFolder(int cardFolderToTestIndex) {
+        ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
+        Card cardToTest = currentTestedCardFolder.get(0);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
     }
@@ -341,6 +351,7 @@ public class ModelManager implements Model {
         insideTestSession = false;
         cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
+        //TODO: exit card folder
     }
 
     @Override
@@ -404,14 +415,14 @@ public class ModelManager implements Model {
             boolean wasSelectedCardReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedCard.getValue());
             if (wasSelectedCardReplaced) {
-                // Update selectedCard to its new fullAnswer.
+                // Update selectedCard to its new value.
                 int index = change.getRemoved().indexOf(selectedCard.getValue());
                 selectedCard.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
             boolean wasSelectedCardRemoved = change.getRemoved().stream()
-                    .anyMatch(removedCard -> selectedCard.getValue().isSameCard(removedCard));
+                    .anyMatch(removedCard -> selectedCard.getValue().equals(removedCard));
             if (wasSelectedCardRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.

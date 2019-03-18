@@ -37,7 +37,6 @@ public class MainWindow extends UiPart<Stage> {
     private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private TestSession testSessionScreen;
     private CardMainScreen cardMainScreen;
 
     @FXML
@@ -80,8 +79,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
-     *
-     * @param keyCombination the KeyCombination fullAnswer of the accelerator
+     * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
@@ -121,9 +119,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        testSessionScreen = new TestSession();
-        fullScreenPlaceholder.getChildren().add(testSessionScreen.getRoot());
 
         browserPanel = new BrowserPanel(logic.selectedCardProperty());
         cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),

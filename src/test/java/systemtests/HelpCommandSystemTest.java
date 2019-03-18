@@ -45,7 +45,7 @@ public class HelpCommandSystemTest extends CardFolderSystemTest {
 
         getBrowserPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        assertHelpWindowOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
@@ -64,7 +64,7 @@ public class HelpCommandSystemTest extends CardFolderSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertNotEquals(BrowserPanel.DEFAULT_CARD_PAGE, getBrowserPanel().getCurrentQuestion());
         assertListMatching(getCardListPanel(), getModel().getFilteredCards());
 
         // assert that the status bar too is updated correctly while the help window is open

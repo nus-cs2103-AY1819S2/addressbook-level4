@@ -30,7 +30,7 @@ public abstract class Statistics {
      * @return incremented hitCount
      */
     public int addHit() {
-        return this.hitCount++;
+        return ++this.hitCount;
     }
 
     /**
@@ -39,7 +39,7 @@ public abstract class Statistics {
      */
     public int addMiss() {
         int miss = this.missCount;
-        return miss++;
+        return ++miss;
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class Statistics {
      * @return the decremented number of moves
      */
     public int minusMove() {
-        return this.movesLeft--;
+        return --this.movesLeft;
     }
 
     public int getMovesLeft() {

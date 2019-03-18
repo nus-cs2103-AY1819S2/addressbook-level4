@@ -89,6 +89,6 @@ public class DeleteLessonCommand implements Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteLessonCommand // instanceof handles nulls
-                && targetIndex == ((DeleteLessonCommand) other).targetIndex);
+                && targetIndex.getZeroBased() == ((DeleteLessonCommand) other).targetIndex.getZeroBased());
     }
 }

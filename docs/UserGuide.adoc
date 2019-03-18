@@ -373,8 +373,6 @@ e.g. `label 1 Paracetamol`
 * *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Sort* : `sort c/CRITERIA o/ORDER` +
-e.g.`sort c/quantity o/ascending`
 * *Undo* : `undo`
 * *Update* : `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]` +
 e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`

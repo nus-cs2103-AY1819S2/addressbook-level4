@@ -33,7 +33,7 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
-    private final FilteredList<? extends ListItem> filteredItems;
+    private FilteredList<? extends ListItem> filteredItems;
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
     private ViewState viewState;
 
@@ -50,6 +50,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
         // viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
+        // TODO: move filteredItems into viewState
         filteredItems = ((DecksView) viewState).filteredDecks;
         // filteredItems = ((CardsView) viewState).filteredCards;
     }
@@ -62,13 +63,20 @@ public class ModelManager implements Model {
         return viewState.parse(commandWord, arguments);
     }
 
-    // TODO: implement proper state transitions (e.g. enter/exit deck)
-    public void setViewState(ViewState newViewState) {
-        viewState = newViewState;
+    public void changeDeck(Deck deck) {
+        // viewState = new CardsView(this, new FilteredList<>(deck.getCards().internalList));
+        // TODO: change this to above after migrating global cards list
+        viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
+
+        filteredItems = ((CardsView) viewState).filteredCards;
+        setSelectedItem(null);
     }
 
-    public ViewState getViewState() {
-        return viewState;
+    @Override
+    public void goToDecksView() {
+        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
+        filteredItems = ((DecksView) viewState).filteredDecks;
+        setSelectedItem(null);
     }
 
     //=========== UserPrefs ==================================================================================

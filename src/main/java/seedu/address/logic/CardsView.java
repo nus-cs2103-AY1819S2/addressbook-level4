@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddCardCommand;
+import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -43,6 +44,8 @@ public class CardsView implements ViewState {
                 return new EditCommandParser().parse(arguments);
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
+            case BackCommand.COMMAND_WORD:
+                return new BackCommand();
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

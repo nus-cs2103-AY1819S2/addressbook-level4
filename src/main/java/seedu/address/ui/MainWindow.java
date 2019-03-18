@@ -18,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.logic.commands.HelpCommandResult;
+import seedu.address.logic.commands.UpdatePanelCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -182,8 +183,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult instanceof HelpCommandResult) {
+            if (commandResult instanceof UpdatePanelCommandResult) {
+                cardListPanel = new CardListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
+                personListPanelPlaceholder.getChildren().clear();
+                personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+            } else if (commandResult instanceof HelpCommandResult) {
                 handleHelp();
             } else if (commandResult instanceof ExitCommandResult) {
                 handleExit();

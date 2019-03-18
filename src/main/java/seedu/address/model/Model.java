@@ -149,5 +149,7 @@ public interface Model {
 
     Command parse(String commandWord, String arguments) throws ParseException;
 
-    public ViewState getViewState();
+    void changeDeck(Deck deck);
+
+    void goToDecksView();
 }

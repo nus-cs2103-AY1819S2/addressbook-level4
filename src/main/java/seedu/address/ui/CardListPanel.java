@@ -34,7 +34,7 @@ public class CardListPanel extends UiPart<Region> {
         });
 
         cardListView.setItems(list);
-        cardListView.setCellFactory(listView -> new CardListViewCell());
+        cardListView.setCellFactory(cardListView -> new CardListViewCell());
 
         selectedItem.addListener((observable, oldValue, newValue) -> {
             logger.info("Selected item changed to: " + newValue);

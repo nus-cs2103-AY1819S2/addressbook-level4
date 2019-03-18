@@ -1,11 +1,13 @@
 {
   "places": [ {
     "name": "Valid Place",
+    "countryCode" : "SGP",
     "rating": "4",
     "description": "No description",
     "address": "4th street"
   }, {
     "name": "Place With Invalid Rating Field",
+    "countryCode" : "SGP",
     "rating": "9",
     "description": "No description",
     "address": "4th street"

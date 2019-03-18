@@ -1,6 +1,7 @@
 {
   "places": [ {
     "name": "National Museum of Singapore",
+    "countryCode" : "SGP",
     "rating": "2",
     "description": "#Invalid description",
     "address": "4th street"

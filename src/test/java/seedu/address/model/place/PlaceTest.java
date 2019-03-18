@@ -3,6 +3,7 @@ package seedu.address.model.place;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_AMERICA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
@@ -76,6 +77,10 @@ public class PlaceTest {
 
         // different name -> returns false
         Place editedAlice = new PlaceBuilder(ALICE).withName(VALID_NAME_BEDOK).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different country code -> returns false
+        editedAlice = new PlaceBuilder(ALICE).withCountryCode(VALID_COUNTRY_CODE_AMERICA).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different rating -> returns false

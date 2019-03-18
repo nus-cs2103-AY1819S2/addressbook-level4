@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
@@ -31,6 +32,7 @@ public class PlaceUtil {
     public static String getPlaceDetails(Place place) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + place.getName().fullName + " ");
+        sb.append(PREFIX_COUNTRY_CODE + place.getCountryCode().code + " ");
         sb.append(PREFIX_RATING + place.getRating().value + " ");
         sb.append(PREFIX_DESCRIPTION + place.getDescription().value + " ");
         sb.append(PREFIX_ADDRESS + place.getAddress().value + " ");
@@ -46,6 +48,8 @@ public class PlaceUtil {
     public static String getEditPlaceDescriptorDetails(EditPlaceDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getCountryCode().ifPresent(countryCode -> sb.append(PREFIX_COUNTRY_CODE)
+            .append(countryCode.code).append(" "));
         descriptor.getRating().ifPresent(rating -> sb.append(PREFIX_RATING).append(rating.value).append(" "));
         descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description.value)
                 .append(" "));

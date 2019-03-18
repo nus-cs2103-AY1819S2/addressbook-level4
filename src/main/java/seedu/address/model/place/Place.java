@@ -17,6 +17,7 @@ public class Place {
 
     // Identity fields
     private final Name name;
+    private final CountryCode countryCode;
     private final Rating rating;
     private final Description description;
 
@@ -27,9 +28,11 @@ public class Place {
     /**
      * Every field must be present and not null.
      */
-    public Place(Name name, Rating rating, Description description, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, rating, description, address, tags);
+    public Place(Name name, CountryCode countryCode, Rating rating, Description description, Address address,
+        Set<Tag> tags) {
+        requireAllNonNull(name, countryCode, rating, description, address, tags);
         this.name = name;
+        this.countryCode = countryCode;
         this.rating = rating;
         this.description = description;
         this.address = address;
@@ -38,6 +41,10 @@ public class Place {
 
     public Name getName() {
         return name;
+    }
+
+    public CountryCode getCountryCode() {
+        return countryCode;
     }
 
     public Rating getRating() {
@@ -88,6 +95,7 @@ public class Place {
 
         Place otherPlace = (Place) other;
         return otherPlace.getName().equals(getName())
+                && otherPlace.getCountryCode().equals(getCountryCode())
                 && otherPlace.getRating().equals(getRating())
                 && otherPlace.getDescription().equals(getDescription())
                 && otherPlace.getAddress().equals(getAddress())
@@ -97,13 +105,15 @@ public class Place {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, rating, description, address, tags);
+        return Objects.hash(name, countryCode, rating, description, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Country Code: ")
+                .append(getCountryCode())
                 .append(" Rating: ")
                 .append(getRating())
                 .append(" Description: ")

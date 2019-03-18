@@ -13,12 +13,14 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteMultipleCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.GenerateCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SearchRatingCommand;
+import seedu.address.logic.commands.SearchTagsCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -80,6 +82,9 @@ public class AddressBookParser {
         case SearchRatingCommand.COMMAND_WORD:
             return new SearchRatingCommandParser().parse(arguments);
 
+        case SearchTagsCommand.COMMAND_WORD:
+            return new SearchTagsCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:
             return new ListCommand();
@@ -87,6 +92,10 @@ public class AddressBookParser {
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:
             return new HistoryCommand();
+
+        case GenerateCommand.COMMAND_WORD:
+        case GenerateCommand.COMMAND_ALIAS:
+            return new GenerateCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

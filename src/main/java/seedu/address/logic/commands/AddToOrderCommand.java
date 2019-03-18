@@ -19,7 +19,7 @@ import seedu.address.model.table.TableNumber;
 /**
  * Adds an order to Orders.
  */
-public class AddOrderCommand extends Command {
+public class AddToOrderCommand extends Command {
 
     public static final String COMMAND_WORD = "addToOrder";
 
@@ -35,9 +35,9 @@ public class AddOrderCommand extends Command {
     private final List<Integer> itemQuantities;
 
     /**
-     * Creates an AddOrderCommand to add order items specified by the item codes and quantities.
+     * Creates an AddToOrderCommand to add order items specified by the item codes and quantities.
      */
-    public AddOrderCommand(List<Code> itemCodes, List<Integer> itemQuantities) {
+    public AddToOrderCommand(List<Code> itemCodes, List<Integer> itemQuantities) {
         requireAllNonNull(itemCodes, itemQuantities);
         this.itemCodes = itemCodes;
         this.itemQuantities = itemQuantities;
@@ -71,8 +71,8 @@ public class AddOrderCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddOrderCommand // instanceof handles nulls
-                && itemCodes.equals(((AddOrderCommand) other).itemCodes) && itemQuantities
-                .equals(((AddOrderCommand) other).itemQuantities));
+                || (other instanceof AddToOrderCommand // instanceof handles nulls
+                && itemCodes.equals(((AddToOrderCommand) other).itemCodes) && itemQuantities
+                .equals(((AddToOrderCommand) other).itemQuantities));
     }
 }

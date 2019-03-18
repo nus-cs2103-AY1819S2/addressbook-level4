@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TABLES;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
 import static seedu.address.testutil.TypicalRestOrRant.CHICKEN_WINGS;
 import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W12;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -201,7 +201,7 @@ public class ModelManagerTest {
         modelManager.addTable(TABLE1);
         assertEquals(Collections.singletonList(TABLE1), modelManager.getFilteredTableList());
         modelManager.setSelectedTable(TABLE1);
-        assertEquals(TABLE1, modelManager.getSelectedTable(TABLE1));
+        assertEquals(TABLE1, modelManager.getSelectedTable());
     }
 
     @Test
@@ -265,7 +265,7 @@ public class ModelManagerTest {
         modelManager.addOrderItem(TABLE1_W09);
         assertEquals(Collections.singletonList(TABLE1_W09), modelManager.getFilteredOrderItemList());
         modelManager.setSelectedOrderItem(TABLE1_W09);
-        assertEquals(TABLE1_W09, modelManager.getSelectedOrderItem(TABLE1_W09));
+        assertEquals(TABLE1_W09, modelManager.getSelectedOrderItem());
     }
 
     @Test
@@ -329,13 +329,16 @@ public class ModelManagerTest {
         modelManager.addMenuItem(CHICKEN_WINGS);
         assertEquals(Collections.singletonList(CHICKEN_WINGS), modelManager.getFilteredMenuItemList());
         modelManager.setSelectedMenuItem(CHICKEN_WINGS);
-        assertEquals(CHICKEN_WINGS, modelManager.getSelectedMenuItem(CHICKEN_WINGS));
+        assertEquals(CHICKEN_WINGS, modelManager.getSelectedMenuItem());
     }
 
     @Test
     public void equals() {
-        RestOrRant restOrRant = new RestOrRantBuilder().withTable(TABLE1).withTable(TABLE2)
-                .withMenuItem(CHICKEN_WINGS).withOrderItem(TABLE1_W09).build();
+        RestOrRant restOrRant = new RestOrRantBuilder().withTable(TABLE1)
+                .withTable(TABLE2)
+                .withMenuItem(CHICKEN_WINGS)
+                .withOrderItem(TABLE1_W09)
+                .build();
         RestOrRant differentRestOrRant = new RestOrRant();
         UserPrefs userPrefs = new UserPrefs();
 

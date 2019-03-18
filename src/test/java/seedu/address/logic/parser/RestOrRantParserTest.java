@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.AddItemToMenuCommand;
-import seedu.address.logic.commands.AddOrderCommand;
+import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -57,15 +57,15 @@ public class RestOrRantParserTest {
     }
 
     @Test
-    public void parseCommand_addOrderItem() throws Exception {
+    public void parseCommand_addToOrder() throws Exception {
         OrderItem orderItem = new OrderItemBuilder().build();
-        AddOrderCommand command = (AddOrderCommand) parser.parseCommand(Mode.TABLE_MODE,
+        AddToOrderCommand command = (AddToOrderCommand) parser.parseCommand(Mode.TABLE_MODE,
                 RestOrRantUtil.getOrderItemDetails(orderItem));
         List<Code> codes = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
         codes.add(orderItem.getMenuItemCode());
         quantities.add(orderItem.getQuantity());
-        assertEquals(new AddOrderCommand(codes, quantities), command);
+        assertEquals(new AddToOrderCommand(codes, quantities), command);
     }
 
     @Test

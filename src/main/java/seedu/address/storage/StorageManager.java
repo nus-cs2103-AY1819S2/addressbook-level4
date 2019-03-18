@@ -175,7 +175,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveStatistics(ReadOnlyStatistics stats) throws IOException {
-        saveStatistics(stats, ordersStorage.getOrdersFilePath());
+        saveStatistics(stats, statsStorage.getStatisticsFilePath());
     }
 
     @Override

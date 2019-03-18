@@ -17,16 +17,18 @@ class JsonAdaptedBill {
 
     private final String tableNumber;
     private final String totalBill;
+    private final String receipt;
 
     /**
      * Constructs a {@code JsonAdaptedBill} with the given bill details.
      */
     @JsonCreator
     public JsonAdaptedBill(@JsonProperty("tableNumber") String tableNumber,
-            @JsonProperty("totalBill") String totalBill) {
+            @JsonProperty("totalBill") String totalBill,
+            @JsonProperty("receipt") String receipt) {
         this.tableNumber = tableNumber;
-        //this.date = date;
         this.totalBill = totalBill;
+        this.receipt = receipt;
     }
 
     /**
@@ -34,8 +36,9 @@ class JsonAdaptedBill {
      */
     public JsonAdaptedBill(Bill source) {
         tableNumber = String.valueOf(source.getTableNumber());
-        //date = String.valueOf(source.getFormattedDate());
         totalBill = String.valueOf(source.getTotalBill());
+        receipt = String.valueOf(source.getReceipt());
+
     }
 
     /**
@@ -53,10 +56,9 @@ class JsonAdaptedBill {
         }
 
         final TableNumber modelTableNumber = new TableNumber(tableNumber);
-        //final Date modelDate = new Date();
         final float modelBill = Float.parseFloat(totalBill);
 
-        return new Bill(modelTableNumber, modelBill);
+        return new Bill(modelTableNumber, modelBill, receipt);
     }
 
 }

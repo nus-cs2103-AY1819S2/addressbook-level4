@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -23,6 +24,7 @@ public interface Model {
     Predicate<MenuItem> PREDICATE_SHOW_ALL_MENU_ITEMS = unused -> true;
     Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
     Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
+    Predicate<DailyRevenue> PREDICATE_SHOW_ALL_DAILY_REVENUE = unused -> true;
 
     /**
      * Returns the user prefs.
@@ -249,25 +251,86 @@ public interface Model {
     void setSelectedOrderItem(OrderItem orderItem);
 
     /**
-     * Returns the selected bill in the filtered bill list.
-     * null if no bill is selected.
-     */
-    Bill getSelectedBill();
-
-    /**
-     * Sets the selected bill in the filtered bill list.
-     */
-    void setSelectedBill(Bill bill);
-
-    /**
      * Notifies the listeners that the RestOrRant orders has been modified to update the storage.
      */
     void updateOrders();
 
     /**
-     * Get the Bill list
+     * Returns true if a daily revenue with the same identity as {@code dailyRevenue} exists in the statistics.
      */
-    ObservableList<Bill> getBillList();
+    boolean hasDailyRevenue(DailyRevenue dailyRevenue);
+
+    /**
+     * Deletes the given daily revenue item from Statistics.
+     * The daily revenue must exist in the RestOrRant's Statistics.
+     */
+    void deleteDailyRevenue(DailyRevenue target);
+
+    /**
+     * Adds the given daily revenue to the daily revenue list.
+     */
+    void addDailyRevenue(DailyRevenue dailyRevenue);
+
+    /**
+     * Replaces the given daily revenue {@code target} with {@code editedDailyRevenue}.
+     * {@code target} must exist in the daily revenue list.
+     */
+    void setDailyRevenue(DailyRevenue target, DailyRevenue editedDailyRevenue);
+
+    /**
+     * Returns an unmodifiable view of the filtered daily revenue list
+     */
+    ObservableList<DailyRevenue> getFilteredDailyRevenueList();
+
+    /**
+     * Updates the filter of the filtered daily revenue list to filter by the given {@code predicate}
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate);
+
+    /**
+     * Selected daily revenue in the daily revenue list.
+     * null if no daily revenue is selected.
+     */
+    ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty();
+
+    /**
+     * Returns the selected daily revenue in the filtered daily revenue list.
+     * null if no DailyRevenue is selected.
+     */
+    DailyRevenue getSelectedDailyRevenue();
+
+    /**
+     * Sets the selected dailyRevenue in the filtered daily revenue list.
+     */
+    void setSelectedDailyRevenue(DailyRevenue dailyRevenue);
+
+    /**
+     * Get the DailyRevenue list
+     */
+    ObservableList<DailyRevenue> getDailyRevenueList();
+
+    /**
+     * Recent bill.
+     * null if no bill is selected.
+     */
+    ReadOnlyProperty<Bill> recentBillProperty();
+
+    /**
+     * Gets the recent Bill.
+     */
+    Bill getRecentBill();
+
+    /**
+     * Sets the selected Bill to be the recent bill.
+     */
+    void setRecentBill(Bill bill);
+
+    /**
+     * Notifies the listeners that the RestOrRant statistics has been modified to update the storage.
+     */
+    void updateStatistics();
 
     /**
      * Returns true if a menu item with the same identity as {@code menuItem} exists in the menu.

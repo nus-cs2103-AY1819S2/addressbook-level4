@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuBrowserPanel menuBrowserPanel;
     private BillBrowserPanel billBrowserPanel;
     private TableFlowPanel tableFlowPanel;
+    private StatisticsFlowPanel statisticsFlowPanel;
     private StatusBarFooter statusBarFooter;
 
     @FXML
@@ -231,10 +232,24 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case BILL_MODE:
-            billBrowserPanel = new BillBrowserPanel(logic.selectedBillProperty());
+            billBrowserPanel = new BillBrowserPanel(logic.getRecentBill(), logic.recentBillProperty(),
+                    logic::setRecentBill);
             browserPlaceholder.getChildren().add(billBrowserPanel.getRoot());
 
             statusBarFooter.updateMode("Bill Mode");
+            break;
+
+        case STATISTICS_MODE:
+            //TODO: add different cases for the monthly, yearly statistics
+            statisticsFlowPanel = new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true,
+                    false, false);
+            browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+
+            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                    logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+
+            statusBarFooter.updateMode("Statistics Mode");
             break;
 
         default:

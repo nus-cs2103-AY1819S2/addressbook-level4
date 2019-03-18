@@ -34,6 +34,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_PROFESSOR;
+import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_SDE;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.RACE_DESC_AMY;
@@ -46,6 +47,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_KNOWNPROGLANG_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -119,28 +122,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + JOBSAPPLY_DESC_ENGINEER;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a person with new values same as another person's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
-        index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + PASTJOB_DESC_PROFESSOR + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
-                + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
-        assertCommandSuccess(command, index, editedPerson);
-
-        /* Case: edit a person with new values same as another person's values but with different phone and email
-         * -> edited
-         */
-        index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB + INTERVIEWSCORES_DESC_BOB
-                + JOBSAPPLY_DESC_ENGINEER;
-        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
-        assertCommandSuccess(command, index, editedPerson);
-
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
@@ -181,7 +162,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + JOBSAPPLY_DESC_TRADER;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
-        assertCommandSuccess(command, index, AMY, index);
+        editedPerson = new PersonBuilder(AMY).build();
+        assertCommandSuccess(command, index, editedPerson, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -275,7 +257,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
                 + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
-                + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;;
+                + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different tags -> rejected */

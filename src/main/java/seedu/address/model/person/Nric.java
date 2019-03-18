@@ -28,11 +28,12 @@ public class Nric {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid NRIC.
      */
     public static boolean isValidNric(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
 
     @Override
     public String toString() {

@@ -8,6 +8,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueNricMap;
 import seedu.address.model.person.UniquePersonList;
 
 
@@ -15,8 +16,9 @@ import seedu.address.model.person.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class    AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueNricMap nrics;
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -29,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        nrics = new UniqueNricMap();
     }
 
     public AddressBook() {}
@@ -49,6 +52,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        this.nrics.setNricMap(persons);
         indicateModified();
     }
 
@@ -77,6 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        nrics.add(p.getNric(),p);
         indicateModified();
     }
 
@@ -89,6 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        nrics.setPerson(target,editedPerson);
         indicateModified();
     }
 
@@ -98,6 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        nrics.remove(key.getNric());
         indicateModified();
     }
 
@@ -140,7 +147,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return nrics.hashCode();
     }
 }
 

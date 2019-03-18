@@ -25,6 +25,8 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
+import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.exception.DailyRevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.exceptions.TableNotFoundException;
@@ -47,6 +49,8 @@ public class ModelManagerTest {
         assertEquals(null, modelManager.getSelectedOrderItem());
         assertEquals(null, modelManager.getSelectedMenuItem());
         assertEquals(null, modelManager.getSelectedTable());
+        assertEquals(null, modelManager.getSelectedDailyRevenue());
+        assertEquals(null, modelManager.getRecentBill());
     }
 
     @Test
@@ -333,11 +337,76 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasDailyRevenue_nullDailyRevenue_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasDailyRevenue(null);
+    }
+
+    @Test
+    public void hasDailyRevenue_dailyRevenueNotInDailyRevenues_returnsFalse() {
+        assertFalse(modelManager.hasDailyRevenue(DAILY_REVENUE1));
+    }
+
+    @Test
+    public void hasDailyRevenue_dailyRevenueInDailyRevenues_returnsTrue() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        assertTrue(modelManager.hasDailyRevenue(DAILY_REVENUE1));
+    }
+
+    @Test
+    public void deleteDailyRevenue_dailyRevenueIsSelectedAndFirstDailyRevenueInFilteredDailyRevenuesList_selectionCleared() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
+        modelManager.deleteDailyRevenue(DAILY_REVENUE1);
+        assertEquals(null, modelManager.getSelectedDailyRevenue());
+    }
+
+    @Test
+    public void deleteDailyRevenue_dailyRevenueIsSelectedAndSecondDailyRevenueInFilteredDailyRevenuesList_firstDailyRevenueSelected() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        modelManager.addDailyRevenue(DAILY_REVENUE2);
+        assertEquals(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2), modelManager.getFilteredDailyRevenueList());
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE2);
+        modelManager.deleteDailyRevenue(DAILY_REVENUE2);
+        assertEquals(DAILY_REVENUE1, modelManager.getSelectedDailyRevenue());
+    }
+
+    @Test
+    public void setDailyRevenue_dailyRevenueIsSelected_selectedDailyRevenueUpdated() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
+        DailyRevenue updatedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withTotalDailyRevenue("150.60").build();
+        modelManager.setDailyRevenue(DAILY_REVENUE1, updatedDailyRevenue);
+        assertEquals(updatedDailyRevenue, modelManager.getSelectedDailyRevenue());
+    }
+
+    @Test
+    public void getFilteredDailyRevenueList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredDailyRevenueList().remove(0);
+    }
+
+    @Test
+    public void setSelectedDailyRevenue_dailyRevenueNotInFilteredDailyRevenueList_throwsDailyRevenueNotFoundException() {
+        thrown.expect(DailyRevenueNotFoundException.class);
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
+    }
+
+    @Test
+    public void setSelectedDailyRevenue_dailyRevenueInFilteredDailyRevenueList_setsSelectedDailyRevenue() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        assertEquals(Collections.singletonList(DAILY_REVENUE1), modelManager.getFilteredDailyRevenueList());
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
+        assertEquals(DAILY_REVENUE1, modelManager.getSelectedDailyRevenue());
+    }
+
+    @Test
     public void equals() {
         RestOrRant restOrRant = new RestOrRantBuilder().withTable(TABLE1)
                 .withTable(TABLE2)
                 .withMenuItem(CHICKEN_WINGS)
                 .withOrderItem(TABLE1_W09)
+                .withDailyRevenue(DAILY_REVENUE1)
                 .build();
         RestOrRant differentRestOrRant = new RestOrRant();
         UserPrefs userPrefs = new UserPrefs();

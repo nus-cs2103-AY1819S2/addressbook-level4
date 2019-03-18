@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -312,6 +312,49 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+
+=== Import/Export feature
+==== Current Implementation
+The Import and Export feature is facilitated by the addition of 3 new classes inside the csvmanager package defined under storage component.
+
+[discrete]
+===== csvmanager package:
+* CsvManager - Main class responsible for the writing and reading of .csv files during the import and export of files
+* CsvCardFolder - Wrapper class for a folder name input by user
+* CsvFile - Wrapper class for file name input by user
+
+The main logic for the import / export command is carried out inside the CsvManager class specified by it's API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
+
+CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFolders` and `Model#ImportCardFolders` method
+
+[discrete]
+==== Example Usage
+
+1. User wants to export folders `Human Anatomy` and `Nervous System`. User inputs the following folders and the filename specified that he wants to export the folders to.
+
+    picture of command box with user inputs
+
+2. Export command parser extracts prefixes and parses the corresponding folders into the CsvCardFolder and CsvFile objects. Returns an ExportCommand to be executed.
+
+    Draw export command object diagram with set<CardFolderExport> and CsvFile file
+
+
+
+
+3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
+
+    show list of VersionedCardFolders
+    arrow up
+    Contains the list of card folders present in the model
+
+4. Model checks that all card folders specified by user exists inside the list of card folders. Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
+
+5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file. File exported will be created in the root directory.
+
+    Sequence diagram
+
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

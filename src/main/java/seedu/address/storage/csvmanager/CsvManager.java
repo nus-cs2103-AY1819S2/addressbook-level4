@@ -21,7 +21,7 @@ public class CsvManager implements CsvCommands {
      */
     @Override
     public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException {
-        String filepath = getFilePath(filename);
+        String filepath = getFilePathAsString(filename);
         FileWriter fileWriter = new FileWriter(filepath);
 
         // get card folder objects
@@ -46,9 +46,8 @@ public class CsvManager implements CsvCommands {
 
     }
 
-    private String getFilePath(CsvFile csvFile) throws IOException {
-        String defaultFilePath = new File("./").getCanonicalPath();
-        return defaultFilePath + "/" + csvFile.filename;
+    public static String getFilePathAsString(CsvFile csvFile) throws IOException {
+        return new File("./" + csvFile.filename).getCanonicalPath();
     }
 
     private String getCardString(Card card) {

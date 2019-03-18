@@ -229,7 +229,7 @@ public interface Model extends Observable {
 
     void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
 
-    void importCardFolders(CsvFile csvFile);
+    void importCardFolders(CsvFile csvFile) throws IOException;
 
 
 }

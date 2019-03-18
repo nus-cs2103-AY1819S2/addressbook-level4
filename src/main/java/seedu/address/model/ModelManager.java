@@ -160,32 +160,6 @@ public class ModelManager implements Model {
 
 
     @Override
-    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
-        List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
-        for (CardFolderExport cardFolderExport : cardFolders) {
-            addCardFolder(cardFolderExport, returnCardFolder);
-        }
-        return returnCardFolder;
-    }
-
-
-    /**
-     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
-     * Throws card Folder not found exception if card folder cannot be found.
-     */
-    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
-        String exportFolderName = cardFolderExport.folderName;
-        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
-            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
-                returnCardFolders.add(readOnlyCardFolder);
-                return;
-            }
-        }
-        throw new CardFolderNotFoundException(cardFolderExport.folderName);
-    }
-
-
-    @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
 
@@ -464,9 +438,32 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void importCardFolders(CsvFile csvFile) {
+    public void importCardFolders(CsvFile csvFile) throws IOException {
 
     }
 
+    @Override
+    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
+        List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
+        for (CardFolderExport cardFolderExport : cardFolders) {
+            addCardFolder(cardFolderExport, returnCardFolder);
+        }
+        return returnCardFolder;
+    }
 
+
+    /**
+     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
+     * Throws card Folder not found exception if card folder cannot be found.
+     */
+    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
+        String exportFolderName = cardFolderExport.folderName;
+        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
+            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
+                returnCardFolders.add(readOnlyCardFolder);
+                return;
+            }
+        }
+        throw new CardFolderNotFoundException(cardFolderExport.folderName);
+    }
 }

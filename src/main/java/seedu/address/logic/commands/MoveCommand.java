@@ -31,6 +31,7 @@ public class MoveCommand extends Command {
 
     public static final String MESSAGE_MOVE_PDF_SUCCESS = "Moved PDF: %1$s";
     public static final String MESSAGE_NOT_MOVED_SAME = "Why are you moving the PDF to the same place?";
+    public static final String MESSAGE_NOT_MOVED_DUPLICATE = "File with same name at location.";
     public static final String MESSAGE_MOVE_PDF_FAIL = "PDF failed to be moved.";
 
     private final Index index;
@@ -67,7 +68,7 @@ public class MoveCommand extends Command {
         if (editedPdf.isValidPdf()) {
             System.out.println(Paths.get(editedPdf.getDirectory().getDirectory(),
                     editedPdf.getName().getFullName()).toAbsolutePath().toString());
-            throw new CommandException(MESSAGE_MOVE_PDF_FAIL, new DuplicatePdfException());
+            throw new CommandException(MESSAGE_NOT_MOVED_DUPLICATE, new DuplicatePdfException());
         } else {
 
             File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();

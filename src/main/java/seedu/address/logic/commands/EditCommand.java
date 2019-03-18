@@ -74,19 +74,12 @@ public class EditCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPerson(pdfToEdit, editPersonDescriptor);
 
-        if (editedPdf.isValidPdf()) {
-            System.out.println(Paths.get(editedPdf.getDirectory().getDirectory(),
-                    editedPdf.getName().getFullName()).toAbsolutePath().toString());
-            throw new CommandException(MESSAGE_EDIT_PDF_FAILURE, new DuplicatePdfException());
-        } else {
+        File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
+        File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
+        boolean editSuccess = oFile.renameTo(nFile);
 
-            File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
-            File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
-            boolean editSuccess = oFile.renameTo(nFile);
-
-            if (!editSuccess) {
-                throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
-            }
+        if (!editSuccess) {
+            throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
         }
 
         if (!pdfToEdit.isSamePdf(editedPdf) && model.hasPdf(editedPdf)) {

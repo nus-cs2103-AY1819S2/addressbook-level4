@@ -8,7 +8,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 import java.io.File;
 import java.util.OptionalDouble;
 
-import jdk.jfr.ContentType;
 import seedu.address.logic.commands.BrightnessCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

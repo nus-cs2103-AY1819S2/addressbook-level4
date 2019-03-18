@@ -56,12 +56,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the activity list with {@code activities}.
+     * {@code activities} must not contain duplicate activities.
+     */
+    public void setActivities(List<Activity> activities) {
+        this.activities.setActivities(activities);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+
+        setActivities(newData.getActivityList());
     }
 
     //// person-level operations

@@ -165,4 +165,21 @@ public interface Model {
      * in the address book.
      */
     void setActivity(Activity target, Activity editedActivity);
+
+    /**
+     * Selected person in the filtered person list.
+     * null if no person is selected.
+     */
+    ReadOnlyProperty<Activity> selectedActivityProperty();
+
+    /**
+     * Returns the selected person in the filtered person list.
+     * null if no person is selected.
+     */
+    Activity getSelectedActivity();
+
+    /**
+     * Sets the selected person in the filtered person list.
+     */
+    void setSelectedActivity(Activity activity);
 }

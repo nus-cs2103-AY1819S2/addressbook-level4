@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.activity.Activity;
@@ -23,7 +24,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, InvalidCommandModeException;
 
     /**
      * Returns the AddressBook.
@@ -37,6 +38,7 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -73,4 +75,19 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Selected activity in the filtered activity list.
+     * null if no activity is selected.
+     *
+     * @see seedu.address.model.Model#selectedActivityProperty()
+     */
+    ReadOnlyProperty<Activity> selectedActivityProperty();
+
+    /**
+     * Sets the selected activity in the filtered person list.
+     *
+     * @see seedu.address.model.Model#setSelectedActivity(Activity)
+     */
+    void setSelectedActivity(Activity activity);
 }

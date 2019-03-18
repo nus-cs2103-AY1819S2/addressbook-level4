@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final FilteredList<Activity> filteredActivities;
+    private final SimpleObjectProperty<Activity> selectedActivity = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,7 +45,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        filteredActivities = new FilteredList<Activity>(versionedAddressBook.getActivityList());
+        filteredActivities = new FilteredList<>(versionedAddressBook.getActivityList());
+        filteredActivities.addListener(this::ensureSelectedActivityIsValid);
     }
 
     public ModelManager() {
@@ -254,6 +256,55 @@ public class ModelManager implements Model {
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         requireNonNull(predicate);
         filteredActivities.setPredicate(predicate);
+    }
+
+    //=========== Selected activity ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Activity> selectedActivityProperty() {
+        return selectedActivity;
+    }
+
+    @Override
+    public Activity getSelectedActivity() {
+        return selectedActivity.getValue();
+    }
+
+    @Override
+    public void setSelectedActivity(Activity activity) {
+        if (activity != null && !filteredActivities.contains(activity)) {
+            throw new PersonNotFoundException();
+        }
+        selectedActivity.setValue(activity);
+    }
+
+    /**
+     * Ensures {@code selectedActivity} is a valid activity in {@code filteredActivities}.
+     */
+    private void ensureSelectedActivityIsValid(ListChangeListener.Change<? extends Activity> change) {
+        while (change.next()) {
+            if (selectedActivity.getValue() == null) {
+                // null is always a valid selected activity, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedActivityReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedActivity.getValue());
+            if (wasSelectedActivityReplaced) {
+                // Update selectedActivity to its new value.
+                int index = change.getRemoved().indexOf(selectedActivity.getValue());
+                selectedActivity.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedActivityRemoved = change.getRemoved().stream()
+                    .anyMatch(removedActivity -> selectedActivity.getValue().isSameActivity(removedActivity));
+            if (wasSelectedActivityRemoved) {
+                // Select the activity that came before it in the list,
+                // or clear the selection if there is no such activity.
+                selectedActivity.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
     }
 
     @Override

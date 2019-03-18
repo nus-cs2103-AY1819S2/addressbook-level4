@@ -2,73 +2,85 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.net.URL;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
-import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.statistics.Bill;
 
 /**
- * The Browser Panel for the menu.
+ * The Browser Panel for the bill.
  */
 
 public class BillBrowserPanel extends UiPart<Region> {
 
-    public static final URL DEFAULT_PAGE = requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
-
-    private static final String FXML = "BrowserPanel.fxml";
+    private static final String FXML = "BillBrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private WebView browser;
+    private ListView<Bill> receiptView;
 
-    // TODO: constructors for different modes
-    public BillBrowserPanel(ObservableValue<Bill> selectedBill) {
+    @FXML
+    private Label tableNumber;
+
+    @FXML
+    private TextArea receipt;
+
+    public BillBrowserPanel(Bill bill, ObservableValue<Bill> selectedBill, Consumer<Bill> onSelectedBillChange) {
         super(FXML);
 
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
+        requireNonNull(bill);
+        tableNumber.setText("TABLE NUMBER " + bill.getTableNumber().tableNumber);
+        //TODO: Find out why the text aren't printing
+        receipt = new TextArea(" ");
+        receipt.appendText(bill.getReceipt());
 
-        // Load person page when selected person changes.
-        selectedBill.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                loadDefaultPage();
-                return;
-            }
-            loadBillPage(newValue);
-        });
-
-        loadDefaultPage();
+//        receiptView.setCellFactory(listView -> new BillBrowserPanel.BillCell());
+//        receiptView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            logger.fine("Selection in list panel changed to : '" + newValue + "'");
+//            onSelectedBillChange.accept(newValue);
+//        });
+//        selectedBill.addListener(((observable, oldValue, newValue) -> {
+//            logger.fine("Selected item changed to: " + newValue);
+//
+//            // Don't modify selection if we are already selecting the selected item,
+//            // otherwise we would have an infinite loop.
+//            if (Objects.equals(receiptView.getSelectionModel().getSelectedItem(), newValue)) {
+//                return;
+//            }
+//
+//            if (newValue == null) {
+//                receiptView.getSelectionModel().clearSelection();
+//            } else {
+//                int index = receiptView.getItems().indexOf(newValue);
+//                receiptView.scrollTo(index);
+//                receiptView.getSelectionModel().clearAndSelect(index);
+//            }
+        //        }));
     }
 
-    public BillBrowserPanel() {
-        super(FXML);
-        loadDefaultPage();
-    }
-
-    // TODO: methods for different modes
-    private void loadBillPage(Bill bill) {
-        loadPage(SEARCH_PAGE_URL + bill.getTableNumber());
-    }
-
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
-    }
-
-    /**
-     * Loads a default HTML file with a background that matches the general theme.
-     */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
-    }
+//    /**
+//     * Custom {@code ListCell} that displays the graphics of a {@code Item} using a {@code ItemCard}.
+//     */
+//    class BillCell extends ListCell<Bill> {
+//        @Override
+//        protected void updateItem(Bill item, boolean empty) {
+//            super.updateItem(item, empty);
+//
+//            if (empty || item == null) {
+//                setGraphic(null);
+//                setText(null);
+//            } else {
+//                setGraphic(new BillCard(bill));
+//            }
+//        }
+//    }
 
 }

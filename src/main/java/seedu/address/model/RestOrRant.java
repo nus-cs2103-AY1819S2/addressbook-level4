@@ -72,7 +72,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         orders.setOrderItems(newOrders.getOrderItemList());
         menu.setMenuItems(newMenu.getMenuItemList());
         tables.setTables(newTables.getTableList());
-        statistics.setBills(newStatistics.getBillList());
+        statistics.setDailyRevenues(newStatistics.getDailyRevenueList());
     }
 
     @Override
@@ -97,7 +97,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     @Override
     public String toString() {
         return orders.getOrderItemList().size() + " order items" + "\n" + menu.getMenuItemList().size() + " menu items"
-                + "\n" + statistics.getBillList().size() + " bills";
+                + "\n" + statistics.getDailyRevenueList().size() + " daily revenues recorded";
         // TODO: refine later
     }
 
@@ -123,7 +123,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
                 && orders.equals(((RestOrRant) other).orders) && menu.equals(((RestOrRant) other).menu) && tables
-                .equals(((RestOrRant) other).tables));
+                .equals(((RestOrRant) other).tables)); // TODO: Add statistics check here too.
     }
 
     @Override

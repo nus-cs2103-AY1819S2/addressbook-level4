@@ -5,6 +5,7 @@ import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.Orders;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.table.Table;
@@ -83,6 +84,13 @@ public class TypicalRestOrRant {
     public static final DailyRevenue DAILY_REVENUE7 = new StatisticsBuilder().withDay("1").withMonth("3")
                                                        .withYear("2019").withTotalDailyRevenue("100").build();
 
+    public static final Bill BILL1 = new StatisticsBuilder().withTableNumber("1").withDay("1").withMonth("3")
+            .withYear("2019").withTotalBill("10").withReceipt("").buildBill();
+    public static final Bill BILL2 = new StatisticsBuilder().withTableNumber("2").withDay("2").withMonth("3")
+            .withYear("2019").withTotalBill("20").withReceipt("").buildBill();
+    public static final Bill BILL3 = new StatisticsBuilder().withTableNumber("3").withDay("3").withMonth("3")
+            .withYear("2019").withTotalBill("30").withReceipt("").buildBill();
+
     // Manually added - Person's details found in {@code CommandTestUtil}
     //    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
     //                                             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
@@ -140,4 +148,5 @@ public class TypicalRestOrRant {
         return new ArrayList<>(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2, DAILY_REVENUE3, DAILY_REVENUE4,
                 DAILY_REVENUE5, DAILY_REVENUE6, DAILY_REVENUE7));
     }
+
 }

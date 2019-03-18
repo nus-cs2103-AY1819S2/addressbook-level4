@@ -63,8 +63,10 @@ public class StorageManagerTest {
     public void restOrRantReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonRestOrRantStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonRestOrRantStorageTest} class.
+         * {@link JsonMenuStorage}, {@link JsonOrdersStorage}, {@link JsonTablesStorage}, {@link JsonStatisticsStorage}
+         * classes.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonMenuStorageTest},
+         * {@link JsonOrdersStorageTest}, {@link JsonTablesStorageTest}, {@link JsonStatisticsStorageTest} classes.
          */
 
         RestOrRant original = getTypicalRestOrRant();

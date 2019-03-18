@@ -11,7 +11,7 @@ import seedu.address.testutil.MenuItemBuilder;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 public class AddToMenuCommandIntegrationTest {
 
@@ -20,7 +20,7 @@ public class AddToMenuCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
     }
 
     @Test

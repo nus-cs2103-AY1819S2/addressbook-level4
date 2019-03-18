@@ -11,7 +11,7 @@ import seedu.address.model.menu.MenuItem;
  */
 public class MenuItemCard extends UiPart<Region> {
 
-    private static final String FXML = "MenuItemListCard.fxml";
+    private static final String FXML = "MenuItemCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class MenuItemCard extends UiPart<Region> {
     public final MenuItem item;
 
     @FXML
-    private HBox cardPane;
+    private HBox menuItemCardPane;
     @FXML
     private Label name;
     @FXML
@@ -42,6 +42,15 @@ public class MenuItemCard extends UiPart<Region> {
         name.setText(item.getName().itemName);
         code.setText(item.getCode().itemCode);
         price.setText(item.getPrice().itemPrice);
+    }
+
+    public MenuItemCard(MenuItem item) {
+        super(FXML);
+        this.item = item;
+
+        name.setText(item.getName().itemName);
+        code.setText("Code: " + item.getCode().itemCode);
+        price.setText("Price: " + item.getPrice().itemPrice);
     }
 
     @Override

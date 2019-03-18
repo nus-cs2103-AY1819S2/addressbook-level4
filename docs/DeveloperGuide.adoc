@@ -206,6 +206,11 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Medicine>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+Given below an object diagram to better illustrate how a medicine is stored in the `Model` component.
+
+.An example of how the medicine "Paracetamol" could be represented by the `Medicine` class.
+image::ModelMedicineObjectDiagram.png[width="800"]
+
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Inventory`, which `Medicine` can reference. This would allow `Inventory` to only require one `Tag` object per unique `Tag`, instead of each `Medicine` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
@@ -232,6 +237,46 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section provides you with some description of how certain key features of our product are being implemented.
+
+// tag::batchtable[]
+=== Batch table feature
+==== Current Implementation
+
+The batch table is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine.
+It implements the following operations:
+
+* `InformationPanel#showSelectedInformation(Medicine medicine)` -- Creates and displays a `BatchTable` that contains information of the selected medicine and its batches.
+* `InformationPanel#emptyInformationPanel()` -- Deletes the `BatchTable` being displayed (if any) to show an empty pane.
+
+These operations are hidden and are only triggered when the value of the selected medicine changes.
+The `InformationPanel` is initialized with the selected medicine as an `ObservableValue`, and a `ChangeListener` is added to it.
+`ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` is called whenever the value of the selected medicine changes.
+Given below is a diagram showing the execution of `InformationPanel` when a change occurs:
+
+image::BatchTableSequenceDiagram.png[width="800"]
+
+Given below is an example usage scenario and how the batch table behaves at each step.
+
+Step 1. The user launches the application for the first time. An empty `InformationPanel` is displayed.
+
+Step 2. The user executes `select 1` command to select the 1st medicine in the inventory. Since the new value is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called.
+
+[NOTE]
+An `update` command will also cause `ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` to be called as although the same medicine is still selected, the medicine is replaced in the `Inventory` with updated fields.
+
+Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects the selected medicine and the new value is null. Only `InformationPanel#emptyInformationPanel()` is called.
+
+==== Design Considerations
+
+===== Aspect: How the batch table executes
+
+* **Alternative 1 (current choice):** Creates a new `BatchTable` every time a new medicine is selected.
+** Pros: Information can be taken from `Model` component during initialization so no extra memory is needed to store table information.
+** Cons: May have performance issues in terms of time needed to retrieve the information and build the table, especially if number of batches becomes huge.
+* **Alternative 2:** Save created `BatchTables` as a field in `Medicine`.
+** Pros: Save time needed for creating the `BatchTable` for faster response time.
+** Cons: More memory needed to store `BatchTable`.
+// end::batchtable[]
 
 // tag::exportcommand[]
 === Exporting as CSV file format feature via Export Command

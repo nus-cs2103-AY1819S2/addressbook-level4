@@ -20,9 +20,5 @@ public class HelpCommandTest {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
         assertCommandSuccess(Mode.RESTAURANT_MODE, new HelpCommand(), model, commandHistory, expectedCommandResult,
                 expectedModel);
-        assertCommandSuccess(Mode.TABLE_MODE, new HelpCommand(), model, commandHistory, expectedCommandResult,
-                expectedModel);
-        assertCommandSuccess(Mode.MENU_MODE, new HelpCommand(), model, commandHistory, expectedCommandResult,
-                expectedModel);
     }
 }

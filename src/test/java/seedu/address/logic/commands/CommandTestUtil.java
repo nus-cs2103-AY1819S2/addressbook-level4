@@ -142,8 +142,8 @@ public class CommandTestUtil {
      * - and selected order item, selected menu item, selected bill, selected table <br>
      * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Mode mode, Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+    public static void assertCommandFailure(Mode mode, Command command, Model actualModel,
+            CommandHistory actualCommandHistory, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         //        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonsList());
@@ -290,6 +290,6 @@ public class CommandTestUtil {
      */
     public static void deleteFirstBill(Model model) {
         Bill firstBill = model.getFilteredBillList().get(0);
-        model.deleteBill(firstBill);
+        model.deleteDailyRevenue(firstBill);
     }
 }

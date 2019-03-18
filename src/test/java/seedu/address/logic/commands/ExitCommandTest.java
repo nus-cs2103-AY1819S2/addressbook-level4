@@ -20,9 +20,5 @@ public class ExitCommandTest {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
         assertCommandSuccess(Mode.RESTAURANT_MODE, new ExitCommand(), model, commandHistory, expectedCommandResult,
                 expectedModel);
-        assertCommandSuccess(Mode.TABLE_MODE, new ExitCommand(), model, commandHistory, expectedCommandResult,
-                expectedModel);
-        assertCommandSuccess(Mode.MENU_MODE, new ExitCommand(), model, commandHistory, expectedCommandResult,
-                expectedModel);
     }
 }

@@ -223,6 +223,11 @@ public class DeleteLessonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public String getCurrentProgress() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         /**
          * Returns the current QuizCard in {@code Quiz}.
          */
@@ -235,7 +240,22 @@ public class DeleteLessonCommandTest {
          * @param index of the current {@code QuizCard}
          * @param answer user input
          */
-        public void updateTotalAttemptsAndStreak(int index, String answer) {
+        public boolean updateTotalAttemptsAndStreak(int index, String answer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getQuizTotalAttempts() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getQuizTotalCorrectQuestions() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isQuizDone() {
             throw new AssertionError("This method should not be called.");
         }
 

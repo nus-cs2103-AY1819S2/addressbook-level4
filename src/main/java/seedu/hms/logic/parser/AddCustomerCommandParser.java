@@ -13,7 +13,6 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-
 import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.customer.Address;

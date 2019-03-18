@@ -62,7 +62,8 @@ public class DateOfBirth {
                         }
 
                         if (("31").equals(day) && (("4").equals(month) || ("6").equals(month) || ("9").equals(month)
-                            || ("11").equals(month) || ("04").equals(month) || ("06").equals(month) || ("09").equals(month))) {
+                            || ("11").equals(month) || ("04").equals(month) || ("06").equals(month)
+                            || ("09").equals(month))) {
                             return false; // only 1,3,5,7,8,10,12 has 31 days
                         } else if (("2").equals(month) || ("02").equals(month)) {
                             //leap year

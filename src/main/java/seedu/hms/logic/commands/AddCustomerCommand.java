@@ -1,15 +1,13 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
-
 
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;

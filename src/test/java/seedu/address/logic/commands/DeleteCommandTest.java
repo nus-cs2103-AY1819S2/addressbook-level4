@@ -30,7 +30,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
@@ -44,7 +44,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -54,7 +54,7 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
@@ -82,7 +82,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARD);
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.deleteCard(cardToDelete);
@@ -102,7 +102,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
@@ -126,7 +126,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
-        Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToDelete = model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
 
@@ -170,6 +170,6 @@ public class DeleteCommandTest {
     private void showNoCard(Model model) {
         model.updateFilteredCardList(p -> false);
 
-        assertTrue(model.getFilteredCardList().isEmpty());
+        assertTrue(model.getFilteredList().isEmpty());
     }
 }

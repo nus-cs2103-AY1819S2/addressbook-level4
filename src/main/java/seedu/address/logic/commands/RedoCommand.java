@@ -25,7 +25,7 @@ public class RedoCommand extends Command {
         }
 
         model.redoTopDeck();
-        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        model.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -18,6 +18,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
@@ -27,7 +28,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.CardBuilder;
 
-public class AddCommandTest {
+public class AddCardCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -39,7 +40,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddCardCommand(null);
     }
 
     @Test
@@ -47,9 +48,9 @@ public class AddCommandTest {
         ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
         Card validCard = new CardBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validCard).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCardCommand(validCard).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -57,26 +58,26 @@ public class AddCommandTest {
     @Test
     public void execute_duplicateCard_throwsCommandException() throws Exception {
         Card validCard = new CardBuilder().build();
-        AddCommand addCommand = new AddCommand(validCard);
+        AddCardCommand addCardCommand = new AddCardCommand(validCard);
         ModelStub modelStub = new ModelStubWithCard(validCard);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CARD);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddCardCommand.MESSAGE_DUPLICATE_CARD);
+        addCardCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Card addition = new CardBuilder().withQuestion("What is 1 + 1?").build();
         Card subtraction = new CardBuilder().withQuestion("What is 10 - 8?").build();
-        AddCommand addAdditionCommand = new AddCommand(addition);
-        AddCommand addSubtractionCommand = new AddCommand(subtraction);
+        AddCardCommand addAdditionCommand = new AddCardCommand(addition);
+        AddCardCommand addSubtractionCommand = new AddCardCommand(subtraction);
 
         // same object -> returns true
         assertTrue(addAdditionCommand.equals(addAdditionCommand));
 
         // same values -> returns true
-        AddCommand addAdditionCommandCopy = new AddCommand(addition);
+        AddCardCommand addAdditionCommandCopy = new AddCardCommand(addition);
         assertTrue(addAdditionCommand.equals(addAdditionCommandCopy));
 
         // different types -> returns false
@@ -154,7 +155,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Card> getFilteredCardList() {
+        public ObservableList<Card> getFilteredList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,7 +189,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Card> selectedCardProperty() {
+        public ReadOnlyProperty<ListItem> selectedItemProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -275,7 +276,7 @@ public class AddCommandTest {
 
         @Override
         public void commitTopDeck() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddCardCommand#execute()}
         }
 
         @Override

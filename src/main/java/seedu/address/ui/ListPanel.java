@@ -13,42 +13,44 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Panel containing the list of persons.
  */
-public class CardListPanel extends UiPart<Region> {
-    private static final String FXML = "CardListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
+public class ListPanel extends UiPart<Region> {
+    private static final String FXML = "ListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
     @FXML
-    private ListView<ListItem> cardListView;
+    private ListView<ListItem> listView;
 
-    public CardListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem) {
+    public ListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem, Consumer<ListItem> onSelectedItemChange) {
         super(FXML);
 
-        // disable mouse selection
-        cardListView.setMouseTransparent(true);
-        cardListView.setFocusTraversable(false);
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
+            onSelectedItemChange.accept(newValue);
+        });
 
-        cardListView.setItems(list);
-        cardListView.setCellFactory(listView -> new CardListViewCell());
+        listView.setItems(list);
+        listView.setCellFactory(cardListView -> new CardListViewCell());
 
         selectedItem.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected item changed to: " + newValue);
+            logger.info("Selected item changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected card,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(cardListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(listView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                cardListView.getSelectionModel().clearSelection();
+                listView.getSelectionModel().clearSelection();
             } else {
-                int index = cardListView.getItems().indexOf(newValue);
-                cardListView.scrollTo(index);
-                cardListView.getSelectionModel().clearAndSelect(index);
+                int index = listView.getItems().indexOf(newValue);
+                listView.scrollTo(index);
+                listView.getSelectionModel().clearAndSelect(index);
             }
         });
     }
@@ -66,7 +68,9 @@ public class CardListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 if (item instanceof Card) {
-                    setGraphic(new CardDisplay(item, getIndex() + 1).getRoot());
+                    setGraphic(new CardDisplay((Card)item, getIndex() + 1).getRoot());
+                } else if (item instanceof Deck) {
+                    setGraphic(new DeckDisplay((Deck)item, getIndex() + 1).getRoot());
                 }
             }
         }

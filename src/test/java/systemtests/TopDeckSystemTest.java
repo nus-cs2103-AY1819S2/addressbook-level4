@@ -23,7 +23,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
-import guitests.guihandles.CardListPanelHandle;
+import guitests.guihandles.ListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -99,8 +99,8 @@ public abstract class TopDeckSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public CardListPanelHandle getCardListPanel() {
-        return mainWindowHandle.getCardListPanel();
+    public ListPanelHandle getCardListPanel() {
+        return mainWindowHandle.getListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,7 +139,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getTopDeck().getCardList().size(), getModel().getFilteredCardList().size());
+        assertEquals(getModel().getTopDeck().getCardList().size(), getModel().getFilteredList().size());
     }
 
     /**
@@ -147,7 +147,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void showCardsWithQuestion(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCardList().size() < getModel().getTopDeck().getCardList().size());
+        assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getCardList().size());
     }
 
     /**
@@ -176,11 +176,11 @@ public abstract class TopDeckSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new TopDeck(expectedModel.getTopDeck()), testApp.readStorageTopDeck());
-        assertListMatching(getCardListPanel(), expectedModel.getFilteredCardList());
+        assertListMatching(getCardListPanel(), expectedModel.getFilteredList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code CardListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code ListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -206,7 +206,7 @@ public abstract class TopDeckSystemTest {
      * Asserts that the browser's url is changed to display the details of the card in the card list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see CardListPanelHandle#isSelectedCardDisplayChanged()
+     * @see ListPanelHandle#isSelectedCardDisplayChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCardListPanel().navigateToCard(getCardListPanel().getSelectedCardIndex());
@@ -225,7 +225,7 @@ public abstract class TopDeckSystemTest {
     /**
      * Asserts that the browser's url and the selected card in the card list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see CardListPanelHandle#isSelectedCardDisplayChanged()
+     * @see ListPanelHandle#isSelectedCardDisplayChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
@@ -294,7 +294,7 @@ public abstract class TopDeckSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getCardListPanel(), getModel().getFilteredCardList());
+        assertListMatching(getCardListPanel(), getModel().getFilteredList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

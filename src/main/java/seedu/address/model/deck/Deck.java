@@ -3,10 +3,12 @@ package seedu.address.model.deck;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.logic.ListItem;
+
 /**
  * Represents a Deck inside TopDeck.
  */
-public class Deck {
+public class Deck implements ListItem {
 
     private final Name name;
     private final UniqueCardList cards;

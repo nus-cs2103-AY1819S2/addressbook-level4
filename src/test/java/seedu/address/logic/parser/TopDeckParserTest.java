@@ -43,8 +43,8 @@ public class TopDeckParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Card card = new CardBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(CardUtil.getAddCommand(card));
-        assertEquals(new AddCommand(card), command);
+        AddCardCommand command = (AddCardCommand) parser.parseCommand(CardUtil.getAddCommand(card));
+        assertEquals(new AddCardCommand(card), command);
     }
 
     @Test

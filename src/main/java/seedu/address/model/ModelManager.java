@@ -10,16 +10,20 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.CardsView;
+import seedu.address.logic.DecksView;
+import seedu.address.logic.ListItem;
+import seedu.address.logic.ViewState;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
-import seedu.address.model.deck.exceptions.DeckNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,10 +33,9 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
-    private final FilteredList<Deck> filteredDecks;
-    private final FilteredList<Card> filteredCards;
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+    private FilteredList<? extends ListItem> filteredItems;
+    private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
+    private ViewState viewState;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,13 +48,35 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredDecks = new FilteredList<>(versionedTopDeck.getDeckList());
-        filteredCards = new FilteredList<Card>(versionedTopDeck.getCardList());
-        filteredCards.addListener(this::ensureSelectedPersonIsValid);
+        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
+        // viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
+        // TODO: move filteredItems into viewState
+        filteredItems = ((DecksView) viewState).filteredDecks;
+        // filteredItems = ((CardsView) viewState).filteredCards;
     }
 
     public ModelManager() {
         this(new TopDeck(), new UserPrefs());
+    }
+
+    public Command parse(String commandWord, String arguments) throws ParseException {
+        return viewState.parse(commandWord, arguments);
+    }
+
+    public void changeDeck(Deck deck) {
+        // viewState = new CardsView(this, new FilteredList<>(deck.getCards().internalList));
+        // TODO: change this to above after migrating global cards list
+        viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
+
+        filteredItems = ((CardsView) viewState).filteredCards;
+        setSelectedItem(null);
+    }
+
+    @Override
+    public void goToDecksView() {
+        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
+        filteredItems = ((DecksView) viewState).filteredDecks;
+        setSelectedItem(null);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -115,7 +140,7 @@ public class ModelManager implements Model {
     @Override
     public void addCard(Card card) {
         versionedTopDeck.addCard(card);
-        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS); // TODO: show all cards after adding a card
     }
 
     @Override
@@ -129,7 +154,7 @@ public class ModelManager implements Model {
     public void addDeck(Deck deck) {
         logger.info("Added a new deck to TopDeck.");
         versionedTopDeck.addDeck(deck);
-        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        updateFilteredList(PREDICATE_SHOW_ALL_DECKS); // TODO: show all decks after adding a deck
         commitTopDeck();
     }
 
@@ -139,24 +164,6 @@ public class ModelManager implements Model {
         return versionedTopDeck.hasDeck(deck);
     }
 
-
-    //=========== Filtered Deck List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Deck} backed by the internal list of
-     * {@code versionedAnakin}
-     */
-    @Override
-    public ObservableList<Deck> getFilteredDeckList() {
-        return FXCollections.unmodifiableObservableList(filteredDecks);
-    }
-
-    @Override
-    public void updateFilteredDeckList(Predicate<Deck> predicate) {
-        requireAllNonNull(predicate);
-        filteredDecks.setPredicate(predicate);
-    }
-
     //=========== Filtered Card List Accessors =============================================================
 
     /**
@@ -164,14 +171,14 @@ public class ModelManager implements Model {
      * {@code versionedTopDeck}
      */
     @Override
-    public ObservableList<Card> getFilteredCardList() {
-        return filteredCards;
+    public ObservableList<ListItem> getFilteredList() {
+        return (ObservableList<ListItem>) filteredItems;
     }
 
     @Override
-    public void updateFilteredCardList(Predicate<Card> predicate) {
+    public void updateFilteredList(Predicate<? extends ListItem> predicate) {
         requireNonNull(predicate);
-        filteredCards.setPredicate(predicate);
+        filteredItems.setPredicate((Predicate<ListItem>) predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -201,71 +208,24 @@ public class ModelManager implements Model {
         versionedTopDeck.commit();
     }
 
-    //=========== Selected card ===========================================================================
+    //=========== Selected item ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Card> selectedCardProperty() {
-        return selectedCard;
+    public ReadOnlyProperty<ListItem> selectedItemProperty() {
+        return selectedItem;
     }
 
     @Override
-    public Card getSelectedCard() {
-        return selectedCard.getValue();
+    public ListItem getSelectedItem() {
+        return selectedItem.getValue();
     }
 
     @Override
-    public void setSelectedCard(Card card) {
-        if (card != null && !filteredCards.contains(card)) {
+    public void setSelectedItem(ListItem card) {
+        if (card != null && !filteredItems.contains(card)) {
             throw new CardNotFoundException();
         }
-        selectedCard.setValue(card);
-    }
-
-    //=========== Selected deck ===========================================================================
-    @Override
-    public ReadOnlyProperty<Deck> selectedDeckProperty() {
-        return selectedDeck;
-    }
-
-    @Override
-    public Deck getSelectedDeck() {
-        return selectedDeck.getValue();
-    }
-
-    @Override
-    public void setSelectedDeck(Deck deck) {
-        if (deck != null && !filteredDecks.contains(deck)) {
-            throw new DeckNotFoundException();
-        }
-        selectedDeck.setValue(deck);
-    }
-    /**
-     * Ensures {@code selectedCard} is a valid card in {@code filteredCards}.
-     */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Card> change) {
-        while (change.next()) {
-            if (selectedCard.getValue() == null) {
-                // null is always a valid selected card, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedCard.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedCard to its new value.
-                int index = change.getRemoved().indexOf(selectedCard.getValue());
-                selectedCard.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedCard.getValue().isSameCard(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the card that came before it in the list,
-                // or clear the selection if there is no such card.
-                selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
+        selectedItem.setValue(card);
     }
 
     @Override
@@ -284,8 +244,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedTopDeck.equals(other.versionedTopDeck)
                 && userPrefs.equals(other.userPrefs)
-                && filteredCards.equals(other.filteredCards)
-                && Objects.equals(selectedCard.get(), other.selectedCard.get());
+                && filteredItems.equals(other.filteredItems)
+                && Objects.equals(selectedItem.get(), other.selectedItem.get());
     }
 
 }

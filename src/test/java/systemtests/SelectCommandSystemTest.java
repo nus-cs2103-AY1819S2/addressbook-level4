@@ -63,7 +63,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: filtered card list, select index within bounds of address book and card list -> selected */
         Index validIndex = Index.fromOneBased(1);
-        assertTrue(validIndex.getZeroBased() < getModel().getFilteredCardList().size());
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
@@ -78,7 +78,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredCardList().size() + 1;
+        invalidIndex = getModel().getFilteredList().size() + 1;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
@@ -104,7 +104,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing select command with the
      * {@code expectedSelectedCardIndex} of the selected card.<br>
-     * 4. {@code Storage} and {@code CardListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code ListPanel} remain unchanged.<br>
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
@@ -136,7 +136,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
      * 1. Command box displays {@code command}.<br>
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Storage} and {@code CardListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code ListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

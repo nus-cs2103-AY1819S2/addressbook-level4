@@ -49,7 +49,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = topDeckParser.parseCommand(commandText);
+            Command command = topDeckParser.parseCommand(commandText, model);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
@@ -73,8 +73,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void setSelectedItem(ListItem item) {
+        model.setSelectedItem(item);
+    }
+
+    @Override
     public ObservableList<ListItem> getFilteredList() {
-        return (ObservableList<ListItem>) (ObservableList<? extends ListItem>) model.getFilteredCardList();
+        return model.getFilteredList();
     }
 
     @Override
@@ -98,22 +103,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<ListItem> selectedCardProperty() {
-        return (ReadOnlyProperty<ListItem>) (ReadOnlyProperty<? extends ListItem>) model.selectedCardProperty();
-    }
-
-    @Override
-    public void setSelectedCard(Card card) {
-        model.setSelectedCard(card);
-    }
-
-    @Override
-    public ReadOnlyProperty<Deck> selectedDeckProperty() {
-        return model.selectedDeckProperty();
-    }
-
-    @Override
-    public void setSelectedDeck(Deck deck) {
-        model.setSelectedDeck(deck);
+    public ReadOnlyProperty<ListItem> selectedItemProperty() {
+        return model.selectedItemProperty();
     }
 }

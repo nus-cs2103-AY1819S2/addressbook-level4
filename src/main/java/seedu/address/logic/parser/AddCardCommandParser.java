@@ -8,28 +8,29 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.ViewState;
+import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddCardCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCardCommandParser implements Parser<AddCardCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddCardCommand
+     * and returns an AddCardCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddCardCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
 
         String question = argMultimap.getValue(PREFIX_QUESTION).get();
@@ -38,7 +39,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Card card = new Card(question, answer, tagList);
 
-        return new AddCommand(card);
+        return new AddCardCommand(card);
     }
 
     /**

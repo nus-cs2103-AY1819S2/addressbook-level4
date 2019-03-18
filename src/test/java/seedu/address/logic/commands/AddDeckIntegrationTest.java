@@ -16,7 +16,7 @@ import seedu.address.model.deck.Deck;
 import seedu.address.testutil.DeckBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddCardCommand}.
  */
 public class AddDeckIntegrationTest {
 

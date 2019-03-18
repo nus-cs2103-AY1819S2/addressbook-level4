@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -84,7 +84,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION;
+        String addCommand = AddCardCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION;
         Card expectedCard = new CardBuilder(ADDITION).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addCard(expectedCard);

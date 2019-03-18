@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        model.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

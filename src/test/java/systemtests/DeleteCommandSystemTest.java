@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
         /* Case: filtered card list, delete index within bounds of address book and card list -> deleted */
         showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         Index index = INDEX_FIRST_CARD;
-        assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered card list, delete index within bounds of address book but out of bounds of card list

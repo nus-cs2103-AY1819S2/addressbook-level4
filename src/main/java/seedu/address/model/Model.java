@@ -144,4 +144,14 @@ public interface Model {
      * List all file names in assets folder
      */
     String[] getFileNames();
+
+    /**
+     *returns tempImage object
+     */
+    Image getImage();
+
+    /**
+     * replaces image in Temp folder with original from Assets
+     */
+    void replaceTempImage();
 }

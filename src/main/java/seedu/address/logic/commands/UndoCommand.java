@@ -3,8 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+//import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+//import seedu.address.logic.parser.AddressBookParser;
+//import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
 /**
@@ -15,6 +19,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_SUCCESS = "Undo success!";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
+
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -27,5 +32,38 @@ public class UndoCommand extends Command {
         model.undoAddressBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
+
+
     }
+
+    /*
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        AddressBookParser parser = new AddressBookParser();
+        CommandResult commandResult;
+
+        if (!model.canUndoAddressBook()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+
+        model.replaceTempImage();
+        model.getImage().setUndo();
+        List<String> tempHistory = model.getImage().getHistory();
+        for (String x :tempHistory) {
+            try {
+                Command command = parser.parseCommand(x);
+                commandResult = command.execute(model, history);
+            } catch (ParseException e) {
+                System.out.println(e.toString());
+            }
+
+        }
+
+        model.undoAddressBook();
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(MESSAGE_SUCCESS);
+
+
+    }*/
 }

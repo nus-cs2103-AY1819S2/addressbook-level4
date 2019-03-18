@@ -2,19 +2,24 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
+import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import org.apache.commons.io.FileUtils;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.Notifier;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -22,17 +27,21 @@ import seedu.address.model.image.Image;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+
+
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static Image tempImage;
 
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -257,6 +266,25 @@ public class ModelManager implements Model {
         File file = new File(ASSETS_FILEPATH);
         String[] imageNames = file.list();
         return imageNames;
+    }
+
+    public Image getImage() {
+        return tempImage;
+    }
+
+    /**
+     * replaces temp folder image with original asset Image
+     */
+    public void replaceTempImage() {
+        //set this image
+        try {
+            File file = new File(ASSETS_FILEPATH + tempImage.getName());
+            File directory = new File(TEMP_FILEPATH);
+            FileUtils.copyFileToDirectory(file, directory, false);
+        }
+        catch (IOException e) {
+            System.out.println(e.toString());
+        }
     }
 
 }

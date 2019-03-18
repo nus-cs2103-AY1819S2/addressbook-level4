@@ -4,9 +4,12 @@ import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -31,6 +34,8 @@ public class Image {
     private BufferedImage buffer;
     private String url;
     private String fileType;
+    private List<String> commandHistory;
+    private int index;
 
     /**
      * Every field must be present and not null.
@@ -59,6 +64,8 @@ public class Image {
             this.height = buffer.getHeight();
             this.width = buffer.getWidth();
             this.url = url;
+            this.commandHistory = new ArrayList();
+            this.index = 1;
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -70,6 +77,38 @@ public class Image {
         this.height = height;
         this.width = width;
     }
+
+    /**
+     * method to track history of image
+     * @param c command to be added to history
+     */
+    public void addHistory(String c) {
+        commandHistory.add(c);
+        index++;
+    }
+    //CAN USE JAVA UTIL LIST HERE???
+    public List getHistory() {
+        return commandHistory.subList(0, index);
+    }
+
+    public void setUndo() {
+        index--;
+    }
+
+    public void setRedo() {
+        index++;
+    }
+
+    public boolean canUndo() {
+        return index > 0;
+    }
+
+    public boolean canRedo() {
+        return index < commandHistory.size() - 1;
+    }
+
+    public int getIndex() {
+        return index; }
 
     public int getWidth() {
         return width;

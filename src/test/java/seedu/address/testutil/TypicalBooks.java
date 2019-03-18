@@ -20,7 +20,6 @@ import seedu.address.model.book.Book;
  * A utility class containing a list of {@code Book} objects to be used in tests.
  */
 public class TypicalBooks {
-
     public static final Book BOOKTHIEF = new BookBuilder().withBookName("The Book Thief")
             .withAuthor("Markus Zusak")
             .withRating("7")

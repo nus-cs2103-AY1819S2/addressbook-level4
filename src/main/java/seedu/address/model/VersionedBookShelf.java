@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedBookShelf extends BookShelf {
 
-    private final List<ReadOnlyBookShelf> addressBookStateList;
+    private final List<ReadOnlyBookShelf> bookShelfStateList;
     private int currentStatePointer;
 
     public VersionedBookShelf(ReadOnlyBookShelf initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new BookShelf(initialState));
+        bookShelfStateList = new ArrayList<>();
+        bookShelfStateList.add(new BookShelf(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,49 +25,49 @@ public class VersionedBookShelf extends BookShelf {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new BookShelf(this));
+        bookShelfStateList.add(new BookShelf(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        bookShelfStateList.subList(currentStatePointer + 1, bookShelfStateList.size()).clear();
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the book list to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(bookShelfStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the book list to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(bookShelfStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has book list states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has book list states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < bookShelfStateList.size() - 1;
     }
 
     @Override
@@ -82,12 +82,12 @@ public class VersionedBookShelf extends BookShelf {
             return false;
         }
 
-        VersionedBookShelf otherVersionedAddressBook = (VersionedBookShelf) other;
+        VersionedBookShelf otherVersionedBookShelf = (VersionedBookShelf) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedBookShelf)
+                && bookShelfStateList.equals(otherVersionedBookShelf.bookShelfStateList)
+                && currentStatePointer == otherVersionedBookShelf.currentStatePointer;
     }
 
     /**
@@ -95,7 +95,7 @@ public class VersionedBookShelf extends BookShelf {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of bookShelfState list, unable to undo.");
         }
     }
 
@@ -104,7 +104,7 @@ public class VersionedBookShelf extends BookShelf {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of bookShelfState list, unable to redo.");
         }
     }
 }

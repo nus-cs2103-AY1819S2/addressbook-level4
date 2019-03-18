@@ -21,7 +21,7 @@ public class VersionedPatientBook extends PatientBook implements VersionedBook {
 
     private void removeStatesAfterCurrentPointer() {
         this.patientBookStateList.subList(this.currStatePointer + 1,
-                this.patientBookStateList.size()).clear();
+            this.patientBookStateList.size()).clear();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class VersionedPatientBook extends PatientBook implements VersionedBook {
         VersionedPatientBook otherPatientBook = (VersionedPatientBook) other;
 
         return super.equals(otherPatientBook)
-                && this.patientBookStateList.equals(otherPatientBook.patientBookStateList)
-                && this.currStatePointer == otherPatientBook.currStatePointer;
+            && this.patientBookStateList.equals(otherPatientBook.patientBookStateList)
+            && this.currStatePointer == otherPatientBook.currStatePointer;
     }
 }

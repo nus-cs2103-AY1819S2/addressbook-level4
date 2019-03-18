@@ -9,13 +9,14 @@ import seedu.address.model.person.patient.Patient;
 
 /**
  * Adds a Patient to the address book.
+ *
  * @author Rohan
  */
 public class AddPatientCommand extends AddCommand implements PatientCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + COMMAND_OPTION
-            + ": Add a patient to the address book. Parameters: " + COMMAND_PARAMETERS + "\n"
-            + "Example: " + COMMAND_WORD + " " + COMMAND_EXAMPLE;
+        + ": Add a patient to the address book. Parameters: " + COMMAND_PARAMETERS + "\n"
+        + "Example: " + COMMAND_WORD + " " + COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
 
@@ -47,6 +48,6 @@ public class AddPatientCommand extends AddCommand implements PatientCommand {
     @Override
     public boolean equals(Object other) {
         return (other == this) || (other instanceof AddPatientCommand
-                && (this.toAdd.equals(((AddPatientCommand) other).toAdd)));
+            && (this.toAdd.equals(((AddPatientCommand) other).toAdd)));
     }
 }

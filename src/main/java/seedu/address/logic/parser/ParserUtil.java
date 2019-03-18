@@ -211,7 +211,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code conditionTag} is invalid.
      */
     public static ConditionTag parseConditionTag(String conditionTag)
-            throws ParseException {
+        throws ParseException {
         requireNonNull(conditionTag);
         String trimmedConditionTag = conditionTag.trim();
         if (!ConditionTag.isValidConditionTagName(trimmedConditionTag)) {
@@ -226,7 +226,7 @@ public class ParserUtil {
      * Conditions}.
      */
     public static Conditions parseConditions(Collection<String> conditionTags)
-            throws ParseException {
+        throws ParseException {
         requireNonNull(conditionTags);
         final Conditions conditions = new Conditions();
         for (String conditionTag : conditionTags) {

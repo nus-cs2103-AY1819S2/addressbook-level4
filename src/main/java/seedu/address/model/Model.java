@@ -21,7 +21,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<HealthWorker> PREDICATE_SHOW_ALL_HEALTHWORKERS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
@@ -68,7 +70,9 @@ public interface Model {
     /** Returns the HealthWorkerBook */
     ReadOnlyHealthWorkerBook getHealthWorkerBook();
 
-    /** Returns the PatientBook */
+    /**
+     * Returns the PatientBook
+     */
     ReadOnlyPatientBook getPatientBook();
 
     /**
@@ -152,6 +156,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered Patient list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPatientList(Predicate<Patient> predicate);
@@ -228,16 +233,37 @@ public interface Model {
     ReadOnlyRequestBook getRequestBook();
 
     /**
+     * Returns an unmodifiable view of the request list.
+     */
+    ObservableList<Request> getFilteredRequestList();
+
+    /**
      * Returns true if a request with the same identity as {@code request} exists in the address
      * book.
      */
     boolean hasRequest(Request request);
+
+
+    /**
+     * Replaces the given order {@code target} with {@code editedRequest}.
+     * {@code target} must exist in the request book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
+     */
+    void updateRequest(Request target, Request editedRequest);
 
     /**
      * Deletes the given request.
      * The request must exist in the request book.
      */
     void deleteRequest(Request target);
+
+    /**
+     * Updates the filter of the filtered order list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRequestList(Predicate<Request> predicate);
 
     /**
      * Adds the given request.

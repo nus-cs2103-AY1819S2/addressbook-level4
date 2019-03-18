@@ -38,29 +38,29 @@ public class PatientTest {
 
         // different phone -> returns false
         Patient editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withPhone(VALID_PHONE_BENSON)).build();
+            .withPhone(VALID_PHONE_BENSON)).build();
         assertFalse(ALICE.isSamePatient(editedAlice));
 
         // different NRIC -> returns false
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withNric(VALID_NRIC_BENSON)).build();
+            .withNric(VALID_NRIC_BENSON)).build();
         assertFalse(ALICE.isSamePatient(editedAlice));
 
         // different name -> returns false
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withName(VALID_NAME_BENSON)).build();
+            .withName(VALID_NAME_BENSON)).build();
         assertFalse(ALICE.isSamePatient(editedAlice));
 
         // same name, same phone, different email -> returns true
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE).withEmail
-                (VALID_EMAIL_BENSON)).build();
+            (VALID_EMAIL_BENSON)).build();
         assertTrue(ALICE.isSamePatient(editedAlice));
 
 
         // same name, phone, same nric, different conditions ->
         // returns true
         editedAlice = new PatientBuilder(ALICE)
-                .withConditions(BENSON.getConditions()).build();
+            .withConditions(BENSON.getConditions()).build();
         assertTrue(ALICE.isSamePatient(editedAlice));
 
     }
@@ -82,27 +82,27 @@ public class PatientTest {
 
         // different name -> returns false
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withName(VALID_NAME_BENSON)).build();
+            .withName(VALID_NAME_BENSON)).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different NRIC -> returns false
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withNric(VALID_NRIC_BENSON)).build();
+            .withNric(VALID_NRIC_BENSON)).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withPhone(VALID_PHONE_BENSON)).build();
+            .withPhone(VALID_PHONE_BENSON)).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
         editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withEmail(VALID_EMAIL_BENSON)).build();
+            .withEmail(VALID_EMAIL_BENSON)).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = ((PatientBuilder) new PatientBuilder(ALICE)
-                .withAddress(VALID_ADDRESS_BENSON)).build();
+        editedAlice = new PatientBuilder(ALICE)
+            .withAddress(VALID_ADDRESS_BENSON).build();
         assertFalse(ALICE.equals(editedAlice));
 
     }

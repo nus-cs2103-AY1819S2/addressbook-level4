@@ -548,9 +548,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |Food lover |Update or delete restaurant data conveniently |Ensure all data are up to date
 
-|`* * *` |Food lover |Categorise restaurants by cuisine |Filter restaurants of different cuisines later on
+|`* * *` |Food lover |Filter restaurants by cuisine |Easily refer back to specific cuisines I want to try
 
-|`* * *` |Food lover |Categorise restaurants by suitable occasion |Easily refer back for suitable dining options during special occasions
+|`* * *` |Food lover |Filter restaurants by suitable occasion |Easily refer back for suitable dining options during special occasions
 
 |`* * *` |Price savvy food lover |Add a price range to the restaurants I visited |Look for restaurants within budget
 

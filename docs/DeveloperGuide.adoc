@@ -312,7 +312,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Filter or/and/clear feature
 ==== Current Implementation
 
-image::FilterDiagram.png[width="800"]
+image::filterDiagram.png[width="800"]
 .Sequence Diagram of the Filtering Command
 
 Filtering mechanism is facilitated by `AddressBook`.

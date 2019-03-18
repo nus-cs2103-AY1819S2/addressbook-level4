@@ -26,6 +26,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
@@ -37,6 +38,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.MenuItemBuilder;
 import seedu.address.testutil.OrderItemBuilder;
+import seedu.address.testutil.StatisticsBuilder;
 import seedu.address.testutil.TableBuilder;
 
 
@@ -115,12 +117,12 @@ public class LogicManagerTest {
         Table expectedTable = new TableBuilder().build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();
-        Bill expectedBill = new BillBuilder.build();
+        DailyRevenue expectedBill = new StatisticsBuilder().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTable(expectedTable);
         expectedModel.addOrderItem(expectedOrderItem);
         expectedModel.addMenuItem(expectedMenuItem);
-        expectedModel.addBill(expectedBill);
+        expectedModel.addDailyRevenue(expectedBill);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addTableCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addTableCommand);
@@ -151,9 +153,9 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredBillList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredDailyRevenueList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredBillList().remove(0);
+        logic.getFilteredDailyRevenueList().remove(0);
     }
 
     /**

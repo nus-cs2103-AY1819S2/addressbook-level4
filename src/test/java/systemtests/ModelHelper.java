@@ -89,7 +89,6 @@ public class ModelHelper {
         return item -> item.equals(other);
     }
 
-
     /**
      * Updates {@code model}'s daily revenue filtered list to display only {@code toDisplay}.
      */
@@ -112,4 +111,5 @@ public class ModelHelper {
     private static Predicate<DailyRevenue> getDailyRevenuePredicateMatching(DailyRevenue other) {
         return item -> item.equals(other);
     }
+
 }

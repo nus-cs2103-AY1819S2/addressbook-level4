@@ -6,7 +6,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
 
@@ -317,12 +317,27 @@
     -fx-scale-shape: false;
 }
 
+#menuItemCardPane {
+    -fx-background-color: #515658;
+    -fx-border-color: #3c3e3f;
+    -fx-scale-shape: false;
+}
+
 #tableCard .label {
     -fx-text-fill: white;
     -fx-wrap-text: true;
 }
 
+#menuItemCard .label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
 #tableFlowPane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#menuItemFlowPane {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 

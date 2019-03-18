@@ -17,13 +17,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.Lesson;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new {@link AddLessonCommand} object.
  */
 public class AddLessonParser implements Parser<AddLessonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the {@link AddLessonCommand}
+     * and returns an {@link AddLessonCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddLessonCommand parse(String args) throws ParseException {
@@ -65,6 +65,10 @@ public class AddLessonParser implements Parser<AddLessonCommand> {
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
+     *
+     * @param argumentMultimap the mapping of prefixes to their respective arguments
+     * @param prefixes the prefixes to check if present
+     * @return true if prefixes are present in {@see argumentMultimap}; false otherwise
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());

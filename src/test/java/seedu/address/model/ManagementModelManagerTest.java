@@ -77,8 +77,8 @@ public class ManagementModelManagerTest {
     }
 
     @Test
-    public void getLesson_indexOutOfBounds_throwsIndexOutOfBoundsException() {
-        thrown.expect(IndexOutOfBoundsException.class);
+    public void getLesson_indexOutOfBounds_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
         modelManager.getLesson(0);
         modelManager.getLesson(-1);
         modelManager.getLesson(999);
@@ -122,12 +122,12 @@ public class ManagementModelManagerTest {
         newLesson.addCard(Arrays.asList("test1", "test2"));
         assertNotEquals(newLesson, getTestLesson());
         modelManager.setLesson(0, newLesson);
-        Assert.assertEquals(newLesson, modelManager.getLesson(0));
+        assertEquals(newLesson, modelManager.getLesson(0));
     }
 
     @Test
-    public void deleteLesson_invalidIndex_throwsIndexOutOfBoundsException() {
-        thrown.expect(IndexOutOfBoundsException.class);
+    public void deleteLesson_invalidIndex_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
         modelManager.deleteLesson(0);
         modelManager.deleteLesson(-1);
         modelManager.deleteLesson(1);
@@ -137,10 +137,10 @@ public class ManagementModelManagerTest {
     public void deleteLesson_validIndex_deletesLesson() {
         addTestLesson();
         assertEquals(1, modelManager.getLessons().size());
-        Assert.assertEquals(getTestLesson(), modelManager.getLesson(0));
+        assertEquals(getTestLesson(), modelManager.getLesson(0));
         modelManager.deleteLesson(0);
         assertEquals(0, modelManager.getLessons().size());
-        thrown.expect(IndexOutOfBoundsException.class);
+        thrown.expect(IllegalArgumentException.class);
         modelManager.getLesson(0);
     }
 

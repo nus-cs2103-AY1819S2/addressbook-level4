@@ -229,7 +229,8 @@ public class BookShelf implements ReadOnlyBookShelf {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookShelf // instanceof handles nulls
-                && persons.equals(((BookShelf) other).persons));
+                && persons.equals(((BookShelf) other).persons)
+                && books.equals(((BookShelf) other).books));
     }
 
     @Override

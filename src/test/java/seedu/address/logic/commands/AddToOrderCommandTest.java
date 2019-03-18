@@ -39,6 +39,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
@@ -283,6 +284,16 @@ public class AddToOrderCommandTest {
         }
 
         @Override
+        public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDailyRevenue(DailyRevenue target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addTable(Table table) {
             throw new AssertionError("This method should not be called.");
         }
@@ -389,72 +400,72 @@ public class AddToOrderCommandTest {
         }
 
         @Override
-        public void addBill(Bill bill) {
+        public void addDailyRevenue(DailyRevenue dailyRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setBill(Bill target, Bill editedBill) {
+        public void setDailyRevenue(DailyRevenue target, DailyRevenue editedDailyRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Bill> getFilteredBillList() {
+        public ObservableList<DailyRevenue> getFilteredDailyRevenueList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredBillList(Predicate<Bill> predicate) {
+        public void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<Bill> selectedBillProperty() {
+        public ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Bill getSelectedBill() {
+        public DailyRevenue getSelectedDailyRevenue() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedBill(Bill bill) {
+        public void setSelectedDailyRevenue(DailyRevenue dailyRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Bill> getBillList() {
+        public ObservableList<DailyRevenue> getDailyRevenueList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Bill> recentBillProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Bill getRecentBill() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecentBill(Bill bill) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A default menu stub that has all of the methods failing, except getItemFromCode() which returns an empty Optional.
+     * A default menu stub that has all methods failing, except getItemFromCode() which returns an empty Optional.
      */
     private class MenuStub implements ReadOnlyMenu {
         @Override
         public ObservableList<MenuItem> getMenuItemList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setMenuItem(MenuItem tobeReplaced, MenuItem newItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeMenuItem(MenuItem menuItem) {
             throw new AssertionError("This method should not be called.");
         }
 

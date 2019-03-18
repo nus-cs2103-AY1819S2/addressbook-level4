@@ -39,9 +39,9 @@ public class MainWindow extends UiPart<Stage> {
     private OrderItemListPanel orderItemListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private MenuBrowserPanel menuBrowserPanel;
     private BillBrowserPanel billBrowserPanel;
     private TableFlowPanel tableFlowPanel;
+    private MenuItemFlowPanel menuItemFlowPanel;
     private StatisticsFlowPanel statisticsFlowPanel;
     private StatusBarFooter statusBarFooter;
 
@@ -209,8 +209,8 @@ public class MainWindow extends UiPart<Stage> {
 
         case TABLE_MODE:
             // TODO: actual menuBrowserPanel
-            menuBrowserPanel = new MenuBrowserPanel(logic.selectedMenuItemProperty());
-            browserPlaceholder.getChildren().add(menuBrowserPanel.getRoot());
+            menuItemFlowPanel = new MenuItemFlowPanel(logic.getFilteredMenuItemList(), scrollPane);
+            browserPlaceholder.getChildren().add(menuItemFlowPanel.getRoot());
 
             orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),
                     logic.selectedOrderItemProperty(), logic::setSelectedOrderItem);

@@ -19,20 +19,6 @@ public class SystemTestSetupHelper {
     private MainWindowHandle mainWindowHandle;
 
     /**
-     * Sets up a new {@code TestApp} and returns it.
-     */
-    public TestApp setupApplication(Supplier<ReadOnlyRestOrRant> addressBook, Path saveFileLocation) {
-        try {
-            FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
-        } catch (TimeoutException te) {
-            throw new AssertionError("Application takes too long to set up.", te);
-        }
-
-        return testApp;
-    }
-
-    /**
      * Initializes TestFX.
      */
     public static void initialize() {
@@ -42,6 +28,23 @@ public class SystemTestSetupHelper {
         } catch (TimeoutException e) {
             throw new AssertionError(e);
         }
+    }
+
+    /**
+     * Sets up a new {@code TestApp} and returns it.
+     */
+    public TestApp setupApplication(Supplier<ReadOnlyRestOrRant> restOrRant, Path tablesFileLocation,
+                                    Path ordersFileLocation, Path menuFileLocation, Path statsFileLocation) {
+        try {
+            FxToolkit.registerStage(Stage::new);
+            FxToolkit.setupApplication(() -> testApp =
+                    new TestApp(restOrRant, tablesFileLocation, ordersFileLocation, menuFileLocation,
+                            statsFileLocation));
+        } catch (TimeoutException te) {
+            throw new AssertionError("Application takes too long to set up.", te);
+        }
+
+        return testApp;
     }
 
     /**

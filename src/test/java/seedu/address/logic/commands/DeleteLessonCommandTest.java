@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
+import static seedu.address.model.Lessons.EXCEPTION_INVALID_INDEX;
+import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class DeleteLessonCommandTest {
     public void execute_lessonDeletedByModel_deleteUnsuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         Index toDeleteIndex = Index.fromZeroBased(0);
-        thrown.expect(IndexOutOfBoundsException.class);
+        thrown.expect(CommandException.class);
         CommandResult commandResult =
                 new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }
@@ -49,14 +51,14 @@ public class DeleteLessonCommandTest {
     @Test
     public void execute_lessonDeletedByModel_deleteSuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
-        modelStub.addLesson(TypicalLessons.LESSON_DEFAULT);
+        modelStub.addLesson(LESSON_DEFAULT);
 
         Index toDeleteIndex = Index.fromZeroBased(0);
         CommandResult commandResult =
                 new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, toDeleteIndex.getZeroBased()),
-                commandResult.getFeedbackToUser());
+        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS + LESSON_DEFAULT.getName(),
+                toDeleteIndex.getZeroBased()), commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -171,6 +173,25 @@ public class DeleteLessonCommandTest {
         public void addLesson(Lesson lesson) {
             requireNonNull(lesson);
             lessons.addLesson(lesson);
+        }
+
+        /**
+         * Gets the entire list of lessons.
+         */
+        public Lesson getLesson(int index) {
+            try {
+                return lessons.getLesson(index);
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+            }
+        }
+
+        /**
+         * Gets the entire list of lessons.
+         */
+        @Override
+        public List<Lesson> getLessons() {
+            return lessons.getLessons();
         }
 
         @Override

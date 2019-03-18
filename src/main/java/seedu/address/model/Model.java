@@ -54,6 +54,24 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Returns the user prefs' archive book file path.
+     */
+    Path getArchiveBookFilePath();
+
+    /**
+     * Sets the user prefs' archive book file path.
+     */
+    void setArchiveBookFilePath(Path archiveBookFilePath);
+
+    /**
+     * Replaces archive book data with the data in {@code archiveBook}.
+     */
+    void setArchiveBook(ReadOnlyArchiveBook archiveBook);
+
+    /** Returns the ArchiveBook */
+    ReadOnlyArchiveBook getArchiveBook();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
@@ -65,7 +83,7 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
-     * Deletes the given person.
+     * Archives the given person.
      * The person must exist in the address book.
      */
     void archivePerson(Person target);
@@ -92,6 +110,15 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /** Returns an unmodifiable view of the filtered archived list */
+    ObservableList<Person> getFilteredArchivedPersonList();
+
+    /**
+     * Updates the filter of the filtered archived list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredArchivedPersonList(Predicate<Person> predicate);
+
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -116,6 +143,21 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Restores the model's archive book to its previous state.
+     */
+    void undoArchiveBook();
+
+    /**
+     * Restores the model's archive book to its previously undone state.
+     */
+    void redoArchiveBook();
+
+    /**
+     * Saves the current archive book state for undo/redo.
+     */
+    void commitArchiveBook();
 
     /**
      * Selected person in the filtered person list.

@@ -25,27 +25,33 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+    private final VersionedArchiveBook versionedArchiveBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> filteredArchivedPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyArchiveBook archiveBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, archiveBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook
+                + "Initializing with archive book: " + archiveBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedArchiveBook = new VersionedArchiveBook(archiveBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredArchivedPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredArchivedPersons.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new ArchiveBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -83,6 +89,17 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getArchiveBookFilePath() {
+        return userPrefs.getArchiveBookFilePath();
+    }
+
+    @Override
+    public void setArchiveBookFilePath(Path archiveBookFilePath) {
+        requireNonNull(archiveBookFilePath);
+        userPrefs.setAddressBookFilePath(archiveBookFilePath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -107,11 +124,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void archivePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-    }
-
-    @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -122,6 +134,25 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
+    }
+
+    //=========== ArchiveBook ================================================================================
+
+    @Override
+    public void setArchiveBook(ReadOnlyArchiveBook archiveBook) {
+        versionedArchiveBook.resetData(archiveBook);
+    }
+
+    @Override
+    public ReadOnlyArchiveBook getArchiveBook() {
+        return versionedArchiveBook;
+    }
+
+    @Override
+    public void archivePerson(Person target) {
+        versionedArchiveBook.addPerson(target);
+        versionedAddressBook.removePerson(target);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -139,6 +170,23 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedArchiveBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredArchivedPersonList() {
+        return filteredArchivedPersons;
+    }
+
+    @Override
+    public void updateFilteredArchivedPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredArchivedPersons.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -166,6 +214,21 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void undoArchiveBook() {
+        versionedArchiveBook.undo();
+    }
+
+    @Override
+    public void redoArchiveBook() {
+        versionedArchiveBook.redo();
+    }
+
+    @Override
+    public void commitArchiveBook() {
+        versionedArchiveBook.commit();
     }
 
     //=========== Selected person ===========================================================================
@@ -232,6 +295,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
+                && versionedArchiveBook.equals(other.versionedArchiveBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

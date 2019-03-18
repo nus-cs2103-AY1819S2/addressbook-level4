@@ -2,7 +2,7 @@ package seedu.address.logic.commands.request;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -27,6 +27,8 @@ import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,11 +47,11 @@ public class EditRequestCommand extends RequestCommand {
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_DATE + "DATE] "
-        + "[" + PREFIX_CONDITION + "CONDITION]...\n"
+        + "[" + PREFIX_CONDITIONS + "CONDITION]...\n"
         + "Example: " + RequestCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
-        + PREFIX_CONDITION + "Physiotherapy "
-        + PREFIX_CONDITION + "Dialysis";
+        + PREFIX_CONDITIONS + "Physiotherapy "
+        + PREFIX_CONDITIONS + "Dialysis";
 
     public static final String MESSAGE_EDIT_REQUEST_SUCCESS = "Edited Request: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -110,8 +112,8 @@ public class EditRequestCommand extends RequestCommand {
         RequestDate updatedRequestDate =
             editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
         RequestStatus updatedRequestStatus = requestToEdit.getRequestStatus();
-        Set<Tag> updatedConditions =
-            editRequestDescriptor.getConditions().orElse(requestToEdit.getConditions());
+        Set<ConditionTag> updatedConditions =
+            editRequestDescriptor.getConditions().orElse(requestToEdit.getConditions().getConditions());
         HealthWorker updatedHealthWorker;
         if (requestToEdit.getHealthStaff().isPresent()) {
             updatedHealthWorker = requestToEdit.getHealthStaff().get();
@@ -121,10 +123,10 @@ public class EditRequestCommand extends RequestCommand {
 
         if (updatedHealthWorker == null) {
             return new Request(updatedName, updatedPhone, updatedAddress, updatedRequestDate,
-                updatedConditions, updatedRequestStatus);
+                new Conditions(updatedConditions), updatedRequestStatus);
         } else {
             return new Request(updatedName, updatedPhone, updatedAddress, updatedRequestDate,
-                updatedConditions, updatedRequestStatus, updatedHealthWorker);
+                new Conditions(updatedConditions), updatedRequestStatus, updatedHealthWorker);
         }
 
     }
@@ -138,7 +140,7 @@ public class EditRequestCommand extends RequestCommand {
         private Phone phone;
         private Address address;
         private RequestDate requestDate;
-        private Set<Tag> conditions;
+        private Set<ConditionTag> conditions;
 
         public EditRequestDescriptor() {}
 
@@ -194,21 +196,21 @@ public class EditRequestCommand extends RequestCommand {
         }
 
         /**
-         * Sets {@code conditions} to this object's {@code conditions}
-         * A defensive copy of {@code conditions} is used internally.
-         */
-        public void setConditions(Set<Tag> conditions) {
-            this.conditions = (conditions != null) ? new HashSet<>(conditions) : null;
-        }
-
-        /**
          * Returns an unmodifiable food set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code conditions} is null
          */
-        public Optional<Set<Tag>> getConditions() {
+        public Optional<Set<ConditionTag>> getConditions() {
             return (conditions != null) ? Optional.of(Collections.unmodifiableSet(conditions))
                 : Optional.empty();
+        }
+
+        /**
+         * Sets {@code conditions} to this object's {@code conditions}
+         * A defensive copy of {@code conditions} is used internally.
+         */
+        public void setConditions(Set<ConditionTag> conditions) {
+            this.conditions = (conditions != null) ? new HashSet<>(conditions) : null;
         }
 
         @Override

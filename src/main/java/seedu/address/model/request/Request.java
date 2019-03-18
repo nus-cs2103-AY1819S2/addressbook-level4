@@ -3,6 +3,7 @@ package seedu.address.model.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -67,6 +68,34 @@ public class Request {
         requireAllNonNull(name, phone, address, requestDate, conditions, status);
         this.patient = new Patient(name, phone, address, conditions);
         this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+    }
+
+    /**
+     * Overloaded constructor that takes in differing arguments for the patient.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Conditions conditions, RequestStatus status) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status);
+        HashSet<Tag> cond = new HashSet<>();
+        conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
+        this.patient = new Patient(name, phone, address, cond);
+        this.conditions = conditions;
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+    }
+
+    /**
+     * Overloaded constructor to represent a request.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Conditions conditions, RequestStatus status, HealthWorker healthWorker) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status, healthWorker);
+        HashSet<Tag> cond = new HashSet<>();
+        conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
+        this.patient = new Patient(name, phone, address, cond);
+        this.conditions = conditions;
         this.requestStatus = status;
         this.requestDate = requestDate;
     }

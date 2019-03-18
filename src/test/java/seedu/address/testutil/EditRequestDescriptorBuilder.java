@@ -9,7 +9,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.ConditionTag;
 
 /**
  * A utility class to help with building EditRequestDescriptor objects
@@ -33,7 +33,7 @@ public class EditRequestDescriptorBuilder {
         descriptor.setName(request.getPatient().getName());
         descriptor.setPhone(request.getPatient().getPhone());
         descriptor.setDate(request.getRequestDate());
-        descriptor.setConditions(request.getConditions());
+        descriptor.setConditions(request.getConditions().getConditions());
     }
 
     /**
@@ -65,7 +65,8 @@ public class EditRequestDescriptorBuilder {
      * EditOrderDescriptor} that we are building
      */
     public EditRequestDescriptorBuilder withConditions(String... conditions) {
-        Set<Tag> conditionSet = Stream.of(conditions).map(Tag::new).collect(Collectors.toSet());
+        Set<ConditionTag> conditionSet =
+            Stream.of(conditions).map(ConditionTag::new).collect(Collectors.toSet());
         descriptor.setConditions(conditionSet);
         return this;
     }

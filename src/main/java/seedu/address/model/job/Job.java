@@ -59,6 +59,18 @@ public class Job {
         return names;
     }
 
+    /**
+     * Returns true if both jobs have the same name.
+     * This defines a weaker notion of equality between two jobs.
+     */
+    public boolean isSameJob(Job otherJob) {
+        if (otherJob == this) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

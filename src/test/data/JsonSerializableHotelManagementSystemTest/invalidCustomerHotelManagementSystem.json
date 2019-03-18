@@ -1,0 +1,13 @@
+{
+  "customers": [
+    {
+      "name": "Hans Muster",
+      "phone": "9482424",
+      "email": "invalid@email!3e",
+      "idnum": "123345",
+      "hms": "4th street"
+    }
+  ],
+  "bookings": [
+  ]
+}

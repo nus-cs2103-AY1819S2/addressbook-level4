@@ -13,7 +13,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalRequests.*;
+import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
+import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import org.junit.jupiter.api.Test;
 

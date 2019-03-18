@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
+//import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 //import static seedu.address.testutil.TypicalRequests.HOON_REQUEST;
 //import static seedu.address.testutil.TypicalRequests.IDA_REQUEST;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;

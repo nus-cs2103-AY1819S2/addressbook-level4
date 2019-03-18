@@ -25,7 +25,12 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.*;
+import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.Assert;
+import seedu.address.testutil.HealthWorkerBookBuilder;
+import seedu.address.testutil.PatientBookBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RequestBookBuilder;
 
 public class ModelManagerTest {
     @Rule

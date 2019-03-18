@@ -2,16 +2,19 @@ package seedu.address.testutil;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;

@@ -8,14 +8,14 @@ import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 
-import org.junit.Test;
-
-import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.testutil.RequestBuilder;
-
 import java.util.Collections;
 import java.util.HashSet;
+
+import org.junit.Test;
+
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
+import seedu.address.testutil.RequestBuilder;
 
 public class RequestTest {
 

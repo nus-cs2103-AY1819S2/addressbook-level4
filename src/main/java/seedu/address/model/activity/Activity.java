@@ -17,6 +17,8 @@ public class Activity {
     // Identity fields
     private final ActivityName name;
     private final ActivityDateTime dateTime;
+    private final ActivityLocation location;
+    private final ActivityDescription description;
 
     // Data fields
     private Person inCharge;
@@ -25,10 +27,12 @@ public class Activity {
     /**
      * Every field must be present and not null.
      */
-    public Activity(ActivityName name, ActivityDateTime dateTime) {
+    public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location, ActivityDescription description) {
         requireAllNonNull(name, dateTime);
         this.name = name;
         this.dateTime = dateTime;
+        this.location = location;
+        this.description = description;
     }
 
     public ActivityName getName() {

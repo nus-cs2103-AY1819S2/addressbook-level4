@@ -226,7 +226,7 @@ public class PutShipCommandTest {
 
         model.getMapGrid().initialise(cellGrid);
         model.getMapGrid().getCell(COORDINATES_A2).putShip(battleship);
-        model.deployBattleship(battleship);
+        model.deployBattleship(battleship, COORDINATES_A2, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
                 "Not enough aircraft carriers.");

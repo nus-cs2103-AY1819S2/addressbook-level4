@@ -9,8 +9,11 @@ import org.junit.Test;
 
 import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.CoordinatesTest;
 import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
+import seedu.address.model.battleship.Orientation;
+import seedu.address.model.cell.Coordinates;
 
 
 public class FleetTest {
@@ -77,9 +80,13 @@ public class FleetTest {
     @Test
     public void testDeployBattleships() {
         Fleet testFleet = new Fleet(1, 1, 1);
-        testFleet.deployBattleship(new DestroyerBattleship());
-        testFleet.deployBattleship(new CruiserBattleship());
-        testFleet.deployBattleship(new AircraftCarrierBattleship());
+
+        Coordinates testCoordinates = new Coordinates("a1");
+        Orientation testOrientation = new Orientation("vertical");
+
+        testFleet.deployOneBattleship(new DestroyerBattleship(), testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(new CruiserBattleship(), testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(new AircraftCarrierBattleship(), testCoordinates, testOrientation);
 
         assertEquals(testFleet.getNumDestroyer(), 0);
         assertEquals(testFleet.getNumCruiser(), 0);
@@ -98,9 +105,12 @@ public class FleetTest {
         assertTrue(testFleet.isEnoughBattleship(testCruiser, 1));
         assertTrue(testFleet.isEnoughBattleship(testAircraftCarrier, 1));
 
-        testFleet.deployBattleship(new DestroyerBattleship());
-        testFleet.deployBattleship(new CruiserBattleship());
-        testFleet.deployBattleship(new AircraftCarrierBattleship());
+        Coordinates testCoordinates = new Coordinates("a1");
+        Orientation testOrientation = new Orientation("vertical");
+
+        testFleet.deployOneBattleship(new DestroyerBattleship(), testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(new CruiserBattleship(), testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(new AircraftCarrierBattleship(), testCoordinates, testOrientation);
 
         assertFalse(testFleet.isEnoughBattleship(testDestroyer, 1));
         assertFalse(testFleet.isEnoughBattleship(testCruiser, 1));

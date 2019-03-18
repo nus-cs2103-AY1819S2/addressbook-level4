@@ -20,7 +20,7 @@ public class FindBookingContainsPayerCommand extends BookingCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all bookings which is paid by the selected "
             + "customer\n"
             + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1234567";
 
     private final BookingContainsPayerPredicate predicate;
 

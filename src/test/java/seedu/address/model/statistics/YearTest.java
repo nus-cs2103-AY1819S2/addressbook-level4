@@ -15,7 +15,7 @@ public class YearTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
+    public void constructor_invalidYear_throwsIllegalArgumentException() {
         String invalidYear = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Year(invalidYear));
     }

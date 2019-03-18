@@ -15,7 +15,7 @@ public class DayTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
+    public void constructor_invalidDay_throwsIllegalArgumentException() {
         String invalidDay = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Day(invalidDay));
     }

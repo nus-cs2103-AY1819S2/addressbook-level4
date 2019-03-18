@@ -64,7 +64,7 @@ public abstract class Statistics {
      * returns the hit-miss percentage of the user.
      */
     public double getAccuracy() {
-        return (double) hitCount / (double) hitCount + (double) missCount;
+        return (double) hitCount / (double) (hitCount + missCount);
     }
 
 }

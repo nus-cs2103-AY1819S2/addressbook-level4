@@ -49,9 +49,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         // check whether model contains the card folders desired. Catch exception thrown
         try {
-            List<ReadOnlyCardFolder> cardFolderObject = model.returnValidCardFolders(this.cardFolders);
-            CsvCardExport cardExportManager = new CsvCardExport(cardFolderObject, filename);
-            cardExportManager.writeFoldersToCsv();
+            model.exportCardFolders(cardFolders, filename);
         } catch (CardFolderNotFoundException e) {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS + e.getMessage());
         } catch (IOException e) {

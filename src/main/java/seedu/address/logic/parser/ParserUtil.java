@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.activity.ActivityDateTime;
+import seedu.address.model.activity.ActivityName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -121,4 +123,35 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String activityname} into a {@code ActivityName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ActivityName} is invalid.
+     */
+    public static ActivityName parseActivityName(String activityname) throws ParseException {
+        requireNonNull(activityname);
+        String trimmedName = activityname.trim();
+        if (!ActivityName.isValidActivityName(trimmedName)) {
+            throw new ParseException(ActivityName.MESSAGE_CONSTRAINTS);
+        }
+        return new ActivityName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String activitydatetime} into a {@code ActivityDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ActivityDateTime} is invalid.
+     */
+    public static ActivityDateTime parseActivityDateTime(String activitydatetime) throws ParseException {
+        requireNonNull(activitydatetime);
+        String trimmedDateTime = activitydatetime.trim();
+        if (!ActivityDateTime.isValidActivityDateTime(trimmedDateTime)) {
+            throw new ParseException(ActivityDateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new ActivityDateTime(trimmedDateTime);
+    }
+
 }

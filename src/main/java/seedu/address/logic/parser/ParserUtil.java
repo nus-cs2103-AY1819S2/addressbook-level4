@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.Quiz;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

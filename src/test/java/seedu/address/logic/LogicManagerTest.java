@@ -137,6 +137,14 @@ public class LogicManagerTest {
 
         assertCommandSuccess("\\status", expected.getFeedbackToUser(), expectedModel);
 
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+
+        assertTrue(new QuizAnswerCommand("someanswer").execute(quizModel, history).isShowQuiz());
+
     }
 
     @Test

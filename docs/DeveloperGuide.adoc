@@ -994,7 +994,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `MediTab` and the *Actor* is the `pharmacist`, unless specified otherwise)
+(For all use cases below, the *System* is the `MediTabs` and the *Actor* is the `pharmacist`, unless specified otherwise)
 
 [discrete]
 === Use Case 1: View Complete Inventory
@@ -1009,25 +1009,65 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Pharmacist used a `filter` function, filtered inventory is shown.
+* 1a. Pharmacist used `find` function, filtered inventory is shown.
 +
 [none]
-** 1a1. Pharmacist requests for complete inventory to be listed.
+** 1a1. Pharmacist requests for complete inventory to be listed using `list` command.
 ** 1a2. System displays complete inventory.
 +
 Use case resume at step 2.
 
 
 [discrete]
-=== Use Case 2: Update Inventory in Batches Medicine
+=== Use Case 2: Update Batch Details of a Medicine in Inventory 
 
 *MSS*
 
-1.  Pharmacist notes the index of the selected medicine in the list.
-2.  Pharmacist request to add new batch to medicine using the index.
-3.  System requests details of the new batch of medicine
-4.  Pharmacist enters the required details
-5.  System displays updated details
+1.  Pharmacist notes the index of the medicine to be updated in the list.
+2.  Pharmacist request to update details of a batch of medicine using the index and the `update` command.
+3.  System displays updated details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Medicine is new and has not been added to the inventory.
++
+[none]
+** 1a1. Pharmacist uses the `add` function to add a new entry to list.
+** 1a2. Pharmacist notes the index of the new medicine listing from the search result.
++
+Use case resume at step 2.
+
+[none]
+* 1b. Pharmacist cannot remember batch number of batch to be updated.
++
+[none]
+** 1b1. Pharmacist uses `select` command to select the medicine to be updated.
+** 1b2. System displays the batch table with information of all batches of the selected medicine.
+** 1b3. Pharmacist refers to the batch table while inputting batch details.
++
+Use case resume at step 2.
+
+[none]
+* 2a. Pharmacist did not enter expiry date and batch does not already exist.
++
+[none]
+** 2a1. An error message is shown. 
+** 2a2. System requests expiry date be entered for new batches. 
+** 2a3. Pharmacist repeats request with the required input.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use Case 3: Delete Medicine from Inventory
+
+*MSS*
+
+1.  Pharmacist notes the index of the medicine to be deleted in the list.
+2.  Pharmacist request to delete a medicine listing using the index and the `delete` command.
+3.  System displays updated list.
 +
 Use case ends.
 
@@ -1037,43 +1077,9 @@ Use case ends.
 * 1a. Pharmacist cannot find the medicine listing manually from the list.
 +
 [none]
-** 1a1. Pharmacist uses the `search` function to look for medicine listing.
+** 1a1. Pharmacist uses the `find` function to look for medicine listing.
 ** 1a2. System list the search results.
 ** 1a3. Pharmacist notes the index of the medicine listing from the search result.
-+
-Use case resume at step 2.
-
-[none]
-* 1b. Medicine is new and has not been added to the inventory.
-+
-[none]
-** 1b1. Pharmacist uses the `add` function to add a new entry to list.
-** 1b2. Pharmacist enters details of the medicine to add.
-** 1b3. Pharmacist notes the index of the medicine listing from the search result.
-+
-Use case resume at step 2.
-
-
-[discrete]
-=== Use Case 3: Delete Medicine from Inventory
-
-*MSS*
-
-1.  Pharmacist uses the `delete` function to remove a listing from the inventory.
-2.  System displays updated list.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Selected entry is not empty. Deletion is illegal.
-+
-[none]
-** 1a1.  System displays error message.
-** 1a2.  Pharmacist uses the `edit` function to decrease quantity of medicine to zero.
-** 1a3.  System displays updated quantity.
-** 1a4.  Repeat step 1.
 +
 Use case resume at step 2.
 

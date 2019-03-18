@@ -33,8 +33,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a restaurant
         guiRobot.interact(() -> selectedRestaurant.set(ALICE));
-        URL expectedRestaurantUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedRestaurantUrl = new URL(selectedRestaurant.get().getWeblink().value);
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedRestaurantUrl, browserPanelHandle.getLoadedUrl());

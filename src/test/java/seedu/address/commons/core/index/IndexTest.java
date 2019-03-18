@@ -2,6 +2,7 @@ package seedu.address.commons.core.index;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -82,7 +83,7 @@ public class IndexTest {
         assertTrue(fifthPersonIndex.equals(fifthPersonIndex));
 
         // null -> returns false
-        assertNull(fifthPersonIndex);
+        assertNotNull(fifthPersonIndex);
 
         // different types -> returns false
         assertFalse(fifthPersonIndex.equals(5.0f));

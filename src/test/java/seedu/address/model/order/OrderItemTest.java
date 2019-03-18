@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W12;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.OrderItemBuilder;
 

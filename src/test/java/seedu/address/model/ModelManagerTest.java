@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W12;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
+import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE1;
+import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,6 +35,7 @@ import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.testutil.MenuItemBuilder;
 import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.RestOrRantBuilder;
+import seedu.address.testutil.StatisticsBuilder;
 import seedu.address.testutil.TableBuilder;
 
 public class ModelManagerTest {

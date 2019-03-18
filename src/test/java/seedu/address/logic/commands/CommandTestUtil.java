@@ -18,9 +18,11 @@ import seedu.address.model.RestOrRant;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
+
 import seedu.address.model.statistics.Year;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
@@ -70,6 +72,12 @@ public class CommandTestUtil {
     public static final String VALID_TABLE_STATUS_2 = "3/5";
     public static final String VALID_QUANTITY_3 = "3";
     public static final String VALID_QUANTITY_2 = "2";
+    public static final String VALID_DAY_1 = "01";
+    public static final String VALID_DAY_31 = "31";
+    public static final String VALID_MONTH_1 = "1";
+    public static final String VALID_MONTH_12 = "12";
+    public static final String VALID_YEAR_2019 = "2019";
+    public static final String VALID_YEAR_1998 = "1998";
 
     public static final String NAME_DESC_CHICKEN = " " + PREFIX_NAME + VALID_NAME_CHICKEN;
     public static final String NAME_DESC_FRIES = " " + PREFIX_NAME + VALID_NAME_FRIES;
@@ -79,14 +87,17 @@ public class CommandTestUtil {
     public static final String PRICE_DESC_FRIES = " " + PREFIX_PRICE + VALID_PRICE_FRIES;
     public static final String ORDER_DESC_2_CHICKEN = " " + VALID_CODE_CHICKEN + " " + VALID_QUANTITY_2;
     public static final String ORDER_DESC_3_FRIES = " " + VALID_CODE_FRIES + " " + VALID_QUANTITY_3;
+    public static final String DATE_DESC_1_JAN_2019 = " " + VALID_DAY_1 + "." + VALID_MONTH_1 + "." + VALID_YEAR_2019;
+    public static final String DATE_DESC_31_DEC_1998 = " " + VALID_DAY_31 + "." + VALID_MONTH_12 + "." +
+            VALID_YEAR_1998;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " Chicken Wings"; // ' ' not allowed in front
     public static final String INVALID_CODE_DESC = " " + PREFIX_CODE + "31A"; // first character should be a letter
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "a.50"; // 'a' not allowed in price
-
     public static final String INVALID_ORDER_CODE_DESC = " " + "31A" + " " + VALID_QUANTITY_2;
     public static final String INVALID_ORDER_QUANTITY_DESC = " " + VALID_CODE_CHICKEN + " " + "A";
     public static final String INVALID_ORDER_DESC = " " + VALID_QUANTITY_2 + " " + VALID_CODE_CHICKEN; // order swapped
+    public static final String INVALID_DATE_DESC = " " + VALID_DAY_1 + "." + VALID_MONTH_1 + ".2020"; //Future date
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

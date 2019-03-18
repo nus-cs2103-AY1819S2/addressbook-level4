@@ -26,9 +26,7 @@ public class Bill {
      * Every field must be present and not null.
      */
     public Bill(TableNumber tableNumber, float totalBill, String receipt) {
-        requireAllNonNull(tableNumber);
-        requireAllNonNull(totalBill);
-        requireAllNonNull(receipt);
+        requireAllNonNull(tableNumber, totalBill, receipt);
         this.tableNumber = tableNumber;
         this.totalBill = totalBill;
         this.receipt = receipt;
@@ -37,6 +35,21 @@ public class Bill {
         day = new Day(dateParser.substring(0, 2));
         month = new Month(dateParser.substring(3, 5));
         year = new Year(dateParser.substring(6, 10));
+    }
+
+    /**
+     * Every field must be present and not null.
+     * Constructor for StatisticBuilder for testing.
+     */
+    public Bill(Day day, Month month, Year year, TableNumber tableNumber, float totalBill, String receipt) {
+        requireAllNonNull(day, month, year, tableNumber, totalBill, receipt);
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.tableNumber = tableNumber;
+        this.totalBill = totalBill;
+        this.receipt = receipt;
+        date = null;
     }
 
     /**
@@ -100,11 +113,11 @@ public class Bill {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("[Table ")
+        builder.append("Total bill for Table ")
                 .append(getTableNumber())
-                .append("] [Total Cost of the Bill: $")
-                .append(getTotalBill())
-                .append("] [Date: ")
+                .append(": $")
+                .append(String.format("%.2f", getTotalBill()))
+                .append(" [Date: ")
                 .append(getFormattedDate())
                 .append("] ");
         return builder.toString();

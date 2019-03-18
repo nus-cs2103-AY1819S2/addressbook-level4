@@ -54,7 +54,7 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
     }
 
     /**
-     * Replaces the Observable<DailyRevenue> {@code internalList} with another DailyRevenueList {@code replacement}.
+     * Replaces the Observable<'DailyRevenue'> {@code internalList} with another DailyRevenueList {@code replacement}.
      */
     public void setDailyRevenue(DailyRevenueList replacement) {
         requireNonNull(replacement);

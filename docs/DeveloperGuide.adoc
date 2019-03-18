@@ -323,6 +323,17 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::search[]
 === Search Feature
 ==== Current Implementation
+
+The following diagram shows how the search feature works:
+
+image::SearchCommandSequenceDiagram.png[width="800"]
+
+The user enters a command with the command word `search` followed by argument(s). This is processed by the UI component, which will then
+call `LogicManager#execute()` in the Logic component. `AddressBookParser#parseCommand()` is then called, which is also in the Logic component.
+
+The appropriate search command is then called depending on the command word used. It will then update the visible list based on the predicate through `ModelManager#updateFilteredList(p)` where p represents the predicate derived from the user input argument(s).
+
+
 ===== Search Name Feature
 The search name mechanism is facilitated by `SearchCommand`.
 It extends `Command` with a predicate that specifies the conditions of the name of the entry to be chosen.

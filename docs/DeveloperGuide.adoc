@@ -335,15 +335,20 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
+// tag::implementationconfiguration[]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// end::implementationconfiguration[]
+
 [[Implementation-Activity Model]]
+
 === Activity Model
+
 .Structure of the Activity Model Component
 image::ModelComponentWithActivityList.png[width="800"]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The updated `Model`,

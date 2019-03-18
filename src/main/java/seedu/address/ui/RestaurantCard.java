@@ -60,10 +60,10 @@ public class RestaurantCard extends UiPart<Region> {
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        restaurant.getCuisine().ifPresentOrElse(content -> cuisine.setText(content.value),
-                () -> cuisine.setVisible(false));
-        restaurant.getOccasion().ifPresentOrElse(content -> occasion.setText(content.value),
-                () -> occasion.setVisible(false));
+        restaurant.getCuisine()
+                .ifPresentOrElse(content -> cuisine.setText(content.value), () -> cuisine.setVisible(false));
+        restaurant.getOccasion()
+                .ifPresentOrElse(content -> occasion.setText(content.value), () -> occasion.setVisible(false));
 
         weblink.setText(restaurant.getWeblink().value);
         openingHours.setText(restaurant.getOpeningHours().value);

@@ -11,15 +11,15 @@ import seedu.address.model.deck.Card;
 /**
  * Provides a handle for {@code ListPanel} containing the list of {@code CardDisplay}.
  */
-public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
-    public static final String CARD_LIST_VIEW_ID = "#cardListView";
+public class ListPanelHandle extends NodeHandle<ListView<Card>> {
+    public static final String CARD_LIST_VIEW_ID = "#ListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Card> lastRememberedSelectedCardDisplay;
 
-    public CardListPanelHandle(ListView<Card> cardListPanelNode) {
-        super(cardListPanelNode);
+    public ListPanelHandle(ListView<Card> ListPanelNode) {
+        super(ListPanelNode);
     }
 
     /**

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guitests.guihandles.CardDisplayHandle;
-import guitests.guihandles.CardListPanelHandle;
+import guitests.guihandles.ListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
@@ -35,29 +35,29 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code cardListPanelHandle} displays the details of {@code cards} correctly and
+     * Asserts that the list in {@code listPanelHandle} displays the details of {@code cards} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CardListPanelHandle cardListPanelHandle, Card... cards) {
+    public static void assertListMatching(ListPanelHandle listPanelHandle, Card... cards) {
         for (int i = 0; i < cards.length; i++) {
-            cardListPanelHandle.navigateToCard(i);
-            assertCardDisplaysCardObject(cards[i], cardListPanelHandle.getCardDiplayHandle(i));
+            listPanelHandle.navigateToCard(i);
+            assertCardDisplaysCardObject(cards[i], listPanelHandle.getCardDiplayHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code cardListPanelHandle} displays the details of {@code cardss} correctly and
+     * Asserts that the list in {@code listPanelHandle} displays the details of {@code cardss} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CardListPanelHandle cardListPanelHandle, List<Card> cards) {
-        assertListMatching(cardListPanelHandle, cards.toArray(new Card[0]));
+    public static void assertListMatching(ListPanelHandle listPanelHandle, List<Card> cards) {
+        assertListMatching(listPanelHandle, cards.toArray(new Card[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code cardListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code listPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(CardListPanelHandle cardListPanelHandle, int size) {
-        int numberOfCards = cardListPanelHandle.getListSize();
+    public static void assertListSize(ListPanelHandle listPanelHandle, int size) {
+        int numberOfCards = listPanelHandle.getListSize();
         assertEquals(size, numberOfCards);
     }
 

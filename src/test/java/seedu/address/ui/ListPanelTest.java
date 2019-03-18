@@ -13,7 +13,7 @@ import java.util.Collections;
 import org.junit.Test;
 
 import guitests.guihandles.CardDisplayHandle;
-import guitests.guihandles.CardListPanelHandle;
+import guitests.guihandles.ListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,16 +26,16 @@ public class ListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private final SimpleObjectProperty<Card> selectedPerson = new SimpleObjectProperty<>();
-    private CardListPanelHandle cardListPanelHandle;
+    private ListPanelHandle listPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_CARDS);
 
         for (int i = 0; i < TYPICAL_CARDS.size(); i++) {
-            cardListPanelHandle.navigateToCard(TYPICAL_CARDS.get(i));
+            listPanelHandle.navigateToCard(TYPICAL_CARDS.get(i));
             Card expectedCard = TYPICAL_CARDS.get(i);
-            CardDisplayHandle actualCard = cardListPanelHandle.getCardDiplayHandle(i);
+            CardDisplayHandle actualCard = listPanelHandle.getCardDiplayHandle(i);
 
             assertCardDisplaysCardObject(expectedCard, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -49,8 +49,8 @@ public class ListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondCard));
         guiRobot.pauseForHuman();
 
-        CardDisplayHandle expectedPerson = cardListPanelHandle.getCardDiplayHandle(INDEX_SECOND_CARD.getZeroBased());
-        CardDisplayHandle selectedPerson = cardListPanelHandle.getHandleToSelectedCard();
+        CardDisplayHandle expectedPerson = listPanelHandle.getCardDiplayHandle(INDEX_SECOND_CARD.getZeroBased());
+        CardDisplayHandle selectedPerson = listPanelHandle.getHandleToSelectedCard();
         assertCardDisplayEquals(expectedPerson, selectedPerson);
     }
 
@@ -84,7 +84,7 @@ public class ListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code cardListPanelHandle} with a {@code ListPanel} backed by {@code backingList}.
+     * Initializes {@code listPanelHandle} with a {@code ListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code ListPanel}.
      */
     private void initUi(ObservableList<Card> backingList) {
@@ -92,7 +92,7 @@ public class ListPanelTest extends GuiUnitTest {
                 new ListPanel(backingList, selectedPerson);
         uiPartRule.setUiPart(listPanel);
 
-        cardListPanelHandle = new CardListPanelHandle(getChildNode(listPanel.getRoot(),
-                CardListPanelHandle.CARD_LIST_VIEW_ID));
+        listPanelHandle = new ListPanelHandle(getChildNode(listPanel.getRoot(),
+                ListPanelHandle.CARD_LIST_VIEW_ID));
     }
 }

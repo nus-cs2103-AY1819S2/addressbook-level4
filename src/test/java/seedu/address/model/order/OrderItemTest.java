@@ -48,7 +48,7 @@ public class OrderItemTest {
         // different type -> returns false
         assertFalse(TABLE1_W09.equals(5));
 
-        // different person -> returns false
+        // different order -> returns false
         assertFalse(TABLE1_W09.equals(TABLE1_W12));
 
         // different table number -> returns false

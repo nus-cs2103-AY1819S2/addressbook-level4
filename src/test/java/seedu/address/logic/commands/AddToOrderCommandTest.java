@@ -461,31 +461,11 @@ public class AddToOrderCommandTest {
     }
 
     /**
-     * A default menu stub that has all of the methods failing, except getItemFromCode() which returns an empty Optional.
+     * A default menu stub that has all methods failing, except getItemFromCode() which returns an empty Optional.
      */
     private class MenuStub implements ReadOnlyMenu {
         @Override
         public ObservableList<MenuItem> getMenuItemList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setMenuItem(MenuItem tobeReplaced, MenuItem newItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeMenuItem(MenuItem menuItem) {
             throw new AssertionError("This method should not be called.");
         }
 

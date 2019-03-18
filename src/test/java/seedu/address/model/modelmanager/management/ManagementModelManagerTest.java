@@ -40,9 +40,9 @@ public class ManagementModelManagerTest {
 
     @Test
     public void constructor() {
-        Assert.assertEquals(new UserPrefs(), modelManager.getUserPrefs());
+        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        Assert.assertEquals(new Lessons().getLessons(), modelManager.getLessons());
+        assertEquals(new Lessons().getLessons(), modelManager.getLessons());
     }
 
     @Test

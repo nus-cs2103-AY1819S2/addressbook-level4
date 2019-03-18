@@ -16,7 +16,7 @@
     "totalQuantity" : "432",
     "nextExpiry" : "21/09/2019",
     "company" : "Novartis",
-    "tagged" : [ "owesMoney", "fever" ],
+    "tagged" : [ "inflammation", "fever" ],
     "batches" : [ {
       "batchNumber" : "HH073101",
       "expiry" : "21/09/2019",

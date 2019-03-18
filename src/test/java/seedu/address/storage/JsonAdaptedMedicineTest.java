@@ -23,6 +23,7 @@ public class JsonAdaptedMedicineTest {
     private static final String INVALID_COMPANY = " ";
     private static final String INVALID_EXPIRY = "a/1/09";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_BATCHNUMBER = "!#4@$532532";
 
     private static final String VALID_NAME = IBUPROFEN.getName().toString();
     private static final String VALID_QUANTITY = IBUPROFEN.getTotalQuantity().toString();
@@ -117,6 +118,16 @@ public class JsonAdaptedMedicineTest {
         JsonAdaptedMedicine medicine =
                 new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, invalidTags,
                         VALID_BATCHES);
+        Assert.assertThrows(IllegalValueException.class, medicine::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidBatches_throwsIllegalValueException() {
+        List<JsonAdaptedBatch> invalidBatches = new ArrayList<>(VALID_BATCHES);
+        invalidBatches.add(new JsonAdaptedBatch(INVALID_BATCHNUMBER, VALID_QUANTITY, VALID_EXPIRY));
+        JsonAdaptedMedicine medicine =
+                new JsonAdaptedMedicine(VALID_NAME, VALID_QUANTITY, VALID_EXPIRY, VALID_COMPANY, VALID_TAGS,
+                        invalidBatches);
         Assert.assertThrows(IllegalValueException.class, medicine::toModelType);
     }
 

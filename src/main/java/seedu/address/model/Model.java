@@ -102,6 +102,11 @@ public interface Model {
     void undoAddressBook();
 
     /**
+     * Restores the model's address book to its previous state.
+     */
+    void sortAddressBook(Predicate<String> predicate);
+
+    /**
      * Restores the model's address book to its previously undone state.
      */
     void redoAddressBook();

@@ -119,6 +119,11 @@ public class ModelManager implements Model {
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void sortAddressBook(Predicate<String> predicate) {
+        versionedAddressBook.sortAddressBook(predicate);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

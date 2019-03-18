@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
+import java.util.function.Predicate;
 import java.util.Iterator;
 import java.util.List;
 
@@ -82,6 +84,18 @@ public class UniquePersonList implements Iterable<Person> {
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+
+    public void sortList(Predicate<String> predicate) {
+        FXCollections.sort(internalList, new Comparator <Person> () {
+            @Override
+            public int compare(Person o1, Person o2) {
+                String first = o1.getName().fullName;
+                String second = o2.getName().fullName;
+                int result = first.compareTo(second);
+                return result;
+            }
+        });
     }
 
     /**

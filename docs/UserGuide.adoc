@@ -67,17 +67,17 @@ Format: `help`
 
 === Initialising the maps : `init`
 
-Initialises both player's map to the specified size +
+Initialises both player's maps to the specified size. +
 Format: `init [s/MAP_SIZE]`
 
 === Listing all ships : `list`
 
-Shows a list of all the player's battleships +
+Shows a list of all the player's battleships. +
 Format: `list`
 
 === Editing a person : `edit`
 
-Edits a battleship in the current inventory +
+Edits a battleship in the current inventory. +
 Format: `edit INDEX [n/NAME] [s/SIZE] [c/COMMAND_FLAG] [t/TAGS]`
 
 ****
@@ -95,9 +95,9 @@ Edits the name, size and command status of the 1st ship to `RSS Vanguard`, size 
 
 === Placing a ship: `put`
 
-Adds a ship onto the player's map. Assumes the coordinates specified is the ship's head. +
+Adds a ship onto the player's map. The coordinates specified is the position of the ship's head. +
 
-Please specify the horizontal or vertical orientation of the ship when placing it. The orientation may be shortened to `h` or `v`. +
+The orientation of the ship (horizontal or vertical) must be specified. The orientation may be shortened to `h` or `v`. +
 
 Format: `put n/NAME c/COORDINATES r/ORIENTATION`
 
@@ -163,12 +163,11 @@ Deletes the 1st ship in the results of the `find` command.
 
 === Selecting a ship : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the battleship identified by the index number used in the displayed ship list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed ship list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -200,8 +199,8 @@ Example:
 * `shoot A6`
 
 ****
-* The program will check if the coordinates are within the map itself.
-* The program will prevent you from accidentally attacking the same square twice (but you get to try again immediately).
+* The program will prevent an attack on an invalid coordinate..
+* The program will prevent an attack on a square that has already been attacked.
 ****
 
 === Starts Enemy's turn: `enemyturn`

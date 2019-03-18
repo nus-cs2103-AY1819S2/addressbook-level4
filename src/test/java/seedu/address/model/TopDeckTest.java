@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +24,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.DeckBuilder;
 
 public class TopDeckTest {
     @Rule
@@ -32,7 +34,7 @@ public class TopDeckTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), topDeck.getCardList());
+        assertEquals(Collections.emptyList(), topDeck.getDeckList());
     }
 
     @Test
@@ -49,44 +51,44 @@ public class TopDeckTest {
     }
 
     @Test
-    public void resetData_withDuplicateCards_throwsDuplicateCardException() {
-        // Two cards with the same question
-        Card editedAddition = new CardBuilder(ADDITION).withAnswer("Some answer").build();
-        List<Card> newCards = Arrays.asList(ADDITION, editedAddition);
-        TopDeckStub newData = new TopDeckTest.TopDeckStub(newCards);
+    public void resetData_withDuplicateDecks_throwsDuplicateDeckException() {
+        // Two decks with the same name
+        Deck editedDeckA = new DeckBuilder(DECK_A).build();
+        List<Deck> newDecks = Arrays.asList(DECK_A, editedDeckA);
+        TopDeckStub newData = new TopDeckTest.TopDeckStub(newDecks);
 
         thrown.expect(DuplicateCardException.class);
         topDeck.resetData(newData);
     }
 
     @Test
-    public void hasCard_null_throwsNullPointerException() {
+    public void hasDeck_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        topDeck.hasCard(null);
+        topDeck.hasDeck(null);
     }
 
     @Test
-    public void hasCard_cardNotInTopDeck_returnsFalse() {
-        assertFalse(topDeck.hasCard(ADDITION));
+    public void hasDeck_deckNotInTopDeck_returnsFalse() {
+        assertFalse(topDeck.hasDeck(DECK_A));
     }
 
     @Test
-    public void hasCard_cardInTopDeck_returnsTrue() {
-        topDeck.addCard(ADDITION);
-        Assert.assertTrue(topDeck.hasCard(ADDITION));
+    public void hasDeck_deckInTopDeck_returnsTrue() {
+        topDeck.addDeck(DECK_A);
+        Assert.assertTrue(topDeck.hasDeck(DECK_A));
     }
 
     @Test
-    public void hasCard_cardWithSameIdentityInTopDeck_returnsTrue() {
-        topDeck.addCard(ADDITION);
-        Card editedAddition = new CardBuilder(ADDITION).withAnswer("Different answer").build();
-        Assert.assertTrue(topDeck.hasCard(editedAddition));
+    public void hasDeck_deckWithSameIdentityInTopDeck_returnsTrue() {
+        topDeck.addDeck(DECK_A);
+        Deck editedDeckA = new DeckBuilder(DECK_A).build();
+        Assert.assertTrue(topDeck.hasDeck(editedDeckA));
     }
 
     @Test
-    public void getCardList_modifyList_throwsUnsupportedOperationException() {
+    public void getDeckList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        topDeck.getCardList().remove(0);
+        topDeck.getDeckList().remove(0);
     }
 
     @Test
@@ -94,7 +96,7 @@ public class TopDeckTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         topDeck.addListener(listener);
-        topDeck.addCard(ADDITION);
+        topDeck.addDeck(DECK_A);
         assertEquals(1, counter.get());
     }
 
@@ -104,7 +106,7 @@ public class TopDeckTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         topDeck.addListener(listener);
         topDeck.removeListener(listener);
-        topDeck.addCard(ADDITION);
+        topDeck.addDeck(DECK_A);
         assertEquals(0, counter.get());
     }
 
@@ -112,16 +114,10 @@ public class TopDeckTest {
      * A stub ReadOnlyTopDeck whose cards list can violate interface constraints.
      */
     private static class TopDeckStub implements ReadOnlyTopDeck {
-        private final ObservableList<Card> cards = FXCollections.observableArrayList();
         private final ObservableList<Deck> decks = FXCollections.observableArrayList();
 
-        TopDeckStub(Collection<Card> cards) {
-            this.cards.setAll(cards);
-        }
-
-        @Override
-        public ObservableList<Card> getCardList() {
-            return cards;
+        TopDeckStub(Collection<Deck> decks) {
+            this.decks.setAll(decks);
         }
 
         @Override

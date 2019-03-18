@@ -24,6 +24,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
+import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -64,9 +65,9 @@ public class ModelManager implements Model {
     }
 
     public void changeDeck(Deck deck) {
-        // viewState = new CardsView(this, new FilteredList<>(deck.getCards().internalList));
+        viewState = new CardsView(this, deck);
         // TODO: change this to above after migrating global cards list
-        viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
+        //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
 
         filteredItems = ((CardsView) viewState).filteredCards;
         setSelectedItem(null);
@@ -77,6 +78,11 @@ public class ModelManager implements Model {
         viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
         filteredItems = ((DecksView) viewState).filteredDecks;
         setSelectedItem(null);
+    }
+
+    @Override
+    public boolean isAtDecksView() {
+        return (viewState instanceof DecksView);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -114,7 +120,7 @@ public class ModelManager implements Model {
         userPrefs.setTopDeckFilePath(topDeckFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== TopDeck ================================================================================
 
     @Override
     public void setTopDeck(ReadOnlyTopDeck topDeck) {
@@ -129,25 +135,38 @@ public class ModelManager implements Model {
     @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
-        return versionedTopDeck.hasCard(card);
+        //return versionedTopDeck.hasCard(card);
+        //TODO: Implement hasCard
+        return false;
     }
 
     @Override
     public void deleteCard(Card target) {
-        versionedTopDeck.removeCard(target);
+        if (!(viewState instanceof CardsView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        CardsView cardsView = (CardsView)viewState;
+        versionedTopDeck.deleteCard(target, cardsView.getActiveDeck());
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
     public void addCard(Card card) {
-        versionedTopDeck.addCard(card);
-        updateFilteredList(PREDICATE_SHOW_ALL_CARDS); // TODO: show all cards after adding a card
+        if (!(viewState instanceof CardsView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        CardsView cardsView = (CardsView)viewState;
+        versionedTopDeck.addCard(card, cardsView.getActiveDeck());
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
-
-        versionedTopDeck.setCard(target, editedCard);
+        //TODO: Implement setCard
+        //versionedTopDeck.setCard(target, editedCard);
     }
 
     @Override

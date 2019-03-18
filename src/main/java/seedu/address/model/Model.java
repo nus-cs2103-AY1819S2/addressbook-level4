@@ -61,7 +61,7 @@ public interface Model {
      */
     void setTopDeck(ReadOnlyTopDeck topDeck);
 
-    /** Returns the AddressBook */
+    /** Returns the TopDeck */
     ReadOnlyTopDeck getTopDeck();
 
     /**
@@ -152,4 +152,6 @@ public interface Model {
     void changeDeck(Deck deck);
 
     void goToDecksView();
+
+    boolean isAtDecksView();
 }

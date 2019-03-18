@@ -45,14 +45,14 @@ public class JsonTopDeckStorage implements TopDeckStorage {
     public Optional<ReadOnlyTopDeck> readTopDeck(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableTopDeck> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableTopDeck> jsonTopDeck = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTopDeck.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonTopDeck.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonTopDeck.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

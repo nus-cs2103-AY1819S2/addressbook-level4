@@ -8,7 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.AddCardCommandParser;
@@ -21,15 +21,15 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
 public class CardsView implements ListViewState {
-    private Model model;
+    private final Model model;
     public final FilteredList<Card> filteredCards;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
-    public final Deck activeDeck = null;
+    private final Deck activeDeck;
 
-    // TODO: pass in deck instead of card list
-    public CardsView(Model model, FilteredList<Card> cardList) {
+    public CardsView(Model model, Deck deck) {
         this.model = model;
-        filteredCards = cardList;
+        this.activeDeck = deck;
+        filteredCards = new FilteredList<>(deck.getCards().asUnmodifiableObservableList());
         filteredCards.addListener(this::ensureSelectedItemIsValid);
     }
 
@@ -38,7 +38,7 @@ public class CardsView implements ListViewState {
         switch (commandWord) {
             case AddCardCommand.COMMAND_WORD:
                 return new AddCardCommandParser().parse(arguments);
-            case DeleteCommand.COMMAND_WORD:
+            case DeleteCardCommand.COMMAND_WORD:
                 return new DeleteCommandParser().parse(arguments);
             case EditCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
@@ -49,6 +49,10 @@ public class CardsView implements ListViewState {
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    public Deck getActiveDeck() {
+        return activeDeck;
     }
 
     /**

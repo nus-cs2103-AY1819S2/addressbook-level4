@@ -10,12 +10,6 @@ import seedu.address.model.deck.Deck;
  */
 public interface ReadOnlyTopDeck extends Observable {
     /**
-     * Returns an unmodifiable view of the cards list.
-     * This list will not contain any duplicate cards.
-     */
-    ObservableList<Card> getCardList();
-
-    /**
      * Returns an unmodifiable view of the decks list.
      * This list will not contain any duplicate decks.
      */

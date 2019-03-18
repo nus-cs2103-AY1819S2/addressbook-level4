@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 public class Activity {
     // Identity fields
     private final ActivityName name;
-    private final ActivityDate date;
+    private final ActivityDateTime dateTime;
 
     // Data fields
     private Person inCharge;
@@ -25,18 +25,18 @@ public class Activity {
     /**
      * Every field must be present and not null.
      */
-    public Activity(ActivityName name, ActivityDate date) {
-        requireAllNonNull(name, date);
+    public Activity(ActivityName name, ActivityDateTime dateTime) {
+        requireAllNonNull(name, dateTime);
         this.name = name;
-        this.date = date;
+        this.dateTime = dateTime;
     }
 
     public ActivityName getName() {
         return name;
     }
 
-    public ActivityDate getDate() {
-        return date;
+    public ActivityDateTime getDateTime() {
+        return dateTime;
     }
 
     public Person getInCharge() {
@@ -66,7 +66,7 @@ public class Activity {
 
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
-                && otherActivity.getDate().equals(getDate());
+                && otherActivity.getDateTime().equals(getDateTime());
     }
 
     /**
@@ -85,7 +85,7 @@ public class Activity {
 
         Activity otherActivity = (Activity) other;
         return otherActivity.getName().equals(getName())
-                && otherActivity.getDate().equals(getDate())
+                && otherActivity.getDateTime().equals(getDateTime())
                 && otherActivity.getInCharge().equals(getInCharge())
                 && otherActivity.getAttendance().equals(getAttendance());
     }
@@ -93,7 +93,7 @@ public class Activity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, inCharge, attendance);
+        return Objects.hash(name, dateTime, inCharge, attendance);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Activity {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Date: ")
-                .append(getDate())
+                .append(getDateTime())
                 .append(" In Charge: ")
                 .append(getInCharge())
                 .append(" Number Attending: ")

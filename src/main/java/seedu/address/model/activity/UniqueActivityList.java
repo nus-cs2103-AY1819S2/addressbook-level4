@@ -49,6 +49,21 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.add(toAdd);
     }
 
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireAllNonNull(target, editedActivity);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ActivityNotFoundException();
+        }
+
+        if (!target.isSameActivity(editedActivity) && contains(editedActivity)) {
+            throw new DuplicateActivityException();
+        }
+
+        internalList.set(index, editedActivity);
+    }
+
     /**
      * Removes the equivalent activity from the list.
      * The person must exist in the list.

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 
 import seedu.address.commons.core.index.Index;
@@ -34,7 +35,7 @@ public class DeleteLessonCommand implements Command {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Deleted lesson: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted lesson: ";
     /**
      * The index of the lesson to be deleted when {@link #execute(Model, CommandHistory)}
      * is called.
@@ -70,8 +71,18 @@ public class DeleteLessonCommand implements Command {
 
         ManagementModel mgtModel = (ManagementModel) model;
         int toDeleteIndex = targetIndex.getZeroBased();
-        mgtModel.deleteLesson(toDeleteIndex);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toDeleteIndex));
+
+        String lessonName = "";
+
+        try {
+            lessonName = mgtModel.getLesson(toDeleteIndex).getName();
+            mgtModel.deleteLesson(toDeleteIndex);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteLessonCommand.MESSAGE_USAGE), e);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS + lessonName);
     }
 
     @Override

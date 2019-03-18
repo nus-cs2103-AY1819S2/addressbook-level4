@@ -117,8 +117,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the card with. Each non-empty field fullAnswer will replace the
-     * corresponding field fullAnswer of the card.
+     * Stores the details to edit the card with. Each non-empty field value will replace the
+     * corresponding field value of the card.
      */
     public static class EditCardDescriptor {
         private Question question;

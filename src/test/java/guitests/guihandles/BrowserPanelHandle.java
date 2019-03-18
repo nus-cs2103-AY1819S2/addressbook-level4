@@ -2,11 +2,8 @@ package guitests.guihandles;
 
 import java.net.URL;
 
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.control.Label;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.
@@ -14,51 +11,51 @@ import javafx.scene.web.WebView;
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
+    public static final String CURRENT_CARD_QUESTION = "#cardQuestion";
 
     private boolean isWebViewLoaded = true;
 
-    private URL lastRememberedUrl;
+    private String lastRememberedQuestion;
 
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
-
-        WebView webView = getChildNode(BROWSER_ID);
-        WebEngine engine = webView.getEngine();
-        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-            } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
-            }
-        }));
     }
 
     /**
-     * Returns the {@code URL} of the currently loaded page.
+     * @return the string form of the {@code Question} of the card currently in the {@code BrowserPanel}
+     */
+    public String getCurrentQuestion() {
+        Label currentCardQuestion = getChildNode(CURRENT_CARD_QUESTION);
+        return currentCardQuestion.getText();
+    }
+
+    /**
+     * Returns the question of the currently loaded card.
      */
     public URL getLoadedUrl() {
         return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
     }
 
     /**
-     * Remembers the {@code URL} of the currently loaded page.
+     * Remembers the question of the currently loaded card.
      */
-    public void rememberUrl() {
-        lastRememberedUrl = getLoadedUrl();
+    public void rememberQuestion() {
+        lastRememberedQuestion = getCurrentQuestion();
     }
 
     /**
-     * Returns true if the current {@code URL} is different from the fullAnswer remembered by the most recent
-     * {@code rememberUrl()} call.
+     * Returns true if the current question is different from the value remembered by the most recent
+     * {@code rememberQuestion()} call.
      */
-    public boolean isUrlChanged() {
-        return !lastRememberedUrl.equals(getLoadedUrl());
+    public boolean isQuestionChanged() {
+        return !lastRememberedQuestion.equals(getCurrentQuestion());
     }
 
     /**
      * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
      */
     public boolean isLoaded() {
+        getChildNode(CURRENT_CARD_QUESTION).applyCss();
         return isWebViewLoaded;
     }
 }

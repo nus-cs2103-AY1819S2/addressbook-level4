@@ -27,7 +27,7 @@ class JsonSerializableBookShelf {
      * Constructs a {@code JsonSerializableBookShelf} with the given books.
      */
     @JsonCreator
-    public JsonSerializableBookShelf(@JsonProperty("persons") List<JsonAdaptedBook> books) {
+    public JsonSerializableBookShelf(@JsonProperty("books") List<JsonAdaptedBook> books) {
         this.books.addAll(books);
     }
 

@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -26,7 +26,7 @@ public class StorageManagerTest {
     @Before
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
-        JsonBookShelfStorage bookShelfStorage = new JsonBookShelfStorage(getTempFilePath("ab"));
+        JsonBookShelfStorage bookShelfStorage = new JsonBookShelfStorage(getTempFilePath("bs"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, bookShelfStorage, userPrefsStorage);
     }
@@ -51,21 +51,26 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void bookShelfReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
+         * {@link JsonBookShelfStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
         BookShelf original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyBookShelf retrieved = storageManager.readAddressBook().get();
+        storageManager.saveBookShelf(original);
+        ReadOnlyBookShelf retrieved = storageManager.readBookShelf().get();
         assertEquals(original, new BookShelf(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
+    }
+
+    @Test
+    public void getBookShelfFilePath() {
+        assertNotNull(storageManager.getBookShelfFilePath());
     }
 
 }

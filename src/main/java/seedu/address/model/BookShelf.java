@@ -40,7 +40,7 @@ public class BookShelf implements ReadOnlyBookShelf {
     public BookShelf() {}
 
     /**
-     * Creates an BookShelf using the Persons in the {@code toBeCopied}
+     * Creates an BookShelf using the Books in the {@code toBeCopied}
      */
     public BookShelf(ReadOnlyBookShelf toBeCopied) {
         this();

@@ -4,16 +4,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOLDERNAME;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.storage.csvmanager.CardFolderExport;
-import seedu.address.storage.csvmanager.CsvCardExport;
 import seedu.address.storage.csvmanager.CsvFile;
 
 /**

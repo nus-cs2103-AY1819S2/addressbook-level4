@@ -28,7 +28,6 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.storage.csvmanager.CardFolderExport;
-import seedu.address.storage.csvmanager.CsvCardExport;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.CsvManager;
 

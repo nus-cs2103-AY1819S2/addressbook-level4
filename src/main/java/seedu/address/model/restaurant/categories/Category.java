@@ -27,6 +27,14 @@ public class Category {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj == this // short circuit if same object
+                || (obj instanceof Category // instanceof handles nulls
+                && cuisine.equals(((Category) obj).cuisine))
+                && occasion.equals(((Category) obj).occasion); // state check
+    }
+
+    @Override
     public String toString() {
         String cuisineString;
         if (cuisine.isPresent()) {

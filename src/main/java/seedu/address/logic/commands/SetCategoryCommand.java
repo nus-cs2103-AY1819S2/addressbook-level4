@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
 
 /**
@@ -32,17 +33,17 @@ public class SetCategoryCommand extends Command {
             + PREFIX_CUISINE + "Fine Dining "
             + PREFIX_OCCASION + "Wedding";
 
-    public static final String MESSAGE_SET_CUISINE_SUCCESS = "Cuisine Set for Restaurant: %1$s";
+    public static final String MESSAGE_SET_CUISINE_SUCCESS = "Category Set for Restaurant: %1$s";
 
     private final Index index;
-    private final Cuisine cuisine;
+    private final Category category;
 
-    public SetCategoryCommand(Index index, Cuisine cuisine) {
+    public SetCategoryCommand(Index index, Category category) {
         requireNonNull(index);
-        requireNonNull(cuisine);
+        requireNonNull(category);
 
         this.index = index;
-        this.cuisine = cuisine;
+        this.category = category;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class SetCategoryCommand extends Command {
         }
 
         Restaurant restaurantToAddCuisine = lastShownList.get(index.getZeroBased());
-        Restaurant restaurantWithCuisineAdded = new Restaurant(restaurantToAddCuisine, this.cuisine);
+        Restaurant restaurantWithCuisineAdded = new Restaurant(restaurantToAddCuisine, this.category);
 
         model.setRestaurant(restaurantToAddCuisine, restaurantWithCuisineAdded);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
@@ -78,6 +79,6 @@ public class SetCategoryCommand extends Command {
         // state check
         SetCategoryCommand e = (SetCategoryCommand) other;
         return index.equals(e.index)
-                && cuisine.equals(e.cuisine);
+                && category.equals(e.category);
     }
 }

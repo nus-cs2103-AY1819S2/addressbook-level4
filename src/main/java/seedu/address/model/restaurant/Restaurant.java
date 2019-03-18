@@ -104,18 +104,18 @@ public class Restaurant {
     }
 
     /**
-     * Creates a new restaurant from an existing restaurant with cuisine set.
+     * Creates a new restaurant from an existing restaurant with category set.
      * @param restaurant the restaurant to set cuisine to
-     * @param cuisine the cuisine to be set
+     * @param category the cuisine to be set
      */
-    public Restaurant(Restaurant restaurant, Cuisine cuisine) {
-        requireAllNonNull(restaurant, cuisine);
+    public Restaurant(Restaurant restaurant, Category category) {
+        requireAllNonNull(restaurant, category);
         this.name = restaurant.name;
         this.phone = restaurant.phone;
         this.email = restaurant.email;
         this.address = restaurant.address;
         this.tags.addAll(restaurant.tags);
-        this.categories = new Category(cuisine, null);
+        this.categories = category;
         this.weblink = restaurant.weblink;
         this.openingHours = restaurant.openingHours;
     }

@@ -5,7 +5,7 @@ import static seedu.hms.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Customer's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidaddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
 

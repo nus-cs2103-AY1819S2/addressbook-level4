@@ -4,28 +4,18 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/util/SampleDataUtil.java
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-=======
+
 import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/model/util/SampleDataUtil.java
+
 
 /**
  * Contains utility methods for populating {@code HotelManagementSystem} with sample data.

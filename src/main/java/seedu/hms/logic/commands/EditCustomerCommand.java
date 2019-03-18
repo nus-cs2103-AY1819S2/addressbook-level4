@@ -1,24 +1,14 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/EditCustomerCommand.java
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-=======
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/logic/commands/EditCustomerCommand.java
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,22 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/EditCustomerCommand.java
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.CustomerModel;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-=======
 import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.CollectionUtil;
@@ -50,12 +24,12 @@ import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/logic/commands/EditCustomerCommand.java
 
 /**
  * Edits the details of an existing customer in the address book.
@@ -73,13 +47,8 @@ public class EditCustomerCommand extends CustomerCommand {
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/EditCustomerCommand.java
         + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NO] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
-=======
-        + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATIONNO] "
-        + "[" + PREFIX_ADDRESS + "address] "
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/logic/commands/EditCustomerCommand.java
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
@@ -117,15 +86,11 @@ public class EditCustomerCommand extends CustomerCommand {
         DateOfBirth updatedDob = editCustomerDescriptor.getDateOfBirth().orElse(customerToEdit.getDateOfBirth());
         Email updatedEmail = editCustomerDescriptor.getEmail().orElse(customerToEdit.getEmail());
         IdentificationNo updatedIdNum = editCustomerDescriptor.getIdNum().orElse(customerToEdit.getIdNum());
-        Address updatedaddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
+        Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
         Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/EditCustomerCommand.java
         return new Customer(updatedName, updatedPhone, updatedDob, updatedEmail, updatedIdNum, updatedAddress,
             updatedTags);
-=======
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedIdNum, updatedaddress, updatedTags);
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/logic/commands/EditCustomerCommand.java
     }
 
     @Override
@@ -229,7 +194,7 @@ public class EditCustomerCommand extends CustomerCommand {
             this.email = email;
         }
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/EditCustomerCommand.java
+
         public Optional<DateOfBirth> getDateOfBirth() {
             return Optional.ofNullable(dob);
         }
@@ -238,8 +203,6 @@ public class EditCustomerCommand extends CustomerCommand {
             this.dob = dob;
         }
 
-=======
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/logic/commands/EditCustomerCommand.java
         public Optional<IdentificationNo> getIdNum() {
             return Optional.ofNullable(idnum);
         }

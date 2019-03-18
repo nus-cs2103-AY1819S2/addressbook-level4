@@ -9,26 +9,16 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonAdaptedCustomer.java
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-=======
 import seedu.hms.commons.exceptions.IllegalValueException;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/storage/JsonAdaptedCustomer.java
+
 
 /**
  * Jackson-friendly version of {@link Customer}.

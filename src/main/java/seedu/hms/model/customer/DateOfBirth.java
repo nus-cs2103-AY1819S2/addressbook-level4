@@ -1,7 +1,7 @@
-package seedu.address.model.customer;
+package seedu.hms.model.customer;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.hms.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
 import java.util.regex.Matcher;

@@ -9,34 +9,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/ParserUtil.java
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.booking.ServiceType;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.TimeRange;
-=======
+
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.StringUtil;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.model.util.TimeRange;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/logic/parser/ParserUtil.java
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

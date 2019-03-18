@@ -44,22 +44,14 @@ import seedu.hms.ui.CommandBox;
  * A system test class for HotelManagementSystem, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-<<<<<<< HEAD:src/test/java/systemtests/AddressBookSystemTest.java
-public abstract class AddressBookSystemTest {
-    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
-    private static final List<String> COMMAND_BOX_ERROR_STYLE =
-        Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
-=======
 public abstract class HotelManagementSystemSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
         Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/systemtests/HotelManagementSystemSystemTest.java
+
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;

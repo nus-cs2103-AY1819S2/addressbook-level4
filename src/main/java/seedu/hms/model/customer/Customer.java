@@ -17,9 +17,9 @@ public class Customer {
 
     // Identity fields
     private final Name name;
-    private final seedu.hms.model.customer.Phone phone;
+    private final Phone phone;
     private final Email email;
-    private final seedu.hms.model.customer.IdentificationNo idnum;
+    private final IdentificationNo idnum;
 
     // Data fields
     private final DateOfBirth dob;
@@ -29,15 +29,11 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-<<<<<<< HEAD:src/main/java/seedu/address/model/customer/Customer.java
+
     public Customer(Name name, Phone phone, DateOfBirth dob, Email email, IdentificationNo idnum, Address address,
                     Set<Tag> tags) {
         requireAllNonNull(name, phone, dob, email, idnum, address, tags);
-=======
-    public Customer(Name name, seedu.hms.model.customer.Phone phone, Email email, IdentificationNo idnum,
-                    Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, idnum, address, tags);
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/main/java/seedu/hms/model/customer/Customer.java
+
         this.name = name;
         this.phone = phone;
         this.dob = dob;
@@ -51,7 +47,7 @@ public class Customer {
         return name;
     }
 
-    public seedu.hms.model.customer.Phone getPhone() {
+    public Phone getPhone() {
         return phone;
     }
 
@@ -63,7 +59,7 @@ public class Customer {
         return email;
     }
 
-    public seedu.hms.model.customer.IdentificationNo getIdNum() {
+    public IdentificationNo getIdNum() {
         return idnum;
     }
 

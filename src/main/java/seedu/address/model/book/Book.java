@@ -22,7 +22,7 @@ public class Book {
     // Data fields
     private final Rating rating;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Review> reviews = new HashSet<>();
+    private Set<Review> reviews = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -33,6 +33,18 @@ public class Book {
         this.author = author;
         this.rating = rating;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * An alternative constructor with the review field.
+     */
+    public Book(BookName bookName, Author author, Rating rating, Set<Tag> tags, Set<Review> reviews) {
+        requireAllNonNull(bookName, author, rating, tags);
+        this.bookName = bookName;
+        this.author = author;
+        this.rating = rating;
+        this.tags.addAll(tags);
+        this.reviews.addAll(reviews);
     }
 
     public BookName getBookName() {
@@ -54,9 +66,15 @@ public class Book {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
+
+    /**
+     * Returns an immutable review set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public Set<Review> getReviews() {
         return Collections.unmodifiableSet(reviews);
     }
+
 
     /**
      * Returns true if both books of the same book name.

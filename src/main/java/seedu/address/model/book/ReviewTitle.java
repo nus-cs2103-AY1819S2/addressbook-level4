@@ -4,15 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
-
- * Represents a Book's name in the BookShelf.
-
- * Guarantees: immutable; is valid as declared in {@link #isValidBookName(String)}
+ * Represents a Review's title.
+ * Guarantees: immutable; is valid as declared in {@link #isValidReviewTitle(String)}
  */
-public class BookName {
+public class ReviewTitle {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Book names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Review Titles should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -23,20 +21,20 @@ public class BookName {
     public final String fullName;
 
     /**
-     * Constructs a {@code BookName}.
+     * Constructs a {@code ReviewTitle}.
      *
      * @param name A valid name.
      */
-    public BookName(String name) {
+    public ReviewTitle(String name) {
         requireNonNull(name);
-        checkArgument(isValidBookName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidReviewTitle(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidBookName(String test) {
+    public static boolean isValidReviewTitle(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -48,8 +46,8 @@ public class BookName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof BookName // instanceof handles nulls
-                && fullName.equals(((BookName) other).fullName)); // state check
+                || (other instanceof ReviewTitle // instanceof handles nulls
+                && fullName.equals(((ReviewTitle) other).fullName)); // state check
     }
 
     @Override

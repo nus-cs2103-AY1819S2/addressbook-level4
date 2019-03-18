@@ -9,10 +9,10 @@ import seedu.address.model.restaurant.Restaurant;
 /**
  * Tests that a {@code Restaurant}'s {@code Category} matches any of the keywords given.
  */
-public class CuisineContainsKeywordsPredicate implements Predicate<Restaurant> {
+public class CategoryContainsKeywordsPredicate implements Predicate<Restaurant> {
     private final List<String> keywords;
 
-    public CuisineContainsKeywordsPredicate(List<String> keywords) {
+    public CategoryContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -26,7 +26,7 @@ public class CuisineContainsKeywordsPredicate implements Predicate<Restaurant> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CuisineContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((CuisineContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof CategoryContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((CategoryContainsKeywordsPredicate) other).keywords)); // state check
     }
 }

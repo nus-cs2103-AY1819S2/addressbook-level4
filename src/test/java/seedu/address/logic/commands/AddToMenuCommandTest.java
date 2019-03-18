@@ -16,6 +16,7 @@ import seedu.address.model.RestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -332,42 +333,72 @@ public class AddToMenuCommandTest {
         }
 
         @Override
-        public void addBill(Bill bill) {
+        public void addDailyRevenue(DailyRevenue dailyRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setBill(Bill target, Bill editedItem) {
+        public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Bill> getFilteredBillList() {
+        public void setRecentBill(Bill target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredBillList(Predicate<Bill> predicate) {
+        public void setDailyRevenue(DailyRevenue target, DailyRevenue editedRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<Bill> selectedBillProperty() {
+        public Bill getRecentBill() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Bill getSelectedBill() {
+        public ObservableList<DailyRevenue> getFilteredDailyRevenueList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedBill(Bill bill) {
+        public void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Bill> getBillList() {
+        public ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Bill> recentBillProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public DailyRevenue getSelectedDailyRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedDailyRevenue(DailyRevenue dailyRevenue) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<DailyRevenue> getDailyRevenueList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDailyRevenue(DailyRevenue dailyRevenue) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }

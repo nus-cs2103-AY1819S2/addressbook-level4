@@ -186,11 +186,6 @@ public interface Model {
     void addOrderItem(OrderItem orderItem);
 
     /**
-     * Adds the given bill to the bill list.
-     */
-    void addBill(Bill bill);
-
-    /**
      * Replaces the given order item {@code target} with {@code editedOrderItem}.
      * {@code target} must exist in the RestOrRant's orders.
      * The order item identity of {@code editedOrderItem} must not be the same as another existing order item in Orders.
@@ -198,20 +193,9 @@ public interface Model {
     void setOrderItem(OrderItem target, OrderItem editedOrderItem);
 
     /**
-     * Replaces the given bill {@code target} with {@code editedItem}.
-     * {@code target} must exist in the bill list.
-     */
-    void setBill(Bill target, Bill editedItem);
-
-    /**
      * Returns an unmodifiable view of the filtered order item list
      */
     ObservableList<OrderItem> getFilteredOrderItemList();
-
-    /**
-     * Returns an unmodifiable view of the filtered bill list
-     */
-    ObservableList<Bill> getFilteredBillList();
 
     /**
      * Updates the filter of the filtered order item list to filter by the given {@code predicate}.
@@ -221,23 +205,10 @@ public interface Model {
     void updateFilteredOrderItemList(Predicate<OrderItem> predicate);
 
     /**
-     * Updates the filter of the filtered bill list to filter by the given {@code predicate}
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredBillList(Predicate<Bill> predicate);
-
-    /**
      * Selected person in the filtered order item list.
      * null if no order item is selected.
      */
     ReadOnlyProperty<OrderItem> selectedOrderItemProperty();
-
-    /**
-     * Selected bill in the bill list.
-     * null if no bill is selected.
-     */
-    ReadOnlyProperty<Bill> selectedBillProperty();
 
     /**
      * Returns the selected order item in the filtered order item list.

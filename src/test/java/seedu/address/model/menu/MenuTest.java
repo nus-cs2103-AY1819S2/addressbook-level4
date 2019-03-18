@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -168,6 +169,23 @@ public class MenuTest {
         @Override
         public ObservableList<MenuItem> getMenuItemList() {
             return menuItems;
+        }
+
+        @Override
+        public Optional<MenuItem> getItemFromCode(Code code) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public Name getNameFromItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public Code getCodeFromItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public Price getPriceFromItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

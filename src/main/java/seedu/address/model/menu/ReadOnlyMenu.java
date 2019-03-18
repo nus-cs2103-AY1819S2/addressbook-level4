@@ -15,4 +15,12 @@ public interface ReadOnlyMenu extends Observable {
      */
     ObservableList<MenuItem> getMenuItemList();
 
+    Optional<MenuItem> getItemFromCode(Code code);
+
+    Name getNameFromItem(MenuItem menuItem);
+
+    Code getCodeFromItem(MenuItem menuItem);
+
+    Price getPriceFromItem(MenuItem menuItem);
+
 }

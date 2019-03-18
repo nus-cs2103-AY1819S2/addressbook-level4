@@ -79,12 +79,34 @@ public class TypicalPatients {
         .withConditions(new Conditions(new HashSet<>(
             Arrays.asList(new ConditionTag("Alzheimer's")))))
         .build();
+    //manually added
+    public static final Patient HARRY = new PatientBuilder()
+        .withName("Harry Kest")
+        .withAddress("99th street")
+        .withEmail("george@example.com")
+        .withPhone("9482142")
+        .withNric("S8736198R")
+        .withConditions(new Conditions(new HashSet<>(
+            Arrays.asList(new ConditionTag("Cancer")))))
+        .build();
+
+    public static final Patient IGRIS = new PatientBuilder()
+        .withName("Igris Worst")
+        .withAddress("Sesame street")
+        .withEmail("igrees@example.com")
+        .withPhone("9482441")
+        .withNric("S8736198Z")
+        .withConditions(new Conditions(new HashSet<>(
+            Arrays.asList(new ConditionTag("Cancer")))))
+        .build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
 
     private TypicalPatients() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code PatientBook} with all the typical persons.
      */
     public static PatientBook getTypicalPatientBook() {
         PatientBook patientBook = new PatientBook();

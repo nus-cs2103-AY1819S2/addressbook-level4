@@ -28,7 +28,7 @@ class JsonAdaptedRequest {
     private final String id;
     private final JsonAdaptedPatient patient;
     private final String requestDate;
-    private final List<JsonAdaptedConditionTag> conditions = new ArrayList<>();
+    private final String conditions;
     private final JsonAdaptedHealthWorker healthWorker;
 
     private final String requestStatus;
@@ -41,14 +41,13 @@ class JsonAdaptedRequest {
                               @JsonProperty("patient") JsonAdaptedPatient patient,
                               @JsonProperty("requestdate") String requestDate,
                               @JsonProperty("healthworker") JsonAdaptedHealthWorker healthWorker,
-                              @JsonProperty("conditions") List<JsonAdaptedConditionTag> conditions,
+                              @JsonProperty("conditions") String conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
         this.id = id;
         this.patient = patient;
         this.requestDate = requestDate;
-        if (conditions != null) {
-            this.conditions.addAll(conditions);
-        }
+        this.conditions = conditions;
+
         this.healthWorker = healthWorker;
         this.requestStatus = requestStatus;
     }
@@ -61,6 +60,7 @@ class JsonAdaptedRequest {
         this.patient = new JsonAdaptedPatient(source.getPatient());
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
+        this.conditions = source.getConditions().toString();
         Optional<HealthWorker> hw = source.getHealthStaff();
         this.healthWorker = hw.map(JsonAdaptedHealthWorker::new).orElse(null);
     }
@@ -71,10 +71,7 @@ class JsonAdaptedRequest {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Request toModelType() throws IllegalValueException {
-        final List<ConditionTag> requestConditions = new ArrayList<>();
-        for (JsonAdaptedConditionTag tag : conditions) {
-            requestConditions.add(tag.toModelType());
-        }
+
 
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "id"));
@@ -116,9 +113,15 @@ class JsonAdaptedRequest {
 
         final RequestStatus modelrequestStatus = new RequestStatus(this.requestStatus);
 
-        final Conditions modelConditions = new Conditions(requestConditions);
+        Set<ConditionTag> set = new HashSet<>();
+        String[] conditionsArr = this.conditions.split(" ");
+        for (String condition : conditionsArr) {
+            ConditionTag conditionTag = ConditionTag.parseString(condition);
+            set.add(conditionTag);
+        }
+        final Conditions modelConditions = new Conditions(set);
 
-        return new Request(modelId, modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
+        return new Request(modelId, modelPatient, modelHealthStaff, modelrequestDate, modelConditions, modelrequestStatus);
     }
 
 }

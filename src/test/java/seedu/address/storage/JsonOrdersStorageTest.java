@@ -87,7 +87,7 @@ public class JsonOrdersStorageTest {
         ReadOnlyOrders readBack = jsonOrdersStorage.readOrders(filePath).get();
         assertEquals(original, new Orders(readBack));
 
-        // Modify data, overwrite exiting file, and read back
+        // Modify data, overwrite exiting file, and read back TODO: ask YJ
         original.addOrderItem(TABLE8_W09);
         original.removeOrderItem(TABLE1_W09);
         jsonOrdersStorage.saveOrders(original, filePath);

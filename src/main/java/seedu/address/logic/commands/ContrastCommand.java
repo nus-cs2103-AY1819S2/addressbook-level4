@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
+import static seedu.address.commons.core.Config.TEMP_FILEPATH;
+
 import java.io.File;
+import java.util.OptionalInt;
 
 import com.sksamuel.scrimage.BufferedOpFilter;
 import com.sksamuel.scrimage.Image;
@@ -22,50 +26,53 @@ public class ContrastCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Adjust the contrast of the image according to the operators.\n"
         + "Parameters: OPERATORS ('add' indicates an increase of contrast"
-        + "and 'subtract' indicates a decrease in contrast) and FILENAME.\n"
-        + "Example: " + COMMAND_WORD + " add" + " cutedog.jpg";
+        + "and 'subtract' indicates a decrease in contrast) "
+        + "[positive CONTRASTVALUE] "
+        + "and FILENAME.\n"
+        + "Example: " + COMMAND_WORD + " add + cutedog.jpg"
+        + "Example2: " + COMMAND_WORD + " subtract 2 cutedog.jpg";
 
     private String operator;
+    private OptionalInt contrastValue;
     private String fileName;
-
 
     /**
      * Creates a ContrastCommand object.
      * @param operator is add/subtract
      * @param image is the file name of the image.
      */
-    public ContrastCommand(String operator, String image) {
+    public ContrastCommand(String operator, OptionalInt contrastValue, String image) {
         this.operator = operator;
-        fileName = image;
+        this.contrastValue = contrastValue;
+        this.fileName = image;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history)
-        throws CommandException {
-        double contrastAmount = 0.0;
-
+    public CommandResult execute(Model model, CommandHistory history) {
+        int contrastSign = 1;
         if (this.operator.equals("add")) {
-            contrastAmount = 20.0;
+            contrastSign = 1;
         } else if (this.operator.equals("subtract")) {
-            contrastAmount = -20.0;
+            contrastSign = -1;
         }
-
-        try {
-            seedu.address.model.image.Image image = new seedu.address.model
-                .image.Image("src/main/resources/assets/" + fileName);
+        if (this.contrastValue.isPresent()) {
+            seedu.address.model.image.Image initialImage = new seedu.address.model.image.Image(ASSETS_FILEPATH + fileName);
             BufferedOpFilter contrastFilter =
-                new ContrastFilter(contrastAmount);
-            Image.fromFile(new File("src/main/resources/assets/"
+                new ContrastFilter(contrastSign * (double) this.contrastValue.getAsInt());
+            Image.fromFile(new File(ASSETS_FILEPATH
                 + fileName)).filter(contrastFilter)
-                .output("src/main/resources/assets/sampleContrast.jpg",
+                .output(TEMP_FILEPATH + "sampleContrast.jpg",
                     new JpegWriter(0, true));
-
-        } catch (IllegalArgumentException x) {
-            throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST);
+        } else {
+            BufferedOpFilter contrastFilter =
+                new ContrastFilter(contrastSign * 1.0);
+            Image.fromFile(new File(ASSETS_FILEPATH
+                + fileName)).filter(contrastFilter)
+                .output(TEMP_FILEPATH + "sampleContrast.jpg",
+                        new JpegWriter(0, true));
         }
-
         seedu.address.model.image.Image finalImage = new seedu.address.model
-            .image.Image("src/main/resources/assets/sampleContrast.jpg");
+            .image.Image(TEMP_FILEPATH + "sampleContrast.jpg");
         model.displayImage(finalImage);
         return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
     }

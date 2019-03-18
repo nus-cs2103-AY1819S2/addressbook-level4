@@ -13,7 +13,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.user.CardSrsData;
 
 /**
- * Represents a model of cards manager.
+ * Represents a management of cards manager.
  */
 public class SrsCardsManager {
     private Lesson lesson;

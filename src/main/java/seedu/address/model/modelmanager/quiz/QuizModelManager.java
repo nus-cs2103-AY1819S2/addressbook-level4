@@ -1,4 +1,4 @@
-package seedu.address.quiz;
+package seedu.address.model.modelmanager.quiz;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.session.Session;
 
 /**
- * Represents the in-memory model of quiz data
+ * Represents the in-memory management of quiz data
  */
 public class QuizModelManager implements QuizModel {
     private static final Logger logger = LogsCenter.getLogger(QuizModelManager.class);

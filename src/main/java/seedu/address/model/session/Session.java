@@ -3,8 +3,14 @@ package seedu.address.model.session;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import seedu.address.quiz.Quiz;
 import seedu.address.quiz.QuizCard;
+=======
+import seedu.address.model.card.SrsCard;
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
+>>>>>>> 9796a678da6bc293ec34cf45dac1be7d8be3ce1b
 
 
 /**

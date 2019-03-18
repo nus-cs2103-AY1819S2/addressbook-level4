@@ -3,7 +3,6 @@ package seedu.address.model.session;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Instant;
-
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.user.CardSrsData;
@@ -37,7 +36,6 @@ public class SrsCard {
 
     public CardSrsData getCardData() {
         return cardData;
-    }
 
     public String getAnswer() {
         return card.getCore(answerIndex);

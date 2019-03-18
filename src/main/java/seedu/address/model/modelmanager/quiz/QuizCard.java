@@ -1,4 +1,4 @@
-package seedu.address.quiz;
+package seedu.address.model.modelmanager.quiz;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -6,7 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.quiz.exceptions.NotInitialisedException;
+import seedu.address.model.modelmanager.quiz.exceptions.NotInitialisedException;
 
 /**
  * Represents a partial of Card, only contains the necessary information for Quiz.

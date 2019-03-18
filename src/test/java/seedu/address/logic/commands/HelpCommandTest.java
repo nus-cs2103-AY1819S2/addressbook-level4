@@ -1,22 +1,24 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.address.logic.commands.management.HelpCommand.MESSAGE_SUCCESS;
 
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.address.logic.commands.management.HelpCommand;
+import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 
 public class HelpCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private ManagementModel managementModel = new ManagementModelManager();
+    private ManagementModel expectedManagementModel = new ManagementModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-        assertCommandSuccess(new HelpCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, true, false);
+        assertCommandSuccess(new HelpCommand(), managementModel, commandHistory,
+                expectedCommandResult, expectedManagementModel);
     }
 }

@@ -146,7 +146,7 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command and returns the result.
          *
-         * @see seedu.hms.logic.Logic#execute(String, Object)
+         * @see seedu.hms.logic.Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }

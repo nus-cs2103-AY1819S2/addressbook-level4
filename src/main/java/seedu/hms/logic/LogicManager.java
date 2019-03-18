@@ -56,10 +56,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = hotelManagementSystemParser.parseCommand(commandText, customerModel, bookingModel);
-            if (command instanceof SelectCustomerCommand) {
-                commandResult = command.execute(customerModel, history);
-                execute("fbcp " + customerModel.getSelectedCustomer().getIdNum().toString());
-            } else if (command instanceof CustomerCommand) {
+            if (command instanceof CustomerCommand) {
                 commandResult = command.execute(customerModel, history);
             } else {
                 commandResult = command.execute(bookingModel, history);

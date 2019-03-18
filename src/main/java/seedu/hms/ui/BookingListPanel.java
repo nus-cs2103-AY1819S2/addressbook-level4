@@ -11,7 +11,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.customer.Customer;
 
 /**
  * Panel containing the list of bookings.
@@ -24,7 +27,8 @@ public class BookingListPanel extends UiPart<Region> {
     private ListView<Booking> bookingListView;
 
     public BookingListPanel(ObservableList<Booking> bookingList, ObservableValue<Booking> selectedBooking,
-                            Consumer<Booking> onSelectedBookingChange) {
+                            Consumer<Booking> onSelectedBookingChange, ObservableValue<Customer> selectedCustomer,
+                            CommandBox.CommandExecutor commandExecutor) {
         super(FXML);
         bookingListView.setItems(bookingList);
         bookingListView.setCellFactory(listView -> new BookingListViewCell());
@@ -47,6 +51,18 @@ public class BookingListPanel extends UiPart<Region> {
                 int index = bookingListView.getItems().indexOf(newValue);
                 bookingListView.scrollTo(index);
                 bookingListView.getSelectionModel().clearAndSelect(index);
+            }
+        });
+        selectedCustomer.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected booking changed to: " + newValue);
+
+
+            if (newValue != null) {
+                try {
+                    commandExecutor.execute("fbcp " + newValue.getIdNum().toString());
+                } catch (CommandException | ParseException e) {
+                    return;
+                }
             }
         });
     }

@@ -3,6 +3,10 @@ package seedu.address.model.menu;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Menu Item's code in the menu.
+ * Guarantees: immutable; is valid as declared in {@link #isValidCode(String)}
+ */
 public class Code {
 
     public static final String MESSAGE_CONSTRAINTS =

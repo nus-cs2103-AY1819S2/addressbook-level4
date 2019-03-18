@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddItemToMenuCommand;
+import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
@@ -17,7 +17,7 @@ import seedu.address.model.menu.Price;
 /**
  * Parses input arguments and creates a new AddItemToMenuCommand object
  */
-public class AddItemToMenuCommandParser implements Parser<AddItemToMenuCommand> {
+public class AddToMenuCommandParser implements Parser<AddToMenuCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -33,12 +33,12 @@ public class AddItemToMenuCommandParser implements Parser<AddItemToMenuCommand> 
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddItemToMenuCommand parse(String args) throws ParseException {
+    public AddToMenuCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CODE, PREFIX_NAME, PREFIX_PRICE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CODE, PREFIX_NAME, PREFIX_PRICE) || !argMultimap.getPreamble()
                 .isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemToMenuCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddToMenuCommand.MESSAGE_USAGE));
         }
 
         Code code = ParserUtil.parseCode(argMultimap.getValue(PREFIX_CODE).get());
@@ -47,7 +47,7 @@ public class AddItemToMenuCommandParser implements Parser<AddItemToMenuCommand> 
 
         MenuItem menuItem = new MenuItem(name, code, price);
 
-        return new AddItemToMenuCommand(menuItem);
+        return new AddToMenuCommand(menuItem);
     }
 
 }

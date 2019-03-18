@@ -86,7 +86,7 @@ public class AddToOrderCommandTest {
         assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), commandResult.getFeedbackToUser());
         assertEquals(orderItems, modelStub.orderItemsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-        
+
         // adding multiple order items
         itemCodes.add(new Code(VALID_CODE_FRIES));
         itemQuantities.add(3);
@@ -156,7 +156,7 @@ public class AddToOrderCommandTest {
      */
     private class ModelStub implements Model {
         private final Table table = new TableBuilder().build();
-        
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -231,7 +231,7 @@ public class AddToOrderCommandTest {
         public void updateMode() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void addOrderItem(OrderItem orderItem) {
             throw new AssertionError("This method should not be called.");
@@ -392,7 +392,7 @@ public class AddToOrderCommandTest {
         public void addBill(Bill bill) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void setBill(Bill target, Bill editedBill) {
             throw new AssertionError("This method should not be called.");
@@ -498,7 +498,7 @@ public class AddToOrderCommandTest {
             return Optional.of(new MenuItemBuilder().build());
         }
     }
-    
+
     /**
      * A default RestOrRant stub that has all of the methods failing, except getMenu() which returns an empty menu.
      */
@@ -543,7 +543,7 @@ public class AddToOrderCommandTest {
             return new MenuStubWithItemCodes();
         }
     }
-    
+
     /**
      * A Model stub that does not contain any menu items (and thus all codes are invalid).
      */
@@ -559,7 +559,7 @@ public class AddToOrderCommandTest {
      */
     private class ModelStubWithOrderItem extends ModelStub {
         private final OrderItem orderItem;
-        
+
         ModelStubWithOrderItem(OrderItem orderItem) {
             requireNonNull(orderItem);
             this.orderItem = orderItem;
@@ -569,7 +569,7 @@ public class AddToOrderCommandTest {
         public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRantStubWithItemCodes();
         }
-        
+
         @Override
         public boolean hasOrderItem(OrderItem orderItem) {
             requireNonNull(orderItem);

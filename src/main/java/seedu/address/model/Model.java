@@ -174,34 +174,16 @@ public interface Model {
     boolean hasOrderItem(OrderItem orderItem);
 
     /**
-     * Returns true if a menu item with the same identity as {@code menuItem} exists in the menu.
-     */
-    boolean hasMenuItem(MenuItem menuItem);
-
-    /**
      * Deletes the given order item from Orders.
      * The order item must exist in the RestOrRant's Orders.
      */
     void deleteOrderItem(OrderItem target);
 
     /**
-     * Deletes the given menu item.
-     * The menu item must exist in the menu.
-     */
-    void deleteMenuItem(MenuItem menuItem);
-
-    /**
      * Adds the given order item to Orders.
      * {@code orderItem} must not already exist in the RestOrRant's Orders.
      */
     void addOrderItem(OrderItem orderItem);
-
-    /**
-     * Adds the given menu item to the menu.
-     * {@code menuItem} must not already exist in the menu.
-     */
-    void addMenuItem(MenuItem menuItem);
-
 
     /**
      * Replaces the given order item {@code target} with {@code editedOrderItem}.
@@ -211,22 +193,9 @@ public interface Model {
     void setOrderItem(OrderItem target, OrderItem editedOrderItem);
 
     /**
-     * Replaces the given menu item {@code target} with {@code editedItem}.
-     * {@code target} must exist in the menu.
-     * The item identity of {@code editedItem} must not be the same as another existing menu item in the menu.
-     */
-    void setMenuItem(MenuItem target, MenuItem editedItem);
-
-    /**
      * Returns an unmodifiable view of the filtered order item list
      */
     ObservableList<OrderItem> getFilteredOrderItemList();
-
-    /**
-     * Returns an unmodifiable view of the filtered menu item list
-     */
-    ObservableList<MenuItem> getFilteredMenuItemList();
-
 
     /**
      * Updates the filter of the filtered order item list to filter by the given {@code predicate}.
@@ -236,24 +205,10 @@ public interface Model {
     void updateFilteredOrderItemList(Predicate<OrderItem> predicate);
 
     /**
-     * Updates the filter of the filtered menu item list to filter by the given {@code predicate}
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredMenuItemList(Predicate<MenuItem> predicate);
-
-    /**
      * Selected person in the filtered order item list.
      * null if no order item is selected.
      */
     ReadOnlyProperty<OrderItem> selectedOrderItemProperty();
-
-    /**
-     * Selected menu item in the menu item list.
-     * null if no menu item is selected.
-     */
-    ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
-
 
     /**
      * Returns the selected order item in the filtered order item list.
@@ -265,21 +220,6 @@ public interface Model {
      * Sets the selected order item in the filtered order item list.
      */
     void setSelectedOrderItem(OrderItem orderItem);
-
-    /**
-     * Returns the selected menu item in the filtered menu item list.
-     * null if no person is selected.
-     */
-    MenuItem getSelectedMenuItem();
-
-    /**
-     * Sets the selected menu item in the filtered menu item list.
-     */
-    void setSelectedMenuItem(MenuItem menuItem);
-    /**
-     * Notifies the listeners that the RestOrRant menu has been modified to update the storage.
-     */
-    void updateMenu();
 
     /**
      * Notifies the listeners that the RestOrRant orders has been modified to update the storage.
@@ -363,5 +303,62 @@ public interface Model {
      */
     void updateStatistics();
 
+    /**
+     * Returns true if a menu item with the same identity as {@code menuItem} exists in the menu.
+     */
+    boolean hasMenuItem(MenuItem menuItem);
+
+    /**
+     * Deletes the given menu item.
+     * The menu item must exist in the menu.
+     */
+    void deleteMenuItem(MenuItem menuItem);
+
+    /**
+     * Adds the given menu item to the menu.
+     * {@code menuItem} must not already exist in the menu.
+     */
+    void addMenuItem(MenuItem menuItem);
+
+    /**
+     * Replaces the given menu item {@code target} with {@code editedItem}.
+     * {@code target} must exist in the menu.
+     * The item identity of {@code editedItem} must not be the same as another existing menu item in the menu.
+     */
+    void setMenuItem(MenuItem target, MenuItem editedItem);
+
+    /**
+     * Returns an unmodifiable view of the filtered menu item list
+     */
+    ObservableList<MenuItem> getFilteredMenuItemList();
+
+    /**
+     * Updates the filter of the filtered menu item list to filter by the given {@code predicate}
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMenuItemList(Predicate<MenuItem> predicate);
+
+    /**
+     * Selected menu item in the menu item list.
+     * null if no menu item is selected.
+     */
+    ReadOnlyProperty<MenuItem> selectedMenuItemProperty();
+
+    /**
+     * Returns the selected menu item in the filtered menu item list.
+     * null if no person is selected.
+     */
+    MenuItem getSelectedMenuItem();
+
+    /**
+     * Sets the selected menu item in the filtered menu item list.
+     */
+    void setSelectedMenuItem(MenuItem menuItem);
+
+    /**
+     * Notifies the listeners that the RestOrRant menu has been modified to update the storage.
+     */
+    void updateMenu();
 
 }

@@ -66,13 +66,13 @@ public class StorageManagerTest {
          * {@link JsonRestOrRantStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonRestOrRantStorageTest} class.
          */
-        
+
         RestOrRant original = getTypicalRestOrRant();
         storageManager.saveMenu(original.getMenu());
         storageManager.saveOrders(original.getOrders());
         storageManager.saveTables(original.getTables());
         storageManager.saveStatistics(original.getStatistics());
-    
+
         ReadOnlyMenu retrievedMenu = storageManager.readMenu().get();
         ReadOnlyOrders retrievedOrders = storageManager.readOrders().get();
         ReadOnlyTables retrievedTables = storageManager.readTables().get();

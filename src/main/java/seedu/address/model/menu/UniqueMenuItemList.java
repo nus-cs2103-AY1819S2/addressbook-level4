@@ -23,7 +23,7 @@ import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
  *
  * @see MenuItem#isSameMenuItem(MenuItem)
  */
-public class UniqueMenuItemList {
+public class UniqueMenuItemList implements Iterable<MenuItem> {
 
     private final ObservableList<MenuItem> internalList = FXCollections.observableArrayList();
     private final ObservableList<MenuItem> internalUnmodifiableList = FXCollections

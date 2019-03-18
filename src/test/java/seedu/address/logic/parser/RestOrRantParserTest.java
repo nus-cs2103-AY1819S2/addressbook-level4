@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.Mode;
-import seedu.address.logic.commands.AddItemToMenuCommand;
+import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -98,9 +98,9 @@ public class RestOrRantParserTest {
     @Test
     public void parseCommand_addMenuItem() throws Exception {
         MenuItem menuItem = new MenuItemBuilder().build();
-        AddItemToMenuCommand command = (AddItemToMenuCommand) parser.parseCommand(Mode.MENU_MODE,
+        AddToMenuCommand command = (AddToMenuCommand) parser.parseCommand(Mode.MENU_MODE,
                 RestOrRantUtil.getMenuItemDetails(menuItem));
-        assertEquals(new AddItemToMenuCommand(menuItem), command);
+        assertEquals(new AddToMenuCommand(menuItem), command);
         try {
             parser.parseCommand(Mode.TABLE_MODE, RestOrRantUtil.getMenuItemDetails(menuItem));
             throw new AssertionError("The expected ParseException was not thrown.");

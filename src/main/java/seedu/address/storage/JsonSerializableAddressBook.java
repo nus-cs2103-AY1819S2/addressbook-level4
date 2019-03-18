@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 
 /**
@@ -62,6 +62,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
         for (JsonAdaptedActivity jsonAdaptedActivity : activities) {
             Activity activity = jsonAdaptedActivity.toModelType();
             if (addressBook.hasActivity(activity)) {

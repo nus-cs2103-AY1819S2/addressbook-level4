@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 
 import java.io.File;
+import java.util.OptionalInt;
 
 import seedu.address.logic.commands.ContrastCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,11 +23,13 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
      * @throws ParseException
      */
     public ContrastCommand parse(String args) throws ParseException {
+        String fileName;
+        OptionalInt contrastValue;
         requireNonNull(args);
         args = args.trim();
         String[] parsed = args.split(" ");
 
-        if (parsed.length != 2) {
+        if (parsed.length > 3 || parsed.length < 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ContrastCommand.MESSAGE_USAGE));
         }
 
@@ -36,13 +39,23 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ContrastCommand.MESSAGE_USAGE));
         }
 
-        String fileName = parsed[1];
+        if (parsed.length == 3) {
+            contrastValue = OptionalInt.of(Integer.parseInt(parsed[1]));
+            if (contrastValue.getAsInt() < 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ContrastCommand.MESSAGE_USAGE));
+            }
+            fileName = parsed[2];
+        } else {
+            contrastValue = OptionalInt.empty();
+            fileName = parsed[1];
+        }
+
         File directory = new File("src/main/resources/assets/" + fileName);
 
         if (!directory.exists()) {
             throw new ParseException(String.format(MESSAGE_INVALID_PATH, ContrastCommand.MESSAGE_USAGE));
         }
 
-        return new ContrastCommand(operator, fileName);
+        return new ContrastCommand(operator, contrastValue, fileName);
     }
 }

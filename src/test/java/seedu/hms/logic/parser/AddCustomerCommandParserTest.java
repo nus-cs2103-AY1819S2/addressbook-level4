@@ -64,12 +64,12 @@ public class AddCustomerCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
             new AddCustomerCommand(expectedCustomer));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
             new AddCustomerCommand(expectedCustomer));
 
         // multiple emails - last email accepted
@@ -125,7 +125,7 @@ public class AddCustomerCommandParserTest {
         // missing email prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
                 + VALID_EMAIL_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB,
-        expectedMessage);
+            expectedMessage);
 
         //missing id prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB

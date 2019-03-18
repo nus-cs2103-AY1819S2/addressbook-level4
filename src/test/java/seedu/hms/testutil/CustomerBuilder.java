@@ -3,7 +3,6 @@ package seedu.hms.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.DateOfBirth;

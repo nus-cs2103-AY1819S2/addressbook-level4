@@ -1,6 +1,5 @@
 package systemtests;
 
-
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -66,11 +65,11 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
          */
         Customer toAdd = AMY;
         String command = "   " + AddCustomerCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  "
-                + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   "
-                + ADDRESS_DESC_AMY + "   "
-                + ID_DESC_AMY + "        "
-                + TAG_DESC_FRIEND + " ";
+            + PHONE_DESC_AMY + " "
+            + EMAIL_DESC_AMY + "   "
+            + ADDRESS_DESC_AMY + "   "
+            + ID_DESC_AMY + "        "
+            + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -88,17 +87,17 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         added */
         toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + ID_DESC_AMY + TAG_DESC_FRIEND;
+            + ADDRESS_DESC_AMY + ID_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a customer with all fields same as another customer in the address book except phone,
         email and ID -> added
          */
         toAdd = new CustomerBuilder(AMY)
-                    .withPhone(VALID_PHONE_BOB)
-                    .withEmail(VALID_EMAIL_BOB)
-                    .withIdNum(VALID_ID_BOB)
-                    .build();
+            .withPhone(VALID_PHONE_BOB)
+            .withEmail(VALID_EMAIL_BOB)
+            .withIdNum(VALID_ID_BOB)
+            .build();
         command = CustomerUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -109,7 +108,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         /* Case: add a customer with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCustomerCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                + NAME_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+            + NAME_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a customer, missing tags -> added */
@@ -159,27 +158,27 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         /* Case: missing name -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCustomerCommand.MESSAGE_USAGE));
+            AddCustomerCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCustomerCommand.MESSAGE_USAGE));
+            AddCustomerCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCustomerCommand.MESSAGE_USAGE));
+            AddCustomerCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCustomerCommand.MESSAGE_USAGE));
+            AddCustomerCommand.MESSAGE_USAGE));
 
         /* Case: missing ID -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCustomerCommand.MESSAGE_USAGE));
+            AddCustomerCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + CustomerUtil.getCustomerDetails(toAdd);
@@ -187,32 +186,32 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
 
         /* Case: invalid name -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + ID_DESC_AMY;
+            + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + ID_DESC_AMY;
+            + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC
-                + ADDRESS_DESC_AMY + ID_DESC_AMY;
+            + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + INVALID_ADDRESS_DESC + ID_DESC_AMY;
+            + INVALID_ADDRESS_DESC + ID_DESC_AMY;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid ID -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + INVALID_ID_DESC;
+            + ADDRESS_DESC_AMY + INVALID_ID_DESC;
         assertCommandFailure(command, IdentificationNo.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + ID_DESC_AMY + INVALID_TAG_DESC;
+            + ADDRESS_DESC_AMY + ID_DESC_AMY + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }
 
@@ -228,6 +227,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandSuccess(Customer toAdd) {
@@ -237,6 +237,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
      * instead.
+     *
      * @see AddCommandSystemTest#assertCommandSuccess(Customer)
      */
     private void assertCommandSuccess(String command, Customer toAdd) {
@@ -253,6 +254,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
+     *
      * @see AddCommandSystemTest#assertCommandSuccess(String, Customer)
      */
     private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage) {

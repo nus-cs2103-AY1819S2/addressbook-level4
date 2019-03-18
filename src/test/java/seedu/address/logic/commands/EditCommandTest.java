@@ -19,7 +19,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
-public class UpdateTableCommandTest {
+public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();

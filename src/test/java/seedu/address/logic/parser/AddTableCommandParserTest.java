@@ -34,7 +34,7 @@ public class AddTableCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + "4", new AddTableCommand(singleTableStatusList));
 
-        // multiple names - last name accepted
+        // multiple tables
         assertParseSuccess(parser, "4 " + "5", new AddTableCommand(multipleTableStatusList));
     }
 
@@ -42,7 +42,7 @@ public class AddTableCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE);
 
-        // missing name prefix
+        // missing inputs
         assertParseFailure(parser, "", expectedMessage);
     }
 

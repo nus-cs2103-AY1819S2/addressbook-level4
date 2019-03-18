@@ -39,11 +39,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`put`**`a1` : Puts a battleship with its head at the A1 cell
 * **`shoot`**`a1` : Attacks the enemy's A1 cell
 * *`exit`* : exits the app
-
+ change to
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+
+
 
 ====
 *Command Format*
@@ -54,8 +56,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
 === Viewing help : `help`
 
+Opens a help window that displays this User Guide. +
 Format: `help`
 
 === Initialising the maps : `init`
@@ -74,11 +82,11 @@ Edits a battleship in the current inventory +
 Format: `edit INDEX [n/NAME] [s/SIZE] [c/COMMAND_FLAG] [t/TAGS]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the battleship at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the battleship will be removed i.e adding of tags is not cumulative.
+* You can remove all the battleship's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
@@ -129,7 +137,7 @@ Format: `findTag TAG [MORE_TAGS]`
 Examples:
 
 * `findTag bluewater_fleet` +
-Returns `Name: RSS Vengence, Size: 4, Command: true, Position: d2`
+Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
 
 [NOTE]
 The position may not be displayed if the ship has not been placed.
@@ -170,13 +178,13 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd battleship in the inventory.
-* `find Betsy` +
+* `find Prinz Eugen` +
 `select 1` +
 Selects the 1st battleship in the results of the `find` command.
 
 === Starting a game: `play`
 
-Starts a game of Battleship with a computer enemy. Creates a game loop that allows the player to fight with the enemy. +
+Starts a game of Battleship with a computer enemy. +
 Format: `play`
 
 Example:
@@ -185,7 +193,7 @@ Example:
 
 === Shooting at a coordinate: `shoot`
 
-Launches a missile onto the given coordinate on the enemy's map. +
+Launches an attack against given coordinate on the enemy's map. +
 Format: `shoot COORDINATES`
 
 Example:
@@ -220,11 +228,6 @@ Example:
 
 Displays statistics of commands used +
 Format: `stats`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
 
 // tag::undoredo[]
 === Undoing previous command : `undo`

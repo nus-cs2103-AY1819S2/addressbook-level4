@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.place.Address;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Place;
@@ -25,6 +26,7 @@ class JsonAdaptedPlace {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Place's %s field is missing!";
 
     private final String name;
+    private final String countryCode;
     private final String rating;
     private final String description;
     private final String address;
@@ -34,10 +36,12 @@ class JsonAdaptedPlace {
      * Constructs a {@code JsonAdaptedPlace} with the given place details.
      */
     @JsonCreator
-    public JsonAdaptedPlace(@JsonProperty("name") String name, @JsonProperty("rating") String rating,
+    public JsonAdaptedPlace(@JsonProperty("name") String name, @JsonProperty("countryCode") String countryCode,
+        @JsonProperty("rating") String rating,
             @JsonProperty("description") String description, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
+        this.countryCode = countryCode;
         this.rating = rating;
         this.description = description;
         this.address = address;
@@ -51,6 +55,7 @@ class JsonAdaptedPlace {
      */
     public JsonAdaptedPlace(Place source) {
         name = source.getName().fullName;
+        countryCode = source.getCountryCode().code;
         rating = source.getRating().value;
         description = source.getDescription().value;
         address = source.getAddress().value;
@@ -78,6 +83,15 @@ class JsonAdaptedPlace {
         }
         final Name modelName = new Name(name);
 
+        if (countryCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                CountryCode.class.getSimpleName()));
+        }
+        if (!CountryCode.isValidCountryCode(countryCode)) {
+            throw new IllegalValueException(CountryCode.MESSAGE_CONSTRAINTS);
+        }
+        final CountryCode modelCountryCode = new CountryCode(countryCode);
+
         if (rating == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName()));
         }
@@ -104,7 +118,7 @@ class JsonAdaptedPlace {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(placeTags);
-        return new Place(modelName, modelPhone, modelDescription, modelAddress, modelTags);
+        return new Place(modelName, modelCountryCode, modelPhone, modelDescription, modelAddress, modelTags);
     }
 
 }

@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.place.Address;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Rating;
@@ -51,18 +52,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String countryCode} into a {@code CountryCode}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code countryCode} is invalid.
+     */
+    public static CountryCode parseCountryCode(String countryCode) throws ParseException {
+        requireNonNull(countryCode);
+        String trimmedCountryCode = countryCode.trim();
+        if (!CountryCode.isValidCountryCode(trimmedCountryCode)) {
+            throw new ParseException(CountryCode.MESSAGE_CONSTRAINTS);
+        }
+        return new CountryCode(trimmedCountryCode);
+    }
+
+    /**
+     * Parses a {@code String rating} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rating} is invalid.
      */
     public static Rating parseRating(String rating) throws ParseException {
         requireNonNull(rating);
-        String trimmedPhone = rating.trim();
-        if (!Rating.isValidRating(trimmedPhone)) {
+        String trimmedRating = rating.trim();
+        if (!Rating.isValidRating(trimmedRating)) {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
-        return new Rating(trimmedPhone);
+        return new Rating(trimmedRating);
     }
 
     /**

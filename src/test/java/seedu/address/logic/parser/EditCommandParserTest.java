@@ -3,9 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COUNTRY_CODE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
@@ -17,6 +20,8 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_EWL;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MRT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMK;
@@ -37,6 +42,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.address.model.place.Address;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Rating;
@@ -81,7 +87,10 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1"
+            + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1"
+            + INVALID_COUNTRY_CODE_DESC, CountryCode.MESSAGE_CONSTRAINTS); // invalid country code
         assertParseFailure(parser, "1" + INVALID_RATING_DESC, Rating.MESSAGE_CONSTRAINTS); // invalid rating
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION,
                 Description.MESSAGE_CONSTRAINTS); // invalid description
@@ -89,8 +98,16 @@ public class EditCommandParserTest {
                 Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
+        // invalid country code followed by valid description
+        assertParseFailure(parser, "1" + INVALID_COUNTRY_CODE_DESC
+            + DESCRIPTION_AMK, CountryCode.MESSAGE_CONSTRAINTS);
+
         // invalid rating followed by valid description
         assertParseFailure(parser, "1" + INVALID_RATING_DESC + DESCRIPTION_AMK, Rating.MESSAGE_CONSTRAINTS);
+
+        // valid country code followed by invalid country code.
+        assertParseFailure(parser, "1" + COUNTRY_CODE_DESC_BEDOK
+            + INVALID_COUNTRY_CODE_DESC, CountryCode.MESSAGE_CONSTRAINTS);
 
         // valid rating followed by invalid rating. The test case for invalid rating followed by valid rating
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -113,10 +130,11 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + RATING_DESC_BEDOK + TAG_DESC_EWL
+        String userInput = targetIndex.getOneBased() + RATING_DESC_BEDOK + COUNTRY_CODE_DESC_AMK + TAG_DESC_EWL
                 + DESCRIPTION_AMK + ADDRESS_DESC_AMK + NAME_DESC_AMK + TAG_DESC_MRT;
 
         EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMK)
+                .withCountryCode(VALID_COUNTRY_CODE_AMK)
                 .withRating(VALID_RATING_BEDOK).withDescription(VALID_DESCRIPTION_AMK).withAddress(VALID_ADDRESS_AMK)
                 .withTags(VALID_TAG_EWL, VALID_TAG_MRT).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -127,9 +145,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + RATING_DESC_BEDOK + DESCRIPTION_AMK;
+        String userInput = targetIndex.getOneBased() + COUNTRY_CODE_DESC_AMK + RATING_DESC_BEDOK + DESCRIPTION_AMK;
 
-        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withRating(VALID_RATING_BEDOK)
+        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withCountryCode(VALID_COUNTRY_CODE_AMK)
+                .withRating(VALID_RATING_BEDOK)
                 .withDescription(VALID_DESCRIPTION_AMK).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -144,6 +163,13 @@ public class EditCommandParserTest {
         EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMK).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
+
+        /*
+        userInput = targetIndex.getOneBased() + COUNTRY_CODE_DESC_AMK;
+        descriptor = new EditPlaceDescriptorBuilder().withCountryCode(VALID_COUNTRY_CODE_AMK).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+        */
 
         // rating
         userInput = targetIndex.getOneBased() + RATING_DESC_AMK;
@@ -173,11 +199,14 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + RATING_DESC_AMK + ADDRESS_DESC_AMK + DESCRIPTION_AMK
-                + TAG_DESC_MRT + RATING_DESC_AMK + ADDRESS_DESC_AMK + DESCRIPTION_AMK + TAG_DESC_MRT
-                + RATING_DESC_BEDOK + ADDRESS_DESC_BEDOK + DESCRIPTION_BEDOK + TAG_DESC_EWL;
+        String userInput =
+            targetIndex.getOneBased() + COUNTRY_CODE_DESC_AMK + RATING_DESC_AMK + ADDRESS_DESC_AMK + DESCRIPTION_AMK
+                + TAG_DESC_MRT + RATING_DESC_AMK + ADDRESS_DESC_AMK + COUNTRY_CODE_DESC_AMK
+                + DESCRIPTION_AMK + TAG_DESC_MRT + RATING_DESC_BEDOK + ADDRESS_DESC_BEDOK + DESCRIPTION_BEDOK
+                + TAG_DESC_EWL;
 
-        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withRating(VALID_RATING_BEDOK)
+        EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withCountryCode(VALID_COUNTRY_CODE_BEDOK)
+                .withRating(VALID_RATING_BEDOK)
                 .withDescription(VALID_DESCRIPTION_BEDOK).withAddress(VALID_ADDRESS_BEDOK)
                 .withTags(VALID_TAG_MRT, VALID_TAG_EWL).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
+import static seedu.address.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_AMK;
@@ -86,7 +87,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK
+        String addCommand =
+            AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK
                 + ADDRESS_DESC_AMK;
         Place expectedPlace = new PlaceBuilder(AMK).withTags().build();
         ModelManager expectedModel = new ModelManager();

@@ -3,12 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.List;
+//import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.ParseException;
+//import seedu.address.logic.parser.AddressBookParser;
+//import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
 /**
@@ -20,7 +20,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undo success!";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
-    /*
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -34,8 +34,9 @@ public class UndoCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
 
 
-    }*/
+    }
 
+    /*
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -64,5 +65,5 @@ public class UndoCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
 
 
-    }
+    }*/
 }

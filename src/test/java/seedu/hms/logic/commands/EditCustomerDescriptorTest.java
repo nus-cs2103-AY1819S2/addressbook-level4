@@ -2,26 +2,16 @@ package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/EditCustomerDescriptorTest.java
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-=======
+
 import static seedu.hms.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/logic/commands/EditCustomerDescriptorTest.java
 
 import org.junit.Test;
 

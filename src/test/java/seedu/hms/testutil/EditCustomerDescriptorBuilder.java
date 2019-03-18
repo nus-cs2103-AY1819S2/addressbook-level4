@@ -4,26 +4,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-<<<<<<< HEAD:src/test/java/seedu/address/testutil/EditCustomerDescriptorBuilder.java
-import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-=======
 import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/testutil/EditCustomerDescriptorBuilder.java
 
 /**
  * A utility class to help with building EditCustomerDescriptor objects.
@@ -87,7 +76,7 @@ public class EditCustomerDescriptorBuilder {
     }
 
     /**
-<<<<<<< HEAD:src/test/java/seedu/address/testutil/EditCustomerDescriptorBuilder.java
+     * <<<<<<< HEAD:src/test/java/seedu/address/testutil/EditCustomerDescriptorBuilder.java
      * Sets the {@code DateOfBirth} of the {@code EditCustomerDescriptor} that we are building.
      */
     public EditCustomerDescriptorBuilder withDateOfBirth(String dob) {
@@ -97,9 +86,10 @@ public class EditCustomerDescriptorBuilder {
 
     /**
      * Sets the {@code Address} of the {@code EditCustomerDescriptor} that we are building.
-=======
+     * =======
      * Sets the {@code hms} of the {@code EditCustomerDescriptor} that we are building.
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/testutil/EditCustomerDescriptorBuilder.java
+     * >>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/testutil
+     * /EditCustomerDescriptorBuilder.java
      */
     public EditCustomerDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));

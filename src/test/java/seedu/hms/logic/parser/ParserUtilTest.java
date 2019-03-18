@@ -14,26 +14,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/ParserUtilTest.java
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.Assert;
-=======
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.testutil.Assert;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/logic/parser/ParserUtilTest.java
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

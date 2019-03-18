@@ -1,66 +1,16 @@
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCustomerCommandParserTest.java
-package seedu.address.logic.parser;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_OF_BIRTH_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ID_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalCustomers.AMY;
-import static seedu.address.testutil.TypicalCustomers.BOB;
-
-import org.junit.Test;
-
-import seedu.address.logic.commands.AddCustomerCommand;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CustomerBuilder;
-=======
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_DATE_OF_BIRTH_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -75,6 +25,7 @@ import static seedu.hms.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -91,13 +42,13 @@ import org.junit.Test;
 import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.testutil.CustomerBuilder;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/logic/parser/AddCustomerCommandParserTest.java
 
 public class AddCustomerCommandParserTest {
     private AddCustomerCommandParser parser = new AddCustomerCommandParser();
@@ -135,29 +86,17 @@ public class AddCustomerCommandParserTest {
             + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB
             + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCustomerCommand(expectedCustomer));
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCustomerCommandParserTest.java
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
             + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB
             + TAG_DESC_FRIEND, new AddCustomerCommand(expectedCustomer));
-=======
-        // multiple hmses - last hms accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB
-            + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCustomerCommand(expectedCustomer));
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/logic/parser/AddCustomerCommandParserTest.java
 
         // multiple tags - all accepted
         Customer expectedCustomerMultipleTags = new CustomerBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
             .build();
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCustomerCommandParserTest.java
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
             + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
             + TAG_DESC_FRIEND, new AddCustomerCommand(expectedCustomerMultipleTags));
-=======
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-            new AddCustomerCommand(expectedCustomerMultipleTags));
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/logic/parser/AddCustomerCommandParserTest.java
     }
 
     @Test
@@ -184,19 +123,11 @@ public class AddCustomerCommandParserTest {
             expectedMessage);
 
         // missing email prefix
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCustomerCommandParserTest.java
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
                 + VALID_EMAIL_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB,
-=======
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB,
-            expectedMessage);
+        expectedMessage);
 
-        // missing hms prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + VALID_ADDRESS_BOB,
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/logic/parser/AddCustomerCommandParserTest.java
-            expectedMessage);
-
-        // missing id prefix
+        //missing id prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
                 + EMAIL_DESC_BOB + VALID_ID_BOB + ADDRESS_DESC_BOB,
             expectedMessage);
@@ -230,14 +161,9 @@ public class AddCustomerCommandParserTest {
             + INVALID_EMAIL_DESC + ID_DESC_BOB + ADDRESS_DESC_BOB
             + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCustomerCommandParserTest.java
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
             + EMAIL_DESC_BOB + ID_DESC_BOB + INVALID_ADDRESS_DESC
-=======
-        // invalid hms
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + INVALID_ADDRESS_DESC
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/logic/parser/AddCustomerCommandParserTest.java
             + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
 
         // invalid id

@@ -10,24 +10,14 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonAdaptedCustomerTest.java
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
-import seedu.address.testutil.Assert;
-=======
 import seedu.hms.commons.exceptions.IllegalValueException;
 import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.testutil.Assert;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/storage/JsonAdaptedCustomerTest.java
 
 public class JsonAdaptedCustomerTest {
     private static final String INVALID_NAME = "R@chel";
@@ -157,27 +147,22 @@ public class JsonAdaptedCustomerTest {
     }
 
     @Test
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonAdaptedCustomerTest.java
     public void toModelTypeNullAddressThrowsIllegalValueException() {
         JsonAdaptedCustomer customer = new JsonAdaptedCustomer(VALID_NAME, VALID_PHONE, VALID_DOB, VALID_EMAIL,
-=======
-    public void toModelTypeNullhmsThrowsIllegalValueException() {
-        JsonAdaptedCustomer customer = new JsonAdaptedCustomer(VALID_NAME, VALID_PHONE, VALID_EMAIL,
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/storage/JsonAdaptedCustomerTest.java
             VALID_IDENTIFICATION_NO, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, customer::toModelType);
-    }
+            String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+            Assert.assertThrows(IllegalValueException.class, expectedMessage, customer::toModelType);
+        }
 
-    @Test
-    public void toModelTypeInvalidTagsThrowsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedCustomer customer =
-            new JsonAdaptedCustomer(VALID_NAME, VALID_PHONE, VALID_DOB, VALID_EMAIL, VALID_IDENTIFICATION_NO,
-                VALID_ADDRESS,
-                invalidTags);
-        Assert.assertThrows(IllegalValueException.class, customer::toModelType);
-    }
+        @Test
+        public void toModelTypeInvalidTagsThrowsIllegalValueException () {
+            List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
+            invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+            JsonAdaptedCustomer customer =
+                new JsonAdaptedCustomer(VALID_NAME, VALID_PHONE, VALID_DOB, VALID_EMAIL, VALID_IDENTIFICATION_NO,
+                    VALID_ADDRESS,
+                    invalidTags);
+            Assert.assertThrows(IllegalValueException.class, customer::toModelType);
+        }
 
-}
+    }

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -26,9 +27,9 @@ public class DeleteLessonCommand implements Command {
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the lesson identified by the index number in the numbered lesson list."
+            + ": Deletes the lesson identified by its index number in the numbered list"
             + " shown when the command \'listLessons\' is entered.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameter: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     /**
      * Feedback message displayed to the user upon successful execution of this command
@@ -38,15 +39,15 @@ public class DeleteLessonCommand implements Command {
      * The index of the lesson to be deleted when {@link #execute(Model, CommandHistory)}
      * is called.
      */
-    private final int toDeleteIndex;
+    private final Index targetIndex;
 
     /**
      * Creates an DeleteLessonCommand to delete the specified {@link Lesson}
      *
-     * @param toDeleteIndex the index of the {@link Lesson} to be deleted
+     * @param targetIndex the index of the {@link Lesson} to be deleted
      */
-    public DeleteLessonCommand(int toDeleteIndex) {
-        this.toDeleteIndex = toDeleteIndex;
+    public DeleteLessonCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     /**
@@ -68,7 +69,7 @@ public class DeleteLessonCommand implements Command {
         }
 
         ManagementModel mgtModel = (ManagementModel) model;
-
+        int toDeleteIndex = targetIndex.getZeroBased();
         mgtModel.deleteLesson(toDeleteIndex);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDeleteIndex));
     }
@@ -77,6 +78,6 @@ public class DeleteLessonCommand implements Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteLessonCommand // instanceof handles nulls
-                && toDeleteIndex == ((DeleteLessonCommand) other).toDeleteIndex);
+                && targetIndex == ((DeleteLessonCommand) other).targetIndex);
     }
 }

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Rule;
@@ -13,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
@@ -40,8 +40,7 @@ public class DeleteLessonCommandTest {
     @Test
     public void execute_lessonDeletedByModel_deleteUnsuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
-        int toDeleteIndex = 0;
-
+        Index toDeleteIndex = Index.fromZeroBased(0);
         thrown.expect(IndexOutOfBoundsException.class);
         CommandResult commandResult =
                 new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
@@ -52,11 +51,11 @@ public class DeleteLessonCommandTest {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         modelStub.addLesson(TypicalLessons.LESSON_DEFAULT);
 
-        int toDeleteIndex = 0;
+        Index toDeleteIndex = Index.fromZeroBased(0);
         CommandResult commandResult =
                 new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, toDeleteIndex),
+        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, toDeleteIndex.getZeroBased()),
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -64,7 +63,7 @@ public class DeleteLessonCommandTest {
     @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
-        int toDeleteIndex = 0;
+        Index toDeleteIndex = Index.fromZeroBased(0);
         DeleteLessonCommand addLessonCommand = new DeleteLessonCommand(toDeleteIndex);
 
         thrown.expect(CommandException.class);
@@ -74,16 +73,16 @@ public class DeleteLessonCommandTest {
 
     @Test
     public void equals() {
-        int toDeleteIndex = 0;
-        int toDeleteIndex2 = 1;
-        DeleteLessonCommand deleteLessonCommand1 = new DeleteLessonCommand(toDeleteIndex);
+        Index toDeleteIndex1 = Index.fromZeroBased(0);
+        Index toDeleteIndex2 = Index.fromZeroBased(1);
+        DeleteLessonCommand deleteLessonCommand1 = new DeleteLessonCommand(toDeleteIndex1);
         DeleteLessonCommand deleteLessonCommand2 = new DeleteLessonCommand(toDeleteIndex2);
 
         // same object -> returns true
         assertEquals(deleteLessonCommand1, deleteLessonCommand1);
 
         // same values -> returns true
-        DeleteLessonCommand deleteLessonCommandCopy = new DeleteLessonCommand(toDeleteIndex);
+        DeleteLessonCommand deleteLessonCommandCopy = new DeleteLessonCommand(toDeleteIndex1);
         assertEquals(deleteLessonCommand1, deleteLessonCommandCopy);
 
         // different types -> returns false

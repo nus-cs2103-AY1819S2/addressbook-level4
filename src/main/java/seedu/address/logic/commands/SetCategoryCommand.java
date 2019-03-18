@@ -17,12 +17,12 @@ import seedu.address.model.restaurant.categories.Cuisine;
 /**
  * Sets the cuisine of an existing restaurant in the food diary.
  */
-public class SetCuisineCommand extends Command {
+public class SetCategoryCommand extends Command {
 
-    public static final String COMMAND_WORD = "setCuisine";
+    public static final String COMMAND_WORD = "setCategory";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets cuisine of the restaurant identified by the index number used in the displayed restaurant list.\n"
+            + ": Sets categories of the restaurant identified by the index number used in the displayed restaurant list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CUISINE + "CUISINE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -33,7 +33,7 @@ public class SetCuisineCommand extends Command {
     private final Index index;
     private final Cuisine cuisine;
 
-    public SetCuisineCommand(Index index, Cuisine cuisine) {
+    public SetCategoryCommand(Index index, Cuisine cuisine) {
         requireNonNull(index);
         requireNonNull(cuisine);
 
@@ -67,12 +67,12 @@ public class SetCuisineCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SetCuisineCommand)) {
+        if (!(other instanceof SetCategoryCommand)) {
             return false;
         }
 
         // state check
-        SetCuisineCommand e = (SetCuisineCommand) other;
+        SetCategoryCommand e = (SetCategoryCommand) other;
         return index.equals(e.index)
                 && cuisine.equals(e.cuisine);
     }

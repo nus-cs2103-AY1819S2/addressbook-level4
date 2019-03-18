@@ -17,9 +17,9 @@ import seedu.address.testutil.RestaurantBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * SetCuisineCommand.
+ * SetCategoryCommand.
  */
-public class SetCuisineCommandTest {
+public class SetCategoryCommandTest {
 
     private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -29,9 +29,9 @@ public class SetCuisineCommandTest {
         Restaurant restaurantCuisineAdded = new RestaurantBuilder(model.getFilteredRestaurantList().get(0))
                 .withCuisine(VALID_CUISINE_FAST_FOOD).build();
         Cuisine validCuisine = new Cuisine(VALID_CUISINE_FAST_FOOD);
-        SetCuisineCommand cuisineCommand = new SetCuisineCommand(INDEX_FIRST_RESTAURANT, validCuisine);
+        SetCategoryCommand cuisineCommand = new SetCategoryCommand(INDEX_FIRST_RESTAURANT, validCuisine);
 
-        String expectedMessage = String.format(SetCuisineCommand.MESSAGE_SET_CUISINE_SUCCESS, restaurantCuisineAdded);
+        String expectedMessage = String.format(SetCategoryCommand.MESSAGE_SET_CUISINE_SUCCESS, restaurantCuisineAdded);
 
         Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), restaurantCuisineAdded);

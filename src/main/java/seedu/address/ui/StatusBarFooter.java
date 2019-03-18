@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +8,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -40,7 +38,7 @@ public class StatusBarFooter extends UiPart<Region> {
             }
     };
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyAddressBook addressBook) {
+    public StatusBarFooter() {
         super(FXML);
         this.startTime = System.nanoTime();
         myTimer.scheduleAtFixedRate(task, 1000, 1000);
@@ -66,7 +64,7 @@ public class StatusBarFooter extends UiPart<Region> {
      * @param endTime
      * @return
      */
-    private long getElapsedTime(long endTime) {
+    public long getElapsedTime(long endTime) {
         long elapsedTimeSeconds = (endTime - this.startTime) / (1000000000);
         return elapsedTimeSeconds;
     }

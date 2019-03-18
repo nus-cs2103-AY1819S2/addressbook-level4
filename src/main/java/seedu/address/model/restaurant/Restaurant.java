@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -87,11 +88,11 @@ public class Restaurant {
     }
 
     /**
-     * Create new restaurant with Optional cuisine field and Reviews.
+     * Create new restaurant with Categories and Reviews.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours, Optional<Cuisine> cuisine, Set<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags, cuisine);
+                      OpeningHours openingHours, Category categories, Set<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, tags, categories);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -100,7 +101,7 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.reviews.addAll(reviews);
-        this.categories = new Category(cuisine.isPresent() ? cuisine.get() : null, null);
+        this.categories = categories;
     }
 
     /**
@@ -146,6 +147,14 @@ public class Restaurant {
 
     public Optional<Cuisine> getCuisine() {
         return categories.getCuisine();
+    }
+
+    public Optional<Occasion> getOccasion() {
+        return categories.getOccasion();
+    }
+
+    public Category getCategories() {
+        return categories;
     }
 
     /**

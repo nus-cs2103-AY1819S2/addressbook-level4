@@ -19,7 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.deck.Card;
 
-public class CardListPanelTest extends GuiUnitTest {
+public class ListPanelTest extends GuiUnitTest {
     private static final ObservableList<Card> TYPICAL_CARDS =
             FXCollections.observableList(getTypicalCards());
 
@@ -55,7 +55,7 @@ public class CardListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of cards in {@code CardListPanel} requires lesser than
+     * Verifies that creating and deleting large number of cards in {@code ListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -70,7 +70,7 @@ public class CardListPanelTest extends GuiUnitTest {
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code CardListPanel}.
+     * {@code ListPanel}.
      */
     private ObservableList<Card> createBackingList(int personCount) {
         ObservableList<Card> backingList = FXCollections.observableArrayList();
@@ -84,15 +84,15 @@ public class CardListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code cardListPanelHandle} with a {@code CardListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code CardListPanel}.
+     * Initializes {@code cardListPanelHandle} with a {@code ListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code ListPanel}.
      */
     private void initUi(ObservableList<Card> backingList) {
-        CardListPanel cardListPanel =
-                new CardListPanel(backingList, selectedPerson);
-        uiPartRule.setUiPart(cardListPanel);
+        ListPanel listPanel =
+                new ListPanel(backingList, selectedPerson);
+        uiPartRule.setUiPart(listPanel);
 
-        cardListPanelHandle = new CardListPanelHandle(getChildNode(cardListPanel.getRoot(),
+        cardListPanelHandle = new CardListPanelHandle(getChildNode(listPanel.getRoot(),
                 CardListPanelHandle.CARD_LIST_VIEW_ID));
     }
 }

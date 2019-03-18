@@ -20,7 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
-public class CardsView implements ViewState {
+public class CardsView implements ListViewState {
     private Model model;
     public final FilteredList<Card> filteredCards;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();

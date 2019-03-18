@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -13,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.ListItem;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
@@ -36,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private CardListPanel cardListPanel;
+    private ListPanel listPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
@@ -116,8 +114,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        cardListPanel = new CardListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
-        personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+        listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
+        personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -169,8 +167,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public CardListPanel getCardListPanel() {
-        return cardListPanel;
+    public ListPanel getListPanel() {
+        return listPanel;
     }
 
     /**
@@ -184,9 +182,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult instanceof UpdatePanelCommandResult) {
-                cardListPanel = new CardListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
+                listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
                 personListPanelPlaceholder.getChildren().clear();
-                personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+                personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {
                 handleHelp();
             } else if (commandResult instanceof ExitCommandResult) {

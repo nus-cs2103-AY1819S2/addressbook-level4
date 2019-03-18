@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.deck.Card;
 
 /**
- * Provides a handle for {@code CardListPanel} containing the list of {@code CardDisplay}.
+ * Provides a handle for {@code ListPanel} containing the list of {@code CardDisplay}.
  */
 public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     public static final String CARD_LIST_VIEW_ID = "#cardListView";

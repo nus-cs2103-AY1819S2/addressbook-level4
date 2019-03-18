@@ -9,14 +9,13 @@ import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.parser.AddCardCommandParser;
 import seedu.address.logic.parser.AddDeckCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
-public class DecksView implements ViewState {
+public class DecksView implements ListViewState {
     private Model model;
     public final FilteredList<Deck> filteredDecks;
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();

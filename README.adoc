@@ -19,12 +19,11 @@ most of the user interactions takes place on the CLI (Command Line Interface) pr
 * ClubManager is specially designed for *CCA main committee members* to manage their CCA data.
 It is the go-to application for CCA leaders who are looking for a software that
 allows them to *seamlessly manage their members and activities*.
-* This app is comes with a laconic UI and the following features:
+* This app comes with a laconic UI and the following features:
 ** Add, delete, edit, sort and manage members' information.
 ** Add, update activities and take attendance.
 ** Get basic member statistics.
 ** Import/Export.
-** And many more!
 
 
 == Site Map

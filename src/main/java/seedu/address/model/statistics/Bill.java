@@ -40,6 +40,26 @@ public class Bill {
     }
 
     /**
+     * Every field must be present and not null.
+     * Constructor for StatisticBuilder for testing.
+     */
+    public Bill(Day day, Month month, Year year, TableNumber tableNumber, float totalBill, String receipt) {
+        requireAllNonNull(day);
+        requireAllNonNull(month);
+        requireAllNonNull(year);
+        requireAllNonNull(tableNumber);
+        requireAllNonNull(totalBill);
+        requireAllNonNull(receipt);
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.tableNumber = tableNumber;
+        this.totalBill = totalBill;
+        this.receipt = receipt;
+        date = null;
+    }
+
+    /**
      * Formats the current date and time and returns it as a String.
      */
     public String getFormattedDate() {
@@ -100,11 +120,11 @@ public class Bill {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("[Table ")
+        builder.append("Total bill for Table ")
                 .append(getTableNumber())
-                .append("] [Total Cost of the Bill: $")
-                .append(getTotalBill())
-                .append("] [Date: ")
+                .append(": $")
+                .append(String.format("%.2f",getTotalBill()))
+                .append(" [Date: ")
                 .append(getFormattedDate())
                 .append("] ");
         return builder.toString();

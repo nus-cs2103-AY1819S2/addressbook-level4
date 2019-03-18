@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
-import seedu.address.model.battleship.CoordinatesTest;
 import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;

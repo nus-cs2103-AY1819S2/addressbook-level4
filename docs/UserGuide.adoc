@@ -57,27 +57,30 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-====
-*Command Format*
-* Some commands may have an Shortcut, which you can also use to execute the command e.g. for `add`, its Shortcut is `a`, so
- you can either type `add n/NUS Computing` or `a n/NUS Computing`.
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter
-which can be used as `add n/NUS Computing`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/NUS Computing t/faculty` or as `n/NUS
-Computing`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as
-`{nbsp}` (i.e. 0 times), `t/faculty`, `t/faculty t/school` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME r/RATING`, `r/RATING n/NAME` is
-also acceptable.
-====
+Before starting on the application, read through the below sections. They cover the format to be used for all the commands and the syntax that is to be followed.
+
+Command Format
+
+* Some commands may have a shortcut, which you can also use to execute the command e.g. for add, its shortcut is `a`,
+so you can either type `add n/NUS Computing` or `a n/NUS Computing`.
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, NAME is a parameter which can be used as `add n/NUS Computing`.
+
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/NUS Computing t/faculty` or as `n/NUS Computing`.
+
+* Parameters can be in any order e.g. if the command specifies `n/NAME r/RATING`, `r/RATING n/NAME` is also acceptable.
 
 === Viewing help : `help`
 
 Format: `help`
 
+[NOTE]
+The help page will be shown in another window, but you can resize and move it
+around. This can be useful to refer to when using the app.
+
 === Adding a place: `add`
 
-Adds a place to TravelBuddy +
+Adds a place to TravelBuddy. +
 Shortcut: 'a' +
 Format: `add n/NAME r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
 
@@ -136,25 +139,6 @@ Examples:
 Returns `National Museum of Singapore` and `National University Hospital`
 * `search National Temple` +
 Returns any place having names `National` or `Temple`
-
-=== Searching places by country: `searchc`
-
-Finds places that are located within the countries specified. +
-Format: `searchc KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search follows ISO-3166 country code. e.g `SGP` corresponds to `Singapore`
-* Only the countries are searched.
-* Only correct country codes will be matched e.g. `SGX` will not match `Singapore`
-* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `SGP JPN` will return places found in `Singapore` or `Japan`
-****
-
-Examples:
-
-* `searchc SGP` +
-Returns a list of places in `Singapore`
-* `searchc SGP JPN` +
-Returns a list of places located in `Singapore` or `Japan`
 
 === Searching places by tags: `searcht`
 

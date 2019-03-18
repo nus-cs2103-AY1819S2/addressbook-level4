@@ -12,6 +12,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.menu.MenuItem;
 
+/**
+ * The Browser Panel for the menu.
+ */
 public class MenuItemFlowPanel extends UiPart<Region> {
 
     private static final String FXML = "MenuItemFlowPanel.fxml";

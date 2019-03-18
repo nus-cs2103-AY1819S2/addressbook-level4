@@ -344,7 +344,6 @@ The `setCategory` command is implemented as follows:
 
 * `CategoryCommandParser` parses the user input arguments, creating a `SetCategoryCommand` object with the target `Index`
 and new `Category` object containing all the categories in the user input.
-* The `LogicManager` executes the command that was parsed.
 * Inside `SetCategoryCommand#execute()`, the restaurant identified by the index is retrieved from `Model`.
 * Existing categories are retrieved from the target restaurant.
 * New `Category` object is created by merging existing categories and categories inputted by the user.

@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.Mode;
-import seedu.address.logic.commands.AddItemToMenuCommand;
 import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.Command;
@@ -96,11 +96,11 @@ public class RestOrRantParser {
             return new UpdateTableCommandParser().parse(arguments);
 
         // Commands that work in Menu Mode
-        case AddItemToMenuCommand.COMMAND_WORD:
+        case AddToMenuCommand.COMMAND_WORD:
             if (mode != Mode.MENU_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
-            return new AddItemToMenuCommandParser().parse(arguments);
+            return new AddToMenuCommandParser().parse(arguments);
 
         // Commands that work in Table Mode
         case AddToOrderCommand.COMMAND_WORD:

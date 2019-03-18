@@ -42,7 +42,7 @@ public class ModelHelper {
     private static Predicate<OrderItem> getOrderItemPredicateMatching(OrderItem other) {
         return item -> item.equals(other);
     }
-    
+
     /**
      * Updates {@code model}'s menu item filtered list to display only {@code toDisplay}.
      */
@@ -74,14 +74,14 @@ public class ModelHelper {
                 toDisplay.stream().map(ModelHelper::getTablePredicateMatching).reduce(Predicate::or);
         model.updateFilteredTableList(predicate.orElse(PREDICATE_MATCHING_NO_TABLES));
     }
-    
+
     /**
      * @see ModelHelper#setTableFilteredList(Model, List)
      */
     public static void setTableFilteredList(Model model, Table... toDisplay) {
         setTableFilteredList(model, Arrays.asList(toDisplay));
     }
-    
+
     /**
      * Returns a predicate that evaluates to true if this {@code Table} equals to {@code other}.
      */

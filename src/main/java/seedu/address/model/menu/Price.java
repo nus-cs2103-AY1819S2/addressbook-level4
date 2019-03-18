@@ -3,6 +3,10 @@ package seedu.address.model.menu;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Menu Item's price in the menu.
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
+ */
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -14,7 +18,7 @@ public class Price {
      * None of the characters must contain alphabets or symbols (except the period)
      * else is not a valid price input.
      */
-    public static final String VALIDATION_REGEX = "(\\d+\\.\\d{1,2})";
+    public static final String VALIDATION_REGEX = "(\\d+\\.\\d{2})";
 
     public final String itemPrice;
 

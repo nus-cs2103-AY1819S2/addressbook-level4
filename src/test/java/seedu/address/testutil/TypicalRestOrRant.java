@@ -15,22 +15,28 @@ import seedu.address.model.table.Tables;
 
 public class TypicalRestOrRant {
     // Menu Items TODO: add quantity ordered
-    public static final MenuItem CHICKEN_WINGS =
-            new MenuItemBuilder().withName("Chicken Wings").withCode("W09").withPrice("3.99").build();
-    public static final MenuItem FRENCH_FRIES =
-            new MenuItemBuilder().withName("French Fries").withCode("W12").withPrice("2.20").build();
-    public static final MenuItem SALAD =
-            new MenuItemBuilder().withName("Salad").withCode("A05").withPrice("5.50").build();
-    public static final MenuItem CHEESE_NACHOS =
-            new MenuItemBuilder().withName("Cheese Nachos").withCode("M17").withPrice("7.23").build();
-    public static final MenuItem SHRIMP_FRIED_RICE =
-            new MenuItemBuilder().withName("Shrimp Fried Rice").withCode("C02").withPrice("8.90").build();
-    public static final MenuItem MEE_SOI =
-            new MenuItemBuilder().withName("Mee Soi").withCode("T01").withPrice("4.99").build();
-    public static final MenuItem KIMCHI_FRIED_RICE =
-            new MenuItemBuilder().withName("Kimchi Fried Rice").withCode("K12").withPrice("5.50").build();
-    public static final MenuItem CREPES =
-            new MenuItemBuilder().withName("Crepes").withCode("F11").withPrice("7.50").build();
+    public static final MenuItem CHICKEN_WINGS = new MenuItemBuilder().withName("Chicken Wings").withCode("W09")
+                                                         .withPrice("3.99").build();
+    public static final MenuItem FRENCH_FRIES = new MenuItemBuilder().withName("French Fries").withCode("W12")
+                                                        .withPrice("2.20").build();
+    public static final MenuItem SALAD = new MenuItemBuilder().withName("Salad").withCode("A05")
+                                                 .withPrice("5.50").build();
+    public static final MenuItem CHEESE_NACHOS = new MenuItemBuilder().withName("Cheese Nachos").withCode("M17")
+                                                         .withPrice("7.23").build();
+    public static final MenuItem SHRIMP_FRIED_RICE = new MenuItemBuilder().withName("Shrimp Fried Rice").withCode("C02")
+                                                             .withPrice("8.90").build();
+    public static final MenuItem MEE_SUA = new MenuItemBuilder().withName("Mee Soi").withCode("T01")
+                                                   .withPrice("4.99").build();
+    public static final MenuItem KIMCHI_FRIED_RICE = new MenuItemBuilder().withName("Kimchi Fried Rice").withCode("K12")
+                                                             .withPrice("5.50").build();
+    public static final MenuItem CREPES = new MenuItemBuilder().withName("Crepes").withCode("F11")
+                                                  .withPrice("7.50").build();
+
+    // manually added
+    public static final MenuItem HONEY_MILK_TEA = new MenuItemBuilder().withName("Honey Milk Tea").withCode("D01")
+                                                          .withPrice("4.50").build();
+    public static final MenuItem AGLIO_OLIO = new MenuItemBuilder().withName("Aglio Olio").withCode("W14")
+                                                      .withPrice("7.56").build();
 
     // Order Items TODO: add item name
     public static final OrderItem TABLE1_W09 =
@@ -105,9 +111,8 @@ public class TypicalRestOrRant {
     }
 
     public static List<MenuItem> getTypicalMenuItems() {
-        return new ArrayList<>(
-                Arrays.asList(CHICKEN_WINGS, FRENCH_FRIES, SALAD, CHEESE_NACHOS, SHRIMP_FRIED_RICE, MEE_SOI,
-                        KIMCHI_FRIED_RICE, CREPES));
+        return new ArrayList<>(Arrays.asList(CHICKEN_WINGS, FRENCH_FRIES, SALAD, CHEESE_NACHOS, SHRIMP_FRIED_RICE,
+                MEE_SUA, KIMCHI_FRIED_RICE, CREPES));
     }
 
     public static List<OrderItem> getTypicalOrderItems() {

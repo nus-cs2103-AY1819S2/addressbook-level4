@@ -8,10 +8,9 @@ import seedu.address.model.property.Property;
 public class Buyer extends Person {
 
     //private final Remark remark;
-    private final Property property;
+    //private final Property property;
 
     public Buyer(Name name, Phone phone, Email email) {
         super(name, phone, email);
-        this.property = null;
     }
 }

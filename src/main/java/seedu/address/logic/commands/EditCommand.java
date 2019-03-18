@@ -30,7 +30,6 @@ import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Category;
-import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 

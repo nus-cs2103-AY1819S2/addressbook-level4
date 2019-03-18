@@ -14,7 +14,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.categories.Category;
-import seedu.address.model.restaurant.categories.Cuisine;
 
 /**
  * Sets the cuisine of an existing restaurant in the food diary.

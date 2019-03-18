@@ -42,7 +42,7 @@ public class CategoryCommandParser implements Parser<SetCategoryCommand> {
             cuisine = null;
         }
 
-        if(argMultimap.getValue(PREFIX_OCCASION).isPresent()) {
+        if (argMultimap.getValue(PREFIX_OCCASION).isPresent()) {
             occasion = ParserUtil.parseOccasion(argMultimap.getValue(PREFIX_OCCASION).get());
         } else {
             occasion = null;

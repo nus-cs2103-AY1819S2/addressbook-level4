@@ -85,7 +85,7 @@ public class SrsCardsManagerTest {
         expected.add(new SrsCard(CARD_JAPAN, cardSrsDataJapan, lesson));
         assertEquals(expected, srsCards);
     }
-    @Test
+    /*@Test
     public void checkUpdate() {
         Instant currentDate = Instant.now();
         quizInformation.add(List.of(0, 1, 1));
@@ -113,5 +113,5 @@ public class SrsCardsManagerTest {
         for (int i = 0; i < quizInformation.size(); i++) {
             assertEquals(expected.get(i).getSrsDueDate(), cardData.get(i).getSrsDueDate());
         }
-    }
+    }*/
 }

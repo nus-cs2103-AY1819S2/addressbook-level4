@@ -70,9 +70,9 @@ public class CardSrsData {
     public void setStreak(int streak) {
         this.streak = streak;
     }
-    @Override
+    /*@Override
     public boolean equals(Object obj) {
         CardSrsData other = (CardSrsData) obj;
         return other.getHashCode() == this.getHashCode();
-    }
+    }*/
 }

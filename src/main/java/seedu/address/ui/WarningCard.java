@@ -38,10 +38,10 @@ public class WarningCard extends UiPart<Region> {
 
         if (listType.equals("expiry")) {
             // filtered by expiry date
-            filter.setText("Exp: " + medicine.getExpiry().toString());
+            filter.setText("Exp: " + medicine.getNextExpiry().toString());
         } else {
             // filtered by quantity
-            filter.setText("Qty: " + medicine.getQuantity().value);
+            filter.setText("Qty: " + medicine.getTotalQuantity().value);
         }
 
         setStyle(new ArrayList<>(Arrays.asList(id, name, filter)));

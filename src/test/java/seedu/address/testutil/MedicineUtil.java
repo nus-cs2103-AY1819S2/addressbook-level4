@@ -29,7 +29,7 @@ public class MedicineUtil {
     public static String getMedicineDetails(Medicine medicine) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + medicine.getName().fullName + " ");
-        sb.append(PREFIX_COMPANY + medicine.getCompany().value + " ");
+        sb.append(PREFIX_COMPANY + medicine.getCompany().companyName + " ");
         medicine.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -42,7 +42,7 @@ public class MedicineUtil {
     public static String getEditMedicineDescriptorDetails(EditMedicineDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getCompany().ifPresent(company -> sb.append(PREFIX_COMPANY).append(company.value).append(" "));
+        descriptor.getCompany().ifPresent(company -> sb.append(PREFIX_COMPANY).append(company.companyName).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

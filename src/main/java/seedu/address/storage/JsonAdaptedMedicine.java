@@ -29,8 +29,8 @@ class JsonAdaptedMedicine {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Medicine's %s field is missing!";
 
     private final String name;
-    private final String quantity;
-    private final String expiry;
+    private final String totalQuantity;
+    private final String nextExpiry;
     private final String company;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedBatch> batches = new ArrayList<>();
@@ -39,13 +39,13 @@ class JsonAdaptedMedicine {
      * Constructs a {@code JsonAdaptedMedicine} with the given medicine details.
      */
     @JsonCreator
-    public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("quantity") String quantity,
-            @JsonProperty("expiry") String expiry, @JsonProperty("company") String company,
+    public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("totalQuantity") String quantity,
+            @JsonProperty("nextExpiry") String expiry, @JsonProperty("company") String company,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("batches") List<JsonAdaptedBatch> batches) {
         this.name = name;
-        this.quantity = quantity;
-        this.expiry = expiry;
+        this.totalQuantity = quantity;
+        this.nextExpiry = expiry;
         this.company = company;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -60,9 +60,9 @@ class JsonAdaptedMedicine {
      */
     public JsonAdaptedMedicine(Medicine source) {
         name = source.getName().fullName;
-        quantity = source.getQuantity().value;
-        expiry = source.getExpiry().toString();
-        company = source.getCompany().value;
+        totalQuantity = source.getTotalQuantity().value;
+        nextExpiry = source.getNextExpiry().toString();
+        company = source.getCompany().companyName;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -97,22 +97,22 @@ class JsonAdaptedMedicine {
         }
         final Name modelName = new Name(name);
 
-        if (quantity == null) {
+        if (totalQuantity == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Quantity.class.getSimpleName()));
         }
-        if (!Quantity.isValidQuantity(quantity)) {
+        if (!Quantity.isValidQuantity(totalQuantity)) {
             throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
         }
-        final Quantity modelQuantity = new Quantity(quantity);
+        final Quantity modelQuantity = new Quantity(totalQuantity);
 
-        if (expiry == null) {
+        if (nextExpiry == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Expiry.class.getSimpleName()));
         }
-        if (!Expiry.isValidDate(expiry)) {
+        if (!Expiry.isValidDate(nextExpiry)) {
             throw new IllegalValueException(Expiry.MESSAGE_CONSTRAINTS);
         }
-        final Expiry modelExpiry = new Expiry(expiry);
+        final Expiry modelExpiry = new Expiry(nextExpiry);
 
         if (company == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));

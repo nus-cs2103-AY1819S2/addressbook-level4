@@ -198,7 +198,7 @@ public class UpdateCommandTest {
 
         batches.remove(batchToRemove.getBatchNumber());
 
-        int newQuantity = medicineToUpdate.getQuantity().getNumericValue()
+        int newQuantity = medicineToUpdate.getTotalQuantity().getNumericValue()
                 - batchToRemove.getQuantity().getNumericValue();
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)

@@ -159,9 +159,9 @@ public class ModelManager implements Model {
      */
     private void setPredicates() {
         filteredMedicines.setPredicate(PREDICATE_SHOW_ALL_MEDICINES);
-        medicinesLowQuantity.setPredicate(medicine -> medicine.getQuantity().getNumericValue() < 20);
+        medicinesLowQuantity.setPredicate(medicine -> medicine.getTotalQuantity().getNumericValue() < 20);
         medicinesExpiring.setPredicate(medicine ->
-                medicine.getExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < 10);
+                medicine.getNextExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < 10);
     }
 
     /**
@@ -170,7 +170,7 @@ public class ModelManager implements Model {
      * @return
      */
     private float calculateDaysToExpiry(Medicine medicine) {
-        return ChronoUnit.DAYS.between(LocalDate.now(), medicine.getExpiry().getExpiryDate());
+        return ChronoUnit.DAYS.between(LocalDate.now(), medicine.getNextExpiry().getExpiryDate());
     }
 
     //=========== Undo/Redo =================================================================================

@@ -25,8 +25,8 @@ public class JsonAdaptedMedicineTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = IBUPROFEN.getName().toString();
-    private static final String VALID_QUANTITY = IBUPROFEN.getQuantity().toString();
-    private static final String VALID_EXPIRY = IBUPROFEN.getExpiry().toString();
+    private static final String VALID_QUANTITY = IBUPROFEN.getTotalQuantity().toString();
+    private static final String VALID_EXPIRY = IBUPROFEN.getNextExpiry().toString();
     private static final String VALID_COMPANY = IBUPROFEN.getCompany().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = IBUPROFEN.getTags().stream()
             .map(JsonAdaptedTag::new)

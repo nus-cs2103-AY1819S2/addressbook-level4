@@ -57,7 +57,7 @@ public class LabelCommand extends Command {
         model.setSelectedMedicine(filteredMedicineList.get(targetIndex.getZeroBased()));
 
         String medicineName = medicineToPrint.getName().toString();
-        String medicineExpiry = medicineToPrint.getExpiry().toString();
+        String medicineExpiry = medicineToPrint.getNextExpiry().toString();
         String medicineCompany = medicineToPrint.getCompany().toString();
         String medicineTags = medicineToPrint.getTags().toString();
         String textNextLine = (medicineName + "\n" + medicineCompany + "\n"

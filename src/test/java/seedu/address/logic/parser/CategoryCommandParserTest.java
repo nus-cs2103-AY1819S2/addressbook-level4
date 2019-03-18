@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SetCategoryCommand;
+import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
 
 public class CategoryCommandParserTest {
@@ -59,7 +60,8 @@ public class CategoryCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_RESTAURANT;
         String validFormat = targetIndex.getOneBased() + " " + PREFIX_CUISINE + VALID_CUISINE;
-        SetCategoryCommand expectedCommand = new SetCategoryCommand(targetIndex, new Cuisine(VALID_CUISINE));
+        Category validCategory = new Category(new Cuisine(VALID_CUISINE), null);
+        SetCategoryCommand expectedCommand = new SetCategoryCommand(targetIndex, validCategory);
         assertParseSuccess(parser, validFormat, expectedCommand);
     }
 }

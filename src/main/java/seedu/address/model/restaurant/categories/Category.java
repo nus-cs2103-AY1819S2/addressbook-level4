@@ -14,6 +14,11 @@ public class Category {
         this.occasion = Optional.ofNullable(occasion);
     }
 
+    private Category(Optional<Cuisine> cuisine, Optional<Occasion> occasion) {
+        this.cuisine = cuisine;
+        this.occasion = occasion;
+    }
+
     public Optional<Cuisine> getCuisine() {
         return this.cuisine;
     }
@@ -23,7 +28,7 @@ public class Category {
     }
 
     public static Category empty() {
-        return new Category(null, null);
+        return new Category(Optional.empty(), Optional.empty());
     }
 
     /**
@@ -31,19 +36,8 @@ public class Category {
      * Ensures previous category fields are retained if updated fields are not present.
      */
     public static Category merge(Category previous, Category updated) {
-        Cuisine mergedCuisine;
-        Occasion mergedOccasion;
-        if (updated.cuisine.isPresent()) {
-            mergedCuisine = updated.cuisine.get();
-        } else {
-            mergedCuisine = previous.cuisine.get();
-        }
-
-        if (updated.occasion.isPresent()) {
-            mergedOccasion = updated.occasion.get();
-        } else {
-            mergedOccasion = previous.occasion.get();
-        }
+        Optional<Cuisine> mergedCuisine = updated.cuisine.or(() -> previous.cuisine);
+        Optional<Occasion> mergedOccasion = updated.occasion.or(() -> previous.occasion);
         return new Category(mergedCuisine, mergedOccasion);
     }
 
@@ -57,18 +51,10 @@ public class Category {
 
     @Override
     public String toString() {
-        String cuisineString;
-        if (cuisine.isPresent()) {
-            cuisineString = "(cuisine) " + cuisine.get().toString();
-        } else {
-            cuisineString = "";
-        }
-        String occasionString;
-        if (occasion.isPresent()) {
-            occasionString = "(occasion) " + occasion.get().toString();
-        } else {
-            occasionString = "";
-        }
+        String cuisineString = cuisine.isPresent()
+                ? cuisine.map(content -> "(cuisine)" + content.toString()).get() : "";
+        String occasionString = occasion.isPresent()
+                ? occasion.map(content -> "occasion" + content.toString()).get() : "";
         return cuisineString + " " + occasionString;
     }
 }

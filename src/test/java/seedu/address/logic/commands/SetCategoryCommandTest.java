@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.testutil.RestaurantBuilder;
 
@@ -27,9 +28,9 @@ public class SetCategoryCommandTest {
     @Test
     public void execute_validCuisineUnfilteredList_success() {
         Restaurant restaurantCuisineAdded = new RestaurantBuilder(model.getFilteredRestaurantList().get(0))
-                .withCuisine(VALID_CUISINE_FAST_FOOD).build();
-        Cuisine validCuisine = new Cuisine(VALID_CUISINE_FAST_FOOD);
-        SetCategoryCommand cuisineCommand = new SetCategoryCommand(INDEX_FIRST_RESTAURANT, validCuisine);
+                .withCategories(VALID_CUISINE_FAST_FOOD).build();
+        Category validCategory = new Category(new Cuisine(VALID_CUISINE_FAST_FOOD), null);
+        SetCategoryCommand categoryCommand = new SetCategoryCommand(INDEX_FIRST_RESTAURANT, validCategory);
 
         String expectedMessage = String.format(SetCategoryCommand.MESSAGE_SET_CUISINE_SUCCESS, restaurantCuisineAdded);
 
@@ -37,6 +38,6 @@ public class SetCategoryCommandTest {
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), restaurantCuisineAdded);
         expectedModel.commitFoodDiary();
 
-        assertCommandSuccess(cuisineCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(categoryCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 }

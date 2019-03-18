@@ -92,7 +92,7 @@ public class Restaurant {
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
                       OpeningHours openingHours, Category categories, Set<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags, categories);
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -101,7 +101,11 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.reviews.addAll(reviews);
-        this.categories = categories;
+        if (categories == null) {
+            this.categories = Category.empty();
+        } else {
+            this.categories = categories;
+        }
     }
 
     /**

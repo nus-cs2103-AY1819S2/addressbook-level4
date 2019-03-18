@@ -11,6 +11,7 @@ import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
+import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
@@ -36,7 +37,7 @@ public class RestaurantBuilder {
     private Weblink weblink;
     private OpeningHours openingHours;
     private Set<Review> reviews;
-    private Cuisine cuisine;
+    private Category categories;
 
     public RestaurantBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -48,7 +49,7 @@ public class RestaurantBuilder {
         weblink = new Weblink(DEFAULT_WEBLINK);
         openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
         reviews = new HashSet<>();
-        cuisine = null;
+        categories = null;
     }
 
     /**
@@ -64,7 +65,7 @@ public class RestaurantBuilder {
         weblink = restaurantToCopy.getWeblink();
         openingHours = restaurantToCopy.getOpeningHours();
         reviews = new HashSet<>(restaurantToCopy.getReviews());
-        cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
+        categories = restaurantToCopy.getCategories();
     }
 
     /**
@@ -134,8 +135,8 @@ public class RestaurantBuilder {
     /**
      * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
      */
-    public RestaurantBuilder withCuisine(String cuisine) {
-        this.cuisine = new Cuisine(cuisine);
+    public RestaurantBuilder withCategories(String cuisine) {
+        this.categories = new Category(new Cuisine(cuisine), null);
         return this;
     }
 
@@ -144,6 +145,6 @@ public class RestaurantBuilder {
      */
     public Restaurant build() {
         return new Restaurant(name, phone, email, address, tags, weblink, openingHours,
-                Optional.ofNullable(cuisine), reviews);
+                categories, reviews);
     }
 }

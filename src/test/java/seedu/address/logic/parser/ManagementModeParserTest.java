@@ -57,10 +57,10 @@ public class ManagementModeParserTest {
     //        assertTrue(parser.parse(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
     //        assertTrue(parser.parse("undo 3") instanceof UndoCommand);
     //    }
-    @Test
+    /*@Test
     public void parseCommand_start() throws Exception {
         assertTrue(parser.parse(QuizStartCommand.COMMAND_WORD) instanceof QuizStartCommand);
-    }
+    }*/
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

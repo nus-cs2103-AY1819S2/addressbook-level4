@@ -148,6 +148,34 @@ public class ListLessonsCommandTest {
      */
     private class QuizModelStub implements QuizModel {
         /**
+         * This method should not be called.
+         */
+        public List<QuizCard> generateSession() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * This method should not be called.
+         */
+        public Quiz.Mode getMode() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * This method should not be called.
+         */
+        public int getCount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * This method should not be called.
+         */
+        public String getName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
          * Sets the {@code Quiz} information.
          */
         public void init(Quiz quiz) {

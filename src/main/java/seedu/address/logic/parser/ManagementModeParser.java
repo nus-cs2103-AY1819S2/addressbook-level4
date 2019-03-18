@@ -37,22 +37,14 @@ public class ManagementModeParser implements Parser<Command> {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/BrainTrainParser.java
-=======
 
->>>>>>> 9796a678da6bc293ec34cf45dac1be7d8be3ce1b:src/main/java/seedu/address/logic/parser/ManagementModeParser.java
         switch (commandWord) {
 
         //        case FindCommand.COMMAND_WORD:
         //            return new FindCommandParser().parse(arguments);
         // TODO use parser here
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/BrainTrainParser.java
-        case StartCommand.COMMAND_WORD:
-            return new StartCommandParser().parse(arguments);
-=======
         case QuizStartCommand.COMMAND_WORD:
-            return new QuizStartCommand();
->>>>>>> 9796a678da6bc293ec34cf45dac1be7d8be3ce1b:src/main/java/seedu/address/logic/parser/ManagementModeParser.java
+            return new StartCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

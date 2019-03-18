@@ -498,7 +498,7 @@ public class AddToOrderCommandTest {
             return Optional.of(new MenuItemBuilder().build());
         }
     }
-    
+
     /**
      * A default RestOrRant stub that has all of the methods failing, except getMenu() which returns an empty menu.
      */
@@ -543,7 +543,7 @@ public class AddToOrderCommandTest {
             return new MenuStubWithItemCodes();
         }
     }
-    
+
     /**
      * A Model stub that does not contain any menu items (and thus all codes are invalid).
      */
@@ -559,7 +559,7 @@ public class AddToOrderCommandTest {
      */
     private class ModelStubWithOrderItem extends ModelStub {
         private final OrderItem orderItem;
-        
+
         ModelStubWithOrderItem(OrderItem orderItem) {
             requireNonNull(orderItem);
             this.orderItem = orderItem;
@@ -569,7 +569,7 @@ public class AddToOrderCommandTest {
         public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRantStubWithItemCodes();
         }
-        
+
         @Override
         public boolean hasOrderItem(OrderItem orderItem) {
             requireNonNull(orderItem);

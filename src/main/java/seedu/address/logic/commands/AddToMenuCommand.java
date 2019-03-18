@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.menu.MenuItem;
 
+/**
+ * Adds a menu item to the Menu.
+ */
 public class AddToMenuCommand extends Command {
     public static final String COMMAND_WORD = "addToMenu";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. " + "Parameters: "

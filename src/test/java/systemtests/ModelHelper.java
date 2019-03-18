@@ -40,7 +40,7 @@ public class ModelHelper {
     private static Predicate<OrderItem> getOrderItemPredicateMatching(OrderItem other) {
         return item -> item.equals(other);
     }
-    
+
     /**
      * Updates {@code model}'s menu item filtered list to display only {@code toDisplay}.
      */

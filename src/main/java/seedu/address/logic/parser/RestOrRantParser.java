@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.Mode;
-import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.Command;

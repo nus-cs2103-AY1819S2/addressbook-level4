@@ -3,6 +3,10 @@ package seedu.address.model.menu;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Menu Item's price in the menu.
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
+ */
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =

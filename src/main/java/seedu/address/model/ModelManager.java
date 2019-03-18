@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,9 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvCardExport;
+import seedu.address.storage.csvmanager.CsvFile;
+import seedu.address.storage.csvmanager.CsvManager;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -44,6 +48,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
+    private CsvManager csvManager = new CsvManager();
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
@@ -450,4 +455,19 @@ public class ModelManager implements Model {
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());
     }
+
+
+    //=========== Export / Import card folders ========================================================================
+    @Override
+    public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
+        List<ReadOnlyCardFolder> cardFolderObject = returnValidCardFolders(cardFolderExports);
+        csvManager.writeFoldersToCsv(cardFolderObject, csvFile);
+    }
+
+    @Override
+    public void importCardFolders(CsvFile csvFile) {
+
+    }
+
+
 }

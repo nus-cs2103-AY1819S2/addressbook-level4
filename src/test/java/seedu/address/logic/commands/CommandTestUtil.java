@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -149,20 +151,23 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the deck at the given {@code targetIndex} in the
-     * {@code model}'s Anakin.
+     * Updates {@code model}'s filtered list to show only the deck at the given {@code targetIndex} in
+     * {@code model}'s Topdeck.
      */
 
     public static void showDeckAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredDeckList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
+        assertTrue(model.)
 
-        Deck deck = model.getFilteredDeckList().get(targetIndex.getZeroBased());
+        ListItem item = (Deck)model.getFilteredList().get(targetIndex.getZeroBased());
+
+        item
 
         final String[] splitName = deck.getName().fullName.split("\\s+");
         model.updateFilteredDeckList(
                 new DeckNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredDeckList().size());
+        assertEquals(1, model.getFilteredList().size());
     }
 
     /**

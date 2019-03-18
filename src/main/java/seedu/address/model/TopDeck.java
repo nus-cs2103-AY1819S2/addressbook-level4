@@ -85,7 +85,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     //// card operations
     /**
      * Adds a card to TopDeck
-     * The card should not already exist in the deck.
+     * The card should not already exist in the {@code deck} activeDeck.
      */
     public void addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
         if (!decks.contains(activeDeck)) {
@@ -99,8 +99,9 @@ public class TopDeck implements ReadOnlyTopDeck {
         activeDeck.addCard(card);
 
         decks.setDeck(activeDeck, activeDeck);
-
     }
+
+    /**
 
     //// deck operations
 

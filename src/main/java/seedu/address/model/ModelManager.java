@@ -149,7 +149,7 @@ public class ModelManager implements Model {
 
         CardsView cardsView = (CardsView)viewState;
         versionedTopDeck.addCard(card, cardsView.getActiveDeck());
-        updateFilteredList(PREDICATE_SHOW_ALL_CARDS); // TODO: show all cards after adding a card
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override

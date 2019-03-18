@@ -21,6 +21,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.*;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
@@ -93,7 +94,6 @@ public class AddDeckCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -125,11 +125,6 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public void addCard(Card card) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setTopDeck(ReadOnlyTopDeck newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -145,6 +140,12 @@ public class AddDeckCommandTest {
         }
 
         @Override
+        public void addCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public void deleteCard(Card target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -155,11 +156,12 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public ObservableList<Card> getFilteredList() {
+        public ObservableList<ListItem> getFilteredList() {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void updateFilteredCardList(Predicate<Card> predicate) {
+        @Override
+        public void updateFilteredList(Predicate<? extends ListItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -194,12 +196,12 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public Card getSelectedCard() {
+        public ListItem getSelectedItem() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedCard(Card card) {
+        public void setSelectedItem(ListItem item) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -209,32 +211,24 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public ObservableList<Deck> getFilteredDeckList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        public void updateFilteredDeckList(Predicate<Deck> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyProperty<Deck> selectedDeckProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Deck getSelectedDeck() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedDeck(Deck deck) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasDeck(Deck deck) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Command parse(String commandWord, String arguments) throws ParseException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changeDeck(Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void goToDecksView() {
+            throw new AssertionError("This method should not be called.");
+
         }
     }
 

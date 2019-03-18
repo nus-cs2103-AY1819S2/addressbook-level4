@@ -1,7 +1,7 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS;
 import static seedu.address.testutil.TestUtil.getCard;
@@ -68,9 +68,9 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
          * -> rejected
          */
         showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
-        int invalidIndex = getModel().getTopDeck().getCardList().size();
+        int invalidIndex = getModel().getTopDeck().getDeckList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_DISPLAYED_INDEX);
 
         /* --------------------- Performing delete operation while a card card is selected ------------------------ */
 
@@ -97,9 +97,9 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getTopDeck().getCardList().size() + 1);
+                getModel().getTopDeck().getDeckList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
-        assertCommandFailure(command, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);

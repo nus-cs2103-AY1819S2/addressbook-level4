@@ -11,6 +11,7 @@ import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.CustomerCommand;
+import seedu.hms.logic.commands.SelectCustomerCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.HotelManagementSystemParser;
 import seedu.hms.logic.parser.exceptions.ParseException;
@@ -55,7 +56,10 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = hotelManagementSystemParser.parseCommand(commandText, customerModel, bookingModel);
-            if (command instanceof CustomerCommand) {
+            if (command instanceof SelectCustomerCommand) {
+                commandResult = command.execute(customerModel, history);
+                execute("fbcp " + customerModel.getSelectedCustomer().getIdNum().toString());
+            } else if (command instanceof CustomerCommand) {
                 commandResult = command.execute(customerModel, history);
             } else {
                 commandResult = command.execute(bookingModel, history);

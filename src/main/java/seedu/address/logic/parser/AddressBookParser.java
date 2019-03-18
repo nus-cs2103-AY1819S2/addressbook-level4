@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BrightnessCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ContrastCommand;
@@ -107,6 +108,9 @@ public class AddressBookParser {
 
         case CropCommand.COMMAND_WORD:
             return new CropCommandParser().parse(arguments);
+
+        case BrightnessCommand.COMMAND_WORD:
+            return new BrightnessCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

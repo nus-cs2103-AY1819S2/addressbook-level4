@@ -8,6 +8,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 import java.io.File;
 import java.util.OptionalDouble;
 
+import jdk.jfr.ContentType;
 import seedu.address.logic.commands.BrightnessCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -23,11 +24,15 @@ public class BrightnessCommandParser implements Parser<BrightnessCommand> {
      * @throws ParseException
      */
     public BrightnessCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         String fileName;
         OptionalDouble brightnessValue;
-        requireNonNull(args);
         args = args.trim();
         String[] parsed = args.split(" ");
+
+        if (args.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BrightnessCommand.MESSAGE_USAGE));
+        }
 
         if (parsed.length < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BrightnessCommand.MESSAGE_USAGE));

@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -30,9 +31,8 @@ public class BillCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
         expectedModel.addDailyRevenue(validDailyRevenue);
-        expectedModel.updateMode();
 
-        assertCommandSuccess(new BillCommand(bill), model, commandHistory,
+        assertCommandSuccess(Mode.BILL_MODE, new BillCommand(bill), model, commandHistory,
                 String.format(BillCommand.MESSAGE_SUCCESS, bill), expectedModel);
     }
 

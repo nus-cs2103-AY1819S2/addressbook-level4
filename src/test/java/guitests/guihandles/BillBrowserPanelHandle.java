@@ -44,7 +44,6 @@ public class BillBrowserPanelHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code bill}.
      */
     public boolean equals(Bill bill) {
-        return getTableNumber().equals(bill.getTableNumber().tableNumber) && getReceipt().equals(
-                bill.getReceipt());
+        return getTableNumber().equals(bill.getTableNumber().tableNumber) && getReceipt().equals(bill.getReceipt());
     }
 }

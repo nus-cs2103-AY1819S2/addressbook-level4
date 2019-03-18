@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.menu.ReadOnlyMenu;
@@ -63,8 +62,10 @@ public class StorageManagerTest {
     public void restOrRantReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonRestOrRantStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonRestOrRantStorageTest} class.
+         * {@link JsonMenuStorage}, {@link JsonOrdersStorage}, {@link JsonTablesStorage}, {@link JsonStatisticsStorage}
+         * classes.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonMenuStorageTest},
+         * {@link JsonOrdersStorageTest}, {@link JsonTablesStorageTest}, {@link JsonStatisticsStorageTest} classes.
          */
 
         RestOrRant original = getTypicalRestOrRant();

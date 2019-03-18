@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -16,20 +15,17 @@ import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
-
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.Orders;
-import seedu.address.model.statistics.Bill;
+
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
-import seedu.address.model.statistics.Statistics;
+
 import seedu.address.model.statistics.Year;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -125,11 +121,12 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            CommandResult expectedCommandResult, Model expectedModel) {
+    public static void assertCommandSuccess(Mode mode, Command command, Model actualModel,
+                                            CommandHistory actualCommandHistory, CommandResult expectedCommandResult,
+                                            Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(Mode.RESTAURANT_MODE, actualModel, actualCommandHistory);
+            CommandResult result = command.execute(mode, actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -139,25 +136,27 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Mode, Command, Model, CommandHistory, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+    public static void assertCommandSuccess(Mode mode, Command command, Model actualModel,
+                                            CommandHistory actualCommandHistory, String expectedMessage,
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(mode, command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
 
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the RestOrRant, filtered order item list, filtered menu item list, filtered bill list, filtered table list <br>
-     * - and selected order item, selected menu item, selected bill, selected table <br>
+     * - the RestOrRant, filtered order item list, filtered menu item list, filtered dailyRevenue list, filtered
+     * table list <br>
+     * - and selected order item, selected menu item, selected dailyRevenue, selected table <br>
      * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+    public static void assertCommandFailure(Mode mode, Command command, Model actualModel,
+                                            CommandHistory actualCommandHistory, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         //        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonsList());
@@ -165,7 +164,8 @@ public class CommandTestUtil {
         RestOrRant expectedRestOrRant = new RestOrRant(actualModel.getRestOrRant());
         List<OrderItem> expectedFilteredOrderItemList = new ArrayList<>(actualModel.getFilteredOrderItemList());
         List<MenuItem> expectedFilteredMenuItemList = new ArrayList<>(actualModel.getFilteredMenuItemList());
-        List<DailyRevenue> expectedFilteredDailyRevenueList = new ArrayList<>(actualModel.getFilteredDailyRevenueList());
+        List<DailyRevenue> expectedFilteredDailyRevenueList =
+                new ArrayList<>(actualModel.getFilteredDailyRevenueList());
         List<Table> expectedFilteredTableList = new ArrayList<>(actualModel.getFilteredTableList());
         OrderItem expectedSelectedOrderItem = actualModel.getSelectedOrderItem();
         MenuItem expectedSelectedMenuItem = actualModel.getSelectedMenuItem();
@@ -175,7 +175,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            command.execute(Mode.RESTAURANT_MODE, actualModel, actualCommandHistory);
+            command.execute(mode, actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
@@ -209,6 +209,7 @@ public class CommandTestUtil {
     //    }
 
     // TODO: Figure out what the methods below do and FURTHER morph it to fit RestOrRant.
+
     /**
      * Updates {@code model}'s filtered list to show only the order item at the given {@code targetIndex} in the
      * {@code model}'s restaurant.
@@ -220,7 +221,8 @@ public class CommandTestUtil {
         final TableNumber tableNumber = orderItem.getTableNumber();
 
         final Code menuItemCode = orderItem.getMenuItemCode();
-        model.updateFilteredOrderItemList(item -> tableNumber.equals(item.getTableNumber()) && menuItemCode.equals(item.getMenuItemCode()));
+        model.updateFilteredOrderItemList(
+                item -> tableNumber.equals(item.getTableNumber()) && menuItemCode.equals(item.getMenuItemCode()));
 
         assertEquals(1, model.getFilteredOrderItemList().size());
     }
@@ -254,7 +256,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the daily revenue at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the dailyRevenue at the given {@code targetIndex} in the
      * {@code model}'s restaurant.
      */
     public static void showDailyRevenueAtIndex(Model model, Index targetIndex) {
@@ -264,8 +266,8 @@ public class CommandTestUtil {
         final Day day = dailyRevenue.getDay();
         final Month month = dailyRevenue.getMonth();
         final Year year = dailyRevenue.getYear();
-        model.updateFilteredDailyRevenueList(item -> day.equals(item.getDay()) && month.equals(item.getMonth()) &&
-                year.equals(item.getYear()));
+        model.updateFilteredDailyRevenueList(
+                item -> day.equals(item.getDay()) && month.equals(item.getMonth()) && year.equals(item.getYear()));
 
         assertEquals(1, model.getFilteredDailyRevenueList().size());
     }
@@ -307,7 +309,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first daily revenue in {@code model}'s filtered list from {@code model}'s restaurant.
+     * Deletes the first dailyRevenue in {@code model}'s filtered list from {@code model}'s restaurant.
      */
     public static void deleteFirstDailyRevenue(Model model) {
         DailyRevenue firstDailyRevenue = model.getFilteredDailyRevenueList().get(0);

@@ -1,5 +1,9 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.RestOrRant;
 import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.MenuItem;
@@ -10,10 +14,6 @@ import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.Tables;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TypicalRestOrRant {
     // Menu Items TODO: add quantity ordered
@@ -41,22 +41,26 @@ public class TypicalRestOrRant {
                                                       .withPrice("7.56").build();
 
     // Order Items TODO: add item name
-    public static final OrderItem TABLE1_W09 = new OrderItemBuilder().withTableNumber("1").withCode("W09")
-                                                       .withQuantity(2).build();
-    public static final OrderItem TABLE1_W12 = new OrderItemBuilder().withTableNumber("1").withCode("W12")
-                                                       .withQuantity(2).build();
-    public static final OrderItem TABLE2_A05 = new OrderItemBuilder().withTableNumber("2").withCode("A05")
-                                                       .withQuantity(1).build();
-    public static final OrderItem TABLE2_M17 = new OrderItemBuilder().withTableNumber("2").withCode("M17")
-                                                       .withQuantity(1).build();
-    public static final OrderItem TABLE2_C02 = new OrderItemBuilder().withTableNumber("2").withCode("C02")
-                                                       .withQuantity(2).build();
-    public static final OrderItem TABLE4_T01 = new OrderItemBuilder().withTableNumber("4").withCode("T01")
-                                                       .withQuantity(3).build();
-    public static final OrderItem TABLE7_F11 = new OrderItemBuilder().withTableNumber("7").withCode("F11")
-                                                       .withQuantity(4).build();
-    public static final OrderItem TABLE8_K12 = new OrderItemBuilder().withTableNumber("1").withCode("K12")
-                                                       .withQuantity(1).build();
+    public static final OrderItem TABLE1_W09 =
+            new OrderItemBuilder().withTableNumber("1").withCode("W09").withQuantity(2).build();
+    public static final OrderItem TABLE1_W12 =
+            new OrderItemBuilder().withTableNumber("1").withCode("W12").withQuantity(2).build();
+    public static final OrderItem TABLE2_A05 =
+            new OrderItemBuilder().withTableNumber("2").withCode("A05").withQuantity(1).build();
+    public static final OrderItem TABLE2_M17 =
+            new OrderItemBuilder().withTableNumber("2").withCode("M17").withQuantity(1).build();
+    public static final OrderItem TABLE2_C02 =
+            new OrderItemBuilder().withTableNumber("2").withCode("C02").withQuantity(2).build();
+    public static final OrderItem TABLE4_T01 =
+            new OrderItemBuilder().withTableNumber("4").withCode("T01").withQuantity(3).build();
+    public static final OrderItem TABLE7_F11 =
+            new OrderItemBuilder().withTableNumber("7").withCode("F11").withQuantity(4).build();
+    public static final OrderItem TABLE8_K12 =
+            new OrderItemBuilder().withTableNumber("1").withCode("K12").withQuantity(1).build();
+    public static final OrderItem TABLE8_W09 =
+            new OrderItemBuilder().withTableNumber("8").withCode("W09").withQuantity(3).build();
+    public static final OrderItem TABLE8_W12 =
+            new OrderItemBuilder().withTableNumber("8").withCode("W12").withQuantity(2).build();
 
     // Tables (table no and status)
     public static final Table TABLE1 = new TableBuilder().withTableNumber("1").withTableStatus("4/4").build();
@@ -93,14 +97,17 @@ public class TypicalRestOrRant {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     //    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-    //                                             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+    //                                             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+    //                                             .withTags(VALID_TAG_FRIEND).build();
     //    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-    //                                             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    //                                             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+    //                                             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
     //                                             .build();
 
     //  public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalRestOrRant() {} // prevents instantiation
+    private TypicalRestOrRant() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code RestOrRant} with all the typical persons.
@@ -136,8 +143,9 @@ public class TypicalRestOrRant {
     }
 
     public static List<OrderItem> getTypicalOrderItems() {
-        return new ArrayList<>(Arrays.asList(TABLE1_W09, TABLE1_W12, TABLE2_A05, TABLE2_M17, TABLE2_C02, TABLE4_T01,
-                TABLE7_F11, TABLE8_K12));
+        return new ArrayList<>(
+                Arrays.asList(TABLE1_W09, TABLE1_W12, TABLE2_A05, TABLE2_M17, TABLE2_C02, TABLE4_T01, TABLE7_F11,
+                        TABLE8_K12));
     }
 
     public static List<Table> getTypicalTables() {
@@ -148,5 +156,4 @@ public class TypicalRestOrRant {
         return new ArrayList<>(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2, DAILY_REVENUE3, DAILY_REVENUE4,
                 DAILY_REVENUE5, DAILY_REVENUE6, DAILY_REVENUE7));
     }
-
 }

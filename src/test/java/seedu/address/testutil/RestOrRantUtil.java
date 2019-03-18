@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import seedu.address.logic.commands.AddItemToMenuCommand;
+import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.BillCommand;
@@ -47,10 +47,11 @@ public class RestOrRantUtil {
      * Returns an add command string for adding the {@code MenuItem}.
      */
     public static String getAddMenuCommand(MenuItem menuItem) {
-        return AddItemToMenuCommand.COMMAND_WORD + " " + getMenuItemDetails(menuItem);
+        return AddToMenuCommand.COMMAND_WORD + " " + getMenuItemDetails(menuItem);
     }
 
     //TODO: Check if this method is relevant. Delete if it is not
+    //TODO: Can I leave this here until I execute my totalRevenue command?
     /**
      * Returns an add command string for adding the {@code Bill}.
      */
@@ -125,6 +126,7 @@ public class RestOrRantUtil {
     }
 
     //TODO: Check if this method is relevant. Delete if it is not
+    //Can I leave this here until I execute my totalRevenue command?
     /**
      * Return the part of command string for the given {@code dailyRevenue}'s details.
      */

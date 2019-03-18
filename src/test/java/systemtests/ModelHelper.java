@@ -18,7 +18,7 @@ public class ModelHelper {
     private static final Predicate<OrderItem> PREDICATE_MATCHING_NO_ORDER_ITEMS = unused -> false;
     private static final Predicate<MenuItem> PREDICATE_MATCHING_NO_MENU_ITEMS = unused -> false;
     private static final Predicate<Table> PREDICATE_MATCHING_NO_TABLES = unused -> false;
-    private static final Predicate<DailyRevenue> PREDICATE_MATCHING_NO_DAILY_REVENUES = unused -> false;
+    private static final Predicate<DailyRevenue> PREDICATE_MATCHING_NO_DAILY_REVENUE = unused -> false;
 
     /**
      * Updates {@code model}'s order item filtered list to display only {@code toDisplay}.
@@ -95,7 +95,7 @@ public class ModelHelper {
     public static void setDailyRevenueFilteredList(Model model, List<DailyRevenue> toDisplay) {
         Optional<Predicate<DailyRevenue>> predicate =
                 toDisplay.stream().map(ModelHelper::getDailyRevenuePredicateMatching).reduce(Predicate::or);
-        model.updateFilteredDailyRevenueList(predicate.orElse(PREDICATE_MATCHING_NO_DAILY_REVENUES));
+        model.updateFilteredDailyRevenueList(predicate.orElse(PREDICATE_MATCHING_NO_DAILY_REVENUE));
     }
 
     /**

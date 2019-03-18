@@ -4,7 +4,6 @@ import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
-import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.Year;
 import seedu.address.model.table.TableNumber;
 
@@ -46,7 +45,7 @@ public class StatisticsBuilder {
         year = itemToCopy.getYear();
         totalDailyRevenue = itemToCopy.getTotalDailyRevenue();
         tableNumber = null;
-        totalBill = 0;
+        totalBill = Float.parseFloat(DEFAULT_TOTAL_BILL);
         receipt = null;
     }
 
@@ -57,7 +56,7 @@ public class StatisticsBuilder {
         day = new Day(DEFAULT_DAY);
         month = new Month(DEFAULT_MONTH);
         year = new Year(DEFAULT_YEAR);
-        totalDailyRevenue = 0;
+        totalDailyRevenue = Float.parseFloat(DEFAULT_DAILY_REVENUE);
         tableNumber = itemToCopy.getTableNumber();
         totalBill = itemToCopy.getTotalBill();
         receipt = itemToCopy.getReceipt();

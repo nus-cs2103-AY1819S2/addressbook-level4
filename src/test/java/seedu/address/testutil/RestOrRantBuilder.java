@@ -50,7 +50,7 @@ public class RestOrRantBuilder {
     /**
      * Adds a new {@code DailyRevenue} to the {@code RestOrRant} that we are building.
      */
-    public RestOrRantBuilder withStatistics(DailyRevenue dailyRevenue) {
+    public RestOrRantBuilder withDailyRevenue(DailyRevenue dailyRevenue) {
         restOrRant.getStatistics().addDailyRevenue(dailyRevenue);
         return this;
     }

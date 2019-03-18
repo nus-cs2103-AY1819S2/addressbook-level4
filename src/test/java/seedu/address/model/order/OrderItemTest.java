@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W12;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.OrderItemBuilder;
 
@@ -48,7 +46,7 @@ public class OrderItemTest {
         // different type -> returns false
         assertFalse(TABLE1_W09.equals(5));
 
-        // different person -> returns false
+        // different order -> returns false
         assertFalse(TABLE1_W09.equals(TABLE1_W12));
 
         // different table number -> returns false

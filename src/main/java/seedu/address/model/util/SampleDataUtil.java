@@ -1,38 +1,61 @@
 package seedu.address.model.util;
 
+import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.RestOrRant;
+import seedu.address.model.menu.Code;
+import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.Name;
+import seedu.address.model.menu.Price;
+import seedu.address.model.order.OrderItem;
+import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Day;
+import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Year;
+import seedu.address.model.table.Table;
+import seedu.address.model.table.TableNumber;
+
 /**
  * Contains utility methods for populating {@code RestOrRant} with sample data.
  */
 public class SampleDataUtil {
-    //    public static Person[] getSamplePersons() {
-    //        return new Person[]{new Person(new Name("Alex Yeoh"), new Phone("87438807"),
-    //                new Email("alexyeoh@example.com"),
-    //                new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("friends")),
-    //            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-    //                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-    //                        getTagSet("colleagues", "friends")),
-    //            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-    //                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), getTagSet("neighbours")),
-    //            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-    //                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), getTagSet("family")),
-    //            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-    //                        new Address("Blk 47 Tampines Street 20, #17-35"), getTagSet("classmates")),
-    //            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-    //                        new Address("Blk 45 Aljunied Street 85, #11-31"), getTagSet("colleagues"))};
-    //    }
-    //
-    //    public static ReadOnlyRestOrRant getSampleAddressBook() {
-    //        RestOrRant sampleAb = new RestOrRant();
-    //        for (Person samplePerson : getSamplePersons()) {
-    //            //sampleAb.addPerson(samplePerson);
-    //        }
-    //        return sampleAb;
-    //    }
-    //
-    //    /**
-    //     * Returns a tag set containing the list of strings given.
-    //     */
-    //    public static Set<Tag> getTagSet(String... strings) {
-    //        return Arrays.stream(strings).map(Tag::new).collect(Collectors.toSet());
-    //    }
+
+    public static Table[] getSampleTables() {
+        return new Table[]{
+            new Table("1", "4/4"),
+            new Table("2", "4/5"),
+            new Table("3", "0/4")};
+    }
+
+    public static MenuItem[] getSampleMenuItems() {
+        return new MenuItem[]{new MenuItem(new Name("Chicken Wings"), new Code("W09"), new Price("3.99")),
+            new MenuItem(new Name("French Fries"), new Code("W12"), new Price("2.20")),
+            new MenuItem(new Name("Salad"), new Code("A05"), new Price("5.50"))};
+    }
+
+    public static OrderItem[] getSampleOrderItems() {
+        return new OrderItem[]{new OrderItem(new TableNumber("1"), new Code("W09"), 3),
+            new OrderItem(new TableNumber("1"), new Code("W12"), 2),
+            new OrderItem(new TableNumber("2"), new Code("A05"), 1)};
+    }
+
+    public static DailyRevenue[] getSampleDailyReveue() {
+        return new DailyRevenue[]{new DailyRevenue(new Day("14"), new Month("6"), new Year("1997"), (float) 123.45)};
+    }
+
+    public static ReadOnlyRestOrRant getSampleRestOrRant() {
+        RestOrRant sampleRestOrRant = new RestOrRant();
+        for (Table sampleTable : getSampleTables()) {
+            sampleRestOrRant.getTables().addTable(sampleTable);
+        }
+        for (MenuItem sampleMenuItem : getSampleMenuItems()) {
+            sampleRestOrRant.getMenu().addMenuItem(sampleMenuItem);
+        }
+        for (OrderItem sampleOrderItem : getSampleOrderItems()) {
+            sampleRestOrRant.getOrders().addOrderItem(sampleOrderItem);
+        }
+        for (DailyRevenue sampleDailyRevenue : getSampleDailyReveue()) {
+            sampleRestOrRant.getStatistics().addDailyRevenue(sampleDailyRevenue);
+        }
+        return sampleRestOrRant;
+    }
 }

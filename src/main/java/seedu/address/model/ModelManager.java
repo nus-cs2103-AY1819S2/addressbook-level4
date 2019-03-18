@@ -65,7 +65,7 @@ public class ModelManager implements Model {
     }
 
     public void changeDeck(Deck deck) {
-        viewState = new CardsView(this, new FilteredList<>(deck.getCards().internalList));
+        viewState = new CardsView(this, deck);
         // TODO: change this to above after migrating global cards list
         //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
 
@@ -115,7 +115,7 @@ public class ModelManager implements Model {
         userPrefs.setTopDeckFilePath(topDeckFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== TopDeck ================================================================================
 
     @Override
     public void setTopDeck(ReadOnlyTopDeck topDeck) {
@@ -146,8 +146,9 @@ public class ModelManager implements Model {
         if (!(viewState instanceof CardsView)) {
             throw new IllegalOperationWhileReviewingDeckException();
         }
+
         CardsView cardsView = (CardsView)viewState;
-        cardsView.activeDeck.addCard(card);
+        versionedTopDeck.addCard(card, cardsView.getActiveDeck());
         updateFilteredList(PREDICATE_SHOW_ALL_CARDS); // TODO: show all cards after adding a card
     }
 

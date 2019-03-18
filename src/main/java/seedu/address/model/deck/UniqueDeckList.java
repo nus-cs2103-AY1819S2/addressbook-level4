@@ -44,7 +44,7 @@ public class UniqueDeckList implements Iterable<Deck> {
     /**
      * Replaces the deck {@code target} in the list with {@code editedDeck}.
      * {@code target} must exist in the list.
-     * The deck identity of {@code editedPerson} must not be the same as another existing deck in the list.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in the list.
      */
     public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);

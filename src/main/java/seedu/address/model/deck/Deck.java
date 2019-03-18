@@ -40,6 +40,13 @@ public class Deck implements ListItem {
     }
 
     /**
+     * Checks if a card is already in a deck.
+     */
+    public boolean hasCard(Card toCheck) {
+        return cards.contains(toCheck);
+    }
+
+    /**
      * Adds a card to the current deck.
      */
     public void addCard(Card newCard) {

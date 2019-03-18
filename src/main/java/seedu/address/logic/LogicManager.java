@@ -56,7 +56,7 @@ public class LogicManager implements Logic {
         }
 
         if (topDeckModified) {
-            logger.info("Address book modified, saving to file.");
+            logger.info("TopDeck modified, saving to file.");
             try {
                 storage.saveTopDeck(model.getTopDeck());
             } catch (IOException ioe) {

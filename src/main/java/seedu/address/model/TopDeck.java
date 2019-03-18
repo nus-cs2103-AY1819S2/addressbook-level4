@@ -6,11 +6,14 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
+import seedu.address.model.deck.exceptions.DeckNotFoundException;
+import seedu.address.model.deck.exceptions.DuplicateCardException;
 import seedu.address.model.deck.exceptions.DuplicateDeckException;
 
 /**
@@ -77,6 +80,26 @@ public class TopDeck implements ReadOnlyTopDeck {
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
+    }
+
+    //// card operations
+    /**
+     * Adds a card to TopDeck
+     * The card should not already exist in the deck.
+     */
+    public void addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
+        if (!decks.contains(activeDeck)) {
+            throw new DeckNotFoundException();
+        }
+
+        if (activeDeck.hasCard(card)) {
+            throw new DuplicateCardException();
+        }
+
+        activeDeck.addCard(card);
+
+        decks.setDeck(activeDeck, activeDeck);
+
     }
 
     //// deck operations

@@ -1,19 +1,16 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddReviewCommand;
-import seedu.address.logic.commands.EditReviewCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
 
-import seedu.address.logic.commands.EditReviewCommand.EditReviewDescriptor;
+import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditReviewCommand;
+import seedu.address.logic.commands.EditReviewCommand.EditReviewDescriptor;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new EditReviewCommand object
@@ -35,7 +32,8 @@ public class EditReviewCommandParser implements Parser<EditReviewCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditReviewCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditReviewCommand.MESSAGE_USAGE), pe);
         }
 
         EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptor();

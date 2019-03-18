@@ -23,11 +23,15 @@ public class BrightnessCommandParser implements Parser<BrightnessCommand> {
      * @throws ParseException
      */
     public BrightnessCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         String fileName;
         OptionalDouble brightnessValue;
-        requireNonNull(args);
         args = args.trim();
         String[] parsed = args.split(" ");
+
+        if (args.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BrightnessCommand.MESSAGE_USAGE));
+        }
 
         if (parsed.length < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BrightnessCommand.MESSAGE_USAGE));

@@ -1019,7 +1019,7 @@ Use case resume at step 2.
 
 
 [discrete]
-=== Use Case 2: Update Batch Details of a Medicine in Inventory 
+=== Use Case 2: Update Batch Details of a Medicine in Inventory
 
 *MSS*
 
@@ -1054,8 +1054,8 @@ Use case resume at step 2.
 * 2a. Pharmacist did not enter expiry date and batch does not already exist.
 +
 [none]
-** 2a1. An error message is shown. 
-** 2a2. System requests expiry date be entered for new batches. 
+** 2a1. An error message is shown.
+** 2a2. System requests expiry date be entered for new batches.
 ** 2a3. Pharmacist repeats request with the required input.
 +
 Use case resume at step 3.

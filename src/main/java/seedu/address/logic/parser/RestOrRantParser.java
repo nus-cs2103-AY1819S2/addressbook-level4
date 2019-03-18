@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.AddItemToMenuCommand;
-import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;

@@ -13,6 +13,7 @@ import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -52,9 +53,9 @@ public interface Logic {
     ObservableList<Table> getFilteredTableList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of bills
+     * Returns an unmodifiable view of the filtered list of daily revenues
      */
-    ObservableList<Bill> getFilteredBillList();
+    ObservableList<DailyRevenue> getFilteredDailyRevenueList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -117,12 +118,20 @@ public interface Logic {
     ReadOnlyProperty<Table> selectedTableProperty();
 
     /**
-     * Selected bill in the filtered bill list.
+     * Selected daily revenue in the filtered daily revenue list.
+     * null if no daily revenue is selected.
+     *
+     * @see seedu.address.model.Model#selectedDailyRevenueProperty()
+     */
+    ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty();
+
+    /**
+     * Recent bill.
      * null if no bill is selected.
      *
-     * @see seedu.address.model.Model#selectedBillProperty()
+     * @see seedu.address.model.Model#recentBillProperty()
      */
-    ReadOnlyProperty<Bill> selectedBillProperty();
+    ReadOnlyProperty<Bill> recentBillProperty();
 
     /**
      * Sets the selected menu item in the filtered menu item list.
@@ -146,11 +155,25 @@ public interface Logic {
     void setSelectedTable(Table table);
 
     /**
-     * Sets the selected bill in the filtered bill list.
+     * Sets the selected daily revenue in the filtered daily revenue list.
      *
-     * @see seedu.address.model.Model#setSelectedBill(Bill)
+     * @see seedu.address.model.Model#setSelectedDailyRevenue(DailyRevenue)
      */
-    void setSelectedBill(Bill bill);
+    void setSelectedDailyRevenue(DailyRevenue dailyRevenue);
+
+    /**
+     * Sets the selected bill to be the recent bill.
+     *
+     * @see seedu.address.model.Model#setRecentBill(Bill)
+     */
+    void setRecentBill(Bill bill);
+
+    /**
+     * Gets the recent bill.
+     *
+     * @see seedu.address.model.Model#getRecentBill()
+     */
+    Bill getRecentBill();
 
     /**
      * Changes current mode of RestOrRant.

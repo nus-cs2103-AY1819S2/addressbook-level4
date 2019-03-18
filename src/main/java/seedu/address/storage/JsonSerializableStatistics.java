@@ -9,33 +9,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.statistics.Bill;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.statistics.Statistics;
 
 /**
  * An Immutable RestOrRant that is serializable to JSON format.
  */
-@JsonRootName(value = "statsList")
+@JsonRootName(value = "statisticsList")
 class JsonSerializableStatistics {
 
-    private final List<JsonAdaptedBill> statsList = new ArrayList<>();
+    public static final String MESSAGE_DUPLICATE_ITEM = "Statistics list contains duplicate daily revenue(s).";
+    private final List<JsonAdaptedDailyRevenue> statisticsList = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableRestOrRant} with the given persons.
+     * Constructs a {@code JsonSerializableRestOrRant} with the given daily revenue.
      */
     @JsonCreator
-    public JsonSerializableStatistics(@JsonProperty("statsList") List<JsonAdaptedBill> statsList) {
-        this.statsList.addAll(statsList);
+    public JsonSerializableStatistics(@JsonProperty("statisticsList") List<JsonAdaptedDailyRevenue> statsList) {
+        this.statisticsList.addAll(statsList);
     }
 
     /**
-     * Converts a given {@code ReadOnlyRestOrRant} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyStatistics} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableRestOrRant}.
      */
     public JsonSerializableStatistics(ReadOnlyStatistics source) {
-        statsList.addAll(source.getBillList().stream().map(JsonAdaptedBill::new).collect(Collectors.toList()));
+        statisticsList.addAll(source.getDailyRevenueList().stream().map(JsonAdaptedDailyRevenue::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -45,9 +47,12 @@ class JsonSerializableStatistics {
      */
     public Statistics toModelType() throws IllegalValueException {
         Statistics statistics = new Statistics();
-        for (JsonAdaptedBill jsonAdaptedBill : statsList) {
-            Bill bill = jsonAdaptedBill.toModelType();
-            statistics.addBill(bill);
+        for (JsonAdaptedDailyRevenue jsonAdaptedDailyRevenue : statisticsList) {
+            DailyRevenue dailyRevenue = jsonAdaptedDailyRevenue.toModelType();
+            if (statistics.hasDailyRevenue(dailyRevenue)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
+            }
+            statistics.addDailyRevenue(dailyRevenue);
         }
         return statistics;
     }

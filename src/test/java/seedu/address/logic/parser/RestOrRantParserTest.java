@@ -129,7 +129,7 @@ public class RestOrRantParserTest {
     //        command = (FindCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
     //                FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
     //        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    //    } 
+    //    }
 
     @Test
     public void parseCommand_help() throws Exception {

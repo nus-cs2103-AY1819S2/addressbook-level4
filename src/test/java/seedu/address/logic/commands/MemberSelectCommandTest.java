@@ -20,9 +20,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code MemberSelectCommand}.
  */
-public class SelectCommandTest {
+public class MemberSelectCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -65,14 +65,14 @@ public class SelectCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON);
+        MemberSelectCommand selectFirstCommand = new MemberSelectCommand(INDEX_FIRST_PERSON);
+        MemberSelectCommand selectSecondCommand = new MemberSelectCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_PERSON);
+        MemberSelectCommand selectFirstCommandCopy = new MemberSelectCommand(INDEX_FIRST_PERSON);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -86,23 +86,23 @@ public class SelectCommandTest {
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index},
+     * Executes a {@code MemberSelectCommand} with the given {@code index},
      * and checks that the model's selected person is set to the person at {@code index} in the filtered person list.
      */
     private void assertExecutionSuccess(Index index) {
-        SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        MemberSelectCommand selectCommand = new MemberSelectCommand(index);
+        String expectedMessage = String.format(MemberSelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
         expectedModel.setSelectedPerson(model.getFilteredPersonList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
+     * Executes a {@code MemberSelectCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectCommand selectCommand = new SelectCommand(index);
+        MemberSelectCommand selectCommand = new MemberSelectCommand(index);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
     }
 }

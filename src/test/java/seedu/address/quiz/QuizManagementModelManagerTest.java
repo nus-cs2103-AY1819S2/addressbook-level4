@@ -36,6 +36,11 @@ public class QuizManagementModelManagerTest {
     }
 
     @Test
+    public void getSessionFields() {
+
+    }
+
+    @Test
     public void getNextCard() {
         Quiz quiz = QUIZ;
         modelManager.init(quiz);

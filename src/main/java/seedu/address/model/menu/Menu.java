@@ -67,7 +67,6 @@ public class Menu implements ReadOnlyMenu {
     /**
      * Returns true if a menu item with the same identity as {@code menuItem} exists in the address book.
      */
-    @Override
     public boolean hasMenuItem(MenuItem menuItem) {
         requireNonNull(menuItem);
         return menuItems.contains(menuItem);
@@ -77,7 +76,6 @@ public class Menu implements ReadOnlyMenu {
      * Adds a menu item to the menu.
      * The menu item must not already exist in the address book.
      */
-    @Override
     public void addMenuItem(MenuItem item) {
         menuItems.add(item);
         indicateModified();
@@ -88,7 +86,6 @@ public class Menu implements ReadOnlyMenu {
      * {@code target} must exist in the address book.
      * The item identity of {@code editedItem} must not be the same as another existing menu item in the address book.
      */
-    @Override
     public void setMenuItem(MenuItem target, MenuItem editedItem) {
         requireNonNull(editedItem);
 
@@ -99,7 +96,6 @@ public class Menu implements ReadOnlyMenu {
      * Removes {@code key} from this {@code RestOrRant}.
      * {@code key} must exist in the menu.
      */
-    @Override
     public void removeMenuItem(MenuItem key) {
         menuItems.remove(key);
         indicateModified();
@@ -108,7 +104,6 @@ public class Menu implements ReadOnlyMenu {
     /**
      * Given the menu item's {@code Code code}, returns the MenuItem with the corresponding code.
      */
-    @Override
     public Optional<MenuItem> getItemFromCode(Code code) {
         Iterator<MenuItem> iterator = menuItems.iterator();
         while (iterator.hasNext()) {
@@ -120,27 +115,22 @@ public class Menu implements ReadOnlyMenu {
         return Optional.empty();
     }
 
-    @Override
     public Name getNameFromItem(MenuItem menuItem) {
         return menuItem.getName();
     }
 
-    @Override
     public Code getCodeFromItem(MenuItem menuItem) {
         return menuItem.getCode();
     }
 
-    @Override
     public Price getPriceFromItem(MenuItem menuItem) {
         return menuItem.getPrice();
     }
 
-    @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
     }
 
-    @Override
     public void removeListener(InvalidationListener listener) {
         invalidationListenerManager.removeListener(listener);
     }

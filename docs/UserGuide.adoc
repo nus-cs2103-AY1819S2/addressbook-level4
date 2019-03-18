@@ -495,8 +495,6 @@ e.g. `memberSort NAME`
 e.g. `activityAdd n/Sentosa Outing d/16022019 t/cohesion`
 * *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NO` +
 e.g. `activityAddMember 1 A1234567N`
-* *Archive an activity* : `activityArchive ACTIVITY_INDEX` +
-e.g. `activityArchive 1`
 * *Delete an activity* : ``activityDelete ACTIVITY_INDEX`` +
 e.g. `activityDelete 1`
 * *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NO` +
@@ -509,8 +507,7 @@ e.g. `activityFind Workshop`
 * *Select an activity* : `activitySelect ACTIVITY_INDEX` +
 e.g. `activitySelect 2`
 * *Sort all activities by date* : `activitySort`
-* *Unarchive an activity* : `activityUnarchive ACTIVITY_INDEX` +
-e.g. `activityUnarchive 1`
+
 
 
 

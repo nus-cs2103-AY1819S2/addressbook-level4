@@ -11,7 +11,6 @@ import com.sksamuel.scrimage.Image;
 import com.sksamuel.scrimage.filter.BrightnessFilter;
 import com.sksamuel.scrimage.nio.JpegWriter;
 
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;

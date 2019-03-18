@@ -36,7 +36,8 @@ public class BrightnessCommandParser implements Parser<BrightnessCommand> {
         if (parsed.length == 2) {
             brightnessValue = OptionalDouble.of(Double.parseDouble(parsed[0]));
             if (brightnessValue.getAsDouble() < 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BrightnessCommand.MESSAGE_USAGE));
+                throw new ParseException(String
+                    .format(MESSAGE_INVALID_COMMAND_FORMAT, BrightnessCommand.MESSAGE_USAGE));
             }
             fileName = parsed[1];
         } else {

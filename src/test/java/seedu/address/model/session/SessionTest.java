@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.quiz.Quiz;
-import seedu.address.quiz.QuizCard;
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.SessionBuilder;
 import seedu.address.testutil.SrsCardBuilder;

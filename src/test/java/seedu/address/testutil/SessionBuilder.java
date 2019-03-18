@@ -2,9 +2,9 @@ package seedu.address.testutil;
 
 import java.util.List;
 
+import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.session.Session;
 import seedu.address.model.session.SrsCard;
-import seedu.address.quiz.Quiz;
 
 /**
  * A utility class to help with building {@code Session} objects.

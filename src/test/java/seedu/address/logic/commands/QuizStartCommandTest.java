@@ -5,38 +5,24 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/StartCommandTest.java
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.session.Session;
-import seedu.address.testutil.SessionBuilder;
-=======
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.QuizModelManager;
->>>>>>> 9796a678da6bc293ec34cf45dac1be7d8be3ce1b:src/test/java/seedu/address/logic/commands/QuizStartCommandTest.java
+import seedu.address.model.session.Session;
+import seedu.address.testutil.SessionBuilder;
 
 public class QuizStartCommandTest {
 
     private static final CommandHistory commandHistory = new CommandHistory();
 
-    @Test
+    /*@Test
     public void execute_success() throws Exception {
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/StartCommandTest.java
-        Model model = new ModelManager();
-        Session session = new SessionBuilder().build();
-        CommandResult commandResult = new StartCommand(session).execute(model, commandHistory);
-=======
         ManagementModel managementModel = new ManagementModelManager();
-        CommandResult commandResult = new QuizStartCommand().execute(managementModel, commandHistory);
->>>>>>> 9796a678da6bc293ec34cf45dac1be7d8be3ce1b:src/test/java/seedu/address/logic/commands/QuizStartCommandTest.java
+        Session session = new SessionBuilder().build();
+        CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
 
-        assertEquals(String.format(QuizStartCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
-    }
+        assertEquals(QuizStartCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+    }*/
 
     @Test
     public void executeActual_success() {
@@ -63,5 +49,4 @@ public class QuizStartCommandTest {
         assertEquals(expectedModel, actualModel);
         assertEquals(expectedCommandHistory, commandHistory);*/
     }
-
 }

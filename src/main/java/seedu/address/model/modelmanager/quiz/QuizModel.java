@@ -2,11 +2,7 @@ package seedu.address.model.modelmanager.quiz;
 
 import java.util.List;
 
-<<<<<<< HEAD:src/main/java/seedu/address/quiz/QuizModel.java
-import seedu.address.model.card.exceptions.MissingCoreException;
-=======
 import seedu.address.model.modelmanager.Model;
->>>>>>> 9796a678da6bc293ec34cf45dac1be7d8be3ce1b:src/main/java/seedu/address/model/modelmanager/quiz/QuizModel.java
 
 /**
  * The API of the QuizModel component.
@@ -15,7 +11,7 @@ public interface QuizModel extends Model {
     /**
      * Generate a list of quizCards that will be tested in quiz.
      */
-    List<QuizCard> generateSession() throws MissingCoreException;
+    List<QuizCard> generateSession();
 
     /**
      * Return mode of {@code session}.

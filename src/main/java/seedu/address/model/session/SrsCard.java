@@ -36,6 +36,7 @@ public class SrsCard {
 
     public CardSrsData getCardData() {
         return cardData;
+    }
 
     public String getAnswer() {
         return card.getCore(answerIndex);

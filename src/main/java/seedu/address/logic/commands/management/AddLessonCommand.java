@@ -15,11 +15,19 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.management.ManagementModel;
 
 /**
- * Adds a new lesson.
+ * This implements a {@link Command} which executes a command to add a {@link Lesson} to the
+ * {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
+ * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual addition
+ * of the {@link Lesson} is carried out in the {@link ManagementModel}.
  */
 public class AddLessonCommand implements Command {
+    /**
+     * The word a user must enter to call this command.
+     */
     public static final String COMMAND_WORD = "addLesson";
-
+    /**
+     * Instructions on command usage and parameters.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson. "
             + "Parameters: "
             + PREFIX_LESSON_NAME + "NAME "
@@ -30,24 +38,33 @@ public class AddLessonCommand implements Command {
             + PREFIX_LESSON_CORE_HEADER + "Country "
             + PREFIX_LESSON_CORE_HEADER + "Capital "
             + PREFIX_LESSON_OPT_HEADER + "Hint";
-
+    /**
+     * Feedback message displayed to the user upon successful execution of this command
+     */
     public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
-
+    /**
+     * The lesson to be added when {@link #execute(Model, CommandHistory)} is called.
+     */
     private final Lesson toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@link Lesson}
+     *
+     * @param toAdd the {@link Lesson} to be added
      */
-    public AddLessonCommand(Lesson lesson) {
-        requireNonNull(lesson);
-        toAdd = lesson;
+    public AddLessonCommand(Lesson toAdd) {
+        requireNonNull(toAdd);
+        this.toAdd = toAdd;
     }
 
     /**
      * Executes the command and returns the result message.
+     *
      * @param model which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
-     * @return
+     *
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

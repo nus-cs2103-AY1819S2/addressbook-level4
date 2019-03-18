@@ -1,37 +1,24 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.Address;
-import seedu.address.model.restaurant.Email;
-import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.OpeningHours;
-import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.restaurant.Weblink;
-import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
-import seedu.address.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
-
-
 
 /**
  * Edits the details of an existing review tagged to a restaurant in the Food Diary.
@@ -50,7 +37,7 @@ public class EditReviewCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_REVIEWENTRY + "Poor food.";
 
-    public static final String MESSAGE_EDIT_RESTAURANT_SUCCESS = "Edited Restaurant: %1$s";
+    public static final String MESSAGE_EDIT_REVIEW_SUCCESS = "Edited review for restaurant: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "This review already exists for this restaurant.";
 
@@ -78,7 +65,13 @@ public class EditReviewCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_RESTAURANT_SELECTED);
         }
 
-        Restaurant restaurantWithEditedReview = createRestaurantWithEditedReview()
+        Restaurant restaurantWithEditedReview = createRestaurantWithEditedReview(selectedRestaurant,
+                editReviewDescriptor, index);
+
+        model.setRestaurant(selectedRestaurant, restaurantWithEditedReview);
+        model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+        model.commitFoodDiary();
+        return new CommandResult(String.format(MESSAGE_EDIT_REVIEW_SUCCESS, restaurantWithEditedReview.getName()));
     }
 
     /**
@@ -120,9 +113,9 @@ public class EditReviewCommand extends Command {
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditReviewCommand e = (EditReviewCommand) other;
         return index.equals(e.index)
-                && editRestaurantDescriptor.equals(e.editRestaurantDescriptor);
+                && editReviewDescriptor.equals(e.editReviewDescriptor);
     }
 
     /**

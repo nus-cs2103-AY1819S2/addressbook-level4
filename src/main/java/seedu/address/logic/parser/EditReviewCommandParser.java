@@ -35,7 +35,7 @@ public class EditReviewCommandParser implements Parser<EditReviewCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditReviewCommand.MESSAGE_USAGE), pe);
         }
 
         EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptor();

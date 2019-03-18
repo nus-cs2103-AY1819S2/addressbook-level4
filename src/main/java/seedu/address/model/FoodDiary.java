@@ -11,7 +11,7 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.UniqueRestaurantList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the food diary level
  * Duplicates are not allowed (by .isSameRestaurant comparison)
  */
 public class FoodDiary implements ReadOnlyFoodDiary {

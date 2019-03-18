@@ -66,8 +66,7 @@ public class BatchTable extends UiPart<Region> {
      * Gets batch details from medicine and add them to the table.
      */
     private void addBatchDetails(Medicine medicine) {
-        ObservableList<Batch> batches = FXCollections.observableArrayList();
-        batches.addAll(medicine.getBatches().values());
+        ObservableList<Batch> batches = FXCollections.observableArrayList(medicine.getBatches().values());
         tablePane.setItems(batches);
     }
 

@@ -39,13 +39,16 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
         }
+
         if (!argMultimap.getValue(PREFIX_BATCHNUMBER).isPresent()
                 || !argMultimap.getValue(PREFIX_QUANTITY).isPresent()) {
             throw new ParseException(String.format(UpdateCommand.MESSAGE_MISSING_PARAMETER));
         }
+
         if (argMultimap.getValue(PREFIX_EXPIRY).isPresent()) {
             expiry = ParserUtil.parseExpiry(argMultimap.getValue(PREFIX_EXPIRY).get());
         }
+
         BatchNumber batchNumber = ParserUtil.parseBatchNumber(argMultimap.getValue(PREFIX_BATCHNUMBER).get());
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
 

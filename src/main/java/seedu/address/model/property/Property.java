@@ -4,7 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -45,6 +44,6 @@ public class Property {
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
-    return Collections.unmodifiableSet(tags);
+        return Collections.unmodifiableSet(tags);
     }
 }

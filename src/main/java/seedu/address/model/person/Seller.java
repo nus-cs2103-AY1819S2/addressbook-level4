@@ -19,7 +19,9 @@ public class Seller extends Person {
     }
 
     @Override
-    public Address getAddress() { return property.getAddress(); }
+    public Address getAddress() {
+        return property.getAddress();
+    }
 
     @Override
     public Set<Tag> getTags() {

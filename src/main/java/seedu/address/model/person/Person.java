@@ -36,7 +36,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public Person(Name name, Phone phone, Email email)  {
+    public Person(Name name, Phone phone, Email email) {
         requireAllNonNull(name);
         this.name = name;
         this.phone = phone;

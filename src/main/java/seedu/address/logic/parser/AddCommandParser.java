@@ -20,7 +20,6 @@ import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
@@ -58,20 +57,20 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         switch (customer) {
-            case "buyer":
-                Buyer buyer = new Buyer(name, phone, email);
-                return new AddCommand(buyer);
-            case "seller":
-                Seller seller = new Seller(name, phone, email, new Property(address, salePrice, null, tagList));
-                return new AddCommand(seller);
-            case "landlord":
-                Landlord landlord = new Landlord(name, phone, email, new Property(address, null, rentPrice, tagList));
-                return new AddCommand(landlord);
-            case "tenant":
-                Tenant tenant = new Tenant(name, phone, email);
-                return new AddCommand(tenant);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        case "buyer":
+            Buyer buyer = new Buyer(name, phone, email);
+            return new AddCommand(buyer);
+        case "seller":
+            Seller seller = new Seller(name, phone, email, new Property(address, salePrice, null, tagList));
+            return new AddCommand(seller);
+        case "landlord":
+            Landlord landlord = new Landlord(name, phone, email, new Property(address, null, rentPrice, tagList));
+            return new AddCommand(landlord);
+        case "tenant":
+            Tenant tenant = new Tenant(name, phone, email);
+            return new AddCommand(tenant);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
     }

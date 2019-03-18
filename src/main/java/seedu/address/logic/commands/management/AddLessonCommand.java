@@ -41,14 +41,14 @@ public class AddLessonCommand implements Command {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
+    public static final String MESSAGE_SUCCESS = "Added lesson: %1$s";
     /**
      * The lesson to be added when {@link #execute(Model, CommandHistory)} is called.
      */
     private final Lesson toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@link Lesson}
+     * Creates an AddLessonCommand to add the specified {@link Lesson}
      *
      * @param toAdd the {@link Lesson} to be added
      */

@@ -1,8 +1,9 @@
-package seedu.address.model.session;
+package seedu.address.model.srscard;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Instant;
+
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.user.CardSrsData;

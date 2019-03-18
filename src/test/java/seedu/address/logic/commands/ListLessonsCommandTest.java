@@ -23,6 +23,7 @@ import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.session.Session;
 import seedu.address.testutil.TypicalLessons;
 
 /**
@@ -179,6 +180,13 @@ public class ListLessonsCommandTest {
          * Sets the {@code Quiz} information.
          */
         public void init(Quiz quiz) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Sets the {@code Quiz} and {@code Session} information.
+         */
+        public void initWithSession(Quiz quiz, Session session) {
             throw new AssertionError("This method should not be called.");
         }
 

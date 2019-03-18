@@ -6,7 +6,7 @@ import java.time.Instant;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.session.SrsCard;
+import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
 
 

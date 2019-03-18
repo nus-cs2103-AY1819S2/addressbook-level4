@@ -5,6 +5,7 @@ import java.util.List;
 
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.srscard.SrsCard;
 
 
 /**

@@ -3,7 +3,11 @@ package seedu.address.model.session;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.SrsCardBuilder.DEFAULT_CARDSRSDATA;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
+import static seedu.address.testutil.TypicalCards.CARD_CAT;
+import static seedu.address.testutil.TypicalCards.CARD_DOG;
+import static seedu.address.testutil.TypicalCards.CARD_DOGCAT;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
+import static seedu.address.testutil.TypicalCards.CARD_MULTI;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -14,6 +18,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.LessonBuilder;
@@ -25,7 +30,15 @@ public class SrsCardsManagerTest {
     private List<List<Integer>> quizInformation = new ArrayList<>();
     private List<SrsCard> srsCards = List.of(new SrsCardBuilder().build(),
             new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1, 1,
-                    Instant.ofEpochMilli(1233)), lesson)).build());
+                    Instant.now().plus(Duration.ofHours(20))), lesson)).build(),
+            new SrsCardBuilder(new SrsCard(CARD_CAT, new CardSrsData(CARD_CAT.hashCode(), 1,
+                    1, Instant.now().plus(Duration.ofHours(7))), lesson)).build(),
+            new SrsCardBuilder(new SrsCard(CARD_DOG, new CardSrsData(CARD_DOG.hashCode(),
+                    1, 1, Instant.now().plus(Duration.ofHours(3))), lesson)).build(),
+            new SrsCardBuilder(new SrsCard(CARD_DOGCAT, new CardSrsData(CARD_DOGCAT.hashCode(),
+                    1, 0, Instant.now().plus(Duration.ofHours((long) 0.5))), lesson)).build(),
+            new SrsCardBuilder(new SrsCard(CARD_MULTI, new CardSrsData(CARD_MULTI.hashCode(),
+                    1, 1, Instant.now().plus(Duration.ofHours((long) 0.5))), lesson)).build());
 
     @Test
     public void constructor_sort_throwsNullPointerException() {
@@ -37,10 +50,11 @@ public class SrsCardsManagerTest {
     }
     @Test
     public void constructor_update_throwsNullPointerException() {
+        Instant currentDate = Instant.now();
         Assert.assertThrows(NullPointerException.class, () ->
-                new SrsCardsManager(null, quizInformation));
+                new SrsCardsManager(null, quizInformation, currentDate));
         Assert.assertThrows(NullPointerException.class, () ->
-                new SrsCardsManager(srsCards, null));
+                new SrsCardsManager(srsCards, null, currentDate));
     }
     @Test
     public void checkSort() {
@@ -71,17 +85,33 @@ public class SrsCardsManagerTest {
         expected.add(new SrsCard(CARD_JAPAN, cardSrsDataJapan, lesson));
         assertEquals(expected, srsCards);
     }
-    /*@Test
+    @Test
     public void checkUpdate() {
+        Instant currentDate = Instant.now();
         quizInformation.add(List.of(0, 1, 1));
-        quizInformation.add(List.of(1, 1, 0));
-        SrsCardsManager currentManager = new SrsCardsManager(srsCards, quizInformation);
+        quizInformation.add(List.of(1, 1, 1));
+        quizInformation.add(List.of(2, 1, 1));
+        quizInformation.add(List.of(3, 1, 1));
+        quizInformation.add(List.of(4, 1, 0));
+        quizInformation.add(List.of(5, 1, 1));
+        SrsCardsManager currentManager = new SrsCardsManager(srsCards, quizInformation, currentDate);
         List<CardSrsData> cardData = currentManager.updateCardData();
         List<CardSrsData> expected = new ArrayList<>();
-        expected.add(new CardSrsData(CARD_BELGIUM.hashCode(), 2, 2, Instant.ofEpochMilli(123)
+        expected.add(new CardSrsData(CARD_BELGIUM.hashCode(), 2, 2, currentDate
+                .plus(Duration.ofHours(5))));
+        expected.add(new CardSrsData(CARD_JAPAN.hashCode(), 2, 2, currentDate
+                .plus(Duration.ofHours(48))));
+        expected.add(new CardSrsData(CARD_CAT.hashCode(), 2, 2, currentDate
+                .plus(Duration.ofHours(48))));
+        expected.add(new CardSrsData(CARD_DOG.hashCode(), 2, 2, currentDate
+                .plus(Duration.ofHours(24))));
+        expected.add(new CardSrsData(CARD_DOGCAT.hashCode(), 2, 1, currentDate
                 .plus(Duration.ofHours(1))));
-        expected.add(new CardSrsData(CARD_JAPAN.hashCode(), 2, 1, Instant.ofEpochMilli(1233)
-                .plus(Duration.ofHours())));
+        expected.add(new CardSrsData(CARD_MULTI.hashCode(), 2, 2, currentDate
+                .plus(Duration.ofHours(12))));
         assertEquals(expected, cardData);
-    }*/
+        for (int i = 0; i < quizInformation.size(); i++) {
+            assertEquals(expected.get(i).getSrsDueDate(), cardData.get(i).getSrsDueDate());
+        }
+    }
 }

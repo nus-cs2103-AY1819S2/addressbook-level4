@@ -1,4 +1,4 @@
-package seedu.address.model.session;
+package seedu.address.model.srscard;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.SrsCardBuilder.DEFAULT_CARDSRSDATA;

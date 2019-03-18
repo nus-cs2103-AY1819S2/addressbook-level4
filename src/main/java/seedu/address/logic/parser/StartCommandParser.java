@@ -5,18 +5,18 @@ import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_NAME;
 
-
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.session.Session;
 import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.session.Session;
+
 
 /**
  * Parses user input when start a session quiz.
  */
-public class StartCommandParser {
+public class StartCommandParser implements Parser {
     /**
   * Parses the given {@code String} of arguments in the context of the StartCommand
   * and returns an StartCommand object for execution.

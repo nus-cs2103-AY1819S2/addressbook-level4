@@ -40,7 +40,7 @@ public class QuizStartCommand implements Command {
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
-    private final Session session;
+    private Session session;
     private List<QuizCard> quizCards;
 
     //    public QuizStartCommand() {
@@ -86,7 +86,7 @@ public class QuizStartCommand implements Command {
         Lesson lesson = mgtModel.getLesson(0);
         HashMap<Integer, CardSrsData> cardData = null; //TODO: implement after model updates
         SrsCardsManager generateManager = new SrsCardsManager(lesson, cardData);
-        Session session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
+        this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
                 generateManager.sort());
         return new CommandResult(MESSAGE_SUCCESS);
     }

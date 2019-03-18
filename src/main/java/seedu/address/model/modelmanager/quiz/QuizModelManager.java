@@ -54,6 +54,13 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
+    public void initWithSession(Quiz quiz, Session session) {
+        requireAllNonNull(quiz, session);
+        this.quiz = quiz;
+        this.session = session;
+    }
+
+    @Override
     public boolean hasCardLeft() {
         return quiz.hasCardLeft();
     }

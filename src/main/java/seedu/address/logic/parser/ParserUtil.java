@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelmanager.quiz.Quiz;
 
 /**
@@ -12,36 +11,32 @@ import seedu.address.model.modelmanager.quiz.Quiz;
 public class ParserUtil {
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String name} into a {@code String name}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static String parseName(String name) throws ParseException {
+    public static String parseName(String name) {
         requireNonNull(name);
         String trimmedName = name.trim();
         return trimmedName;
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String count} into a {@code int count}.
      * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static int parseCount(String count) throws ParseException {
+    public static int parseCount(String count) {
         requireNonNull(count);
         String trimmedCount = count.trim();
         return Integer.parseInt(trimmedCount);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String mode} into an {@code Quiz.mode mode}.
      * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Quiz.Mode parseMode(String mode) throws ParseException {
+    public static Quiz.Mode parseMode(String mode) {
         requireNonNull(mode);
-        String trimmedMode = mode.trim();
+        String trimmedMode = mode.trim().toUpperCase();
         return Quiz.Mode.valueOf(trimmedMode);
     }
 }

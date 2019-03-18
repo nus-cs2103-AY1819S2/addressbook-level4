@@ -3,6 +3,7 @@ package seedu.address.model.modelmanager.quiz;
 import java.util.List;
 
 import seedu.address.model.modelmanager.Model;
+import seedu.address.model.session.Session;
 
 /**
  * The API of the QuizModel component.
@@ -32,6 +33,11 @@ public interface QuizModel extends Model {
      * Sets the {@code Quiz} information.
      */
     void init(Quiz quiz);
+
+    /**
+     * Sets the {@code Quiz} and {@code Session} information.
+     */
+    void initWithSession(Quiz quiz, Session session);
 
     /**
      * Returns if there is still card left in {@code Quiz}.

@@ -15,7 +15,9 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.model.session.Session;
 import seedu.address.testutil.Assert;
+import seedu.address.testutil.SessionBuilder;
 
 public class QuizManagementModelManagerTest {
     private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
@@ -37,7 +39,12 @@ public class QuizManagementModelManagerTest {
 
     @Test
     public void getSessionFields() {
-
+        Quiz quiz = QUIZ;
+        Session session = new SessionBuilder().build();
+        modelManager.initWithSession(quiz, session);
+        assertEquals("01-01-Learn", modelManager.getName());
+        assertEquals(1, modelManager.getCount());
+        assertEquals(Quiz.Mode.LEARN, modelManager.getMode());
     }
 
     @Test

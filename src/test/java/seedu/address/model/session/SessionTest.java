@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.srscard.SrsCard;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.SessionBuilder;
 import seedu.address.testutil.SrsCardBuilder;

@@ -1,5 +1,6 @@
 package seedu.address.model.session;
 
+import static java.time.temporal.ChronoUnit.HOURS;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Duration;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
 
 /**
@@ -20,17 +22,18 @@ public class SrsCardsManager {
     private HashMap<Integer, CardSrsData> cardData;
     private List<SrsCard> srsCards;
     private List<List<Integer>> quizInformation;
-
+    private Instant currentDate;
     public SrsCardsManager(Lesson lesson, HashMap<Integer, CardSrsData> cardData) {
         requireAllNonNull(lesson, cardData);
         this.lesson = lesson;
         this.cardData = cardData;
     }
 
-    public SrsCardsManager(List<SrsCard> srsCards, List<List<Integer>> quizInformation) {
+    public SrsCardsManager(List<SrsCard> srsCards, List<List<Integer>> quizInformation, Instant currentDate) {
         requireAllNonNull(srsCards, quizInformation);
         this.quizInformation = quizInformation;
         this.srsCards = srsCards;
+        this.currentDate = currentDate;
     }
 
     /**
@@ -66,12 +69,24 @@ public class SrsCardsManager {
     public List<CardSrsData> updateCardData() {
         List<CardSrsData> updatedCardData = new ArrayList<>();
         HashMap<SrsCard, Integer> memoryBoxes = new HashMap<>();
-        for (int i = 0; i < quizInformation.size(); i++) { //terminal value to be changed
+        for (int i = 0; i < quizInformation.size(); i++) {
+            Instant srsDueDate = srsCards.get(i).getSrsDueDate();
+            if (srsDueDate.compareTo(currentDate) < 0) {
+                memoryBoxes.put(srsCards.get(i), 1);
+            } else if (currentDate.until(srsDueDate, HOURS) < 1) {
+                memoryBoxes.put(srsCards.get(i), 2);
+            } else if (currentDate.until(srsDueDate, HOURS) < 5) {
+                memoryBoxes.put(srsCards.get(i), 3);
+            } else if (currentDate.until(srsDueDate, HOURS) < 12) {
+                memoryBoxes.put(srsCards.get(i), 4);
+            } else {
+                memoryBoxes.put(srsCards.get(i), 5);
+            }
+
             int currentHashCode = srsCards.get(i).getHashcode();
             int currentNumOfAttempts = srsCards.get(i).getNumOfAttempts() + quizInformation.get(i).get(1);
             int currentStreak = srsCards.get(i).getStreak() + quizInformation.get(i).get(2);
 
-            Instant currentSrsDueDate = Instant.now();
             int currentLevel = memoryBoxes.get(srsCards.get(i));
             if (quizInformation.get(i).get(1).equals(quizInformation.get(i).get(2)) && currentLevel != 5) {
                 memoryBoxes.put(srsCards.get(i), currentLevel + 1);
@@ -79,20 +94,21 @@ public class SrsCardsManager {
                 memoryBoxes.put(srsCards.get(i), currentLevel - 1);
             }
 
+            Instant updatedSrsDueDate = Instant.MIN;
             if (memoryBoxes.get(srsCards.get(i)) == 1) {
-                currentSrsDueDate.plus(Duration.ofHours(1));
+                updatedSrsDueDate = currentDate.plus(Duration.ofHours(1));
             } else if (memoryBoxes.get(srsCards.get(i)) == 2) {
-                currentSrsDueDate.plus(Duration.ofHours(5));
+                updatedSrsDueDate = currentDate.plus(Duration.ofHours(5));
             } else if (memoryBoxes.get(srsCards.get(i)) == 3) {
-                currentSrsDueDate.plus(Duration.ofHours(12));
+                updatedSrsDueDate = currentDate.plus(Duration.ofHours(12));
             } else if (memoryBoxes.get(srsCards.get(i)) == 4) {
-                currentSrsDueDate.plus(Duration.ofHours(24));
+                updatedSrsDueDate = currentDate.plus(Duration.ofHours(24));
             } else if (memoryBoxes.get(srsCards.get(i)) == 5) {
-                currentSrsDueDate.plus(Duration.ofHours(48));
+                updatedSrsDueDate = currentDate.plus(Duration.ofHours(48));
             }
 
             updatedCardData.add(new CardSrsData(currentHashCode, currentNumOfAttempts, currentStreak,
-                    currentSrsDueDate));
+                    updatedSrsDueDate));
         }
 
         return updatedCardData;

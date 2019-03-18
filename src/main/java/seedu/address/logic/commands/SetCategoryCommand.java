@@ -55,13 +55,15 @@ public class SetCategoryCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
 
-        Restaurant restaurantToAddCuisine = lastShownList.get(index.getZeroBased());
-        Restaurant restaurantWithCuisineAdded = new Restaurant(restaurantToAddCuisine, this.category);
+        Restaurant restaurantToUpdateCategory = lastShownList.get(index.getZeroBased());
+        Category existingCategories = restaurantToUpdateCategory.getCategories();
+        Category updatedCategories = Category.merge(existingCategories, this.category);
+        Restaurant restaurantWithCategoryUpdated = new Restaurant(restaurantToUpdateCategory, updatedCategories);
 
-        model.setRestaurant(restaurantToAddCuisine, restaurantWithCuisineAdded);
+        model.setRestaurant(restaurantToUpdateCategory, restaurantWithCategoryUpdated);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         model.commitFoodDiary();
-        return new CommandResult(String.format(MESSAGE_SET_CUISINE_SUCCESS, restaurantWithCuisineAdded));
+        return new CommandResult(String.format(MESSAGE_SET_CUISINE_SUCCESS, restaurantWithCategoryUpdated));
     }
 
     @Override

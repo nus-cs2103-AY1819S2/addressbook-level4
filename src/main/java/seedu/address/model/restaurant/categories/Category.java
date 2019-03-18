@@ -26,6 +26,27 @@ public class Category {
         return new Category(null, null);
     }
 
+    /**
+     * Merge the updated category with the old category.
+     * Ensures previous category fields are retained if updated fields are not present.
+     */
+    public static Category merge(Category previous, Category updated) {
+        Cuisine mergedCuisine;
+        Occasion mergedOccasion;
+        if (updated.cuisine.isPresent()) {
+            mergedCuisine = updated.cuisine.get();
+        } else {
+            mergedCuisine = previous.cuisine.get();
+        }
+
+        if (updated.occasion.isPresent()) {
+            mergedOccasion = updated.occasion.get();
+        } else {
+            mergedOccasion = previous.occasion.get();
+        }
+        return new Category(mergedCuisine, mergedOccasion);
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object

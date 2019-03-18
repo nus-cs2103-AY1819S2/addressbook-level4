@@ -3,6 +3,7 @@ package systemtests;
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
@@ -20,6 +21,7 @@ import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -66,6 +68,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         Customer toAdd = AMY;
         String command = "   " + AddCustomerCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  "
             + PHONE_DESC_AMY + " "
+            + DATE_OF_BIRTH_DESC_AMY + " "
             + EMAIL_DESC_AMY + "   "
             + ADDRESS_DESC_AMY + "   "
             + ID_DESC_AMY + "        "
@@ -86,8 +89,8 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         /* Case: add a customer with all fields same as another customer in the address book except name ->
         added */
         toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ADDRESS_DESC_AMY + ID_DESC_AMY + TAG_DESC_FRIEND;
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a customer with all fields same as another customer in the address book except phone,
@@ -96,6 +99,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         toAdd = new CustomerBuilder(AMY)
             .withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
             .withIdNum(VALID_ID_BOB)
             .build();
         command = CustomerUtil.getAddCommand(toAdd);

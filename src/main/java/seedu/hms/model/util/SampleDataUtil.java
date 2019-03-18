@@ -22,7 +22,7 @@ import seedu.hms.model.tag.Tag;
 public class SampleDataUtil {
     public static Customer[] getSampleCustomers() {
         return new Customer[] {
-            new Customer(new Name("Al()ex Yeoh"), new Phone("87438807"), new DateOfBirth("28/05/1999"),
+            new Customer(new Name("Alex Yeoh"), new Phone("87438807"), new DateOfBirth("28/05/1999"),
                 new Email("alexyeoh@example.com"),
                 new IdentificationNo("987653"), new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends")),

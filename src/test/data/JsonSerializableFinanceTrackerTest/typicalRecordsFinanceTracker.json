@@ -2,7 +2,7 @@
   "_comment": "FinanceTracker saves file which contains the same Record values as in TypicalRecords#getTypicalFinanceTracker()",
   "records" : [ {
     "name" : "Alice Pauline",
-    "amount" : "120",
+    "amount" : "120.30",
     "date" : "12/02/2017",
     "description": "",
     "tagged" : [ "friends" ]
@@ -14,7 +14,7 @@
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "amount" : "130",
+    "amount" : "130.45",
     "date" : "12/05/2017",
     "description": "",
     "tagged" : [ ]
@@ -38,7 +38,7 @@
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "amount" : "128",
+    "amount" : "128.90",
     "date" : "12/02/2027",
     "description": "",
     "tagged" : [ ]

@@ -28,9 +28,10 @@ public class AmountTest {
         // invalid amounts
         assertFalse(Amount.isValidAmount("")); // empty string
         assertFalse(Amount.isValidAmount(" ")); // spaces only
-
+        assertFalse(Amount.isValidAmount("123.3435")); //2 dp only
         // valid amounts
         assertTrue(Amount.isValidAmount("123"));
+        assertTrue(Amount.isValidAmount("123.24")); // 1 dp only
         assertTrue(Amount.isValidAmount("1")); // one character
         assertTrue(Amount.isValidAmount("2147483648.50")); // long amount
     }

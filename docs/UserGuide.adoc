@@ -224,11 +224,6 @@ Example:
 
 * `stats`
 
-=== Listing entered commands : `stats`
-
-Displays statistics of commands used +
-Format: `stats`
-
 // tag::undoredo[]
 === Undoing previous command : `undo`
 

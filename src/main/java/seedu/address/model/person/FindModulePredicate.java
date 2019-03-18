@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.logic.commands.FindCommandNew.FindModuleDescriptor;
+import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 
 /**
  * Tests that a module matches all of the description given.

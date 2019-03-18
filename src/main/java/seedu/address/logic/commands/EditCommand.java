@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -116,7 +117,7 @@ public class EditCommand extends Command {
         Optional<Cuisine> updatedCuisine = restaurantToEdit.getCuisine();
 
         //Ensures that reviews are copied over exactly, because they are not modified by this command.
-        Set<Review> sameReviews = new HashSet<>();
+        ArrayList<Review> sameReviews = new ArrayList<>();
         sameReviews.addAll(restaurantToEdit.getReviews());
 
         return new Restaurant(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,

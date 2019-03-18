@@ -2,8 +2,10 @@ package seedu.address.model.restaurant;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -27,7 +29,7 @@ public class Restaurant {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Weblink weblink;
-    private final Set<Review> reviews = new HashSet<>();
+    private final List<Review> reviews = new ArrayList<>();
     private final OpeningHours openingHours;
 
     // Category fields
@@ -72,7 +74,7 @@ public class Restaurant {
      * Every field except reviews must be present and not null.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours, Set<Review> reviews) {
+                      OpeningHours openingHours, List<Review> reviews) {
         requireAllNonNull(name, phone, email, address, weblink, tags);
         this.name = name;
         this.phone = phone;
@@ -89,7 +91,7 @@ public class Restaurant {
      * Create new restaurant with Optional cuisine field and Reviews.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours, Optional<Cuisine> cuisine, Set<Review> reviews) {
+                      OpeningHours openingHours, Optional<Cuisine> cuisine, List<Review> reviews) {
         requireAllNonNull(name, phone, email, address, tags, cuisine);
         this.name = name;
         this.phone = phone;
@@ -159,8 +161,8 @@ public class Restaurant {
      * Returns an immutable review set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Review> getReviews() {
-        return Collections.unmodifiableSet(reviews);
+    public List<Review> getReviews() {
+        return Collections.unmodifiableList(reviews);
     }
 
     /**

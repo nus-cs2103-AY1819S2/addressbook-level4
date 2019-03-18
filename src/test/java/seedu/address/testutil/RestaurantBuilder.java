@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,7 +37,7 @@ public class RestaurantBuilder {
     private Set<Tag> tags;
     private Weblink weblink;
     private OpeningHours openingHours;
-    private Set<Review> reviews;
+    private List<Review> reviews;
     private Cuisine cuisine;
 
     public RestaurantBuilder() {
@@ -43,11 +45,10 @@ public class RestaurantBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        reviews = new HashSet<>();
+        reviews = new ArrayList<>();
         tags = new HashSet<>();
         weblink = new Weblink(DEFAULT_WEBLINK);
         openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
-        reviews = new HashSet<>();
         cuisine = null;
     }
 
@@ -63,7 +64,7 @@ public class RestaurantBuilder {
         tags = new HashSet<>(restaurantToCopy.getTags());
         weblink = restaurantToCopy.getWeblink();
         openingHours = restaurantToCopy.getOpeningHours();
-        reviews = new HashSet<>(restaurantToCopy.getReviews());
+        reviews = new ArrayList<>(restaurantToCopy.getReviews());
         cuisine = restaurantToCopy.getCuisine().isPresent() ? restaurantToCopy.getCuisine().get() : null;
     }
 
@@ -87,7 +88,7 @@ public class RestaurantBuilder {
      * Parses the {@code reviews} into a {@code Set<Review>} and set it to the {@code Restaurant} that we are building.
      */
     public RestaurantBuilder withReviews(String ... reviews) {
-        this.reviews = SampleDataUtil.getReviewSet(reviews);
+        this.reviews = SampleDataUtil.getReviewList(reviews);
         return this;
     }
 

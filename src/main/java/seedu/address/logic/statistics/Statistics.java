@@ -25,6 +25,21 @@ public abstract class Statistics {
         this.movesLeft = 10; // magic number for now
     }
 
+    public int addHit() {
+        int hit = this.hitCount;
+        return hit++;
+    }
+
+    public int addMiss(){
+        int miss = this.missCount;
+        return miss++;
+    }
+
+    public int minusMove(){
+        int moves = this.movesLeft;
+        return moves--;
+    }
+
     public int getMovesLeft() {
         return this.movesLeft;
     }

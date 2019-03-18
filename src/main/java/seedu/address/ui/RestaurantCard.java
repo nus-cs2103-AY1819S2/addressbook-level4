@@ -42,6 +42,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private Label cuisine;
     @FXML
+    private Label occasion;
+    @FXML
     private Label weblink;
     @FXML
     private Label openingHours;
@@ -58,7 +60,11 @@ public class RestaurantCard extends UiPart<Region> {
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        restaurant.getCuisine().ifPresentOrElse(content -> cuisine.setText(content.value), () -> cuisine.setText(""));
+        restaurant.getCuisine()
+                .ifPresentOrElse(content -> cuisine.setText(content.value), () -> cuisine.setVisible(false));
+        restaurant.getOccasion()
+                .ifPresentOrElse(content -> occasion.setText(content.value), () -> occasion.setVisible(false));
+
         weblink.setText(restaurant.getWeblink().value);
         openingHours.setText(restaurant.getOpeningHours().value);
         restaurant.getReviews().forEach(review -> reviews.getChildren().addAll(

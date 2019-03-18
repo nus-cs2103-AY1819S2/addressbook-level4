@@ -9,13 +9,16 @@ import java.util.List;
 public class VersionedAddressBook extends AddressBook {
 
     private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<Integer> filterStateList;
     private int currentStatePointer;
 
     public VersionedAddressBook(ReadOnlyAddressBook initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
+        filterStateList  = new ArrayList<>();
         addressBookStateList.add(new AddressBook(initialState));
+        filterStateList.add(0);
         currentStatePointer = 0;
     }
 
@@ -25,18 +28,17 @@ public class VersionedAddressBook extends AddressBook {
      */
     public void commit() {
 
-        boolean filteredInfo = AddressBook.filterExist;
-
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new AddressBook(this));
+        if(AddressBook.filterExist) filterStateList.add(1);
+        else filterStateList.add(0);
         currentStatePointer++;
         indicateModified();
-
-        AddressBook.filterExist = filteredInfo;
     }
 
     private void removeStatesAfterCurrentPointer() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        filterStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
 
     /**
@@ -50,7 +52,12 @@ public class VersionedAddressBook extends AddressBook {
 
         currentStatePointer--;
         resetData(addressBookStateList.get(currentStatePointer));
-        restoreStorageAddressBook();
+        if(filterStateList.get(currentStatePointer) == 0) AddressBook.filterExist = false;
+        else AddressBook.filterExist = true;
+
+//        String temp = "FALSE";
+//        if(AddressBook.filterExist) temp = "TRUE";
+//        System.out.println("Undo --- All: " + this.getAllPersonsStorageList().size() + " - Persons: " + this.getPersonList().size() + " - Filter: "  + temp);
     }
 
     /**
@@ -63,6 +70,9 @@ public class VersionedAddressBook extends AddressBook {
         }
         currentStatePointer++;
         resetData(addressBookStateList.get(currentStatePointer));
+        if(filterStateList.get(currentStatePointer) == 0) AddressBook.filterExist = false;
+        else  AddressBook.filterExist = true;
+        else  AddressBook.filterExist = true;
     }
 
     /**

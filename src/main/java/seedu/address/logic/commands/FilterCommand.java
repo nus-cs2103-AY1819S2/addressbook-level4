@@ -98,10 +98,10 @@ public class FilterCommand extends Command{
 
         try {
             ProcessCommand(model);
-            model.commitAddressBook();
 
             if(isFilterCleared) {
                 isFilterCleared = false;
+                model.commitAddressBook();
                 return new CommandResult(MESSAGE_CLEAR_FILTER_PERSON_SUCCESS);
             }
 
@@ -110,6 +110,7 @@ public class FilterCommand extends Command{
             }
 
             else {
+                model.commitAddressBook();
                 return new CommandResult(MESSAGE_FILTER_PERSON_SUCCESS);
             }
         }

@@ -56,9 +56,9 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        else if(AddressBook.filterExist) {
-            return new CommandResult("Filtering is active right now. Please clear the filter before adding a new person.");
-        }
+//        else if(AddressBook.filterExist) {
+//            return new CommandResult("Filtering is active right now. Please clear the filter before adding a new person.");
+//        }
 
         model.addPerson(toAdd);
         model.commitAddressBook();

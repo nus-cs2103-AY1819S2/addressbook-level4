@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 
 public class MenuItemFlowPanel extends UiPart<Region> {
 
-    private static final String FXML = "TableFlowPanel.fxml";
+    private static final String FXML = "MenuItemFlowPanel.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(TableFlowPanel.class);
+    private final Logger logger = LogsCenter.getLogger(MenuItemFlowPanel.class);
 
     @FXML
     private FlowPane menuItemFlowPane;

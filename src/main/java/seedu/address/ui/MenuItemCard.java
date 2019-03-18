@@ -9,9 +9,9 @@ import seedu.address.model.menu.MenuItem;
 /**
  * An UI component that displays information of a {@code MenuItem}.
  */
-public class MenuItemListCard extends UiPart<Region> {
+public class MenuItemCard extends UiPart<Region> {
 
-    private static final String FXML = "MenuItemListCard.fxml";
+    private static final String FXML = "MenuItemCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class MenuItemListCard extends UiPart<Region> {
     public final MenuItem item;
 
     @FXML
-    private HBox menuItemListCardPane;
+    private HBox menuItemCardPane;
     @FXML
     private Label name;
     @FXML
@@ -34,7 +34,7 @@ public class MenuItemListCard extends UiPart<Region> {
     @FXML
     private Label price;
 
-    public MenuItemListCard(MenuItem item, int displayedIndex) {
+    public MenuItemCard(MenuItem item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
@@ -43,16 +43,16 @@ public class MenuItemListCard extends UiPart<Region> {
         code.setText(item.getCode().itemCode);
         price.setText(item.getPrice().itemPrice);
     }
-    
-    public MenuItemListCard(MenuItem item) {
+
+    public MenuItemCard(MenuItem item) {
         super(FXML);
         this.item = item;
-        
+
         name.setText(item.getName().itemName);
-        code.setText(item.getCode().itemCode);
-        price.setText(item.getPrice().itemPrice);
+        code.setText("Code: " + item.getCode().itemCode);
+        price.setText("Price: " + item.getPrice().itemPrice);
     }
-    
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -61,12 +61,12 @@ public class MenuItemListCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MenuItemListCard)) {
+        if (!(other instanceof MenuItemCard)) {
             return false;
         }
 
         // state check
-        MenuItemListCard card = (MenuItemListCard) other;
+        MenuItemCard card = (MenuItemCard) other;
         return id.getText().equals(card.id.getText()) && item.equals(card.item);
     }
 }

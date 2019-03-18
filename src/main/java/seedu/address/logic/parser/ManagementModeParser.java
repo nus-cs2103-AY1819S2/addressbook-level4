@@ -5,16 +5,19 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
+import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class ManagementModeParser implements Parser {
+public class ManagementModeParser implements Parser<Command> {
     /**
      * Used for initial separation of command word and args.
      */
@@ -34,7 +37,8 @@ public class ManagementModeParser implements Parser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        //        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         //        case FindCommand.COMMAND_WORD:
@@ -51,6 +55,15 @@ public class ManagementModeParser implements Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddLessonCommand.COMMAND_WORD:
+            return new AddLessonParser().parse(arguments);
+
+        case DeleteLessonCommand.COMMAND_WORD:
+            return new DeleteLessonParser().parse(arguments);
+
+        case ListLessonsCommand.COMMAND_WORD:
+            return new ListLessonsCommand();
 
         //        case UndoCommand.COMMAND_WORD:
         //            return new UndoCommand();

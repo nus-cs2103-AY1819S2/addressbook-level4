@@ -57,7 +57,6 @@ public class LogicManager implements Logic {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
                 commandResult = quizStartCommand.executeActual(quizModel, history);
             }
-
         } finally {
             history.add(commandText);
         }

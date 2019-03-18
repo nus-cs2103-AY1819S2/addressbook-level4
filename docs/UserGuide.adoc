@@ -77,15 +77,54 @@ Examples:
 
 * `start n/02-03-LEARN c/15 m/LEARN`
 
+==== Listing all lessons: `listLessons`
+
+Shows a numbered list of all lessons. +
+Format: `listLessons`
+
+==== Adding a lesson: `addLesson`
+Adds a lesson. +
+Format: `addLesson n/NAME c/CORE... [o/OPTIONAL]...`
+
+Usage rules:
+
+* The lesson to be added must contain at least 2 `CORE` parameters. These parameters are `CORE` headers which define the lesson cards' `CORE` values. An example of a `CORE` header and a card's `CORE` value would be 'Country' and 'Japan' respectively.
+
+[TIP]
+The lesson can have any number of `OPTIONAL` headers (including 0).
+
+The `OPTIONAL` headers are optional. The values of these headers are displayed during quiz mode when you enter <<hint, `\hint`>>.
+
+Examples:
+
+* `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`
+* `addLesson n/Country Capitals c/Country c/Capital o/First letter of capital`
+
+
+==== Deleting a lesson: `deleteLesson`
+
+Deletes a lesson. +
+Format: `deleteLesson INDEX`
+
+Usage rules:
+
+* Deletes the lesson at the specified `INDEX`.
+* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+
+Examples:
+
+* `deleteLesson 2` +
+Deletes the 2nd lesson in the numbered list displayed by `listLessons`.
+
 [[list_cards]]
-==== Listing all flashcards: `list cards`
+==== Listing all flashcards: `listCards`
 
 Shows a numbered list of all flashcards. +
-Format: `list cards`
+Format: `listCards`
 
-==== Adding a flashcard: `add card`
+==== Adding a flashcard: `addCard`
 Adds a flashcard. +
-Format: `add card q/QUESTION a/ANSWER [h/HINT]`
+Format: `addCard q/QUESTION a/ANSWER [h/HINT]`
 
 Usage rules:
 
@@ -93,49 +132,49 @@ Usage rules:
 
 Examples:
 
-* `add card q/What is the capital of Belgium? a/Brussels`
-* `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.`
+* `addCard q/What is the capital of Belgium? a/Brussels`
+* `addCard q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.`
 
-==== Editing a flashcard : `edit card`
+==== Editing a flashcard : `editCard`
 
 Edits an existing flashcard. +
-Format: `edit card INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
+Format: `editCard INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 
 Usage rules:
 
-* Edits the flashcard at the specified `INDEX`. To find the `INDEX` number of a question, type <<list_cards, `list cards`>> to list all flashcards.
+* Edits the flashcard at the specified `INDEX`. To find the `INDEX` number of a question, type `listCards` to list all flashcards.
 * All fields are optional, but minimally one field must be specified.
 * The flashcard's hint can be removed by typing `h/`.
 
 Examples:
 
-* `card edit 1 a/Tokyo` +
+* `editCard 1 a/Tokyo` +
 Changes the answer of the first flashcard to `Tokyo`. All other fields such as the question remain the same.
-* `card edit 12 q/How many intercostal spaces are there? h/` +
+* `editCard 12 q/How many intercostal spaces are there? h/` +
 Changes the question of the 12th flashcard to 'How many intercostal spaces are there?' and removes the flashcard's hint.
 
-==== Deleting a flashcard: `delete card`
+==== Deleting a flashcard: `deleteCard`
 
 Deletes a flashcard in the question pool. +
-Format: `delete card INDEX`
+Format: `deleteCard INDEX`
 
 Usage rules:
 
 * Deletes the flashcard at the specified `INDEX`.
-* To find the `INDEX` number of a question, type `list cards` to list all flashcards in the question pool.
+* To find the `INDEX` number of a question, type `listCards` to list all flashcards in the question pool.
 
 Examples:
 
-* `delete card 2` +
+* `deleteCard 2` +
 Deletes the 2nd flashcard.
 
-==== Importing user profile : `import user`
+==== Importing user profile : `importUser`
 Imports the selected `.csv` file and loads the current progress of the user. +
-Format: `import user FILEPATH`
+Format: `importUser FILEPATH`
 
-==== Exporting user profile : `export user`
+==== Exporting user profile : `exportUser`
 Exports the current progress of the user into a `.csv` file. +
-Format: `export user FILEPATH`
+Format: `exportUser FILEPATH`
 
 ==== Listing entered commands : `history`
 

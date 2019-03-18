@@ -202,12 +202,17 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Inventory data.
+* exposes an unmodifiable `ObservableList<Medicine>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+Given below an object diagram to better illustrate how a medicine is stored in the `Model` component.
+
+.An example of how the medicine "Paracetamol" could be represented by the `Medicine` class.
+image::ModelMedicineObjectDiagram.png[width="800"]
+
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Inventory`, which `Medicine` can reference. This would allow `Inventory` to only require one `Tag` object per unique `Tag`, instead of each `Medicine` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -232,6 +237,46 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section provides you with some description of how certain key features of our product are being implemented.
+
+// tag::batchtable[]
+=== Batch table feature
+==== Current Implementation
+
+The batch table is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine.
+It implements the following operations:
+
+* `InformationPanel#showSelectedInformation(Medicine medicine)` -- Creates and displays a `BatchTable` that contains information of the selected medicine and its batches.
+* `InformationPanel#emptyInformationPanel()` -- Deletes the `BatchTable` being displayed (if any) to show an empty pane.
+
+These operations are hidden and are only triggered when the value of the selected medicine changes.
+The `InformationPanel` is initialized with the selected medicine as an `ObservableValue`, and a `ChangeListener` is added to it.
+`ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` is called whenever the value of the selected medicine changes.
+Given below is a diagram showing the execution of `InformationPanel` when a change occurs:
+
+image::BatchTableSequenceDiagram.png[width="800"]
+
+Given below is an example usage scenario and how the batch table behaves at each step.
+
+Step 1. The user launches the application for the first time. An empty `InformationPanel` is displayed.
+
+Step 2. The user executes `select 1` command to select the 1st medicine in the inventory. Since the new value is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called.
+
+[NOTE]
+An `update` command will also cause `ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` to be called as although the same medicine is still selected, the medicine is replaced in the `Inventory` with updated fields.
+
+Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects the selected medicine and the new value is null. Only `InformationPanel#emptyInformationPanel()` is called.
+
+==== Design Considerations
+
+===== Aspect: How the batch table executes
+
+* **Alternative 1 (current choice):** Creates a new `BatchTable` every time a new medicine is selected.
+** Pros: Information can be taken from `Model` component during initialization so no extra memory is needed to store table information.
+** Cons: May have performance issues in terms of time needed to retrieve the information and build the table, especially if number of batches becomes huge.
+* **Alternative 2:** Save created `BatchTables` as a field in `Medicine`.
+** Pros: Save time needed for creating the `BatchTable` for faster response time.
+** Cons: More memory needed to store `BatchTable`.
+// end::batchtable[]
 
 // tag::exportcommand[]
 === Exporting as CSV file format feature via Export Command
@@ -303,54 +348,54 @@ More information on `Opencsv` library's `StatefulBeanToCsvBuilder` operation can
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedInventory`.
+It extends `Inventory` with an undo/redo history, stored internally as an `inventoryStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedInventory#commit()` -- Saves the current inventory state in its history.
+* `VersionedInventory#undo()` -- Restores the previous inventory state from its history.
+* `VersionedInventory#redo()` -- Restores a previously undone inventory state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitInventory()`, `Model#undoInventory()` and `Model#redoInventory()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedInventory` will be initialized with the initial inventory state, and the `currentStatePointer` pointing to that single inventory state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th medicine in the inventory. The `delete` command calls `Model#commitInventory()`, causing the modified state of the inventory after the `delete 5` command executes to be saved in the `inventoryStateList`, and the `currentStatePointer` is shifted to the newly inserted inventory state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/Paracetamol ...` to add a new medicine. The `add` command also calls `Model#commitInventory()`, causing another modified inventory state to be saved into the `inventoryStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitInventory()`, so the inventory state will not be saved into the `inventoryStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the medicine was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoInventory()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous inventory state, and restores the inventory to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial inventory state, then there are no previous inventory states to restore. The `undo` command uses `Model#canUndoInventory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoInventory()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the inventory to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `inventoryStateList.size() - 1`, pointing to the latest inventory state, then there are no undone inventory states to restore. The `redo` command uses `Model#canRedoInventory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the inventory, such as `list`, will usually not call `Model#commitInventory()`, `Model#undoInventory()` or `Model#redoInventory()`. Thus, the `inventoryStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitInventory()`. Since the `currentStatePointer` is not pointing at the end of the `inventoryStateList`, all inventory states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Paracetamol ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -362,18 +407,18 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire inventory.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the medicine being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of inventory states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedInventory`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -949,7 +994,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `MediTab` and the *Actor* is the `pharmacist`, unless specified otherwise)
+(For all use cases below, the *System* is the `MediTabs` and the *Actor* is the `pharmacist`, unless specified otherwise)
 
 [discrete]
 === Use Case 1: View Complete Inventory
@@ -964,25 +1009,65 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Pharmacist used a `filter` function, filtered inventory is shown.
+* 1a. Pharmacist used `find` function, filtered inventory is shown.
 +
 [none]
-** 1a1. Pharmacist requests for complete inventory to be listed.
+** 1a1. Pharmacist requests for complete inventory to be listed using `list` command.
 ** 1a2. System displays complete inventory.
 +
 Use case resume at step 2.
 
 
 [discrete]
-=== Use Case 2: Update Inventory in Batches Medicine
+=== Use Case 2: Update Batch Details of a Medicine in Inventory
 
 *MSS*
 
-1.  Pharmacist notes the index of the selected medicine in the list.
-2.  Pharmacist request to add new batch to medicine using the index.
-3.  System requests details of the new batch of medicine
-4.  Pharmacist enters the required details
-5.  System displays updated details
+1.  Pharmacist notes the index of the medicine to be updated in the list.
+2.  Pharmacist request to update details of a batch of medicine using the index and the `update` command.
+3.  System displays updated details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Medicine is new and has not been added to the inventory.
++
+[none]
+** 1a1. Pharmacist uses the `add` function to add a new entry to list.
+** 1a2. Pharmacist notes the index of the new medicine listing from the search result.
++
+Use case resume at step 2.
+
+[none]
+* 1b. Pharmacist cannot remember batch number of batch to be updated.
++
+[none]
+** 1b1. Pharmacist uses `select` command to select the medicine to be updated.
+** 1b2. System displays the batch table with information of all batches of the selected medicine.
+** 1b3. Pharmacist refers to the batch table while inputting batch details.
++
+Use case resume at step 2.
+
+[none]
+* 2a. Pharmacist did not enter expiry date and batch does not already exist.
++
+[none]
+** 2a1. An error message is shown.
+** 2a2. System requests expiry date be entered for new batches.
+** 2a3. Pharmacist repeats request with the required input.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use Case 3: Delete Medicine from Inventory
+
+*MSS*
+
+1.  Pharmacist notes the index of the medicine to be deleted in the list.
+2.  Pharmacist request to delete a medicine listing using the index and the `delete` command.
+3.  System displays updated list.
 +
 Use case ends.
 
@@ -992,43 +1077,9 @@ Use case ends.
 * 1a. Pharmacist cannot find the medicine listing manually from the list.
 +
 [none]
-** 1a1. Pharmacist uses the `search` function to look for medicine listing.
+** 1a1. Pharmacist uses the `find` function to look for medicine listing.
 ** 1a2. System list the search results.
 ** 1a3. Pharmacist notes the index of the medicine listing from the search result.
-+
-Use case resume at step 2.
-
-[none]
-* 1b. Medicine is new and has not been added to the inventory.
-+
-[none]
-** 1b1. Pharmacist uses the `add` function to add a new entry to list.
-** 1b2. Pharmacist enters details of the medicine to add.
-** 1b3. Pharmacist notes the index of the medicine listing from the search result.
-+
-Use case resume at step 2.
-
-
-[discrete]
-=== Use Case 3: Delete Medicine from Inventory
-
-*MSS*
-
-1.  Pharmacist uses the `delete` function to remove a listing from the inventory.
-2.  System displays updated list.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Selected entry is not empty. Deletion is illegal.
-+
-[none]
-** 1a1.  System displays error message.
-** 1a2.  Pharmacist uses the `edit` function to decrease quantity of medicine to zero.
-** 1a3.  System displays updated quantity.
-** 1a4.  Repeat step 1.
 +
 Use case resume at step 2.
 

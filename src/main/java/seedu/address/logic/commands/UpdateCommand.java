@@ -135,7 +135,7 @@ public class UpdateCommand extends Command {
 
     Quantity getNewMedicineQuantity(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
             CommandException {
-        int quantity = medicineToUpdate.getQuantity().getNumericValue();
+        int quantity = medicineToUpdate.getTotalQuantity().getNumericValue();
 
         if (batchToUpdate != null) {
             quantity -= batchToUpdate.getQuantity().getNumericValue();
@@ -154,7 +154,7 @@ public class UpdateCommand extends Command {
             return new Expiry("-");
         }
 
-        Expiry currentExpiry = medicineToUpdate.getExpiry();
+        Expiry currentExpiry = medicineToUpdate.getNextExpiry();
 
         if (updatedBatch.getExpiry().equals(currentExpiry) && !updatedBatch.hasNonZeroQuantity()) {
             return updatedBatches.values().stream().min(Comparator.comparing(Batch::getExpiry)).get().getExpiry();

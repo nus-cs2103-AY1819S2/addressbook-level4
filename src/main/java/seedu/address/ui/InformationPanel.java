@@ -24,10 +24,10 @@ public class InformationPanel extends UiPart<Region> {
         super(FXML);
 
         // Load medicine information page when selected medicine changes.
-        selectedMedicine.addListener((observable, oldValue, newValue) -> {
+        selectedMedicine.addListener((observable, oldSelectMedicine, newSelectedMedicine) -> {
             emptyInformationPanel();
-            if (newValue != null) {
-                showSelectedInformation(newValue);
+            if (newSelectedMedicine != null) {
+                showSelectedInformation(newSelectedMedicine);
             }
         });
     }

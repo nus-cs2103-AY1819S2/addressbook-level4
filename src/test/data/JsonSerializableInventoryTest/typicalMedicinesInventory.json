@@ -2,8 +2,8 @@
   "_comment": "Inventory save file which contains the same Medicine values as in TypicalMedicines#getTypicalInventory()",
   "medicines" : [ {
     "name" : "Paracetamol",
-    "quantity" : "312",
-    "expiry" : "31/12/2019",
+    "totalQuantity" : "312",
+    "nextExpiry" : "31/12/2019",
     "company" : "GlaxoSmithKline",
     "tagged" : [ "fever" ],
     "batches" : [ {
@@ -13,8 +13,8 @@
     } ]
   }, {
     "name" : "Ibuprofen",
-    "quantity" : "432",
-    "expiry" : "21/09/2019",
+    "totalQuantity" : "432",
+    "nextExpiry" : "21/09/2019",
     "company" : "Novartis",
     "tagged" : [ "owesMoney", "fever" ],
     "batches" : [ {
@@ -24,15 +24,15 @@
     } ]
   }, {
     "name" : "Acetaminophen",
-    "quantity" : "0",
-    "expiry" : "-",
+    "totalQuantity" : "0",
+    "nextExpiry" : "-",
     "company" : "Pfizer",
     "tagged" : [ ],
     "batches" : [ ]
   }, {
     "name" : "Levothyroxine Sodium",
-    "quantity" : "533",
-    "expiry" : "13/08/2019",
+    "totalQuantity" : "533",
+    "nextExpiry" : "13/08/2019",
     "company" : "3M Pharmaceuticals",
     "tagged" : [ "fever" ],
     "batches" : [ {
@@ -47,8 +47,8 @@
       } ]
   }, {
     "name" : "Lisinopril",
-    "quantity" : "94",
-    "expiry" : "06/07/2019",
+    "totalQuantity" : "94",
+    "nextExpiry" : "06/07/2019",
     "company" : "Takeda Pharmaceutical Co.",
     "tagged" : [ ],
     "batches" : [ {
@@ -58,8 +58,8 @@
     } ]
   }, {
     "name" : "Prednisone",
-    "quantity" : "427",
-    "expiry" : "19/11/2019",
+    "totalQuantity" : "427",
+    "nextExpiry" : "19/11/2019",
     "company" : "Gilead Sciences",
     "tagged" : [ ],
     "batches" : [ {
@@ -69,14 +69,14 @@
     } ]
   }, {
     "name" : "Lipitor",
-    "quantity" : "82",
-    "expiry" : "25/01/2020",
+    "totalQuantity" : "82",
+    "nextExpiry" : "25/01/2020",
     "company" : "Johnson & Johnson",
     "tagged" : [ ],
     "batches" : [ {
-    "batchNumber" : "NDC 0777-3105-02",
-    "expiry" : "25/01/2020",
-    "quantity" : "82"
+      "batchNumber" : "NDC 0777-3105-02",
+      "expiry" : "25/01/2020",
+      "quantity" : "82"
     } ]
   } ]
 }

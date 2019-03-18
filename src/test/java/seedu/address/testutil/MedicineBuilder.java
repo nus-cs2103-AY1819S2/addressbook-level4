@@ -46,8 +46,8 @@ public class MedicineBuilder {
      */
     public MedicineBuilder(Medicine medicineToCopy) {
         name = medicineToCopy.getName();
-        quantity = medicineToCopy.getQuantity();
-        expiry = medicineToCopy.getExpiry();
+        quantity = medicineToCopy.getTotalQuantity();
+        expiry = medicineToCopy.getNextExpiry();
         company = medicineToCopy.getCompany();
         tags = new HashSet<>(medicineToCopy.getTags());
         batches = new HashMap<>(medicineToCopy.getBatches());
@@ -140,8 +140,8 @@ public class MedicineBuilder {
      *  Sets {@code medicineToCopy}'s uneditable fields to the {@code Medicine} that we are building.
      */
     public MedicineBuilder withUneditableFields(Medicine medicineToCopy) {
-        this.quantity = medicineToCopy.getQuantity();
-        this.expiry = medicineToCopy.getExpiry();
+        this.quantity = medicineToCopy.getTotalQuantity();
+        this.expiry = medicineToCopy.getNextExpiry();
         this.batches = medicineToCopy.getBatches();
         return this;
     }

@@ -183,6 +183,7 @@ Format: `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]`
 * If batch number already exists, the quantity or expiry date of the batch is updated.
 * If batch number does not exist, a new batch record is created.
 * If quantity of batch is updated to `0`, it will be removed.
+* If `e/EXPIRY_DATE` is not inputted, batch must already exist in the records and existing expiry date is maintained.
 * The total quantity and closest expiry date of the medicine will also be updated.
 * The index refers to the index number shown in the displayed medicine list.
 * The index *must be a positive integer* `1, 2, 3, ...`
@@ -373,8 +374,6 @@ e.g. `label 1 Paracetamol`
 * *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Sort* : `sort c/CRITERIA o/ORDER` +
-e.g.`sort c/quantity o/ascending`
 * *Undo* : `undo`
 * *Update* : `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]` +
 e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`

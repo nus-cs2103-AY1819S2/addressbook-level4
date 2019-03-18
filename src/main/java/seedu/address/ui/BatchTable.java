@@ -57,8 +57,8 @@ public class BatchTable extends UiPart<Region> {
 
         name.setText(selectedMedicine.getName().toString());
         company.setText(selectedMedicine.getCompany().toString());
-        quantity.setText(BATCHTABLE_FOOTER_QUANTITY + selectedMedicine.getQuantity().toString());
-        expiry.setText(BATCHTABLE_FOOTER_EXPIRY + selectedMedicine.getExpiry().toString());
+        quantity.setText(BATCHTABLE_FOOTER_QUANTITY + selectedMedicine.getTotalQuantity().toString());
+        expiry.setText(BATCHTABLE_FOOTER_EXPIRY + selectedMedicine.getNextExpiry().toString());
         addBatchDetails(selectedMedicine);
     }
 
@@ -66,8 +66,7 @@ public class BatchTable extends UiPart<Region> {
      * Gets batch details from medicine and add them to the table.
      */
     private void addBatchDetails(Medicine medicine) {
-        ObservableList<Batch> batches = FXCollections.observableArrayList();
-        batches.addAll(medicine.getBatches().values());
+        ObservableList<Batch> batches = FXCollections.observableArrayList(medicine.getBatches().values());
         tablePane.setItems(batches);
     }
 

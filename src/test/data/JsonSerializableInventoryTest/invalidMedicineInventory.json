@@ -1,8 +1,8 @@
 {
   "medicines": [ {
     "name": "Adalimumab",
-    "quantity": "948",
-    "expiry": "invalid/expiry!3e",
+    "totalQuantity": "948",
+    "nextExpiry": "invalid/expiry!3e",
     "company": "Johnson & Johnson",
     "batches" : [ {
       "batchNumber" : "361623",

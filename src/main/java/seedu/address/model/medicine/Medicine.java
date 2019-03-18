@@ -23,8 +23,8 @@ public class Medicine {
     private final Company company;
 
     // Data fields
-    private final Quantity quantity;
-    private final Expiry expiry;
+    private final Quantity totalQuantity;
+    private final Expiry nextExpiry;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<BatchNumber, Batch> batches = new HashMap<>();
 
@@ -35,8 +35,8 @@ public class Medicine {
             Map<BatchNumber, Batch> batches) {
         requireAllNonNull(name, quantity, expiry, company, tags);
         this.name = name;
-        this.quantity = quantity;
-        this.expiry = expiry;
+        this.totalQuantity = quantity;
+        this.nextExpiry = expiry;
         this.company = company;
         this.tags.addAll(tags);
         this.batches.putAll(batches);
@@ -46,12 +46,12 @@ public class Medicine {
         return name;
     }
 
-    public Quantity getQuantity() {
-        return quantity;
+    public Quantity getTotalQuantity() {
+        return totalQuantity;
     }
 
-    public Expiry getExpiry() {
-        return expiry;
+    public Expiry getNextExpiry() {
+        return nextExpiry;
     }
 
     public Company getCompany() {
@@ -100,9 +100,9 @@ public class Medicine {
         String[] result;
         builder.append(getName())
                 .append(delimiter)
-                .append(getQuantity())
+                .append(getTotalQuantity())
                 .append(delimiter)
-                .append(getExpiry())
+                .append(getNextExpiry())
                 .append(delimiter)
                 .append(getCompany())
                 .append(delimiter);
@@ -133,8 +133,8 @@ public class Medicine {
 
         Medicine otherMedicine = (Medicine) other;
         return otherMedicine.getName().equals(getName())
-                && otherMedicine.getQuantity().equals(getQuantity())
-                && otherMedicine.getExpiry().equals(getExpiry())
+                && otherMedicine.getTotalQuantity().equals(getTotalQuantity())
+                && otherMedicine.getNextExpiry().equals(getNextExpiry())
                 && otherMedicine.getCompany().equals(getCompany())
                 && otherMedicine.getTags().equals(getTags())
                 && otherMedicine.getBatches().equals(getBatches());
@@ -143,7 +143,7 @@ public class Medicine {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, quantity, expiry, company, tags, batches);
+        return Objects.hash(name, totalQuantity, nextExpiry, company, tags, batches);
     }
 
     @Override
@@ -151,9 +151,9 @@ public class Medicine {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Quantity: ")
-                .append(getQuantity())
+                .append(getTotalQuantity())
                 .append(" Expiry: ")
-                .append(getExpiry())
+                .append(getNextExpiry())
                 .append(" Company: ")
                 .append(getCompany())
                 .append(" Tags: ");

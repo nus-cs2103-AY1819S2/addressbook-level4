@@ -43,6 +43,14 @@ public class Activity {
         return dateTime;
     }
 
+    public ActivityLocation getLocation() {
+        return location;
+    }
+
+    public ActivityDescription getDescription() {
+        return description;
+    }
+
     public Person getInCharge() {
         return inCharge;
     }
@@ -90,6 +98,8 @@ public class Activity {
         Activity otherActivity = (Activity) other;
         return otherActivity.getName().equals(getName())
                 && otherActivity.getDateTime().equals(getDateTime())
+                && otherActivity.getLocation().equals(getLocation())
+                && otherActivity.getDescription().equals(getDescription())
                 && otherActivity.getInCharge().equals(getInCharge())
                 && otherActivity.getAttendance().equals(getAttendance());
     }
@@ -104,8 +114,12 @@ public class Activity {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
+                .append(" Date Time: ")
                 .append(getDateTime())
+                .append(" Location: ")
+                .append(getLocation())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" In Charge: ")
                 .append(getInCharge())
                 .append(" Number Attending: ")

@@ -44,13 +44,13 @@ public class BillBrowserPanel extends UiPart<Region> {
         receipt.setText(bill.getReceipt());
         receipt.appendText(bill.getReceipt());
 
-        //        receiptView.setCellFactory(listView -> new BillBrowserPanel.BillCell());
-        //        receiptView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        //            logger.fine("Selection in list panel changed to : '" + newValue + "'");
-        //            onSelectedBillChange.accept(newValue);
-        //        });
-        //        selectedBill.addListener(((observable, oldValue, newValue) -> {
-        //            logger.fine("Selected item changed to: " + newValue);
+        //receiptView.setCellFactory(listView -> new BillBrowserPanel.BillCell());
+        //receiptView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        //    logger.fine("Selection in list panel changed to : '" + newValue + "'");
+        //    onSelectedBillChange.accept(newValue);
+        //});
+        //selectedBill.addListener(((observable, oldValue, newValue) -> {
+        //    logger.fine("Selected item changed to: " + newValue);
         //
         //            // Don't modify selection if we are already selecting the selected item,
         //            // otherwise we would have an infinite loop.

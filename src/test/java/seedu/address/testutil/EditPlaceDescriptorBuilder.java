@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.address.model.place.Address;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Place;
@@ -33,6 +34,7 @@ public class EditPlaceDescriptorBuilder {
     public EditPlaceDescriptorBuilder(Place place) {
         descriptor = new EditPlaceDescriptor();
         descriptor.setName(place.getName());
+        descriptor.setCountryCode(place.getCountryCode());
         descriptor.setRating(place.getRating());
         descriptor.setDescription(place.getDescription());
         descriptor.setAddress(place.getAddress());
@@ -44,6 +46,14 @@ public class EditPlaceDescriptorBuilder {
      */
     public EditPlaceDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code CountryCode} of the {@code EditPlaceDescriptor} that we are building.
+     */
+    public EditPlaceDescriptorBuilder withCountryCode(String countryCode) {
+        descriptor.setCountryCode(new CountryCode(countryCode));
         return this;
     }
 

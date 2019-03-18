@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
@@ -30,6 +31,11 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BEDOK = "Bedok MRT";
     public static final String VALID_NAME_CLEMENTI = "Clementi MRT";
     public static final String VALID_NAME_DG = "Dhoby Ghaut MRT";
+    public static final String VALID_COUNTRY_CODE_AMK = "SGP";
+    public static final String VALID_COUNTRY_CODE_BEDOK = "SGP";
+    public static final String VALID_COUNTRY_CODE_CLEMENTI = "SGP";
+    public static final String VALID_COUNTRY_CODE_DG = "SGP";
+    public static final String VALID_COUNTRY_CODE_AMERICA = "USA";
     public static final String VALID_RATING_AMK = "5";
     public static final String VALID_RATING_BEDOK = "3";
     public static final String VALID_RATING_CLEMENTI = "4";
@@ -49,6 +55,10 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BEDOK = " " + PREFIX_NAME + VALID_NAME_BEDOK;
     public static final String NAME_DESC_CLEMENTI = " " + PREFIX_NAME + VALID_NAME_CLEMENTI;
     public static final String NAME_DESC_DG = " " + PREFIX_NAME + VALID_NAME_DG;
+    public static final String COUNTRY_CODE_DESC_AMK = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_AMK;
+    public static final String COUNTRY_CODE_DESC_BEDOK = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_BEDOK;
+    public static final String COUNTRY_CODE_DESC_CLEMENTI = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_CLEMENTI;
+    public static final String COUNTRY_CODE_DESC_DG = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_DG;
     public static final String RATING_DESC_AMK = " " + PREFIX_RATING + VALID_RATING_AMK;
     public static final String RATING_DESC_BEDOK = " " + PREFIX_RATING + VALID_RATING_BEDOK;
     public static final String RATING_DESC_CLEMENTI = " " + PREFIX_RATING + VALID_RATING_CLEMENTI;
@@ -65,6 +75,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_EWL = " " + PREFIX_TAG + VALID_TAG_EWL;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_COUNTRY_CODE_DESC = " " + PREFIX_COUNTRY_CODE + "S1P"; // '1' not allowed in
+    // names
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "4a"; // 'a' not allowed in ratings
     public static final String INVALID_DESCRIPTION = " " + PREFIX_DESCRIPTION + ".I love this place";
     // must begin with alphabet
@@ -79,9 +91,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMK = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMK)
+                .withCountryCode(VALID_COUNTRY_CODE_AMK)
                 .withRating(VALID_RATING_AMK).withDescription(VALID_DESCRIPTION_AMK).withAddress(VALID_ADDRESS_AMK)
                 .withTags(VALID_TAG_MRT).build();
         DESC_BEDOK = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK)
+                .withCountryCode(VALID_COUNTRY_CODE_BEDOK)
                 .withRating(VALID_RATING_BEDOK).withDescription(VALID_DESCRIPTION_BEDOK)
                 .withAddress(VALID_ADDRESS_BEDOK).withTags(VALID_TAG_MRT, VALID_TAG_EWL).build();
     }

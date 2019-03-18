@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.place.Address;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Place;
@@ -17,12 +18,14 @@ import seedu.address.model.util.SampleDataUtil;
 public class PlaceBuilder {
 
     public static final String DEFAULT_NAME = "Haw Par Villa";
+    public static final String DEFAULT_COUNTRY_CODE = "SGP";
     public static final String DEFAULT_RATING = "4";
     public static final String DEFAULT_DESCRIPTION = "Unique park using giant statues & dioramas "
             + "to retell historic Chinese legends & religious mythology.";
     public static final String DEFAULT_ADDRESS = "262 Pasir Panjang Rd, Singapore 118628";
 
     private Name name;
+    private CountryCode countryCode;
     private Rating rating;
     private Description description;
     private Address address;
@@ -30,6 +33,7 @@ public class PlaceBuilder {
 
     public PlaceBuilder() {
         name = new Name(DEFAULT_NAME);
+        countryCode = new CountryCode(DEFAULT_COUNTRY_CODE);
         rating = new Rating(DEFAULT_RATING);
         description = new Description(DEFAULT_DESCRIPTION);
         address = new Address(DEFAULT_ADDRESS);
@@ -41,6 +45,7 @@ public class PlaceBuilder {
      */
     public PlaceBuilder(Place placeToCopy) {
         name = placeToCopy.getName();
+        countryCode = placeToCopy.getCountryCode();
         rating = placeToCopy.getRating();
         description = placeToCopy.getDescription();
         address = placeToCopy.getAddress();
@@ -52,6 +57,14 @@ public class PlaceBuilder {
      */
     public PlaceBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Sets the {@code CountryCode} of the {@code Place} that we are building.
+     */
+    public PlaceBuilder withCountryCode(String countryCode) {
+        this.countryCode = new CountryCode(countryCode);
         return this;
     }
 
@@ -88,7 +101,7 @@ public class PlaceBuilder {
     }
 
     public Place build() {
-        return new Place(name, rating, description, address, tags);
+        return new Place(name, countryCode, rating, description, address, tags);
     }
 
 }

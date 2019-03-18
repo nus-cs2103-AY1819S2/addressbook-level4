@@ -67,9 +67,9 @@ public class TagContainsKeywordsPredicateTest {
         predicate = new TagContainsKeywordsPredicate(Arrays.asList("airport"));
         assertFalse(predicate.test(new PlaceBuilder().withTags("school", "temple").build()));
 
-        // Keywords match name, rating, description and address, but does not match tags
+        // Keywords match name, country code, rating, description and address, but does not match tags
         predicate = new TagContainsKeywordsPredicate(Arrays.asList("NUS", "None", "Main", "Street"));
-        assertFalse(predicate.test(new PlaceBuilder().withName("NUS").withRating("4")
+        assertFalse(predicate.test(new PlaceBuilder().withName("NUS").withCountryCode("SGP").withRating("4")
                 .withDescription("None").withAddress("Main Street").withTags("school").build()));
     }
 }

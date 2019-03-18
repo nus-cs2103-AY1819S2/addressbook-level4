@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
@@ -21,6 +22,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.place.Address;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Description;
 import seedu.address.model.place.Name;
 import seedu.address.model.place.Place;
@@ -39,11 +41,13 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_COUNTRY_CODE + "COUNTRY_CODE] "
             + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_COUNTRY_CODE + "SGP "
             + PREFIX_RATING + "4 "
             + PREFIX_DESCRIPTION + "No description";
 
@@ -96,12 +100,14 @@ public class EditCommand extends Command {
         assert placeToEdit != null;
 
         Name updatedName = editPlaceDescriptor.getName().orElse(placeToEdit.getName());
+        CountryCode updatedCountryCode = editPlaceDescriptor.getCountryCode().orElse(placeToEdit.getCountryCode());
         Rating updatedRating = editPlaceDescriptor.getRating().orElse(placeToEdit.getRating());
         Description updatedDescription = editPlaceDescriptor.getDescription().orElse(placeToEdit.getDescription());
         Address updatedAddress = editPlaceDescriptor.getAddress().orElse(placeToEdit.getAddress());
         Set<Tag> updatedTags = editPlaceDescriptor.getTags().orElse(placeToEdit.getTags());
 
-        return new Place(updatedName, updatedRating, updatedDescription, updatedAddress, updatedTags);
+        return new Place(updatedName, updatedCountryCode, updatedRating, updatedDescription, updatedAddress,
+            updatedTags);
     }
 
     @Override
@@ -128,6 +134,7 @@ public class EditCommand extends Command {
      */
     public static class EditPlaceDescriptor {
         private Name name;
+        private CountryCode countryCode;
         private Rating rating;
         private Description description;
         private Address address;
@@ -141,6 +148,7 @@ public class EditCommand extends Command {
          */
         public EditPlaceDescriptor(EditPlaceDescriptor toCopy) {
             setName(toCopy.name);
+            setCountryCode(toCopy.countryCode);
             setRating(toCopy.rating);
             setDescription(toCopy.description);
             setAddress(toCopy.address);
@@ -160,6 +168,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setCountryCode(CountryCode countryCode) {
+            this.countryCode = countryCode;
+        }
+
+        public Optional<CountryCode> getCountryCode() {
+            return Optional.ofNullable(countryCode);
         }
 
         public void setRating(Rating rating) {
@@ -219,6 +235,7 @@ public class EditCommand extends Command {
             EditPlaceDescriptor e = (EditPlaceDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getCountryCode().equals(e.getCountryCode())
                     && getRating().equals(e.getRating())
                     && getDescription().equals(e.getDescription())
                     && getAddress().equals(e.getAddress())

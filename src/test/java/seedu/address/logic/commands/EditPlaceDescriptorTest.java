@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMK;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
@@ -37,6 +38,10 @@ public class EditPlaceDescriptorTest {
 
         // different name -> returns false
         EditPlaceDescriptor editedAmy = new EditPlaceDescriptorBuilder(DESC_AMK).withName(VALID_NAME_BEDOK).build();
+        assertFalse(DESC_AMK.equals(editedAmy));
+
+        // different country code -> returns false
+        editedAmy = new EditPlaceDescriptorBuilder(DESC_AMK).withName(VALID_COUNTRY_CODE_BEDOK).build();
         assertFalse(DESC_AMK.equals(editedAmy));
 
         // different rating -> returns false

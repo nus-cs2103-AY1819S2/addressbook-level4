@@ -16,6 +16,7 @@ import seedu.address.model.place.Place;
 public class PlaceCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
+    private static final String COUNTRY_CODE_FIELD_ID = "#countryCode";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String RATING_FIELD_ID = "#rating";
     private static final String DESCRIPTION_FIELD_ID = "#description";
@@ -23,6 +24,7 @@ public class PlaceCardHandle extends NodeHandle<Node> {
 
     private final Label idLabel;
     private final Label nameLabel;
+    private final Label countryCodeLabel;
     private final Label addressLabel;
     private final Label ratingLabel;
     private final Label descriptionLabel;
@@ -33,6 +35,7 @@ public class PlaceCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
+        countryCodeLabel = getChildNode(COUNTRY_CODE_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         ratingLabel = getChildNode(RATING_FIELD_ID);
         descriptionLabel = getChildNode(DESCRIPTION_FIELD_ID);
@@ -51,6 +54,10 @@ public class PlaceCardHandle extends NodeHandle<Node> {
 
     public String getName() {
         return nameLabel.getText();
+    }
+
+    public String getCountryCode() {
+        return countryCodeLabel.getText();
     }
 
     public String getAddress() {
@@ -87,6 +94,7 @@ public class PlaceCardHandle extends NodeHandle<Node> {
     public boolean equals(Place place) {
         return getName().equals(place.getName().fullName)
                 && getAddress().equals(place.getAddress().value)
+                && getCountryCode().equals(place.getCountryCode().code)
                 && getRating().equals(place.getRating().value)
                 && getDescription().equals(place.getDescription().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(place.getTags().stream()

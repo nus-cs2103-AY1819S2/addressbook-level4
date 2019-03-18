@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvFile;
 
 /**
  * The API of the Model component.
@@ -224,6 +226,10 @@ public interface Model extends Observable {
      * false if otherwise
      */
     boolean checkIfCardAlreadyAnswered();
+
+    void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
+
+    void importCardFolders(CsvFile csvFile);
 
 
 }

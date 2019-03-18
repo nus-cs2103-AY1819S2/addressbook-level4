@@ -65,4 +65,11 @@ public class TableModeCommand extends ChangeModeCommand {
     boolean isSameMode(Mode mode) {
         return mode.equals(Mode.TABLE_MODE);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TableModeCommand && tableNumber
+                .equals(((TableModeCommand) other).tableNumber));
+    }
 }

@@ -9,7 +9,7 @@ import seedu.address.model.menu.MenuItem;
 /**
  * An UI component that displays information of a {@code MenuItem}.
  */
-public class MenuItemCard extends UiPart<Region> {
+public class MenuItemListCard extends UiPart<Region> {
 
     private static final String FXML = "MenuItemListCard.fxml";
 
@@ -24,7 +24,7 @@ public class MenuItemCard extends UiPart<Region> {
     public final MenuItem item;
 
     @FXML
-    private HBox cardPane;
+    private HBox menuItemListCardPane;
     @FXML
     private Label name;
     @FXML
@@ -34,7 +34,7 @@ public class MenuItemCard extends UiPart<Region> {
     @FXML
     private Label price;
 
-    public MenuItemCard(MenuItem item, int displayedIndex) {
+    public MenuItemListCard(MenuItem item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
@@ -43,16 +43,16 @@ public class MenuItemCard extends UiPart<Region> {
         code.setText(item.getCode().itemCode);
         price.setText(item.getPrice().itemPrice);
     }
-
-    public MenuItemCard(MenuItem item) {
+    
+    public MenuItemListCard(MenuItem item) {
         super(FXML);
         this.item = item;
-
+        
         name.setText(item.getName().itemName);
         code.setText(item.getCode().itemCode);
         price.setText(item.getPrice().itemPrice);
     }
-
+    
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -61,12 +61,12 @@ public class MenuItemCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MenuItemCard)) {
+        if (!(other instanceof MenuItemListCard)) {
             return false;
         }
 
         // state check
-        MenuItemCard card = (MenuItemCard) other;
+        MenuItemListCard card = (MenuItemListCard) other;
         return id.getText().equals(card.id.getText()) && item.equals(card.item);
     }
 }

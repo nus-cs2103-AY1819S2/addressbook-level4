@@ -587,6 +587,7 @@ public class ModelManager implements Model {
                 && filteredTableList.equals(other.filteredTableList) && Objects
                 .equals(selectedTable.get(), other.selectedTable.get()) && filteredDailyRevenueList
                 .equals(other.filteredDailyRevenueList)
-                && Objects.equals(selectedDailyRevenue.get(), other.selectedDailyRevenue.get());
+                && Objects.equals(selectedDailyRevenue.get(), other.selectedDailyRevenue.get())
+                && Objects.equals(recentBill.get(), other.recentBill.get());
     }
 }

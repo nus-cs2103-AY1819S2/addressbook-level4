@@ -41,7 +41,7 @@ public class ListLessonsCommand implements Command {
         } else {
             int i = 1;
             for (Lesson lesson : lessons) {
-                builder.append(i + ". " + lesson.toStringSingleLine() + "\n");
+                builder.append(i).append(".\t").append(lesson).append("\n");
                 i++;
             }
         }

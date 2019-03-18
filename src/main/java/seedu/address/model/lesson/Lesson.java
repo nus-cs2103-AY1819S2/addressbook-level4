@@ -405,41 +405,17 @@ public class Lesson {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder().append("Name: [").append(name).append("]\nCores: ");
-        for (String s: coreHeaders) {
-            sb.append("[" + s + "] ");
-        }
-
+        StringBuilder builder = new StringBuilder();
+        builder.append(name)
+                .append(": Cores [").append(String.join(", ", coreHeaders))
+                .append("], Optionals [");
         if (optionalHeaders.size() > 0) {
-            sb.append("\nOptionals: ");
-            for (String s : optionalHeaders) {
-                sb.append("[" + s + "] ");
-            }
+            builder.append(String.join(", ", optionalHeaders));
         }
 
-        return sb.toString();
-    }
+        builder.append("], Cards [").append(getCardCount()).append("]");
 
-    /**
-     * For listing of lessons in CLI
-     * @return the single-line String representation of this lesson
-     */
-    public String toStringSingleLine() {
-        StringBuilder sb = new StringBuilder().append("Lesson: [").append(name).append("], Cores: ");
-        for (String s: coreHeaders) {
-            sb.append("[" + s + "] ");
-        }
-
-        if (optionalHeaders.size() > 0) {
-            sb.append(", Optionals: ");
-            for (String s : optionalHeaders) {
-                sb.append("[" + s + "] ");
-            }
-        }
-
-        sb.append(", Cards: " + getCardCount());
-
-        return sb.toString();
+        return builder.toString();
     }
 
     @Override

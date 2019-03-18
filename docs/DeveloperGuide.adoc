@@ -315,49 +315,49 @@ image::UndoRedoActivityDiagram.png[width="650"]
 image::FilterDiagram.png[width="800"]
 .Sequence Diagram of the Filtering Command
 
-Filtering mechanism is facilitated by 'AddressBook'.
-In the AddressBook class, we have added a new 'UniquePersonsList' parameter called 'allPersonsStorage' and this parameter stores also the persons in the application.
-When the filtering method is used, the 'persons' parameter in the class is updated according to the filtering criterion (the persons that are not matching the conditions are removed)
-but the list in the new parameter 'allPersonsStorage' are not changed. At the end, when the filtering is cleared, the 'persons' parameter is updated with the information in 'allPersonsStorage'.
-If user exits the program when filtering is active, in the 'stop' method of 'MainApp' class, a new method is called that clears the filtering and saves all the persons to the 'JSON' file, rather than filtered contacts.
+Filtering mechanism is facilitated by `AddressBook`.
+In the AddressBook class, we have added a new `UniquePersonsList` parameter called `allPersonsStorage` and this parameter stores also the persons in the application.
+When the filtering method is used, the `persons` parameter in the class is updated according to the filtering criterion (the persons that are not matching the conditions are removed)
+but the list in the new parameter `allPersonsStorage` are not changed. At the end, when the filtering is cleared, the `persons` parameter is updated with the information in `allPersonsStorage`.
+If user exits the program when filtering is active, in the `stop` method of `MainApp` class, a new method is called that clears the filtering and saves all the persons to the `JSON` file, rather than filtered contacts.
 In filtering system, important processes are as follows:
 
-* 'filter or [CRITERION]' -- Filters the persons and includes the ones that has at least one match from the criterion.
+* `filter or [CRITERION]` -- Filters the persons and includes the ones that has at least one match from the criterion.
 
-Every single one of the persons in the 'persons' parameter is traversed.
+Every single one of the persons in the `persons` parameter is traversed.
 There is a flag that returns true for each person, if a criteria matches. For each criteria,
 the persons are investigated with contains method in a case insensitive manner. With case insensitivity,
-if one of the criterion is 'Ale' for the name parameter, every person that contains 'Ale' in their names are
+if one of the criterion is `Ale` for the name parameter, every person that contains `Ale` in their names are
 selected.
 
-* 'filter and [CRITERION]' -- Filters the persons and removes the ones that does not match even one of the criterion.
+* `filter and [CRITERION]` -- Filters the persons and removes the ones that does not match even one of the criterion.
 
-Every single one of the persons in the 'persons' paremeter is traversed.
+Every single one of the persons in the `persons` parameter is traversed.
 There is a flag that returns false for each person, if a criteria does not match. For each criteria,
 the persons are investigated with contains method in a case insensitive manner. With case insensitivity,
-if one of the criterion is 'Ale' for the name parameter, every person that contains 'Ale' in their names are
+if one of the criterion is `Ale` for the name parameter, every person that contains `Ale` in their names are
 passed successfully from the name criteria.
 
-* 'filter clear' -- Clears all the filtering that are active in current case
+* `filter clear` -- Clears all the filtering that are active in current case
 
 As explained in the beginning part of the filtering method, the filter is cleared with restoring all the persons
-who are not in 'persons' parameter but included in 'allPersonsStorage' parameter
+who are not in `persons` parameter but included in `allPersonsStorage` parameter
 
-==== Working Principle of 'FilterCommandParser' Class
+==== Working Principle of `FilterCommandParser` Class
 
 Filtering command is taken from the user as follows:
 
-* 'filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, …​ /skill]'
-* 'filter clear'
+* `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, …​ /skill`
+* `filter clear`
 
 To process the input from user, these steps are followed in the code:
 
 * first the input is cleared from multiple spaces or any unwanted additional forms.
-* after that according to the first couple of the characters, the exact process is determined (If it is 'add' or 'or' or 'clear')
+* after that according to the first couple of the characters, the exact process is determined (If it is `add` or `or` or `clear`)
 * if it is clear, the FilterCommand function is called fo that method. If it is not, followings take place.
-* following that, the prefixes are searched. 5 flags are stored in 'String' form for 5 different filtering conditions and
+* following that, the prefixes are searched. 5 flags are stored in `String` form for 5 different filtering conditions and
 if the prefix itself exists and the reverse version also exist and the prefix itself is before the reverse one the flag is turned
-to 'available'
+to `available`
 * for the available parameters, the input is trimmed and separated from the prefixes.
 * FilterCommand function is called. In the parameters passed to the function, the process type, criterion flags and criterion contexts are included.
 
@@ -367,9 +367,9 @@ In this title, both Command implementation and Parser implementation will be dis
 
 ==== Command Implementation
 
-Instead of adding another parameter in 'AddressBook' called 'allPersonsStorage', another approach would be letting 'persons' parameter to hold
-all the unfiltered information and updating 'filteredPersons' parameter in the 'ModelManager' class. However, in order to implement that approach
-we had to update the list in every time user uses filtering with a 'Predicate' approach. Because, 'FilteredList' class (the type of the 'filteredPersons'
+Instead of adding another parameter in `AddressBook` called `allPersonsStorage`, another approach would be letting `persons` parameter to hold
+all the unfiltered information and updating `filteredPersons` parameter in the `ModelManager` class. However, in order to implement that approach
+we had to update the list in every time user uses filtering with a `Predicate` approach. Because, `FilteredList` class (the type of the `filteredPersons`
 parameter) uses these in very crucial parts of its implementation.
 
 * **Pros of this approach:**
@@ -379,7 +379,7 @@ parameter is added to AddressBook class, all the functions have to be changed co
 
 * **Cons of this approach:**
 ** It is hard and time consuming to implement this approach. Actually that's why we did not choose that approach.
-** It may require some changes in the 'Model' class.
+** It may require some changes in the `Model` class.
 
 ==== Parser Implementation
 
@@ -396,20 +396,20 @@ However in the alternative approach, implementing the input taking with no order
 
 === Combining the Command With Other Commands
 
-Since a new parameter is added to the 'AddressBook' class, some changes should have done to adjust the existing processes to
+Since a new parameter is added to the `AddressBook` class, some changes should have done to adjust the existing processes to
 be used at the same time with filtering commands.
 
 ==== Undo/Redo Command
 
 * To save the filtering information at each step, a new list is created to hold the filtering information at current stage (active or not)
 whenever the current AddressBook is pushed to the list.
-* 'resetData' method is modified in order to reset the 'allPersonsStorage' parameter if needed.
+* `resetData` method is modified in order to reset the `allPersonsStorage` parameter if needed.
 
 ==== Add, Edit and Delete Commands
 
-* 'commit' method is modified for transferring the filtering information to the stage after committing is made and also the filtering information is pushed to the list here
-* 'delete' and 'edit' processes are working without clearing the filter.
-* 'add' method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
+* `commit` method is modified for transferring the filtering information to the stage after committing is made and also the filtering information is pushed to the list here
+* `delete` and `edit` processes are working without clearing the filter.
+* `add` method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
 with the filtering criterion. Thus, all the filtering is cleared.
 
 ==== Other Commands

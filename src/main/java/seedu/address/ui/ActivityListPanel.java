@@ -13,6 +13,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.activity.Activity;
 
+/**
+ * Panel containing the list of activities.
+ */
 public class ActivityListPanel extends UiPart<Region> {
     private static final String FXML = "ActivityListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
@@ -48,6 +51,9 @@ public class ActivityListPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Activity} using a {@code ActivityCard}.
+     */
     class ActivityListViewCell extends ListCell<Activity> {
         @Override
         protected void updateItem(Activity activity, boolean empty) {

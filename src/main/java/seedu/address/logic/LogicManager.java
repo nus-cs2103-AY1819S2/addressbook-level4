@@ -12,7 +12,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -44,7 +43,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, InvalidCommandModeException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
 
@@ -69,10 +68,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() { return model.getAddressBook(); }
+    public ReadOnlyAddressBook getAddressBook() {
+        return model.getAddressBook();
+    }
 
     @Override
-    public ObservableList<Activity> getFilteredActivityList() { return model.getFilteredActivityList(); }
+    public ObservableList<Activity> getFilteredActivityList() {
+        return model.getFilteredActivityList();
+    }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {

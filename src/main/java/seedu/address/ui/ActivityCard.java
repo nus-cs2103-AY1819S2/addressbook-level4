@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.activity.Activity;
 
+/**
+ * An UI component that displays information of a {@code Activity}.
+ */
 public class ActivityCard extends UiPart<Region> {
 
     private static final String FXML = "ActivityListCard.fxml";

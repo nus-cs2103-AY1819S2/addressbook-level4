@@ -288,7 +288,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedActivityReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedActivityReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedActivity.getValue());
             if (wasSelectedActivityReplaced) {
                 // Update selectedActivity to its new value.

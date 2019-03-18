@@ -8,8 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.QuizAnswerCommand;
+import seedu.address.logic.commands.management.HelpCommand;
+import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

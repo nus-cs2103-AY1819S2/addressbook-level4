@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.quiz.exceptions.NotInitialisedException;
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.modelmanager.quiz.exceptions.NotInitialisedException;
 import seedu.address.testutil.Assert;
 
 public class QuizCardTest {

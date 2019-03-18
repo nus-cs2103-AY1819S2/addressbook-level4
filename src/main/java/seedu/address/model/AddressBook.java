@@ -16,7 +16,7 @@ import seedu.address.model.person.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class    AddressBook implements ReadOnlyAddressBook {
+public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNricMap nrics;
     private final UniquePersonList persons;
@@ -81,7 +81,7 @@ public class    AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
-        nrics.add(p.getNric(),p);
+        nrics.add(p.getNric(), p);
         indicateModified();
     }
 
@@ -94,7 +94,7 @@ public class    AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
-        nrics.setPerson(target,editedPerson);
+        nrics.setPerson(target, editedPerson);
         indicateModified();
     }
 

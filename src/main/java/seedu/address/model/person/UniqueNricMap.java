@@ -78,7 +78,9 @@ public class UniqueNricMap {
         requireNonNull(toRemove);
         if (!contains(toRemove)) {
             throw new PersonNotFoundException();
-        } else internalMap.remove(toRemove);
+        } else {
+            internalMap.remove(toRemove);
+        }
     }
 
     /**
@@ -92,7 +94,7 @@ public class UniqueNricMap {
     public void setNricMap(UniqueNricMap replacement) {
         requireNonNull(replacement);
         internalMap.clear();
-        for (Nric nric : replacement.internalMap.keySet()){
+        for (Nric nric : replacement.internalMap.keySet()) {
             internalMap.put(nric, replacement.internalMap.get(nric));
         }
     }
@@ -109,7 +111,7 @@ public class UniqueNricMap {
 
         internalMap.clear();
 
-        for (int i=0; i<persons.size(); i++){
+        for (int i = 0; i < persons.size(); i++) {
             internalMap.put(persons.get(i).getNric(), persons.get(i));
         }
     }

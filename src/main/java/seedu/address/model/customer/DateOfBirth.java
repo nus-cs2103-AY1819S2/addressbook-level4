@@ -16,6 +16,7 @@ public class DateOfBirth {
     public static final String MESSAGE_CONSTRAINTS =
         "Date of Birth should be of the format dd/mm/yyyy ";
     public static final String VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/([0-9]{4})";
+    public static final String VALIDATION_REGEX_2 = "(^$)";
     private static Pattern pattern;
     private static Matcher matcher;
     public final String value;
@@ -36,43 +37,53 @@ public class DateOfBirth {
      */
     public static boolean isValidDob(String test) {
 
-        LocalDate currentDate = LocalDate.now();
-        int currentYear = currentDate.getYear();
-        pattern = Pattern.compile(VALIDATION_REGEX);
-        matcher = pattern.matcher(test);
+        if (!test.matches(VALIDATION_REGEX_2)) {
 
-        if (matcher.matches()) {
+            LocalDate currentDate = LocalDate.now();
+            int currentYear = currentDate.getYear();
+            pattern = Pattern.compile(VALIDATION_REGEX);
+            matcher = pattern.matcher(test);
 
-            matcher.reset();
+            if (matcher.matches()) {
 
-            if (matcher.find()) {
+                matcher.reset();
 
-                String day = matcher.group(1);
-                String month = matcher.group(2);
-                int year = Integer.parseInt(matcher.group(3));
-                if (year >= currentYear) {
+                if (matcher.find()) {
+                    int intYear;
+                    String day = matcher.group(1);
+                    String month = matcher.group(2);
+                    String year = matcher.group(3);
+                    if ((" ").equals(year)) {
+                        return true;
+                    } else {
+                        intYear = Integer.parseInt(year);
+                        if (intYear >= currentYear) {
+                            return false;
+                        }
+
+                        if (("31").equals(day) && (("4").equals(month) || ("6").equals(month) || ("9").equals(month)
+                            || ("11").equals(month) || ("04").equals(month) || ("06").equals(month) || ("09").equals(month))) {
+                            return false; // only 1,3,5,7,8,10,12 has 31 days
+                        } else if (("2").equals(month) || ("02").equals(month)) {
+                            //leap year
+                            if (intYear % 4 == 0) {
+                                return !(("30").equals(day) || ("31").equals(day));
+                            } else {
+                                return !(("29").equals(day) || ("31").equals(day) || ("30").equals(day));
+                            }
+                        } else {
+                            return true;
+                        }
+                    }
+                } else {
                     return false;
                 }
 
-                if (("31").equals(day) && (("4").equals(month) || ("6").equals(month) || ("9").equals(month)
-                    || ("11").equals(month) || ("04").equals(month) || ("06").equals(month) || ("09").equals(month))) {
-                    return false; // only 1,3,5,7,8,10,12 has 31 days
-                } else if (("2").equals(month) || ("02").equals(month)) {
-                    //leap year
-                    if (year % 4 == 0) {
-                        return !(("30").equals(day) || ("31").equals(day));
-                    } else {
-                        return !(("29").equals(day) || ("31").equals(day) || ("30").equals(day));
-                    }
-                } else {
-                    return true;
-                }
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
+        return true;
     }
 
 

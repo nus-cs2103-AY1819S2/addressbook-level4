@@ -39,17 +39,12 @@ public class CustomerTest {
         // null -> returns false
         assertFalse(ALICE.isSameCustomer(null));
 
-        // different phone, email,date of birth and id -> returns false
+        // different phone, email and id -> returns false
         Customer editedAlice =
-            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
-                .withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).build();
+            new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameCustomer(editedAlice));
 
-        // different phone, email and id -> returns false
-        Customer editedAlice2 =
-            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).build();
-        assertFalse(ALICE.isSameCustomer(editedAlice2));
 
         // different name -> returns true
         editedAlice = new CustomerBuilder(ALICE).withName(VALID_NAME_BOB).build();
@@ -69,12 +64,6 @@ public class CustomerTest {
             .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
-        // same name, same date of birth, different attributes -> returns false
-        editedAlice =
-            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.isSameCustomer(editedAlice));
 
         // same name, same id, different attributes -> returns true
         editedAlice =
@@ -89,12 +78,13 @@ public class CustomerTest {
                 .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
-        // same name, same phone, same email, same id, same date of birth different attributes -> returns true
-        editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same name, same phone, same email, same id, different attributes -> returns true
+        editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+            .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
-        // same name, same phone, same email, same date of birth different attributes -> returns true
-        editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB)
+        // same name, same phone, same email, different attributes -> returns true
+        editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
             .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 

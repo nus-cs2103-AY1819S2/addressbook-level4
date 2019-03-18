@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -18,11 +19,11 @@ public class Customer {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final DateOfBirth dob;
     private final Email email;
     private final IdentificationNo idnum;
 
     // Data fields
+    private final DateOfBirth dob;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -87,10 +88,9 @@ public class Customer {
         }
 
         return otherCustomer != null
-            && otherCustomer.getName().equals(getName())
-            && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail())
-            || otherCustomer.getIdNum().equals(getIdNum())
-            || otherCustomer.getDateOfBirth().equals(getDateOfBirth()));
+            && (otherCustomer.getPhone().equals(getPhone())
+            || otherCustomer.getEmail().equals(getEmail())
+            || otherCustomer.getIdNum().equals(getIdNum()));
     }
 
     /**

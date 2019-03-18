@@ -15,19 +15,12 @@ public class DateOfBirthTest {
     }
 
     @Test
-    public void constructorInvalidIdThrowsIllegalArgumentException() {
-        String invalidDateOfBirth = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new DateOfBirth(invalidDateOfBirth));
-    }
-
-    @Test
     public void isValidDob() {
-        // null identification number
+        // null dob
         Assert.assertThrows(NullPointerException.class, () -> DateOfBirth.isValidDob(null));
 
-        // invalid identification numbers
-        assertFalse(DateOfBirth.isValidDob("")); // empty string
-        assertFalse(DateOfBirth.isValidDob(" ")); // spaces only
+
+        // invalid dob
         assertFalse(DateOfBirth.isValidDob("dob")); // non-numeric
         assertFalse(DateOfBirth.isValidDob("32/13/1999")); // date out of bounds
         assertFalse(DateOfBirth.isValidDob("01/13/1999")); // month out of bounds
@@ -37,7 +30,8 @@ public class DateOfBirthTest {
         assertFalse(DateOfBirth.isValidDob("01/11/11")); // yy not taken
 
 
-        // valid identification numbers
+        // valid dob
+        assertTrue(DateOfBirth.isValidDob(""));
         assertTrue(DateOfBirth.isValidDob("29/02/2000"));
         assertTrue(DateOfBirth.isValidDob("1/12/1999")); // date is in correct format
         assertTrue(DateOfBirth.isValidDob("28/05/1999")); // exact order

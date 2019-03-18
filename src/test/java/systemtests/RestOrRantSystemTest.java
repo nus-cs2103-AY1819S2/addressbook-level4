@@ -23,6 +23,7 @@ import guitests.guihandles.OrderItemListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
+
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
 import seedu.address.testutil.TypicalRestOrRant;
@@ -51,8 +52,10 @@ public abstract class RestOrRantSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
+
         testApp = setupHelper.setupApplication(this::getInitialData, getTablesFileLocation(), getOrdersFileLocation(),
                 getMenuFileLocation(), getStatsFileLocation());
+
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());

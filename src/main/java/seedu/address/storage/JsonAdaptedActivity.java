@@ -32,7 +32,7 @@ public class JsonAdaptedActivity {
      */
     public JsonAdaptedActivity(Activity source) {
         name = source.getName().fullActivityName;
-        time = "To be updated when time class written";
+        time = source.getDateTime().fullDateTime;
     }
 
     /**
@@ -50,14 +50,13 @@ public class JsonAdaptedActivity {
         }
         final ActivityName modelName = new ActivityName(name);
 
-        /*ActivityDateTime to be updated
-        *         if (time == null) {
+        if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
             ActivityDateTime.class.getSimpleName()));
         }
-        if (!ActivityDateTime.isValidActivityTime(time)) {
-            throw new IllegalValueException(ActivityTime.MESSAGE_CONSTRAINTS);
-        }*/
+        if (!ActivityDateTime.isValidActivityDateTime(time)) {
+            throw new IllegalValueException(ActivityDateTime.MESSAGE_CONSTRAINTS);
+        }
 
         final ActivityDateTime modelDateTime = new ActivityDateTime(time);
 

@@ -64,6 +64,7 @@ class JsonSerializableAddressBook {
         }
 
         for (JsonAdaptedActivity jsonAdaptedActivity : activities) {
+
             Activity activity = jsonAdaptedActivity.toModelType();
             if (addressBook.hasActivity(activity)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATED_ACTIVITY);

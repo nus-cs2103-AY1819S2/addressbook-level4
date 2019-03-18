@@ -44,6 +44,15 @@ public class MenuItemCard extends UiPart<Region> {
         price.setText(item.getPrice().itemPrice);
     }
 
+    public MenuItemCard(MenuItem item) {
+        super(FXML);
+        this.item = item;
+
+        name.setText(item.getName().itemName);
+        code.setText(item.getCode().itemCode);
+        price.setText(item.getPrice().itemPrice);
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

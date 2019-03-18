@@ -17,11 +17,11 @@ public class MemberSortCommandParser implements Parser<MemberSortCommand> {
      */
     public MemberSortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        String[] sortCriteria = trimmedArgs.split("\\s+");
+        if (trimmedArgs.isEmpty() || sortCriteria.length > 1) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberSortCommand.MESSAGE_USAGE));
         }
-
         return new MemberSortCommand(new SortCriteriaContainsKeywordPredicate(trimmedArgs));
     }
 }

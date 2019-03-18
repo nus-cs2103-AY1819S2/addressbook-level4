@@ -24,7 +24,8 @@ public class PatientBook implements ReadOnlyPatientBook {
         this.uniquePatientList = new UniquePatientList();
     }
 
-    public PatientBook() {}
+    public PatientBook() {
+    }
 
     public PatientBook(ReadOnlyPatientBook toCopy) {
         this();
@@ -118,7 +119,7 @@ public class PatientBook implements ReadOnlyPatientBook {
         }
 
         return other instanceof HealthWorkerBook && this.uniquePatientList
-                .equals(((PatientBook) other).uniquePatientList);
+            .equals(((PatientBook) other).uniquePatientList);
     }
 
     @Override

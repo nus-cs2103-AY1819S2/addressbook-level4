@@ -19,7 +19,13 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyPatientBook;
+import seedu.address.model.ReadOnlyRequestBook;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.patient.Patient;
@@ -304,6 +310,11 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Request> getFilteredRequestList() {
+            return null;
+        }
+
         /**
          * Returns true if a request with the same identity as {@code request} exists in the address
          * book.
@@ -312,6 +323,11 @@ public class AddPersonCommandTest {
          */
         @Override
         public boolean hasRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRequest(Request target, Request editedRequest) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -326,11 +342,14 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateFilteredRequestList(Predicate<Request> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         /**
          * Adds the given request.
          * {@code request} must not already exist in the request book.
-         *
-         * @param request
          */
         @Override
         public void addRequest(Request request) {

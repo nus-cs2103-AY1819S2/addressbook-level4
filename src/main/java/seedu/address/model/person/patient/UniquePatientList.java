@@ -13,7 +13,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * @author Rohan
- *
+ * <p>
  * A list of Patient objects that enforces uniqueness between its elements
  * and does not allow nulls. A person is considered unique by comparing using
  * {@code Patient#isSamePatient(Patient)}. As such, adding and
@@ -22,17 +22,16 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * unique in terms of identity in the UniquePatientList. However, the
  * removal of a person uses Patient#equals(Patient) so
  * as to ensure that the person with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
- *
  * @see Patient#isSamePatient(Patient)
  */
 public class UniquePatientList implements Iterable<Patient> {
 
     private final ObservableList<Patient> internalList = FXCollections
-            .observableArrayList();
+        .observableArrayList();
     private final ObservableList<Patient> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent Patient as the
@@ -125,8 +124,8 @@ public class UniquePatientList implements Iterable<Patient> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePatientList // instanceof handles nulls
-                && this.internalList.equals(((UniquePatientList) other).internalList));
+            || (other instanceof UniquePatientList // instanceof handles nulls
+            && this.internalList.equals(((UniquePatientList) other).internalList));
     }
 
     /**
@@ -144,7 +143,7 @@ public class UniquePatientList implements Iterable<Patient> {
     }
 
     public Patient getAt(int index) {
-        assert(index < this.internalList.size() - 1);
+        assert (index < this.internalList.size() - 1);
         return this.internalList.get(index);
     }
 

@@ -33,12 +33,12 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPatient(@JsonProperty("name") String name,
-                                   @JsonProperty("phone") String phone,
-                                   @JsonProperty("email") String email,
-                                   @JsonProperty("nric") String nric,
-                                   @JsonProperty("address") String address,
-                                   @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                                   @JsonProperty("conditions") String conditions) {
+                              @JsonProperty("phone") String phone,
+                              @JsonProperty("email") String email,
+                              @JsonProperty("nric") String nric,
+                              @JsonProperty("address") String address,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("conditions") String conditions) {
         super(name, phone, email, nric, address, tagged);
         this.conditions = conditions;
     }
@@ -106,7 +106,7 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
 
         if (conditions == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Conditions.class.getSimpleName()));
+                Conditions.class.getSimpleName()));
         }
 
         Set<ConditionTag> set = new HashSet<>();
@@ -118,7 +118,7 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
         final Conditions modelConditions = new Conditions(set);
 
         return new Patient(modelName, modelPhone, modelEmail,
-                modelNric, modelAddress, modelTags, modelConditions);
+            modelNric, modelAddress, modelTags, modelConditions);
 
     }
 

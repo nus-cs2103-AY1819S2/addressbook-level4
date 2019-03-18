@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -318,6 +319,15 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Returns an unmodifiable view of the list of {@code Order} backed by the internal list of
+     * {@code versionedRequestBook}
+     */
+    @Override
+    public ObservableList<Request> getFilteredRequestList() {
+        return FXCollections.unmodifiableObservableList(filteredRequests);
+    }
+
+    /**
      * Returns true if a request with the same identity as {@code request} exists in the address
      * book.
      *
@@ -326,6 +336,13 @@ public class ModelManager implements Model {
     @Override
     public boolean hasRequest(Request request) {
         return false;
+    }
+
+    @Override
+    public void updateRequest(Request target, Request editedRequest) {
+        requireAllNonNull(target, editedRequest);
+
+        versionedRequestBook.setRequest(target, editedRequest);
     }
 
     /**
@@ -339,15 +356,19 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public void updateFilteredRequestList(Predicate<Request> predicate) {
+        requireNonNull(predicate);
+        filteredRequests.setPredicate(predicate);
+    }
+
     /**
-     * Adds the given request.
-     * {@code request} must not already exist in the request book.
-     *
-     * @param request
+     * Adds the given request to the request book
      */
     @Override
     public void addRequest(Request request) {
-
+        versionedRequestBook.addRequest(request);
+        updateFilteredRequestList(PREDICATE_SHOW_ALL_REQUESTS);
     }
 
     /**

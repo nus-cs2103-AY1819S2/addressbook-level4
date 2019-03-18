@@ -8,15 +8,14 @@ import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 
-import org.junit.Test;
-
-import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.testutil.RequestBuilder;
-
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+
+import org.junit.Test;
+
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
+import seedu.address.testutil.RequestBuilder;
 
 public class RequestTest {
 
@@ -34,7 +33,7 @@ public class RequestTest {
 
         // everything same, but conditions different -> returns true
         editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
-                new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
+            new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
         assertTrue(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // different date, everything else same -> returns false
@@ -76,11 +75,7 @@ public class RequestTest {
 
         // different treatment conditions -> returns false
         editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
-                new HashSet<>(Collections.singletonList(new ConditionTag("Cancer"))))).build();
-        assertFalse(ALICE_REQUEST.equals(editedAlice));
-
-        // different id -> returns false
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withId("1").build();
+            new HashSet<>(Collections.singletonList(new ConditionTag("Cancer"))))).build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different isComplete status -> returns false

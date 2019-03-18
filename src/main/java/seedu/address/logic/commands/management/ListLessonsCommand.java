@@ -15,20 +15,38 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.management.ManagementModel;
 
 /**
- * Lists all lessons.
+ * This implements a {@link Command} which executes a command to list all {@link Lesson} objects
+ * in the {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
+ * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual listing
+ * of the {@link Lesson} objects is carried out in the {@link ManagementModel}.
  */
 public class ListLessonsCommand implements Command {
+    /**
+     * The word a user must enter to call this command.
+     */
     public static final String COMMAND_WORD = "listLessons";
-
+    /**
+     * Instructions on command usage and parameters.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all lessons in memory.\n"
             + "Example: " + COMMAND_WORD;
-
+    /**
+     * Feedback message displayed to the user upon successful execution of this command
+     */
     public static final String MESSAGE_SUCCESS = "Listed all lessons";
+    /**
+     * Used to separate {@link #MESSAGE_SUCCESS} and either {@link #MESSAGE_NO_LESSONS}
+     * or list of lessons when forming the result message in {@link #buildList(List)}.
+     */
     public static final String MESSAGE_DELIMITER = ":\n";
+    /**
+     * Shown when {@link #buildList(List)} is called and there are no lessons yet.
+     */
     public static final String MESSAGE_NO_LESSONS = "There are no lessons yet.";
 
     /**
-     * Builds a String representation of {@code List<Lesson> lessons} and returns it.
+     * Executes the command and returns the result message.
+     *
      * @param lessons the list of lessons
      * @return a String representing {@code lessons}
      */

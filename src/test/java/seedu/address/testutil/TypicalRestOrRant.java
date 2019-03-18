@@ -31,7 +31,7 @@ public class TypicalRestOrRant {
                                                              .withPrice("5.50").build();
     public static final MenuItem CREPES = new MenuItemBuilder().withName("Crepes").withCode("F11")
                                                   .withPrice("7.50").build();
-    
+
     // manually added
     public static final MenuItem HONEY_MILK_TEA = new MenuItemBuilder().withName("Honey Milk Tea").withCode("D01")
                                                           .withPrice("4.50").build();

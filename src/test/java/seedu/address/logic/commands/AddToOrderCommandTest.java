@@ -86,7 +86,7 @@ public class AddToOrderCommandTest {
         assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), commandResult.getFeedbackToUser());
         assertEquals(orderItems, modelStub.orderItemsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-        
+
         // adding multiple order items
         itemCodes.add(new Code(VALID_CODE_FRIES));
         itemQuantities.add(3);
@@ -156,7 +156,7 @@ public class AddToOrderCommandTest {
      */
     private class ModelStub implements Model {
         private final Table table = new TableBuilder().build();
-        
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -231,7 +231,7 @@ public class AddToOrderCommandTest {
         public void updateMode() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void addOrderItem(OrderItem orderItem) {
             throw new AssertionError("This method should not be called.");
@@ -392,7 +392,7 @@ public class AddToOrderCommandTest {
         public void addBill(Bill bill) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void setBill(Bill target, Bill editedBill) {
             throw new AssertionError("This method should not be called.");

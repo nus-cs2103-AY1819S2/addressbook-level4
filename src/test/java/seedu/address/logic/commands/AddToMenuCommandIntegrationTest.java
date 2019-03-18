@@ -14,33 +14,32 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class AddToMenuCommandIntegrationTest {
-    
+
     private Model model;
     private CommandHistory commandHistory = new CommandHistory();
-    
+
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
-    
+
     @Test
     public void execute_newMenuItem_success() {
         MenuItem validMenuItem = new MenuItemBuilder().build();
-        
+
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
         expectedModel.addMenuItem(validMenuItem);
         expectedModel.updateMode();
-        
+
         assertCommandSuccess(new AddToMenuCommand(validMenuItem), model, commandHistory,
                 String.format(AddToMenuCommand.MESSAGE_SUCCESS, validMenuItem), expectedModel);
     }
-    
+
     @Test
     public void execute_duplicateMenuItem_throwsCommandException() {
         MenuItem menuItemInList = model.getRestOrRant().getMenu().getMenuItemList().get(0);
         assertCommandFailure(new AddToMenuCommand(menuItemInList), model, commandHistory,
                 AddToMenuCommand.MESSAGE_DUPLICATE_MENU_ITEM);
     }
-    
-    
+
 }

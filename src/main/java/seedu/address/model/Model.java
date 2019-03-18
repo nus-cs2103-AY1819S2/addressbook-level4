@@ -15,6 +15,10 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
+    Predicate<Restaurant> PREDICATE_SHOW_UNVISITED_RESTAURANTS = (r)-> {
+            return r.getReviews().size() == 0;
+        };
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

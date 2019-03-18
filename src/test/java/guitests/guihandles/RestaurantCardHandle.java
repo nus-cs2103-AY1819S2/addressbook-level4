@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -89,9 +90,9 @@ public class RestaurantCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
-    public Set<Review> getReviews() {
+    public List<Review> getReviews() {
         Iterator<Label> labelIterator = reviewLabels.iterator();
-        Set<Review> reviews = new HashSet<>();
+        List<Review> reviews = new ArrayList<>();
 
         // Read in every 3 labels to construct a list of Reviews
         // @TODO ensure that list of reviewLabels is in multiples of 3 and in the order timeStamp, rating, entry

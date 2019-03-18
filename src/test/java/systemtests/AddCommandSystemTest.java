@@ -4,11 +4,13 @@ import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_DATE_OF_BIRTH_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -21,7 +23,6 @@ import static seedu.hms.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.hms.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.hms.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -43,8 +44,8 @@ import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.model.CustomerModel;
-import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
@@ -87,11 +88,11 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a customer with all fields same as another customer in the address book except name ->
-        added */
+        rejected */
         toAdd = new CustomerBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
             + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
+        assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: add a customer with all fields same as another customer in the address book except phone,
         email and ID -> added
@@ -99,7 +100,6 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         toAdd = new CustomerBuilder(AMY)
             .withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
             .withIdNum(VALID_ID_BOB)
             .build();
         command = CustomerUtil.getAddCommand(toAdd);
@@ -112,7 +112,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         /* Case: add a customer with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCustomerCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-            + NAME_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+            + NAME_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + DATE_OF_BIRTH_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a customer, missing tags -> added */
@@ -160,27 +160,26 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         assertCommandFailure(command, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: missing name -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
+        command = AddCustomerCommand.COMMAND_WORD + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             AddCustomerCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             AddCustomerCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             AddCustomerCommand.MESSAGE_USAGE));
 
-        /* Case: missing address -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            AddCustomerCommand.MESSAGE_USAGE));
-
-        /* Case: missing ID -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        /* Case: missing id -> rejected */
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             AddCustomerCommand.MESSAGE_USAGE));
 
@@ -189,33 +188,33 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ADDRESS_DESC_AMY + ID_DESC_AMY;
+        command = AddCustomerCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY
-            + ADDRESS_DESC_AMY + ID_DESC_AMY;
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC
-            + ADDRESS_DESC_AMY + ID_DESC_AMY;
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY + ID_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + INVALID_ADDRESS_DESC + ID_DESC_AMY;
-        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
-
-        /* Case: invalid ID -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ADDRESS_DESC_AMY + INVALID_ID_DESC;
+        /* Case: invalid id -> rejected */
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + INVALID_ID_DESC;
         assertCommandFailure(command, IdentificationNo.MESSAGE_CONSTRAINTS);
 
+        /* Case: invalid dateofBirth -> rejected */
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY + INVALID_DATE_OF_BIRTH_DESC;
+        assertCommandFailure(command, DateOfBirth.MESSAGE_CONSTRAINTS);
+
         /* Case: invalid tag -> rejected */
-        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ADDRESS_DESC_AMY + ID_DESC_AMY + INVALID_TAG_DESC;
+        command = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + ID_DESC_AMY + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }
 

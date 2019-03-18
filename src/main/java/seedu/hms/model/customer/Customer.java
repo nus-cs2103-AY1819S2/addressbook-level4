@@ -80,7 +80,7 @@ public class Customer {
     }
 
     /**
-     * Returns true if both customers of the same name have at least one other identity field that is the same.
+     * Returns true if two customers of same name or different name at least one other identity field that is the same.
      * This defines a weaker notion of equality between two customers.
      */
     public boolean isSameCustomer(Customer otherCustomer) {

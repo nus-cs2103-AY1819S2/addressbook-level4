@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
@@ -66,8 +67,8 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
          */
         Index index = INDEX_FIRST_CUSTOMER;
         String command = " " + EditCustomerCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB
-            + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
-            + TAG_DESC_HUSBAND + " ";
+            + "  " + PHONE_DESC_BOB + " " + DATE_OF_BIRTH_DESC_BOB + " " + EMAIL_DESC_BOB
+            + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Customer editedCustomer = new CustomerBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedCustomer);
 

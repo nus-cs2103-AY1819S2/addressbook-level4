@@ -33,7 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_DATE_OF_BIRTH_AMY = "28/05/1999";
+    public static final String VALID_DATE_OF_BIRTH_AMY = "28/05/1989";
     public static final String VALID_DATE_OF_BIRTH_BOB = "28/05/1986";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
@@ -61,7 +61,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_DATE_OF_BIRTH_DESC = " " + PREFIX_DATE_OF_BIRTH + "2/5/2000"; //incorrect format
+    public static final String INVALID_DATE_OF_BIRTH_DESC = " " + PREFIX_DATE_OF_BIRTH + "112/5/2000"; //incorrect
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ID_DESC = " " + PREFIX_IDENTIFICATION_NUMBER + "911a"; // 'a' not allowed in
     // identificaiton numbers

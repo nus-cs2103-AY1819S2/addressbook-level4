@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.quiz;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.Quiz;

@@ -1,7 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.management;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
+import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_DELIMITER;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_SUCCESS;
@@ -16,7 +16,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.management.ManagementModel;

@@ -1,8 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.quiz;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.QuizCommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +13,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.Quiz;
@@ -69,7 +67,8 @@ public class QuizAnswerCommandTest {
         String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_QUESTION_ANSWER, card.getQuestion(),
             card.getAnswer());
 
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
     }
 
     @Test
@@ -94,7 +93,8 @@ public class QuizAnswerCommandTest {
         String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_QUESTION_ANSWER, card.getQuestion(),
             card.getAnswer());
 
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
 
         // complete preview quiz
         quizAnswerCommand = new QuizAnswerCommand("Budapest");
@@ -102,7 +102,8 @@ public class QuizAnswerCommandTest {
 
         expectedMessage = QuizAnswerCommand.MESSAGE_COMPLETE;
 
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
     }
 
     @Test
@@ -128,7 +129,8 @@ public class QuizAnswerCommandTest {
 
         String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
 
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
     }
 
     @Test
@@ -160,7 +162,8 @@ public class QuizAnswerCommandTest {
         String expectedMessage = QuizAnswerCommand.MESSAGE_CORRECT
             + String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
 
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
 
         // wrong
         quizAnswerCommand = new QuizAnswerCommand(wrongAns);
@@ -171,12 +174,14 @@ public class QuizAnswerCommandTest {
         expectedMessage = QuizAnswerCommand.MESSAGE_WRONG_ONCE
             + String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
 
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
 
         // wrong twice
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, card.getAnswer())
             + String.format(QuizAnswerCommand.MESSAGE_QUESTION, card.getQuestion());
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
 
         // complete the quiz
         quizAnswerCommand = new QuizAnswerCommand("Hungary");
@@ -187,7 +192,8 @@ public class QuizAnswerCommandTest {
 
         expectedMessage = QuizAnswerCommand.MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_COMPLETE;
 
-        assertCommandSuccess(quizAnswerCommand, actual, commandHistory, expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+            expectedMessage, expectedModel);
 
     }
 

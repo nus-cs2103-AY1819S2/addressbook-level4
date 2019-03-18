@@ -1,6 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.quiz;
 
-import static seedu.address.logic.commands.QuizCommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.quiz.QuizCommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.Quiz;

@@ -1,4 +1,4 @@
-package seedu.address.quiz;
+package seedu.address.model.modelmanager.quiz;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.testutil.Assert;
 
 public class QuizTest {

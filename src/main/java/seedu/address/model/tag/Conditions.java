@@ -28,6 +28,7 @@ public class Conditions {
      * Constructs a Skills object from existing {@code skills} Set of
      * Specialisations.
      * TODO: Consider using variable argument list.
+     *
      * @param conditions Set object containing Specialisation to construct from.
      */
     public Conditions(Collection<ConditionTag> conditions) {
@@ -40,6 +41,7 @@ public class Conditions {
 
     /**
      * Checks if a given conditionTag is in the current Conditions set.
+     *
      * @param conditionTag conditionTag to check for.
      * @return true if conditionTag is in the set, false otherwise
      */
@@ -50,6 +52,7 @@ public class Conditions {
     /**
      * Checks if a given conditionTag is in the current conditions set by first
      * converting the string to ConditionTag object.
+     *
      * @param conditionTag string to check for.
      * @return true if ConditionTag object of the string conditionTag is in
      * the set, false otherwise

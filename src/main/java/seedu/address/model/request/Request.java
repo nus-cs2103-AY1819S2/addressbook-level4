@@ -3,18 +3,26 @@ package seedu.address.model.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.Conditions;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Represents a request made by a patient in the request book.
  */
 public class Request {
-    private final String id;
+
+    private String id;
     private final Patient patient;
     private final RequestDate requestDate;
     private final Conditions conditions;
@@ -33,7 +41,7 @@ public class Request {
      */
     public Request(String id, Patient patient, RequestDate requestDate, Conditions conditions,
                    RequestStatus requestStatus) {
-        requireAllNonNull(id, patient, requestDate, conditions, requestStatus);
+        requireAllNonNull(patient, requestDate, conditions, requestStatus);
         this.id = id;
         this.patient = patient;
         this.requestDate = requestDate;
@@ -52,6 +60,62 @@ public class Request {
         this.healthWorker = Optional.of(healthStaff);
     }
 
+    /**
+     * Overloaded constructor that takes in differing arguments for the patient.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Set<Tag> conditions, RequestStatus status) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status);
+        this.patient = new Patient(name, phone, address, conditions);
+        this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+        this.healthWorker = Optional.empty();
+    }
+
+    /**
+     * Overloaded constructor that takes in differing arguments for the patient.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Conditions conditions, RequestStatus status) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status);
+        HashSet<Tag> cond = new HashSet<>();
+        conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
+        this.patient = new Patient(name, phone, address, cond);
+        this.conditions = conditions;
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+        this.healthWorker = Optional.empty();
+    }
+
+    /**
+     * Overloaded constructor to represent a request.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Conditions conditions, RequestStatus status, HealthWorker healthWorker) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status, healthWorker);
+        HashSet<Tag> cond = new HashSet<>();
+        conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
+        this.patient = new Patient(name, phone, address, cond);
+        this.conditions = conditions;
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+        this.healthWorker = Optional.ofNullable(healthWorker);
+    }
+
+    /**
+     * Overloaded constructor that takes in a {@code healthWorker}.
+     */
+    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+                   Set<Tag> conditions, RequestStatus status, HealthWorker healthWorker) {
+        requireAllNonNull(name, phone, address, requestDate, conditions, status);
+        this.patient = new Patient(name, phone, address, conditions);
+        this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
+        this.requestStatus = status;
+        this.requestDate = requestDate;
+        this.healthWorker = Optional.ofNullable(healthWorker);
+    }
+
     public void setHealthStaff(HealthWorker healthStaff) {
         requireNonNull(healthStaff);
         this.healthWorker = Optional.of(healthStaff);
@@ -67,8 +131,17 @@ public class Request {
             return true;
         }
 
-        return otherRequest != null
-                && otherRequest.getId().equals(this.id)
+        if (otherRequest == null) {
+            return false;
+        }
+
+        if (this.id == null || otherRequest.id == null) {
+            return otherRequest.getRequestDate().equals(this.requestDate)
+                && ((otherRequest.getPatient().equals(this.patient)) || otherRequest.getConditions()
+                .equals(this.conditions));
+        }
+
+        return otherRequest.getId().equals(this.id)
                 && otherRequest.getRequestDate().equals(this.requestDate)
                 && ((otherRequest.getPatient().equals(this.patient)) || otherRequest
                 .getConditions().equals(this.conditions));
@@ -77,11 +150,12 @@ public class Request {
     @Override
     public String toString() {
 
+        String identifier = (id == null) ? "null" : this.id;
         String healthStaff = this.healthWorker.map(Person::toString)
                 .orElse("Unassigned");
 
         return "----------Request----------\n"
-                + "ID: " + this.id + "\n"
+                + "ID: " + identifier + "\n"
                 + "Patient: " + this.patient + "\n"
                 + "Assigned staff: " + healthStaff + "\n"
                 + "Request Date: " + this.requestDate + "\n"
@@ -102,9 +176,14 @@ public class Request {
 
         Request otherRequest = (Request) other;
 
-        return otherRequest.getId().equals(this.id)
-                && otherRequest.getPatient().equals(this.patient)
-                && (otherRequest.getRequestDate().equals(this.requestDate))
+        if (otherRequest.getId() != null && this.id != null) {
+            if (!getId().equals(this.id)) {
+                return false;
+            }
+        }
+
+        return (otherRequest.getRequestDate().equals(this.requestDate))
+                && (otherRequest.getPatient().equals(this.patient))
                 && (otherRequest.getConditions().equals(this.conditions))
                 && otherRequest.getHealthStaff().equals(this.healthWorker)
                 && (otherRequest.getRequestStatus().equals(this.requestStatus));

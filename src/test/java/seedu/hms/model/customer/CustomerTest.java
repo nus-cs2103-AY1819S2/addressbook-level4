@@ -2,20 +2,8 @@ package seedu.hms.model.customer;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-<<<<<<< HEAD:src/test/java/seedu/address/model/customer/CustomerTest.java
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.testutil.TypicalCustomers.BOB;
-import static seedu.address.testutil.TypicalCustomers.VIP_CUSTOMER;
-import static seedu.address.testutil.TypicalCustomers.VIP_CUSTOMER2;
-=======
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -25,7 +13,6 @@ import static seedu.hms.testutil.TypicalCustomers.ALICE;
 import static seedu.hms.testutil.TypicalCustomers.BOB;
 import static seedu.hms.testutil.TypicalCustomers.VIP_CUSTOMER;
 import static seedu.hms.testutil.TypicalCustomers.VIP_CUSTOMER2;
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/model/customer/CustomerTest.java
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -65,26 +52,18 @@ public class CustomerTest {
 
         // same name, same phone, different attributes -> returns true
         editedAlice =
-<<<<<<< HEAD:src/test/java/seedu/address/model/customer/CustomerTest.java
             new CustomerBuilder(ALICE).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
                 .withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND).build();
-=======
-            new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/model/customer/CustomerTest.java
+
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice =
-<<<<<<< HEAD:src/test/java/seedu/address/model/customer/CustomerTest.java
             new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
                 .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND).build();
-=======
-            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/model/customer/CustomerTest.java
+
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
 
@@ -128,7 +107,6 @@ public class CustomerTest {
     }
 
 
-
     @Test
     public void equals() {
         // same values -> returns true
@@ -163,15 +141,11 @@ public class CustomerTest {
         editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-<<<<<<< HEAD:src/test/java/seedu/address/model/customer/CustomerTest.java
         // different date of birth -> returns false
         editedAlice = new CustomerBuilder(ALICE).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
-=======
-        // different hms -> returns false
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/model/customer/CustomerTest.java
         editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 

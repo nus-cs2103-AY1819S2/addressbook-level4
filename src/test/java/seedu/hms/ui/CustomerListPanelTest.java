@@ -17,26 +17,17 @@ import guitests.guihandles.CustomerListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-<<<<<<< HEAD:src/test/java/seedu/address/ui/CustomerListPanelTest.java
-import seedu.address.model.customer.Address;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.DateOfBirth;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.IdentificationNo;
-import seedu.address.model.customer.Name;
-import seedu.address.model.customer.Phone;
 
-public class CustomerListPanelTest extends GuiUnitTest {
-=======
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 
-public class CustomerListPanelTest extends seedu.hms.ui.GuiUnitTest {
->>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/ui/CustomerListPanelTest.java
+public class CustomerListPanelTest extends GuiUnitTest {
+
     private static final ObservableList<Customer> TYPICAL_CUSTOMERS =
         FXCollections.observableList(getTypicalCustomers());
 

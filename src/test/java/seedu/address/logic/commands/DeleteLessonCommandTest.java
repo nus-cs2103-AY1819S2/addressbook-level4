@@ -25,7 +25,6 @@ import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.testutil.TypicalLessons;
 
 public class DeleteLessonCommandTest {
 
@@ -44,8 +43,7 @@ public class DeleteLessonCommandTest {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         Index toDeleteIndex = Index.fromZeroBased(0);
         thrown.expect(CommandException.class);
-        CommandResult commandResult =
-                new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
+        new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }
 
     @Test

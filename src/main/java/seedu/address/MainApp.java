@@ -116,7 +116,7 @@ public class MainApp extends Application {
             if (!requestBookOptional.isPresent()) {
                 logger.info("Request file not found. Will be starting with sample RequestBook");
             }
-            initialRequestBook = new RequestBook();
+            initialRequestBook = requestBookOptional.get();
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample HealthWorkerBook");
@@ -124,7 +124,7 @@ public class MainApp extends Application {
             // initialHealthWorkerBook =
             // healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             // will uncomment when the Sample DataUtil is done
-            initialHealthWorkerBook = new HealthWorkerBook();
+            initialHealthWorkerBook = healthWorkerBookOptional.get();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with empty books");
             initialAddressBook = new AddressBook();

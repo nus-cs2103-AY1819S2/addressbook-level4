@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.customer.Customer;
+import seedu.hms.model.customer.Customer;
 
 /**
  * Provides a handle for {@code CustomerListPanel} containing the list of {@code CustomerCard}.

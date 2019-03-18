@@ -29,7 +29,7 @@ public class TypicalMedicines {
             .withTags("fever").withBatches("0042121", "31/12/2019", "312").build();
     public static final Medicine IBUPROFEN = new MedicineBuilder().withName("Ibuprofen")
             .withCompany("Novartis").withExpiry("21/09/2019").withQuantity("432")
-            .withTags("owesMoney", "fever").withBatches("HH073101", "21/09/2019", "432").build();
+            .withTags("inflammation", "fever").withBatches("HH073101", "21/09/2019", "432").build();
     public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withName("Acetaminophen").withQuantity("0")
             .withExpiry("-").withCompany("Pfizer").build();
     public static final Medicine LEVOTHYROXINE = new MedicineBuilder().withName("Levothyroxine Sodium")

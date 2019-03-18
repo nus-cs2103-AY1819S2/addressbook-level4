@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.model.Model.COMPARATOR_ASCENDING_NAME_PDFS;
 import static seedu.address.model.Model.COMPARATOR_DESCENDING_NAME_PDFS;
@@ -21,6 +22,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         try {
             String parseArgs = args.trim();
             if (parseArgs.equals(ascending)) {

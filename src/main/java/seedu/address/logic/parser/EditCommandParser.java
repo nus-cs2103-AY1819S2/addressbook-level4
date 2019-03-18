@@ -30,7 +30,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIRECTORY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
 
         Index index;
 
@@ -45,9 +45,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_DIRECTORY).isPresent()) {
+        /*if (argMultimap.getValue(PREFIX_DIRECTORY).isPresent()) {
             editPersonDescriptor.setDirectory(ParserUtil.parseDirectory(argMultimap.getValue(PREFIX_DIRECTORY).get()));
-        }
+        }*/
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

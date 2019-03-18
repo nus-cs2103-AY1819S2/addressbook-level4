@@ -25,17 +25,29 @@ public abstract class Statistics {
         this.movesLeft = 10; // magic number for now
     }
 
+    /**
+     * increments the hit count by 1.
+     * @return incremented hitCount
+     */
     public int addHit() {
         int hit = this.hitCount;
         return hit++;
     }
 
-    public int addMiss(){
+    /**
+     * increments the miss count by 1.
+     * @return incremented missCount
+     */
+    public int addMiss() {
         int miss = this.missCount;
         return miss++;
     }
 
-    public int minusMove(){
+    /**
+     * decrements the number of moves left.
+     * @return the decremented number of moves
+     */
+    public int minusMove() {
         int moves = this.movesLeft;
         return moves--;
     }

@@ -194,6 +194,21 @@ public class MemberAddCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<Activity> selectedActivityProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Activity getSelectedActivity() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

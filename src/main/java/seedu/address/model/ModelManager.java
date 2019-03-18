@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.exceptions.ActivityNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -273,7 +274,7 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedActivity(Activity activity) {
         if (activity != null && !filteredActivities.contains(activity)) {
-            throw new PersonNotFoundException();
+            throw new ActivityNotFoundException();
         }
         selectedActivity.setValue(activity);
     }

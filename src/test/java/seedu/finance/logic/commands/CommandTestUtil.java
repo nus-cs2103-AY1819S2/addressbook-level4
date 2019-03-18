@@ -46,7 +46,7 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_HUSBAND = " " + PREFIX_CATEGORY + VALID_CATEGORY_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "42"; // '*' not allowed in amount
+    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "42"; // did not start with '$'
     public static final String INVALID_DATE_DESC =
             " " + PREFIX_DATE + "29/29/2019"; // invalid date not allowed in dates
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY

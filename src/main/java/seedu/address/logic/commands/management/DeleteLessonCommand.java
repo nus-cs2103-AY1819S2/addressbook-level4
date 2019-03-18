@@ -46,7 +46,6 @@ public class DeleteLessonCommand implements Command {
      * @param toDeleteIndex the index of the {@link Lesson} to be deleted
      */
     public DeleteLessonCommand(int toDeleteIndex) {
-        requireNonNull(toDeleteIndex);
         this.toDeleteIndex = toDeleteIndex;
     }
 

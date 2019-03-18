@@ -33,19 +33,19 @@ public class TablesFlowPanelHandle extends NodeHandle<FlowPane> {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    private Table getTable(int index) {// TODO: figure out how to get tables from rootnode.
-        return getRootNode().getChildren().get(index);
-    }
-
-    /**
-     * Returns the table card handle of a table associated with the {@code index} in the list.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
-     */
-    public TableCardHandle getTableCardHandle(int index) {
-        return getAllCardNodes().stream()
-                .map(TableCardHandle::new)
-                .filter(handle -> handle.equals(getTable(index)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
-    }
+    //    private Table getTable(int index) {// TODO: figure out if we need this.
+    //        return getRootNode().getChildren().get(index);
+    //    }
+    //
+    //    /**
+    //     * Returns the table card handle of a table associated with the {@code index} in the list.
+    //     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+    //     */
+    //    public TableCardHandle getTableCardHandle(int index) {
+    //        return getAllCardNodes().stream()
+    //                .map(TableCardHandle::new)
+    //                .filter(handle -> handle.equals(getTable(index)))
+    //                .findFirst()
+    //                .orElseThrow(IllegalStateException::new);
+    //    }
 }

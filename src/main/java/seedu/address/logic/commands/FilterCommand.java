@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.CuisineContainsKeywordsPredicate;
+import seedu.address.model.restaurant.categories.CuisineContainsKeywordsPredicate;
 
 /**
  * Filters and lists all restaurants in food diary whose category matches any of the argument keywords.

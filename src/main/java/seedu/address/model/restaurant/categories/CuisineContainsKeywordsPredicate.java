@@ -1,9 +1,10 @@
-package seedu.address.model.restaurant;
+package seedu.address.model.restaurant.categories;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Tests that a {@code Restaurant}'s {@code Category} matches any of the keywords given.

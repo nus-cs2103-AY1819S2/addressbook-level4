@@ -7,6 +7,7 @@ import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.Rating;
+import seedu.address.model.book.Review;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -23,12 +24,14 @@ public class BookBuilder {
     private Author author;
     private Rating rating;
     private Set<Tag> tags;
+    private Set<Review> reviews;
 
     public BookBuilder() {
         bookName = new BookName(DEFAULT_NAME);
         author = new Author(DEFAULT_AUTHOR);
         rating = new Rating(DEFAULT_RATING);
         tags = new HashSet<>();
+        reviews = new HashSet<>();
     }
 
     /**
@@ -39,6 +42,7 @@ public class BookBuilder {
         author = bookToCopy.getAuthor();
         rating = bookToCopy.getRating();
         tags = new HashSet<>(bookToCopy.getTags());
+        reviews = new HashSet<>(bookToCopy.getReviews());
     }
 
     /**
@@ -70,6 +74,14 @@ public class BookBuilder {
      */
     public BookBuilder withRating(String rating) {
         this.rating = new Rating(rating);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Review} of the {@code Book} that we are building.
+     */
+    public BookBuilder withReview(HashSet<Review> reviews) {
+        this.reviews = reviews;
         return this;
     }
 

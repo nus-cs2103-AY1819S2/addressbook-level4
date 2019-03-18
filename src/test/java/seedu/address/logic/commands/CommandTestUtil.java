@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -57,6 +59,13 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FANTASY = "fantasy";
     public static final String VALID_TAG_TEXTBOOK = "textbook";
     public static final String VALID_TAG_INTERESTING = "interesting";
+    public static final String VALID_REVIEWTITLE_ALICE = "Carroll has depicted a unique world I hadn't seen before";
+    public static final String VALID_REVIEWTITLE_CS = "The book was awesome";
+    public static final String VALID_REVIEWMESSAGE_ALICE = "Alice's Adventures in Wonderland by Lewis Carroll is "
+            + "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, "
+            + "wonderful people and animals.";
+    public static final String VALID_REVIEWMESSAGE_CS = "It provides a great introduction to computer science. "
+            + "The legendary SICP reminded me of the the Bible in many respects. ";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -82,6 +91,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FANTASY = " " + PREFIX_TAG + VALID_TAG_FANTASY;
     public static final String TAG_DESC_TEXTBOOK = " " + PREFIX_TAG + VALID_TAG_TEXTBOOK;
     public static final String TAG_DESC_INTERESTING = " " + PREFIX_TAG + VALID_TAG_INTERESTING;
+    public static final String REVIEWTITLE_DESC_ALICE = " " + PREFIX_REVIEWTITLE + VALID_REVIEWTITLE_ALICE;
+    public static final String REVIEWTITLE_DESC_CS = " " + PREFIX_REVIEWTITLE + VALID_REVIEWTITLE_CS;
+    public static final String REVIEWMESSAGE_DESC_ALICE = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_ALICE;
+    public static final String REVIEWMESSAGE_DESC_CS = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_CS;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -92,6 +105,7 @@ public class CommandTestUtil {
     public static final String INVALID_BOOKNAME_DESC = " " + PREFIX_NAME + "The K&d"; // '&' not allowed in names
     public static final String INVALID_AUTHOR_DESC = " " + PREFIX_AUTHOR + "J.K"; // '.' not allowed in phones
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "11"; // rating should be [1,10]
+    public static final String INVALID_REVIEWTITLE_DESC = " " + PREFIX_RATING + "100%"; // '%' not allowed in names
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

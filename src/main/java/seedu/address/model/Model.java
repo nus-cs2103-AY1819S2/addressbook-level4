@@ -7,7 +7,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Review;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -90,12 +89,6 @@ public interface Model {
      * {@code book} must not already exist in the book shelf.
      */
     void addBook(Book book);
-
-    /**
-     * Adds a review to the given book.
-     * {@code book} must already exist in the book shelf.
-     */
-    void addReview(Review toAdd, Book book);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

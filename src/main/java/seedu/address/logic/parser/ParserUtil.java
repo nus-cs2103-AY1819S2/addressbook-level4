@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.Rating;
+import seedu.address.model.book.ReviewTitle;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -96,6 +97,33 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String reviewMessage} into a {@code String parsedReviewMessage}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code review} is invalid.
+     */
+    public static String parseReview(String reviewMessage) throws ParseException {
+        requireNonNull(reviewMessage);
+        String trimmedReview = reviewMessage.trim();
+        return trimmedReview;
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code ReviewTitle}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ReviewTitle} is invalid.
+     */
+    public static ReviewTitle parseReviewTitle(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!ReviewTitle.isValidReviewTitle(trimmedName)) {
+            throw new ParseException(ReviewTitle.MESSAGE_CONSTRAINTS);
+        }
+        return new ReviewTitle(trimmedName);
     }
 
     /**

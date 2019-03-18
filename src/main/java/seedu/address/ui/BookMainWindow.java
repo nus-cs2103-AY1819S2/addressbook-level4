@@ -107,8 +107,8 @@ public class BookMainWindow extends UiPart<Stage> {
     }
 
     /**
-	 * Fills up all the placeholders of this window.
-	 */
+     * Fills up all the placeholders of this window.
+     */
     public void fillInnerParts() {
         BrowserBookPanel browserBookPanel = new BrowserBookPanel(logic.selectedBookProperty());
         browserPlaceholder.getChildren().add(browserBookPanel.getRoot());

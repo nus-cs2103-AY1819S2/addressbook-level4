@@ -188,7 +188,7 @@ class JsonAdaptedRestaurant {
 
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
 
-        final Set<Review> modelReviews = new HashSet<>(restaurantReviews);
+        final ArrayList<Review> modelReviews = new ArrayList<>(restaurantReviews);
 
         return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink,
                 modelOpeningHours, new Category(modelCuisine, modelOccasion), modelReviews);

@@ -157,14 +157,12 @@ public class CommandTestUtil {
 
     public static void showDeckAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
-        assertTrue(model.)
+        assertTrue(model.isAtDecksView());
 
-        ListItem item = (Deck)model.getFilteredList().get(targetIndex.getZeroBased());
-
-        item
+        Deck deck = (Deck)model.getFilteredList().get(targetIndex.getZeroBased());
 
         final String[] splitName = deck.getName().fullName.split("\\s+");
-        model.updateFilteredDeckList(
+        model.updateFilteredList(
                 new DeckNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredList().size());
@@ -176,10 +174,11 @@ public class CommandTestUtil {
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
+        assertTrue(!model.isAtDecksView());
 
         Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = card.getQuestion().split("\\s+");
-        model.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         //Gets all the question that starts with what
         assertEquals(1, model.getFilteredList().size());

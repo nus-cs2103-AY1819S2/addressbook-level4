@@ -12,6 +12,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
+import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.DeckNotFoundException;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
 import seedu.address.model.deck.exceptions.DuplicateDeckException;
@@ -102,6 +103,22 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     /**
+     * Deletes a card in TopDeck
+     * The {@code Card} target should exist in the  {@code deck} activeDeck.
+     */
+    public void deleteCard(Card target, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
+        if (!decks.contains(activeDeck)) {
+            throw new DeckNotFoundException();
+        }
+
+        if (!activeDeck.hasCard(target)) {
+            throw new CardNotFoundException();
+        }
+
+        activeDeck.removeCard(target);
+
+        decks.setDeck(activeDeck, activeDeck);
+    }
 
     //// deck operations
 

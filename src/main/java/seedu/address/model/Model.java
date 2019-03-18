@@ -152,4 +152,6 @@ public interface Model {
     void changeDeck(Deck deck);
 
     void goToDecksView();
+
+    boolean isAtDecksView();
 }

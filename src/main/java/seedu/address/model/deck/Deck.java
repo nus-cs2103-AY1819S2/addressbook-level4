@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.logic.ListItem;
+import seedu.address.model.deck.exceptions.CardNotFoundException;
 
 /**
  * Represents a Deck inside TopDeck.
@@ -51,6 +52,15 @@ public class Deck implements ListItem {
      */
     public void addCard(Card newCard) {
         this.cards.add(newCard);
+    }
+
+    /**
+     * Removes {@code Card} target in the current deck.
+     */
+    public void removeCard(Card target) throws CardNotFoundException {
+        assert hasCard(target);
+
+        this.cards.remove(target);
     }
 
     /**

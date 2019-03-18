@@ -80,6 +80,11 @@ public class ModelManager implements Model {
         setSelectedItem(null);
     }
 
+    @Override
+    public boolean isAtDecksView() {
+        return (viewState instanceof DecksView);
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -137,8 +142,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteCard(Card target) {
-        //TODO: Implement deleteCard
-        //versionedTopDeck.removeCard(target);
+        if (!(viewState instanceof CardsView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        CardsView cardsView = (CardsView)viewState;
+        versionedTopDeck.deleteCard(target, cardsView.getActiveDeck());
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override

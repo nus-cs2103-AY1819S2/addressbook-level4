@@ -55,9 +55,9 @@ public class TopDeckParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_CARD), command);
+        DeleteCardCommand command = (DeleteCardCommand) parser.parseCommand(
+                DeleteCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
+        assertEquals(new DeleteCardCommand(INDEX_FIRST_CARD), command);
     }
 
     @Test

@@ -37,15 +37,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all battleships
 * **`put`**`a1` : Puts a battleship with its head at the A1 cell
+* **`play`** : Start the game
 * **`shoot`**`a1` : Attacks the enemy's A1 cell
 * *`exit`* : exits the app
- change to
-.  Refer to <<Features>> for details of each command.
+
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
-
-
 
 ====
 *Command Format*

@@ -34,7 +34,7 @@ public class Image {
     private BufferedImage buffer;
     private String url;
     private String fileType;
-    private List commandHistory;
+    private List<String> commandHistory;
     private int index;
 
     /**
@@ -87,19 +87,32 @@ public class Image {
         index++;
     }
     //CAN USE JAVA UTIL LIST HERE???
-    public List getHistory() { return commandHistory.subList(0, index); }
+    public List getHistory() {
+        return commandHistory.subList(0, index);
+    }
 
-    public void setUndo() { index--; }
+    public void setUndo() {
+        index--;
+    }
 
-    public void setRedo() { index++; }
+    public void setRedo() {
+        index++;
+    }
 
-    public boolean canUndo() { return index > 0; }
+    public boolean canUndo() {
+        return index > 0;
+    }
 
-    public boolean canRedo() {return index < commandHistory.size() - 1; }
+    public boolean canRedo() {
+        return index < commandHistory.size() - 1;
+    }
 
-    public int getIndex() { return index; }
+    public int getIndex() {
+        return index; }
 
-    public int getWidth() { return width; }
+    public int getWidth() {
+        return width;
+    }
 
     public int getHeight() {
         return height;

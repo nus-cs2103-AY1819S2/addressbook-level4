@@ -12,18 +12,22 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.apache.commons.io.FileUtils;
+
 import seedu.address.Notifier;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.image.Image;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -268,6 +272,9 @@ public class ModelManager implements Model {
         return tempImage;
     }
 
+    /**
+     * replaces temp folder image with original asset Image
+     */
     public void replaceTempImage() {
         //set this image
         try {

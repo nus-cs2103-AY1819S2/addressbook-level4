@@ -3,13 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-
-import java.util.List;
 
 /**
  * Reverts the {@code model}'s address book to its previous state.
@@ -53,8 +53,7 @@ public class UndoCommand extends Command {
             try {
                 Command command = parser.parseCommand(x);
                 commandResult = command.execute(model, history);
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 System.out.println(e.toString());
             }
 

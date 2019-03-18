@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBarFooter statusBarFooter;
+    private StatusBarFooter statusBarFooter2;
     private StatsPane statsPane;
 
     @FXML
@@ -58,6 +59,13 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder2;
+
+    @FXML
+    private StackPane statspanePlaceholder;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -130,6 +138,11 @@ public class MainWindow extends UiPart<Stage> {
 
         statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        statusBarFooter2 = new StatusBarFooter();
+        statusbarPlaceholder2.getChildren().add(statusBarFooter2.getRoot());
+        //statsPane = new StatsPane();
+        //statspanePlaceholder.getChildren().add(statsPane.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

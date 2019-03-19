@@ -11,11 +11,6 @@ import static seedu.address.testutil.TypicalRestOrRant.SALAD;
 import static seedu.address.testutil.TypicalRestOrRant.SHRIMP_FRIED_RICE;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalMenuItems;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,6 +23,11 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.menu.exceptions.DuplicateMenuItemException;
 import seedu.address.testutil.MenuItemBuilder;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MenuTest {
 

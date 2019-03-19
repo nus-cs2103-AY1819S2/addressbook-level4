@@ -42,6 +42,10 @@ public abstract class RestOrRantSystemTest {
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
 
+    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
+    private static final List<String> COMMAND_BOX_ERROR_STYLE =
+            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+
     @BeforeClass
     public static void setupBeforeClass() {
         SystemTestSetupHelper.initialize();
@@ -64,10 +68,6 @@ public abstract class RestOrRantSystemTest {
     public void tearDown() {
         setupHelper.tearDownStage();
     }
-
-    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
-    private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     /**
      * Returns the data to be loaded into the given files.

@@ -22,19 +22,22 @@ public class CopyCommand extends Command {
     public static final String COMMAND_WORD = "copy";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Have a temporary duplicate person in the addressbook. "
-            + "Parameters: Index (Must be an integer)"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Parameters: Index (Must be an integer) [Number of Copies]"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Person copied: %1$s";
 
     private final Index index;
 
+    private final int numOfCopies;
+
     /**
      * Creates an CopyCommand to add the specified {@code Person}
      */
-    public CopyCommand(Index index) {
+    public CopyCommand(Index index,int numOfCopies) {
         requireNonNull(index);
         this.index = index;
+        this.numOfCopies = numOfCopies;
     }
 
     @Override
@@ -56,7 +59,9 @@ public class CopyCommand extends Command {
             throw new PersonIsNotPatient();
         }
 
-        model.addPerson(copyPerson);
+        for (int i = 0; i < numOfCopies; i++){
+            model.addPerson(copyPerson);
+        }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, copyPerson));

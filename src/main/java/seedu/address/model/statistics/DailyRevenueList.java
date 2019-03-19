@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
+import seedu.address.model.statistics.exceptions.DuplicateDailyRevenueException;
 
 /**
  * A list of daily revenues that enforces uniqueness between its elements and does not allow nulls.
@@ -41,7 +42,7 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
     public void add(DailyRevenue toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateOrderItemException();
+            throw new DuplicateDailyRevenueException();
         }
         internalList.add(toAdd);
     }

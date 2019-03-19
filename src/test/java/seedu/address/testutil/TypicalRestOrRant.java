@@ -86,9 +86,9 @@ public class TypicalRestOrRant {
                                                        .withYear("2019").withTotalDailyRevenue("400").build();
     public static final DailyRevenue DAILY_REVENUE5 = new StatisticsBuilder().withDay("5").withMonth("3")
                                                        .withYear("2019").withTotalDailyRevenue("300").build();
-    public static final DailyRevenue DAILY_REVENUE6 = new StatisticsBuilder().withDay("3").withMonth("3")
+    public static final DailyRevenue DAILY_REVENUE6 = new StatisticsBuilder().withDay("6").withMonth("3")
                                                        .withYear("2019").withTotalDailyRevenue("200").build();
-    public static final DailyRevenue DAILY_REVENUE7 = new StatisticsBuilder().withDay("1").withMonth("3")
+    public static final DailyRevenue DAILY_REVENUE7 = new StatisticsBuilder().withDay("7").withMonth("3")
                                                        .withYear("2019").withTotalDailyRevenue("100").build();
 
     public static final Bill BILL1 = new StatisticsBuilder().withTableNumber("1").withDay("1").withMonth("3")

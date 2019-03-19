@@ -52,6 +52,9 @@ public class SelectCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
 
+        /* Case: mixed case command word -> selected */
+        assertCommandSuccess("SeLeCt 1", INDEX_FIRST_RECORD);
+
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
         /* Case: filtered record list, select index within bounds of finance tracker but out of bounds of record list
@@ -88,9 +91,6 @@ public class SelectCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty finance tracker -> rejected */
         deleteAllRecords();

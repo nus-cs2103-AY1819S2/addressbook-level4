@@ -149,9 +149,10 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: mixed case command word -> rejected */
+        /* Case: mixed case command word -> 0 records found */
         command = "FiNd Meier";
-        assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandSuccess(command, expectedModel);
+
     }
 
     /**

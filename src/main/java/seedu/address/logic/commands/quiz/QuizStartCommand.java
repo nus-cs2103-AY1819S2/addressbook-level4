@@ -42,11 +42,6 @@ public class QuizStartCommand implements Command {
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
     protected List<QuizCard> quizCards;
     private Session session;
-
-    //public QuizStartCommand() {
-    //TODO start session
-    //}
-
     public QuizStartCommand(Session session) {
         requireNonNull(session);
         this.session = session;

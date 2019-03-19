@@ -107,7 +107,7 @@ public class FoodDiaryParser {
             return new CategoryCommandParser().parse(arguments);
 
         case VisitWebCommand.COMMAND_WORD:
-            return new GotoCommandParser().parse(arguments);
+            return new VisitWebCommandParser().parse(arguments);
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);

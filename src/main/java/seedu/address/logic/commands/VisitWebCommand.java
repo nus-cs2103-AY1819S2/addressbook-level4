@@ -16,7 +16,7 @@ import seedu.address.model.restaurant.Restaurant;
  */
 public class VisitWebCommand extends Command {
 
-    public static final String COMMAND_WORD = "goto";
+    public static final String COMMAND_WORD = "visitWeb";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Visits a restaurant website identified using it's displayed index from the food diary.\n"

@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new VisitWebCommand object
  */
-public class GotoCommandParser implements Parser<VisitWebCommand> {
+public class VisitWebCommandParser implements Parser<VisitWebCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the VisitWebCommand

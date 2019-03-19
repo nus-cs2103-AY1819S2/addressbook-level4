@@ -16,7 +16,15 @@ public class ConsultationRecord extends Record {
     public Statistics toStatistics() {
         BigDecimal consultationFee = Statistics.getConsultationFee();
         int quantity = prescription.getQuantity();
-        // TODO BigDecimal prescriptionFee = quantity * prescription.getMedicine().getPrice();
-        return new Statistics(1, consultationFee, BigDecimal.ZERO);
+        BigDecimal medicinePrice = prescription.getMedicine().getPrice();
+        BigDecimal prescriptionFee;
+        if (medicinePrice == null) {
+            prescriptionFee = BigDecimal.ZERO;
+        }
+        else {
+            prescriptionFee = medicinePrice.multiply(new BigDecimal(quantity));
+        }
+        // BigDecimal prescriptionFee = prescription.getMedicine().getPrice().multiply(new BigDecimal(quantity));
+        return new Statistics(1, consultationFee.add(prescriptionFee), BigDecimal.ZERO);
     }
 }

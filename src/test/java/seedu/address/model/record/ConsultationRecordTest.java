@@ -12,8 +12,12 @@ class ConsultationRecordTest {
     @Test
     void toStatistics() {
         Medicine medicine = new Medicine("test");
-        Statistics stats = new Statistics(1, Statistics.getConsultationFee(), BigDecimal.ZERO);
+        medicine.setPrice(BigDecimal.valueOf(22.20));
         Prescription prescription = new Prescription(medicine, 3);
+        BigDecimal prescriptionFee = prescription.getMedicine().getPrice()
+                .multiply(new BigDecimal(prescription.getQuantity()));
+        Statistics stats = new Statistics(1,
+                Statistics.getConsultationFee().add(prescriptionFee), BigDecimal.ZERO);
         ConsultationRecord consultRecord = new ConsultationRecord(prescription);
         Assert.assertEquals(consultRecord.toStatistics(), stats);
     }

@@ -11,13 +11,12 @@ public class MedicinePurchaseRecord extends Record {
     private final Medicine medicine;
     private final int quantity;
     private final BigDecimal cost;
-    /* TODO
+
     public MedicinePurchaseRecord(Medicine medicine, int quantity) {
         this.medicine = medicine;
         this.quantity = quantity;
         this.cost = medicine.getPrice();
     }
-    */
     public MedicinePurchaseRecord(Medicine medicine, int quantity, BigDecimal cost) {
         this.medicine = medicine;
         this.quantity = quantity;

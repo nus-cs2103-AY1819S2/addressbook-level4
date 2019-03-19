@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,6 +51,17 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns Conditions from a set of tags passed in.
+     */
+    public static Conditions getConditionsFromTagSet(Set<Tag> tags) {
+        HashSet<ConditionTag> set = new HashSet<>();
+        tags.forEach(tag -> {
+            set.add(new ConditionTag(tag.tagName));
+        });
+        return new Conditions(set);
     }
 
 }

@@ -35,7 +35,21 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.nric = new Nric("S1234567A"); //Placeholder NRIC
+        this.nric = new Nric(Nric.DEFAULT_NRIC); //Placeholder NRIC
+    }
+
+
+    /**
+     * Overloaded constructor that uses a default placeholder email
+     */
+    public Person(Name name, Phone phone, Address address, Set<Tag> conditions) {
+        requireAllNonNull(name, phone, address, conditions);
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.nric = new Nric(Nric.DEFAULT_NRIC);
+        this.tags.addAll(conditions);
+        this.email = new Email(Email.DEFAULT_EMAIL);
     }
 
     /**

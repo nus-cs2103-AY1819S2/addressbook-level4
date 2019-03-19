@@ -18,8 +18,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHealthWorkerCommand;
+import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.AddPersonCommand;
-import seedu.address.logic.commands.request.CreateRequestCommand;
+import seedu.address.logic.commands.request.AddRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -29,9 +30,11 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
+import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Tag;
 
@@ -59,32 +62,61 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the CreateRequestCommand
-     * and returns an CreateReqeustCommand object for execution.
-     * @throws ParseException if the suer input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the AddRequestCommand
+     * and returns an AddReqeustCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
-    private CreateRequestCommand parseAddRequest(String args) throws ParseException {
+    private AddRequestCommand parseAddRequest(String args) throws ParseException {
         UUID uuid = UUID.randomUUID();
         String requestId = uuid.toString();
-
-        Person patient = getPersonFromArgs(args);
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE,
             PREFIX_CONDITION);
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_DATE, PREFIX_CONDITION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                CreateRequestCommand.MESSAGE_USAGE));
+                AddRequestCommand.MESSAGE_USAGE));
         }
 
         RequestDate requestDate =
             ParserUtil.parseRequestDate(argumentMultimap.getValue(PREFIX_DATE).get());
 
-        Set<Tag> conditions = ParserUtil.parseTags(argumentMultimap.getAllValues(PREFIX_CONDITION));
+        Conditions conditions = ParserUtil.parseConditions(argumentMultimap.getAllValues(PREFIX_CONDITION));
 
-        return new CreateRequestCommand(new Request(requestId, patient, null, requestDate, conditions,
+        return new AddRequestCommand(new Request(requestId, null, null, requestDate, conditions,
             new RequestStatus("PENDING")));
 
+    }
+
+    /**
+     * @author Rohan
+     * @param args argument list for add command
+     * @return new AddPatientCommand for the adding of patient
+     * with the fields specified in args
+     * @throws ParseException if there are invalid/unfilled fields.
+     */
+    private AddPatientCommand parseAddPatient(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+            PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANIZATION,
+            PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SKILLS);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC,
+            PREFIX_ORGANIZATION, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_SKILLS)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddPatientCommand.MESSAGE_USAGE));
+        }
+
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Conditions conditions = ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITION));
+
+        Patient patient = new Patient(name, phone, email, nric, address, tagList, conditions);
+
+        return new AddPatientCommand(patient);
     }
 
     /**

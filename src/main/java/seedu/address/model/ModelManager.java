@@ -19,6 +19,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.exceptions.HealthWorkerNotFoundException;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.exceptions.RequestNotFoundException;
 
@@ -180,6 +181,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPatient(Patient patient) {
+        return false;
+    }
+
+    @Override
+    public void addPatient(Patient patient) {
+
+    }
+
+    @Override
+    public void updateFilteredPatientList(Predicate<Patient> predicate) {
+
+    }
+
+    @Override
     public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() { return selectedHealthWorker; }
 
     @Override
@@ -193,6 +209,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
         return this.versionedHealthWorkerBook;
+    }
+
+    @Override
+    public ReadOnlyPatientBook getPatientBook() {
+        return null;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -311,6 +332,13 @@ public class ModelManager implements Model {
         return false;
     }
 
+    @Override
+    public void updateRequest(Request target, Request editedRequest) {
+        requireAllNonNull(target, editedRequest);
+
+        versionedRequestBook.setRequest(target, editedRequest);
+    }
+
     /**
      * Deletes the given request.
      * The request must exist in the request book.
@@ -322,15 +350,19 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public void updateFilteredRequestList(Predicate<Request> predicate) {
+        requireNonNull(predicate);
+        filteredRequests.setPredicate(predicate);
+    }
+
     /**
-     * Adds the given request.
-     * {@code request} must not already exist in the request book.
-     *
-     * @param request
+     * Adds the given request to the request book
      */
     @Override
     public void addRequest(Request request) {
-
+        versionedRequestBook.addRequest(request);
+        updateFilteredRequestList(PREDICATE_SHOW_ALL_REQUESTS);
     }
 
     /**

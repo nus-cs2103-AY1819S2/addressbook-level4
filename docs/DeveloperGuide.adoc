@@ -316,9 +316,22 @@ Step 5. Just like the diagnosis command, prescription can be replaced by reenter
 Step 6. After explaining the medicine intake to the patient, the doctor can then end the consultation session on QuickDocs by using the command
 `endconsult`. No further changes to the consultation records can be made from this point on.
 
-The following sequence diagram summarizes what happens when a user executes the Consultation command:
+The following sequence diagrams summarizes what happens when a user perform the entire consultation process, starting with the session initialisation:
 
 image::dg-consultation/consultationSD1.png[width="800"]
+
+Followed by the adding of the diagnosis:
+
+image::dg-consultation/diagnosisSD.png[width="800"]
+
+prescribing the medicine to tackle the patient's condition:
+
+image::dg-consultation/consultationSD1.png[width="800"]
+
+finally, saving the consultation record into QuickDocs:
+
+image::dg-consultation/endConsultSD.png[width="800"]
+
 
 ==== Design considerations
 

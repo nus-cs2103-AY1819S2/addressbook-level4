@@ -29,5 +29,4 @@ public class ActivityNameContainsKeywordsPredicate implements Predicate<Activity
                 && keywords.equals(((seedu.address.model.activity.ActivityNameContainsKeywordsPredicate) other)
                 .keywords)); // state check
     }
-
 }

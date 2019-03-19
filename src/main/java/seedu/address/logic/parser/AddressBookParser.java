@@ -11,16 +11,17 @@ import seedu.address.logic.commands.ActivityDeleteCommand;
 import seedu.address.logic.commands.ActivityListCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MemberAddCommand;
 import seedu.address.logic.commands.MemberDeleteCommand;
+import seedu.address.logic.commands.MemberEditCommand;
 import seedu.address.logic.commands.MemberFindCommand;
 import seedu.address.logic.commands.MemberListCommand;
+import seedu.address.logic.commands.MemberSelectCommand;
+import seedu.address.logic.commands.MemberSortCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.activity.ActivityAddCommandParser;
 import seedu.address.logic.parser.activity.ActivityDeleteCommandParser;
@@ -56,11 +57,11 @@ public class AddressBookParser {
         case MemberAddCommand.COMMAND_WORD:
             return new MemberAddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case MemberEditCommand.COMMAND_WORD:
+            return new MemberEditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+        case MemberSelectCommand.COMMAND_WORD:
+            return new MemberSelectCommandParser().parse(arguments);
 
         case MemberDeleteCommand.COMMAND_WORD:
             return new MemberDeleteCommandParser().parse(arguments);
@@ -70,6 +71,9 @@ public class AddressBookParser {
 
         case MemberFindCommand.COMMAND_WORD:
             return new MemberFindCommandParser().parse(arguments);
+
+        case MemberSortCommand.COMMAND_WORD:
+            return new MemberSortCommandParser().parse(arguments);
 
         case MemberListCommand.COMMAND_WORD:
             return new MemberListCommand();

@@ -126,6 +126,7 @@ public class ModelManager implements Model {
     }
 
     @Override
+
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
         return versionedAddressBook.hasActivity(activity);
@@ -147,6 +148,10 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedActivity);
 
         versionedAddressBook.setActivity(target, editedActivity);
+    }
+
+    public void sortAddressBook(Predicate<String> predicate) {
+        versionedAddressBook.sortAddressBook(predicate);
     }
 
     //=========== Filtered Person List Accessors =============================================================

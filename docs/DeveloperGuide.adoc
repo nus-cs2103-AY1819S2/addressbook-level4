@@ -313,12 +313,23 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::membersort[]
+=== MemberSort
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+image::MemberSortCommand_LogicComponentSequenceDiagram.png[width="800"]
+* The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
 
-// end::dataencryption[]
+* It takes in a criteria from the user, and checks if the input from the user matches any of the available
+sorting criteria provided.
+
+* If the user input matches, the uniquePersonList will be sorted based on that criteria
+If the user input does not match, then an error message will be prompted to the user.
+
+==== Future Implementation
+* For future implementation, the `memberSort` command will sort the members based on active and inactive status (second priority).
+Active and inactive members will have their personCard differentiated by color.
+// end::membersort[]
 
 === Logging
 

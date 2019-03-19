@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -75,6 +76,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         setActivities(newData.getActivityList());
     }
 
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void sortAddressBook(Predicate<String> predicate) {
+        this.persons.sortList(predicate);
+        indicateModified();
+    }
+
     //// person-level operations
 
     /**
@@ -93,6 +103,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
         indicateModified();
     }
+
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.

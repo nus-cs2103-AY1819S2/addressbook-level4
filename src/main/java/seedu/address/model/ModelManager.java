@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.statistics.PlayerStatistics;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
@@ -37,7 +38,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Cell> filteredCells;
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
-
+    private PlayerStatistics playerStats;
     private Fleet fleet;
 
     /**
@@ -54,6 +55,8 @@ public class ModelManager implements Model {
         filteredCells = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCells.addListener(this::ensureSelectedPersonIsValid);
 
+        // Initialize new statistics
+        this.playerStats = new PlayerStatistics();
         // Create new fleet
         this.fleet = new Fleet();
     }
@@ -193,6 +196,9 @@ public class ModelManager implements Model {
         return fleet.isEnoughBattleship(battleship, numBattleship);
     }
 
+    //=========== Statistics ===============================================================================
+    @Override
+    public PlayerStatistics getPlayerStats(){ return this.playerStats; }
 
     //=========== Filtered Cell List Accessors =============================================================
 

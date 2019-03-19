@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.statistics.PlayerStatistics;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
@@ -166,6 +167,8 @@ public interface Model {
      * Sets the selected cell in the filtered cell list.
      */
     void setSelectedPerson(Cell cell);
+
+    PlayerStatistics getPlayerStats();
 
     Fleet getFleet();
 

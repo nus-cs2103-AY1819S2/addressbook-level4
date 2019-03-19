@@ -4,26 +4,28 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import seedu.address.logic.statistics.PlayerStatistics;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
 public class StatsPane extends UiPart<Region> {
 
-    public static final String SYNC_STATUS_UPDATED = "Elapsed Time: %s";
+    public static final String SYNC_STATUS_UPDATED = "Attacks Made: %s";
 
     //TOREMOVE private static Clock clock = Clock.systemDefaultZone();
 
     private static final String FXML = "StatsPane.fxml";
-
+   // private PlayerStatistics playerStats = playerStats;
     private long startTime;
 
     @FXML
-    private Label syncStatus;
+    private Label shipCount;
     @FXML
     private Label saveLocationStatus;
 
@@ -38,8 +40,9 @@ public class StatsPane extends UiPart<Region> {
 //        }
 //    };
 
-    public StatsPane() {
+    public StatsPane() { //StatsPane(PlayerStatistics playerStats)
         super(FXML);
+        updateStats();
         //this.startTime = System.nanoTime();
         // Upon init of map, trigger this.
         //myTimer.scheduleAtFixedRate(task, 1000, 1000);
@@ -55,11 +58,17 @@ public class StatsPane extends UiPart<Region> {
     /**
      * Updates elapsed time
      */
-    private void updateSyncStatus() {
+    private void updateStats() {
        // String elapsedTime = convert(getElapsedTime(System.nanoTime()));
-       // syncStatus.setText(String.format(SYNC_STATUS_UPDATED, elapsedTime));
+       // shipCount.setText(String.format(SYNC_STATUS_UPDATED, "5"));
     }
 
+
+    // command to get attacks made
+   // private int getStats(){
+
+   //     return
+   // }
     /**
      *
      * @param endTime

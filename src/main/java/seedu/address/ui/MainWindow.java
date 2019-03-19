@@ -66,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statspanePlaceholder;
 
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic) { //Put
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -138,7 +138,7 @@ public class MainWindow extends UiPart<Stage> {
         statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        statsPane = new StatsPane();
+        statsPane = new StatsPane(); //StatsPane(model.getStatistics());
         statusbarPlaceholder2.getChildren().add(statsPane.getRoot());
         //statsPane = new StatsPane();
         //statspanePlaceholder.getChildren().add(statsPane.getRoot());

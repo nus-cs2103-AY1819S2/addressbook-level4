@@ -2,12 +2,9 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
-import static seedu.address.testutil.RestaurantUtil.getRestaurantDetails;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.EditReviewCommand.EditReviewDescriptor;
-import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.review.Review;
 
 /**

@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
+import java.sql.Timestamp;
+
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
-
-import java.sql.Timestamp;
 
 /**
  * A utility class to help with building Review objects.

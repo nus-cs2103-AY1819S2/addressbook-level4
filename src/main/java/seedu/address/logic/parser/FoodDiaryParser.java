@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddNameCommand;
+import seedu.address.logic.commands.NameCommand;
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -58,8 +58,8 @@ public class FoodDiaryParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case AddNameCommand.COMMAND_WORD:
-            return new AddNameCommandParser().parse(arguments);
+        case NameCommand.COMMAND_WORD:
+            return new NameCommandParser().parse(arguments);
 
         case AddReviewCommand.COMMAND_WORD:
             return new AddReviewCommandParser().parse(arguments);

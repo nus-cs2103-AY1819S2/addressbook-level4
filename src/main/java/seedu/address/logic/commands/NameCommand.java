@@ -8,26 +8,24 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Adds a restaurant to the food diary.
+ * Set the user name of the food diary.
  */
-public class AddNameCommand extends Command {
+public class NameCommand extends Command {
 
-    public static final String COMMAND_WORD = "addName";
+    public static final String COMMAND_WORD = "name";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a names to your profile "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets your profile name "
             + "Parameters: "
             + PREFIX_NAME + "NAME ";
 
-
     public static final String MESSAGE_SUCCESS = "Updated Profile: %1$s";
-
 
     private final String toAdd;
 
     /**
      * Creates an AddCommand update the name of the user
      */
-    public AddNameCommand(String name) {
+    public NameCommand(String name) {
         toAdd = name;
     }
 

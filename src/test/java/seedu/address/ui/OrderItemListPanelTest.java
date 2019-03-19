@@ -49,7 +49,8 @@ public class OrderItemListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedOrderItem.set(secondOrderItem));
         guiRobot.pauseForHuman();
 
-        OrderItemCardHandle expectedOrderItem = orderItemListPanelHandle.getOrderItemCardHandle(INDEX_SECOND_ITEM.getZeroBased());
+        OrderItemCardHandle expectedOrderItem =
+                orderItemListPanelHandle.getOrderItemCardHandle(INDEX_SECOND_ITEM.getZeroBased());
         OrderItemCardHandle selectedOrderItem = orderItemListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedOrderItem, selectedOrderItem);
     }

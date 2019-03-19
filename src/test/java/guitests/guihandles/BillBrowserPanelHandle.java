@@ -20,8 +20,8 @@ public class BillBrowserPanelHandle extends NodeHandle<Node> {
     private final Label tableNumberLabel;
     private final TextArea receiptLabel;
 
-    public BillBrowserPanelHandle(Node Node) {
-        super(Node);
+    public BillBrowserPanelHandle(Node node) {
+        super(node);
 
         titleLabel = getChildNode(TITLE_FEILD_ID);
         tableNumberLabel = getChildNode(TABLE_NUMBER_FIELD_ID);

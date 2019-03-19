@@ -20,9 +20,11 @@ import javafx.collections.ObservableList;
 import seedu.address.testutil.StatisticsBuilder;
 
 public class StatisticsTest {
-    private final Statistics statistics = new Statistics();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final Statistics statistics = new Statistics();
 
     @Test
     public void constructor() {

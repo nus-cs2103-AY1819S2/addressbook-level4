@@ -35,11 +35,14 @@ import seedu.address.ui.testutil.OrdersGuiTestAssert;
  * for test verification.
  */
 public abstract class RestOrRantSystemTest {
+
+    @ClassRule
+    public static ClockRule clockRule = new ClockRule();
+
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
+
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
@@ -277,7 +280,7 @@ public abstract class RestOrRantSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         OrdersGuiTestAssert.assertListMatching(getOrderItemListPanel(), getModel().getFilteredOrderItemList());
-        // assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl()); TODO: what does browser panel show?
+        // assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());TODO: what does browser panel show?
         assertEquals("Restaurant Mode", getStatusBarFooter().getCurrentMode());
     }
 

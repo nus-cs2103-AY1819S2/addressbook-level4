@@ -161,14 +161,17 @@ public class LogicManager implements Logic {
         return model.getMenuFilePath();
     }
 
+    @Override
     public Path getOrdersFilePath() {
         return model.getOrdersFilePath();
     }
 
+    @Override
     public Path getTablesFilePath() {
         return model.getTablesFilePath();
     }
 
+    @Override
     public Path getStatisticsFilePath() {
         return model.getStatisticsFilePath();
     }
@@ -193,6 +196,7 @@ public class LogicManager implements Logic {
         model.setSelectedMenuItem(item);
     }
 
+    @Override
     public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
         return model.selectedOrderItemProperty();
     }

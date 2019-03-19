@@ -17,6 +17,10 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
+import seedu.address.storage.JsonMenuStorage;
+import seedu.address.storage.JsonOrdersStorage;
+import seedu.address.storage.JsonStatisticsStorage;
+import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
@@ -33,9 +37,13 @@ public class MainWindowCloseTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonRestOrRantStorage jsonAddressBookStorage = new JsonRestOrRantStorage(temporaryFolder.newFile().toPath());
+        JsonMenuStorage jsonMenuStorage = new JsonMenuStorage(temporaryFolder.newFile().toPath());
+        JsonOrdersStorage jsonOrdersStorage = new JsonOrdersStorage(temporaryFolder.newFile().toPath());
+        JsonStatisticsStorage jsonStatisticsStorage = new JsonStatisticsStorage(temporaryFolder.newFile().toPath());
+        JsonTablesStorage jsonTablesStorage = new JsonTablesStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
+        StorageManager storageManager = new StorageManager(jsonUserPrefsStorage, jsonOrdersStorage, jsonMenuStorage,
+                jsonStatisticsStorage, jsonTablesStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));

@@ -88,8 +88,8 @@ public class CommandTestUtil {
     public static final String ORDER_DESC_2_CHICKEN = " " + VALID_CODE_CHICKEN + " " + VALID_QUANTITY_2;
     public static final String ORDER_DESC_3_FRIES = " " + VALID_CODE_FRIES + " " + VALID_QUANTITY_3;
     public static final String DATE_DESC_1_JAN_2019 = " " + VALID_DAY_1 + "." + VALID_MONTH_1 + "." + VALID_YEAR_2019;
-    public static final String DATE_DESC_31_DEC_1998 = " " + VALID_DAY_31 + "." + VALID_MONTH_12 + "." +
-            VALID_YEAR_1998;
+    public static final String DATE_DESC_31_DEC_1998 = " " + VALID_DAY_31 + "." + VALID_MONTH_12 + "."
+            + VALID_YEAR_1998;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " Chicken Wings"; // ' ' not allowed in front
     public static final String INVALID_CODE_DESC = " " + PREFIX_CODE + "31A"; // first character should be a letter
@@ -122,8 +122,8 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Mode mode, Command command, Model actualModel,
-                                            CommandHistory actualCommandHistory, CommandResult expectedCommandResult,
-                                            Model expectedModel) {
+            CommandHistory actualCommandHistory, CommandResult expectedCommandResult, Model expectedModel) {
+
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(mode, actualModel, actualCommandHistory);
@@ -136,12 +136,11 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Mode, Command, Model, CommandHistory, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
+     * Convenience wrapper to {@link #assertCommandSuccess(Mode mode, Command, Model, CommandHistory, CommandResult,
+     * Model)} that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Mode mode, Command command, Model actualModel,
-                                            CommandHistory actualCommandHistory, String expectedMessage,
-                                            Model expectedModel) {
+            CommandHistory actualCommandHistory, String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(mode, command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
@@ -151,12 +150,12 @@ public class CommandTestUtil {
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the RestOrRant, filtered order item list, filtered menu item list, filtered dailyRevenue list, filtered
-     * table list <br>
+     * - table list <br>
      * - and selected order item, selected menu item, selected dailyRevenue, selected table <br>
      * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Mode mode, Command command, Model actualModel,
-                                            CommandHistory actualCommandHistory, String expectedMessage) {
+            CommandHistory actualCommandHistory, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         //        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonsList());
@@ -208,8 +207,6 @@ public class CommandTestUtil {
     //        assertEquals(1, model.getFilteredPersonList().size());
     //    }
 
-    // TODO: Figure out what the methods below do and FURTHER morph it to fit RestOrRant.
-
     /**
      * Updates {@code model}'s filtered list to show only the order item at the given {@code targetIndex} in the
      * {@code model}'s restaurant.
@@ -222,7 +219,7 @@ public class CommandTestUtil {
 
         final Code menuItemCode = orderItem.getMenuItemCode();
         model.updateFilteredOrderItemList(
-                item -> tableNumber.equals(item.getTableNumber()) && menuItemCode.equals(item.getMenuItemCode()));
+            item -> tableNumber.equals(item.getTableNumber()) && menuItemCode.equals(item.getMenuItemCode()));
 
         assertEquals(1, model.getFilteredOrderItemList().size());
     }
@@ -266,9 +263,8 @@ public class CommandTestUtil {
         final Day day = dailyRevenue.getDay();
         final Month month = dailyRevenue.getMonth();
         final Year year = dailyRevenue.getYear();
-        model.updateFilteredDailyRevenueList(
-                item -> day.equals(item.getDay()) && month.equals(item.getMonth()) && year.equals(item.getYear()));
-
+        model.updateFilteredDailyRevenueList(item -> day.equals(item.getDay()) && month.equals(item.getMonth())
+                && year.equals(item.getYear()));
         assertEquals(1, model.getFilteredDailyRevenueList().size());
     }
 
@@ -287,7 +283,6 @@ public class CommandTestUtil {
     public static void deleteFirstOrderItem(Model model) {
         OrderItem firstOrderItem = model.getFilteredOrderItemList().get(0);
         model.deleteOrderItem(firstOrderItem);
-        model.updateOrders(); // TODO: is this needed? Since deleteOrderItem already calls listener
     }
 
     /**
@@ -296,7 +291,6 @@ public class CommandTestUtil {
     public static void deleteFirstMenuItem(Model model) {
         MenuItem firstMenuItem = model.getFilteredMenuItemList().get(0);
         model.deleteMenuItem(firstMenuItem);
-        model.updateMode();
     }
 
     /**
@@ -305,7 +299,6 @@ public class CommandTestUtil {
     public static void deleteFirstTable(Model model) {
         Table firstTable = model.getFilteredTableList().get(0);
         model.deleteTable(firstTable);
-        model.updateMode();
     }
 
     /**
@@ -314,6 +307,5 @@ public class CommandTestUtil {
     public static void deleteFirstDailyRevenue(Model model) {
         DailyRevenue firstDailyRevenue = model.getFilteredDailyRevenueList().get(0);
         model.deleteDailyRevenue(firstDailyRevenue);
-        model.updateMode();
     }
 }

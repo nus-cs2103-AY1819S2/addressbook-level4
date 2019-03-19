@@ -1,17 +1,18 @@
 package seedu.address.storage;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.menu.Menu;
-import seedu.address.testutil.TypicalRestOrRant;
+import static org.junit.Assert.assertEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.menu.Menu;
+import seedu.address.testutil.TypicalRestOrRant;
 
 public class JsonSerializableMenuTest {
 

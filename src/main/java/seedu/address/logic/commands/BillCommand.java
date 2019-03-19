@@ -140,7 +140,7 @@ public class BillCommand extends Command {
     /**
      * Updates the status of table.
      */
-    private void updateStatusOfTable(Model model) {
+    private void updateStatusOfTable(Model model) throws CommandException {
         TableStatus updatedTableStatus = tableToBill.getTableStatus();
         updatedTableStatus.changeOccupancy("0");
         Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);

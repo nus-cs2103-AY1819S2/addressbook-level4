@@ -5,6 +5,9 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Price;
 
+/**
+ * A utility class to help with building MenuItem objects.
+ */
 public class MenuItemBuilder {
 
     public static final String DEFAULT_NAME = "Chicken Wings";

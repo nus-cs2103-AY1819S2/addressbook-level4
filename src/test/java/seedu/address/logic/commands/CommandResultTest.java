@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.logic.Mode;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -33,6 +35,10 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different toMode value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, false,
+                Mode.RESTAURANT_MODE)));
     }
 
     @Test
@@ -52,5 +58,9 @@ public class CommandResultTest {
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
                 true).hashCode());
+
+        // different toMode value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+                false, Mode.TABLE_MODE).hashCode());
     }
 }

@@ -15,6 +15,9 @@ import seedu.address.model.statistics.Statistics;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.Tables;
 
+/**
+ * This class provides a RestOrRant with all typical items
+ */
 public class TypicalRestOrRant {
     // Menu Items TODO: add quantity ordered
     public static final MenuItem CHICKEN_WINGS = new MenuItemBuilder().withName("Chicken Wings").withCode("W09")
@@ -110,7 +113,7 @@ public class TypicalRestOrRant {
     } // prevents instantiation
 
     /**
-     * Returns an {@code RestOrRant} with all the typical persons.
+     * Returns an {@code RestOrRant} with all the typical items.
      */
     public static RestOrRant getTypicalRestOrRant() {
         RestOrRant restOrRant = new RestOrRant();

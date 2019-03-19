@@ -1,0 +1,9 @@
+{
+  "tableList" : [ {
+    "tableNumber" : "1",
+    "tableStatus" : "0/4",
+  }, {
+    "tableNumber" : "Abc",
+    "tableStatus" : "C02",
+  } ]
+}

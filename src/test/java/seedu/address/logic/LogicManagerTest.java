@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.IOException;
@@ -25,7 +24,6 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
-import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
@@ -73,12 +71,12 @@ public class LogicManagerTest {
         assertHistoryCorrect(invalidCommand);
     }
 
-    @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);
-    }
+    //    @Test
+    //    public void execute_commandExecutionError_throwsCommandException() {
+    //        String deleteCommand = "delete 9";
+    //        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    //        assertHistoryCorrect(deleteCommand);
+    //    }
 
     @Test
     public void execute_validCommand_success() {
@@ -113,16 +111,16 @@ public class LogicManagerTest {
         //        assertHistoryCorrect(addCommand);
 
         // Execute addTable command
-        String addTableCommand = AddTableCommand.COMMAND_WORD ;
+        String addTableCommand = AddTableCommand.COMMAND_WORD;
         Table expectedTable = new TableBuilder().build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();
-        DailyRevenue expectedBill = new StatisticsBuilder().build();
+        DailyRevenue expectedDailyRevenue = new StatisticsBuilder().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTable(expectedTable);
         expectedModel.addOrderItem(expectedOrderItem);
         expectedModel.addMenuItem(expectedMenuItem);
-        expectedModel.addDailyRevenue(expectedBill);
+        expectedModel.addDailyRevenue(expectedDailyRevenue);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addTableCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addTableCommand);

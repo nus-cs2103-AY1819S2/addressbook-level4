@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_FRIES;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +28,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RestOrRant;
 import seedu.address.model.menu.Code;
-import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Price;

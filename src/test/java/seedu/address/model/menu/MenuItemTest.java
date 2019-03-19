@@ -1,10 +1,5 @@
 package seedu.address.model.menu;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.testutil.MenuItemBuilder;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_FRIES;
@@ -12,6 +7,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FRIES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_FRIES;
 import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
 import static seedu.address.testutil.TypicalRestOrRant.SALAD;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import seedu.address.testutil.MenuItemBuilder;
 
 public class MenuItemTest {
     @Rule

@@ -204,8 +204,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String file}.
-     *
+     * Parses a {@code String filePath} into a {@code ParsedIO}.
      * @throws ParseException if the given {@code file} is invalid.
      */
     public static ParsedInOut parseOpenSave(String filePath) throws ParseException {
@@ -220,7 +219,7 @@ public class ParserUtil {
         if (filePath.matches(jsonRegex)) {
             return new ParsedInOut(file, "json");
         } else {
-            if (filePath.matches(jsonRegex)) {
+            if (filePath.matches(pdfRegex)) {
                 return new ParsedInOut(file, "pdf");
             } else {
                 throw new ParseException("Input file type is not a .json or .pdf");
@@ -229,8 +228,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String file} and {@code Index} into a {@code ParsedIO}.
-     *
+     * Parses a {@code String input} into a {@code ParsedIO}.
      * @throws ParseException if the given {@code file} is invalid.
      */
     public static ParsedInOut parseImportExport(String input) throws ParseException {

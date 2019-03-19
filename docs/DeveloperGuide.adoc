@@ -253,10 +253,21 @@ This section describes some noteworthy details on how certain features are imple
 The import/export feature allows user to import CSV files into object and export objects to CSV files.
 
 ==== Current Implementation
-The import/export feature currently contains 2 commands to xxxxxxxxx
+The import/export feature currently contains 2 commands to perform the following operations.
 
-* `import user` - Imports the selected CSV file and load the current progress of the user.
-* `export user` - Exports the current progress of the user into a CSV file.
+* 'import feature' - Imports the selected CSV file and load the current progress of the user.
+* `export feature` - Exports the current progress of the user into a CSV file.
+
+NOTE: These functions are automatically performed on opening/closing the Session.
+
+==== Design Considerations
+* ** Alternative 1(Current choice): Automate importing/exporting when session is open/close
+** Pros: Lesser commands to manage.
+** Cons: Opening and closing may take up a lot of time if file is very big.
+
+* **Alternative 2: Individual commands for user to toggle with to import and export files when desired
+** Pros: More control given to user
+** Cons: Accidental overwriting of files may occur.
 
 // tag::undoredo[]
 === Undo/Redo feature

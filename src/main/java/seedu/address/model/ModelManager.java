@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
@@ -564,6 +565,11 @@ public class ModelManager implements Model {
             throw new BillNotFoundException();
         }
         recentBill.setValue(bill);
+    }
+
+    @Override
+    public void billUpdateOrders (ObservableList<OrderItem> orderItemList) {
+        restOrRant.getOrders().setOrderItems(orderItemList);
     }
 
     @Override

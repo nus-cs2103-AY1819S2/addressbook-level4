@@ -237,4 +237,9 @@ public class LogicManager implements Logic {
         model.setSelectedDailyRevenue(dailyRevenue);
     }
 
+    @Override
+    public void billUpdateOrders (ObservableList<OrderItem> orderItemList) {
+        model.billUpdateOrders(orderItemList);
+    }
+
 }

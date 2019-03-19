@@ -344,6 +344,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 Medical History is used to track a patient's history of coming to the clinic and seeing doctors.
 The following features are implemented or will be implemented for users of docX:
+
 * Add medical history of patient: the medical history contains information of patient, doctor, time and a prescription
 * List all medical history of a specified patient
 * Edit medical history
@@ -387,6 +388,7 @@ Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, 
 Appointments are created to facilitate future appointments between patients and doctors. A patient can have none or multiple appointments, a doctor can have none or multiple appointments. An appointment cannot overlap with a patient's or doctor's existing appointments. This is determined if the date and time overlaps. An appointment must specify a date, time, patient, doctor, and short write-up.
 
 The following features are implemented or will be implemented:
+
 * Add appointment
 * Complete appointment
 * Cancel appointment

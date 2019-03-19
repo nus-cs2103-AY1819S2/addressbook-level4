@@ -261,7 +261,7 @@ The import/export feature currently contains 2 commands to perform the following
 NOTE: These functions are automatically performed on opening/closing the Session.
 
 ==== Design Considerations
-* ** Alternative 1(Current choice): Automate import/exporting when session is open/close
+* ** Alternative 1(Current choice): Automate importing/exporting when session is open/close
 ** Pros: Lesser commands to manage.
 ** Cons: Opening and closing may take up a lot of time if file is very big.
 

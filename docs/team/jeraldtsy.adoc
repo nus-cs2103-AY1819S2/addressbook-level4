@@ -17,7 +17,7 @@ created with JavaFX. It is written in Java, and has about 10 kLoC.
 == Summary of contributions
 
 * *Major enhancement*: User features
-** What it does: User features manages the user progress and import and export their progress into a CSV file accordingly. The feature is automated whenever the program is open(Import) or close(export)
+** What it does: User features manage the user progress and import and export their progress into a CSV file accordingly. The feature is automated whenever the program is open(Import) or close(export)
 ** Highlights: https://github.com/CS2103-AY1819S2-W14-1/main/pull/(INSERT PULL NUMBER HERE)
 
 * *Minor enhancement*: https://github.com/CS2103-AY1819S2-W14-1/main/pull/(INSERT PULL NUMBER HERE)

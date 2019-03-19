@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class PinCommandTest {
 
         assertCommandSuccess(pinCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-
+    // put before
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -42,5 +42,4 @@ public class PinCommandTest {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
-
 }

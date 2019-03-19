@@ -232,6 +232,15 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add feature
+
+The `add` command has been tweaked from the original AB4 to include addition of
+ `HealthWorker`, `Patient` and `Request`.
+
+==== Additional Implementation from v1.1
+
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

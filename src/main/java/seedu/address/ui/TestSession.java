@@ -12,6 +12,8 @@ import seedu.address.model.card.Card;
 public class TestSession extends UiPart<Region> {
 
     private static final String FXML = "TestSession.fxml";
+    private static final String MESSAGE_CORRECT_ANSWER = "\"Wow you answered correctly, so smart\"";
+    private static final String MESSAGE_WRONG_ANSWER = "\"Better luck next time!\"";
 
     private Card cardToTest; //final?
 
@@ -21,6 +23,8 @@ public class TestSession extends UiPart<Region> {
     private Label testCardQuestion;
     @FXML
     private Label testCardAnswer;
+    @FXML
+    private Label testMessage;
 
     public TestSession() {
         super(FXML);
@@ -38,7 +42,7 @@ public class TestSession extends UiPart<Region> {
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
-        testCardAnswer.setText(cardToTest.getAnswer().fullAnswer);
+        testCardAnswer.setText("Correct answer: " + cardToTest.getAnswer().fullAnswer);
         testSessionPage.getChildren().add(testCardQuestion);
     }
 
@@ -47,7 +51,8 @@ public class TestSession extends UiPart<Region> {
      */
     public void handleCorrectAnswer() {
         testSessionPage.setStyle("-fx-background-color: #47AB6C;");
-        testSessionPage.getChildren().add(testCardAnswer);
+        testMessage.setText(MESSAGE_CORRECT_ANSWER);
+        testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }
 }
 

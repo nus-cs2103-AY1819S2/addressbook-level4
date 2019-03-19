@@ -3,12 +3,10 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -90,18 +88,13 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders) throws IOException {
+    public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders, Path path) throws IOException {
         cardFolderStorageList.clear();
         // Clear directory before saving
-        List<Path> pathsToDelete = Files.walk(Paths.get("data\\"))
-                .filter(Files::isRegularFile)
-                .collect(Collectors.toList());
-        for (Path pathToDelete : pathsToDelete) {
-            Files.deleteIfExists(pathToDelete);
-        }
+        Files.deleteIfExists(path);
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             // TODO: Address hardcoding and add check for orphaned folders
-            Path filePath = Paths.get("data\\" + cardFolder.getFolderName() + ".json");
+            Path filePath = path.resolve(cardFolder.getFolderName() + ".json");
             CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
             cardFolderStorageList.add(cardFolderStorage);
             cardFolderStorage.saveCardFolder(cardFolder);

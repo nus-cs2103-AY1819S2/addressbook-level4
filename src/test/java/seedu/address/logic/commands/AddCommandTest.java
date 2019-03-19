@@ -137,7 +137,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setCardFolder(ReadOnlyCardFolder newData) {
+        public void resetCardFolder(ReadOnlyCardFolder newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -247,6 +247,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void exitFoldersToHome() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isInFolder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Card> getFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }
@@ -328,6 +338,11 @@ public class AddCommandTest {
             requireNonNull(card);
             return this.card.equals(card);
         }
+
+        @Override
+        public boolean isInFolder() {
+            return true;
+        }
     }
 
     /**
@@ -351,6 +366,11 @@ public class AddCommandTest {
         @Override
         public void commitActiveCardFolder() {
             // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public boolean isInFolder() {
+            return true;
         }
     }
 

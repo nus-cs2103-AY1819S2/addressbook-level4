@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolder;
@@ -36,7 +37,9 @@ public class AddFolderCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
+        if (model.isInFolder()) {
+            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
+        }
         if (model.hasFolder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD_FOLDER);
         }

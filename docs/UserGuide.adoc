@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= docX - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,13 +18,13 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+docX is for those who *prefer to use a desktop app for managing contacts*. More importantly, docX is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, docX can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your docX.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -34,8 +34,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add-patient`**`n/John Doe p/98765432 a/22 g/M ` : adds a patient named `John Doe` to docX.
+* **`delete-doctor`**`3` : deletes the 3rd doctor shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[s/SPECIALISATION]...` can be used as `{nbsp}` (i.e. 0 times), `s/acupuncture`, `s/acupuncture s/general` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -59,7 +59,7 @@ Format: `help`
 === Adding a patient: `add-patient`
 
 Adds a patient to docX +
-Format: `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER`
+Format: `add-patient n/NAME g/GENDER [a/AGE] p/PHONE_NUMBER`
 
 // [TIP]
 // A person can have any number of tags (including 0)
@@ -76,7 +76,7 @@ Format: `list-patient`
 
 === Editing a patient : `edit-patient`
 
-Edits an existing patient in the address book. +
+Edits an existing patient in docX. +
 Format: `edit-patient INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE]`
 
 ****
@@ -114,7 +114,7 @@ Returns any patient having names `Betsy`, `Tim`, or `John`
 
 === Deleting an existing patient : `delete-patient`
 
-Deletes the specified patient from the address book. +
+Deletes the specified patient from docX. +
 Format: `delete-patient INDEX`
 
 ****
@@ -143,8 +143,8 @@ Format: `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION`
 
 Examples:
 
-* `add-doctor n/John Doe g/Male a/21 p/98765432`
-* `add-doctor n/Betsy Crowe g/Female p/1234567 a/32 s/GENERAL PRACTITIONER`
+* `add-doctor n/John Doe g/Male a/21 p/98765432 s/`acupuncture' 'general'`
+* `add-doctor n/Betsy Crowe g/Female p/1234567 a/32 s/'general'`
 
 === Listing all doctors : `list-doctor`
 
@@ -153,7 +153,7 @@ Format: `list-doctor`
 
 === Editing a doctor : `edit-doctor`
 
-Edits an existing doctor in the address book. +
+Edits an existing doctor in docX. +
 Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]`
 
 ****
@@ -161,7 +161,7 @@ Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATI
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing specialisation, the existing specialisations of the doctor will be removed i.e adding of specialisation(s) is not cumulative.
-* You can remove all the doctor's specialisations by typing `s/` without specifying any tags after it.
+* You can remove all the doctor's specialisations by typing `s/` without specifying any specialisation after it.
 ****
 
 Examples:
@@ -193,7 +193,7 @@ Returns any doctor having either 'general practitioner' or 'acupuncture' or both
 
 === Deleting an existing doctor : `delete-doctor`
 
-Deletes the specified doctor from the address book. +
+Deletes the specified doctor from docX. +
 Format: `delete-doctor INDEX`
 
 ****
@@ -206,9 +206,9 @@ Examples:
 
 * `list-doctor` +
 `delete-doctor 1` +
-Deletes the doctor with ID of '1' in the address book.
+Deletes the doctor with ID of '1' in docX.
 * `delete-doctor 2` +
-Deletes the doctor with ID of '2' in the address book.
+Deletes the doctor with ID of '2' in docX.
 
 === Adding a medical history: `add-med-hist`
 
@@ -250,24 +250,6 @@ Edits the date of the medical history entry with ID of '2' under patient with ID
 * `edit-med-hist pid/4 mhid/1 w/Came down with a stomach flu, possibly due to eating expired canned food` +
 Edits the short write up of the medical history with ID of '1' under patient with ID of '2' to be `Came down with a stomach flu, possibly due to eating expired food`.
 
-=== Viewing medical history of a patient: `view-med-hist`
-
-View the full specified medical history of the specified patient. +
-Format: `view-med-hist n/PATIENT_NAME [pid/PATIENT_ID] mhid/MED_HIST_ID`
-
-****
-* Display the full medical history of the specified `MED_HIST_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* If there are common names of patients found, the system will stop the information from being added and prompt the user to insert the command with the specific ID of the patient.
-****
-
-Examples:
-
-* `view-med-hist n/JOHN DOE mhid/1` +
-Returns full write up of the medical history with ID of '1' of the patient with name of 'John Doe'
-* `view-med-hist n/Amy pid/2 mhid/4` +
-Returns full write up of the medical history with ID of '4' of the patient with name of 'Amy' and ID of '2'
-
 === Locating medical history : `search-med-hist`
 
 Finds medical history(ies) whose write up contain any of the given keywords. +
@@ -288,9 +270,27 @@ Returns all medical history with the write up containing the keyword `flu`
 * `search-med-hist 'stomach flu' 'sorethroat'` +
 Returns all medical history with the write up containing either 'stomach flu' or 'sorethroat' or both keywords.
 
+=== Viewing medical history of a patient: `view-med-hist`
+
+View the full specified medical history of the specified patient. +
+Format: `view-med-hist n/PATIENT_NAME [pid/PATIENT_ID] mhid/MED_HIST_ID`
+
+****
+* Display the full medical history of the specified `MED_HIST_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* If there are common names of patients found, the system will stop the information from being added and prompt the user to insert the command with the specific ID of the patient.
+****
+
+Examples:
+
+* `view-med-hist n/JOHN DOE mhid/1` +
+Returns full write up of the medical history with ID of '1' of the patient with name of 'John Doe'
+* `view-med-hist n/Amy pid/2 mhid/4` +
+Returns full write up of the medical history with ID of '4' of the patient with name of 'Amy' and ID of '2'
+
 === Adding an appointment: `add-appt`
 
-Adds an appointment under the doctor and patient. +
+Adds an appointment under the doctor and patient involved. +
 Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
 
 ****
@@ -310,7 +310,7 @@ Adds an appointment under patient with ID of '3' and doctor with ID of '2' on 25
 
 === Completing an appointment : `complete-appt`
 
-Complete the appointment when the patient and doctor finishes the appointment +
+Complete the appointment when the patient and doctor finishes the appointment. +
 Format: `complete-appt INDEX`
 
 ****
@@ -329,7 +329,7 @@ Completes the appointment with ID of '3' in docX.
 
 === Cancelling an appointment : `cancel-appt`
 
-Cancel the appointment when the patient or doctor cannot attend the appointment +
+Cancel the appointment when the patient or doctor cannot attend the appointment. +
 Format: `cancel-appt INDEX`
 
 ****
@@ -359,7 +359,7 @@ Format: `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
 
 Examples:
 
-* list-appt did/3 sd/30032019 ed/30042019 +
+* `list-appt did/3 sd/30032019 ed/30042019` +
 Lists all appointments of the doctor with ID of '3' from 30th March 2019 to 30th April 2019.
 
 === Listing available timings of a doctor : `list-doc-time`
@@ -374,7 +374,7 @@ Format: `list-doc-time did/DOCTOR_ID d/DATE`
 
 Examples:
 
-* list-doc-time did/3 d/05032019 +
+* `list-doc-time did/3 d/05032019` +
 Lists all available blocks of timing of the doctor with ID of '3' on 5th March 2019.
 
 === Listing available timings of all doctors : `list-time`
@@ -389,7 +389,7 @@ Format: `list-time DATE`
 
 Examples:
 
-* list-time 26022019 +
+* `list-time 26022019` +
 Lists all doctors' available blocks of timing for each 1-hour time slot on 26th February 2019.
 
 
@@ -455,7 +455,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from docX. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -465,7 +465,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+docX data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -481,19 +481,62 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+PATIENT COMMANDS
+
+* *Add a new patient* `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER` +
+e.g. `add-patient n/Betsy Crowe g/Female p/1234567 a/32`
+* *List existing patients* : `list-patient`
+* *Delete patient* : `delete-patient INDEX` +
+e.g. `delete-patient 3`
+* *Edit an existing patient* : `edit-patient INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE]` +
+e.g. `edit-patient 2 n/Betsy Crower p/45678901`
+* *Locating a patient* : `search-patient NAME [PHONE_NUMBER]` +
+e.g. `search-patient John`
+* *Delete an existing patient* : `delete-patient INDEX` +
+eg. `delete-patient 2`
+
+DOCTOR COMMANDS
+
+* *Add a new doctor* `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION` +
+e.g. `add-doctor n/John Doe g/Male a/21 p/98765432 s/`acupuncture' 'general'`
+* *List existing doctors* : `list-doctor`
+* *Delete doctor* : `delete-doctor INDEX` +
+e.g. `delete-doctor 3`
+* *Edit an existing doctor* : `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]` +
+e.g. `edit-doctor 2 n/Betsy Crower p/45678901`
+* *Locating a doctor* : `search-patient NAME [PHONE_NUMBER]` +
+e.g. `search-doctor 'general practitioner' 'acupuncture'`
+* *Delete an existing doctor* : `delete-doctor INDEX` +
+eg. `delete-doctor 2`
+
+MEDICAL HISTORY COMMANDS
+
+* *Add a new medical history* `add-med-hist p/PATIENT_NAME [pid/PATIENT_ID] d/DOCTOR_NAME [did/DOCTOR_ID] w/SHORT_WRITEUP` +
+e.g. `add-med-hist p/John Doe did/3 d/Amy w/Had a fever with sorethroat. Sleeps late.`
+* *List medical histories of a patient* : `list-med-hist PATIENT_ID`
+* *Edit an existing medical history of a patient* : `edit-med-hist pid/PATIENT_ID mhid/MED_HIST_ID [d/DATE_OF_VISIT] [w/SHORT_WRITEUP]` +
+e.g. `edit-med-hist pid/1 mhid/2 d/10022019`
+* *Locating a medical history* : `search-med-hist KEYWORD` +
+e.g. `search-med-hist 'flu'`
+* *View a medical history* : `view-med-hist n/PATIENT_NAME [pid/PATIENT_ID] mhid/MED_HIST_ID` +
+e.g. `view-med-hist n/JOHN DOE mhid/1`
+
+APPOINTMENT COMMANDS
+
+* *Add a new appointment* `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME` +
+e.g. `add-appt pid/1 did/1 d/25032019 t/09`
+* *Completing an appointment* : `complete-appt INDEX`
+* *Cancelling an appointment* : `cancel-appt INDEX`
+* *List upcoming appointments of a doctor* : `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
+e.g. `list-appt did/3 sd/30032019 ed/30042019`
+* *List available timings of a doctor* : `list-doc-time did/DOCTOR_ID d/DATE`
+e.g. `list-doc-time did/3 d/05032019`
+* *List available doctors during the specified time* : `list-time DATE`
+e.g. `list-time 26022019`
+
+GENERAL COMMANDS
+
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

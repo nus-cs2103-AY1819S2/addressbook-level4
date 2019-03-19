@@ -313,12 +313,39 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::membersort[]
+=== MemberSetActive
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+* The `MemberSetActive` command sets the member status to active. The member's personCard will then be updated based on
+the colour allocated to the active status. Active status denotes that is still an active member of the CCA.
 
-// end::dataencryption[]
+* If a member is already active, `MemberSetActive` will inform user that the user is already active. No action taken.
+
+=== MemberSetInactive
+
+==== Current Implementation
+* The `MemberSetInactive` command sets the member status to inactive. The member's personCard will then be updated based on
+the colour allocated to the inactive status. Inactive status denotes that the member has graduated from school.
+
+* If a member is already inactive, `MemberSetActive` will inform user that the user is already active. No action taken.
+
+
+=== MemberSort
+
+==== Current Implementation
+* The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
+
+* It takes in a criteria from the user, and checks if the input from the user matches any of the available
+sorting criteria provided.
+
+* If the user input matches, the uniquePersonList will be sorted based on that criteria
+If the user input does not match, then an error message will be prompted to the user.
+
+==== Future Implementation
+* For future implementation, the `memberSort` command will sort the members based on active and inactive status (second priority).
+Active and inactive members will have their personCard differentiated by color.
+// end::membersort[]
 
 === Logging
 

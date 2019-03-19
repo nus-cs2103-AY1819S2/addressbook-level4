@@ -31,7 +31,7 @@ started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your ClubManager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UiUpdate.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -57,166 +57,24 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Adding a member: `memberAdd`
+=== General Features
 
-You can add members to ClubManager. +
-Format: `memberAdd n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
-****
-* YEAR_OF_STUDY refers to the academic level (in years) in which the member is currently studying in YYYY format.
-* MAJOR refers to the field of discipline in which member is currently enrolled in.
-****
-[TIP]
-A member can have any number of tags (including 0)
+==== Clearing all entries : `clear`
 
-Examples:
+Clears all entries from the address book. +
+Format: `clear`
 
-* `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`
-* `memberAdd n/Betsy Crower an/A0123456Y p/98765432 e/jamesong@example.com yos/year4 m/chemistry t/maincomm`
+==== Exiting the program : `exit`
 
-=== Listing all members : `memberList`
+Exits the program. +
+Format: `exit`
 
-Shows a list of all members in ClubManager. +
-Format: `memberList`
 
-=== Editing a member : `memberEdit`
-
-Edits an existing member in ClubManager. +
-Format: `memberEdit INDEX n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]`
-
-****
-* Edits the member at the specified `INDEX`. The index refers to the index number shown in the displayed member list.
-The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* You can remove all the member's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `memberEdit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st member to be `91234567` and `johndoe@example.com` respectively.
-
-* `memberEdit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
-
-=== Locating members by name: `memberFind`
-
-Finds members whose names contain any of the given keywords. +
-Format: `memberFind KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* members matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `memberFind John` +
-Returns `john` and `John Doe`
-* `memberFind Betsy Tim John` +
-Returns any member having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a member : `memberDelete`
-
-Deletes the specified member from ClubManager. +
-Format: `memberDelete INDEX`
-
-****
-* Deletes the member at the specified `INDEX`.
-* The index refers to the index number shown in the displayed member list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`memberDelete 2` +
-Deletes the 2nd member in ClubManager.
-* `memberFind Betsy` +
-`memberDelete 1` +
-Deletes the 1st member in the results of the `find` command.
-
-=== Set member as Active : `memberSetActive`
-Sets a member who was inactive, back to active.
-Format: `memberSetActive INDEX`
-
-****
-* Sets the status for the member at the specified `INDEX` as active.
-* The index refers to the index number shown in the displayed member list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Example:
-
-* `list` +
-* `memberSetActive 3`
-
-=== Set member as Active : `memberSetInactive`
-Sets a member who was active, to inactive. Recommended for students who have graduated.
-Format: `memberSetInactive INDEX`
-
-****
-* Sets the status for the member at the specified `INDEX` as active.
-* The index refers to the index number shown in the displayed member list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Example:
-
-* `list` +
-* `memberSetInactive 3`
-
-=== Sort members’ list : `memberSort`
-
-Sort the members list by a member’s attribute in ascending order
-Format: `memberSort n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR`
-
-****
-* Sorts the member at the specified attribute. The attribute refers to the name, admin number, phone number, email, year of study, and major. There can only be a single attribute provided.
-* At least one of the attributes are provided.
-* Members will be sorted in ascending order based on the attribute.
-****
-
-Example:
-
-* `list` +
-* `memberSort NAME`
-
-Sorts the list by name.
-
-=== Selecting a member : `memberSelect`
-
-Selects the member identified by the index number used in the displayed member list. +
-Format: `memberSelect INDEX`
-
-****
-* Selects the member and loads the members page of the member at the specified `INDEX`.
-* The index refers to the index number shown in the displayed member list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`memberSelect 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`memberSelect 1` +
-Selects the 1st member in the results of the `find` command.
-
-=== Viewing help : `help`
+==== Viewing help : `help`
 Displays a list of commands and the help messages to guide the user.
 Format: `help`
 
-=== Clearing all entries : `clear`
-
-You can clears all entries from the members’ list.
-Format: `clear`
-
-=== Listing entered commands : `history`
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -226,8 +84,30 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+// tag::redoundo[]
+==== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+
+==== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -252,31 +132,166 @@ The `undo` command fails as there are no undoable commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
+// end::redoundo[]
 
-=== Redoing the previously undone command : `redo`
+=== Member Management Features
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+==== Adding a member: `memberAdd`
+
+You can add members to ClubManager. +
+Format: `memberAdd n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+****
+* YEAR_OF_STUDY refers to the academic level (in years) in which the member is currently studying in YYYY format.
+* MAJOR refers to the field of discipline in which member is currently enrolled in.
+****
+[TIP]
+A member can have any number of tags (including 0)
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`
+* `memberAdd n/Betsy Crower an/A0123456Y p/98765432 e/jamesong@example.com yos/year4 m/chemistry t/maincomm`
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+==== Deleting a member : `memberDelete`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+Deletes the specified member from ClubManager. +
+Format: `memberDelete INDEX`
 
-=== Adding an activity : `activityAdd`
+****
+* Deletes the member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`memberDelete 2` +
+Deletes the 2nd member in ClubManager.
+* `memberFind Betsy` +
+`memberDelete 1` +
+Deletes the 1st member in the results of the `find` command.
+
+==== Editing a member : `memberEdit`
+
+Edits an existing member in ClubManager. +
+Format: `memberEdit INDEX n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]`
+
+****
+* Edits the member at the specified `INDEX`. The index refers to the index number shown in the displayed member list.
+The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* You can remove all the member's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `memberEdit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st member to be `91234567` and `johndoe@example.com` respectively.
+
+* `memberEdit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
+
+==== Locating members by name: `memberFind`
+
+Finds members whose names contain any of the given keywords. +
+Format: `memberFind KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* members matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `memberFind John` +
+Returns `john` and `John Doe`
+* `memberFind Betsy Tim John` +
+Returns any member having names `Betsy`, `Tim`, or `John`
+
+==== Listing all members : `memberList`
+
+Shows a list of all members in ClubManager. +
+Format: `memberList`
+
+==== Selecting a member : `memberSelect`
+
+Selects the member identified by the index number used in the displayed member list. +
+Format: `memberSelect INDEX`
+
+****
+* Selects the member and loads the members page of the member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`memberSelect 2` +
+Selects the 2nd person in the address book.
+* `find Betsy` +
+`memberSelect 1` +
+Selects the 1st member in the results of the `find` command.
+
+==== Set member as Active : `memberSetActive`
+Sets a member who was inactive, back to active.
+Format: `memberSetActive INDEX`
+
+****
+* Sets the status for the member at the specified `INDEX` as active.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `list` +
+* `memberSetActive 3`
+
+==== Set member as Active : `memberSetInactive`
+Sets a member who was active, to inactive. Recommended for students who have graduated.
+Format: `memberSetInactive INDEX`
+
+****
+* Sets the status for the member at the specified `INDEX` as active.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `list` +
+* `memberSetInactive 3`
+
+==== Sort members’ list : `memberSort`
+
+Sort the members list by a member’s attribute in ascending order
+Format: `memberSort n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR`
+
+****
+* Sorts the member at the specified attribute. The attribute refers to the name, admin number, phone number, email, year of study, and major. There can only be a single attribute provided.
+* At least one of the attributes are provided.
+* Members will be sorted in ascending order based on the attribute.
+****
+
+Example:
+
+* `list` +
+`memberSort name` +
+Sorts the list by name.
+
+* `list` +
+`memberSort major` +
+Sorts the list by major.
+
+=== Activity Management Features
+
+==== Adding an activity : `activityAdd`
 Adds a new activity to the activity list
 Format: `activityAdd n/ACTIVITYNAME d/DATE t/TAG...`
 
@@ -288,52 +303,64 @@ Example:
 * `activityAdd n/Sentosa Outing d/16022019 t/cohesion`
 * `activityAdd n/HTML workshop d/1402019`
 
-=== Listing all activities : `activityList`
-
-Shows a list of all activities in the activity list. +
-Format: `activityList`
-
-=== Selecting an activity : `activitySelect`
-
-Selects the activity identified by the index number used in the displayed activity list. +
-Format: `activitySelect ACTIVITY_INDEX`
+==== Add a member to activity `activityAddMember`
+Adds an existing member to an existing activity to indicate that they will be going for the activity.
+Format: `activityAddMember ACTIVITY_INDEX MATRIC_NO`
 
 ****
-* Selects the activity and displays the specific details of the activity at the specified `ACTIVITY_INDEX`.
-* The index refers to the index number shown in the displayed activity list.
+* Adds a member to the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* MATRIC_NO must be a currently existing entry in any existing member’s MATRIC_NO information column in the member list.
+****
+Examples:
+
+* `activityAddMember 1 A1234567N` +
+Adds the member with matric number `A1234567N` to the attending list for activity 1.
+
+==== Archiving a done activity: `activityArchive`
+
+Changing the status of the activity to done and adding the activity to archive. +
+Format: `activityArchive ACTIVITY_INDEX`
+
+****
+* Change the status and archive the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
-* `activityList` +
-`activitySelect 2` +
-Selects the 2nd person in the displayed activity list.
-* `activityFind workshop` +
-`activitySelect 1` +
-Selects the 1st activity in the results of the `find` command.
+* `activityArchive 1` +
+Archive the first activity in the displayed activity list
 
-=== Locating activities by name: `activityFind`
-
-Finds activities whose names contain any of the given keywords. +
-Format: `activityFind KEYWORD [MORE_KEYWORDS]`
+==== Delete an activity `activityDelete`
+Deletes an existing activity in the activity list
+Format: `activityDelete ACTIVITY_INDEX`
 
 ****
-* The search is case insensitive. e.g `workshop` will match `Workshop`
-* The order of the keywords does not matter. e.g. `Talk Seminar` will match `Seminar Talk`
-* Only the name is searched.
-* Only full words will be matched e.g. `CS` will not match `CSS`
-* Activities matching at least one keyword will be returned (i.e. `OR` search). e.g. `HTML workshop` will return `HTML camp`, `CSS workshop`
+* Deletes the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `activityFind Workshop` +
-Returns `HTML workshop` and `CSS workshop`
-* `find HTML CSS Javascript` +
-Returns any activity having names `HTML`, `CSS`, or `Javascript`
+* `activityDelete 1` +
+Deletes the first activity in the displayed activity list
 
-=== Edit an activity: `activityEdit`
+==== Delete a member from activity `activityDeleteMember`
+Removes an existing member who has already indicated that he/she will be attending the activity from the attending list of the activity.
+Format: `activityDeleteMember ACTIVITY_INDEX MATRIC_NO`
+
+****
+* Removes a member from the attending list of the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* MATRIC_NO must be a currently existing entry in the specified activity’s attending list.
+****
+Examples:
+
+* `activityDeleteMember 1 A1234567N` +
+Removes the member with matric number A1234567N from activity 1’s attending list.
+
+==== Edit an activity: `activityEdit`
 Edits an existing activity in the activity list
 Format: `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `
 
@@ -353,62 +380,68 @@ Edits the date of the first activity to be 13 Feb 2019.
 * `activityEdit 2 t/` +
 Clears all existing tags of the second activity.
 
-=== Sort all activities by date `activitySort`
+==== Finding activities by name: `activityFind`
+
+Finds activities whose names contain any of the given keywords. +
+Format: `activityFind KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `workshop` will match `Workshop`
+* The order of the keywords does not matter. e.g. `Talk Seminar` will match `Seminar Talk`
+* Only the name is searched.
+* Only full words will be matched e.g. `CS` will not match `CSS`
+* Activities matching at least one keyword will be returned (i.e. `OR` search). e.g. `HTML workshop` will return `HTML camp`, `CSS workshop`
+****
+
+Examples:
+
+* `activityFind Workshop` +
+Returns `HTML workshop` and `CSS workshop`
+* `find HTML CSS Javascript` +
+Returns any activity having names `HTML`, `CSS`, or `Javascript`
+
+==== Listing all activities : `activityList`
+
+Shows a list of all activities in the activity list. +
+Format: `activityList`
+
+==== Selecting an activity : `activitySelect`
+
+Selects the activity identified by the index number used in the displayed activity list. +
+Format: `activitySelect ACTIVITY_INDEX`
+
+****
+* Selects the activity and displays the specific details of the activity at the specified `ACTIVITY_INDEX`.
+* The index refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `activityList` +
+`activitySelect 2` +
+Selects the 2nd person in the displayed activity list.
+* `activityFind workshop` +
+`activitySelect 1` +
+Selects the 1st activity in the results of the `find` command.
+
+==== Sort all activities by date `activitySort`
 Sorts all activities in the activity list according to the event date.
 Format: `activitySort`
 
-=== Add a member to activity `activityAddMember`
-Adds an existing member to an existing activity to indicate that they will be going for the activity.
-Format: `activityAddMember ACTIVITY_INDEX MATRIC_NO`
+==== Removing an activity from the archive: `activityUnarchive`
+
+Changing the status of the activity back to ongoing and removing the activity from the archive. +
+Format: `activityUnarchive ACTIVITY_INDEX`
 
 ****
-* Adds a member to the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* MATRIC_NO must be a currently existing entry in any existing member’s MATRIC_NO information column in the member list.
-****
-Examples:
-
-* `activityAddMember 1 A1234567N` +
-Adds the member with matric number `A1234567N` to the attending list for activity 1.
-
-=== Delete a member from activity `activityDeleteMember`
-Removes an existing member who has already indicated that he/she will be attending the activity from the attending list of the activity.
-Format: `activityDeleteMember ACTIVITY_INDEX MATRIC_NO`
-
-****
-* Removes a member from the attending list of the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* MATRIC_NO must be a currently existing entry in the specified activity’s attending list.
-****
-Examples:
-
-* `activityDeleteMember 1 A1234567N` +
-Removes the member with matric number A1234567N from activity 1’s attending list.
-
-
-=== Delete an activity `activityDelete`
-Deletes an existing activity in the activity list
-Format: `activityDelete ACTIVITY_INDEX`
-
-****
-* Deletes the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Change the status and archive the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
-
-* `activityDelete 1` +
-Deletes the first activity in the displayed activity list
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
+* `activityUnarchive 1` +
+Unarchive the first activity in the displayed activity list
 
 === Saving the data
 
@@ -462,6 +495,8 @@ e.g. `memberSort NAME`
 e.g. `activityAdd n/Sentosa Outing d/16022019 t/cohesion`
 * *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NO` +
 e.g. `activityAddMember 1 A1234567N`
+* *Archive an activity* : `activityArchive ACTIVITY_INDEX` +
+e.g. `activityArchive 1`
 * *Delete an activity* : ``activityDelete ACTIVITY_INDEX`` +
 e.g. `activityDelete 1`
 * *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NO` +
@@ -474,7 +509,8 @@ e.g. `activityFind Workshop`
 * *Select an activity* : `activitySelect ACTIVITY_INDEX` +
 e.g. `activitySelect 2`
 * *Sort all activities by date* : `activitySort`
-
+* *Unarchive an activity* : `activityUnarchive ACTIVITY_INDEX` +
+e.g. `activityUnarchive 1`
 
 
 

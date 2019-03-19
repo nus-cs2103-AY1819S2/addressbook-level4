@@ -34,7 +34,7 @@ public class CopyCommand extends Command {
     /**
      * Creates an CopyCommand to add the specified {@code Person}
      */
-    public CopyCommand(Index index,int numOfCopies) {
+    public CopyCommand(Index index, int numOfCopies) {
         requireNonNull(index);
         this.index = index;
         this.numOfCopies = numOfCopies;
@@ -59,7 +59,7 @@ public class CopyCommand extends Command {
             throw new PersonIsNotPatient();
         }
 
-        for (int i = 0; i < numOfCopies; i++){
+        for (int i = 0; i < numOfCopies; i++) {
             model.addPerson(copyPerson);
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

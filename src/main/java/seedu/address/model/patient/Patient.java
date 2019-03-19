@@ -76,12 +76,16 @@ public class Patient extends Person {
         }
     }
 
+    /**
+     * Create a copy of this instance
+     * @return another copy of this instance
+     */
     public Patient copy() {
         if (isCopy()) {
             return ((Patient) copyInfo.getOriginalPerson()).copy();
         }
         copyCount++;
-        return new Patient(name, phone, email, address, tags, nric,dateOfBirth,this, copyCount);
+        return new Patient(name, phone, email, address, tags, nric, dateOfBirth, this, copyCount);
     }
 
     /**
@@ -174,7 +178,7 @@ public class Patient extends Person {
         if (otherPerson == null) {
             return false;
         } else if (otherPerson instanceof Patient) {
-            if (isCopy() || otherPerson.isCopy()){
+            if (isCopy() || otherPerson.isCopy()) {
                 return false;
             }
             return nric.equals(((Patient) otherPerson).getNric());

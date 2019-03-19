@@ -32,7 +32,7 @@ public class TaskcopyCommand extends Command {
     /**
      * Creates an TaskcopyCommand to add the specified {@code Person}
      */
-    public TaskcopyCommand(Index index,int numOfCopies) {
+    public TaskcopyCommand(Index index, int numOfCopies) {
         requireNonNull(index);
         this.index = index;
         this.numOfCopies = numOfCopies;

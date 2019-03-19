@@ -16,7 +16,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of cards.
  */
 public class ListPanel extends UiPart<Region> {
     private static final String FXML = "ListPanel.fxml";

@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -537,6 +539,19 @@ public class ModelManager implements Model {
 
     public String listApp() {
         return appointmentManager.list();
+    }
+
+    public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
+        return appointmentManager.getAppointment(date, start);
+    }
+
+    /**
+     * Deletes an {@code Appointment} from QuickDocs
+     * @param appointment the {@code Appointment} to delete
+     */
+    public void deleteAppointment(Appointment appointment) {
+        appointmentManager.delete(appointment);
+        quickDocs.indicateModification(true);
     }
 
     //==========Reminder module==============================================================================

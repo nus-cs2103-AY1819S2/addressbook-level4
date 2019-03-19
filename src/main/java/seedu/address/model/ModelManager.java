@@ -560,5 +560,7 @@ public class ModelManager implements Model {
         recordManager.record(record, clock);
     }
 
-    public void setConsultationFee(BigDecimal fee) { recordManager.setConsultationFee(fee); }
+    public void setConsultationFee(BigDecimal fee) {
+        recordManager.setConsultationFee(fee);
+    }
 }

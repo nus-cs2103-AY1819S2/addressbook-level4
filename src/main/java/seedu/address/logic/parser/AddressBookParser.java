@@ -19,7 +19,6 @@ import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.EndConsultationCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAppCommand;
@@ -32,6 +31,7 @@ import seedu.address.logic.commands.PurchaseMedicineCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetConsultationFeeCommand;
+import seedu.address.logic.commands.SetPriceCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewStorageCommand;
@@ -69,9 +69,6 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -150,6 +147,9 @@ public class AddressBookParser {
 
         case PurchaseMedicineCommand.COMMAND_WORD:
             return new PurchaseMedicineCommandParser().parse(arguments);
+
+        case SetPriceCommand.COMMAND_WORD:
+            return new SetPriceCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

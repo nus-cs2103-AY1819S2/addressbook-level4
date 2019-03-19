@@ -153,7 +153,7 @@ image::SDforAddPatient.png[width="800"]
 
 The sections below give more details of each component.
 
-[[Design-Ui]]0.
+[[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
@@ -203,21 +203,22 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::Model.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores all data used in QuickDocs.
+* consists of managers from sub-modules.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+[[Design-Model-MedicineManager]]
+==== Model for Medicine module
+
+.Structure of the MedicineManager
+image::MedicineManager.png[width="500"]
 
 [[Design-Storage]]
 === Storage component
@@ -390,6 +391,65 @@ Unable to differentiate between editing an existing value and adding a new value
 
 |===
 
+=== Storage of Medicine
+==== Current implementation
+
+The current implementation takes a similar form as the Windows file browser. The user is free to determine for himself/herself how he/she wants the medicines to be arranged.
+
+From the initial empty state of the storage, the users could arrange their storage in these following ways:
+
+1. The initial empty storage consists of an empty directory named as "root".
+
+2. The user could add a new directory via "addDirec" command by specifying the directory he/she wants to add into and the name of new directory.
+
+3. The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
+
+4. The user could add new/existing medicine to a specific directory via the "addMed" command.
+
+* 1. If there already exists a medicine with the same name in the storage, and the initial quantity is not specified in the command arguments, the existing medicine will be placed in the directory specified.
+
+* 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
+
+5. The user could view detailed information about a directory or medicine through "viewMed" command.
+
+6. The user could set the alarm level for medicines via the "setAlarm", such that when the stored amount of the medicine falls lower than the alarm level, a reminder will be thrown.
+
+* 1. If the path in the command argument corresponds to a medicine, the medicine will have the alarm level specified.
+
+* 2. If the path in the command argument corresponds to a directory, every medicine under it and its sub-directories will have the alarm level specified. All medicines added under this directory will have the same alarm level.
+
+* 3. If the path neither points to a directory nor medicine, an error message will be displayed to the user.
+
+7. Additionally, a list of all medicine stored in the storage is also kept to enable fast search and manipulation of medicine by its name only.
+
+==== Design consideration
+
+1. The current implementation takes into consideration that the users may wish to have some freedom in determining the arrangement of medicine.
+
+2. This Windows-file-browser-like data Structure provides user flexibility in determining how the medicines should be arranged.
+
+3. By arranging the medicine by folders, it is then possible to support massive manipulation of medicine by directories.
+
+4. As it is impossible to expect the user to remember the name of all medicine, this data structure helps the user to find medicine when he/she cannot remember the full name correctly
+
+==== Alternatives considered
+
+[cols="1, 1, 1", options="header"]
+|===
+|Alternative |Description |Reasons for not adopting
+// row 1
+|*Store medicines as a simple ArrayList*
+| When users add a new medicine, just append a new medicine to the ArrayList
+| When the number of medicines stored is large, search and manipulation is not time-efficient.
+
+There is no room for arrangements of medicine.
+
+// row 2
+|*Use a hash map to store the medicines*
+| Use medicine name as the key and the medicine as the value.
+| The user will not be able to access the medicine unless he/she remembers the name precisely, which is not likely to be the case.
+
+|===
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

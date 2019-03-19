@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -315,6 +316,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+
 === Cards
 ==== Current Implementation
 The `Card` is one of the core aspects of the application. Cards are the result of morphing of the `Person` class from the original AddressBook model. The implementation incorporates the `Logic` and `Model` components.
@@ -346,6 +348,40 @@ To allow users to manage Cards, the following methods are available via the `Mod
     sequence diagram showing how add command works
 
 
+// tag::score[]
+=== Score feature
+==== Current Implementation
+
+To implement tracking of the number of correct and incorrect attempts, a new attribute `Score` was added to `Card`.
+Score keeps track of both numbers.
+This attribute is encapsulated in the `Score` class.
+
+==== Design Considerations
+
+===== Aspect: How to represent score
+
+* **Alternative 1 (current choice):** Track total number of correct attempts and total number of attempts
+** Pros: Simple to implement. Most semantically correct.
+** Cons: Score will be rolling average. If the question is answered wrongly even once, the score can never be 100%.
+* **Alternative 2:** Track only last X attempts.
+** Pros: An improvement in performance will be more obvious.
+** Cons: Uses more memory. Have to delete the X+1th score every time a new score is added.
+
+===== Aspect: How to read/write score from file
+
+* **Alternative 1 (current choice):** Read/write as `String`.
+** Pros: `String`s are easier to read/write to file.
+** Cons: There must be strict checks when instantiating score from strings as they are prone to many kinds of formatting errors.
+* **Alternative 2:** Read/write as a double.
+** Pros: A `double` can represent both numbers with just one, which then can be converted to `String`.
+** Cons: When instantiating score from double, it might be simplified.
+For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantiating from double, it is interpreted as 1 correct attempt and 2 total attempts.
+* **Alternative 3:** Read and write both numbers as integers.
+** Pros: Most correct implementation.
+** Cons: Reading/writing to file now needs to take into account this fact. The `toString()` method cannot be used to write to file.
+
+// end::score[]
+
 === Import/Export feature
 ==== Current Implementation
 The Import and Export feature is facilitated by the addition of 3 new classes inside the csvmanager package defined under storage component.
@@ -370,9 +406,6 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
 2. Export command parser extracts prefixes and parses the corresponding folders into the CsvCardFolder and CsvFile objects. Returns an ExportCommand to be executed.
 
     Draw export command object diagram with set<CardFolderExport> and CsvFile file
-
-
-
 
 3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
 
@@ -454,7 +487,6 @@ current `cardMainScreen` page.
     `Model#checkIfInsideTestSession()`. If true, this `test` command would be rendered invalid and an
     exception is thrown.
 
-
 2. The application enters this folder by setting `ActiveCardFolderIndex` to this current index.
 
 3. The `test` command calls `Model#testCardFolder()` method.
@@ -463,14 +495,10 @@ current `cardMainScreen` page.
 
     draw commandResult object diagram
 
-
 5. `CommandResult` invokes `MainWindow#handleStartTestSession()` in the `UI` component to display the
 `currentTestedCard` question and hints to the user.
 
     insert sequence diagram for test command
-
-
-
 
 6. When the user executes the command `end`
 
@@ -479,14 +507,12 @@ current `cardMainScreen` page.
 * The `logic` unit checks if the user is already in a test session using `Model#checkIfInsideTestSession()`, which if
  not, this `end` command would be rendered invalid.
 
-
 7. The `end` command calls Model#endTestSession().
 
 8. `end` command will then construct a `CommandResult` class with `isEndTestSession` parameter set to true. `CommandResult`
 will then invoke `MainWindow#handleEndTestSession()` in the `UI` component.
 
     insert sequence diagram for end command
-
 
 ==== Answer Command
 
@@ -499,13 +525,55 @@ Comparison is not case-sensitive
 
 Similar to other test session methods, this is exposed in the model interface as `Model#markAttemptedAnswer()`.
 
+=== Folders
+==== Current Implementation
+A folder is another layer of abstraction over a `CardFolder`. Where we dealt with a single `CardFolder` in previous iterations, we now have multiple `CardFolders` that each have their own set of `Cards`. Users are able to manage each `CardFolder` independently.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+Folders in the application are achieved via enhancements from the AddressBook implementation. The changes span across all four components (UI, Logic, Model and Storage).
 
-_{Explain here how the data encryption feature will be implemented}_
+===== Model
+Previously, an instance of `ModelManager` contains only a single `VersionedCardFolder`, holding the current and previous state of the `CardFolder`. To support multiple folders, `ModelManager` now holds an `ObservableList` of `CardFolders`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
 
-// end::dataencryption[]
+image::ModelManagerUpdateDiagram.png[width="800"]
+
+To allow users to operate on multiple `CardFolders`, the following notable methods were also introduced:
+
+* `ModelManager#addFolder(CardFolder cardfolder)` - Adds a specified cardfolder to the `ModelManager`’s list
+* `ModelManager#deleteFolder(int index)` - Deletes the `CardFolder` at the specified index in the `ModelManager`’s list
+* `ModelManager#getActiveCardFolderIndex()` - Gets the index of the current active `CardFolder`
+* `ModelManager#setActiveCardFolderIndex()` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list
+
+===== Storage
+Similarly, the `StorageManager` needs to represent each `CardFolder` separately. In the same manner as in the Model component, we introduce a list of `JsonCardFolderStorages`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
+
+image::StorageManagerUpdateDiagram.png[width="800"]
+
+Notable new methods:
+
+* `StorageManager#readCardFolders()` - Reads in all `CardFolders` from all `CardFolderStorage` objects in the list.
+* `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` - Saves all `CardFolder`s provided in the argument.
+
+===== Logic
+The logic component propagates changes in a `CardFolder` to the Storage component. With listeners, it is informed when a `CardFolder` is modified (e.g. a new card is added) so that it can invoke the appropriate Storage methods.
+
+The same principle was applied to propagate changes in `CardFolders` (e.g. adding a new folder) to Storage. Model is now an `Observable`, and changes to a Model’s CardFolders will inform the LogicManager, which in turn invokes the `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` method.
+
+==== Design Considerations
+===== Aspect: How multiple folders are represented
+* Alternative 1 (current choice): List of structures representing individual folders
+** Pros: Scalable and better follows OOP principles.
+** Cons: Hard to implement, alters fundamental architecture of components.
+* Alternative 2: A single structure containing Cards with information on their folder membership (folder operations performed by iterating over all cards)
+** Pros: Easy to implement.
+** Cons: Not scalable, will be computationally expensive to perform folder operations when there are many cards and/or folders.
+
+===== Aspect: Folder identification
+* Alternative 1 (current choice): Use a unique folder name
+** Pros: Easier to implement.
+** Cons: Have to use a separate test for comparing folders across time (which necessarily have to compare cards).
+* Alternative 2: Identify a folder by its cards
+** Pros: There can be no folders with identical cards, preventing redundancy.
+** Cons: Two folders could have identical names as long as the cards are different.
 
 === Logging
 

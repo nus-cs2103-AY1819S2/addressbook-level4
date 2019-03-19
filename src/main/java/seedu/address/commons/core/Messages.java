@@ -16,4 +16,6 @@ public class Messages {
             + " session";
     public static final String MESSAGE_INVALID_ANSWER_COMMAND = "Answer command is valid only when a question is "
             + "displayed";
+    public static final String MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER = "Command can only be executed in folder";
+    public static final String MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME = "Command can only be executed in home directory";
 }

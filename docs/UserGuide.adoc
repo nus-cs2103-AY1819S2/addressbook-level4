@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -49,23 +50,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `create f/FOLDER`, `FOLDER` is a parameter which can be used as `add f/Human Anatomy`.
-* Items in square brackets are optional e.g `i/INDEX [q/QUESTION] [a/ANSWER]` can be used as `i/1 q/Powerhouse of the cell a/Mitochondria` or as `i/1 q/Powerhouse of the cell`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add f/Human Anatomy`.
+* Items in square brackets are optional e.g HINTS in `add q/QUESTION a/ANSWER [h/HINTS]`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Card Operations
+Commands listed in this section affect the cards within a single folder.
 
-Format: `help`
+[NOTE]
+The commands in this section can only be executed when the user is within a folder
 
-=== Adding a flashcard : `add`
+==== Adding a flashcard : `add`
 
 Adds a flashcard to the current folder.
 
 Format: `add q/QUESTION a/ANSWER [h/HINT]`
 
-[TIP]
-A card can have at most 1 hint (including 0)
+====
+* A card can have at most 1 hint (including 0)
+====
 
 Examples:
 
@@ -73,19 +77,19 @@ Examples:
 * `add q/The cat ___ on the mat a/sat h/poetry`
 
 
-=== Editing a flashcard : `edit`
+==== Editing a flashcard : `edit`
 
 Edits the flashcard specified by the index in the current folder.
 
-Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]...`
+Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 
-****
+====
 * Edits the card at the specified `INDEX`. The index refers to the index number shown in the displayed card list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing hints, the existing hint of the person will be removed i.e adding of hints is not cumulative.
 * You can remove the card's hint by typing `h/` without specifying any hint after it.
-****
+====
 
 Examples:
 
@@ -95,9 +99,9 @@ Edits the answer of the 1st card to be 'Skin' and removes the hint associated, i
 Edits the hint, question and answer of the 2nd card respectively.
 
 
-=== Selecting a flashcard : `select`
+==== Selecting a flashcard : `select`
 
-Displays flashcard details(question, answer, hint, user performance) on the right panel on selection by index.
+Displays flashcard details (question, answer, hint, user performance) on the right panel on selection by index.
 
 Format: `select INDEX`
 
@@ -106,12 +110,8 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd card in the current folder
-* `list` +
-`select 5` +
-Selects the 5th card in the current folder
 
-
-=== Deleting a flashcard : `delete`
+==== Deleting a flashcard : `delete`
 
 Deletes the flashcard identified by index from the current folder.
 
@@ -127,63 +127,127 @@ Format: `delete INDEX`
 `delete 2` +
 Deletes the 2nd card in the address book.
 
+==== Sort cards by score within a folder : `sort`
 
-=== Create new folder : `addfolder`
+Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
 
-Creates a new flashcard folder with the specified question.
+Format: `sort`
+
+==== List flashcards : `list`
+
+Display a list of the flashcards in the current folder, where only questions can be seen, answers are hidden.
+
+Format: `list`
+
+====
+* This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
+* The default ordering is by questions alphabetically.
+====
+
+==== Exit folder : `change ..`
+
+Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
+
+Format: `change ..`
+
+Examples:
+
+* `change 2` +
+`change ..` +
+The first command enters the second folder in the folder list on the home directory. The second command then returns the user back to the home directory by exiting the folder.
+
+=== Folder Operations
+Commands listed in this section affect the application and not a single folder.
+
+[NOTE]
+The commands in this section can only be executed when the user is at the home directory, outside of any folder
+
+==== Create new folder : `addfolder`
+
+Creates a new flashcard folder with the specified name.
 
 Format: `addfolder FOLDER_NAME`
 
+====
+* The newly created folder will not contain any cards.
+* Folder names must be unique. Attempting to add a folder with the same name as an existing folder will result in an error.
+* Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
+====
 
-=== Remove folder : `removefolder`
+Examples:
+
+* `addfolder Nervous System` +
+Creates a folder with the name "Nervous System". The user can then enter the folder with the `change` command and begin adding cards.
+
+==== Remove folder : `deletefolder`
 
 Removes the flashcard folder specified by index.
 
-Format: `removefolder FOLDER_INDEX`
+Format: `deletefolder FOLDER_INDEX`
 
+====
+* When a folder is deleted, all its cards are removed as well.
+====
 
-=== Report user performance for folder : `report`
+Examples:
+
+* `deletefolder 2` +
+Deletes the second folder in the folder list, along with its cards, on the home directory.
+
+==== Report user performance for folder : `report`
 
 Displays user performance on the right panel for the folder specified by index.
 
 Format: `report FOLDER_INDEX`
 
 
-=== Enter folder : `change`
+==== Enter folder : `change`
 
-Changes to the folder specified by index. Left panel will display the list of cards in that folder.
+Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
 
 Format: `change FOLDER_INDEX`
 
+Examples:
 
-=== Exit folder : `change ..`
+* `change 2` +
+Enters the second folder in the folder list on the home directory.
 
-Return to the root directory (exit the current folder). Left panel will display the list of folders.
+**Merge folders feature** `Coming in v2.0`
 
-Format: `change ..`
+This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
 
+Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
 
-=== Test flashcards in a folder : `test`
+=== Test Operations
+As medical students, loads of time are spent memorising the content of these flashcards. It is time to test how much information have been internalised and retained in a timed setting. The following commands detail the Test functionality in our application.
 
-As medical students, loads of time are spent memorising the content of these flashcards. It is time to test how much information have been internalised and retained in a timed setting.
+==== Test flashcards in a folder : `test`
 
-This command begins a test session, where the display area enters a fullscreen (see figure below). Only questions and
-hints are presented and users are required to either input an attempt or the command to reveal the answer within 20 seconds. When the 20 seconds is up before the question is answered, this attempt will be marked as wrong. Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score. The next card will only be presented when the next command is carried out.
+This command begins a test session, where the display area enters a fullscreen (see figure below).
+
+Format: `test FOLDER_INDEX`
 
 image::startTestSessionPage.png[width="790"]
 
-Format: `test [FOLDER_INDEX]`
+====
+* Only questions and
+hints are presented and users are required to either input an attempt or the command to reveal the answer within 20 seconds.
+* When the 20 seconds is up before the question is answered, this attempt will be marked as wrong.
+* Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score.
+* The next card will only be presented when the next command is carried out.
+====
+
 
 Examples:
 
 * `test 1` +
 Starts a session by displaying a flashcard (both question and hint) from the 1st folder where 20 seconds is given to each card to be answered.
 
-**Hint Toggle On / Off Feature** `To be coming in v2.0`
+**Hint toggle on / off feature** `Coming in v2.0`
 
 When extra help is needed and familiarity with the content is not yet established hints can be toggled on during a test session when a ‘-hint’ is added on at the end of the test command. Hint will be displayed along with the question when the card is presented.
 
-Format: `test [FOLDER_INDEX] [-hint]`
+Format: `test FOLDER_INDEX [-hint]`
 
 ==== Keying in answer to a flashcard: `ans`
 
@@ -191,7 +255,12 @@ To reinforce learning and enable a more engaging experience with Know-It-All, on
 currently displayed flashcard question. Know-It-All compares the attempt with the correct answer in that card and
 shows if it is correct or wrong.
 
-The total number of attempts will be incremented. If the answer is correct, the number of correct attempts will also be incremented.
+====
+* The total number of attempts will be incremented. If the answer is correct, the number of correct attempts will also be incremented.
+* Answer matching is case insensitive
+====
+
+
 
 Format: `ans ANSWER`
 
@@ -200,21 +269,22 @@ Examples:
 * `ans Mitochondrion` +
 in response to the card question: What is the powerhouse of the cell?
 
-[TIP]
-Answer matching is case insensitive. +
+[NOTE]
 This command is only considered valid if a card question is currently being
 displayed in an active test session.
 
 
 ==== Reveal answer to a flashcard : `reveal`
-
-As busy students, there is no need to wait for the full 20 seconds to be up to be presented with the correct answer.
-
-See the answer to the currently displayed card without keying in any answer. This is equivalent to a wrong answer, so there is no addition to the correct attempts of this card.
+Immediately reveals the correct answer. The user will not need enter any response or wait the full 20 seconds before being presented the correct answer.
 
 Format: `reveal`
 
-[TIP]
+====
+* This is equivalent to a wrong answer, so there is no addition to the correct attempts of this card.
+====
+
+
+[NOTE]
 This command is only considered valid if a card question is currently being displayed in an active test session.
 
 ==== Go to next flashcard : `next`
@@ -223,7 +293,7 @@ Presents the next lowest score flashcard in this current test session and the 20
 
 Format: `next`
 
-[TIP]
+[NOTE]
 This command is only considered valid if a card question and answer is currently being displayed  (has already done answering the question or revealed the answer) in an active test session. In other words, a flashcard cannot be skipped.
 
 [NOTE]
@@ -236,40 +306,61 @@ Quits the current test session.
 
 Format: `end`
 
+=== Global Operations
 
-=== Sort cards by level within a folder : `sort`
-
-Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
-
-Format: `sort`
-
-
-=== Search by keywords : `search`
+==== Search by keywords : `search`
 
 At the root directory, searches for folders using keywords in folder names. Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
 
 Format: `search KEYWORDS [MORE_KEYWORDS]`
 
 
-=== List flashcards : `list`
+==== Import flashcards : `import`
 
-Display a list of the flashcards in the current folder, where only questions can be seen, answers are hidden. This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort. +
-Format: `list`
+Searches for a json file with the specified filename in the program directory and parses the file to generate a flashcard folder.
 
-=== Import flashcards : `import`
-
-Searches for a json file with the specified filename in the program directory and parses the file to generate a flashcard folder. +
 Format: `import FILENAME`
 
-=== Export flashcards : `export`
+==== Export flashcards : `export`
 
 Creates a json file containing the flashcards from the specified folder, which can later be imported.
 
 Format: `export FOLDER_INDEX FILENAME`
 
+==== Viewing help : `help`
 
-=== Exiting the program : `exit`
+Format: `help`
+
+==== Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
+
+== Command Summary
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`add q/QUESTION a/ANSWER [h/HINT]` | Adds a flashcard to the current folder.
+|`edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]` | Edits the flashcard specified by the index in the current folder.
+|`select INDEX` | Displays flashcard details (question, answer, hint, user performance) on the right panel on selection by index.
+|`delete INDEX` | Deletes the flashcard identified by index from the current folder.
+|`sort` | Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
+|`list` | Display a list of the flashcards in the current folder
+|`change ..` | Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
+|`change FOLDER_INDEX`|Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
+|`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
+|`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
+|`report FOLDER_INDEX` | Displays user performance on the right panel for the folder specified by index.
+|`test FOLDER_INDEX` | This command begins a test session, where the display area enters a fullscreen.
+|`ans ANSWER` | Enter answer for a flashcard.
+|`reveal` | Immediately reveals the correct answer.
+|`next` | Presents the next lowest score flashcard in this current test session.
+|`end` | Quits the current test session.
+|`search KEYWORDS [MORE_KEYWORDS]` | At the root directory, searches for folders using keywords in folder names. +
+Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
+|`import FILENAME` | Imports a file with the specified name.
+|`export FOLDER_INDEX FILENAME` | Creates a json file containing the flashcards from the specified folder, which can later be imported.
+|`help` | Brings up help information.
+|`exit` | Exits the application.
+|=======================================================================

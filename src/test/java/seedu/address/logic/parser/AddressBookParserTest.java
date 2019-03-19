@@ -11,9 +11,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,7 +50,6 @@ import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientEditedFields;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.tag.Tag;
 

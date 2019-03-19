@@ -159,6 +159,8 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
+The `UI` component shows webpages e.g. `DisplayGmap.html` hosted somewhere on the Internet. To host a webpage yourself, you may put your webpage into `\docs\staticpages`. All pages in `\docs\staticpages` will be copied to `gh-pages` branch and hosted on `gh-pages`.
+
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
@@ -469,6 +471,8 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 === Per-file Documentation Settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+All files under `\docs\staticpages\` will be copied to final output documentation folders as well. You may put any static pages you want to public to `\docs\staticpages`.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 

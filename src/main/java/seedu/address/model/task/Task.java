@@ -18,6 +18,8 @@ public class Task {
     // Data fields
     protected final DateCustom startDate;
     protected final DateCustom endDate;
+    protected final boolean isCopy;
+    protected int copyCount;
 
 
     /**
@@ -28,6 +30,20 @@ public class Task {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.isCopy = false;
+        this.copyCount = 0;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Task(Task t) {
+        requireAllNonNull(t);
+        this.title = t.getTitle();
+        this.startDate = t.getStartDate();
+        this.endDate = t.getEndDate();
+        this.isCopy = true;
+        this.copyCount = 0;
     }
 
 
@@ -43,12 +59,23 @@ public class Task {
         return endDate;
     }
 
+    public boolean isCopy() { return isCopy; }
+
+    /**
+     * Returns a copy of the instance
+     */
+    public Task copy() {
+        return new Task(this);
+    }
+
     /**
      * Returns true if both tasks have the exact same title and data fields (subject to change)
      * This defines a weaker notion of equality between two tasks.
      */
     public boolean isSameTask(Task otherTask) {
         if (otherTask == null) {
+            return false;
+        } else if (isCopy || otherTask.isCopy) {
             return false;
         } else {
             return otherTask.getTitle().equals(getTitle())

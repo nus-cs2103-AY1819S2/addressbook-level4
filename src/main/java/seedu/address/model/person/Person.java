@@ -52,9 +52,9 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.tags.add(new Tag("Copy"));
         this.copyCount = copyCount;
         copyInfo = new CopyTag(personToCopy, "$Copy" + copyCount);
+        this.tags.add(copyInfo);
     }
 
     public Name getName() {

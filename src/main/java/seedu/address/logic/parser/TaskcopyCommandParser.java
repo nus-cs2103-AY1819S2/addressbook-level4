@@ -6,12 +6,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CopyCommand;
+import seedu.address.logic.commands.TaskcopyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parse user input
  */
-public class CopyCommandParser implements Parser<CopyCommand> {
+public class TaskcopyCommandParser implements Parser<TaskcopyCommand> {
 
     /**
      *
@@ -19,7 +20,7 @@ public class CopyCommandParser implements Parser<CopyCommand> {
      * @return corresponding copy command
      * @throws ParseException if user input is in a wrong format
      */
-    public CopyCommand parse(String args) throws ParseException {
+    public TaskcopyCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
         Index index;
@@ -33,8 +34,6 @@ public class CopyCommandParser implements Parser<CopyCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CopyCommand.MESSAGE_USAGE), pe);
         }
-
-
-        return new CopyCommand(index, numOfCopies);
+        return new TaskcopyCommand(index, numOfCopies);
     }
 }

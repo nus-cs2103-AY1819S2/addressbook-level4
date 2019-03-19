@@ -159,17 +159,42 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+The `UI` component uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The 'UI' component *controllers* are found in the `src/main/java/seedu/address/ui` folder. Each class corresponds to a specific `.fxml` file.
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
+`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+*Brief overview* of each UI Component:
+
+`MainWindow`: Consists of the main menu with `File` and `Help` dropdowns and the remaining UI parts below.
+
+`MainWindow`: Webview to display UserGuide.html
+
+`CommandBox`: Directly below the main menu, CLI displayed here
+
+`ResultDisplay`: Displays CLI feedback to user, (eg. `Unknown command`, `Invalid command format!`)
+
+`StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
+
+`PlaceListPanel`: On the left of BrowserPanel, a VBox of PlaceListCards
+
+`PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
+Labels that display Name and actual Place data (CountryCode, Rating etc) in a VBox on the right.
+
+`BrowserPanel`: Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
+Currently (v1.2), opens up a Webview and displays a html placeholder page.
+
+For the next release (v1.3), `BrowserPanel` will display an expanded view of
+all Place data. Photo attachments to be included here as well in future releases (beyond v1.3).
+
+*All CSS code are found in DarkTheme.css and Extensions.css
 
 [[Design-Logic]]
 === Logic component
@@ -428,6 +453,10 @@ developers of our project.
 ** Cons: Requires more memory as a separate HashMap needs to be stored.
 // end::search[]
 
+<<<<<<< HEAD
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+=======
 // tag::countrycode[]
 === Add Country Code, Rating & Description
 The `add` command is used to add a place to the application. Apart from being able to add the name of the place,
@@ -479,15 +508,11 @@ image::AddCommandStep3.png[width="800"]
 // end::countrycode[]
 
 ==== Design Considerations
+>>>>>>> b78fbd7ae6e5de6d52441e8f958c4e4658f380be
 
-===== Aspect: Data structure to store Country Codes
-* **Alternative 1 (current choice):** Use java.util.Locales.
-** Pros: Easy to implement and contains all country codes specified in ISO-3166.
-** Cons: Slightly slow in locating country code.
+_{Explain here how the data encryption feature will be implemented}_
 
-* **Alternative 2:** Create own data structure containing most commonly traveled countries in the world.
-** Pros: Locating country code in data structure would be fast.
-** Cons: Tedious process of typing out country codes in the data structure.
+// end::dataencryption[]
 
 // tag::generate[]
 === Generate Feature
@@ -682,8 +707,7 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 
 Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `
-./gradlew clean headless allTests`)
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
 === Types of tests
 

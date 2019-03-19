@@ -35,9 +35,10 @@ public class AddMedHistCommand extends Command {
         toAdd = medHist;
     }
 
-
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        throw new CommandException("Medical History: " + toAdd.getName());
+        throw new CommandException("Medical History:\n " + "Name: " + toAdd.getName()
+                + "\nShort Write Up: " + toAdd.getWriteUp());
     }
 
     /*

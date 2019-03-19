@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -150,6 +151,17 @@ public class AddCommandTest {
         @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        // Needed to be implemented later
+        @Override
+        public boolean hasMedHist(MedicalHistory medicalHistory) {
+            return false;
+        }
+
+        // Needed to be implemented later
+        @Override
+        public void addMedHist(MedicalHistory medicalHistory) {
         }
 
         @Override

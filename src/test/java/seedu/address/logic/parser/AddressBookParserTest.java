@@ -18,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddDoctorCommandTest;
+import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -32,6 +33,9 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.WriteUp;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -56,6 +60,15 @@ public class AddressBookParserTest {
                 AddAppointmentCommand.COMMAND_WORD + " 1 r/ appointment1");
         assertTrue(command instanceof AddAppointmentCommand);
         assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), new Appointment("appointment1")), command);
+    }
+
+    @Test
+    public void parseCommand_addMedHist() throws Exception {
+        AddMedHistCommand command = (AddMedHistCommand) parser.parseCommand(
+                AddMedHistCommand.COMMAND_WORD + " " + "n/testName sw/testWriteUp");
+        assertTrue(command instanceof AddMedHistCommand);
+        assertEquals(command, new AddMedHistCommand(
+                new MedicalHistory(null, new Name("testName"), new WriteUp("testWriteUp"))));
     }
 
     @Test

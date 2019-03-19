@@ -17,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -26,7 +27,7 @@ import seedu.address.model.restaurant.Restaurant;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,7 +37,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RESTAURANT_SUCCESS, restaurantToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), new PostalDataSet());
         expectedModel.deleteRestaurant(restaurantToDelete);
         expectedModel.commitFoodDiary();
 
@@ -60,7 +61,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RESTAURANT_SUCCESS, restaurantToDelete);
 
-        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), new PostalDataSet());
         expectedModel.deleteRestaurant(restaurantToDelete);
         expectedModel.commitFoodDiary();
         showNoRestaurant(expectedModel);
@@ -85,7 +86,7 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RESTAURANT);
-        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), new PostalDataSet());
         expectedModel.deleteRestaurant(restaurantToDelete);
         expectedModel.commitFoodDiary();
 
@@ -124,7 +125,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameRestaurantDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RESTAURANT);
-        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), new PostalDataSet());
 
         showRestaurantAtIndex(model, INDEX_SECOND_RESTAURANT);
         Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());

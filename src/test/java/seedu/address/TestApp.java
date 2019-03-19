@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonFoodDiaryStorage;
@@ -92,7 +93,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getFoodDiary()), new UserPrefs());
+        Model copy = new ModelManager((model.getFoodDiary()), new UserPrefs(), new PostalDataSet());
         ModelHelper.setFilteredList(copy, model.getFilteredRestaurantList());
         return copy;
     }

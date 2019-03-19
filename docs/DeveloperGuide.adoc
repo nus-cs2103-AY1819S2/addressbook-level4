@@ -233,6 +233,30 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+// tag::listUnvisited[]
+=== listUnvisited feature which sorts by distance nearest to you
+==== Current Implementation(v1.3)
+The 'listUnvisited' feature accepts the user's current postal code and displays unreviewed restaurants nearest to the user's postal code.
+This mechanism is facilitated by `PostalDataSet`.
+It contains a `HashMap<Integer,PostalData> of `PostalData` which contains the x and y-coordinate of every postal code in Singapore.
+
+`PostalDataSet` is constructed by `JsonPostalDataStorage` which processes the `data.json` file from `JsonSerializablePostalData` into `PostalDataSet`.
+This is exposed in the `Storage` interface as `Storage#loadPostalData()`
+
+Given below is an example usage scenario and how the `listUnvisited` and 'PostalDataSet' behaves at each step.
+
+Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `data.json` through the `Storage` interface.
+
+Step 2. The user calls `listUnvisited postal/267951`. This command will call the method `Model#filterAndSortByLocation(PREDICATE_SHOW_UNVISITED_RESTAURANTS, postal)`
+
+Step 3. The `Model#filterAndSortByLocation()` will first filter the `RestaurantList` to show all `Restaurants` with zero reviews. It will then call `PostalDataSet#checkPostal(int postal)` for each of the restaurants then sort it based on the distance from the given postal code.
+
+Step 4. The `filteredList` will then be updated to show the nearest `Restaurants` with zero review.
+
+The following sequence diagram summarizes what happens when the user executes a listUnvisited Command.
+
+image::ListUnvisitedSequenceDiagram.png[width="800"]
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -361,6 +385,7 @@ The `filter` command is implemented as follows:
 tests if a restaurant matches any of the keywords.
 * Inside `FilterCommand#execute()`, `Model#updateFilteredRestaurantList()` is called with the predicate to update the
 list of restaurants that matches the keywords.
+// end::categorisation[]
 
 === Adding a Review to a selected Restaurant
 

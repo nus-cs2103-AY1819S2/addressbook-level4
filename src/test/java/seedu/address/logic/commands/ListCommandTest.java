@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -24,8 +25,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
-        expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs());
+        model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
+        expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), new PostalDataSet());
     }
 
     @Test

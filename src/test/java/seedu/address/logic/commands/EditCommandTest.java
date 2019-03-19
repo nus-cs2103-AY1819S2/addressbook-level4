@@ -24,6 +24,7 @@ import seedu.address.logic.commands.EditCommand.EditRestaurantDescriptor;
 import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.testutil.EditRestaurantDescriptorBuilder;
@@ -34,7 +35,7 @@ import seedu.address.testutil.RestaurantBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,7 +46,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
-        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()),
+                new UserPrefs(), new PostalDataSet());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), editedRestaurant);
         expectedModel.commitFoodDiary();
 
@@ -67,7 +69,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
-        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()),
+                new UserPrefs(), new PostalDataSet());
         expectedModel.setRestaurant(lastRestaurant, editedRestaurant);
         expectedModel.commitFoodDiary();
 
@@ -78,19 +81,16 @@ public class EditCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, new EditRestaurantDescriptor());
         Restaurant editedRestaurant = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
-
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
-
-        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()),
+                new UserPrefs(), new PostalDataSet());
         expectedModel.commitFoodDiary();
-
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_filteredList_success() {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
-
         Restaurant restaurantInFilteredList = model.getFilteredRestaurantList()
                 .get(INDEX_FIRST_RESTAURANT.getZeroBased());
         Restaurant editedRestaurant = new RestaurantBuilder(restaurantInFilteredList).withName(VALID_NAME_BOB).build();
@@ -99,7 +99,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
-        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs(),
+                new PostalDataSet());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), editedRestaurant);
         expectedModel.commitFoodDiary();
 
@@ -160,7 +161,8 @@ public class EditCommandTest {
         Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(editedRestaurant).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, descriptor);
-        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs(),
+                new PostalDataSet());
         expectedModel.setRestaurant(restaurantToEdit, editedRestaurant);
         expectedModel.commitFoodDiary();
 
@@ -202,7 +204,8 @@ public class EditCommandTest {
         Restaurant editedRestaurant = new RestaurantBuilder().build();
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(editedRestaurant).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, descriptor);
-        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs(),
+                new PostalDataSet());
 
         showRestaurantAtIndex(model, INDEX_SECOND_RESTAURANT);
         Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());

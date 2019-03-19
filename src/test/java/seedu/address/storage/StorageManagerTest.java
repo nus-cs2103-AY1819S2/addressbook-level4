@@ -24,10 +24,11 @@ public class StorageManagerTest {
     private StorageManager storageManager;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         JsonFoodDiaryStorage foodDiaryStorage = new JsonFoodDiaryStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(foodDiaryStorage, userPrefsStorage);
+        JsonPostalDataStorage postalDataStorage = new JsonPostalDataStorage(getTempFilePath("data"));
+        storageManager = new StorageManager(foodDiaryStorage, userPrefsStorage, postalDataStorage);
     }
 
     private Path getTempFilePath(String fileName) {

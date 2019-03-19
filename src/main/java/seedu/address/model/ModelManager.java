@@ -28,11 +28,12 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final SimpleObjectProperty<Restaurant> selectedRestaurant = new SimpleObjectProperty<>();
+    private final PostalDataSet postalDataSet;
 
     /**
      * Initializes a ModelManager with the given foodDiary and userPrefs.
      */
-    public ModelManager(ReadOnlyFoodDiary foodDiary, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFoodDiary foodDiary, ReadOnlyUserPrefs userPrefs, PostalDataSet postalDataSet) {
         super();
         requireAllNonNull(foodDiary, userPrefs);
 
@@ -42,11 +43,14 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRestaurants = new FilteredList<>(versionedFoodDiary.getRestaurantList());
         filteredRestaurants.addListener(this::ensureSelectedRestaurantIsValid);
+        this.postalDataSet = postalDataSet;
     }
 
     public ModelManager() {
-        this(new FoodDiary(), new UserPrefs());
+        this(new FoodDiary(), new UserPrefs(), new PostalDataSet());
     }
+
+    //public PostalData checkPostal(int Postal);
 
     //=========== UserPrefs ==================================================================================
 

@@ -241,6 +241,15 @@ Note:
 
 * Filter support for `Price range` coming in v1.3
 
+=== Personalising your food diary with your name: `name`
+
+Personalise your foodDiary with your name +
+Format: `name n/YourName`
+
+Examples:
+
+* `name n/JackTheSheep'
+
 === View your profile and usage statistics : `view`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +

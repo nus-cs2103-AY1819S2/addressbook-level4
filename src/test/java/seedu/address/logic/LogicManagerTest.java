@@ -28,10 +28,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.JsonFoodDiaryStorage;
+import seedu.address.storage.JsonPostalDataStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.RestaurantBuilder;
@@ -53,7 +55,8 @@ public class LogicManagerTest {
     public void setUp() throws Exception {
         JsonFoodDiaryStorage foodDiaryStorage = new JsonFoodDiaryStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage);
+        JsonPostalDataStorage jsonPostalDataStorage = new JsonPostalDataStorage(temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage, jsonPostalDataStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -84,7 +87,9 @@ public class LogicManagerTest {
         JsonFoodDiaryStorage foodDiaryStorage =
                 new JsonFoodDiaryIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage);
+        JsonPostalDataStorage jsonPostalDataStorage = new JsonPostalDataStorage(temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(foodDiaryStorage, userPrefsStorage, jsonPostalDataStorage);
+
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -135,7 +140,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), new PostalDataSet());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

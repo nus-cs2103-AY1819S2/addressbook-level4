@@ -108,7 +108,7 @@ public class EditReviewCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditReviewCommand)) {
             return false;
         }
 

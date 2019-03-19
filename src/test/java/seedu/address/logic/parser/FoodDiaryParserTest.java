@@ -19,6 +19,8 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRestaurantDescriptor;
+import seedu.address.logic.commands.EditReviewCommand;
+import seedu.address.logic.commands.EditReviewCommand.EditReviewDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -30,9 +32,13 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.NameContainsKeywordsPredicate;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.review.Review;
 import seedu.address.testutil.EditRestaurantDescriptorBuilder;
+import seedu.address.testutil.EditReviewDescriptorBuilder;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.RestaurantUtil;
+import seedu.address.testutil.ReviewBuilder;
+import seedu.address.testutil.ReviewUtil;
 
 public class FoodDiaryParserTest {
     @Rule
@@ -68,6 +74,18 @@ public class FoodDiaryParserTest {
                 + INDEX_FIRST_RESTAURANT.getOneBased() + " "
                 + RestaurantUtil.getEditRestaurantDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_RESTAURANT, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_editReview() throws Exception {
+        Restaurant restaurant = new RestaurantBuilder().build();
+        Review review = new ReviewBuilder().build();
+        EditReviewDescriptor descriptor = new EditReviewDescriptorBuilder(review).build();
+        EditReviewCommand command = (EditReviewCommand) parser.parseCommand(EditReviewCommand.COMMAND_WORD
+                + " "
+                + INDEX_FIRST_RESTAURANT.getOneBased() + " "
+                + ReviewUtil.getEditReviewDescriptorDetails(descriptor));
+        assertEquals(new EditReviewCommand(INDEX_FIRST_RESTAURANT, descriptor), command);
     }
 
     @Test

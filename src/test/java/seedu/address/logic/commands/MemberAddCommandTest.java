@@ -23,10 +23,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class MemberAddCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -38,7 +39,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new MemberAddCommand(null);
     }
 
     @Test
@@ -46,9 +47,9 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new MemberAddCommand(validPerson).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(String.format(MemberAddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -56,11 +57,11 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
+        MemberAddCommand addCommand = new MemberAddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(MemberAddCommand.MESSAGE_DUPLICATE_PERSON);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -68,14 +69,14 @@ public class AddCommandTest {
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        MemberAddCommand addAliceCommand = new MemberAddCommand(alice);
+        MemberAddCommand addBobCommand = new MemberAddCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        MemberAddCommand addAliceCommandCopy = new MemberAddCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -158,7 +159,52 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Activity> getFilteredActivityList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredActivityList(Predicate<Activity> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActivity(Activity target, Activity editedActivity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Activity> selectedActivityProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Activity getSelectedActivity() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
 

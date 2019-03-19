@@ -4,9 +4,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+ClubManager was developed by team w13-2. This application builds on the existing work of the
+https://se-edu.github.io/docs/Team.html[se-edu] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -16,7 +15,10 @@ image::minernchan.PNG[width="150", align="left"]
 {empty}[http://github.com/minernchan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities:
+
+* In charge of Model.
+* Working on Activity Management feature.
 
 '''
 
@@ -31,7 +33,9 @@ Responsibilities:
 
 Other Roles
 
-* Working on Member Management feature
+* In charge of UI.
+* Working on Member Management feature.
+
 
 '''
 
@@ -40,16 +44,22 @@ image::A0143487X-Kevin.png[width="150", align="left"]
 {empty}[http://github.com/A0143487X-Kevin[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities:
+
+* In charge of UI.
+* Working on mode change feature and import/export feature.
 
 '''
 
 === Melissa Khoo Wan Xuan
-image::melissakhoo.jpg[width="150", align="left"]
+image::melissakhoo.png[width="150", align="left"]
 {empty}[http://github.com/melkwx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities:
+
+* In charge of Logic.
+* Working on Member Management feature.
 
 '''
 
@@ -58,6 +68,9 @@ image::ivyyangyq.png[width="150", align="left"]
 {empty}[http://github.com/ivyyangyq[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities:
+
+* In charge of Storage.
+* Working on Activity Management feature.
 
 '''

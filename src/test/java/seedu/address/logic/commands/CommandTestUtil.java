@@ -17,6 +17,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -150,4 +152,26 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the activity at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showActivityAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityList().size());
+
+        Activity activity = model.getFilteredActivityList().get(targetIndex.getZeroBased());
+        final String[] splitName = activity.getName().fullActivityName.split("\\s+");
+        model.updateFilteredActivityList(new ActivityNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredActivityList().size());
+    }
+
+    /**
+     * Deletes the first activity in {@code model}'s filtered list from {@code model}'s address book.
+     */
+    public static void deleteFirstActivity(Model model) {
+        Activity firstActivity = model.getFilteredActivityList().get(0);
+        model.deleteActivity(firstActivity);
+        model.commitAddressBook();
+    }
 }

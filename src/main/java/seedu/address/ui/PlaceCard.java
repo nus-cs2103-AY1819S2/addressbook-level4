@@ -48,10 +48,10 @@ public class PlaceCard extends UiPart<Region> {
         this.place = place;
         id.setText(displayedIndex + ". ");
         name.setText(place.getName().fullName);
-        countryCode.setText(place.getCountryCode().code);
-        rating.setText(place.getRating().value);
-        address.setText(place.getAddress().value);
-        description.setText(place.getDescription().value);
+        countryCode.setText("Country Code: " + place.getCountryCode().code);
+        rating.setText("Rating: " + place.getRating().value);
+        address.setText("Address: " + place.getAddress().value);
+        description.setText("Description: " + place.getDescription().value);
         initTags(place);
     }
 

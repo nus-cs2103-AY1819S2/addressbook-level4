@@ -36,7 +36,6 @@
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
          <Label fx:id="weblink" styleClass="cell_small_label" text="\$weblink" />
         <Label fx:id="openingHours" styleClass="cell_small_label" text="\$openingHours" />
-      <VBox fx:id="reviews" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

@@ -52,27 +52,118 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 ====
 
-=== Viewing help : `help`
+=== Black and White Filter : `bw`
 
-Format: `help`
+Applies black and white filter on opened image. +
+Format: `bw`
 
-=== Importing an image : `import`
+=== Brightness: `brightness`
 
-Input the image to edit from a specified filepath. +
-Format: `import f/FILEPATH`
+Adjusts the brightness of the image. +
+Format: `brightness o/OPERATOR [n/DEGREE]`
+
+Examples:
+
+* `brightness o/subtract`
+* `brightness o/add n/40`
+
+=== Contrast: `contrast`
+
+Adjusts the contrast of the image. +
+Format: `contrast o/OPERATOR [n/DEGREE]`
+
+Examples:
+
+* `contrast o/add`
+
+* `contrast o/subtract n/30`
+
+=== Crop an image : `crop`
+
+Crops an image based on given coordinates. +
+Format: `crop x/POINTCOORD y/POINTCOORD w/POINTCOORD z/POINTCOORD`
+
+****
+* The point coordinates must be separated by a comma without any spacing in between
+****
 
 Example:
 
-* `import f/desktop/photoalbum/image123`
+* `crop x/2,3 y/3,4 w/4,5 z/5,6`
+
+=== Exit the program : `exit`
+
+Exits the program. +
+Format: `exit`
 
 === Export edited image : `export`
 
-Export the edited photo into the specified filepath +
+Exports the edited image into the specified filepath +
 Format: `export f/FILEPATH`
 
 Example:
 
 * `export f/desktop/editedphotoalbum`
+
+=== Help view: `help`
+Displays help view to user.
+Format: `help`
+
+=== Import an image : `import`
+
+Imports an image to assets folder from specified filepath +
+Format: `import FILEPATH`
+
+Example:
+
+* `import C:/Users/Fomo/Pictures/sample.jpg`
+
+=== List Files: `listfiles`
+
+Lists all files in assets folder. +
+Format: `listfiles`
+
+=== Open an image : `open`
+
+Opens an image inside assets folder for editing. +
+Format: `import FILENAME`
+
+Example:
+
+* `open sample.jpg`
+
+=== Redo edit steps : `redo`
+
+Returns to a previously undone state. +
+Format: `redo`
+
+[NOTE]
+====
+Redoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
+====
+
+Examples:
+
+* `rotate 20 4 5` +
+`brightness add` +
+`undo` (reverses the `brightness add` command) +
+`redo` (runs `brightness add` again)
+
+* `contrast subtract` +
+`crop 2,3 3,4 4,5 5,6` +
+`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
+`undo` (reverses the `contrast subtract`) +
+`redo` (runs `contrast subtract` command again) +
+`redo` (runs `crop 2,3 3,4 4,5 5,6` command again)
+
+=== Rotate an image : `rotate`
+
+Rotates the photo by a given degree provided by the user.  +
+Format: `rotate a/ANGLE x/XCOORDINATE y/YCOORDINATE`
+
+Example:
+
+* `rotate a/30 x/23 y/45`
 
 === Undo edit steps : `undo`
 
@@ -96,100 +187,37 @@ Examples:
 `undo` (reverses the `contrast subtract`)
 
 
-=== Redo edit steps : `redo`
-
-Return to a previously undone state. +
-Format: `redo`
-
-[NOTE]
-====
-Redoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
-====
-
-Examples:
-
-* `rotate 20 4 5` +
-`brightness add` +
-`undo` (reverses the `brightness add` command) +
-`redo` (runs `brightness add` again)
-
-* `contrast subtract` +
-`crop 2,3 3,4 4,5 5,6` +
-`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
-`undo` (reverses the `contrast subtract`) +
-`redo` (runs `contrast subtract` command again) +
-`redo` (runs `crop 2,3 3,4 4,5 5,6` command again)
-
-=== Crop an image : `crop`
-
-Crop a photo based on given coordinates. +
-Format: `crop x/POINTCOORD y/POINTCOORD w/POINTCOORD z/POINTCOORD`
-
-****
-* The point coordinates must be separated by a comma without any spacing in between
-****
-
-Example:
-
-* `crop x/2,3 y/3,4 w/4,5 z/5,6`
-
-=== Rotate an image : `rotate`
-
-Rotates the photo for a given degree provided by the user.  +
-Format: `rotate a/ANGLE x/XCOORDINATE y/YCOORDINATE`
-
-Example:
-
-* `rotate a/30 x/23 y/45`
-
-=== Contrast: `contrast`
-
-Adjust the contrast of the photo. +
-Format: `contrast o/OPERATOR [n/DEGREE]`
-
-Examples:
-
-* `contrast o/add`
-
-* `contrast o/subtract n/30`
-
-=== Brightness: `brightness`
-
-Adjust the brightness of the photo. +
-Format: `brightness o/OPERATOR [n/DEGREE]`
-
-Examples:
-
-* `brightness o/subtract`
-* `brightness o/add n/40`
-
-=== Black and White filter : `bw`
-
-Change the photo to black and white. +
-Format: `bw`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-
 == Command Summary
 
-* *Help* `help` +
-* *Import* `import f/FILEPATH` +
-e.g. `import f/desktop/image1` +
-* *Export* `export f/FILEPATH` +
-e.g. `export f/desktop/photoalbum`
-* *Undo* `undo` +
-* *Redo* `redo` +
-* *Crop* `crop x/POINTCOORD y/POINTCOORD w/POINTCOORD z/POINTCOORD` +
-e.g. `crop x/2,3 y/4,5, w/3,2, z/6,7`+
-* *Rotate* `rotate a/ANGLE x/XCOORDINATE y/YCOORDINATE` +
-e.g. `rotate a/30 x/3 y/4` +
-* *Contrast* `contrast o/OPERATOR [n/DEGREE]` +
-e.g. `contrast o/subtract n/30` +
-* *Brightness* `brightness o/OPERATOR [n/DEGREE]` +
-e.g. `brightness o/add n/20` +
 * *Black/White* `bw`
 
+* *Brightness* `brightness o/OPERATOR [n/DEGREE]` +
+e.g. `brightness o/add n/20` +
+
+* *Contrast* `contrast o/OPERATOR [n/DEGREE]` +
+e.g. `contrast o/subtract n/30` +
+
+* *Crop* `crop x/POINTCOORD y/POINTCOORD w/POINTCOORD z/POINTCOORD` +
+e.g. `crop x/2,3 y/4,5, w/3,2, z/6,7`
+
+* *Exit* `exit` +
+
+* *Export* `export FILENAME` +
+e.g. `export MyNewImage.jpg`
+
+* *Help* `help` +
+
+* *Import* `import FILEPATH` +
+e.g. `import C:/Users/Fomo/Pictures/sample.jpg` +
+
+* *List Files* `listfiles` +
+
+* *Open* `open FILENAME` +
+e.g. `open sample.jpg` +
+
+* *Redo* `redo` +
+
+* *Rotate* `rotate a/ANGLE x/XCOORDINATE y/YCOORDINATE` +
+e.g. `rotate a/30 x/3 y/4` +
+
+* *Undo* `undo` +

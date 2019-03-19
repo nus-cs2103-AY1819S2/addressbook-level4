@@ -392,6 +392,95 @@ Examples:
 * `list-time 26022019` +
 Lists all doctors' available blocks of timing for each 1-hour time slot on 26th February 2019.
 
+=== Adding a remedy: `add-remedy`
+
+Adds a remedy in docX database. +
+Format: `add-remedy MEDICINE`
+
+****
+* A unique identification number (ID) will be generated for the new remedy.
+* Adding a pre-existing remedy will result in an error.
+* Remedies must be quoted in quotation marks.
+****
+
+Examples:
+
+* `add-remedy 'coughing tablets'` +
+Adds 'coughing syrup' into docX's available lists of remedies.
+* `add-remedy 'muscle patch'` +
+Adds 'muscle patch' into docX's available lists of remedies.
+
+=== Listing all remedies : `list-remedy`
+
+Shows a list of all remedies in docX. +
+Format: `list-remedy`
+
+=== Adding a prescription: `add-presc`
+
+Adds a prescription and the prescribing doctor under the patient involved. +
+Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/REMEDY_ID w/SHORT_WRITEUP`
+
+****
+* Remedies can only be added based on their unique identification number (ID).
+****
+
+Examples:
+
+* `add-presc pid/1 did/1 rid/1 w/heaty cough` +
+Adds the prescribing doctor with ID of '1', the remedy with ID of '1',
+and a short write up of 'heaty cough' under the patient with ID of '1'.
+* `add-presc pid/5 did/2 rid/3 w/constipation for 3 days` +
+Adds the prescribing doctor with ID of '2', the remedy with ID of '3',
+and a short write up of 'constipation for 3 days' under the patient with ID of '5'.
+
+=== Listing all prescriptions of a patient : `list-presc`
+
+Shows a list of all past prescriptions under the patient involved. +
+Format: `list-presc PATIENT_ID`
+
+****
+* Display the full history of prescriptions under the specified `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list-presc 3` +
+Lists all past prescriptions under the patient with ID of '3'.
+
+=== Viewing a prescription of a patient: `view-presc`
+
+View the full specified prescription of the specified patient. +
+Format: `view-presc pid/PATIENT_ID prescid/PRESCRIPTION_ID`
+
+****
+* Display the full prescription of the specified `PRESCRIPTION_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `view-presc pid/2 prescid/2` +
+Returns full write up of the prescription with ID of '2' of the patient with ID of '2'.
+
+=== Locating prescription : `search-presc`
+
+Finds prescription(s) whose write up contain any of the given keywords. +
+Format: `search-presc KEYWORD`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Write ups of the prescription matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Each keyword is to be quoted in quotation marks.
+****
+
+Examples:
+
+* `search-presc 'flu'` +
+Returns all prescriptions with the write up containing the keyword `flu`
+* `search-presc 'stomach flu' 'sorethroat'` +
+Returns all prescriptions with the write up containing either 'stomach flu' or 'sorethroat' or both keywords.
+
 
 === Listing entered commands : `history`
 
@@ -533,6 +622,20 @@ e.g. `list-appt did/3 sd/30032019 ed/30042019`
 e.g. `list-doc-time did/3 d/05032019`
 * *List available doctors during the specified time* : `list-time DATE`
 e.g. `list-time 26022019`
+
+PRESCRIPTION COMMANDS
+
+* *Add a new remedy* `add-remedy MEDICINE`
+e.g. `add-remedy 'coughing tablets'`
+* *List existing remedies* : `list-remedy`
+* *Add a new prescription* `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/REMEDY_ID w/SHORT_WRITEUP` +
+e.g. `add-presc pid/1 did/1 rid/1 w/heaty cough`
+* *List prescriptions of a patient* : `list-presc PATIENT_ID`
+* *View a prescription* : `view-presc pid/PATIENT_ID prescid/PRESCRIPTION_ID` +
+e.g. `view-presc pid/2 prescid/2`
+* *Locating a prescription* : `search-presc KEYWORD`
+e.g. `search-presc 'stomach flu' 'sorethroat'`
+
 
 GENERAL COMMANDS
 

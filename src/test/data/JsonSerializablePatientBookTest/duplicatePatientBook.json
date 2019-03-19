@@ -1,0 +1,35 @@
+{
+  "patients" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "nric" : "S9670515H",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ ],
+    "conditions" : "Physiotherapy Dialysis "
+  }, {
+    "name" : "Alice Pauline",
+    "phone": "94351253",
+    "email" : "alice@example.com",
+    "nric" : "S9670515H",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ ],
+    "conditions" : "Physiotherapy Dialysis "
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "lydia@example.com",
+    "nric" : "S5450367F",
+    "address" : "little tokyo",
+    "tagged" : [ ],
+    "conditions" : "Cancer "
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "lydia@example.com",
+    "nric" : "S5450367F",
+    "address" : "little tokyo",
+    "tagged" : [ ],
+    "conditions" : "Cancer "
+  }]
+}

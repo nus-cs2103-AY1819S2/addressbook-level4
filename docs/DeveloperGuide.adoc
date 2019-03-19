@@ -265,6 +265,39 @@ Step 2. The user executes `sort`
 
 Step 3. The list is sorted and returned to the GUI.
 
+// tag::display[]
+=== Display feature
+The display feature allow users to view the location of all equipments in the current shown list on map.
+
+==== Current Implementation
+
+The following sequence diagram shows how the display operation works:
+
+image::DisplaySequenceDiagram.png[width="800"]
+
+Step 1. The user launches the application, the list of equipments will show in `UI` and stored in the `Model`.
+
+Step 2. The user executes `display` command to show all the equipments on the map. The execution of `display` command will return a `CommandResult` indicating `display` which can be checked by `CommandResult#isDisplayMap()`. The `MainWindow` will check if the `CommandResult` is a display map command. Then `MainWindow#handleDisplayMap` will be called. `MainWindow#handleDisplayMap` will call `Logic#getFilteredPersonList()` to get the equipments list, and then call `Equipment#getCoordiantes()` on each equipments to get its coordinates.
+
+Step 3. The `Equipment#getCoordiantes()` calls to `Google Map Geocoding API` with the address returned by `Equipment#getAddress()`. The API will return the coordinates of the address. This will be returned as the coordinates of the equipment.
+
+[NOTE]
+`Google Map Geocoding API` is not free to use. You need to have your own API key to use the API. You may check link:https://developers.google.com/maps/documentation/javascript/geocoding[`Google Map Platform - Geocoding Service`]
+
+Step 4. The coordinates are constructed to form a URL and call a webpages in `BrowserPanel` to display the map. Currently the map is stord under `/docs/staticpages/` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_PAGE_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
+
+Step 5. The webpage receive the coordinates in parameter form. It will first parse the parameters. The standard form of parameters is `?coordinates=[[1.3012,103.1233], [1.4323, 103.2012]]&otherfields=["abc", "def"]`. The map may be extended to handle more functions, however the current parameter paraser can only handle parameters in the standard format. For now, only coordinates is used, other parameters will be ignored.
+
+==== Design Considerations
+
+===== Aspect: How to display the base map
+* **Alternative 1 (current choice):** Use separate webpage, pass the coordinates as parameters.
+** Pros: Easy to implement. Flexible to add more functions. Many JavaScript libraries can be used.
+** Cons: Unexpected behaviors would happen if the WebEngine cannot display the webpage properly.
+* **Alternative 2:** Use third party JavaFX map libraries.
+** Pros: No unexpected behaviors, and more consistant running on different platforms.
+** Cons: Harder to implement, less flexibility, and limit to extendsions.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

@@ -198,8 +198,9 @@ public class ModelManager implements Model {
 
     //=========== Statistics ===============================================================================
     @Override
-    public PlayerStatistics getPlayerStats(){ return this.playerStats; }
-
+    public PlayerStatistics getPlayerStats() {
+        return this.playerStats;
+    }
     //=========== Filtered Cell List Accessors =============================================================
 
     /**

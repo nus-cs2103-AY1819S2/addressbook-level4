@@ -313,6 +313,55 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::updatetable
+=== Update Table feature
+==== Current Implementation
+
+The update table mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
+
+* `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables. 
+* `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
+
+These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
+
+Given below is an example usage scenario and how the update table mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UniqueTableList` will be initialised to be empty.
+
+image::UpdateTableStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `addTable 4` command to add a table to the RestOrRant application. Since it is the first new table, it will be labelled table `1` and not be occupied thus having a table status of `0/4`. The `UniqueTableList` will now contain 1 table.
+
+image::UpdateTableAddTableStateListDiagram.png[width="800]
+
+Step 3. The user then has 4 customers enter his/her restaurant and executes `updateTable 1 4` command to update the table labelled 1 with 4 customers. The `updateTable` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
+
+image::UpdateTableUpdateTableStateListDiagram.png[width="800"]
+
+The following sequence diagram shows how the update table operation works:
+
+image::UpdateTableSequenceDiagram.png[width="800"]
+
+[NOTE]
+If the table to be edited does not exist in the `UniqueTableList`, the application returns an error to the user rather than attempting to replace the non existent table.
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+image::UpdateTableActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How update table executes
+
+* **Alternative 1 (current choice):** Replace the entire table with an updated table.
+** Pros: Maintains abstraction of `Table` and `TableStatus` and reduce errors from abusing the editability of `TableStatus` in `Table`.
+** Cons: May have efficiency issues when creating a whole new object whenever part of it needs to be changed.
+* **Alternative 2:** Directly edit the `TableStatus` of the tables.
+** Pros: Potentially more efficient as there is no need to create new object and replace items in a list.
+** Cons: Breaks abstraction to a certain extent and allows future developers to abuse the object.
+
+// end::updatetable
+
 // tag::tablemode[]
 === Changing to Table Mode
 

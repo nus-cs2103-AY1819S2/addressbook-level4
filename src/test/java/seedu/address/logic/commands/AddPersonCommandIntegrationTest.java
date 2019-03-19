@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class AddPersonCommandIntegrationTest {
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-         getTypicalRequestBook(), new UserPrefs());
+         getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
     }
 
     @Test
@@ -35,7 +36,7 @@ public class AddPersonCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(),
-            model.getHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+            model.getHealthWorkerBook(), getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 

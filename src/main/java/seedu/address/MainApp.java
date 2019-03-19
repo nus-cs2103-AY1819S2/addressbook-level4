@@ -141,7 +141,7 @@ public class MainApp extends Application {
         }
 
 
-        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialRequestBook,
+        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialPatientBook, initialRequestBook,
 
             userPrefs);
     }

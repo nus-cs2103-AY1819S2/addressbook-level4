@@ -23,7 +23,7 @@ public class Job {
 
     // Data fields
     private ArrayList<UniquePersonList> personsHash = new ArrayList<> (NUMBER_OF_LISTS);
-    private ArrayList<List<Person>> personsList = new ArrayList<>(NUMBER_OF_LISTS);
+    private ArrayList<ArrayList<Person>> personsList = new ArrayList<>(NUMBER_OF_LISTS);
 
 
     /**
@@ -35,6 +35,7 @@ public class Job {
         this.name = name;
         for (int i = 0; i < 4; i++) {
             personsHash.add(new UniquePersonList());
+            personsList.add(new ArrayList<>());
         }
     }
 
@@ -58,6 +59,26 @@ public class Job {
         }
         return names;
     }
+
+    /**
+     * Returns an ArrayList of Person that can be editted but does not change the list in job directly
+     */
+    public final ArrayList<Person> getList(int listNumber) {
+        return personsList.get(listNumber);
+    }
+
+    /**
+     * Replaces a list of persons in Job
+     */
+    public final boolean replaceList(int listNumber, ArrayList<Person> personList) {
+        if(listNumber > 3) {
+            return false;
+        }
+        personsList.set(listNumber, personList);
+
+        return true;
+    }
+    
 
     /**
      * Returns true if both jobs have the same name.

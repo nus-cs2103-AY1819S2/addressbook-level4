@@ -431,7 +431,7 @@ _Sequence Diagram will be done soon_
 An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
 
 .Example of Aster Plot Graph
-image::asterPlot.png[width="800"]
+image::asterPlot.png[width="400"]
 
 
 Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.

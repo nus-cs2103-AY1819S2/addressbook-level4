@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
 import static seedu.address.testutil.TypicalPdfs.A_DUP_PDF;
 import static seedu.address.testutil.TypicalPdfs.A_PDF;
-import static seedu.address.testutil.TypicalPdfs.B_DUP_PDF;
+//import static seedu.address.testutil.TypicalPdfs.B_DUP_PDF;
 import static seedu.address.testutil.TypicalPdfs.B_PDF;
 //import static seedu.address.testutil.TypicalPdfs.BOB;
 
@@ -66,8 +66,8 @@ public class PdfTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Pdf a_Copy = new PdfBuilder(A_PDF).build();
-        assertTrue(A_PDF.equals(a_Copy));
+        Pdf acopy = new PdfBuilder(A_PDF).build();
+        assertTrue(A_PDF.equals(acopy));
 
         // same object -> returns true
         assertTrue(A_PDF.equals(A_PDF));

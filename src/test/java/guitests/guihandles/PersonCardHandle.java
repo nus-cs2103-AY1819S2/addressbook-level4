@@ -76,7 +76,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code pdf}.
      */
     public boolean equals(Pdf pdf) {
-        return getName().equals(pdf.getName().fullName)
+        return getName().equals(pdf.getName().getFullName())
                 && getAddress().equals(pdf.getAddress().value)
                 && getPhone().equals(pdf.getPhone().value)
                 && getEmail().equals(pdf.getEmail().value)

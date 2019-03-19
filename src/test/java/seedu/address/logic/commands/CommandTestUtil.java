@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.nio.file.Paths;
@@ -41,24 +41,31 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_A = "a.pdf";
     public static final String VALID_NAME_B = "b.pdf";
+    public static final String VALID_NAME_C = "c.pdf";
     public static final String VALID_DIR_A = Paths.get("src", "data", "JsonAdaptedPdfTest", "a.pdf")
             .toAbsolutePath().toString();
     public static final String VALID_DIR_B = Paths.get("src", "data", "JsonAdaptedPdfTest", "b.pdf")
+            .toAbsolutePath().toString();
+    public static final String VALID_DIR_C = Paths.get("src", "data", "JsonAdaptedPdfTest", "c.pdf")
             .toAbsolutePath().toString();
     public static final String VALID_SIZE_A = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
             "a.pdf").toAbsolutePath().toFile().length());
     public static final String VALID_SIZE_B = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
             "b.pdf").toAbsolutePath().toFile().length());
+    public static final String VALID_SIZE_C = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+            "c.pdf").toAbsolutePath().toFile().length());
+
     public static final String VALID_TAG_LECTURE = "lecture";
     public static final String VALID_TAG_TUTORIAL = "tutorial";
 
-    public static final String FILE_DESC_A_PDF = " " + PREFIX_FILE + VALID_DIR_A + VALID_NAME_A;
+    public static final String FILE_DESC_A_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_A, VALID_NAME_A)
+            .toAbsolutePath().toString();
     public static final String FILE_DESC_B_PDF = " " + PREFIX_FILE + VALID_DIR_B + VALID_NAME_B;
 
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
+    /*public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
@@ -67,16 +74,16 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;*/
 
 
     public static final String INVALID_FILE_PATH_DESC = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    /*public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses*/
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "moduleA*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

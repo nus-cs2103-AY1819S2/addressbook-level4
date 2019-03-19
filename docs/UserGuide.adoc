@@ -370,9 +370,9 @@ Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
 * You can add all people on the Person Display List to the "To be sent to boss" list by using `all` parameter.
 ****
 
-==== Arrange Interview Dates : `arrangeInterview` `Coming in v1.4`
+==== Generate Interview Dates : `generateInterviews` `Coming in v1.4`
 
-Arrange interview dates for applicants in the Job Hiring Process's "Interview" list
+Generate interview dates for applicants in the Job Hiring Process's "Interview" list
 sends the applicants their respective interview timings to the email they provided. +
 Format : `arrangeInterviews JOBNAME`
 

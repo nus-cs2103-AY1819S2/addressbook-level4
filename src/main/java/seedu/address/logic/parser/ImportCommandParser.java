@@ -26,8 +26,11 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
     /**
      * importValidation() checks if the file exists, is a file and can be read.
-     * @param parsedInOut
-     * @throws ParseException
+     * @param parsedInOut the ParsedInOut object which contains parsed information from the input.
+     * @throws ParseException if the file is not a .json type
+     *                        if the file does not exist
+     *                        if the file is not a file
+     *                        if the file cannot be read
      */
     private void importValidation(ParsedInOut parsedInOut) throws ParseException {
         if (!parsedInOut.getType().equals("json")) {

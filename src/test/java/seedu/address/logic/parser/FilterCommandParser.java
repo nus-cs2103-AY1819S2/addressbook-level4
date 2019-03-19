@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.TagsContainsKeywordsPredicate;
+import seedu.address.model.equipment.EquipmentContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -27,7 +27,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         String[] tagKeywords = trimmedArgs.split("\\s+");
 
-        return new FilterCommand(new TagsContainsKeywordsPredicate(Arrays.asList(tagKeywords)));
+        return new FilterCommand(new EquipmentContainsKeywordsPredicate(Arrays.asList(tagKeywords)));
     }
 
 }

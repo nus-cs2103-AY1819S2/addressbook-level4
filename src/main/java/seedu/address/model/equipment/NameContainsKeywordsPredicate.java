@@ -18,7 +18,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Equipment> {
     @Override
     public boolean test(Equipment equipment) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(equipment.getName().name, keyword));
+                .anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(equipment.getName().name, keyword));
     }
 
     @Override

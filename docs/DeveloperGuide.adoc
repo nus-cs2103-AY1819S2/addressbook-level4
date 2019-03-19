@@ -227,6 +227,44 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::filter[]
+=== Filter feature
+
+The filter feature allow users to filter the current shown list with any fields, and can filter by multiple fields.
+
+The FilterCommand is able to filter the shown list according to the user's preference at a time.
+
+==== Current Implementation
+
+Given below is an example usage scenario of how the filter mechanism behaves at each step when filtering.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `filter north ongoing`
+
+Step 3. After `EquipmentManagerParser` detects `filter` as the command word, a FilterCommandParser is created to parse
+the arguments supplied to the command.
+
+Step 4. The `FilterCommandParser` trims and splits the arguments by white spaces.
+
+Step 5. Then, `EquipmentContainsKeywordsPredicate` checks that the equipment manager has either the respective serial
+number, tags, address, name, email, phone.
+
+Step 6. The argument is filtered against the predicate and returned to the GUI.
+
+// tag::sort[]
+=== Sort feature
+The sort feature allow users to sort the current shown list by name.
+
+
+==== Current Implementation
+
+Step 1. The user launches the application and add equipment.
+
+Step 2. The user executes `sort`
+
+Step 3. The list is sorted and returned to the GUI.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

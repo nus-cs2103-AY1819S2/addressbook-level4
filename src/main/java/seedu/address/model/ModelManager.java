@@ -143,7 +143,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredEquipments.setPredicate(predicate);
     }
-
     //=========== Undo/Redo =================================================================================
 
     @Override

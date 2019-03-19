@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.tag.TagsContainsKeywordsPredicate;
+import seedu.address.model.equipment.EquipmentContainsKeywordsPredicate;
 
 /**
  * Filters and lists all equipments in Equipment Manager whose tags contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class FilterCommand extends Command {
             + "Parameters: KEYWORD [MORE KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " west urgent";
 
-    private final TagsContainsKeywordsPredicate predicate;
+    private final EquipmentContainsKeywordsPredicate predicate;
 
-    public FilterCommand(TagsContainsKeywordsPredicate predicate) {
+    public FilterCommand(EquipmentContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

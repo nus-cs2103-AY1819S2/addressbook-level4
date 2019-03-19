@@ -340,6 +340,48 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== CRUD of patients
+
+Patients is one of the two valid types of Persons to store in the docX record.
+The following features are implemented or will be implemented for users of docX:
+* Add patient
+* List all patients
+* Edit existing patient entries
+* Search patients by keywords
+* Delete exisiting patient entries
+
+==== CRUD Patient features
+
+===== Current(Proposed) Implementation
+
+When a user executes 'add-patient n/John Doe g/Male a/21 p/98765432'
+
+Step1. LogicManager calls parseCommand("add") in AddressBookParser.
+
+Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddCommandParser() and call function parse(arguments) of AddCommandParser;
+
+Step3. AddCommandParser parses the argument and get patient name, patient gender, age, phone and an optional tag. AddCommandParser calls constructors of Age, Gender, Phone and Tag and then calls the constructor of Patient. Then, AddCommandParser calls AddCommand(Patient).
+
+Step4. LogicManager calls execute() of AddtCommand.
+
+Step5. execute() calls hasPatient() of Model. If patient does not exist, call addPatient() of Model.
+
+==== List Patient feature
+
+{Explain here how list will be implemented}
+
+==== Edit Patient feature
+
+{Explain here how edit will be implemented}
+
+==== Search Patient feature
+
+{Explain here how search will be implemented}
+
+==== Delete Patient feature
+
+{Explain here how delete will be implemented}
+
 === Medical History of patients
 
 Medical History is used to track a patient's history of coming to the clinic and seeing doctors.

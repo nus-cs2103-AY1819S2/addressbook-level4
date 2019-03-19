@@ -213,7 +213,8 @@ public abstract class FoodDiarySystemTest {
         String selectedCardName = getRestaurantListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL("https://www.kfc.com.sg/");
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+                    + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }

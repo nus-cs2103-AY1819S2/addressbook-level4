@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -18,6 +20,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueActivityList activities;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -29,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        activities = new UniqueActivityList();
     }
 
     public AddressBook() {}
@@ -53,12 +57,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the activity list with {@code activities}.
+     * {@code activities} must not contain duplicate activities.
+     */
+    public void setActivities(List<Activity> activities) {
+        this.activities.setActivities(activities);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+
+        setActivities(newData.getActivityList());
     }
 
     /**
@@ -128,6 +143,47 @@ public class AddressBook implements ReadOnlyAddressBook {
         invalidationListenerManager.callListeners(this);
     }
 
+    //// activity-level operations
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasActivity(Activity activity) {
+        requireNonNull(activity);
+        return activities.contains(activity);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addActivity(Activity a) {
+        activities.add(a);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireNonNull(editedActivity);
+
+        activities.setActivity(target, editedActivity);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeActivity(Activity key) {
+        activities.remove(key);
+        indicateModified();
+    }
+
+
     //// util methods
 
     @Override
@@ -139,6 +195,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Activity> getActivityList() {
+        return activities.asUnmodifiableObservableList();
     }
 
     @Override

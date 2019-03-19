@@ -164,6 +164,13 @@ public class AddressBook implements ReadOnlyAddressBook {
                 return false;
             }
         }
+
+        for (Task t : tasks) {
+            if (t.isCopy()) {
+                return false;
+            }
+        }
+
         return true;
     }
 

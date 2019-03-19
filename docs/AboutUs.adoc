@@ -52,7 +52,7 @@ Responsibilities:
 '''
 
 === Melissa Khoo Wan Xuan
-image::melissakhoo.jpg[width="150", align="left"]
+image::melissakhoo.png[width="150", align="left"]
 {empty}[http://github.com/melkwx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

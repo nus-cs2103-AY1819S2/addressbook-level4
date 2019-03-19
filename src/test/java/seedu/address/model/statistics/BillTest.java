@@ -26,7 +26,7 @@ public class BillTest {
         // different type -> returns false
         assertFalse(BILL1.equals(5));
 
-        // different person -> returns false
+        // different bill -> returns false
         assertFalse(BILL1.equals(BILL2));
 
         // different table number -> returns false
@@ -47,10 +47,6 @@ public class BillTest {
 
         // different total bill -> returns false
         editedBill = new StatisticsBuilder(BILL1).withTotalBill("4025.36").buildBill();
-        assertFalse(BILL1.equals(editedBill));
-
-        // different receipt -> returns false
-        editedBill = new StatisticsBuilder(BILL1).withReceipt("4asdnfcerfn").buildBill();
         assertFalse(BILL1.equals(editedBill));
     }
 }

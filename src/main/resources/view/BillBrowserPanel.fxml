@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="400" minWidth="600" style="-fx-background-color: #F9F8D4;" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-    <HBox alignment="CENTER" spacing="5">
-        <Label fx:id="receiptLabel" styleClass="receipt_big_label" text="RECEIPT" VBox.vgrow="ALWAYS">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0"
+      prefWidth="445.0" style="-fx-background-color: #F9F8D4;" VBox.vgrow="ALWAYS"
+      xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER" prefHeight="6.0" prefWidth="445.0" spacing="5" VBox.vgrow="ALWAYS">
+        <Label fx:id="receiptLabel" prefHeight="13.0" prefWidth="54.0" styleClass="receipt_big_label" text="RECEIPT"
+               VBox.vgrow="ALWAYS">
             <minWidth>
                 <!-- Ensures that the label text is never truncated -->
                 <Region fx:constant="USE_PREF_SIZE" />
             </minWidth>
         </Label>
     </HBox>
-    <HBox alignment="CENTER" spacing="5">
+    <HBox alignment="CENTER" prefHeight="9.0" prefWidth="445.0" spacing="5" VBox.vgrow="ALWAYS">
         <Label fx:id="tableNumber" styleClass="receipt_big_label" text="\$tableNumber" VBox.vgrow="ALWAYS">
             <minWidth>
                 <!-- Ensures that the label text is never truncated -->
@@ -23,5 +27,19 @@
             </minWidth>
         </Label>
     </HBox>
-        <TextArea id="receipt" editable="false" styleClass="receipt_text" text="Receipt" wrapText="true" VBox.vgrow="ALWAYS" />
+    <HBox prefHeight="500.0" prefWidth="600.0" spacing="5" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS">
+        <Label fx:id="receipt" alignment="CENTER" styleClass="receipt_text" text="\$receipt" wrapText="true"
+               HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+            <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE" />
+            </minWidth>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+        </Label>
+    </HBox>
+   <effect>
+      <Glow />
+   </effect>
 </VBox>

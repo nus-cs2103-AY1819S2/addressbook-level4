@@ -18,7 +18,7 @@ public class Year {
      * The first character of the item code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[0-9][0-9][0-9][0-9]";
+    public static final String VALIDATION_REGEX = "[0-9][0-9]{0,1}[0-9]{0,1}[0-9]{0,1}";
 
     private static boolean isInvalid = false;
 
@@ -40,8 +40,11 @@ public class Year {
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidYear(String test) {
+        requireNonNull(test);
         Calendar calendar = Calendar.getInstance();
         if (Integer.parseInt(test) > calendar.get(Calendar.YEAR)) {
+            return isInvalid;
+        } else if (Integer.parseInt(test) < 1) {
             return isInvalid;
         }
         return test.matches(VALIDATION_REGEX);

@@ -298,6 +298,11 @@ public interface Model {
      */
     void setRecentBill(Bill bill);
 
+    //    /**
+    //     * Resets the RestOrRant Orders to only contain the orderItemList.
+    //     */
+    //    void billUpdateOrders(ObservableList<OrderItem> orderItemList);
+
     /**
      * Notifies the listeners that the RestOrRant statistics has been modified to update the storage.
      */

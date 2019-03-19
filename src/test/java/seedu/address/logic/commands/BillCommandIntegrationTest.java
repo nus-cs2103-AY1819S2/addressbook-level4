@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
@@ -35,5 +36,4 @@ public class BillCommandIntegrationTest {
         assertCommandSuccess(Mode.BILL_MODE, new BillCommand(bill), model, commandHistory,
                 String.format(BillCommand.MESSAGE_SUCCESS, bill), expectedModel);
     }
-
 }

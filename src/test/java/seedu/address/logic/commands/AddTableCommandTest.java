@@ -208,11 +208,7 @@ public class AddTableCommandTest {
 
         @Override
         public TableNumber addTable(TableStatus tableStatus) {
-            public TableNumber addTable(TableStatus tableStatus) {
-                TableNumber addedTableNumber = restOrRant.getTables().addTable(tableStatus);
-                updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
-                return addedTableNumber;
-            }
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

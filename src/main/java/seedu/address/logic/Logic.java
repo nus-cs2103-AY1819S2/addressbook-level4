@@ -175,6 +175,8 @@ public interface Logic {
      */
     Bill getRecentBill();
 
+    //    void billUpdateOrders(ObservableList<OrderItem> orderItemList);
+
     /**
      * Changes current mode of RestOrRant.
      */

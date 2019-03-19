@@ -28,7 +28,7 @@ import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.statistics.DailyRevenue;
-import seedu.address.model.statistics.exception.DailyRevenueNotFoundException;
+import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.exceptions.TableNotFoundException;

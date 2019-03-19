@@ -228,6 +228,19 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+//tag::studysessions[]
+=== Study Sessions feature
+==== Current Implementation
+
+The third ViewState is called `StudyState`.
+
+This state can be accessed when user executes the command `select DECK_NUMBER` and then `study`.
+
+The following commands are supported under the study sessions:
+
+* `close` - Finishes the study sessions and saves user score for each card under.
+
 === Card Management
 ==== Data Structure Implementation
 
@@ -281,6 +294,7 @@ be added into `VersionedTopDeck.addCard(Card card, Deck ActiveDeck)`. This will 
 currently active deck, add the card into the deck and replace it with the current deck.
 
 4. Once that is done, the filteredItems list is being updated to reflect the change.
+
 
 
 // tag::undoredo[]

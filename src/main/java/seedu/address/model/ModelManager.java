@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
 import seedu.address.logic.ListItem;
+import seedu.address.logic.StudyView;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -70,6 +71,15 @@ public class ModelManager implements Model {
         //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
 
         filteredItems = ((CardsView) viewState).filteredCards;
+        setSelectedItem(null);
+    }
+
+    public void studyDeck(Deck deck) {
+        viewState = new StudyView(this, deck);
+        // TODO: change this to above after migrating global cards list
+        //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
+
+        filteredItems = ((StudyView) viewState).filteredCards;
         setSelectedItem(null);
     }
 

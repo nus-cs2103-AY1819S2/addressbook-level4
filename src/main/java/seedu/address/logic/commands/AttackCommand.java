@@ -32,6 +32,12 @@ public class AttackCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        try {
+            model.getMapGrid().attackCell(coord);
+        } catch (ArrayIndexOutOfBoundsException aiobe) {
+            throw new CommandException("Coordinates are out of bounds: " + aiobe.getMessage());
+        }
+
         model.updateUi();
 
         return new CommandResult(
@@ -40,7 +46,7 @@ public class AttackCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other != null && other instanceof AttackCommand) {
+        if (other instanceof AttackCommand) {
             AttackCommand o = (AttackCommand) other;
             return (this == o) || (this.coord.equals(o.coord));
         } else {

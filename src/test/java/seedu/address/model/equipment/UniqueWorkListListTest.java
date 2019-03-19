@@ -5,8 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
-import static seedu.address.testutil.TypicalEquipments.BOB;
+//import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+//import static seedu.address.testutil.TypicalEquipments.BOB;
+
+import static seedu.address.testutil.TypicalWorkLists.LISTA;
+//import static seedu.address.testutil.TypicalWorkLists.LISTB;
 
 //import java.util.Arrays;
 //import java.util.Collections;
@@ -26,17 +29,12 @@ public class UniqueWorkListListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final WorkList typicalWorkListA = new WorkList("2019-01-01", "Alice");
-    private final WorkList typicalWorkListB = new WorkList("2018-01-01", "Bob");
-
     private final List<WorkList> listOfWorklist = new LinkedList<>();
 
     private final UniqueWorkListList uniqueWorkListList = new UniqueWorkListList();
 
     {
-        typicalWorkListA.addEquipment(ACHORVALECC);
-        typicalWorkListB.addEquipment(BOB);
-        listOfWorklist.add(typicalWorkListA);
+        listOfWorklist.add(LISTA);
     }
 
     @Test
@@ -47,13 +45,13 @@ public class UniqueWorkListListTest {
 
     @Test
     public void contains_workListNotInList_returnsFalse() {
-        assertFalse(uniqueWorkListList.contains(typicalWorkListA));
+        assertFalse(uniqueWorkListList.contains(LISTA));
     }
 
     @Test
     public void contains_workListInList_returnsTrue() {
-        uniqueWorkListList.add(typicalWorkListA);
-        assertTrue(uniqueWorkListList.contains(typicalWorkListA));
+        uniqueWorkListList.add(LISTA);
+        assertTrue(uniqueWorkListList.contains(LISTA));
     }
 
     @Test
@@ -75,9 +73,9 @@ public class UniqueWorkListListTest {
 
     @Test
     public void add_duplicateWorkList_throwsDuplicateWorkListException() {
-        uniqueWorkListList.add(typicalWorkListA);
+        uniqueWorkListList.add(LISTA);
         thrown.expect(DuplicateEquipmentException.class);
-        uniqueWorkListList.add(typicalWorkListA);
+        uniqueWorkListList.add(LISTA);
     }
 
     @Test
@@ -89,13 +87,13 @@ public class UniqueWorkListListTest {
     @Test
     public void remove_workListDoesNotExist_throwsWorkListNotFoundException() {
         thrown.expect(EquipmentNotFoundException.class);
-        uniqueWorkListList.remove(typicalWorkListA);
+        uniqueWorkListList.remove(LISTA);
     }
 
     @Test
     public void remove_existingWorkList_removesWorkList() {
-        uniqueWorkListList.add(typicalWorkListA);
-        uniqueWorkListList.remove(typicalWorkListA);
+        uniqueWorkListList.add(LISTA);
+        uniqueWorkListList.remove(LISTA);
         UniqueWorkListList expectedUniqueWorkListList = new UniqueWorkListList();
         assertEquals(expectedUniqueWorkListList, uniqueWorkListList);
     }

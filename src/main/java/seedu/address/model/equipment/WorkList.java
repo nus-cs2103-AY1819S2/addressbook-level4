@@ -57,9 +57,9 @@ public class WorkList {
     }
 
     //List all the equipments in the work list.
-    public Equipment[] listEquipment() {
-        return (Equipment[]) this.equipments.toArray();
-    }
+    //public Equipment[] listEquipment() {
+    //    return (Equipment[]) this.equipments.toArray();
+    //}
 
     /**
      * Returns true if both worklists have the same WorkListId.

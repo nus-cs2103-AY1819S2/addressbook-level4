@@ -16,7 +16,7 @@ import seedu.address.model.equipment.WorkList;
  */
 public class TypicalWorkLists {
 
-    public static final WorkList LISTA = new WorkList("2019-01-01", "ALICE");
+    public static final WorkList LISTA = new WorkList("2019-01-01", "Anchorvale CC");
     public static final WorkList LISTB = new WorkList("2018-01-01", "BOB");
     {
         LISTA.addEquipment(ACHORVALECC);

@@ -248,7 +248,9 @@ This operation is exposed in the `Model` interface as `Model#checkPostal(int pos
 
 Given below is an example usage scenario and how the 'PostalDataSet' behaves at each step.
 
-Step 1. The user launches the application for the first time.
+Step 1. The user launches the application for the first time. The 'PostalDataSet' will be initialised by with data from 'data.json' through the 'Storage' interface.
+
+Step 2. The user
 
 === Undo/Redo feature
 ==== Current Implementation

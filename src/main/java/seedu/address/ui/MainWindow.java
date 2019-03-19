@@ -47,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane contentPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -128,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-//        questionPanel = new QuestionPanel();
-//        questionPanelPlaceholder.getChildren().add(questionPanel.getRoot());
+        questionPanel = new QuestionPanel();
+        questionPanelPlaceholder.getChildren().add(questionPanel.getRoot());
 
     }
 

@@ -26,7 +26,7 @@ public class GradeRange {
      * Returns true if the min gradepoint is no more than max gradepoint
      */
     public boolean checkMinNotMoreThanMax() {
-        return min.isWithin(max);
+        return min.isLowerOrEqualTo(max);
     }
 
     /**

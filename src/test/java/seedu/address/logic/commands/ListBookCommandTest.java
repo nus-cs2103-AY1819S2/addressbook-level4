@@ -7,7 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_BOOKS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBooks.BOOKTHIEF;
 import static seedu.address.testutil.TypicalBooks.HUNGERGAME;
-import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,8 +26,8 @@ import seedu.address.model.book.BookListFilterPredicate;
  * Contains integration tests (interaction with the Model) for {@code listBookCommand}.
  */
 public class ListBookCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBookShelf(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalBookShelf(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

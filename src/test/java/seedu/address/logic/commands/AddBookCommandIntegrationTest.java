@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class AddBookCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalBookShelf(), new UserPrefs());
     }
 
     @Test

@@ -70,12 +70,12 @@ public class TypicalBooks {
     /**
      * Returns an {@code BookShelf} with all the typical books.
      */
-    public static BookShelf getTypicalAddressBook() {
-        BookShelf ab = new BookShelf();
+    public static BookShelf getTypicalBookShelf() {
+        BookShelf bs = new BookShelf();
         for (Book book : getTypicalBooks()) {
-            ab.addBook(book);
+            bs.addBook(book);
         }
-        return ab;
+        return bs;
     }
 
     public static List<Book> getTypicalBooks() {

@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ import seedu.address.testutil.EditBookDescriptorBuilder;
  */
 public class EditBookCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBookShelf(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

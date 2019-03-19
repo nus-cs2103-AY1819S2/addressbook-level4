@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
 import java.nio.file.Path;
 
@@ -57,7 +57,7 @@ public class StorageManagerTest {
          * {@link JsonBookShelfStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        BookShelf original = getTypicalAddressBook();
+        BookShelf original = getTypicalBookShelf();
         storageManager.saveBookShelf(original);
         ReadOnlyBookShelf retrieved = storageManager.readBookShelf().get();
         assertEquals(original, new BookShelf(retrieved));

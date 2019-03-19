@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 import static seedu.address.testutil.TypicalBooks.ALI;
-import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,7 +49,7 @@ public class BookShelfTest {
 
     @Test
     public void resetData_withValidReadOnlyBookShelf_replacesData() {
-        BookShelf newData = getTypicalAddressBook();
+        BookShelf newData = getTypicalBookShelf();
         bookShelf.resetData(newData);
         assertEquals(newData, bookShelf);
     }

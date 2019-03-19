@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBookOfExactName;
-import static seedu.address.testutil.TypicalBooks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
  */
 public class DeleteBookCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBookShelf(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

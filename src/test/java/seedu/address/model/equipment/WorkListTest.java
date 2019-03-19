@@ -1,7 +1,7 @@
 package seedu.address.model.equipment;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+//import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.BOB;
 import static seedu.address.testutil.TypicalWorkLists.LISTA;
 

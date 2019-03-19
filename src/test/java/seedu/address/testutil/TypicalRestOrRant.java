@@ -90,6 +90,8 @@ public class TypicalRestOrRant {
                                                        .withYear("2019").withTotalDailyRevenue("200").build();
     public static final DailyRevenue DAILY_REVENUE7 = new StatisticsBuilder().withDay("7").withMonth("3")
                                                        .withYear("2019").withTotalDailyRevenue("100").build();
+    public static final DailyRevenue DAILY_REVENUE8 = new StatisticsBuilder().withDay("8").withMonth("3")
+            .withYear("2019").withTotalDailyRevenue("50").build();
 
     public static final Bill BILL1 = new StatisticsBuilder().withTableNumber("1").withDay("1").withMonth("3")
             .withYear("2019").withTotalBill("10").withReceipt("").buildBill();

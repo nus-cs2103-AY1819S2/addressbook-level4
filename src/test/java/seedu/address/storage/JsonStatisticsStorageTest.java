@@ -2,9 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE1;
+import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE8;
 import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE2;
-import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE3;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import java.io.IOException;
@@ -84,14 +83,14 @@ public class JsonStatisticsStorageTest {
         assertEquals(original, new Statistics(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addDailyRevenue(DAILY_REVENUE1);
+        original.addDailyRevenue(DAILY_REVENUE8);
         original.removeDailyRevenue(DAILY_REVENUE2);
         jsonStatisticsStorage.saveStatistics(original, filePath);
         readBack = jsonStatisticsStorage.readStatistics(filePath).get();
         assertEquals(original, new Statistics(readBack));
 
         // Save and read without specifying file path
-        original.addDailyRevenue(DAILY_REVENUE3);
+        original.addDailyRevenue(DAILY_REVENUE2);
         jsonStatisticsStorage.saveStatistics(original); // file path not specified
         readBack = jsonStatisticsStorage.readStatistics().get(); // file path not specified
         assertEquals(original, new Statistics(readBack));

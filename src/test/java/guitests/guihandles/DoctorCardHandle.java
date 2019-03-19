@@ -1,15 +1,15 @@
 package guitests.guihandles;
 
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
-import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Person;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMultiset;
+
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
+import seedu.address.model.person.Doctor;
+
 
 /**
  * Provides a handle to a doctor card in the doctor list panel.
@@ -81,7 +81,8 @@ public class DoctorCardHandle extends NodeHandle<Node> {
                 && getAge().equals(doctor.getAge().value)
                 && getPhone().equals(doctor.getPhone().value)
                 && getGender().equals(doctor.getGender().value)
-                && ImmutableMultiset.copyOf(getSpecialisations()).equals(ImmutableMultiset.copyOf(doctor.getSpecs().stream()
+                && ImmutableMultiset.copyOf(getSpecialisations()).equals(ImmutableMultiset
+                        .copyOf(doctor.getSpecs().stream()
                         .map(specialisation -> specialisation.specialisation)
                         .collect(Collectors.toList())));
     }

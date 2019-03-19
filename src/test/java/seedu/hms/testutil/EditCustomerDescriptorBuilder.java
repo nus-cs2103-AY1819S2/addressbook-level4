@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
@@ -35,6 +36,7 @@ public class EditCustomerDescriptorBuilder {
         descriptor = new EditCustomerDescriptor();
         descriptor.setName(customer.getName());
         descriptor.setPhone(customer.getPhone());
+        descriptor.setDateOfBirth(customer.getDateOfBirth());
         descriptor.setEmail(customer.getEmail());
         descriptor.setIdNum(customer.getIdNum());
         descriptor.setAddress(customer.getAddress());
@@ -74,7 +76,20 @@ public class EditCustomerDescriptorBuilder {
     }
 
     /**
+     * <<<<<<< HEAD:src/test/java/seedu/address/testutil/EditCustomerDescriptorBuilder.java
+     * Sets the {@code DateOfBirth} of the {@code EditCustomerDescriptor} that we are building.
+     */
+    public EditCustomerDescriptorBuilder withDateOfBirth(String dob) {
+        descriptor.setDateOfBirth(new DateOfBirth(dob));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Address} of the {@code EditCustomerDescriptor} that we are building.
+     * =======
      * Sets the {@code hms} of the {@code EditCustomerDescriptor} that we are building.
+     * >>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/testutil
+     * /EditCustomerDescriptorBuilder.java
      */
     public EditCustomerDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));

@@ -27,7 +27,7 @@ public class IdentificationNo {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid identification number.
      */
     public static boolean isValidIdNum(String test) {
         return test.matches(VALIDATION_REGEX);

@@ -1,15 +1,19 @@
 package systemtests;
 
+//import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_AMY;
+import static seedu.hms.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
-import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.hms.logic.commands.CommandTestUtil.INVALID_DATE_OF_BIRTH_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -29,7 +33,6 @@ import static seedu.hms.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-import static seedu.hms.testutil.TypicalCustomers.AMY;
 import static seedu.hms.testutil.TypicalCustomers.BOB;
 import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
@@ -43,8 +46,8 @@ import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.model.CustomerModel;
-import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
@@ -52,6 +55,7 @@ import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.testutil.CustomerBuilder;
 import seedu.hms.testutil.CustomerUtil;
+//import seedu.hms.testutil.CustomerUtil;
 
 public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTest {
 
@@ -66,8 +70,8 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
          */
         Index index = INDEX_FIRST_CUSTOMER;
         String command = " " + EditCustomerCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB
-            + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
-            + TAG_DESC_HUSBAND + " ";
+            + "  " + PHONE_DESC_BOB + " " + DATE_OF_BIRTH_DESC_BOB + " " + EMAIL_DESC_BOB
+            + "  " + ID_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Customer editedCustomer = new CustomerBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedCustomer);
 
@@ -85,7 +89,8 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
 
         /* Case: edit a customer with new values same as existing values -> edited */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a customer with new values same as another customer's values but with different name -> edited */
@@ -93,16 +98,18 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
         index = INDEX_SECOND_CUSTOMER;
         assertNotEquals(getModel().getFilteredCustomerList().get(index.getZeroBased()), BOB);
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCustomer = new CustomerBuilder(BOB).withName(VALID_NAME_AMY).build();
-        assertCommandSuccess(command, index, editedCustomer);
+        assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different phone, email, id
          * -> edited
          */
         index = INDEX_SECOND_CUSTOMER;
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-            + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_BOB
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCustomer = new CustomerBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
             .withIdNum(VALID_ID_AMY).build();
         assertCommandSuccess(command, index, editedCustomer);
@@ -135,7 +142,8 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
 
         /* --------------------- Performing edit operation while a customer card is selected ------------------------ */
 
-        /* Case: selects first card in the customer list, edit a customer -> edited, card selection remains unchanged
+        /* Case: selects first card in the customer list, edit a customer -> not edited, card selection remains
+        unchanged
          * but
          * browser url changes
          */
@@ -143,10 +151,10 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
         index = INDEX_FIRST_CUSTOMER;
         selectCustomer(index);
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
-            + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+            + EMAIL_DESC_AMY + ID_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + DATE_OF_BIRTH_DESC_AMY;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new customer's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -186,15 +194,15 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
                 + INVALID_EMAIL_DESC,
             Email.MESSAGE_CONSTRAINTS);
 
+        /* Case: invalid dateOfBirth -> rejected */
+        assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
+                + INVALID_DATE_OF_BIRTH_DESC,
+            DateOfBirth.MESSAGE_CONSTRAINTS);
+
         /* Case: invalid id -> rejected */
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
                 + INVALID_ID_DESC,
             IdentificationNo.MESSAGE_CONSTRAINTS);
-
-        /* Case: invalid hms -> rejected */
-        assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
-                + INVALID_ADDRESS_DESC,
-            Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased()
@@ -207,36 +215,42 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
         index = INDEX_FIRST_CUSTOMER;
         assertFalse(getModel().getFilteredCustomerList().get(index.getZeroBased()).equals(BOB));
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
-        /* Case: edit a customer with new values same as another customer's values but with different tags -> rejected*/
+        /* Case: edit a customer with new values same as another customer's values but with different tag -> rejected*/
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB
+            + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
-        /* Case: edit a customer with new values same as another customer's values but with different hms ->
+        /* Case: edit a customer with new values same as another customer's values but with different address ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_AMY
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different phone ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-            + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + ADDRESS_DESC_BOB
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different email ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-            + EMAIL_DESC_AMY + ID_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_AMY + ID_DESC_BOB + ADDRESS_DESC_BOB
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
         /* Case: edit a customer with new values same as another customer's values but with different id ->
          * rejected */
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_AMY + ADDRESS_DESC_BOB
+            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     }
 

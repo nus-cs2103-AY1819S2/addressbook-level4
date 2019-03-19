@@ -15,12 +15,14 @@ import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.model.util.TimeRange;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -71,6 +73,21 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String dob} into a {@code DateOfBirth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dob} is invalid.
+     */
+    public static DateOfBirth parseDateOfBirth(String dob) throws ParseException {
+        requireNonNull(dob);
+        String trimmedDob = dob.trim();
+        if (!DateOfBirth.isValidDob(trimmedDob)) {
+            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfBirth(trimmedDob);
     }
 
     /**

@@ -3,6 +3,7 @@ package seedu.hms.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
@@ -34,7 +35,8 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
     public EditCustomerCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_IDENTIFICATION_NUMBER,
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_DATE_OF_BIRTH, PREFIX_EMAIL,
+                PREFIX_IDENTIFICATION_NUMBER,
                 PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
@@ -52,6 +54,10 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editCustomerDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DATE_OF_BIRTH).isPresent()) {
+            editCustomerDescriptor.setDateOfBirth(ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATE_OF_BIRTH)
+                .get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editCustomerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));

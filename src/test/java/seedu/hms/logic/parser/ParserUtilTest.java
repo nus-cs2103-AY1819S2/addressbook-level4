@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.customer.Address;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
@@ -27,12 +28,14 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_DATE_OF_BIRTH = "12/1/1459";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_ID = "+3422";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
+    private static final String VALID_DATE_OF_BIRTH = "02/02/1999";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_ID = "2345525";
@@ -180,6 +183,29 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseDateOfBirthNullThrowsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth(null));
+    }
+
+    @Test
+    public void parseDateOfBirthInvalidValueThrowsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDateOfBirth(INVALID_DATE_OF_BIRTH));
+    }
+
+    @Test
+    public void parseDateOfBirthValidValueWithoutWhitespaceReturnsDateOfBirth() throws Exception {
+        DateOfBirth expectedDateOfBirth = new DateOfBirth(VALID_DATE_OF_BIRTH);
+        assertEquals(expectedDateOfBirth, ParserUtil.parseDateOfBirth(VALID_DATE_OF_BIRTH));
+    }
+
+    @Test
+    public void parseDateOfBirthValidValueWithWhitespaceReturnsTrimmedDateOfBirth() throws Exception {
+        String dateOfBirthWithWhitespace = WHITESPACE + VALID_DATE_OF_BIRTH + WHITESPACE;
+        DateOfBirth expectedDateOfBirth = new DateOfBirth(VALID_DATE_OF_BIRTH);
+        assertEquals(expectedDateOfBirth, ParserUtil.parseDateOfBirth(dateOfBirthWithWhitespace));
     }
 
     @Test

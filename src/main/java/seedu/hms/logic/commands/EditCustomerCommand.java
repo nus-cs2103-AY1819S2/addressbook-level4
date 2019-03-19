@@ -2,6 +2,7 @@ package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
@@ -23,6 +24,7 @@ import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
@@ -43,9 +45,10 @@ public class EditCustomerCommand extends CustomerCommand {
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATIONNO] "
-        + "[" + PREFIX_ADDRESS + "address] "
+        + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NO] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
@@ -80,12 +83,14 @@ public class EditCustomerCommand extends CustomerCommand {
 
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
         Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
+        DateOfBirth updatedDob = editCustomerDescriptor.getDateOfBirth().orElse(customerToEdit.getDateOfBirth());
         Email updatedEmail = editCustomerDescriptor.getEmail().orElse(customerToEdit.getEmail());
         IdentificationNo updatedIdNum = editCustomerDescriptor.getIdNum().orElse(customerToEdit.getIdNum());
-        Address updatedaddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
+        Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
         Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
 
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedIdNum, updatedaddress, updatedTags);
+        return new Customer(updatedName, updatedPhone, updatedDob, updatedEmail, updatedIdNum, updatedAddress,
+            updatedTags);
     }
 
     @Override
@@ -135,6 +140,7 @@ public class EditCustomerCommand extends CustomerCommand {
     public static class EditCustomerDescriptor {
         private Name name;
         private Phone phone;
+        private DateOfBirth dob;
         private Email email;
         private IdentificationNo idnum;
         private Address address;
@@ -150,6 +156,7 @@ public class EditCustomerCommand extends CustomerCommand {
         public EditCustomerDescriptor(EditCustomerDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
+            setDateOfBirth(toCopy.dob);
             setEmail(toCopy.email);
             setIdNum(toCopy.idnum);
             setAddress(toCopy.address);
@@ -160,7 +167,7 @@ public class EditCustomerCommand extends CustomerCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, idnum, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, dob, email, idnum, address, tags);
         }
 
         public Optional<Name> getName() {
@@ -185,6 +192,15 @@ public class EditCustomerCommand extends CustomerCommand {
 
         public void setEmail(Email email) {
             this.email = email;
+        }
+
+
+        public Optional<DateOfBirth> getDateOfBirth() {
+            return Optional.ofNullable(dob);
+        }
+
+        public void setDateOfBirth(DateOfBirth dob) {
+            this.dob = dob;
         }
 
         public Optional<IdentificationNo> getIdNum() {
@@ -237,6 +253,7 @@ public class EditCustomerCommand extends CustomerCommand {
 
             return getName().equals(e.getName())
                 && getPhone().equals(e.getPhone())
+                && getDateOfBirth().equals(e.getDateOfBirth())
                 && getEmail().equals(e.getEmail())
                 && getIdNum().equals(e.getIdNum())
                 && getAddress().equals(e.getAddress())

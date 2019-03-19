@@ -17,22 +17,26 @@ public class Customer {
 
     // Identity fields
     private final Name name;
-    private final seedu.hms.model.customer.Phone phone;
+    private final Phone phone;
     private final Email email;
-    private final seedu.hms.model.customer.IdentificationNo idnum;
+    private final IdentificationNo idnum;
 
     // Data fields
+    private final DateOfBirth dob;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, seedu.hms.model.customer.Phone phone, Email email, IdentificationNo idnum,
-                    Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, idnum, address, tags);
+
+    public Customer(Name name, Phone phone, DateOfBirth dob, Email email, IdentificationNo idnum, Address address,
+                    Set<Tag> tags) {
+        requireAllNonNull(name, phone, dob, email, idnum, address, tags);
+
         this.name = name;
         this.phone = phone;
+        this.dob = dob;
         this.email = email;
         this.idnum = idnum;
         this.address = address;
@@ -43,15 +47,19 @@ public class Customer {
         return name;
     }
 
-    public seedu.hms.model.customer.Phone getPhone() {
+    public Phone getPhone() {
         return phone;
+    }
+
+    public DateOfBirth getDateOfBirth() {
+        return dob;
     }
 
     public Email getEmail() {
         return email;
     }
 
-    public seedu.hms.model.customer.IdentificationNo getIdNum() {
+    public IdentificationNo getIdNum() {
         return idnum;
     }
 
@@ -72,7 +80,7 @@ public class Customer {
     }
 
     /**
-     * Returns true if both customers of the same name have at least one other identity field that is the same.
+     * Returns true if two customers of same name or different name at least one other identity field that is the same.
      * This defines a weaker notion of equality between two customers.
      */
     public boolean isSameCustomer(Customer otherCustomer) {
@@ -81,8 +89,8 @@ public class Customer {
         }
 
         return otherCustomer != null
-            && otherCustomer.getName().equals(getName())
-            && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail())
+            && (otherCustomer.getPhone().equals(getPhone())
+            || otherCustomer.getEmail().equals(getEmail())
             || otherCustomer.getIdNum().equals(getIdNum()));
     }
 
@@ -103,6 +111,7 @@ public class Customer {
         Customer otherCustomer = (Customer) other;
         return otherCustomer.getName().equals(getName())
             && otherCustomer.getPhone().equals(getPhone())
+            && otherCustomer.getDateOfBirth().equals(getDateOfBirth())
             && otherCustomer.getEmail().equals(getEmail())
             && otherCustomer.getIdNum().equals(getIdNum())
             && otherCustomer.getAddress().equals(getAddress())
@@ -112,7 +121,7 @@ public class Customer {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, idnum, address, tags);
+        return Objects.hash(name, phone, dob, email, idnum, address, tags);
     }
 
     @Override
@@ -121,6 +130,8 @@ public class Customer {
         builder.append(getName())
             .append(" Phone: ")
             .append(getPhone())
+            .append(" Date of Birth: ")
+            .append(getDateOfBirth())
             .append(" Email: ")
             .append(getEmail())
             .append(" Idnum: ")

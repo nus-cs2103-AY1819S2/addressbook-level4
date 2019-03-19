@@ -3,6 +3,7 @@ package seedu.hms.model.customer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.hms.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -40,40 +41,68 @@ public class CustomerTest {
 
         // different phone, email and id -> returns false
         Customer editedAlice =
-            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB)
-                .build();
+            new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameCustomer(editedAlice));
 
-        // different name -> returns false
+
+        // different name -> returns true
         editedAlice = new CustomerBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameCustomer(editedAlice));
+        assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice =
-            new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
+            new CustomerBuilder(ALICE).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+                .withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
+
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice =
-            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
+            new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+                .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
+
         assertTrue(ALICE.isSameCustomer(editedAlice));
+
 
         // same name, same id, different attributes -> returns true
         editedAlice =
-            new CustomerBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withPhone(VALID_PHONE_BOB)
+            new CustomerBuilder(ALICE).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+                .withEmail(VALID_EMAIL_BOB).withPhone(VALID_PHONE_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
         editedAlice =
             new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
 
-        // same name, same phone, same email, same id different attributes -> returns true
-        editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same name, same phone, same email, same id, different attributes -> returns true
+        editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+            .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSameCustomer(editedAlice));
+
+        // same name, same phone, same email, different attributes -> returns true
+        editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSameCustomer(editedAlice));
+
+        // same name, same phone, same date of birth different attributes -> returns true
+        editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withEmail(VALID_EMAIL_BOB)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSameCustomer(editedAlice));
+
+        // same name, same email, same date of birth different attributes -> returns true
+        editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withPhone(VALID_PHONE_BOB)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSameCustomer(editedAlice));
+
+        // same phone, same email, same date of birth different attributes -> returns true
+        editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).withName(VALID_NAME_BOB)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameCustomer(editedAlice));
     }
 
@@ -112,7 +141,11 @@ public class CustomerTest {
         editedAlice = new CustomerBuilder(ALICE).withIdNum(VALID_ID_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different hms -> returns false
+        // different date of birth -> returns false
+        editedAlice = new CustomerBuilder(ALICE).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different address -> returns false
         editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 

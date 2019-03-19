@@ -73,8 +73,8 @@ A person can have any number of tags (including 0)
 
 Examples:
 
-* `addc n/John Doe p/98765432 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
-* `addc n/Betsy Crowe t/vip e/betsy.crowe@example.com a/Orchard Road p/123456 id/345252`
+* `addc n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
+* `addc n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/345252`
 
 === Listing all customers : `listcustomers`, `lc`
 
@@ -226,7 +226,7 @@ Adds a booking for service GYM, for the 15th customer from the complete customer
 * `findn Jack Rose`, then `add-booking s/GYM h/14:20-15:20 $/1 c/2`
 Adds a booking of service GYM for customer index 2 payed customer index 1, from 14:20 to 15:20.
 
-=== Listing all booked services: `list-bookings`,`lb` `[coming in v2.0]`
+=== Listing all booked services: `list-bookings`,`lb`
 Effect: Displays a service list, which lists one of: 1. all the room services in the booking database; 2. the services associated with certain customers; 3. the room that are booked inside the time range. +
 Format: `{list-booking/lb} [i/INDEX_OF_CUSTOMER]… [t/START_TIME-END_TIME]`
 
@@ -236,7 +236,7 @@ Format: `{list-booking/lb} [i/INDEX_OF_CUSTOMER]… [t/START_TIME-END_TIME]`
 * Indices and time ranges can be provided at the same time. The command will then show only the bookings associated with the customers that covers the date.
 ****
 
-=== Editing a booked service: `edit-booking`, `eb`  `[coming in v2.0]`
+=== Editing a booked service: `edit-booking`, `eb`
 
 Effect: Edits the fields of an room service in the database. +
 Format: `{edit-booking/eb} INDEX [s/SERVICE_TYPE] [h/START_TIME - END_TIME] [c/COMMENTS]`
@@ -257,7 +257,7 @@ Edits the service type of the 1st booking to be Type 3.
 * `lb`, then `edit-booking 2 s/14:20-14.30 c/`
 Edits the timing of the 2nd booking to be 14:20 - 14:30 and clears all existing comments.
 
-=== Deleting a booked service: `delete-booking`, `db` `[coming in v2.0]`
+=== Deleting a booked service: `delete-booking`, `db`
 
 Effect: Deletes a room service from the database.
 Format: `{delete-booking/db} INDEX`

@@ -1,0 +1,19 @@
+{
+  "customers": [ {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "dob": "30/12/2000",
+    "email": "alice@example.com",
+    "idnum": "12334535",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "dob": "30/12/2000",
+    "email": "pauline@example.com",
+    "idnum": "12334535",
+    "address": "4th street"
+  } ],
+  "bookings": [ ]
+}

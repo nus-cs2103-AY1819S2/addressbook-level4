@@ -283,12 +283,51 @@ This feature can be implemented in different ways in terms of how the records ar
 ** Pros: Easy to implement without changing original architecture.
 ** Cons: Slow. Tend to take a long time to search through large number of records.
 
-* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will whole
+* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will hold
 all the records of a particular tag.
 
 ** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted tag.
 ** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
 each tag. Will take up more space if there is many different tags.
+
+
+=== Sort feature
+
+By default, the list of entries is ordered according to the time the entry is entered into the application,
+where the entry entered first will be at the top of the list, and the entry entered last is at the bottom of the list.
+The sort mechanism allows users to view their expense records in a different way.
+
+
+==== Current Implementation
+
+*_Details of implementation will be added next time._*
+
+.Commands that I am planning to implement:
+|===
+|Commands |Description
+
+|`sort expenses` (alias: `sort expenses desc`) | Sort according to the amount stated in each entry.
+By default, the entry with the largest amount will be at the top,
+while the entry with the smallest amount will be at the bottom.
+
+|`sort expenses asc` | Entries will be sorted according to amount stated, but in the opposite order from the default,
+with the entry containing the smallest amount at the top,
+and the one with the largest amount at the bottom.
+|`sort cat budget` (alias: `sort cat budget desc`) |Sorts categories with an assigned budget according to the
+remaining budget left. By default, the category with the largest remaining budget will be at the top of the list,
+and the one with the smallest remaining budget will be at the bottom.
+|`sort cat budget asc` |Similar to sort cat budget, but the category with the smallest remaining budget will be
+at the top, and the one with the largest remaining budget will be at the bottom.
+|`sort date` (alias: `sort date desc`) |sorts entries according to date stated in each entry, with the latest one on
+top, and the earliest one at the bottom.
+|`sort date asc` |Similar to sort date, but the entry with the earliest date will be at the top, and the one with the
+latest date will be at the bottom.
+
+|===
+
+==== Design Considerations
+
+*_Design considerations will be added next time._*
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -405,6 +444,38 @@ The logic for keeping track of budgets can be implemented in different ways for 
 ** Cons: Budget classes for individual categories need to be iterated through to get totals leading to slow UI updates each time values are changed.
 
 //end::budgetmanagement[]
+
+
+// tag::summary[]
+=== Summary
+
+The summary feature shows an overview of your previous expenditures. It displays statistics on how your spending habits are like in the different categories you have specified. It also displays the remaining budget amount for each category.
+
+==== To be implemented
+The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in the financeTracker.
+
+The summary command will retrieve the whole list of existing records, which will then be parsed by SummaryCommandParser. This will return the appropriate d3 graph to be shown.
+
+Given below is an example usage scenario and how the summary mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The financeTracker will be initialised with the existing records the user has input last time.
+
+Step 2. The user executes the summary command. Input is parsed and the records will be extracted.
+
+Step 3. The records are then converted to JSON, and data will be used to map the d3 graph.
+
+
+_Sequence Diagram will be done soon_
+
+==== Design Consideration
+An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
+
+.Example of Aster Plot Graph
+image::asterPlot.png[width="400"]
+
+Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
+//end::summary[]
+
 
 // tag::security[]
 === Security Features

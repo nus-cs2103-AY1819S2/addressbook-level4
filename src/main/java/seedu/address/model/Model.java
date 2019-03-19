@@ -253,6 +253,10 @@ public interface Model {
 
     String listRem();
 
+    Optional<Reminder> getReminder(Appointment appointment);
+
+    void deleteReminder(Reminder reminder);
+
     //===========Record module operations=============================
     Statistics getStatistics(String topic, YearMonth from, YearMonth to);
 

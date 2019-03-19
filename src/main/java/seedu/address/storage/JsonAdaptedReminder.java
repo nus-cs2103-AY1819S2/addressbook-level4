@@ -20,7 +20,7 @@ public class JsonAdaptedReminder {
     private String comment;
     private String date;
     private String start;
-    private String end;
+    private String end = null;
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
@@ -42,12 +42,14 @@ public class JsonAdaptedReminder {
      * Converts a given {@code Reminder} into this class for Jackson use.
      */
     public JsonAdaptedReminder(Reminder source) {
-
         this.title = source.getTitle();
         this.comment = source.getComment();
         this.date = source.getDate().toString();
         this.start = source.getStartTime().toString();
-        this.end = source.getEndTime().toString();
+        LocalTime endTime = source.getEndTime();
+        if (endTime != null) {
+            this.end = endTime.toString();
+        }
     }
 
     /**

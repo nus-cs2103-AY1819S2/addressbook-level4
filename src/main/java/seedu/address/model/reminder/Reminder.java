@@ -38,7 +38,7 @@ public class Reminder {
     /**
      * Returns a {@code String} title given an {@code Appointment}
      */
-    private String createTitle(Appointment app) {
+    public static String createTitle(Appointment app) {
         StringBuilder sb = new StringBuilder();
         sb.append("Appointment with ")
                 .append(app.getPatient().getName());

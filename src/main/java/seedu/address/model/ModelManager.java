@@ -550,6 +550,10 @@ public class ModelManager implements Model {
      * @param appointment the {@code Appointment} to delete
      */
     public void deleteAppointment(Appointment appointment) {
+        Optional<Reminder> reminder = reminderManager.getReminder(appointment);
+        if (reminder.isPresent()) {
+            reminderManager.delete(reminder.get());
+        }
         appointmentManager.delete(appointment);
         quickDocs.indicateModification(true);
     }
@@ -565,11 +569,24 @@ public class ModelManager implements Model {
      */
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
-        quickDocs.indicateModification(true);
+        //quickDocs.indicateModification(true);
     }
 
     public String listRem() {
         return reminderManager.list();
+    }
+
+    public Optional<Reminder> getReminder(Appointment appointment) {
+        return reminderManager.getReminder(appointment);
+    }
+
+    /**
+     * Deletes a {@code Reminder} from QuickDocs
+     * @param reminder the {@code Reminder} to be deleted
+     */
+    public void deleteReminder(Reminder reminder) {
+        reminderManager.delete(reminder);
+        quickDocs.indicateModification(true);
     }
 
     //==========Record module================================================================================
@@ -581,5 +598,7 @@ public class ModelManager implements Model {
         recordManager.record(record, clock);
     }
 
-    public void setConsultationFee(BigDecimal fee) { recordManager.setConsultationFee(fee); }
+    public void setConsultationFee(BigDecimal fee) {
+        recordManager.setConsultationFee(fee);
+    }
 }

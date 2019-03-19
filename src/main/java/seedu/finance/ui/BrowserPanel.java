@@ -51,13 +51,13 @@ public class BrowserPanel extends UiPart<Region> {
         // Load record page when selected record changes.
         selectedRecord.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                //loadDefaultPage();
+                loadDefaultPage();
                 return;
             }
             loadRecordPage(newValue);
         });
 
-        //loadDefaultPage();
+        loadDefaultPage();
     }
 
     private void loadRecordPage(Record record) {

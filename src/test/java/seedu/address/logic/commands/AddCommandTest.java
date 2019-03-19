@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -23,7 +24,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 import seedu.address.testutil.PlaceBuilder;
 
 public class AddCommandTest {
@@ -92,6 +95,16 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        @Override
+        public Map<CountryCode, Integer> generateChartCountry() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Rating, Integer> generateChartRating() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");

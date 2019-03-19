@@ -27,7 +27,6 @@ public class CardSrsData {
         this.streak = streak;
         this.srsDueDate = srsDueDate;
     }
-
     /**
      * Function for session management to get list of card datas
      * @param hashCode must be given
@@ -40,16 +39,9 @@ public class CardSrsData {
     public void setCard(int hashCode, CardSrsData values) {
         cardMap.put(hashCode, values);
     }
+
     public int getHashCode() {
         return hashCode;
-    }
-
-    public int getnumOfAttempts() {
-        return numOfAttempts;
-    }
-
-    public Instant getSrsDueDate() {
-        return srsDueDate;
     }
 
     public int getNumOfAttempts() {
@@ -60,13 +52,10 @@ public class CardSrsData {
         this.numOfAttempts = numOfAttempts;
     }
 
-    public void updateNumOfAttempts(int numOfAttempts) {
-        this.numOfAttempts += numOfAttempts;
-    }
-
     public int getStreak() {
         return streak;
     }
+
     public void setStreak(int streak) {
         this.streak = streak;
     }
@@ -75,4 +64,7 @@ public class CardSrsData {
         CardSrsData other = (CardSrsData) obj;
         return other.getHashCode() == this.getHashCode();
     }*/
+    public Instant getSrsDueDate() {
+        return srsDueDate;
+    }
 }

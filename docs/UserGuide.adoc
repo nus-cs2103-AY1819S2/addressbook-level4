@@ -16,7 +16,7 @@ endif::[]
 
 By: `Team W17-2`      Since: `Feb 2019`      Licence: `MIT`
 
-Last Updated: 2/12/2019 21:35:35
+Last Updated: 2/19/2019 15:35:35
 
 == Introduction
 
@@ -441,9 +441,9 @@ Shows details of patients’ dental records
 
 
 === Find
-Shows persons whose data contain any of the given keywords.
+Shows patients whose data contains any of the given keywords according to a specified paramter.
 
-Format: `find [dental] KEYWORD [MORE_KEYWORDS]`
+Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
 * Add “dental” to search dental records instead
 * Search is case insensitive
@@ -452,8 +452,8 @@ Format: `find [dental] KEYWORD [MORE_KEYWORDS]`
 Example:
 
 
-* `find Yishun` +
-Show all the people that live in Yishun
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun
 
 
 * `find dental cleaning` +
@@ -475,7 +475,7 @@ Example:
 |2 |Bob |24 |11/02/2019
 |===
 
-* sort name descend
+* sort name desc
 
 [cols=",,,",options="header",]
 |===
@@ -486,7 +486,7 @@ Example:
 |===
 
 
-* sort age ascend
+* sort age asce
 
 [cols=",,,",options="header",]
 |===
@@ -495,6 +495,11 @@ Example:
 |0 |Alice |19 |03/07/2003
 |2 |Bob |24 |11/02/2019
 |===
+
+=== Stat
+Generates a statistics report based on the specified patient's data.
+
+Format: `stat INDEX`
 
 === History
 Lists all the commands that have been entered since starting the

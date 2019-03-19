@@ -13,7 +13,10 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+
 import seedu.address.model.tag.SkillsTag;
+import seedu.address.model.person.GPA;
+import seedu.address.model.person.Education;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -101,23 +104,47 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static SkillsTag parseTag(String tag) throws ParseException {
+    public static SkillsTag parseTag(String tag, String color) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!SkillsTag.isValidTagName(trimmedTag)) {
             throw new ParseException(SkillsTag.MESSAGE_CONSTRAINTS);
         }
-        return new SkillsTag(trimmedTag);
+        return new SkillsTag(trimmedTag, color);
+    }
+
+    public static GPA parseGPA(String gpa) throws ParseException {
+        requireNonNull(gpa);
+        String trimmedGPA = gpa.trim();
+        if (!GPA.isValidGpa(trimmedGPA)) {
+            throw new ParseException(GPA.MESSAGE_CONSTRAINTS);
+        }
+        return new GPA(trimmedGPA);
+    }
+
+    public static Education parseEducation(String education) throws ParseException {
+        requireNonNull(education);
+        String trimmedEducation = education.trim();
+        if (!Education.isValidEducation(trimmedEducation)) {
+            throw new ParseException(Education.MESSAGE_CONSTRAINTS);
+        }
+        return new Education(trimmedEducation);
     }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<SkillsTag>}.
      */
-    public static Set<SkillsTag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<SkillsTag> parseTags(Collection<String> tags, String type) throws ParseException {
         requireNonNull(tags);
         final Set<SkillsTag> tagSet = new HashSet<>();
+        final String color;
+        if(type.equals("skill")){
+            color = "yellow";
+        }else{
+            color = "pink";
+        }
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            tagSet.add(parseTag(tagName, color));
         }
         return tagSet;
     }

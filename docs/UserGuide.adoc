@@ -117,10 +117,12 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 * All the people that are included in the filtering will be returned.
 * All the operations, that change the content of the address book also clears every single filter.
 * After one filtering, the filtered address book can be filtered again.
+
 * Filtering is compatible with all the other commands:
 1- clear : since the persons list changes, the filtering is automatically cleared
 2- add : when filtering is active, adding is not allowed. To add someone, filtering should be cleared.
 3- sort / select / delete / edit / list / undo / redo / help / exit / history : can be used without clearing the filter
+
 ****
 
 Examples:

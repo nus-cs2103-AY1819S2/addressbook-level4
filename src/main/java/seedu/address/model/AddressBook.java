@@ -34,13 +34,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         allPersonsStorage = new UniquePersonList();
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -89,15 +89,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
 
-        if(!sortingExist) {
+        if (!sortingExist) {
             allPersonsStorage.add(p);
         }
 
-        if(filterExist && !sortingExist) {
+        if (filterExist && !sortingExist) {
             clearFilter();
             filterExist = false;
-        }
-        else {
+        } else {
             persons.add(p);
         }
 
@@ -136,7 +135,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
 
-        if(!sortingExist) {
+        if (!sortingExist) {
             allPersonsStorage.remove(key);
         }
 
@@ -178,8 +177,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                 ifExcluded = true;
 
             if (tagList != null) {
-                for(String skill : tagList)  {
-                    if(!person.isTagExist(skill)) {
+                for (String skill : tagList) {
+                    if (!person.isTagExist(skill)) {
                         ifExcluded = true;
                         break;
                     }
@@ -217,8 +216,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                 ifIncluded = true;
 
             if (tagList != null) {
-                for(String skill : tagList)  {
-                    if(person.isTagExist(skill)) {
+                for (String skill : tagList) {
+                    if (person.isTagExist(skill)) {
                         ifIncluded = true;
                         break;
                     }
@@ -236,14 +235,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void clearFilter() {
 
-        if(filterExist) {
-           for(Person person : allPersonsStorage) {
-               if(!persons.contains(person)) {
-                   persons.add(person);
-               }
-           }
+        if (filterExist) {
+            for (Person person : allPersonsStorage) {
+                if (!persons.contains(person)) {
+                    persons.add(person);
+                }
+            }
 
-           indicateModified();
+            indicateModified();
         }
 
         filterExist = false;

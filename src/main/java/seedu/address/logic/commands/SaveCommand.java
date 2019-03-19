@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -13,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
 /**
@@ -30,10 +30,10 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Saved the records!";
     private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
 
-    private final File file;
+    private final ParsedInOut parsedInOut;
 
-    public SaveCommand(File file) {
-        this.file = file;
+    public SaveCommand(ParsedInOut parsedInOut) {
+        this.parsedInOut = parsedInOut;
     }
 
     @Override
@@ -48,14 +48,14 @@ public class SaveCommand extends Command {
      * writeFile() writes or overwrites a file with the contents of the current address book.
      */
     private void writeFile(Model model) {
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(parsedInOut.getFile().toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         try {
-            storage.saveAddressBook(model.getAddressBook(), file.toPath());
+            storage.saveAddressBook(model.getAddressBook(), parsedInOut.getFile().toPath());
         } catch (IOException e) {
             logger.warning(MESSAGE_FAILURE);
         }

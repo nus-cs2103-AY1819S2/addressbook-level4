@@ -351,7 +351,7 @@
 
 #categories .teal{
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: teal;
 }
 
 #categories .red {
@@ -401,5 +401,20 @@
 
  #categories .purple {
     -fx-text-fill: white;
-    -fx-background-color: #5a287a;
+    -fx-background-color: purple;
+}
+
+ #categories .tan {
+    -fx-text-fill: black;
+    -fx-background-color: tan;
+}
+
+ #categories .coral {
+    -fx-text-fill: white;
+    -fx-background-color: coral;
+}
+
+ #categories .turquoise {
+    -fx-text-fill: black;
+    -fx-background-color: turquoise;
 }

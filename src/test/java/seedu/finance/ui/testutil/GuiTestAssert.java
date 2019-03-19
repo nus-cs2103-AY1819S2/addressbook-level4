@@ -55,7 +55,7 @@ public class GuiTestAssert {
     // with minor modifications
     private static String getCategoryColorStyleFor(String categoryName) {
         switch (categoryName.toLowerCase()) {
-        case "owesmoney":
+        case "clothing":
             return "yellow";
 
         case "transportation":
@@ -67,7 +67,6 @@ public class GuiTestAssert {
         case "family":
             return "black";
 
-        case "vices":
         case "food":
             return "orange";
 
@@ -84,12 +83,21 @@ public class GuiTestAssert {
         case"friend":
             return "grey";
 
-        case"friends":
+        case"groceries":
             return "pink";
 
         case "shopping":
         case"husband":
             return "red";
+
+        case "vices":
+            return "coral";
+
+        case "movies":
+            return "tan";
+
+        case "textbooks":
+            return "turquoise";
 
         default:
             throw new AssertionError(categoryName + " does not have a color assigned.");

@@ -14,7 +14,7 @@ import seedu.address.model.restaurant.Restaurant;
 /**
  * Visits a restaurant website identified using it's displayed index from the food diary.
  */
-public class GotoCommand extends Command {
+public class VisitWebCommand extends Command {
 
     public static final String COMMAND_WORD = "goto";
 
@@ -27,7 +27,7 @@ public class GotoCommand extends Command {
 
     private final Index targetIndex;
 
-    public GotoCommand(Index targetIndex) {
+    public VisitWebCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -50,7 +50,7 @@ public class GotoCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof GotoCommand // instanceof handles nulls
-                && targetIndex.equals(((GotoCommand) other).targetIndex)); // state check
+                || (other instanceof VisitWebCommand // instanceof handles nulls
+                && targetIndex.equals(((VisitWebCommand) other).targetIndex)); // state check
     }
 }

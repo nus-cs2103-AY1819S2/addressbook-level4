@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.UniqueEquipmentList;
+import seedu.address.model.equipment.UniqueWorkListList;
+import seedu.address.model.equipment.WorkList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,6 +22,7 @@ import seedu.address.model.tag.Tag;
 public class EquipmentManager implements ReadOnlyEquipmentManager {
 
     private final UniqueEquipmentList equipment;
+    private final UniqueWorkListList worklist;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -31,6 +34,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     {
         equipment = new UniqueEquipmentList();
+        worklist = new UniqueWorkListList();
     }
 
     public EquipmentManager() {}
@@ -74,12 +78,29 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     /**
+     * Returns true if a WorkList with the same WorkListId as {@code WorkList} exists in the Equipment Manager.
+     */
+    public boolean hasWorkList(WorkList worklist) {
+        requireNonNull(worklist);
+        return this.worklist.contains(worklist);
+    }
+
+    /**
      * Adds a equipment to the address book.
      * The equipment must not already exist in the address book.
      */
     public void addPerson(Equipment p) {
         equipment.add(p);
         indicateModified();
+    }
+
+    /**
+     * Adds a WorkList to the Equipment Manager.
+     * The WorkList must not already exist in the Equipment Manager.
+     */
+    public void addWorkList(WorkList w) {
+        worklist.add(w);
+        indicateModified();;
     }
 
     /**
@@ -105,6 +126,16 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void removePerson(Equipment key) {
         equipment.remove(key);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code EquipmentManager}.
+     * {@code key} must exist in the Equipment Manager.
+     */
+    public void removeWorkList(WorkList key) {
+        requireNonNull(key);
+        worklist.remove(key);
         indicateModified();
     }
 
@@ -172,6 +203,10 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     @Override
     public ObservableList<Equipment> getPersonList() {
         return equipment.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<WorkList> getWorkListList() {
+        return worklist.asUnmodifiableObservableList();
     }
 
     @Override

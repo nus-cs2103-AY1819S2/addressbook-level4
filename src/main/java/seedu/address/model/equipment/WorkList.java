@@ -60,4 +60,15 @@ public class WorkList {
     public Equipment[] listEquipment() {
         return (Equipment[]) this.equipments.toArray();
     }
+
+    /**
+     * Returns true if both worklists have the same WorkListId.
+     */
+    public boolean isSameWorkList(WorkList otherWorkList) {
+        if (otherWorkList == this) {
+            return true;
+        }
+
+        return this.getId().getId() == otherWorkList.getId().getId();
+    }
 }

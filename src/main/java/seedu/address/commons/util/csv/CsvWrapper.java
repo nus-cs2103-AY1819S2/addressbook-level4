@@ -64,7 +64,8 @@ public class CsvWrapper {
         try {
             csvFilePath = Files.createFile(Paths.get(DEFAULT_EXPORT_FOLDER_NAME, csvFileName + ".csv"));
         } catch (FileAlreadyExistsException fae) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + csvFileName + ".csv" + " already exists in \"" + DEFAULT_EXPORT_FOLDER_NAME + "\" directory.");
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + csvFileName + ".csv" + " already exists in \""
+                    + DEFAULT_EXPORT_FOLDER_NAME + "\" directory.");
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

@@ -324,12 +324,12 @@ The current mode of the application is stored as a private attribute `Mode mode`
 
 ==== Changing mode
 
-When the mode of the application is changed, we need to update the: 
+When the mode of the application is changed, we need to update the:
 
 * `Logic` component so that the `mode` attribute in `LogicManager` reflects the new current mode, since this is used to check if a command can be executed,
 * `UI` component so that the panels display the information that is relevant to the mode.
 
-When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut command `TM`) followed by the table number of the table that the user wants to update. 
+When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut command `TM`) followed by the table number of the table that the user wants to update.
 
 [NOTE]
 The `tableMode` command can be used from any mode, even in Table Mode of a different table number. If the application is already in Table Mode of the same table number, an error message will be shown to the user.
@@ -344,7 +344,7 @@ The `TableModeCommand` is then executed. It first retrieves the `Table` that cor
 
 The `Table` is then set as the selected table in `Model` using `Model#setSelectedTable()`. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by getting the table from `Model#getSelectedTable()`.
 
-After which, `Model#updateFilteredOrderItemList()` is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table, since the UI retrieves its information from the filtered list. 
+After which, `Model#updateFilteredOrderItemList()` is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table, since the UI retrieves its information from the filtered list.
 
 `TableModeCommand` then calls `Model#updateMode()` to trigger the listener so that `LogicManager` knows that there has been a change in mode. When that is done, it generates a `CommandResult` whose `toMode` attribute is set to `TABLE_MODE` and this is returned to the `LogicManager`. Since the listener has set `modeModified` to true, `LogicManager` calls `changeMode()` to update its `mode` attribute to `TABLE_MODE`.
 
@@ -353,7 +353,62 @@ Finally, the `CommandResult` is returned to `MainWindow` in the UI and since the
 
 
 // end::tablemode[]
+// tag::bill[]
+=== Bill feature
+==== Current Implementation
 
+The Bill mechanism can only be executed under the `TableMode`. After which, it switches to `BillMode` which changes the UI to display a receipt of the bill specific to the table selected in TableMode.
+
+The main crust of Bill mechanism is implemented in `BillCommand`. `BillCommand#execute()` overrides `Command#execcute()` which is called in `LogicManger`. It takes in the current mode, model and command history which will provide the necessary functions it will need to execute the command properly.
+
+Additionally, it implements the following operations:
+
+* `BillCommand#calculateBill()` -- Calculates the total bill from the order list that is unique to a table.
+* `BillCommand#updateDailyRevenue()` -- Either saves the bill as a new `DailyRevenue`  or updates the `DailyRevenue` that is existing in its Statistics storage.
+* `BillCommand#updateStatusOfTable()` -- Updates the status of the table to indicate that it is empty.
+* `BillCommand#updateOrderList()` -- Clears the order list to prepare for the next customer.
+
+The `bill` or `b` command is executed in 2 simple steps. Given below is an example usage scenario and how the bill mechanism behaves at each step.
+
+Step 1. Users are only allowed to use the `bill/b` command in *TableMode*. When they enter the `TableMode 1` command, the program calls for `Model#setselectedTable()` to set the current table to Table 1 and change the UI display to the menu and the table’s list of orders as shown below:
+
+image::TableModeDiagram.png[width="800"]
+
+Step 2. The user executes `bill` command to bill the orders of the current Table. The `bill` command gets the details of the current table using `Model#getSelectedTable()` and checks that the table exists. If it is true that the table exists, it calls both `Model#getFilteredOrderItemList` and `ReadOnlyRestOrRant#geMenu()` to obtain the table’s list of orders and the restaurant’s menu to pass into `BillCommand#calculateBill()`.
+
+`BillCommand#calculateBill()` will iterate through the `orderItemList` to obtain individual `orderItems` and execute the following in each iteration:
+* Obtain the `menuItem` by passing the code of the OrderItem into `Menu#getItemFromCode`.
+* Create a `Receipt` that appends the `MenuItem#getCode()`, `MenuItem#getName()`, `MenuItem#getPrice()` and `OrderItem#getQuantity()`.
+* Add the price of each dish multiplied by the quantity ordered to the bill.
+
+After the iterating through the `orderItemList`, the receipt will append the final calculation of the total bill and the function will return a new Bill that contains the updated `tableNumber`, `totalBill` and `receipt`. This new Bill will be assigned as the recent bill that was created via `Model#setRecentBill()`. Format of the receipt should be as follows:
+
+image::ReceiptFormatDiagram.png[width="800"]
+
+Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details o the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
+
+`BillCommand#updateStatusOfTable()` takes in the `Model` as an argument and creates a new Table with the updated `TableStatus`. This is done by calling `TableStatus#changeOccupancy(). After which, `Model#setTable()` is called to replace the current `Table` with the new `Table` that has the updated `TableStatus`.
+
+image::BillTableStatusDiagram.png[width="800"]
+
+Lastly, `BillCommand#updateOrderList` is called to empty the order list of the current `Table`. Below is illustrates the final result that derived from executing the `bill` command.
+
+image::BillFinalResultDiagram.png[width="650"]
+
+
+Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `RestaurantMode`, `TableMode` and `MenuMode`.
+
+[NOTE]
+The command will not execute the functions stated above until it has confirmed that the user is in `TableMode` and the current table exists.
+* If the user is in the wrong mode, the program will return a `CommandException` with the message “Incorrect Mode, unable to execute command. Enter tableMode.”.
+* If the current table does not exist, the program will return a `CommandException` with the message “This table does not exist.”.
+
+
+The following activity diagram summarizes what happens when a user executes a the `bill` command:
+
+image::BillActivityDiagram.png[width="650"]
+
+// end: :bill[]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

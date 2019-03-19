@@ -32,6 +32,8 @@ public class AttackCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        model.getMapGrid().attackCell(coord);
+
         model.updateUi();
 
         return new CommandResult(
@@ -40,7 +42,7 @@ public class AttackCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other != null && other instanceof AttackCommand) {
+        if (other instanceof AttackCommand) {
             AttackCommand o = (AttackCommand) other;
             return (this == o) || (this.coord.equals(o.coord));
         } else {

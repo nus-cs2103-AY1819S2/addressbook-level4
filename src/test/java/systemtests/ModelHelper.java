@@ -26,19 +26,19 @@ public class ModelHelper {
     }
 
     /**
+     * @see ModelHelper#setFilteredList(Model, List)
+     */
+    public static void setFilteredList(Model model, Person... toDisplay) {
+        setFilteredList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
      */
     public static void setFilteredBookList(Model model, List<Book> toDisplay) {
         Optional<Predicate<Book>> predicate =
                 toDisplay.stream().map(ModelHelper::getBookPredicateMatching).reduce(Predicate::or);
         model.updateFilteredBookList(predicate.orElse(PREDICATE_MATCHING_NO_BOOKS));
-    }
-
-    /**
-     * @see ModelHelper#setFilteredList(Model, List)
-     */
-    public static void setFilteredList(Model model, Person... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
     }
 
     /**

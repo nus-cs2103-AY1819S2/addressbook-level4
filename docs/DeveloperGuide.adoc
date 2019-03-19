@@ -445,6 +445,7 @@ The logic for keeping track of budgets can be implemented in different ways for 
 
 //end::budgetmanagement[]
 
+
 // tag::summary[]
 === Summary
 
@@ -475,12 +476,35 @@ image::asterPlot.png[width="400"]
 Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
 //end::summary[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+// tag::security[]
+=== Security Features
 
-// end::dataencryption[]
+The In-Credit-Ble will ensure security of user data through the implementation of user profile system.
+
+The user profile system will allow for multiple users to use In-Credit-Ble on the same machine and keeps
+the data apart from each other. Users have the option of setting a password to protect their data from being
+viewed or altered by other users.
+
+==== To be implemented
+* `password` and `user` class to be created under `Model`
+* `register` command to allow new users to register under `username`
+* `setPassword` command to allow existing users to set a password for their profile. This command
+can also be used to reset existing passwords
+* `login` command to allow users who registered to login to their profile
+
+==== Design Consideration
+===== Loading different user data
+* *Alternative 1 (Proposed implementation)*: Loading user data is done during initialisation of In-Credit-Ble
+** Pros: Able to switch user profiles after In-Credit-Ble is loaded
+** Cons: External changes to files after intialisation not reflected may be overwritten
+
+* *Alternative 2:* User profile data only loaded when user logs in
+** Pros: Unnecessary data not kept in memory so memory space is not wasted
+** Cons: The `Logic` or `Model` component will have to depend on the `Storage` component as `login` command
+will require the `Storage` to load and return the user's data
+
+// end::security[]
 
 === Logging
 

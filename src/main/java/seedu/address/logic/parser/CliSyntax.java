@@ -14,8 +14,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL_REVERSE = new Prefix("/e");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_ADDRESS_REVERSE = new Prefix("/a");
-    public static final Prefix PREFIX_TAG = new Prefix("skill/");
-    public static final Prefix PREFIX_TAG_REVERSE = new Prefix("/skill");
+
+    public static final Prefix PREFIX_SKILL = new Prefix("skill/");
+    public static final Prefix PREFIX_SKILL_REVERSE = new Prefix("/skill");
+    public static final Prefix PREFIX_POS = new Prefix("position/");
+    public static final Prefix PREFIX_POS_REVERSE = new Prefix("/position");
 
     /* Sort-Word definitions*/
     public static final SortWord SORTWORD_SKILLS = new SortWord("skills");

@@ -22,7 +22,7 @@ public class OpenCommand extends Command {
 
     private final Image toOpen;
 
-    /**g
+    /**
      * Creates an OpenCommand to add the specified {@code Image}
      */
     public OpenCommand(Image image) {

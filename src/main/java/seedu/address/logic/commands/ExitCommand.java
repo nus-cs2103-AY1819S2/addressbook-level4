@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
 
     static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
 
-    private static final String MEESAGE_COPY_EXIST = "Exists unedited copies in addressbook.\n"
+    private static final String MEESAGE_COPY_EXIST = "!eExists unedited copies in addressbook.\n"
                                                    + "No copies will be saved.\n"
                                                    + "Use exit! to exit anyway";
 

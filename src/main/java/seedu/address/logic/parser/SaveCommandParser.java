@@ -28,8 +28,8 @@ public class SaveCommandParser implements Parser<SaveCommand> {
 
     /**
      * saveValidation() checks if the file is writable if it exists.
-     * @param file
-     * @throws ParseException
+     * @param file the file to be saved to.
+     * @throws ParseException if the user is trying to write to a read only file
      */
     private void saveValidation(File file) throws ParseException {
         if (file.exists() && !file.canWrite()) {

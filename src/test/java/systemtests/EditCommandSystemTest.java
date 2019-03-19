@@ -25,6 +25,8 @@ package systemtests;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
+
+import seedu.address.commons.core.index.Index;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 //import static seedu.address.testutil.TypicalPdfs.AMY;
@@ -32,7 +34,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 //import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 //import org.junit.Test;
 //import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 //import seedu.address.logic.commands.RedoCommand;
 //import seedu.address.logic.commands.UndoCommand;

@@ -16,9 +16,10 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import org.junit.Test;
+
+import seedu.address.logic.CommandHistory;
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

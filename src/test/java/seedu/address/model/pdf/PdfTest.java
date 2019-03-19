@@ -66,8 +66,8 @@ public class PdfTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Pdf a_copy = new PdfBuilder(A_PDF).build();
-        assertTrue(A_PDF.equals(a_copy));
+        Pdf acopy = new PdfBuilder(A_PDF).build();
+        assertTrue(A_PDF.equals(acopy));
 
         // same object -> returns true
         assertTrue(A_PDF.equals(A_PDF));

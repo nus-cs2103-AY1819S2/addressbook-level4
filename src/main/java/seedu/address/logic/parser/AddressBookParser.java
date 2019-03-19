@@ -66,9 +66,8 @@ public class AddressBookParser {
         case AddMedHistCommand.COMMAND_WORD:
             return new AddMedHistCommandParser().parse(arguments);
 
-            case AddPrescriptionCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
-
+        case AddPrescriptionCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

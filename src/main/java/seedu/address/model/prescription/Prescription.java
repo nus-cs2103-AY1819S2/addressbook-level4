@@ -2,8 +2,9 @@ package seedu.address.model.prescription;
 
 import java.util.Objects;
 
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
+
 /**
  * Represents a Prescription in the address book.
  */
@@ -27,10 +28,10 @@ public class Prescription {
         return this.description;
     }
 
-    public Doctor getDoctor(){
+    public Doctor getDoctor() {
         return this.doctor;
     }
-    public Patient getPatient(){
+    public Patient getPatient() {
         return this.patient;
     }
 
@@ -49,12 +50,12 @@ public class Prescription {
     }
 
     @Override
-    public int hashCode(){
-        return Objects.hash(doctor,patient,description);
+    public int hashCode() {
+        return Objects.hash(doctor, patient, description);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Doctor Name: ");
         sb.append(this.doctor.getName());
@@ -67,3 +68,5 @@ public class Prescription {
 
 
 }
+
+

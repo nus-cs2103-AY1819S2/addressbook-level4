@@ -37,7 +37,7 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Patient patient = null;
         Doctor doctor = null;
-        Prescription prescription = new Prescription(patient,doctor,description);
+        Prescription prescription = new Prescription(patient, doctor, description);
 
         return new AddPrescriptionCommand(prescription);
     }

@@ -15,7 +15,8 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, RequestBookStorage, HealthWorkerBookStorage, PatientBookStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage,
+        RequestBookStorage, HealthWorkerBookStorage, PatientBookStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

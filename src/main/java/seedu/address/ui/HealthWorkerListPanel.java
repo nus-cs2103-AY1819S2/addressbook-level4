@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,9 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.healthworker.HealthWorker;
 
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -23,12 +25,14 @@ public class HealthWorkerListPanel extends UiPart<Region> {
     @FXML
     private ListView<HealthWorker> healthWorkerListView;
 
-    public HealthWorkerListPanel(ObservableList<HealthWorker> healthWorkerList, ObservableValue<HealthWorker> selectedHealthWorker,
+    public HealthWorkerListPanel(ObservableList<HealthWorker> healthWorkerList,
+                                 ObservableValue<HealthWorker> selectedHealthWorker,
                                  Consumer<HealthWorker> onSelectedHealthWorkerChange) {
         super(FXML);
         healthWorkerListView.setItems(healthWorkerList);
         healthWorkerListView.setCellFactory(listView -> new HealthWorkerListPanel.HealthWorkerListCell());
-        healthWorkerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        healthWorkerListView.getSelectionModel()
+                .selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in health worker list panel changed to : '" + newValue + "'");
             onSelectedHealthWorkerChange.accept(newValue);
         });

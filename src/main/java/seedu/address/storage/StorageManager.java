@@ -132,8 +132,8 @@ public class StorageManager implements Storage {
      */
     @Override
     public Path getPatientBookFilePath() {
-            return patientBookStorage.getPatientBookFilePath();
-        }
+        return patientBookStorage.getPatientBookFilePath();
+    }
 
     @Override
     public Optional<ReadOnlyPatientBook> readPatientBook() throws DataConversionException, IOException {
@@ -157,7 +157,7 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         patientBookStorage.savePatientBook(patientBook, filePath);
     }
-// ================ HealthWorkerBook methods ==============================
+    //================ HealthWorkerBook methods ==============================
     /**
      * Returns the file path of the data file.
      */

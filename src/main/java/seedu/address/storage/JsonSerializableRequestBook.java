@@ -53,7 +53,7 @@ class JsonSerializableRequestBook {
             if (requestBook.hasRequest(request)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_REQUEST);
             }
-        requestBook.addRequest(request);
+            requestBook.addRequest(request);
         }
         return requestBook;
     }

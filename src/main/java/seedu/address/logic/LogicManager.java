@@ -15,6 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -30,6 +31,7 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
+    private boolean archiveBookModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -39,12 +41,16 @@ public class LogicManager implements Logic {
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
+
+        // Set archiveBookModified to true whenever the models' archive book is modified.
+        model.getArchiveBook().addListener(observable -> archiveBookModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
+        archiveBookModified = false;
 
         CommandResult commandResult;
         try {
@@ -63,12 +69,26 @@ public class LogicManager implements Logic {
             }
         }
 
+        if (archiveBookModified) {
+            logger.info("Archive book modified, saving to file.");
+            try {
+                storage.saveArchiveBook(model.getArchiveBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
         return commandResult;
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
+    }
+
+    @Override
+    public ReadOnlyArchiveBook getArchiveBook() {
+        return model.getArchiveBook();
     }
 
     @Override
@@ -84,6 +104,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getArchiveBookFilePath() {
+        return model.getArchiveBookFilePath();
     }
 
     @Override

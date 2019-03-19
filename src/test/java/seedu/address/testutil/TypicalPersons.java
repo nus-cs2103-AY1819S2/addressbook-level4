@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArchiveBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -55,6 +56,14 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
+    // Archived persons
+    public static final Person CATHY = new PersonBuilder().withName("Cathy Black").withPhone("98765432")
+            .withEmail("cathy@example.com").withAddress("woodlands ave").build();
+    public static final Person DIANA = new PersonBuilder().withName("Diana Prince").withPhone("87654321")
+            .withEmail("diana@example.com").withAddress("baker street").build();
+    public static final Person ENID = new PersonBuilder().withName("Enid Blyton").withPhone("86543210")
+            .withEmail("enid@example.com").withAddress("writers street").build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
@@ -70,7 +79,22 @@ public class TypicalPersons {
         return ab;
     }
 
+    /**
+     * Returns an {@code ArchiveBook} with all the typical persons.
+     */
+    public static ArchiveBook getTypicalArchiveBook() {
+        ArchiveBook ab = new ArchiveBook();
+        for (Person person : getTypicalArchivedPersons()) {
+            ab.addPerson(person);
+        }
+        return ab;
+    }
+
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getTypicalArchivedPersons() {
+        return new ArrayList<>(Arrays.asList(CATHY, DIANA, ENID));
     }
 }

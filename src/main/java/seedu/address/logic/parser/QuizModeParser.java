@@ -7,8 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizHelpCommand;
+import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -28,8 +29,7 @@ public class QuizModeParser implements Parser<Command> {
     public Command parse(String userInput) throws ParseException {
         matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            // todo change to quiz help not mgmt help command
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
         }
 
 
@@ -50,14 +50,16 @@ public class QuizModeParser implements Parser<Command> {
     /**
      * Parses user input into command for execution.
      *
-     * @param command full user input string
+     * @param commandWord full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    private Command parseCommand(String command) throws ParseException {
-        final String commandWord = matcher.group("commandWord");
-
+    private Command parseCommand(String commandWord) throws ParseException {
         switch (commandWord) {
+        case QuizStatusCommand.COMMAND_WORD:
+            return new QuizStatusCommand();
+        case QuizHelpCommand.COMMAND_WORD:
+            return new QuizHelpCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

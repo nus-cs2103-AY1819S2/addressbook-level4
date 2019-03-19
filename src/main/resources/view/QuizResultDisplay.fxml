@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="placeHolder" prefHeight="155.0" prefWidth="488.0" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <TextFlow fx:id="quizResultDisplay" styleClass="quiz-result-display" />
+    <!--<children>-->
+       <!--<VBox >-->
+          <!--<children>-->
+             <!--<TextArea fx:id="quizResultDisplay" editable="false"-->
+                       <!--styleClass="quiz-result-display" />-->
+         <!--</children>-->
+      <!--</VBox>-->
+   <!--</children>-->
+</StackPane>

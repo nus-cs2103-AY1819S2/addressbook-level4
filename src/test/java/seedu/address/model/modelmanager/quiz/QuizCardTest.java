@@ -1,4 +1,4 @@
-package seedu.address.quiz;
+package seedu.address.model.modelmanager.quiz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,9 +10,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.exceptions.NotInitialisedException;
 import seedu.address.testutil.Assert;
 
 public class QuizCardTest {
@@ -116,14 +113,14 @@ public class QuizCardTest {
     }
 
     @Test
-    public void getIndex() throws NotInitialisedException {
+    public void getIndex() {
         assertEquals(1, VALID_QUIZCARD_INDEX.getIndex());
     }
 
     @Test
-    public void getIndex_invalidIndex_throwsNotInitialisedException() {
+    public void getIndex_invalidIndex_throwsAssertionError() {
         // do not contain actual index.
-        Assert.assertThrows(NotInitialisedException.class, () ->
+        Assert.assertThrows(AssertionError.class, () ->
             VALID_QUIZCARD.getIndex());
     }
 
@@ -148,6 +145,15 @@ public class QuizCardTest {
 
         Assert.assertThrows(NullPointerException.class, () ->
             VALID_QUIZCARD.isCorrect(null));
+    }
+
+    @Test
+    public void isWrongTwice() {
+        VALID_QUIZCARD.isCorrect("wronganswer");
+        assertFalse(VALID_QUIZCARD.isWrongTwice());
+
+        VALID_QUIZCARD.isCorrect("wrongansweragain");
+        assertTrue(VALID_QUIZCARD.isWrongTwice());
     }
 
     @Test

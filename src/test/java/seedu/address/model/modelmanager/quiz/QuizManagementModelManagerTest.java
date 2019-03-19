@@ -1,4 +1,4 @@
-package seedu.address.quiz;
+package seedu.address.model.modelmanager.quiz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,9 +12,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModelManager;
 import seedu.address.testutil.Assert;
 
 public class QuizManagementModelManagerTest {
@@ -57,6 +54,27 @@ public class QuizManagementModelManagerTest {
     }
 
     @Test
+    public void getCurrentProgress() {
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+
+        modelManager.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        assertEquals("0/6", modelManager.getCurrentProgress());
+
+        modelManager.getNextCard();
+        assertEquals("1/6", modelManager.getCurrentProgress());
+
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        modelManager.getNextCard();
+        assertEquals("6/6", modelManager.getCurrentProgress());
+
+    }
+
+    @Test
     public void getCurrentQuizCard() {
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
@@ -71,13 +89,13 @@ public class QuizManagementModelManagerTest {
 
     @Test
     public void isDone() {
-        assertTrue(modelManager.isDone());
+        assertTrue(modelManager.isQuizDone());
 
         modelManager.init(QUIZ);
-        assertFalse(modelManager.isDone());
+        assertFalse(modelManager.isQuizDone());
 
         modelManager.end();
-        assertTrue(modelManager.isDone());
+        assertTrue(modelManager.isQuizDone());
     }
 
     @Test
@@ -119,6 +137,8 @@ public class QuizManagementModelManagerTest {
         expected.add(Arrays.asList(1, 2, 2));
 
         assertEquals(expected, modelManager.end());
+        assertEquals(4, modelManager.getQuizTotalAttempts());
+        assertEquals(4, modelManager.getQuizTotalCorrectQuestions());
     }
 
     @Test

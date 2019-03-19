@@ -1,7 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.quiz;
 
-import static seedu.address.logic.commands.QuizCommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.quiz.QuizHelpCommand.MESSAGE_QUIZ_USAGE;
+import static seedu.address.logic.commands.quiz.QuizCommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,13 +10,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.quiz.QuizHelpCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.modelmanager.Model;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.testutil.Assert;
 
-public class QuizHelpCommandTest {
+public class QuizStatusCommandTest {
     private QuizModel model = new QuizModelManager();
     private QuizModel expectedModel = new QuizModelManager();
     private CommandHistory commandHistory = new CommandHistory();
@@ -33,8 +35,17 @@ public class QuizHelpCommandTest {
     }
 
     @Test
-    public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_QUIZ_USAGE);
-        assertCommandSuccess(new QuizHelpCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+    public void execute_wrongModel_throwsCommandException() {
+        Model model = new ManagementModelManager();
+        Assert.assertThrows(CommandException.class, () ->
+            new QuizStatusCommand().execute(model, commandHistory));
+    }
+
+    @Test
+    public void execute_status_success() {
+        model.getNextCard();
+        String expected = String.format(QuizStatusCommand.MESSAGE_RESULT, model.getQuizTotalAttempts(),
+            model.getQuizTotalCorrectQuestions(), model.getCurrentProgress());
+        assertCommandSuccess(new QuizStatusCommand(), model, commandHistory, expected, expectedModel);
     }
 }

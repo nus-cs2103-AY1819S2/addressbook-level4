@@ -6,8 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.modelmanager.quiz.exceptions.NotInitialisedException;
-
 /**
  * Represents a partial of Card, only contains the necessary information for Quiz.
  */
@@ -22,6 +20,8 @@ public class QuizCard {
     private int index;
     private int totalAttempts;
     private int streak;
+    private boolean hasAttemptedBefore;
+    private boolean isWrongTwice;
 
     public QuizCard(String question, String answer) {
         requireAllNonNull(question, answer);
@@ -54,6 +54,8 @@ public class QuizCard {
         this.question = question;
         this.answer = answer;
         this.quizMode = quizMode;
+        this.hasAttemptedBefore = false;
+        this.isWrongTwice = false;
     }
 
     public String getQuestion() {
@@ -68,12 +70,10 @@ public class QuizCard {
         return opt;
     }
 
-    public int getIndex() throws NotInitialisedException {
-        if (index > -1) {
-            return index;
-        }
+    public int getIndex() {
+        assert index > -1;
 
-        throw new NotInitialisedException("This card do not contain index.");
+        return index;
     }
 
     public int getTotalAttempts() {
@@ -82,6 +82,10 @@ public class QuizCard {
 
     public int getStreak() {
         return streak;
+    }
+
+    public boolean isWrongTwice() {
+        return isWrongTwice;
     }
 
     public Quiz.Mode getQuizMode() {
@@ -95,6 +99,10 @@ public class QuizCard {
      * @return the result after checking.
      */
     public boolean isCorrect(String answer) throws NullPointerException {
+        if (hasAttemptedBefore) {
+            isWrongTwice = true;
+        }
+        hasAttemptedBefore = true;
         return answer.equalsIgnoreCase(this.answer);
     }
 

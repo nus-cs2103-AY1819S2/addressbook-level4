@@ -21,7 +21,9 @@ public class Quiz {
     private QuizCard currentQuizCard;
     private int currentCardIndex;
     private int generatedCardSize;
-    private boolean isDone; // Indicates if User is done with this quiz
+    private boolean isQuizDone;
+    private int quizTotalAttempts;
+    private int quizTotalCorrectQuestions;
 
     /**
      * Different types of mode supported in Quiz.
@@ -47,7 +49,9 @@ public class Quiz {
         this.mode = mode;
         this.currentCardIndex = -1;
         this.generatedCardSize = -1;
-        this.isDone = false;
+        this.isQuizDone = false;
+        this.quizTotalAttempts = 0;
+        this.quizTotalCorrectQuestions = 0;
 
         generate();
     }
@@ -128,19 +132,41 @@ public class Quiz {
         throw new IndexOutOfBoundsException("No cards left.");
     }
 
+    public String getCurrentProgress() {
+        return (currentCardIndex + 1) + "/" + generatedCardSize;
+    }
+
     public QuizCard getCurrentQuizCard() {
         requireNonNull(currentQuizCard);
         return currentQuizCard;
     }
 
     /**
-     * Update the totalAttempts and streak of a specified card in the current session.
+     * Updates the totalAttempts and streak of a specified card in the current session
+     * and current quiz session totalAttempts and totalCorrectQuestions
      * @param index of the card
      * @param answer user input
      */
-    public void updateTotalAttemptsAndStreak(int index, String answer) {
+    public boolean updateTotalAttemptsAndStreak(int index, String answer) {
         QuizCard sessionCard = currentSession.get(index);
-        sessionCard.updateTotalAttemptsAndStreak(currentQuizCard.isCorrect(answer));
+        boolean isCorrect = currentQuizCard.isCorrect(answer);
+        sessionCard.updateTotalAttemptsAndStreak(isCorrect);
+
+        if (isCorrect) {
+            quizTotalCorrectQuestions++;
+        }
+
+        quizTotalAttempts++;
+
+        return isCorrect;
+    }
+
+    public int getQuizTotalAttempts() {
+        return quizTotalAttempts;
+    }
+
+    public int getQuizTotalCorrectQuestions() {
+        return quizTotalCorrectQuestions;
     }
 
     /**
@@ -155,7 +181,7 @@ public class Quiz {
      * @return a list of index of card, total attempts and streak in this session.
      */
     public List<List<Integer>> end() {
-        this.isDone = true;
+        this.isQuizDone = true;
 
         List<List<Integer>> session = new ArrayList<>();
         QuizCard card;
@@ -167,8 +193,8 @@ public class Quiz {
         return session;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public boolean isQuizDone() {
+        return isQuizDone;
     }
 
     @Override
@@ -191,7 +217,7 @@ public class Quiz {
     @Override
     public int hashCode() {
         return Objects.hash(currentSession, generatedSession, mode,
-            currentQuizCard, currentCardIndex, isDone);
+            currentQuizCard, currentCardIndex, isQuizDone);
     }
 
 }

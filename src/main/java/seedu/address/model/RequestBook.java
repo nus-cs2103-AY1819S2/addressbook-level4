@@ -59,6 +59,13 @@ public class RequestBook implements ReadOnlyRequestBook {
     }
 
     /**
+     * Returns true if this book has the same request identities of the requests in {@code other}
+     */
+    public boolean areRequestsSame(RequestBook other) {
+        return this.requests.areRequestsSame(other.requests);
+    }
+
+    /**
      * Adds a request to the request book.
      * The request must not already exist in the request book.
      */

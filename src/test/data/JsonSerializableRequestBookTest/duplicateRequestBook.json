@@ -19,7 +19,7 @@
       "organisation": "NUH",
       "skills" : "GENERAL_PRACTICE ORTHOPAEDIC"
     },
-    "conditions": [ "Palliative" ],
+    "conditions": "Palliative",
     "requestStatus": "PENDING"
   }, {
     "id": "1234",
@@ -41,7 +41,7 @@
       "organisation": "NUH",
       "skills" : "GENERAL_PRACTICE ORTHOPAEDIC"
     },
-    "conditions": [ "Palliative" ],
+    "conditions": "Palliative",
     "requestStatus": "PENDING"
   } ]
 }

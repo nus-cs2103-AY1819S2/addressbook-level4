@@ -27,9 +27,9 @@ public class JsonSerializablePatientBookTest {
     public void toModelType_typicalPatientsFile_success() throws Exception {
         JsonSerializablePatientBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializablePatientBook.class).get();
-        PatientBook PatientBookFromFile = dataFromFile.toModelType();
+        PatientBook patientBookFromFile = dataFromFile.toModelType();
         PatientBook typicalPatientsPatientBook = TypicalPatients.getTypicalPatientBook();
-        assertEquals(PatientBookFromFile, typicalPatientsPatientBook);
+        assertEquals(patientBookFromFile, typicalPatientsPatientBook);
     }
 
     @Test

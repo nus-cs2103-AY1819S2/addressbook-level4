@@ -14,8 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.testutil.TypicalHealthWorkers;
-import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.storage.JsonSerializableHealthWorkerBook;
+//import seedu.address.model.person.healthworker.HealthWorker;
 
 public class JsonSerializableHealthWorkerBookTest {
 

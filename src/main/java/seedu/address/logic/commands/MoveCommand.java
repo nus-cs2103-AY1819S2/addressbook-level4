@@ -1,5 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
+
+import java.util.List;
+
+import java.io.File;
+import java.nio.file.Paths;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -8,13 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.exceptions.DuplicatePdfException;
-
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 /**
  * Moves a PDF listed in PDF++ to another specified location.
@@ -27,7 +29,7 @@ public class MoveCommand extends Command {
             + "by the index number used in the displayed pdf list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[NEW_DIRECTORY]\n"
-            + "Example: " + COMMAND_WORD + " 1 Desktop\\main\\target";
+            + "Example: " + COMMAND_WORD + " 1 C:\\Users\\[username]\\Desktop\\[target]";
 
     public static final String MESSAGE_MOVE_PDF_SUCCESS = "Moved PDF: %1$s";
     public static final String MESSAGE_NOT_MOVED_SAME = "Why are you moving the PDF to the same place?";
@@ -59,7 +61,7 @@ public class MoveCommand extends Command {
         }
 
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
-        if(movePdfDirectory.equals(pdfToEdit.getDirectory())){
+        if (movePdfDirectory.equals(pdfToEdit.getDirectory())) {
             throw new CommandException(MESSAGE_NOT_MOVED_SAME);
         }
 

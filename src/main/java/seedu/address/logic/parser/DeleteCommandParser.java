@@ -24,11 +24,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             String[] parseArgs = args.trim().split(" ");
             if (parseArgs.length == 1){
                 index = ParserUtil.parseIndex(args);
-                return new DeleteCommand(index, DeleteCommand.DELETE_TYPE.SOFT);
+                return new DeleteCommand(index, DeleteCommand.Delete_Type.Soft);
             } else if (parseArgs.length == 2){
                 index = ParserUtil.parseIndex(parseArgs[0]);
                 if (parseArgs[1].toLowerCase().equals(DELETE_HARD)){
-                    return new DeleteCommand(index, DeleteCommand.DELETE_TYPE.HARD);
+                    return new DeleteCommand(index, DeleteCommand.Delete_Type.Hard);
                 } else {
                     throw new ParseException(DeleteCommand.MESSAGE_USAGE);
                 }

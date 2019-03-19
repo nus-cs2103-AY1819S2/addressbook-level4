@@ -28,5 +28,6 @@ public interface UserImportExport {
      * @param filePath cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void exportLesson(User user, Path filePath) throws IOException;
+    void exportUser(User user, Path filePath) throws IOException;
+
 }

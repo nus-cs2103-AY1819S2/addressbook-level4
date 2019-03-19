@@ -27,11 +27,16 @@ import seedu.address.model.card.Card;
  */
 public class Lesson {
     // Static fields
+    public static final int DEFAULT_INDEX_QUESTION = 0;
+    public static final int DEFAULT_INDEX_ANSWER = 1;
+
     public static final String EXCEPTION_INVALID_NAME = "Invalid name supplied.";
     public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
+    public static final String EXCEPTION_INVALID_CORE = "Invalid core header supplied.";
+    public static final String EXCEPTION_INVALID_OPT = "Invalid optional header supplied.";
     public static final String EXCEPTION_CORE_SIZE_MISMATCH =
-            "The cores of the card to be added do not match the core headers of this lesson.";
+        "The cores of the card to be added do not match the core headers of this lesson.";
 
     // Identity fields
     /**
@@ -55,11 +60,11 @@ public class Lesson {
     /**
      * The index of the question in {@link Card} objects' cores.
      */
-    private int questionCoreIndex;
+    private int questionCoreIndex = DEFAULT_INDEX_QUESTION;
     /**
      * The index of the answer in {@link Card} objects' cores.
      */
-    private int answerCoreIndex;
+    private int answerCoreIndex = DEFAULT_INDEX_ANSWER;
     /**
      * The list of {@link Card} objects.
      */
@@ -195,6 +200,7 @@ public class Lesson {
         return coreHeaders;
     }
 
+
     /**
      * @return the number of core headers in this lesson
      */
@@ -208,6 +214,11 @@ public class Lesson {
      *                        to these headers
      */
     public void setOptionalHeaders(List<String> optionalHeaders) {
+        if (optionalHeaders == null) {
+            this.optionalHeaders = new ArrayList<>();
+            return;
+        }
+
         this.optionalHeaders = optionalHeaders;
 
         if (optionalHeaders.size() > 0) {
@@ -394,13 +405,17 @@ public class Lesson {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder().append("Name: ")
-                .append(name)
-                .append(", Hashcode: ")
-                .append(hashCode())
-                .append(", Cards: ")
-                .append(getCardCount());
-        return sb.toString();
+        StringBuilder builder = new StringBuilder();
+        builder.append(name)
+                .append(": Cores [").append(String.join(", ", coreHeaders))
+                .append("], Optionals [");
+        if (optionalHeaders.size() > 0) {
+            builder.append(String.join(", ", optionalHeaders));
+        }
+
+        builder.append("], Cards [").append(getCardCount()).append("]");
+
+        return builder.toString();
     }
 
     @Override

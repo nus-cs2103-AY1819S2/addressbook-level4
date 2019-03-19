@@ -13,7 +13,7 @@ import seedu.address.model.lesson.Lesson;
 /**
  * API of the Storage component
  */
-public interface Storage extends UserPrefsStorage, LessonsStorage, LessonImportExport {
+public interface Storage extends UserPrefsStorage, LessonsStorage, LessonImportExport, UserStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -25,12 +25,13 @@ public interface Storage extends UserPrefsStorage, LessonsStorage, LessonImportE
     Optional<Lessons> readLessons() throws IOException;
 
     @Override
-    void saveLessons(Lessons lessons) throws IOException;
+    int saveLessons(Lessons lessons) throws IOException;
 
     @Override
     Optional<Lesson> importLesson(Path filePath) throws IOException;
 
     @Override
     void exportLesson(Lesson lesson, Path filePath) throws IOException;
+
 
 }

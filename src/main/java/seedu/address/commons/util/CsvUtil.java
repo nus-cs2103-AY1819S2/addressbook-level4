@@ -2,9 +2,10 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -24,6 +25,8 @@ public class CsvUtil {
     /**
      * Returns a list of String arrays from the given file or null object if the file is not found.
      *
+     * Files are automatically assumed to be UTF-8 encoded, and BOMs are checked for and removed.
+     *
      * @param filePath cannot be null.
      * @throws IOException
      */
@@ -37,7 +40,8 @@ public class CsvUtil {
 
         CSVReader csvReader;
         List<String[]> values;
-        Reader reader = Files.newBufferedReader(filePath);
+        BufferedReader reader = Files.newBufferedReader(filePath, StandardCharsets.UTF_8);
+
         csvReader = new CSVReader(reader);
         values = csvReader.readAll();
 
@@ -59,7 +63,7 @@ public class CsvUtil {
      * Saves the Csv object to the specified file.
      * Overwrites existing file if it exists, creates a new file if it doesn't.
      * <p>
-     * Defaults to UTF-8 csv.
+     * Defaults to UTF-8 csv by appending the UTF-8 BOM, \uFEFF.
      *
      * @param data     cannot be null
      * @param filePath cannot be null
@@ -75,15 +79,13 @@ public class CsvUtil {
             return false;
         }
 
-        String[] firstLine = data.get(0);
-        if (!firstLine[0].startsWith("\uFEFF")) {
-            firstLine[0] = "\uFEFF" + firstLine[0];
-            data.set(0, firstLine);
-        }
-
         CSVWriter csvWriter;
 
         BufferedWriter writer = Files.newBufferedWriter(filePath);
+
+        //write UTF-8 BOM
+        writer.write("\uFEFF");
+
         csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.DEFAULT_QUOTE_CHARACTER,
             '\\', CSVWriter.DEFAULT_LINE_END);
         csvWriter.writeAll(data);

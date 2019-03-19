@@ -3,9 +3,9 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: BrainTrain
 
----
+This project portfolio page displays my contributions to the BrainTrain project.
 
 == Overview
 
@@ -13,12 +13,12 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
+* *Major enhancement*: Session and session manager model
+** *What it does*: Session model generates quiz cards that are needed to be tested in quiz mode based on storage data both from lesson and user progress.
+** Justification: To choose the most suitable words for users to learn, session model also has a manager to do the spaced repetition analysis. The method will always generate the cards with the closet due date to users. It can update the user progress after each quiz session as well.
 ** Highlights:
 
-* *Minor enhancement*:
+* *Minor enhancement*: quiz start command
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 

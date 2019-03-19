@@ -3,16 +3,16 @@ package seedu.address.model.session;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.card.SrsCard;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.srscard.SrsCard;
 
 
 /**
  * Represents a session that stores cards based on srs data.
  */
 public class Session {
-    public static final int CARD_COUNT_MINIMUM = 5;
+    public static final int CARD_COUNT_MINIMUM = 1;
 
     private String name;
     private Quiz.Mode mode;
@@ -20,6 +20,20 @@ public class Session {
     private List<QuizCard> quizCards;
     private List<SrsCard> srsCards;
 
+    public Session(String name, int cardCount, Quiz.Mode mode) {
+        if (name == null || name.length() == 0) {
+            throw new IllegalArgumentException("Invalid name");
+        }
+        if (cardCount < CARD_COUNT_MINIMUM) {
+            throw new IllegalArgumentException("CardCount should not zero");
+        }
+        if ((mode != Quiz.Mode.LEARN) & (mode != Quiz.Mode.REVIEW) & (mode != Quiz.Mode.PREVIEW)) {
+            throw new IllegalArgumentException("Invalid mode");
+        }
+        this.name = name;
+        this.cardCount = cardCount;
+        this.mode = mode;
+    }
 
     public Session(String name, int cardCount, Quiz.Mode mode, List<SrsCard> srsCards) {
         if (name == null || name.length() == 0) {
@@ -72,7 +86,15 @@ public class Session {
         return mode;
     }
 
+    public int getCount() {
+        return cardCount;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public List<SrsCard> getSrsCards() {
+        return srsCards;
     }
 }

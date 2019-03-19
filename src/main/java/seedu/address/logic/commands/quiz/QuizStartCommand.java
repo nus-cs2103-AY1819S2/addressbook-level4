@@ -1,15 +1,28 @@
 package seedu.address.logic.commands.quiz;
 
-import java.util.Arrays;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
+import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
+import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
+import static seedu.address.logic.parser.Syntax.PREFIX_START_NAME;
+
+import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.Model;
+import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.session.Session;
+import seedu.address.model.session.SrsCardsManager;
+import seedu.address.model.user.CardSrsData;
 
 /**
  * TODO: implement the actual start command
@@ -17,26 +30,28 @@ import seedu.address.model.modelmanager.quiz.QuizModel;
 public class QuizStartCommand implements Command {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Starts a new quiz.\n";
+            + "Parameters: "
+            + PREFIX_START_NAME + "NAME "
+            + "[" + PREFIX_START_COUNT + "COUNT] "
+            + PREFIX_START_MODE + "MODE...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_START_NAME + "02-03-LEARN "
+            + PREFIX_START_COUNT + "15 "
+            + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
-
-    //    public QuizStartCommand() {
-    //        // TODO start session
-    //    }
-
+    protected List<QuizCard> quizCards;
+    private Session session;
+    public QuizStartCommand(Session session) {
+        requireNonNull(session);
+        this.session = session;
+    }
     /**
      * Executes the command.
-     * TODO change this ugly method if possible.
      */
     public CommandResult executeActual(QuizModel model, CommandHistory history) {
-        // hardcoded values until session is ready
-        // only have question and answer
-        QuizCard card1 = new QuizCard("Japan", "Tokyo");
-        QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
-        QuizCard card4 = new QuizCard("中国", "北京");
-        Quiz quiz = new Quiz(Arrays.asList(card1, card2, card3, card4), Quiz.Mode.LEARN);
+        this.quizCards = session.generateSession();
+        Quiz quiz = new Quiz(quizCards, session.getMode());
 
         model.init(quiz);
         QuizCard card = model.getNextCard();
@@ -55,6 +70,20 @@ public class QuizStartCommand implements Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        requireNonNull(model);
+        // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
+        // In other words, only incorrect code will result in a CommandException being thrown
+        if (!(model instanceof ManagementModel)) {
+            throw new CommandException(MESSAGE_EXPECTED_MGT_MODEL);
+        }
+
+        ManagementModel mgtModel = (ManagementModel) model;
+
+        Lesson lesson = mgtModel.getLesson(0);
+        HashMap<Integer, CardSrsData> cardData = null; //TODO: implement after model updates
+        SrsCardsManager generateManager = new SrsCardsManager(lesson, cardData);
+        this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
+                generateManager.sort());
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

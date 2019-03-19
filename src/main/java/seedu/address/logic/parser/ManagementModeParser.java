@@ -45,7 +45,7 @@ public class ManagementModeParser implements Parser<Command> {
         //            return new FindCommandParser().parse(arguments);
         // TODO use parser here
         case QuizStartCommand.COMMAND_WORD:
-            return new QuizStartCommand();
+            return new StartCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

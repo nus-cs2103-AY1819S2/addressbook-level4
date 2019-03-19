@@ -71,7 +71,8 @@ Format: `start n/NAME [c/COUNT] m/MODE`
 Usage rules:
 
 * The count field is optional. It represents the number of cards the user wants in the session. By default, it sets to be 10.
-* The number of cards should be at least 5. Otherwise, the start command will fail.
+* The number of cards should be at least 1. The start command will fail with count to be 0.
+* The mode field only supports three mode: `learn, preview and review`.
 
 Examples:
 
@@ -346,19 +347,28 @@ If the file is saved without UTF-8 encoding, the data may have already been save
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+=== Management Mode
+* Help: `help`
+* *Start a quiz session*: `start n/NAME [c/COUNT] m/MODE`
+e.g. `start n/02-03-LEARN c/15 m/LEARN`
+* List all lessons: `listLessons`
+* *Add a lesson*: `addLesson n/NAME c/CORE…​ [o/OPTIONAL]…​`
+e.g. `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`
+* List all cards: `list cards`
+* *Add a card*: `add card q/QUESTION a/ANSWER [h/HINT]`
+e.g. `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA`
+* *Edit a card*: `edit card INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
+e.g. `card edit 12 q/How many intercostal spaces are there? h/`
+* *Delete a card*: `delete card INDEX`
+e.g. `delete card 2`
+* Import user profile: `import user`
+* Export user profile: `export user`
+* History: `history`
+* Quit: `quit`
+
+=== Quiz Mode
+* Help: `\help`
+* View the hint: `\hint`
+* View status: `\status`
+* Answer: `[*]`
+* Quit: `\quit`

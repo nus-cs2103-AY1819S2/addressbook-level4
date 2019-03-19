@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.patient.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.person.Address;
@@ -19,6 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Title;
 import seedu.address.storage.ParsedInOut;
 
 /**
@@ -143,6 +145,53 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String title} into an {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(title)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseStartDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateCustom.isValidDate(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isDateBeforeToday(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseEndDate(String endDate, String startDate) throws ParseException {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        String trimmedStartDate = startDate.trim();
+        String trimmedEndDate = endDate.trim();
+        if (!DateCustom.isValidDate(trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedEndDate);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -162,7 +211,7 @@ public class ParserUtil {
     public static File parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "^([\\w\\-\\\\\\s\\.\\(\\)]+)+\\.(txt|xml|json)$";
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)$";
 
         if (!filePath.matches(validationRegex)) {
             throw new ParseException("File name is invalid");
@@ -201,10 +250,10 @@ public class ParserUtil {
                     return new ParsedInOut(new File(filepath));
                 } else {
                     // This shouldn't be possible after validationRegex
-                    throw new ParseException("File name is invalid or no index given");
+                    throw new ParseException("Input file type is not a .json");
                 }
             } else {
-                throw new ParseException("File name is invalid or no index given");
+                throw new ParseException("Input file type is not a .json");
             }
         }
 
@@ -219,7 +268,7 @@ public class ParserUtil {
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
-            throw new ParseException("File name is invalid or no index given");
+            throw new ParseException("Input file type is not a .json");
         }
 
         HashSet<Integer> parsedIndex = new HashSet<>();

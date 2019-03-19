@@ -28,7 +28,7 @@ endif::[]
 
 * In Version 1.2:
 ** Tag search function with keyword tag. Creating color coordination for each category in UI.
-** Filtering system will be improved and filtering for multiple entries will be added.
+** Filtering system will be improved and filtering for multiple entries will be added. Filtering is also made compatible with other commands.
 ** Implement method into application ensuring it is callable through the keyword sort. The sort feature should also be able to account for new parameters (e.g. Birthday, Education level etc.) as the client requires.
 
 

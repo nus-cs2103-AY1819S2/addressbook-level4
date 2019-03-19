@@ -36,7 +36,6 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        // TODO: 12/2/2019 Export to CSV implementation
         CsvWrapper csvWrapper = new CsvWrapper(fileName, model);
         csvWrapper.export();
         return new CommandResult(String.format(MESSAGE_SUCCESS, fileName));

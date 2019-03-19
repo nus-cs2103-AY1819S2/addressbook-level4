@@ -28,12 +28,16 @@ public class PinCommand extends Command {
 
     public static final String MESSAGE_PIN_PERSON_SUCCESS = "Pinned Person: %1$s";
     public static final String MESSAGE_PIN_PERSON_ALREADY = "Person %1$s is already in the pin list\n";
-    public static final String MESSAGE_PINLIST_FULL = "Unable to pin person: %1$s. \n" +
-            "The pin list contains up to 5 people\n";
+    public static final String MESSAGE_PINLIST_FULL = "Unable to pin person: %1$s. \n"
+            + "The pin list contains up to 5 people\n";
     public static final int MAX_SIZE = 5;
-    private  static FilteredList<Person> pinnedPersonList = null;
+    private static FilteredList<Person> pinnedPersonList = null;
 
     private final Index targetIndex;
+
+    public PinCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
+    }
 
     public static FilteredList<Person> getPinnedPersonList() {
         return pinnedPersonList;
@@ -41,10 +45,6 @@ public class PinCommand extends Command {
 
     public static FilteredList<Person> editPinnedPersonList(Person person) {
         return pinnedPersonList;
-    }
-
-    public PinCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
     }
 
     @Override

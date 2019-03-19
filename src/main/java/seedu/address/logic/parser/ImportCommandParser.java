@@ -31,7 +31,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      */
     private void importValidation(ParsedInOut parsedInOut) throws ParseException {
         if (!parsedInOut.getType().equals("json")) {
-            throw new ParseException("Only .json file type can by imported!");
+            throw new ParseException("Only .json file type can be imported!");
         } else {
             if (!parsedInOut.getFile().exists()) {
                 throw new ParseException("File not found!");

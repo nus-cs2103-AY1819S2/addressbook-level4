@@ -107,8 +107,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteAllPerson() {
+        versionedAddressBook.removeAllPerson();
+    }
+
+    @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addPersonWithFilter(Person person) {
+        versionedAddressBook.addPersonWithFilter(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 

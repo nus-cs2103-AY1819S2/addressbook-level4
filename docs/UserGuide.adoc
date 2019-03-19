@@ -136,7 +136,10 @@ Format: `change ..`
 
 As medical students, loads of time are spent memorising the content of these flashcards. It is time to test how much information have been internalised and retained in a timed setting.
 
-This command begins a test session, where the display area enters a fullscreen (see Fig 3.11). Only questions and hints are presented and users are required to either input an attempt or the command to reveal the answer within 20 seconds. When the 20 seconds is up before the question is answered, this attempt will be marked as wrong. Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score. The next card will only be presented when the next command is carried out.
+This command begins a test session, where the display area enters a fullscreen (see figure below). Only questions and
+hints are presented and users are required to either input an attempt or the command to reveal the answer within 20 seconds. When the 20 seconds is up before the question is answered, this attempt will be marked as wrong. Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score. The next card will only be presented when the next command is carried out.
+
+image::startTestSessionPage.png[width="790"]
 
 Format: `test [FOLDER_INDEX]`
 

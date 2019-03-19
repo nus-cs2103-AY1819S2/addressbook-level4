@@ -317,6 +317,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === MemberSort
 
 ==== Current Implementation
+image::MemberSortCommand_LogicComponentSequenceDiagram.png[width="800"]
 * The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
 
 * It takes in a criteria from the user, and checks if the input from the user matches any of the available

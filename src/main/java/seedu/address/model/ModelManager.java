@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -111,6 +112,17 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    // Needed to be implemented later
+    @Override
+    public boolean hasMedHist(MedicalHistory medicalHistory) {
+        return false;
+    }
+
+    // Needed to be implemented later
+    @Override
+    public void addMedHist(MedicalHistory medicalHistory) {
     }
 
     @Override

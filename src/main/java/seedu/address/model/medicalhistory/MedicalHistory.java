@@ -34,8 +34,8 @@ public class MedicalHistory {
         return this.patient;
     }
 
-    public Patient getDoctor() {
-        return this.patient;
+    public Doctor getDoctor() {
+        return this.doctor;
     }
 
     public Name getName() {

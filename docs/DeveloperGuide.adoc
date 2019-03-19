@@ -159,17 +159,42 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+The `UI` component uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The 'UI' component *controllers* are found in the `src/main/java/seedu/address/ui` folder. Each class corresponds to a specific `.fxml` file.
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
+`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+*Brief overview* of each UI Component:
+
+`MainWindow`: Consists of the main menu with `File` and `Help` dropdowns and the remaining UI parts below.
+
+`MainWindow`: Webview to display UserGuide.html
+
+`CommandBox`: Directly below the main menu, CLI displayed here
+
+`ResultDisplay`: Displays CLI feedback to user, (eg. `Unknown command`, `Invalid command format!`)
+
+`StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
+
+`PlaceListPanel`: On the left of BrowserPanel, a VBox of PlaceListCards
+
+`PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
+Labels that display Name and actual Place data (CountryCode, Rating etc) in a VBox on the right.
+
+`BrowserPanel`: Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
+Currently (v1.2), opens up a Webview and displays a html placeholder page.
+
+For the next release (v1.3), `BrowserPanel` will display an expanded view of
+all Place data. Photo attachments to be included here as well in future releases (beyond v1.3).
+
+*All CSS code are found in DarkTheme.css and Extensions.css
 
 [[Design-Logic]]
 === Logic component
@@ -427,65 +452,12 @@ image::UIsearchtagsresults.png[width="800"]
 ** Cons: Requires more memory as a separate HashMap needs to be stored.
 // end::search[]
 
-// tag::countrycode[]
-=== Add Country Code, Rating & Description
-The `add` command is used to add a place to the application. Apart from being able to add the name of the place,
-address of the place and tag. The user can also add the place's country code, rating and description.
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
 
-==== Current Implementation
+_{Explain here how the data encryption feature will be implemented}_
 
-The `add` command requires the AddCommandParser class to parse user input and add a place with the details
-specified by the user. Currently, the details that are required by the user is Name, Country Code (3 letters), Rating,
-Description and Address. Tag is optional.
-
-AddCommandParser implements the Parser class which has the Parser#parse() operation. This operation will throw an error if the user input does not match the command format.
-
-The add command updates the context in ModelManager through addCommand.
-
-The following sequence diagram shows how the add feature works:
-
-image::AddCommandSequenceDiagram.png[width="800"]
-
-The user enters the command with the command word `add` followed by the arguments. This is processed by the Logic
-component, which will then call `LogicManager#execute()` in the Logic component. `AddressBookParser#parseCommand()`
-is then called, which is also in the Logic component.
-
-
-===== Add Feature
-Given below is an example usage scenario and how the add mechanism behaves at each step.
-
-Step 1. The user launches the application and sees the GUI with no places.
-
-image::AddCommandStep1.png[width="800"]
-
-Step 2. The user types the full add command `add n/NUS Computing cc/SGP r/5 d/No description a/NUS School of
-Computing, COM1, 13 Computing Drive, 117417 t/school` to add the place to TravelBuddy and presses enter.
-
-image::AddCommandStep2.png[width="800"]
-
-Once the user enters the command with the arguments. It is then processed by the Logic
-component, which will then call `LogicManager#execute()` in the Logic component. `AddressBookParser#parseCommand()`
-is then called, which is also in the Logic component. Finally, the added place is displayed.
-
-[NOTE]
-The command `add` is in lower-case. Mixed-case or upper-case commands are not recognised by the TravelBuddy.
-
-Step 3. Selecting the specific place allows the user to see more information in the placeholder.
-
-image::AddCommandStep3.png[width="800"]
-
-// end::countrycode[]
-
-==== Design Considerations
-
-===== Aspect: Data structure to store Country Codes
-* **Alternative 1 (current choice):** Use java.util.Locales.
-** Pros: Easy to implement and contains all country codes specified in ISO-3166.
-** Cons: Slightly slow in locating country code.
-
-* **Alternative 2:** Create own data structure containing most commonly traveled countries in the world.
-** Pros: Locating country code in data structure would be fast.
-** Cons: Tedious process of typing out country codes in the data structure.
+// end::dataencryption[]
 
 === Logging
 

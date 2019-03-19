@@ -348,7 +348,7 @@ The following features are implemented or will be implemented for users of docX:
 * List all patients
 * Edit existing patient entries
 * Search patients by keywords
-* Delete exisiting patient entries
+* Delete existing patient entries
 
 ==== CRUD Patient features
 
@@ -380,7 +380,10 @@ Step5. execute() calls hasPatient() of Model. If patient does not exist, call ad
 
 ==== Delete Patient feature
 
-{Explain here how delete will be implemented}
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
+
+.Interactions Inside the Logic Component for the `delete` Command
+image::DeletePersonSdForLogic.png[width="700"]
 
 === Medical History of patients
 

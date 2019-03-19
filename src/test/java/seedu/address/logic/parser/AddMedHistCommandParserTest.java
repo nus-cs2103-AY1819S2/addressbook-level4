@@ -15,7 +15,7 @@ public class AddMedHistCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         AddMedHistCommand command = new AddMedHistCommand(
-                new MedicalHistory(null, new Name("testName"), new WriteUp("testWriteUp")));
+                new MedicalHistory(null, null, new Name("testName"), new WriteUp("testWriteUp")));
 
         assertParseSuccess(parser, " n/testName sw/testWriteUp", command);
     }

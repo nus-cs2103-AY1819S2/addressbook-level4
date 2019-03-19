@@ -2,6 +2,7 @@ package seedu.address.model.medicalhistory;
 
 import java.util.Objects;
 
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 
@@ -15,19 +16,25 @@ public class MedicalHistory {
     // Identity field
     private Patient patient;
     private Name name;
+    private Doctor doctor;
 
     // Data field
     private WriteUp writeUp;
 
     //Constructor
-    public MedicalHistory(Patient patient, Name name, WriteUp writeUp) {
+    public MedicalHistory(Patient patient, Doctor doctor, Name name, WriteUp writeUp) {
         // Doctor, Time, MedicalHistory Id are needed
         this.patient = patient;
+        this.doctor = doctor;
         this.name = name;
         this.writeUp = writeUp;
     }
 
     public Patient getPatient() {
+        return this.patient;
+    }
+
+    public Patient getDoctor() {
         return this.patient;
     }
 
@@ -37,6 +44,21 @@ public class MedicalHistory {
 
     public WriteUp getWriteUp() {
         return this.writeUp;
+    }
+
+    /**
+     * Returns true if both persons of the same name
+     * have at least one other identity field (phone number) that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameMedHist(MedicalHistory otherMedHist) {
+        if (otherMedHist == this) {
+            return true;
+        }
+
+        return otherMedHist != null
+                && otherMedHist.getName().equals(getName())
+                && (otherMedHist.getWriteUp().equals(getWriteUp()));
     }
 
     /**

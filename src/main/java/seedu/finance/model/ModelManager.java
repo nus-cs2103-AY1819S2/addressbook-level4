@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
@@ -15,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
+import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 
@@ -119,7 +121,27 @@ public class ModelManager implements Model {
         versionedFinanceTracker.setRecord(target, editedRecord);
     }
 
+    @Override
+    public boolean hasBudget() {
+        return versionedFinanceTracker.hasBudget();
+    }
+
+    @Override
+    public void addBudget(Amount amount) {
+        requireNonNull(amount);
+
+        versionedFinanceTracker.addBudget(amount);
+    }
+
     //=========== Filtered Record List Accessors =============================================================
+
+    /**
+     * Returns the amount value of {@code budget} in an ObjectProperty wrapper
+     */
+    @Override
+    public ObjectProperty<Amount> getBudget() {
+        return versionedFinanceTracker.getBudget();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Record} backed by the internal list of

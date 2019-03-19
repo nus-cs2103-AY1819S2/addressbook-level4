@@ -14,6 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
@@ -23,6 +24,7 @@ import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.ReadOnlyUserPrefs;
+import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
 
@@ -133,6 +135,11 @@ public class SpendCommandTest {
         }
 
         @Override
+        public ObjectProperty<Amount> getBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyFinanceTracker getFinanceTracker() {
             throw new AssertionError("This method should not be called.");
         }
@@ -149,6 +156,16 @@ public class SpendCommandTest {
 
         @Override
         public void setRecord(Record target, Record editedRecord) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBudget(Amount amount) {
             throw new AssertionError("This method should not be called.");
         }
 

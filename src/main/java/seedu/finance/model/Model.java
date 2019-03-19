@@ -3,9 +3,11 @@ package seedu.finance.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
+import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 
 /**
@@ -77,6 +79,20 @@ public interface Model {
      * another existing record in the finance tracker.
      */
     void setRecord(Record target, Record editedRecord);
+
+    /**
+     * Returns true if a {@code budget} exists in the finance tracker.
+     */
+    boolean hasBudget();
+
+    /**
+     * Sets the given amount to budget.
+     * {@code budget} must not already exist in the finance tracker.
+     */
+    void addBudget(Amount amount);
+
+    /** Returns the amount value of {@code budget} in a ObjectProperty wrapper */
+    ObjectProperty<Amount> getBudget();
 
     /** Returns an unmodifiable view of the filtered record list */
     ObservableList<Record> getFilteredRecordList();

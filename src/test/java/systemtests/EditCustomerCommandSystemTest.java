@@ -1,6 +1,7 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -52,7 +53,7 @@ import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.testutil.CustomerBuilder;
-import seedu.hms.testutil.CustomerUtil;
+//import seedu.hms.testutil.CustomerUtil;
 
 public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTest {
 
@@ -216,7 +217,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
 //            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 //
-//        /* Case: edit a customer with new values same as another customer's values but with different tag -> rejected*/
+//      /* Case: edit a customer with new values same as another customer's values but with different tag -> rejected*/
 //        command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
 //            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB
 //            + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;

@@ -101,23 +101,29 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static SkillsTag parseTag(String tag) throws ParseException {
+    public static SkillsTag parseTag(String tag, String color) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!SkillsTag.isValidTagName(trimmedTag)) {
             throw new ParseException(SkillsTag.MESSAGE_CONSTRAINTS);
         }
-        return new SkillsTag(trimmedTag);
+        return new SkillsTag(trimmedTag, color);
     }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<SkillsTag>}.
      */
-    public static Set<SkillsTag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<SkillsTag> parseTags(Collection<String> tags, String type) throws ParseException {
         requireNonNull(tags);
         final Set<SkillsTag> tagSet = new HashSet<>();
+        final String color;
+        if(type.equals("skill")){
+            color = "yellow";
+        }else{
+            color = "pink";
+        }
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            tagSet.add(parseTag(tagName, color));
         }
         return tagSet;
     }

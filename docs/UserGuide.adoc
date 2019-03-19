@@ -440,6 +440,7 @@ Saving is done automatically in QuickDocs. Whenever a command that adds, modifie
 This is the summary of all the possible commands for QuickDocs. For detailed explanations of each command, you should head to <<Features>>, or click on the links of each commands.
 
 *General Commands* +
+
 * *<<help>>* : `help` +
 
 *Patient Management* +

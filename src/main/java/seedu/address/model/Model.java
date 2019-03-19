@@ -154,4 +154,10 @@ public interface Model {
      * replaces image in Temp folder with original from Assets
      */
     void replaceTempImage();
+
+    /**
+     * Updates tempImage to Opened image
+     * @param toOpen
+     */
+    void setCurrentImage(Image toOpen);
 }

@@ -228,6 +228,11 @@ public class AddCommandTest {
         public Image getImage() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setCurrentImage(Image image) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

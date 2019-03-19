@@ -493,6 +493,7 @@ viewed or altered by other users.
 can also be used to reset existing passwords
 * `login` command to allow users who registered to login to their profile
 
+g
 Given below is an example usage scenario and how the login system will behave at each step
 
 *Step 1:*. The user launches the application for the first time. `MainApp` class will load all xml files within the data

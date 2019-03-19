@@ -16,6 +16,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
+import seedu.address.model.table.exceptions.DuplicateTableException;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.testutil.TableBuilder;
 
 public class UniqueTableListTest {
@@ -50,7 +52,7 @@ public class UniqueTableListTest {
     @Test
     public void add_duplicateTable_throwsDuplicateOrderItemException() {
         uniqueTableList.add(TABLE1);
-        thrown.expect(DuplicateOrderItemException.class);
+        thrown.expect(DuplicateTableException.class);
         uniqueTableList.add(TABLE1);
     }
 
@@ -68,7 +70,7 @@ public class UniqueTableListTest {
 
     @Test
     public void setTable_targetTableNotInList_throwsOrderItemNotFoundException() {
-        thrown.expect(OrderItemNotFoundException.class);
+        thrown.expect(TableNotFoundException.class);
         uniqueTableList.setTable(TABLE1, TABLE1);
     }
 
@@ -88,7 +90,7 @@ public class UniqueTableListTest {
         uniqueTableList.setTable(TABLE1, editedTable);
         UniqueTableList expectedUniqueTableList = new UniqueTableList();
         expectedUniqueTableList.add(editedTable);
-        assertEquals(expectedUniqueTableList, editedTable);
+        assertEquals(expectedUniqueTableList, uniqueTableList);
     }
 
     @Test
@@ -104,7 +106,7 @@ public class UniqueTableListTest {
     public void setTable_editedTableHasNonUniqueIdentity_throwsDuplicateOrderItemException() {
         uniqueTableList.add(TABLE1);
         uniqueTableList.add(TABLE2);
-        thrown.expect(DuplicateOrderItemException.class);
+        thrown.expect(DuplicateTableException.class);
         uniqueTableList.setTable(TABLE1, TABLE2);
     }
 

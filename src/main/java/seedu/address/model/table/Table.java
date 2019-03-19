@@ -47,6 +47,7 @@ public class Table {
     public boolean equals(Object other) {
         return other == this
                 || (other != null
+                && other instanceof Table
                 && this.getTableNumber().equals(((Table) other).getTableNumber())
                 && this.getTableStatus().equals(((Table) other).getTableStatus()));
     }

@@ -3,7 +3,6 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalTables;
 
 import java.io.IOException;
@@ -19,6 +18,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.Tables;
+import seedu.address.testutil.TableBuilder;
 
 public class JsonTablesStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTablesStorageTest");
@@ -86,15 +86,16 @@ public class JsonTablesStorageTest {
         ReadOnlyTables readBack = jsonTablesStorage.readTables(filePath).get();
         assertEquals(original, new Tables(readBack));
 
-        // Modify data, overwrite exiting file, and read back
-        original.addTable(TABLE1);
-        original.removeTable(TABLE1);
+        // Modify data, overwrite existing file, and read back
+        Table newTable = new TableBuilder().withTableNumber("9").build();
+        original.addTable(newTable);
+        original.removeTable(newTable);
         jsonTablesStorage.saveTables(original, filePath);
         readBack = jsonTablesStorage.readTables(filePath).get();
         assertEquals(original, new Tables(readBack));
 
         // Save and read without specifying file path
-        original.addTable(TABLE1);
+        original.addTable(newTable);
         jsonTablesStorage.saveTables(original); // file path not specified
         readBack = jsonTablesStorage.readTables().get(); // file path not specified
         assertEquals(original, new Tables(readBack));

@@ -27,7 +27,6 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
@@ -35,7 +34,6 @@ import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.testutil.MenuItemBuilder;
 import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.RestOrRantBuilder;
-import seedu.address.testutil.StatisticsBuilder;
 import seedu.address.testutil.TableBuilder;
 
 public class ModelManagerTest {
@@ -374,6 +372,7 @@ public class ModelManagerTest {
         assertEquals(DAILY_REVENUE1, modelManager.getSelectedDailyRevenue());
     }
 
+    /**
     @Test
     public void setDailyRevenue_dailyRevenueIsSelected_selectedDailyRevenueUpdated() {
         modelManager.addDailyRevenue(DAILY_REVENUE1);
@@ -383,6 +382,7 @@ public class ModelManagerTest {
         modelManager.setDailyRevenue(DAILY_REVENUE1, updatedDailyRevenue);
         assertEquals(updatedDailyRevenue, modelManager.getSelectedDailyRevenue());
     }
+     **/
 
     @Test
     public void getFilteredDailyRevenueList_modifyList_throwsUnsupportedOperationException() {

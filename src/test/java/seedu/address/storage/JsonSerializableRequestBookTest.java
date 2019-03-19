@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.RequestBook;
+import seedu.address.model.request.exceptions.DuplicateRequestException;
 import seedu.address.testutil.TypicalRequests;
 
 class JsonSerializableRequestBookTest {
@@ -28,14 +29,14 @@ class JsonSerializableRequestBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-//    @Test
-//    void toModelType_typicalRequestsFile_success() throws Exception {
-//        JsonSerializableRequestBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_REQUESTS_FILE,
-//            JsonSerializableRequestBook.class).get();
-//        RequestBook requestBookFromFile = dataFromFile.toModelType();
-//        RequestBook typicalRequestsRequestBook = TypicalRequests.getTypicalRequestBook();
-//        assertEquals(requestBookFromFile, typicalRequestsRequestBook);
-//    }
+    @Test
+    void toModelType_typicalRequestsFile_success() throws Exception {
+        JsonSerializableRequestBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_REQUESTS_FILE,
+            JsonSerializableRequestBook.class).get();
+        RequestBook requestBookFromFile = dataFromFile.toModelType();
+        RequestBook typicalRequestsRequestBook = TypicalRequests.getTypicalRequestBook();
+        assertTrue(requestBookFromFile.areRequestsSame(typicalRequestsRequestBook));
+    }
 
     @Test
     public void toModelType_invalidRequestFile_throwsIllegalValueException() throws Exception {
@@ -48,7 +49,7 @@ class JsonSerializableRequestBookTest {
     public void toModelType_duplicateRequest_throwsIllegalValueException() throws Exception {
         JsonUtil.readJsonFile(DUPLICATE_REQUESTS_FILE,
             JsonSerializableRequestBook.class).get();
-        thrown.expect(IllegalValueException.class);
+        thrown.expect(DuplicateRequestException.class);
         thrown.expectMessage(JsonSerializableRequestBook.MESSAGE_DUPLICATE_REQUEST);
     }
 }

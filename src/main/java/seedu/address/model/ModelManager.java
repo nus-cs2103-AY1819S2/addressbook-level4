@@ -196,7 +196,8 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPatient(Patient patient) {
         requireNonNull(patient);
-        return this.versionedPatientBook.hasPatient(patient);    }
+        return this.versionedPatientBook.hasPatient(patient);
+    }
 
     @Override
     public void addPatient(Patient patient) {

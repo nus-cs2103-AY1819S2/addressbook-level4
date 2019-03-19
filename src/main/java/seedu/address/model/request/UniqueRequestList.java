@@ -99,6 +99,21 @@ public class UniqueRequestList implements Iterable<Request> {
     }
 
     /**
+     * Checks if 2 request lists are the same.
+     */
+    public boolean areRequestsSame(UniqueRequestList requests) {
+        if (this.internalList.size() != requests.internalList.size()) {
+            return false;
+        }
+        for (int i = 0; i < requests.internalList.size(); i++) {
+            if (!(this.internalList.get(i).isSameRequest(requests.internalList.get(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Removes the equivalent order from the list.
      * The request must exist in the list.
      */

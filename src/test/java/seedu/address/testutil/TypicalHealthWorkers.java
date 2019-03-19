@@ -22,8 +22,7 @@ public class TypicalHealthWorkers {
             .withPhone("94358253")
             .withNric("S8312942G"))
             .withOrganization("NUH")
-            .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation
-                            .GENERAL_PRACTICE, Specialisation.PHYSIOTHERAPY)))).build();
+            .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation.PHYSIOTHERAPY, Specialisation.GENERAL_PRACTICE)))).build();
     public static final HealthWorker BETTY = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Betty Meier")
             .withAddress("312, Clementi Ave 2, #02-25")

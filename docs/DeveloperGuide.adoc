@@ -444,6 +444,23 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+[[Implementation-Sort Commands]]
+=== Sort Commands
+
+When writing sort commands, there were two approaches considered: modify the indices of all persons and then refresh the left-hand GUI panel with this new list; or temporarily delete the list of persons and then add a new list of correctly ordered persons.
+
+Elements of lists in Java are ordered by when they were added. Sorting is possible using Collections, however this requires them to be strings. Since the Recruit Me application contains lists of various types, typically Person, there is no immediate compatibility with Collections. Furthermore it was suspected that to simply modify the indices of persons, a lot of duplicate code would be need to be written since this aspect of addressbooklevel4 was not easily modifiable. Because of this the second method was opted for.
+
+Despite the risk of slightly increasing the coupling, the aim was to use methods already written and rely on good cohesion. For example, once a sort command has correctly written the correctly ordered persons to a `List<Person>`, rather than duplicating large amounts of code by modifying the already listed persons, it shall use the already written delete person and add person commands.
+
+It is of note that the temporary deletion of persons from the addressbook should be foolproof and there should be no way that the sort command ever permenantly deltes the addressbook. Furthermore, ensuring the command works with the already implemented undo/redo command should ensure the user still has full control over all the persons in the contact book.
+
+To add a new sort command, the following should be taken into account... (INSERT CLASS DIAGRAM)
+
+Two sorting methods are currently present: `alphabetical` and `skills`...
+
+NOT COMPLETE.
+
 == Documentation
 
 We use asciidoc for writing documentation.

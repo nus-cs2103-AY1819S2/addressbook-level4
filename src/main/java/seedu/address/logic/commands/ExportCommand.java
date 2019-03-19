@@ -76,9 +76,9 @@ public class ExportCommand extends Command {
 
     /**
      * createTempAddressBook() creates a temporary address book populated with the specified patients in parsedInput[1]
-     * @param model
-     * @param parsedIndex
-     * @return
+     * @param model the model which contains the current address book.
+     * @param parsedIndex the hashset containing the indexes requested by the user.
+     * @return A temporary model
      */
     private ModelManager createTempAddressBook(Model model, HashSet<Integer> parsedIndex) {
         ModelManager tempModel = new ModelManager();

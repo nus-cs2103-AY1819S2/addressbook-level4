@@ -111,7 +111,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedRecordProperty());
+        browserPanel = new BrowserPanel(logic.selectedRecordProperty(), logic.getBudget());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList(), logic.selectedRecordProperty(),

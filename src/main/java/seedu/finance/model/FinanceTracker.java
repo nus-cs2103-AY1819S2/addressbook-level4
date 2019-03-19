@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.util.InvalidationListenerManager;
+import seedu.finance.model.budget.Budget;
+import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.UniqueRecordList;
 
@@ -17,6 +20,7 @@ import seedu.finance.model.record.UniqueRecordList;
 public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     private final UniqueRecordList records;
+    private final Budget budget;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -28,6 +32,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     {
         records = new UniqueRecordList();
+        budget = new Budget();
     }
 
     public FinanceTracker() {}
@@ -101,6 +106,24 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         indicateModified();
     }
 
+    /// budget-level operations
+
+    /**
+     * Returns true if a {@code budget} exists in the finance tracker.
+     */
+    public boolean hasBudget() {
+        return this.budget.isSet();
+    }
+
+    /**
+     * Adds a budget to the finance tracker.
+     * The budget must not already exist in the finance tracker.
+     */
+    public void addBudget(Amount amount) {
+        this.budget.set(amount);
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -124,6 +147,10 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public String toString() {
         return records.asUnmodifiableObservableList().size() + " records";
         // TODO: refine later
+    }
+
+    public ObjectProperty<Amount> getBudget() {
+        return budget.valueProperty();
     }
 
     @Override

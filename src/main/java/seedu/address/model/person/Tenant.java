@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.model.property.Property;
-
 /**
  * Represents a Tenant in the address book.
  */

@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.model.property.Property;
 
 /**
  * Represents a Buyer in the address book.

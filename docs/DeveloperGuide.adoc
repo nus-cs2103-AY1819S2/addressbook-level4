@@ -272,7 +272,15 @@ executes the `select 1` command to select the first deck. This should change the
 `ViewState` in the `ModelManager` from `DeckView` to `CardView`. For more information, refer to
 Deck's feature.
 
-2. The user executes `add q/question a/answer`
+2. The user executes `add q/question a/answer` to add the new card into the current deck.
+The `add` command is parsed and calls `Model#addCard(Card card)`.
+
+3. `Model#addCard(Card card)` first checks if the current state is a
+CardsView. Following, it will pass the current activeDeck and the card to
+be added into `VersionedTopDeck.addCard(Card card, Deck ActiveDeck)`. This will search for the
+currently active deck, add the card into the deck and replace it with the current deck.
+
+4. Once that is done, the filteredItems list is being updated to reflect the change.
 
 
 // tag::undoredo[]

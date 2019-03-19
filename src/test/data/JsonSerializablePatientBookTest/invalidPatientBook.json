@@ -1,59 +1,43 @@
 {
   "patients" : [ {
-    "name" : "Alice Pauline",
+    "name" : "Alice Pauline!!!#$",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "nric" : "S9670515H",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ ],
-    "conditions" : "Physiotherapy Dialysis"
+    "conditions" : "Physiotherapy Dialysis "
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
-    "nric" : "S9274100D",
+    "nric" : "S9274100123D",
     "address" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ ],
     "conditions" : "Stroke Eldercare "
   }, {
     "name" : "Carl Kurz",
-    "phone" : "87652533",
+    "phone" : "87652533ABCDE",
     "email" : "heinz@example.com",
     "nric" : "S9328723A",
     "address" : "wall street",
     "tagged" : [ ],
-    "conditions" : "Palliative"
+    "conditions" : "Palliative "
   }, {
     "name" : "Daniel Meier",
     "phone" : "82015737",
-    "email" : "cornelia@example.com",
+    "email" : "cornelia.com",
     "nric" : "S2652663Z",
     "address" : "10th street",
     "tagged" : [ ],
     "conditions" : ""
   }, {
-    "name" : "Elle Meyer",
+    "name" : "Elle Meyer*!@#",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "nric" : "S9462345E",
     "address" : "michegan ave",
     "tagged" : [ ],
-    "conditions" : "Dementia"
-  }, {
-    "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "nric" : "S5450367F",
-    "address" : "little tokyo",
-    "tagged" : [ ],
-    "conditions" : "Cancer"
-  }, {
-    "name" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "nric" : "S8736498R",
-    "address" : "4th street",
-    "tagged" : [ ],
-    "conditions" : "Alzheimer's "
+    "conditions" : "Dementia "
   } ]
 }

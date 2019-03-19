@@ -96,18 +96,18 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
-        Optional<ReadOnlyHealthWorkerBook> patientBookOptional;
+        Optional<ReadOnlyPatientBook> patientBookOptional;
         Optional<ReadOnlyRequestBook> requestBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
         ReadOnlyPatientBook initialPatientBook;
-
         ReadOnlyRequestBook initialRequestBook;
 
         try {
 
             initialPatientBook = new PatientBook();
             addressBookOptional = storage.readAddressBook();
+            patientBookOptional = storage.readPatientBook();
             healthWorkerBookOptional = storage.readHealthWorkerBook();
             requestBookOptional = storage.readRequestBook();
             if (!addressBookOptional.isPresent()) {
@@ -142,7 +142,6 @@ public class MainApp extends Application {
 
 
         return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialPatientBook, initialRequestBook,
-
             userPrefs);
     }
 

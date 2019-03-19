@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.logic.commands.HelpCommandResult;
+import seedu.address.logic.commands.UpdatePanelCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -33,8 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private CardListPanel cardListPanel;
+    private ListPanel listPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
@@ -114,12 +114,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedCardProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
-                logic::setSelectedCard);
-        personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+        listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
+        personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -171,8 +167,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public CardListPanel getCardListPanel() {
-        return cardListPanel;
+    public ListPanel getListPanel() {
+        return listPanel;
     }
 
     /**
@@ -185,8 +181,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult instanceof HelpCommandResult) {
+            if (commandResult instanceof UpdatePanelCommandResult) {
+                listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
+                personListPanelPlaceholder.getChildren().clear();
+                personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
+            } else if (commandResult instanceof HelpCommandResult) {
                 handleHelp();
             } else if (commandResult instanceof ExitCommandResult) {
                 handleExit();

@@ -43,9 +43,9 @@ public class StatusBarFooter extends UiPart<Region> {
     public StatusBarFooter(Path saveLocation, ReadOnlyTopDeck topDeck) {
         super(FXML);
         topDeck.addListener(observable -> updateSyncStatus());
-        topDeck.addListener(observable -> updateTotalCardsStatus((ReadOnlyTopDeck) observable));
+        topDeck.addListener(observable -> updateTotalDecksStatus((ReadOnlyTopDeck) observable));
         syncStatus.setText(SYNC_STATUS_INITIAL);
-        updateTotalCardsStatus(topDeck);
+        updateTotalDecksStatus(topDeck);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
@@ -75,9 +75,9 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Updates card count in the status bar to the actual count.
      */
-    private void updateTotalCardsStatus(ReadOnlyTopDeck topDeck) {
-        int personsCount = topDeck.getCardList().size();
-        totalCardsStatus.setText(String.format(TOTAL_CARDS_STATUS, personsCount));
+    private void updateTotalDecksStatus(ReadOnlyTopDeck topDeck) {
+        int decksCount = topDeck.getDeckList().size();
+        totalCardsStatus.setText(String.format(TOTAL_CARDS_STATUS, decksCount));
     }
 
 }

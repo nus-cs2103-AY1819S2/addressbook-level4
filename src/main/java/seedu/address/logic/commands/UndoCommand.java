@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoTopDeck();
-        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        model.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

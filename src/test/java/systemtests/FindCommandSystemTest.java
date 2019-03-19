@@ -14,7 +14,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -81,7 +81,7 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: find same cards in deck after deleting 1 of them -> 1 card found */
-        executeCommand(DeleteCommand.COMMAND_WORD + " 1");
+        executeCommand(DeleteCardCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getTopDeck().getCardList().contains(LAYER));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP;
         expectedModel = getModel();
@@ -156,7 +156,7 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCardList().size());
+                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

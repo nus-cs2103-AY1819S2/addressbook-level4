@@ -93,7 +93,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getTopDeck()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredCardList());
+        ModelHelper.setFilteredList(copy, model.getFilteredList());
         return copy;
     }
 

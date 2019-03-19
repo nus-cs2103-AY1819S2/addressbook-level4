@@ -16,10 +16,15 @@ import seedu.address.testutil.TypicalCards;
 
 public class JsonSerializableTopDeckTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableTopDeckTest");
-    private static final Path TYPICAL_CARDS_FILE = TEST_DATA_FOLDER.resolve("typicalCardTopDeck.json");
-    private static final Path INVALID_CARD_FILE = TEST_DATA_FOLDER.resolve("invalidCardTopDeck.json");
-    private static final Path DUPLICATE_CARD_FILE = TEST_DATA_FOLDER.resolve("duplicateCardTopDeck.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonSerializableTopDeckTest");
+    private static final Path TYPICAL_CARDS_FILE = TEST_DATA_FOLDER.resolve("typicalDeckTopDeck.json");
+    private static final Path INVALID_CARD_FILE = TEST_DATA_FOLDER.resolve("invalidDeckTopDeck.json");
+    private static final Path DUPLICATE_CARD_FILE = TEST_DATA_FOLDER.resolve("duplicateDeckTopDeck.json");
+
+    private static final Path TYPICAL_DECKS_FILE = TEST_DATA_FOLDER.resolve("typicalDecksTopDeck.json");
+    private static final Path INVALID_DECK_FILE = TEST_DATA_FOLDER.resolve("invalidDeckTopDeck.json");
+    private static final Path DUPLICATE_DECK_FILE = TEST_DATA_FOLDER.resolve("duplicateDeckTopDeck.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -38,6 +43,15 @@ public class JsonSerializableTopDeckTest {
         JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(INVALID_CARD_FILE,
                 JsonSerializableTopDeck.class).get();
         thrown.expect(IllegalValueException.class);
+        dataFromFile.toModelType();
+    }
+
+    @Test
+    public void toModelType_duplicateDecksFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(DUPLICATE_DECK_FILE,
+                JsonSerializableTopDeck.class).get();
+        thrown.expect(IllegalValueException.class);
+        thrown.expectMessage(JsonSerializableTopDeck.MESSAGE_DUPLICATE_DECK);
         dataFromFile.toModelType();
     }
 

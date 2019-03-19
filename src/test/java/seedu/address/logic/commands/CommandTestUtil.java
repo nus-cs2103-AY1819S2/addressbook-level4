@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -12,11 +13,15 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.NameContainsKeywordsPredicate;
+import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 /**
@@ -58,6 +63,21 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_NAME = "My Deck";
+    public static final String INVALID_NAME = "B@d_Deck_Name";
+    public static final String VALID_NAME_JOHN = "John Phua";
+
+    public static final String VALID_NAME_DECK_A = "My Deck A";
+    public static final String VALID_NAME_DECK_B = "Your deck";
+    public static final Deck VALID_DECK_A = new DeckBuilder().withName(VALID_NAME_DECK_A).build();
+    public static final Deck VALID_DECK_B = new DeckBuilder().withName(VALID_NAME_DECK_B).build();
+
+    public static final String VALID_DECK_NAME_A_ARGS = " " + PREFIX_NAME + VALID_NAME_DECK_A;
+    public static final String VALID_DECK_NAME_B_ARGS = " " + PREFIX_NAME + VALID_NAME_DECK_B;
+    public static final String INVALID_DECK_NAME_ARGS = " " + PREFIX_NAME + " Bad_Deck_Name!";
+
+    public static final List<Card> VALID_CARD_LIST = new ArrayList<>();
 
     public static final EditCommand.EditCardDescriptor DESC_HELLO;
     public static final EditCommand.EditCardDescriptor DESC_MOD;
@@ -113,8 +133,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         TopDeck expectedTopDeck = new TopDeck(actualModel.getTopDeck());
-        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
-        Card expectedSelectedCard = actualModel.getSelectedCard();
+        List<ListItem> expectedFilteredList = new ArrayList<>(actualModel.getFilteredList());
+        ListItem expectedSelectedItem = actualModel.getSelectedItem();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -124,10 +144,28 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedTopDeck, actualModel.getTopDeck());
-            assertEquals(expectedFilteredList, actualModel.getFilteredCardList());
-            assertEquals(expectedSelectedCard, actualModel.getSelectedCard());
+            assertEquals(expectedFilteredList, actualModel.getFilteredList());
+            assertEquals(expectedSelectedItem, actualModel.getSelectedItem());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the deck at the given {@code targetIndex} in
+     * {@code model}'s Topdeck.
+     */
+
+    public static void showDeckAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
+        assertTrue(model.isAtDecksView());
+
+        Deck deck = (Deck)model.getFilteredList().get(targetIndex.getZeroBased());
+
+        final String[] splitName = deck.getName().fullName.split("\\s+");
+        model.updateFilteredList(
+                new DeckNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredList().size());
     }
 
     /**
@@ -135,21 +173,22 @@ public class CommandTestUtil {
      * {@code model}'s deck.
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCardList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
+        assertTrue(!model.isAtDecksView());
 
-        Card card = model.getFilteredCardList().get(targetIndex.getZeroBased());
+        Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = card.getQuestion().split("\\s+");
-        model.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         //Gets all the question that starts with what
-        assertEquals(1, model.getFilteredCardList().size());
+        assertEquals(1, model.getFilteredList().size());
     }
 
     /**
      * Deletes the first card in {@code model}'s filtered list from {@code model}'s deck.
      */
     public static void deleteFirstCard(Model model) {
-        Card firstCard = model.getFilteredCardList().get(0);
+        Card firstCard = (Card) model.getFilteredList().get(0);
         model.deleteCard(firstCard);
         model.commitTopDeck();
     }

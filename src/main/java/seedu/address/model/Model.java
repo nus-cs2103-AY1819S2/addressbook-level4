@@ -6,12 +6,23 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.ListItem;
+import seedu.address.logic.ViewState;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Deck> PREDICATE_SHOW_ALL_DECKS = unused -> true;
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
@@ -50,7 +61,7 @@ public interface Model {
      */
     void setTopDeck(ReadOnlyTopDeck topDeck);
 
-    /** Returns the AddressBook */
+    /** Returns the TopDeck */
     ReadOnlyTopDeck getTopDeck();
 
     /**
@@ -77,14 +88,14 @@ public interface Model {
      */
     void setCard(Card target, Card editedCard);
 
-    /** Returns an unmodifiable view of the filtered card list */
-    ObservableList<Card> getFilteredCardList();
+    /** Returns an unmodifiable view of the filtered list */
+    ObservableList<ListItem> getFilteredList();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredCardList(Predicate<Card> predicate);
+    void updateFilteredList(Predicate<? extends ListItem> predicate);
 
     /**
      * Returns true if the model has previous TopDeck states to restore.
@@ -112,19 +123,35 @@ public interface Model {
     void commitTopDeck();
 
     /**
-     * Selected card in the filtered card list.
-     * null if no card is selected.
+     * Selected item in the filtered list.
+     * null if no item is selected.
      */
-    ReadOnlyProperty<Card> selectedCardProperty();
+    ReadOnlyProperty<ListItem> selectedItemProperty();
 
     /**
-     * Returns the selected card in the filtered card list.
+     * Returns the selected Item in the filtered list.
      * null if no card is selected.
      */
-    Card getSelectedCard();
+    ListItem getSelectedItem();
 
     /**
-     * Sets the selected card in the filtered card list.
+     * Sets the selected item in the filtered list.
      */
-    void setSelectedCard(Card card);
+    void setSelectedItem(ListItem item);
+
+    /**
+     * Adds a new deck in the filtered deck list.
+     * @param deck
+     */
+    void addDeck(Deck deck);
+
+    boolean hasDeck(Deck deck);
+
+    Command parse(String commandWord, String arguments) throws ParseException;
+
+    void changeDeck(Deck deck);
+
+    void goToDecksView();
+
+    boolean isAtDecksView();
 }

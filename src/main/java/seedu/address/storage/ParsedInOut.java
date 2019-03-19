@@ -19,6 +19,7 @@ public class ParsedInOut {
 
     public ParsedInOut(File file) {
         this.file = file;
+        this.parsedIndex = new HashSet<>();
         this.isAll = true;
     }
 

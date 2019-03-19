@@ -27,7 +27,8 @@ public class CsvWrapper {
 
     private static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
     private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags"};
-    private static final Path DEFAULT_EXPORT_FOLDER_PATH = Paths.get("exported");
+    private static final String DEFAULT_EXPORT_FOLDER_NAME = "exported";
+    private static final Path DEFAULT_EXPORT_FOLDER_PATH = Paths.get(DEFAULT_EXPORT_FOLDER_NAME);
     private String csvFileName;
     private Model model;
     private Path csvFilePath;
@@ -60,7 +61,7 @@ public class CsvWrapper {
     private void createCsvFile(String csvFileName) throws CommandException {
         createIfExportDirectoryMissing();
         try {
-            csvFilePath = Files.createFile(Paths.get("exported", csvFileName + ".csv"));
+            csvFilePath = Files.createFile(Paths.get(DEFAULT_EXPORT_FOLDER_NAME, csvFileName + ".csv"));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -116,7 +117,7 @@ public class CsvWrapper {
     private void createIfExportDirectoryMissing() throws CommandException {
         if (Files.isDirectory(DEFAULT_EXPORT_FOLDER_PATH) == false) {
             try {
-                Files.createDirectory(Paths.get("exported"));
+                Files.createDirectory(DEFAULT_EXPORT_FOLDER_PATH);
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

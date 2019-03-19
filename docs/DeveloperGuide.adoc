@@ -370,6 +370,42 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::budgetmanagement[]
+=== Budget Management
+
+This features allows the user to set a budget and allocate it to different categories. The budget will decrease when records are added.
+
+This implementation is under `Logic`, `Model` and `UI` Component.
+
+_Sequence Diagram will be done soon_
+
+==== Implemented
+* `Budget` Class has been created with `Amount` field to keep track of the budget of Financial Tracker.
+* `Set` Command implemented with logic for adding a budget only if a budget does not exist.
+* Dummy Commands for `allocate` and `increase` have been added.
+
+==== To be implemented
+* Reflecting total budget and current budget on `BrowserPanel` portion of UI.
+* Implementing logic for `increase` command to allow for increasing the budget.
+* Modify `spend` and `edit` Command to deduct from total budget to get current budget.
+* Implement `reset` command to reset current budget expenditure and total budget.
+* Implement logic for `allocate` command to be able to divide budget into categories.
+* Reflecting total budget and current budget for each category when selected in UI.
+* Expand `undo` and `redo` command to be able to work on `set`, `allocate` and `increase` command.
+
+==== Design Consideration
+The logic for keeping track of budgets can be implemented in different ways for individual categories.
+
+* *Solution 1*: Keep a list of expenditure for individual categories and budget allocations in one Budget class.
+** Pros: Easier to maintain one Budget object.
+** Cons: Iterating through the list could be slow if there are a lot of categories. Lists could be confusing to maintain.
+
+* *Solution 2*: Create Budget classes to keep track of expenditure and budget for individual categories.
+** Pros: More human readable to maintain Budget classes with names of categories.
+** Cons: Budget classes for individual categories need to be iterated through to get totals leading to slow UI updates each time values are changed.
+
+//end::budgetmanagement[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

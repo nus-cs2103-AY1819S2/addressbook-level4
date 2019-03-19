@@ -8,10 +8,16 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.statistics.exception.DailyRevenueNotFoundException;
+import seedu.address.model.order.exceptions.DuplicateOrderItemException;
+import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
 
 /**
- * A list of daily revenues.
+ * A list of daily revenues that enforces uniqueness between its elements and does not allow nulls.
+ * A daily revenue is considered unique by comparing using {@code DailyRevenue#isSameDailyRevenue(DailyRevenue)}.
+ * As such, adding and updating of daily revenue uses DailyRevenue#isSameDailyRevenue(DailyRevenue) for equality so
+ * as to ensure that the daily revenue being added or updated is unique in terms of identity in the DailyRevenueList.
+ * However, the removal of a daily revenue uses DailyRevenue#equals so as to ensure that the daily revenue with exactly
+ * the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  */
@@ -30,9 +36,13 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
     }
     /**
      * Adds a DailyRevenue for the day to the list.
+     * The daily revenue must not already exist in the list.
      */
     public void add(DailyRevenue toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateOrderItemException();
+        }
         internalList.add(toAdd);
     }
 
@@ -48,6 +58,10 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new DailyRevenueNotFoundException();
+        }
+
+        if (!target.isSameDailyRevenue(editedDailyRevenue) && contains(editedDailyRevenue)) {
+            throw new DuplicateOrderItemException();
         }
 
         internalList.set(index, editedDailyRevenue);
@@ -74,9 +88,13 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
 
     /**
      * Replaces the contents of this list with {@code dailyRevenueList}.
+     * {@code dailyRevenueList} must not contain duplicate daily revenue.
      */
     public void setDailyRevenueList(List<DailyRevenue> dailyRevenueList) {
         requireAllNonNull(dailyRevenueList);
+        if (!dailyRevenuesAreUnique(dailyRevenueList)) {
+            throw new DuplicateOrderItemException();
+        }
         internalList.setAll(dailyRevenueList);
     }
 
@@ -104,4 +122,18 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
         return internalList.hashCode();
     }
 
+
+    /**
+     * Returns true if {@code orderItems} contains only unique order items.
+     */
+    private boolean dailyRevenuesAreUnique(List<DailyRevenue> dailyRevenues) {
+        for (int i = 0; i < dailyRevenues.size() - 1; i++) {
+            for (int j = i + 1; j < dailyRevenues.size(); j++) {
+                if (dailyRevenues.get(i).isSameDailyRevenue(dailyRevenues.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

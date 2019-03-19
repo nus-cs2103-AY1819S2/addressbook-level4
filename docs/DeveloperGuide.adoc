@@ -221,7 +221,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Address,Request, Patient and HealthWorker Book data in json format and read it back.
+
 
 [[Design-Commons]]
 === Common classes
@@ -494,6 +495,14 @@ e.g. `seedu.address.commons.StringUtilTest`
 e.g. `seedu.address.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
+
+=== Generation of test files
+
+We use classes located in the `seedu.address.jsonfilegenerator` folder to generate JSON
+test files. Developers are free to modify the code within the classes to generate person/patient/healthworker/request
+book containing the respective data they require for tests. +
+All the test file generator classes have a main function and hence can be ran independently by compiling the file.
+
 
 
 === Troubleshooting Testing

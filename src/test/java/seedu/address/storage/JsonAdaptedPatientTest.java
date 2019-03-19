@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -45,7 +46,7 @@ public class JsonAdaptedPatientTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedPatient patient =
                 new JsonAdaptedPatient(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS,
-                VALID_CONDITIONS);
+                        VALID_CONDITIONS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }

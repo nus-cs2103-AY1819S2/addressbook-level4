@@ -2,10 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+//import java.util.List;
 
 import javafx.beans.InvalidationListener;
-import javafx.collections.ObservableArray;
+//import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.patient.Patient;
@@ -111,6 +111,11 @@ public class PatientBook implements ReadOnlyPatientBook {
     @Override
     public void removeListener(InvalidationListener invalidationListener) {
         this.invalidationListenerManager.removeListener(invalidationListener);
+    }
+
+    @Override
+    public String toString() {
+        return uniquePatientList.asUnmodifiableObservableList().toString();
     }
 
     @Override

@@ -195,6 +195,16 @@ class AddRequestCommandTest {
         }
 
         @Override
+        public void setSelectedHealthWorker(HealthWorker healthWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -321,6 +331,16 @@ class AddRequestCommandTest {
 
         @Override
         public void setRequest(Request target, Request editedRequest) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Request> selectedRequestProperty() {
             throw new AssertionError("This method should not be called.");
         }
 

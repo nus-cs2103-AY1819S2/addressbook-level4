@@ -16,7 +16,12 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.RequestDate;
-import seedu.address.model.tag.*;
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
+import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

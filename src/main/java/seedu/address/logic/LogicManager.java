@@ -78,10 +78,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<HealthWorker> getFilteredHealthWorkerList() { return model.getFilteredHealthWorkerList(); }
+    public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
+        return model.getFilteredHealthWorkerList(); }
 
     @Override
-    public ObservableList<Request> getFilteredRequestList() { return model.getFilteredRequestList(); }
+    public ObservableList<Request> getFilteredRequestList() {
+        return model.getFilteredRequestList(); }
 
     @Override
     public ObservableList<String> getHistory() {
@@ -109,7 +111,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() { return model.selectedHealthWorkerProperty(); }
+    public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
+        return model.selectedHealthWorkerProperty(); }
 
     @Override
     public ReadOnlyProperty<Request> selectedRequestProperty() { return model.selectedRequestProperty(); }

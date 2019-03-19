@@ -20,8 +20,7 @@ public class ConsultationRecord extends Record {
         BigDecimal prescriptionFee;
         if (medicinePrice == null) {
             prescriptionFee = BigDecimal.ZERO;
-        }
-        else {
+        } else {
             prescriptionFee = medicinePrice.multiply(new BigDecimal(quantity));
         }
         // BigDecimal prescriptionFee = prescription.getMedicine().getPrice().multiply(new BigDecimal(quantity));

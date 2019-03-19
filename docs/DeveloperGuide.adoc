@@ -254,8 +254,8 @@ Step 3. The 'Model#filterAndSortByLocation()' will first filter the `RestaurantL
 Step 4. The `filteredList` will then be updated to show the nearest restaurants with zero review.
 
 The following sequence diagram summarizes what happens when the user executes a listUnvisited Command.
-image::ListUnvisitedSequenceDiagram.png[width="800"]
 
+image::ListUnvisitedSequenceDiagram.png[width="800"]
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

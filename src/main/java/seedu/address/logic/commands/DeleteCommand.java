@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import java.util.List;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
      * Soft: File is deleted from PDF++.
      * Hard: File is deleted from PDF++ and from local file system.
      */
-    public enum Delete_Type {
+    public enum DeleteType {
         Hard, Soft
     }
 
@@ -43,11 +43,11 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    private final Delete_Type deleteType;
+    private final DeleteType deleteType;
 
-    public DeleteCommand(Index targetIndex, Delete_Type Type) {
+    public DeleteCommand(Index targetIndex, DeleteType type) {
         this.targetIndex = targetIndex;
-        this.deleteType = Type;
+        this.deleteType = type;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class DeleteCommand extends Command {
         Pdf pdfToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePdf(pdfToDelete);
 
-        if (deleteType == Delete_Type.Hard) {
+        if (deleteType == DeleteType.Hard) {
             File dFile = Paths.get(pdfToDelete.getDirectory().getDirectory(),
                     pdfToDelete.getName().getFullName()).toFile();
             if (!dFile.delete()) {

@@ -27,7 +27,7 @@ public class MoveCommandParser implements Parser<MoveCommand> {
 
         try {
             String[] parseArgs = args.trim().split("\\s+");
-            if(parseArgs.length != 2){
+            if (parseArgs.length != 2) {
                 throw new ParseException(MoveCommand.MESSAGE_USAGE);
             }
             index = ParserUtil.parseIndex(parseArgs[0]);

@@ -6,14 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import java.io.File;
-import java.nio.file.Paths;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;

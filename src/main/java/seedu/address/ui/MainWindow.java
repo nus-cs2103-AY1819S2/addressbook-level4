@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CardMainScreen cardMainScreen;
+    private TestSession testSession;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -171,7 +172,8 @@ public class MainWindow extends UiPart<Stage> {
      * Starts test session UI.
      */
     private void handleStartTestSession(Card card) {
-        Region testSessionRegion = (new TestSession(card)).getRoot();
+        testSession = new TestSession(card);
+        Region testSessionRegion = (testSession).getRoot();
         fullScreenPlaceholder.getChildren().add(testSessionRegion);
     }
 
@@ -199,6 +201,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleCorrectAnswer() {
         //TODO: Change UI to display correct answer
+        assert testSession != null;
+        testSession.handleCorrectAnswer();
     }
 
     /**
@@ -206,6 +210,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleWrongAnswer() {
         //TODO: Change UI to display wrong answer
+        assert testSession != null;
+        testSession.handleWrongAnswer();
     }
 
     private void updateCardListPanel() {

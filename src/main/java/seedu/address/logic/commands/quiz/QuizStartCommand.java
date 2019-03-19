@@ -6,6 +6,10 @@ import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_NAME;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,15 +18,18 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.management.ManagementModel;
+//import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.session.Session;
 import seedu.address.model.session.SrsCardsManager;
 import seedu.address.model.user.CardSrsData;
+//import seedu.address.storage.CsvLessonsStorage;
 
 /**
  * TODO: implement the actual start command
@@ -40,6 +47,8 @@ public class QuizStartCommand implements Command {
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
+    private static final Path INVALID_CORE_CHAR_FIELD_DATA_FOLDER = Paths.get("src", "test", "data",
+            "CsvLessonsStorageTest", "invalidCoreCharInField");
     protected List<QuizCard> quizCards;
     private Session session;
     public QuizStartCommand(Session session) {
@@ -77,10 +86,22 @@ public class QuizStartCommand implements Command {
             throw new CommandException(MESSAGE_EXPECTED_MGT_MODEL);
         }
 
-        ManagementModel mgtModel = (ManagementModel) model;
-
-        Lesson lesson = mgtModel.getLesson(0);
-        HashMap<Integer, CardSrsData> cardData = null; //TODO: implement after model updates
+        //CsvLessonsStorage storage = new CsvLessonsStorage(INVALID_CORE_CHAR_FIELD_DATA_FOLDER);
+        //ManagementModel mgtModel = new ManagementModelManager(null, storage.readLessons().get());
+        //Lesson lesson = mgtModel.getLesson(0);
+        //HashMap<Integer, CardSrsData> cardData = null;
+        //TODO: implement these hard code after updates
+        Card card1 = new Card(List.of("Japan", "Tokyo"), List.of("T"));
+        Card card2 = new Card(List.of("Belgium", "Brussels"), List.of("B"));
+        Lesson lesson = new Lesson("Capitals", List.of("Country", "Capitals"), List.of("Hint"),
+                0, 1, List.of(card1, card2));
+        Instant current = Instant.now();
+        CardSrsData cardData1 = new CardSrsData(card1.hashCode(), 1, 1, current);
+        CardSrsData cardData2 = new CardSrsData(card2.hashCode(), 1, 1,
+                current.plus(Duration.ofHours(1)));
+        HashMap<Integer, CardSrsData> cardData = new HashMap<>();
+        cardData.put(card1.hashCode(), cardData1);
+        cardData.put(card2.hashCode(), cardData2);
         SrsCardsManager generateManager = new SrsCardsManager(lesson, cardData);
         this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
                 generateManager.sort());

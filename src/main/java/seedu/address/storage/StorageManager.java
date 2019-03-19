@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -19,12 +20,21 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private FoodDiaryStorage foodDiaryStorage;
     private UserPrefsStorage userPrefsStorage;
+    private JsonPostalDataStorage jsonPostalDataStorage;
 
 
-    public StorageManager(FoodDiaryStorage foodDiaryStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(FoodDiaryStorage foodDiaryStorage, UserPrefsStorage userPrefsStorage,
+                          JsonPostalDataStorage jsonPostalDataStorage) {
         super();
         this.foodDiaryStorage = foodDiaryStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.jsonPostalDataStorage = jsonPostalDataStorage;
+    }
+    // ================ PostalDataStorage methods ==============================
+
+    @Override
+    public Optional<PostalDataSet> getPostalData() throws DataConversionException {
+        return jsonPostalDataStorage.loadPostalData();
     }
 
     // ================ UserPrefs methods ==============================

@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
@@ -18,7 +19,7 @@ import seedu.address.model.review.Review;
 
 public class AddReviewCommandTest {
 
-    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();
 
     /*@Test

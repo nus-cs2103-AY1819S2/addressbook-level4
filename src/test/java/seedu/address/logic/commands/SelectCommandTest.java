@@ -17,14 +17,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
+    private Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

@@ -11,12 +11,13 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 
 public class RedoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
+    private final Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

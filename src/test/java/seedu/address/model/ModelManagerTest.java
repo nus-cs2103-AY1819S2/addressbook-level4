@@ -156,8 +156,8 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(foodDiary, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(foodDiary, userPrefs);
+        modelManager = new ModelManager(foodDiary, userPrefs, new PostalDataSet());
+        ModelManager modelManagerCopy = new ModelManager(foodDiary, userPrefs, new PostalDataSet());
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -170,12 +170,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different foodDiary -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentFoodDiary, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentFoodDiary, userPrefs, new PostalDataSet())));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredRestaurantList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(foodDiary, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(foodDiary, userPrefs, new PostalDataSet())));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
@@ -183,6 +183,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setFoodDiaryFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(foodDiary, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(foodDiary, differentUserPrefs, new PostalDataSet())));
     }
 }

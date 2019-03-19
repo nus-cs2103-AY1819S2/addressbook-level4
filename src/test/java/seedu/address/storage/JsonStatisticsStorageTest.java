@@ -17,8 +17,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.statistics.Statistics;
 
 public class JsonStatisticsStorageTest {
 
@@ -113,7 +113,8 @@ public class JsonStatisticsStorageTest {
      */
     private void saveStatistics(ReadOnlyStatistics statistics, String filePath) {
         try {
-            new JsonStatisticsStorage(Paths.get(filePath)).saveStatistics(statistics, addToTestDataPathIfNotNull(filePath));
+            new JsonStatisticsStorage(Paths.get(filePath))
+                    .saveStatistics(statistics, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

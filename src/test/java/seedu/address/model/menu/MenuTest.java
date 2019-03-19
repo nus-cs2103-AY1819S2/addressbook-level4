@@ -15,9 +15,11 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.menu.exceptions.DuplicateMenuItemException;
 import seedu.address.testutil.MenuItemBuilder;
 

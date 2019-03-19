@@ -111,7 +111,7 @@ public class LogicManagerTest {
         //        assertHistoryCorrect(addCommand);
 
         // Execute addTable command
-        String addTableCommand = AddTableCommand.COMMAND_WORD ;
+        String addTableCommand = AddTableCommand.COMMAND_WORD;
         Table expectedTable = new TableBuilder().build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();

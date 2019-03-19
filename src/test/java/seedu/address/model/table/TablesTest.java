@@ -25,11 +25,11 @@ import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.testutil.TableBuilder;
 
 public class TablesTest {
-
-    private final Tables tables = new Tables();
-
+    
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final Tables tables = new Tables();
 
     @Test
     public void constructor() {

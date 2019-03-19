@@ -65,7 +65,7 @@ public class RestOrRantUtil {
     //    public static String getAddAlias(Person person) {
     //        return AddCommand.COMMAND_ALIAS + " " + getPersonDetails(person);
     //    }
-    
+
     //    /**
     //     * Returns the part of command string for the given {@code person}'s details.
     //     */

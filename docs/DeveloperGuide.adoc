@@ -415,6 +415,24 @@ Step 5. Replace the original restaurant with the new restaurant object in the mo
 The primary consideration was the compatibility of this new command with the existing architecture.
 Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
 
+=== Visit Webpage Feature
+
+Website can be displayed on the `BrowserPanel` with `visitWeb` command.
+
+==== current implementation
+
+* Restaurants has a field `Weblink` which contains the URL of the restaurant website.
+* Weblink have to be valid https or http link before browser can display the website.
+* Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse index into
+`VisitWebCommand`.
+* `Model` will then set Restaurant of the input index as selected Restaurant.
+* `BrowserPanel` of `UI` component will listen to this change in selected Restaurant and thus, display website of
+ Restaurant on the `BrowserPanel`.
+
+The following sequence diagram shows how the visitWeb operation works:
+
+image::VisitWebSequenceDiagram.png[width="800"]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

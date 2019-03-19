@@ -9,34 +9,34 @@ import javafx.scene.input.KeyCode;
  */
 public class BookCommandBoxHandle extends NodeHandle<TextField> {
 
-	public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-	public BookCommandBoxHandle(TextField commandBoxNode) {
-		super(commandBoxNode);
-	}
+    public BookCommandBoxHandle(TextField commandBoxNode) {
+        super(commandBoxNode);
+    }
 
-	/**
-	 * Returns the text in the command box.
-	 */
-	public String getInput() {
-		return getRootNode().getText();
-	}
+    /**
+     * Returns the text in the command box.
+     */
+    public String getInput() {
+        return getRootNode().getText();
+    }
 
-	/**
-	 * Enters the given command in the Command Box and presses enter.
-	 */
-	public void run(String command) {
-		click();
-		guiRobot.interact(() -> getRootNode().setText(command));
-		guiRobot.pauseForHuman();
+    /**
+     * Enters the given command in the Command Box and presses enter.
+     */
+    public void run(String command) {
+        click();
+        guiRobot.interact(() -> getRootNode().setText(command));
+        guiRobot.pauseForHuman();
 
-		guiRobot.type(KeyCode.ENTER);
-	}
+        guiRobot.type(KeyCode.ENTER);
+    }
 
-	/**
-	 * Returns the list of style classes present in the command box.
-	 */
-	public ObservableList<String> getStyleClass() {
-		return getRootNode().getStyleClass();
-	}
+    /**
+     * Returns the list of style classes present in the command box.
+     */
+    public ObservableList<String> getStyleClass() {
+        return getRootNode().getStyleClass();
+    }
 }

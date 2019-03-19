@@ -10,25 +10,25 @@ import javafx.stage.Stage;
  */
 public class BookHelpWindowHandle extends StageHandle {
 
-	public static final String HELP_WINDOW_TITLE = "Help";
+    public static final String HELP_WINDOW_TITLE = "Help";
 
-	private static final String HELP_WINDOW_BROWSER_ID = "#browser";
+    private static final String HELP_WINDOW_BROWSER_ID = "#browser";
 
-	public BookHelpWindowHandle(Stage helpWindowStage) {
-		super(helpWindowStage);
-	}
+    public BookHelpWindowHandle(Stage helpWindowStage) {
+        super(helpWindowStage);
+    }
 
-	/**
-	 * Returns true if a help window is currently present in the application.
-	 */
-	public static boolean isWindowPresent() {
-		return new GuiRobot().isWindowShown(HELP_WINDOW_TITLE);
-	}
+    /**
+     * Returns true if a help window is currently present in the application.
+     */
+    public static boolean isWindowPresent() {
+        return new GuiRobot().isWindowShown(HELP_WINDOW_TITLE);
+    }
 
-	/**
-	 * Returns the {@code URL} of the currently loaded page.
-	 */
-	public URL getLoadedUrl() {
-		return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));
-	}
+    /**
+     * Returns the {@code URL} of the currently loaded page.
+     */
+    public URL getLoadedUrl() {
+        return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));
+    }
 }

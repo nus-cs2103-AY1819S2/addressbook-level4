@@ -223,6 +223,58 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::displaymod[]
+=== Displaymod feature
+==== Current Implementation
+
+The `displaymod` is a search function that displays all available information with regards to the module codes the user types
+into the command box.
+
+When the application is launched, a JSON file containing all of NUS module information is then converted
+into an Object Class called ModuleInfo individually and stored into an ObservableList<ModuleInfo> called ModuleInfoList.
+
+image::ConversionModuleInfo.png[width="800"]
+
+The usage of ModuleInfoList is only temporary as it is passed into `ModelManager` and then converted into an ObservableList<>.
+
+[NOTE]
+The purpose of having ModuleInfoList is not only for temporary use; it also serves as form of Error handling if the application
+is unable to find the location of the JSON file containing all of the module information, a blank ModuleInfoList is handed to the
+ModelManager.
+
+image::ObservableList.png[width="800"]
+
+This is done as `ObservableList<>` comes with a `FilteredList<>` feature: which wraps an ObservableList and filters the contents
+based on `predicates`.
+
+* `Predicates` -- All search keywords i.e *Module Code* is saved as a list of `predicates`.
+
+This allows for easier search throughout the list of all Module Information, as the User can search for multiple modules in
+a single search.
+
+The FilteredList is then collected and the ModuleInfo Objects will be formatted into Strings so that the information required
+is displayed by the UI.
+
+==== Design Considerations
+===== Aspect: How Displaymod executes
+* **Current Implementation :** Searches based on Module Codes Only
+** Pros: Searches is slightly faster since its only based on Module Codes
+** Cons: Limited search since it requires User to know Module Codes beforehand.
+
+* **Future Implementation :** Search based on keywords
+** Pros: User can search for Modules based on keywords thus require no prior knowledge on a particular module code
+** Cons: Have to combine all module information into a single String and search for keywords; slower searches.
+
+==== Aspect: Data Structure Used
+* **Current Implementation :** `ObservableList<>` is used
+** Pros: Allows for `FilteredList<>` to be used based on predicates; easy implementation.
+** Cons: Requires additional classes to be implemented to handle the use of `Predicates`.
+
+* **Alternative :** Sticking to the `ArrayList<>`
+** Pros: Easy to handle as it is a simple data structure.
+** Cons: Harder to search for specific Keywords(future implementation)
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

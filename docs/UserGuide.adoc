@@ -171,29 +171,26 @@ Lists all level-2K CS modules in the module plan.
 * `find c/cs s/y1s2` +
 Lists all CS modules taken in Y1S2.
 
-=== Display module information: `displaym`
+=== Display module information: `displaymod`
 
-3 options to display module information, e.g. course description, prerequisites and courses succeeding the modules. +
-Format: `displaym o/OPTIONS [MORE_ARGUMENTS]`
+2 options to display module information, e.g. course description, prerequisites and courses succeeding the modules.
+It is possible to search for multiple modules at the same time by typing the next module code preceded by a whitespace.+
+Format: `displaymod [MODULE_CODE]++`
 
-3 modes for o/OPTIONS include:
+1 mode for o/OPTIONS include:
 
-.  `o/all`
-* Display all modules completed.
-
-.  `o/info c/MODULE_CODE`
-* Display information about a module and modules preceding and succeeding it
-
-.  `o/info k/KEYWORDS n/[NUMBER]`
+.  `o/info k/KEYWORDS n/[NUMBER]` *Coming in V1.3*
 * Display top n (3 if last argument is left blank, capped at 10) information most related modules based on keywords inserted.
 
 Examples:
 
-* `displaym o/all` +
-Display all modules completed.
-* `displaym o/info c/CS2103T` +
-System to display module information about CS2103T
-* `displaym o/info k/Software Engineering n/5` +
+* `displaymod CS2103T` +
+Display all information with regards to Module: CS2103T i.e Module name, Module description etc. .
+
+* `displaymod CS2103T CS2101 CS1010 ACC1002X` +
+Displays all the of the 4 module information in-order with the search.
+
+* `displaymod o/info k/Software Engineering n/5` +
 Display top 5 modules related to Software Engineering.
 
 === Display user information: `displayu`

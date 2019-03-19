@@ -228,18 +228,75 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-
 //tag::studysessions[]
 === Study Sessions feature
+
 ==== Current Implementation
 
 The third ViewState is called `StudyState`.
 
-This state can be accessed when user executes the command `select DECK_NUMBER` and then `study`.
+This state can be accessed when user executes the command `study DECK_NUMBER`
 
 The following commands are supported under the study sessions:
 
-* `close` - Finishes the study sessions and saves user score for each card under.
+Study View supports the following operations:
+* `done`
+* [any other command]
+* [difficulty rating]
+
+==== Data Structure Implementation
+
+The study mechanism is facilitated by `Deck`.
+
+It extends `Model` with a  `cardShown` property, stored internally as an `ReadOnlyProperty` with generic type `Card`.
+Additionally, it implements the following operations:
+
+* `Deck#generateRandomCard()` -- Generates a random index based on the size of UniqueCardList in Deck
+* `TopDeck#commit()` -- Saves the current address book state in its history.
+
+Given below is an example usage scenario and how the `study` mechanism behaves at each step.
+
+Step 1. User enter study mode using `study 1` command.
+
+A `StudyDeck` command is returned after reading the command word, `study`.
+Deck#generateRandomCard() is executed automatically as part of `StudyDeck` execution.
+
+This modifies `cardShown` to a random card based on the index generated.
+The `textShown` property in the UI is also modified right after.
+The `textType` property in the UI is also modified to 0 for question.
+
+Step 2. User executes the `[wildcard]` command to signal that he has come up with the answer.
+
+Step 3. This command calls `Card#getAnswer()`
+This changes the `textShown` property in the UI.
+The `textType` property in the UI is also modified to 1 for answer.
+
+Step 4. User enters the difficulty rating command.
+
+
+==== Design Considerations
+
+===== Aspect: How study view is linked to the UI
+
+* **Alternative 1 (current choice):**
+** Pros: Easy to implement.
+** Cons: UI just changes state based on commands issued.
+* **Alternative 2: (current choice):** Use an event listener to see whether the `textShown` has changed.
+Because it is easy to modify textShown immediately, there is no need for the UI to track this variable as
+that would be costly.
+
+==== UI Implementation
+
+`QuestionPanel` replaces the `ListPanel` when the active `ViewState` in the model is an instance
+of `StudyView`.
+
+`QuestionPanel` only has 1 property which is `textShown` and `textType`.
+The first contains the words which will be shown, whether question or answer.
+
+`textType` contains an enum to specify whether the panel is showing a question or an answer.
+
+// end::studysessions[]
+
 
 === Card Management
 ==== Data Structure Implementation

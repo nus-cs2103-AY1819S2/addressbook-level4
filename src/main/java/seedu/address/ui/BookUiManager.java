@@ -73,9 +73,9 @@ public class BookUiManager implements Ui {
     }
 
     /**
-	 * Shows an error alert dialog with {@code title} and error message, {@code e},
-	 * and exits the application after the user has closed the alert dialog.
-	 */
+     * Shows an error alert dialog with {@code title} and error message, {@code e},
+     * and exits the application after the user has closed the alert dialog.
+     */
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());

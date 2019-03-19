@@ -129,7 +129,7 @@ public class BookMainWindow extends UiPart<Stage> {
 
     /**
      * Sets the default size based on {@code guiSettings}.
-	 */
+     */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
@@ -140,8 +140,8 @@ public class BookMainWindow extends UiPart<Stage> {
     }
 
     /**
-	 * Opens the help window or focuses on it if it's already opened.
-	 */
+     * Opens the help window or focuses on it if it's already opened.
+     */
     @FXML
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
@@ -156,8 +156,8 @@ public class BookMainWindow extends UiPart<Stage> {
     }
 
     /**
-	 * Closes the application.
-	 */
+     * Closes the application.
+     */
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
@@ -172,10 +172,10 @@ public class BookMainWindow extends UiPart<Stage> {
     }
 
     /**
-	 * Executes the command and returns the result.
-	 *
-	 * @see seedu.address.logic.Logic#execute(String)
-	 */
+     * Executes the command and returns the result.
+     *
+     * @see seedu.address.logic.Logic#execute(String)
+     */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {
@@ -191,6 +193,16 @@ public class AddCommandTest {
 
         @Override
         public boolean checkIfCardAlreadyAnswered() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void importCardFolders(CsvFile csvFile) throws IOException {
             throw new AssertionError("This method should not be called.");
         }
 

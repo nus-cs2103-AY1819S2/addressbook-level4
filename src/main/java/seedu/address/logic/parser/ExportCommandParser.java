@@ -12,7 +12,7 @@ import seedu.address.storage.ParsedInOut;
 public class ExportCommandParser implements Parser<ExportCommand> {
 
     /**
-     * Parses the given argument {@code String} in the context of the ExportCommand
+     * Parses the given argument {@code ParsedInOut} in the context of the ExportCommand
      * and returns an ExportCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */

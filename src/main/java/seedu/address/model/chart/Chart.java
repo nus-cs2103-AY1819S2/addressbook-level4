@@ -5,6 +5,9 @@ import java.util.Map;
 import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Rating;
 
+/**
+ * Generates a chart in TravelBuddy.
+ */
 public class Chart {
 
     private final Map<CountryCode, Integer> mapCountry;

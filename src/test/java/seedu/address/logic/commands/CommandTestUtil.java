@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.nio.file.Paths;
@@ -65,9 +64,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
 
-    /*public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
+    /*public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
@@ -100,11 +97,13 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();*/
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         DESC_A = new EditPersonDescriptorBuilder().withName(VALID_NAME_A)
                 .withDirectory(VALID_DIR_A).build();
         DESC_B = new EditPersonDescriptorBuilder().withName(VALID_NAME_B)
-                .withDirectory(VALID_DIR_B).build();
+                .withDirectory(VALID_DIR_B).build();*/
+        DESC_A = new EditPersonDescriptorBuilder().withName(VALID_NAME_A).build();
+        DESC_B = new EditPersonDescriptorBuilder().withName(VALID_NAME_B).build();
     }
 
     /**
@@ -169,7 +168,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the pdf at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showPdfAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPdfList().size());
 
         Pdf pdf = model.getFilteredPdfList().get(targetIndex.getZeroBased());
@@ -182,7 +181,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first pdf in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstPdf(Model model) {
         Pdf firstPdf = model.getFilteredPdfList().get(0);
         model.deletePdf(firstPdf);
         model.commitPdfBook();

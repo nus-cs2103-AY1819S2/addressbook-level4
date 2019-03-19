@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
@@ -19,11 +20,9 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Size;
-import seedu.address.model.pdf.exceptions.DuplicatePdfException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -46,7 +45,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited PDF: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This pdf already exists in the address book.";
-    public static final String MESSAGE_EDIT_PDF_FAILIUE = "Unable to Edit PDF.";
+    public static final String MESSAGE_EDIT_PDF_FAILURE = "Unable to Edit PDF.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -75,19 +74,12 @@ public class EditCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPerson(pdfToEdit, editPersonDescriptor);
 
-        if (editedPdf.isValidPdf()) {
-            System.out.println(Paths.get(editedPdf.getDirectory().getDirectory(),
-                    editedPdf.getName().getFullName()).toAbsolutePath().toString());
-            throw new CommandException(MESSAGE_EDIT_PDF_FAILIUE, new DuplicatePdfException());
-        } else {
+        File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
+        File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
+        boolean editSuccess = oFile.renameTo(nFile);
 
-            File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
-            File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
-            boolean editSuccess = oFile.renameTo(nFile);
-
-            if (!editSuccess) {
-                throw new CommandException(MESSAGE_EDIT_PDF_FAILIUE);
-            }
+        if (!editSuccess) {
+            throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
         }
 
         if (!pdfToEdit.isSamePdf(editedPdf) && model.hasPdf(editedPdf)) {
@@ -108,12 +100,11 @@ public class EditCommand extends Command {
         assert pdfToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(pdfToEdit.getName());
-        Directory updatedDirectory = editPersonDescriptor.getDirectory().orElse(pdfToEdit.getDirectory());
         Size updatedSize = new Size(Long.toString(Paths.get(pdfToEdit.getDirectory().getDirectory(),
                 pdfToEdit.getName().getFullName()).toFile().getTotalSpace()));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
 
-        return new Pdf(updatedName, updatedDirectory, updatedSize, updatedTags);
+        return new Pdf(updatedName, pdfToEdit.getDirectory(), updatedSize, updatedTags);
     }
 
     @Override
@@ -140,7 +131,6 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Directory directory;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -151,7 +141,6 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setDirectory(toCopy.directory);
             setTags(toCopy.tags);
         }
 
@@ -159,7 +148,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, directory, tags);
+            return CollectionUtil.isAnyNonNull(name, tags);
         }
 
         public void setName(Name name) {
@@ -168,14 +157,6 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setDirectory(Directory directory) {
-            this.directory = directory;
-        }
-
-        public Optional<Directory> getDirectory() {
-            return Optional.ofNullable(directory);
         }
 
         /**
@@ -211,7 +192,6 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getDirectory().equals(e.getDirectory())
                     && getTags().equals(e.getTags());
         }
     }

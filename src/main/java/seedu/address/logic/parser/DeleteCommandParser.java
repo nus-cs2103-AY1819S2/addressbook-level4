@@ -11,6 +11,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
+    private static String deleteHard = "hard";
+
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
@@ -18,8 +20,21 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteCommand(index);
+            Index index;
+            String[] parseArgs = args.trim().split(" ");
+            if (parseArgs.length == 1) {
+                index = ParserUtil.parseIndex(args);
+                return new DeleteCommand(index);
+            } else if (parseArgs.length == 2) {
+                index = ParserUtil.parseIndex(parseArgs[0]);
+                if (parseArgs[1].toLowerCase().equals(deleteHard)) {
+                    return new DeleteCommand(index, DeleteCommand.DeleteType.Hard);
+                } else {
+                    throw new ParseException(DeleteCommand.MESSAGE_USAGE);
+                }
+            } else {
+                throw new ParseException(DeleteCommand.MESSAGE_USAGE);
+            }
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);

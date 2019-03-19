@@ -42,7 +42,8 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.getFullName()).append(" "));
-        descriptor.getDirectory().ifPresent(dir -> sb.append(PREFIX_DIRECTORY).append(dir.getDirectory()).append(" "));
+        //descriptor.getDirectory().ifPresent(dir -> sb.append(PREFIX_DIRECTORY)
+        // .append(dir.getDirectory()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

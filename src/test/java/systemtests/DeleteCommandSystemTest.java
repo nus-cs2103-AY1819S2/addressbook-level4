@@ -3,11 +3,11 @@ package systemtests;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -31,9 +31,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first pdf in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Pdf deletedPdf = removePerson(expectedModel, INDEX_FIRST_PERSON);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPdf);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PDF.getOneBased() + "       ";
+        Pdf deletedPdf = removePerson(expectedModel, INDEX_FIRST_PDF);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PDF_SUCCESS, deletedPdf);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last pdf in the list -> deleted */
@@ -60,7 +60,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: filtered pdf list, delete index within bounds of address book and pdf list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_PDF;
         assertTrue(index.getZeroBased() < getModel().getFilteredPdfList().size());
         assertCommandSuccess(index);
 
@@ -82,7 +82,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         selectPerson(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedPdf = removePerson(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPdf);
+        expectedResultMessage = String.format(MESSAGE_DELETE_PDF_SUCCESS, deletedPdf);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -129,7 +129,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         Pdf deletedPdf = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPdf);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PDF_SUCCESS, deletedPdf);
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

@@ -17,6 +17,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LabelCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MoveCommand;
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -54,20 +55,26 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
         case LabelCommand.COMMAND_WORD:
             return new LabelCommand();
@@ -75,24 +82,20 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+        case MoveCommand.COMMAND_WORD:
+            return new MoveCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
+
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
 

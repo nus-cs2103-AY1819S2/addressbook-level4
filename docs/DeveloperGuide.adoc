@@ -233,9 +233,33 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Export/Import/Open
+=== Import feature
+The Import Command allow users to import a file of image format into FomoFoto for editing.
 
-{dummy things}
+==== Current implementation
+The implementation of the import feature is largely similar to that of linux's `cp` command, with the exception the output path is fixed. It is facilitated by he `ModelManager` and `ImportCommandParser` and contains the follow operation:
+
+ * `Model#displayImage(Image)` - Retrives the image from `assets` folder by `Image` name field.
+ * `ImportCommandParser#parse(String)` - Takes in an absolute path and copies the image to `assets` directory.
+
+Example usage scenario:
+
+ 1. User launches application and enters `import C:\Users\images\sample.png`
+ 2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` folder if the path is valid.
+ 3. `Model` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
+ 4. `ImagePanel` updates to reflect the imported image.
+
+image::ImportSequenceDiagram.png[width=800]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice)*: Import images with absolute path.
+** Pros: Easy and clement implementation.
+** Cons: Limited to single image import.
+
+* *Alternative 2* : Open images within a directory.
+** Pros: Can import many images without repeating the command.
+** Cons: Can result in errors in too mny images or images are of alternative formats.
 
 === Image Filters
 ==== Current Implementation

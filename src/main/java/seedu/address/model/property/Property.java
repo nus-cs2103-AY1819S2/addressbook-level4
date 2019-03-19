@@ -22,7 +22,7 @@ public class Property {
     public Property(String propertyType, Address address, Price price, Set<Tag> tags) {
         requireAllNonNull(address);
         this.address = address;
-        if (propertyType == "selling") {
+        if (propertyType.equals("selling")) {
             this.sellingPrice = price;
             rentalPrice = new Price("0");
         } else {

@@ -119,7 +119,7 @@ public class BookShelfTest {
     }
 
     /**
-     * A stub ReadOnlyBookShelf whose persons list can violate interface constraints.
+     * A stub ReadOnlyBookShelf whose persons / books list can violate interface constraints.
      */
     private static class BookShelfStub implements ReadOnlyBookShelf {
         private final ObservableList<Book> books = FXCollections.observableArrayList();

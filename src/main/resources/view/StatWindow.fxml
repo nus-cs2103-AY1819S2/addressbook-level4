@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Region?>
+
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http//javafx.com/fxm/1"
+         title="OurTeeth" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+
+            <VBox id="statsPane" fx:id="statsPane" xmlns="http://javafx.com/javafx/8"
+                  xmlns:fx="http://javafx.com/fxml/1" styleClass="pane-with-border">
+                <padding>
+                    <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+
+                <GridPane VBox.vgrow="ALWAYS" maxHeight="50" alignment="CENTER">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                    <Label fx:id="patientTitle" styleClass="cell_title_label" text="Statistic report for \$name"
+                           GridPane.columnIndex="2" GridPane.rowIndex="2" >
+                        <!--<minWidth>-->
+                            <!--<Region fx:constant="USE_PREF_SIZE" />-->
+                        <!--</minWidth>-->
+                    </Label>
+                </GridPane>
+
+                <HBox VBox.vgrow="ALWAYS" fx:id="detailsBox" minHeight="100" maxHeight="100" alignment="CENTER">
+                    <SplitPane>
+                        <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="CENTER" minWidth="100"
+                              styleClass="pane-with-border">
+                            <padding>
+                                <Insets top="5" right="10" bottom="5" left="10" />
+                            </padding>
+                            <Label fx:id="detailsTitle" text="Personal Details." styleClass="cell_big_label" />
+
+                            <Label fx:id="nric" styleClass="cell_small_label" text="Tes: \$nric"/>
+                            <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dateOfBirth" />
+                            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        </VBox>
+
+                        <VBox VBox.vgrow="ALWAYS" fx:id="recordsBox" alignment="CENTER" minWidth="200" maxHeight="200"
+                              styleClass="pane-with-border">
+                            <padding>
+                                <Insets top="5" right="10" bottom="5" left="10" />
+                            </padding>
+                            <Label fx:id="recordTitle" text="Latest Record stats" styleClass="cell_big_label" />
+
+                            <TableView fx:id="recordStatTable" maxWidth="200" minWidth="200">
+                                <columns>
+                                    <TableColumn maxWidth="100" text="Procedure" styleClass="cell_small_label" />
+                                    <TableColumn maxWidth="100" text="Number" styleClass="cell_small_label" />
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <VBox VBox.vgrow="ALWAYS" fx:id="teethBox" alignment="CENTER" minWidth="100"
+                              styleClass="pane-with-border">
+                            <padding>
+                                <Insets top="5" right="10" bottom="5" left="10" />
+                            </padding>
+                            <Label fx:id="teethTitle" text="Latest Teeth View" styleClass="cell_big_label" />
+                        </VBox>
+                    </SplitPane>
+                </HBox>
+
+                <HBox VBox.vgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="100" alignment="CENTER">
+                    <padding>
+                        <Insets top="20" right="10" bottom="5" left="10" />
+                    </padding>
+                    <SplitPane>
+                        <padding>
+                            <Insets top="5" right="10" bottom="5" left="10" />
+                        </padding>
+
+                        <HBox styleClass="pane-with-border">
+                            <Label text="Bar Chart Placeholder" styleClass="cell_big_label" />
+                        </HBox>
+
+                        <HBox styleClass="pane-with-border">
+                            <Label text="Pie Chat Placeholder" styleClass="cell_big_label" />
+                        </HBox>
+                    </SplitPane>
+                </HBox>
+            </VBox>
+
+        </Scene>
+    </scene>
+</fx:root>

@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatWindow statWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -73,6 +74,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statWindow = new StatWindow(new Stage(), this.logic);
     }
 
     public Stage getPrimaryStage() {
@@ -161,6 +163,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens a stat window and closes the previous one if it's already opened
+     */
+    @FXML
+    public void handleStat() {
+        if (statWindow.isShowing()) {
+            statWindow.close();
+        }
+        statWindow.populateData();
+        statWindow.show();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -223,6 +237,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowStat()) {
+                handleStat();
             }
 
             if (commandResult.isExit()) {

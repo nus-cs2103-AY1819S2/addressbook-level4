@@ -208,20 +208,19 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static File parseOpenSave(String filePath) throws ParseException {
+    public static ParsedInOut parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)$";
-
-        if (!filePath.matches(validationRegex)) {
-            throw new ParseException("File name is invalid");
-        }
-
         String newPath = "data\\";
-
         File file = new File(newPath.concat(filePath));
 
-        return file;
+        final String jsonRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)$";
+
+        if (!filePath.matches(jsonRegex)) {
+            throw new ParseException("Input file type is not a .json");
+        } else {
+            return new ParsedInOut(file, "json");
+        }
     }
 
     /**
@@ -234,6 +233,7 @@ public class ParserUtil {
         input = input.trim();
         String newPath = "data\\";
         String filepath = "";
+        String fileType = "";
 
         final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s?([0-9,-]*)?$";
         final String allRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s(all)$";
@@ -247,7 +247,8 @@ public class ParserUtil {
                     filepath = splitMatcher.group(1).concat(".");
                     filepath = filepath.concat(splitMatcher.group(2));
                     filepath = newPath.concat(filepath);
-                    return new ParsedInOut(new File(filepath));
+                    fileType = splitMatcher.group(2);
+                    return new ParsedInOut(new File(filepath), fileType);
                 } else {
                     // This shouldn't be possible after validationRegex
                     throw new ParseException("Input file type is not a .json");
@@ -265,6 +266,7 @@ public class ParserUtil {
             filepath = splitMatcher.group(1).concat(".");
             filepath = filepath.concat(splitMatcher.group(2));
             filepath = newPath.concat(filepath);
+            fileType = splitMatcher.group(2);
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
@@ -293,6 +295,6 @@ public class ParserUtil {
             }
         }
 
-        return new ParsedInOut(new File(filepath), parsedIndex);
+        return new ParsedInOut(new File(filepath), fileType, parsedIndex);
     }
 }

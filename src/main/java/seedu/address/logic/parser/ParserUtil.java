@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -277,5 +278,45 @@ public class ParserUtil {
         }
 
         return new ParsedInOut(new File(filepath), parsedIndex);
+    }
+
+    /**
+     * Parse a {@code  String argument} from copy or taskcopy command to number of copies needed
+     * @param input input from copy or taskcopy command
+     * @return number of copies requested
+     * @throws ParseException
+     */
+    public static Pair<Index, Integer> parseCopy(String input) throws ParseException {
+        requireNonNull(input);
+        input = input.trim();
+
+        String[] parsedInput = input.split("\\s+");
+        Index i;
+        int numOfCopies;
+
+        if (parsedInput.length == 1) {
+
+            try {
+                i = parseIndex(parsedInput[0]);
+            } catch (NumberFormatException e) {
+                throw new ParseException("Wrong input format!");
+            }
+            return new Pair(i, 1);
+        } else if (parsedInput.length == 2) {
+
+            try {
+                i = parseIndex(parsedInput[0]);
+                numOfCopies = Integer.parseInt(parsedInput[1]);
+            } catch (NumberFormatException e) {
+                throw new ParseException("Wrong input format!");
+            }
+            if (numOfCopies < 1) {
+                throw new ParseException("Input number must be positive!");
+            }
+
+            return new Pair(i, numOfCopies);
+        }
+
+        throw new ParseException("Wrong number of arguments");
     }
 }

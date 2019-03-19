@@ -40,9 +40,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandBox commandBox;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML

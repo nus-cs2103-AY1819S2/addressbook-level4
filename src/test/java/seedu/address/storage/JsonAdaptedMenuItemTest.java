@@ -1,22 +1,23 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+import static seedu.address.storage.JsonAdaptedMenu.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Price;
 import seedu.address.testutil.Assert;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.JsonAdaptedMenu.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
-
 public class JsonAdaptedMenuItemTest {
     private static final String INVALID_NAME = "@g1i0 01!0";
     private static final String INVALID_CODE = "invalid1234";
     private static final String INVALID_PRICE = "12.345";
 
-    private static final String VALID_NAME =  FRENCH_FRIES.getName().toString();
+    private static final String VALID_NAME = FRENCH_FRIES.getName().toString();
     private static final String VALID_CODE = FRENCH_FRIES.getCode().toString();
     private static final String VALID_PRICE = FRENCH_FRIES.getPrice().toString();
 

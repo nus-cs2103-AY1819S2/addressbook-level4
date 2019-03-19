@@ -1,15 +1,16 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+import static seedu.address.storage.JsonAdaptedDailyRevenue.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE1;
+
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Year;
 import seedu.address.testutil.Assert;
-
-import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.JsonAdaptedDailyRevenue.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE1;
 
 public class JsonAdaptedDailyRevenueTest {
 
@@ -17,7 +18,7 @@ public class JsonAdaptedDailyRevenueTest {
     private static final String INVALID_MONTH = "^.";
     private static final String INVALID_YEAR = "2020";
 
-    private static final String VALID_DAY =  DAILY_REVENUE1.getDay().toString();
+    private static final String VALID_DAY = DAILY_REVENUE1.getDay().toString();
     private static final String VALID_MONTH = DAILY_REVENUE1.getMonth().toString();
     private static final String VALID_YEAR = DAILY_REVENUE1.getYear().toString();
     private static final String VALID_TOTAL_DAILY_REVENUE = Float.toString(DAILY_REVENUE1.getTotalDailyRevenue());
@@ -54,7 +55,7 @@ public class JsonAdaptedDailyRevenueTest {
 
     @Test
     public void toModelType_nullMonth_throwsIllegalValueException() {
-        JsonAdaptedDailyRevenue dailyRevenue = new JsonAdaptedDailyRevenue(VALID_DAY,null,  VALID_YEAR,
+        JsonAdaptedDailyRevenue dailyRevenue = new JsonAdaptedDailyRevenue(VALID_DAY, null, VALID_YEAR,
                 VALID_TOTAL_DAILY_REVENUE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Month.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, dailyRevenue::toModelType);

@@ -1,0 +1,60 @@
+{
+  "tableList" : [ {
+    "tableNumber" : "1",
+    "tableStatus" : "0/4"
+  }, {
+    "tableNumber" : "2",
+    "tableStatus" : "3/4"
+  }, {
+    "tableNumber" : "3",
+    "tableStatus" : "2/4"
+  }, {
+    "tableNumber" : "4",
+    "tableStatus" : "6/6"
+  }, {
+    "tableNumber" : "5",
+    "tableStatus" : "0/8"
+  }, {
+    "tableNumber" : "6",
+    "tableStatus" : "0/1"
+  }, {
+    "tableNumber" : "7",
+    "tableStatus" : "0/2"
+  }, {
+    "tableNumber" : "8",
+    "tableStatus" : "0/3"
+  }, {
+    "tableNumber" : "9",
+    "tableStatus" : "0/4"
+  }, {
+    "tableNumber" : "10",
+    "tableStatus" : "0/5"
+  }, {
+    "tableNumber" : "11",
+    "tableStatus" : "0/1"
+  }, {
+    "tableNumber" : "12",
+    "tableStatus" : "0/2"
+  }, {
+    "tableNumber" : "13",
+    "tableStatus" : "0/3"
+  }, {
+    "tableNumber" : "14",
+    "tableStatus" : "0/1"
+  }, {
+    "tableNumber" : "15",
+    "tableStatus" : "0/2"
+  }, {
+    "tableNumber" : "16",
+    "tableStatus" : "0/3"
+  }, {
+    "tableNumber" : "17",
+    "tableStatus" : "0/4"
+  }, {
+    "tableNumber" : "18",
+    "tableStatus" : "0/5"
+  }, {
+    "tableNumber" : "19",
+    "tableStatus" : "0/10000000"
+  } ]
+}

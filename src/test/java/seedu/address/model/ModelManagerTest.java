@@ -5,13 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TABLES;
 import static seedu.address.testutil.TypicalRestOrRant.CHICKEN_WINGS;
+import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE1;
+import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE2;
 import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W12;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
-import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE1;
-import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -357,7 +357,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteDailyRevenue_dailyRevenueIsSelectedAndFirstDailyRevenueInFilteredDailyRevenuesList_selectionCleared() {
+    public void deleteDailyRevenue_firstDailyRevenueIsSelectedInFilteredDailyRevenueList_selectionCleared() {
         modelManager.addDailyRevenue(DAILY_REVENUE1);
         modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
         modelManager.deleteDailyRevenue(DAILY_REVENUE1);
@@ -365,7 +365,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteDailyRevenue_dailyRevenueIsSelectedAndSecondDailyRevenueInFilteredDailyRevenuesList_firstDailyRevenueSelected() {
+    public void deleteDailyRevenue_secondDailyRevenueIsSelectedInFilteredDailyRevenueList_firstDailyRevenueSelected() {
         modelManager.addDailyRevenue(DAILY_REVENUE1);
         modelManager.addDailyRevenue(DAILY_REVENUE2);
         assertEquals(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2), modelManager.getFilteredDailyRevenueList());
@@ -378,7 +378,8 @@ public class ModelManagerTest {
     public void setDailyRevenue_dailyRevenueIsSelected_selectedDailyRevenueUpdated() {
         modelManager.addDailyRevenue(DAILY_REVENUE1);
         modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
-        DailyRevenue updatedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withTotalDailyRevenue("150.60").build();
+        DailyRevenue updatedDailyRevenue =
+                new StatisticsBuilder(DAILY_REVENUE1).withTotalDailyRevenue("150.60").build();
         modelManager.setDailyRevenue(DAILY_REVENUE1, updatedDailyRevenue);
         assertEquals(updatedDailyRevenue, modelManager.getSelectedDailyRevenue());
     }
@@ -390,7 +391,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setSelectedDailyRevenue_dailyRevenueNotInFilteredDailyRevenueList_throwsDailyRevenueNotFoundException() {
+    public void setSelectedDailyRevenue_dailyRevenueNotInFilteredList_throwsDailyRevenueNotFoundException() {
         thrown.expect(DailyRevenueNotFoundException.class);
         modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
     }

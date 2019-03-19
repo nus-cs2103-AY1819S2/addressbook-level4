@@ -1,14 +1,15 @@
 package seedu.address.model.menu;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.model.menu.exceptions.DuplicateMenuItemException;
-import seedu.address.testutil.MenuItemBuilder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalRestOrRant.CHEESE_NACHOS;
+import static seedu.address.testutil.TypicalRestOrRant.CHICKEN_WINGS;
+import static seedu.address.testutil.TypicalRestOrRant.CREPES;
+import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+import static seedu.address.testutil.TypicalRestOrRant.SALAD;
+import static seedu.address.testutil.TypicalRestOrRant.SHRIMP_FRIED_RICE;
+import static seedu.address.testutil.TypicalRestOrRant.getTypicalMenuItems;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,10 +17,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalRestOrRant.*;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import seedu.address.model.menu.exceptions.DuplicateMenuItemException;
+import seedu.address.testutil.MenuItemBuilder;
 
 public class MenuTest {
 

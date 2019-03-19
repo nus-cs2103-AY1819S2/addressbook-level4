@@ -17,7 +17,15 @@ endif::[]
 
 By: `cs2103-ay1819s2-t12-1`      Since: `Feb 2019`      Licence: `MIT`
 
+== Introduction
+
+HMS+ is a Hotel Management System software that act as a *single, integrated system* to manage all aspects of a hotelier's requirements. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing.
+
+There are *many ways* to contribute towards the *development of the software: coding, testing, improving the build process and tools or contributing to the documentation.* This guide provides information that will not only help you *get started as a contributor*, but that you'll find useful to refer to even if you are already an *experienced contributor.*
+
 == Setting up
+
+Follow the simple steps below to set up the software and get it running for your system.
 
 === Prerequisites
 
@@ -47,14 +55,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/hms/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/hms/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.hms.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -101,12 +109,14 @@ When you are ready to start coding,
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App. It is designed to illustrate and identify the high level architecture systems used to design and implement the HMS+ Application.
+
+Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/hms/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -430,9 +440,19 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+Testing your application is an *integral part* of the app development process. Testing allows you to *verify the correctness, functional behaviour, and usability of your app* before you release it publicly.
+
+*Consider this.* You have just implemented a new feature and want to test it. Or you want to add tests for an existing feature because you have decided that there are not enough tests.
+But the problem arises, when you have to think about where to start. What code or features do the current tests test? Do these overlap?
+Therefore, in short, you have to decide where to implement your new tests and what to cover in them.
+
+This document is a *starting point* for you, the contributors and the developers, to understand about the automated tests implemented and how to run them.
+
+Below you will find a short summary on the kind of tests already implemented and how to run them.
+
 === Running Tests
 
-There are three ways to run tests.
+There are three ways you can run tests in.
 
 [TIP]
 The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
@@ -461,7 +481,7 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.hms.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.hms.commons.StringUtilTest`
@@ -498,7 +518,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/hms/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.

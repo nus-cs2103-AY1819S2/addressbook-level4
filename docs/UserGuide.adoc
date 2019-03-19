@@ -1,6 +1,8 @@
 = Hotel Management System - User Guide
 
-Welcome to the `HMS+ User Guide`. Hope you are as excited as we were when we developed this guide for you.
+Welcome to the `HMS+ User Guide`.
+
+Hope you are as excited as we were when we developed this guide for you.
 
 :site-section: UserGuide
 :toc:
@@ -21,7 +23,9 @@ By: `cs2103-ay1819s2-t12-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introducing HMS+
 
-HMS+ is for hotels that want to use a single, integrated system to *manage all aspects of their service*. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing.
+You need a world-class property management system to run your hotel’s front desk and back office. We’ve spent years listening to what independent hoteliers need to take their business to the next level. From before check-in to post check out, we have everything you need to get your customers moving and your hotel running.
+
+HMS+ is for hotels that want to use a single, integrated system to *manage all aspects of their requirements*. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing.
 
 This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
 

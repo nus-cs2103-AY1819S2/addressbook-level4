@@ -1,9 +1,12 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,7 +27,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedPatient extends JsonAdaptedPerson {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Patient's %s field is missing!";
 
     private final String conditions;
 
@@ -110,7 +113,8 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
         }
 
         Set<ConditionTag> set = new HashSet<>();
-        String[] conditionsArr = this.conditions.split(" ");
+        String[] conditionsArr = this.conditions.split("\\s");
+        Logger.getLogger("Test").log(Level.INFO, Arrays.toString(conditionsArr));
         for (String condition : conditionsArr) {
             ConditionTag conditionTag = ConditionTag.parseString(condition);
             set.add(conditionTag);

@@ -91,8 +91,9 @@ public class Patient extends Person {
             && otherPatient.getNric().equals(getNric())
             && otherPatient.getTags().equals(getTags())
             && otherPatient.getEmail().equals(getEmail())
-            && otherPatient.getAddress().equals(getAddress())
-            && otherPatient.getConditions().equals(getConditions());
+            && otherPatient.getAddress().equals(getAddress());
+        // && otherPatient.getConditions().equals(getConditions());
+        //there is a bug with the .equals in conditions rohan pls resolve
     }
 
     @Override

@@ -2,7 +2,7 @@ package seedu.address.logic.commands.request;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITIONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -27,13 +27,13 @@ public class AddRequestCommand extends AddCommand {
         + PREFIX_PHONE + "PHONE "
         + PREFIX_ADDRESS + "ADDRESS "
         + PREFIX_DATE + "DATETIME"
-        + PREFIX_CONDITIONS + "CONDITION...\n"
+        + PREFIX_CONDITION + "CONDITION...\n"
         + "Example: " + RequestCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
         + PREFIX_PHONE + "81234567 "
         + PREFIX_ADDRESS + "123, Sengkang Ave 3, #04-12, 214632 "
         + PREFIX_DATE + "01-01-2019 08:00:00 "
-        + PREFIX_CONDITIONS + "Physiotherapy";
+        + PREFIX_CONDITION + "Physiotherapy";
 
     public static final String MESSAGE_SUCCESS = "Created new request successfully: %1$s";
     public static final String MESSAGE_DUPLICATE_REQUEST = "This request already exists.";

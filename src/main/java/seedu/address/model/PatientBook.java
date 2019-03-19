@@ -2,9 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+//import java.util.List;
 
 import javafx.beans.InvalidationListener;
+//import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.patient.Patient;
@@ -36,7 +37,7 @@ public class PatientBook implements ReadOnlyPatientBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPatients(List<Patient> patients) {
+    public void setPatients(ObservableList<Patient> patients) {
         this.uniquePatientList.setPatients(patients);
         indicateModified();
     }
@@ -110,6 +111,11 @@ public class PatientBook implements ReadOnlyPatientBook {
     @Override
     public void removeListener(InvalidationListener invalidationListener) {
         this.invalidationListenerManager.removeListener(invalidationListener);
+    }
+
+    @Override
+    public String toString() {
+        return uniquePatientList.asUnmodifiableObservableList().toString();
     }
 
     @Override

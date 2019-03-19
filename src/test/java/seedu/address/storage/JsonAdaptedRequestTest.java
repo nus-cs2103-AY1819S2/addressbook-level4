@@ -20,9 +20,8 @@ package seedu.address.storage;
 //import seedu.address.model.request.RequestDate;
 //import seedu.address.model.request.RequestStatus;
 //import seedu.address.testutil.Assert;
-
-public class JsonAdaptedRequestTest {
 /*
+public class JsonAdaptedRequestTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_DATE = "1st Jan";
@@ -37,7 +36,9 @@ public class JsonAdaptedRequestTest {
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_SKILLS = BETTY.getSkills().toString();
     private static final String VALID_NRIC = BETTY.getNric().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON_REQUEST.getConditions();
+    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON_REQUEST.getConditions().stream()
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList());
 
 
     @Test
@@ -139,5 +140,4 @@ public class JsonAdaptedRequestTest {
                 RequestStatus.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, request::toModelType);
     }
-    */
-}
+}*/

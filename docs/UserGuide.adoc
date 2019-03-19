@@ -113,11 +113,6 @@ Example: +
 [NOTE]
 The index is retrieved from the last `plist` command. See: <<plist>>.
 
-==== View past patient records: // TODO
-
-View the past consultation records of each patient +
-
-
 === Consultation Management
 [[consult, Start consultation]]
 ==== Start consultation: `consult`

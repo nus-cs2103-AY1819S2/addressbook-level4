@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
@@ -30,10 +31,10 @@ public class BillCommand extends Command {
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
     public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
     public static final String MESSAGE_MENUITEM_NOT_PRESENT = "MenuItem is not received.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode "
+    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode."
             + "[TABLE_NUMBER]";
 
-    private static Bill bill;
+    private Bill bill;
     private Table tableToBill;
     private float totalBill;
 
@@ -47,6 +48,7 @@ public class BillCommand extends Command {
      * Creates a BillCommand to find the total bill of the specified {@code Table}
      */
     public BillCommand(Bill bill) {
+        requireNonNull(bill);
         this.bill = bill;
     }
 
@@ -79,7 +81,12 @@ public class BillCommand extends Command {
         }
 
         updateStatusOfTable(model);
+        model.updateFilteredOrderItemList(orderItem -> ! orderItem.getTableNumber().equals(tableToBill.getTableNumber
+                ()));
 
+        //model.billUpdateOrders(model.getFilteredOrderItemList());
+        model.updateTables();
+        model.updateStatistics();
         model.updateMode();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
     }
@@ -95,7 +102,7 @@ public class BillCommand extends Command {
         Optional<MenuItem> opt;
 
         final StringBuilder receipt = new StringBuilder();
-        receipt.append("Table ").append(tableToBill.getTableNumber()).append("\n");
+        receipt.append("\nTable ").append(tableToBill.getTableNumber()).append("\n\n");
 
         for (OrderItem orderItem : orderItemList) {
             if (!tableToBill.getTableNumber().equals(orderItem.getTableNumber())) {
@@ -115,7 +122,7 @@ public class BillCommand extends Command {
                     .append(menuItem.getPrice().itemPrice)
                     .append("   x ")
                     .append(orderItem.getQuantity())
-                    .append("\n");
+                    .append("\n\n");
 
             totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
         }
@@ -151,6 +158,7 @@ public class BillCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BillCommand // instanceof handles nulls
-                && tableToBill.equals(((BillCommand) other).tableToBill));
+                && tableToBill.equals(((BillCommand) other).tableToBill) && totalBill == ((BillCommand) other).totalBill
+                && bill.equals(((BillCommand) other).bill));
     }
 }

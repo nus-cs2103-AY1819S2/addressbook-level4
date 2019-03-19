@@ -24,6 +24,8 @@ public class Bill {
 
     /**
      * Every field must be present and not null.
+     * Constructor for bill called in a specific tableMode.
+     * It obtains its Day, Month and Year from the actual date (Date).
      */
     public Bill(TableNumber tableNumber, float totalBill, String receipt) {
         requireAllNonNull(tableNumber, totalBill, receipt);
@@ -39,7 +41,9 @@ public class Bill {
 
     /**
      * Every field must be present and not null.
-     * Constructor for StatisticBuilder for testing.
+     * Constructor for StatisticsBuilder (under test cases).
+     * Even though date obtains the actual date and time the bill was called,
+     * Day, Month and Year are assigned by the constructor arguments.
      */
     public Bill(Day day, Month month, Year year, TableNumber tableNumber, float totalBill, String receipt) {
         requireAllNonNull(day, month, year, tableNumber, totalBill, receipt);
@@ -49,11 +53,11 @@ public class Bill {
         this.tableNumber = tableNumber;
         this.totalBill = totalBill;
         this.receipt = receipt;
-        date = null;
+        date = new Date();
     }
 
     /**
-     * Formats the current date and time and returns it as a String.
+     * Formats the current date and time and returns it as a String in the format dd.mm.yy at hh.mm.ss a zzz.
      */
     public String getFormattedDate() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy 'at' hh:mm:ss a zzz");
@@ -96,7 +100,7 @@ public class Bill {
     }
 
     /**
-     * Gets the receipt.
+     * Gets the receipt that appends the formatted date.
      */
     public String getReceipt() {
         StringBuilder newReceipt = new StringBuilder();
@@ -105,9 +109,19 @@ public class Bill {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Bill // instanceof handles nulls
+                && this.getDay().equals(((Bill) other).day) && this.getMonth().equals(((Bill) other).month)
+                && this.getYear().equals(((Bill) other).year) && this.getTotalBill() == ((Bill) other).getTotalBill()
+                && this.getTableNumber().equals(((Bill) other).tableNumber));
+        // state check
+    }
+
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tableNumber, date, totalBill);
+        return Objects.hash(tableNumber, day, month, year, totalBill, receipt, date);
     }
 
     @Override

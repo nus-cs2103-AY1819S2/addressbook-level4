@@ -22,7 +22,6 @@ public class Day {
 
     public final String day;
 
-
     /**
      * Constructs a {@code Day}.
      *
@@ -38,6 +37,7 @@ public class Day {
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidDay(String test) {
+        requireNonNull(test);
         if (Integer.parseInt(test) < 1 || Integer.parseInt(test) > 31) {
             return isInvalid;
         }

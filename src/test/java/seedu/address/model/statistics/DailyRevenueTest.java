@@ -23,7 +23,7 @@ public class DailyRevenueTest {
         assertFalse(DAILY_REVENUE1.isSameDailyRevenue(editedDailyRevenue));
 
         // different month -> returns false
-        editedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withMonth("4").build();
+        editedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withMonth("04").build();
         assertFalse(DAILY_REVENUE1.isSameDailyRevenue(editedDailyRevenue));
 
         // different year -> returns false
@@ -58,15 +58,15 @@ public class DailyRevenueTest {
         assertFalse(DAILY_REVENUE1.equals(editedDailyRevenue));
 
         // different month -> returns false
-        editedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withMonth("4").build();
+        editedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withMonth("04").build();
         assertFalse(DAILY_REVENUE1.equals(editedDailyRevenue));
 
         // different year -> returns false
         editedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withYear("2010").build();
         assertFalse(DAILY_REVENUE1.equals(editedDailyRevenue));
 
-        // same day, month, year, different totalDailyRevenue -> returns true
+        // same day, month, year, different totalDailyRevenue -> returns false
         editedDailyRevenue = new StatisticsBuilder(DAILY_REVENUE1).withTotalDailyRevenue("300").build();
-        assertTrue(DAILY_REVENUE1.equals(editedDailyRevenue));
+        assertFalse(DAILY_REVENUE1.equals(editedDailyRevenue));
     }
 }

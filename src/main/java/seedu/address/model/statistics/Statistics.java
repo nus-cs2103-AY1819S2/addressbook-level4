@@ -123,7 +123,7 @@ public class Statistics implements ReadOnlyStatistics {
 
     @Override
     public String toString() {
-        return dailyRevenueList.asUnmodifiableObservableList().size() + " order items";
+        return dailyRevenueList.asUnmodifiableObservableList().size() + " daily revenue";
         // TODO: refine later
     }
 

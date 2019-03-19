@@ -23,6 +23,7 @@ endif::[]
 ** Record medical histories of patients
 ** Make appointments for patients
 ** Record all medicines in the clinic and record prescriptions given by doctors
+
 == Site Map
 
 * <<UserGuide#, User Guide>>

@@ -18,7 +18,7 @@ By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-Ships ahoy! Battleships is a for people who want to have the joy of playing Battleships without the hassle and fuss of a physical game.
+Ships ahoy! Battleships is a retro game for people who want to have the joy of playing Battleships without the hassle and fuss of a physical game.
 
 Battleships is optimised for people who want to use a Command Line Interface (CLI), while still retaining the benefits of a Graphical User Interface (GUI). It can guarantee many hours of fun, especially between those long and boring periods of the day. Can't wait to get started? Head over to <<Quick Start>> to fire away!
 
@@ -72,7 +72,8 @@ Format: `init [s/MAP_SIZE]`
 
 === Listing all ships : `list`
 
-Shows a list of all the player's battleships. +
+Shows a list of all the player's battleships that are currently deployed on the map +
+
 Format: `list`
 
 === Editing a person : `edit`

@@ -315,6 +315,36 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Cards
+==== Current Implementation
+The `Card` is one of the core aspects of the application. Cards are the result of morphing of the `Person` class from the original AddressBook model. The implementation incorporates the `Logic` and `Model` components.
+
+[discrete]
+==== Model
+To allow users to manage Cards, the following methods are available via the `Model` component:
+
+* `ModelManager#addCard(Card card)` - Adds a new card to the currently active `VersionedCardFolder` folder
+* `ModelManager#setCard(Card target, Card editedCard)` - Edits the information of a target card in the currently active folder
+* `ModelManager#deleteCard(Card target)` - Deletes the target card from the currently active folder
+* `ModelManager#hasCard(Card card)` - Checks if a card is already present in the currently active folder
+
+[discrete]
+==== Example Usage
+
+1. User is in the `Organs` folder and wants to add a new card, with question 'What is the largest organ?' and answer 'Skin'. This is done by typing `add q/What is the largest organ? a/Skin`.
+
+    picture of command box with user inputs
+
+    * Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
+
+2. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
+
+3. The new card will then be added to the active `VersionedCardFolder`.
+
+    picture of main window with updated card thumbnail list
+
+    sequence diagram showing how add command works
+
 
 === Import/Export feature
 ==== Current Implementation

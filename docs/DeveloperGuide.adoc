@@ -188,16 +188,16 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `QuickDocsParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a patient).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("statistics finances 0119")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `statistics finances 0119` Command
+image::StatisticsCommandSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -448,6 +448,75 @@ If search range is not within the range of the maintained list of free slots, th
 Violates Single Responsibility Principle and Separation of Concerns as `Appointment` can now represent either an appointment or an empty slot.
 
 |===
+
+=== Record & Statistics feature ===
+==== Current implementation ====
+The Record class is an abstract class that is extended by more specialised classes such as PurchaseMedicineRecord and
+ConsultationRecord. All Record and Record subclasses should be able to be converted to a Statistics object.
+The MonthRecord class is a class that holds all the Records created for a specific month. There is a Statistics object
+in a MonthRecord object that holds the statistics for the month. This Statistics object is overridden whenever there is
+a new record added to the MonthRecord.
+// TODO add UML diagram here
+
+The Statistics class is a class that holds all the information useful to the doctor. The Statistics objects aren't
+modifiable. In order to add 2 statistics object together, a new Statistics object will be created by merge().
+Current fields are:  +
+
+* Number of consultations
+* Revenue
+* Expenditure
+* Profit
+* Symptom (To be added in v1.3)
+* Medicine (To be added in v1.3)
+
+Currently, Record objects are being created when a command that processes useful information such as finances and
+consultations are executed. For example, a PurchaseMedicine command would create a PurchaseMedicineRecord object that
+stores information such as the name of the medicine, quantity of the medicine, and cost of the medicine. The command
+will then call the ModelManager's addRecord(record) function to store the record. This will then result in the
+ModelManager calling the RecordManager's addRecord(record) function.
+
+RecordManager holds an ArrayList of MonthRecord. When the StatisticsCommand queuries for the statistics of for a range
+of months, Logic will call the ModelManager's getStatistics(topic, FROM_YEARMONTH, TO_YEARMONTH), which then calls
+RecordManager's getStatistics() with the same arguments. RecordManager will convert the YearMonth objects to their
+respective indexes with the RecordManager's getYearMonthIndex(YearMonth) function.
+
+RecordManager will then obtain the statistics for each of the queried months, and merge them together into a new
+Statistics object. The Statistics object will then be converted into a FinanceStatistics or ConsultationStatistics
+depending on the topic queried. RecordManager will then return the FinanceStatistics/ConsultationStatistics back to
+the ModelManager, which would then return it to the StatisticsCommand, which would then return the CommandResult with
+the statistics converted to a String to the LogicManager.
+
+// TODO add sequence diagram for StatisticsCommand
+
+[NOTE]
+MMYY is a string, e.g. "0119", which stands for January 2019. It is parsed by StatisticsCommandParser into a YearMonth
+object.
+
+The statistics command is started through the command `stats TOPIC START_MMYY [END_MMYY]`.
+Current available topics are: `finances`, `consultation`, and `all`. Future topics: `symptoms` and `medicine`
+will be added in future milestone v1.3. The two MMYY corresponds to a range of dates. The end range is optional,
+and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
+
+==== Design considerations ====
+* The records are stored in months as the design only allows the doctor to query with a minimum timespan of 1 month. Hence,
+it was decided to store the records in months for ease of access and calculation. +
+
+* Currently, as this application is developed in 2019, and there are no plans to allow the doctor to add in past records,
+the first index in the array of monthRecords is allocated to January 2019. Any MMYY value before 0119 will not be allowed.
+(TODO)
+
+* The MonthRecord objects are stored in an ArrayList as it might be desirable for a MonthRecord with no records to exist.
+Such a case might happen when the doctor goes on vacation for the whole month. Hence, it would be easy to retrieve the
+MonthRecord object of a specific MMYY by indexing.
+
+* The Statistics class was decided to be immutable as it would not make sense for past records to change.
+
+==== Alternatives considered ====
+* RecordManager could store the MonthRecord objects in a LinkedList instead. However, that would slow down the access time.
+
+* The different Record classes could be stored in separate MonthRecords. This would reduce the amount of calculations
+needed when simply querying for a single topic. However, the current implementation was decided as the Statistics
+class currently holds all the information for all the topics.
 
 === Storage of Medicine
 ==== Current implementation

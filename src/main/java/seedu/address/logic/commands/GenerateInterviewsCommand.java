@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+/**
+ * Generates an interview date list from existing persons in the addressbook.
+ */
 public class GenerateInterviewsCommand extends Command {
 
     public static final String COMMAND_WORD = "generateInterviews";

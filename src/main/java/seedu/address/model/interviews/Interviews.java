@@ -1,15 +1,18 @@
 package seedu.address.model.interviews;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+
 import seedu.address.model.person.Person;
 
-import java.util.Calendar;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-
+/**
+ * Represents the association class between person and calendar.
+ */
 public class Interviews {
 
-    private final int MAX_INTERVIEWEES_A_DAY = 2;
+    private static final int MAX_INTERVIEWEES_A_DAY = 2;
 
     private final List<Person> persons;
     private final Calendar calendar;
@@ -21,6 +24,9 @@ public class Interviews {
         this.interviews = new HashMap<>();
     }
 
+    /**
+     * Generates a interviews date list where there are multiple interviewees in a day.
+     */
     public void generate() {
         calendar.add(Calendar.DATE, 1);
         interviews.put(calendar, new ArrayList<>());

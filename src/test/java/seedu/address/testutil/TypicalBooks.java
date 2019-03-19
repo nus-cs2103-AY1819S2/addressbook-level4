@@ -48,7 +48,7 @@ public class TypicalBooks {
 
     // Manually added
     public static final Book SECRETLIFE = new BookBuilder().withBookName("The Secret Life of Bees")
-            .withAuthor("Sue Monk Kidd ")
+            .withAuthor("Sue Monk Kidd")
             .withRating("3")
             .build();
     public static final Book TWILIGHT = new BookBuilder()

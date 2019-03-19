@@ -14,6 +14,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 
 /**
  * The Browser Panel of the App.
@@ -49,8 +50,16 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
+    /**
+     * Loads restaurant page using weblink. If there's no weblink, load default page.
+     */
     private void loadRestaurantPage(Restaurant restaurant) {
-        loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);
+        /*loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);*/
+        if (restaurant.getWeblink().value.equalsIgnoreCase(Weblink.NO_WEBLINK_STRING)) {
+            loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);
+        } else {
+            loadPage(restaurant.getWeblink().value);
+        }
     }
 
     public void loadPage(String url) {

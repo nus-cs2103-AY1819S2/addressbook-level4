@@ -109,7 +109,7 @@ public class EditCommand extends Command {
         Price updatedSellingPrice = editPersonDescriptor.getSellingPrice().orElse(personToEdit.getSellingPrice());
         Price updatedRentalPrice = editPersonDescriptor.getRentalPrice().orElse(personToEdit.getRentalPrice());
 
-        if (personToEdit instanceof Buyer)  {
+        if (personToEdit instanceof Buyer) {
             return new Buyer(updatedName, updatedPhone, updatedEmail);
         }
 

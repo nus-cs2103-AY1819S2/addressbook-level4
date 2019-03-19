@@ -4,6 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -151,11 +152,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all books with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showBooksWithName(String keyword) {
-        executeCommand(ListBookCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getBookShelf().getPersonList().size());
+        executeCommand(ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + keyword);
+        assertTrue(getModel().getFilteredBookList().size() < getModel().getBookShelf().getBookList().size());
     }
 
     /**

@@ -1,11 +1,8 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_CS;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AUTHOR_DESC;
@@ -16,33 +13,26 @@ import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TEXTBOOK;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_CS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalBooks.ALICE;
 import static seedu.address.testutil.TypicalBooks.ALI;
 import static seedu.address.testutil.TypicalBooks.CS;
-import static seedu.address.testutil.TypicalBooks.CARL;
-import static seedu.address.testutil.TypicalBooks.HOON;
-import static seedu.address.testutil.TypicalBooks.IDA;
-import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalBooks.SECRETLIFE;
+import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_LIFE;
+import static seedu.address.testutil.TypicalBooks.TWILIGHT;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddBookCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Address;
+import seedu.address.model.book.BookName;
 import seedu.address.model.book.Rating;
-import seedu.address.model.book.Name;
-import seedu.address.model.book.Book;
 import seedu.address.model.book.Author;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BookBuilder;
@@ -81,13 +71,6 @@ public class AddBookCommandSystemTest extends AddressBookSystemTest {
                 + TAG_DESC_FANTASY;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a book with all fields same as another book in the book shelf except author and rating
-         * -> added
-         */
-        toAdd = new BookBuilder(ALI).withAuthor(VALID_AUTHOR_CS).withRating(VALID_RATING_CS).build();
-        command = BookUtil.getAddBookCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add to empty book shelf -> added */
         deleteAllBooks();
         assertCommandSuccess(ALI);
@@ -104,54 +87,39 @@ public class AddBookCommandSystemTest extends AddressBookSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the book list before adding -> added */
-        showBooksWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
-
-        /* ------------------------ Perform add operation while a book card is selected --------------------------- */
-
-        /* Case: selects first card in the book list, add a book -> added, card selection remains unchanged */
-        selectBook(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        showBooksWithName(KEYWORD_MATCHING_LIFE);
+        assertCommandSuccess(TWILIGHT);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate book -> rejected */
-        command = BookUtil.getAddBookCommand(HOON);
-        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_PERSON);
+        command = BookUtil.getAddBookCommand(SECRETLIFE);
+        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: add a duplicate book except with different author -> rejected */
-        toAdd = new BookBuilder(HOON).withAuthor(VALID_AUTHOR_CS).build();
+        toAdd = new BookBuilder(SECRETLIFE).withAuthor(VALID_AUTHOR_CS).build();
         command = BookUtil.getAddBookCommand(toAdd);
-        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: add a duplicate book except with different rating -> rejected */
-        toAdd = new BookBuilder(HOON).withRating(VALID_RATING_CS).build();
+        toAdd = new BookBuilder(SECRETLIFE).withRating(VALID_RATING_CS).build();
         command = BookUtil.getAddBookCommand(toAdd);
-        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add a duplicate book except with different address -> rejected */
-        toAdd = new BookBuilder(HOON).withAddress(VALID_ADDRESS_CS).build();
-        command = BookUtil.getAddBookCommand(toAdd);
-        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: add a duplicate book except with different tags -> rejected */
-        command = BookUtil.getAddBookCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_PERSON);
+        command = BookUtil.getAddBookCommand(SECRETLIFE) + " " + PREFIX_TAG.getPrefix() + "friends";
+        assertCommandFailure(command, AddBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: missing name -> rejected */
-        command = AddBookCommand.COMMAND_WORD + AUTHOR_DESC_ALICE + RATING_DESC_ALICE + ;
+        command = AddBookCommand.COMMAND_WORD + AUTHOR_DESC_ALICE + RATING_DESC_ALICE;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE));
 
         /* Case: missing author -> rejected */
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + RATING_DESC_ALICE + ;
+        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + RATING_DESC_ALICE;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE));
 
         /* Case: missing rating -> rejected */
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + ;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE));
-
-        /* Case: missing address -> rejected */
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE;
+        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -159,23 +127,19 @@ public class AddBookCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddBookCommand.COMMAND_WORD + INVALID_NAME_DESC + AUTHOR_DESC_ALICE + RATING_DESC_ALICE + ;
-        assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
+        command = AddBookCommand.COMMAND_WORD + INVALID_NAME_DESC + AUTHOR_DESC_ALICE + RATING_DESC_ALICE;
+        assertCommandFailure(command, BookName.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid author -> rejected */
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + INVALID_AUTHOR_DESC + RATING_DESC_ALICE + ;
+        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + INVALID_AUTHOR_DESC + RATING_DESC_ALICE;
         assertCommandFailure(command, Author.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid rating -> rejected */
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + INVALID_RATING_DESC + ;
+        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + INVALID_RATING_DESC;
         assertCommandFailure(command, Rating.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
-
         /* Case: invalid tag -> rejected */
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE + 
+        command = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }

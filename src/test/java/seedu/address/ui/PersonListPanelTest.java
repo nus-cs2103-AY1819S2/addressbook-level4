@@ -53,7 +53,8 @@
 //        guiRobot.interact(() -> selectedPerson.set(secondPerson));
 //        guiRobot.pauseForHuman();
 //
-//        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+//        PersonCardHandle expectedPerson =
+//                personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
 //        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
 //        assertCardEquals(expectedPerson, selectedPerson);
 //    }

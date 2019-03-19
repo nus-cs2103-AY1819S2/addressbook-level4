@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddTableCommand;;
+import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableStatus;
 import seedu.address.testutil.TableBuilder;

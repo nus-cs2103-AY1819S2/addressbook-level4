@@ -52,7 +52,7 @@
 //    public void edit() {
 //        Model model = getModel();
 //
-//        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
+//      /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 //
 //        /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
 //         * -> edited
@@ -64,16 +64,16 @@
 //        assertCommandSuccess(command, index, editedPerson);
 //
 //        /* Case: edit a person with new values same as existing values -> edited */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-//                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB 
+//                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        assertCommandSuccess(command, index, BOB);
 //
 //        /* Case: edit a person with new values same as another person's values but with different name -> edited */
 //        assertTrue(getModel().getRestOrRant().getPersonList().contains(BOB));
 //        index = INDEX_SECOND_PERSON;
 //        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-//                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB 
+//                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
 //        assertCommandSuccess(command, index, editedPerson);
 //
@@ -81,8 +81,8 @@
 //         * -> edited
 //         */
 //        index = INDEX_SECOND_PERSON;
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-//                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY 
+//                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
 //        assertCommandSuccess(command, index, editedPerson);
 //
@@ -93,7 +93,7 @@
 //        editedPerson = new PersonBuilder(personToEdit).withTags().build();
 //        assertCommandSuccess(command, index, editedPerson);
 //
-//        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
+//      /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 //
 //        /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
 //        showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -112,7 +112,7 @@
 //        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
 //                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
-//        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
+//      /* --------------------- Performing edit operation while a person card is selected -------------------------- */
 //
 //        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
 //         * browser url changes
@@ -120,13 +120,13 @@
 //        showAllPersons();
 //        index = INDEX_FIRST_PERSON;
 //        selectPerson(index);
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-//                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY 
+//                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
 //        // this can be misleading: card selection actually remains unchanged but the
 //        // browser's url is updated to reflect the new person's name
 //        assertCommandSuccess(command, index, AMY, index);
 //
-//        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
+//      /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
@@ -174,28 +174,28 @@
 //        assertTrue(getModel().getRestOrRant().getPersonList().contains(BOB));
 //        index = INDEX_FIRST_PERSON;
 //        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB 
 //                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
 //        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-//                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+//                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-//                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+//      /* Case: edit a person with new values same as another person's values but with different address -> rejected */
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB 
+//                + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-//                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY 
+//                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-//                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB 
+//                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //    }
 //
@@ -210,7 +210,7 @@
 //    }
 //
 //    /**
-//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
+//   * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
 //     * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
 //     * 2. Asserts that the model related components are updated to reflect the person at index {@code toEdit} being
 //     * updated to values specified {@code editedPerson}.<br>

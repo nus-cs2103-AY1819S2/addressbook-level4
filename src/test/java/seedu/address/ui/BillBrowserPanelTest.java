@@ -27,7 +27,8 @@
 ///**
 //        // associated web page of a bill
 //        guiRobot.interact(() -> selectedBill.set(ALICE));
-//        URL expectedPersonUrl = new URL(BillBrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+//        URL expectedPersonUrl = new URL(BillBrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName
+//                .replaceAll(" ", "%20"));
 //
 //        waitUntilBrowserLoaded(billBrowserPanelHandle);
 //        assertEquals(expectedPersonUrl, billBrowserPanelHandle.getLoadedUrl());

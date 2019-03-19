@@ -88,8 +88,8 @@ public class CommandTestUtil {
     public static final String ORDER_DESC_2_CHICKEN = " " + VALID_CODE_CHICKEN + " " + VALID_QUANTITY_2;
     public static final String ORDER_DESC_3_FRIES = " " + VALID_CODE_FRIES + " " + VALID_QUANTITY_3;
     public static final String DATE_DESC_1_JAN_2019 = " " + VALID_DAY_1 + "." + VALID_MONTH_1 + "." + VALID_YEAR_2019;
-    public static final String DATE_DESC_31_DEC_1998 = " " + VALID_DAY_31 + "." + VALID_MONTH_12 + "." +
-            VALID_YEAR_1998;
+    public static final String DATE_DESC_31_DEC_1998 = " " + VALID_DAY_31 + "." + VALID_MONTH_12 + "."
+            + VALID_YEAR_1998;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " Chicken Wings"; // ' ' not allowed in front
     public static final String INVALID_CODE_DESC = " " + PREFIX_CODE + "31A"; // first character should be a letter
@@ -136,8 +136,8 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Mode mode, Command, Model, CommandHistory, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
+     * Convenience wrapper to {@link #assertCommandSuccess(Mode mode, Command, Model, CommandHistory, CommandResult,
+     * Model)} that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Mode mode, Command command, Model actualModel,
             CommandHistory actualCommandHistory, String expectedMessage, Model expectedModel) {
@@ -219,7 +219,7 @@ public class CommandTestUtil {
 
         final Code menuItemCode = orderItem.getMenuItemCode();
         model.updateFilteredOrderItemList(
-                item -> tableNumber.equals(item.getTableNumber()) && menuItemCode.equals(item.getMenuItemCode()));
+            item -> tableNumber.equals(item.getTableNumber()) && menuItemCode.equals(item.getMenuItemCode()));
 
         assertEquals(1, model.getFilteredOrderItemList().size());
     }
@@ -263,8 +263,8 @@ public class CommandTestUtil {
         final Day day = dailyRevenue.getDay();
         final Month month = dailyRevenue.getMonth();
         final Year year = dailyRevenue.getYear();
-        model.updateFilteredDailyRevenueList(item -> day.equals(item.getDay()) && month.equals(item.getMonth()) &&
-                year.equals(item.getYear()));
+        model.updateFilteredDailyRevenueList(item -> day.equals(item.getDay()) && month.equals(item.getMonth())
+                && year.equals(item.getYear()));
         assertEquals(1, model.getFilteredDailyRevenueList().size());
     }
 

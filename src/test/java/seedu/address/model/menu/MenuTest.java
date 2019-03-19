@@ -1,5 +1,16 @@
 package seedu.address.model.menu;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalRestOrRant.CHEESE_NACHOS;
+import static seedu.address.testutil.TypicalRestOrRant.CHICKEN_WINGS;
+import static seedu.address.testutil.TypicalRestOrRant.CREPES;
+import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+import static seedu.address.testutil.TypicalRestOrRant.SALAD;
+import static seedu.address.testutil.TypicalRestOrRant.SHRIMP_FRIED_RICE;
+import static seedu.address.testutil.TypicalRestOrRant.getTypicalMenuItems;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -16,10 +27,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalRestOrRant.*;
 
 public class MenuTest {
 

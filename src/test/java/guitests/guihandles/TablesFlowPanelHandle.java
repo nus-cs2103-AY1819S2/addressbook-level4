@@ -1,15 +1,9 @@
 package guitests.guihandles;
 
-import java.net.URL;
 import java.util.Set;
 
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import seedu.address.model.table.Table;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.

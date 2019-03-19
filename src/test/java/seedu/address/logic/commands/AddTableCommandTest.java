@@ -342,7 +342,8 @@ public class AddTableCommandTest {
 
         @Override
         public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
-            throw new AssertionError("This method should not be called.");        }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void deleteDailyRevenue(DailyRevenue target) {

@@ -27,6 +27,7 @@ import seedu.address.testutil.TableBuilder;
 public class TablesTest {
 
     private final Tables tables = new Tables();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -116,7 +117,7 @@ public class TablesTest {
      */
     private static class TablesStub implements ReadOnlyTables {
         private final ObservableList<Table> tables = FXCollections.observableArrayList();
-        
+
         TablesStub(Collection<Table> tableCollection) {
             this.tables.setAll(tableCollection);
         }

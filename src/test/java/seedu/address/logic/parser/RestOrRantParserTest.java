@@ -15,9 +15,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.Mode;
+import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
-import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -43,7 +43,8 @@ public class RestOrRantParserTest {
     //    @Test
     //    public void parseCommand_add() throws Exception {
     //        Person person = new PersonBuilder().build();
-    //        AddCommand command = (AddCommand) parser.parseCommand(Mode.RESTAURANT_MODE, RestOrRantUtil.getAddCommand(person));
+    //        AddCommand command = (AddCommand) parser.parseCommand(Mode.RESTAURANT_MODE, RestOrRantUtil
+    //                .getAddCommand(person));
     //        assertEquals(new AddCommand(person), command);
     //        command = (AddCommand) parser.parseCommand(Mode.RESTAURANT_MODE, RestOrRantUtil.getAddAlias(person));
     //        assertEquals(new AddCommand(person), command);
@@ -149,7 +150,8 @@ public class RestOrRantParserTest {
     //                + RestOrRantUtil.getEditPersonDescriptorDetails(descriptor));
     //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     //        command = (EditCommand) parser.parseCommand(Mode.RESTAURANT_MODE, EditCommand.COMMAND_ALIAS + " "
-    //                + INDEX_FIRST_PERSON.getOneBased() + " " + RestOrRantUtil.getEditPersonDescriptorDetails(descriptor));
+    //                + INDEX_FIRST_PERSON.getOneBased() + " "
+    //                + RestOrRantUtil.getEditPersonDescriptorDetails(descriptor));
     //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     //    }
 

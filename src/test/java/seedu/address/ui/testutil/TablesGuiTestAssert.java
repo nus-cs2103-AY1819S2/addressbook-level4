@@ -2,8 +2,8 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
-import guitests.guihandles.TableCardHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.TableCardHandle;
 import seedu.address.model.table.Table;
 
 /**

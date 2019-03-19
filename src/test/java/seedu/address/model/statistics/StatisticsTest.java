@@ -21,6 +21,7 @@ import seedu.address.testutil.StatisticsBuilder;
 
 public class StatisticsTest {
     private final Statistics statistics = new Statistics();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

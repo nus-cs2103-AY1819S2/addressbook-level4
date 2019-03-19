@@ -48,7 +48,7 @@ public class BillCommandTest {
     }
 
     @Test
-    public void execute_DailyRevenueAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_dailyRevenueAcceptedByModel_addSuccessful() throws Exception {
 
         BillCommandTest.ModelStubAcceptingDailyRevenueAdded modelStub =
                 new BillCommandTest.ModelStubAcceptingDailyRevenueAdded();
@@ -406,9 +406,12 @@ public class BillCommandTest {
     private class ModelStubAcceptingDailyRevenueAdded extends BillCommandTest.ModelStub {
         final ArrayList<DailyRevenue> dailyRevenuesAdded = new ArrayList<>();
 
+        /**
+         * Updates the total daily revenue when a bill is calculated.
+         */
         public void updateDailyRevenue(Bill bill) {
             DailyRevenue dailyRevenue =
-                    new DailyRevenue(bill.getDay(),bill.getMonth(), bill.getYear(), bill.getTotalBill());
+                    new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
             if (hasDailyRevenue(dailyRevenue)) {
                 setDailyRevenue(dailyRevenue, new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(),
                         dailyRevenue.getTotalDailyRevenue() + bill.getTotalBill()));
@@ -417,6 +420,9 @@ public class BillCommandTest {
             }
         }
 
+        /**
+         * Updates the total price of the bill.
+         */
         public Bill updateBill(Bill bill) {
             final StringBuilder receipt = new StringBuilder();
             receipt.append("Table ").append(getSelectedTable().getTableNumber()).append("\n");
@@ -438,7 +444,7 @@ public class BillCommandTest {
 
             }
 
-            return  new Bill(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTableNumber(),
+            return new Bill(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTableNumber(),
                     totalBill, bill.getReceipt());
         }
 

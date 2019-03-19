@@ -1,9 +1,17 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
+import static seedu.address.testutil.TypicalRestOrRant.AGLIO_OLIO;
+import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+import static seedu.address.testutil.TypicalRestOrRant.HONEY_MILK_TEA;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.menu.Menu;
 import seedu.address.model.menu.ReadOnlyMenu;
@@ -12,9 +20,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalRestOrRant.*;
 
 public class JsonMenuStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMenuStorageTest");

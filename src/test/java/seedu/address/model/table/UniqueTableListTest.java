@@ -115,7 +115,7 @@ public class UniqueTableListTest {
     }
 
     @Test
-    public void remove_TableDoesNotExist_throwsTableNotFoundException() {
+    public void remove_tableDoesNotExist_throwsTableNotFoundException() {
         thrown.expect(OrderItemNotFoundException.class);
         uniqueTableList.remove(TABLE1);
     }
@@ -137,7 +137,7 @@ public class UniqueTableListTest {
     @Test
     public void setTable_uniqueTableList_replacesOwnListWithProvidedUniqueTableList() {
         uniqueTableList.add(TABLE1);
-        UniqueTableList  expectedUniqueTableList = new UniqueTableList();
+        UniqueTableList expectedUniqueTableList = new UniqueTableList();
         expectedUniqueTableList.add(TABLE1);
         uniqueTableList.setTables(expectedUniqueTableList);
         assertEquals(expectedUniqueTableList, uniqueTableList);

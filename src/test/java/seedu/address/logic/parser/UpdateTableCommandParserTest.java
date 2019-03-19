@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.UpdateTableCommand;;
+import seedu.address.logic.commands.UpdateTableCommand;
 
 public class UpdateTableCommandParserTest {
     private UpdateTableCommandParser parser = new UpdateTableCommandParser();

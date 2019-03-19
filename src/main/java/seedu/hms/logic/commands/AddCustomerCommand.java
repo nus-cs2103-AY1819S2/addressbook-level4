@@ -2,6 +2,7 @@ package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
@@ -25,6 +26,7 @@ public class AddCustomerCommand extends CustomerCommand {
         + "Parameters: "
         + PREFIX_NAME + "NAME "
         + PREFIX_PHONE + "PHONE "
+        + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
         + PREFIX_EMAIL + "EMAIL "
         + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION "
         + PREFIX_ADDRESS + "hms "
@@ -32,6 +34,7 @@ public class AddCustomerCommand extends CustomerCommand {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
         + PREFIX_PHONE + "98765432 "
+        + PREFIX_DATE_OF_BIRTH + "28/05/1999 "
         + PREFIX_EMAIL + "johnd@example.com "
         + PREFIX_IDENTIFICATION_NUMBER + "123456 "
         + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "

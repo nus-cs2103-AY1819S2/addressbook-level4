@@ -30,9 +30,11 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label dob;
+    @FXML
     private Label phone;
     @FXML
-    private Label hms;
+    private Label address;
     @FXML
     private Label identificationNo;
     @FXML
@@ -46,8 +48,9 @@ public class CustomerCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(customer.getName().fullName);
         phone.setText(customer.getPhone().value);
+        dob.setText(customer.getDateOfBirth().value);
         identificationNo.setText(customer.getIdNum().value);
-        hms.setText(customer.getAddress().value);
+        address.setText(customer.getAddress().value);
         email.setText(customer.getEmail().value);
         customer.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

@@ -28,7 +28,8 @@
             </HBox>
             <FlowPane fx:id="tags"/>
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
-            <Label fx:id="hms" styleClass="cell_small_label" text="\$hms"/>
+            <Label fx:id="dob" styleClass="cell_small_label" text="\$dob"/>
+            <Label fx:id="address" styleClass="cell_small_label" text="\$address"/>
             <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
             <Label fx:id="identificationNo" styleClass="cell_small_label" text="\$identificationNo"/>
         </VBox>

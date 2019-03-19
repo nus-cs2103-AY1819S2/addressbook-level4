@@ -17,14 +17,17 @@ import guitests.guihandles.CustomerListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 
-public class CustomerListPanelTest extends seedu.hms.ui.GuiUnitTest {
+public class CustomerListPanelTest extends GuiUnitTest {
+
     private static final ObservableList<Customer> TYPICAL_CUSTOMERS =
         FXCollections.observableList(getTypicalCustomers());
 
@@ -82,10 +85,11 @@ public class CustomerListPanelTest extends seedu.hms.ui.GuiUnitTest {
         for (int i = 0; i < customerCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
+            DateOfBirth dob = new DateOfBirth("12/02/1994");
             Email email = new Email("a@aa");
             IdentificationNo idnum = new IdentificationNo("1234");
             Address address = new Address("a");
-            Customer customer = new Customer(name, phone, email, idnum, address, Collections.emptySet());
+            Customer customer = new Customer(name, phone, dob, email, idnum, address, Collections.emptySet());
             backingList.add(customer);
         }
         return backingList;

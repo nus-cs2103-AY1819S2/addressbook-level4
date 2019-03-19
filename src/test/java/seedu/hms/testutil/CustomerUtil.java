@@ -1,6 +1,7 @@
 package seedu.hms.testutil;
 
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
@@ -33,6 +34,7 @@ public class CustomerUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + customer.getName().fullName + " ");
         sb.append(PREFIX_PHONE + customer.getPhone().value + " ");
+        sb.append(PREFIX_DATE_OF_BIRTH + customer.getDateOfBirth().value + " ");
         sb.append(PREFIX_EMAIL + customer.getEmail().value + " ");
         sb.append(PREFIX_IDENTIFICATION_NUMBER + customer.getIdNum().value + " ");
         sb.append(PREFIX_ADDRESS + customer.getAddress().value + " ");
@@ -49,6 +51,7 @@ public class CustomerUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getDateOfBirth().ifPresent(dob -> sb.append(PREFIX_DATE_OF_BIRTH).append(dob.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getIdNum().ifPresent(identificationNo -> sb.append(PREFIX_IDENTIFICATION_NUMBER)
             .append(identificationNo.value).append(" "));

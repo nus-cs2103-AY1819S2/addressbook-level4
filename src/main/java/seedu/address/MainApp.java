@@ -101,6 +101,7 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
         ReadOnlyPatientBook initialPatientBook;
+
         ReadOnlyRequestBook initialRequestBook;
 
         try {
@@ -140,7 +141,8 @@ public class MainApp extends Application {
         }
 
 
-        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialPatientBook, initialRequestBook,
+        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialRequestBook,
+
             userPrefs);
     }
 

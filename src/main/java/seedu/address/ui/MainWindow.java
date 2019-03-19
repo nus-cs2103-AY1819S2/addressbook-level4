@@ -35,7 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent UI parts residing in this UI container
     private MapPanel mapPanel;
     private PersonListPanel personListPanel;
-    //TO-DO: Create RequestListPanel, LocationListPanel, HealthWorkerListPanel
+    //TO-DO: Create RequestListPanel, LocationListPanel
+    private HealthWorkerListPanel healthWorkerListPanel;
     private TabPane tabPane;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -59,7 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane locationListPlaceholder;
 
     @FXML
-    private StackPane healthworkerListPlaceholder;
+    private StackPane healthWorkerListPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -124,6 +125,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
         mapPanel = new MapPanel(logic.selectedPersonProperty());
         mapPanelPlaceholder.getChildren().add(mapPanel.getRoot());
 
@@ -132,14 +139,12 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPerson);
         patientListPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+//        healthWorkerListPanel = new HealthWorkerListPanel(logic.getFilteredHealthWorkerList(), logic.selectedHealthWorkerProperty(),
+//                logic::setSelectedHealthWorker);
+//        healthWorkerListPlaceholder.getChildren().add(healthWorkerListPanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**

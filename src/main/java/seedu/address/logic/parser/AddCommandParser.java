@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITIONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -71,9 +71,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         String requestId = uuid.toString();
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE,
-            PREFIX_CONDITIONS);
+            PREFIX_CONDITION);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_DATE, PREFIX_CONDITIONS)) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_DATE, PREFIX_CONDITION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddRequestCommand.MESSAGE_USAGE));
         }
@@ -81,7 +81,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         RequestDate requestDate =
             ParserUtil.parseRequestDate(argumentMultimap.getValue(PREFIX_DATE).get());
 
-        Conditions conditions = ParserUtil.parseConditions(argumentMultimap.getAllValues(PREFIX_CONDITIONS));
+        Conditions conditions = ParserUtil.parseConditions(argumentMultimap.getAllValues(PREFIX_CONDITION));
 
         return new AddRequestCommand(new Request(requestId, null, null, requestDate, conditions,
             new RequestStatus("PENDING")));
@@ -112,7 +112,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Conditions conditions = ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITIONS));
+        Conditions conditions = ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITION));
 
         Patient patient = new Patient(name, phone, email, nric, address, tagList, conditions);
 

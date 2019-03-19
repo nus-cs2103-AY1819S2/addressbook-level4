@@ -2,7 +2,7 @@ package seedu.address.logic.commands.request;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITIONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -46,11 +46,11 @@ public class EditRequestCommand extends RequestCommand {
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_DATE + "DATE] "
-        + "[" + PREFIX_CONDITIONS + "CONDITION]...\n"
+        + "[" + PREFIX_CONDITION + "CONDITION]...\n"
         + "Example: " + RequestCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
-        + PREFIX_CONDITIONS + "Physiotherapy "
-        + PREFIX_CONDITIONS + "Dialysis";
+        + PREFIX_CONDITION + "Physiotherapy "
+        + PREFIX_CONDITION + "Dialysis";
 
     public static final String MESSAGE_EDIT_REQUEST_SUCCESS = "Edited Request: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

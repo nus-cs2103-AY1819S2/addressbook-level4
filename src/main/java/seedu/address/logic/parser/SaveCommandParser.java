@@ -13,7 +13,6 @@ public class SaveCommandParser implements Parser<SaveCommand> {
     /**
      * Parses the given argument {@code String} in the context of the SaveCommand
      * and returns an SaveCommand object for execution.
-     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SaveCommand parse(String args) throws ParseException {
@@ -28,7 +27,6 @@ public class SaveCommandParser implements Parser<SaveCommand> {
 
     /**
      * saveValidation() checks if the file is writable if it exists.
-     *
      * @param file
      * @throws ParseException
      */

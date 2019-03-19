@@ -18,16 +18,15 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.AddressContainsKeywordsPredicate;
-import seedu.address.model.person.EmailContainsKeywordsPredicate;
-import seedu.address.model.person.MajorContainsKeywordsPredicate;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.MajorContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PhoneContainsKeywordsPredicate;
-import seedu.address.model.person.PredicateManager;
-import seedu.address.model.person.RaceContainsKeywordsPredicate;
-import seedu.address.model.person.SchoolContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.PhoneContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.PredicateManager;
+import seedu.address.model.person.predicate.RaceContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.SchoolContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new SearchCommand object

@@ -1,32 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.CODE_DESC_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.CODE_DESC_FRIES;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CODE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FRIES;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_FRIES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_FRIES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FRIES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_FRIES;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddToMenuCommand;
-import seedu.address.model.menu.Code;
-import seedu.address.model.menu.MenuItem;
-import seedu.address.model.menu.Name;
-import seedu.address.model.menu.Price;
-import seedu.address.testutil.MenuItemBuilder;
 
 public class AddToMenuCommandParserTest {
     private AddToMenuCommandParser parser = new AddToMenuCommandParser();

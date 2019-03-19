@@ -43,10 +43,10 @@ public class TableTest {
         assertFalse(TABLE1.equals(5));
 
         // different table -> returns false
-        assertFalse(TABLE1.equals(TABLE1));
+        assertFalse(TABLE1.equals(TABLE2));
 
         // different table number -> returns false
-        Table editedTable = new TableBuilder(TABLE1).withTableStatus("2").build();
+        Table editedTable = new TableBuilder(TABLE1).withTableStatus("0/2").build();
         assertFalse(TABLE1.equals(editedTable));
 
         // different table status -> returns false

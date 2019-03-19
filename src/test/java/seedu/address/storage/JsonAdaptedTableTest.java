@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedTable.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 
 import org.junit.Test;
@@ -35,7 +34,7 @@ public class JsonAdaptedTableTest {
     @Test
     public void toModelType_nullTableNumber_throwsIllegalValueException() {
         JsonAdaptedTable table = new JsonAdaptedTable(null, VALID_TABLE_STATUS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TableNumber.class.getSimpleName());
+        String expectedMessage = TableNumber.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, table::toModelType);
     }
 
@@ -50,7 +49,7 @@ public class JsonAdaptedTableTest {
     @Test
     public void toModelType_nullTableStatus_throwsIllegalValueException() {
         JsonAdaptedTable table = new JsonAdaptedTable(VALID_TABLE_NUMBER, null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TableStatus.class.getSimpleName());
+        String expectedMessage = String.format(TableStatus.MESSAGE_CONSTRAINTS);
         Assert.assertThrows(IllegalValueException.class, expectedMessage, table::toModelType);
     }
 

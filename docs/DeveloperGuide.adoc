@@ -385,6 +385,18 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Statistics
+==== Current Implementation
+The Statistics Class is an abstract class that can be extended to accommodate a Player and an Enemy. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the respective events for tracking.
+
+==== Design Considerations
+* **Alternative 1 (current choice):** Statistics will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
+** Pros: The underlying variables and values in `Statistics` is better protected from modification.
+** Cons: It does not accommodate changes in default settings.
+* **Alternative 2:** Statistics is stored entirely within StatsCommands
+** Pros: Easy to code and less lines of code.
+** Cons: Does not abide by Single Responsibility Principle as the `StatsCommand` will also contain filtering and analysis of data.
+
 == Documentation
 
 We use asciidoc for writing documentation.

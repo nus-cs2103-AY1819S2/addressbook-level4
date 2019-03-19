@@ -16,7 +16,6 @@ import seedu.address.logic.commands.EditReviewCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.VisitWebCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -27,6 +26,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetCategoryCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
+import seedu.address.logic.commands.VisitWebCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

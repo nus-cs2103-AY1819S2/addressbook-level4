@@ -417,13 +417,13 @@ current `cardMainScreen` page.
 
     picture of command box with user inputs
 
-    * First, the `logic` unit checks if this is a valid folder index. If it is not, an `invalidFolderIndexException` is
-thrown.
+    * First, the `logic` unit checks if this is a valid folder index. If it is not, an exception is thrown.
     * Second, the `logic` unit also checks if the user is already in a test session using
-    `Model#checkIfInsideTestSession()` where this `test` command would be rendered invalid.
+    `Model#checkIfInsideTestSession()`. If true, this `test` command would be rendered invalid and an
+    exception is thrown.
 
 
-2. The application then enters this folder by setting `ActiveCardFolderIndex` to this current index.
+2. The application enters this folder by setting `ActiveCardFolderIndex` to this current index.
 
 3. The `test` command calls `Model#testCardFolder()` method.
 
@@ -455,6 +455,17 @@ will then invoke `MainWindow#handleEndTestSession()` in the `UI` component.
 
     insert sequence diagram for end command
 
+
+==== Answer Command
+
+[discrete]
+===== Model
+
+To facilitate the marking of attempted answer, `#markAttemptedAnswer()` method is introduced in `ModelManager` which compares the attempted answer and the correct answer obtained from the current card.
+[NOTE]
+Comparison is not case-sensitive
+
+Similar to other test session methods, this is exposed in the model interface as `Model#markAttemptedAnswer()`.
 
 
 // tag::dataencryption[]

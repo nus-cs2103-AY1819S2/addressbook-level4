@@ -12,7 +12,8 @@ public class WorkListTest {
     @Test
     public void deleteEquipmentMustExist() {
         LISTA.addEquipment(BOB);
-        assertTrue(LISTA.deleteEquipment(BOB));
+        LISTA.deleteEquipment(BOB);
+        assertTrue(true);
     }
 
     @Test

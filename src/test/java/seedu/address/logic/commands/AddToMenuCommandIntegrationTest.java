@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import org.junit.Before;
@@ -28,7 +27,8 @@ public class AddToMenuCommandIntegrationTest {
 
     @Test
     public void execute_newMenuItem_success() {
-        MenuItem validMenuItem = new MenuItemBuilder().build();
+        MenuItem validMenuItem = new MenuItemBuilder().withName(VALID_CODE_FRIES).withCode(VALID_CODE_FRIES)
+                                         .withPrice(VALID_PRICE_FRIES).build();
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
         expectedModel.addMenuItem(validMenuItem);

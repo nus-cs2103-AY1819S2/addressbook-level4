@@ -20,7 +20,7 @@ public class JsonSerializableMenuTest {
             "JsonSerializableMenuTest");
     private static final Path TYPICAL_MENU_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalMenuItems.json");
     private static final Path INVALID_MENU_ITEM_FILE = TEST_DATA_FOLDER.resolve("invalidMenuItem.json");
-    private static final Path DUPLICATE_MENU_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateMenuItemAddressBook.json");
+    private static final Path DUPLICATE_MENU_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateMenuItem.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

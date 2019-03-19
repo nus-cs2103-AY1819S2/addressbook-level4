@@ -39,7 +39,7 @@ public class PriceTest {
         assertTrue(Price.isValidPrice("0.34")); // cheap
         assertTrue(Price.isValidPrice("12.34")); // average
         assertTrue(Price.isValidPrice("123.45")); // expensive
-        assertTrue(Name.isValidName("1234567890.23")); // very expensive
+        assertTrue(Price.isValidPrice("1234567890.23")); // very expensive
     }
 
 }

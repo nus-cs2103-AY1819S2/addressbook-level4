@@ -19,31 +19,26 @@ By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-*BrainTrain* is an open-source spaced repetition flashcard application which makes memorizing easy and efficient. Research has shown that the *Spaced-Repetition System (SRS) is more effective* than traditional memorization techniques. With it, you will be able to *learn more with less time*.
+BrainTrain is an open-source spaced repetition flashcard application which makes *memorizing easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
 
-*BrainTrain* is a desktop flashcard program and does not consume Internet bandwidth and can be used offline. It is also a *Command Line Interface (CLI)* program with none of the visual distractions Graphical User Interface (GUI) applications have. Furthermore, if you can type fast, you will spend *less time navigating the application and more time memorizing*.
+BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which you can use anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way for you to use BrainTrain.
 
-Interested? Jump to <<Quick Start>> to get started. Enjoy!
+Start using BrainTrain today! To get started, read <<Quick Start>> for installation and setup instructions.
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
+.  Download the latest `braintrain.jar` file link:{repoURL}/releases[here].
+. Create a folder to use as the home folder for BrainTrain (e.g. `braintrain/`).
+. Move the downloaded file to the created folder.
+. Double-click the file to run BrainTrain. The GUI will appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.BrainTrain's GUI on first run
+[#img-firstlook]
+image::UiFirstLook.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+. Type the command `help` in the command box at the top and press kbd:[Enter] to display usage information on BrainTrain commands.
+. Read <<Features>> to find out more about BrainTrain commands.
 
 [[Features]]
 == Features
@@ -82,15 +77,54 @@ Examples:
 
 * `start n/02-03-LEARN c/15 m/LEARN`
 
+==== Listing all lessons: `listLessons`
+
+Shows a numbered list of all lessons. +
+Format: `listLessons`
+
+==== Adding a lesson: `addLesson`
+Adds a lesson. +
+Format: `addLesson n/NAME c/CORE... [o/OPTIONAL]...`
+
+Usage rules:
+
+* The lesson to be added must contain at least 2 `CORE` parameters. These parameters are `CORE` headers which define the lesson cards' `CORE` values. An example of a `CORE` header and a card's `CORE` value would be 'Country' and 'Japan' respectively.
+
+[TIP]
+The lesson can have any number of `OPTIONAL` headers (including 0).
+
+The `OPTIONAL` headers are optional. The values of these headers are displayed during quiz mode when you enter <<hint, `\hint`>>.
+
+Examples:
+
+* `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`
+* `addLesson n/Country Capitals c/Country c/Capital o/First letter of capital`
+
+
+==== Deleting a lesson: `deleteLesson`
+
+Deletes a lesson. +
+Format: `deleteLesson INDEX`
+
+Usage rules:
+
+* Deletes the lesson at the specified `INDEX`.
+* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+
+Examples:
+
+* `deleteLesson 2` +
+Deletes the 2nd lesson in the numbered list displayed by `listLessons`.
+
 [[list_cards]]
-==== Listing all flashcards: `list cards`
+==== Listing all flashcards: `listCards`
 
 Shows a numbered list of all flashcards. +
-Format: `list cards`
+Format: `listCards`
 
-==== Adding a flashcard: `add card`
+==== Adding a flashcard: `addCard`
 Adds a flashcard. +
-Format: `add card q/QUESTION a/ANSWER [h/HINT]`
+Format: `addCard q/QUESTION a/ANSWER [h/HINT]`
 
 Usage rules:
 
@@ -98,49 +132,49 @@ Usage rules:
 
 Examples:
 
-* `add card q/What is the capital of Belgium? a/Brussels`
-* `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.`
+* `addCard q/What is the capital of Belgium? a/Brussels`
+* `addCard q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.`
 
-==== Editing a flashcard : `edit card`
+==== Editing a flashcard : `editCard`
 
 Edits an existing flashcard. +
-Format: `edit card INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
+Format: `editCard INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 
 Usage rules:
 
-* Edits the flashcard at the specified `INDEX`. To find the `INDEX` number of a question, type <<list_cards, `list cards`>> to list all flashcards.
+* Edits the flashcard at the specified `INDEX`. To find the `INDEX` number of a question, type `listCards` to list all flashcards.
 * All fields are optional, but minimally one field must be specified.
 * The flashcard's hint can be removed by typing `h/`.
 
 Examples:
 
-* `card edit 1 a/Tokyo` +
+* `editCard 1 a/Tokyo` +
 Changes the answer of the first flashcard to `Tokyo`. All other fields such as the question remain the same.
-* `card edit 12 q/How many intercostal spaces are there? h/` +
+* `editCard 12 q/How many intercostal spaces are there? h/` +
 Changes the question of the 12th flashcard to 'How many intercostal spaces are there?' and removes the flashcard's hint.
 
-==== Deleting a flashcard: `delete card`
+==== Deleting a flashcard: `deleteCard`
 
 Deletes a flashcard in the question pool. +
-Format: `delete card INDEX`
+Format: `deleteCard INDEX`
 
 Usage rules:
 
 * Deletes the flashcard at the specified `INDEX`.
-* To find the `INDEX` number of a question, type `list cards` to list all flashcards in the question pool.
+* To find the `INDEX` number of a question, type `listCards` to list all flashcards in the question pool.
 
 Examples:
 
-* `delete card 2` +
+* `deleteCard 2` +
 Deletes the 2nd flashcard.
 
-==== Importing user profile : `import user`
+==== Importing user profile : `importUser`
 Imports the selected `.csv` file and loads the current progress of the user. +
-Format: `import user FILEPATH`
+Format: `importUser FILEPATH`
 
-==== Exporting user profile : `export user`
+==== Exporting user profile : `exportUser`
 Exports the current progress of the user into a `.csv` file. +
-Format: `export user FILEPATH`
+Format: `exportUser FILEPATH`
 
 ==== Listing entered commands : `history`
 

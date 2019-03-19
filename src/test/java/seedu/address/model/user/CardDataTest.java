@@ -19,6 +19,5 @@ public class CardDataTest {
 
         //Same type of object -> returns true
         assertTrue(cardData.equals(cardData));
-
     }
 }

@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main/tree/master
+:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -202,7 +202,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/managementModel/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -248,12 +248,32 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::import/exportlesson
-=== Lesson CSV Storage Feature
-The lesson storage feature manages the saving of lessons to disk for the application. This lets the user keep lessons between usage sessions in CSV files.
+== Implementation
 
-The user is then able to easily edit their lesson data in an external application, such as Excel.
+This section describes some noteworthy details on how certain features are implemented.
 
+// tag::datastorage[]
+=== Data Storage Feature
+The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
+
+==== Current Implementation
+All data storage components implement public functions that are called through Storage, with no user commands currently implemented. These functions include saving and reading of files, with an option for changing the default directory where each kind of data is saved.
+
+NOTE: These functions are automatically performed on opening/closing the Session.
+
+==== Design Considerations
+* ** Alternative 1(Current choice): Automate importing/exporting when session is open/close
+** Pros: Lesser commands to manage.
+** Cons: Opening and closing may take up a lot of time if file is very big.
+
+* **Alternative 2: Individual commands for user to toggle with to import and export files when desired
+** Pros: More control given to user
+** Cons: Accidental overwriting of files may occur.
+// end::datastorage[]
+
+
+// tag::csvstorage[]
+=== CSV Storage Feature
 ==== Current Implementation
 The lesson CSV storage feature implements the following functions:
 
@@ -261,8 +281,6 @@ The lesson CSV storage feature implements the following functions:
 * Parsing data from file into lessons
 
 Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
-
-The lessons are currently automatically loaded on start-up, and saved whenever lesson data is updated by the user and on exit.
 
 ==== CSV Format
 image::CsvStorageDiagram.png[width="800"]
@@ -288,6 +306,7 @@ Question and answer fields have the `QUESTION_ESCAPE` character, `?`, and `ANSWE
 All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over.
 
 ==== Design Considerations
+
 ===== Aspect: Choice of file type
 * **Alternative 1 (current choice):** Save as CSV
 ** Pros: Allows the user to edit lesson data in an external program such as Excel, which provides a user-friendly spreadsheet interface.
@@ -296,18 +315,10 @@ All remaining data is treated as card data. Any invalid data found in memory or 
 ** Pros: Can ensure all values are filled out correctly
 ** Cons: Difficult for user to edit
 
-// end::import/exportlesson
+// end::csvstorage[]
 
-// tag::import/exportuser
-=== import/export feature
-The import/export feature allows user to import CSV files into object and export objects to CSV files.
 
-==== Current Implementation
-The import/export feature currently contains 2 commands to xxxxxxxxx
 
-* `import user` - Imports the selected CSV file and load the current progress of the user.
-* `export user` - Exports the current progress of the user into a CSV file.
-// end::import/exportuser
 
 
 
@@ -323,6 +334,13 @@ The quiz feature implements the following commands and processes answer:
 * `\hint` - Reveals additional information to help user to solve the question.
 * `\status` - Lists current status and lesson progress of user.
 * `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+
+==== \status
+The `\status` feature list the total attempts you have attempted, total number of question you
+have gotten correct in this session and which question you are currently on.
+
+.Sequence diagram for status feature
+image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ==== Answer [*]
 The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
@@ -592,7 +610,7 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `managementModel`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the managementModel API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
@@ -601,12 +619,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/managementModel/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/managementModel/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/managementModel/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -766,11 +784,11 @@ Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to managementModel component (you can copy from link:{repoURL}/src/main/java/seedu/address/managementModel/person/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -778,13 +796,13 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/address/managementModel/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
 We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
@@ -798,7 +816,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 . Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`].
 
 **Tests:**
 
@@ -1045,7 +1063,7 @@ Use case resumes at step 3.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

@@ -28,28 +28,9 @@ public class CardSrsData {
         this.srsDueDate = srsDueDate;
     }
 
-    /**
-     * Function for session model to get list of card datas
-     * @param hashCode must be given
-     * @return card from hashmap
-     */
-    public CardSrsData getCard(int hashCode) {
-        return cardmap.get(hashCode);
-    }
 
-    public void setCard(int hashCode, CardSrsData values) {
-        cardmap.put(hashCode, values);
-    }
     public int getHashCode() {
         return hashCode;
-    }
-
-    public int getnumOfAttempts() {
-        return numOfAttempts;
-    }
-
-    public Instant getSrsDueDate() {
-        return srsDueDate;
     }
 
     public int getNumOfAttempts() {
@@ -60,14 +41,15 @@ public class CardSrsData {
         this.numOfAttempts = numOfAttempts;
     }
 
-    public void updateNumOfAttempts(int numOfAttempts) {
-        this.numOfAttempts += numOfAttempts;
-    }
-
     public int getStreak() {
         return streak;
     }
+
     public void setStreak(int streak) {
         this.streak = streak;
+    }
+
+    public Instant getSrsDueDate() {
+        return srsDueDate;
     }
 }

@@ -13,7 +13,9 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -80,9 +82,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String addTableCommand = AddTableCommand.COMMAND_WORD;
-        assertCommandSuccess(addTableCommand, AddTableCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(addTableCommand);
+        String helpCommand = HelpCommand.COMMAND_WORD;
+        assertCommandSuccess(helpCommand, HelpCommand.SHOWING_HELP_MESSAGE, model);
+        assertHistoryCorrect(helpCommand);
     }
 
     @Test
@@ -111,7 +113,7 @@ public class LogicManagerTest {
         //        assertHistoryCorrect(addCommand);
 
         // Execute addTable command
-        String addTableCommand = AddTableCommand.COMMAND_WORD;
+        String addTableCommand = AddTableCommand.COMMAND_WORD + " 1";
         Table expectedTable = new TableBuilder().build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();

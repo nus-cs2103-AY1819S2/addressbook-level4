@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Locale;
 
 /**
- * Represents a Place's country code in the address book.
+ * Represents a Place's country code in TravelBuddy.
  * Guarantees: immutable; is valid as declared in {@link #isValidCountryCode(String)}
  */
 public class CountryCode {

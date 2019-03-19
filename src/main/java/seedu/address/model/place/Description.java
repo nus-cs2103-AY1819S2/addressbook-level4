@@ -15,6 +15,7 @@ public class Description {
             + "lowercase or uppercase alphabet character.\n"
             + "After that, any character except the line break is acceptable. ";
     public static final String VALIDATION_REGEX = "^[a-zA-Z]+.*";
+
     public final String value;
 
     /**

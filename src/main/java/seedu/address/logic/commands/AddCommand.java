@@ -34,7 +34,7 @@ public class AddCommand extends Command {
             + PREFIX_RATING + "4 "
             + PREFIX_DESCRIPTION
             + "The National University of Singapore is an autonomous research university in Singapore. "
-            + PREFIX_ADDRESS + "21 Lower Kent Ridge Rd, Singapore 119077 "
+            + PREFIX_ADDRESS + "21 Lower Kent Ridge Road, Singapore 119077 "
             + PREFIX_TAG + "school "
             + PREFIX_TAG + "studiesHere";
 

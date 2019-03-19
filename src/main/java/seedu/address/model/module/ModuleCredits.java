@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ModuleCredits {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Module credits is at least 0, at most 20";
+            "Module credits is at least 0, at most 40";
     public static final String VALIDATION_REGEX = "40|0?\\d";
     public final Integer credits;
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -29,8 +30,12 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_CODE_AMY = "CS2103T";
+    public static final String VALID_CODE_BOB = "CS1010";
     public static final String VALID_SEMESTER_AMY = "Y2S2";
     public static final String VALID_SEMESTER_BOB = "Y2S1";
+    public static final String VALID_GRADE_AMY = "A";
+    public static final String VALID_GRADE_BOB = "B";
     public static final String VALID_EXPECTED_MIN_GRADE_AMY = "C";
     public static final String VALID_EXPECTED_MIN_GRADE_BOB = "D";
     public static final String VALID_EXPECTED_MAX_GRADE_AMY = "A";
@@ -44,6 +49,8 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String SEMESTER_DESC_AMY = " " + PREFIX_SEMESTER + VALID_SEMESTER_AMY;
     public static final String SEMESTER_DESC_BOB = " " + PREFIX_SEMESTER + VALID_SEMESTER_BOB;
+    public static final String GRADE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_AMY;
+    public static final String GRADE_DESC_BOB = " " + PREFIX_GRADE + VALID_GRADE_BOB;
     public static final String EXPECTED_MIN_GRADE_DESC_AMY = " " + PREFIX_EXPECTED_MIN_GRADE
             + VALID_EXPECTED_MIN_GRADE_AMY;
     public static final String EXPECTED_MIN_GRADE_DESC_BOB = " " + PREFIX_EXPECTED_MIN_GRADE
@@ -57,6 +64,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&";
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "911a";
+    public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE + "K";
     public static final String INVALID_EXPECTED_MIN_GRADE_DESC = " "
             + PREFIX_EXPECTED_MIN_GRADE + "bob!yahoo";
     public static final String INVALID_EXPECTED_MAX_GRADE_DESC = " "

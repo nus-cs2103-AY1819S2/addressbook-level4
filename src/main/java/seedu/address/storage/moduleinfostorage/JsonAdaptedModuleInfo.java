@@ -43,7 +43,7 @@ public class JsonAdaptedModuleInfo {
         this.department = department;
 
         if (prerequisite == null) {
-            this.prerequisites = " No prerequisites needed";
+            this.prerequisites = "No prerequisites needed";
         } else {
             this.prerequisites = prerequisite;
         }

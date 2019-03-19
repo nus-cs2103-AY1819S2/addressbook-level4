@@ -8,7 +8,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 
-//TODO: Find a way to set the relative path of the JSON file currently uses
+//TODO: create a way to identify preclusions
 /**
  * Manages storage of All the module information data in local storage.
  */

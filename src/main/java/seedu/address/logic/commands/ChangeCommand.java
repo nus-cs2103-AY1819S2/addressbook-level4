@@ -19,6 +19,7 @@ public class ChangeCommand extends Command {
 
     public static final String COMMAND_WORD = "change";
 
+    // TODO: Include use case for changing to home directory
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Changes the card folder that the user is in.\n"
             + "Parameters: INDEX (must be a positive integer)\n"

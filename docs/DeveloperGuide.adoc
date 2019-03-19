@@ -882,9 +882,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | user | see where my battleships are on the map |have a visual representation of the game
 
-|`* * *` | player | end my turn |the enemy can start its turn
+|`* * *` | user | list my battleships |know the status of my fleet
 
-|`* * *` | player | see where my battleships are on the map |have a visual representation of the game
+|`* * *` | player | end my turn |the enemy can start its turn
 
 |`* * *` |player |delete a person |remove entries that I no longer need
 

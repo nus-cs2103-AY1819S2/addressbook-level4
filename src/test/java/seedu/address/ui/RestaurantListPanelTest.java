@@ -29,7 +29,7 @@ public class RestaurantListPanelTest extends GuiUnitTest {
     private static final ObservableList<Restaurant> TYPICAL_RESTAURANTS =
             FXCollections.observableList(getTypicalRestaurants());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 1000;
 
     private final SimpleObjectProperty<Restaurant> selectedRestaurant = new SimpleObjectProperty<>();
     private RestaurantListPanelHandle restaurantListPanelHandle;
@@ -86,7 +86,7 @@ public class RestaurantListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Weblink weblink = new Weblink("a.com");
+            Weblink weblink = new Weblink("https://a.com");
             OpeningHours openingHours = new OpeningHours("24hrs");
             Restaurant restaurant = new Restaurant(name, phone, email, address, Collections.emptySet(),
                     weblink, openingHours);

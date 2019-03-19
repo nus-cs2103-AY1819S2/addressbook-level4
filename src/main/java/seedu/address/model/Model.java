@@ -1,12 +1,15 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 
 /**
  * The API of the Model component.
@@ -86,7 +89,15 @@ public interface Model {
      */
     void updateFilteredPlaceList(Predicate<Place> predicate);
 
-    void generateChart();
+    /**
+     * Generates the country chart.
+     */
+    Map<CountryCode, Integer> generateChartCountry();
+
+    /**
+     * Generates the rating chart.
+     */
+    Map<Rating, Integer> generateChartRating();
 
     /**
      * Returns true if the model has previous address book states to restore.

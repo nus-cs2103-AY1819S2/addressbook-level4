@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.GenerateCommand;
 import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Place;
 import seedu.address.model.place.Rating;
@@ -99,50 +98,39 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     /**
-     * Generates a chart.
-     */
-    public void generate() {
-        if (GenerateCommand.KEYWORD.equals(GenerateCommand.KEYWORD_COUNTRY)) {
-            generateCountry();
-        } else {
-            generateRating();
-        }
-    }
-
-    /**
      * Generates a chart by country.
      */
-    public void generateCountry() {
-        Map<CountryCode, Integer> map = new HashMap<>();
-        CountryCode countryCode;
+    public Map<CountryCode, Integer> generateCountryChart() {
         ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
+        CountryCode countryCode;
+        Map<CountryCode, Integer> mapCountry = new HashMap<>();
         for (Place place : placeList) {
             countryCode = place.getCountryCode();
-            if (map.containsKey(countryCode)) {
-                map.put(countryCode, map.get(countryCode) + 1);
+            if (mapCountry.containsKey(countryCode)) {
+                mapCountry.put(countryCode, mapCountry.get(countryCode) + 1);
             } else {
-                map.put(countryCode, 1);
+                mapCountry.put(countryCode, 1);
             }
         }
-        System.out.println(map.toString());
+        return mapCountry;
     }
 
     /**
      * Generates a chart by rating.
      */
-    public void generateRating() {
-        Map<Rating, Integer> map = new HashMap<>();
-        Rating rating;
+    public Map<Rating, Integer> generateRatingChart() {
         ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
+        Rating rating;
+        Map<Rating, Integer> mapRating = new HashMap<>();
         for (Place place : placeList) {
             rating = place.getRating();
-            if (map.containsKey(rating)) {
-                map.put(rating, map.get(rating) + 1);
+            if (mapRating.containsKey(rating)) {
+                mapRating.put(rating, mapRating.get(rating) + 1);
             } else {
-                map.put(rating, 1);
+                mapRating.put(rating, 1);
             }
         }
-        System.out.println(map.toString());
+        return mapRating;
     }
 
     /**

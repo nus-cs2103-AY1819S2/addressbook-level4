@@ -36,10 +36,12 @@ class JsonAdaptedPlace {
      * Constructs a {@code JsonAdaptedPlace} with the given place details.
      */
     @JsonCreator
-    public JsonAdaptedPlace(@JsonProperty("name") String name, @JsonProperty("countryCode") String countryCode,
-        @JsonProperty("rating") String rating,
-            @JsonProperty("description") String description, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPlace(@JsonProperty("name") String name,
+                            @JsonProperty("countryCode") String countryCode,
+                            @JsonProperty("rating") String rating,
+                            @JsonProperty("description") String description,
+                            @JsonProperty("address") String address,
+                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.countryCode = countryCode;
         this.rating = rating;

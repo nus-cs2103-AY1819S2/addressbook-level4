@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,7 +16,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.place.CountryCode;
 import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 import seedu.address.model.place.exceptions.PlaceNotFoundException;
 
 /**
@@ -137,8 +140,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void generateChart() {
-        versionedAddressBook.generate();
+    public Map<CountryCode, Integer> generateChartCountry() {
+        return versionedAddressBook.generateCountryChart();
+    }
+
+    @Override
+    public Map<Rating, Integer> generateChartRating() {
+        return versionedAddressBook.generateRatingChart();
     }
 
     //=========== Undo/Redo =================================================================================

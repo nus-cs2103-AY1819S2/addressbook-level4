@@ -354,6 +354,107 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
 
     Sequence diagram
 
+=== Test Session feature
+==== Current Implementation
+This feature mainly involves `UI`, `Logic` and `Model` components.
+
+[discrete]
+===== Model:
+The following variables in `ModelManager` are introduced to keep track of the current state in a test session. The related methods are exposed in the `Model` interface.
+
+* `insideTestSession`
+** A boolean variable to indicate if user is running a test session.
+** Related methods:
+*** `Model#checkIfInsideTestSession()`
+
+* `currentTestedCard`
+** The current card the user is seeing in the test session.
+** Set to null if user is not inside a test session
+** Related methods:
+*** `Model#setCurrentTestedCard()`
+*** `Model#getCurrentTestedCard()`
+
+
+* `cardAlreadyAnswered`
+** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
+** Related methods:
+*** `Model#setCardAsAlreadyAnswered()`
+
+==== Test / End Command
+
+[discrete]
+===== Model
+The main logic for  `test` and `end` command is carried out inside the ModelManager with the following methods:
+
+* `#testCardFolder()` - begins a test session on the card folder specified (or the current card folder - to be
+implemented) and updates the three variables introduced earlier that are used to track the state of a test session
+accordingly.
+** `insideTestSession` is set to true.
+** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to the first card in the folder.
+
+* `#endTestSession()` - ends the current test session and updates the three variables accordingly.
+** `insideTestSession` is set to false.
+** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to null.
+** `cardAlreadyAnswered` is reset to false.
+
+They are exposed in the `model` interface as `Model#testCardFolder()` and `Model#endTestSession()`.
+
+[discrete]
+===== UI
+To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
+the current presented), the following methods are introduced.
+
+* `MainWindow#handleStartTestSession` - creates a new `testSession` page and bring it forward in front of the
+current `cardMainScreen` page.
+* `MainWindow#handleEndTestSession` - deletes the current `testSession` page and the `cardMainScreen` page at the back
+ is now presented to the user.
+
+
+[discrete]
+===== Example Usage
+
+1. User is in the home directory and wants to enter a test session on the first folder by executing the command `test 1`.
+
+    picture of command box with user inputs
+
+    * First, the `logic` unit checks if this is a valid folder index. If it is not, an `invalidFolderIndexException` is
+thrown.
+    * Second, the `logic` unit also checks if the user is already in a test session using
+    `Model#checkIfInsideTestSession()` where this `test` command would be rendered invalid.
+
+
+2. The application then enters this folder by setting `ActiveCardFolderIndex` to this current index.
+
+3. The `test` command calls `Model#testCardFolder()` method.
+
+4. The `currentTestedCard` will then be passed to `CommandResult` which checks that `testSessionCard` is not null.
+
+    draw commandResult object diagram
+
+
+5. `CommandResult` invokes `MainWindow#handleStartTestSession()` in the `UI` component to display the
+`currentTestedCard` question and hints to the user.
+
+    insert sequence diagram for test command
+
+
+
+
+6. When the user executes the command `end`
+
+    picture of command box with the end command
+
+* The `logic` unit checks if the user is already in a test session using `Model#checkIfInsideTestSession()`, which if
+ not, this `end` command would be rendered invalid.
+
+
+7. The `end` command calls Model#endTestSession().
+
+8. `end` command will then construct a `CommandResult` class with `isEndTestSession` parameter set to true. `CommandResult`
+will then invoke `MainWindow#handleEndTestSession()` in the `UI` component.
+
+    insert sequence diagram for end command
+
 
 
 // tag::dataencryption[]

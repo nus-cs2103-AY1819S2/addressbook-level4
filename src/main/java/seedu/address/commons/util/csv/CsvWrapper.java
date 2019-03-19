@@ -1,5 +1,7 @@
 package seedu.address.commons.util.csv;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -35,6 +37,8 @@ public class CsvWrapper {
     private Path csvFilePath;
 
     public CsvWrapper(String csvFileName, Model model) {
+        requireNonNull(csvFileName);
+        requireNonNull(model);
         this.csvFileName = csvFileName;
         this.model = model;
     }

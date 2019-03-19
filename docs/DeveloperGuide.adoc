@@ -386,6 +386,10 @@ Step 4. Creating a new restaurant object with the new list.
 
 Step 5. Replace the original restaurant with the new restaurant object in the model.
 
+==== Design considerations
+The primary consideration was the compatibility of this new command with the existing architecture.
+Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
+
 === Visit Webpage Feature
 
 Website can be displayed on the `BrowserPanel` with `visitWeb` command.
@@ -401,9 +405,6 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 
 The following sequence diagram shows how the visitWeb operation works:
 
-==== Design considerations
-The primary consideration was the compatibility of this new command with the existing architecture.
-Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

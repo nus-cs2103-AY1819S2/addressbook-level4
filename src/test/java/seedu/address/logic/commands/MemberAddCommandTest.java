@@ -173,10 +173,14 @@ public class MemberAddCommandTest {
         }
 
         @Override
-        public void undoAddressBook() {
+        public void sortAddressBook(Predicate<String> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public void redoAddressBook() {
             throw new AssertionError("This method should not be called.");

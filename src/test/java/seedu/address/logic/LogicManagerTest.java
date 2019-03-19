@@ -64,7 +64,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String memberDeleteCommand = "delete 9";
+        String memberDeleteCommand = "memberDelete 9";
         assertCommandException(memberDeleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         assertHistoryCorrect(memberDeleteCommand);
     }

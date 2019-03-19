@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EQUIPMENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
 import static seedu.address.testutil.TypicalEquipments.BUKITGCC;
 import static seedu.address.testutil.TypicalEquipments.CHENGSANCC;
+import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
 import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
 
 import java.util.Arrays;

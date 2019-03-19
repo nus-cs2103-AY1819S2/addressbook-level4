@@ -28,10 +28,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.AMY;
 import static seedu.address.testutil.TypicalEquipments.BOB;
-import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
 import static seedu.address.testutil.TypicalEquipments.HOON;
 import static seedu.address.testutil.TypicalEquipments.IDA;
 import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
 
 import org.junit.Test;
 

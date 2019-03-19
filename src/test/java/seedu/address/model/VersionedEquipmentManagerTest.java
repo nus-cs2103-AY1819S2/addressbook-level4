@@ -20,7 +20,8 @@ public class VersionedEquipmentManagerTest {
 
     private final ReadOnlyEquipmentManager addressBookWithAmy = new EquipmentManagerBuilder().withPerson(AMY).build();
     private final ReadOnlyEquipmentManager addressBookWithBob = new EquipmentManagerBuilder().withPerson(BOB).build();
-    private final ReadOnlyEquipmentManager addressBookWithCarl = new EquipmentManagerBuilder().withPerson(TECKGHEECC).build();
+    private final ReadOnlyEquipmentManager addressBookWithCarl = new EquipmentManagerBuilder()
+            .withPerson(TECKGHEECC).build();
     private final ReadOnlyEquipmentManager emptyAddressBook = new EquipmentManagerBuilder().build();
 
     @Test

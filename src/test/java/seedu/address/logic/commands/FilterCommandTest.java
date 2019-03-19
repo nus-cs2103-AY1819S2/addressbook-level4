@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EQUIPMENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
-import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.address.testutil.TypicalEquipments.AYERRAJAHCC;
+import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
 
 import java.util.Arrays;

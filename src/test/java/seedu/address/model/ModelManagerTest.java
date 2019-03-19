@@ -10,8 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.AMY;
-import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.address.testutil.TypicalEquipments.BOB;
+import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -156,7 +156,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(ACHORVALECC).withPerson(HWIYOHCC).build();
+        EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(ACHORVALECC)
+                .withPerson(HWIYOHCC).build();
         EquipmentManager differentEquipmentManager = new EquipmentManager();
         UserPrefs userPrefs = new UserPrefs();
 

@@ -59,8 +59,8 @@ public class EquipmentManagerTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two equipment with the same identity fields
-        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         List<Equipment> newEquipments = Arrays.asList(ACHORVALECC, editedAlice);
         EquipmentManagerStub newData = new EquipmentManagerStub(newEquipments);
 
@@ -88,8 +88,8 @@ public class EquipmentManagerTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         equipmentManager.addPerson(ACHORVALECC);
-        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(equipmentManager.hasPerson(editedAlice));
     }
 

@@ -46,8 +46,8 @@ public class UniqueEquipmentListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueEquipmentList.add(ACHORVALECC);
-        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(uniqueEquipmentList.contains(editedAlice));
     }
 
@@ -94,8 +94,8 @@ public class UniqueEquipmentListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueEquipmentList.add(ACHORVALECC);
-        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         uniqueEquipmentList.setEquipment(ACHORVALECC, editedAlice);
         UniqueEquipmentList expectedUniqueEquipmentList = new UniqueEquipmentList();
         expectedUniqueEquipmentList.add(editedAlice);

@@ -8,7 +8,7 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_HWI;
-import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+//import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;

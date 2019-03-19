@@ -75,6 +75,7 @@ public class TypicalEquipments {
     }
 
     public static List<Equipment> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ACHORVALECC, HWIYOHCC, TECKGHEECC, AYERRAJAHCC, BUKITGCC, CHENGSANCC, JURONGREENCC));
+        return new ArrayList<>(Arrays.asList(ACHORVALECC, HWIYOHCC, TECKGHEECC, AYERRAJAHCC, BUKITGCC, CHENGSANCC,
+                JURONGREENCC));
     }
 }

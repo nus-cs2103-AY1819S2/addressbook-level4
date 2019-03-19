@@ -1,7 +1,8 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+//import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_HWI;
 
 import org.junit.Test;
 
@@ -44,7 +45,7 @@ public class ClearCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: filters the equipment list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        showPersonsWithName(KEYWORD_MATCHING_CC);
+        showPersonsWithName(KEYWORD_MATCHING_HWI);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

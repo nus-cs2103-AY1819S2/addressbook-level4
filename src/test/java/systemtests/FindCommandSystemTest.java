@@ -4,13 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_EQUIPMENTS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+import static seedu.address.testutil.TypicalEquipments.AYERRAJAHCC;
 import static seedu.address.testutil.TypicalEquipments.BUKITGCC;
 import static seedu.address.testutil.TypicalEquipments.CHENGSANCC;
 import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.address.testutil.TypicalEquipments.JURONGREENCC;
-import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
-import static seedu.address.testutil.TypicalEquipments.AYERRAJAHCC;
 import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
 
 import java.util.ArrayList;
 import java.util.List;

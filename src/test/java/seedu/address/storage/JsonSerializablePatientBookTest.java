@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +30,8 @@ public class JsonSerializablePatientBookTest {
                 JsonSerializablePatientBook.class).get();
         PatientBook patientBookFromFile = dataFromFile.toModelType();
         PatientBook typicalPatientsPatientBook = TypicalPatients.getTypicalPatientBook();
-        assertEquals(patientBookFromFile, typicalPatientsPatientBook);
+        assertTrue(patientBookFromFile.arePatientsSame(typicalPatientsPatientBook));
+
     }
 
     @Test

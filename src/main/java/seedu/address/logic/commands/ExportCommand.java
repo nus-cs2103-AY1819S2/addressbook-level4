@@ -48,7 +48,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         if (parsedInput.getArgIsAll()) {
-            new SaveCommand(parsedInput.getFile()).execute(model, history);
+            new SaveCommand(parsedInput).execute(model, history);
         } else {
             writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

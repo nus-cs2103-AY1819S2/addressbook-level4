@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Grade;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
@@ -18,12 +19,14 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice";
     public static final String DEFAULT_SEMESTER = "Y4S2";
     public static final String DEFAULT_EXPECTED_MIN_GRADE = "F";
-    public static final String DEFAULT_EXPECTED_MAX_GRADE = "A_Plus";
+    public static final String DEFAULT_EXPECTED_MAX_GRADE = "A_PLUS";
+    public static final String DEFAULT_LECTURE_HOUR = "0";
 
     private Name name;
     private Semester semester;
     private Grade expectedMinGrade;
     private Grade expectedMaxGrade;
+    private Hour lectureHour;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -31,6 +34,7 @@ public class PersonBuilder {
         semester = Semester.valueOf(DEFAULT_SEMESTER);
         expectedMinGrade = Grade.valueOf(DEFAULT_EXPECTED_MIN_GRADE);
         expectedMaxGrade = Grade.valueOf(DEFAULT_EXPECTED_MAX_GRADE);
+        lectureHour = new Hour(DEFAULT_LECTURE_HOUR);
         tags = new HashSet<>();
     }
 
@@ -42,6 +46,7 @@ public class PersonBuilder {
         semester = personToCopy.getSemester();
         expectedMinGrade = personToCopy.getExpectedMinGrade();
         expectedMaxGrade = personToCopy.getExpectedMaxGrade();
+        lectureHour = personToCopy.getLectureHour();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -62,7 +67,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Grade} of the {@code Person} that we are building.
      */
     public PersonBuilder withExpectedMaxGrade(String expectedMaxGrade) {
         this.expectedMaxGrade = Grade.valueOf(expectedMaxGrade);
@@ -78,15 +83,23 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Grade} of the {@code Person} that we are building.
      */
     public PersonBuilder withExpectedMinGrade(String expectedMinGrade) {
         this.expectedMinGrade = Grade.valueOf(expectedMinGrade);
         return this;
     }
 
+    /**
+     * Sets the {@code Hour} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLectureHour(String lectureHour) {
+        this.lectureHour = new Hour(lectureHour);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, semester, expectedMinGrade, expectedMaxGrade, tags);
+        return new Person(name, semester, expectedMinGrade, expectedMaxGrade, lectureHour, tags);
     }
 
 }

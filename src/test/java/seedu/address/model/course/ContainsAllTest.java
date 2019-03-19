@@ -4,15 +4,16 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
-public class CourseRequirementTest {
-
+public class ContainsAllTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, ()
-            -> new CourseRequirement(null, x -> true, x -> "String"));
+            -> new ContainsAll(null, "CS2101"));
+        String[] strings = {null, null};
         Assert.assertThrows(NullPointerException.class, ()
-            -> new CourseRequirement("Lorem ipsum dolor sit amet", null, x -> "String"));
+            -> new ContainsAll("Lorem ipsum dolor sit amet", null));
         Assert.assertThrows(NullPointerException.class, ()
-            -> new CourseRequirement("Lorem ipsum dolor sit amet", x -> false, null));
+            -> new ContainsAll("Lorem ipsum dolor sit amet", strings));
     }
+
 }

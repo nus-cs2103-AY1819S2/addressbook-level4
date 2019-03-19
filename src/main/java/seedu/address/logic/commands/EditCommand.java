@@ -3,9 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LAB_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREPARATION_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIAL_HOUR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -21,6 +26,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Grade;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
@@ -41,6 +47,11 @@ public class EditCommand extends Command {
             + "[" + PREFIX_SEMESTER + "SEMESTER] "
             + "[" + PREFIX_EXPECTED_MIN_GRADE + "EXPECTED MIN GRADE] "
             + "[" + PREFIX_EXPECTED_MAX_GRADE + "EXPECTED MAX GRADE] "
+            + "[" + PREFIX_LECTURE_HOUR + "LECTURE HOUR] "
+            + "[" + PREFIX_TUTORIAL_HOUR + "TUTORIAL HOUR] "
+            + "[" + PREFIX_LAB_HOUR + "LAB HOUR] "
+            + "[" + PREFIX_PROJECT_HOUR + "PROJECT HOUR] "
+            + "[" + PREFIX_PREPARATION_HOUR + "PREPARATION HOUR] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_SEMESTER + "Y3S1 "
@@ -98,11 +109,14 @@ public class EditCommand extends Command {
         Semester updatedSemester = editPersonDescriptor.getSemester().orElse(personToEdit.getSemester());
         Grade updatedExpectedMinGrade = editPersonDescriptor
                 .getExpectedMinGrade().orElse(personToEdit.getExpectedMinGrade());
-        Grade updatedExpectecMaxGrade = editPersonDescriptor
+        Grade updatedExpectedMaxGrade = editPersonDescriptor
                 .getExpectedMaxGrade().orElse(personToEdit.getExpectedMaxGrade());
+        Hour updatedLectureHour = editPersonDescriptor
+                .getLectureHour().orElse(personToEdit.getLectureHour());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedSemester, updatedExpectedMinGrade, updatedExpectecMaxGrade, updatedTags);
+        return new Person(updatedName, updatedSemester, updatedExpectedMinGrade, updatedExpectedMaxGrade,
+                updatedLectureHour, updatedTags);
     }
 
     @Override
@@ -132,6 +146,7 @@ public class EditCommand extends Command {
         private Semester semester;
         private Grade expectedMinGrade;
         private Grade expectedMaxGrade;
+        private Hour lectureHour;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -145,6 +160,7 @@ public class EditCommand extends Command {
             setSemester(toCopy.semester);
             setExpectedMinGrade(toCopy.expectedMinGrade);
             setExpectedMaxGrade(toCopy.expectedMaxGrade);
+            setLectureHour(toCopy.lectureHour);
             setTags(toCopy.tags);
         }
 
@@ -187,6 +203,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(expectedMaxGrade);
         }
 
+        public void setLectureHour(Hour lectureHour) {
+            this.lectureHour = lectureHour;
+        }
+
+        public Optional<Hour> getLectureHour() {
+            return Optional.ofNullable(lectureHour);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -223,6 +247,7 @@ public class EditCommand extends Command {
                     && getSemester().equals(e.getSemester())
                     && getExpectedMinGrade().equals(e.getExpectedMinGrade())
                     && getExpectedMaxGrade().equals(e.getExpectedMaxGrade())
+                    && getLectureHour().equals(e.getLectureHour())
                     && getTags().equals(e.getTags());
         }
     }

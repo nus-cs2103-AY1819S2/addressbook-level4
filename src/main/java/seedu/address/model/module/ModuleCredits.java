@@ -10,7 +10,7 @@ public class ModuleCredits {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Module credits is at least 0, at most 20";
-    public static final String VALIDATION_REGEX = "20|1?\\d";
+    public static final String VALIDATION_REGEX = "40|0?\\d";
     public final Integer credits;
 
     public ModuleCredits(String moduleCredits) {

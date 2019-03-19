@@ -28,7 +28,7 @@ public class ModuleInfoList {
      */
     public void addModuleInfo(ModuleInfo module) {
         this.moduleInfoList.add(module);
-        System.out.println("new module added:" + module.getCode());
+        System.out.println("new module added:" + module.getCodeString());
     }
 
     /**
@@ -39,7 +39,7 @@ public class ModuleInfoList {
     public ModuleInfo getModule(String code) {
         ModuleInfo module = null;
         for (int i = 0; i < moduleInfoList.size(); i++) {
-            if (moduleInfoList.get(i).getCode().equals(code)) {
+            if (moduleInfoList.get(i).getCodeString().equals(code)) {
                 module = moduleInfoList.get(i);
             }
         }

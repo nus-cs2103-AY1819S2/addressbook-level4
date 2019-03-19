@@ -1,48 +1,25 @@
 package seedu.address.model.course;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import seedu.address.model.module.Module;
 
 /**
  *  Represents course of the user that is enrolled in
  */
 public class Course {
 
-    private CourseName courseName;
-    private CourseDescription courseDescription;
-    private List<CourseRequirement> courseRequirements;
+    private final CourseName courseName;
+    private final CourseDescription courseDescription;
+    private final List<CourseRequirement> courseRequirements;
 
     public Course(CourseName courseName, CourseDescription courseDescription,
                   CourseRequirement... courseRequirements) {
+        requireAllNonNull(courseName, courseDescription, courseRequirements);
         this.courseName = courseName;
         this.courseDescription = courseDescription;
         this.courseRequirements = Arrays.asList(courseRequirements);
-    }
-
-    /**
-     * Checks for modulesTaken against requirements to find requirement not satisfied
-     * @param modulesTaken
-     * @return list of requirements satisfied
-     */
-    public List<CourseRequirement> satisfiedRequirements(List<Module> modulesTaken) {
-        return courseRequirements.stream()
-                                 .filter(x -> x.isFulfilled(modulesTaken))
-                                 .collect(Collectors.toList());
-    }
-
-
-    /**
-     * Checks for modulesTaken against requirements to find requirement not satisfied
-     * @param modulesTaken
-     * @return list of requirements not satisfied
-     */
-    public List<CourseRequirement> unsatisfiedRequirements(List<Module> modulesTaken) {
-        return courseRequirements.stream()
-                .filter(x -> !x.isFulfilled(modulesTaken))
-                .collect(Collectors.toList());
     }
 
     public CourseName getCourseName() {

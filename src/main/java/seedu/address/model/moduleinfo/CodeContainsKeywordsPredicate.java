@@ -19,7 +19,7 @@ public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
     @Override
     public boolean test(ModuleInfo module) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getCode(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getCodeString(), keyword));
     }
 
     @Override

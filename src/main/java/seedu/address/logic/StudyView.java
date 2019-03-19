@@ -5,17 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.logic.commands.AddCardCommand;
-import seedu.address.logic.commands.BackCommand;
-import seedu.address.logic.commands.CloseDeckCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCardCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.parser.AddCardCommandParser;
-import seedu.address.logic.parser.DeleteCommandParser;
-import seedu.address.logic.parser.EditCommandParser;
-import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
@@ -37,8 +28,8 @@ public class StudyView implements ListViewState {
     @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
-            case CloseDeckCommand.COMMAND_WORD:
-                return new CloseDeckCommand();
+            case DoneCommand.COMMAND_WORD:
+                return new DoneCommand();
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

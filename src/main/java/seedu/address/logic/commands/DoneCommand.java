@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Selects a deck identified using its displayed index.
  */
-public class CloseDeckCommand extends Command {
+public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
 
@@ -16,7 +16,7 @@ public class CloseDeckCommand extends Command {
             + ": End your study state and return to the main page.\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    private static final String MESSAGE_CLOSE_DECK_SUCCESS = "Closed deck";
+    private static final String MESSAGE_CLOSE_DECK_SUCCESS = "Done studying";
 
     public CommandResult execute(Model model, CommandHistory history) {
 
@@ -27,6 +27,6 @@ public class CloseDeckCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || other instanceof CloseDeckCommand;
+        return other == this || other instanceof DoneCommand;
     }
 }

@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
+    private QuestionPanel questionPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -56,6 +57,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane questionPanelPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -125,6 +130,10 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        questionPanel = new QuestionPanel();
+        questionPanelPlaceholder.getChildren().add(questionPanel.getRoot());
+
     }
 
     /**

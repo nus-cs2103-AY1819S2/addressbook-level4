@@ -51,7 +51,7 @@ public class FinanceTrackerParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AllocateCommand.COMMAND_WORD:
             return new AllocateCommandParser().parse(arguments);

@@ -29,6 +29,7 @@ public class AllocateCommandTest {
 
     @Test
     public void execute() {
+      
         final Amount amount = new Amount("$123.00");
         final Category category = new Category("Food");
 

@@ -346,7 +346,7 @@ are useful because sometimes patients may want to know what medicine they took b
 related to prescriptions, which are add a new prescription, edit an existing prescription and delete an existing
 prescription respectively.
 
-===== Add a New Prescription
+==== Add a New Prescription
 Current proposed implementation
 
 A user specifies the id of the patient, the id of the doctor and a description of the prescription in command line. And
@@ -369,7 +369,7 @@ Step5. LogicManager calls execute() of AddPrescriptionCommand.
 
 Step6. execute() calls hasPrescription() of Model. If the prescription does not exist, call addPrescription() of Model
 
-===== Edit an Existing Prescription
+==== Edit an Existing Prescription
 
 To be updated later
 

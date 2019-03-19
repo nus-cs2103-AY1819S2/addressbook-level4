@@ -268,6 +268,7 @@ public class ModelManager implements Model {
         return imageNames;
     }
 
+    @Override
     public Image getImage() {
         return tempImage;
     }
@@ -275,6 +276,7 @@ public class ModelManager implements Model {
     /**
      * replaces temp folder image with original asset Image
      */
+    @Override
     public void replaceTempImage() {
         //set this image
         try {
@@ -285,6 +287,14 @@ public class ModelManager implements Model {
         catch (IOException e) {
             System.out.println(e.toString());
         }
+    }
+
+    /**
+     * Updates tempImage to Opened image
+     */
+    @Override
+    public void setCurrentImage(Image image) {
+        this.tempImage = image;
     }
 
 }

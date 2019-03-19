@@ -22,7 +22,7 @@ public class OpenCommand extends Command {
 
     private final Image toOpen;
 
-    /**
+    /**g
      * Creates an OpenCommand to add the specified {@code Image}
      */
     public OpenCommand(Image image) {
@@ -33,6 +33,7 @@ public class OpenCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        model.setCurrentImage(toOpen);
         model.displayImage(toOpen);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toOpen));
     }

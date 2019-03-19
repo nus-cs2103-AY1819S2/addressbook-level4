@@ -1,9 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -31,9 +29,7 @@ public class PersonUtil {
     public static String getPersonDetails(Pdf pdf) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + pdf.getName().getFullName() + " ");
-        sb.append(PREFIX_PHONE + pdf.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + pdf.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + pdf.getAddress().value + " ");
+        sb.append(PREFIX_DIRECTORY + pdf.getPhone().value + " ");
         pdf.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -46,9 +42,7 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.getFullName()).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getDirectory().ifPresent(dir -> sb.append(PREFIX_DIRECTORY).append(dir.getDirectory()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

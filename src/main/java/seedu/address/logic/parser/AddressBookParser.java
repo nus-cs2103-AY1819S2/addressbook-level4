@@ -6,6 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.ActivityAddCommand;
+import seedu.address.logic.commands.ActivityDeleteCommand;
+import seedu.address.logic.commands.ActivityListCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -20,6 +23,8 @@ import seedu.address.logic.commands.MemberSelectCommand;
 import seedu.address.logic.commands.MemberSortCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.parser.activity.ActivityAddCommandParser;
+import seedu.address.logic.parser.activity.ActivityDeleteCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -72,6 +77,15 @@ public class AddressBookParser {
 
         case MemberListCommand.COMMAND_WORD:
             return new MemberListCommand();
+
+        case ActivityAddCommand.COMMAND_WORD:
+            return new ActivityAddCommandParser().parse(arguments);
+
+        case ActivityDeleteCommand.COMMAND_WORD:
+            return new ActivityDeleteCommandParser().parse(arguments);
+
+        case ActivityListCommand.COMMAND_WORD:
+            return new ActivityListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

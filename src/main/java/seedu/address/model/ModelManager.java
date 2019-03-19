@@ -15,6 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.exceptions.ActivityNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -28,6 +30,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Activity> filteredActivities;
+    private final SimpleObjectProperty<Activity> selectedActivity = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +46,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredActivities = new FilteredList<>(versionedAddressBook.getActivityList());
+        filteredActivities.addListener(this::ensureSelectedActivityIsValid);
     }
 
     public ModelManager() {
@@ -120,6 +126,30 @@ public class ModelManager implements Model {
     }
 
     @Override
+
+    public boolean hasActivity(Activity activity) {
+        requireNonNull(activity);
+        return versionedAddressBook.hasActivity(activity);
+    }
+
+    @Override
+    public void deleteActivity(Activity target) {
+        versionedAddressBook.removeActivity(target);
+    }
+
+    @Override
+    public void addActivity(Activity activity) {
+        versionedAddressBook.addActivity(activity);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+    }
+
+    @Override
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireAllNonNull(target, editedActivity);
+
+        versionedAddressBook.setActivity(target, editedActivity);
+    }
+
     public void sortAddressBook(Predicate<String> predicate) {
         versionedAddressBook.sortAddressBook(predicate);
     }
@@ -213,6 +243,73 @@ public class ModelManager implements Model {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    //=========== Filtered Activity List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Activity} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return filteredActivities;
+    }
+
+    @Override
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        requireNonNull(predicate);
+        filteredActivities.setPredicate(predicate);
+    }
+
+    //=========== Selected activity ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Activity> selectedActivityProperty() {
+        return selectedActivity;
+    }
+
+    @Override
+    public Activity getSelectedActivity() {
+        return selectedActivity.getValue();
+    }
+
+    @Override
+    public void setSelectedActivity(Activity activity) {
+        if (activity != null && !filteredActivities.contains(activity)) {
+            throw new ActivityNotFoundException();
+        }
+        selectedActivity.setValue(activity);
+    }
+
+    /**
+     * Ensures {@code selectedActivity} is a valid activity in {@code filteredActivities}.
+     */
+    private void ensureSelectedActivityIsValid(ListChangeListener.Change<? extends Activity> change) {
+        while (change.next()) {
+            if (selectedActivity.getValue() == null) {
+                // null is always a valid selected activity, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedActivityReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedActivity.getValue());
+            if (wasSelectedActivityReplaced) {
+                // Update selectedActivity to its new value.
+                int index = change.getRemoved().indexOf(selectedActivity.getValue());
+                selectedActivity.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedActivityRemoved = change.getRemoved().stream()
+                    .anyMatch(removedActivity -> selectedActivity.getValue().isSameActivity(removedActivity));
+            if (wasSelectedActivityRemoved) {
+                // Select the activity that came before it in the list,
+                // or clear the selection if there is no such activity.
+                selectedActivity.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

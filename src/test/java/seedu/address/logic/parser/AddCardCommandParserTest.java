@@ -24,13 +24,13 @@ import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
 
-public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+public class AddCardCommandParserTest {
+    private AddCardCommandParser parser = new AddCardCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -38,33 +38,33 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_SUBTRACTION
-            + TAG_DESC_MOD, new AddCommand(expectedCard));
+            + TAG_DESC_MOD, new AddCardCommand(expectedCard));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, QUESTION_DESC_HELLO + QUESTION_DESC_SUBTRACTION + ANSWER_DESC_SUBTRACTION
-            + TAG_DESC_MOD, new AddCommand(expectedCard));
+            + TAG_DESC_MOD, new AddCardCommand(expectedCard));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, QUESTION_DESC_SUBTRACTION + ANSWER_DESC_HELLO + ANSWER_DESC_SUBTRACTION
-            + TAG_DESC_MOD, new AddCommand(expectedCard));
+            + TAG_DESC_MOD, new AddCardCommand(expectedCard));
 
         // multiple tags - all accepted
         Card expectedCardMultipleTags = new CardBuilder(HELLO_WORLD).withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT)
                 .build();
         assertParseSuccess(parser, QUESTION_DESC_HELLO + ANSWER_DESC_HELLO + TAG_DESC_MOD
-            + TAG_DESC_SUBJECT, new AddCommand(expectedCardMultipleTags));
+            + TAG_DESC_SUBJECT, new AddCardCommand(expectedCardMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Card expectedCard = new CardBuilder(ADDITION).withTags().build();
-        assertParseSuccess(parser, QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION, new AddCommand(expectedCard));
+        assertParseSuccess(parser, QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION, new AddCardCommand(expectedCard));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE);
 
         // missing question prefix
         assertParseFailure(parser, VALID_QUESTION_HELLO + ANSWER_DESC_HELLO, expectedMessage);
@@ -85,6 +85,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
                 + TAG_DESC_SUBJECT + TAG_DESC_MOD,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
     }
 }

@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.storage.Storage;
 
 /**
@@ -48,14 +49,14 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = topDeckParser.parseCommand(commandText);
+            Command command = topDeckParser.parseCommand(commandText, model);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
         if (topDeckModified) {
-            logger.info("Address book modified, saving to file.");
+            logger.info("TopDeck modified, saving to file.");
             try {
                 storage.saveTopDeck(model.getTopDeck());
             } catch (IOException ioe) {
@@ -72,8 +73,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Card> getFilteredCardList() {
-        return model.getFilteredCardList();
+    public void setSelectedItem(ListItem item) {
+        model.setSelectedItem(item);
+    }
+
+    @Override
+    public ObservableList<ListItem> getFilteredList() {
+        return model.getFilteredList();
     }
 
     @Override
@@ -97,12 +103,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Card> selectedCardProperty() {
-        return model.selectedCardProperty();
-    }
-
-    @Override
-    public void setSelectedCard(Card card) {
-        model.setSelectedCard(card);
+    public ReadOnlyProperty<ListItem> selectedItemProperty() {
+        return model.selectedItemProperty();
     }
 }

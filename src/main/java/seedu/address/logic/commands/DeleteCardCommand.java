@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
@@ -14,7 +15,7 @@ import seedu.address.model.deck.Card;
 /**
  * Deletes a card identified using it's displayed index from the deck.
  */
-public class DeleteCommand extends Command {
+public class DeleteCardCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -27,20 +28,20 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteCardCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Card> lastShownList = model.getFilteredCardList();
+        List<ListItem> lastShownList = model.getFilteredList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
-        Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Card cardToDelete = (Card) lastShownList.get(targetIndex.getZeroBased());
         model.deleteCard(cardToDelete);
         model.commitTopDeck();
         return new CommandResult(String.format(MESSAGE_DELETE_CARD_SUCCESS, cardToDelete));
@@ -49,7 +50,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteCardCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteCardCommand) other).targetIndex)); // state check
     }
 }

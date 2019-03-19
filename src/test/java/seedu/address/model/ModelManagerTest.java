@@ -35,7 +35,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new TopDeck(), new TopDeck(modelManager.getTopDeck()));
-        assertEquals(null, modelManager.getSelectedCard());
+        assertEquals(null, modelManager.getSelectedItem());
     }
 
     @Test
@@ -104,48 +104,48 @@ public class ModelManagerTest {
     @Test
     public void deleteCard_cardIsSelectedAndFirstCardInFilteredCardList_selectionCleared() {
         modelManager.addCard(ADDITION);
-        modelManager.setSelectedCard(ADDITION);
+        modelManager.setSelectedItem(ADDITION);
         modelManager.deleteCard(ADDITION);
-        assertEquals(null, modelManager.getSelectedCard());
+        assertEquals(null, modelManager.getSelectedItem());
     }
 
     @Test
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
         modelManager.addCard(ADDITION);
         modelManager.addCard(SUBTRACTION);
-        assertEquals(Arrays.asList(ADDITION, SUBTRACTION), modelManager.getFilteredCardList());
-        modelManager.setSelectedCard(SUBTRACTION);
+        assertEquals(Arrays.asList(ADDITION, SUBTRACTION), modelManager.getFilteredList());
+        modelManager.setSelectedItem(SUBTRACTION);
         modelManager.deleteCard(SUBTRACTION);
-        assertEquals(ADDITION, modelManager.getSelectedCard());
+        assertEquals(ADDITION, modelManager.getSelectedItem());
     }
 
     @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
+    public void setCard_cardIsSelected_selectedCardUpdated() {
         modelManager.addCard(ADDITION);
-        modelManager.setSelectedCard(ADDITION);
+        modelManager.setSelectedItem(ADDITION);
         Card updatedAddition = new CardBuilder(ADDITION).withAnswer(VALID_ANSWER_MOD).build();
         modelManager.setCard(ADDITION, updatedAddition);
-        assertEquals(updatedAddition, modelManager.getSelectedCard());
+        assertEquals(updatedAddition, modelManager.getSelectedItem());
     }
 
     @Test
-    public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredCardList().remove(0);
+        modelManager.getFilteredList().remove(0);
     }
 
     @Test
-    public void setSelectedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
+    public void setSelectedItem_cardNotInFilteredCardList_throwsCardNotFoundException() {
         thrown.expect(CardNotFoundException.class);
-        modelManager.setSelectedCard(ADDITION);
+        modelManager.setSelectedItem(ADDITION);
     }
 
     @Test
-    public void setSelectedCard_cardInFilteredCardList_setsSelectedCard() {
+    public void setSelectedItem_cardInFilteredCardList_setsSelectedCard() {
         modelManager.addCard(ADDITION);
-        assertEquals(Collections.singletonList(ADDITION), modelManager.getFilteredCardList());
-        modelManager.setSelectedCard(ADDITION);
-        assertEquals(ADDITION, modelManager.getSelectedCard());
+        assertEquals(Collections.singletonList(ADDITION), modelManager.getFilteredList());
+        modelManager.setSelectedItem(ADDITION);
+        assertEquals(ADDITION, modelManager.getSelectedItem());
     }
 
     @Test
@@ -173,11 +173,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ADDITION.getQuestion().split("\\s+");
-        modelManager.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        modelManager.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

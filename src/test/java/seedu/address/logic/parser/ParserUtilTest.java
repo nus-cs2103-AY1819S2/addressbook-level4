@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,12 +19,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
+
+    private static final String WHITESPACE = " \t\r\n";
+
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
-
-    private static final String WHITESPACE = " \t\r\n";
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -44,10 +46,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_CARD, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_DECK, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_CARD, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_DECK, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

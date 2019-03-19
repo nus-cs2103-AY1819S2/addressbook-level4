@@ -41,23 +41,23 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
 
-        EditCommand.EditCardDescriptor editPersonDescriptor = new EditCardDescriptor();
+        EditCommand.EditCardDescriptor editCardDescriptor = new EditCardDescriptor();
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
-            editPersonDescriptor.setQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
+            editCardDescriptor.setQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
         }
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
-            editPersonDescriptor.setAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
+            editCardDescriptor.setAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCardDescriptor::setTags);
 
         // Abbreviated version of the command is given, expand full command in the text box
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editCardDescriptor.isAnyFieldEdited()) {
             return new EditCommand(index);
 
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editCardDescriptor);
     }
 
     /**

@@ -25,6 +25,8 @@ have been looking for, then jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
+To get started with TopDeck:
+
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `topdeck.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
@@ -34,104 +36,123 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`index`* : lists all cards
-* **`deck add`**`Capitals`  creates a deck entitled "Capitals"
-* **`deck delete`**`3` : deletes the 3rd deck shown in the current list
-* *`exit`* : exits the app
+Once TopDeck is set up, you can try these commands:
 
-.  Refer to <<Features>> for details of each command.
+* `index` : lists all cards
+* `add Capitals` : creates a deck named "Capitals"
+* `delete 3` : deletes the third deck in the list
+* `exit` : exits the app
 
-[[Features]]
-== Features
+For details of each command, please refer to <<Commands>>.
+
+[[Commands]]
+== Commands
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add q/QUESTION a/ANSWER`, `QUESTION` is a parameter which can be used as `add q/Honduras a/Tegucigalpa`.
-* Items in square brackets are optional e.g `f/QUESTION b/ANSWER [t/TAG]` can be used as `q/China a/Beijing t/Asia` or as `q/China a/Beijing`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
+* Items in square brackets are optional e.g `q/QUESTION a/ANSWER [t/TAG]` can be used as `q/China a/Beijing t/Asia` or as `q/China a/Beijing`.
+* Items with `…`​ after them can be used any number of times including zero e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Decks View
 
-**Format**: `help`
+These commands are only available in decks view.
 
-**Outcome**: Displays information regarding commands
+==== Creating a deck: `add`
 
-=== Creating a deck: `deck add`
+**Format**: `add NAME`
 
-**Format**: `deck add DECK_NAME`
+**Outcome**: Creates a new deck called `NAME`.
 
-**Outcome**: Creates new deck called DECK_NAME
+==== Deleting a deck: `delete`
 
-=== Deleting a deck: `deck delete`
+**Format**: `delete INDEX`
 
-**Format**: `deck delete DECK_INDEX`
-
-**Outcome**: Deletes deck at index DECK_INDEX
-
-=== Deleting a deck: `deck find`
-
-**Format**: `deck find KEYWORD`
-
-**Outcome**: Lists all decks containing that keyword in its name
-
-=== Listing all decks: `list`
-
-**Format**: `list`
-
-**Outcome**: Displays list of all decks. Deselects the current deck
-
-=== Selecting a deck: `select`
-
-**Format**: `select DECK_INDEX`
-
-**Outcome**: Selects deck to to enable you to manage the cards inside
+**Outcome**: Deletes the deck at `INDEX`.
 
 ****
 * The index refers to the index number shown in the displayed deck list. The index *must be a positive integer* 1, 2, 3...
 ****
 
-=== Adding card to selected deck: `card add`
+=== Editing the name of a deck: `edit`
 
-**Format**: `card add q/QUESTION a/ANSWER`
+**Format**: `edit INDEX NAME`
 
-**Outcome**: Creates and adds a new card containing QUESTION in front and ANSWER at the back onto selected deck
+**Outcome**: Changes the `NAME` of the deck at `INDEX`.
 
-[NOTE]
-====
-A deck must be selected before this command is called.
-====
+==== Finding a deck by name: `find`
 
-=== Editing card: `card edit`
+**Format**: `find KEYWORD`
 
-**Format**: `card edit CARD_INDEX q/QUESTION a/ANSWER`
+**Outcome**: Lists all decks containing `KEYWORD` in its name.
 
-**Outcome**: Edits card at CARD_INDEX to change either the question or the answer or both
+==== Listing all decks: `list`
 
-=== Finding card: `card find`
+**Format**: `list`
 
-**Format**: `card find KEYWORD`
+**Outcome**: Displays a list of all decks.
 
-**Outcome**: Lists down all cards containing keyword
+==== Select a deck: `select`
 
-[NOTE]
-====
-When this command is called while a deck is selected, search results are limited to the results from that deck.
-====
+**Format**: `select INDEX`
 
+**Outcome**: Selects the deck at `INDEX` and enter cards view. For more information, see <<Cards View>>.
 
-=== Deleting card in the selected deck: `card delete`
+==== Study a deck: `study`
 
+**Format**: `study INDEX`
 
-**Format**: `card delete CARD_INDEX`
+**Outcome**: Enters **Study Mode** with the deck at `INDEX`.
 
-**Outcome**: Deletes the card at CARD_INDEX
+=== Cards View
 
-=== Listing entered commands : `history`
+These are commands are only available in cards view, after a deck has been selected.
+
+==== Adding a card to the selected deck: `add`
+
+**Format**: `add q/QUESTION a/ANSWER`
+
+**Outcome**: Creates a new card with some front and back text and add it to the current deck.
+
+==== Editing a card in the selected deck: `edit`
+
+**Format**: `edit INDEX q/QUESTION a/ANSWER`
+
+**Outcome**: Edits the text of the card at `INDEX`.
+
+==== Finding a card in the selected deck by name: `find`
+
+**Format**: `find KEYWORD`
+
+**Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
+
+==== Deleting a card in the selected deck: `delete`
+
+**Format**: `delete INDEX`
+
+**Outcome**: Deletes the card at `INDEX`.
+
+==== Studying the selected deck: `study`
+
+**Format**: `study`
+
+**Outcome**: Enters **Study Mode** with the current deck selected.
+
+==== Returning to decks view: `back`
+
+**Format**: `back`
+
+**Outcome**: Returns to decks view.
+
+=== Global commands
+
+These commands are available in either view.
+
+==== Listing entered commands : `history`
 
 **Format**: `history`
 
@@ -142,101 +163,87 @@ When this command is called while a deck is selected, search results are limited
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
+==== Undoing a command : `undo`
 
 **Format**: `undo`
 
-**Outcome**: Restores the address book to the state before the previous _undoable_ command was executed.
+**Outcome**: Restores TopDeck to the state before the previous change.
 
-[NOTE]
-====
-Undoable commands: You are not able to undo a study session.
-====
+**Examples**:
 
-**Example usage**:
-
-* `card delete 1` +
+(In cards view) +
+* `delete 1` +
 `list` +
-`undo` (reverses the `card delete 1` command) +
+`undo` (undos `delete 1`) +
 
-* `card delete 1` +
-`card add q/Russia a/Moscow` +
-`undo` (reverses the `card add` command) +
-`undo` (reverses the `card delete` command) +
+(In cards view) +
+* `delete 1` +
+`add q/Russia a/Moscow` +
+`undo` (undos `add`) +
+`undo` (undos `delete`) +
 
-=== Redoing the previously undone command : `redo`
-
+==== Redoing a command : `redo`
 
 **Format**: `redo`
 
-**Outcome**: Reverses the most recent `undo` command
+**Outcome**: Restores the TopDeck to the state before an `undo`.
 
-Examples:
+**Examples**:
 
-* `card delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete 1` +
+`undo` (undos `delete 1`) +
+`redo` (redos `delete 1`) +
 
-* `card delete 1` +
+* `delete 1` +
 `redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+The `redo` command fails as there is no undone state to restore.
 
-* `card delete 1` +
-`card add q/Panama a/Panama` +
-`undo` (reverses the `card add` command) +
-`undo` (reverses the `card delete` command) +
-`redo` (reapplies the `card delete` command) +
-`redo` (reapplies the `card add` command) +
-// end::undoredo[]
+(In cards view)
+* `delete 1` +
+`add q/Panama a/Panama` +
+`undo` (undos `add`) +
+`undo` (undos `delete`) +
+`redo` (redos `delete`) +
+`redo` (redos `add`) +
 
-=== Importing a deck: `import deck`
+==== Viewing help : `help`
+
+**Format**: `help`
+
+**Outcome**: Displays information regarding commands
+
+==== Importing a deck: `import`
 
 
-**Format**: `import deck FILE_PATH`
+**Format**: `import FILE_PATH`
 
 **Outcome**: Imports a deck from the given filepath
 
-=== Exporting a deck: `export deck`
+==== Exporting a deck: `export`
 
-**Format**: `export deck FILE_PATH`
+**Format**: `export FILE_PATH`
 
 **Outcome**: Exports a deck to the given filepath
 
-=== Studying a deck: `study`
-
-**Format**: `study DECK_INDEX`
-
-**Outcome**: Enters **Study Mode** using the cards from deck DECK_INDEX.
-
-****
-* If `INDEX` is not given, defaults to the selected deck.
-* Enters Study Mode which responds to a different set of commands.
-****
-
-
-
-=== Clearing all entries : `clear`
+==== Clearing all entries : `clear`
 
 **Format**: `clear`
 
 **Outcome**: Clears all entries in TopDeck
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 **Format**: `exit`
 
 **Outcome**: Exits the program
 
+==== Saving your data
 
-=== Saving the data
-
-TopDeck data are saved in the hard disk automatically after any command that changes the data. +
+TopDeck data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
@@ -248,9 +255,6 @@ _{explain how the user can enable/disable data encryption}_
 
 == Glossary
 
-**Card**: An object that contains questions on one side and answer on the flip slide. During study mode, one side of the card is shown. Once you've locked in your answer, you can choose when to reveal the opposite side.
+**Card**: Flash cards in TopDeck are called cards. Each card contains a question-answer pair. TopDeck assumes the front face contains the question while the back face contains the answer.
 
-**Deck**: A collection of cards
-
-**Undoable commands**: These are commands that can be undone with the `undo` command. All commands are undoable commands, with the exception of the following: `help`, `study`, `undo`, `redo`
-
+**Deck**: A deck is a collection of cards that can be studied together.

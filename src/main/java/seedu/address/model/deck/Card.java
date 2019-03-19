@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.logic.ListItem;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a deck object in TopDeck.
  * Guarantees: details are present and not null, field values are validated and immutable
  */
-public class Card {
+public class Card implements ListItem {
     //Identity field
     private final String question;
 

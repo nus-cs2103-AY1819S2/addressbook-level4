@@ -4,29 +4,31 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_DECK;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyTopDeck;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.TopDeck;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.*;
 import seedu.address.model.deck.Card;
-import seedu.address.testutil.CardBuilder;
+import seedu.address.model.deck.Deck;
+import seedu.address.testutil.DeckBuilder;
 
-public class AddCommandTest {
+
+public class AddDeckCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -36,56 +38,56 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullCard_throwsNullPointerException() {
+    public void constructor_nullDeck_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddDeckCommand(null);
     }
 
     @Test
-    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
-        Card validCard = new CardBuilder().build();
+    public void execute_deckAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingDeckAdded modelStub = new ModelStubAcceptingDeckAdded();
+        Deck validDeck = new DeckBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validCard).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddDeckCommand(validDeck).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
+        assertEquals(String.format(AddDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validDeck), modelStub.decksAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicateCard_throwsCommandException() throws Exception {
-        Card validCard = new CardBuilder().build();
-        AddCommand addCommand = new AddCommand(validCard);
-        ModelStub modelStub = new ModelStubWithCard(validCard);
+    public void execute_duplicateDeck_throwsCommandException() throws Exception {
+        Deck validDeck = new DeckBuilder().build();
+        AddDeckCommand addDeckCommand = new AddDeckCommand(validDeck);
+        ModelStub modelStub = new ModelStubWithDeck(validDeck);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CARD);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(MESSAGE_DUPLICATE_DECK);
+        addDeckCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Card addition = new CardBuilder().withQuestion("What is 1 + 1?").build();
-        Card subtraction = new CardBuilder().withQuestion("What is 10 - 8?").build();
-        AddCommand addAdditionCommand = new AddCommand(addition);
-        AddCommand addSubtractionCommand = new AddCommand(subtraction);
+        Deck firstDeck = new DeckBuilder().withName("Test Deck1").build();
+        Deck secondDeck = new DeckBuilder().withName("Test Deck2").build();
+        AddDeckCommand addFirstDeckCommand = new AddDeckCommand(firstDeck);
+        AddDeckCommand addSecondDeckCommand = new AddDeckCommand(secondDeck);
 
         // same object -> returns true
-        assertTrue(addAdditionCommand.equals(addAdditionCommand));
+        assertTrue(addFirstDeckCommand.equals(addFirstDeckCommand));
 
         // same values -> returns true
-        AddCommand addAdditionCommandCopy = new AddCommand(addition);
-        assertTrue(addAdditionCommand.equals(addAdditionCommandCopy));
+        AddDeckCommand addFirstDeckCommandCopy = new AddDeckCommand(firstDeck);
+        assertTrue(addFirstDeckCommand.equals(addFirstDeckCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAdditionCommand.equals(1));
+        assertFalse(addFirstDeckCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAdditionCommand.equals(null));
+        assertFalse(addFirstDeckCommand.equals(null));
 
-        // different card -> returns false
-        assertFalse(addAdditionCommand.equals(addSubtractionCommand));
+        // different person -> returns false
+        assertFalse(addFirstDeckCommand.equals(addSecondDeckCommand));
     }
 
     /**
@@ -123,11 +125,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCard(Card card) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setTopDeck(ReadOnlyTopDeck newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -143,6 +140,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public void deleteCard(Card target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -153,11 +156,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Card> getFilteredCardList() {
+        public ObservableList<ListItem> getFilteredList() {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void updateFilteredCardList(Predicate<Card> predicate) {
+        @Override
+        public void updateFilteredList(Predicate<? extends ListItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,60 +191,86 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Card> selectedCardProperty() {
+        public ReadOnlyProperty<ListItem> selectedItemProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Card getSelectedCard() {
+        public ListItem getSelectedItem() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedCard(Card card) {
+        public void setSelectedItem(ListItem item) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDeck(Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDeck(Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Command parse(String commandWord, String arguments) throws ParseException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changeDeck(Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void goToDecksView() {
+            throw new AssertionError("This method should not be called.");
+
         }
     }
 
     /**
-     * A Model stub that contains a single card.
+     * A Model stub that contains a single deck.
      */
-    private class ModelStubWithCard extends ModelStub {
-        private final Card card;
+    private class ModelStubWithDeck extends ModelStub {
+        private final Deck deck;
 
-        ModelStubWithCard(Card card) {
-            requireNonNull(card);
-            this.card = card;
+        ModelStubWithDeck(Deck deck) {
+            requireNonNull(deck);
+            this.deck = deck;
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return this.card.isSameCard(card);
+        public boolean hasDeck(Deck deck) {
+            requireNonNull(deck);
+            return this.deck.isSameDeck(deck);
         }
     }
 
     /**
-     * A Model stub that always accept the card being added.
+     * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+    private class ModelStubAcceptingDeckAdded extends ModelStub {
+        final ArrayList<Deck> decksAdded = new ArrayList<>();
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameCard);
+        public boolean hasDeck(Deck deck) {
+            requireNonNull(deck);
+            return decksAdded.stream().anyMatch(deck::isSameDeck);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void addDeck(Deck deck) {
+            requireNonNull(deck);
+            decksAdded.add(deck);
         }
 
         @Override
         public void commitTopDeck() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddDeckCommand#execute()}
         }
 
         @Override
@@ -250,3 +280,4 @@ public class AddCommandTest {
     }
 
 }
+

@@ -126,6 +126,17 @@ public interface Model {
      */
     void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate);
 
+    /**
+     * Selected health worker in the filtered health worker list.
+     * null if no health worker is selected.
+     */
+    ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty();
+
+    /**
+     * Sets the selected health worker in the filtered health worker list.
+     */
+    void setSelectedHealthWorker(HealthWorker worker);
+
     // =======================================================================
 
     /** Returns an unmodifiable view of the filtered person list */
@@ -179,6 +190,12 @@ public interface Model {
      */
     void setSelectedPerson(Person person);
 
+    // ========================= Request related code ====================================
+    // @author David, Hui Chun
+
+    /** Returns an unmodifiable view of the filtered request list */
+    ObservableList<Request> getFilteredRequestList();
+
     /**
      * Returns the user prefs' request book file path.
      */
@@ -224,4 +241,15 @@ public interface Model {
     void setRequest(Request target, Request editedRequest);
 
     void commitRequestBook();
+
+    /**
+     * Selected request in the filtered request list.
+     * null if no request is selected.
+     */
+    ReadOnlyProperty<Request> selectedRequestProperty();
+
+    /**
+     * Sets the selected request in the filtered request list.
+     */
+    void setSelectedRequest(Request request);
 }

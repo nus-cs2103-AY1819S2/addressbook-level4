@@ -1,7 +1,15 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javafx.collections.ObservableList;
+import seedu.address.logic.commands.GenerateCommand;
+import seedu.address.model.place.CountryCode;
+import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 
 /**
  * {@code AddressBook} that keeps track of its own history.
@@ -88,6 +96,53 @@ public class VersionedAddressBook extends AddressBook {
         return super.equals(otherVersionedAddressBook)
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+    }
+
+    /**
+     * Generates a chart.
+     */
+    public void generate() {
+        if (GenerateCommand.KEYWORD.equals(GenerateCommand.KEYWORD_COUNTRY)) {
+            generateCountry();
+        } else {
+            generateRating();
+        }
+    }
+
+    /**
+     * Generates a chart by country.
+     */
+    public void generateCountry() {
+        Map<CountryCode, Integer> map = new HashMap<>();
+        CountryCode countryCode;
+        ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
+        for (Place place : placeList) {
+            countryCode = place.getCountryCode();
+            if (map.containsKey(countryCode)) {
+                map.put(countryCode, map.get(countryCode) + 1);
+            } else {
+                map.put(countryCode, 1);
+            }
+        }
+        System.out.println(map.toString());
+    }
+
+    /**
+     * Generates a chart by rating.
+     */
+    public void generateRating() {
+        Map<Rating, Integer> map = new HashMap<>();
+        Rating rating;
+        ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
+        for (Place place : placeList) {
+            rating = place.getRating();
+            if (map.containsKey(rating)) {
+                map.put(rating, map.get(rating) + 1);
+            } else {
+                map.put(rating, 1);
+            }
+        }
+        System.out.println(map.toString());
     }
 
     /**

@@ -86,6 +86,8 @@ public interface Model {
      */
     void updateFilteredPlaceList(Predicate<Place> predicate);
 
+    void generateChart();
+
     /**
      * Returns true if the model has previous address book states to restore.
      */

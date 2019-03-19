@@ -136,6 +136,11 @@ public class ModelManager implements Model {
         filteredPlaces.setPredicate(predicate);
     }
 
+    @Override
+    public void generateChart() {
+        versionedAddressBook.generate();
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

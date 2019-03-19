@@ -95,7 +95,7 @@ public class AddressBookParser {
 
         case GenerateCommand.COMMAND_WORD:
         case GenerateCommand.COMMAND_ALIAS:
-            return new GenerateCommand();
+            return new GenerateCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

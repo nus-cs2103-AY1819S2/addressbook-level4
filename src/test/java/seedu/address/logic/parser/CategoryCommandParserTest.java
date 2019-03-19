@@ -9,18 +9,19 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.SetCuisineCommand;
+import seedu.address.logic.commands.SetCategoryCommand;
+import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
 
-public class CuisineCommandParserTest {
+public class CategoryCommandParserTest {
 
     private static final String VALID_INDEX = "1";
     private static final String VALID_CUISINE = "Fast Food";
     private static final String INVALID_CUISINE = "Fast$Food";
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCuisineCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCategoryCommand.MESSAGE_USAGE);
 
-    private CuisineCommandParser parser = new CuisineCommandParser();
+    private CategoryCommandParser parser = new CategoryCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -59,7 +60,8 @@ public class CuisineCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_RESTAURANT;
         String validFormat = targetIndex.getOneBased() + " " + PREFIX_CUISINE + VALID_CUISINE;
-        SetCuisineCommand expectedCommand = new SetCuisineCommand(targetIndex, new Cuisine(VALID_CUISINE));
+        Category validCategory = new Category(new Cuisine(VALID_CUISINE), null);
+        SetCategoryCommand expectedCommand = new SetCategoryCommand(targetIndex, validCategory);
         assertParseSuccess(parser, validFormat, expectedCommand);
     }
 }

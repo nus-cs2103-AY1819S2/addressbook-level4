@@ -16,6 +16,7 @@ import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
 import seedu.address.model.tag.Tag;
@@ -157,7 +158,8 @@ public class ParserUtil {
         }
         return new Rating(trimmedRating);
     }
-    /** Parses a {@code String cuisine} into a {@code Cuisine}.
+    /**
+     * Parses a {@code String cuisine} into a {@code Cuisine}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code cuisine} is invalid.
@@ -169,6 +171,21 @@ public class ParserUtil {
             throw new ParseException(Cuisine.MESSAGE_CONSTRAINTS);
         }
         return new Cuisine(trimmedCuisine);
+    }
+
+    /**
+     * Parses a {@code String occasion} into a {@code Occasion}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the give {@code occasion} is invalid.
+     */
+    public static Occasion parseOccasion(String occasion) throws ParseException {
+        requireNonNull(occasion);
+        String trimmedOccasion = occasion.trim();
+        if (!Occasion.isValidOccasion(trimmedOccasion)) {
+            throw new ParseException(Occasion.MESSAGE_CONSTRAINTS);
+        }
+        return new Occasion(trimmedOccasion);
     }
 
     /**

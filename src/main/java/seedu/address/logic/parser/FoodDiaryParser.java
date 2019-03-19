@@ -13,15 +13,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditReviewCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.SetCuisineCommand;
+import seedu.address.logic.commands.SetCategoryCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -62,9 +64,11 @@ public class FoodDiaryParser {
         case AddReviewCommand.COMMAND_WORD:
             return new AddReviewCommandParser().parse(arguments);
 
-
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case EditReviewCommand.COMMAND_WORD:
+            return new EditReviewCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
@@ -99,8 +103,11 @@ public class FoodDiaryParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case SetCuisineCommand.COMMAND_WORD:
-            return new CuisineCommandParser().parse(arguments);
+        case SetCategoryCommand.COMMAND_WORD:
+            return new CategoryCommandParser().parse(arguments);
+
+        case GotoCommand.COMMAND_WORD:
+            return new GotoCommandParser().parse(arguments);
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);

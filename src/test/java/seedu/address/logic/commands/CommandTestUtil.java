@@ -38,8 +38,8 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_WEBLINK_AMY = "amy.com";
-    public static final String VALID_WEBLINK_BOB = "bob.com";
+    public static final String VALID_WEBLINK_AMY = "No weblink added";
+    public static final String VALID_WEBLINK_BOB = "No weblink added";
     public static final String VALID_OPENING_HOURS = "0900 to 2300";
     public static final String VALID_CUISINE_FAST_FOOD = "Fast Food";
 

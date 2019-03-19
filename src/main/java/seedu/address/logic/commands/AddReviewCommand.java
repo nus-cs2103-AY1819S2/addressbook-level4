@@ -5,9 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -92,7 +91,7 @@ public class AddReviewCommand extends Command {
     private static Restaurant createRestaurantWithNewReview(Restaurant restaurantReviewed, Review reviewToAdd) {
         assert restaurantReviewed != null;
 
-        Set<Review> newReviews = new HashSet<>();
+        List<Review> newReviews = new ArrayList<>();
         newReviews.addAll(restaurantReviewed.getReviews());
         newReviews.add(reviewToAdd);
 
@@ -100,6 +99,11 @@ public class AddReviewCommand extends Command {
                 restaurantReviewed.getEmail(),
                 restaurantReviewed.getAddress(), restaurantReviewed.getTags(),
                 restaurantReviewed.getWeblink(), restaurantReviewed.getOpeningHours(),
-                restaurantReviewed.getCuisine(), newReviews);
+                restaurantReviewed.getCategories(), newReviews);
+    }
+
+    @Override
+    public String toString() {
+        return this.getTargetIndex().getOneBased() + " " + this.getReviewToAdd().toString();
     }
 }

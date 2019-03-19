@@ -3,7 +3,6 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,9 @@ import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
+import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -38,6 +39,7 @@ class JsonAdaptedRestaurant {
     private final String weblink;
     private final String openingHours;
     private final String cuisine;
+    private final String occasion;
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -47,6 +49,7 @@ class JsonAdaptedRestaurant {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("cuisine") String cuisine,
+            @JsonProperty("occasion") String occasion,
             @JsonProperty("weblink") String weblink,
             @JsonProperty("openinghours") String openingHours,
             @JsonProperty("reviewed") List<JsonAdaptedReview> reviewed) {
@@ -56,6 +59,7 @@ class JsonAdaptedRestaurant {
         this.email = email;
         this.address = address;
         this.cuisine = cuisine;
+        this.occasion = occasion;
         this.weblink = weblink;
         this.openingHours = openingHours;
         if (tagged != null) {
@@ -85,6 +89,12 @@ class JsonAdaptedRestaurant {
             cuisine = source.getCuisine().get().value;
         } else {
             cuisine = null;
+        }
+
+        if (source.getOccasion().isPresent()) {
+            occasion = source.getOccasion().get().value;
+        } else {
+            occasion = null;
         }
 
         weblink = source.getWeblink().value;
@@ -139,14 +149,24 @@ class JsonAdaptedRestaurant {
         }
         final Address modelAddress = new Address(address);
 
-        final Optional<Cuisine> modelCuisine;
+        final Cuisine modelCuisine;
         if (cuisine == null) {
-            modelCuisine = Optional.empty();
+            modelCuisine = null;
         } else {
             if (!Cuisine.isValidCuisine(cuisine)) {
                 throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
             }
-            modelCuisine = Optional.of(cuisine).map(content -> new Cuisine(content));
+            modelCuisine = new Cuisine(cuisine);
+        }
+
+        final Occasion modelOccasion;
+        if (occasion == null) {
+            modelOccasion = null;
+        } else {
+            if (!Occasion.isValidOccasion(occasion)) {
+                throw new IllegalValueException(Occasion.MESSAGE_CONSTRAINTS);
+            }
+            modelOccasion = new Occasion(occasion);
         }
 
         if (weblink == null) {
@@ -168,10 +188,10 @@ class JsonAdaptedRestaurant {
 
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
 
-        final Set<Review> modelReviews = new HashSet<>(restaurantReviews);
+        final ArrayList<Review> modelReviews = new ArrayList<>(restaurantReviews);
 
         return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink,
-                modelOpeningHours, modelCuisine, modelReviews);
+                modelOpeningHours, new Category(modelCuisine, modelOccasion), modelReviews);
     }
 
 }

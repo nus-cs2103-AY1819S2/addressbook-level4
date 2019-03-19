@@ -33,9 +33,9 @@ public class HealthWorkerListPanel extends UiPart<Region> {
         healthWorkerListView.setCellFactory(listView -> new HealthWorkerListPanel.HealthWorkerListCell());
         healthWorkerListView.getSelectionModel()
                 .selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in health worker list panel changed to : '" + newValue + "'");
-            onSelectedHealthWorkerChange.accept(newValue);
-        });
+                    logger.fine("Selection in health worker list panel changed to : '" + newValue + "'");
+                    onSelectedHealthWorkerChange.accept(newValue);
+                });
         selectedHealthWorker.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected health worker changed to: " + newValue);
 

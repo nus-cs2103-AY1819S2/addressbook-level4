@@ -26,6 +26,6 @@ public class ResultDisplayHandle extends NodeHandle<TextFlow> {
             }
         }
         String fullText = sb.toString();
-        return fullText;
+        return fullText.trim();
     }
 }

@@ -326,10 +326,20 @@ sorting criteria provided.
 * If the user input matches, the uniquePersonList will be sorted based on that criteria
 If the user input does not match, then an error message will be prompted to the user.
 
+// tag::memberexport[]
+=== MemberExport
+
+==== Current Implementation
+image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
+* The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
+
+* Then it uses export utilities to create the file and write the Person's information to it
+
+* If the index specified in invalid, an error message will be displayed
+
 ==== Future Implementation
-* For future implementation, the `memberSort` command will sort the members based on active and inactive status (second priority).
-Active and inactive members will have their personCard differentiated by color.
-// end::membersort[]
+* For future implementation, the `memberExport` command will export the members details in a formatted html page
+// end::memberexport[]
 
 === Logging
 

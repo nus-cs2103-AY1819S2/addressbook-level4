@@ -28,7 +28,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
@@ -40,7 +39,7 @@ import seedu.address.testutil.CardUtil;
 public class AddCommandSystemTest extends CardFolderSystemTest {
 
     @Test
-    public void add() throws CommandException {
+    public void add() {
         Model model = getModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
@@ -155,7 +154,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(Card toAdd) throws CommandException {
+    private void assertCommandSuccess(Card toAdd) {
         assertCommandSuccess(CardUtil.getAddCommand(toAdd), toAdd);
     }
 
@@ -164,7 +163,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(Card)
      */
-    private void assertCommandSuccess(String command, Card toAdd) throws CommandException {
+    private void assertCommandSuccess(String command, Card toAdd) {
         Model expectedModel = getModel();
         expectedModel.addCard(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);

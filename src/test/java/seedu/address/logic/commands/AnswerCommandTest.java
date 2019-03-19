@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -57,7 +56,7 @@ public class AnswerCommandTest {
     }
 
     @Test
-    public void execute_correctAnswerAttempt_markCorrect() throws CommandException {
+    public void execute_correctAnswerAttempt_markCorrect() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS, false,
                 false, false, null, false, AnswerCommandResultType.ANSWER_CORRECT);
 
@@ -78,7 +77,7 @@ public class AnswerCommandTest {
     }
 
     @Test
-    public void execute_wrongAnswerAttempt_markWrong() throws CommandException {
+    public void execute_wrongAnswerAttempt_markWrong() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS, false,
                 false, false, null, false, AnswerCommandResultType.ANSWER_WRONG);
 

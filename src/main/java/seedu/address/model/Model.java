@@ -11,7 +11,6 @@ import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
@@ -61,7 +60,7 @@ public interface Model extends Observable {
     /**
      * Replaces card folder data with the data in {@code cardFolder}.
      */
-    void resetCardFolder(ReadOnlyCardFolder cardFolder) throws CommandException;
+    void resetCardFolder(ReadOnlyCardFolder cardFolder);
 
     /** Returns the active CardFolder */
     ReadOnlyCardFolder getActiveCardFolder();
@@ -78,20 +77,20 @@ public interface Model extends Observable {
      * Deletes the given card.
      * The card must exist in the card folder.
      */
-    void deleteCard(Card target) throws CommandException;
+    void deleteCard(Card target);
 
     /**
      * Adds the given card.
      * {@code card} must not already exist in the card folder.
      */
-    void addCard(Card card) throws CommandException;
+    void addCard(Card card);
 
     /**
      * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the card folder.
      * The card identity of {@code editedCard} must not be the same as another existing card in the card folder.
      */
-    void setCard(Card target, Card editedCard) throws CommandException;
+    void setCard(Card target, Card editedCard);
 
     // TODO: Implement hasFolder and setFolder
 
@@ -104,13 +103,13 @@ public interface Model extends Observable {
      * Deletes the folder at the given index.
      * The folder must exist.
      */
-    void deleteFolder(int index) throws CommandException;
+    void deleteFolder(int index);
 
     /**
      * Adds the given folder.
      * {@code cardFolder} must not already exist.
      */
-    void addFolder(CardFolder cardFolder) throws CommandException;
+    void addFolder(CardFolder cardFolder);
 
     /**
      * Gets the index of the current active {@code CardFolder}.
@@ -120,12 +119,14 @@ public interface Model extends Observable {
     /**
      * Sets the index of the current active {@code CardFolder}.
      */
-    void setActiveCardFolderIndex(int newIndex) throws CommandException;
+    void setActiveCardFolderIndex(int newIndex);
 
     /**
      * Sets the Model back to the home directory, outside of any cardfolder.
      */
-    void exitFoldersToHome() throws CommandException;
+    void exitFoldersToHome();
+
+    boolean isInFolder();
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();

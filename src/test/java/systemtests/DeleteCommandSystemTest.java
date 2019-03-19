@@ -18,7 +18,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 
@@ -28,7 +27,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     @Test
-    public void delete() throws CommandException {
+    public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
         /* Case: delete the first card in the list, command with leading spaces and trailing spaces -> deleted */
@@ -117,7 +116,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
      * Removes the {@code Card} at the specified {@code index} in {@code model}'s card folder.
      * @return the removed card
      */
-    private Card removeCard(Model model, Index index) throws CommandException {
+    private Card removeCard(Model model, Index index) {
         Card targetCard = getCard(model, index);
         model.deleteCard(targetCard);
         return targetCard;
@@ -128,7 +127,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
-    private void assertCommandSuccess(Index toDelete) throws CommandException {
+    private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         Card deletedCard = removeCard(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_CARD_SUCCESS, deletedCard);

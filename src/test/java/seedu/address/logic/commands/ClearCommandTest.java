@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalCards.getTypicalFolderName;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,7 +26,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyCardFolder_success() throws CommandException {
+    public void execute_nonEmptyCardFolder_success() {
         Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         expectedModel.resetCardFolder(new CardFolder(getTypicalFolderName()));

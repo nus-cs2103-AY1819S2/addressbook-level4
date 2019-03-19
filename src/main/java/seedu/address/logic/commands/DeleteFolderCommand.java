@@ -35,6 +35,9 @@ public class DeleteFolderCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.isInFolder()) {
+            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
+        }
         List<ReadOnlyCardFolder> cardFolderList = model.getCardFolders();
 
         if (targetIndex.getZeroBased() >= cardFolderList.size()) {

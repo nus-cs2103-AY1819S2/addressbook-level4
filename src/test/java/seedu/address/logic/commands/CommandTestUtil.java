@@ -147,7 +147,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first card in {@code model}'s filtered list from {@code model}'s card folder.
      */
-    public static void deleteFirstCard(Model model) throws CommandException {
+    public static void deleteFirstCard(Model model) {
         Card firstCard = model.getFilteredCards().get(0);
         model.deleteCard(firstCard);
         model.commitActiveCardFolder();

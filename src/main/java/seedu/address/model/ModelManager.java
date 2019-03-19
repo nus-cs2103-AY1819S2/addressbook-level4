@@ -36,8 +36,6 @@ import seedu.address.storage.csvmanager.CsvManager;
  * Represents the in-memory model of the card folder data.
  */
 public class ModelManager implements Model {
-    private static final String ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE = "Command can only be executed in folder";
-    private static final String ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE = "Command can only be executed in home directory";
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -141,10 +139,7 @@ public class ModelManager implements Model {
     //=========== CardFolder ================================================================================
 
     @Override
-    public void resetCardFolder(ReadOnlyCardFolder cardFolder) throws CommandException {
-        if (!inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
-        }
+    public void resetCardFolder(ReadOnlyCardFolder cardFolder) {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.resetData(cardFolder);
     }
@@ -168,30 +163,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteCard(Card target) throws CommandException {
-        if (!inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
-        }
+    public void deleteCard(Card target) {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.removeCard(target);
     }
 
     @Override
-    public void addCard(Card card) throws CommandException {
-        if (!inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
-        }
+    public void addCard(Card card) {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.addCard(card);
         updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
-    public void setCard(Card target, Card editedCard) throws CommandException {
-        if (!inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
-        }
-
+    public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
 
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
@@ -212,20 +197,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteFolder(int index) throws CommandException {
-        if (inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE);
-        }
+    public void deleteFolder(int index) {
         folders.remove(index);
         filteredCardsList.remove(index);
         indicateModified();
     }
 
     @Override
-    public void addFolder(CardFolder cardFolder) throws CommandException {
-        if (inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE);
-        }
+    public void addFolder(CardFolder cardFolder) {
         VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
         folders.add(versionedCardFolder);
         FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
@@ -240,20 +219,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setActiveCardFolderIndex(int newIndex) throws CommandException {
-        if (inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE);
-        }
+    public void setActiveCardFolderIndex(int newIndex) {
         inFolder = true;
         activeCardFolderIndex = newIndex;
     }
 
     @Override
-    public void exitFoldersToHome() throws CommandException {
-        if (!inFolder) {
-            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
-        }
+    public void exitFoldersToHome() {
         inFolder = false;
+    }
+
+    @Override
+    public boolean isInFolder() {
+        return inFolder;
     }
 
     @Override

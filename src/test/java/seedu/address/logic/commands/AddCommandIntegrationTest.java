@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,7 +28,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newCard_success() throws CommandException {
+    public void execute_newCard_success() {
         Card validCard = new CardBuilder().build();
 
         Model expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());

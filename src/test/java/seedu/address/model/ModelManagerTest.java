@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.model.card.exceptions.CardNotFoundException;
@@ -101,13 +100,13 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasCard_cardInCardFolder_returnsTrue() throws CommandException {
+    public void hasCard_cardInCardFolder_returnsTrue() {
         modelManager.addCard(ALICE);
         assertTrue(modelManager.hasCard(ALICE));
     }
 
     @Test
-    public void deleteCard_cardIsSelectedAndFirstCardInFilteredCardList_selectionCleared() throws CommandException {
+    public void deleteCard_cardIsSelectedAndFirstCardInFilteredCardList_selectionCleared() {
         modelManager.addCard(ALICE);
         modelManager.setSelectedCard(ALICE);
         modelManager.deleteCard(ALICE);
@@ -115,7 +114,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() throws CommandException {
+    public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
         modelManager.addCard(ALICE);
         modelManager.addCard(CARD_2);
         assertEquals(Arrays.asList(ALICE, CARD_2), modelManager.getFilteredCards());
@@ -125,7 +124,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setCard_cardIsSelected_selectedCardUpdated() throws CommandException {
+    public void setCard_cardIsSelected_selectedCardUpdated() {
         modelManager.addCard(ALICE);
         modelManager.setSelectedCard(ALICE);
         Card updatedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).build();
@@ -134,7 +133,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void sortCards_byScore() throws CommandException {
+    public void sortCards_byScore() {
         modelManager.addCard(FIONA);
         modelManager.addCard(GEORGE);
         modelManager.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
@@ -144,7 +143,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void sortCards_byQuestionLexicographic() throws CommandException {
+    public void sortCards_byQuestionLexicographic() {
         modelManager.addCard(FIONA);
         modelManager.addCard(GEORGE);
         modelManager.sortFilteredCard(COMPARATOR_LEXICOGRAPHIC_CARDS);
@@ -166,7 +165,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setSelectedCard_cardInFilteredCardList_setsSelectedCard() throws CommandException {
+    public void setSelectedCard_cardInFilteredCardList_setsSelectedCard() {
         modelManager.addCard(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
         modelManager.setSelectedCard(ALICE);
@@ -180,7 +179,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setCurrentTestedCard_cardInFilteredCardList_setsSelectedCard() throws CommandException {
+    public void setCurrentTestedCard_cardInFilteredCardList_setsSelectedCard() {
         modelManager.addCard(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
         modelManager.setCurrentTestedCard(ALICE);

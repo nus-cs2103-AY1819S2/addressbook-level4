@@ -2,6 +2,7 @@ package seedu.address.commons.util.csv;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +26,7 @@ import seedu.address.model.tag.Tag;
  */
 public class CsvWrapper {
 
-    private static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
+    public static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
     private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags"};
     private static final String DEFAULT_EXPORT_FOLDER_NAME = "exported";
     private static final Path DEFAULT_EXPORT_FOLDER_PATH = Paths.get(DEFAULT_EXPORT_FOLDER_NAME);
@@ -62,6 +63,8 @@ public class CsvWrapper {
         createIfExportDirectoryMissing();
         try {
             csvFilePath = Files.createFile(Paths.get(DEFAULT_EXPORT_FOLDER_NAME, csvFileName + ".csv"));
+        } catch (FileAlreadyExistsException fae) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + csvFileName + ".csv" + " already exists in \"" + DEFAULT_EXPORT_FOLDER_NAME + "\" directory.");
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

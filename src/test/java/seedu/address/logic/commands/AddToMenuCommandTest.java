@@ -14,6 +14,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
@@ -30,9 +33,6 @@ import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 import seedu.address.testutil.MenuItemBuilder;
-
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 
 public class AddToMenuCommandTest {
 

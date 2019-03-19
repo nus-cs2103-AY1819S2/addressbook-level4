@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE8;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE6;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE8;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class AddTableCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
         expectedModel.addTable(TABLE8);
-        
+
         assertCommandSuccess(Mode.RESTAURANT_MODE, new AddTableCommand(tableStatuses), model,
                 commandHistory, String.format(AddTableCommand.MESSAGE_SUCCESS, tables), expectedModel);
     }

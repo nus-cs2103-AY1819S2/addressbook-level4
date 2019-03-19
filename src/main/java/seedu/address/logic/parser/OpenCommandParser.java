@@ -26,7 +26,7 @@ public class OpenCommandParser implements Parser<OpenCommand> {
     }
 
     /**
-     * importValidation() checks if the file exists, is a file and can be read.
+     * openValidation() checks if the file exists, is a file and can be read.
      * @param file
      * @throws ParseException
      */

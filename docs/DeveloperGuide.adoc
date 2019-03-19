@@ -360,6 +360,8 @@ image::UpdateTableActivityDiagram.png[width="800"]
 ** Pros: Potentially more efficient as there is no need to create new object and replace items in a list.
 ** Cons: Breaks abstraction to a certain extent and allows future developers to abuse the object.
 
+// end::updatetable
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

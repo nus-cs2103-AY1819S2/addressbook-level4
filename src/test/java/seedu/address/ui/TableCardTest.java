@@ -28,7 +28,7 @@ public class TableCardTest extends GuiUnitTest {
         Table table = new TableBuilder().build();
         TableCard tableCard = new TableCard(table);
 
-        // same person, same index -> returns true
+        // same table -> returns true
         TableCard copy = new TableCard(table);
         assertTrue(tableCard.equals(copy));
 
@@ -41,7 +41,7 @@ public class TableCardTest extends GuiUnitTest {
         // different types -> returns false
         assertFalse(tableCard.equals(0));
 
-        // different person, same index -> returns false
+        // different table -> returns false
         Table differentTable = new TableBuilder(TABLE2).build();
         assertFalse(tableCard.equals(new TableCard(differentTable)));
     }

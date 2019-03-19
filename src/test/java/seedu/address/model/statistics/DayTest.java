@@ -15,9 +15,15 @@ public class DayTest {
     }
 
     @Test
-    public void constructor_invalidDay_throwsIllegalArgumentException() {
-        String invalidDay = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Day(invalidDay));
+    public void constructor_invalidDay_throwsNumberFormatException() {
+        String emptyString = ""; // empty string
+        Assert.assertThrows(NumberFormatException.class, () -> new Day(emptyString));
+        String spaces = " "; // spaces only
+        Assert.assertThrows(NumberFormatException.class, () -> new Day(spaces));
+        String nonNumeric = "%3"; // contain nonNumeric characters
+        Assert.assertThrows(NumberFormatException.class, () -> new Day(nonNumeric));
+        String alphabets = "pear"; // contain alphabets
+        Assert.assertThrows(NumberFormatException.class, () -> new Day(alphabets));
     }
 
     @Test
@@ -26,10 +32,6 @@ public class DayTest {
         Assert.assertThrows(NullPointerException.class, () -> Day.isValidDay(null));
 
         // invalid name
-        assertFalse(Day.isValidDay("")); // empty string
-        assertFalse(Day.isValidDay(" ")); // spaces only
-        assertFalse(Day.isValidDay("^")); // only numeric characters
-        assertFalse(Day.isValidDay("pe")); // contains non-numeric characters
         assertFalse(Day.isValidDay("00")); // less than 1
         assertFalse(Day.isValidDay("32")); // more than 31
         assertFalse(Day.isValidDay("034")); // More than 2 digits

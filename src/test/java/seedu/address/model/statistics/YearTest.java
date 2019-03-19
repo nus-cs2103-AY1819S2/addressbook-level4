@@ -16,8 +16,14 @@ public class YearTest {
 
     @Test
     public void constructor_invalidYear_throwsIllegalArgumentException() {
-        String invalidYear = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Year(invalidYear));
+        String emptyString = ""; // empty string
+        Assert.assertThrows(NumberFormatException.class, () -> new Year(emptyString));
+        String spaces = "   "; // spaces only
+        Assert.assertThrows(NumberFormatException.class, () -> new Year(spaces));
+        String nonNumeric = "%876"; // contain nonNumeric characters
+        Assert.assertThrows(NumberFormatException.class, () -> new Year(nonNumeric));
+        String alphabets = "pear"; // contain alphabets
+        Assert.assertThrows(NumberFormatException.class, () -> new Year(alphabets));
     }
 
     @Test
@@ -26,10 +32,6 @@ public class YearTest {
         Assert.assertThrows(NullPointerException.class, () -> Year.isValidYear(null));
 
         // invalid name
-        assertFalse(Year.isValidYear("")); // empty string
-        assertFalse(Year.isValidYear(" ")); // spaces only
-        assertFalse(Year.isValidYear("^")); // only numeric characters
-        assertFalse(Year.isValidYear("pear")); // contains non-numeric characters
         assertFalse(Year.isValidYear("00")); // less than 1
         assertFalse(Year.isValidYear("01234")); // more than 4 digits
         assertFalse(Year.isValidYear("2020")); // More than current year

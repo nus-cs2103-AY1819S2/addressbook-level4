@@ -464,11 +464,11 @@ We have two types of tests:
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.hms.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.hms.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.hms.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -810,17 +810,59 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new hotel management staff |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new customer |
+|`* * *` |hotel management staff |add a new customer |add a room reservation or a service booking
 
-|`* * *` |user |delete a customer |remove entries that I no longer need
+|`* * *` |hotel management staff |delete a customer |remove a customer
 
-|`* * *` |user |find a customer by name |locate details of customers without having to go through the entire list
+|`* * *` |hotel management staff |edit a customer |update details of an already existing customer
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |hotel management staff|find a customer by name |locate details of customers without having to go through the entire list
 
-|`*` |user with many customers in the address book |sort customers by name |locate a customer easily
+|`* * *` |hotel management staff |add a new room reservation |allocate a room to a customer
+
+|`* * *` |hotel management staff |delete a room reservation |remove a room reservation
+
+|`* * *` |hotel management staff |edit a room reservation |update details of an already existing room reservation
+
+|`* * *` |hotel management staff |add a new service booking |allocate a service to a customer
+
+|`* * *` |hotel management staff |delete a service booking |remove a service booking
+
+|`* * *` |hotel management staff |edit a service booking |update details of an already existing service booking
+
+|`* * *` |hotel management staff |generate bill |show the customer the remaining amount he has to pay for his stay at the hotel
+
+|`* *` |hotel management staff |sort reservations by date |see closer reservations first
+
+|`* *` |hotel management staff |sort customers by amount due |see which customer owes more first
+
+|`* *` |hotel management staff |view all room reservations |know when and which rooms are occupied
+
+|`* *` |hotel management staff |view all service bookings |know when and which rooms are occupied
+
+|`* *` |hotel management staff |view all customers |know who all are customers in my hotel
+
+|`* *` |hotel management staff |view services provided by hotel |select which service to book for customer
+
+|`* *` |hotel management staff |view room types provided by hotel |select which room type to reserve for customer
+
+|`*` |hotel management staff |send people for cleaning a room |get a room cleaned and ready for next customer
+
+|`*` |hotel management staff |upgrade a customer to VIP status|give him VIP discounts
+
+|`*` |hotel management staff |add a new service |expand my service range
+
+|`*` |hotel management staff |change rates of a service |change their tariffs
+
+|`*` |hotel management staff |add a new room type |expand my room type range
+
+|`*` |hotel management staff |change rates of a room type |change their tariffs
+
+|`*` |hotel management staff |change capacity of a specific service |expand/shrink a specific service
+
+|`*` |hotel management staff |sort customers by name |locate a customer easily
 |=======================================================================
 
 _{More to be added}_
@@ -871,46 +913,6 @@ Use case ends.
 +
 Use case resumes at step 3.
 
-[discrete]
-=== Use case: Delete reservation
-
-*MSS*
-
-1.  Staff requests all the reservations a customer has
-2.  HMS lists the reservations requested
-3.  Staff selects one reservation
-4.  Staff edits one or more fields in the reservation
-5.  HMS updates the reservation
-+
-Use case resumes at step 2.
-
-*Extensions*
-
-[none]
-* 2a. The customer has no reservations.
-+
-Use case ends.
-
-* 2b. The staff requests to stop editing the reservation.
-+
-Use case ends.
-
-* 3a. The index that the staff selected is invalid.
-[none]
-** 3a1. HMS shows an error message.
-+
-Use case resumes at step 2.
-
-* 3b. The staff requests to stop editing the reservation.
-+
-Use case ends.
-
-* 4a. The commands given by the staff to edit the fields are invalid.
-[none]
-** 4a1. HMS shows an error message.
-+
-Use case resumes at step 3.
-
 [appendix]
 == Non Functional Requirements
 
@@ -925,9 +927,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey

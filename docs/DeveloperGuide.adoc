@@ -313,6 +313,55 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::updatetable
+=== Update Table feature
+==== Current Implementation
+
+The update table mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
+
+* `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables.
+* `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
+
+These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
+
+Given below is an example usage scenario and how the update table mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UniqueTableList` will be initialised to be empty.
+
+image::UpdateTableStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `addTable 4` command to add a table to the RestOrRant application. Since it is the first new table, it will be labelled table `1` and not be occupied thus having a table status of `0/4`. The `UniqueTableList` will now contain 1 table.
+
+image::UpdateTableAddTableStateListDiagram.png[width="800]
+
+Step 3. The user then has 4 customers enter his/her restaurant and executes `updateTable 1 4` command to update the table labelled 1 with 4 customers. The `updateTable` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
+
+image::UpdateTableUpdateTableStateListDiagram.png[width="800"]
+
+The following sequence diagram shows how the update table operation works:
+
+image::UpdateTableSequenceDiagram.png[width="800"]
+
+[NOTE]
+If the table to be edited does not exist in the `UniqueTableList`, the application returns an error to the user rather than attempting to replace the non existent table.
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+image::UpdateTableActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How update table executes
+
+* **Alternative 1 (current choice):** Replace the entire table with an updated table.
+** Pros: Maintains abstraction of `Table` and `TableStatus` and reduce errors from abusing the editability of `TableStatus` in `Table`.
+** Cons: May have efficiency issues when creating a whole new object whenever part of it needs to be changed.
+* **Alternative 2:** Directly edit the `TableStatus` of the tables.
+** Pros: Potentially more efficient as there is no need to create new object and replace items in a list.
+** Cons: Breaks abstraction to a certain extent and allows future developers to abuse the object.
+
+// end::updatetable
+
 // tag::tablemode[]
 === Changing to Table Mode
 
@@ -350,8 +399,63 @@ After which, `Model#updateFilteredOrderItemList()` is called to update the filte
 
 Finally, the `CommandResult` is returned to `MainWindow` in the UI and since the `CommandResult` contains a non-null `toMode` attribute, it will call `handleChangeMode()` to update the panels on display.
 
-
 // end::tablemode[]
+
+// tag::bill[]
+=== Bill feature
+==== Current Implementation
+
+The Bill mechanism can only be executed under the `TableMode`. After which, it switches to `BillMode` which changes the UI to display a receipt of the bill specific to the table selected in TableMode.
+
+The main crust of Bill mechanism is implemented in `BillCommand`. `BillCommand#execute()` overrides `Command#execcute()` which is called in `LogicManger`. It takes in the current mode, model and command history which will provide the necessary functions it will need to execute the command properly.
+
+Additionally, it implements the following operations:
+
+* `BillCommand#calculateBill()` -- Calculates the total bill from the order list that is unique to a table.
+* `BillCommand#updateDailyRevenue()` -- Either saves the bill as a new `DailyRevenue`  or updates the `DailyRevenue` that is existing in its Statistics storage.
+* `BillCommand#updateStatusOfTable()` -- Updates the status of the table to indicate that it is empty.
+* `BillCommand#updateOrderList()` -- Clears the order list to prepare for the next customer.
+
+The `bill` or `b` command is executed in 2 simple steps. Given below is an example usage scenario and how the bill mechanism behaves at each step.
+
+Step 1. Users are only allowed to use the `bill/b` command in *TableMode*. When they enter the `TableMode 1` command, the program calls for `Model#setselectedTable()` to set the current table to Table 1 and change the UI display to the menu and the table’s list of orders as shown below:
+
+image::TableMode.png[width="800"]
+
+Step 2. The user executes `bill` command to bill the orders of the current Table. The `bill` command gets the details of the current table using `Model#getSelectedTable()` and checks that the table exists. If it is true that the table exists, it calls both `Model#getFilteredOrderItemList` and `ReadOnlyRestOrRant#geMenu()` to obtain the table’s list of orders and the restaurant’s menu to pass into `BillCommand#calculateBill()`.
+
+`BillCommand#calculateBill()` will iterate through the `orderItemList` to obtain individual `orderItems` and execute the following in each iteration:
+* Obtain the `menuItem` by passing the code of the OrderItem into `Menu#getItemFromCode`.
+* Create a `Receipt` that appends the `MenuItem#getCode()`, `MenuItem#getName()`, `MenuItem#getPrice()` and `OrderItem#getQuantity()`.
+* Add the price of each dish multiplied by the quantity ordered to the bill.
+
+After the iterating through the `orderItemList`, the receipt will append the final calculation of the total bill and the function will return a new Bill that contains the updated `tableNumber`, `totalBill` and `receipt`. This new Bill will be assigned as the recent bill that was created via `Model#setRecentBill()`. Format of the receipt should be as follows:
+
+image::BillReceipt.png[width="300"]
+
+Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details o the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
+
+`BillCommand#updateStatusOfTable()` takes in the `Model` as an argument and creates a new Table with the updated `TableStatus`. This is done by calling `TableStatus#changeOccupancy(). After which, `Model#setTable()` is called to replace the current `Table` with the new `Table` that has the updated `TableStatus`.
+
+
+Lastly, `BillCommand#updateOrderList` is called to empty the order list of the current `Table`. Below is illustrates the final result that derived from executing the `bill` command.
+
+image::BillMode.png[width="650"]
+
+
+Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `RestaurantMode`, `TableMode` and `MenuMode`.
+
+[NOTE]
+The command will not execute the functions stated above until it has confirmed that the user is in `TableMode` and the current table exists.
+* If the user is in the wrong mode, the program will return a `CommandException` with the message “Incorrect Mode, unable to execute command. Enter tableMode.”.
+* If the current table does not exist, the program will return a `CommandException` with the message “This table does not exist.”.
+
+
+The following activity diagram summarizes what happens when a user executes a the `bill` command:
+
+To add: BillActivityDiagram.png[width="650"]
+
+// end::bill[]
 
 // tag::addtomenu[]
 === `AddToMenu` feature
@@ -392,7 +496,6 @@ Step 2. After ensuring that all parameters is valid and that the new menu item i
 ** Cons: There is no need to save another feature if only menu is being updated, may cause lagging instead of improving performance.
 
 The pros outweighs the cons as despite the number of variables during runtime, in the long run saving every instance of the restaurant would cause bigger performance issues such as lagging especially if there are constant and multiple changes to every feature of the restaurant. This implementation is also more scalable for future developments.
-
 
 
 // end::addtomenu[]

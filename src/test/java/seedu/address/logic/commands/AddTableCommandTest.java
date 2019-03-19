@@ -9,12 +9,14 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -26,9 +28,13 @@ import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -202,7 +208,11 @@ public class AddTableCommandTest {
 
         @Override
         public TableNumber addTable(TableStatus tableStatus) {
-            throw new AssertionError("This method should not be called.");
+            public TableNumber addTable(TableStatus tableStatus) {
+                TableNumber addedTableNumber = restOrRant.getTables().addTable(tableStatus);
+                updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
+                return addedTableNumber;
+            }
         }
 
         @Override
@@ -458,4 +468,99 @@ public class AddTableCommandTest {
         }
     }
 
+    /**
+     * A default menu stub that has all methods failing, except getItemFromCode() which returns an empty Optional.
+     */
+    private class TableStub implements ReadOnlyTables {
+
+        @Override
+        public ObservableList<Table> getTableList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTable(Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTable(Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TableNumber addTable(TableStatus tableStatus) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTables(List<Table> tableList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTable(Table target, Table editedTable) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeTable(Table key) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isOccupied(TableNumber tableNumber) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A default RestOrRant stub that has all of the methods failing, except getTables() which returns an empty table.
+     */
+    private class RestOrRantStub implements ReadOnlyRestOrRant {
+        @Override
+        public ReadOnlyMenu getMenu() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyOrders getOrders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyStatistics getStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTables getTables() {
+            return new TableStub();
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
 }

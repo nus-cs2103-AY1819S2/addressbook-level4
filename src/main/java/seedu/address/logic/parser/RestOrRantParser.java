@@ -12,9 +12,11 @@ import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
@@ -52,11 +54,23 @@ public class RestOrRantParser {
 
         switch (commandWord) {
 
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case ClearCommand.COMMAND_ALIAS:
+            return new ClearCommand();
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
         case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+
+        case HistoryCommand.COMMAND_ALIAS:
+            return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -26,8 +26,6 @@ public class TableCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label id;
-    @FXML
     private Label tableNumber;
     @FXML
     private Label tableStatus;
@@ -54,7 +52,7 @@ public class TableCard extends UiPart<Region> {
 
         // state check
         TableCard card = (TableCard) other;
-        return id.getText().equals(card.id.getText()) && table.equals(card.table);
+        return table.equals(card.table);
     }
 
 }

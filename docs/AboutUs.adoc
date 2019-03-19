@@ -21,10 +21,10 @@ Responsibilities: UI
 
 === Donald Lee Qian Siang
 image::dlqs.png[width="150", align="left"]
-{empty}[https://github.com/dlqs[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/dlqs[github]] [<<donaldlee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing
+Responsibilities: Scoring features
 
 '''
 

@@ -35,10 +35,11 @@ public class AddToOrderCommandIntegrationTest {
     //        expectedModel.addOrderItem(TABLE8_W09);
     //        // expectedModel.updateMode(); TODO: Why?
     //
-    //        model.setSelectedTable(model.getRestOrRant().getTables().getTableFromNumber(new TableNumber("8")).get());
+    //        model.setSelectedTable(model.getRestOrRant().getTables()
+    //                .getTableFromNumber(new TableNumber("8")).get());
     //
-    //        assertCommandSuccess(Mode.TABLE_MODE, new AddToOrderCommand(itemCodes, itemQuantities), model, commandHistory,
-    //                String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), expectedModel);
+    //        assertCommandSuccess(Mode.TABLE_MODE, new AddToOrderCommand(itemCodes, itemQuantities), model,
+    //                commandHistory, String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), expectedModel);
     //    }
     //
     //    @Test
@@ -60,8 +61,8 @@ public class AddToOrderCommandIntegrationTest {
     //
     //        model.setSelectedTable(model.getRestOrRant().getTables().getTableFromNumber(new TableNumber("8")).get());
     //
-    //        assertCommandSuccess(Mode.TABLE_MODE, new AddToOrderCommand(itemCodes, itemQuantities), model, commandHistory,
-    //                String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), expectedModel);
+    //        assertCommandSuccess(Mode.TABLE_MODE, new AddToOrderCommand(itemCodes, itemQuantities), model,
+    //                commandHistory, String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), expectedModel);
     //    }
     //
     //    @Test
@@ -69,8 +70,8 @@ public class AddToOrderCommandIntegrationTest {
     //        model.setSelectedTable(model.getRestOrRant().getTables().getTableFromNumber(new TableNumber("3")).get());
     //
     //        assertCommandFailure(Mode.TABLE_MODE,
-    //                new AddToOrderCommand(Collections.singletonList(new Code("B99")), Collections.singletonList(5)), model,
-    //                commandHistory, AddToOrderCommand.MESSAGE_INVALID_ITEM_CODE);
+    //                new AddToOrderCommand(Collections.singletonList(new Code("B99")), Collections.singletonList(5)),
+    //                        model, commandHistory, AddToOrderCommand.MESSAGE_INVALID_ITEM_CODE);
     //    }
     //
     //

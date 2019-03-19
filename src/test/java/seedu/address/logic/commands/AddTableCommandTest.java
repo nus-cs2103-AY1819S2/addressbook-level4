@@ -63,7 +63,8 @@ public class AddTableCommandTest {
     //        CommandResult commandResult = new AddTableCommand(tableStatusList).execute(
     //                Mode.RESTAURANT_MODE, modelStub, commandHistory);
     //
-    //        assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, validTable), commandResult.getFeedbackToUser());
+    //        assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, validTable),
+    //                commandResult.getFeedbackToUser());
     //        assertEquals(Arrays.asList(validTable), modelStub.tableAdded);
     //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     //    }

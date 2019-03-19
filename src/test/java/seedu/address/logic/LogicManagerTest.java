@@ -81,11 +81,13 @@ public class LogicManagerTest {
     //        // Setup LogicManager with JsonRestOrRantIoExceptionThrowingStub
     //        //        JsonRestOrRantStorage jsonRestOrRantStorage =
     //        //                new JsonRestOrRantIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
-    //        JsonOrdersStorage jsonOrdersStorage = new JsonOrdersIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+    //        JsonOrdersStorage jsonOrdersStorage =
+    //                new JsonOrdersIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
     //        JsonMenuStorage jsonMenuStorage = new JsonMenuIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
     //        JsonStatisticsStorage jsonStatisticsStorage =
     //                new JsonStatisticsIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
-    //        JsonTablesStorage jsonTablesStorage = new JsonTablesIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+    //        JsonTablesStorage jsonTablesStorage =
+    //                new JsonTablesIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
     //        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
     //        StorageManager storage = new StorageManager(userPrefsStorage, jsonOrdersStorage, jsonMenuStorage,
     //                jsonStatisticsStorage, jsonTablesStorage);

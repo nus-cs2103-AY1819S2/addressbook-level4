@@ -77,7 +77,8 @@ public class AddToOrderCommandTest {
     //        CommandResult commandResult = new AddToOrderCommand(itemCodes, itemQuantities).execute(
     //                Mode.TABLE_MODE, modelStub, commandHistory);
     //
-    //        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), commandResult.getFeedbackToUser());
+    //        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems),
+    //                commandResult.getFeedbackToUser());
     //        assertEquals(orderItems, modelStub.orderItemsAdded);
     //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     //
@@ -88,7 +89,8 @@ public class AddToOrderCommandTest {
     //        commandResult = new AddToOrderCommand(itemCodes, itemQuantities).execute(
     //                Mode.TABLE_MODE, modelStub, commandHistory);
     //
-    //        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), commandResult.getFeedbackToUser());
+    //        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems),
+    //                commandResult.getFeedbackToUser());
     //        assertEquals(orderItems, modelStub.orderItemsAdded);
     //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     //    }

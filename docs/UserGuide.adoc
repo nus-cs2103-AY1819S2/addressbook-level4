@@ -64,7 +64,6 @@ Format: `help`
 === Patient Management
 [[padd, Add patient]]
 ==== Adding patient: `padd`
-//[[padd]]
 Add a patient into QuickDocs’ patient records. The order of input does not matter. +
 
 Tags can be added to a patient record for ease of searching. +

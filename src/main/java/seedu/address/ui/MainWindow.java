@@ -39,7 +39,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBarFooter statusBarFooter;
-    private StatusBarFooter statusBarFooter2;
     private StatsPane statsPane;
 
     @FXML
@@ -139,8 +138,8 @@ public class MainWindow extends UiPart<Stage> {
         statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        statusBarFooter2 = new StatusBarFooter();
-        statusbarPlaceholder2.getChildren().add(statusBarFooter2.getRoot());
+        statsPane = new StatsPane();
+        statusbarPlaceholder2.getChildren().add(statsPane.getRoot());
         //statsPane = new StatsPane();
         //statspanePlaceholder.getChildren().add(statsPane.getRoot());
 

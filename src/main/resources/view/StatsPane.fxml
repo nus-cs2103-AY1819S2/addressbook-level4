@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-           xmlns:fx="http://javafx.com/fxml/1">
-    <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
-</StackPane>
+<GridPane styleClass="status-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" halignment="RIGHT" />
+    </columnConstraints>
+    <Label fx:id="syncStatus"/>
+    <Label fx:id="saveLocationStatus" GridPane.columnIndex="1" />
+</GridPane>

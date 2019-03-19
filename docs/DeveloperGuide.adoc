@@ -239,7 +239,40 @@ This section describes some noteworthy details on how certain features are imple
 
 === Image Filters
 
-{dummy things}
+==== Current Implementation
+
+The filter mechanism is facilitated by https://github.com/sksamuel/scrimage [`scrimage`], an external API Library that provides image filters methods for our image editor. The gradle script declares a compile-time dependency on this external API through the coordinates:  `group: 'com.sksamuel.scrimage'`, `name: 'scrimage-filters_2.12'`, `version: '3.0.0-alpha4'`.
+
+The filter feature mainly consists of:
+
+* `contrastCommand`: Applies the specified contrast ratio value on the targetted image
+* `brightnessCommand`: Applies the specified brightness ratio value on the targetted image
+* `black/whiteCommand`: Transforms colored targetted image to a black and white image
+
+The following describes main operations and processes contained in the classes above.
+
+==== ContrastCommand:
+
+This command calls for an adjustment of contrast on a targetted image and adds this specific command called by the user to `Image`'s `List<EditCommands>` which saves the editing history of the targetted image. 
+
+Given below is an example usage scenario and how the command should behave at each step.
+
+Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits [`List<EditCommand>`] and the image's metadata. This `Image` object will be set as the `currentImage` in `Model` for editing.  
+
+Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered command is parsed and the command will be executed.
+
+Step 3. During execution, the `execute` method in the `contrastCommand` class calls for the methods `Model#applyContrast()` and `Model#displayImage()`.
+
+Step 4. Calling `Model#applyContrast()` creates a `BufferedOpFilter` object in the external library [`scrimage`] named `contrastFilter` which is applied on the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()` 
+
+Step 5. Calling `Model#displayImage` updates the user interface and the user interface will now display the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()` 
+
+===== Design Considerations
+
+ - Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation. 
+
+.Sequence Diagram for Contrast Command
+image::ContrastCommandSequenceDiagram.png[width="740"]
 
 === Image Manipulation
 

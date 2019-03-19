@@ -15,7 +15,6 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
@@ -33,11 +32,6 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         Index personCount = getLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
         assertCommandSuccess(command, personCount);
-
-        /* Case: undo previous selection -> rejected */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
-        assertCommandFailure(command, expectedResultMessage);
 
         /* Case: select the middle card in the person list -> selected */
         Index middleIndex = getMidIndex(getModel());

@@ -18,11 +18,11 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.MajorContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.PredicateManager;
 import seedu.address.model.person.predicate.RaceContainsKeywordsPredicate;

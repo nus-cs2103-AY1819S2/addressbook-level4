@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -81,15 +80,10 @@ public class ImportCommand extends Command {
             importData = new AddressBook();
         }
 
-        if (parsedInput.getArgIsAll()) {
-            for (int i = 0; i < importData.getPersonList().size(); i++) {
+        for (int i = 0; i < importData.getPersonList().size(); i++) {
+            if (!model.hasPerson(importData.getPersonList().get(i))
+                && (parsedInput.getArgIsAll() || parsedInput.getParsedIndex().contains(i))) {
                 model.addPerson(importData.getPersonList().get(i));
-            }
-        } else {
-            for (int i = 0; i < importData.getPersonList().size(); i++) {
-                if (parsedInput.getParsedIndex().contains(i) && !model.hasPerson(importData.getPersonList().get(i))) {
-                    model.addPerson(importData.getPersonList().get(i));
-                }
             }
         }
     }

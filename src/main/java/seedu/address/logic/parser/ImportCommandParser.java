@@ -26,9 +26,18 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         }
     }
 
+    /**
+     * importValidation() checks if the file exists, is a file and can be read.
+     * @param file
+     * @throws ParseException
+     */
     private void importValidation(File file) throws ParseException {
-        if (!file.exists() || !file.isFile() || !file.canRead()) {
-            throw new ParseException("File is invalid");
+        if (!file.exists()) {
+            throw new ParseException("File not found!");
+        } else if (!file.isFile()) {
+            throw new ParseException("File is invalid!");
+        } else if (!file.canRead()) {
+            throw new ParseException("File cannot be read!");
         }
     }
 }

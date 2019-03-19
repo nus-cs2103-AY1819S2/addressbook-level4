@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.property.Price;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -58,6 +59,14 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Price getSellingPrice() {
+        return new Price("1");
+    }
+
+    public Price getRentalPrice() {
+        return new Price("1");
     }
 
     /**

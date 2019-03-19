@@ -21,10 +21,16 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Seller;
+import seedu.address.model.person.Tenant;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -98,9 +104,28 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        //Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        //Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Price updatedSellingPrice = editPersonDescriptor.getSellingPrice().orElse(personToEdit.getSellingPrice());
+        Price updatedRentalPrice = editPersonDescriptor.getRentalPrice().orElse(personToEdit.getRentalPrice());
 
+        if (personToEdit instanceof Buyer)  {
+            return new Buyer(updatedName, updatedPhone, updatedEmail);
+        }
+
+        if (personToEdit instanceof Seller) {
+            return new Seller(updatedName, updatedPhone, updatedEmail, new Property(updatedAddress, updatedSellingPrice,
+                    null, updatedTags));
+        }
+
+        if (personToEdit instanceof Landlord) {
+            return new Landlord(updatedName, updatedPhone, updatedEmail, new Property(updatedAddress,
+                    null, updatedRentalPrice, updatedTags));
+        }
+
+        if (personToEdit instanceof Tenant) {
+            return new Tenant(updatedName, updatedPhone, updatedEmail);
+        }
         return new Person(updatedName, updatedPhone, updatedEmail); //, updatedAddress, updatedTags);
     }
 
@@ -132,6 +157,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Price sellingPrice;
+        private Price rentalPrice;
 
         public EditPersonDescriptor() {}
 
@@ -145,6 +172,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setSellingPrice(toCopy.sellingPrice);
+            setRentalPrice(toCopy.rentalPrice);
         }
 
         /**
@@ -184,6 +213,22 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setSellingPrice(Price price) {
+            this.sellingPrice = price;
+        }
+
+        public Optional<Price> getSellingPrice() {
+            return Optional.ofNullable(sellingPrice);
+        }
+
+        public void setRentalPrice(Price price) {
+            this.rentalPrice = price;
+        }
+
+        public Optional<Price> getRentalPrice() {
+            return Optional.ofNullable(rentalPrice);
         }
 
         /**

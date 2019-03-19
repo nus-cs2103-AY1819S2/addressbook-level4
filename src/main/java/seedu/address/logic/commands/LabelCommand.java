@@ -52,13 +52,8 @@ public class LabelCommand extends Command {
         String filename = this.fileName.toString();
         requireNonNull(model);
 
-        List<Medicine> filteredMedicineList = model.getFilteredMedicineList();
-
-        if (targetIndex.getZeroBased() >= filteredMedicineList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
-        }
-        Medicine medicineToPrint = filteredMedicineList.get(targetIndex.getZeroBased());
-        model.setSelectedMedicine(filteredMedicineList.get(targetIndex.getZeroBased()));
+        Medicine medicineToPrint = getSpecificMedicine(model);
+        model.setSelectedMedicine(medicineToPrint);
 
         String textNextLine = getMedicineInformationToString(medicineToPrint);
 
@@ -121,6 +116,16 @@ public class LabelCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SELECT_MEDICINE_SUCCESS, targetIndex.getOneBased()));
 
+    }
+
+    private Medicine getSpecificMedicine(Model model) throws CommandException {
+        List<Medicine> filteredMedicineList = model.getFilteredMedicineList();
+
+        if (targetIndex.getZeroBased() >= filteredMedicineList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
+        }
+
+        return filteredMedicineList.get(targetIndex.getZeroBased());
     }
 
     private String getMedicineInformationToString(Medicine medicineToPrint) {

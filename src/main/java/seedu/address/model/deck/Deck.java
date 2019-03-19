@@ -52,6 +52,14 @@ public class Deck implements ListItem {
     }
 
     /**
+     * Checks if a deck is empty.
+     */
+    public boolean isEmpty() {
+        return cards.internalList.isEmpty();
+    }
+
+
+    /**
      * Adds a card to the current deck.
      */
     public void addCard(Card newCard) {

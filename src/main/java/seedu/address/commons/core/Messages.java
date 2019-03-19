@@ -12,6 +12,8 @@ public class Messages {
 
     public static final String MESSAGE_DUPLICATE_DECK = "A deck with this name already exists";
 
+    public static final String MESSAGE_EMPTY_DECK = "The deck you want to study is empty";
+
     public static final String MESSAGE_INVALID_DECK_OPERATION = "This command is invalid, please"
             + " exit current deck and try again.";
 

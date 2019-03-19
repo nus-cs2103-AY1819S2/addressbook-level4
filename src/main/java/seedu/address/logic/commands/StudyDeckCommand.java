@@ -11,6 +11,7 @@ import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.UniqueDeckList;
 
 /**
  * Selects a deck identified using its displayed index.
@@ -43,6 +44,11 @@ public class StudyDeckCommand extends Command {
         if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
+
+        if (filteredDeckList.get(targetIndex.getZeroBased()).isEmpty() ) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
+        }
+
 
         model.studyDeck(filteredDeckList.get(targetIndex.getZeroBased()));
 

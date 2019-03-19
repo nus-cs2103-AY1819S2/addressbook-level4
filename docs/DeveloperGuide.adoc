@@ -233,7 +233,33 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Export/Import/Open
+=== Import feature
+The Import Command allow users to import a file of image format into FomoFoto for editing.
+
+==== Current implementation
+The implementation of the import feature is largely similar to that of linux's `cp` command, with the exception the output path is fixed. It is facilitated by he `ModelManager` and `ImportCommandParser` and contains the follow operation:
+
+ * `Model#displayImage(Image)` - Retrives the image from `assets` folder by `Image` name field.
+ * `ImportCommandParser#parse(String)` - Takes in an absolute path and copies the image to `assets` directory.
+
+Example usage scenario:
+
+ 1. User launches application and enters `import C:\Users\images\sample.png`
+ 2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` folder if the path is valid.
+ 3. `Model` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
+ 4. `ImagePanel` updates to reflect the imported image.
+
+image::ImportSequenceDiagram.png[width=800]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice)*: Import images with absolute path.
+** Pros: Easy and clement implementation.
+** Cons: Limited to single image import.
+
+* *Alternative 2* : Open images within a directory.
+** Pros: Can import many images without repeating the command.
+** Cons: Can result in errors in too mny images or images are of alternative formats.
 
 === Open Feature
 
@@ -269,12 +295,81 @@ Open command must be called before the user can edit the image. The command init
 
 
 === Image Filters
+==== Current Implementation
 
-{dummy things}
+The filter mechanism is facilitated by https://github.com/sksamuel/scrimage [`scrimage`], an external API Library that provides image filters methods for our image editor. The gradle script declares a compile-time dependency on this external API through the coordinates:  `group: 'com.sksamuel.scrimage'`, `name: 'scrimage-filters_2.12'`, `version: '3.0.0-alpha4'`.
+
+The filter feature mainly consists of:
+
+* `contrastCommand`: Applies the specified contrast ratio value on the targetted image
+* `brightnessCommand`: Applies the specified brightness ratio value on the targetted image
+* `black/whiteCommand`: Transforms colored targetted image to a black and white image
+
+The following describes main operations and processes contained in the classes above.
+
+==== ContrastCommand:
+
+This command calls for an adjustment of contrast on a targetted image and adds this specific command called by the user to `Image`'s `List<EditCommands>` which saves the editing history of the targetted image.
+
+Given below is an example usage scenario and how the command should behave at each step.
+
+Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits [`List<EditCommand>`] and the image's metadata. This `Image` object will be set as the `currentImage` in `Model` for editing.
+
+Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered command is parsed and the command will be executed.
+
+Step 3. During execution, the `execute` method in the `contrastCommand` class calls for the methods `Model#applyContrast()` and `Model#displayImage()`.
+
+Step 4. Calling `Model#applyContrast()` creates a `BufferedOpFilter` object in the external library [`scrimage`] named `contrastFilter` which is applied on the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()`
+
+Step 5. Calling `Model#displayImage` updates the user interface and the user interface will now display the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()`
+
+===== Design Considerations
+
+ - Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
+
+.Sequence Diagram for Contrast Command
+image::ContrastCommandSequenceDiagram.png[width="740"]
+
 
 === Image Manipulation
+==== Current Implementation
 
 This segment involves manipulating the physical image itself, such as rotating, cropping and resizing. The implementations of these features are facilitated by https://github.com/rkalla/imgscalr[`ImgScalr Library`], which is an external API Library that helps process the target image.
+
+This manipulation feature mainly consists of:
+
+* `rotateCommand`: Allows user to rotate images by specifying a degree (90, 180 or 270 only).
+* `cropCommand`: Allows user to crop images by specifying the coordinates of the top left corner, the width and the height of the desired cropped image.
+* `resizeCommand`: Allows user to resize images to the desired size while maintaining the proportions.
+
+==== Rotate Command
+This command allows the user to rotate images by specifying a degree (90, 180 or 270 only). Upon receiving an input degree by the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `Image`'s `List<EditCommands>` which saves the editing history of the targetted image.
+
+Given below is an example usage scenario and how the command should behave at each step:
+
+
+Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits `List<EditCommand>` and the image's metadata. This `Image` object will be set as the `currentImage` in the `Model` for editing.
+
+
+Step 2. When the user enters the command (e.g. `rotate 90`), the entered command is parsed and the command will be executed.
+
+
+Step 3. During execution, the `execute` method in the `rotateCommand` class calls for the methods `applyRotate` and `displayImage` in `Model`.
+
+
+Step 4. The method `applyRotate` calls the external library https://github.com/rkalla/imgscalr[`ImgScalr`]'s class `rotate` which is applied on the image with the filepath `src/main/resources/temp/` + `currentImage#getFileName()`
+
+
+Step 5. The method `displayImage` updates the user interface and the user interface will now display the image with the filepath `src/main/resources/temp/` + `currentImage.getFileName()`
+
+==== Design Considerations
+
+* Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
+
+* Furthermore, there was an attempt to self-implement the rotation feature, and thus allows the user to input a range of degree values from 0 to 360. However, there were issues with the saving images of odd sizes and we hence decided against it.
+
+.Sequence Diagram for Rotate Command
+image::RotateCommandSequenceDiagram.png[width="1280"]
 
 // tag::undoredo[]
 

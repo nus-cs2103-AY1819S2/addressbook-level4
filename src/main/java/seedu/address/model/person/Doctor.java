@@ -26,11 +26,12 @@ public class Doctor {
     /**
      * Every field must be present and not null.
      */
-    public Doctor(Name name, Phone phone, Gender gender, Age age) {
+    public Doctor(Name name, Phone phone, Gender gender, Age age, Set<Specialisation> specList) {
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.phone = phone;
+        this.specList.addAll(specList);
     }
 
     public Name getName() {

@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static seedu.finance.commons.core.Messages.MESSAGE_RECORDS_LISTED_OVERVIEW;
-import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.testutil.TypicalRecords.BENSON;
 import static seedu.finance.testutil.TypicalRecords.CARL;
 import static seedu.finance.testutil.TypicalRecords.DANIEL;

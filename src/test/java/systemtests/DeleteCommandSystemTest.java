@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
-import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.logic.commands.DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS;
 import static seedu.finance.testutil.TestUtil.getLastIndex;
 import static seedu.finance.testutil.TestUtil.getMidIndex;

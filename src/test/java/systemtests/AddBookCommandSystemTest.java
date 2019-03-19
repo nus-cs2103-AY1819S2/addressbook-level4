@@ -67,7 +67,7 @@ public class AddBookCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a book with all fields same as another book in the book shelf except name -> added */
         toAdd = new BookBuilder(ALI).withBookName(VALID_BOOKNAME_CS).build();
-        command = AddBookCommand.COMMAND_WORD + NAME_DESC_CS + AUTHOR_DESC_ALICE + RATING_DESC_ALICE 
+        command = AddBookCommand.COMMAND_WORD + NAME_DESC_CS + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
                 + TAG_DESC_FANTASY;
         assertCommandSuccess(command, toAdd);
 

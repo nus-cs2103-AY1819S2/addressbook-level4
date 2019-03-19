@@ -15,15 +15,20 @@ import seedu.address.model.tag.Tag;
 public class Property {
 
     private final Address address;
-    private final Price salePrice;
-    private final Price rentPrice;
+    private final Price sellingPrice;
+    private final Price rentalPrice;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Property(Address address, Price salePrice, Price rentPrice, Set<Tag> tags) {
+    public Property(String propertyType, Address address, Price price, Set<Tag> tags) {
         requireAllNonNull(address);
         this.address = address;
-        this.salePrice = salePrice;
-        this.rentPrice = rentPrice;
+        if (propertyType == "selling") {
+            this.sellingPrice = price;
+            rentalPrice = new Price("0");
+        } else {
+            this.rentalPrice = price;
+            sellingPrice = new Price("0");
+        }
         this.tags.addAll(tags);
     }
 
@@ -31,12 +36,12 @@ public class Property {
         return address;
     }
 
-    public Price getSalePrice() {
-        return salePrice;
+    public Price getSellingPrice() {
+        return sellingPrice;
     }
 
-    public Price getRentPrice() {
-        return rentPrice;
+    public Price getRentalPrice() {
+        return rentalPrice;
     }
 
     /**

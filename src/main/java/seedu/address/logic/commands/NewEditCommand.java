@@ -21,16 +21,22 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Seller;
+import seedu.address.model.person.Tenant;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends Command {
+public class NewEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -58,7 +64,7 @@ public class EditCommand extends Command {
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public NewEditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
@@ -100,7 +106,26 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Price updatedSellingPrice = editPersonDescriptor.getSellingPrice().orElse(personToEdit.getSellingPrice());
+        Price updatedRentalPrice = editPersonDescriptor.getRentalPrice().orElse(personToEdit.getRentalPrice());
 
+        if (personToEdit instanceof Buyer) {
+            return new Buyer(updatedName, updatedPhone, updatedEmail);
+        }
+
+        if (personToEdit instanceof Seller) {
+            return new Seller(updatedName, updatedPhone, updatedEmail, new Property("selling",
+                    updatedAddress, updatedSellingPrice, updatedTags));
+        }
+
+        if (personToEdit instanceof Landlord) {
+            return new Landlord(updatedName, updatedPhone, updatedEmail, new Property("rental",
+                    updatedAddress, updatedRentalPrice, updatedTags));
+        }
+
+        if (personToEdit instanceof Tenant) {
+            return new Tenant(updatedName, updatedPhone, updatedEmail);
+        }
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
@@ -112,12 +137,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof NewEditCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        NewEditCommand e = (NewEditCommand) other;
         return index.equals(e.index)
                 && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
@@ -132,6 +157,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Price sellingPrice;
+        private Price rentalPrice;
 
         public EditPersonDescriptor() {}
 
@@ -145,6 +172,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setSellingPrice(toCopy.sellingPrice);
+            setRentalPrice(toCopy.rentalPrice);
         }
 
         /**
@@ -184,6 +213,22 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setSellingPrice(Price price) {
+            this.sellingPrice = price;
+        }
+
+        public Optional<Price> getSellingPrice() {
+            return Optional.ofNullable(sellingPrice);
+        }
+
+        public void setRentalPrice(Price price) {
+            this.rentalPrice = price;
+        }
+
+        public Optional<Price> getRentalPrice() {
+            return Optional.ofNullable(rentalPrice);
         }
 
         /**

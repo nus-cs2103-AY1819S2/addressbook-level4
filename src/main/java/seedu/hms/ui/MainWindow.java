@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private ServiceTypeAndRoomType serviceTypeAndRoomType;
     private CustomerListPanel customerListPanel;
     private BookingListPanel bookingListPanel;
     private ReservationListPanel reservationListPanel;
@@ -118,8 +118,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedCustomerProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        serviceTypeAndRoomType = new ServiceTypeAndRoomType(logic.selectedCustomerProperty());
+        browserPlaceholder.getChildren().add(serviceTypeAndRoomType.getRoot());
 
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList(), logic.selectedCustomerProperty(),
             logic::setSelectedCustomer);

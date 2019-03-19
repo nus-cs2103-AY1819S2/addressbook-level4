@@ -18,20 +18,20 @@ import seedu.hms.model.customer.Customer;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart<Region> {
+public class ServiceTypeAndRoomType extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
         requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
     public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
-    private static final String FXML = "BrowserPanel.fxml";
+    private static final String FXML = "BookingTypeAndRoomTypePanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<Customer> selectedCustomer) {
+    public ServiceTypeAndRoomType(ObservableValue<Customer> selectedCustomer) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.

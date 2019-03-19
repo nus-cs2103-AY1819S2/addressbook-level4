@@ -137,4 +137,9 @@ public class Tables implements ReadOnlyTables {
     public int hashCode() {
         return tableList.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return tableList.asUnmodifiableObservableList().size() + " tables";
+    }
 }

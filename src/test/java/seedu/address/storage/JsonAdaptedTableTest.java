@@ -9,6 +9,7 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedTableTest {
@@ -35,7 +36,7 @@ public class JsonAdaptedTableTest {
     @Test
     public void toModelType_nullTableNumber_throwsIllegalValueException() {
         JsonAdaptedTable table = new JsonAdaptedTable(null, VALID_TABLE_STATUS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TableNumber.class.getSimpleName());
+        String expectedMessage = TableNumber.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, table::toModelType);
     }
 
@@ -50,7 +51,7 @@ public class JsonAdaptedTableTest {
     @Test
     public void toModelType_nullTableStatus_throwsIllegalValueException() {
         JsonAdaptedTable table = new JsonAdaptedTable(VALID_TABLE_NUMBER, null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TableStatus.class.getSimpleName());
+        String expectedMessage = String.format(TableStatus.MESSAGE_CONSTRAINTS);
         Assert.assertThrows(IllegalValueException.class, expectedMessage, table::toModelType);
     }
 

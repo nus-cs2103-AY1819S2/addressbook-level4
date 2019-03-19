@@ -159,17 +159,42 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+The `UI` component uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The 'UI' component *controllers* are found in the `src/main/java/seedu/address/ui` folder. Each class corresponds to a specific `.fxml` file.
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
+`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+*Brief overview* of each UI Component:
+
+`MainWindow`: Consists of the main menu with `File` and `Help` dropdowns and the remaining UI parts below.
+
+`MainWindow`: Webview to display UserGuide.html
+
+`CommandBox`: Directly below the main menu, CLI displayed here
+
+`ResultDisplay`: Displays CLI feedback to user, (eg. `Unknown command`, `Invalid command format!`)
+
+`StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
+
+`PlaceListPanel`: On the left of BrowserPanel, a VBox of PlaceListCards
+
+`PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
+Labels that display Name and actual Place data (CountryCode, Rating etc) in a VBox on the right.
+
+`BrowserPanel`: Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
+Currently (v1.2), opens up a Webview and displays a html placeholder page.
+
+For the next release (v1.3), `BrowserPanel` will display an expanded view of
+all Place data. Photo attachments to be included here as well in future releases (beyond v1.3).
+
+*All CSS code are found in DarkTheme.css and Extensions.css
 
 [[Design-Logic]]
 === Logic component
@@ -420,13 +445,18 @@ image::UIsearchtagsresults.png[width="800"]
 
 ===== Aspect: Data structure to support search commands
 * **Alternative 1 (current choice):** Use a list to store the user input keywords and places.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming
+developers of our project.
 ** Cons: Inefficient as the entire list needs to be searched through.
 * **Alternative 2:** Use `HashMap` to map keywords to each place
 ** Pros: Faster searching as HashMap lookup runs in O(1) time.
 ** Cons: Requires more memory as a separate HashMap needs to be stored.
 // end::search[]
 
+<<<<<<< HEAD
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+=======
 // tag::countrycode[]
 === Add Country Code, Rating & Description
 The `add` command is used to add a place to the application. Apart from being able to add the name of the place,
@@ -434,13 +464,14 @@ address of the place and tag. The user can also add the place's country code, ra
 
 ==== Current Implementation
 
-The `add` command requires the AddCommandParser class to parse user input and add a place with the details
+The `add` command requires the `AddCommandParser` class to parse user input and add a place with the details
 specified by the user. Currently, the details that are required by the user is Name, Country Code (3 letters), Rating,
 Description and Address. Tag is optional.
 
-AddCommandParser implements the Parser class which has the Parser#parse() operation. This operation will throw an error if the user input does not match the command format.
+`AddCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an
+error if the user input does not match the command format.
 
-The add command updates the context in ModelManager through addCommand.
+The add command updates the context in `ModelManager` through `addCommand`.
 
 The following sequence diagram shows how the add feature works:
 
@@ -477,22 +508,48 @@ image::AddCommandStep3.png[width="800"]
 // end::countrycode[]
 
 ==== Design Considerations
+>>>>>>> b78fbd7ae6e5de6d52441e8f958c4e4658f380be
 
-===== Aspect: Data structure to store Country Codes
-* **Alternative 1 (current choice):** Use java.util.Locales.
-** Pros: Easy to implement and contains all country codes specified in ISO-3166.
-** Cons: Slightly slow in locating country code.
+_{Explain here how the data encryption feature will be implemented}_
 
-* **Alternative 2:** Create own data structure containing most commonly traveled countries in the world.
-** Pros: Locating country code in data structure would be fast.
-** Cons: Tedious process of typing out country codes in the data structure.
+// end::dataencryption[]
 
+// tag::generate[]
+=== Generate Feature
+The `generate` command is used to generate different charts in the application.
+
+==== Current Implementation
+At the GUI, the user enters the `generate` command, without any parameters. The UI takes in the input and passes it
+on to `LogicManager#execute()` in the Logic. The`AddressBookParser#parseCommand()` is then called, which parses the
+command and redirects to the `GenerateCommand` class.
+
+The `GenerateCommand#execute()` in Logic calls on Model to do two things:
+.  It stores the different country code found in TravelBuddy as keys, and stores the number of times each country
+code appears in TravelBuddy as values.
+.  A similar approach is done, except country code is now replaced with rating found in TravelBuddy as keys, and the
+number of times each rating appears as values.
+
+Once the two sets of data are obtained, a new Chart object is created. The Chart object displays the data to the user.
+
+==== Future Implementation
+For future implementation, the task is to use JavaFX's charting library to create a chart that can be displayed
+to the user, as seen in the figure below.
+
+image::Ui.png[width="800"]
+
+Furthermore, the `generate` command will have user input to specify if they want to generate either a chart by
+country or a chart by rating.
+
+// end::generate[]
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and
+ logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See
+<<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
+the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
@@ -500,24 +557,28 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead
+of just its size
 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the
+configuration file (default: `config.json`).
 
 == Documentation
 
 We use asciidoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more
+flexibility in formatting.
 
 === Editing Documentation
 
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
-Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to
+preview the end result of your edits. Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows
+you to preview the changes you have made to your `.adoc` files in real-time.
 
 === Publishing Documentation
 
@@ -525,14 +586,18 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as
+Chrome's PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc
+files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google
+ Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best
+results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
@@ -540,7 +605,8 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor
+.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -570,9 +636,11 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc
+attributes] which affects how the file is rendered.
 
-Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and
+used as well.
 
 [TIP]
 Attributes left unset in `.adoc` files will use their *default value*, if any.
@@ -606,7 +674,8 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and
+experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -619,7 +688,8 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to
+platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -649,9 +719,11 @@ We have two types of tests:
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
-..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be
+ working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are
+connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 

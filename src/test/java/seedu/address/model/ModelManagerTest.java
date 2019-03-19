@@ -356,33 +356,35 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasDailyRevenue(DAILY_REVENUE1));
     }
 
-    //    @Test TODO
-    //    public void deleteDailyRevenue_firstDailyRevenueIsSelectedInFilteredDailyRevenueList_selectionCleared() {
-    //        modelManager.addDailyRevenue(DAILY_REVENUE1);
-    //        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
-    //        modelManager.deleteDailyRevenue(DAILY_REVENUE1);
-    //        assertEquals(null, modelManager.getSelectedDailyRevenue());
-    //    }
+    @Test
+    public void deleteDailyRevenue_firstDailyRevenueIsSelectedInFilteredDailyRevenueList_selectionCleared() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
+        modelManager.deleteDailyRevenue(DAILY_REVENUE1);
+        assertEquals(null, modelManager.getSelectedDailyRevenue());
+    }
 
-    //    @Test TODO
-    //    public void deleteDailyRevenue_secondDailyRevenueIsSelectedInFilteredDailyRevenueList_firstDailyRevenueSelected() {
-    //        modelManager.addDailyRevenue(DAILY_REVENUE1);
-    //        modelManager.addDailyRevenue(DAILY_REVENUE2);
-    //        assertEquals(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2), modelManager.getFilteredDailyRevenueList());
-    //        modelManager.setSelectedDailyRevenue(DAILY_REVENUE2);
-    //        modelManager.deleteDailyRevenue(DAILY_REVENUE2);
-    //        assertEquals(DAILY_REVENUE1, modelManager.getSelectedDailyRevenue());
-    //    }
+    @Test
+    public void deleteDailyRevenue_secondDailyRevenueIsSelectedInFilteredDailyRevenueList_firstDailyRevenueSelected() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        modelManager.addDailyRevenue(DAILY_REVENUE2);
+        assertEquals(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2), modelManager.getFilteredDailyRevenueList());
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE2);
+        modelManager.deleteDailyRevenue(DAILY_REVENUE2);
+        assertEquals(DAILY_REVENUE1, modelManager.getSelectedDailyRevenue());
+    }
 
-    //    @Test TODO
-    //    public void setDailyRevenue_dailyRevenueIsSelected_selectedDailyRevenueUpdated() {
-    //        modelManager.addDailyRevenue(DAILY_REVENUE1);
-    //        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
-    //        DailyRevenue updatedDailyRevenue =
-    //                new StatisticsBuilder(DAILY_REVENUE1).withTotalDailyRevenue("150.60").build();
-    //        modelManager.setDailyRevenue(DAILY_REVENUE1, updatedDailyRevenue);
-    //        assertEquals(updatedDailyRevenue, modelManager.getSelectedDailyRevenue());
-    //    }
+    /**
+    @Test
+    public void setDailyRevenue_dailyRevenueIsSelected_selectedDailyRevenueUpdated() {
+        modelManager.addDailyRevenue(DAILY_REVENUE1);
+        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
+        DailyRevenue updatedDailyRevenue =
+                new StatisticsBuilder(DAILY_REVENUE1).withTotalDailyRevenue("150.60").build();
+        modelManager.setDailyRevenue(DAILY_REVENUE1, updatedDailyRevenue);
+        assertEquals(updatedDailyRevenue, modelManager.getSelectedDailyRevenue());
+    }
+     **/
 
     @Test
     public void getFilteredDailyRevenueList_modifyList_throwsUnsupportedOperationException() {

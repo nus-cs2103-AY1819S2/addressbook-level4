@@ -20,7 +20,7 @@ public class JsonSerializableStatisticsTest {
             "JsonSerializableStatisticsTest");
     private static final Path TYPICAL_DAILY_REVENUE_FILE = TEST_DATA_FOLDER.resolve("typicalDailyRevenue.json");
     private static final Path INVALID_DAILY_REVENUE_FILE = TEST_DATA_FOLDER.resolve("invalidDailyRevenue.json");
-
+    private static final Path DUPLICATE_DAILY_REVENUE_FILE = TEST_DATA_FOLDER.resolve("duplicateDailyRevenue.json");
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -38,6 +38,15 @@ public class JsonSerializableStatisticsTest {
         JsonSerializableStatistics dataFromFile = JsonUtil.readJsonFile(INVALID_DAILY_REVENUE_FILE,
                 JsonSerializableStatistics.class).get();
         thrown.expect(IllegalValueException.class);
+        dataFromFile.toModelType();
+    }
+
+    @Test
+    public void toModelType_duplicateMenuItems_throwsIllegalValueException() throws Exception {
+        JsonSerializableStatistics dataFromFile = JsonUtil.readJsonFile(DUPLICATE_DAILY_REVENUE_FILE,
+                JsonSerializableStatistics.class).get();
+        thrown.expect(IllegalValueException.class);
+        thrown.expectMessage(JsonSerializableStatistics.MESSAGE_DUPLICATE_ITEM);
         dataFromFile.toModelType();
     }
 }

@@ -31,6 +31,8 @@ public class StorageManager implements Storage {
         this.jsonPostalDataStorage = jsonPostalDataStorage;
     }
     // ================ PostalDataStorage methods ==============================
+
+    @Override
     public Optional<PostalDataSet> getPostalData() throws DataConversionException {
         return jsonPostalDataStorage.loadPostalData();
     }

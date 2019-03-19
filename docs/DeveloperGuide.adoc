@@ -234,6 +234,22 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
+
+=== listUnvisited feature which sorts by distance nearest to you
+==== Current Implementation(v1.3)
+The 'listUnvisited' feature accepts the user current postal code and displays unreviewed restaurants nearest to the user postal code.
+This mechanism is facilitated by 'PostalDataSet'.
+It contains a HashMap of 'PostalData' which contains the x and y-coordinate of every postal code in Singapore.
+Additionally, it implements the following operation:
+
+* 'PostalDataSet#checkPostal(int postal)' -- returns the 'PostalData' corresponding to the postal code provided.
+
+This operation is exposed in the `Model` interface as `Model#checkPostal(int postal) (TBD)
+
+Given below is an example usage scenario and how the 'PostalDataSet' behaves at each step.
+
+Step 1. The user launches the application for the first time.
+
 === Undo/Redo feature
 ==== Current Implementation
 

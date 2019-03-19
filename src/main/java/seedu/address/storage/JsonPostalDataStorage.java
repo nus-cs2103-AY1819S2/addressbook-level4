@@ -35,9 +35,6 @@ public class JsonPostalDataStorage {
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<PostalDataSet> loadPostalData(Path filePath) throws DataConversionException {
-        if (jsonPostalData.isPresent()) {
-            return Optional.empty();
-        }
         requireNonNull(filePath);
         jsonPostalData = JsonUtil.readJsonFile(
                 filePath, JsonSerializablePostalData.class);

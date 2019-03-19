@@ -9,6 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 
 public class ClearCommandTest {
@@ -26,8 +27,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyFoodDiary_success() {
-        Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+        Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
+        Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
         expectedModel.setFoodDiary(new FoodDiary());
         expectedModel.commitFoodDiary();
 

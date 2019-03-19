@@ -18,6 +18,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -77,7 +78,9 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyFoodDiary> foodDiaryOptional;
+        Optional<PostalDataSet> postalDataSetOptional = Optional.empty();
         ReadOnlyFoodDiary initialData;
+        PostalDataSet postalDataSet;
         try {
             foodDiaryOptional = storage.readFoodDiary();
             if (!foodDiaryOptional.isPresent()) {
@@ -92,7 +95,22 @@ public class MainApp extends Application {
             initialData = new FoodDiary();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            postalDataSetOptional = storage.getPostalData();
+            if (!postalDataSetOptional.isPresent()) {
+                logger.info("Data file not found. Location services unavailable.");
+                postalDataSet = new PostalDataSet();
+
+            } else {
+                postalDataSet = postalDataSetOptional.get();
+
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Location services unavailable.");
+            postalDataSet = new PostalDataSet();
+        }
+
+        return new ModelManager(initialData, userPrefs, postalDataSet);
     }
 
     private void initLogging(Config config) {

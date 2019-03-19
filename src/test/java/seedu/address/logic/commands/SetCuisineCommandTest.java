@@ -10,6 +10,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.categories.Cuisine;
@@ -21,7 +22,7 @@ import seedu.address.testutil.RestaurantBuilder;
  */
 public class SetCuisineCommandTest {
 
-    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -33,7 +34,7 @@ public class SetCuisineCommandTest {
 
         String expectedMessage = String.format(SetCuisineCommand.MESSAGE_SET_CUISINE_SUCCESS, restaurantCuisineAdded);
 
-        Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), restaurantCuisineAdded);
         expectedModel.commitFoodDiary();
 

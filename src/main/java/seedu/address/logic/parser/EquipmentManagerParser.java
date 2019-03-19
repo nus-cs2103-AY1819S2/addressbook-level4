@@ -15,7 +15,8 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEquipmentCommand;
+import seedu.address.logic.commands.ListWorkListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
@@ -70,8 +71,11 @@ public class EquipmentManagerParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListEquipmentCommand.COMMAND_WORD:
+            return new ListEquipmentCommand();
+
+        case ListWorkListCommand.COMMAND_WORD:
+            return new ListWorkListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

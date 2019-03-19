@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.WorkList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -15,6 +16,9 @@ import seedu.address.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Equipment> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<WorkList> PREDICATE_SHOW_ALL_WORKLISTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -82,11 +86,20 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered equipment list */
     ObservableList<Equipment> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered worklist list */
+    ObservableList<WorkList> getFilteredWorkListList();
+
     /**
      * Updates the filter of the filtered equipment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Equipment> predicate);
+
+    /**
+     * Updates the filter of the filtered WorkList list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredWorkListList(Predicate<WorkList> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.WorkList;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EquipmentBuilder;
 
@@ -175,6 +176,7 @@ public class AddCommandTest {
         public void sortByName() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public ObservableList<Equipment> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
@@ -182,6 +184,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Equipment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<WorkList> getFilteredWorkListList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredWorkListList (Predicate<WorkList> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

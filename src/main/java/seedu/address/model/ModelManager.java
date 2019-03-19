@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.WorkList;
 import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.address.model.tag.Tag;
 
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final VersionedEquipmentManager versionedEquipmentManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Equipment> filteredEquipments;
+    private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedPerson = new SimpleObjectProperty<>();
 
     /**
@@ -43,6 +45,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
+        filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
+        //filteredWorkList.addListener(this::ensureSelectedworkListIsValid);
     }
 
     public ModelManager() {
@@ -125,6 +129,22 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEquipment);
 
         versionedEquipmentManager.updatePerson(target, editedEquipment);
+    }
+
+    //=========== Filtered WorkList List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code WorkList} backed by the internal list of
+     * {@code versionedEquipmentManager}
+     */
+    public ObservableList<WorkList> getFilteredWorkListList() {
+        return filteredWorkList;
+    }
+
+    @Override
+    public void updateFilteredWorkListList(Predicate<WorkList> predicate) {
+        requireNonNull(predicate);
+        filteredWorkList.setPredicate(predicate);
     }
 
     //=========== Filtered Equipment List Accessors =============================================================

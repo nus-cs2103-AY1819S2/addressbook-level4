@@ -40,7 +40,8 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEquipmentCommand;
+import seedu.address.logic.commands.ListWorkListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.EquipmentManager;
 import seedu.address.model.Model;
@@ -145,8 +146,16 @@ public abstract class EquipmentManagerSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ListEquipmentCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+    }
+
+    /**
+     * Displays all WorkLists in the Equipment Manager.
+     */
+    protected void showAllWorkList() {
+        executeCommand(ListWorkListCommand.COMMAND_WORD);
+        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredWorkListList().size());
     }
 
     /**
@@ -154,7 +163,8 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(getModel().getFilteredPersonList().size()
+                < getModel().getAddressBook().getPersonList().size());
     }
 
     /**

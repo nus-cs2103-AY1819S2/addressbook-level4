@@ -10,7 +10,7 @@ import seedu.address.model.EquipmentManager;
 import seedu.address.testutil.EquipmentManagerBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListEquipmentCommand.
  */
 public class SortCommandTest {
 

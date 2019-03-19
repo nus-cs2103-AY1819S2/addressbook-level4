@@ -14,9 +14,7 @@
         ]
       },
       "requestDate": "an invalid date!",
-      "conditions": [
-        "Physiotherapy"
-      ],
+      "conditions": "Physiotherapy",
       "healthWorker": {
         "email": "andye@example.com",
         "name": "Andy Tan",

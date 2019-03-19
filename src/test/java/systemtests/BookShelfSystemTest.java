@@ -39,243 +39,244 @@ import seedu.address.ui.CommandBox;
  * for test verification.
  */
 public abstract class BookShelfSystemTest {
-	@ClassRule
-	public static ClockRule clockRule = new ClockRule();
+    @ClassRule
+    public static ClockRule clockRule = new ClockRule();
 
-	private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
-	private static final List<String> COMMAND_BOX_ERROR_STYLE =
-		Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
+    private static final List<String> COMMAND_BOX_ERROR_STYLE =
+        Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
-	private BookMainWindowHandle mainWindowHandle;
-	private TestApp testApp;
-	private BookSystemTestSetupHelper setupHelper;
+    private BookMainWindowHandle mainWindowHandle;
+    private TestApp testApp;
+    private BookSystemTestSetupHelper setupHelper;
 
-	@BeforeClass
-	public static void setupBeforeClass() {
-		BookSystemTestSetupHelper.initialize();
-	}
+    @BeforeClass
+    public static void setupBeforeClass() {
+        BookSystemTestSetupHelper.initialize();
+    }
 
-	@Before
-	public void setUp() {
-		setupHelper = new BookSystemTestSetupHelper();
-		testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
-		mainWindowHandle = setupHelper.setupMainWindowHandle();
+    @Before
+    public void setUp() {
+        setupHelper = new BookSystemTestSetupHelper();
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-		waitUntilBrowserLoaded(getBrowserPanel());
-		assertApplicationStartingStateIsCorrect();
-	}
+        waitUntilBrowserLoaded(getBrowserPanel());
+        assertApplicationStartingStateIsCorrect();
+    }
 
-	@After
-	public void tearDown() {
-		setupHelper.tearDownStage();
-	}
+    @After
+    public void tearDown() {
+        setupHelper.tearDownStage();
+    }
 
-	/**
-	 * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
-	 */
-	protected BookShelf getInitialData() {
-		return TypicalPersons.getTypicalAddressBook();
-	}
+    /**
+     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     */
+    protected BookShelf getInitialData() {
+        return TypicalPersons.getTypicalAddressBook();
+    }
 
-	/**
-	 * Returns the directory of the data file.
-	 */
-	protected Path getDataFileLocation() {
-		return TestApp.SAVE_LOCATION_FOR_TESTING;
-	}
+    /**
+     * Returns the directory of the data file.
+     */
+    protected Path getDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    }
 
-	public BookMainWindowHandle getMainWindowHandle() {
-		return mainWindowHandle;
-	}
+    public BookMainWindowHandle getMainWindowHandle() {
+        return mainWindowHandle;
+    }
 
-	public BookCommandBoxHandle getCommandBox() {
-		return mainWindowHandle.getCommandBox();
-	}
+    public BookCommandBoxHandle getCommandBox() {
+        return mainWindowHandle.getCommandBox();
+    }
 
-	public BookListPanelHandle getBookListPanel() {
-		return mainWindowHandle.getBookListPanel();
-	}
+    public BookListPanelHandle getBookListPanel() {
+        return mainWindowHandle.getBookListPanel();
+    }
 
-	public BookMainMenuHandle getMainMenu() {
-		return mainWindowHandle.getMainMenu();
-	}
+    public BookMainMenuHandle getMainMenu() {
+        return mainWindowHandle.getMainMenu();
+    }
 
-	public BookBrowserPanelHandle getBrowserPanel() {
-		return mainWindowHandle.getBrowserPanel();
-	}
+    public BookBrowserPanelHandle getBrowserPanel() {
+        return mainWindowHandle.getBrowserPanel();
+    }
 
-	public StatusBarFooterHandle getStatusBarFooter() {
-		return mainWindowHandle.getStatusBarFooter();
-	}
+    public StatusBarFooterHandle getStatusBarFooter() {
+        return mainWindowHandle.getStatusBarFooter();
+    }
 
-	public ResultDisplayHandle getResultDisplay() {
-		return mainWindowHandle.getResultDisplay();
-	}
+    public ResultDisplayHandle getResultDisplay() {
+        return mainWindowHandle.getResultDisplay();
+    }
 
-	/**
-	 * Executes {@code command} in the application's {@code CommandBox}.
-	 * Method returns after UI components have been updated.
-	 */
-	protected void executeCommand(String command) {
-		rememberStates();
-		// Injects a fixed clock before executing a command so that the time stamp shown in the status bar
-		// after each command is predictable and also different from the previous command.
-		clockRule.setInjectedClockToCurrentTime();
+    /**
+     * Executes {@code command} in the application's {@code CommandBox}.
+     * Method returns after UI components have been updated.
+     */
+    protected void executeCommand(String command) {
+        rememberStates();
+        // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
+        // after each command is predictable and also different from the previous command.
+        clockRule.setInjectedClockToCurrentTime();
 
-		mainWindowHandle.getCommandBox().run(command);
+        mainWindowHandle.getCommandBox().run(command);
 
-		waitUntilBrowserLoaded(getBrowserPanel());
-	}
+        waitUntilBrowserLoaded(getBrowserPanel());
+    }
 
-	/**
-	 * Displays all persons in the address book.
-	 */
-	protected void showAllPersons() {
-		executeCommand(ListCommand.COMMAND_WORD);
-		assertEquals(getModel().getBookShelf().getPersonList().size(), getModel().getFilteredPersonList().size());
-	}
+    /**
+     * Displays all persons in the address book.
+     */
+    protected void showAllPersons() {
+        executeCommand(ListCommand.COMMAND_WORD);
+        assertEquals(getModel().getBookShelf().getPersonList().size(), getModel().getFilteredPersonList().size());
+    }
 
-	/**
-	 * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
-	 */
-	protected void showPersonsWithName(String keyword) {
-		executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-		assertTrue(getModel().getFilteredPersonList().size() < getModel().getBookShelf().getPersonList().size());
-	}
+    /**
+     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showPersonsWithName(String keyword) {
+        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredPersonList().size() <
+            getModel().getBookShelf().getPersonList().size());
+    }
 
-	/**
-	 * Selects the person at {@code index} of the displayed list.
-	 */
-	protected void selectPerson(Index index) {
-		executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-		assertEquals(index.getZeroBased(), getBookListPanel().getSelectedCardIndex());
-	}
+    /**
+     * Selects the person at {@code index} of the displayed list.
+     */
+    protected void selectPerson(Index index) {
+        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        assertEquals(index.getZeroBased(), getBookListPanel().getSelectedCardIndex());
+    }
 
-	/**
-	 * Deletes all persons in the address book.
-	 */
-	protected void deleteAllPersons() {
-		executeCommand(ClearCommand.COMMAND_WORD);
-		assertEquals(0, getModel().getBookShelf().getPersonList().size());
-	}
+    /**
+     * Deletes all persons in the address book.
+     */
+    protected void deleteAllPersons() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getBookShelf().getPersonList().size());
+    }
 
-	/**
-	 * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-	 * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-	 * and the person list panel displays the persons in the model correctly.
-	 */
-	protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-	                                                 Model expectedModel) {
-		assertEquals(expectedCommandInput, getCommandBox().getInput());
-		assertEquals(expectedResultMessage, getResultDisplay().getText());
-		assertEquals(new BookShelf(expectedModel.getBookShelf()), testApp.readStorageAddressBook());
-		assertListMatching(getBookListPanel(), expectedModel.getFilteredBookList());
-	}
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                     Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new BookShelf(expectedModel.getBookShelf()), testApp.readStorageAddressBook());
+        assertListMatching(getBookListPanel(), expectedModel.getFilteredBookList());
+    }
 
-	/**
-	 * Calls {@code BrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
-	 * their current state.
-	 */
-	private void rememberStates() {
-		StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-		getBrowserPanel().rememberUrl();
-		statusBarFooterHandle.rememberSaveLocation();
-		statusBarFooterHandle.rememberSyncStatus();
-		getBookListPanel().rememberSelectedPersonCard();
-	}
+    /**
+     * Calls {@code BrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * their current state.
+     */
+    private void rememberStates() {
+        StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
+        getBrowserPanel().rememberUrl();
+        statusBarFooterHandle.rememberSaveLocation();
+        statusBarFooterHandle.rememberSyncStatus();
+        getBookListPanel().rememberSelectedPersonCard();
+    }
 
-	/**
-	 * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
-	 * default page.
-	 * @see BrowserPanelHandle#isUrlChanged()
-	 */
-	protected void assertSelectedCardDeselected() {
-		assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-		assertFalse(getBookListPanel().isAnyCardSelected());
-	}
+    /**
+     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
+     * default page.
+     * @see BrowserPanelHandle#isUrlChanged()
+     */
+    protected void assertSelectedCardDeselected() {
+        assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertFalse(getBookListPanel().isAnyCardSelected());
+    }
 
-	/**
-	 * Asserts that the browser's url is changed to display the details of the person in the person list panel at
-	 * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-	 * @see BrowserPanelHandle#isUrlChanged()
-	 * @see PersonListPanelHandle#isSelectedPersonCardChanged()
-	 */
-	protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-		getBookListPanel().navigateToCard(getBookListPanel().getSelectedCardIndex());
-		String selectedCardName = getBookListPanel().getHandleToSelectedCard().getName();
-		URL expectedUrl;
-		try {
-			expectedUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-		} catch (MalformedURLException mue) {
-			throw new AssertionError("URL expected to be valid.", mue);
-		}
-		assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+    /**
+     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+        getBookListPanel().navigateToCard(getBookListPanel().getSelectedCardIndex());
+        String selectedCardName = getBookListPanel().getHandleToSelectedCard().getName();
+        URL expectedUrl;
+        try {
+            expectedUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("URL expected to be valid.", mue);
+        }
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-		assertEquals(expectedSelectedCardIndex.getZeroBased(), getBookListPanel().getSelectedCardIndex());
-	}
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getBookListPanel().getSelectedCardIndex());
+    }
 
-	/**
-	 * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
-	 * @see BrowserPanelHandle#isUrlChanged()
-	 * @see PersonListPanelHandle#isSelectedPersonCardChanged()
-	 */
-	protected void assertSelectedCardUnchanged() {
-		assertFalse(getBrowserPanel().isUrlChanged());
-		assertFalse(getBookListPanel().isSelectedPersonCardChanged());
-	}
+    /**
+     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardUnchanged() {
+        assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getBookListPanel().isSelectedPersonCardChanged());
+    }
 
-	/**
-	 * Asserts that the command box's shows the default style.
-	 */
-	protected void assertCommandBoxShowsDefaultStyle() {
-		assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
-	}
+    /**
+     * Asserts that the command box's shows the default style.
+     */
+    protected void assertCommandBoxShowsDefaultStyle() {
+        assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
+    }
 
-	/**
-	 * Asserts that the command box's shows the error style.
-	 */
-	protected void assertCommandBoxShowsErrorStyle() {
-		assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
-	}
+    /**
+     * Asserts that the command box's shows the error style.
+     */
+    protected void assertCommandBoxShowsErrorStyle() {
+        assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
+    }
 
-	/**
-	 * Asserts that the entire status bar remains the same.
-	 */
-	protected void assertStatusBarUnchanged() {
-		StatusBarFooterHandle handle = getStatusBarFooter();
-		assertFalse(handle.isSaveLocationChanged());
-		assertFalse(handle.isSyncStatusChanged());
-	}
+    /**
+     * Asserts that the entire status bar remains the same.
+     */
+    protected void assertStatusBarUnchanged() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        assertFalse(handle.isSaveLocationChanged());
+        assertFalse(handle.isSyncStatusChanged());
+    }
 
-	/**
-	 * Asserts that only the sync status in the status bar was changed to the timing of
-	 * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
-	 */
-	protected void assertStatusBarUnchangedExceptSyncStatus() {
-		StatusBarFooterHandle handle = getStatusBarFooter();
-		String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
-		String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-		assertEquals(expectedSyncStatus, handle.getSyncStatus());
-		assertFalse(handle.isSaveLocationChanged());
-	}
+    /**
+     * Asserts that only the sync status in the status bar was changed to the timing of
+     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     */
+    protected void assertStatusBarUnchangedExceptSyncStatus() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
+        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
+        assertEquals(expectedSyncStatus, handle.getSyncStatus());
+        assertFalse(handle.isSaveLocationChanged());
+    }
 
-	/**
-	 * Asserts that the starting state of the application is correct.
-	 */
-	private void assertApplicationStartingStateIsCorrect() {
-		assertEquals("", getCommandBox().getInput());
-		assertEquals("", getResultDisplay().getText());
-		assertListMatching(getBookListPanel(), getModel().getFilteredBookList());
-		assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-		assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-			getStatusBarFooter().getSaveLocation());
-		assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-	}
+    /**
+     * Asserts that the starting state of the application is correct.
+     */
+    private void assertApplicationStartingStateIsCorrect() {
+        assertEquals("", getCommandBox().getInput());
+        assertEquals("", getResultDisplay().getText());
+        assertListMatching(getBookListPanel(), getModel().getFilteredBookList());
+        assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
+            getStatusBarFooter().getSaveLocation());
+        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+    }
 
-	/**
-	 * Returns a defensive copy of the current model.
-	 */
-	protected Model getModel() {
-		return testApp.getModel();
-	}
+    /**
+     * Returns a defensive copy of the current model.
+     */
+    protected Model getModel() {
+        return testApp.getModel();
+    }
 }

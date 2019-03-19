@@ -14,28 +14,28 @@ import static seedu.address.testutil.TypicalBooks.BOOKTHIEF;
 
 
 public class BookBrowserPanelTest extends GuiUnitTest {
-	private SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
-	private BookBrowserPanel browserPanel;
-	private BookBrowserPanelHandle browserPanelHandle;
+    private SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
+    private BookBrowserPanel browserPanel;
+    private BookBrowserPanelHandle browserPanelHandle;
 
-	@Before
-	public void setUp() {
-		guiRobot.interact(() -> browserPanel = new BookBrowserPanel(selectedBook));
-		uiPartRule.setUiPart(browserPanel);
+    @Before
+    public void setUp() {
+        guiRobot.interact(() -> browserPanel = new BookBrowserPanel(selectedBook));
+        uiPartRule.setUiPart(browserPanel);
 
-		browserPanelHandle = new BookBrowserPanelHandle(browserPanel.getRoot());
-	}
+        browserPanelHandle = new BookBrowserPanelHandle(browserPanel.getRoot());
+    }
 
-	@Test
-	public void display() throws Exception {
-		// default web page
-		assertEquals(BookBrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
+    @Test
+    public void display() throws Exception {
+        // default web page
+        assertEquals(BookBrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
-		// associated web page of a person
-		guiRobot.interact(() -> selectedBook.set(BOOKTHIEF));
-		URL expectedPersonUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL + BOOKTHIEF.getBookName().fullName.replaceAll(" ", "%20"));
+        // associated web page of a person
+        guiRobot.interact(() -> selectedBook.set(BOOKTHIEF));
+        URL expectedPersonUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL + BOOKTHIEF.getBookName().fullName.replaceAll(" ", "%20"));
 
-		waitUntilBrowserLoaded(browserPanelHandle);
-		assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
-	}
+        waitUntilBrowserLoaded(browserPanelHandle);
+        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+    }
 }

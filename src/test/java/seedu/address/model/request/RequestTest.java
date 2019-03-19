@@ -10,13 +10,7 @@ import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 
 import org.junit.Test;
 
-import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.ConditionTag;
 import seedu.address.testutil.RequestBuilder;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 
 public class RequestTest {
 
@@ -33,8 +27,7 @@ public class RequestTest {
         assertFalse(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // everything same, but conditions different -> returns true
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
-                new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
+        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions("Stroke").build();
         assertTrue(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // different date, everything else same -> returns false
@@ -75,8 +68,7 @@ public class RequestTest {
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different treatment conditions -> returns false
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
-                new HashSet<>(Collections.singletonList(new ConditionTag("Cancer"))))).build();
+        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions("Cancer").build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different id -> returns false

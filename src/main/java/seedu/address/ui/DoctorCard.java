@@ -5,14 +5,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Doctor;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Doctor}.
  */
-public class PersonCard extends UiPart<Region> {
+public class DoctorCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "DoctorListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Doctor doctor;
 
     @FXML
     private HBox cardPane;
@@ -31,32 +31,26 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label gender;
+    @FXML
+    private Label age;
+    @FXML
     private Label phone;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private FlowPane specialisations;
     @FXML
     private Label addAppointment;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public DoctorCard(Doctor doctor, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.doctor = doctor;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-
-        StringBuilder sb = new StringBuilder();
-        person.getAppointments().forEach(appointment -> {
-            sb.append(appointment.value);
-            sb.append(", ");
-        });
-        addAppointment.setText(sb.toString());
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(doctor.getName().fullName);
+        gender.setText(doctor.getGender().value);
+        age.setText(doctor.getAge().value);
+        phone.setText(doctor.getPhone().value);
+        addAppointment.setText("addAppointment");
+        doctor.getSpecs().forEach(spec -> specialisations.getChildren().add(new Label(spec.specialisation)));
     }
 
     @Override
@@ -67,13 +61,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof DoctorCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        DoctorCard card = (DoctorCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && doctor.equals(card.doctor);
     }
 }

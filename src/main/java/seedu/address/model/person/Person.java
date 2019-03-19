@@ -2,11 +2,14 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -14,8 +17,10 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    private static int idCounter = 0;
 
     // Identity fields
+    private final int id;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -23,17 +28,24 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final List<Appointment> appointments = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.id = idCounter;
+        this.idCounter += 1;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public Name getName() {
@@ -58,6 +70,10 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public List<Appointment> getAppointments() {
+        return this.appointments;
     }
 
     /**

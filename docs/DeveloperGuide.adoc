@@ -274,24 +274,24 @@ Step 5. Calling `Model#displayImage` updates the user interface and the user int
 image::ContrastCommandSequenceDiagram.png[width="740"]
 
 
-=== Image Manipulation 
+=== Image Manipulation
 ==== Current Implementation
 
-This segment involves manipulating the physical image itself, such as rotating, cropping and resizing. The implementations of these features are facilitated by https://github.com/rkalla/imgscalr[`ImgScalr Library`], which is an external API Library that helps process the target image. 
+This segment involves manipulating the physical image itself, such as rotating, cropping and resizing. The implementations of these features are facilitated by https://github.com/rkalla/imgscalr[`ImgScalr Library`], which is an external API Library that helps process the target image.
 
-This manipulation feature mainly consists of: 
+This manipulation feature mainly consists of:
 
 * `rotateCommand`: Allows user to rotate images by specifying a degree (90, 180 or 270 only).
 * `cropCommand`: Allows user to crop images by specifying the coordinates of the top left corner, the width and the height of the desired cropped image.
 * `resizeCommand`: Allows user to resize images to the desired size while maintaining the proportions.
 
 ==== Rotate Command
-This command allows the user to rotate images by specifying a degree (90, 180 or 270 only). Upon receiving an input degree by the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `Image`'s `List<EditCommands>` which saves the editing history of the targetted image. 
+This command allows the user to rotate images by specifying a degree (90, 180 or 270 only). Upon receiving an input degree by the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `Image`'s `List<EditCommands>` which saves the editing history of the targetted image.
 
 Given below is an example usage scenario and how the command should behave at each step:
 
 
-Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits `List<EditCommand>` and the image's metadata. This `Image` object will be set as the `currentImage` in the `Model` for editing.  
+Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits `List<EditCommand>` and the image's metadata. This `Image` object will be set as the `currentImage` in the `Model` for editing.
 
 
 Step 2. When the user enters the command (e.g. `rotate 90`), the entered command is parsed and the command will be executed.

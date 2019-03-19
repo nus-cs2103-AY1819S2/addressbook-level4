@@ -59,38 +59,22 @@ Format: `help`
 
 Sets the course of study you are currently undertaking. +
 Format: `set COURSE` +
-If the course requires a Specialisation or Focus Area (FA), you will be prompted for further input. +
 
 Course abbreviations are as follows:
 ****
 * `BZA` - Business Analytics
 * `CS` - Computer Science
 * `CEG` - Computer Engineering
-* IS` - Information System
+* `IS` - Information System
 * `IFS` - Infocomm Security
 ****
 
 Examples:
 
-* `set IFS` +
-Sets the course of study to Infocomm Security.
-
 * `set CS` +
-Sets the course of study to Computer Science. +
-Since Computer Science requires a FA, you need to input the corresponding digit for the desired FA: +
-.  Algorithms & Theory
-.  Artificial Intelligence
-.  Computer Graphics and Games
-.  Computer Security
-.  Database Systems
-.  Multimedia Information Retrieval
-.  Networking and Distributed Systems
-.  Parallel Computing
-.  Programming Languages
-.  Software Engineering
+Sets the course of study to Computer Science.
 
-You can input `2` to select Artificial Intelligence as your FA.
-
+Invoking set again will change your course of study
 
 === Add module: `add`
 

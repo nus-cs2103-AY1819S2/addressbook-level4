@@ -16,7 +16,7 @@ import seedu.address.model.book.Book;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserBookPanel extends UiPart<Region> {
+public class BookBrowserPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE = requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
 
@@ -29,7 +29,7 @@ public class BrowserBookPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserBookPanel(ObservableValue<Book> selectedBook) {
+    public BookBrowserPanel(ObservableValue<Book> selectedBook) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.

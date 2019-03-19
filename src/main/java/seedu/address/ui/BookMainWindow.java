@@ -110,8 +110,8 @@ public class BookMainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        BrowserBookPanel browserBookPanel = new BrowserBookPanel(logic.selectedBookProperty());
-        browserPlaceholder.getChildren().add(browserBookPanel.getRoot());
+        BookBrowserPanel bookBrowserPanel = new BookBrowserPanel(logic.selectedBookProperty());
+        browserPlaceholder.getChildren().add(bookBrowserPanel.getRoot());
 
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
             logic::setSelectedBook);
@@ -128,7 +128,7 @@ public class BookMainWindow extends UiPart<Stage> {
     }
 
     /**
-	 * Sets the default size based on {@code guiSettings}.
+     * Sets the default size based on {@code guiSettings}.
 	 */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());

@@ -58,7 +58,9 @@ public class ResultDisplay extends UiPart<Region> {
             String header = parseHeader(line);
             if (header != null) {
                 line = line.replaceFirst(header, "");
-                line = line + "\n";
+                if (i != result.length - 1) {
+                    line = line + "\n";
+                }
             }
             result[i++] = new Pair(line, header);
         }

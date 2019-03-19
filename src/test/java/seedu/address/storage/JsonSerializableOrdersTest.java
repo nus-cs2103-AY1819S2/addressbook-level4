@@ -1,8 +1,5 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalRestOrRant.getTypicalOrderItems;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -12,8 +9,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.Orders;
 
 public class JsonSerializableOrdersTest {
 

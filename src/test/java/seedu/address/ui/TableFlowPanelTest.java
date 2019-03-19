@@ -1,10 +1,6 @@
 package seedu.address.ui;
 
-import static java.time.Duration.ofMillis;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalTables;
-
-import org.junit.Test;
 
 import guitests.guihandles.TablesFlowPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;

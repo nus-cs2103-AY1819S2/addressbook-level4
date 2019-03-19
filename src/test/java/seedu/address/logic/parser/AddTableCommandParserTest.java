@@ -2,21 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddTableCommand;
-import seedu.address.model.table.Table;
-import seedu.address.model.table.TableStatus;
-import seedu.address.testutil.TableBuilder;
 
 public class AddTableCommandParserTest {
     private AddTableCommandParser parser = new AddTableCommandParser();

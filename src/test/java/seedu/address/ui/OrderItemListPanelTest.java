@@ -1,16 +1,11 @@
 package seedu.address.ui;
 
 import static java.time.Duration.ofMillis;
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalOrderItems;
-import static seedu.address.ui.testutil.OrdersGuiTestAssert.assertCardDisplaysOrderItem;
-import static seedu.address.ui.testutil.OrdersGuiTestAssert.assertCardEquals;
 
 import org.junit.Test;
 
-import guitests.guihandles.OrderItemCardHandle;
 import guitests.guihandles.OrderItemListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

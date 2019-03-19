@@ -3,7 +3,6 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalTables;
 
 import java.io.IOException;

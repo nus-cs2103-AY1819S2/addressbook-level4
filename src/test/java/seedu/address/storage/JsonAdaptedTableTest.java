@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedTable.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 
 import org.junit.Test;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
-import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedTableTest {

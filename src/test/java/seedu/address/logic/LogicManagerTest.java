@@ -12,8 +12,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.AddTableCommand;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -22,25 +20,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.ReadOnlyMenu;
-import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
-import seedu.address.model.statistics.DailyRevenue;
-import seedu.address.model.statistics.ReadOnlyStatistics;
+]import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
-import seedu.address.model.table.Table;
 import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonOrdersStorage;
 import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.MenuItemBuilder;
-import seedu.address.testutil.OrderItemBuilder;
-import seedu.address.testutil.StatisticsBuilder;
-import seedu.address.testutil.TableBuilder;
-
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

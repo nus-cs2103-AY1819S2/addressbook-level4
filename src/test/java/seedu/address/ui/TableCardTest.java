@@ -3,7 +3,6 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
 import static seedu.address.ui.testutil.OrdersGuiTestAssert.assertCardDisplaysTable;
 

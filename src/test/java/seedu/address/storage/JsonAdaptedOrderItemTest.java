@@ -1,15 +1,9 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.JsonAdaptedOrderItem.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1_W09;
 
 import org.junit.Test;
-
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.menu.Code;
-import seedu.address.model.table.TableNumber;
-import seedu.address.testutil.Assert;
 
 public class JsonAdaptedOrderItemTest {
     private static final String INVALID_TABLE_NUMBER = "Abc";

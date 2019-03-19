@@ -2,8 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE8;
 import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE2;
+import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE8;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import java.io.IOException;

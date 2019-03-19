@@ -45,7 +45,7 @@ public class Activity {
     }
 
 
-        public ActivityName getName() {
+    public ActivityName getName() {
         return name;
     }
 

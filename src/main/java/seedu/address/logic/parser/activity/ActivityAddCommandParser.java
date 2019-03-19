@@ -47,7 +47,7 @@ public class ActivityAddCommandParser implements Parser<ActivityAddCommand> {
         ActivityDateTime datetime = ParserUtil.parseActivityDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
         ActivityLocation location = ParserUtil.parseActivityLocation(argMultimap.getValue(PREFIX_LOCATION).get());
 
-        if (argMultimap.getValue(PREFIX_ADESCRIPTION).isPresent()){
+        if (argMultimap.getValue(PREFIX_ADESCRIPTION).isPresent()) {
             ActivityDescription description =
                     ParserUtil.parseActivityDescription(argMultimap.getValue(PREFIX_ADESCRIPTION).get());
             Activity activity = new Activity(name, datetime, location, description);

@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ActivityDescription {
 
-    public static final String MESSAGE_CONSTRAINTS = "Description can take any values, should describe the activity, " +
-            "and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Description can take any values, should describe the activity, "
+            + "and it should not be blank";
 
     /*
      * The first character of the description must not be a whitespace,

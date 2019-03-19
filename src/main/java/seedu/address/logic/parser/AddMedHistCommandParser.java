@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 
@@ -34,10 +35,11 @@ public class AddMedHistCommandParser implements Parser<AddMedHistCommand> {
         }
 
         Patient patient = null;
+        Doctor doctor = null;
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         WriteUp writeUp = ParserUtil.parseWriteUp(argMultimap.getValue(PREFIX_WRITEUP).get());
 
-        MedicalHistory medicalHistory = new MedicalHistory(patient, name, writeUp);
+        MedicalHistory medicalHistory = new MedicalHistory(patient, doctor, name, writeUp);
 
         return new AddMedHistCommand(medicalHistory);
     }

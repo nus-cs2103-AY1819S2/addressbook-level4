@@ -68,7 +68,7 @@ public class AddressBookParserTest {
                 AddMedHistCommand.COMMAND_WORD + " " + "n/testName sw/testWriteUp");
         assertTrue(command instanceof AddMedHistCommand);
         assertEquals(command, new AddMedHistCommand(
-                new MedicalHistory(null, new Name("testName"), new WriteUp("testWriteUp"))));
+                new MedicalHistory(null, null, new Name("testName"), new WriteUp("testWriteUp"))));
     }
 
     @Test

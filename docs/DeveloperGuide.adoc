@@ -340,6 +340,48 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Medical History of patients
+
+Medical History is used to track a patient's history of coming to the clinic and seeing doctors.
+The following features are implemented or will be implemented for users of docX:
+* Add medical history of patient: the medical history contains information of patient, doctor, time and a prescription
+* List all medical history of a specified patient
+* Edit medical history
+* Search medical history by keywords
+* View a specified medical history
+
+==== Add Medical History feature
+
+===== Current(Proposed) Implementation
+
+When a user executes 'add-med-hist n/patientName n/doctorName sw/shortWriteUp'
+
+Step1. LogicManager calls parseCommand("add-med-hist") in AddressBookParser.
+
+Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddMedHistCommandParser() and call function parse(arguments) of AddMedHistCommandParser;
+
+Step3. AddMedHistCommandParser parses the argument and get patient name, doctor name, time and a short write up. AddMedHistCommandParser calls constructors of Patient, Doctor, Date and WriteUp and then calls the constructor of MedicalHistory. Then, AddMedHistCommandParser calls AddMedHistCommand(medicalHistory).
+
+Step4. LogicManager calls execute() of AddMedHistCommand.
+
+Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, call addMedHist() of Model.
+
+==== List Medical History feature
+
+{Explain here how list medical history will be implemented}
+
+==== Edit Medical History feature
+
+{Explain here how edit medical history will be implemented}
+
+==== Search Medical History feature
+
+{Explain here how search medical history will be implemented}
+
+==== View Medical History feature
+
+{Explain here how view medical history will be implemented}
+
 == Documentation
 
 We use asciidoc for writing documentation.

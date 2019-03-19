@@ -12,10 +12,10 @@ public class MedicalHistoryTest {
 
     @Test
     public void equals() {
-        MedicalHistory mh1 = new MedicalHistory(null, new Name("a"), new WriteUp("fever"));
-        MedicalHistory mh2 = new MedicalHistory(null, new Name("a"), new WriteUp("sneeze"));
-        MedicalHistory mh3 = new MedicalHistory(null, new Name("b"), new WriteUp("fever"));
-        MedicalHistory mh1Copy = new MedicalHistory(null, new Name("a"), new WriteUp("fever"));
+        MedicalHistory mh1 = new MedicalHistory(null, null, new Name("a"), new WriteUp("fever"));
+        MedicalHistory mh2 = new MedicalHistory(null, null, new Name("a"), new WriteUp("sneeze"));
+        MedicalHistory mh3 = new MedicalHistory(null, null, new Name("b"), new WriteUp("fever"));
+        MedicalHistory mh1Copy = new MedicalHistory(null, null, new Name("a"), new WriteUp("fever"));
 
         // same object -> returns true
         assertTrue(mh1.equals(mh1));

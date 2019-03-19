@@ -28,9 +28,9 @@ public class JsonSerializableBookShelfTest {
     public void toModelType_typicalBooksFile_success() throws Exception {
         JsonSerializableBookShelf dataFromFile = JsonUtil.readJsonFile(TYPICAL_BOOKS_FILE,
                 JsonSerializableBookShelf.class).get();
-        BookShelf BookShelfFromFile = dataFromFile.toModelType();
+        BookShelf bookShelfFromFile = dataFromFile.toModelType();
         BookShelf typicalBooksBookShelf = TypicalBooks.getTypicalBookShelf();
-        assertEquals(BookShelfFromFile, typicalBooksBookShelf);
+        assertEquals(bookShelfFromFile, typicalBooksBookShelf);
     }
 
     @Test

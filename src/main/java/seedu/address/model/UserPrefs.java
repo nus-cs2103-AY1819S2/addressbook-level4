@@ -53,7 +53,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return addressBookFilePath;
     }
 
-    public Path getBookShelfFilePath() { return bookShelfFilePath; }
+    public Path getBookShelfFilePath() {
+        return bookShelfFilePath;
+    }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);

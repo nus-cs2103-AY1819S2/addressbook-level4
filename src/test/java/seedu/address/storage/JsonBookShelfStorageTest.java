@@ -107,10 +107,10 @@ public class JsonBookShelfStorageTest {
     /**
      * Saves {@code BookShelf} at the specified {@code filePath}.
      */
-    private void saveBookShelf(ReadOnlyBookShelf BookShelf, String filePath) {
+    private void saveBookShelf(ReadOnlyBookShelf bookShelf, String filePath) {
         try {
             new JsonBookShelfStorage(Paths.get(filePath))
-                    .saveBookShelf(BookShelf, addToTestDataPathIfNotNull(filePath));
+                    .saveBookShelf(bookShelf, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

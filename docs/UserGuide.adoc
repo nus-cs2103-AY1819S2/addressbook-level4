@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= HealthHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,8 +18,31 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-HealthHub is a application that allows users to add, manage and close requests from patients for health services. AB4 provides a *Graphical User Interface* for administrative staff of health organisations and hospitals to manage requests from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
-Looking to improve and ease management of requests from cusomters and patients? Look no further, HealthHub provides all the utility and functions you need to streamline your workflow. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+HealthHub is a application that allows users to add, manage and close requests from
+patients for health services. AB4 provides a *Graphical User Interface* for administrative staff of health organization and hospitals to manage requests from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
+
+Looking to improve and ease management of requests from customers and patients?
+Look no further, AB4 provides all the utility and functions you need to streamline your workflow. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+== Notation
+
+* Words that are highlighted with a grey background in monospaced font
+represent a `parameter` or `command` that is present or are to be used in the
+application.
+
+* All indices mentioned in this document are one-indexed, meaning that the
+first item in the list starts at 1.
+
+[NOTE]
+====
+Documentation displayed under the this section may be useful shortcuts on the
+ application alternative to the CLI.
+====
+
+****
+Descriptions wrapped in a grey background are helpful tips and tricks that
+may aid you when you use the application.
+****
 
 == Quick Start
 
@@ -31,11 +54,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all requests
-* **`add`**`i/3 n/John Doe p/98765432 a/John street, block 123, #01-01` : adds a patient named `John Doe` to the application.
-* **`delete`**`t/R n/4` : deletes the 4th request shown by the list command
-* *`exit`* : exits the app
+* **`add`** `3 i/3 n/John Doe p/98765432 a/John street, block 123, #01-01` :
+adds a patient named `John Doe` to the application.
+* **`delete`** `4 n/4` : deletes the 4th request shown by the list command
+* *`exit`* : exits the application, saving any changes made to the parameters
+ in the application.
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for a detailed explanation of each command.
 
 [[Features]]
 == Features
@@ -43,11 +68,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Note that the current application is a work in progress. The following description of the features and commands are prototypes and specific details and implementation may vary over the course of the project.
 
 ====
-*Command Format*
+*General Command Format*
 
 * Words in `<tags>` are the parameters to be supplied by the user e.g. in `add n/<name>`, `<name>` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/<name> [s/<specialisation>]` can be used as `n/John Doe s/Gynaecology` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[s/<specialisation>]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/<name> [c/<condition>]`
+can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/<name> p/<phone_number>`, `p/<phonenumber> n/<name>` is also acceptable.
 ====
 
@@ -60,47 +86,104 @@ Lists all available commands, their parameters and their function.
 === Listing all requests/health workers/patients : `list`
 
 Shows a list of all requests, health workers or patients based on the `<type>` parameters . +
+
 Format: `list <type>`
+
+====
+This command may be useful for users to identify existing personnel,
+patients or requests in the system before assigning and closing existing
+requests for specific health services.
+====
 
 Example:
 
 * `list 1` lists all requests stored in the system, and their corresponding details
-* `list 2` lists all health workers stored in the system, and the skills and certifications they posses
+* `list 2` lists all health workers stored in the system, and the skills and
+certifications they possess
+* `list 3` lists all patients registered in the system, their NRIC and any
+medical statuses or past conditions.
 
 === Adding a request/health worker/patient: `add`
 
-Adds a request, health worker or patient to the application based on the `<type>` parameter accepted +
-Format: `add <type> <additional_parameters>...` +
-Types:
+Before you can jump right into the core feature of our application, which is
+to streamline the process of adding requests from patients and to assign
+requests to experts in the medical field, it is essential to first ensure
+that the respective health staff and patients are registered in the system
+with all the key information.
 
-* 1: Adding a request `add 1 n/<patient_name> c/<condition> d/<date> t/time`
-* 2: Adding a health worker `add 2 n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
-* 3: Adding a patient `add 3 n/<patient_name> i/<NRIC> n/<phone_number>`
+Add a request, health worker or patient to the application based on the
+`<type>` parameter accepted, using the `add` command, to register new health
+staff, patients and requests. +
+
+Format: `add <type> <additional_parameters>...` +
+
+* *Adding a health worker*
+** Format: `add 1 n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
+** Command that registers a new Health Worker person to the current roster.
+** Health Workers comprises of personnel who are authorized to work in sectors in the
+healthcare industry in accordance to their `specialisation`.
+** Health Workers authorized for medical practice specific to their
+`specialisation` include doctors, nurses and community health workers that
+are officially certified by certain medical practices
+** To view all available specialisations in the application, type `add help`
+in the command line.
+
+* *Adding a patient*
+** Format: `add 3 n/<patient_name> i/<NRIC> n/<phone_number>`
+** Command that registers a new patient into the application.
+
+* *Adding a request*
+** Format: `add 2 n/<patient_name> c/<condition> d/<date> t/time`
+** Registers a new open request from `patient` of `<patient_name>` into the
+application.
+** Each request also states the `<condition>` that the patient is
+experiencing. Administrative staff can then inspect the conditions that are
+stated by the `patient` and assign the appropriate health worker to handle
+these requests in the `assign` command.
+** Format for the time is `HH:mm:ss`.
+** Format for the date is `dd-MM-yyyy`.
 
 Examples:
 
-* `add 1 n/Lucas Choong c/Arthritis d/05/02/2019 t/1400`
-* `add 2 n/John Doe p/98765432 a/John street, block 123, #01-01`
-* `add 3 n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/criminal`
+* `add 1 n/Dog Terr p/92837710 i/S98817471Z s/GENERAL_PRACTICE
+s/ORTHOPAEDIC`
+* `add 3 n/Pay Shun i/S9928747A p/89896672`
+* `add 2 n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
 
 === Editing a request/health worker/patient : `edit`
 
-Edits a request, health worker or patient to the application based on the `<type>` parameter accepted. +
-Format: `edit <type> <index> <additional_parameters>...` +
-Types:
+Sometimes, information on a request of health staff may be keyed in wrongly
+into the application. Fret not, for you can replace the wrong information
+with the correct ones using the `edit` command to modify existing personnel
+records or request descriptions in HealthHub.
 
-* 1: Edit a request `edit 1 <index> n/<patient_name> c/<condition> d/<date> t/time`
-* 2: Edit a health worker `edit 2 <index> n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
-* 3: Edit a patient `edit 3 <index> n/<patient_name> i/<NRIC> n/<phone_number>`
+The `edit` may come in handy when there is a need update to a request's
+status, patient's condition or a health worker's skills, based on the
+`<type>` parameter accepted. +
+
+Format: `edit <type> <index> <additional_parameters>...` +
+
+* *Editing a health worker*
+** `edit 1 <index> <additional_parameters>...`
+
+* *Editing a request*
+** `edit 2 <index> <additional_parameters>...`
+
+* *Editing a patient*
+** `edit 3 <index> <additional_parameters>...`
 
 Notes:
 
 ****
 * Edits the corresponding request/health worker/patient at the specified `<index>`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* Each of the additional parameters must be filled up unless optional.
 * Existing values will be updated to the input values.
-* When editing specialisations, the existing specialisations of the person will be removed i.e adding of specialisation is not cumulative.
-* You can remove all the person's speciailisation by typing `s/` without specifying any parameters after it.
+** Apart from `specialisations` in health workers and `condition` in
+patients, each field can only have a single value and multiple edit values
+for other fields will only cause the last one to be accepted.
+* When editing specialisations for health workers, the existing specialisations
+ of the person will be removed i.e adding of specialisation is not cumulative.
+* You can remove all the person's specialisation by typing `s/` without
+specifying any parameters after it.
 ****
 
 Examples:
@@ -110,64 +193,96 @@ Edits the phone number and name of the 1st health worker to be `91234567` and `J
 * `edit 3 2 n/Betsy Crower` +
 Edits the name of the 2nd patient to be `Betsy Crower`. +
 
-=== Locating request/health worker/patient by name: `find`
+=== Filtering request/health worker/patient by parameters: `filter`
 
-Finds requests/health workers/patients whose names contain any of the given keywords. For requests, the requests containing the patient name with the keywords specified will be displayed. +
-Format: `find <type> <keyword> [<more_keywords>]...` +
-Types:
+When identifying and sieving health workers to assign to an open request, or
+to look for a particular patient details, it may be useful to filter out only
+ items in a list that match a particular constraint.
 
-* 1: Find a request `find 1 <keyword> [<more_keywords>]`
-* 2: Find a health worker `find 2 <keyword> [<more_keywords>]`
-* 3: Find a patient `find 3 <keyword> [<more_keywords>]`
+Using the `filter` command, you can sieve out requests/health workers/patients
+whose fields match the `keywords`that are specified in the `filter` command,
+allowing you to find the doctors who are experts in cardiology much quicker. +
+
+Format: `filter <type> <keyword> [<more_keywords>]...` +
+
+* *Filter a health worker*
+** `filter 1 <keyword> [<more_keywords>]`
+
+* *Filter a request*
+** `filter 2 <keyword> [<more_keywords>]`
+
+* *Filter a patient*
+** `filter 3 <keyword> [<more_keywords>]`
+
+`<more_keywords>` represents the fields and parameters that can be used to
+identify requests or personnel, using the same prefixes as in add, edit and
+delete commands. Some examples of keywords are shown below.
 
 Notes:
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
+* The search is case insensitive for fields not including specialisation. e.g
+`hans` will match `Hans`
+** For specialisation fields, parameters are case sensitive, and only valid
+parameters will be accepted
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Search using partial words will return all results with fields containing
+that subword.
+** `filter 1 n/Tan` may return people with the surnames Tan or Tang
 ****
 
 Examples:
 
-* `find 3 John` +
+* `filter 3 n/John` +
 Returns patients named `john` and `John Doe`
-* `find 1 Betsy Tim John` +
-Returns requests that involved patients whose names are `Betsy`, `Tim`, or `John`
+* `filter 1 s/GENERAL_PRACTICE s/GYNAECOLOGY` +
+Returns all health workers whose field of expertise include general practice
+or gynaecology.
 
 === Deleting a request/health worker/patient : `delete`
 
-Deletes a request, health worker or patient to the application based on the `<type>` parameter accepted. +
-Format: `delete <type> <index>` +
-Types:
+Should there be any invalid or expired request, health worker or patient in
+the application, you may also remove them to prevent cluttering of
+unnecessary data by using the `delete` command to remove them from the
+application based on the`<type>` parameter accepted, according to the
+index of the respective `type`
+shown using the `list` command, or the index displayed on the GUI. +
 
-* 1: Edit a request `edit 1 <index>`
-* 2: Edit a health worker `edit 2`
-* 3: Edit a patient `edit 3 <index>`
+Format: `delete <type> <index>` +
+
+* *Delete a health worker*
+** `delete 1 <index>`
+
+* *Delete a request*
+** `delete 2 <index>`
+
+* *Delete a patient*
+** `delete 3 <index>`
 
 Notes:
 
 ****
 * Deletes the corresponding request/health worker/patient at the specified `<index>`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed request/health
+worker/patient list using the `list` command, or displayed through the GUI.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 1 2` +
+* `delete 1 2` +
 Deletes the 2nd request in the application.
 
 * `delete 3 1` +
-Deletes the 1st patient in the results of the `find` command.
+Deletes the 1st patient in the results of the `list` command.
 
 === Assigning a health worker to an existing open request : `assign`
 
-Assigns a health worker in the system to an existing open request. +
-Format: `assign p/<patient_name> h/<health_worker_name>`
+After registering a new request using the `add 2` command, you may proceed to
+ assign an existing health worker in the system to handle the request,
+ allocating medical resources to it and closing the request. +
+
+Format: `assign <request_index> <health_worker_index>`
 
 ****
 * Health worker that is assigned must be available at the current time stated by the request.
@@ -176,12 +291,21 @@ Format: `assign p/<patient_name> h/<health_worker_name>`
 
 Examples:
 
-* `assign p/John Doe h/Dog Tor` +
-Assigns the health worker named Dog Tor to a request containing a patient with the name John Doe.
+* `assign 1 2` +
+Assigns the health worker at the second index to the first request in the
+request list.
 
 === Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+In the case where you have been using the application for a while now, and
+wish to track and see the past commands that you have entered into the
+application, or where you have taken over the application from another
+person, you can do so using the `history` command. +
+
+Using the `history` command, you can view the previous commands entered in
+the application in chronological order, allowing you to identify the order in
+ which commands are keyed in previously.
+
 Format: `history`
 
 [NOTE]
@@ -191,13 +315,20 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Once you are done using the application, you can exit the application by
+entering the `exit` command, hereby saving any information at the current
+point in time before shutting down. +
+
 Format: `exit`
 
 === Saving the data
 
-Application data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+All application data are saved in the hard disk automatically after exiting
+the application, removing the need to save manually. +
+
+Changes to the data in the application are also saved that any command that
+modifies application parameters, making sure that minimal data is lost should
+ any unforeseen circumstances happen.
 
 == FAQ
 
@@ -210,7 +341,7 @@ There is no need to save manually.
 * *List* : `list <type>`
 * *Add* : `add <type> <additional_parameters>...`
 * *Edit* : `edit <type> <index> <additional_parameters>...`
-* *Find* : `find <type> <keyword> [<more_keywords>]...`
+* *Filter* : `filter <type> <keyword> [<more_keywords>]...`
 * *Delete* : `delete <type> <index>`
-* *Assign* : `assign p/<patient_name> h/<health_worker_name>`
+* *Assign* : `assign <patient_index> <health_worker_index>`
 * *History* : `history`

@@ -406,6 +406,36 @@ The logic for keeping track of budgets can be implemented in different ways for 
 
 //end::budgetmanagement[]
 
+// tag::summary[]
+=== Summary
+
+The summary feature shows an overview of your previous expenditures. It displays statistics on how your spending habits are like in the different categories you have specified. It also displays the remaining budget amount for each category.
+
+==== To be implemented
+The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in the financeTracker.
+
+The summary command will retrieve the whole list of existing records, which will then be parsed by SummaryCommandParser. This will return the appropriate d3 graph to be shown.
+
+Given below is an example usage scenario and how the summary mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The financeTracker will be initialised with the existing records the user has input last time.
+
+Step 2. The user executes the summary command. Input is parsed and the records will be extracted.
+
+Step 3. The records are then converted to JSON, and data will be used to map the d3 graph.
+
+
+_Sequence Diagram will be done soon_
+
+==== Design Consideration
+An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
+
+.Example of Aster Plot Graph
+image::asterPlot.png[width="800"]
+
+Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
+//end::summary[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

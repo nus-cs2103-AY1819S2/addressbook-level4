@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
@@ -15,8 +16,11 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.management.ExitCommand;
+import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Lessons;
 import seedu.address.model.UserPrefs;
@@ -40,6 +44,7 @@ public class LogicManagerTest {
 
     private ManagementModel managementModel = new ManagementModelManager();
     private QuizModel quizModel = new QuizModelManager();
+    private CommandHistory history = new CommandHistory();
     private Logic logic;
 
     @Before
@@ -104,6 +109,51 @@ public class LogicManagerTest {
         quizModel.getNextCard();
 
         assertCommandSuccess(answer, expected.getFeedbackToUser(), expectedModel);
+    }
+
+    @Test
+    public void execute_quizStatusCommand_success() throws Exception {
+        // TODO change to session
+        // this hardcoded values matched StartCommand
+        // when session is implemented then this will change to session instead
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
+        final QuizCard card4 = new QuizCard("中国", "北京");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
+        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+
+        QuizModelManager expectedModel = new QuizModelManager();
+        expectedModel.init(quiz);
+        expectedModel.getNextCard();
+
+        CommandResult expected = new CommandResult(String.format(QuizStatusCommand.MESSAGE_RESULT,
+            expectedModel.getQuizTotalAttempts(), expectedModel.getQuizTotalCorrectQuestions(),
+            expectedModel.getCurrentProgress()));
+
+        quizModel.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        quizModel.getNextCard();
+
+        assertCommandSuccess("\\status", expected.getFeedbackToUser(), expectedModel);
+
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+
+        assertTrue(new QuizAnswerCommand("someanswer").execute(quizModel, history).isShowQuiz());
+
+    }
+
+    @Test
+    public void isShowHelp() {
+        assertTrue(new HelpCommand().execute(managementModel, history).isShowHelp());
+    }
+
+    @Test
+    public void isExit() {
+        assertTrue(new ExitCommand().execute(managementModel, history).isExit());
     }
 
     @Test

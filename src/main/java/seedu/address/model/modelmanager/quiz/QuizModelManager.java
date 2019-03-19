@@ -71,23 +71,39 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
+    public String getCurrentProgress() {
+        return quiz.getCurrentProgress();
+    }
+
+    @Override
     public QuizCard getCurrentQuizCard() {
         return quiz.getCurrentQuizCard();
     }
 
     @Override
-    public void updateTotalAttemptsAndStreak(int index, String answer) {
-        quiz.updateTotalAttemptsAndStreak(index, answer);
+    public boolean updateTotalAttemptsAndStreak(int index, String answer) {
+        return quiz.updateTotalAttemptsAndStreak(index, answer);
     }
 
     @Override
-    public boolean isDone() {
-        try {
-            return quiz.isDone();
-        } catch (NullPointerException e) {
-            logger.info("quiz not initialised");
-            return true;
+    public int getQuizTotalAttempts() {
+        return quiz.getQuizTotalAttempts();
+    }
+
+    @Override
+    public int getQuizTotalCorrectQuestions() {
+        return quiz.getQuizTotalCorrectQuestions();
+    }
+
+
+    @Override
+    public boolean isQuizDone() {
+        if (quiz != null) {
+            return quiz.isQuizDone();
         }
+
+        // By default if no quiz is running, it will be considered as done
+        return true;
     }
 
     @Override

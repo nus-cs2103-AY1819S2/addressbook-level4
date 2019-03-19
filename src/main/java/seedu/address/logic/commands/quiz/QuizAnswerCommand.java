@@ -11,16 +11,17 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.exceptions.NotInitialisedException;
 
 /**
  * Execute User answer
  */
 public class QuizAnswerCommand implements Command {
-    public static final String MESSAGE_USAGE = "* any character except word that starts with \\";
-    public static final String MESSAGE_QUESTION = "Question: %1$s";
+    public static final String COMMAND_WORD = "answer";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": * any character except word that starts with \\\n";
+    public static final String MESSAGE_QUESTION = "Question: %1$s\n";
     public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
     public static final String MESSAGE_CORRECT = "Your answer is correct.\n";
+    public static final String MESSAGE_WRONG_ONCE = "Your answer is wrong, you have one more chance to answer it\n";
     public static final String MESSAGE_WRONG = "The correct answer is %1$s.\n";
     public static final String MESSAGE_COMPLETE = "You have completed all the questions in this quiz.\n";
 
@@ -59,9 +60,9 @@ public class QuizAnswerCommand implements Command {
                 card = quizModel.getNextCard();
                 if (card.getQuizMode() == Quiz.Mode.PREVIEW) {
                     return new CommandResult(String.format(MESSAGE_QUESTION_ANSWER,
-                        card.getQuestion(), card.getAnswer()));
+                        card.getQuestion(), card.getAnswer()), true, false, false);
                 }
-                return new CommandResult(String.format(MESSAGE_QUESTION, card.getQuestion()));
+                return new CommandResult(String.format(MESSAGE_QUESTION, card.getQuestion()), true, false, false);
             } else {
                 sb.append(MESSAGE_COMPLETE);
 
@@ -69,16 +70,12 @@ public class QuizAnswerCommand implements Command {
                 System.out.println(quizModel.end());
             }
 
-            return new CommandResult(sb.toString());
+            return new CommandResult(sb.toString(), true, false, false);
         }
 
-        try {
-            quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
-        } catch (NotInitialisedException e) {
-            e.printStackTrace();
-        }
+        boolean result = quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
 
-        if (card.isCorrect(answer)) {
+        if (result) {
             sb.append(MESSAGE_CORRECT);
 
             if (quizModel.hasCardLeft()) {
@@ -92,11 +89,16 @@ public class QuizAnswerCommand implements Command {
             }
 
         } else {
-            sb.append(String.format(MESSAGE_WRONG, card.getAnswer()));
-            sb.append(String.format(MESSAGE_QUESTION, card.getQuestion()));
+            if (!card.isWrongTwice()) {
+                sb.append(MESSAGE_WRONG_ONCE);
+                sb.append(String.format(MESSAGE_QUESTION, card.getQuestion()));
+            } else {
+                sb.append(String.format(MESSAGE_WRONG, card.getAnswer()));
+                sb.append(String.format(MESSAGE_QUESTION, card.getQuestion()));
+            }
         }
 
-        return new CommandResult(sb.toString());
+        return new CommandResult(sb.toString(), true, false, false);
     }
 
     @Override

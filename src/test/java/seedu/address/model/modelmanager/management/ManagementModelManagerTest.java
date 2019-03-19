@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.modelmanager.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,8 +15,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.Lessons;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.management.ManagementModelManager;
 
 public class ManagementModelManagerTest {
     @Rule

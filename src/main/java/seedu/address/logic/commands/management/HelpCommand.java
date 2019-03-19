@@ -27,6 +27,6 @@ public class HelpCommand implements Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult execute(Model model, CommandHistory history) {
-        return new CommandResult(MESSAGE_SUCCESS, true, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, true, false);
     }
 }

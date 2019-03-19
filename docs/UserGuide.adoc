@@ -35,7 +35,7 @@ Start using BrainTrain today! To get started, read <<Quick Start>> for installat
 +
 .BrainTrain's GUI on first run
 [#img-firstlook]
-image::Ui.png[width="790"]
+image::UiFirstLook.png[width="790"]
 +
 . Type the command `help` in the command box at the top and press kbd:[Enter] to display usage information on BrainTrain commands.
 . Read <<Features>> to find out more about BrainTrain commands.
@@ -191,12 +191,6 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Quits the program. +
 Format: `quit`
-
-// tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 // tag::quiz[]
 === Quiz Mode

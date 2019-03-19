@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.quiz;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;

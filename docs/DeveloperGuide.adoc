@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= BrainTrain - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -350,6 +350,13 @@ The quiz feature implements the following commands and processes answer:
 * `\hint` - Reveals additional information to help user to solve the question.
 * `\status` - Lists current status and lesson progress of user.
 * `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+
+==== \status
+The `\status` feature list the total attempts you have attempted, total number of question you
+have gotten correct in this session and which question you are currently on.
+
+.Sequence diagram for status feature
+image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ==== Answer [*]
 The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
@@ -1079,7 +1086,7 @@ Use case resumes at step 3.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

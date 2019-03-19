@@ -261,6 +261,39 @@ image::ImportSequenceDiagram.png[width=800]
 ** Pros: Can import many images without repeating the command.
 ** Cons: Can result in errors in too mny images or images are of alternative formats.
 
+=== Open Feature
+
+The open command allows users to open a previously imported image for image-editing.
+
+==== Current Implementation
+The open function is facilitated by the ModelManager and contains the following operations:
+
+* `Model#setCurrentImage(Image)` - Sets the `currentImage` to the opened image.
+
+* `Model#createTempImage(Image)` - Creates a new temporary image inside the directory: "src/main/resources/temp/"
+
+* `Model#displayImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/"
+
+Given below is an example usage scenario and how the open mechanism behaves at each step.
+
+Step 1. The user executes `open sample1.png` and the open function checks whether the image exists in the directory: "src/main/resources/assets".
+
+Step 2. The open function retrieves the image before it calls `Model#setCurrentImage(Image)` to store a new `Image` instance of the retrieved image into `currentImage`. Subsequent edits will be done on `currentImage`.
+
+Step 3. `Model#createTempImage(Image)` creates a copy of `currentImage` as a temporary image file "temp_img" and stores it in directory: "src/main/resources/temp/".
+
+Step 4. `Model#displayImage()` displays "temp_img" on Graphical User Interface.
+
+
+The following sequence diagram shows how the open command works:
+
+<to be added>
+
+==== Design Considerations
+
+Open command must be called before the user can edit the image. The command initialises `currentImage`, which all edits will be applied on. Users are unable to edit other images unless the open command is called again.
+
+
 === Image Filters
 ==== Current Implementation
 

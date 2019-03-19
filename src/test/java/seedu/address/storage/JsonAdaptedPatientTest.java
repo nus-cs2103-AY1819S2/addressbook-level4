@@ -1,22 +1,22 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertEquals;
+import static seedu.address.storage.JsonAdaptedPatient.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalPatients.BENSON;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import seedu.address.commons.exceptions.IllegalValueException;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import static seedu.address.storage.JsonAdaptedPatient.MISSING_FIELD_MESSAGE_FORMAT;
 import seedu.address.testutil.Assert;
-import static seedu.address.testutil.TypicalPatients.BENSON;
 
 public class JsonAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
@@ -45,8 +45,8 @@ public class JsonAdaptedPatientTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedPatient patient =
-                new JsonAdaptedPatient(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS
-                ,VALID_CONDITIONS);
+                new JsonAdaptedPatient(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NRIC, VALID_ADDRESS, VALID_TAGS,
+                        VALID_CONDITIONS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }

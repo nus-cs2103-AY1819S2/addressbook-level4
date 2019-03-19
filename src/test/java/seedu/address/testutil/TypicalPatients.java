@@ -32,11 +32,11 @@ public class TypicalPatients {
         .withPhone("98765432")
         .withNric("S9274100D")
         .withConditions(new Conditions(new HashSet<>(
-            Arrays.asList(new ConditionTag("Eldercare"),
-                new ConditionTag("Stroke")))))
+            Arrays.asList(new ConditionTag("Stroke"),
+                new ConditionTag("Eldercare")))))
         .build();
     public static final Patient CARL = new PatientBuilder()
-        .withName("Carl Kurz").withPhone("95352563")
+        .withName("Carl Kurz").withPhone("87652533")
         .withAddress("wall street")
         .withEmail("heinz@example.com")
         .withPhone("87652533")
@@ -50,7 +50,8 @@ public class TypicalPatients {
         .withEmail("cornelia@example.com")
         .withPhone("82015737")
         .withNric("S2652663Z")
-        .withConditions(new Conditions(new HashSet<>()))
+        .withConditions(new Conditions(new HashSet<>(
+            Arrays.asList(new ConditionTag("Palliative")))))
         .build();
     public static final Patient ELLE = new PatientBuilder()
         .withName("Elle Meyer")

@@ -221,7 +221,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Address,Request, Patient and HealthWorker Book data in json format and read it back.
+
 
 [[Design-Commons]]
 === Common classes
@@ -232,8 +233,42 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add/Edit/Delete feature
+
+The `add`, `edit` and `delete` command have been tweaked from the original AB4
+ to include addition of `HealthWorker`, `Patient` and `Request`.
+
+==== Additional Implementation from v1.1
+
+* `CommandMode` Enum class was introduced in v1.1 to allow for `add`, `edit`
+and `delete` different types of objects respective to the different
+`CommandMode` Enums. The various `CommandMode` enums are:
+** `CommandMode.HEALTHWORKER`
+** `CommandMode.REQUEST`
+** `CommandMode.PATIENT`
+** `CommandMode.OTHER`
+** `CommandMode.INVALID`
+
+* Each of the `add`, `edit` and `delete` command is parsed through the
+`EditCommandParser`, `AddCommandParser` and `DeleteCommandParser` classes,
+where the `CommandMode` is parsed to return the appropriate type of `Command`
+ class:
+** `AddCommand`
+** `EditCommand`
+** `DeleteCommand`
+
+* Each of the `AddCommand` and `EditCommand` and `DeleteCommand` provides
+subclasses for each of the `Command` classes respective to `Patient`,
+`HealthWorker` and `Request` class which adds respective objects to
+`PatientBook`, `RequestBook` and `HealthWorkerBook` for storage, for example
+the subclasses for `AddCommand` for `Request` are as follows:
+** `AddRequestCommand`
+** `EditRequestCommand`
+** `DeleteRequestCommand`
+
 // tag::undoredo[]
 === Undo/Redo feature
+
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -485,6 +520,14 @@ e.g. `seedu.address.commons.StringUtilTest`
 e.g. `seedu.address.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
+
+=== Generation of test files
+
+We use classes located in the `seedu.address.jsonfilegenerator` folder to generate JSON
+test files. Developers are free to modify the code within the classes to generate person/patient/healthworker/request
+book containing the respective data they require for tests. +
+All the test file generator classes have a main function and hence can be ran independently by compiling the file.
+
 
 
 === Troubleshooting Testing

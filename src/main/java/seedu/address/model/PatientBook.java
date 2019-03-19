@@ -47,7 +47,6 @@ public class PatientBook implements ReadOnlyPatientBook {
      */
     public void resetData(ReadOnlyPatientBook newData) {
         requireNonNull(newData);
-
         setPatients(newData.getPatientList());
     }
 

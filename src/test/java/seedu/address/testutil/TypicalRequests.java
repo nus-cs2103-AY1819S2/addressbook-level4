@@ -48,7 +48,7 @@ public class TypicalRequests {
     public static final Request DANIEL_REQUEST = new RequestBuilder()
             .withId(DANIEL_ID)
             .withPatient(TypicalPatients.DANIEL)
-        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
+            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.PANIEL)
             .withStatus("COMPLETED")

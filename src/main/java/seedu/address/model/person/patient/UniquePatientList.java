@@ -141,6 +141,20 @@ public class UniquePatientList implements Iterable<Patient> {
         }
         return true;
     }
+    /**
+     * Checks if 2 patient lists are the same.
+     */
+    public boolean arePatientsSame(UniquePatientList patients) {
+        if (this.internalList.size() != patients.internalList.size()) {
+            return false;
+        }
+        for (int i = 0; i < patients.internalList.size(); i++) {
+            if (!(this.internalList.get(i).isSamePatient(patients.internalList.get(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public Patient getAt(int index) {
         assert (index < this.internalList.size() - 1);

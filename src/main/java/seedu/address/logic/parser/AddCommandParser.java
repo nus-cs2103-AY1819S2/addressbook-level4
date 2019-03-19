@@ -76,8 +76,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_INTERVIEWSCORES)) {
             interviewScores = ParserUtil.parseInterviewScores(argMultimap
                     .getValue(PREFIX_INTERVIEWSCORES).get());
-        }
-        else {
+        } else {
             interviewScores = new InterviewScores(InterviewScores.NO_RECORD);
         }
         Set<KnownProgLang> knownProgLangsList = ParserUtil.parseKnownProgLangs(argMultimap

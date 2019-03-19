@@ -21,5 +21,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_JOBSAPPLY = new Prefix("j/");
     public static final Prefix PREFIX_INTERVIEWSCORES = new Prefix("is/");
     public static final Prefix PREFIX_SCHOOL = new Prefix("s/");
+    public static final Prefix PREFIX_JOBNAME = new Prefix("jn/");
 
 }

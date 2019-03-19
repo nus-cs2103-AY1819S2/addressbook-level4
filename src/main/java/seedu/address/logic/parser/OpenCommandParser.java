@@ -1,9 +1,8 @@
 package seedu.address.logic.parser;
 
-import java.io.File;
-
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * Parses input arguments and creates a new OpenCommand object.
@@ -17,9 +16,9 @@ public class OpenCommandParser implements Parser<OpenCommand> {
      */
     public OpenCommand parse(String args) throws ParseException {
         try {
-            File file = ParserUtil.parseOpenSave(args);
-            openValidation(file);
-            return new OpenCommand(file);
+            ParsedInOut parsedInOut = ParserUtil.parseOpenSave(args);
+            openValidation(parsedInOut);
+            return new OpenCommand(parsedInOut.getFile());
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());
         }
@@ -27,16 +26,20 @@ public class OpenCommandParser implements Parser<OpenCommand> {
 
     /**
      * openValidation() checks if the file exists, is a file and can be read.
-     * @param file
+     * @param parsedInOut
      * @throws ParseException
      */
-    private void openValidation(File file) throws ParseException {
-        if (!file.exists()) {
-            throw new ParseException("File not found!");
-        } else if (!file.isFile()) {
-            throw new ParseException("File is invalid!");
-        } else if (!file.canRead()) {
-            throw new ParseException("File cannot be read!");
+    private void openValidation(ParsedInOut parsedInOut) throws ParseException {
+        if (parsedInOut.getType().equals("json")) {
+            throw new ParseException("Only .json file type can be opened!");
+        } else {
+            if (!parsedInOut.getFile().exists()) {
+                throw new ParseException("File not found!");
+            } else if (!parsedInOut.getFile().isFile()) {
+                throw new ParseException("File is invalid!");
+            } else if (!parsedInOut.getFile().canRead()) {
+                throw new ParseException("File cannot be read!");
+            }
         }
     }
 

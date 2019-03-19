@@ -21,7 +21,7 @@ import seedu.address.model.review.Review;
  */
 public class AddReviewCommand extends Command {
 
-    public static final String COMMAND_WORD = "addreview";
+    public static final String COMMAND_WORD = "addReview";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review tagged to a restaurant to the food "
             + "diary.\n"

@@ -43,6 +43,10 @@ public class UndoCommand extends Command {
         AddressBookParser parser = new AddressBookParser();
         CommandResult commandResult;
 
+        if (!model.canUndoImage()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+
         if (!model.canUndoAddressBook()) {
             throw new CommandException(MESSAGE_FAILURE);
         }

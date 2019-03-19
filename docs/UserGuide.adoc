@@ -36,9 +36,9 @@ For the full list of commands, you can head to <<Command Summary>>
 [[Legends]]
 == Legends
 [TIP]
-This is a tip
+This is a tip. Useful information will be written here.
 [NOTE]
-This is a note +
+This is a note. Information that further explains a feature will be written here. +
 
 `command` This is a user input to the application. It is formatted with a gray background. Example: `help`
 
@@ -48,13 +48,13 @@ This is a note +
 
 `command VALUE prefix/VALUE [OPTIONAL_VALUE] ...`
 
-* Commands are in lowercase, you can view all of them using the help command
-* Values are the user input, which the user intend to store or manipulate data with
-* Prefix are used to complement certain commands such as adding or editing of records
-* Optional values can be placed after the command, and can be added multiple times after the command, value and prefix, depending on the command
+//* Commands are in lowercase, you can view all of them using the help command.
+* Values are the user input, which the user intend to store or manipulate data with.
+* Prefix are used to complement certain commands such as adding or editing of records.
+* Optional values can be placed after the command, and can be added multiple times after the command, value and prefix, depending on the command.
 
 [TIP]
-Some commands have an alias, which can be used to execute the same command e.g. `statistics` can be replaced by `stats`
+Some commands have an alias, which can be used to execute the same command e.g. `statistics` can be replaced by `stats`.
 
 
 === Viewing help : `help`
@@ -66,7 +66,7 @@ Format: `help`
 
 Add a patient into QuickDocs’ patient records. The order of input does not matter. +
 
-Tags can be added to a patient record to ease searching. +
+Tags can be added to a patient record for ease of searching. +
 
 Format: `padd n/NAME r/NRIC e/EMAIL a/ADDRESS g/GENDER d/DOB  c/CONTACT  t/[tag]...`
 
@@ -83,10 +83,26 @@ Examples:
 
 //Example: `pdelete 1`
 
+[[plist]]
+==== List patient details : `plist`
+
+Lists patients details, which can be filtered using name and tags. +
+Format: `plist [PREFIX / KEYWORD] …`
+
+Examples:
+
+* `plist` +
+   List up to 50 patient detail entries (name, nric, gender and date of birth).
+* `plist n/a` +
+   List all the patient detail entries whose name starts with a.
+* `plist r/S91` +
+   List all the patient detail entries whose nric starts with S91.
+* `plist t/diabetes` +
+   List all diabetic patients.
 
 ==== Editing patient `pedit`
 
-Edit patient detail +
+Edits a patient detail +
 Format: `pedit INDEX [n/NAME] [a/Address] …`
 
 Example: +
@@ -94,39 +110,27 @@ Example: +
 * `pedit 21 [n/Tan Ah Kow] [p/92256711] [e/tanahkow@gmail.com]` +
 * `pedit 4 [p/90691717] [g/Female]` +
 
+[NOTE]
+The index is retrieved from the last `plist` command. See: <<plist>>
 
-==== List patient details : `plist`
-
-List patient details, can be filtered using name and tags +
-Format: `plist [PREFIX / KEYWORD] …`
-
-Examples:
-
-* `plist`
-   List up to 50 patient detail entries (name, nric, gender and date of birth)
-* `plist n/a`
-   List all the patient detail entries whose name starts with a
-* `plist r/S91`
-   List all the patient detail entries whose nric starts with S91
-* `plist t/diabetes`
-   List all diabetic patients
-
-==== View past patient records: [coming in v1.2]
+==== View past patient records: // TODO
 
 View the past consultation records of each patient +
 
 
 === Consultation Management
+[[consult]]
 ==== Start consultation: `consult`
 
-Start a consultation session. Diagnosis and prescription can be added for the patient subsequently. +
+Start a consultation session. You will be able to add a diagnosis and prescription for the patient subsequently. +
 Format: `consult r/NRIC`
 
 Example:
 
 * `consult r/S9737162C` +
-  Start a consultation session for patient with NRIC: S9737162C
+  Start a consultation session for patient with NRIC: S9737162C.
 
+[[diagnose]]
 ==== Diagnosing a patient: `diagnose`
 
 Record the patient's symptom and the assessment for the illness to the current consultation session. You can enter the command again to override the current existing diagnosis. +
@@ -137,12 +141,16 @@ Format: `diagnose s/SYMPTOM [s/SYMPTOM] ... a/ASSESSMENT`
 
 Example:
 
-* `diagnose s/runny nose s/sore throat a/flu`
-   Assessment of patient's illness to be flu, and the symptoms are runny nose and sore throat.
+* `diagnose s/runny nose s/sore throat a/flu` +
+   Assessment of patient's illness to be flu, and the symptoms are runny nose and sore throat. +
 
+[NOTE]
+This command requires you to have a consultation session already active. See: <<consult>>
+
+[[prescribe]]
 ==== Prescribing a patient: `prescribe`
 
-Record the medicine administered to the patient and its quantity. You can reenter the command to override current prescription. +
+Record the medicine prescribed to the patient and its quantity. You can re-enter the command to override current prescription. +
 
 A minimum of one medicine and one quantity is required to record a prescription entry. The order of quantity entered corresponds to the order of the medicine entered. +
 
@@ -155,11 +163,14 @@ or
 
 Example:
 
-* `prescribe m/penicillin q/1 m/Afrin spray q/1 m/ibuprofen q/2`
-   Prescription now consist of 1 unit of antibiotics, 1 unit of nasal decongestant and 2 units of inflammation.
+* `prescribe m/penicillin q/1 m/Afrin spray q/1 m/ibuprofen q/2` +
+   Prescription now consist of 1 unit of penicillin, 1 unit of afrin spray and 2 units of ibuprofen.
 
-* `prescribe m/penicillin m/Afrin spray m/ibuprofen q/1 q/1 q/2`
+* `prescribe m/penicillin m/Afrin spray m/ibuprofen q/1 q/1 q/2` +
    Same as above example, quantity ordered based on medicine order.
+
+[NOTE]
+This command requires you to have a consultation session already active. See: <<consult>>
 
 ==== End consultation: `endconsult`
 
@@ -172,19 +183,92 @@ Format: `endconsult` +
 List consultation records belonging to a single patient, or display the details of
 a single consultation record through its index. +
 
-Format: `listconsult INDEX` +
+Format: +
+`listconsult INDEX` +
+
 or +
+
 `listconsult r/NRIC`
 
 Example:
 
-* `listconsult 33` Searches for record #33, display time of the consultation,
-diagnosis and prescription given to the patient
+* `listconsult 33` +
+Searches for record #33, display time of the consultation, diagnosis and prescription given to the patient.
 
-* `listconsult r/S7534436H` Display a list of consultation records belonging
-to patient with NRIC S7534436H, along with their index which can be used to display
-actual consultation details
+* `listconsult r/S7534436H` +
+Display a list of consultation records belonging to patient with NRIC S7534436H,
+along with their index which can be used to display actual consultation details.
 
+
+
+=== Medicine Management
+==== Add medicine into storage: `addMed`
+
+Add a new medicine under directory specified by the path. +
+
+Format: `addMed PATH MEDICINE_NAME [QUANTITY]`
+
+Example:
+
+* `addMed root\TCM healroot 50` +
+Add a new medicine with name "healroot" and quantity 50 at directory root\TCM
+
+==== View medicine storage: `viewMed`
+
+View the specific information about the directory or medicine specified by the path +
+
+Format: `medstorage PATH`
+
+Example:
+
+* `medstorage root\TCM` +
+Shows the sub-directories and medicines stored under the directory root\TCM
+
+==== Setting notification for low stock: `setalert`
+
+An automatic notification will pop up when the storage of any medicine fall below the specific alert value set by the user
+
+Format: `setalert MEDICINE AMOUNT`
+
+Example:
+
+* `setalert panadol 50` +
+Sets the alert level of panadol storage to 50. A notification will appear when amount of panadol falls below 50.
+
+==== Recording purchases of medicine: `buyMed`
+
+Adds the purchase of medicine into the medicine inventory, and updates the inventory accordingly. +
+
+Format: +
+`buyMed MEDICINE_NAME AMOUNT COST` +
+
+or
+
+`buyMed PATH_OF_MEDICINE AMOUNT COST`
+
+Example:
+
+* `buyMed panadol 10 400` +
+* `buyMed root\panadol 10 400` +
+
+[NOTE]
+The first input after the command name can either be the name of the medicine itself `MEDICINE_NAME` or path of the medicine `PATH_OF_MEDICINE`
+
+==== View past record of medicine purchase: `purchaserecord`
+View the past record of medicine purchase +
+
+Format: purchaseRecord MEDICINE_NAME+
+
+Example: `purchaseRecord panadol`
+
+==== View the detailed information about any medicine: [coming in V2.0]
+Using external APIs, the users could view more detailed information about any medicine.
+
+==== Automatic information of medicine supply after prescription: [coming in V2.0]
+
+After each prescription, if the medicine in storage is insufficient for the prescription, a warning will appear and the prescription will not be record.
+
+After each successful prescription, the updated storage amount of affected medicine will automatically be reflected.
 
 === Appointment and Reminders
 ==== Adding appointments: `appadd`
@@ -209,10 +293,14 @@ or
 
 Example:
 
-* `applist` Lists all appointments on the current day (by default with no tags). +
-* `applist f/day d/2019-07-19` Lists all appointments on 23rd July 2019. +
-* `applist f/month d/2019-07-19` Lists all appointments in the month of the given date, July 2019. +
-* `applist r/S9123456A` Lists all appointments made with patient with NRIC S9123456A. +
+* `applist` +
+Lists all appointments on the current day (by default with no tags). +
+* `applist f/day d/2019-07-19` +
+Lists all appointments on 23rd July 2019. +
+* `applist f/month d/2019-07-19` +
+Lists all appointments in the month of the given date, July 2019. +
+* `applist r/S9123456A` +
+Lists all appointments made with patient with NRIC S9123456A. +
 
 ==== Deleting appointments: `appdelete`
 Delete an appointment previously created.
@@ -221,7 +309,8 @@ Format: `appdelete d/DATE s/START`
 
 Example:
 
-* `appdelete d/2019-10-23 s/16:00` Deletes appointment created on 23rd July 2019, at 4pm.
+* `appdelete d/2019-10-23 s/16:00` +
+Deletes appointment created on 23rd July 2019, at 4pm.
 
 ==== List free appointment slots: `appfree`
 
@@ -231,9 +320,12 @@ Format: `appfree f/FORMAT d/DATE`
 
 Example: +
 
-* `appfree` Lists all free slots in the current week. (By default without any tags) +
-* `appfree f/day d/2019-07-23` Lists all free slots on 23rd July 2019. +
-* `appfree f/month d/2019-07-23` Lists all free slots in the month of the given date, July 2019.
+* `appfree` +
+Lists all free slots in the current week. (By default without any tags) +
+* `appfree f/day d/2019-07-23` +
+Lists all free slots on 23rd July 2019. +
+* `appfree f/month d/2019-07-23` +
+Lists all free slots in the month of the given date, July 2019.
 
 ==== Adding reminders: `remadd`
 
@@ -245,6 +337,7 @@ Example:
 
 * `remadd t/Purchase Medicine ABC d/2019-5-20 s/12:00 e/13:00 c/Urgent` +
 
+[[remlist]]
 ==== Listing reminders: `remlist`
 Displays a list of reminders made, ordered by time and date. Can be filtered using dates. Format can be day, week or month.
 
@@ -252,9 +345,12 @@ Format: `remlist f/FORMAT d/DATE`
 
 Example:
 
-* `remlist` Lists all reminders on the current day (by default with no tags). +
-* `remlist f/day d/2019-07-19` Lists all reminders on 23rd July 2019. +
-* `remlist f/month d/2019-07-19` Lists all reminders in the month of the given date, July 2019. +
+* `remlist` +
+Lists all reminders on the current day (by default with no tags). +
+* `remlist f/day d/2019-07-19` +
+Lists all reminders on 23rd July 2019. +
+* `remlist f/month d/2019-07-19` +
+Lists all reminders in the month of the given date, July 2019. +
 
 ==== Deleting reminders: `remdelete`
 Delete a reminder previously created.
@@ -263,7 +359,11 @@ Format: `remdelete i/INDEX`
 
 Example:
 
-* `remdelete i/3` Deletes the third reminder listed.
+* `remdelete i/3` +
+Deletes the third reminder listed.
+
+[NOTE]
+The index is retrieved from the last `remlist` command. See: <<remlist>>
 
 ==== Timing of notification: `ntime`
 
@@ -271,20 +371,22 @@ Adjust how long before the actual reminder start time to receive the notificatio
 
 Format: `ntime t/TIME`
 
-Example: +
+Example:
 
-* `ntime t/30` Receives notifications 30 minutes before the actual reminder start time.
+* `ntime t/30` +
+Receives notifications 30 minutes before the actual reminder start time.
 
 ==== Sending email reminders to patients: [coming in v2.0]
 
 Sends an auto-generated email reminder to patients regarding an approaching appointment date.
 
-=== Administration
+=== Administration and Statistics
 ==== Viewing statistics: `statistics`
 
 Views the statistics of the clinic. +
+
+Format: `statistics TOPIC FROM_MONTHYEAR [TO_MONTHYEAR]` +
 Alias: `stats` +
-Format: `statistics TOPIC FROM_MONTHYEAR [TO_MONTHYEAR]`
 
 * Views the statistics of the topic specified at `TOPIC`. Allowed arguments: `consultations`, `finances`, `all`.  +
 * If `TO_MONTHYEAR` is not specified, it will be defaulted to be equal to `FROM_MONTHYEAR`. +
@@ -298,6 +400,7 @@ View the financial statistics from January 2019 to February 2019. +
 
 ==== Setting consultation fee: `setconsultfee`
 Sets the consultation fee to the specified amount. +
+
 Format: `setconsultfee AMOUNT`
 
 Examples: +
@@ -315,63 +418,11 @@ Generates a custom MC
 
 Generates the invoice for a given prescription. After selecting the patient, select the consultation to view in detail and then select the desired prescription.
 
-=== Medicine Inventory Management
-==== Add medicine into storage: `addMed`
-
-Add a new medicine under directory specified by the path. +
-Format: `addMed [Path] [Medicine_Name] (Optional)[Quantity]`
-
-Example: +
-* `addMed root\TCM healroot 50` Add a new medicine with name "healroot" and quantity 50 at directory root\TCM
-
-==== View medicine storage: `viewMed`
-
-view the specific information about the directory or medicine specified by the path +
-Format: `medstorage [Path]`
-
-Example: +
-* `medstorage root\TCM` Shows the sub-directories and medicines stored under the directory root\TCM
-
-==== Setting notification for low stock: `setalert`
-
-An automatic notification will pop up when the storage of any medicine fall below the specific alert value set by the user
-
-Format: `setalert [MEDICINE] [AMOUNT]`
-
-Example: +
-* `setalert panadol 50` the alert level of panadol storage is set to 50. A notification will appear when panadol storage falls below 50.
-
-==== Recording purchases of medicine: `buyMed`
-
-Purchase of medicine can be recorded and the storage amount will be consequently updated +
-Format: `buyMed [MEDICINE_NAME] [AMOUNT] [EXPENDITURE]` +
-Alternative Format: `buyMed [PATH_OF_MEDICINE] [AMOUNT] [EXPENDITURE]`
-[NOTE]
-The first input after the command name can either be the name of the medicine itself `MEDICINE_NAME` or path of the medicine `PATH_OF_MEDICINE`
-
-Example: +
-
-* `buyMed panadol 10 400` +
-* `buyMed root\panadol 10 400` +
-
-==== View past record of medicine purchase: `purchaserecord`
-View the past record of medicine purchase +
-Format: purchaseRecord +
-
-Example: `purchaseRecord panadol`
-
-==== View the detailed information about any medicine: [coming in V2.0]
-Using external APIs, the users could view more detailed information about any medicine.
-
-==== Automatic information of medicine supply after prescription: [coming in V2.0]
-
-After each prescription, if the medicine in storage is insufficient for the prescription, a warning will appear and the prescription will not be record.
-
-After each successful prescription, the updated storage amount of affected medicine will automatically be reflected.
 
 == Frequently Asked Questions (FAQ)
-*Q:* How do I save the data after I add or change something? +
-*A:*
+* *Q: How do I save the data after I add or change something?* +
+Saving is done automatically in QuickDocs. Whenever a command that adds, modifies, or deletes data is executed, the result of the execution is automatically saved. Hence, there is no need to save manually.
+
 
 == Command Summary
 [NOTE]

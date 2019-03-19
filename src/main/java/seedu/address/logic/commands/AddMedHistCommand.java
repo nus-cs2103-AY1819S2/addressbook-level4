@@ -19,7 +19,7 @@ public class AddMedHistCommand extends Command {
             + ": Adds a medical history of a patient to the address book."
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_WRITEUP + "SHORT-WRITE-UP"
+            + PREFIX_WRITEUP + "SHORT-WRITE-UP \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_WRITEUP + "Fever";
@@ -37,7 +37,7 @@ public class AddMedHistCommand extends Command {
 
 
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return null;
+        throw new CommandException("Medical History: " + toAdd.getName());
     }
 
     /*

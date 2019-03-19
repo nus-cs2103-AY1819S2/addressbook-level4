@@ -493,6 +493,19 @@ viewed or altered by other users.
 can also be used to reset existing passwords
 * `login` command to allow users who registered to login to their profile
 
+Given below is an example usage scenario and how the login system will behave at each step
+
+*Step 1:*. The user launches the application for the first time. `MainApp` class will load all xml files within the data
+folder according to the path in `UserPrefs`.
+
+*Step 2a:* User can then register using `register` with a `username` parameter. If users registered before
+they can skip this step and go to Step 2b instead.
+
+*Step 2b:* User can `login` using their `username` if they have registered before
+
+*Step 3:* Users can set password using the `setPassword` command if they do not have password.
+They can also change their password using this command.
+
 ==== Design Consideration
 ===== Loading different user data
 * *Alternative 1 (Proposed implementation)*: Loading user data is done during initialisation of In-Credit-Ble

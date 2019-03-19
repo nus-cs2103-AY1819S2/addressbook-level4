@@ -39,7 +39,6 @@ public class QuestionPanel extends UiPart<Region> {
     public QuestionPanel() {
         super(FXML);
 
-        id.setText("QUESTION");
         question.setText("Some question");
     }
 

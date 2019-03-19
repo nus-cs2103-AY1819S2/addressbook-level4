@@ -46,7 +46,7 @@ public class StudyDeckCommand extends Command {
 
         model.studyDeck(filteredDeckList.get(targetIndex.getZeroBased()));
 
-        return new UpdatePanelCommandResult(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetIndex.getOneBased()));
+        return new StudyPanelCommand(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override

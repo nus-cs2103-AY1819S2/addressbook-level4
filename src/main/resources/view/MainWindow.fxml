@@ -77,7 +77,7 @@
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10"/>
               </padding>
-              <StackPane fx:id="healthworkerListPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS"/>
             </StackPane>
           </VBox>
         </SplitPane>

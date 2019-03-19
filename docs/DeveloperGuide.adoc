@@ -433,7 +433,6 @@ An aster plot graph will be used to display the information in the main window. 
 .Example of Aster Plot Graph
 image::asterPlot.png[width="400"]
 
-
 Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
 //end::summary[]
 

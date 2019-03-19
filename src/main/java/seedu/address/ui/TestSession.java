@@ -2,8 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.address.model.card.Card;
 
 /**
@@ -16,9 +16,11 @@ public class TestSession extends UiPart<Region> {
     private Card cardToTest; //final?
 
     @FXML
-    private StackPane testSessionPage;
+    private GridPane testSessionPage;
     @FXML
     private Label testCardQuestion;
+    @FXML
+    private Label testCardAnswer;
 
     public TestSession() {
         super(FXML);
@@ -36,11 +38,16 @@ public class TestSession extends UiPart<Region> {
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
+        testCardAnswer.setText(cardToTest.getAnswer().fullAnswer);
         testSessionPage.getChildren().add(testCardQuestion);
     }
 
+    /**
+     * Updates the UI to show the answer for a correctly answered card
+     */
     public void handleCorrectAnswer() {
         testSessionPage.setStyle("-fx-background-color: #47AB6C;");
+        testSessionPage.getChildren().add(testCardAnswer);
     }
 }
 

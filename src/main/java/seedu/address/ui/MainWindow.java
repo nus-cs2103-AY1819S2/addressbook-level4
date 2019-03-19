@@ -232,9 +232,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case BILL_MODE:
-            billBrowserPanel = new BillBrowserPanel(logic.getRecentBill(), logic.recentBillProperty(),
-                    logic::setRecentBill);
+            billBrowserPanel = new BillBrowserPanel(logic.getRecentBill());
             browserPlaceholder.getChildren().add(billBrowserPanel.getRoot());
+
 
             statusBarFooter.updateMode("Bill Mode");
             break;

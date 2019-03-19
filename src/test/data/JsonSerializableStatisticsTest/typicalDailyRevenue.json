@@ -1,50 +1,39 @@
 {
-  "_comment":
-  "DailyRevenueList save file which contains same DailyRevenue values as inTypicalRestOrRant#getTypicalDailyRevenue()",
+  "_comment": "Save file which contains same DailyRevenue values as inTypicalRestOrRant#getTypicalDailyRevenue()",
   "statisticsList" : [ {
-    "day" : "16",
-    "month" : "03",
+    "day" : "1",
+    "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "18.60"
+    "totalDailyRevenue" : "700"
   }, {
-    "day" : "17",
-    "month" : "03",
+    "day" : "2",
+    "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "24.50"
+    "totalDailyRevenue" : "600"
   }, {
-    "day" : "18",
-    "month" : "03",
+    "day" : "3",
+    "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "200.10"
+    "totalDailyRevenue" : "500"
   }, {
-    "day" : "31",
-    "month" : "03",
+    "day" : "4",
+    "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "240.20"
+    "totalDailyRevenue" : "400"
   }, {
-    "day" : "01",
-    "month" : "04",
+    "day" : "5",
+    "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "70.30"
+    "totalDailyRevenue" : "300"
   }, {
-    "day" : "02",
-    "month" : "04",
+    "day" : "6",
+    "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "77.30"
+    "totalDailyRevenue" : "200"
   }, {
-    "day" : "03",
-    "month" : "04",
+    "day" : "7",
+    "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "340.50"
-  }, {
-    "day" : "11",
-    "month" : "01",
-    "year" : "1998",
-    "totalDailyRevenue" : "240.00"
-  }, {
-    "day" : "11",
-    "month" : "03",
-    "year" : "1998",
-    "totalDailyRevenue" : "400.50"
+    "totalDailyRevenue" : "100"
   } ]
 }

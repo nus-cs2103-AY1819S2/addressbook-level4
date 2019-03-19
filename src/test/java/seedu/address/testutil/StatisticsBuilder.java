@@ -13,8 +13,8 @@ import seedu.address.model.table.TableNumber;
 // TODO: do this class after storage is ok
 public class StatisticsBuilder {
 
-    public static final String DEFAULT_DAY = "01";
-    public static final String DEFAULT_MONTH = "01";
+    public static final String DEFAULT_DAY = "1";
+    public static final String DEFAULT_MONTH = "1";
     public static final String DEFAULT_YEAR = "2019";
     public static final String DEFAULT_DAILY_REVENUE = "0.00";
     public static final String DEFAULT_TOTAL_BILL = "0.00";
@@ -56,9 +56,9 @@ public class StatisticsBuilder {
      * Initializes the StatisticsBuilder with the data of {@code itemToCopy}.
      */
     public StatisticsBuilder(Bill itemToCopy) {
-        day = new Day(DEFAULT_DAY);
-        month = new Month(DEFAULT_MONTH);
-        year = new Year(DEFAULT_YEAR);
+        day = itemToCopy.getDay();
+        month = itemToCopy.getMonth();
+        year = itemToCopy.getYear();
         totalDailyRevenue = Float.parseFloat(DEFAULT_DAILY_REVENUE);
         tableNumber = itemToCopy.getTableNumber();
         totalBill = itemToCopy.getTotalBill();

@@ -21,8 +21,8 @@ import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
-import seedu.address.model.statistics.exception.BillNotFoundException;
-import seedu.address.model.statistics.exception.DailyRevenueNotFoundException;
+import seedu.address.model.statistics.exceptions.BillNotFoundException;
+import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -480,7 +480,6 @@ public class ModelManager implements Model {
     @Override
     public void setDailyRevenue(DailyRevenue target, DailyRevenue editedItem) {
         requireAllNonNull(target, editedItem);
-
         restOrRant.getStatistics().setDailyRevenue(target, editedItem);
     }
 
@@ -543,6 +542,15 @@ public class ModelManager implements Model {
                 int index = change.getRemoved().indexOf(selectedDailyRevenue.getValue());
                 selectedDailyRevenue.setValue(change.getAddedSubList().get(index));
             }
+
+            boolean wasSelectedDailyRevenueRemoved = change.getRemoved().stream()
+                    .anyMatch(removedDailyRevenue -> selectedDailyRevenue.getValue()
+                            .isSameDailyRevenue(removedDailyRevenue));
+            if (wasSelectedDailyRevenueRemoved) {
+                // Select the daily revenue that came before it in the list,
+                // or clear the selection if there is no such daily revenue.
+                selectedDailyRevenue.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
         }
     }
 
@@ -565,6 +573,11 @@ public class ModelManager implements Model {
         }
         recentBill.setValue(bill);
     }
+
+    //    @Override
+    //    public void billUpdateOrders (ObservableList<OrderItem> orderItemList) {
+    //        restOrRant.getOrders().setOrderItems(orderItemList);
+    //    }
 
     @Override
     public boolean equals(Object obj) {

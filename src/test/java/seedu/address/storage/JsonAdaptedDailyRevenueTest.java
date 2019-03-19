@@ -14,8 +14,8 @@ import seedu.address.testutil.Assert;
 
 public class JsonAdaptedDailyRevenueTest {
 
-    private static final String INVALID_DAY = "@!";
-    private static final String INVALID_MONTH = "^.";
+    private static final String INVALID_DAY = "32";
+    private static final String INVALID_MONTH = "13";
     private static final String INVALID_YEAR = "2020";
 
     private static final String VALID_DAY = DAILY_REVENUE1.getDay().toString();

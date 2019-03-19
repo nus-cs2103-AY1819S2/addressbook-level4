@@ -15,9 +15,15 @@ public class MonthTest {
     }
 
     @Test
-    public void constructor_invalidMonth_throwsIllegalArgumentException() {
-        String invalidMonth = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Month(invalidMonth));
+    public void constructor_invalidMonth_throwsNumberFormatException() {
+        String emptyString = ""; // empty string
+        Assert.assertThrows(NumberFormatException.class, () -> new Month(emptyString));
+        String spaces = " "; // spaces only
+        Assert.assertThrows(NumberFormatException.class, () -> new Month(spaces));
+        String nonNumeric = "%3"; // contain nonNumeric characters
+        Assert.assertThrows(NumberFormatException.class, () -> new Month(nonNumeric));
+        String alphabets = "pear"; // contain alphabets
+        Assert.assertThrows(NumberFormatException.class, () -> new Month(alphabets));
     }
 
     @Test
@@ -26,10 +32,6 @@ public class MonthTest {
         Assert.assertThrows(NullPointerException.class, () -> Month.isValidMonth(null));
 
         // invalid name
-        assertFalse(Month.isValidMonth("")); // empty string
-        assertFalse(Month.isValidMonth(" ")); // spaces only
-        assertFalse(Month.isValidMonth("^")); // only numeric characters
-        assertFalse(Month.isValidMonth("pe")); // contains non-numeric characters
         assertFalse(Month.isValidMonth("00")); // less than 1
         assertFalse(Month.isValidMonth("13")); // more than 12
         assertFalse(Month.isValidMonth("012")); // More than 2 digits

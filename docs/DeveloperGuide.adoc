@@ -444,22 +444,35 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::sort[]
 [[Implementation-Sort Commands]]
 === Sort Commands
+====Current Implementation
+There are currently two sorting methods present: `alphabetical` and `skills`.
+* `alphabetical` is called by the user through the following cli input: `sort alphabetical`.
+It takes the **current** list displayed in the left hand GUI panel and sorts them alphabetically. The alphabetical sort begins with the first name and then proceeds to last name.
+* `skills` is called by the user through the following cli input: `sort skills`.
+It takes the **current** list displayed in the left hand GUI panel and first orders the skill tags for each person alphabetically. The method then proceeds to sort all persons based on their skill tags, in alphabetical order.
 
-When writing sort commands, there were two approaches considered: modify the indices of all persons and then refresh the left-hand GUI panel with this new list; or temporarily delete the list of persons and then add a new list of correctly ordered persons.
+_(the **current** list means that if filter is on, only those filtered persons shall be sorted and the filter shall remain on)_
 
-Elements of lists in Java are ordered by when they were added. Sorting is possible using Collections, however this requires them to be strings. Since the Recruit Me application contains lists of various types, typically Person, there is no immediate compatibility with Collections. Furthermore it was suspected that to simply modify the indices of persons, a lot of duplicate code would be need to be written since this aspect of addressbooklevel4 was not easily modifiable. Because of this the second method was opted for.
 
+====Implementation Rationell
 Despite the risk of slightly increasing the coupling, the aim was to use methods already written and rely on good cohesion. For example, once a sort command has correctly written the correctly ordered persons to a `List<Person>`, rather than duplicating large amounts of code by modifying the already listed persons, it shall use the already written delete person and add person commands.
 
-It is of note that the temporary deletion of persons from the addressbook should be foolproof and there should be no way that the sort command ever permenantly deltes the addressbook. Furthermore, ensuring the command works with the already implemented undo/redo command should ensure the user still has full control over all the persons in the contact book.
+It is of note that the temporary deletion of persons from the addressbook should be foolproof and there should be no way that the sort command ever permanently deletes the addressbook. Furthermore, ensuring the command works with the already implemented undo/redo command should ensure the user still has full control over all the persons in the contact book.
+
+==== Approaches Considered
+When writing sort commands, there were two approaches considered: modify the indices of all persons and then refresh the left-hand GUI panel with this new list; or temporarily delete the list of persons and then add a new list of correctly ordered persons.
+
+Elements of lists in Java are ordered by when they were added. Sorting is possible using _Collections_, however this requires them to be strings. Since the Recruit Me application contains lists of various types, typically _Person_, there is no immediate compatibility with _Collections_. Furthermore it was suspected that to simply modify the indices of persons, a lot of duplicate code would be need to be written since this aspect of addressbook-level4 was not easily modifiable. Because of this the second method was opted for.
+
+====Adding a New Sort Command
 
 To add a new sort command, the following should be taken into account... (INSERT CLASS DIAGRAM)
 
-Two sorting methods are currently present: `alphabetical` and `skills`...
-
 NOT COMPLETE.
+// end::sort[]
 
 == Documentation
 

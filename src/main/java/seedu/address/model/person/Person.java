@@ -19,32 +19,44 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Nric nric;
 
     // Data fields
+    private final Gender gender;
     private final Race race;
     private final Address address;
     private final School school;
     private final Major major;
+    private final Grade grade;
+    private final InterviewScores interviewScores;
     private final Set<KnownProgLang> knownProgLangs = new HashSet<>();
     private final Set<PastJob> pastjobs = new HashSet<>();
+    private final Set<JobsApply> jobsApply = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Race race, Address address,
-            School school, Major major, Set<KnownProgLang> knownProgLangs, Set<PastJob> pastjobs, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, school, major, knownProgLangs, pastjobs, tags);
+    public Person(Name name, Phone phone, Email email, Nric nric, Gender gender, Race race, Address address,
+            School school, Major major, Grade grade, Set<KnownProgLang> knownProgLangs, Set<PastJob> pastjobs,
+                  Set<JobsApply> jobsApply, InterviewScores interviewScores, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, nric, gender, race, address, school, major, grade,
+                knownProgLangs, pastjobs, jobsApply, interviewScores, tags);
 
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.nric = nric;
+        this.gender = gender;
         this.race = race;
         this.address = address;
         this.school = school;
         this.major = major;
+        this.grade = grade;
         this.knownProgLangs.addAll(knownProgLangs);
         this.pastjobs.addAll(pastjobs);
+        this.jobsApply.addAll(jobsApply);
+        this.interviewScores = interviewScores;
         this.tags.addAll(tags);
     }
 
@@ -58,6 +70,14 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Nric getNric() {
+        return nric;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     public Race getRace() {
@@ -76,6 +96,14 @@ public class Person {
         return major;
     }
 
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public InterviewScores getInterviewScores() {
+        return interviewScores;
+    }
+
     /**
      * Returns an immutable known programming language set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -90,6 +118,14 @@ public class Person {
      */
     public final Set<PastJob> getPastJobs() {
         return Collections.unmodifiableSet(pastjobs);
+    }
+
+    /**
+     * Returns an immutable jobs applying for set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public final Set<JobsApply> getJobsApply() {
+        return Collections.unmodifiableSet(jobsApply);
     }
 
     /**
@@ -110,8 +146,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && otherPerson.getNric().equals(getNric());
     }
 
     /**
@@ -132,19 +167,25 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getNric().equals(getNric())
+                && otherPerson.getGender().equals(getGender())
                 && otherPerson.getRace().equals(getRace())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getSchool().equals(getSchool())
                 && otherPerson.getPastJobs().equals(getPastJobs())
                 && otherPerson.getKnownProgLangs().equals(getKnownProgLangs())
+                && otherPerson.getJobsApply().equals(getJobsApply())
+                && otherPerson.getInterviewScores().equals(getInterviewScores())
                 && otherPerson.getMajor().equals(getMajor())
+                && otherPerson.getGrade().equals(getGrade())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
+        return Objects.hash(name, phone, email, nric, gender, race, address, school, major, grade,
+                knownProgLangs, pastjobs, jobsApply, interviewScores, tags);
     }
 
     @Override
@@ -155,6 +196,10 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Nric: ")
+                .append(getNric())
+                .append(" Gender: ")
+                .append(getGender())
                 .append(" Race: ")
                 .append(getRace())
                 .append(" Address: ")
@@ -162,11 +207,17 @@ public class Person {
                 .append(" School: ")
                 .append(getSchool())
                 .append(" Major: ")
-                .append(getMajor());
+                .append(getMajor())
+                .append(" Grade: ")
+                .append(getGrade())
+                .append(" Interview Scores: ")
+                .append(getInterviewScores());
         builder.append(" Past jobs: ");
         getPastJobs().forEach(builder::append);
-        builder.append(" Known Programming Languages: ");
+        builder.append(" Known Programming Language(s): ");
         getKnownProgLangs().forEach(builder::append);
+        builder.append(" Job(s) Applying For: ");
+        getJobsApply().forEach(builder::append);
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -4,9 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
@@ -22,6 +27,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.tag.Tag;
@@ -40,8 +46,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RACE, PREFIX_ADDRESS,
-                        PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_KNOWNPROGLANG, PREFIX_PASTJOB, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NRIC, PREFIX_GENDER,
+                        PREFIX_RACE, PREFIX_ADDRESS, PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_GRADE, PREFIX_KNOWNPROGLANG,
+                        PREFIX_PASTJOB, PREFIX_JOBSAPPLY, PREFIX_INTERVIEWSCORES, PREFIX_TAG);
         Index index;
 
         try {
@@ -61,6 +68,12 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
+        if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
+            editPersonDescriptor.setNric(ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get()));
+        }
+        if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+            editPersonDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
+        }
         if (argMultimap.getValue(PREFIX_RACE).isPresent()) {
             editPersonDescriptor.setRace(ParserUtil.parseRace(argMultimap.getValue(PREFIX_RACE).get()));
         }
@@ -73,9 +86,17 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
             editPersonDescriptor.setMajor(ParserUtil.parseMajor(argMultimap.getValue(PREFIX_MAJOR).get()));
         }
+        if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
+            editPersonDescriptor.setGrade(ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_INTERVIEWSCORES).isPresent()) {
+            editPersonDescriptor.setInterviewScores(ParserUtil.parseInterviewScores(argMultimap
+                    .getValue(PREFIX_INTERVIEWSCORES).get()));
+        }
         parseKnownProgLangsForEdit(argMultimap.getAllValues(PREFIX_KNOWNPROGLANG))
                 .ifPresent(editPersonDescriptor::setKnownProgLangs);
         parsePastJobsForEdit(argMultimap.getAllValues(PREFIX_PASTJOB)).ifPresent(editPersonDescriptor::setPastJobs);
+        parseJobsApplyForEdit(argMultimap.getAllValues(PREFIX_JOBSAPPLY)).ifPresent(editPersonDescriptor::setJobsApply);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
@@ -107,6 +128,22 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code pastjobs} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<PastJob>} containing zero past jobs.
      */
+    private Optional<Set<JobsApply>> parseJobsApplyForEdit(Collection<String> jobsApply) throws ParseException {
+        assert jobsApply != null;
+
+        if (jobsApply.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> jobsApplySet = jobsApply.size() == 1
+                && jobsApply.contains("") ? Collections.emptySet() : jobsApply;
+        return Optional.of(ParserUtil.parseJobsApply(jobsApplySet));
+    }
+
+    /**
+     * Parses {@code Collection<String> jobsApply} into a {@code Set<JobsApply} if {@code jobsApply} is non-empty.
+     * If {@code jobsApply} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<JobsApply>} containing zero jobsApply.
+     */
     private Optional<Set<PastJob>> parsePastJobsForEdit(Collection<String> pastjobs) throws ParseException {
         assert pastjobs != null;
 
@@ -117,6 +154,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                 && pastjobs.contains("") ? Collections.emptySet() : pastjobs;
         return Optional.of(ParserUtil.parsePastJobs(pastjobSet));
     }
+
+
 
 
     /**

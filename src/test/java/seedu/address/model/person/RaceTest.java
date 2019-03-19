@@ -15,7 +15,7 @@ public class RaceTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
+    public void constructor_invalidRace_throwsIllegalArgumentException() {
         String invalidRace = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Race(invalidRace));
     }

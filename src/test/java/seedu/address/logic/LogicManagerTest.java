@@ -5,9 +5,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAY
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INTERVIEWSCORES_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_TRADER;
 import static seedu.address.logic.commands.CommandTestUtil.KNOWNPROGLANG_DESC_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_PROFESSOR;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.RACE_DESC_AMY;
@@ -91,9 +96,10 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + RACE_DESC_AMY + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + KNOWNPROGLANG_DESC_PYTHON
-                + PASTJOB_DESC_PROFESSOR;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + NRIC_DESC_AMY
+                + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY
+                + GRADE_DESC_AMY + KNOWNPROGLANG_DESC_PYTHON + PASTJOB_DESC_PROFESSOR + JOBSAPPLY_DESC_TRADER
+                + INTERVIEWSCORES_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

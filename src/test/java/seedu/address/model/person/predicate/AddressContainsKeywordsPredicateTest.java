@@ -45,7 +45,7 @@ public class AddressContainsKeywordsPredicateTest {
     public void test_addressContainsKeywords_returnsTrue() {
         // One keyword
         AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(
-        Collections.singletonList("Main"));
+            Collections.singletonList("Main"));
         assertTrue(predicate.test(new PersonBuilder().withAddress("Main Street").build()));
 
         // Multiple keywords

@@ -42,7 +42,7 @@ public class RaceContainsKeywordsPredicateTest {
     public void test_raceContainsKeywords_returnsTrue() {
         // One keyword
         RaceContainsKeywordsPredicate predicate = new RaceContainsKeywordsPredicate(
-        Collections.singletonList("Chinese"));
+            Collections.singletonList("Chinese"));
         assertTrue(predicate.test(new PersonBuilder().withRace("Chinese").build()));
 
         // Mixed-case keywords

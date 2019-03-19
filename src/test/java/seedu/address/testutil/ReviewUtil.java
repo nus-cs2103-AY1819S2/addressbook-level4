@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_ENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_RATING;
 
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.EditReviewCommand.EditReviewDescriptor;
@@ -24,8 +24,8 @@ public class ReviewUtil {
      */
     public static String getReviewDetails(Review review) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_REVIEWENTRY + review.getEntry().toString() + " ");
-        sb.append(PREFIX_REVIEWRATING + review.getRating().toString() + " ");
+        sb.append(PREFIX_REVIEW_ENTRY + review.getEntry().toString() + " ");
+        sb.append(PREFIX_REVIEW_RATING + review.getRating().toString() + " ");
         return sb.toString();
     }
 
@@ -34,8 +34,8 @@ public class ReviewUtil {
      */
     public static String getEditReviewDescriptorDetails(EditReviewDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getEntry().ifPresent(entry -> sb.append(PREFIX_REVIEWENTRY).append(entry.toString()).append(" "));
-        descriptor.getRating().ifPresent(rating -> sb.append(PREFIX_REVIEWRATING)
+        descriptor.getEntry().ifPresent(entry -> sb.append(PREFIX_REVIEW_ENTRY).append(entry.toString()).append(" "));
+        descriptor.getRating().ifPresent(rating -> sb.append(PREFIX_REVIEW_RATING)
                 .append(rating.toString()).append(" "));
 
         return sb.toString();

@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_ENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_RATING;
 
 import java.util.stream.Stream;
 
@@ -25,7 +25,7 @@ public class EditReviewCommandParser implements Parser<EditReviewCommand> {
     public EditReviewCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING);
+                ArgumentTokenizer.tokenize(args, PREFIX_REVIEW_ENTRY, PREFIX_REVIEW_RATING);
 
         Index index;
 
@@ -37,11 +37,11 @@ public class EditReviewCommandParser implements Parser<EditReviewCommand> {
         }
 
         EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptor();
-        if (argMultimap.getValue(PREFIX_REVIEWENTRY).isPresent()) {
-            editReviewDescriptor.setEntry(ParserUtil.parseEntry(argMultimap.getValue(PREFIX_REVIEWENTRY).get()));
+        if (argMultimap.getValue(PREFIX_REVIEW_ENTRY).isPresent()) {
+            editReviewDescriptor.setEntry(ParserUtil.parseEntry(argMultimap.getValue(PREFIX_REVIEW_ENTRY).get()));
         }
-        if (argMultimap.getValue(PREFIX_REVIEWRATING).isPresent()) {
-            editReviewDescriptor.setRating(ParserUtil.parseRating(argMultimap.getValue(PREFIX_REVIEWRATING).get()));
+        if (argMultimap.getValue(PREFIX_REVIEW_RATING).isPresent()) {
+            editReviewDescriptor.setRating(ParserUtil.parseRating(argMultimap.getValue(PREFIX_REVIEW_RATING).get()));
         }
 
         if (!editReviewDescriptor.isAnyFieldEdited()) {

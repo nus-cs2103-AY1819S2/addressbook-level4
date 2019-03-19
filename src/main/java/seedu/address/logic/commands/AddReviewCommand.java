@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_ENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_RATING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.ArrayList;
@@ -27,12 +27,12 @@ public class AddReviewCommand extends Command {
             + "diary.\n"
             + "Parameters: "
             + "INDEX (Must be a positive integer) "
-            + PREFIX_REVIEWENTRY + "REVIEW "
-            + PREFIX_REVIEWRATING + "RATING \n"
+            + PREFIX_REVIEW_ENTRY + "REVIEW "
+            + PREFIX_REVIEW_RATING + "RATING \n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
-            + PREFIX_REVIEWENTRY + "Good food but terrible service. "
-            + PREFIX_REVIEWRATING + "3 ";
+            + PREFIX_REVIEW_ENTRY + "Good food but terrible service. "
+            + PREFIX_REVIEW_RATING + "3 ";
 
     public static final String MESSAGE_SUCCESS = "New review added to: %1$s";
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "This restaurant already exists in the food diary";

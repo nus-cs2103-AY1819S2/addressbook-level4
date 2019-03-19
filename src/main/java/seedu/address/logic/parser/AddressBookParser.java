@@ -12,7 +12,6 @@ import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.AlarmCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -32,6 +31,7 @@ import seedu.address.logic.commands.PurchaseMedicineCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetPriceCommand;
+import seedu.address.logic.commands.SetConsultationFeeCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewStorageCommand;
@@ -69,9 +69,6 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -121,6 +118,10 @@ public class AddressBookParser {
         case StatisticsCommand.COMMAND_WORD:
         case StatisticsCommand.COMMAND_ALIAS:
             return new StatisticsCommandParser().parse(arguments);
+
+        case SetConsultationFeeCommand.COMMAND_WORD:
+        case SetConsultationFeeCommand.COMMAND_ALIAS:
+            return new SetConsultationFeeCommandParser().parse(arguments);
 
         case PrescriptionCommand.COMMAND_WORD:
             return new PrescriptionCommandParser().parse(arguments);

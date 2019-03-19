@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W09-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W09-4`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -54,7 +54,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `w09.quickdocs.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -146,29 +146,37 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `padd ...` (values are not added for brevity).
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `padd ...` command
+image::SDforAddPatient.png[width="800"]
 
 The sections below give more details of each component.
 
-[[Design-Ui]]
+[[Design-Ui]]0.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::QDUiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `rootLayoutController` composed of a `Display`, `UserInput`, `InputFeedBack` and `ReminderListPanel` controls. +
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+image::uioverview.png[width="800"]
+
+1. `Display` will reflect the results of the command entered
+2. `userInput` is where the user can enter their commands
+3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedback`
+4. Appointments and Reminders are displayed on the `ReminderListPanel`
+
+The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that are in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* `Logic` component will return results or issues encountered pertaining to the execution of the command.
+* These information will be reflected on the `Display` and `InputFeedback` respectively.
 
 [[Design-Logic]]
 === Logic component
@@ -233,85 +241,141 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+=== Consultation feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The consultation process comprises of four stages:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+1. starting the consultation with a selected patient
+2. entering the symptoms, assessment of the patient's current condition
+3. entering the medicine to be prescribed
+4. ending the consultation
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The consultation process is facilitated by the ConsultationManager class.
+The consultationManager class holds the current consultation session and a list of past
+consultation records for all the patients.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Methods in the ConsultationManager comprises of:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+* `createConsultation(Patient)` -- Starts a consultation session with the current selected patient
+* `diagnosePatient(Diagnosis)` -- Record symptoms patient mentioned and the assessment of the current condition.
+* `prescribeMedicine(List of Prescriptions)` -- Prescribe the medicine and the quantities to be administered.
+* `endConsultation()` -- Ends the consultation session. No further edits can be made to both prescription and diagnosis.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Both `diagnosePatient` and `prescribeMedicine` are repeatable. The values entered during the repeated command will simply replace
+the existing diagnosis / prescription.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+QuickDocs only permit one ongoing consultation. During diagnosis and prescription, changes are only made to the current consultation
+session. The previous consultations should not be edited to prevent falsification of medical records. The current consultation session
+can only end after both the diagnosis and prescription are finalized.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Given below is an example usage scenario:
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+image::dg-consultation/consultation1.png[width="800"]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Step 1. A previously registered patient arrives and the doctor starts the session by
+entering the consult command in this manner: `consult r/NRIC of the patient`. A message to indicate
+the start of the consultation will be shown in the results display.
 
-The following sequence diagram shows how the undo operation works:
+* if the patient is new and his or her details are not recorded in QuickDocs, the command will not be executed and the doctor will be alerted
+that the consultation cannot continue since no patient records with the entered Nric can be found. An invalid nric entered will also prompt the
+same response
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+image::dg-consultation/consultation2.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+Step 2. The patient will tell the doctor what are his / her ailments. The doctor will record the symptoms
+down. The doctor will then make the assessment of the illness the patient is having and execute the command by clicking
+on the `Enter` on the keyboard.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+* The symptoms and assessment have to be prepended by the `s/` and `a/` prefix respectively
+* The command entered by the doctor will look something like this: `diagnose s/constant coughing s/sore throat a/throat infection`
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+image::dg-consultation/consultation3.png[width="800"]
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+Step 3. Should the patient inform the doctor of additional symptoms after the diagnosis is given, the doctor can simply press
+the up and down key to display the previously entered command on the userInput area. The doctor can then add the new symptom in and
+press `Enter`, replacing the previously recorded diagnosis.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+image::dg-consultation/consultation4.png[width="800"]
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+Step 4. The doctor will then add the medicine to the prescription list, followed by the quantities. Medicine are prepended by the `m/` prefix while
+quantities are prefixed by `q/`.The order of the quantity entered corresponds with the order the medicine is added in the command:
 
-The following activity diagram summarizes what happens when a user executes a new command:
+* `prescribe m/Dextromethorphan m/ibuprofen q/1 q/2` In this case q/1 represents one unit of Dextromethorphan cough syrup is issued while
+2 units of ibuprofen (inflammatory tablets) are issued to the patient
+* Alternatively, the doctor can enter the quantity right after the medicine: `prescribe m/Dextromethorphan q/1 m/ibuprofen q/2`
 
-image::UndoRedoActivityDiagram.png[width="650"]
+If any of the medicine issued are insufficient to complete the prescription, or is simply not in the inventory, a message will be displayed in
+the inputFeedback area. The command will not be executed and remains in the userInput text field. The doctor can then make the changes to the command.
 
-==== Design Considerations
+image::dg-consultation/consultation5.png[width="800"]
 
-===== Aspect: How undo & redo executes
+Step 5. Just like the diagnosis command, prescription can be replaced by reentering the command.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+Step 6. After explaining the medicine intake to the patient, the doctor can then end the consultation session on QuickDocs by using the command
+`endconsult`. No further changes to the consultation records can be made from this point on.
 
-===== Aspect: Data structure to support the undo/redo commands
+The following sequence diagram summarizes what happens when a user executes the Consultation command:
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+image::dg-consultation/consultationSD1.png[width="800"]
+
+==== Design considerations
+
+1. In a neighbourhood clinic setting, doctors usually tend to only one patient at a time. This is why QuickDocs only allow a single
+ongoing session in the consultation process.
+
+2. In Singapore, every person is given a unique NRIC / FIN number regardless of their citizenship statuses. As such the NRIC is used to
+search for the patient records to start the consultation session.
+
+3. The prescription and diagnosis commands are made to override their previous states to ease the modification of consultation data.
+Doctors can simply use the command history to navigate to the previous command entered, make the changes and then execute the command. This
+allow them to simply add a few words to change consultation data rather than re-entering the entire command line.
+
+4. Prescription can actually be added before the diagnosis is recorded. The doctor could be expecting a patient for regular checkup and prepare the
+prescription before the patient enters the room. If the condition remains the same as before, the doctor can simply enter the diagnosis to complete the
+consultation session, cutting down the time spent on the consultation session.
+
+==== Alternatives considered
+
+Prior to the current implementation, a few options for the overall consultation process was considered:
+
+[cols="1,2a,1, 1", options="header"]
+|===
+|Alternative |Description |Pros | Cons
+// row 1
+|*Consultation as one single command*
+|Doctor enter `consult` followed by all the symptoms, assessment, prescriptions
+ and then execute
+| Consultation is now restricted to just one class
+
+The consultation creation will truly be one-shot
+| Input will be verbose
+
+Harder to navigate to the erroneous part to make changes
+// row 2
+|*Iterative consultation creation*
+|Doctor enter `consult`.
+
+Doctor get prompted to enter symptoms and assessment.
+
+Doctor get prompted to enter prescription.
+
+Doctor ends consultation
+| Less likely to enter erroneous data as consultation is now broken down to different stages
+
+| Implementation will not be one-shot
+
+Doctor is unable to perform other related actions (such as listing past records) while conducting the current consultation
+// row 3
+|*Separate edit commands for diagnosis and prescriptions*
+| Separate commands to edit diagnosis and prescription details
+|
+| Not feasible because both classes feature a list of symptoms and medicine respectively.
+
+Unable to differentiate between editing an existing value and adding a new value
+
+|===
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

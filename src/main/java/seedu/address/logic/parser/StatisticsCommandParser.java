@@ -10,7 +10,7 @@ import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input argument and returns an StatisticsCommand
+ * Parses input argument and returns a StatisticsCommand
  */
 public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 

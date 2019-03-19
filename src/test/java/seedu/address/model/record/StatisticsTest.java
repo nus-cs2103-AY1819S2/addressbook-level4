@@ -48,6 +48,7 @@ class StatisticsTest {
         StringBuilder sb = new StringBuilder();
         sb.append("Number of consultations: ")
                 .append(1)
+
                 .append("\n")
                 .append("Revenue: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(30.00)))

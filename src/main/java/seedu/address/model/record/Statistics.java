@@ -78,13 +78,13 @@ public class Statistics {
 
     /**
      * Function to format BigDecimal objects to the locale's currency format.
-     * Adapted from
-     * <a href="https://stackoverflow.com/questions/3395825/how-to-print-formatted-bigdecimal-values/8581941">
-     *     https://stackoverflow.com/questions/3395825/how-to-print-formatted-bigdecimal-values/8581941</a>
      * @param money BigDecimal object representing any amount of money.
      * @return A String representation of the money formatted to the locale's currency format.
      */
     public static String currencyFormat(BigDecimal money) {
+        /**
+         * Adapted from https://stackoverflow.com/questions/3395825/how-to-print-formatted-bigdecimal-values/8581941
+         */
         return NumberFormat.getCurrencyInstance().format(money);
     }
     @Override

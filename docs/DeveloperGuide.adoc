@@ -459,7 +459,8 @@ To add a new sort command, the following should be taken into account... (INSERT
 
 Two sorting methods are currently present: `alphabetical` and `skills`...
 
-[[Implementation-Education adn GPA]]
+// end::logging]
+
 === Education and GPA
 
 New parameters for perspective employees to add to their information. Employers are able to look at this information to determine if the person is suitable for the position at the company. Education and GPA can be use to filer or sort the perspective employees.

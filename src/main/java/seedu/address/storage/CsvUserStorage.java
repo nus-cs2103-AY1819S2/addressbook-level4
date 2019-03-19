@@ -3,14 +3,11 @@ package seedu.address.storage;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -25,24 +22,21 @@ import seedu.address.model.user.User;
 public class CsvUserStorage implements UserStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
 
-    private static final String CORE_ESCAPE = "*";
-    private static final String QUESTION_ESCAPE = "?";
+    private Path filePath;
 
-    private Path folderPath;
-
-    public CsvUserStorage(Path folderPath) {
-        this.folderPath = folderPath;
+    public CsvUserStorage(Path filePath) {
+        this.filePath = filePath;
     }
 
     @Override
-    public Path getUserFolderPath() {
-        return folderPath;
+    public Path getUserFilePath() {
+        return filePath;
     }
 
     @Override
-    public void setUserFolderPath(Path folderPath) {
-        requireNonNull(folderPath);
-        this.folderPath = folderPath;
+    public void setUserFilePath(Path filePath) {
+        requireNonNull(filePath);
+        this.filePath = filePath;
     }
 
     /**
@@ -52,6 +46,7 @@ public class CsvUserStorage implements UserStorage {
      */
     private Optional<User> parseFileIntoUser(Path filePath) {
         List<String[]> data;
+
         try {
             data = CsvUtil.readCsvFile(filePath);
         } catch (IOException e) {
@@ -63,129 +58,95 @@ public class CsvUserStorage implements UserStorage {
             return Optional.empty();
         }
 
-        String[] header = data.get(0);
-        List<String> fields = Arrays.asList(header);
-
-        int hashCode = 0;
-        int streak = 0;
-        int numofattempts = 0;
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        Instant srsduedate = Instant.from(zonedDateTime);
-
-        CardSrsData newCardSrsData = new CardSrsData(hashCode, numofattempts, streak, srsduedate);
-
-        for (int i = 1; i < data.size(); i++) {
-            newCardSrsData.getCard(i);
+        User user = new User();
+        for (String[] arr : data) {
+            user.addCard(parseStringIntoCard(arr));
         }
 
-        return Optional.of(newCardSrsData);
+        return Optional.of(user);
     }
 
     /**
-     * Returns a String[] containing correctly formatted strings for saving.
-     *
-     * @param card
-     * @return Header data with relevant escape characters.
-     */
-    private String[] parseHeaderData(CardSrsData card) {
-        String[] header;
-
-        List<String> headerList = new ArrayList<>();
-
-        int headerSize = headerList.size();
-
-        header = new String[headerSize];
-        headerList.toArray(header);
-
-        header[card.getHashCode()] = QUESTION_ESCAPE + header[card.getHashCode()];
-        header[card.getStreak()] = QUESTION_ESCAPE + header[card.getStreak()];
-        header[card.getNumOfAttempts()] = QUESTION_ESCAPE + header[card.getNumOfAttempts()];
-
-        for (int i = 0; i < headerSize; i++) {
-            header[i] = CORE_ESCAPE + header[i];
-        }
-        return header;
-    }
-
-    /**
-     * Returns a String[] of all card fields in order.
-     *
-     * @param card
-     * @return Formatted card data.
-     */
-    private String[] parseCardData(CardSrsData card) {
-        String[] cardArray;
-
-        List<String> cardData = new ArrayList<>();
-        cardData.addAll(cardData);
-
-        cardArray = new String[card.getCardData().size()];
-        cardData.toArray(cardArray);
-
-        return cardArray;
-    }
-
-    /**
+     * TODO
      * @param user
+     * @param filePath
+     * @throws IOException
      */
-    private void saveUserToFile(User user, Path folderPath) throws IOException {
+    private void parseUserIntoFile(User user, Path filePath) throws IOException {
+        user.getCards();
         List<String[]> data = new ArrayList<>();
-        Path filePath = Paths.get(folderPath.toString(), user.getName() + ".csv");
 
-        data.add(parseHeaderData((CardSrsData) user));
-
-        for (CardSrsData cardsrsdata : user.getCardData()) {
-            data.add(parseCardData(cardsrsdata));
+        for (Map.Entry<Integer, CardSrsData> entry : user.getCards().entrySet()) {
+            data.add(parseCardIntoString(entry.getValue()));
         }
 
         CsvUtil.writeCsvFile(filePath, data);
     }
 
+    /**
+     *
+     * @param card
+     * @return a String array with the cardData(hashcode, numAttempts, streak, srs)
+     */
+    private String[] parseCardIntoString(CardSrsData card) {
+        String[] cardArray = new String[4];
+
+        cardArray[0] = Integer.toString(card.getHashCode());
+        cardArray[1] = Integer.toString(card.getNumOfAttempts());
+        cardArray[2] = Integer.toString(card.getStreak());
+        cardArray[3] = card.getSrsDueDate().toString();
+
+        return cardArray;
+    }
+
+    /**
+     * TODO
+     * @param cardArray
+     * @return
+     */
+    private CardSrsData parseStringIntoCard(String[] cardArray) {
+        int hashCode;
+        int numOfAttempts;
+        int streak;
+        Instant srs;
+
+        hashCode = Integer.getInteger(cardArray[0]);
+        numOfAttempts = Integer.getInteger(cardArray[1]);
+        streak = Integer.getInteger(cardArray[2]);
+        srs = Instant.parse(cardArray[3]);
+
+        CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs);
+
+        return card;
+    }
+
     @Override
     public Optional<User> readUser() throws IOException {
-        return readUser(folderPath);
+        return readUser(filePath);
     }
 
     @Override
-    public Optional<User> readUser(Path folderPath) {
-        requireNonNull(folderPath);
-        List<Path> paths = new ArrayList<>();
-        User user = new User();
-        try {
-            Files.walk(folderPath, 1).filter(path ->
-                    path.toString().endsWith(".csv")).forEach(paths::add);
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-        for (Path filePath : paths) {
-            Optional<User> newUser = parseFileIntoUser(filePath);
-            newUser.ifPresent(user::addUser);
-        }
-        return Optional.of(user);
+    public Optional<User> readUser(Path filePath) {
+        requireNonNull(filePath);
+        Optional<User> newUser = parseFileIntoUser(filePath);
+
+        return newUser;
     }
 
     @Override
-    public int saveUser(User user) {
-        return saveUser(user, folderPath);
+    public void saveUser(User user) {
+        saveUser(user, filePath);
     }
 
     @Override
-    public int saveUser(User users, Path folderPath) {
+    public void saveUser(User users, Path filePath) {
         requireNonNull(users);
-        requireNonNull(folderPath);
+        requireNonNull(filePath);
 
-        int saveCount = 0;
-
-        List<CardSrsData> allUser = users.getCardData();
-
-        for (CardSrsData cardSrsData: allUser) {
-            try {
-                saveUserToFile(cardSrsData, folderPath);
-                saveCount++;
-            } catch (IOException e) {
-                logger.warning(cardSrsData.getName() + " failed to save; IOException occurred");
-            }
+        try {
+            parseUserIntoFile(users, filePath);
+        } catch (IOException e) {
+            logger.warning("Failed to save user; IOException occured");
         }
-        return saveCount;
     }
 }

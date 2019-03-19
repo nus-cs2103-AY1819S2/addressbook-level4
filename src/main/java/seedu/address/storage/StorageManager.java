@@ -94,15 +94,35 @@ public class StorageManager implements Storage {
 
     }
 
+    // ================ User methods ==============================
+
     @Override
-    public Optional<User> importUser(Path filePath) throws IOException {
+    public Path getUserFilePath() {
+        return null;
+    }
+
+    @Override
+    public void setUserFilePath(Path folderPath) {
+
+    }
+
+    @Override
+    public Optional<User> readUser() throws IOException {
         return Optional.empty();
     }
 
     @Override
-    public void exportUser(User user, Path filePath) throws IOException {
+    public Optional<User> readUser(Path folderPath) throws IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveUser(User user) throws IOException {
 
     }
 
+    @Override
+    public void saveUser(User user, Path filePath) throws IOException {
 
+    }
 }

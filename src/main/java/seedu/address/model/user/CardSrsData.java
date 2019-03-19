@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * Represents a Card which contains the data and hashcode that can be called by session
  */
-public class CardSrsData extends User {
+public class CardSrsData {
     private int hashCode; // This corresponds to a Card's hashCode
     private int numOfAttempts; // Number of attempts for this Card by a User
     private int streak;
@@ -28,24 +28,9 @@ public class CardSrsData extends User {
         this.srsDueDate = srsDueDate;
     }
 
-    /**
-     * Function for session management to get list of card datas
-     * @param hashCode must be given
-     * @return card from hashmap
-     */
-    public CardSrsData getCard(int hashCode) {
-        return cardmap.get(hashCode);
-    }
 
-    public void setCard(int hashCode, CardSrsData values) {
-        cardmap.put(hashCode, values);
-    }
     public int getHashCode() {
         return hashCode;
-    }
-
-    public Instant getSrsDueDate() {
-        return srsDueDate;
     }
 
     public int getNumOfAttempts() {
@@ -56,14 +41,15 @@ public class CardSrsData extends User {
         this.numOfAttempts = numOfAttempts;
     }
 
-    public void updateNumOfAttempts(int numOfAttempts) {
-        this.numOfAttempts += numOfAttempts;
-    }
-
     public int getStreak() {
         return streak;
     }
+
     public void setStreak(int streak) {
         this.streak = streak;
+    }
+
+    public Instant getSrsDueDate() {
+        return srsDueDate;
     }
 }

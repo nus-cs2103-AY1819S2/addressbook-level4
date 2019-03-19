@@ -13,12 +13,12 @@ public interface UserStorage {
     /**
      * Returns the folder path of the data file.
      */
-    Path getUserFolderPath();
+    Path getUserFilePath();
 
     /**
      * Sets the folder path of the data file.
      */
-    void setUserFolderPath(Path folderPath);
+    void setUserFilePath(Path folderPath);
 
     /**
      * Returns Lessons data as a {@link User}.
@@ -28,7 +28,7 @@ public interface UserStorage {
     Optional<User> readUser() throws IOException;
 
     /**
-     * @see #getUserFolderPath()
+     * @see #getUserFilePath()
      */
     Optional<User> readUser(Path folderPath) throws IOException;
 
@@ -37,10 +37,10 @@ public interface UserStorage {
      * @param user cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    int saveUser(User user) throws IOException;
+    void saveUser(User user) throws IOException;
 
     /**
      * @see #saveUser(User, Path)
      */
-    int saveUser(User user, Path filePath) throws IOException;
+    void saveUser(User user, Path filePath) throws IOException;
 }

@@ -232,17 +232,42 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Add feature
+=== Add/Edit/Delete feature
 
-The `add` command has been tweaked from the original AB4 to include addition of
- `HealthWorker`, `Patient` and `Request`.
+The `add`, `edit` and `delete` command have been tweaked from the original AB4
+ to include addition of `HealthWorker`, `Patient` and `Request`.
 
 ==== Additional Implementation from v1.1
 
+* `CommandMode` Enum class was introduced in v1.1 to allow for `add`, `edit`
+and `delete` different types of objects respective to the different
+`CommandMode` Enums. The various `CommandMode` enums are:
+** `CommandMode.HEALTHWORKER`
+** `CommandMode.REQUEST`
+** `CommandMode.PATIENT`
+** `CommandMode.OTHER`
+** `CommandMode.INVALID`
 
+* Each of the `add`, `edit` and `delete` command is parsed through the
+`EditCommandParser`, `AddCommandParser` and `DeleteCommandParser` classes,
+where the `CommandMode` is parsed to return the appropriate type of `Command`
+ class:
+** `AddCommand`
+** `EditCommand`
+** `DeleteCommand`
+
+* Each of the `AddCommand` and `EditCommand` and `DeleteCommand` provides
+subclasses for each of the `Command` classes respective to `Patient`,
+`HealthWorker` and `Request` class which adds respective objects to
+`PatientBook`, `RequestBook` and `HealthWorkerBook` for storage, for example
+the subclasses for `AddCommand` for `Request` are as follows:
+** `AddRequestCommand`
+** `EditRequestCommand`
+** `DeleteRequestCommand`
 
 // tag::undoredo[]
 === Undo/Redo feature
+
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.

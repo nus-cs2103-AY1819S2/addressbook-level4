@@ -19,6 +19,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_SKILL_REVERSE = new Prefix("/skill");
     public static final Prefix PREFIX_POS = new Prefix("position/");
     public static final Prefix PREFIX_POS_REVERSE = new Prefix("/position");
+    public static final Prefix PREFIX_GPA = new Prefix("g/");
+    public static final Prefix PREFIX_EDUCATION = new Prefix("d/");
 
     /* Sort-Word definitions*/
     public static final SortWord SORTWORD_SKILLS = new SortWord("skills");

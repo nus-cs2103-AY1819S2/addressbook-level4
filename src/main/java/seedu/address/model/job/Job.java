@@ -71,14 +71,13 @@ public class Job {
      * Replaces a list of persons in Job
      */
     public final boolean replaceList(int listNumber, ArrayList<Person> personList) {
-        if(listNumber > 3) {
+        if (listNumber > 3) {
             return false;
         }
         personsList.set(listNumber, personList);
 
         return true;
     }
-    
 
     /**
      * Returns true if both jobs have the same name.

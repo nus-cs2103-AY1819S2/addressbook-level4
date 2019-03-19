@@ -197,4 +197,7 @@ public class CsvWrapper {
         return result;
     }
 
+    public static String[] getDefaultHeading() {
+        return defaultHeading;
+    }
 }

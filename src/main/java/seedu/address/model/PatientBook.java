@@ -113,6 +113,11 @@ public class PatientBook implements ReadOnlyPatientBook {
     }
 
     @Override
+    public String toString() {
+        return uniquePatientList.asUnmodifiableObservableList().toString();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) {
             return true;
